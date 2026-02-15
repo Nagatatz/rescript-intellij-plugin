@@ -1,0 +1,64 @@
+package com.rescript.plugin.run
+
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
+import com.intellij.openapi.options.SettingsEditor
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.ComboBox
+import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.util.ui.FormBuilder
+import javax.swing.DefaultComboBoxModel
+import javax.swing.JComponent
+import javax.swing.JTextField
+
+class RescriptSettingsEditor(
+    private val project: Project,
+) : SettingsEditor<RescriptRunConfiguration>() {
+    private val commandComboBox =
+        ComboBox(
+            DefaultComboBoxModel(RescriptCommand.entries.toTypedArray()),
+        ).apply {
+            val defaultRenderer = javax.swing.DefaultListCellRenderer()
+            setRenderer { list, value, index, isSelected, cellHasFocus ->
+                defaultRenderer.getListCellRendererComponent(
+                    list,
+                    value?.displayName ?: "",
+                    index,
+                    isSelected,
+                    cellHasFocus,
+                )
+            }
+        }
+
+    private val workingDirectoryField =
+        TextFieldWithBrowseButton().apply {
+            @Suppress("DEPRECATION")
+            addBrowseFolderListener(
+                "Working Directory",
+                "Select the working directory for the ReScript build",
+                project,
+                FileChooserDescriptorFactory.createSingleFolderDescriptor(),
+            )
+        }
+
+    private val additionalArgumentsField = JTextField()
+
+    override fun resetEditorFrom(config: RescriptRunConfiguration) {
+        commandComboBox.selectedItem = RescriptCommand.fromId(config.command)
+        workingDirectoryField.text = config.workingDirectory ?: project.basePath ?: ""
+        additionalArgumentsField.text = config.additionalArguments ?: ""
+    }
+
+    override fun applyEditorTo(config: RescriptRunConfiguration) {
+        config.command = (commandComboBox.selectedItem as? RescriptCommand)?.id ?: RescriptCommand.BUILD.id
+        config.workingDirectory = workingDirectoryField.text.ifBlank { null }
+        config.additionalArguments = additionalArgumentsField.text.ifBlank { null }
+    }
+
+    override fun createEditor(): JComponent =
+        FormBuilder
+            .createFormBuilder()
+            .addLabeledComponent("Command:", commandComboBox)
+            .addLabeledComponent("Working directory:", workingDirectoryField)
+            .addLabeledComponent("Additional arguments:", additionalArgumentsField)
+            .panel
+}
