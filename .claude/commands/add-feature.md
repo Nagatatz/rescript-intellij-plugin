@@ -81,8 +81,8 @@
 ## ステップ6: 実装検証 (サブエージェント起動)
 
 1. `tasklist.md`の全タスクが完了したことを最終確認する。
-2. `Task`ツールを使用し、`implementation-validator`サブエージェントを起動して品質を検証する。
-　- `subagent_type`: "implementation-validator"
+2. `Task`ツールを使用し、サブエージェントを起動して品質を検証する。
+　- `subagent_type`: "general-purpose"
 　- `description`: "Implementation quality validation"
 　- `prompt`: "今回実装した `[機能名]` に関するすべての変更点の品質を検証してください。
 　　対象ファイルは `[実装したファイルのパスリスト]` です。コーディング規約、
@@ -92,11 +92,9 @@
 
 ## ステップ7: 自動テストの実行
 
-1. 以下のコマンドを順番に実行し、すべてのテストがパスすることを確認する。
-　Bash('npm test')
-　Bash('npm run lint')
-　Bash('npm run typecheck')
-2. いずれかのコマンドでエラーが発生した場合は、問題を分析し、修正コードを生成・適用してから、
+1. 以下のコマンドを実行し、ビルドが成功することを確認する。
+　Bash('./gradlew clean buildPlugin')
+2. エラーが発生した場合は、問題を分析し、修正コードを生成・適用してから、
 　 再度このステップを実行する。
 
 **このステップが正常に完了したら、決して停止せず、ただちにステップ8に進むこと。**
