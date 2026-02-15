@@ -30,6 +30,8 @@ class RescriptSyntaxHighlighter : SyntaxHighlighterBase() {
         val POLY_VARIANT = createTextAttributesKey("RESCRIPT_POLY_VARIANT", Defaults.CONSTANT)
         val MODULE_NAME = createTextAttributesKey("RESCRIPT_MODULE_NAME", Defaults.CLASS_NAME)
         val ANNOTATION = createTextAttributesKey("RESCRIPT_ANNOTATION", Defaults.METADATA)
+        val PATTERN_PIPE = createTextAttributesKey("RESCRIPT_PATTERN_PIPE", Defaults.KEYWORD)
+        val WILDCARD = createTextAttributesKey("RESCRIPT_WILDCARD", Defaults.KEYWORD)
         val MARKUP_TAG = createTextAttributesKey("RESCRIPT_MARKUP_TAG", Defaults.MARKUP_TAG)
         val MARKUP_TAG_BRACKET = createTextAttributesKey("RESCRIPT_MARKUP_TAG_BRACKET", Defaults.MARKUP_TAG)
         val BAD_CHAR = createTextAttributesKey("RESCRIPT_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER)
@@ -65,6 +67,12 @@ class RescriptSyntaxHighlighter : SyntaxHighlighterBase() {
 
                 // Operators
                 for (t in T.OPERATORS.types) put(t, arrayOf(OPERATOR))
+
+                // Pattern-related
+                put(T.PIPE, arrayOf(PATTERN_PIPE))
+                put(T.UNDERSCORE, arrayOf(WILDCARD))
+                put(T.DOTDOTDOT, arrayOf(OPERATOR))
+                put(T.SHORTCUT, arrayOf(OPERATOR))
 
                 // Punctuation
                 put(T.LBRACE, arrayOf(BRACES))
