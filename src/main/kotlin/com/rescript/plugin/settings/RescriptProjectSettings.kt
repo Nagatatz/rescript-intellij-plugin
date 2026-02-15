@@ -1,0 +1,41 @@
+package com.rescript.plugin.settings
+
+import com.intellij.openapi.components.PersistentStateComponent
+import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.State
+import com.intellij.openapi.components.Storage
+import com.intellij.openapi.components.service
+import com.intellij.openapi.project.Project
+
+@Service(Service.Level.PROJECT)
+@State(name = "RescriptSettings", storages = [Storage("rescriptSettings.xml")])
+class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings.State> {
+    private var state = State()
+
+    class State {
+        var lspServerPath: String = ""
+        var nodePath: String = ""
+    }
+
+    override fun getState(): State = state
+
+    override fun loadState(state: State) {
+        this.state = state
+    }
+
+    var lspServerPath: String
+        get() = state.lspServerPath
+        set(value) {
+            state.lspServerPath = value
+        }
+
+    var nodePath: String
+        get() = state.nodePath
+        set(value) {
+            state.nodePath = value
+        }
+
+    companion object {
+        fun getInstance(project: Project): RescriptProjectSettings = project.service()
+    }
+}
