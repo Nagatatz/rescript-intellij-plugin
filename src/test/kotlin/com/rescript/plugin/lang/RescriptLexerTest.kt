@@ -950,6 +950,106 @@ class RescriptLexerTest {
         assertEquals(RescriptTokenTypes.COLON, tokens[2].first)
     }
 
+    // ════════════════════════════════════════════════════════════════
+    // Edge cases: Strings
+    // ════════════════════════════════════════════════════════════════
+
+    @Test
+    fun `edge - unclosed string at EOF`() {
+        val tokens = tokenizeNoWs("\"unclosed")
+        assertEquals(1, tokens.size)
+        assertEquals(RescriptTokenTypes.STRING_VALUE, tokens[0].first)
+    }
+
+    @Test
+    fun `edge - string with embedded newline`() {
+        val tokens = tokenizeNoWs("\"line1\nline2\"")
+        assertEquals(RescriptTokenTypes.STRING_VALUE, tokens[0].first)
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // Edge cases: Template literals
+    // ════════════════════════════════════════════════════════════════
+
+    @Test
+    fun `edge - unclosed template literal`() {
+        val tokens = tokenizeNoWs("`unclosed")
+        assertTrue("Should contain JS_STRING_OPEN", tokens.any { it.first == RescriptTokenTypes.JS_STRING_OPEN })
+    }
+
+    @Test
+    fun `edge - template dollar without brace`() {
+        val tokens = tokenizeNoWs("`\${'$'} alone`")
+        assertTrue("Should contain DOLLAR", tokens.any { it.first == RescriptTokenTypes.DOLLAR })
+    }
+
+    @Test
+    fun `edge - template with nested braces in interpolation`() {
+        val input = "`\${'$'}{obj.x}`"
+        val tokens = tokenizeNoWs(input)
+        assertTrue(tokens.any { it.first == RescriptTokenTypes.JS_STRING_OPEN })
+        assertTrue(tokens.any { it.first == RescriptTokenTypes.JS_STRING_CLOSE })
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // Edge cases: Comments
+    // ════════════════════════════════════════════════════════════════
+
+    @Test
+    fun `edge - deeply nested block comment`() {
+        val nested = "/* " + "/* ".repeat(20) + "deep" + " */".repeat(20) + " */"
+        val tokens = tokenizeNoWs(nested)
+        assertEquals(1, tokens.size)
+        assertEquals(RescriptTokenTypes.MULTI_COMMENT, tokens[0].first)
+    }
+
+    @Test
+    fun `edge - unclosed nested comment`() {
+        val tokens = tokenizeNoWs("/* outer /* inner */")
+        // The lexer should produce at least one MULTI_COMMENT token
+        assertTrue(tokens.any { it.first == RescriptTokenTypes.MULTI_COMMENT })
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // Edge cases: Numeric literals
+    // ════════════════════════════════════════════════════════════════
+
+    @Test
+    fun `edge - leading zero integer`() {
+        val tokens = tokenizeNoWs("0123")
+        assertEquals(RescriptTokenTypes.INT_VALUE, tokens[0].first)
+    }
+
+    @Test
+    fun `edge - float dot without trailing digits`() {
+        // "1." may parse as INT + DOT or as FLOAT
+        val tokens = tokenizeNoWs("1.")
+        assertTrue(
+            "Should be INT_VALUE or FLOAT_VALUE",
+            tokens[0].first == RescriptTokenTypes.INT_VALUE || tokens[0].first == RescriptTokenTypes.FLOAT_VALUE,
+        )
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // Edge cases: Lexer state reset
+    // ════════════════════════════════════════════════════════════════
+
+    @Test
+    fun `edge - lexer resets state correctly between uses`() {
+        val lexer = RescriptLexer()
+        // First use: tokenize a let binding
+        lexer.start("let x = 1")
+        while (lexer.tokenType != null) lexer.advance()
+
+        // Second use: tokenize JSX — should correctly recognize TAG_LT
+        lexer.start("<div>")
+        assertEquals(RescriptTokenTypes.TAG_LT, lexer.tokenType)
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // Smoke test
+    // ════════════════════════════════════════════════════════════════
+
     @Test
     fun `pattern - no BAD_CHARACTER in typical code`() {
         val input =
