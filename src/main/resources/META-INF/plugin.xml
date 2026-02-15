@@ -72,6 +72,14 @@
         <additionalTextAttributes scheme="Darcula" file="colorSchemes/RescriptDarcula.xml"/>
         <additionalTextAttributes scheme="Default" file="colorSchemes/RescriptDefault.xml"/>
 
+        <!-- rescript.json icon -->
+        <iconProvider
+                implementation="com.rescript.plugin.config.RescriptJsonIconProvider"/>
+
+        <!-- Run Configuration -->
+        <configurationType
+                implementation="com.rescript.plugin.run.RescriptRunConfigurationType"/>
+
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
