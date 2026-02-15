@@ -1,5 +1,7 @@
 # ReScript IntelliJ Plugin
 
+[![CI](https://github.com/Nagatatz/rescript-intellij-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/Nagatatz/rescript-intellij-plugin/actions/workflows/ci.yml)
+
 [ReScript](https://rescript-lang.org) language support for IntelliJ IDEA and other JetBrains IDEs.
 
 ## Features
