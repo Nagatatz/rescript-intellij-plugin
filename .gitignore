@@ -22,5 +22,8 @@ src/main/java/com/rescript/plugin/lang/RescriptFlexLexer.java
 .DS_Store
 Thumbs.db
 
+# Local test data (private, not committed)
+src/test-local/
+
 # Backup files
 *~
