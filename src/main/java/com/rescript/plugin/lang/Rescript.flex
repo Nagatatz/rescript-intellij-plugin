@@ -69,11 +69,14 @@ ESCAPE_OCTAL="\\o" [0-3] {OCTAL} {OCTAL}
 ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_TAB} | {ESCAPE_BACKSPACE } | { ESCAPE_CR } | { ESCAPE_QUOTE } | {ESCAPE_DECIMAL} | {ESCAPE_HEXA} | {ESCAPE_OCTAL}
 
 %state INITIAL
+%state AFTER_IDENT
 %state IN_LOWER_DECLARATION
 %state IN_TEMPLATE
 %state IN_STRING
 %state IN_ML_COMMENT
 %state IN_SL_COMMENT
+%state IN_JSX_TAG_NAME
+%state IN_ANNOTATION
 
 %%
 
@@ -151,23 +154,23 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "private"     { return RescriptTokenTypes.PRIVATE; }
     "match"       { return RescriptTokenTypes.MATCH; }
 
-    "option"    { return RescriptTokenTypes.OPTION; }
-    "None"      { return RescriptTokenTypes.NONE; }
-    "Some"      { return RescriptTokenTypes.SOME; }
+    "option"    { yybegin(AFTER_IDENT); return RescriptTokenTypes.OPTION; }
+    "None"      { yybegin(AFTER_IDENT); return RescriptTokenTypes.NONE; }
+    "Some"      { yybegin(AFTER_IDENT); return RescriptTokenTypes.SOME; }
 
-    "false"     { return RescriptTokenTypes.BOOL_VALUE; }
-    "true"      { return RescriptTokenTypes.BOOL_VALUE; }
+    "false"     { yybegin(AFTER_IDENT); return RescriptTokenTypes.BOOL_VALUE; }
+    "true"      { yybegin(AFTER_IDENT); return RescriptTokenTypes.BOOL_VALUE; }
 
-    "_"         { return RescriptTokenTypes.UNDERSCORE; }
+    "_"         { yybegin(AFTER_IDENT); return RescriptTokenTypes.UNDERSCORE; }
 
-    "'" ( {ESCAPE_CHAR} | . ) "'"    { return RescriptTokenTypes.CHAR_VALUE; }
-    {LIDENT}                         { return RescriptTokenTypes.LIDENT; }
-    {UPPERCASE}{IDENTCHAR}*          { return RescriptTokenTypes.UIDENT; }
-    {INT_LITERAL}{LITERAL_MODIFIER}? { return RescriptTokenTypes.INT_VALUE; }
-    ({FLOAT_LITERAL} | {HEXA_FLOAT_LITERAL}){LITERAL_MODIFIER}? { return RescriptTokenTypes.FLOAT_VALUE; }
-    "'"{LOWERCASE}{IDENTCHAR}*       { return RescriptTokenTypes.TYPE_ARGUMENT; }
-    "#"{UPPERCASE}{IDENTCHAR}*       { return RescriptTokenTypes.POLY_VARIANT; }
-    "#"{LOWERCASE}{IDENTCHAR}*       { return RescriptTokenTypes.POLY_VARIANT; }
+    "'" ( {ESCAPE_CHAR} | . ) "'"    { yybegin(AFTER_IDENT); return RescriptTokenTypes.CHAR_VALUE; }
+    {LIDENT}                         { yybegin(AFTER_IDENT); return RescriptTokenTypes.LIDENT; }
+    {UPPERCASE}{IDENTCHAR}*          { yybegin(AFTER_IDENT); return RescriptTokenTypes.UIDENT; }
+    {INT_LITERAL}{LITERAL_MODIFIER}? { yybegin(AFTER_IDENT); return RescriptTokenTypes.INT_VALUE; }
+    ({FLOAT_LITERAL} | {HEXA_FLOAT_LITERAL}){LITERAL_MODIFIER}? { yybegin(AFTER_IDENT); return RescriptTokenTypes.FLOAT_VALUE; }
+    "'"{LOWERCASE}{IDENTCHAR}*       { yybegin(AFTER_IDENT); return RescriptTokenTypes.TYPE_ARGUMENT; }
+    "#"{UPPERCASE}{IDENTCHAR}*       { yybegin(AFTER_IDENT); return RescriptTokenTypes.POLY_VARIANT; }
+    "#"{LOWERCASE}{IDENTCHAR}*       { yybegin(AFTER_IDENT); return RescriptTokenTypes.POLY_VARIANT; }
 
     "`"  { yybegin(IN_TEMPLATE); return RescriptTokenTypes.JS_STRING_OPEN; }
     "\"" { yybegin(IN_STRING); tokenStart(); }
@@ -181,7 +184,7 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "->"  { return RescriptTokenTypes.RIGHT_ARROW; }
     "<-"  { return RescriptTokenTypes.LEFT_ARROW; }
     "|>"  { return RescriptTokenTypes.PIPE_FORWARD; }
-    "</"  { return RescriptTokenTypes.TAG_LT_SLASH; }
+    "</"  { yybegin(IN_JSX_TAG_NAME); return RescriptTokenTypes.TAG_LT_SLASH; }
     "/>"  { return RescriptTokenTypes.TAG_AUTO_CLOSE; }
 
     "===" { return RescriptTokenTypes.EQEQEQ; }
@@ -204,20 +207,21 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "."   { return RescriptTokenTypes.DOT; }
     "|"   { return RescriptTokenTypes.PIPE; }
     "("   { return RescriptTokenTypes.LPAREN; }
-    ")"   { return RescriptTokenTypes.RPAREN; }
+    ")"   { yybegin(AFTER_IDENT); return RescriptTokenTypes.RPAREN; }
     "{"   { return RescriptTokenTypes.LBRACE; }
     "}"   { return RescriptTokenTypes.RBRACE; }
     "["   { return RescriptTokenTypes.LBRACKET; }
-    "]"   { return RescriptTokenTypes.RBRACKET; }
-    "@"   { return RescriptTokenTypes.ARROBASE; }
+    "]"   { yybegin(AFTER_IDENT); return RescriptTokenTypes.RBRACKET; }
+    "@"   { yybegin(IN_ANNOTATION); return RescriptTokenTypes.ARROBASE; }
     "#"   { return RescriptTokenTypes.SHARP; }
     "?"   { return RescriptTokenTypes.QUESTION_MARK; }
     "!"   { return RescriptTokenTypes.EXCLAMATION_MARK; }
     "~"   { return RescriptTokenTypes.TILDE; }
     "&"   { return RescriptTokenTypes.AMPERSAND; }
 
-    "<"  { return RescriptTokenTypes.LT; }
-    ">"  { return RescriptTokenTypes.GT; }
+    "<" / [A-Za-z]  { yybegin(IN_JSX_TAG_NAME); return RescriptTokenTypes.TAG_LT; }
+    "<"              { return RescriptTokenTypes.LT; }
+    ">"              { return RescriptTokenTypes.GT; }
 
     "\^"  { return RescriptTokenTypes.CARRET; }
     "+."  { return RescriptTokenTypes.PLUSDOT; }
@@ -230,6 +234,29 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "*"   { return RescriptTokenTypes.STAR; }
     "%"   { return RescriptTokenTypes.PERCENT; }
     "\\"  { return RescriptTokenTypes.BACKSLASH; }
+}
+
+<IN_JSX_TAG_NAME> {
+    {LOWERCASE}{IDENTCHAR}*   { return RescriptTokenTypes.JSX_TAG_NAME; }
+    {UPPERCASE}{IDENTCHAR}*   { return RescriptTokenTypes.JSX_COMPONENT_NAME; }
+    "."                       { return RescriptTokenTypes.DOT; }
+    ">"                       { yybegin(INITIAL); return RescriptTokenTypes.TAG_GT; }
+    [^]                       { yybegin(INITIAL); yypushback(1); }
+}
+
+<IN_ANNOTATION> {
+    ({LIDENT} | {UPPERCASE}{IDENTCHAR}*) ("." ({LIDENT} | {UPPERCASE}{IDENTCHAR}*))* { yybegin(INITIAL); return RescriptTokenTypes.ANNOTATION_NAME; }
+    [^]   { yybegin(INITIAL); yypushback(1); }
+}
+
+// After an identifier/value token, "<" followed by a letter is NOT JSX
+// (it is a type parameter or comparison). On EOL, reset to INITIAL
+// so that JSX on the next line is correctly recognized.
+<AFTER_IDENT> {
+    {WHITE_SPACE}    { return WHITE_SPACE; }
+    {EOL}            { yybegin(INITIAL); return RescriptTokenTypes.EOL; }
+    "<" / [A-Za-z]   { yybegin(INITIAL); return RescriptTokenTypes.LT; }
+    [^]              { yybegin(INITIAL); yypushback(1); }
 }
 
 <IN_LOWER_DECLARATION> {
@@ -248,14 +275,14 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "$"           { return RescriptTokenTypes.DOLLAR; }
     "{"           { return RescriptTokenTypes.LBRACE; }
     "}"           { return RescriptTokenTypes.RBRACE; }
-    "`"           { yybegin(INITIAL); return RescriptTokenTypes.JS_STRING_CLOSE; }
+    "`"           { yybegin(AFTER_IDENT); return RescriptTokenTypes.JS_STRING_CLOSE; }
     {EOL}         { }
     <<EOF>>       { yybegin(INITIAL); }
     ([^`{}$])+    { return RescriptTokenTypes.STRING_VALUE; }
 }
 
 <IN_STRING> {
-    "\"" { yybegin(INITIAL); tokenEnd(); return RescriptTokenTypes.STRING_VALUE; }
+    "\"" { yybegin(AFTER_IDENT); tokenEnd(); return RescriptTokenTypes.STRING_VALUE; }
     "\\" {EOL} ([ \t] *) { }
     "\\" [\\\'\"ntbr ] { }
     "\\" [0-9] [0-9] [0-9] { }
@@ -264,7 +291,7 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "\\" . { }
     {EOL}  { }
     . { }
-    <<EOF>> { yybegin(INITIAL); tokenEnd(); return RescriptTokenTypes.STRING_VALUE; }
+    <<EOF>> { yybegin(AFTER_IDENT); tokenEnd(); return RescriptTokenTypes.STRING_VALUE; }
 }
 
 <IN_ML_COMMENT> {
