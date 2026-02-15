@@ -6,6 +6,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 
 class RescriptSyntaxHighlighterFactory : SyntaxHighlighterFactory() {
-    override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter =
-        RescriptSyntaxHighlighter()
+    override fun getSyntaxHighlighter(
+        project: Project?,
+        virtualFile: VirtualFile?,
+    ): SyntaxHighlighter = RescriptSyntaxHighlighter()
 }

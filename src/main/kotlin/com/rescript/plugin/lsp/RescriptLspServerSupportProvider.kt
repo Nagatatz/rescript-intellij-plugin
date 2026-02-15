@@ -8,8 +8,11 @@ import com.intellij.platform.lsp.api.LspServerSupportProvider
  * Triggers the ReScript LSP server when a .res or .resi file is opened.
  */
 class RescriptLspServerSupportProvider : LspServerSupportProvider {
-
-    override fun fileOpened(project: Project, file: VirtualFile, serverStarter: LspServerSupportProvider.LspServerStarter) {
+    override fun fileOpened(
+        project: Project,
+        file: VirtualFile,
+        serverStarter: LspServerSupportProvider.LspServerStarter,
+    ) {
         if (file.extension in RESCRIPT_EXTENSIONS) {
             serverStarter.ensureServerStarted(RescriptLspServerDescriptor(project))
         }
