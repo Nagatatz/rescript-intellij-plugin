@@ -54,4 +54,18 @@
             <option name="FOREGROUND" value="56B6C2"/>
         </value>
     </option>
+
+    <!-- Pattern pipe (|) - purple (keyword-like) -->
+    <option name="RESCRIPT_PATTERN_PIPE">
+        <value>
+            <option name="FOREGROUND" value="C678DD"/>
+        </value>
+    </option>
+
+    <!-- Wildcard (_) - purple (keyword-like) -->
+    <option name="RESCRIPT_WILDCARD">
+        <value>
+            <option name="FOREGROUND" value="C678DD"/>
+        </value>
+    </option>
 </list>

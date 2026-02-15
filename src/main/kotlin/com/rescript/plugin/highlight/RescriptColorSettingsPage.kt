@@ -27,6 +27,8 @@ class RescriptColorSettingsPage : ColorSettingsPage {
                 AttributesDescriptor("Polymorphic variant", RescriptSyntaxHighlighter.POLY_VARIANT),
                 AttributesDescriptor("Module name", RescriptSyntaxHighlighter.MODULE_NAME),
                 AttributesDescriptor("Annotation", RescriptSyntaxHighlighter.ANNOTATION),
+                AttributesDescriptor("Pattern//Pipe (|)", RescriptSyntaxHighlighter.PATTERN_PIPE),
+                AttributesDescriptor("Pattern//Wildcard (_)", RescriptSyntaxHighlighter.WILDCARD),
                 AttributesDescriptor("JSX tag", RescriptSyntaxHighlighter.MARKUP_TAG),
                 AttributesDescriptor("JSX tag bracket", RescriptSyntaxHighlighter.MARKUP_TAG_BRACKET),
             )
@@ -89,6 +91,17 @@ module <ns>Utils</ns> = {
 let <var>result</var> = switch <enum>Some</enum>("value") {
 | <enum>Some</enum>(<var>v</var>) => <var>v</var>
 | <enum>None</enum> => "default"
+}
+
+let <var>label</var> = switch <var>color</var> {
+| <enum>Red</enum> => "red"
+| <enum>Green</enum> | <enum>Blue</enum> => "cool"
+| _ => "unknown"
+}
+
+let <var>first</var> = switch <var>items</var> {
+| list{<var>x</var>, ...<var>rest</var>} => <enum>Some</enum>(<var>x</var>)
+| list{} => <enum>None</enum>
 }
 
 let <var>isSmall</var> = <var>count</var> <sop><</sop> 100
