@@ -72,6 +72,14 @@
         <additionalTextAttributes scheme="Darcula" file="colorSchemes/RescriptDarcula.xml"/>
         <additionalTextAttributes scheme="Default" file="colorSchemes/RescriptDefault.xml"/>
 
+        <!-- Code style settings -->
+        <langCodeStyleSettingsProvider
+                implementation="com.rescript.plugin.codestyle.RescriptCodeStyleSettingsProvider"/>
+
+        <!-- Smart indentation on Enter -->
+        <lineIndentProvider
+                implementation="com.rescript.plugin.codestyle.RescriptLineIndentProvider"/>
+
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
