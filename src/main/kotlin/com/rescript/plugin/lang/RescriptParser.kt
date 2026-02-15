@@ -37,12 +37,12 @@ class RescriptParser : PsiParser {
             RescriptTokenTypes.ARROBASE -> parseAnnotation(b)
             RescriptTokenTypes.EOL -> b.advanceLexer()
             else -> {
-                // R1: Wrap unexpected tokens in an error node, grouping consecutive ones
-                val errorMarker = b.mark()
+                // Skip non-top-level tokens silently.
+                // This lightweight parser only carves out top-level declarations;
+                // expression-level validation is delegated to the LSP.
                 while (!b.eof() && !isTopLevelStart(b.tokenType) && b.tokenType != RescriptTokenTypes.EOL) {
                     b.advanceLexer()
                 }
-                errorMarker.error("Unexpected token")
             }
         }
     }
@@ -126,13 +126,18 @@ class RescriptParser : PsiParser {
         val m = b.mark()
         b.advanceLexer() // consume '@'
 
-        // consume dotted name: react.component, module, etc.
-        while (!b.eof()) {
-            val t = b.tokenType
-            if (t == RescriptTokenTypes.LIDENT || t == RescriptTokenTypes.UIDENT || t == RescriptTokenTypes.DOT) {
-                b.advanceLexer()
-            } else {
-                break
+        // consume annotation name: either a single ANNOTATION_NAME token (from lexer's IN_ANNOTATION state)
+        // or individual LIDENT/UIDENT/DOT tokens
+        if (b.tokenType == RescriptTokenTypes.ANNOTATION_NAME) {
+            b.advanceLexer()
+        } else {
+            while (!b.eof()) {
+                val t = b.tokenType
+                if (t == RescriptTokenTypes.LIDENT || t == RescriptTokenTypes.UIDENT || t == RescriptTokenTypes.DOT) {
+                    b.advanceLexer()
+                } else {
+                    break
+                }
             }
         }
 

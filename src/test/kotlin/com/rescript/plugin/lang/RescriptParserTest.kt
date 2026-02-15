@@ -329,16 +329,16 @@ class RescriptParserTest :
     }
 
     // ════════════════════════════════════════════════════════════════
-    // error recovery: unexpected tokens (R1)
+    // non-top-level tokens are silently skipped (no error markers)
     // ════════════════════════════════════════════════════════════════
 
-    fun testUnexpectedTokensCreateErrorNode() {
+    fun testExpressionTokensSkippedSilently() {
         val file = parseCode("42 + 1")
         val errors = findErrors(file)
-        assertTrue("Should have error nodes for unexpected tokens", errors.isNotEmpty())
+        assertTrue("Expression-level tokens should not produce errors", errors.isEmpty())
     }
 
-    fun testUnexpectedTokensBeforeDeclaration() {
+    fun testExpressionBeforeDeclarationNoError() {
         val code =
             """
             42 + 1
@@ -346,7 +346,7 @@ class RescriptParserTest :
             """.trimIndent()
         val file = parseCode(code)
         val errors = findErrors(file)
-        assertTrue("Should have error node for '42 + 1'", errors.isNotEmpty())
+        assertTrue("Expression before declaration should not produce errors", errors.isEmpty())
         assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
     }
 
@@ -430,7 +430,7 @@ class RescriptParserTest :
     // error recovery: compound error cases (R4)
     // ════════════════════════════════════════════════════════════════
 
-    fun testMultipleErrors() {
+    fun testMultipleErrorsOnlyForMissingIdentifiers() {
         val code =
             """
             garbage tokens here
@@ -441,8 +441,9 @@ class RescriptParserTest :
             """.trimIndent()
         val file = parseCode(code)
         val errors = findErrors(file)
-        // "garbage tokens here" → error node; "more garbage" consumed by let x body; "let = 42" → missing identifier error
-        assertTrue("Should have error nodes", errors.isNotEmpty())
+        // Only "let = 42" (missing identifier) should produce an error.
+        // "garbage tokens here" is silently skipped; "more garbage" is consumed by let x body.
+        assertEquals("Only missing-identifier error expected", 1, errors.size)
         assertEquals(2, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
         assertEquals(1, findElements(file, RescriptElementTypes.TYPE_DECLARATION).size)
     }
@@ -465,6 +466,34 @@ class RescriptParserTest :
         val file = parseCode(code)
         val errors = findErrors(file)
         assertTrue("Valid code should have no errors", errors.isEmpty())
+    }
+
+    fun testJsxComponentNoErrors() {
+        val code =
+            """
+            @react.component
+            let make = (~children) =>
+              <RescriptRelayReact.Context.Provider environment=RelayEnv.environment>
+                <div> children </div>
+              </RescriptRelayReact.Context.Provider>
+            """.trimIndent()
+        val file = parseCode(code)
+        val errors = findErrors(file)
+        assertTrue("JSX code should have no errors", errors.isEmpty())
+        assertEquals(1, findElements(file, RescriptElementTypes.ANNOTATION).size)
+        assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
+    }
+
+    fun testRawExpressionNoErrors() {
+        val code =
+            """
+            %raw("require('isomorphic-fetch')")
+            let x = 1
+            """.trimIndent()
+        val file = parseCode(code)
+        val errors = findErrors(file)
+        assertTrue("%raw expression should have no errors", errors.isEmpty())
+        assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
     }
 
     // ── helper for error recovery tests ─────────────────────────────
