@@ -92,6 +92,12 @@
         <lineIndentProvider
                 implementation="com.rescript.plugin.codestyle.RescriptLineIndentProvider"/>
 
+        <!-- Rename refactoring -->
+        <renameHandler
+                implementation="com.rescript.plugin.refactor.RescriptRenameHandler"/>
+        <lang.namesValidator language="ReScript"
+                             implementationClass="com.rescript.plugin.refactor.RescriptNamesValidator"/>
+
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
