@@ -60,6 +60,9 @@ src/main/
 │   │   ├── RescriptRunConfigurationOptions.kt
 │   │   ├── RescriptRunConfigurationType.kt
 │   │   └── RescriptSettingsEditor.kt    # 実行構成 UI
+│   ├── settings/
+│   │   ├── RescriptProjectSettings.kt     # プロジェクト単位の設定永続化
+│   │   └── RescriptConfigurable.kt        # Settings UI (Languages & Frameworks > ReScript)
 │   ├── structure/
 │   │   ├── RescriptStructureViewElement.kt
 │   │   ├── RescriptStructureViewFactory.kt
