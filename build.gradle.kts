@@ -1,0 +1,66 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.grammarkit.tasks.GenerateLexerTask
+
+plugins {
+    id("java") // needed for JFlex-generated Java lexer
+    id("org.jetbrains.kotlin.jvm") version "2.3.10"
+    id("org.jetbrains.intellij.platform") version "2.11.0"
+    id("org.jetbrains.grammarkit") version "2023.3.0.1"
+}
+
+repositories {
+    mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+kotlin {
+    jvmToolchain(21)
+}
+
+dependencies {
+    intellijPlatform {
+        intellijIdea(providers.gradleProperty("platformVersion"))
+        pluginVerifier()
+        testFramework(TestFrameworkType.Platform)
+    }
+    testImplementation("junit:junit:4.13.2")
+}
+
+group = providers.gradleProperty("pluginGroup").get()
+version = providers.gradleProperty("pluginVersion").get() +
+        "-" + providers.gradleProperty("platformVersion").get()
+
+intellijPlatform {
+    pluginConfiguration {
+        version = providers.gradleProperty("pluginVersion").get() +
+                "-" + providers.gradleProperty("platformVersion").get()
+        ideaVersion {
+            sinceBuild = providers.gradleProperty("pluginSinceBuild")
+            untilBuild = providers.gradleProperty("pluginUntilBuild")
+        }
+    }
+    buildSearchableOptions = false
+}
+
+val generateRescriptLexer = tasks.register<GenerateLexerTask>("generateRescriptLexer") {
+    sourceFile.set(file("src/main/java/com/rescript/plugin/lang/Rescript.flex"))
+    targetOutputDir.set(file("src/main/java/com/rescript/plugin/lang"))
+}
+
+tasks {
+    compileJava {
+        dependsOn(generateRescriptLexer)
+    }
+    compileKotlin {
+        dependsOn(generateRescriptLexer)
+    }
+    runIde {
+        systemProperty("idea.is.internal", true)
+        // Disable bundled Ultimate plugins that cause errors in the sandbox
+        systemProperty("idea.required.plugins.id", "com.intellij.java")
+        jvmArgs("-Xmx2G")
+        autoReload = false
+    }
+}
