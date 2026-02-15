@@ -1,0 +1,57 @@
+<list>
+    <!-- Module name (React, Belt, etc.) - dark blue -->
+    <option name="RESCRIPT_MODULE_NAME">
+        <value>
+            <option name="FOREGROUND" value="000080"/>
+        </value>
+    </option>
+
+    <!-- JSX tag name (div, span, article, etc.) - dark red -->
+    <option name="RESCRIPT_MARKUP_TAG">
+        <value>
+            <option name="FOREGROUND" value="800000"/>
+        </value>
+    </option>
+
+    <!-- JSX bracket (< > </ />) - gray -->
+    <option name="RESCRIPT_MARKUP_TAG_BRACKET">
+        <value>
+            <option name="FOREGROUND" value="808080"/>
+        </value>
+    </option>
+
+    <!-- Annotation (@react.component, etc.) - olive -->
+    <option name="RESCRIPT_ANNOTATION">
+        <value>
+            <option name="FOREGROUND" value="808000"/>
+        </value>
+    </option>
+
+    <!-- Type argument ('a, 'b, etc.) - purple -->
+    <option name="RESCRIPT_TYPE_ARGUMENT">
+        <value>
+            <option name="FOREGROUND" value="800080"/>
+        </value>
+    </option>
+
+    <!-- Polymorphic variant (#success, #Error, etc.) - teal -->
+    <option name="RESCRIPT_POLY_VARIANT">
+        <value>
+            <option name="FOREGROUND" value="008080"/>
+        </value>
+    </option>
+
+    <!-- Number literals - blue -->
+    <option name="RESCRIPT_NUMBER">
+        <value>
+            <option name="FOREGROUND" value="0000FF"/>
+        </value>
+    </option>
+
+    <!-- Operator (=>, ->, ==, +, etc.) - dark gray -->
+    <option name="RESCRIPT_OPERATOR">
+        <value>
+            <option name="FOREGROUND" value="666666"/>
+        </value>
+    </option>
+</list>
