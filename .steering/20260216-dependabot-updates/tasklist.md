@@ -22,8 +22,8 @@
 
 ### Phase 3: 高リスクアップデート（Gradle Wrapper）
 
-- [ ] 7. Gradle Wrapper を 8.14 → 9.3.1 に更新（gradle-wrapper.properties）
-- [ ] 8. ビルド検証: `./gradlew clean buildPlugin`
+- [x] 7. Gradle Wrapper を 8.14 → 9.3.1 に更新（gradle-wrapper.properties）
+- [x] 8. ビルド検証: `./gradlew clean buildPlugin`
   - 失敗した場合: エラー内容を分析し修正を試みる
   - それでも失敗した場合: Gradle 更新をリバートしてユーザーに報告
-- [ ] 9. コミット: `🔧 Update Gradle Wrapper to 9.3.1`
+- [x] 9. コミット: `🔧 Update Gradle Wrapper to 9.3.1`
