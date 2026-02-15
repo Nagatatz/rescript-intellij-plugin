@@ -4,15 +4,17 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 
 class RescriptFoldingBuilder : FoldingBuilderEx() {
-
-    override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
+    override fun buildFoldRegions(
+        root: PsiElement,
+        document: Document,
+        quick: Boolean,
+    ): Array<FoldingDescriptor> {
         val descriptors = mutableListOf<FoldingDescriptor>()
 
         PsiTreeUtil.findChildrenOfAnyType(root, PsiElement::class.java).forEach { element ->
@@ -24,7 +26,8 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
             }
 
             // Fold module / let / type declarations that contain braces
-            if (node.elementType in setOf(
+            if (node.elementType in
+                setOf(
                     RescriptElementTypes.MODULE_DECLARATION,
                     RescriptElementTypes.LET_DECLARATION,
                     RescriptElementTypes.TYPE_DECLARATION,
@@ -42,11 +45,12 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
         return descriptors.toTypedArray()
     }
 
-    override fun getPlaceholderText(node: ASTNode): String = when (node.elementType) {
-        RescriptTokenTypes.MULTI_COMMENT -> "/* ... */"
-        RescriptElementTypes.MODULE_DECLARATION -> "module ... { ... }"
-        else -> "{...}"
-    }
+    override fun getPlaceholderText(node: ASTNode): String =
+        when (node.elementType) {
+            RescriptTokenTypes.MULTI_COMMENT -> "/* ... */"
+            RescriptElementTypes.MODULE_DECLARATION -> "module ... { ... }"
+            else -> "{...}"
+        }
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 }

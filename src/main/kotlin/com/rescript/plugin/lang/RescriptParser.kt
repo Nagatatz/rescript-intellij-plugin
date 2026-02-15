@@ -13,8 +13,10 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
  * Semantic analysis is delegated to the LSP (rescript-language-server).
  */
 class RescriptParser : PsiParser {
-
-    override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
+    override fun parse(
+        root: IElementType,
+        builder: PsiBuilder,
+    ): ASTNode {
         val rootMarker = builder.mark()
         while (!builder.eof()) {
             parseTopLevel(builder)
@@ -25,20 +27,24 @@ class RescriptParser : PsiParser {
 
     private fun parseTopLevel(b: PsiBuilder) {
         when (b.tokenType) {
-            RescriptTokenTypes.LET       -> parseDeclaration(b, RescriptElementTypes.LET_DECLARATION, consumeRec = true)
-            RescriptTokenTypes.TYPE      -> parseDeclaration(b, RescriptElementTypes.TYPE_DECLARATION, consumeRec = true)
-            RescriptTokenTypes.MODULE    -> parseModuleDeclaration(b)
-            RescriptTokenTypes.EXTERNAL  -> parseDeclaration(b, RescriptElementTypes.EXTERNAL_DECLARATION)
-            RescriptTokenTypes.OPEN      -> parseSimple(b, RescriptElementTypes.OPEN_STATEMENT)
-            RescriptTokenTypes.INCLUDE   -> parseSimple(b, RescriptElementTypes.INCLUDE_STATEMENT)
+            RescriptTokenTypes.LET -> parseDeclaration(b, RescriptElementTypes.LET_DECLARATION, consumeRec = true)
+            RescriptTokenTypes.TYPE -> parseDeclaration(b, RescriptElementTypes.TYPE_DECLARATION, consumeRec = true)
+            RescriptTokenTypes.MODULE -> parseModuleDeclaration(b)
+            RescriptTokenTypes.EXTERNAL -> parseDeclaration(b, RescriptElementTypes.EXTERNAL_DECLARATION)
+            RescriptTokenTypes.OPEN -> parseSimple(b, RescriptElementTypes.OPEN_STATEMENT)
+            RescriptTokenTypes.INCLUDE -> parseSimple(b, RescriptElementTypes.INCLUDE_STATEMENT)
             RescriptTokenTypes.EXCEPTION -> parseDeclaration(b, RescriptElementTypes.EXCEPTION_DECLARATION)
-            RescriptTokenTypes.ARROBASE  -> parseAnnotation(b)
-            else                         -> b.advanceLexer()
+            RescriptTokenTypes.ARROBASE -> parseAnnotation(b)
+            else -> b.advanceLexer()
         }
     }
 
     /** Parse `let [rec] name ...` or `type [rec] name ...` etc. */
-    private fun parseDeclaration(b: PsiBuilder, elementType: IElementType, consumeRec: Boolean = false) {
+    private fun parseDeclaration(
+        b: PsiBuilder,
+        elementType: IElementType,
+        consumeRec: Boolean = false,
+    ) {
         val m = b.mark()
         b.advanceLexer() // consume keyword
 
@@ -47,7 +53,9 @@ class RescriptParser : PsiParser {
         }
 
         // consume identifier (lident or uident or _)
-        if (b.tokenType in listOf(RescriptTokenTypes.LIDENT, RescriptTokenTypes.UIDENT, RescriptTokenTypes.UNDERSCORE)) {
+        if (b.tokenType in
+            listOf(RescriptTokenTypes.LIDENT, RescriptTokenTypes.UIDENT, RescriptTokenTypes.UNDERSCORE)
+        ) {
             b.advanceLexer()
         }
 
@@ -74,7 +82,10 @@ class RescriptParser : PsiParser {
     }
 
     /** For `open ...` / `include ...` — just skip to end. */
-    private fun parseSimple(b: PsiBuilder, elementType: IElementType) {
+    private fun parseSimple(
+        b: PsiBuilder,
+        elementType: IElementType,
+    ) {
         val m = b.mark()
         b.advanceLexer()
         skipToEndOfDeclaration(b)
@@ -90,7 +101,9 @@ class RescriptParser : PsiParser {
             val t = b.tokenType
             if (t == RescriptTokenTypes.LIDENT || t == RescriptTokenTypes.UIDENT || t == RescriptTokenTypes.DOT) {
                 b.advanceLexer()
-            } else break
+            } else {
+                break
+            }
         }
 
         // optional arguments in parens
@@ -114,16 +127,27 @@ class RescriptParser : PsiParser {
 
         while (!b.eof()) {
             when (b.tokenType) {
-                RescriptTokenTypes.LBRACE -> { braceDepth++; b.advanceLexer() }
+                RescriptTokenTypes.LBRACE -> {
+                    braceDepth++
+                    b.advanceLexer()
+                }
                 RescriptTokenTypes.RBRACE -> {
                     if (braceDepth > 0) {
                         braceDepth--
                         b.advanceLexer()
                         if (braceDepth == 0 && parenDepth == 0) return
-                    } else return
+                    } else {
+                        return
+                    }
                 }
-                RescriptTokenTypes.LPAREN -> { parenDepth++; b.advanceLexer() }
-                RescriptTokenTypes.RPAREN -> { if (parenDepth > 0) parenDepth--; b.advanceLexer() }
+                RescriptTokenTypes.LPAREN -> {
+                    parenDepth++
+                    b.advanceLexer()
+                }
+                RescriptTokenTypes.RPAREN -> {
+                    if (parenDepth > 0) parenDepth--
+                    b.advanceLexer()
+                }
                 else -> {
                     if (braceDepth == 0 && parenDepth == 0 && isTopLevelStart(b.tokenType)) return
                     b.advanceLexer()
@@ -132,18 +156,29 @@ class RescriptParser : PsiParser {
         }
     }
 
-    private fun skipBalanced(b: PsiBuilder, open: IElementType, close: IElementType) {
+    private fun skipBalanced(
+        b: PsiBuilder,
+        open: IElementType,
+        close: IElementType,
+    ) {
         var depth = 0
         while (!b.eof()) {
             when (b.tokenType) {
-                open  -> depth++
-                close -> { depth--; if (depth == 0) { b.advanceLexer(); return } }
+                open -> depth++
+                close -> {
+                    depth--
+                    if (depth == 0) {
+                        b.advanceLexer()
+                        return
+                    }
+                }
             }
             b.advanceLexer()
         }
     }
 
     private fun isTopLevelStart(token: IElementType?): Boolean =
-        token != null && RescriptTokenTypes.TOP_LEVEL_KEYWORDS.contains(token)
-                || token == RescriptTokenTypes.ARROBASE
+        token != null &&
+            RescriptTokenTypes.TOP_LEVEL_KEYWORDS.contains(token) ||
+            token == RescriptTokenTypes.ARROBASE
 }

@@ -20,26 +20,28 @@ import java.nio.file.Path
  *
  * Launches with `--stdio` for LSP communication.
  */
-class RescriptLspServerDescriptor(project: Project) : ProjectWideLspServerDescriptor(project, "ReScript") {
-
-    override fun isSupportedFile(file: VirtualFile): Boolean =
-        file.extension in RESCRIPT_EXTENSIONS
+class RescriptLspServerDescriptor(
+    project: Project,
+) : ProjectWideLspServerDescriptor(project, "ReScript") {
+    override fun isSupportedFile(file: VirtualFile): Boolean = file.extension in RESCRIPT_EXTENSIONS
 
     override fun createCommandLine(): GeneralCommandLine {
-        val serverPath = findLanguageServer()
-            ?: throw ExecutionException(
-                "Could not find rescript-language-server.\n" +
+        val serverPath =
+            findLanguageServer()
+                ?: throw ExecutionException(
+                    "Could not find rescript-language-server.\n" +
                         "Install it via: npm install @rescript/language-server\n" +
-                        "or globally: npm install -g @rescript/language-server"
-            )
+                        "or globally: npm install -g @rescript/language-server",
+                )
 
         LOG.info("Starting ReScript Language Server from: $serverPath")
 
-        val cmd = if (serverPath.endsWith(".js")) {
-            GeneralCommandLine("node", serverPath, "--stdio")
-        } else {
-            GeneralCommandLine(serverPath, "--stdio")
-        }
+        val cmd =
+            if (serverPath.endsWith(".js")) {
+                GeneralCommandLine("node", serverPath, "--stdio")
+            } else {
+                GeneralCommandLine(serverPath, "--stdio")
+            }
 
         project.basePath?.let { cmd.workDirectory = File(it) }
         return cmd
@@ -53,8 +55,7 @@ class RescriptLspServerDescriptor(project: Project) : ProjectWideLspServerDescri
             ?: findOnPath()
 
     /** Look in the project's own node_modules. */
-    private fun findInProjectNodeModules(): String? =
-        project.basePath?.let { findInNodeModules(Path.of(it)) }
+    private fun findInProjectNodeModules(): String? = project.basePath?.let { findInNodeModules(Path.of(it)) }
 
     /** Walk up directories for monorepo layouts. */
     private fun findInParentNodeModules(): String? {
@@ -89,12 +90,17 @@ class RescriptLspServerDescriptor(project: Project) : ProjectWideLspServerDescri
         return null
     }
 
-    private fun tryExec(vararg args: String): String? = runCatching {
-        val proc = ProcessBuilder(*args).redirectErrorStream(true).start()
-        val output = proc.inputStream.bufferedReader().readLine()?.trim()
-        val ok = proc.waitFor() == 0
-        if (ok && !output.isNullOrEmpty() && File(output).exists()) output else null
-    }.getOrNull()
+    private fun tryExec(vararg args: String): String? =
+        runCatching {
+            val proc = ProcessBuilder(*args).redirectErrorStream(true).start()
+            val output =
+                proc.inputStream
+                    .bufferedReader()
+                    .readLine()
+                    ?.trim()
+            val ok = proc.waitFor() == 0
+            if (ok && !output.isNullOrEmpty() && File(output).exists()) output else null
+        }.getOrNull()
 
     companion object {
         private val LOG = logger<RescriptLspServerDescriptor>()
