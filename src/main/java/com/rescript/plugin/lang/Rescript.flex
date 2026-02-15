@@ -13,6 +13,8 @@ import static com.intellij.psi.TokenType.*;
     private int tokenStartIndex;
     private int commentDepth;
     private boolean inCommentString = false;
+    private boolean inJsxOpenTag = false;
+    private int jsxAttrBraceDepth = 0;
 
     private void tokenStart() {
         tokenStartIndex = zzStartRead;
@@ -184,8 +186,8 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "->"  { return RescriptTokenTypes.RIGHT_ARROW; }
     "<-"  { return RescriptTokenTypes.LEFT_ARROW; }
     "|>"  { return RescriptTokenTypes.PIPE_FORWARD; }
-    "</"  { yybegin(IN_JSX_TAG_NAME); return RescriptTokenTypes.TAG_LT_SLASH; }
-    "/>"  { return RescriptTokenTypes.TAG_AUTO_CLOSE; }
+    "</"  { inJsxOpenTag = false; jsxAttrBraceDepth = 0; yybegin(IN_JSX_TAG_NAME); return RescriptTokenTypes.TAG_LT_SLASH; }
+    "/>"  { inJsxOpenTag = false; jsxAttrBraceDepth = 0; return RescriptTokenTypes.TAG_AUTO_CLOSE; }
 
     "===" { return RescriptTokenTypes.EQEQEQ; }
     "=="  { return RescriptTokenTypes.EQEQ; }
@@ -208,8 +210,8 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "|"   { return RescriptTokenTypes.PIPE; }
     "("   { return RescriptTokenTypes.LPAREN; }
     ")"   { yybegin(AFTER_IDENT); return RescriptTokenTypes.RPAREN; }
-    "{"   { return RescriptTokenTypes.LBRACE; }
-    "}"   { return RescriptTokenTypes.RBRACE; }
+    "{"   { if (inJsxOpenTag) { jsxAttrBraceDepth++; } return RescriptTokenTypes.LBRACE; }
+    "}"   { if (inJsxOpenTag && jsxAttrBraceDepth > 0) { jsxAttrBraceDepth--; } return RescriptTokenTypes.RBRACE; }
     "["   { return RescriptTokenTypes.LBRACKET; }
     "]"   { yybegin(AFTER_IDENT); return RescriptTokenTypes.RBRACKET; }
     "@"   { yybegin(IN_ANNOTATION); return RescriptTokenTypes.ARROBASE; }
@@ -221,7 +223,7 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
 
     "<" / [A-Za-z]  { yybegin(IN_JSX_TAG_NAME); return RescriptTokenTypes.TAG_LT; }
     "<"              { return RescriptTokenTypes.LT; }
-    ">"              { return RescriptTokenTypes.GT; }
+    ">"              { if (inJsxOpenTag && jsxAttrBraceDepth == 0) { inJsxOpenTag = false; return RescriptTokenTypes.TAG_GT; } return RescriptTokenTypes.GT; }
 
     "\^"  { return RescriptTokenTypes.CARRET; }
     "+."  { return RescriptTokenTypes.PLUSDOT; }
@@ -241,7 +243,7 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     {UPPERCASE}{IDENTCHAR}*   { return RescriptTokenTypes.JSX_COMPONENT_NAME; }
     "."                       { return RescriptTokenTypes.DOT; }
     ">"                       { yybegin(INITIAL); return RescriptTokenTypes.TAG_GT; }
-    [^]                       { yybegin(INITIAL); yypushback(1); }
+    [^]                       { inJsxOpenTag = true; jsxAttrBraceDepth = 0; yybegin(INITIAL); yypushback(1); }
 }
 
 <IN_ANNOTATION> {
