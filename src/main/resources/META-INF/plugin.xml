@@ -64,6 +64,10 @@
         <lang.foldingBuilder language="ReScript"
                              implementationClass="com.rescript.plugin.folding.RescriptFoldingBuilder"/>
 
+        <!-- Structure view -->
+        <lang.psiStructureViewFactory language="ReScript"
+                                      implementationClass="com.rescript.plugin.structure.RescriptStructureViewFactory"/>
+
         <!-- Color settings page -->
         <colorSettingsPage
                 implementation="com.rescript.plugin.highlight.RescriptColorSettingsPage"/>
