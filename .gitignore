@@ -1,0 +1,26 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ
+.idea/
+*.iml
+.intellijPlatform/
+
+# Kotlin
+.kotlin/
+*.class
+
+# Generated sources (JFlex lexer -> Java)
+src/main/java/com/rescript/plugin/lang/RescriptFlexLexer.java
+
+# Claude Code
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup files
+*~

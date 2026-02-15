@@ -1,0 +1,71 @@
+<idea-plugin>
+    <id>com.rescript.plugin</id>
+    <name>ReScript</name>
+    <vendor url="https://github.com/rescript-intellij-plugin">ReScript IntelliJ Plugin</vendor>
+
+    <description><![CDATA[
+        <h2>ReScript Language Support for IntelliJ IDEA</h2>
+        <p>Full language support for <a href="https://rescript-lang.org">ReScript</a> (.res, .resi files).</p>
+
+        <h3>Features</h3>
+        <ul>
+            <li>Syntax highlighting</li>
+            <li>Code completion (via LSP)</li>
+            <li>Go to definition (via LSP)</li>
+            <li>Hover documentation (via LSP)</li>
+            <li>Find references (via LSP)</li>
+            <li>Diagnostics / error highlighting (via LSP)</li>
+            <li>Inlay hints (via LSP)</li>
+            <li>Code folding</li>
+            <li>Brace matching</li>
+            <li>Line and block comments</li>
+        </ul>
+
+        <h3>Requirements</h3>
+        <ul>
+            <li>Node.js installed and available in PATH</li>
+            <li><code>@rescript/language-server</code> installed in project or globally</li>
+        </ul>
+    ]]></description>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+        <!-- File types -->
+        <fileType name="ReScript"
+                  extensions="res"
+                  fieldName="INSTANCE"
+                  language="ReScript"
+                  implementationClass="com.rescript.plugin.RescriptFileType"/>
+        <fileType name="ReScript Interface"
+                  extensions="resi"
+                  fieldName="INSTANCE"
+                  language="ReScript"
+                  implementationClass="com.rescript.plugin.RescriptInterfaceFileType"/>
+
+        <!-- Parser -->
+        <lang.parserDefinition language="ReScript"
+                               implementationClass="com.rescript.plugin.lang.RescriptParserDefinition"/>
+
+        <!-- Syntax highlighting -->
+        <lang.syntaxHighlighterFactory language="ReScript"
+                                       implementationClass="com.rescript.plugin.highlight.RescriptSyntaxHighlighterFactory"/>
+
+        <!-- Brace matching -->
+        <lang.braceMatcher language="ReScript"
+                           implementationClass="com.rescript.plugin.highlight.RescriptBraceMatcher"/>
+
+        <!-- Comments -->
+        <lang.commenter language="ReScript"
+                        implementationClass="com.rescript.plugin.commenter.RescriptCommenter"/>
+
+        <!-- Code folding -->
+        <lang.foldingBuilder language="ReScript"
+                             implementationClass="com.rescript.plugin.folding.RescriptFoldingBuilder"/>
+
+        <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
+        <platform.lsp.serverSupportProvider
+                implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
+    </extensions>
+</idea-plugin>
