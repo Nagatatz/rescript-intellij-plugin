@@ -74,7 +74,9 @@
 
         <!-- Explicit colors for ReScript tokens (override theme defaults) -->
         <additionalTextAttributes scheme="Darcula" file="colorSchemes/RescriptDarcula.xml"/>
+        <additionalTextAttributes scheme="Dark" file="colorSchemes/RescriptDarcula.xml"/>
         <additionalTextAttributes scheme="Default" file="colorSchemes/RescriptDefault.xml"/>
+        <additionalTextAttributes scheme="Light" file="colorSchemes/RescriptDefault.xml"/>
 
         <!-- rescript.json icon -->
         <iconProvider

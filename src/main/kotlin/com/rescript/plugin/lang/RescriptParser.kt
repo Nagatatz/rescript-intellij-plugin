@@ -236,7 +236,7 @@ class RescriptParser : PsiParser {
                 m.done(RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT)
                 true
             }
-            RescriptTokenTypes.TAG_GT -> {
+            RescriptTokenTypes.TAG_GT, RescriptTokenTypes.GT -> {
                 b.advanceLexer() // consume '>'
                 parseJsxChildren(b)
                 consumeClosingTag(b)
@@ -281,7 +281,7 @@ class RescriptParser : PsiParser {
     private fun skipJsxAttributes(b: PsiBuilder) {
         while (!b.eof()) {
             when (b.tokenType) {
-                RescriptTokenTypes.TAG_GT, RescriptTokenTypes.TAG_AUTO_CLOSE -> return
+                RescriptTokenTypes.TAG_GT, RescriptTokenTypes.GT, RescriptTokenTypes.TAG_AUTO_CLOSE -> return
                 RescriptTokenTypes.LBRACE -> {
                     skipBalanced(b, RescriptTokenTypes.LBRACE, RescriptTokenTypes.RBRACE)
                 }

@@ -123,6 +123,45 @@ class RescriptLexerTest {
     }
 
     @Test
+    fun `JSX tag with attributes - closing GT becomes TAG_GT`() {
+        // <div className="test"> — after attributes, > should be TAG_GT
+        val tokens = tokenizeNoWs("""<div className="test">""")
+        assertEquals(RescriptTokenTypes.TAG_LT, tokens[0].first)
+        assertEquals(RescriptTokenTypes.JSX_TAG_NAME, tokens[1].first)
+        assertEquals(RescriptTokenTypes.LIDENT, tokens[2].first)
+        assertEquals("className", tokens[2].second)
+        assertEquals(RescriptTokenTypes.EQ, tokens[3].first)
+        assertEquals(RescriptTokenTypes.STRING_VALUE, tokens[4].first)
+        assertEquals(RescriptTokenTypes.TAG_GT, tokens[5].first)
+    }
+
+    @Test
+    fun `JSX tag with brace expression - GT inside braces stays GT`() {
+        // <div onClick={x > 0}> — > inside {} should be GT, closing > should be TAG_GT
+        val tokens = tokenizeNoWs("<div onClick={x > 0}>")
+        val types = tokens.map { it.first }
+        assertEquals(RescriptTokenTypes.TAG_LT, types[0])
+        assertEquals(RescriptTokenTypes.JSX_TAG_NAME, types[1])
+        // Find the > inside braces (after x and before 0)
+        val braceStart = types.indexOf(RescriptTokenTypes.LBRACE)
+        val braceEnd = types.indexOf(RescriptTokenTypes.RBRACE)
+        val gtInsideBrace = tokens.subList(braceStart, braceEnd).find { it.second == ">" }
+        assertEquals(RescriptTokenTypes.GT, gtInsideBrace?.first)
+        // The last > should be TAG_GT
+        assertEquals(RescriptTokenTypes.TAG_GT, types.last())
+    }
+
+    @Test
+    fun `JSX component with multiple attributes`() {
+        val tokens = tokenizeNoWs("<Component name age>")
+        assertEquals(RescriptTokenTypes.TAG_LT, tokens[0].first)
+        assertEquals(RescriptTokenTypes.JSX_COMPONENT_NAME, tokens[1].first)
+        assertEquals(RescriptTokenTypes.LIDENT, tokens[2].first)
+        assertEquals(RescriptTokenTypes.LIDENT, tokens[3].first)
+        assertEquals(RescriptTokenTypes.TAG_GT, tokens[4].first)
+    }
+
+    @Test
     fun `plain less-than is not JSX`() {
         val tokens = tokenize("1 < 2")
         val types = tokens.map { it.first }
