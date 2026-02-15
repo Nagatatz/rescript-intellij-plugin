@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Dev (Run IDE + Watch)" type="CompoundRunConfigurationType">
+    <toRun name="Run IDE (Incremental)" type="GradleRunConfiguration" />
+    <toRun name="Watch &amp; Reload (classes --continuous)" type="GradleRunConfiguration" />
+    <method v="2" />
+  </configuration>
+</component>
