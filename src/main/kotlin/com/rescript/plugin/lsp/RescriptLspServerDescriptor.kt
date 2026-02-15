@@ -7,6 +7,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import com.intellij.platform.lsp.api.customization.LspCustomization
+import org.eclipse.lsp4j.services.LanguageServer
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -24,6 +25,8 @@ import java.nio.file.Path
 class RescriptLspServerDescriptor(
     project: Project,
 ) : ProjectWideLspServerDescriptor(project, "ReScript") {
+    override val lsp4jServerClass: Class<out LanguageServer> = LanguageServer::class.java
+
     override val lspCustomization =
         object : LspCustomization() {
             override val semanticTokensCustomizer = RescriptSemanticTokensSupport()
