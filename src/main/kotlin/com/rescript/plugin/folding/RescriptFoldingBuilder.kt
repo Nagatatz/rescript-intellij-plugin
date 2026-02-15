@@ -40,6 +40,20 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
                     descriptors += FoldingDescriptor(node, node.textRange)
                 }
             }
+
+            // Fold multi-line JSX elements and fragments
+            if (node.elementType in
+                setOf(
+                    RescriptElementTypes.JSX_ELEMENT,
+                    RescriptElementTypes.JSX_FRAGMENT,
+                )
+            ) {
+                val startLine = document.getLineNumber(node.startOffset)
+                val endLine = document.getLineNumber(node.startOffset + node.textLength)
+                if (endLine > startLine) {
+                    descriptors += FoldingDescriptor(node, node.textRange)
+                }
+            }
         }
 
         return descriptors.toTypedArray()
@@ -49,8 +63,31 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
         when (node.elementType) {
             RescriptTokenTypes.MULTI_COMMENT -> "/* ... */"
             RescriptElementTypes.MODULE_DECLARATION -> "module ... { ... }"
+            RescriptElementTypes.JSX_ELEMENT -> {
+                val tagName = extractJsxTagName(node)
+                "<$tagName>...</$tagName>"
+            }
+            RescriptElementTypes.JSX_FRAGMENT -> "<>...</>"
             else -> "{...}"
         }
+
+    private fun extractJsxTagName(node: ASTNode): String {
+        val parts = mutableListOf<String>()
+        var child = node.firstChildNode
+        // Skip TAG_LT, then collect tag name parts (name.name.name)
+        while (child != null) {
+            when (child.elementType) {
+                RescriptTokenTypes.TAG_LT -> { /* skip */ }
+                RescriptTokenTypes.JSX_TAG_NAME, RescriptTokenTypes.JSX_COMPONENT_NAME -> {
+                    parts.add(child.text)
+                }
+                RescriptTokenTypes.DOT -> { /* skip, will be added as separator */ }
+                else -> break
+            }
+            child = child.treeNext
+        }
+        return if (parts.isNotEmpty()) parts.joinToString(".") else "..."
+    }
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 }

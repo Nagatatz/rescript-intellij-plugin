@@ -28,6 +28,13 @@ object RescriptElementTypes {
     @JvmField val EXCEPTION_DECLARATION = RescriptElementType("EXCEPTION_DECLARATION")
 
     @JvmField val ANNOTATION = RescriptElementType("ANNOTATION")
+
+    // ── JSX elements ───────────────────────────────────────────────
+    @JvmField val JSX_ELEMENT = RescriptElementType("JSX_ELEMENT")
+
+    @JvmField val JSX_SELF_CLOSING_ELEMENT = RescriptElementType("JSX_SELF_CLOSING_ELEMENT")
+
+    @JvmField val JSX_FRAGMENT = RescriptElementType("JSX_FRAGMENT")
 }
 
 class RescriptFile(
