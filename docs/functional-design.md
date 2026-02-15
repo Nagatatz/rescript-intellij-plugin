@@ -367,6 +367,30 @@ flowchart TD
 | `textDocument/didOpen` | ファイルオープン通知 |
 | `textDocument/didChange` | ファイル変更通知 |
 | `textDocument/didClose` | ファイルクローズ通知 |
+| `textDocument/semanticTokens/full` | セマンティックハイライティング |
+
+#### RescriptSemanticTokensSupport
+
+| 項目 | 内容 |
+|---|---|
+| 継承元 | `com.intellij.platform.lsp.api.customization.LspSemanticTokensSupport` |
+| 役割 | LSP セマンティックトークンタイプから `TextAttributesKey` へのマッピング |
+| 登録方法 | `RescriptLspServerDescriptor.lspCustomization` 経由 |
+
+**セマンティックトークンマッピング:**
+
+| LSP トークンタイプ | ReScript での意味 | TextAttributesKey |
+|---|---|---|
+| `variable` | 変数・パラメータ | `RESCRIPT_SEMANTIC_VARIABLE` |
+| `type` | 型名 | `RESCRIPT_SEMANTIC_TYPE` |
+| `namespace` | モジュール名 | `RESCRIPT_SEMANTIC_NAMESPACE` |
+| `enumMember` | バリアント・コンストラクタ | `RESCRIPT_SEMANTIC_ENUM_MEMBER` |
+| `property` | レコードフィールド | `RESCRIPT_SEMANTIC_PROPERTY` |
+| `interface` | JSX HTML 要素（div, span等） | `RESCRIPT_SEMANTIC_INTERFACE` |
+| `operator` | 演算子 | `RESCRIPT_SEMANTIC_OPERATOR` |
+| `modifier` | JSX ブラケット（<, >, />） | `RESCRIPT_SEMANTIC_MODIFIER` |
+
+レクサーベースのハイライティングの上にセマンティック情報が重畳される。LSP サーバー未接続時はレクサーハイライトのみで動作する。
 
 ## 3. Extension Point 登録マップ
 
@@ -420,6 +444,7 @@ graph LR
     subgraph LSP["LSP 統合"]
         LSPP[RescriptLspServerSupportProvider]
         LSPD[RescriptLspServerDescriptor]
+        SEMTOK[RescriptSemanticTokensSupport]
     end
 
     FLEX -->|JFlex 生成| FLEXLEXER
@@ -434,6 +459,8 @@ graph LR
     BM --> TOKENS
     FOLD --> PSI_ELEM
     LSPP --> LSPD
+    LSPD --> SEMTOK
+    SEMTOK --> HL
     LSPD --> FT
     FT --> LANG
     FT --> ICON

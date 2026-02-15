@@ -6,6 +6,7 @@ import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
+import com.intellij.platform.lsp.api.customization.LspCustomization
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -23,6 +24,11 @@ import java.nio.file.Path
 class RescriptLspServerDescriptor(
     project: Project,
 ) : ProjectWideLspServerDescriptor(project, "ReScript") {
+    override val lspCustomization =
+        object : LspCustomization() {
+            override val semanticTokensCustomizer = RescriptSemanticTokensSupport()
+        }
+
     override fun isSupportedFile(file: VirtualFile): Boolean = file.extension in RESCRIPT_EXTENSIONS
 
     override fun createCommandLine(): GeneralCommandLine {
