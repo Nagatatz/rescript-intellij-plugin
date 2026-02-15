@@ -6,10 +6,10 @@
         </value>
     </option>
 
-    <!-- JSX tag name (div, span, article, etc.) - soft red -->
+    <!-- JSX tag name (div, span, article, etc.) - teal/cyan -->
     <option name="RESCRIPT_MARKUP_TAG">
         <value>
-            <option name="FOREGROUND" value="E06C75"/>
+            <option name="FOREGROUND" value="56B6C2"/>
         </value>
     </option>
 
