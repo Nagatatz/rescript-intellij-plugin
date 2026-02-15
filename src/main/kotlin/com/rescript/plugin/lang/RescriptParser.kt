@@ -77,7 +77,20 @@ class RescriptParser : PsiParser {
             b.advanceLexer()
         }
 
-        skipToEndOfDeclaration(b)
+        // module body: recursively parse declarations inside { ... }
+        skipToOpenBrace(b)
+        if (b.tokenType == RescriptTokenTypes.LBRACE) {
+            b.advanceLexer() // consume '{'
+            while (!b.eof() && b.tokenType != RescriptTokenTypes.RBRACE) {
+                parseTopLevel(b)
+            }
+            if (b.tokenType == RescriptTokenTypes.RBRACE) {
+                b.advanceLexer() // consume '}'
+            }
+        } else {
+            skipToEndOfDeclaration(b)
+        }
+
         m.done(RescriptElementTypes.MODULE_DECLARATION)
     }
 
@@ -115,6 +128,19 @@ class RescriptParser : PsiParser {
     }
 
     // ── helpers ───────────────────────────────────────────────────────
+
+    /**
+     * Skip tokens until '{' is found, or stop if a top-level keyword
+     * is encountered (for brace-less module aliases like `module X = Y`).
+     */
+    private fun skipToOpenBrace(b: PsiBuilder) {
+        while (!b.eof()) {
+            val t = b.tokenType
+            if (t == RescriptTokenTypes.LBRACE) return
+            if (isTopLevelStart(t)) return
+            b.advanceLexer()
+        }
+    }
 
     /**
      * Skip tokens until the next top-level keyword at brace-depth 0.
