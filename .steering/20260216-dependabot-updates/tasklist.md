@@ -14,11 +14,11 @@
 
 ### Phase 2: 高リスクアップデート（ktlint）
 
-- [ ] 4. ktlint plugin を 12.3.0 → 14.0.1 に更新（build.gradle.kts）
-- [ ] 5. ビルド検証: `./gradlew clean buildPlugin`
+- [x] 4. ktlint plugin を 12.3.0 → 14.0.1 に更新（build.gradle.kts）
+- [x] 5. ビルド検証: `./gradlew clean buildPlugin`
   - 失敗した場合: ktlint のフォーマット修正を試みる（`./gradlew ktlintFormat`）
   - それでも失敗した場合: スキップしてユーザーに報告
-- [ ] 6. コミット: `🔧 Update ktlint plugin to 14.0.1`
+- [x] 6. コミット: `🔧 Update ktlint plugin to 14.0.1`
 
 ### Phase 3: 高リスクアップデート（Gradle Wrapper）
 
