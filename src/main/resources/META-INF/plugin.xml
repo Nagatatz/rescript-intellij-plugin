@@ -102,6 +102,15 @@
         <lang.namesValidator language="ReScript"
                              implementationClass="com.rescript.plugin.refactor.RescriptNamesValidator"/>
 
+        <!-- Project settings -->
+        <projectConfigurable
+                parentId="language"
+                instance="com.rescript.plugin.settings.RescriptConfigurable"
+                id="com.rescript.plugin.settings"
+                displayName="ReScript"/>
+        <projectService
+                serviceImplementation="com.rescript.plugin.settings.RescriptProjectSettings"/>
+
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>

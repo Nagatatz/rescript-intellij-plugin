@@ -7,6 +7,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import com.intellij.platform.lsp.api.customization.LspCustomization
+import com.rescript.plugin.settings.RescriptProjectSettings
 import org.eclipse.lsp4j.services.LanguageServer
 import java.io.File
 import java.nio.file.Files
@@ -35,19 +36,26 @@ class RescriptLspServerDescriptor(
     override fun isSupportedFile(file: VirtualFile): Boolean = file.extension in RESCRIPT_EXTENSIONS
 
     override fun createCommandLine(): GeneralCommandLine {
+        val settings = RescriptProjectSettings.getInstance(project)
+        val customPath = settings.lspServerPath.takeIf { it.isNotEmpty() }
+        val customNode = settings.nodePath.takeIf { it.isNotEmpty() }
+
         val serverPath =
-            findLanguageServer()
+            customPath
+                ?: findLanguageServer()
                 ?: throw ExecutionException(
                     "Could not find rescript-language-server.\n" +
                         "Install it via: npm install @rescript/language-server\n" +
-                        "or globally: npm install -g @rescript/language-server",
+                        "or globally: npm install -g @rescript/language-server\n" +
+                        "Or configure the path in Settings > Languages & Frameworks > ReScript.",
                 )
 
         LOG.info("Starting ReScript Language Server from: $serverPath")
 
+        val nodeCmd = customNode ?: "node"
         val cmd =
             if (serverPath.endsWith(".js")) {
-                GeneralCommandLine("node", serverPath, "--stdio")
+                GeneralCommandLine(nodeCmd, serverPath, "--stdio")
             } else {
                 GeneralCommandLine(serverPath, "--stdio")
             }
