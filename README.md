@@ -13,7 +13,7 @@
 - **Find references** — Via LSP
 - **Diagnostics** — Real-time error and warning display via LSP
 - **Inlay hints** — Type annotations via LSP
-- **Code folding** — Collapse blocks and comments
+- **Code folding** — Collapse blocks, comments, and multi-line JSX elements
 - **Brace matching** — Automatic matching for `{}`, `[]`, `()`
 - **Comments** — Toggle line (`//`) and block (`/* */`) comments
 - **Structure view** — Navigate module, function, and type declarations
@@ -44,7 +44,7 @@ This plugin uses a **hybrid approach**:
 
 2. **LSP integration** — All semantic features (completion, diagnostics, navigation, hover, etc.) are provided by the [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode/tree/master/server) via the IntelliJ Platform's built-in LSP API. This ensures feature parity with the official VSCode extension.
 
-3. **Lightweight parser** — A minimal parser provides PSI structure for IDE features like code folding and structure view, without attempting to fully parse ReScript's complex syntax (including JSX).
+3. **Lightweight parser** — A minimal parser provides PSI structure for IDE features like code folding and structure view. It recognizes top-level declarations and JSX elements without attempting to fully parse ReScript's complex expression syntax.
 
 ## Development
 

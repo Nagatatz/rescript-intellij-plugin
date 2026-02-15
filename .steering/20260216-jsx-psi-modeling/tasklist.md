@@ -20,4 +20,4 @@
 ### Phase 5: ビルド検証・コミット
 - [x] T8: `./gradlew clean buildPlugin` でビルド成功を確認
 - [x] T9: 変更をコミット (`✨ Add JSX PSI modeling to lightweight parser`)
-- [ ] T10: CLAUDE.md・README.md の更新が必要か確認し、必要なら更新してコミット
+- [x] T10: CLAUDE.md・README.md の更新が必要か確認し、必要なら更新してコミット
