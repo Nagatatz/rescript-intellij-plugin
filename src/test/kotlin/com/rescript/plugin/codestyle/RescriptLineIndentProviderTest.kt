@@ -128,4 +128,26 @@ class RescriptLineIndentProviderTest {
     fun `int value after complete expression`() {
         assertEquals(T.INT_VALUE, lastToken("let x = 1 + 2"))
     }
+
+    // ── Edge cases: comment-only lines ──────────────────────────────
+
+    @Test
+    fun `single-line comment only returns null`() {
+        assertNull(lastToken("// this is a comment"))
+    }
+
+    @Test
+    fun `block comment only returns null`() {
+        assertNull(lastToken("/* block comment */"))
+    }
+
+    @Test
+    fun `string containing keywords returns STRING_VALUE`() {
+        assertEquals(T.STRING_VALUE, lastToken("let msg = \"let if else\""))
+    }
+
+    @Test
+    fun `complex expression last token is RPAREN`() {
+        assertEquals(T.RPAREN, lastToken("Belt.Array.map(arr, fn)"))
+    }
 }
