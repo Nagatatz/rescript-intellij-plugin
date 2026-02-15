@@ -291,7 +291,7 @@ class RescriptParserTest :
         val file = parseCode(code)
         assertEquals(1, findElements(file, RescriptElementTypes.OPEN_STATEMENT).size)
         assertEquals(1, findElements(file, RescriptElementTypes.TYPE_DECLARATION).size)
-        assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
+        assertEquals(2, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
         assertEquals(1, findElements(file, RescriptElementTypes.MODULE_DECLARATION).size)
         assertEquals(1, findElements(file, RescriptElementTypes.EXTERNAL_DECLARATION).size)
         assertEquals(1, findElements(file, RescriptElementTypes.INCLUDE_STATEMENT).size)
