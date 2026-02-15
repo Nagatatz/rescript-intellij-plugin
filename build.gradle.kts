@@ -5,7 +5,7 @@ plugins {
     id("java") // needed for JFlex-generated Java lexer
     id("org.jetbrains.kotlin.jvm") version "2.3.10"
     id("org.jetbrains.intellij.platform") version "2.11.0"
-    id("org.jetbrains.grammarkit") version "2023.3.0.1"
+    id("org.jetbrains.grammarkit") version "2023.3.0.2"
     id("org.jlleitschuh.gradle.ktlint") version "12.3.0"
 }
 
