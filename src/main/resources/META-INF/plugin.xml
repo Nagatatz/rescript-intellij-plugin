@@ -92,6 +92,10 @@
         <lineIndentProvider
                 implementation="com.rescript.plugin.codestyle.RescriptLineIndentProvider"/>
 
+        <!-- Breadcrumb navigation -->
+        <breadcrumbsInfoProvider
+                implementation="com.rescript.plugin.breadcrumb.RescriptBreadcrumbsProvider"/>
+
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
