@@ -16,10 +16,15 @@
 - **Code folding** — Collapse blocks and comments
 - **Brace matching** — Automatic matching for `{}`, `[]`, `()`
 - **Comments** — Toggle line (`//`) and block (`/* */`) comments
+- **Structure view** — Navigate module, function, and type declarations
+- **Run configuration** — Build ReScript projects from the IDE
+- **Semantic highlighting** — Enhanced token coloring via LSP semantic tokens
+- **Code style** — Indentation settings for ReScript files
+- **rescript.json icon** — Custom icon for ReScript configuration files
 
 ## Requirements
 
-- IntelliJ IDEA Ultimate 2024.2+ (or other JetBrains IDE with LSP support)
+- IntelliJ IDEA 2025.3+ (or other JetBrains IDE with LSP support)
 - Node.js installed and available in PATH
 - `@rescript/language-server` installed:
 
@@ -62,11 +67,7 @@ This plugin uses a **hybrid approach**:
 
 ### Generate Lexer
 
-The JFlex lexer must be generated from `Rescript.flex`. You can generate it using the [Grammar-Kit](https://plugins.jetbrains.com/plugin/6606-grammar-kit) plugin in IntelliJ IDEA:
-
-1. Install Grammar-Kit plugin
-2. Open `src/main/java/com/rescript/plugin/lang/Rescript.flex`
-3. Run "Generate JFlex Lexer" (Ctrl+Shift+G)
+The JFlex lexer is automatically generated from `Rescript.flex` during the build process via the `generateRescriptLexer` Gradle task (dependency of `compileJava` / `compileKotlin`). Manual generation is not required.
 
 ## License
 

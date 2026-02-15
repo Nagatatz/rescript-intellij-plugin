@@ -41,16 +41,38 @@ src/main/
 │   ├── highlight/
 │   │   ├── RescriptSyntaxHighlighter.kt
 │   │   ├── RescriptSyntaxHighlighterFactory.kt
+│   │   ├── RescriptColorSettingsPage.kt # ハイライト色設定 UI
 │   │   └── RescriptBraceMatcher.kt
 │   ├── lsp/
 │   │   ├── RescriptLspServerSupportProvider.kt  # LSP サーバー起動判定
-│   │   └── RescriptLspServerDescriptor.kt       # LSP サーバー設定
+│   │   ├── RescriptLspServerDescriptor.kt       # LSP サーバー設定
+│   │   └── RescriptSemanticTokensSupport.kt     # セマンティックトークン対応
+│   ├── codestyle/
+│   │   ├── RescriptCodeStyleSettingsProvider.kt  # コードスタイル設定
+│   │   └── RescriptLineIndentProvider.kt         # インデント制御
+│   ├── config/
+│   │   └── RescriptJsonIconProvider.kt  # rescript.json アイコン
+│   ├── run/
+│   │   ├── RescriptCliDetector.kt       # ReScript CLI 検出
+│   │   ├── RescriptCommand.kt           # コマンド定義
+│   │   ├── RescriptConfigurationFactory.kt
+│   │   ├── RescriptRunConfiguration.kt
+│   │   ├── RescriptRunConfigurationOptions.kt
+│   │   ├── RescriptRunConfigurationType.kt
+│   │   └── RescriptSettingsEditor.kt    # 実行構成 UI
+│   ├── structure/
+│   │   ├── RescriptStructureViewElement.kt
+│   │   ├── RescriptStructureViewFactory.kt
+│   │   └── RescriptStructureViewModel.kt
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
 │   └── Rescript.flex                    # JFlex レクサー定義 (ソース)
 └── resources/
     ├── META-INF/plugin.xml              # プラグイン登録 (extension points)
+    ├── colorSchemes/
+    │   ├── RescriptDarcula.xml          # Darcula テーマ用配色
+    │   └── RescriptDefault.xml          # Default テーマ用配色
     └── icons/                           # SVG アイコン
 ```
 
@@ -60,11 +82,19 @@ src/main/
 - **JFlex レクサー** (`Rescript.flex`) — トークン分解、シンタックスハイライト
 - **軽量パーサー** (`RescriptParser.kt`) — トップレベル宣言 (`let`, `type`, `module`, `external`, `open`, `include`, `exception`) のみ認識。式や JSX のパースは行わない
 - **PSI ツリー** — コード折りたたみ、ストラクチャービュー向け
+- **ストラクチャービュー** (`structure/`) — モジュール・関数・型宣言のツリー表示
 
 ### レイヤー 2: LSP 統合
 - IntelliJ Platform の LSP API (`com.intellij.platform.lsp`) を使用
 - `@rescript/language-server` を stdio 経由で起動
 - 補完、診断、定義ジャンプ、ホバー、参照検索、インレイヒントを提供
+- **セマンティックトークンハイライト** (`RescriptSemanticTokensSupport.kt`) — LSP セマンティックトークンによる高精度な色分け
+
+### レイヤー 3: IDE 統合機能
+- **実行構成** (`run/`) — rescript.json 経由の ReScript ビルド実行
+- **コードスタイル** (`codestyle/`) — インデント設定
+- **カラースキーム** (`colorSchemes/`) — Darcula / Default テーマ用の専用配色
+- **rescript.json アイコン** (`config/`) — 設定ファイルへの専用アイコン表示
 
 ## 開発規約
 
