@@ -95,5 +95,28 @@
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
+
+        <!-- Inspections -->
+        <localInspection language="ReScript"
+                         groupName="ReScript"
+                         shortName="RescriptDuplicateOpen"
+                         displayName="Duplicate open statement"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.rescript.plugin.inspection.RescriptDuplicateOpenInspection"/>
+        <localInspection language="ReScript"
+                         groupName="ReScript"
+                         shortName="RescriptEmptyModule"
+                         displayName="Empty module declaration"
+                         enabledByDefault="true"
+                         level="WEAK WARNING"
+                         implementationClass="com.rescript.plugin.inspection.RescriptEmptyModuleInspection"/>
+        <localInspection language="ReScript"
+                         groupName="ReScript"
+                         shortName="RescriptMissingConfig"
+                         displayName="Missing rescript.json configuration"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.rescript.plugin.inspection.RescriptMissingConfigInspection"/>
     </extensions>
 </idea-plugin>
