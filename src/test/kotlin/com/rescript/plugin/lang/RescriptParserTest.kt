@@ -496,6 +496,122 @@ class RescriptParserTest :
         assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
     }
 
+    // ════════════════════════════════════════════════════════════════
+    // JSX PSI modeling
+    // ════════════════════════════════════════════════════════════════
+
+    fun testJsxSelfClosingTag() {
+        val code = "let x = <div />"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+    }
+
+    fun testJsxSelfClosingComponent() {
+        val code = "let x = <MyComponent />"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+    }
+
+    fun testJsxOpenCloseTag() {
+        val code = "let x = <div> hello </div>"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+    }
+
+    fun testJsxNestedElements() {
+        val code = "let x = <div><span /></div>"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+    }
+
+    fun testJsxFragment() {
+        val code = "let x = <> <div /> </>"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+    }
+
+    fun testJsxWithExpression() {
+        val code = "let x = <div>{name}</div>"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+    }
+
+    fun testJsxDottedComponentName() {
+        val code = "let x = <React.Fragment> <div /> </React.Fragment>"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+    }
+
+    fun testJsxTopLevel() {
+        // JSX at top level (not inside a declaration)
+        val code = "<div />"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+    }
+
+    fun testJsxComponentWithAnnotation() {
+        val code =
+            """
+            @react.component
+            let make = (~children) =>
+              <div> children </div>
+            """.trimIndent()
+        val file = parseCode(code)
+        val errors = findErrors(file)
+        assertTrue("JSX component should have no errors", errors.isEmpty())
+        assertEquals(1, findElements(file, RescriptElementTypes.ANNOTATION).size)
+        assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+    }
+
+    fun testJsxDeeplyNested() {
+        val code =
+            """
+            let x = <div>
+              <ul>
+                <li> item1 </li>
+                <li> item2 </li>
+              </ul>
+            </div>
+            """.trimIndent()
+        val file = parseCode(code)
+        // div > ul: 2 JSX_ELEMENT, li + li: 2 JSX_ELEMENT = 4 total
+        val elements = findElements(file, RescriptElementTypes.JSX_ELEMENT)
+        assertEquals(4, elements.size)
+    }
+
+    fun testJsxNoErrorsOnExistingTest() {
+        // Ensure the existing complex JSX test still produces no errors
+        val code =
+            """
+            @react.component
+            let make = (~children) =>
+              <RescriptRelayReact.Context.Provider environment=RelayEnv.environment>
+                <div> children </div>
+              </RescriptRelayReact.Context.Provider>
+            """.trimIndent()
+        val file = parseCode(code)
+        val errors = findErrors(file)
+        assertTrue("Complex JSX should have no errors", errors.isEmpty())
+        // Should produce JSX PSI nodes
+        assertTrue(
+            "Should have JSX elements",
+            findElements(file, RescriptElementTypes.JSX_ELEMENT).isNotEmpty(),
+        )
+    }
+
+    fun testJsxSelfClosingInFragment() {
+        val code = "let x = <> <br /> <hr /> </>"
+        val file = parseCode(code)
+        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
+        assertEquals(2, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+    }
+
     // ── helper for error recovery tests ─────────────────────────────
 
     private fun findErrors(file: PsiFile): List<ASTNode> {

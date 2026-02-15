@@ -36,13 +36,23 @@ class RescriptParser : PsiParser {
             RescriptTokenTypes.EXCEPTION -> parseDeclaration(b, RescriptElementTypes.EXCEPTION_DECLARATION)
             RescriptTokenTypes.ARROBASE -> parseAnnotation(b)
             RescriptTokenTypes.EOL -> b.advanceLexer()
+            RescriptTokenTypes.TAG_LT -> {
+                if (!tryParseJsx(b)) {
+                    // Not valid JSX — skip tokens silently
+                    skipNonTopLevel(b)
+                }
+            }
+            RescriptTokenTypes.LT -> {
+                // Fragment opening: <> (lexer produces LT + GT, not TAG_LT + TAG_GT)
+                if (!tryParseJsxFragment(b)) {
+                    skipNonTopLevel(b)
+                }
+            }
             else -> {
                 // Skip non-top-level tokens silently.
                 // This lightweight parser only carves out top-level declarations;
                 // expression-level validation is delegated to the LSP.
-                while (!b.eof() && !isTopLevelStart(b.tokenType) && b.tokenType != RescriptTokenTypes.EOL) {
-                    b.advanceLexer()
-                }
+                skipNonTopLevel(b)
             }
         }
     }
@@ -149,7 +159,171 @@ class RescriptParser : PsiParser {
         m.done(RescriptElementTypes.ANNOTATION)
     }
 
+    // ── JSX parsing ───────────────────────────────────────────────────
+
+    /**
+     * Try to parse a JSX element starting at TAG_LT.
+     * Returns true if a JSX node was created, false if rolled back.
+     */
+    private fun tryParseJsx(b: PsiBuilder): Boolean {
+        if (b.tokenType != RescriptTokenTypes.TAG_LT) return false
+
+        val m = b.mark()
+        b.advanceLexer() // consume '<'
+
+        return when (b.tokenType) {
+            RescriptTokenTypes.JSX_TAG_NAME, RescriptTokenTypes.JSX_COMPONENT_NAME -> {
+                parseJsxTagOrSelfClosing(b, m)
+            }
+            else -> {
+                m.rollbackTo()
+                false
+            }
+        }
+    }
+
+    /**
+     * Try to parse a JSX fragment starting at LT (not TAG_LT).
+     * The lexer produces LT + GT for `<>` since `>` is not a letter.
+     * Returns true if a JSX_FRAGMENT node was created, false if rolled back.
+     */
+    private fun tryParseJsxFragment(b: PsiBuilder): Boolean {
+        if (b.tokenType != RescriptTokenTypes.LT) return false
+
+        val m = b.mark()
+        b.advanceLexer() // consume '<'
+
+        if (b.tokenType != RescriptTokenTypes.GT) {
+            m.rollbackTo()
+            return false
+        }
+
+        b.advanceLexer() // consume '>'
+        parseJsxChildren(b)
+        // expect </> closing
+        if (b.tokenType == RescriptTokenTypes.TAG_LT_SLASH) {
+            b.advanceLexer() // consume '</'
+            if (b.tokenType == RescriptTokenTypes.TAG_GT) {
+                b.advanceLexer() // consume '>'
+            }
+        }
+        m.done(RescriptElementTypes.JSX_FRAGMENT)
+        return true
+    }
+
+    /** Parse a named JSX tag (opening+closing or self-closing). TAG_LT already consumed. */
+    private fun parseJsxTagOrSelfClosing(
+        b: PsiBuilder,
+        m: PsiBuilder.Marker,
+    ): Boolean {
+        b.advanceLexer() // consume tag name
+
+        // Consume dotted module path: <Module.SubModule.component ...>
+        while (!b.eof() && b.tokenType == RescriptTokenTypes.DOT) {
+            b.advanceLexer() // consume '.'
+            if (b.tokenType == RescriptTokenTypes.JSX_TAG_NAME ||
+                b.tokenType == RescriptTokenTypes.JSX_COMPONENT_NAME
+            ) {
+                b.advanceLexer() // consume next part
+            }
+        }
+
+        skipJsxAttributes(b)
+
+        return when (b.tokenType) {
+            RescriptTokenTypes.TAG_AUTO_CLOSE -> {
+                b.advanceLexer() // consume '/>'
+                m.done(RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT)
+                true
+            }
+            RescriptTokenTypes.TAG_GT -> {
+                b.advanceLexer() // consume '>'
+                parseJsxChildren(b)
+                consumeClosingTag(b)
+                m.done(RescriptElementTypes.JSX_ELEMENT)
+                true
+            }
+            else -> {
+                m.rollbackTo()
+                false
+            }
+        }
+    }
+
+    /**
+     * Parse JSX children between opening and closing tags.
+     * Children can be: nested JSX, expression containers {expr}, or text tokens.
+     */
+    private fun parseJsxChildren(b: PsiBuilder) {
+        while (!b.eof()) {
+            when (b.tokenType) {
+                RescriptTokenTypes.TAG_LT_SLASH -> return // closing tag starts
+                RescriptTokenTypes.TAG_LT -> {
+                    if (!tryParseJsx(b)) {
+                        b.advanceLexer() // skip if not valid JSX
+                    }
+                }
+                RescriptTokenTypes.LT -> {
+                    // Nested fragment: <> ... </>
+                    if (!tryParseJsxFragment(b)) {
+                        b.advanceLexer()
+                    }
+                }
+                RescriptTokenTypes.LBRACE -> {
+                    skipBalanced(b, RescriptTokenTypes.LBRACE, RescriptTokenTypes.RBRACE)
+                }
+                else -> b.advanceLexer()
+            }
+        }
+    }
+
+    /** Skip tokens inside an opening tag until `>` or `/>` is found. */
+    private fun skipJsxAttributes(b: PsiBuilder) {
+        while (!b.eof()) {
+            when (b.tokenType) {
+                RescriptTokenTypes.TAG_GT, RescriptTokenTypes.TAG_AUTO_CLOSE -> return
+                RescriptTokenTypes.LBRACE -> {
+                    skipBalanced(b, RescriptTokenTypes.LBRACE, RescriptTokenTypes.RBRACE)
+                }
+                else -> b.advanceLexer()
+            }
+        }
+    }
+
+    /** Consume a closing tag `</tagName>`. Tolerant of missing parts. */
+    private fun consumeClosingTag(b: PsiBuilder) {
+        if (b.tokenType != RescriptTokenTypes.TAG_LT_SLASH) return
+        b.advanceLexer() // consume '</'
+
+        // consume tag name (and optional dotted path)
+        while (!b.eof()) {
+            if (b.tokenType == RescriptTokenTypes.JSX_TAG_NAME ||
+                b.tokenType == RescriptTokenTypes.JSX_COMPONENT_NAME
+            ) {
+                b.advanceLexer()
+                if (b.tokenType == RescriptTokenTypes.DOT) {
+                    b.advanceLexer()
+                } else {
+                    break
+                }
+            } else {
+                break
+            }
+        }
+
+        if (b.tokenType == RescriptTokenTypes.TAG_GT) {
+            b.advanceLexer() // consume '>'
+        }
+    }
+
     // ── helpers ───────────────────────────────────────────────────────
+
+    /** Skip non-top-level tokens silently until a top-level keyword or EOL. */
+    private fun skipNonTopLevel(b: PsiBuilder) {
+        while (!b.eof() && !isTopLevelStart(b.tokenType) && b.tokenType != RescriptTokenTypes.EOL) {
+            b.advanceLexer()
+        }
+    }
 
     /**
      * Skip tokens until '{' is found, or stop if a top-level keyword
@@ -167,7 +341,8 @@ class RescriptParser : PsiParser {
     /**
      * Skip tokens until the next top-level keyword at brace-depth 0.
      * This is a heuristic that lets us carve out top-level declarations
-     * without fully parsing expressions.
+     * without fully parsing expressions. JSX elements encountered during
+     * skipping are parsed into PSI nodes.
      */
     private fun skipToEndOfDeclaration(b: PsiBuilder) {
         var braceDepth = 0
@@ -195,6 +370,19 @@ class RescriptParser : PsiParser {
                 RescriptTokenTypes.RPAREN -> {
                     if (parenDepth > 0) parenDepth--
                     b.advanceLexer()
+                }
+                RescriptTokenTypes.TAG_LT -> {
+                    // Try to parse JSX inside declaration body
+                    if (!tryParseJsx(b)) {
+                        b.advanceLexer()
+                    }
+                }
+                RescriptTokenTypes.LT -> {
+                    // Try to parse JSX fragment (<> ... </>)
+                    if (!tryParseJsxFragment(b)) {
+                        if (braceDepth == 0 && parenDepth == 0 && isTopLevelStart(b.tokenType)) return
+                        b.advanceLexer()
+                    }
                 }
                 else -> {
                     if (braceDepth == 0 && parenDepth == 0 && isTopLevelStart(b.tokenType)) return

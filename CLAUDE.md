@@ -35,7 +35,7 @@ src/main/
 │   ├── lang/
 │   │   ├── RescriptTokenTypes.kt        # IElementType トークン定義
 │   │   ├── RescriptLexer.kt             # JFlex ラッパー (FlexAdapter)
-│   │   ├── RescriptParser.kt            # 軽量パーサー (トップレベル宣言のみ)
+│   │   ├── RescriptParser.kt            # 軽量パーサー (トップレベル宣言 + JSX)
 │   │   ├── RescriptParserDefinition.kt  # ParserDefinition
 │   │   └── psi/RescriptPsi.kt           # PSI 要素クラス
 │   ├── highlight/
@@ -83,8 +83,8 @@ src/main/
 
 ### レイヤー 1: 言語基盤 (プラグイン内蔵)
 - **JFlex レクサー** (`Rescript.flex`) — トークン分解、シンタックスハイライト
-- **軽量パーサー** (`RescriptParser.kt`) — トップレベル宣言 (`let`, `type`, `module`, `external`, `open`, `include`, `exception`) のみ認識。式や JSX のパースは行わない
-- **PSI ツリー** — コード折りたたみ、ストラクチャービュー向け
+- **軽量パーサー** (`RescriptParser.kt`) — トップレベル宣言 (`let`, `type`, `module`, `external`, `open`, `include`, `exception`) と JSX 構造 (`JSX_ELEMENT`, `JSX_SELF_CLOSING_ELEMENT`, `JSX_FRAGMENT`) を認識
+- **PSI ツリー** — コード折りたたみ、ストラクチャービュー、JSX 構造認識向け
 - **ストラクチャービュー** (`structure/`) — モジュール・関数・型宣言のツリー表示
 
 ### レイヤー 2: LSP 統合
