@@ -35,7 +35,15 @@ class RescriptParser : PsiParser {
             RescriptTokenTypes.INCLUDE -> parseSimple(b, RescriptElementTypes.INCLUDE_STATEMENT)
             RescriptTokenTypes.EXCEPTION -> parseDeclaration(b, RescriptElementTypes.EXCEPTION_DECLARATION)
             RescriptTokenTypes.ARROBASE -> parseAnnotation(b)
-            else -> b.advanceLexer()
+            RescriptTokenTypes.EOL -> b.advanceLexer()
+            else -> {
+                // R1: Wrap unexpected tokens in an error node, grouping consecutive ones
+                val errorMarker = b.mark()
+                while (!b.eof() && !isTopLevelStart(b.tokenType) && b.tokenType != RescriptTokenTypes.EOL) {
+                    b.advanceLexer()
+                }
+                errorMarker.error("Unexpected token")
+            }
         }
     }
 
@@ -57,6 +65,9 @@ class RescriptParser : PsiParser {
             listOf(RescriptTokenTypes.LIDENT, RescriptTokenTypes.UIDENT, RescriptTokenTypes.UNDERSCORE)
         ) {
             b.advanceLexer()
+        } else if (!b.eof() && !isTopLevelStart(b.tokenType)) {
+            // R2: Report missing identifier
+            b.error("Expected identifier")
         }
 
         skipToEndOfDeclaration(b)
@@ -75,6 +86,9 @@ class RescriptParser : PsiParser {
         // consume module name (UIDENT)
         if (b.tokenType == RescriptTokenTypes.UIDENT) {
             b.advanceLexer()
+        } else if (!b.eof() && b.tokenType != RescriptTokenTypes.LBRACE && !isTopLevelStart(b.tokenType)) {
+            // R3: Report missing module name
+            b.error("Expected module name")
         }
 
         // module body: recursively parse declarations inside { ... }
@@ -86,6 +100,9 @@ class RescriptParser : PsiParser {
             }
             if (b.tokenType == RescriptTokenTypes.RBRACE) {
                 b.advanceLexer() // consume '}'
+            } else if (!b.eof()) {
+                // R4: Report missing closing brace
+                b.error("Expected '}'")
             }
         } else {
             skipToEndOfDeclaration(b)
