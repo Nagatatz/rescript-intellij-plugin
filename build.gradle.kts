@@ -20,12 +20,6 @@ kotlin {
     jvmToolchain(21)
 }
 
-sourceSets {
-    test {
-        kotlin.srcDir("src/test-local/kotlin")
-    }
-}
-
 dependencies {
     intellijPlatform {
         intellijIdea(providers.gradleProperty("platformVersion"))
