@@ -84,6 +84,14 @@
         <configurationType
                 implementation="com.rescript.plugin.run.RescriptRunConfigurationType"/>
 
+        <!-- Code style settings -->
+        <langCodeStyleSettingsProvider
+                implementation="com.rescript.plugin.codestyle.RescriptCodeStyleSettingsProvider"/>
+
+        <!-- Smart indentation on Enter -->
+        <lineIndentProvider
+                implementation="com.rescript.plugin.codestyle.RescriptLineIndentProvider"/>
+
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
