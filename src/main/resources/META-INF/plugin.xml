@@ -201,6 +201,10 @@
         <lang.ast.factory language="ReScript"
                           implementationClass="com.rescript.plugin.lang.RescriptAstFactory"/>
 
+        <!-- Import Optimizer (remove duplicate open statements) -->
+        <lang.importOptimizer language="ReScript"
+                              implementationClass="com.rescript.plugin.imports.RescriptImportOptimizer"/>
+
         <!-- Code Vision (Code Lens via LSP) -->
         <codeInsight.daemonBoundCodeVisionProvider
                 implementation="com.rescript.plugin.codevision.RescriptCodeVisionProvider"/>
