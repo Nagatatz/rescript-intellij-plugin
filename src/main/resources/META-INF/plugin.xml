@@ -121,6 +121,12 @@
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
 
+        <!-- TODO indexer -->
+        <todoIndexer filetype="ReScript"
+                     implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
+        <todoIndexer filetype="ReScript Interface"
+                     implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
+
         <!-- Inspections -->
         <localInspection language="ReScript"
                          groupName="ReScript"

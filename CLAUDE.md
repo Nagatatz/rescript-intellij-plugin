@@ -67,6 +67,8 @@ src/main/
 │   │   ├── RescriptStructureViewElement.kt
 │   │   ├── RescriptStructureViewFactory.kt
 │   │   └── RescriptStructureViewModel.kt
+│   ├── indexing/
+│   │   └── RescriptTodoIndexer.kt         # TODO インデクシング
 │   ├── editor/
 │   │   └── RescriptQuoteHandler.kt        # スマート引用符補完
 │   ├── folding/RescriptFoldingBuilder.kt
