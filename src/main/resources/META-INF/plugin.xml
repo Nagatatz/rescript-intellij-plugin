@@ -204,6 +204,10 @@
         <!-- Code Vision (Code Lens via LSP) -->
         <codeInsight.daemonBoundCodeVisionProvider
                 implementation="com.rescript.plugin.codevision.RescriptCodeVisionProvider"/>
+
+        <!-- Surround With -->
+        <lang.surroundDescriptor language="ReScript"
+                                 implementationClass="com.rescript.plugin.surround.RescriptSurroundDescriptor"/>
     </extensions>
 
     <actions>
