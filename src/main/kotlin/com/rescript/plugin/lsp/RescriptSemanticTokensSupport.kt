@@ -21,6 +21,6 @@ class RescriptSemanticTokensSupport : LspSemanticTokensSupport() {
             "interface" -> RescriptSyntaxHighlighter.SEMANTIC_INTERFACE
             "operator" -> RescriptSyntaxHighlighter.SEMANTIC_OPERATOR
             "modifier" -> RescriptSyntaxHighlighter.SEMANTIC_MODIFIER
-            else -> super.getTextAttributesKey(tokenType, modifiers)
+            else -> null // Preserve lexer-based highlighting for unknown token types
         }
 }

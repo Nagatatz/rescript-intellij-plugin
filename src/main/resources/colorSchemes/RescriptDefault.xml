@@ -68,4 +68,62 @@
             <option name="FOREGROUND" value="800080"/>
         </value>
     </option>
+
+    <!-- ── Semantic token colors (LSP) ── -->
+
+    <!-- Semantic variable - black -->
+    <option name="RESCRIPT_SEMANTIC_VARIABLE">
+        <value>
+            <option name="FOREGROUND" value="000000"/>
+        </value>
+    </option>
+
+    <!-- Semantic type - dark blue -->
+    <option name="RESCRIPT_SEMANTIC_TYPE">
+        <value>
+            <option name="FOREGROUND" value="000080"/>
+        </value>
+    </option>
+
+    <!-- Semantic namespace (module) - dark blue -->
+    <option name="RESCRIPT_SEMANTIC_NAMESPACE">
+        <value>
+            <option name="FOREGROUND" value="000080"/>
+        </value>
+    </option>
+
+    <!-- Semantic enum member (variant) - teal -->
+    <option name="RESCRIPT_SEMANTIC_ENUM_MEMBER">
+        <value>
+            <option name="FOREGROUND" value="008080"/>
+        </value>
+    </option>
+
+    <!-- Semantic property - dark purple -->
+    <option name="RESCRIPT_SEMANTIC_PROPERTY">
+        <value>
+            <option name="FOREGROUND" value="660E7A"/>
+        </value>
+    </option>
+
+    <!-- Semantic interface (JSX tag) - teal -->
+    <option name="RESCRIPT_SEMANTIC_INTERFACE">
+        <value>
+            <option name="FOREGROUND" value="008080"/>
+        </value>
+    </option>
+
+    <!-- Semantic operator - gray -->
+    <option name="RESCRIPT_SEMANTIC_OPERATOR">
+        <value>
+            <option name="FOREGROUND" value="666666"/>
+        </value>
+    </option>
+
+    <!-- Semantic modifier - gray -->
+    <option name="RESCRIPT_SEMANTIC_MODIFIER">
+        <value>
+            <option name="FOREGROUND" value="808080"/>
+        </value>
+    </option>
 </list>

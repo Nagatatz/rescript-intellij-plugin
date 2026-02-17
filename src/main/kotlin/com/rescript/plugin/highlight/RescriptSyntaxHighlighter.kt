@@ -39,11 +39,11 @@ class RescriptSyntaxHighlighter : SyntaxHighlighterBase() {
         // ── Semantic token attribute keys (LSP) ──
         val SEMANTIC_VARIABLE = createTextAttributesKey("RESCRIPT_SEMANTIC_VARIABLE", Defaults.LOCAL_VARIABLE)
         val SEMANTIC_TYPE = createTextAttributesKey("RESCRIPT_SEMANTIC_TYPE", Defaults.CLASS_NAME)
-        val SEMANTIC_NAMESPACE = createTextAttributesKey("RESCRIPT_SEMANTIC_NAMESPACE", Defaults.CLASS_NAME)
-        val SEMANTIC_ENUM_MEMBER = createTextAttributesKey("RESCRIPT_SEMANTIC_ENUM_MEMBER", Defaults.CONSTANT)
+        val SEMANTIC_NAMESPACE = createTextAttributesKey("RESCRIPT_SEMANTIC_NAMESPACE", MODULE_NAME)
+        val SEMANTIC_ENUM_MEMBER = createTextAttributesKey("RESCRIPT_SEMANTIC_ENUM_MEMBER", POLY_VARIANT)
         val SEMANTIC_PROPERTY = createTextAttributesKey("RESCRIPT_SEMANTIC_PROPERTY", Defaults.INSTANCE_FIELD)
-        val SEMANTIC_INTERFACE = createTextAttributesKey("RESCRIPT_SEMANTIC_INTERFACE", Defaults.MARKUP_TAG)
-        val SEMANTIC_OPERATOR = createTextAttributesKey("RESCRIPT_SEMANTIC_OPERATOR", Defaults.OPERATION_SIGN)
+        val SEMANTIC_INTERFACE = createTextAttributesKey("RESCRIPT_SEMANTIC_INTERFACE", MARKUP_TAG)
+        val SEMANTIC_OPERATOR = createTextAttributesKey("RESCRIPT_SEMANTIC_OPERATOR", OPERATOR)
         val SEMANTIC_MODIFIER = createTextAttributesKey("RESCRIPT_SEMANTIC_MODIFIER", MARKUP_TAG_BRACKET)
 
         private val ATTR_MAP: Map<IElementType, Array<TextAttributesKey>> =
