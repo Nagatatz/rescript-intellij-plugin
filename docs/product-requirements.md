@@ -89,6 +89,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Live Templates | `let`, `mod`, `switch`, `if` 等15種のスニペット | `liveTemplates/ReScript.xml` |
 | File Templates | New > ReScript File からテンプレートファイル作成（Module, Interface, Component） | `RescriptCreateFileAction` + `internalFileTemplate` |
 | スペルチェック | コメント・文字列・識別子のスペルチェック | `RescriptSpellcheckingStrategy` |
+| Editor Notification Bar | LSP 未検出時のエディタ上部案内バー表示 | `RescriptEditorNotificationProvider` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -109,7 +110,6 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 |---|---|---|---|---|
 | Postfix Completion | `.switch`, `.pipe`, `.log`, `.some`, `.ok` 等の式後方補完 | `PostfixTemplateProvider` 登録 | 低 | Kotlin, JS/TS (標準機能) |
 | Console Filter | コンパイルエラー出力からファイル:行へのクリックジャンプ | `ConsoleFilterProvider` 登録 | 低 | JS/TS, Kotlin, Dart (標準機能) |
-| Editor Notification Bar | LSP 未検出時の設定案内バー表示 | `EditorNotificationProvider` 登録 | 低 | Dart, Kotlin (標準機能) |
 | Go to Related | `.res` ↔ `.resi` ↔ `.js` 間の関連ファイルジャンプ | `GotoRelatedProvider` 登録 | 低 | JS/TS (Go to Related), ReasonML (.ml/.mli) |
 
 #### P2（中優先度） — あると便利
