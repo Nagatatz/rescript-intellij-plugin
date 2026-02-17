@@ -5,7 +5,9 @@ import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
+import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
@@ -16,17 +18,17 @@ class RescriptDuplicateOpenInspection : LocalInspectionTool() {
         isOnTheFly: Boolean,
     ): PsiElementVisitor =
         object : PsiElementVisitor() {
-            override fun visitFile(file: com.intellij.psi.PsiFile) {
+            override fun visitFile(file: PsiFile) {
                 if (file !is RescriptFile) return
                 checkScope(file, holder)
             }
         }
 
     private fun checkScope(
-        scope: com.intellij.psi.PsiElement,
+        scope: PsiElement,
         holder: ProblemsHolder,
     ) {
-        val openStatements = scope.children.filter { it.node.elementType == RescriptElementTypes.OPEN_STATEMENT }
+        val openStatements = scope.children.filter { it.node?.elementType == RescriptElementTypes.OPEN_STATEMENT }
         val seen = mutableSetOf<String>()
 
         for (openStmt in openStatements) {
@@ -43,19 +45,19 @@ class RescriptDuplicateOpenInspection : LocalInspectionTool() {
         }
 
         // Check nested module scopes recursively
-        val modules = scope.children.filter { it.node.elementType == RescriptElementTypes.MODULE_DECLARATION }
+        val modules = scope.children.filter { it.node?.elementType == RescriptElementTypes.MODULE_DECLARATION }
         for (module in modules) {
             checkScope(module, holder)
         }
     }
 
-    private fun extractModulePath(openStmt: com.intellij.psi.PsiElement): String {
+    private fun extractModulePath(openStmt: PsiElement): String {
         val tokens =
             buildList {
                 var child = openStmt.firstChild
                 var pastOpen = false
                 while (child != null) {
-                    val type = child.node.elementType
+                    val type = child.node?.elementType
                     if (type == RescriptTokenTypes.OPEN) {
                         pastOpen = true
                     } else if (pastOpen && (type == RescriptTokenTypes.UIDENT || type == RescriptTokenTypes.DOT)) {

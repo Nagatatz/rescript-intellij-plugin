@@ -33,7 +33,8 @@ class RescriptLspServerDescriptor(
             override val semanticTokensCustomizer = RescriptSemanticTokensSupport()
         }
 
-    override fun isSupportedFile(file: VirtualFile): Boolean = file.extension in RESCRIPT_EXTENSIONS
+    override fun isSupportedFile(file: VirtualFile): Boolean =
+        file.extension in RescriptLspServerSupportProvider.RESCRIPT_EXTENSIONS
 
     override fun createCommandLine(): GeneralCommandLine {
         val settings = RescriptProjectSettings.getInstance(project)
@@ -108,19 +109,22 @@ class RescriptLspServerDescriptor(
     }
 
     private fun tryExec(vararg args: String): String? =
-        runCatching {
+        try {
             val proc = ProcessBuilder(*args).redirectErrorStream(true).start()
             val output =
-                proc.inputStream
-                    .bufferedReader()
-                    .readLine()
-                    ?.trim()
+                proc.inputStream.use { stream ->
+                    stream.bufferedReader().readLine()?.trim()
+                }
             val ok = proc.waitFor() == 0
             if (ok && !output.isNullOrEmpty() && File(output).exists()) output else null
-        }.getOrNull()
+        } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
+            null
+        } catch (_: Exception) {
+            null
+        }
 
     companion object {
         private val LOG = logger<RescriptLspServerDescriptor>()
-        private val RESCRIPT_EXTENSIONS = setOf("res", "resi")
     }
 }

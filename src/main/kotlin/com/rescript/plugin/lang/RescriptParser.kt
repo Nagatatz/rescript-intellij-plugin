@@ -13,6 +13,11 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
  * Semantic analysis is delegated to the LSP (rescript-language-server).
  */
 class RescriptParser : PsiParser {
+    companion object {
+        private val IDENTIFIER_TOKENS =
+            setOf(RescriptTokenTypes.LIDENT, RescriptTokenTypes.UIDENT, RescriptTokenTypes.UNDERSCORE)
+    }
+
     override fun parse(
         root: IElementType,
         builder: PsiBuilder,
@@ -71,9 +76,7 @@ class RescriptParser : PsiParser {
         }
 
         // consume identifier (lident or uident or _)
-        if (b.tokenType in
-            listOf(RescriptTokenTypes.LIDENT, RescriptTokenTypes.UIDENT, RescriptTokenTypes.UNDERSCORE)
-        ) {
+        if (b.tokenType in IDENTIFIER_TOKENS) {
             b.advanceLexer()
         } else if (!b.eof() && !isTopLevelStart(b.tokenType)) {
             // R2: Report missing identifier
@@ -415,6 +418,8 @@ class RescriptParser : PsiParser {
 
     private fun isTopLevelStart(token: IElementType?): Boolean =
         token != null &&
-            RescriptTokenTypes.TOP_LEVEL_KEYWORDS.contains(token) ||
-            token == RescriptTokenTypes.ARROBASE
+            (
+                RescriptTokenTypes.TOP_LEVEL_KEYWORDS.contains(token) ||
+                    token == RescriptTokenTypes.ARROBASE
+            )
 }

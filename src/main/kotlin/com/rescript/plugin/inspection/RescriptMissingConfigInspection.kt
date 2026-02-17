@@ -2,8 +2,9 @@ package com.rescript.plugin.inspection
 
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.vfs.VirtualFileManager
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiElementVisitor
+import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
 
 class RescriptMissingConfigInspection : LocalInspectionTool() {
@@ -12,12 +13,12 @@ class RescriptMissingConfigInspection : LocalInspectionTool() {
         isOnTheFly: Boolean,
     ): PsiElementVisitor =
         object : PsiElementVisitor() {
-            override fun visitFile(file: com.intellij.psi.PsiFile) {
+            override fun visitFile(file: PsiFile) {
                 if (file !is RescriptFile) return
 
                 val project = file.project
                 val basePath = project.basePath ?: return
-                val baseDir = VirtualFileManager.getInstance().findFileByUrl("file://$basePath") ?: return
+                val baseDir = LocalFileSystem.getInstance().findFileByPath(basePath) ?: return
 
                 val hasRescriptJson = baseDir.findChild("rescript.json") != null
                 val hasBsConfig = baseDir.findChild("bsconfig.json") != null
