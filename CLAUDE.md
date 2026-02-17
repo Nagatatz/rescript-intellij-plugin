@@ -74,7 +74,8 @@ src/main/
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
-│   │   └── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
+│   │   ├── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
+│   │   └── RescriptSwitchFileAction.kt    # .res/.resi ファイル切り替え (Alt+O)
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
