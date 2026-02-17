@@ -87,6 +87,10 @@
         <configurationType
                 implementation="com.rescript.plugin.run.RescriptRunConfigurationType"/>
 
+        <!-- Console Filter (clickable file:line links in compiler output) -->
+        <consoleFilterProvider
+                implementation="com.rescript.plugin.run.RescriptConsoleFilterProvider"/>
+
         <!-- Code style settings -->
         <langCodeStyleSettingsProvider
                 implementation="com.rescript.plugin.codestyle.RescriptCodeStyleSettingsProvider"/>
