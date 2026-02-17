@@ -9,11 +9,11 @@
 
 ## Feature 1: `.res`/`.resi` 切り替え（ブランチ: `feature/res-resi-switch`）
 
-- [ ] `RescriptSwitchFileAction.kt` 作成
-- [ ] `plugin.xml` に `<action>` 登録
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
-- [ ] コミット: `✨ Add .res/.resi file switch action (Alt+O)`
+- [x] `RescriptSwitchFileAction.kt` 作成
+- [x] `plugin.xml` に `<action>` 登録
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
+- [x] コミット: `✨ Add .res/.resi file switch action (Alt+O)`
 
 ## Feature 2: Live Templates（ブランチ: `feature/live-templates`）
 

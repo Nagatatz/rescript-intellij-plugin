@@ -158,4 +158,14 @@
                          level="WARNING"
                          implementationClass="com.rescript.plugin.inspection.RescriptMissingConfigInspection"/>
     </extensions>
+
+    <actions>
+        <action id="ReScript.SwitchFile"
+                class="com.rescript.plugin.navigation.RescriptSwitchFileAction"
+                text="Switch .res/.resi"
+                description="Switch between .res and .resi files">
+            <keyboard-shortcut first-keystroke="alt O" keymap="$default"/>
+            <add-to-group group-id="GoToMenu" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>
