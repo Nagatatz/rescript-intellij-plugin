@@ -1,8 +1,11 @@
 # 各ウィンドウへの命令文
 
-## セットアップ
+## 前提
 
-| ウィンドウ | ディレクトリ | ブランチ |
+各ウィンドウは `/Users/ngtz/Documents/repos/rescript-intellij-plugin` で Claude Code が起動済み。
+命令文の冒頭で worktree ディレクトリへ `cd` する。
+
+| ウィンドウ | worktree パス | ブランチ |
 |-----------|-------------|---------|
 | Window 1 | `../rescript-wt-json-schema` | `feature/json-schema` |
 | Window 2 | `../rescript-wt-raw-js` | `feature/raw-js-highlight` |
@@ -16,6 +19,8 @@
 ## Window 1: JSON Schema 提供
 
 ```
+まず `cd /Users/ngtz/Documents/repos/rescript-wt-json-schema` を実行してください。以降すべての作業をこのディレクトリで行います。
+
 ブランチ `feature/json-schema` で rescript.json の JSON Schema 提供機能を実装してください。
 ステアリングワークフローに従い、以下の手順で進めてください。
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
@@ -68,7 +73,7 @@
 コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
 承認された場合:
 1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/json-schema`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove ../rescript-wt-json-schema`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-json-schema`
 3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/json-schema`
 ```
 
@@ -77,6 +82,8 @@
 ## Window 2: %raw() JS ハイライト
 
 ```
+まず `cd /Users/ngtz/Documents/repos/rescript-wt-raw-js` を実行してください。以降すべての作業をこのディレクトリで行います。
+
 ブランチ `feature/raw-js-highlight` で %raw() 内の JavaScript ハイライト機能を実装してください。
 ステアリングワークフローに従い、以下の手順で進めてください。
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
@@ -128,7 +135,7 @@
 コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
 承認された場合:
 1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/raw-js-highlight`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove ../rescript-wt-raw-js`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-raw-js`
 3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/raw-js-highlight`
 ```
 
@@ -137,6 +144,8 @@
 ## Window 3: Postfix Completion
 
 ```
+まず `cd /Users/ngtz/Documents/repos/rescript-wt-postfix` を実行してください。以降すべての作業をこのディレクトリで行います。
+
 ブランチ `feature/postfix-completion` で Postfix Completion 機能を実装してください。
 ステアリングワークフローに従い、以下の手順で進めてください。
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
@@ -195,7 +204,7 @@
 コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
 承認された場合:
 1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/postfix-completion`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove ../rescript-wt-postfix`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-postfix`
 3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/postfix-completion`
 ```
 
@@ -204,6 +213,8 @@
 ## Window 4: Console Filter
 
 ```
+まず `cd /Users/ngtz/Documents/repos/rescript-wt-console-filter` を実行してください。以降すべての作業をこのディレクトリで行います。
+
 ブランチ `feature/console-filter` で Console Filter 機能を実装してください。
 ステアリングワークフローに従い、以下の手順で進めてください。
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
@@ -259,7 +270,7 @@
 コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
 承認された場合:
 1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/console-filter`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove ../rescript-wt-console-filter`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-console-filter`
 3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/console-filter`
 ```
 
@@ -268,6 +279,8 @@
 ## Window 5: Editor Notification Bar
 
 ```
+まず `cd /Users/ngtz/Documents/repos/rescript-wt-notification` を実行してください。以降すべての作業をこのディレクトリで行います。
+
 ブランチ `feature/editor-notification` で Editor Notification Bar 機能を実装してください。
 ステアリングワークフローに従い、以下の手順で進めてください。
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
@@ -290,8 +303,7 @@
 - 実装方針:
   - `EditorNotificationProvider` を実装
   - `collectNotificationData()` で `.res` / `.resi` ファイルかチェック
-  - LSP サーバーの検出ロジック: `RescriptLspServerDescriptor` の検出ロジックと同様に `node_modules/.bin/rescript-language-server` → `node_modules/@rescript/language-server/out/cli.js` → グローバル PATH を確認
-  - ただし、LSP ロジックの重複を避けるため、プロジェクトルートの `node_modules/@rescript/language-server/` ディレクトリの存在チェックに簡略化してよい
+  - LSP サーバーの検出ロジック: プロジェクトルートの `node_modules/@rescript/language-server/` ディレクトリの存在チェックに簡略化
   - `RescriptProjectSettings` の `lspServerPath` が設定済みなら、バーを表示しない
   - 見つからない場合 `EditorNotificationPanel` を返す:
     - テキスト: "ReScript Language Server not found. Install @rescript/language-server for full IDE support."
@@ -327,7 +339,7 @@
 コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
 承認された場合:
 1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/editor-notification`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove ../rescript-wt-notification`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-notification`
 3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/editor-notification`
 ```
 
@@ -336,6 +348,8 @@
 ## Window 6: Go to Related
 
 ```
+まず `cd /Users/ngtz/Documents/repos/rescript-wt-goto-related` を実行してください。以降すべての作業をこのディレクトリで行います。
+
 ブランチ `feature/goto-related` で Go to Related 機能を実装してください。
 ステアリングワークフローに従い、以下の手順で進めてください。
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
@@ -393,6 +407,6 @@
 コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
 承認された場合:
 1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/goto-related`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove ../rescript-wt-goto-related`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-goto-related`
 3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/goto-related`
 ```
