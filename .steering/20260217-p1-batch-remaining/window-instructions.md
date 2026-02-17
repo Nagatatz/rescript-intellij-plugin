@@ -70,11 +70,15 @@
 - コミットメッセージ: `✨ Add JSON Schema for rescript.json`
 
 ## ステップ 6: マージ確認
-コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
+コミット完了後、ユーザーに「バッチブランチ `feature/p1-batch-remaining` にマージして worktree を削除しますか？」と確認してください。
 承認された場合:
-1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/json-schema`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-json-schema`
-3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/json-schema`
+1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin checkout feature/p1-batch-remaining`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/json-schema`
+3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-json-schema`
+4. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/json-schema`
+
+## ステップ 7: 元のディレクトリに戻る
+cd /Users/ngtz/Documents/repos/rescript-intellij-plugin
 ```
 
 ---
@@ -132,11 +136,15 @@
 - コミットメッセージ: `✨ Add JavaScript highlighting in %raw() blocks`
 
 ## ステップ 6: マージ確認
-コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
+コミット完了後、ユーザーに「バッチブランチ `feature/p1-batch-remaining` にマージして worktree を削除しますか？」と確認してください。
 承認された場合:
-1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/raw-js-highlight`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-raw-js`
-3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/raw-js-highlight`
+1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin checkout feature/p1-batch-remaining`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/raw-js-highlight`
+3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-raw-js`
+4. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/raw-js-highlight`
+
+## ステップ 7: 元のディレクトリに戻る
+cd /Users/ngtz/Documents/repos/rescript-intellij-plugin
 ```
 
 ---
@@ -201,11 +209,15 @@
 - コミットメッセージ: `✨ Add ReScript postfix completion templates`
 
 ## ステップ 6: マージ確認
-コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
+コミット完了後、ユーザーに「バッチブランチ `feature/p1-batch-remaining` にマージして worktree を削除しますか？」と確認してください。
 承認された場合:
-1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/postfix-completion`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-postfix`
-3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/postfix-completion`
+1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin checkout feature/p1-batch-remaining`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/postfix-completion`
+3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-postfix`
+4. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/postfix-completion`
+
+## ステップ 7: 元のディレクトリに戻る
+cd /Users/ngtz/Documents/repos/rescript-intellij-plugin
 ```
 
 ---
@@ -267,11 +279,15 @@
 - コミットメッセージ: `✨ Add console filter for ReScript compiler output`
 
 ## ステップ 6: マージ確認
-コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
+コミット完了後、ユーザーに「バッチブランチ `feature/p1-batch-remaining` にマージして worktree を削除しますか？」と確認してください。
 承認された場合:
-1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/console-filter`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-console-filter`
-3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/console-filter`
+1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin checkout feature/p1-batch-remaining`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/console-filter`
+3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-console-filter`
+4. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/console-filter`
+
+## ステップ 7: 元のディレクトリに戻る
+cd /Users/ngtz/Documents/repos/rescript-intellij-plugin
 ```
 
 ---
@@ -336,11 +352,15 @@
 - コミットメッセージ: `✨ Add editor notification for missing language server`
 
 ## ステップ 6: マージ確認
-コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
+コミット完了後、ユーザーに「バッチブランチ `feature/p1-batch-remaining` にマージして worktree を削除しますか？」と確認してください。
 承認された場合:
-1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/editor-notification`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-notification`
-3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/editor-notification`
+1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin checkout feature/p1-batch-remaining`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/editor-notification`
+3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-notification`
+4. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/editor-notification`
+
+## ステップ 7: 元のディレクトリに戻る
+cd /Users/ngtz/Documents/repos/rescript-intellij-plugin
 ```
 
 ---
@@ -404,9 +424,13 @@
 - コミットメッセージ: `✨ Add Go to Related for .res/.resi/.js files`
 
 ## ステップ 6: マージ確認
-コミット完了後、ユーザーに「main ブランチにマージして worktree を削除しますか？」と確認してください。
+コミット完了後、ユーザーに「バッチブランチ `feature/p1-batch-remaining` にマージして worktree を削除しますか？」と確認してください。
 承認された場合:
-1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/goto-related`
-2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-goto-related`
-3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/goto-related`
+1. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin checkout feature/p1-batch-remaining`
+2. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin merge feature/goto-related`
+3. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin worktree remove /Users/ngtz/Documents/repos/rescript-wt-goto-related`
+4. `git -C /Users/ngtz/Documents/repos/rescript-intellij-plugin branch -d feature/goto-related`
+
+## ステップ 7: 元のディレクトリに戻る
+cd /Users/ngtz/Documents/repos/rescript-intellij-plugin
 ```
