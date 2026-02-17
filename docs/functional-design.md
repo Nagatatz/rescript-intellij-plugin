@@ -432,6 +432,7 @@ flowchart TD
 | `com.intellij.spellchecker.support` | `RescriptSpellcheckingStrategy` | スペルチェック | 実装済み |
 | `com.intellij.codeInsight.template.postfixTemplateProvider` | `RescriptPostfixTemplateProvider` | Postfix Completion | 実装済み |
 | `com.intellij.consoleFilterProvider` | `RescriptConsoleFilterProvider` | コンソール出力のファイルパスリンク化 | 実装済み |
+| `com.intellij.editorNotificationProvider` | `RescriptEditorNotificationProvider` | LSP 未検出時の案内バー | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
