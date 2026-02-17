@@ -433,6 +433,7 @@ flowchart TD
 | `com.intellij.codeInsight.template.postfixTemplateProvider` | `RescriptPostfixTemplateProvider` | Postfix Completion | 実装済み |
 | `com.intellij.consoleFilterProvider` | `RescriptConsoleFilterProvider` | コンソール出力のファイルパスリンク化 | 実装済み |
 | `com.intellij.editorNotificationProvider` | `RescriptEditorNotificationProvider` | LSP 未検出時の案内バー | 実装済み |
+| `json.schemaProviderFactory` | `RescriptJsonSchemaProviderFactory` | rescript.json JSON Schema 提供 | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -540,7 +541,6 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 
 | 機能 | rescript-vscode での実装 | 優先度 | 備考 |
 |---|---|---|---|
-| JSON Schema (`rescript.json`) | 内蔵スキーマ定義 | P1 | `jsonSchemaProviderFactory` |
 | `%raw()` JS ハイライト | TextMate embedded grammar | P1 | `MultiHostInjector` |
 | インターフェースファイル生成 | LSP `textDocument/createInterface` | P2 | LSP カスタムリクエスト |
 | コンパイル済み JS を開く | LSP `textDocument/openCompiled` | P2 | LSP カスタムリクエスト |

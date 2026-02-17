@@ -51,7 +51,8 @@ src/main/
 │   │   ├── RescriptCodeStyleSettingsProvider.kt  # コードスタイル設定
 │   │   └── RescriptLineIndentProvider.kt         # インデント制御
 │   ├── config/
-│   │   └── RescriptJsonIconProvider.kt  # rescript.json アイコン
+│   │   ├── RescriptJsonIconProvider.kt  # rescript.json アイコン
+│   │   └── RescriptJsonSchemaProviderFactory.kt  # JSON Schema 提供
 │   ├── run/
 │   │   ├── RescriptCliDetector.kt       # ReScript CLI 検出
 │   │   ├── RescriptCommand.kt           # コマンド定義
@@ -99,6 +100,8 @@ src/main/
     │   ├── ReScript Module.res.ft       # モジュールテンプレート
     │   ├── ReScript Interface.resi.ft   # インターフェーステンプレート
     │   └── ReScript Component.res.ft    # React コンポーネントテンプレート
+    ├── schemas/
+    │   └── rescript.schema.json         # rescript.json 用 JSON Schema
     └── icons/                           # SVG アイコン
 ```
 
