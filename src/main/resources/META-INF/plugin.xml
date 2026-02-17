@@ -204,6 +204,10 @@
         <!-- Code Vision (Code Lens via LSP) -->
         <codeInsight.daemonBoundCodeVisionProvider
                 implementation="com.rescript.plugin.codevision.RescriptCodeVisionProvider"/>
+
+        <!-- Gutter run icon for ReScript files -->
+        <runLineMarkerContributor language="ReScript"
+                                   implementationClass="com.rescript.plugin.run.RescriptRunLineMarkerContributor"/>
     </extensions>
 
     <actions>
