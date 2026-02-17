@@ -37,7 +37,10 @@ src/main/
 │   │   ├── RescriptLexer.kt             # JFlex ラッパー (FlexAdapter)
 │   │   ├── RescriptParser.kt            # 軽量パーサー (トップレベル宣言 + JSX)
 │   │   ├── RescriptParserDefinition.kt  # ParserDefinition
-│   │   └── psi/RescriptPsi.kt           # PSI 要素クラス
+│   │   ├── RescriptAstFactory.kt        # AST ファクトリ (文字列リテラルの言語インジェクション対応)
+│   │   └── psi/
+│   │       ├── RescriptPsi.kt           # PSI 要素クラス
+│   │       └── RescriptStringLiteral.kt # 文字列リテラル PSI (PsiLanguageInjectionHost)
 │   ├── highlight/
 │   │   ├── RescriptSyntaxHighlighter.kt
 │   │   ├── RescriptSyntaxHighlighterFactory.kt
@@ -51,11 +54,13 @@ src/main/
 │   │   ├── RescriptCodeStyleSettingsProvider.kt  # コードスタイル設定
 │   │   └── RescriptLineIndentProvider.kt         # インデント制御
 │   ├── config/
-│   │   └── RescriptJsonIconProvider.kt  # rescript.json アイコン
+│   │   ├── RescriptJsonIconProvider.kt  # rescript.json アイコン
+│   │   └── RescriptJsonSchemaProviderFactory.kt  # JSON Schema 提供
 │   ├── run/
 │   │   ├── RescriptCliDetector.kt       # ReScript CLI 検出
 │   │   ├── RescriptCommand.kt           # コマンド定義
 │   │   ├── RescriptConfigurationFactory.kt
+│   │   ├── RescriptConsoleFilterProvider.kt  # コンソール出力のファイルパスリンク化
 │   │   ├── RescriptRunConfiguration.kt
 │   │   ├── RescriptRunConfigurationOptions.kt
 │   │   ├── RescriptRunConfigurationType.kt
@@ -70,16 +75,22 @@ src/main/
 │   ├── indexing/
 │   │   └── RescriptTodoIndexer.kt         # TODO インデクシング
 │   ├── editor/
-│   │   └── RescriptQuoteHandler.kt        # スマート引用符補完
+│   │   ├── RescriptQuoteHandler.kt        # スマート引用符補完
+│   │   └── RescriptEditorNotificationProvider.kt  # LSP 未検出時の案内バー
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
 │   │   ├── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
-│   │   └── RescriptSwitchFileAction.kt    # .res/.resi ファイル切り替え (Alt+O)
+│   │   ├── RescriptSwitchFileAction.kt    # .res/.resi ファイル切り替え (Alt+O)
+│   │   └── RescriptGotoRelatedProvider.kt # Go to Related (.res/.resi/.js ジャンプ)
 │   ├── template/
 │   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── spellcheck/
 │   │   └── RescriptSpellcheckingStrategy.kt  # スペルチェック対応
+│   ├── completion/
+│   │   └── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log 等)
+│   ├── injection/
+│   │   └── RescriptRawJsInjector.kt    # %raw() 内 JavaScript ハイライト
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
@@ -95,6 +106,8 @@ src/main/
     │   ├── ReScript Module.res.ft       # モジュールテンプレート
     │   ├── ReScript Interface.resi.ft   # インターフェーステンプレート
     │   └── ReScript Component.res.ft    # React コンポーネントテンプレート
+    ├── schemas/
+    │   └── rescript.schema.json         # rescript.json 用 JSON Schema
     └── icons/                           # SVG アイコン
 ```
 
@@ -221,16 +234,29 @@ src/main/
 - 各機能が互いに独立していること（ファイル競合が最小限であること）
 - メインウィンドウで全体のステアリングドキュメントが作成・承認済みであること
 
+### ブランチ戦略
+
+並列実装では **バッチブランチ** を使用する。main ブランチに直接マージするのではなく、バッチブランチを中間ブランチとして使い、全機能のマージ完了後に main へマージする。
+
+```
+main
+ └── feature/<バッチ名>          ← バッチブランチ（計画・マージ用）
+      ├── feature/<機能名1>      ← worktree ブランチ
+      ├── feature/<機能名2>      ← worktree ブランチ
+      └── feature/<機能名3>      ← worktree ブランチ
+```
+
 ### 手順
 
-1. **メインウィンドウ（計画）:**
-   - 全体のステアリングディレクトリ `.steering/[YYYYMMDD]-[バッチ名]/` を作成
-   - requirements.md, design.md, tasklist.md を作成・承認
-   - 各機能用の git worktree を作成（ブランチ命名規則に従う）
-   - 各ウィンドウへの命令文を `window-instructions.md` に記述
+1. **メインウィンドウ（バッチブランチ作成・計画）:**
+   - `main` から バッチブランチ `feature/<バッチ名>` を作成
+   - バッチブランチ上で全体のステアリングディレクトリ `.steering/[YYYYMMDD]-[バッチ名]/` を作成
+   - requirements.md, design.md, tasklist.md, window-instructions.md を作成・承認
+   - ステアリングドキュメントをバッチブランチにコミット
+   - バッチブランチから各機能用の git worktree を作成（ブランチ命名規則に従う）
 
 2. **各ウィンドウ（ステアリング + 実装）:**
-   - 割り当てられた worktree ディレクトリで Claude Code を起動
+   - メインリポジトリディレクトリから `cd` で worktree ディレクトリに移動
    - 命令文を貼り付け、以下を自律的に実行:
      - **機能固有のステアリングディレクトリ** `.steering/[YYYYMMDD]-[機能名]/` を作成
      - requirements.md, design.md, tasklist.md を作成（承認確認は不要 — 親ウィンドウで承認済み）
@@ -238,10 +264,15 @@ src/main/
      - ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md 等）
      - コミット
 
-3. **メインウィンドウ（マージ）:**
-   - 全ブランチを `main` に順次マージ（`plugin.xml` 等の競合は手動解決）
+3. **メインウィンドウ（バッチブランチへマージ）:**
+   - 全機能ブランチをバッチブランチ `feature/<バッチ名>` に順次マージ（`plugin.xml` 等の競合は手動解決）
    - マージ後 `./gradlew buildPlugin` で最終確認
    - `git worktree remove` でクリーンアップ
+
+4. **メインウィンドウ（main へマージ）:**
+   - バッチブランチ `feature/<バッチ名>` を `main` にマージ
+   - `./gradlew buildPlugin` で最終確認
+   - バッチブランチを削除
 
 ### worktree 命名規則
 
@@ -253,6 +284,18 @@ src/main/
 - `../rescript-wt-switch/` — .res/.resi 切り替え
 - `../rescript-wt-live-templates/` — Live Templates
 
+### worktree の作成方法
+
+バッチブランチから worktree を作成する:
+
+```bash
+# バッチブランチに切り替え
+git checkout feature/<バッチ名>
+
+# バッチブランチから worktree を作成
+git worktree add ../rescript-wt-<機能名> -b feature/<機能名>
+```
+
 ### 命令文のフォーマット
 
 各ウィンドウへの命令文は `.steering/[YYYYMMDD]-[バッチ名]/window-instructions.md` に記録する。
@@ -263,10 +306,13 @@ src/main/
 - 具体的な実装内容（新規ファイル、変更ファイル、API の使い方）
 - ドキュメント更新の指示（CLAUDE.md, product-requirements.md, functional-design.md の具体的な変更箇所）
 - 完了条件（ビルド成功、コミットメッセージ）
+- マージ先はバッチブランチ `feature/<バッチ名>` であること
 
 ### 命令文のテンプレート
 
 ```
+cd <worktreeの絶対パス>
+
 ブランチ `<ブランチ名>` で <機能名> を実装してください。
 ステアリングワークフローに従い、以下の手順で進めてください。
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
@@ -287,11 +333,15 @@ CLAUDE.md, product-requirements.md, functional-design.md を更新。
 tasklist.md を更新し、ドキュメント更新と共にコミット。
 
 ## ステップ 6: マージ確認
-コミット完了後、ユーザーに「main にマージして worktree を削除しますか？」と確認。
+コミット完了後、ユーザーに「バッチブランチ `feature/<バッチ名>` にマージして worktree を削除しますか？」と確認。
 承認された場合:
+  git -C <メインリポジトリパス> checkout feature/<バッチ名>
   git -C <メインリポジトリパス> merge <ブランチ名>
   git -C <メインリポジトリパス> worktree remove <worktreeパス>
   git -C <メインリポジトリパス> branch -d <ブランチ名>
+
+## ステップ 7: 元のディレクトリに戻る
+cd <メインリポジトリの絶対パス>
 ```
 
 ## 重要な注意事項

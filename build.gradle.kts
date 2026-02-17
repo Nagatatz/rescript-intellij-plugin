@@ -25,6 +25,7 @@ dependencies {
     intellijPlatform {
         intellijIdea(providers.gradleProperty("platformVersion"))
         bundledModule("intellij.spellchecker")
+        bundledPlugin("com.intellij.modules.json")
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
     }
