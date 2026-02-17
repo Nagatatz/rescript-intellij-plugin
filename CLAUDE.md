@@ -37,7 +37,10 @@ src/main/
 │   │   ├── RescriptLexer.kt             # JFlex ラッパー (FlexAdapter)
 │   │   ├── RescriptParser.kt            # 軽量パーサー (トップレベル宣言 + JSX)
 │   │   ├── RescriptParserDefinition.kt  # ParserDefinition
-│   │   └── psi/RescriptPsi.kt           # PSI 要素クラス
+│   │   ├── RescriptAstFactory.kt        # AST ファクトリ (文字列リテラルの言語インジェクション対応)
+│   │   └── psi/
+│   │       ├── RescriptPsi.kt           # PSI 要素クラス
+│   │       └── RescriptStringLiteral.kt # 文字列リテラル PSI (PsiLanguageInjectionHost)
 │   ├── highlight/
 │   │   ├── RescriptSyntaxHighlighter.kt
 │   │   ├── RescriptSyntaxHighlighterFactory.kt
@@ -80,6 +83,8 @@ src/main/
 │   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── spellcheck/
 │   │   └── RescriptSpellcheckingStrategy.kt  # スペルチェック対応
+│   ├── injection/
+│   │   └── RescriptRawJsInjector.kt    # %raw() 内 JavaScript ハイライト
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/

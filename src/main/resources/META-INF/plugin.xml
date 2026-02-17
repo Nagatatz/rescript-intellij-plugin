@@ -30,6 +30,7 @@
 
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.spellchecker</depends>
+    <depends optional="true" config-file="rescript-js-injection.xml">JavaScript</depends>
 
     <extensions defaultExtensionNs="com.intellij">
 
@@ -170,6 +171,10 @@
         <!-- Spell checking -->
         <spellchecker.support language="ReScript"
                               implementationClass="com.rescript.plugin.spellcheck.RescriptSpellcheckingStrategy"/>
+
+        <!-- AST factory for language injection support in string literals -->
+        <lang.ast.factory language="ReScript"
+                          implementationClass="com.rescript.plugin.lang.RescriptAstFactory"/>
     </extensions>
 
     <actions>
