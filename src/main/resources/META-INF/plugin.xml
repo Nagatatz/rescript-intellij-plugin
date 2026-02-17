@@ -127,6 +127,10 @@
         <todoIndexer filetype="ReScript Interface"
                      implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
 
+        <!-- Go to Symbol -->
+        <gotoSymbolContributor
+                implementation="com.rescript.plugin.navigation.RescriptSymbolContributor"/>
+
         <!-- Code formatting (rescript format CLI) -->
         <formattingService
                 implementation="com.rescript.plugin.formatter.RescriptFormattingService"/>

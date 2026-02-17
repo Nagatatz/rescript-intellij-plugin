@@ -73,6 +73,8 @@ src/main/
 │   │   └── RescriptQuoteHandler.kt        # スマート引用符補完
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
+│   ├── navigation/
+│   │   └── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
