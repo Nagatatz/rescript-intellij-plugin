@@ -132,6 +132,10 @@
         <projectService
                 serviceImplementation="com.rescript.plugin.lsp.RescriptCompilationStatusService"/>
 
+        <!-- Build status widget in status bar -->
+        <statusBarWidgetFactory id="RescriptCompilerStatus"
+                implementation="com.rescript.plugin.statusbar.RescriptCompilerStatusWidgetFactory"/>
+
         <!-- TODO indexer -->
         <todoIndexer filetype="ReScript"
                      implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
