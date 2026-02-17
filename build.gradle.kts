@@ -7,6 +7,7 @@ plugins {
     id("org.jetbrains.intellij.platform") version "2.11.0"
     id("org.jetbrains.grammarkit") version "2023.3.0.2"
     id("org.jlleitschuh.gradle.ktlint") version "14.0.1"
+    id("org.jetbrains.kotlinx.kover") version "0.9.4"
 }
 
 repositories {
@@ -56,6 +57,24 @@ ktlint {
     ignoreFailures.set(false)
     filter {
         exclude("**/generated/**")
+    }
+}
+
+kover {
+    reports {
+        total {
+            xml {
+                onCheck = false
+            }
+            html {
+                onCheck = false
+            }
+        }
+        filters {
+            excludes {
+                classes("com.rescript.plugin.lang.RescriptFlexLexer")
+            }
+        }
     }
 }
 
