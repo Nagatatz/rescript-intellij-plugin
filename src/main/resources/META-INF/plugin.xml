@@ -160,6 +160,11 @@
                          enabledByDefault="true"
                          level="WARNING"
                          implementationClass="com.rescript.plugin.inspection.RescriptMissingConfigInspection"/>
+
+        <!-- File Templates -->
+        <internalFileTemplate name="ReScript Module"/>
+        <internalFileTemplate name="ReScript Interface"/>
+        <internalFileTemplate name="ReScript Component"/>
     </extensions>
 
     <actions>
@@ -169,6 +174,12 @@
                 description="Switch between .res and .resi files">
             <keyboard-shortcut first-keystroke="alt O" keymap="$default"/>
             <add-to-group group-id="GoToMenu" anchor="last"/>
+        </action>
+        <action id="ReScript.NewFile"
+                class="com.rescript.plugin.template.RescriptCreateFileAction"
+                text="ReScript File"
+                description="Create a new ReScript file">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
         </action>
     </actions>
 </idea-plugin>
