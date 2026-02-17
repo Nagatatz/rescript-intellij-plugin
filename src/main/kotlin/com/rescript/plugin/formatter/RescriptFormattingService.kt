@@ -24,7 +24,7 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
     override fun createFormattingTask(request: AsyncFormattingRequest): FormattingTask? {
         val project = request.context.project
         val ioFile = request.ioFile ?: return null
-        val ext = ioFile.extension ?: "res"
+        val ext = ioFile.extension.ifEmpty { "res" }
 
         val cliPath =
             RescriptCliDetector.findCli(
