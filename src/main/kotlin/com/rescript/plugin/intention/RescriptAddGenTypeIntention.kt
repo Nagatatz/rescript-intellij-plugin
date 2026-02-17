@@ -1,0 +1,78 @@
+package com.rescript.plugin.intention
+
+import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
+import com.rescript.plugin.lang.psi.RescriptElementTypes
+import com.rescript.plugin.lang.psi.RescriptFile
+
+/**
+ * Intention action that adds a @genType annotation to the current declaration.
+ * Available on let, type, and module declarations that don't already have @genType.
+ */
+class RescriptAddGenTypeIntention : PsiElementBaseIntentionAction() {
+    override fun getText(): String = "Add @genType annotation"
+
+    override fun getFamilyName(): String = "Add @genType annotation"
+
+    override fun isAvailable(
+        project: Project,
+        editor: Editor?,
+        element: PsiElement,
+    ): Boolean {
+        if (element.containingFile !is RescriptFile) return false
+        val declaration = findParentDeclaration(element) ?: return false
+        return !hasGenTypeAnnotation(declaration)
+    }
+
+    override fun invoke(
+        project: Project,
+        editor: Editor?,
+        element: PsiElement,
+    ) {
+        val declaration = findParentDeclaration(element) ?: return
+        val document = editor?.document ?: return
+        val offset = declaration.textRange.startOffset
+        val lineNumber = document.getLineNumber(offset)
+        val lineStartOffset = document.getLineStartOffset(lineNumber)
+        val indent =
+            document.getText(
+                com.intellij.openapi.util
+                    .TextRange(lineStartOffset, offset),
+            )
+        document.insertString(offset, "@genType\n$indent")
+    }
+
+    companion object {
+        private val DECLARATION_TYPES =
+            setOf(
+                RescriptElementTypes.LET_DECLARATION,
+                RescriptElementTypes.TYPE_DECLARATION,
+                RescriptElementTypes.MODULE_DECLARATION,
+            )
+
+        fun findParentDeclaration(element: PsiElement): PsiElement? {
+            var current: PsiElement? = element
+            while (current != null) {
+                if (current.node?.elementType in DECLARATION_TYPES) return current
+                current = current.parent
+            }
+            return null
+        }
+
+        fun hasGenTypeAnnotation(declaration: PsiElement): Boolean {
+            var prev = declaration.prevSibling
+            while (prev != null) {
+                if (prev.node?.elementType == RescriptElementTypes.ANNOTATION) {
+                    val text = prev.text
+                    if (text == "@genType" || text.startsWith("@genType(")) return true
+                }
+                // Skip whitespace/EOL between annotation and declaration
+                if (prev.text.isNotBlank() && prev.node?.elementType != RescriptElementTypes.ANNOTATION) break
+                prev = prev.prevSibling
+            }
+            return false
+        }
+    }
+}
