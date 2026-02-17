@@ -88,6 +88,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | `.res`/`.resi` 切り替え | `Alt+O` で実装/インターフェースファイル切り替え | `RescriptSwitchFileAction` |
 | Live Templates | `let`, `mod`, `switch`, `if` 等15種のスニペット | `liveTemplates/ReScript.xml` |
 | File Templates | New > ReScript File からテンプレートファイル作成（Module, Interface, Component） | `RescriptCreateFileAction` + `internalFileTemplate` |
+| スペルチェック | コメント・文字列・識別子のスペルチェック | `RescriptSpellcheckingStrategy` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -107,7 +108,6 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 | 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
 |---|---|---|---|---|
 | Postfix Completion | `.switch`, `.pipe`, `.log`, `.some`, `.ok` 等の式後方補完 | `PostfixTemplateProvider` 登録 | 低 | Kotlin, JS/TS (標準機能) |
-| Spell Checking | 識別子・文字列リテラルのスペルチェック | `SpellcheckingStrategy` 登録 | 低 | Elm, Kotlin (標準機能) |
 | Console Filter | コンパイルエラー出力からファイル:行へのクリックジャンプ | `ConsoleFilterProvider` 登録 | 低 | JS/TS, Kotlin, Dart (標準機能) |
 | Editor Notification Bar | LSP 未検出時の設定案内バー表示 | `EditorNotificationProvider` 登録 | 低 | Dart, Kotlin (標準機能) |
 | Go to Related | `.res` ↔ `.resi` ↔ `.js` 間の関連ファイルジャンプ | `GotoRelatedProvider` 登録 | 低 | JS/TS (Go to Related), ReasonML (.ml/.mli) |
