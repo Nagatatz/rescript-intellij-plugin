@@ -170,6 +170,10 @@
         <!-- Spell checking -->
         <spellchecker.support language="ReScript"
                               implementationClass="com.rescript.plugin.spellcheck.RescriptSpellcheckingStrategy"/>
+
+        <!-- Postfix Completion -->
+        <codeInsight.template.postfixTemplateProvider language="ReScript"
+                                                      implementationClass="com.rescript.plugin.completion.RescriptPostfixTemplateProvider"/>
     </extensions>
 
     <actions>
