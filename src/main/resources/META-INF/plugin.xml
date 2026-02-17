@@ -127,6 +127,10 @@
         <todoIndexer filetype="ReScript Interface"
                      implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
 
+        <!-- Code formatting (rescript format CLI) -->
+        <formattingService
+                implementation="com.rescript.plugin.formatter.RescriptFormattingService"/>
+
         <!-- Inspections -->
         <localInspection language="ReScript"
                          groupName="ReScript"
