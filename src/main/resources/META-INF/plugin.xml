@@ -128,6 +128,14 @@
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
 
+        <!-- Compilation status service (receives LSP notifications) -->
+        <projectService
+                serviceImplementation="com.rescript.plugin.lsp.RescriptCompilationStatusService"/>
+
+        <!-- Build status widget in status bar -->
+        <statusBarWidgetFactory id="RescriptCompilerStatus"
+                implementation="com.rescript.plugin.statusbar.RescriptCompilerStatusWidgetFactory"/>
+
         <!-- TODO indexer -->
         <todoIndexer filetype="ReScript"
                      implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
@@ -192,6 +200,10 @@
         <!-- AST factory for language injection support in string literals -->
         <lang.ast.factory language="ReScript"
                           implementationClass="com.rescript.plugin.lang.RescriptAstFactory"/>
+
+        <!-- Code Vision (Code Lens via LSP) -->
+        <codeInsight.daemonBoundCodeVisionProvider
+                implementation="com.rescript.plugin.codevision.RescriptCodeVisionProvider"/>
     </extensions>
 
     <actions>
@@ -202,11 +214,24 @@
             <keyboard-shortcut first-keystroke="alt O" keymap="$default"/>
             <add-to-group group-id="GoToMenu" anchor="last"/>
         </action>
+        <action id="ReScript.CreateInterface"
+                class="com.rescript.plugin.navigation.RescriptCreateInterfaceAction"
+                text="Create Interface File"
+                description="Generate .resi from current .res file">
+            <add-to-group group-id="GoToMenu" anchor="last"/>
+        </action>
         <action id="ReScript.NewFile"
                 class="com.rescript.plugin.template.RescriptCreateFileAction"
                 text="ReScript File"
                 description="Create a new ReScript file">
             <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
+        </action>
+        <action id="ReScript.OpenCompiledJs"
+                class="com.rescript.plugin.navigation.RescriptOpenCompiledJsAction"
+                text="Open Compiled JavaScript"
+                description="Open compiled JS for this ReScript file">
+            <add-to-group group-id="GoToMenu" anchor="last"/>
+            <keyboard-shortcut first-keystroke="alt shift J" keymap="$default"/>
         </action>
     </actions>
 </idea-plugin>

@@ -437,6 +437,11 @@ flowchart TD
 | `com.intellij.lang.ast.factory` | `RescriptAstFactory` | 文字列リテラルの言語インジェクション対応 | 実装済み |
 | `com.intellij.multiHostInjector` | `RescriptRawJsInjector` | `%raw()` 内 JavaScript ハイライト (optional: JavaScript) | 実装済み |
 | `com.intellij.gotoRelatedProvider` | `RescriptGotoRelatedProvider` | Go to Related (.res/.resi/.js) | 実装済み |
+| `com.intellij.codeInsight.daemonBoundCodeVisionProvider` | `RescriptCodeVisionProvider` | Code Lens（関数の型注釈表示） | 実装済み |
+| `com.intellij.statusBarWidgetFactory` | `RescriptCompilerStatusWidgetFactory` | ビルドステータス表示 | 実装済み |
+| `com.intellij.projectService` | `RescriptCompilationStatusService` | コンパイル状態保持（LSP 通知受信） | 実装済み |
+| `<action>` | `RescriptCreateInterfaceAction` | インターフェースファイル生成 | 実装済み |
+| `<action>` | `RescriptOpenCompiledJsAction` | コンパイル済み JS を開く (Alt+Shift+J) | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -525,8 +530,8 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | リアルタイム診断 | LSP diagnostics | LSP diagnostics | 同等 |
 | インレイヒント | LSP inlay hints | LSP inlay hints | 同等 |
 | リネーム | LSP rename | LSP rename | 同等 |
-| Signature Help | LSP signatureHelp | **未実装** | IntelliJ LSP API で自動提供の可能性あり |
-| Code Lens | LSP codeLens | **未実装** | IntelliJ LSP API の対応状況要確認 |
+| Signature Help | LSP signatureHelp | LSP signatureHelp | 同等（IntelliJ 2025.3+ で自動サポート） |
+| Code Lens | LSP codeLens | `RescriptCodeVisionProvider` | CodeVision API 経由で実装 |
 
 ### IDE 統合機能
 
@@ -544,9 +549,6 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 
 | 機能 | rescript-vscode での実装 | 優先度 | 備考 |
 |---|---|---|---|
-| インターフェースファイル生成 | LSP `textDocument/createInterface` | P2 | LSP カスタムリクエスト |
-| コンパイル済み JS を開く | LSP `textDocument/openCompiled` | P2 | LSP カスタムリクエスト |
-| ビルドステータス表示 | StatusBar + `.compiler.log` 監視 | P2 | `StatusBarWidget` |
 | reanalyze 統合 | reanalyze バイナリ起動 | P3 | デッドコード・未処理例外分析 |
 | Markdown ReScript ハイライト | TextMate embedded grammar | P3 | `LanguageInjector` |
 | Paste as JSON.t/JSX | クリップボード変換コマンド | P3 | `PasteProvider` |

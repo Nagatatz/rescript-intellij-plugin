@@ -95,6 +95,11 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | JSON Schema 提供 | `rescript.json`/`bsconfig.json` の補完・バリデーション | `RescriptJsonSchemaProviderFactory` |
 | `%raw()` JS ハイライト | `%raw()` 内の JavaScript をハイライト | `RescriptRawJsInjector` + `RescriptAstFactory` |
 | Go to Related | `Navigate > Related Symbol` で `.res`/`.resi`/`.js` 間の関連ファイルジャンプ | `RescriptGotoRelatedProvider` |
+| Signature Help | `(` 入力時に関数シグネチャ（パラメータ情報）をポップアップ表示 | IntelliJ 2025.3+ LSP API で自動サポート |
+| Code Lens | 関数定義の上に推論された型シグネチャをインライン表示 | `RescriptCodeVisionProvider` (CodeVision API) |
+| インターフェースファイル生成 | `.res` から `.resi` を自動生成 | `RescriptCreateInterfaceAction` (LSP `textDocument/createInterface`) |
+| コンパイル済み JS を開く | `.res` に対応するコンパイル済み `.js` を開く (Alt+Shift+J) | `RescriptOpenCompiledJsAction` (LSP `textDocument/openCompiled`) |
+| ビルドステータス表示 | ステータスバーにコンパイル状態（成功/エラー/警告）表示 | `RescriptCompilerStatusWidgetFactory` (LSP `rescript/compilationStatus`) |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -114,11 +119,7 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 
 | 機能 | 説明 | 実装アプローチ | 難易度 |
 |---|---|---|---|
-| インターフェースファイル生成 | `.cmi` から `.resi` を自動生成 | LSP カスタムリクエスト `textDocument/createInterface` | 中 |
-| コンパイル済み JS を開く | `.res` に対応する `.js` を開く | LSP `textDocument/openCompiled` またはファイルパス推測 | 低 |
-| ビルドステータス表示 | ステータスバーにコンパイル状態表示 | `StatusBarWidget` + `.compiler.log` 監視 | 中〜高 |
-| Signature Help | `(` 入力時に関数シグネチャ表示 | IntelliJ LSP API で自動提供される可能性あり（要確認） | 低〜中 |
-| Code Lens | 関数定義上にフル型表示 | IntelliJ LSP API の Code Lens サポート確認 | 中 |
+(全 P2 rescript-vscode ギャップ機能が実装済み)
 
 **他の JetBrains 言語プラグインとのギャップ:**
 
