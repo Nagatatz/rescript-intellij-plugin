@@ -238,6 +238,10 @@
         <!-- Surround With -->
         <lang.surroundDescriptor language="ReScript"
                                  implementationClass="com.rescript.plugin.surround.RescriptSurroundDescriptor"/>
+
+        <!-- Gutter run icon for ReScript files -->
+        <runLineMarkerContributor language="ReScript"
+                                   implementationClass="com.rescript.plugin.run.RescriptRunLineMarkerContributor"/>
     </extensions>
 
     <actions>
