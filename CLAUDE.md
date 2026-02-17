@@ -56,6 +56,7 @@ src/main/
 │   │   ├── RescriptCliDetector.kt       # ReScript CLI 検出
 │   │   ├── RescriptCommand.kt           # コマンド定義
 │   │   ├── RescriptConfigurationFactory.kt
+│   │   ├── RescriptConsoleFilterProvider.kt  # コンソール出力のファイルパスリンク化
 │   │   ├── RescriptRunConfiguration.kt
 │   │   ├── RescriptRunConfigurationOptions.kt
 │   │   ├── RescriptRunConfigurationType.kt
