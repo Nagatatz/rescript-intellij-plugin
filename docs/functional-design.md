@@ -430,6 +430,7 @@ flowchart TD
 | `com.intellij.internalFileTemplate` | `ReScript Module` / `ReScript Interface` / `ReScript Component` | ファイルテンプレート登録 | 実装済み |
 | `<action>` | `RescriptCreateFileAction` | New > ReScript File アクション | 実装済み |
 | `com.intellij.spellchecker.support` | `RescriptSpellcheckingStrategy` | スペルチェック | 実装済み |
+| `com.intellij.editorNotificationProvider` | `RescriptEditorNotificationProvider` | LSP 未検出時の案内バー | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
