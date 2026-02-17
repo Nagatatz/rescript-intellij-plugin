@@ -49,12 +49,10 @@ class RescriptRunConfiguration(
 
     override fun checkConfiguration() {
         val effectiveWorkDir = workingDirectory ?: project.basePath
-        val cliPath = RescriptCliDetector.findCli(effectiveWorkDir, project.basePath)
-        if (cliPath == null) {
-            throw RuntimeConfigurationError(
+        RescriptCliDetector.findCli(effectiveWorkDir, project.basePath)
+            ?: throw RuntimeConfigurationError(
                 "Cannot find 'rescript' CLI. Ensure it is installed via npm in the project.",
             )
-        }
     }
 
     override fun getState(

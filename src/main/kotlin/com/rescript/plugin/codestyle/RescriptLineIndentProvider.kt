@@ -20,7 +20,7 @@ class RescriptLineIndentProvider : LineIndentProvider {
         editor: Editor,
         language: Language?,
         offset: Int,
-    ): String? {
+    ): String {
         val document = editor.document
         val lineNumber = document.getLineNumber(offset)
         if (lineNumber == 0) return ""

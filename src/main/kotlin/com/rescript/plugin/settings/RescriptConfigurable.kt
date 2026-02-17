@@ -22,23 +22,25 @@ class RescriptConfigurable(
     override fun createComponent(): JComponent {
         val lspField =
             TextFieldWithBrowseButton().apply {
-                @Suppress("DEPRECATION")
+                @Suppress("DialogTitleCapitalization")
                 addBrowseFolderListener(
-                    "Language Server Path",
-                    "Select the rescript-language-server executable or cli.js",
                     project,
-                    FileChooserDescriptorFactory.createSingleFileDescriptor(),
+                    FileChooserDescriptorFactory
+                        .createSingleFileDescriptor()
+                        .withTitle("Language Server Path")
+                        .withDescription("Select the rescript-language-server executable or cli.js"),
                 )
             }
 
         val nodeField =
             TextFieldWithBrowseButton().apply {
-                @Suppress("DEPRECATION")
+                @Suppress("DialogTitleCapitalization")
                 addBrowseFolderListener(
-                    "Node.js Interpreter Path",
-                    "Select the Node.js interpreter",
                     project,
-                    FileChooserDescriptorFactory.createSingleFileDescriptor(),
+                    FileChooserDescriptorFactory
+                        .createSingleFileDescriptor()
+                        .withTitle("Node.js Interpreter Path")
+                        .withDescription("Select the Node.js interpreter"),
                 )
             }
 

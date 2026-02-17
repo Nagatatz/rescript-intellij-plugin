@@ -31,12 +31,12 @@ class RescriptSettingsEditor(
 
     private val workingDirectoryField =
         TextFieldWithBrowseButton().apply {
-            @Suppress("DEPRECATION")
             addBrowseFolderListener(
-                "Working Directory",
-                "Select the working directory for the ReScript build",
                 project,
-                FileChooserDescriptorFactory.createSingleFolderDescriptor(),
+                FileChooserDescriptorFactory
+                    .createSingleFolderDescriptor()
+                    .withTitle("Working Directory")
+                    .withDescription("Select the working directory for the ReScript build"),
             )
         }
 

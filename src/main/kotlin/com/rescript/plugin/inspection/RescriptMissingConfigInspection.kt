@@ -24,6 +24,7 @@ class RescriptMissingConfigInspection : LocalInspectionTool() {
                 val hasBsConfig = baseDir.findChild("bsconfig.json") != null
 
                 if (!hasRescriptJson && !hasBsConfig) {
+                    @Suppress("DialogTitleCapitalization")
                     holder.registerProblem(
                         file,
                         "rescript.json not found in project root. LSP features may not work correctly.",

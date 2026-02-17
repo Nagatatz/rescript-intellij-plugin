@@ -186,7 +186,9 @@ object RescriptTokenTypes {
     // ── Multi-character operators ─────────────────────────────────────
     @JvmField val STRING_CONCAT = token("STRING_CONCAT")
 
-    @JvmField val SHARPSHARP = token("SHARPSHARP")
+    @Suppress("unused")
+    @JvmField
+    val SHARPSHARP = token("SHARPSHARP")
 
     @JvmField val SHORTCUT = token("SHORTCUT")
 
@@ -238,7 +240,9 @@ object RescriptTokenTypes {
 
     @JvmField val SEMI = token("SEMI")
 
-    @JvmField val SINGLE_QUOTE = token("SINGLE_QUOTE")
+    @Suppress("unused")
+    @JvmField
+    val SINGLE_QUOTE = token("SINGLE_QUOTE")
 
     @JvmField val DOTDOTDOT = token("DOTDOTDOT")
 
@@ -264,7 +268,9 @@ object RescriptTokenTypes {
 
     @JvmField val ANNOTATION_NAME = token("ANNOTATION_NAME")
 
-    @JvmField val SHARP = token("SHARP")
+    @Suppress("unused")
+    @JvmField
+    val SHARP = token("SHARP")
 
     @JvmField val QUESTION_MARK = token("QUESTION_MARK")
 
@@ -272,7 +278,9 @@ object RescriptTokenTypes {
 
     @JvmField val TILDE = token("TILDE")
 
-    @JvmField val AMPERSAND = token("AMPERSAND")
+    @Suppress("unused")
+    @JvmField
+    val AMPERSAND = token("AMPERSAND")
 
     @JvmField val LT = token("LT")
 
@@ -299,7 +307,9 @@ object RescriptTokenTypes {
 
     @JvmField val PERCENT = token("PERCENT")
 
-    @JvmField val BACKSLASH = token("BACKSLASH")
+    @Suppress("unused")
+    @JvmField
+    val BACKSLASH = token("BACKSLASH")
 
     // ── Token sets ────────────────────────────────────────────────────
 
