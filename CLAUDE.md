@@ -75,6 +75,8 @@ src/main/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
 │   │   └── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
+│   ├── template/
+│   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
@@ -84,6 +86,10 @@ src/main/
     ├── colorSchemes/
     │   ├── RescriptDarcula.xml          # Darcula テーマ用配色
     │   └── RescriptDefault.xml          # Default テーマ用配色
+    ├── fileTemplates/internal/
+    │   ├── ReScript Module.res.ft       # モジュールテンプレート
+    │   ├── ReScript Interface.resi.ft   # インターフェーステンプレート
+    │   └── ReScript Component.res.ft    # React コンポーネントテンプレート
     └── icons/                           # SVG アイコン
 ```
 
