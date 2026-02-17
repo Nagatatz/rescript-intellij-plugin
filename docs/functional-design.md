@@ -426,6 +426,7 @@ flowchart TD
 | `com.intellij.localInspection` | `RescriptEmptyModuleInspection` | 空モジュール検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMissingConfigInspection` | rescript.json 未検出警告 | 実装済み |
 | `<action>` | `RescriptSwitchFileAction` | `.res`/`.resi` ファイル切り替え (Alt+O) | 実装済み |
+| `com.intellij.defaultLiveTemplates` | `liveTemplates/ReScript.xml` | Live Templates (15スニペット) | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -533,7 +534,6 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 
 | 機能 | rescript-vscode での実装 | 優先度 | 備考 |
 |---|---|---|---|
-| Live Templates / Snippets | `snippets/rescript.json` | P1 | XML ベースの Live Templates |
 | JSON Schema (`rescript.json`) | 内蔵スキーマ定義 | P1 | `jsonSchemaProviderFactory` |
 | `%raw()` JS ハイライト | TextMate embedded grammar | P1 | `MultiHostInjector` |
 | インターフェースファイル生成 | LSP `textDocument/createInterface` | P2 | LSP カスタムリクエスト |
