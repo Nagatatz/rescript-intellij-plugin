@@ -128,6 +128,10 @@
         <platform.lsp.serverSupportProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
 
+        <!-- Compilation status service (receives LSP notifications) -->
+        <projectService
+                serviceImplementation="com.rescript.plugin.lsp.RescriptCompilationStatusService"/>
+
         <!-- TODO indexer -->
         <todoIndexer filetype="ReScript"
                      implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
