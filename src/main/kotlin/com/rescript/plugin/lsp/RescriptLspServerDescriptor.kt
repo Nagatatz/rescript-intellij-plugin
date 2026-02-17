@@ -38,6 +38,8 @@ class RescriptLspServerDescriptor(
             override val semanticTokensCustomizer = RescriptSemanticTokensSupport()
         }
 
+    override fun createInitializationOptions(): Any = mapOf("extensionConfiguration" to mapOf("codeLens" to true))
+
     override fun isSupportedFile(file: VirtualFile): Boolean =
         file.extension in RescriptLspServerSupportProvider.RESCRIPT_EXTENSIONS
 
