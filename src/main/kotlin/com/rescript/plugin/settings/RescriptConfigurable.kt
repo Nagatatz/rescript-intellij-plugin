@@ -26,7 +26,7 @@ class RescriptConfigurable(
                 addBrowseFolderListener(
                     project,
                     FileChooserDescriptorFactory
-                        .createSingleFileDescriptor()
+                        .singleFile()
                         .withTitle("Language Server Path")
                         .withDescription("Select the rescript-language-server executable or cli.js"),
                 )
@@ -38,7 +38,7 @@ class RescriptConfigurable(
                 addBrowseFolderListener(
                     project,
                     FileChooserDescriptorFactory
-                        .createSingleFileDescriptor()
+                        .singleFile()
                         .withTitle("Node.js Interpreter Path")
                         .withDescription("Select the Node.js interpreter"),
                 )

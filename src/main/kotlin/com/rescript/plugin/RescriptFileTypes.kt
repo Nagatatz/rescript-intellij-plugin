@@ -16,6 +16,8 @@ object RescriptFileType : LanguageFileType(RescriptLanguage) {
 object RescriptInterfaceFileType : LanguageFileType(RescriptLanguage) {
     override fun getName(): String = "ReScript Interface"
 
+    override fun getDisplayName(): String = "ReScript Interface"
+
     override fun getDescription(): String = "ReScript interface file"
 
     override fun getDefaultExtension(): String = "resi"
