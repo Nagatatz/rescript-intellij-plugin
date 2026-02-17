@@ -117,6 +117,22 @@ src/main/
 - レクサーにトークンを追加する場合は `Rescript.flex` と `RescriptTokenTypes.kt` の両方を更新する
 - テストは `src/test/` に配置する
 
+### テスト規約
+
+**以下は強制的な行動指示であり、例外なく従うこと。**
+
+機能追加・変更・バグ修正などコードの変更を行う場合、**対応するユニットテストを必ず作成・更新すること**。テストなしのコード変更は原則禁止とする。
+
+- **新機能追加時:** 新しいクラス・メソッドに対するテストを作成する
+- **バグ修正時:** 修正内容を検証するリグレッションテストを作成する
+- **リファクタリング時:** 既存テストが通ることを確認し、必要に応じてテストも更新する
+- **テスト配置:** `src/test/kotlin/com/rescript/plugin/` 配下に、対象クラスと同じパッケージ構成で配置する（例: `highlight/RescriptBraceMatcherTest.kt`）
+- **テスト命名:** `<対象クラス名>Test.kt`（例: `RescriptFoldingBuilderTest.kt`）
+- **カバレッジ確認:** `./gradlew koverHtmlReport` でレポートを生成し、新規コードが十分にカバーされていることを確認する
+- **tasklist.md への記載:** ステアリングワークフローの tasklist.md には、実装タスクとセットでテスト作成タスクを必ず含めること
+
+**例外:** UI コンポーネント（Swing ベースの設定画面等）や、LSP サーバーとの結合が必須で単体テストが困難なクラスは、テスト作成を省略してよい。ただし、その場合は tasklist.md にテスト省略の理由を明記すること。
+
 ## Git コミット規約
 
 コミットメッセージには以下の絵文字プレフィックスを付与すること:
@@ -184,6 +200,88 @@ src/main/
 - 既存の `.steering/` ディレクトリのドキュメントを使い回さず、新しい作業には必ず新しいディレクトリを作成すること
 
 **例外:** タイポ修正、1行の設定変更など、明らかに軽微な修正の場合はステアリングワークフローを省略してよい。
+
+## 並列実装（git worktree）
+
+複数の独立した機能を同時に実装する場合、git worktree と複数の Claude Code ウィンドウを使用した並列実装を行う。
+
+### 前提条件
+
+- 各機能が互いに独立していること（ファイル競合が最小限であること）
+- メインウィンドウで全体のステアリングドキュメントが作成・承認済みであること
+
+### 手順
+
+1. **メインウィンドウ（計画）:**
+   - 全体のステアリングディレクトリ `.steering/[YYYYMMDD]-[バッチ名]/` を作成
+   - requirements.md, design.md, tasklist.md を作成・承認
+   - 各機能用の git worktree を作成（ブランチ命名規則に従う）
+   - 各ウィンドウへの命令文を `window-instructions.md` に記述
+
+2. **各ウィンドウ（ステアリング + 実装）:**
+   - 割り当てられた worktree ディレクトリで Claude Code を起動
+   - 命令文を貼り付け、以下を自律的に実行:
+     - **機能固有のステアリングディレクトリ** `.steering/[YYYYMMDD]-[機能名]/` を作成
+     - requirements.md, design.md, tasklist.md を作成（承認確認は不要 — 親ウィンドウで承認済み）
+     - 実装・ビルド確認
+     - ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md 等）
+     - コミット
+
+3. **メインウィンドウ（マージ）:**
+   - 全ブランチを `main` に順次マージ（`plugin.xml` 等の競合は手動解決）
+   - マージ後 `./gradlew buildPlugin` で最終確認
+   - `git worktree remove` でクリーンアップ
+
+### worktree 命名規則
+
+```
+../rescript-wt-<機能名>/
+```
+
+例:
+- `../rescript-wt-switch/` — .res/.resi 切り替え
+- `../rescript-wt-live-templates/` — Live Templates
+
+### 命令文のフォーマット
+
+各ウィンドウへの命令文は `.steering/[YYYYMMDD]-[バッチ名]/window-instructions.md` に記録する。
+命令文には以下を含めること:
+
+- ブランチ名と対象機能の説明
+- **ステアリングドキュメント作成の指示**（機能固有の requirements.md, design.md, tasklist.md の内容の要約）
+- 具体的な実装内容（新規ファイル、変更ファイル、API の使い方）
+- ドキュメント更新の指示（CLAUDE.md, product-requirements.md, functional-design.md の具体的な変更箇所）
+- 完了条件（ビルド成功、コミットメッセージ）
+
+### 命令文のテンプレート
+
+```
+ブランチ `<ブランチ名>` で <機能名> を実装してください。
+ステアリングワークフローに従い、以下の手順で進めてください。
+各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
+
+## ステップ 1: ステアリングドキュメント作成
+`.steering/[YYYYMMDD]-[機能名]/` ディレクトリを作成し、requirements.md, design.md, tasklist.md を作成。
+
+## ステップ 2: 実装
+設計に従い実装。
+
+## ステップ 3: ビルド確認
+`./gradlew buildPlugin` を実行し、成功を確認。
+
+## ステップ 4: ドキュメント更新
+CLAUDE.md, product-requirements.md, functional-design.md を更新。
+
+## ステップ 5: コミット
+tasklist.md を更新し、ドキュメント更新と共にコミット。
+
+## ステップ 6: マージ確認
+コミット完了後、ユーザーに「main にマージして worktree を削除しますか？」と確認。
+承認された場合:
+  git -C <メインリポジトリパス> merge <ブランチ名>
+  git -C <メインリポジトリパス> worktree remove <worktreeパス>
+  git -C <メインリポジトリパス> branch -d <ブランチ名>
+```
 
 ## 重要な注意事項
 
