@@ -5,6 +5,8 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.platform.lsp.api.Lsp4jClient
+import com.intellij.platform.lsp.api.LspServerNotificationsHandler
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import com.intellij.platform.lsp.api.customization.LspCustomization
 import com.rescript.plugin.settings.RescriptProjectSettings
@@ -26,7 +28,10 @@ import java.nio.file.Path
 class RescriptLspServerDescriptor(
     project: Project,
 ) : ProjectWideLspServerDescriptor(project, "ReScript") {
-    override val lsp4jServerClass: Class<out LanguageServer> = LanguageServer::class.java
+    override val lsp4jServerClass: Class<out LanguageServer> = RescriptLanguageServer::class.java
+
+    override fun createLsp4jClient(handler: LspServerNotificationsHandler): Lsp4jClient =
+        RescriptLsp4jClient(handler, project)
 
     override val lspCustomization =
         object : LspCustomization() {
