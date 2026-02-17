@@ -86,11 +86,13 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | コードインスペクション | 重複 open、空モジュール、設定ファイル未検出の警告 | `RescriptDuplicateOpenInspection` 等 |
 | プロジェクト設定 UI | Languages & Frameworks > ReScript 設定画面 | `RescriptConfigurable` + `RescriptProjectSettings` |
 
-### 将来機能（ロードマップ） — rescript-vscode ギャップ分析
+### 将来機能（ロードマップ） — ギャップ分析
 
-rescript-vscode（公式 VS Code 拡張）との機能比較に基づき、未実装機能を優先度別に整理する。
+rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラグイン（JS/TS, Kotlin, Elm, Dart, CoffeeScript, Svelte, ReasonML 等）との機能比較に基づき、未実装機能を優先度別に整理する。
 
 #### P1（高優先度） — ユーザー体験に大きく影響
+
+**rescript-vscode とのギャップ:**
 
 | 機能 | 説明 | 実装アプローチ | 難易度 |
 |---|---|---|---|
@@ -99,7 +101,20 @@ rescript-vscode（公式 VS Code 拡張）との機能比較に基づき、未�
 | JSON Schema 提供 | `rescript.json`/`bsconfig.json` の補完・バリデーション | `plugin.xml` に `jsonSchemaProviderFactory` を登録 | 低〜中 |
 | `%raw()` JS ハイライト | `%raw()` 内の JavaScript をハイライト | `MultiHostInjector` で JS 言語を注入 | 中 |
 
+**他の JetBrains 言語プラグインとのギャップ（低コスト・高インパクト）:**
+
+| 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
+|---|---|---|---|---|
+| Postfix Completion | `.switch`, `.pipe`, `.log`, `.some`, `.ok` 等の式後方補完 | `PostfixTemplateProvider` 登録 | 低 | Kotlin, JS/TS (標準機能) |
+| File Templates | `New > ReScript File` でテンプレートからファイル作成 | `fileTemplateGroup` + `internalFileTemplate` | 低 | Dart, Kotlin (標準機能) |
+| Spell Checking | 識別子・文字列リテラルのスペルチェック | `SpellcheckingStrategy` 登録 | 低 | Elm, Kotlin (標準機能) |
+| Console Filter | コンパイルエラー出力からファイル:行へのクリックジャンプ | `ConsoleFilterProvider` 登録 | 低 | JS/TS, Kotlin, Dart (標準機能) |
+| Editor Notification Bar | LSP 未検出時の設定案内バー表示 | `EditorNotificationProvider` 登録 | 低 | Dart, Kotlin (標準機能) |
+| Go to Related | `.res` ↔ `.resi` ↔ `.js` 間の関連ファイルジャンプ | `GotoRelatedProvider` 登録 | 低 | JS/TS (Go to Related), ReasonML (.ml/.mli) |
+
 #### P2（中優先度） — あると便利
+
+**rescript-vscode とのギャップ:**
 
 | 機能 | 説明 | 実装アプローチ | 難易度 |
 |---|---|---|---|
@@ -109,7 +124,19 @@ rescript-vscode（公式 VS Code 拡張）との機能比較に基づき、未�
 | Signature Help | `(` 入力時に関数シグネチャ表示 | IntelliJ LSP API で自動提供される可能性あり（要確認） | 低〜中 |
 | Code Lens | 関数定義上にフル型表示 | IntelliJ LSP API の Code Lens サポート確認 | 中 |
 
+**他の JetBrains 言語プラグインとのギャップ:**
+
+| 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
+|---|---|---|---|---|
+| Quick Fix: Add Import | 未解決参照に対する `open` 追加の自動修正 | `UnresolvedReferenceQuickFixProvider` or LSP code actions | 中 | Elm, Dart, Kotlin, JS/TS |
+| Intention Actions | パイプ変換、Option/Result ラップ、パターンマッチ生成等 | `IntentionAction` 登録 | 中 | Elm, Kotlin, JS/TS |
+| Surround With | `try`, `switch`, `if`, `module {}` でのコードラップ | `SurroundDescriptor` 登録 | 低〜中 | Kotlin, JS/TS |
+| Import Optimizer | 未使用 `open` の自動削除（Optimize Imports アクション） | `ImportOptimizer` 登録 | 中 | JS/TS, Kotlin |
+| Gutter Run Icons | テスト・実行可能コード横の▶実行ボタン | `RunLineMarkerContributor` 登録 | 中 | Kotlin, JS/TS, Dart |
+
 #### P3（低優先度） — nice-to-have
+
+**rescript-vscode とのギャップ:**
 
 | 機能 | 説明 | 実装アプローチ | 難易度 |
 |---|---|---|---|
@@ -119,6 +146,20 @@ rescript-vscode（公式 VS Code 拡張）との機能比較に基づき、未�
 | `//#region` 折りたたみ | カスタム折りたたみマーカー | `FoldingBuilder` にコメントベースの region 検出追加 | 低 |
 | Incremental Type Checking 設定 | LSP の incremental typechecking 設定 | Settings UI + initialization options | 低〜中 |
 | JetBrains Marketplace 公開 | プラグインを Marketplace に公開 | Gradle `publishPlugin` タスク設定 | 中 |
+
+**他の JetBrains 言語プラグインとのギャップ:**
+
+| 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
+|---|---|---|---|---|
+| Test Runner Integration | IDE 内テスト実行・結果表示（GUI テストランナー） | `configurationProducer` + `runLineMarkerContributor` | 中〜高 | Elm, Svelte, Dart, Kotlin |
+| Compiled JS Preview | ReScript ⇔ 生成 JS の並列表示（Split View） | エディタ分割 + ファイルマッピング | 中 | CoffeeScript (split view), Kotlin (decompile) |
+| Project Wizard | 新規 ReScript プロジェクトテンプレート | `moduleBuilder` + `projectTemplate` | 中 | Svelte, Dart, Kotlin |
+| Smart Enter | 文の自動補完と改行（括弧閉じ等） | `SmartEnterProcessor` | 中 | Kotlin, JS/TS |
+| Statement Up/Down Mover | 宣言単位の上下移動 | `StatementUpDownMover` | 低 | Kotlin, JS/TS |
+| Unused Code Detection | 未使用変数・関数・open の検出 | `localInspection` + PSI 解析 | 中 | Elm, Dart, Kotlin |
+| Type/Call Hierarchy | 型階層・呼び出し階層ビュー | `typeHierarchyProvider`, `callHierarchyProvider` | 高 | Kotlin, JS/TS, Dart |
+| Qualified Name Copy | 完全修飾名（`Module.subModule.name`）のコピー | `QualifiedNameProvider` | 低 | Kotlin, JS/TS |
+| Code Generation | variant arms 自動生成、module type 生成等 | `GenerateGroup` アクション | 中〜高 | Elm (JSON enc/dec), Dart, Kotlin |
 
 ## 4. 成功の定義
 
