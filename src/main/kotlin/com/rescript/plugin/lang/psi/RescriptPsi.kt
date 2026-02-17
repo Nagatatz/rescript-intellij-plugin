@@ -4,7 +4,6 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.tree.IElementType
-import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptLanguage
 
 class RescriptElementType(
@@ -40,7 +39,7 @@ object RescriptElementTypes {
 class RescriptFile(
     viewProvider: FileViewProvider,
 ) : PsiFileBase(viewProvider, RescriptLanguage) {
-    override fun getFileType(): FileType = RescriptFileType
+    override fun getFileType(): FileType = viewProvider.fileType
 
     override fun toString(): String = "ReScript File"
 }

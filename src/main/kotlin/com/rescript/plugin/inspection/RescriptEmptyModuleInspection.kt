@@ -5,7 +5,9 @@ import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
+import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
@@ -29,23 +31,23 @@ class RescriptEmptyModuleInspection : LocalInspectionTool() {
         isOnTheFly: Boolean,
     ): PsiElementVisitor =
         object : PsiElementVisitor() {
-            override fun visitFile(file: com.intellij.psi.PsiFile) {
+            override fun visitFile(file: PsiFile) {
                 if (file !is RescriptFile) return
                 checkModules(file, holder)
             }
         }
 
     private fun checkModules(
-        scope: com.intellij.psi.PsiElement,
+        scope: PsiElement,
         holder: ProblemsHolder,
     ) {
-        val modules = scope.children.filter { it.node.elementType == RescriptElementTypes.MODULE_DECLARATION }
+        val modules = scope.children.filter { it.node?.elementType == RescriptElementTypes.MODULE_DECLARATION }
 
         for (module in modules) {
-            val hasBrace = module.children.any { it.node.elementType == RescriptTokenTypes.LBRACE }
+            val hasBrace = module.children.any { it.node?.elementType == RescriptTokenTypes.LBRACE }
             if (!hasBrace) continue // Module alias (module X = Y), skip
 
-            val hasDeclaration = module.children.any { it.node.elementType in DECLARATION_TYPES }
+            val hasDeclaration = module.children.any { it.node?.elementType in DECLARATION_TYPES }
             if (!hasDeclaration) {
                 holder.registerProblem(
                     module,
@@ -70,7 +72,7 @@ class RescriptEmptyModuleInspection : LocalInspectionTool() {
 
             // Also remove preceding annotation if present
             val prev = module.prevSibling
-            if (prev != null && prev.node.elementType == RescriptElementTypes.ANNOTATION) {
+            if (prev != null && prev.node?.elementType == RescriptElementTypes.ANNOTATION) {
                 prev.delete()
             }
 

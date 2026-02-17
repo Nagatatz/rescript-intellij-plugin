@@ -19,6 +19,6 @@ class RescriptLspServerSupportProvider : LspServerSupportProvider {
     }
 
     companion object {
-        private val RESCRIPT_EXTENSIONS = setOf("res", "resi")
+        internal val RESCRIPT_EXTENSIONS = setOf("res", "resi")
     }
 }

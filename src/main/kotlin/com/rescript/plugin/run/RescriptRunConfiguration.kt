@@ -1,5 +1,6 @@
 package com.rescript.plugin.run
 
+import com.intellij.execution.ExecutionException
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.configurations.ConfigurationFactory
@@ -7,6 +8,7 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.configurations.RunConfigurationBase
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.configurations.RuntimeConfigurationError
+import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessHandlerFactory
 import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
@@ -18,6 +20,10 @@ class RescriptRunConfiguration(
     factory: ConfigurationFactory,
     name: String,
 ) : RunConfigurationBase<RescriptRunConfigurationOptions>(project, factory, name) {
+    companion object {
+        private val WHITESPACE_REGEX = "\\s+".toRegex()
+    }
+
     public override fun getOptions(): RescriptRunConfigurationOptions =
         super.getOptions() as RescriptRunConfigurationOptions
 
@@ -56,11 +62,11 @@ class RescriptRunConfiguration(
         environment: ExecutionEnvironment,
     ): RunProfileState {
         return object : CommandLineState(environment) {
-            override fun startProcess(): com.intellij.execution.process.ProcessHandler {
+            override fun startProcess(): ProcessHandler {
                 val effectiveWorkDir = workingDirectory ?: project.basePath
                 val cliPath =
                     RescriptCliDetector.findCli(effectiveWorkDir, project.basePath)
-                        ?: throw com.intellij.execution.ExecutionException(
+                        ?: throw ExecutionException(
                             "Cannot find 'rescript' CLI. Ensure it is installed via npm in the project.",
                         )
 
@@ -76,7 +82,7 @@ class RescriptRunConfiguration(
                 additionalArguments?.let { args ->
                     val trimmed = args.trim()
                     if (trimmed.isNotEmpty()) {
-                        cmd.addParameters(trimmed.split("\\s+".toRegex()))
+                        cmd.addParameters(trimmed.split(WHITESPACE_REGEX))
                     }
                 }
 

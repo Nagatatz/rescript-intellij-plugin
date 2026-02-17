@@ -4,6 +4,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.diagnostic.logger
+import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
@@ -14,9 +15,11 @@ import com.intellij.platform.lsp.api.LspServerManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.refactoring.rename.RenameHandler
+import com.rescript.plugin.lsp.RescriptLspServerSupportProvider
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.PrepareRenameParams
 import org.eclipse.lsp4j.RenameParams
+import org.eclipse.lsp4j.TextDocumentIdentifier
 import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.WorkspaceEdit
 import java.net.URI
@@ -32,7 +35,7 @@ class RescriptRenameHandler : RenameHandler {
         val file = CommonDataKeys.PSI_FILE.getData(dataContext) ?: return false
         val editor = CommonDataKeys.EDITOR.getData(dataContext) ?: return false
         val extension = file.virtualFile?.extension ?: return false
-        if (extension !in RESCRIPT_EXTENSIONS) return false
+        if (extension !in RescriptLspServerSupportProvider.RESCRIPT_EXTENSIONS) return false
 
         // Check that cursor is on an identifier-like character
         val offset = editor.caretModel.offset
@@ -128,7 +131,7 @@ class RescriptRenameHandler : RenameHandler {
         val serverManager = LspServerManager.getInstance(project)
         val servers =
             serverManager.getServersForProvider(
-                com.rescript.plugin.lsp.RescriptLspServerSupportProvider::class.java,
+                RescriptLspServerSupportProvider::class.java,
             )
         return servers.firstOrNull()
     }
@@ -140,7 +143,7 @@ class RescriptRenameHandler : RenameHandler {
      */
     private fun prepareRename(
         server: LspServer,
-        textDocId: org.eclipse.lsp4j.TextDocumentIdentifier,
+        textDocId: TextDocumentIdentifier,
         position: Position,
         editor: Editor,
         offset: Int,
@@ -206,6 +209,7 @@ class RescriptRenameHandler : RenameHandler {
 
         WriteCommandAction.runWriteCommandAction(project, "ReScript Rename", null, {
             val fileDocManager = FileDocumentManager.getInstance()
+            val modifiedDocuments = mutableSetOf<Document>()
 
             for ((uriString, textEdits) in changes) {
                 val vfsUrl = lspUriToVfsUrl(uriString)
@@ -235,14 +239,18 @@ class RescriptRenameHandler : RenameHandler {
                         document.replaceString(startOffset, endOffset, textEdit.newText)
                     }
                 }
+
+                modifiedDocuments.add(document)
             }
 
-            fileDocManager.saveAllDocuments()
+            for (doc in modifiedDocuments) {
+                fileDocManager.saveDocument(doc)
+            }
         })
     }
 
     private fun positionToOffset(
-        document: com.intellij.openapi.editor.Document,
+        document: Document,
         position: Position,
     ): Int {
         if (position.line >= document.lineCount) return -1
@@ -261,7 +269,6 @@ class RescriptRenameHandler : RenameHandler {
 
     companion object {
         private val LOG = logger<RescriptRenameHandler>()
-        private val RESCRIPT_EXTENSIONS = setOf("res", "resi")
         private const val TIMEOUT_MS = 10_000
     }
 }

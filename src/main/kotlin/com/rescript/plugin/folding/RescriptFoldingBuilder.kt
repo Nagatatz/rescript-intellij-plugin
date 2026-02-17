@@ -10,6 +10,20 @@ import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 
 class RescriptFoldingBuilder : FoldingBuilderEx() {
+    companion object {
+        private val FOLDABLE_DECLARATION_TYPES =
+            setOf(
+                RescriptElementTypes.MODULE_DECLARATION,
+                RescriptElementTypes.LET_DECLARATION,
+                RescriptElementTypes.TYPE_DECLARATION,
+            )
+        private val FOLDABLE_JSX_TYPES =
+            setOf(
+                RescriptElementTypes.JSX_ELEMENT,
+                RescriptElementTypes.JSX_FRAGMENT,
+            )
+    }
+
     override fun buildFoldRegions(
         root: PsiElement,
         document: Document,
@@ -26,13 +40,7 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
             }
 
             // Fold module / let / type declarations that contain braces
-            if (node.elementType in
-                setOf(
-                    RescriptElementTypes.MODULE_DECLARATION,
-                    RescriptElementTypes.LET_DECLARATION,
-                    RescriptElementTypes.TYPE_DECLARATION,
-                )
-            ) {
+            if (node.elementType in FOLDABLE_DECLARATION_TYPES) {
                 val text = node.text
                 val startLine = document.getLineNumber(node.startOffset)
                 val endLine = document.getLineNumber(node.startOffset + node.textLength)
@@ -42,12 +50,7 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
             }
 
             // Fold multi-line JSX elements and fragments
-            if (node.elementType in
-                setOf(
-                    RescriptElementTypes.JSX_ELEMENT,
-                    RescriptElementTypes.JSX_FRAGMENT,
-                )
-            ) {
+            if (node.elementType in FOLDABLE_JSX_TYPES) {
                 val startLine = document.getLineNumber(node.startOffset)
                 val endLine = document.getLineNumber(node.startOffset + node.textLength)
                 if (endLine > startLine) {
