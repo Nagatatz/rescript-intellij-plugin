@@ -442,6 +442,13 @@ flowchart TD
 | `com.intellij.projectService` | `RescriptCompilationStatusService` | コンパイル状態保持（LSP 通知受信） | 実装済み |
 | `<action>` | `RescriptCreateInterfaceAction` | インターフェースファイル生成 | 実装済み |
 | `<action>` | `RescriptOpenCompiledJsAction` | コンパイル済み JS を開く (Alt+Shift+J) | 実装済み |
+| `com.intellij.lang.importOptimizer` | `RescriptImportOptimizer` | Import Optimizer（重複 open 削除） | 実装済み |
+| `com.intellij.intentionAction` | `RescriptWrapWithSomeIntention` | Wrap with Some(...) | 実装済み |
+| `com.intellij.intentionAction` | `RescriptWrapWithOkIntention` | Wrap with Ok(...) | 実装済み |
+| `com.intellij.intentionAction` | `RescriptWrapWithErrorIntention` | Wrap with Error(...) | 実装済み |
+| `com.intellij.intentionAction` | `RescriptAddGenTypeIntention` | Add @genType annotation | 実装済み |
+| `com.intellij.lang.surroundDescriptor` | `RescriptSurroundDescriptor` | Surround With (if/switch/try/block) | 実装済み |
+| `com.intellij.runLineMarkerContributor` | `RescriptRunLineMarkerContributor` | ガター実行アイコン | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
