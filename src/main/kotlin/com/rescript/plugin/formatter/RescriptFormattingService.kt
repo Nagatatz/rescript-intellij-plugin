@@ -50,26 +50,32 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
                     process = proc
 
                     val stdinThread =
-                        Thread("rescript-format-stdin") {
-                            try {
-                                proc.outputStream.bufferedWriter(Charsets.UTF_8).use {
-                                    it.write(documentText)
+                        Thread(
+                            {
+                                try {
+                                    proc.outputStream.bufferedWriter(Charsets.UTF_8).use {
+                                        it.write(documentText)
+                                    }
+                                } catch (_: IOException) {
                                 }
-                            } catch (_: IOException) {
-                            }
-                        }
+                            },
+                            "rescript-format-stdin",
+                        )
                     stdinThread.start()
 
                     val stderr = StringBuilder()
                     val stderrThread =
-                        Thread("rescript-format-stderr") {
-                            try {
-                                proc.errorStream.reader(Charsets.UTF_8).use {
-                                    stderr.append(it.readText())
+                        Thread(
+                            {
+                                try {
+                                    proc.errorStream.reader(Charsets.UTF_8).use {
+                                        stderr.append(it.readText())
+                                    }
+                                } catch (_: IOException) {
                                 }
-                            } catch (_: IOException) {
-                            }
-                        }
+                            },
+                            "rescript-format-stderr",
+                        )
                     stderrThread.start()
 
                     val stdout =
