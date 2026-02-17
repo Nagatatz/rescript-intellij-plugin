@@ -75,6 +75,8 @@ src/main/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
 │   │   └── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
+│   ├── spellcheck/
+│   │   └── RescriptSpellcheckingStrategy.kt  # スペルチェック対応
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
