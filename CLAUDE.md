@@ -84,6 +84,8 @@ src/main/
     ├── colorSchemes/
     │   ├── RescriptDarcula.xml          # Darcula テーマ用配色
     │   └── RescriptDefault.xml          # Default テーマ用配色
+    ├── liveTemplates/
+    │   └── ReScript.xml                 # Live Templates (15スニペット)
     └── icons/                           # SVG アイコン
 ```
 
