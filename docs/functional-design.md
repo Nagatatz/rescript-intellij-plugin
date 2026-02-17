@@ -430,6 +430,7 @@ flowchart TD
 | `com.intellij.internalFileTemplate` | `ReScript Module` / `ReScript Interface` / `ReScript Component` | ファイルテンプレート登録 | 実装済み |
 | `<action>` | `RescriptCreateFileAction` | New > ReScript File アクション | 実装済み |
 | `com.intellij.spellchecker.support` | `RescriptSpellcheckingStrategy` | スペルチェック | 実装済み |
+| `json.schemaProviderFactory` | `RescriptJsonSchemaProviderFactory` | rescript.json JSON Schema 提供 | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -537,7 +538,6 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 
 | 機能 | rescript-vscode での実装 | 優先度 | 備考 |
 |---|---|---|---|
-| JSON Schema (`rescript.json`) | 内蔵スキーマ定義 | P1 | `jsonSchemaProviderFactory` |
 | `%raw()` JS ハイライト | TextMate embedded grammar | P1 | `MultiHostInjector` |
 | インターフェースファイル生成 | LSP `textDocument/createInterface` | P2 | LSP カスタムリクエスト |
 | コンパイル済み JS を開く | LSP `textDocument/openCompiled` | P2 | LSP カスタムリクエスト |
