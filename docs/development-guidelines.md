@@ -101,6 +101,27 @@ fun `JSX opening tag - div`() {
 - [ ] 新規 extension point 追加時: `plugin.xml` に登録されている
 - [ ] CLAUDE.md の Git コミット規約に従ったコミットメッセージ
 
+### 5.1 Qodana 静的解析
+
+GitHub Actions で [Qodana](https://www.jetbrains.com/qodana/) による静的解析が `main` ブランチへの push / PR 時に自動実行される（`.github/workflows/qodana_code_quality.yml`）。
+
+**Qodana 指摘の確認・修正には Claude Code スキルを使用する:**
+
+```
+/fix-qodana              # 最新の Qodana 実行結果を取得して分析
+/fix-qodana <run_id>     # 指定の run ID の結果を分析
+```
+
+スキルは GitHub API 経由で指摘事項を取得し、重要度別の分類・修正方針・具体的なコード修正案を含む修正計画を生成する。
+
+**修正方針の判断基準:**
+
+| 方針 | 適用条件 |
+|------|---------|
+| コード修正 | deprecated API の置換、冗長コードの簡略化、型の修正 |
+| `@Suppress` | ツール名・ファイル名の capitalization、JFlex レクサーから間接参照されるシンボルの unused 警告 |
+| 設定除外 | プロジェクト全体で一律に除外すべきルール（`qodana.yaml` の `exclude` に追加） |
+
 ## 6. レビュー観点
 
 ### コードレビューチェックリスト
