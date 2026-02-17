@@ -261,15 +261,23 @@ main
      - **機能固有のステアリングディレクトリ** `.steering/[YYYYMMDD]-[機能名]/` を作成
      - requirements.md, design.md, tasklist.md を作成（承認確認は不要 — 親ウィンドウで承認済み）
      - 実装・ビルド確認
-     - ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md 等）
      - コミット
+   - **注意:** 共有ドキュメント（CLAUDE.md, product-requirements.md, functional-design.md 等）は各ウィンドウでは更新しない（コンフリクト防止のため、マージフェーズで一括更新する）
 
 3. **メインウィンドウ（バッチブランチへマージ）:**
    - 全機能ブランチをバッチブランチ `feature/<バッチ名>` に順次マージ（`plugin.xml` 等の競合は手動解決）
    - マージ後 `./gradlew buildPlugin` で最終確認
    - `git worktree remove` でクリーンアップ
 
-4. **メインウィンドウ（main へマージ）:**
+4. **メインウィンドウ（ドキュメント一括更新）:**
+   - 全機能のマージ完了後、共有ドキュメントを一括更新する:
+     - `CLAUDE.md` — プロジェクト構成図・アーキテクチャ説明
+     - `docs/product-requirements.md` — 実装済み機能一覧・ロードマップ
+     - `docs/functional-design.md` — Extension Point 登録マップ・機能対比表
+     - `README.md` — 機能一覧（該当箇所がある場合）
+   - コミット: `📝 Update docs for <バッチ名>`
+
+5. **メインウィンドウ（main へマージ）:**
    - バッチブランチ `feature/<バッチ名>` を `main` にマージ
    - `./gradlew buildPlugin` で最終確認
    - バッチブランチを削除
@@ -304,9 +312,9 @@ git worktree add ../rescript-wt-<機能名> -b feature/<機能名>
 - ブランチ名と対象機能の説明
 - **ステアリングドキュメント作成の指示**（機能固有の requirements.md, design.md, tasklist.md の内容の要約）
 - 具体的な実装内容（新規ファイル、変更ファイル、API の使い方）
-- ドキュメント更新の指示（CLAUDE.md, product-requirements.md, functional-design.md の具体的な変更箇所）
 - 完了条件（ビルド成功、コミットメッセージ）
 - マージ先はバッチブランチ `feature/<バッチ名>` であること
+- **共有ドキュメント更新は不要**である旨の明記（バッチブランチで一括更新するため）
 
 ### 命令文のテンプレート
 
@@ -326,13 +334,11 @@ cd <worktreeの絶対パス>
 ## ステップ 3: ビルド確認
 `./gradlew buildPlugin` を実行し、成功を確認。
 
-## ステップ 4: ドキュメント更新
-CLAUDE.md, product-requirements.md, functional-design.md を更新。
+## ステップ 4: コミット
+tasklist.md を更新してコミット。
+※ 共有ドキュメント（CLAUDE.md, product-requirements.md, functional-design.md）はバッチブランチで一括更新するため、このウィンドウでは更新不要。
 
-## ステップ 5: コミット
-tasklist.md を更新し、ドキュメント更新と共にコミット。
-
-## ステップ 6: マージ確認
+## ステップ 5: マージ確認
 コミット完了後、ユーザーに「バッチブランチ `feature/<バッチ名>` にマージして worktree を削除しますか？」と確認。
 承認された場合:
   git -C <メインリポジトリパス> checkout feature/<バッチ名>
@@ -340,7 +346,7 @@ tasklist.md を更新し、ドキュメント更新と共にコミット。
   git -C <メインリポジトリパス> worktree remove <worktreeパス>
   git -C <メインリポジトリパス> branch -d <ブランチ名>
 
-## ステップ 7: 元のディレクトリに戻る
+## ステップ 6: 元のディレクトリに戻る
 cd <メインリポジトリの絶対パス>
 ```
 
