@@ -206,6 +206,12 @@
             <keyboard-shortcut first-keystroke="alt O" keymap="$default"/>
             <add-to-group group-id="GoToMenu" anchor="last"/>
         </action>
+        <action id="ReScript.CreateInterface"
+                class="com.rescript.plugin.navigation.RescriptCreateInterfaceAction"
+                text="Create Interface File"
+                description="Generate .resi from current .res file">
+            <add-to-group group-id="GoToMenu" anchor="last"/>
+        </action>
         <action id="ReScript.NewFile"
                 class="com.rescript.plugin.template.RescriptCreateFileAction"
                 text="ReScript File"
