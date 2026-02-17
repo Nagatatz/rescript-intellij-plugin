@@ -5,7 +5,7 @@
 - [x] requirements.md 作成・承認
 - [x] design.md 作成・承認
 - [x] tasklist.md 作成・承認
-- [ ] git worktree セットアップ（4ブランチ）
+- [x] git worktree セットアップ（4ブランチ）
 
 ## Feature 1: `.res`/`.resi` 切り替え（ブランチ: `feature/res-resi-switch`）
 
@@ -42,7 +42,7 @@
 
 ## マージ作業（メインウィンドウ）
 
-- [ ] 4ブランチすべてのビルド成功確認
-- [ ] `main` に順次マージ（plugin.xml 競合解決）
-- [ ] マージ後 `./gradlew buildPlugin` 成功確認
-- [ ] git worktree クリーンアップ
+- [x] 4ブランチすべてのビルド成功確認
+- [x] `main` に順次マージ（plugin.xml 競合解決）
+- [x] マージ後 `./gradlew buildPlugin` 成功確認
+- [x] git worktree クリーンアップ
