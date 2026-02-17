@@ -15,8 +15,8 @@
 - [x] `plugin.xml` に `RescriptCompilationStatusService` 登録
 - [x] `./gradlew buildPlugin` 成功確認
 - [x] コミット: `✨ Add LSP custom request/notification infrastructure`
-- [ ] git worktree セットアップ（5ブランチ）
-- [ ] window-instructions.md 作成
+- [x] git worktree セットアップ（5ブランチ）
+- [x] window-instructions.md 作成
 
 ## Feature 1: Signature Help（ブランチ: `feature/signature-help`）
 
