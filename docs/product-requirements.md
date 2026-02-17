@@ -92,6 +92,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Postfix Completion | `.switch`, `.pipe`, `.log`, `.some`, `.ok`, `.error`, `.ignore` の式後方補完 | `RescriptPostfixTemplateProvider` |
 | Console Filter | コンパイルエラー出力のファイルパス:行番号をクリック可能リンクに変換 | `RescriptConsoleFilterProvider` |
 | Editor Notification Bar | LSP 未検出時のエディタ上部案内バー表示 | `RescriptEditorNotificationProvider` |
+| JSON Schema 提供 | `rescript.json`/`bsconfig.json` の補完・バリデーション | `RescriptJsonSchemaProviderFactory` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -103,7 +104,6 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 
 | 機能 | 説明 | 実装アプローチ | 難易度 |
 |---|---|---|---|
-| JSON Schema 提供 | `rescript.json`/`bsconfig.json` の補完・バリデーション | `plugin.xml` に `jsonSchemaProviderFactory` を登録 | 低〜中 |
 | `%raw()` JS ハイライト | `%raw()` 内の JavaScript をハイライト | `MultiHostInjector` で JS 言語を注入 | 中 |
 
 **他の JetBrains 言語プラグインとのギャップ（低コスト・高インパクト）:**
