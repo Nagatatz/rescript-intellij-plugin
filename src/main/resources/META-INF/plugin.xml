@@ -90,6 +90,10 @@
         <langCodeStyleSettingsProvider
                 implementation="com.rescript.plugin.codestyle.RescriptCodeStyleSettingsProvider"/>
 
+        <!-- Smart quote completion -->
+        <lang.quoteHandler language="ReScript"
+                           implementationClass="com.rescript.plugin.editor.RescriptQuoteHandler"/>
+
         <!-- Smart indentation on Enter -->
         <lineIndentProvider
                 implementation="com.rescript.plugin.codestyle.RescriptLineIndentProvider"/>

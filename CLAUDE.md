@@ -67,6 +67,8 @@ src/main/
 │   │   ├── RescriptStructureViewElement.kt
 │   │   ├── RescriptStructureViewFactory.kt
 │   │   └── RescriptStructureViewModel.kt
+│   ├── editor/
+│   │   └── RescriptQuoteHandler.kt        # スマート引用符補完
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
