@@ -35,11 +35,11 @@ class RescriptCodeStyleSettingsProvider : LanguageCodeStyleSettingsProvider() {
     }
 
     override fun getCodeSample(settingsType: SettingsType): String =
-        """
+        $$"""
         |module Greeting = {
         |  @react.component
         |  let make = (~name) => {
-        |    let message = `Hello, ${'$'}{name}!`
+        |    let message = `Hello, ${name}!`
         |    <div className="greeting">
         |      <h1> {React.string(message)} </h1>
         |    </div>
@@ -54,7 +54,7 @@ class RescriptCodeStyleSettingsProvider : LanguageCodeStyleSettingsProvider() {
         |
         |let greet = (user: user) =>
         |  switch user.email {
-        |  | Some(email) => `${'$'}{user.name} <${'$'}{email}>`
+        |  | Some(email) => `${user.name} <${email}>`
         |  | None => user.name
         |  }
         |

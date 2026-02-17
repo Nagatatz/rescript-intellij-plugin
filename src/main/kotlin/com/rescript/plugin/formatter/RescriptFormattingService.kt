@@ -31,6 +31,7 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
                 ioFile.parent,
                 project.basePath,
             ) ?: run {
+                @Suppress("DialogTitleCapitalization")
                 request.onError("ReScript", "rescript CLI not found in node_modules")
                 return null
             }
