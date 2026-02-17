@@ -85,6 +85,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | 外部フォーマッタ連携 | `rescript format` CLI によるコードフォーマット | `RescriptFormattingService` |
 | コードインスペクション | 重複 open、空モジュール、設定ファイル未検出の警告 | `RescriptDuplicateOpenInspection` 等 |
 | プロジェクト設定 UI | Languages & Frameworks > ReScript 設定画面 | `RescriptConfigurable` + `RescriptProjectSettings` |
+| File Templates | New > ReScript File からテンプレートファイル作成（Module, Interface, Component） | `RescriptCreateFileAction` + `internalFileTemplate` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -106,7 +107,7 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 | 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
 |---|---|---|---|---|
 | Postfix Completion | `.switch`, `.pipe`, `.log`, `.some`, `.ok` 等の式後方補完 | `PostfixTemplateProvider` 登録 | 低 | Kotlin, JS/TS (標準機能) |
-| File Templates | `New > ReScript File` でテンプレートからファイル作成 | `fileTemplateGroup` + `internalFileTemplate` | 低 | Dart, Kotlin (標準機能) |
+| ~~File Templates~~ | ~~`New > ReScript File` でテンプレートからファイル作成~~ | ~~実装済み~~ | — | — |
 | Spell Checking | 識別子・文字列リテラルのスペルチェック | `SpellcheckingStrategy` 登録 | 低 | Elm, Kotlin (標準機能) |
 | Console Filter | コンパイルエラー出力からファイル:行へのクリックジャンプ | `ConsoleFilterProvider` 登録 | 低 | JS/TS, Kotlin, Dart (標準機能) |
 | Editor Notification Bar | LSP 未検出時の設定案内バー表示 | `EditorNotificationProvider` 登録 | 低 | Dart, Kotlin (標準機能) |
