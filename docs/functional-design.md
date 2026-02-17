@@ -427,6 +427,8 @@ flowchart TD
 | `com.intellij.localInspection` | `RescriptMissingConfigInspection` | rescript.json 未検出警告 | 実装済み |
 | `<action>` | `RescriptSwitchFileAction` | `.res`/`.resi` ファイル切り替え (Alt+O) | 実装済み |
 | `com.intellij.defaultLiveTemplates` | `liveTemplates/ReScript.xml` | Live Templates (15スニペット) | 実装済み |
+| `com.intellij.internalFileTemplate` | `ReScript Module` / `ReScript Interface` / `ReScript Component` | ファイルテンプレート登録 | 実装済み |
+| `<action>` | `RescriptCreateFileAction` | New > ReScript File アクション | 実装済み |
 
 ## 4. ファイル構成と依存関係
 

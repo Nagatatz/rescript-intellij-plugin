@@ -76,6 +76,8 @@ src/main/
 │   ├── navigation/
 │   │   ├── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
 │   │   └── RescriptSwitchFileAction.kt    # .res/.resi ファイル切り替え (Alt+O)
+│   ├── template/
+│   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
@@ -87,6 +89,10 @@ src/main/
     │   └── RescriptDefault.xml          # Default テーマ用配色
     ├── liveTemplates/
     │   └── ReScript.xml                 # Live Templates (15スニペット)
+    ├── fileTemplates/internal/
+    │   ├── ReScript Module.res.ft       # モジュールテンプレート
+    │   ├── ReScript Interface.resi.ft   # インターフェーステンプレート
+    │   └── ReScript Component.res.ft    # React コンポーネントテンプレート
     └── icons/                           # SVG アイコン
 ```
 

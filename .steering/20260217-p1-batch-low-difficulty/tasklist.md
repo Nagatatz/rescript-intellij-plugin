@@ -25,12 +25,12 @@
 
 ## Feature 3: File Templates（ブランチ: `feature/file-templates`）
 
-- [ ] `RescriptCreateFileAction.kt` 作成
-- [ ] テンプレートファイル 3つ作成（Module, Interface, Component）
-- [ ] `plugin.xml` に `<internalFileTemplate>` + `<action>` 登録
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
-- [ ] コミット: `✨ Add ReScript file templates (New > ReScript File)`
+- [x] `RescriptCreateFileAction.kt` 作成
+- [x] テンプレートファイル 3つ作成（Module, Interface, Component）
+- [x] `plugin.xml` に `<internalFileTemplate>` + `<action>` 登録
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
+- [x] コミット: `✨ Add ReScript file templates (New > ReScript File)`
 
 ## Feature 4: Spell Checking（ブランチ: `feature/spell-checking`）
 
