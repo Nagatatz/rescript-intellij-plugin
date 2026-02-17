@@ -71,6 +71,8 @@ src/main/
 │   │   └── RescriptTodoIndexer.kt         # TODO インデクシング
 │   ├── editor/
 │   │   └── RescriptQuoteHandler.kt        # スマート引用符補完
+│   ├── formatter/
+│   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
@@ -99,6 +101,7 @@ src/main/
 
 ### レイヤー 3: IDE 統合機能
 - **実行構成** (`run/`) — rescript.json 経由の ReScript ビルド実行
+- **コードフォーマッタ** (`formatter/`) — `rescript format` CLI による外部フォーマッタ連携（`Cmd+Option+L`）
 - **コードスタイル** (`codestyle/`) — インデント設定
 - **カラースキーム** (`colorSchemes/`) — Darcula / Default テーマ用の専用配色
 - **rescript.json アイコン** (`config/`) — 設定ファイルへの専用アイコン表示
