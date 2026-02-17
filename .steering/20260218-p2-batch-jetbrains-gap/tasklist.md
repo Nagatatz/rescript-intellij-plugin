@@ -61,5 +61,5 @@
 - [x] git worktree クリーンアップ
 - [x] ドキュメント一括更新（CLAUDE.md, product-requirements.md, functional-design.md）
 - [x] コミット: `📝 Update docs for P2 JetBrains gap features`
-- [ ] バッチブランチを `main` にマージ
-- [ ] バッチブランチを削除
+- [x] バッチブランチを `main` にマージ
+- [x] バッチブランチを削除
