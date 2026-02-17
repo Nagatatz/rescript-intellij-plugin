@@ -62,15 +62,63 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | リアルタイム診断 | コンパイルエラー・警告のインライン表示 | P0 |
 | インレイヒント | 推論された型の注釈表示 | P1 |
 
-### 将来機能（ロードマップ）
+### 実装済み機能（当初ロードマップから完了）
 
-| 機能 | 説明 | 優先度 |
+以下の機能は当初ロードマップに含まれていたが、既に実装済みである。
+
+| 機能 | 説明 | 実装状況 |
 |---|---|---|
-| カラースキーム設定 UI | ユーザーがトークンごとの色を IDE 設定画面からカスタマイズ | P2 |
-| rescript.json 自動検出 | プロジェクトルートの rescript.json を検出し、プロジェクト設定を自動構成 | P2 |
-| コンパイラ実行・ビルドツール統合 | IDE 内から ReScript コンパイラを実行し、ビルド結果を表示 | P2 |
-| ストラクチャービュー | ファイル内のシンボル一覧をツリー表示 | P2 |
-| JetBrains Marketplace 公開 | プラグインを Marketplace に公開し、IDE 内からインストール可能にする | P2 |
+| カラースキーム設定 UI | トークンごとの色を IDE 設定画面からカスタマイズ | `RescriptColorSettingsPage` + Darcula/Default テーマ |
+| rescript.json 自動検出 | rescript.json の検出とプロジェクト設定の自動構成 | `RescriptJsonIconProvider` + `RescriptMissingConfigInspection` |
+| コンパイラ実行・ビルドツール統合 | IDE 内から ReScript コンパイラを実行し、ビルド結果を表示 | `RescriptRunConfigurationType` + Run Configuration |
+| ストラクチャービュー | ファイル内のシンボル一覧をツリー表示 | `RescriptStructureViewFactory` |
+| コード折りたたみ | モジュール・宣言・コメントの折りたたみ | `RescriptFoldingBuilder` |
+| ブレースマッチング | `{}`、`[]`、`()` の自動対応表示 | `RescriptBraceMatcher` |
+| コメントトグル | 行コメント・ブロックコメントの切り替え | `RescriptCommenter` |
+| セマンティックハイライト | LSP セマンティックトークンによる高精度な色分け | `RescriptSemanticTokensSupport` |
+| コードスタイル設定 | インデント・タブ設定 | `RescriptCodeStyleSettingsProvider` + `RescriptLineIndentProvider` |
+| スマート引用符補完 | 引用符の自動ペアリング | `RescriptQuoteHandler` |
+| パンくずナビゲーション | エディタ上部にスコープパス表示 | `RescriptBreadcrumbsProvider` |
+| リネームリファクタリング | LSP 連携によるシンボルリネーム | `RescriptRenameHandler` + `RescriptNamesValidator` |
+| TODO インデクシング | ReScript ファイル内の TODO/FIXME 認識 | `RescriptTodoIndexer` |
+| Go to Symbol | `Cmd+Option+O` でシンボル検索 | `RescriptSymbolContributor` |
+| 外部フォーマッタ連携 | `rescript format` CLI によるコードフォーマット | `RescriptFormattingService` |
+| コードインスペクション | 重複 open、空モジュール、設定ファイル未検出の警告 | `RescriptDuplicateOpenInspection` 等 |
+| プロジェクト設定 UI | Languages & Frameworks > ReScript 設定画面 | `RescriptConfigurable` + `RescriptProjectSettings` |
+
+### 将来機能（ロードマップ） — rescript-vscode ギャップ分析
+
+rescript-vscode（公式 VS Code 拡張）との機能比較に基づき、未実装機能を優先度別に整理する。
+
+#### P1（高優先度） — ユーザー体験に大きく影響
+
+| 機能 | 説明 | 実装アプローチ | 難易度 |
+|---|---|---|---|
+| `.res`/`.resi` 切り替え | `Alt+O` で実装/インターフェース切り替え | `AnAction` で拡張子を切り替えて対応ファイルを開く | 低 |
+| Live Templates | `module`, `try`, `for`, `external` 等のスニペット | `resources/liveTemplates/ReScript.xml` に XML 定義 | 低 |
+| JSON Schema 提供 | `rescript.json`/`bsconfig.json` の補完・バリデーション | `plugin.xml` に `jsonSchemaProviderFactory` を登録 | 低〜中 |
+| `%raw()` JS ハイライト | `%raw()` 内の JavaScript をハイライト | `MultiHostInjector` で JS 言語を注入 | 中 |
+
+#### P2（中優先度） — あると便利
+
+| 機能 | 説明 | 実装アプローチ | 難易度 |
+|---|---|---|---|
+| インターフェースファイル生成 | `.cmi` から `.resi` を自動生成 | LSP カスタムリクエスト `textDocument/createInterface` | 中 |
+| コンパイル済み JS を開く | `.res` に対応する `.js` を開く | LSP `textDocument/openCompiled` またはファイルパス推測 | 低 |
+| ビルドステータス表示 | ステータスバーにコンパイル状態表示 | `StatusBarWidget` + `.compiler.log` 監視 | 中〜高 |
+| Signature Help | `(` 入力時に関数シグネチャ表示 | IntelliJ LSP API で自動提供される可能性あり（要確認） | 低〜中 |
+| Code Lens | 関数定義上にフル型表示 | IntelliJ LSP API の Code Lens サポート確認 | 中 |
+
+#### P3（低優先度） — nice-to-have
+
+| 機能 | 説明 | 実装アプローチ | 難易度 |
+|---|---|---|---|
+| reanalyze 統合 | デッドコード分析、未処理例外分析 | reanalyze バイナリ起動 + diagnostics 統合 | 高 |
+| Markdown ReScript ハイライト | ` ```rescript ` コードブロックのハイライト | `LanguageInjector` 登録 | 低 |
+| Paste as JSON.t/JSX | クリップボード変換ペースト | `PasteProvider` + 変換ロジック | 中 |
+| `//#region` 折りたたみ | カスタム折りたたみマーカー | `FoldingBuilder` にコメントベースの region 検出追加 | 低 |
+| Incremental Type Checking 設定 | LSP の incremental typechecking 設定 | Settings UI + initialization options | 低〜中 |
+| JetBrains Marketplace 公開 | プラグインを Marketplace に公開 | Gradle `publishPlugin` タスク設定 | 中 |
 
 ## 4. 成功の定義
 

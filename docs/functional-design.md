@@ -396,16 +396,35 @@ flowchart TD
 
 `plugin.xml` で登録される全 extension point の一覧:
 
-| Extension Point | 実装クラス | 用途 |
-|---|---|---|
-| `com.intellij.fileType` | `RescriptFileType` | `.res` ファイルタイプ登録 |
-| `com.intellij.fileType` | `RescriptInterfaceFileType` | `.resi` ファイルタイプ登録 |
-| `com.intellij.lang.parserDefinition` | `RescriptParserDefinition` | レクサー・パーサー登録 |
-| `com.intellij.lang.syntaxHighlighterFactory` | `RescriptSyntaxHighlighterFactory` | ハイライト登録 |
-| `com.intellij.lang.braceMatcher` | `RescriptBraceMatcher` | ブレースマッチング登録 |
-| `com.intellij.lang.commenter` | `RescriptCommenter` | コメントトグル登録 |
-| `com.intellij.lang.foldingBuilder` | `RescriptFoldingBuilder` | コード折りたたみ登録 |
-| `com.intellij.platform.lsp.serverSupportProvider` | `RescriptLspServerSupportProvider` | LSP サーバー登録 |
+| Extension Point | 実装クラス | 用途 | 状態 |
+|---|---|---|---|
+| `com.intellij.fileType` | `RescriptFileType` | `.res` ファイルタイプ登録 | 実装済み |
+| `com.intellij.fileType` | `RescriptInterfaceFileType` | `.resi` ファイルタイプ登録 | 実装済み |
+| `com.intellij.lang.parserDefinition` | `RescriptParserDefinition` | レクサー・パーサー登録 | 実装済み |
+| `com.intellij.lang.syntaxHighlighterFactory` | `RescriptSyntaxHighlighterFactory` | ハイライト登録 | 実装済み |
+| `com.intellij.lang.braceMatcher` | `RescriptBraceMatcher` | ブレースマッチング登録 | 実装済み |
+| `com.intellij.lang.commenter` | `RescriptCommenter` | コメントトグル登録 | 実装済み |
+| `com.intellij.lang.foldingBuilder` | `RescriptFoldingBuilder` | コード折りたたみ登録 | 実装済み |
+| `com.intellij.lang.psiStructureViewFactory` | `RescriptStructureViewFactory` | ストラクチャービュー登録 | 実装済み |
+| `com.intellij.colorSettingsPage` | `RescriptColorSettingsPage` | ハイライト色設定 UI | 実装済み |
+| `com.intellij.additionalTextAttributes` | `RescriptDarcula.xml` / `RescriptDefault.xml` | テーマ別カラースキーム | 実装済み |
+| `com.intellij.iconProvider` | `RescriptJsonIconProvider` | rescript.json アイコン表示 | 実装済み |
+| `com.intellij.configurationType` | `RescriptRunConfigurationType` | 実行構成登録 | 実装済み |
+| `com.intellij.langCodeStyleSettingsProvider` | `RescriptCodeStyleSettingsProvider` | コードスタイル設定 | 実装済み |
+| `com.intellij.lang.quoteHandler` | `RescriptQuoteHandler` | スマート引用符補完 | 実装済み |
+| `com.intellij.lineIndentProvider` | `RescriptLineIndentProvider` | インデント制御 | 実装済み |
+| `com.intellij.breadcrumbsInfoProvider` | `RescriptBreadcrumbsProvider` | パンくずナビゲーション | 実装済み |
+| `com.intellij.renameHandler` | `RescriptRenameHandler` | リネームリファクタリング | 実装済み |
+| `com.intellij.lang.namesValidator` | `RescriptNamesValidator` | 名前バリデーション | 実装済み |
+| `com.intellij.projectConfigurable` | `RescriptConfigurable` | プロジェクト設定 UI | 実装済み |
+| `com.intellij.projectService` | `RescriptProjectSettings` | プロジェクト設定永続化 | 実装済み |
+| `com.intellij.platform.lsp.serverSupportProvider` | `RescriptLspServerSupportProvider` | LSP サーバー登録 | 実装済み |
+| `com.intellij.todoIndexer` | `RescriptTodoIndexer` | TODO インデクシング | 実装済み |
+| `com.intellij.gotoSymbolContributor` | `RescriptSymbolContributor` | Go to Symbol | 実装済み |
+| `com.intellij.formattingService` | `RescriptFormattingService` | 外部フォーマッタ連携 | 実装済み |
+| `com.intellij.localInspection` | `RescriptDuplicateOpenInspection` | 重複 open 検出 | 実装済み |
+| `com.intellij.localInspection` | `RescriptEmptyModuleInspection` | 空モジュール検出 | 実装済み |
+| `com.intellij.localInspection` | `RescriptMissingConfigInspection` | rescript.json 未検出警告 | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -465,3 +484,63 @@ graph LR
     FT --> LANG
     FT --> ICON
     PARSERDEF --> LANG
+
+## 5. rescript-vscode との機能対比表
+
+rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバレッジ比較。
+
+### エディタ基本機能
+
+| 機能 | rescript-vscode | 本プラグイン | 備考 |
+|---|---|---|---|
+| シンタックスハイライト | TextMate grammar | JFlex レクサー | 実装方式は異なるが同等のカバレッジ |
+| セマンティックハイライト | LSP semantic tokens | LSP semantic tokens | 同等 |
+| コード折りたたみ | VS Code 標準 | `RescriptFoldingBuilder` | 同等 |
+| ブレースマッチング | VS Code 標準 | `RescriptBraceMatcher` | 同等 |
+| コメントトグル | VS Code 標準 | `RescriptCommenter` | 同等 |
+| スマート引用符 | VS Code 標準 | `RescriptQuoteHandler` | 同等 |
+| パンくずナビゲーション | VS Code 標準 | `RescriptBreadcrumbsProvider` | 同等 |
+| カラースキーム設定 | VS Code テーマ | `RescriptColorSettingsPage` | 同等 |
+
+### LSP 連携機能
+
+| 機能 | rescript-vscode | 本プラグイン | 備考 |
+|---|---|---|---|
+| コード補完 | LSP completion | LSP completion | 同等 |
+| 定義ジャンプ | LSP definition | LSP definition | 同等 |
+| ホバードキュメント | LSP hover | LSP hover | 同等 |
+| 参照検索 | LSP references | LSP references | 同等 |
+| リアルタイム診断 | LSP diagnostics | LSP diagnostics | 同等 |
+| インレイヒント | LSP inlay hints | LSP inlay hints | 同等 |
+| リネーム | LSP rename | LSP rename | 同等 |
+| Signature Help | LSP signatureHelp | **未実装** | IntelliJ LSP API で自動提供の可能性あり |
+| Code Lens | LSP codeLens | **未実装** | IntelliJ LSP API の対応状況要確認 |
+
+### IDE 統合機能
+
+| 機能 | rescript-vscode | 本プラグイン | 備考 |
+|---|---|---|---|
+| ストラクチャービュー | VS Code Outline | `RescriptStructureViewFactory` | 同等 |
+| Go to Symbol | VS Code symbols | `RescriptSymbolContributor` | 同等 |
+| コードフォーマット | `rescript format` CLI | `RescriptFormattingService` | 同等 |
+| 実行構成 | VS Code tasks.json | `RescriptRunConfigurationType` | 同等 |
+| TODO インデクシング | — | `RescriptTodoIndexer` | 本プラグイン独自 |
+| コードインスペクション | — | `RescriptDuplicateOpenInspection` 等 | 本プラグイン独自 |
+| プロジェクト設定 UI | VS Code settings.json | `RescriptConfigurable` | 同等 |
+
+### 未実装機能（rescript-vscode にあり、本プラグインに未実装）
+
+| 機能 | rescript-vscode での実装 | 優先度 | 備考 |
+|---|---|---|---|
+| `.res`/`.resi` 切り替え | コマンド `ReScript: Switch implementation/interface` | P1 | `AnAction` で実装 |
+| Live Templates / Snippets | `snippets/rescript.json` | P1 | XML ベースの Live Templates |
+| JSON Schema (`rescript.json`) | 内蔵スキーマ定義 | P1 | `jsonSchemaProviderFactory` |
+| `%raw()` JS ハイライト | TextMate embedded grammar | P1 | `MultiHostInjector` |
+| インターフェースファイル生成 | LSP `textDocument/createInterface` | P2 | LSP カスタムリクエスト |
+| コンパイル済み JS を開く | LSP `textDocument/openCompiled` | P2 | LSP カスタムリクエスト |
+| ビルドステータス表示 | StatusBar + `.compiler.log` 監視 | P2 | `StatusBarWidget` |
+| reanalyze 統合 | reanalyze バイナリ起動 | P3 | デッドコード・未処理例外分析 |
+| Markdown ReScript ハイライト | TextMate embedded grammar | P3 | `LanguageInjector` |
+| Paste as JSON.t/JSX | クリップボード変換コマンド | P3 | `PasteProvider` |
+| `//#region` 折りたたみ | VS Code 標準 region markers | P3 | `FoldingBuilder` 拡張 |
+| Incremental Type Checking 設定 | VS Code 設定 | P3 | Settings UI 拡張 |
