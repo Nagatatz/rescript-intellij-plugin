@@ -30,6 +30,8 @@
 
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.spellchecker</depends>
+    <depends optional="true" config-file="rescript-json.xml">com.intellij.modules.json</depends>
+    <depends optional="true" config-file="rescript-js-injection.xml">JavaScript</depends>
 
     <extensions defaultExtensionNs="com.intellij">
 
@@ -87,6 +89,10 @@
         <configurationType
                 implementation="com.rescript.plugin.run.RescriptRunConfigurationType"/>
 
+        <!-- Console Filter (clickable file:line links in compiler output) -->
+        <consoleFilterProvider
+                implementation="com.rescript.plugin.run.RescriptConsoleFilterProvider"/>
+
         <!-- Code style settings -->
         <langCodeStyleSettingsProvider
                 implementation="com.rescript.plugin.codestyle.RescriptCodeStyleSettingsProvider"/>
@@ -132,6 +138,10 @@
         <gotoSymbolContributor
                 implementation="com.rescript.plugin.navigation.RescriptSymbolContributor"/>
 
+        <!-- Go to Related (.res/.resi/.js) -->
+        <gotoRelatedProvider
+                implementation="com.rescript.plugin.navigation.RescriptGotoRelatedProvider"/>
+
         <!-- Code formatting (rescript format CLI) -->
         <formattingService
                 implementation="com.rescript.plugin.formatter.RescriptFormattingService"/>
@@ -170,6 +180,18 @@
         <!-- Spell checking -->
         <spellchecker.support language="ReScript"
                               implementationClass="com.rescript.plugin.spellcheck.RescriptSpellcheckingStrategy"/>
+
+        <!-- Postfix Completion -->
+        <codeInsight.template.postfixTemplateProvider language="ReScript"
+                                                      implementationClass="com.rescript.plugin.completion.RescriptPostfixTemplateProvider"/>
+
+        <!-- Editor notification (LSP not found) -->
+        <editorNotificationProvider
+                implementation="com.rescript.plugin.editor.RescriptEditorNotificationProvider"/>
+
+        <!-- AST factory for language injection support in string literals -->
+        <lang.ast.factory language="ReScript"
+                          implementationClass="com.rescript.plugin.lang.RescriptAstFactory"/>
     </extensions>
 
     <actions>
