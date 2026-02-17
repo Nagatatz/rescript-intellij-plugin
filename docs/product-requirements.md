@@ -94,6 +94,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Editor Notification Bar | LSP 未検出時のエディタ上部案内バー表示 | `RescriptEditorNotificationProvider` |
 | JSON Schema 提供 | `rescript.json`/`bsconfig.json` の補完・バリデーション | `RescriptJsonSchemaProviderFactory` |
 | `%raw()` JS ハイライト | `%raw()` 内の JavaScript をハイライト | `RescriptRawJsInjector` + `RescriptAstFactory` |
+| Go to Related | `Navigate > Related Symbol` で `.res`/`.resi`/`.js` 間の関連ファイルジャンプ | `RescriptGotoRelatedProvider` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -105,7 +106,7 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 
 | 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
 |---|---|---|---|---|
-| Go to Related | `.res` ↔ `.resi` ↔ `.js` 間の関連ファイルジャンプ | `GotoRelatedProvider` 登録 | 低 | JS/TS (Go to Related), ReasonML (.ml/.mli) |
+(全 P1 機能が実装済み)
 
 #### P2（中優先度） — あると便利
 

@@ -436,6 +436,7 @@ flowchart TD
 | `json.schemaProviderFactory` | `RescriptJsonSchemaProviderFactory` | rescript.json JSON Schema 提供 | 実装済み |
 | `com.intellij.lang.ast.factory` | `RescriptAstFactory` | 文字列リテラルの言語インジェクション対応 | 実装済み |
 | `com.intellij.multiHostInjector` | `RescriptRawJsInjector` | `%raw()` 内 JavaScript ハイライト (optional: JavaScript) | 実装済み |
+| `com.intellij.gotoRelatedProvider` | `RescriptGotoRelatedProvider` | Go to Related (.res/.resi/.js) | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
