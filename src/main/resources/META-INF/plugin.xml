@@ -196,6 +196,10 @@
         <!-- AST factory for language injection support in string literals -->
         <lang.ast.factory language="ReScript"
                           implementationClass="com.rescript.plugin.lang.RescriptAstFactory"/>
+
+        <!-- Code Vision (Code Lens via LSP) -->
+        <codeInsight.daemonBoundCodeVisionProvider
+                implementation="com.rescript.plugin.codevision.RescriptCodeVisionProvider"/>
     </extensions>
 
     <actions>
