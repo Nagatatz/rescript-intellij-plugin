@@ -67,6 +67,7 @@ src/main/
 │   │   ├── RescriptRunConfiguration.kt
 │   │   ├── RescriptRunConfigurationOptions.kt
 │   │   ├── RescriptRunConfigurationType.kt
+│   │   ├── RescriptRunLineMarkerContributor.kt  # ガター実行アイコン
 │   │   └── RescriptSettingsEditor.kt    # 実行構成 UI
 │   ├── settings/
 │   │   ├── RescriptProjectSettings.kt     # プロジェクト単位の設定永続化
@@ -100,6 +101,13 @@ src/main/
 │   │   └── RescriptCodeVisionProvider.kt  # Code Lens (LSP codeLens → CodeVision)
 │   ├── statusbar/
 │   │   └── RescriptCompilerStatusWidgetFactory.kt  # ビルドステータス表示
+│   ├── imports/
+│   │   └── RescriptImportOptimizer.kt   # Import Optimizer (重複 open 削除)
+│   ├── intention/
+│   │   ├── RescriptWrapWithIntention.kt     # Wrap with Some/Ok/Error
+│   │   └── RescriptAddGenTypeIntention.kt   # Add @genType annotation
+│   ├── surround/
+│   │   └── RescriptSurroundDescriptor.kt    # Surround With (if/switch/try/block)
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/

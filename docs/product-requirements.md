@@ -100,6 +100,11 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | インターフェースファイル生成 | `.res` から `.resi` を自動生成 | `RescriptCreateInterfaceAction` (LSP `textDocument/createInterface`) |
 | コンパイル済み JS を開く | `.res` に対応するコンパイル済み `.js` を開く (Alt+Shift+J) | `RescriptOpenCompiledJsAction` (LSP `textDocument/openCompiled`) |
 | ビルドステータス表示 | ステータスバーにコンパイル状態（成功/エラー/警告）表示 | `RescriptCompilerStatusWidgetFactory` (LSP `rescript/compilationStatus`) |
+| Quick Fix (LSP Code Actions) | LSP コードアクションによる自動修正（import 追加、型注釈追加等） | IntelliJ 2024.1+ LSP API で自動サポート |
+| Intention Actions | 式を Some/Ok/Error でラップ、@genType 追加 (Alt+Enter) | `RescriptWrapWithIntention` + `RescriptAddGenTypeIntention` |
+| Surround With | 選択コードを if/switch/try/block で囲む (Ctrl+Alt+T) | `RescriptSurroundDescriptor` |
+| Import Optimizer | 重複 open 文の自動削除 (Ctrl+Alt+O) | `RescriptImportOptimizer` |
+| Gutter Run Icons | .res ファイルのガターに▶実行アイコン表示 | `RescriptRunLineMarkerContributor` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -125,11 +130,7 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 
 | 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
 |---|---|---|---|---|
-| Quick Fix: Add Import | 未解決参照に対する `open` 追加の自動修正 | `UnresolvedReferenceQuickFixProvider` or LSP code actions | 中 | Elm, Dart, Kotlin, JS/TS |
-| Intention Actions | パイプ変換、Option/Result ラップ、パターンマッチ生成等 | `IntentionAction` 登録 | 中 | Elm, Kotlin, JS/TS |
-| Surround With | `try`, `switch`, `if`, `module {}` でのコードラップ | `SurroundDescriptor` 登録 | 低〜中 | Kotlin, JS/TS |
-| Import Optimizer | 未使用 `open` の自動削除（Optimize Imports アクション） | `ImportOptimizer` 登録 | 中 | JS/TS, Kotlin |
-| Gutter Run Icons | テスト・実行可能コード横の▶実行ボタン | `RunLineMarkerContributor` 登録 | 中 | Kotlin, JS/TS, Dart |
+(全 P2 JetBrains ギャップ機能が実装済み)
 
 #### P3（低優先度） — nice-to-have
 
