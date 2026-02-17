@@ -204,6 +204,32 @@
         <!-- Code Vision (Code Lens via LSP) -->
         <codeInsight.daemonBoundCodeVisionProvider
                 implementation="com.rescript.plugin.codevision.RescriptCodeVisionProvider"/>
+
+        <!-- Intention Actions -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptWrapWithSomeIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptWrapWithOkIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptWrapWithErrorIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptAddGenTypeIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
     </extensions>
 
     <actions>
