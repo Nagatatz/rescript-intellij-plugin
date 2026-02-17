@@ -212,5 +212,12 @@
                 description="Create a new ReScript file">
             <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
         </action>
+        <action id="ReScript.OpenCompiledJs"
+                class="com.rescript.plugin.navigation.RescriptOpenCompiledJsAction"
+                text="Open Compiled JavaScript"
+                description="Open compiled JS for this ReScript file">
+            <add-to-group group-id="GoToMenu" anchor="last"/>
+            <keyboard-shortcut first-keystroke="alt shift J" keymap="$default"/>
+        </action>
     </actions>
 </idea-plugin>
