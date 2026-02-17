@@ -34,11 +34,11 @@
 
 ## Feature 4: Spell Checking（ブランチ: `feature/spell-checking`）
 
-- [ ] `RescriptSpellcheckingStrategy.kt` 作成
-- [ ] `plugin.xml` に `<spellchecker.support>` 登録
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
-- [ ] コミット: `✨ Add spell checking support for ReScript files`
+- [x] `RescriptSpellcheckingStrategy.kt` 作成
+- [x] `plugin.xml` に `<spellchecker.support>` 登録
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
+- [x] コミット: `✨ Add spell checking support for ReScript files`
 
 ## マージ作業（メインウィンドウ）
 

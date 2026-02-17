@@ -78,6 +78,8 @@ src/main/
 │   │   └── RescriptSwitchFileAction.kt    # .res/.resi ファイル切り替え (Alt+O)
 │   ├── template/
 │   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
+│   ├── spellcheck/
+│   │   └── RescriptSpellcheckingStrategy.kt  # スペルチェック対応
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/

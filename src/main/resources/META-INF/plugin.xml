@@ -29,6 +29,7 @@
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.spellchecker</depends>
 
     <extensions defaultExtensionNs="com.intellij">
 
@@ -165,6 +166,10 @@
         <internalFileTemplate name="ReScript Module"/>
         <internalFileTemplate name="ReScript Interface"/>
         <internalFileTemplate name="ReScript Component"/>
+
+        <!-- Spell checking -->
+        <spellchecker.support language="ReScript"
+                              implementationClass="com.rescript.plugin.spellcheck.RescriptSpellcheckingStrategy"/>
     </extensions>
 
     <actions>
