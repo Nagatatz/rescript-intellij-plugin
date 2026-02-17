@@ -135,6 +135,9 @@
         <formattingService
                 implementation="com.rescript.plugin.formatter.RescriptFormattingService"/>
 
+        <!-- Live Templates -->
+        <defaultLiveTemplates>/liveTemplates/ReScript</defaultLiveTemplates>
+
         <!-- Inspections -->
         <localInspection language="ReScript"
                          groupName="ReScript"

@@ -17,11 +17,11 @@
 
 ## Feature 2: Live Templates（ブランチ: `feature/live-templates`）
 
-- [ ] `resources/liveTemplates/ReScript.xml` 作成（15テンプレート）
-- [ ] `plugin.xml` に `<defaultLiveTemplates>` 登録
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
-- [ ] コミット: `✨ Add ReScript live templates`
+- [x] `resources/liveTemplates/ReScript.xml` 作成（15テンプレート）
+- [x] `plugin.xml` に `<defaultLiveTemplates>` 登録
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
+- [x] コミット: `✨ Add ReScript live templates`
 
 ## Feature 3: File Templates（ブランチ: `feature/file-templates`）
 

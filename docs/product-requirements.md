@@ -86,6 +86,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | コードインスペクション | 重複 open、空モジュール、設定ファイル未検出の警告 | `RescriptDuplicateOpenInspection` 等 |
 | プロジェクト設定 UI | Languages & Frameworks > ReScript 設定画面 | `RescriptConfigurable` + `RescriptProjectSettings` |
 | `.res`/`.resi` 切り替え | `Alt+O` で実装/インターフェースファイル切り替え | `RescriptSwitchFileAction` |
+| Live Templates | `let`, `mod`, `switch`, `if` 等15種のスニペット | `liveTemplates/ReScript.xml` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -97,7 +98,6 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 
 | 機能 | 説明 | 実装アプローチ | 難易度 |
 |---|---|---|---|
-| Live Templates | `module`, `try`, `for`, `external` 等のスニペット | `resources/liveTemplates/ReScript.xml` に XML 定義 | 低 |
 | JSON Schema 提供 | `rescript.json`/`bsconfig.json` の補完・バリデーション | `plugin.xml` に `jsonSchemaProviderFactory` を登録 | 低〜中 |
 | `%raw()` JS ハイライト | `%raw()` 内の JavaScript をハイライト | `MultiHostInjector` で JS 言語を注入 | 中 |
 
