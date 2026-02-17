@@ -68,4 +68,62 @@
             <option name="FOREGROUND" value="C678DD"/>
         </value>
     </option>
+
+    <!-- ── Semantic token colors (LSP) ── -->
+
+    <!-- Semantic variable - light gray -->
+    <option name="RESCRIPT_SEMANTIC_VARIABLE">
+        <value>
+            <option name="FOREGROUND" value="ABB2BF"/>
+        </value>
+    </option>
+
+    <!-- Semantic type - gold -->
+    <option name="RESCRIPT_SEMANTIC_TYPE">
+        <value>
+            <option name="FOREGROUND" value="E5C07B"/>
+        </value>
+    </option>
+
+    <!-- Semantic namespace (module) - light blue -->
+    <option name="RESCRIPT_SEMANTIC_NAMESPACE">
+        <value>
+            <option name="FOREGROUND" value="61AFEF"/>
+        </value>
+    </option>
+
+    <!-- Semantic enum member (variant) - amber -->
+    <option name="RESCRIPT_SEMANTIC_ENUM_MEMBER">
+        <value>
+            <option name="FOREGROUND" value="D19A66"/>
+        </value>
+    </option>
+
+    <!-- Semantic property - coral red -->
+    <option name="RESCRIPT_SEMANTIC_PROPERTY">
+        <value>
+            <option name="FOREGROUND" value="E06C75"/>
+        </value>
+    </option>
+
+    <!-- Semantic interface (JSX tag) - teal -->
+    <option name="RESCRIPT_SEMANTIC_INTERFACE">
+        <value>
+            <option name="FOREGROUND" value="56B6C2"/>
+        </value>
+    </option>
+
+    <!-- Semantic operator - teal -->
+    <option name="RESCRIPT_SEMANTIC_OPERATOR">
+        <value>
+            <option name="FOREGROUND" value="56B6C2"/>
+        </value>
+    </option>
+
+    <!-- Semantic modifier (JSX bracket) - light gray -->
+    <option name="RESCRIPT_SEMANTIC_MODIFIER">
+        <value>
+            <option name="FOREGROUND" value="ABB2BF"/>
+        </value>
+    </option>
 </list>
