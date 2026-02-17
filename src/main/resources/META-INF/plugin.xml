@@ -178,6 +178,10 @@
         <!-- Postfix Completion -->
         <codeInsight.template.postfixTemplateProvider language="ReScript"
                                                       implementationClass="com.rescript.plugin.completion.RescriptPostfixTemplateProvider"/>
+
+        <!-- Editor notification (LSP not found) -->
+        <editorNotificationProvider
+                implementation="com.rescript.plugin.editor.RescriptEditorNotificationProvider"/>
     </extensions>
 
     <actions>

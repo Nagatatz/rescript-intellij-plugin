@@ -71,7 +71,8 @@ src/main/
 │   ├── indexing/
 │   │   └── RescriptTodoIndexer.kt         # TODO インデクシング
 │   ├── editor/
-│   │   └── RescriptQuoteHandler.kt        # スマート引用符補完
+│   │   ├── RescriptQuoteHandler.kt        # スマート引用符補完
+│   │   └── RescriptEditorNotificationProvider.kt  # LSP 未検出時の案内バー
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
