@@ -49,6 +49,9 @@ src/main/
 │   ├── lsp/
 │   │   ├── RescriptLspServerSupportProvider.kt  # LSP サーバー起動判定
 │   │   ├── RescriptLspServerDescriptor.kt       # LSP サーバー設定
+│   │   ├── RescriptLanguageServer.kt            # カスタム LSP リクエストインターフェース
+│   │   ├── RescriptLsp4jClient.kt               # カスタム LSP 通知受信クライアント
+│   │   ├── RescriptCompilationStatusService.kt  # コンパイル状態保持サービス
 │   │   └── RescriptSemanticTokensSupport.kt     # セマンティックトークン対応
 │   ├── codestyle/
 │   │   ├── RescriptCodeStyleSettingsProvider.kt  # コードスタイル設定
@@ -80,9 +83,11 @@ src/main/
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
-│   │   ├── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
-│   │   ├── RescriptSwitchFileAction.kt    # .res/.resi ファイル切り替え (Alt+O)
-│   │   └── RescriptGotoRelatedProvider.kt # Go to Related (.res/.resi/.js ジャンプ)
+│   │   ├── RescriptSymbolContributor.kt        # Go to Symbol (Cmd+Option+O)
+│   │   ├── RescriptSwitchFileAction.kt         # .res/.resi ファイル切り替え (Alt+O)
+│   │   ├── RescriptGotoRelatedProvider.kt      # Go to Related (.res/.resi/.js ジャンプ)
+│   │   ├── RescriptCreateInterfaceAction.kt    # .resi インターフェース生成
+│   │   └── RescriptOpenCompiledJsAction.kt     # コンパイル済み JS を開く (Alt+Shift+J)
 │   ├── template/
 │   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── spellcheck/
@@ -91,6 +96,10 @@ src/main/
 │   │   └── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log 等)
 │   ├── injection/
 │   │   └── RescriptRawJsInjector.kt    # %raw() 内 JavaScript ハイライト
+│   ├── codevision/
+│   │   └── RescriptCodeVisionProvider.kt  # Code Lens (LSP codeLens → CodeVision)
+│   ├── statusbar/
+│   │   └── RescriptCompilerStatusWidgetFactory.kt  # ビルドステータス表示
 │   ├── folding/RescriptFoldingBuilder.kt
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
@@ -122,8 +131,11 @@ src/main/
 ### レイヤー 2: LSP 統合
 - IntelliJ Platform の LSP API (`com.intellij.platform.lsp`) を使用
 - `@rescript/language-server` を stdio 経由で起動
-- 補完、診断、定義ジャンプ、ホバー、参照検索、インレイヒントを提供
+- 補完、診断、定義ジャンプ、ホバー、参照検索、インレイヒント、Signature Help を提供
 - **セマンティックトークンハイライト** (`RescriptSemanticTokensSupport.kt`) — LSP セマンティックトークンによる高精度な色分け
+- **カスタム LSP リクエスト** (`RescriptLanguageServer.kt`) — `createInterface`, `openCompiled` 等の ReScript 固有リクエスト
+- **カスタム LSP 通知** (`RescriptLsp4jClient.kt`) — `rescript/compilationStatus` 通知受信
+- **Code Lens** (`RescriptCodeVisionProvider.kt`) — CodeVision API 経由で関数の型注釈を表示
 
 ### レイヤー 3: IDE 統合機能
 - **実行構成** (`run/`) — rescript.json 経由の ReScript ビルド実行
@@ -131,6 +143,7 @@ src/main/
 - **コードスタイル** (`codestyle/`) — インデント設定
 - **カラースキーム** (`colorSchemes/`) — Darcula / Default テーマ用の専用配色
 - **rescript.json アイコン** (`config/`) — 設定ファイルへの専用アイコン表示
+- **ビルドステータス** (`statusbar/`) — ステータスバーにコンパイル状態表示
 
 ## 開発規約
 
