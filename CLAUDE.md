@@ -75,7 +75,8 @@ src/main/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
 │   │   ├── RescriptSymbolContributor.kt   # Go to Symbol (Cmd+Option+O)
-│   │   └── RescriptSwitchFileAction.kt    # .res/.resi ファイル切り替え (Alt+O)
+│   │   ├── RescriptSwitchFileAction.kt    # .res/.resi ファイル切り替え (Alt+O)
+│   │   └── RescriptGotoRelatedProvider.kt # Go to Related (.res/.resi/.js ジャンプ)
 │   ├── template/
 │   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── spellcheck/
