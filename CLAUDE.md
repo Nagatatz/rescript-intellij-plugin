@@ -95,8 +95,13 @@ src/main/
 │   │   └── RescriptSpellcheckingStrategy.kt  # スペルチェック対応
 │   ├── completion/
 │   │   └── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log 等)
+│   ├── analysis/
+│   │   └── RescriptReanalyzeAnnotator.kt  # reanalyze デッドコード分析
+│   ├── paste/
+│   │   └── RescriptPasteAsJsonAction.kt   # Paste as JSON.t
 │   ├── injection/
-│   │   └── RescriptRawJsInjector.kt    # %raw() 内 JavaScript ハイライト
+│   │   ├── RescriptRawJsInjector.kt    # %raw() 内 JavaScript ハイライト
+│   │   └── RescriptMarkdownCodeFenceProvider.kt  # Markdown コードフェンスハイライト
 │   ├── codevision/
 │   │   └── RescriptCodeVisionProvider.kt  # Code Lens (LSP codeLens → CodeVision)
 │   ├── statusbar/
@@ -108,7 +113,9 @@ src/main/
 │   │   └── RescriptAddGenTypeIntention.kt   # Add @genType annotation
 │   ├── surround/
 │   │   └── RescriptSurroundDescriptor.kt    # Surround With (if/switch/try/block)
-│   ├── folding/RescriptFoldingBuilder.kt
+│   ├── folding/
+│   │   ├── RescriptFoldingBuilder.kt      # コード折りたたみ (CustomFoldingBuilder)
+│   │   └── RescriptCustomFoldingProvider.kt  # //#region カスタム折りたたみ
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
 │   └── Rescript.flex                    # JFlex レクサー定義 (ソース)
