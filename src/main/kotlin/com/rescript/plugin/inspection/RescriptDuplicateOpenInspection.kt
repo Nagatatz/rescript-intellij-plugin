@@ -8,7 +8,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
-import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.imports.RescriptImportUtil
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
@@ -32,7 +32,7 @@ class RescriptDuplicateOpenInspection : LocalInspectionTool() {
         val seen = mutableSetOf<String>()
 
         for (openStmt in openStatements) {
-            val modulePath = extractModulePath(openStmt)
+            val modulePath = RescriptImportUtil.extractModulePath(openStmt)
             if (modulePath.isNotEmpty()) {
                 if (!seen.add(modulePath)) {
                     holder.registerProblem(
@@ -49,24 +49,6 @@ class RescriptDuplicateOpenInspection : LocalInspectionTool() {
         for (module in modules) {
             checkScope(module, holder)
         }
-    }
-
-    private fun extractModulePath(openStmt: PsiElement): String {
-        val tokens =
-            buildList {
-                var child = openStmt.firstChild
-                var pastOpen = false
-                while (child != null) {
-                    val type = child.node?.elementType
-                    if (type == RescriptTokenTypes.OPEN) {
-                        pastOpen = true
-                    } else if (pastOpen && (type == RescriptTokenTypes.UIDENT || type == RescriptTokenTypes.DOT)) {
-                        add(child.text)
-                    }
-                    child = child.nextSibling
-                }
-            }
-        return tokens.joinToString("")
     }
 
     private class RemoveDuplicateOpenQuickFix : LocalQuickFix {

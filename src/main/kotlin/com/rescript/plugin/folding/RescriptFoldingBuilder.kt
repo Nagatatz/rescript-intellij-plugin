@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 
-class RescriptFoldingBuilder : CustomFoldingBuilder() {
+open class RescriptFoldingBuilder : CustomFoldingBuilder() {
     companion object {
         private val FOLDABLE_DECLARATION_TYPES =
             setOf(

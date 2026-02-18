@@ -16,6 +16,7 @@ class RescriptLsp4jClient(
     handler: LspServerNotificationsHandler,
     private val project: Project,
 ) : Lsp4jClient(handler) {
+    @Suppress("unused") // Called by LSP4J via @JsonNotification reflection
     @JsonNotification("rescript/compilationStatus")
     fun compilationStatus(params: CompilationStatusParams) {
         if (project.isDisposed) return

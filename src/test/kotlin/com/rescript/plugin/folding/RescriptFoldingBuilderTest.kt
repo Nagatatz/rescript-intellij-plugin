@@ -10,8 +10,22 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+/**
+ * Subclass that exposes protected methods for unit testing.
+ */
+private class TestableFoldingBuilder : RescriptFoldingBuilder() {
+    public override fun isRegionCollapsedByDefault(node: ASTNode): Boolean = super.isRegionCollapsedByDefault(node)
+
+    public override fun getLanguagePlaceholderText(
+        node: ASTNode,
+        range: TextRange,
+    ): String? = super.getLanguagePlaceholderText(node, range)
+
+    public override fun isCustomFoldingCandidate(node: ASTNode): Boolean = super.isCustomFoldingCandidate(node)
+}
+
 class RescriptFoldingBuilderTest {
-    private val builder = RescriptFoldingBuilder()
+    private val builder = TestableFoldingBuilder()
 
     /** Minimal ASTNode stub that only exposes elementType and textRange. */
     private fun stubNode(type: IElementType): ASTNode =

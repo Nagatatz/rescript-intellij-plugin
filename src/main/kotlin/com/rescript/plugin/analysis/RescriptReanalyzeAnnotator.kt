@@ -94,7 +94,6 @@ class RescriptReanalyzeAnnotator :
 
     companion object {
         private val LOG = logger<RescriptReanalyzeAnnotator>()
-        private const val TIMEOUT_MS = 30_000L
 
         fun findReanalyzeTool(projectBasePath: String): String? {
             var dir: Path? = Path.of(projectBasePath)

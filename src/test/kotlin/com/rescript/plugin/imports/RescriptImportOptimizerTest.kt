@@ -25,25 +25,25 @@ class RescriptImportOptimizerTest {
     @Test
     fun testExtractSimpleModulePath() {
         val openStmt = buildOpenStatement(listOf("Belt"))
-        assertEquals("Belt", RescriptImportOptimizer.extractModulePath(openStmt))
+        assertEquals("Belt", RescriptImportUtil.extractModulePath(openStmt))
     }
 
     @Test
     fun testExtractDottedModulePath() {
         val openStmt = buildOpenStatement(listOf("Belt", ".", "Array"))
-        assertEquals("Belt.Array", RescriptImportOptimizer.extractModulePath(openStmt))
+        assertEquals("Belt.Array", RescriptImportUtil.extractModulePath(openStmt))
     }
 
     @Test
     fun testExtractDeepModulePath() {
         val openStmt = buildOpenStatement(listOf("Js", ".", "Promise2", ".", "Result"))
-        assertEquals("Js.Promise2.Result", RescriptImportOptimizer.extractModulePath(openStmt))
+        assertEquals("Js.Promise2.Result", RescriptImportUtil.extractModulePath(openStmt))
     }
 
     @Test
     fun testExtractEmptyModulePath() {
         val openStmt = buildOpenStatement(emptyList())
-        assertEquals("", RescriptImportOptimizer.extractModulePath(openStmt))
+        assertEquals("", RescriptImportUtil.extractModulePath(openStmt))
     }
 
     // ── Stub helpers ─────────────────────────────────────────────────
