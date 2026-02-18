@@ -11,60 +11,60 @@
 
 ## Feature 1: reanalyze 統合（ブランチ: `feature/reanalyze`）
 
-- [ ] `RescriptReanalyzeAnnotator.kt` 作成
-- [ ] `plugin.xml` に登録
-- [ ] ステアリングドキュメント作成
-- [ ] テスト作成
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] コミット: `✨ Add reanalyze integration for dead code analysis`
+- [x] `RescriptReanalyzeAnnotator.kt` 作成
+- [x] `plugin.xml` に登録
+- [x] ステアリングドキュメント作成
+- [x] テスト作成
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] コミット: `✨ Add reanalyze integration for dead code analysis`
 
 ## Feature 2: Markdown ReScript ハイライト（ブランチ: `feature/markdown-highlight`）
 
-- [ ] `RescriptMarkdownCodeFenceProvider.kt` 作成
-- [ ] `rescript-markdown.xml` 作成
-- [ ] `plugin.xml` に optional dependency 追加
-- [ ] `build.gradle.kts` に bundledPlugin 追加
-- [ ] ステアリングドキュメント作成
-- [ ] テスト作成
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] コミット: `✨ Add ReScript syntax highlighting in Markdown code fences`
+- [x] `RescriptMarkdownCodeFenceProvider.kt` 作成
+- [x] `rescript-markdown.xml` 作成
+- [x] `plugin.xml` に optional dependency 追加
+- [x] `build.gradle.kts` に bundledPlugin 追加
+- [x] ステアリングドキュメント作成
+- [x] テスト作成
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] コミット: `✨ Add Markdown code fence highlighting for ReScript`
 
 ## Feature 3: Paste as JSON.t（ブランチ: `feature/paste-as-json`）
 
-- [ ] `RescriptPasteAsJsonAction.kt` 作成
-- [ ] `plugin.xml` に action 登録
-- [ ] ステアリングドキュメント作成
-- [ ] テスト作成
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] コミット: `✨ Add Paste as JSON.t action`
+- [x] `RescriptPasteAsJsonAction.kt` 作成
+- [x] `plugin.xml` に action 登録
+- [x] ステアリングドキュメント作成
+- [x] テスト作成
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] コミット: `✨ Add Paste as JSON.t action for ReScript files`
 
 ## Feature 4: `//#region` 折りたたみ（ブランチ: `feature/region-folding`）
 
-- [ ] `RescriptCustomFoldingProvider.kt` 作成
-- [ ] `RescriptFoldingBuilder.kt` を `CustomFoldingBuilder` に変更
-- [ ] `plugin.xml` に customFoldingProvider 登録
-- [ ] ステアリングドキュメント作成
-- [ ] テスト作成・更新
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] コミット: `✨ Add //#region folding support`
+- [x] `RescriptCustomFoldingProvider.kt` 作成
+- [x] `RescriptFoldingBuilder.kt` を `CustomFoldingBuilder` に変更
+- [x] `plugin.xml` に customFoldingProvider 登録
+- [x] ステアリングドキュメント作成
+- [x] テスト作成・更新
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] コミット: `✨ Add //#region custom folding support`
 
 ## Feature 5: Incremental Type Checking 設定（ブランチ: `feature/incremental-tc`）
 
-- [ ] `RescriptProjectSettings.kt` に設定追加
-- [ ] `RescriptConfigurable.kt` に UI 追加
-- [ ] `RescriptLspServerDescriptor.kt` の初期化オプション更新
-- [ ] ステアリングドキュメント作成
-- [ ] テスト作成
-- [ ] `./gradlew buildPlugin` 成功確認
-- [ ] コミット: `✨ Add incremental type checking setting`
+- [x] `RescriptProjectSettings.kt` に設定追加
+- [x] `RescriptConfigurable.kt` に UI 追加
+- [x] `RescriptLspServerDescriptor.kt` の初期化オプション更新
+- [x] ステアリングドキュメント作成
+- [x] テスト作成
+- [x] `./gradlew buildPlugin` 成功確認
+- [x] コミット: `✨ Add incremental type checking setting with LSP restart`
 
 ## マージ作業（メインウィンドウ）
 
-- [ ] 5ブランチすべてのビルド成功確認
-- [ ] バッチブランチ `feature/p3-batch-vscode-gap` に順次マージ（plugin.xml 競合解決）
-- [ ] マージ後 `./gradlew buildPlugin` 成功確認
+- [x] 5ブランチすべてのビルド成功確認
+- [x] バッチブランチ `feature/p3-batch-vscode-gap` に順次マージ（plugin.xml 競合解決）
+- [x] マージ後 `./gradlew buildPlugin` 成功確認
 - [ ] git worktree クリーンアップ
-- [ ] ドキュメント一括更新（CLAUDE.md, product-requirements.md, functional-design.md）
+- [x] ドキュメント一括更新（CLAUDE.md, product-requirements.md, functional-design.md）
 - [ ] コミット: `📝 Update docs for P3 vscode gap features`
 - [ ] バッチブランチを `main` にマージ
 - [ ] バッチブランチを削除

@@ -105,6 +105,11 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Surround With | 選択コードを if/switch/try/block で囲む (Ctrl+Alt+T) | `RescriptSurroundDescriptor` |
 | Import Optimizer | 重複 open 文の自動削除 (Ctrl+Alt+O) | `RescriptImportOptimizer` |
 | Gutter Run Icons | .res ファイルのガターに▶実行アイコン表示 | `RescriptRunLineMarkerContributor` |
+| reanalyze 統合 | デッドコード分析、未処理例外分析 | `RescriptReanalyzeAnnotator` (ExternalAnnotator) |
+| Markdown ReScript ハイライト | ` ```rescript ` コードブロックのシンタックスハイライト | `RescriptMarkdownCodeFenceProvider` (CodeFenceLanguageProvider) |
+| Paste as JSON.t | クリップボード JSON を ReScript `JSON.t` に変換ペースト | `RescriptPasteAsJsonAction` (AnAction) |
+| `//#region` 折りたたみ | カスタム折りたたみマーカー | `RescriptCustomFoldingProvider` + `CustomFoldingBuilder` |
+| Incremental Type Checking 設定 | LSP の incremental typechecking トグル | `RescriptProjectSettings` + `RescriptConfigurable` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -138,11 +143,11 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 
 | 機能 | 説明 | 実装アプローチ | 難易度 |
 |---|---|---|---|
-| reanalyze 統合 | デッドコード分析、未処理例外分析 | reanalyze バイナリ起動 + diagnostics 統合 | 高 |
-| Markdown ReScript ハイライト | ` ```rescript ` コードブロックのハイライト | `LanguageInjector` 登録 | 低 |
-| Paste as JSON.t/JSX | クリップボード変換ペースト | `PasteProvider` + 変換ロジック | 中 |
-| `//#region` 折りたたみ | カスタム折りたたみマーカー | `FoldingBuilder` にコメントベースの region 検出追加 | 低 |
-| Incremental Type Checking 設定 | LSP の incremental typechecking 設定 | Settings UI + initialization options | 低〜中 |
+| ~~reanalyze 統合~~ | ~~デッドコード分析、未処理例外分析~~ | ~~実装済み~~ | ~~高~~ |
+| ~~Markdown ReScript ハイライト~~ | ~~` ```rescript ` コードブロックのハイライト~~ | ~~実装済み~~ | ~~低~~ |
+| ~~Paste as JSON.t~~ | ~~クリップボード変換ペースト~~ | ~~実装済み~~ | ~~中~~ |
+| ~~`//#region` 折りたたみ~~ | ~~カスタム折りたたみマーカー~~ | ~~実装済み~~ | ~~低~~ |
+| ~~Incremental Type Checking 設定~~ | ~~LSP の incremental typechecking 設定~~ | ~~実装済み~~ | ~~低〜中~~ |
 | JetBrains Marketplace 公開 | プラグインを Marketplace に公開 | Gradle `publishPlugin` タスク設定 | 中 |
 
 **他の JetBrains 言語プラグインとのギャップ:**

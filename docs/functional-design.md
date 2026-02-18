@@ -449,6 +449,10 @@ flowchart TD
 | `com.intellij.intentionAction` | `RescriptAddGenTypeIntention` | Add @genType annotation | 実装済み |
 | `com.intellij.lang.surroundDescriptor` | `RescriptSurroundDescriptor` | Surround With (if/switch/try/block) | 実装済み |
 | `com.intellij.runLineMarkerContributor` | `RescriptRunLineMarkerContributor` | ガター実行アイコン | 実装済み |
+| `com.intellij.externalAnnotator` | `RescriptReanalyzeAnnotator` | reanalyze デッドコード分析 | 実装済み |
+| `org.intellij.plugins.markdown.fenceLanguageProvider` | `RescriptMarkdownCodeFenceProvider` | Markdown コードフェンスハイライト (optional: Markdown) | 実装済み |
+| `<action>` | `RescriptPasteAsJsonAction` | Paste as JSON.t（クリップボード JSON 変換） | 実装済み |
+| `com.intellij.customFoldingProvider` | `RescriptCustomFoldingProvider` | //#region カスタム折りたたみ | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -551,13 +555,14 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | TODO インデクシング | — | `RescriptTodoIndexer` | 本プラグイン独自 |
 | コードインスペクション | — | `RescriptDuplicateOpenInspection` 等 | 本プラグイン独自 |
 | プロジェクト設定 UI | VS Code settings.json | `RescriptConfigurable` | 同等 |
+| reanalyze 統合 | reanalyze バイナリ起動 | `RescriptReanalyzeAnnotator` | 同等 |
+| Markdown ReScript ハイライト | TextMate embedded grammar | `RescriptMarkdownCodeFenceProvider` | 同等 |
+| Paste as JSON.t | クリップボード変換コマンド | `RescriptPasteAsJsonAction` | 同等 |
+| `//#region` 折りたたみ | VS Code 標準 region markers | `RescriptCustomFoldingProvider` | 同等 |
+| Incremental Type Checking 設定 | VS Code 設定 | `RescriptConfigurable` + LSP initOptions | 同等 |
 
 ### 未実装機能（rescript-vscode にあり、本プラグインに未実装）
 
 | 機能 | rescript-vscode での実装 | 優先度 | 備考 |
 |---|---|---|---|
-| reanalyze 統合 | reanalyze バイナリ起動 | P3 | デッドコード・未処理例外分析 |
-| Markdown ReScript ハイライト | TextMate embedded grammar | P3 | `LanguageInjector` |
-| Paste as JSON.t/JSX | クリップボード変換コマンド | P3 | `PasteProvider` |
-| `//#region` 折りたたみ | VS Code 標準 region markers | P3 | `FoldingBuilder` 拡張 |
-| Incremental Type Checking 設定 | VS Code 設定 | P3 | Settings UI 拡張 |
+(全 rescript-vscode ギャップ機能が実装済み)
