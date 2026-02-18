@@ -242,6 +242,10 @@
         <!-- Gutter run icon for ReScript files -->
         <runLineMarkerContributor language="ReScript"
                                    implementationClass="com.rescript.plugin.run.RescriptRunLineMarkerContributor"/>
+
+        <!-- reanalyze integration (dead code / exception analysis) -->
+        <externalAnnotator language="ReScript"
+                           implementationClass="com.rescript.plugin.analysis.RescriptReanalyzeAnnotator"/>
     </extensions>
 
     <actions>
