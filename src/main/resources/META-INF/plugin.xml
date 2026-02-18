@@ -259,6 +259,10 @@
         <!-- Qualified Name Copy (Cmd+Shift+Alt+C) -->
         <qualifiedNameProvider
                 implementation="com.rescript.plugin.navigation.RescriptQualifiedNameProvider"/>
+
+        <!-- Smart Enter (Shift+Enter) -->
+        <lang.smartEnterProcessor language="ReScript"
+                                   implementationClass="com.rescript.plugin.editor.RescriptSmartEnterProcessor"/>
     </extensions>
 
     <actions>
