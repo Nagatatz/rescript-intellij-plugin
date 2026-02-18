@@ -453,6 +453,9 @@ flowchart TD
 | `org.intellij.plugins.markdown.fenceLanguageProvider` | `RescriptMarkdownCodeFenceProvider` | Markdown コードフェンスハイライト (optional: Markdown) | 実装済み |
 | `<action>` | `RescriptPasteAsJsonAction` | Paste as JSON.t（クリップボード JSON 変換） | 実装済み |
 | `com.intellij.customFoldingProvider` | `RescriptCustomFoldingProvider` | //#region カスタム折りたたみ | 実装済み |
+| `com.intellij.statementUpDownMover` | `RescriptStatementUpDownMover` | 宣言の上下移動 (Alt+Shift+Up/Down) | 実装済み |
+| `com.intellij.qualifiedNameProvider` | `RescriptQualifiedNameProvider` | 完全修飾名コピー (Cmd+Shift+Alt+C) | 実装済み |
+| `com.intellij.lang.smartEnterProcessor` | `RescriptSmartEnterProcessor` | Smart Enter (Shift+Enter) | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
