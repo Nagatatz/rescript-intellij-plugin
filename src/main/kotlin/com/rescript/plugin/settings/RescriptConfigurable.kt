@@ -7,6 +7,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.ui.FormBuilder
 import java.io.File
+import javax.swing.JCheckBox
 import javax.swing.JComponent
 import javax.swing.JPanel
 
@@ -16,6 +17,7 @@ class RescriptConfigurable(
     private var panel: JPanel? = null
     private var lspServerPathField: TextFieldWithBrowseButton? = null
     private var nodePathField: TextFieldWithBrowseButton? = null
+    private var incrementalTypecheckingCheckbox: JCheckBox? = null
 
     override fun getDisplayName(): String = "ReScript"
 
@@ -47,6 +49,9 @@ class RescriptConfigurable(
         lspServerPathField = lspField
         nodePathField = nodeField
 
+        val incrementalCheckbox = JCheckBox("Enable incremental type checking", true)
+        incrementalTypecheckingCheckbox = incrementalCheckbox
+
         val formPanel =
             FormBuilder
                 .createFormBuilder()
@@ -54,7 +59,11 @@ class RescriptConfigurable(
                 .addTooltip("Leave empty to auto-detect from node_modules or PATH.")
                 .addLabeledComponent("Node.js interpreter path:", nodeField)
                 .addTooltip("Leave empty to use \"node\" from PATH.")
-                .addComponentFillVertically(JPanel(), 0)
+                .addSeparator()
+                .addComponent(incrementalCheckbox)
+                .addTooltip(
+                    "When enabled, the LSP server uses incremental type checking for faster feedback. Requires LSP server restart.",
+                ).addComponentFillVertically(JPanel(), 0)
                 .panel
 
         panel = formPanel
@@ -64,7 +73,8 @@ class RescriptConfigurable(
     override fun isModified(): Boolean {
         val settings = RescriptProjectSettings.getInstance(project)
         return lspServerPathField?.text != settings.lspServerPath ||
-            nodePathField?.text != settings.nodePath
+            nodePathField?.text != settings.nodePath ||
+            incrementalTypecheckingCheckbox?.isSelected != settings.incrementalTypecheckingEnabled
     }
 
     @Throws(ConfigurationException::class)
@@ -82,17 +92,24 @@ class RescriptConfigurable(
         val settings = RescriptProjectSettings.getInstance(project)
         settings.lspServerPath = lspPath
         settings.nodePath = nodePath
+        settings.incrementalTypecheckingEnabled = incrementalTypecheckingCheckbox?.isSelected ?: true
+
+        com.intellij.platform.lsp.api.LspServerManager
+            .getInstance(project)
+            .stopAndRestartIfNeeded(com.rescript.plugin.lsp.RescriptLspServerSupportProvider::class.java)
     }
 
     override fun reset() {
         val settings = RescriptProjectSettings.getInstance(project)
         lspServerPathField?.text = settings.lspServerPath
         nodePathField?.text = settings.nodePath
+        incrementalTypecheckingCheckbox?.isSelected = settings.incrementalTypecheckingEnabled
     }
 
     override fun disposeUIResources() {
         panel = null
         lspServerPathField = null
         nodePathField = null
+        incrementalTypecheckingCheckbox = null
     }
 }

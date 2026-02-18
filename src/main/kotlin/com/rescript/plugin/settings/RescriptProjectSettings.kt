@@ -15,6 +15,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
     class State {
         var lspServerPath: String = ""
         var nodePath: String = ""
+        var incrementalTypecheckingEnabled: Boolean = true
     }
 
     override fun getState(): State = state
@@ -33,6 +34,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.nodePath
         set(value) {
             state.nodePath = value
+        }
+
+    var incrementalTypecheckingEnabled: Boolean
+        get() = state.incrementalTypecheckingEnabled
+        set(value) {
+            state.incrementalTypecheckingEnabled = value
         }
 
     companion object {
