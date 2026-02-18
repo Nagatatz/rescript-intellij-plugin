@@ -1,15 +1,16 @@
 package com.rescript.plugin.folding
 
 import com.intellij.lang.ASTNode
-import com.intellij.lang.folding.FoldingBuilderEx
+import com.intellij.lang.folding.CustomFoldingBuilder
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 
-class RescriptFoldingBuilder : FoldingBuilderEx() {
+class RescriptFoldingBuilder : CustomFoldingBuilder() {
     companion object {
         private val FOLDABLE_DECLARATION_TYPES =
             setOf(
@@ -24,13 +25,12 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
             )
     }
 
-    override fun buildFoldRegions(
+    override fun buildLanguageFoldRegions(
+        descriptors: MutableList<FoldingDescriptor>,
         root: PsiElement,
         document: Document,
         quick: Boolean,
-    ): Array<FoldingDescriptor> {
-        val descriptors = mutableListOf<FoldingDescriptor>()
-
+    ) {
         PsiTreeUtil.findChildrenOfAnyType(root, PsiElement::class.java).forEach { element ->
             val node = element.node ?: return@forEach
 
@@ -58,11 +58,12 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
                 }
             }
         }
-
-        return descriptors.toTypedArray()
     }
 
-    override fun getPlaceholderText(node: ASTNode): String =
+    override fun getLanguagePlaceholderText(
+        node: ASTNode,
+        range: TextRange,
+    ): String? =
         when (node.elementType) {
             RescriptTokenTypes.MULTI_COMMENT -> "/* ... */"
             RescriptElementTypes.MODULE_DECLARATION -> "module ... { ... }"
@@ -92,5 +93,8 @@ class RescriptFoldingBuilder : FoldingBuilderEx() {
         return if (parts.isNotEmpty()) parts.joinToString(".") else "..."
     }
 
-    override fun isCollapsedByDefault(node: ASTNode): Boolean = false
+    override fun isRegionCollapsedByDefault(node: ASTNode): Boolean = false
+
+    override fun isCustomFoldingCandidate(node: ASTNode): Boolean =
+        node.elementType == RescriptTokenTypes.SINGLE_COMMENT
 }
