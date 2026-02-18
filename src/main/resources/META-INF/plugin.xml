@@ -32,6 +32,7 @@
     <depends>com.intellij.modules.spellchecker</depends>
     <depends optional="true" config-file="rescript-json.xml">com.intellij.modules.json</depends>
     <depends optional="true" config-file="rescript-js-injection.xml">JavaScript</depends>
+    <depends optional="true" config-file="rescript-markdown.xml">org.intellij.plugins.markdown</depends>
 
     <extensions defaultExtensionNs="com.intellij">
 
