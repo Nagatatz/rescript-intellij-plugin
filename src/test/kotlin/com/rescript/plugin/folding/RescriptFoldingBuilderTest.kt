@@ -1,17 +1,19 @@
 package com.rescript.plugin.folding
 
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class RescriptFoldingBuilderTest {
     private val builder = RescriptFoldingBuilder()
 
-    /** Minimal ASTNode stub that only exposes elementType. */
+    /** Minimal ASTNode stub that only exposes elementType and textRange. */
     private fun stubNode(type: IElementType): ASTNode =
         java.lang.reflect.Proxy.newProxyInstance(
             ASTNode::class.java.classLoader,
@@ -19,6 +21,7 @@ class RescriptFoldingBuilderTest {
         ) { _, method, _ ->
             when (method.name) {
                 "getElementType" -> type
+                "getTextRange" -> TextRange(0, 10)
                 "toString" -> "StubASTNode($type)"
                 "hashCode" -> System.identityHashCode(type)
                 "equals" -> false
@@ -27,28 +30,49 @@ class RescriptFoldingBuilderTest {
         } as ASTNode
 
     @Test
-    fun testIsCollapsedByDefaultReturnsFalse() {
-        assertFalse(builder.isCollapsedByDefault(stubNode(RescriptTokenTypes.MULTI_COMMENT)))
-        assertFalse(builder.isCollapsedByDefault(stubNode(RescriptElementTypes.MODULE_DECLARATION)))
-        assertFalse(builder.isCollapsedByDefault(stubNode(RescriptElementTypes.LET_DECLARATION)))
+    fun testIsRegionCollapsedByDefaultReturnsFalse() {
+        assertFalse(builder.isRegionCollapsedByDefault(stubNode(RescriptTokenTypes.MULTI_COMMENT)))
+        assertFalse(builder.isRegionCollapsedByDefault(stubNode(RescriptElementTypes.MODULE_DECLARATION)))
+        assertFalse(builder.isRegionCollapsedByDefault(stubNode(RescriptElementTypes.LET_DECLARATION)))
     }
 
     @Test
-    fun testGetPlaceholderTextForMultiComment() {
-        assertEquals("/* ... */", builder.getPlaceholderText(stubNode(RescriptTokenTypes.MULTI_COMMENT)))
+    fun testGetLanguagePlaceholderTextForMultiComment() {
+        val node = stubNode(RescriptTokenTypes.MULTI_COMMENT)
+        assertEquals("/* ... */", builder.getLanguagePlaceholderText(node, node.textRange))
     }
 
     @Test
-    fun testGetPlaceholderTextForModuleDeclaration() {
+    fun testGetLanguagePlaceholderTextForModuleDeclaration() {
+        val node = stubNode(RescriptElementTypes.MODULE_DECLARATION)
         assertEquals(
             "module ... { ... }",
-            builder.getPlaceholderText(stubNode(RescriptElementTypes.MODULE_DECLARATION)),
+            builder.getLanguagePlaceholderText(node, node.textRange),
         )
     }
 
     @Test
-    fun testGetPlaceholderTextForOtherElements() {
-        assertEquals("{...}", builder.getPlaceholderText(stubNode(RescriptElementTypes.LET_DECLARATION)))
-        assertEquals("{...}", builder.getPlaceholderText(stubNode(RescriptElementTypes.TYPE_DECLARATION)))
+    fun testGetLanguagePlaceholderTextForOtherElements() {
+        val letNode = stubNode(RescriptElementTypes.LET_DECLARATION)
+        assertEquals("{...}", builder.getLanguagePlaceholderText(letNode, letNode.textRange))
+        val typeNode = stubNode(RescriptElementTypes.TYPE_DECLARATION)
+        assertEquals("{...}", builder.getLanguagePlaceholderText(typeNode, typeNode.textRange))
+    }
+
+    @Test
+    fun testGetLanguagePlaceholderTextForJsxFragment() {
+        val node = stubNode(RescriptElementTypes.JSX_FRAGMENT)
+        assertEquals("<>...</>", builder.getLanguagePlaceholderText(node, node.textRange))
+    }
+
+    @Test
+    fun testIsCustomFoldingCandidateForSingleComment() {
+        assertTrue(builder.isCustomFoldingCandidate(stubNode(RescriptTokenTypes.SINGLE_COMMENT)))
+    }
+
+    @Test
+    fun testIsCustomFoldingCandidateForNonComment() {
+        assertFalse(builder.isCustomFoldingCandidate(stubNode(RescriptTokenTypes.MULTI_COMMENT)))
+        assertFalse(builder.isCustomFoldingCandidate(stubNode(RescriptElementTypes.LET_DECLARATION)))
     }
 }

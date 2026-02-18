@@ -242,6 +242,9 @@
         <!-- Gutter run icon for ReScript files -->
         <runLineMarkerContributor language="ReScript"
                                    implementationClass="com.rescript.plugin.run.RescriptRunLineMarkerContributor"/>
+        <!-- Custom folding regions (//#region ... //#endregion) -->
+        <customFoldingProvider
+                implementation="com.rescript.plugin.folding.RescriptCustomFoldingProvider"/>
     </extensions>
 
     <actions>
