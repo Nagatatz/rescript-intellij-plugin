@@ -251,6 +251,10 @@
         <!-- Custom folding regions (//#region ... //#endregion) -->
         <customFoldingProvider
                 implementation="com.rescript.plugin.folding.RescriptCustomFoldingProvider"/>
+
+        <!-- Statement Up/Down Mover (Alt+Shift+Up/Down) -->
+        <statementUpDownMover
+                implementation="com.rescript.plugin.editor.RescriptStatementUpDownMover"/>
     </extensions>
 
     <actions>
