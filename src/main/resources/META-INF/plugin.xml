@@ -251,6 +251,10 @@
         <!-- Custom folding regions (//#region ... //#endregion) -->
         <customFoldingProvider
                 implementation="com.rescript.plugin.folding.RescriptCustomFoldingProvider"/>
+
+        <!-- Smart Enter (Shift+Enter) -->
+        <lang.smartEnterProcessor language="ReScript"
+                                   implementationClass="com.rescript.plugin.editor.RescriptSmartEnterProcessor"/>
     </extensions>
 
     <actions>
