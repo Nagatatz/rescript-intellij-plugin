@@ -80,7 +80,9 @@ src/main/
 │   │   └── RescriptTodoIndexer.kt         # TODO インデクシング
 │   ├── editor/
 │   │   ├── RescriptQuoteHandler.kt        # スマート引用符補完
-│   │   └── RescriptEditorNotificationProvider.kt  # LSP 未検出時の案内バー
+│   │   ├── RescriptEditorNotificationProvider.kt  # LSP 未検出時の案内バー
+│   │   ├── RescriptStatementUpDownMover.kt  # 宣言の上下移動 (Alt+Shift+Up/Down)
+│   │   └── RescriptSmartEnterProcessor.kt   # Smart Enter (Shift+Enter)
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
@@ -88,7 +90,8 @@ src/main/
 │   │   ├── RescriptSwitchFileAction.kt         # .res/.resi ファイル切り替え (Alt+O)
 │   │   ├── RescriptGotoRelatedProvider.kt      # Go to Related (.res/.resi/.js ジャンプ)
 │   │   ├── RescriptCreateInterfaceAction.kt    # .resi インターフェース生成
-│   │   └── RescriptOpenCompiledJsAction.kt     # コンパイル済み JS を開く (Alt+Shift+J)
+│   │   ├── RescriptOpenCompiledJsAction.kt     # コンパイル済み JS を開く (Alt+Shift+J)
+│   │   └── RescriptQualifiedNameProvider.kt    # 完全修飾名コピー (Cmd+Shift+Alt+C)
 │   ├── template/
 │   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── spellcheck/
