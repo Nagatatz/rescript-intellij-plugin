@@ -276,5 +276,11 @@
             <add-to-group group-id="GoToMenu" anchor="last"/>
             <keyboard-shortcut first-keystroke="alt shift J" keymap="$default"/>
         </action>
+        <action id="ReScript.PasteAsJsonT"
+                class="com.rescript.plugin.paste.RescriptPasteAsJsonAction"
+                text="Paste as JSON.t"
+                description="Convert clipboard JSON to ReScript JSON.t">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
     </actions>
 </idea-plugin>
