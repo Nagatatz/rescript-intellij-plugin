@@ -56,22 +56,6 @@ class RescriptPostfixTemplateProvider : PostfixTemplateProvider {
             val tokenType = context.node?.elementType ?: return false
             return tokenType !in NON_APPLICABLE_TOKENS
         }
-
-        fun getExpressionText(
-            context: PsiElement,
-            document: Document,
-            dotOffset: Int,
-        ): String? {
-            val lineStart = document.getLineStartOffset(document.getLineNumber(dotOffset))
-            val text =
-                document.getText(
-                    com.intellij.openapi.util
-                        .TextRange(lineStart, dotOffset),
-                )
-            val trimmed = text.trimEnd()
-            if (trimmed.isEmpty()) return null
-            return trimmed
-        }
     }
 }
 

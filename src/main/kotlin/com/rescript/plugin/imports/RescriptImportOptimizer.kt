@@ -3,7 +3,6 @@ package com.rescript.plugin.imports
 import com.intellij.lang.ImportOptimizer
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
@@ -16,7 +15,7 @@ class RescriptImportOptimizer : ImportOptimizer {
         val duplicates = mutableListOf<PsiElement>()
 
         for (openStmt in openStatements) {
-            val modulePath = extractModulePath(openStmt)
+            val modulePath = RescriptImportUtil.extractModulePath(openStmt)
             if (modulePath.isNotEmpty()) {
                 if (!seen.add(modulePath)) {
                     duplicates.add(openStmt)
@@ -37,26 +36,6 @@ class RescriptImportOptimizer : ImportOptimizer {
                 } else {
                     "Removed ${duplicates.size} duplicate open statement(s)"
                 }
-        }
-    }
-
-    companion object {
-        fun extractModulePath(openStmt: PsiElement): String {
-            val tokens =
-                buildList {
-                    var child = openStmt.firstChild
-                    var pastOpen = false
-                    while (child != null) {
-                        val type = child.node?.elementType
-                        if (type == RescriptTokenTypes.OPEN) {
-                            pastOpen = true
-                        } else if (pastOpen && (type == RescriptTokenTypes.UIDENT || type == RescriptTokenTypes.DOT)) {
-                            add(child.text)
-                        }
-                        child = child.nextSibling
-                    }
-                }
-            return tokens.joinToString("")
         }
     }
 }

@@ -12,6 +12,7 @@ import com.intellij.openapi.util.Disposer
  */
 @Service(Service.Level.PROJECT)
 class RescriptCompilationStatusService(
+    @Suppress("unused") // Injected by IntelliJ Platform service container
     private val project: Project,
 ) {
     @Volatile
