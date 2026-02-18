@@ -247,6 +247,10 @@
         <!-- reanalyze integration (dead code / exception analysis) -->
         <externalAnnotator language="ReScript"
                            implementationClass="com.rescript.plugin.analysis.RescriptReanalyzeAnnotator"/>
+
+        <!-- Custom folding regions (//#region ... //#endregion) -->
+        <customFoldingProvider
+                implementation="com.rescript.plugin.folding.RescriptCustomFoldingProvider"/>
     </extensions>
 
     <actions>
