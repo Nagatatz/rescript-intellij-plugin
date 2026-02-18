@@ -255,6 +255,10 @@
         <!-- Statement Up/Down Mover (Alt+Shift+Up/Down) -->
         <statementUpDownMover
                 implementation="com.rescript.plugin.editor.RescriptStatementUpDownMover"/>
+
+        <!-- Qualified Name Copy (Cmd+Shift+Alt+C) -->
+        <qualifiedNameProvider
+                implementation="com.rescript.plugin.navigation.RescriptQualifiedNameProvider"/>
     </extensions>
 
     <actions>
