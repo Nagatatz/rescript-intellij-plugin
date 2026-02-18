@@ -251,6 +251,10 @@
         <!-- Custom folding regions (//#region ... //#endregion) -->
         <customFoldingProvider
                 implementation="com.rescript.plugin.folding.RescriptCustomFoldingProvider"/>
+
+        <!-- Qualified Name Copy (Cmd+Shift+Alt+C) -->
+        <qualifiedNameProvider
+                implementation="com.rescript.plugin.navigation.RescriptQualifiedNameProvider"/>
     </extensions>
 
     <actions>
