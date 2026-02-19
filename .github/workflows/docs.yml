@@ -7,11 +7,11 @@ on:
   pull_request:
     branches: [main]
     paths: ['sphinx-docs/**']
+  workflow_dispatch:
 
-# Allow only one concurrent deployment
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'push' && 'pages' || format('docs-{0}', github.head_ref) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -31,6 +31,8 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
 
       - name: Install dependencies
         run: uv sync
@@ -48,7 +50,6 @@ jobs:
         run: uv run pytest
 
   build:
-    needs: lint-and-test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -60,6 +61,8 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
 
       - name: Install dependencies
         run: uv sync
@@ -69,25 +72,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate ReScript Pygments lexer
-        run: make generate-lexer
-
-      - name: Build English HTML
-        run: make html
-
-      - name: Build Japanese HTML
-        run: make build-ja
-
-      - name: Assemble site
-        run: |
-          rm -rf _build/site
-          mkdir -p _build/site
-          cp -r _build/html _build/site/en
-          cp -r _build/html_ja _build/site/ja
-          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=en/"></head><body><a href="en/">English</a></body></html>' > _build/site/index.html
-
-      - name: Build Pagefind search index
-        run: npx pagefind --site _build/site
+      - name: Build site
+        run: make build-all
 
       - name: Upload Pages artifact
         if: github.event_name == 'push'
@@ -100,9 +86,21 @@ jobs:
         run: make linkcheck
         continue-on-error: true
 
+      - name: Report link check results
+        if: github.event_name == 'pull_request' && always()
+        run: |
+          if [ -f _build/linkcheck/output.txt ]; then
+            {
+              echo "## 🔗 Link Check Results"
+              echo '```'
+              cat _build/linkcheck/output.txt
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
   deploy:
     if: github.event_name == 'push'
-    needs: build
+    needs: [lint-and-test, build]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
