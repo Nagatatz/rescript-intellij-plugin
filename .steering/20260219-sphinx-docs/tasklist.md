@@ -15,7 +15,7 @@
 - [x] Create `sphinx-docs/Makefile` (generate-lexer, html, gettext, update-po, build-ja, build-all, serve, install, clean, linkcheck)
 - [x] Create `sphinx-docs/_ext/generate_rescript_lexer.py` (auto-extract from Rescript.flex + color scheme XMLs)
 - [x] Create `sphinx-docs/_static/css/custom.css` (language switcher CSS)
-- [x] Create `sphinx-docs/_templates/layout.html` (language switcher UI)
+- [x] Create `sphinx-docs/_templates/page.html` (language switcher UI — Furo uses page.html, not layout.html)
 - [x] Create `sphinx-docs/_static/img/screenshots/.gitkeep` (placeholder)
 - [x] Update `.gitignore` (sphinx-docs/_build/, .venv/, .python-version, rescript_lexer.py, *.mo, *.pot)
 - [x] Verify build: `make html` succeeds with no warnings
@@ -63,24 +63,24 @@
 - [x] Translate `user/installation.po`
 - [x] Translate `user/quickstart.po`
 - [x] Run `make build-ja` and verify Japanese build
-- [ ] Verify language switcher works (EN ↔ JA navigation)
+- [x] Verify language switcher works (EN ↔ JA navigation)
 - [x] Commit: `📝 Add Japanese translations for key pages`
 
 ## Phase 6: GitHub Actions Deployment
 
 - [x] Create `.github/workflows/docs.yml` (build + deploy workflow)
-- [x] Verify workflow syntax with actionlint (if available) — actionlint not installed, skipped
+- [x] Verify workflow syntax with actionlint — passed with no errors
 - [x] Commit: `📝 Add GitHub Actions docs deployment workflow`
 
 ## Phase 7: Final Verification & Merge
 
-- [ ] Run `make build-all` locally — verify English build
-- [ ] Run `make build-all` locally — verify Japanese build
-- [ ] Run `make linkcheck` — no broken links
-- [ ] Verify language switcher EN → JA and JA → EN
+- [x] Run `make build-all` locally — verify English build
+- [x] Run `make build-all` locally — verify Japanese build
+- [x] Run `make linkcheck` — no broken links
+- [x] Verify language switcher EN → JA and JA → EN
 - [x] Update tasklist.md — all tasks checked
-- [ ] Merge `docs/sphinx-documentation` branch to `main`
-- [ ] Delete branch `docs/sphinx-documentation`
+- [x] Merge `docs/sphinx-documentation` branch to `main`
+- [x] Delete branch `docs/sphinx-documentation`
 
 ## Notes
 
