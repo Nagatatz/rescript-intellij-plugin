@@ -78,6 +78,8 @@
 - [x] Run `make build-all` locally — verify Japanese build
 - [x] Run `make linkcheck` — no broken links
 - [x] Verify language switcher EN → JA and JA → EN
+- [x] Fix language switcher template (rename layout.html → page.html for Furo compatibility)
+- [x] Commit: `🐛 Fix language switcher template for Furo theme`
 - [x] Update tasklist.md — all tasks checked
 - [x] Merge `docs/sphinx-documentation` branch to `main`
 - [x] Delete branch `docs/sphinx-documentation`
