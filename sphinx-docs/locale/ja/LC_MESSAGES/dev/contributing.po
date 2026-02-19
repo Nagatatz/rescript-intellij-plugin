@@ -1,0 +1,340 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/contributing.md:1
+msgid "Contributing Guide"
+msgstr ""
+
+#: ../../dev/contributing.md:3
+msgid ""
+"Thank you for your interest in contributing to the ReScript IntelliJ "
+"Plugin!"
+msgstr ""
+
+#: ../../dev/contributing.md:5
+msgid "Getting Started"
+msgstr ""
+
+#: ../../dev/contributing.md:7
+msgid "Fork the repository on GitHub"
+msgstr ""
+
+#: ../../dev/contributing.md:8
+msgid "Clone your fork:"
+msgstr ""
+
+#: ../../dev/contributing.md:12
+msgid "Set up your [development environment](setup.md)"
+msgstr ""
+
+#: ../../dev/contributing.md:13
+msgid "Create a feature branch:"
+msgstr ""
+
+#: ../../dev/contributing.md:18
+msgid "Development Workflow"
+msgstr ""
+
+#: ../../dev/contributing.md:20
+msgid "Branch Naming"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Prefix"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Use"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "`feature/`"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "New features"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "`fix/`"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Bug fixes"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "`refactor/`"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Code refactoring"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "`docs/`"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Documentation"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "`test/`"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Test additions"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "`chore/`"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Configuration, dependencies"
+msgstr ""
+
+#: ../../dev/contributing.md:31
+msgid "Commit Messages"
+msgstr ""
+
+#: ../../dev/contributing.md:33
+msgid "Use emoji prefixes for commit messages:"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Emoji"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "✨"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "New feature"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "🐛"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Bug fix"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "♻️"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Refactoring"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "📝"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "🎨"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "UI/style improvement"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "⚡"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Performance improvement"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "🔧"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Configuration change"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "✅"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Test addition/fix"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "🗑️"
+msgstr ""
+
+#: ../../dev/contributing.md
+msgid "Code deletion"
+msgstr ""
+
+#: ../../dev/contributing.md:47
+msgid "**Format:** `<emoji> <verb> <concise description>`"
+msgstr ""
+
+#: ../../dev/contributing.md:49
+msgid "**Examples:**"
+msgstr ""
+
+#: ../../dev/contributing.md:50
+msgid "`✨ Add JSX token support to lexer`"
+msgstr ""
+
+#: ../../dev/contributing.md:51
+msgid "`🐛 Fix nested comment parsing`"
+msgstr ""
+
+#: ../../dev/contributing.md:52
+msgid "`📝 Update architecture documentation`"
+msgstr ""
+
+#: ../../dev/contributing.md:54
+msgid "Code Conventions"
+msgstr ""
+
+#: ../../dev/contributing.md:56
+msgid "Language"
+msgstr ""
+
+#: ../../dev/contributing.md:58
+msgid "All source code is written in **Kotlin**"
+msgstr ""
+
+#: ../../dev/contributing.md:59
+msgid "Lexer definition is in **JFlex** (generates Java)"
+msgstr ""
+
+#: ../../dev/contributing.md:61
+msgid "Package Structure"
+msgstr ""
+
+#: ../../dev/contributing.md:63
+msgid "All classes go under `com.rescript.plugin.*`, organized by feature:"
+msgstr ""
+
+#: ../../dev/contributing.md:72
+msgid "Code Style"
+msgstr ""
+
+#: ../../dev/contributing.md:74
+msgid "ktlint is enforced via CI (`./gradlew ktlintCheck`)"
+msgstr ""
+
+#: ../../dev/contributing.md:75
+msgid "Auto-fix: `./gradlew ktlintFormat`"
+msgstr ""
+
+#: ../../dev/contributing.md:76
+msgid "IntelliJ's built-in Kotlin formatter generally matches ktlint"
+msgstr ""
+
+#: ../../dev/contributing.md:78
+msgid "KDoc Comments"
+msgstr ""
+
+#: ../../dev/contributing.md:80
+msgid ""
+"All classes and significant methods must have KDoc comments in "
+"**English**:"
+msgstr ""
+
+#: ../../dev/contributing.md:103
+msgid "Testing"
+msgstr ""
+
+#: ../../dev/contributing.md:105
+msgid "Every code change must have corresponding tests"
+msgstr ""
+
+#: ../../dev/contributing.md:106
+msgid "Test file naming: `<ClassName>Test.kt`"
+msgstr ""
+
+#: ../../dev/contributing.md:107
+msgid "Tests mirror the source package structure"
+msgstr ""
+
+#: ../../dev/contributing.md:108
+msgid "See the [Testing Guide](testing.md) for details"
+msgstr ""
+
+#: ../../dev/contributing.md:110
+msgid "Submitting Changes"
+msgstr ""
+
+#: ../../dev/contributing.md:112
+msgid "Ensure all tests pass:"
+msgstr ""
+
+#: ../../dev/contributing.md:117
+msgid "Ensure code style checks pass:"
+msgstr ""
+
+#: ../../dev/contributing.md:122
+msgid "Build the plugin:"
+msgstr ""
+
+#: ../../dev/contributing.md:127
+msgid "Push your branch and create a Pull Request"
+msgstr ""
+
+#: ../../dev/contributing.md:129
+msgid "PR Guidelines"
+msgstr ""
+
+#: ../../dev/contributing.md:131
+msgid "Keep PRs focused on a single feature or fix"
+msgstr ""
+
+#: ../../dev/contributing.md:132
+msgid "Write a clear description of what changed and why"
+msgstr ""
+
+#: ../../dev/contributing.md:133
+msgid "Include screenshots for UI changes"
+msgstr ""
+
+#: ../../dev/contributing.md:134
+msgid "Reference related issues if applicable"
+msgstr ""
+
+#: ../../dev/contributing.md:136
+msgid "Questions?"
+msgstr ""
+
+#: ../../dev/contributing.md:138
+msgid ""
+"Open an [issue](https://github.com/Nagatatz/rescript-intellij-"
+"plugin/issues) on GitHub"
+msgstr ""
+
+#: ../../dev/contributing.md:139
+msgid "Check existing issues and discussions"
+msgstr ""
+

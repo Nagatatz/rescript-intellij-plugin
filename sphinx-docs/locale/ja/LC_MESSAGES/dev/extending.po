@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/extending.md:1
+msgid "Extending the Plugin"
+msgstr ""
+
+#: ../../dev/extending.md:3
+msgid ""
+"This guide explains how to add new features to the plugin, following "
+"established patterns."
+msgstr ""
+
+#: ../../dev/extending.md:5
+msgid "General Workflow"
+msgstr ""
+
+#: ../../dev/extending.md:7
+msgid ""
+"**Create a new Kotlin file** in the appropriate package under "
+"`src/main/kotlin/com/rescript/plugin/`"
+msgstr ""
+
+#: ../../dev/extending.md:8
+msgid "**Implement the IntelliJ Platform extension point** interface"
+msgstr ""
+
+#: ../../dev/extending.md:9
+msgid "**Register in `plugin.xml`** under the correct extension point"
+msgstr ""
+
+#: ../../dev/extending.md:10
+msgid "**Add tests** in `src/test/kotlin/com/rescript/plugin/`"
+msgstr ""
+
+#: ../../dev/extending.md:11
+msgid "**Build and test**: `./gradlew buildPlugin`"
+msgstr ""
+
+#: ../../dev/extending.md:13
+msgid "Common Extension Point Patterns"
+msgstr ""
+
+#: ../../dev/extending.md:15
+msgid "Adding a New Inspection"
+msgstr ""
+
+#: ../../dev/extending.md:17
+msgid "Inspections analyze code and report problems."
+msgstr ""
+
+#: ../../dev/extending.md:33 ../../dev/extending.md:66
+#: ../../dev/extending.md:92
+msgid "Register in `plugin.xml`:"
+msgstr ""
+
+#: ../../dev/extending.md:45
+msgid "Adding a New Intention Action"
+msgstr ""
+
+#: ../../dev/extending.md:47
+msgid "Intentions provide quick actions via `Alt+Enter`."
+msgstr ""
+
+#: ../../dev/extending.md:76
+msgid "Adding a New Action"
+msgstr ""
+
+#: ../../dev/extending.md:78
+msgid "Actions appear in menus and can have keyboard shortcuts."
+msgstr ""
+
+#: ../../dev/extending.md:104
+msgid "Adding New Lexer Tokens"
+msgstr ""
+
+#: ../../dev/extending.md:106
+msgid "To add a new token type to the lexer:"
+msgstr ""
+
+#: ../../dev/extending.md:108
+msgid "**Edit `Rescript.flex`** — Add the token rule"
+msgstr ""
+
+#: ../../dev/extending.md:109
+msgid ""
+"**Edit `RescriptTokenTypes.kt`** — Define the `IElementType` constant and"
+" add it to the appropriate `TokenSet`"
+msgstr ""
+
+#: ../../dev/extending.md:110
+msgid ""
+"**Edit `RescriptSyntaxHighlighter.kt`** — Map the token to a "
+"`TextAttributesKey`"
+msgstr ""
+
+#: ../../dev/extending.md:111
+msgid "**Build** — `./gradlew buildPlugin` to regenerate the lexer"
+msgstr ""
+
+#: ../../dev/extending.md:113
+msgid "Adding a Postfix Template"
+msgstr ""
+
+#: ../../dev/extending.md:131
+msgid "File Naming Conventions"
+msgstr ""
+
+#: ../../dev/extending.md:133
+msgid "Classes: `Rescript<Feature><Type>.kt` (e.g., `RescriptFoldingBuilder.kt`)"
+msgstr ""
+
+#: ../../dev/extending.md:134
+msgid ""
+"Tests: `Rescript<Feature><Type>Test.kt` (e.g., "
+"`RescriptFoldingBuilderTest.kt`)"
+msgstr ""
+
+#: ../../dev/extending.md:135
+msgid ""
+"Package: Match the feature category (e.g., `folding/`, `navigation/`, "
+"`analysis/`)"
+msgstr ""
+
+#: ../../dev/extending.md:137
+msgid "KDoc Requirements"
+msgstr ""
+
+#: ../../dev/extending.md:139
+msgid ""
+"All classes and non-trivial public methods must have KDoc comments in "
+"English. See the [Contributing Guide](contributing.md) for details."
+msgstr ""
+

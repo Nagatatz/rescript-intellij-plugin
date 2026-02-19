@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/setup.md:1
+msgid "Development Setup"
+msgstr ""
+
+#: ../../dev/setup.md:3
+msgid "Prerequisites"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "Requirement"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "Version"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "JDK"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "21 or later"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "IntelliJ IDEA"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "2025.3+ (Ultimate or Community)"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "Git"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "Any recent version"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "Node.js"
+msgstr ""
+
+#: ../../dev/setup.md
+msgid "For testing LSP features"
+msgstr ""
+
+#: ../../dev/setup.md:12
+msgid "Clone the Repository"
+msgstr ""
+
+#: ../../dev/setup.md:19
+msgid "Open in IntelliJ IDEA"
+msgstr ""
+
+#: ../../dev/setup.md:21
+msgid "Open IntelliJ IDEA"
+msgstr ""
+
+#: ../../dev/setup.md:22
+msgid "**File** → **Open** → Select the cloned repository"
+msgstr ""
+
+#: ../../dev/setup.md:23
+msgid "IntelliJ will detect the Gradle project and import it automatically"
+msgstr ""
+
+#: ../../dev/setup.md:24
+msgid "Wait for the Gradle sync to complete (this downloads dependencies)"
+msgstr ""
+
+#: ../../dev/setup.md:26
+msgid "Verify the Setup"
+msgstr ""
+
+#: ../../dev/setup.md:28
+msgid "Run the build to ensure everything is configured correctly:"
+msgstr ""
+
+#: ../../dev/setup.md:34
+msgid "This will:"
+msgstr ""
+
+#: ../../dev/setup.md:35
+msgid "Generate the JFlex lexer (`RescriptFlexLexer.java`) from `Rescript.flex`"
+msgstr ""
+
+#: ../../dev/setup.md:36
+msgid "Compile all Kotlin source code"
+msgstr ""
+
+#: ../../dev/setup.md:37
+msgid "Run ktlint checks"
+msgstr ""
+
+#: ../../dev/setup.md:38
+msgid "Package the plugin"
+msgstr ""
+
+#: ../../dev/setup.md:40
+msgid "Run a Development IDE Instance"
+msgstr ""
+
+#: ../../dev/setup.md:46
+msgid ""
+"This launches a fresh IntelliJ IDEA instance with the plugin loaded. You "
+"can open a ReScript project in this instance to test your changes."
+msgstr ""
+
+#: ../../dev/setup.md:48
+msgid "Project JDK Configuration"
+msgstr ""
+
+#: ../../dev/setup.md:50
+msgid "If IntelliJ doesn't automatically detect your JDK:"
+msgstr ""
+
+#: ../../dev/setup.md:52
+msgid "**File** → **Project Structure** → **Project**"
+msgstr ""
+
+#: ../../dev/setup.md:53
+msgid "Set **SDK** to JDK 21+"
+msgstr ""
+
+#: ../../dev/setup.md:54
+msgid "Set **Language level** to 21"
+msgstr ""
+
+#: ../../dev/setup.md:56
+msgid "Recommended IDE Plugins"
+msgstr ""
+
+#: ../../dev/setup.md:58
+msgid ""
+"For development, consider installing these plugins in your development "
+"IDE:"
+msgstr ""
+
+#: ../../dev/setup.md:60
+msgid "**Kotlin** — Should be bundled"
+msgstr ""
+
+#: ../../dev/setup.md:61
+msgid "**Gradle** — Should be bundled"
+msgstr ""
+
+#: ../../dev/setup.md:62
+msgid "**Grammar-Kit** — Helpful for working with JFlex/BNF grammars"
+msgstr ""
+

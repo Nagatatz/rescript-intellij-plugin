@@ -1,0 +1,259 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/troubleshooting.md:1
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../../user/troubleshooting.md:3
+msgid "Common issues and their solutions."
+msgstr ""
+
+#: ../../user/troubleshooting.md:5
+msgid "Language Server Not Detected"
+msgstr ""
+
+#: ../../user/troubleshooting.md:7
+msgid ""
+"**Symptom:** A notification bar appears at the top of the editor saying "
+"the Language Server was not found."
+msgstr ""
+
+#: ../../user/troubleshooting.md:9 ../../user/troubleshooting.md:29
+#: ../../user/troubleshooting.md:39 ../../user/troubleshooting.md:53
+#: ../../user/troubleshooting.md:66 ../../user/troubleshooting.md:77
+#: ../../user/troubleshooting.md:93 ../../user/troubleshooting.md:104
+msgid "**Solutions:**"
+msgstr ""
+
+#: ../../user/troubleshooting.md:11
+msgid "Install the Language Server in your project:"
+msgstr ""
+
+#: ../../user/troubleshooting.md:16
+msgid "Make sure Node.js is in your PATH:"
+msgstr ""
+
+#: ../../user/troubleshooting.md:21
+msgid "Restart the IDE after installing the Language Server"
+msgstr ""
+
+#: ../../user/troubleshooting.md:23
+msgid "Check that `rescript.json` exists in your project root"
+msgstr ""
+
+#: ../../user/troubleshooting.md:25
+msgid "No Syntax Highlighting"
+msgstr ""
+
+#: ../../user/troubleshooting.md:27
+msgid "**Symptom:** `.res` files appear as plain text without colors."
+msgstr ""
+
+#: ../../user/troubleshooting.md:31
+msgid "Check that the file extension is `.res` or `.resi`"
+msgstr ""
+
+#: ../../user/troubleshooting.md:32
+msgid ""
+"Verify the plugin is installed: **Settings** → **Plugins** → search for "
+"\"ReScript\""
+msgstr ""
+
+#: ../../user/troubleshooting.md:33
+msgid "Try restarting the IDE"
+msgstr ""
+
+#: ../../user/troubleshooting.md:35
+msgid "Code Completion Not Working"
+msgstr ""
+
+#: ../../user/troubleshooting.md:37
+msgid "**Symptom:** No completion suggestions appear when typing."
+msgstr ""
+
+#: ../../user/troubleshooting.md:41
+msgid "Ensure the Language Server is installed and detected (no notification bar)"
+msgstr ""
+
+#: ../../user/troubleshooting.md:42
+msgid "Check that the ReScript project has been built at least once:"
+msgstr ""
+
+#: ../../user/troubleshooting.md:46
+msgid ""
+"Wait a few seconds after opening a file — the Language Server needs time "
+"to initialize"
+msgstr ""
+
+#: ../../user/troubleshooting.md:47
+msgid "Try pressing `Cmd+Space` manually to trigger completion"
+msgstr ""
+
+#: ../../user/troubleshooting.md:49
+msgid "Formatting Not Working"
+msgstr ""
+
+#: ../../user/troubleshooting.md:51
+msgid "**Symptom:** `Cmd+Option+L` does nothing or shows an error."
+msgstr ""
+
+#: ../../user/troubleshooting.md:55
+msgid "Ensure `rescript` is installed in your project:"
+msgstr ""
+
+#: ../../user/troubleshooting.md:59
+msgid "Check that `rescript.json` exists in the project root"
+msgstr ""
+
+#: ../../user/troubleshooting.md:60
+msgid "Verify the file has no syntax errors (formatting may fail on invalid code)"
+msgstr ""
+
+#: ../../user/troubleshooting.md:62
+msgid "Build Errors Not Showing"
+msgstr ""
+
+#: ../../user/troubleshooting.md:64
+msgid "**Symptom:** No inline error annotations despite compilation errors."
+msgstr ""
+
+#: ../../user/troubleshooting.md:68
+msgid "Ensure the Language Server is running (check status bar)"
+msgstr ""
+
+#: ../../user/troubleshooting.md:69
+msgid "Save the file — diagnostics update on save"
+msgstr ""
+
+#: ../../user/troubleshooting.md:70
+msgid "Check the **Problems** panel (`Alt+6`) for any listed issues"
+msgstr ""
+
+#: ../../user/troubleshooting.md:71
+msgid "Try restarting the Language Server: close and reopen the project"
+msgstr ""
+
+#: ../../user/troubleshooting.md:73
+msgid "reanalyze Not Working"
+msgstr ""
+
+#: ../../user/troubleshooting.md:75
+msgid "**Symptom:** No dead code warnings despite unused code."
+msgstr ""
+
+#: ../../user/troubleshooting.md:79
+msgid "Install reanalyze:"
+msgstr ""
+
+#: ../../user/troubleshooting.md:83
+msgid "Build the project first:"
+msgstr ""
+
+#: ../../user/troubleshooting.md:87
+msgid ""
+"Check the reanalyze path in **Settings** → **Languages & Frameworks** → "
+"**ReScript**"
+msgstr ""
+
+#: ../../user/troubleshooting.md:89
+msgid "High CPU or Memory Usage"
+msgstr ""
+
+#: ../../user/troubleshooting.md:91
+msgid "**Symptom:** IDE becomes slow when working with ReScript files."
+msgstr ""
+
+#: ../../user/troubleshooting.md:95
+msgid "Close unused projects"
+msgstr ""
+
+#: ../../user/troubleshooting.md:96
+msgid "Increase IDE memory: **Help** → **Change Memory Settings**"
+msgstr ""
+
+#: ../../user/troubleshooting.md:97
+msgid ""
+"Disable unused inspections: **Settings** → **Editor** → **Inspections** →"
+" uncheck ReScript inspections you don't need"
+msgstr ""
+
+#: ../../user/troubleshooting.md:98
+msgid "Check if the Language Server process is consuming excessive resources"
+msgstr ""
+
+#: ../../user/troubleshooting.md:100
+msgid "Plugin Conflicts"
+msgstr ""
+
+#: ../../user/troubleshooting.md:102
+msgid ""
+"**Symptom:** Unexpected behavior when other language plugins are "
+"installed."
+msgstr ""
+
+#: ../../user/troubleshooting.md:106
+msgid "Check if the old `reasonml-idea-plugin` is installed and disable it"
+msgstr ""
+
+#: ../../user/troubleshooting.md:107
+msgid "Ensure there are no conflicting file type associations for `.res` files"
+msgstr ""
+
+#: ../../user/troubleshooting.md:109
+msgid "Reporting Issues"
+msgstr ""
+
+#: ../../user/troubleshooting.md:111
+msgid "If you can't resolve the issue:"
+msgstr ""
+
+#: ../../user/troubleshooting.md:113
+msgid ""
+"Check [existing issues](https://github.com/Nagatatz/rescript-intellij-"
+"plugin/issues) on GitHub"
+msgstr ""
+
+#: ../../user/troubleshooting.md:114
+msgid "File a new issue with:"
+msgstr ""
+
+#: ../../user/troubleshooting.md:115
+msgid "IDE version and OS"
+msgstr ""
+
+#: ../../user/troubleshooting.md:116
+msgid "Plugin version"
+msgstr ""
+
+#: ../../user/troubleshooting.md:117
+msgid "ReScript and Language Server versions"
+msgstr ""
+
+#: ../../user/troubleshooting.md:118
+msgid "Steps to reproduce"
+msgstr ""
+
+#: ../../user/troubleshooting.md:119
+msgid "Error logs (from **Help** → **Show Log in Finder/Explorer**)"
+msgstr ""
+

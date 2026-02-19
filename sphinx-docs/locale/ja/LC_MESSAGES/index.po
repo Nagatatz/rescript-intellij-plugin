@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../index.md:1
+msgid "ReScript IntelliJ Plugin"
+msgstr "ReScript IntelliJ Plugin"
+
+#: ../../index.md:3
+msgid ""
+"Full-featured [ReScript](https://rescript-lang.org) language support for "
+"IntelliJ IDEA and other JetBrains IDEs."
+msgstr ""
+"IntelliJ IDEA およびその他の JetBrains IDE 向けの、フル機能の "
+"[ReScript](https://rescript-lang.org) 言語サポート。"
+
+#: ../../index.md:5
+msgid ""
+"This plugin combines a fast, built-in JFlex lexer for syntax highlighting"
+" with the official [ReScript Language Server](https://github.com"
+"/rescript-lang/rescript-vscode) (LSP) for semantic features — giving you "
+"the best of both worlds."
+msgstr ""
+"このプラグインは、シンタックスハイライト用の高速な組み込み JFlex レクサーと、"
+"セマンティック機能を提供する公式 [ReScript Language Server](https://github.com"
+"/rescript-lang/rescript-vscode) (LSP) を組み合わせ、両方の長所を活かした開発体験を実現します。"
+
+#: ../../index.md:10
+msgid "User Guide"
+msgstr "ユーザーガイド"
+
+#: ../../index.md:14
+msgid "Learn how to install, configure, and use the plugin effectively."
+msgstr "プラグインのインストール、設定、効果的な使い方を学びましょう。"
+
+#: ../../index.md:17
+msgid "[Get started →](user/index.md)"
+msgstr "[はじめる →](user/index.md)"
+
+#: ../../index.md:20
+msgid "Developer Guide"
+msgstr "開発者ガイド"
+
+#: ../../index.md:24
+msgid "Understand the architecture, build the project, and contribute."
+msgstr "アーキテクチャの理解、プロジェクトのビルド、開発への貢献について。"
+
+#: ../../index.md:27
+msgid "[Read more →](dev/index.md)"
+msgstr "[詳しく見る →](dev/index.md)"
+
+#: ../../index.md:31
+msgid "Highlights"
+msgstr "主な機能"
+
+#: ../../index.md:33
+msgid "**Syntax highlighting** — JFlex lexer with semantic token overlay from LSP"
+msgstr "**シンタックスハイライト** — JFlex レクサーと LSP セマンティックトークンの組み合わせ"
+
+#: ../../index.md:34
+msgid "**Code completion** — Intelligent completions via LSP"
+msgstr "**コード補完** — LSP によるインテリジェントな補完"
+
+#: ../../index.md:35
+msgid "**Navigation** — Go to Definition, Symbol, Related files"
+msgstr "**ナビゲーション** — 定義へ移動、シンボル検索、関連ファイルへのジャンプ"
+
+#: ../../index.md:36
+msgid "**Diagnostics** — Real-time errors and warnings"
+msgstr "**診断** — リアルタイムのエラーと警告の表示"
+
+#: ../../index.md:37
+msgid "**60+ features** — Run configs, testing, code analysis, and more"
+msgstr "**60以上の機能** — 実行構成、テスト、コード分析など"
+
+#: ../../index.md:39
+msgid "Quick Links"
+msgstr "クイックリンク"
+
+#: ../../index.md:41
+msgid "[Installation](user/installation.md)"
+msgstr "[インストール](user/installation.md)"
+
+#: ../../index.md:42
+msgid "[Quick Start](user/quickstart.md)"
+msgstr "[クイックスタート](user/quickstart.md)"
+
+#: ../../index.md:43
+msgid "[Feature Overview](user/features/index.md)"
+msgstr "[機能一覧](user/features/index.md)"
+
+#: ../../index.md:44
+msgid "[Keyboard Shortcuts](user/keyboard-shortcuts.md)"
+msgstr "[キーボードショートカット](user/keyboard-shortcuts.md)"
+
+#: ../../index.md:45
+msgid "[Troubleshooting](user/troubleshooting.md)"
+msgstr "[トラブルシューティング](user/troubleshooting.md)"

@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/features/index.md:1
+msgid "Feature Overview"
+msgstr ""
+
+#: ../../user/features/index.md:3
+msgid ""
+"The ReScript IntelliJ Plugin provides 60+ features organized into two "
+"layers:"
+msgstr ""
+
+#: ../../user/features/index.md:5
+msgid ""
+"**Native features** are built into the plugin and work without any "
+"external dependencies. They provide instant, offline functionality."
+msgstr ""
+
+#: ../../user/features/index.md:7
+msgid ""
+"**LSP features** require the [ReScript Language "
+"Server](https://github.com/rescript-lang/rescript-vscode) and provide "
+"semantic understanding of your code."
+msgstr ""
+
+#: ../../user/features/index.md:9
+msgid "Feature Categories"
+msgstr ""
+
+#: ../../user/features/index.md:14
+msgid "Syntax Highlighting"
+msgstr ""
+
+#: ../../user/features/index.md:18
+msgid "JFlex lexer + LSP semantic tokens for accurate coloring."
+msgstr ""
+
+#: ../../user/features/index.md:21
+msgid "Code Completion"
+msgstr ""
+
+#: ../../user/features/index.md:25
+msgid "Intelligent completions, postfix templates, and live templates."
+msgstr ""
+
+#: ../../user/features/index.md:28
+msgid "Navigation"
+msgstr ""
+
+#: ../../user/features/index.md:32
+msgid "Go to Definition, Symbol, Related files, and more."
+msgstr ""
+
+#: ../../user/features/index.md:35
+msgid "Code Editing"
+msgstr ""
+
+#: ../../user/features/index.md:39
+msgid "Folding, formatting, intentions, surround, and smart editing."
+msgstr ""
+
+#: ../../user/features/index.md:42
+msgid "Run & Build"
+msgstr ""
+
+#: ../../user/features/index.md:46
+msgid "Run configurations, gutter icons, and build status."
+msgstr ""
+
+#: ../../user/features/index.md:49
+msgid "Testing"
+msgstr ""
+
+#: ../../user/features/index.md:53
+msgid "Jest/Vitest integration with test tree UI."
+msgstr ""
+
+#: ../../user/features/index.md:56
+msgid "Code Analysis"
+msgstr ""
+
+#: ../../user/features/index.md:60
+msgid "Inspections, dead code analysis, and import optimization."
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Advanced Features"
+msgstr ""
+
+#: ../../user/features/index.md:67
+msgid "Code Lens, Compiled JS Preview, Module Hierarchy, and more."
+msgstr ""
+
+#: ../../user/features/index.md:71
+msgid "Native vs. LSP Features"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Feature"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Native"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "LSP"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Syntax highlighting"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "✓"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "✓ (semantic overlay)"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Code folding"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Brace matching"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Comments toggle"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Structure view"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Code completion"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Go to Definition"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Hover documentation"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Find references"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Diagnostics"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Inlay hints"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Rename"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "Code formatting"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid "✓ (via CLI)"
+msgstr ""
+

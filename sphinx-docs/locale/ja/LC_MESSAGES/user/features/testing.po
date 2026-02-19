@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/features/testing.md:1
+msgid "Testing"
+msgstr ""
+
+#: ../../user/features/testing.md:3
+msgid ""
+"The plugin provides integrated test running for ReScript projects that "
+"use Jest or Vitest."
+msgstr ""
+
+#: ../../user/features/testing.md:5
+msgid "Supported Test Frameworks"
+msgstr ""
+
+#: ../../user/features/testing.md
+msgid "Framework"
+msgstr ""
+
+#: ../../user/features/testing.md
+msgid "Detection"
+msgstr ""
+
+#: ../../user/features/testing.md
+msgid "**Jest**"
+msgstr ""
+
+#: ../../user/features/testing.md
+msgid "Detected via `jest` in `package.json` dependencies"
+msgstr ""
+
+#: ../../user/features/testing.md
+msgid "**Vitest**"
+msgstr ""
+
+#: ../../user/features/testing.md
+msgid "Detected via `vitest` in `package.json` dependencies"
+msgstr ""
+
+#: ../../user/features/testing.md:12
+msgid "The plugin automatically detects which framework your project uses."
+msgstr ""
+
+#: ../../user/features/testing.md:14
+msgid "Running Tests"
+msgstr ""
+
+#: ../../user/features/testing.md:16
+msgid "From the Editor"
+msgstr ""
+
+#: ../../user/features/testing.md:18
+msgid "Open a ReScript test file (`.res`)"
+msgstr ""
+
+#: ../../user/features/testing.md:19
+msgid "Right-click on a test function"
+msgstr ""
+
+#: ../../user/features/testing.md:20
+msgid "Select **Run** to execute the test"
+msgstr ""
+
+#: ../../user/features/testing.md:22
+msgid "From Run Configurations"
+msgstr ""
+
+#: ../../user/features/testing.md:24
+msgid "**Run** → **Edit Configurations** → **+** → **ReScript Test**"
+msgstr ""
+
+#: ../../user/features/testing.md:25
+msgid "Configure the test file or directory"
+msgstr ""
+
+#: ../../user/features/testing.md:26
+msgid "Click **Run**"
+msgstr ""
+
+#: ../../user/features/testing.md:28
+msgid "From Context Menu"
+msgstr ""
+
+#: ../../user/features/testing.md:30
+msgid "Right-click on a test file in the Project panel and select **Run**."
+msgstr ""
+
+#: ../../user/features/testing.md:32
+msgid "Test Results"
+msgstr ""
+
+#: ../../user/features/testing.md:34
+msgid "Test results are displayed in the standard IntelliJ test runner UI:"
+msgstr ""
+
+#: ../../user/features/testing.md:36
+msgid "**Test tree** — Hierarchical view of test suites and cases"
+msgstr ""
+
+#: ../../user/features/testing.md:37
+msgid "**Pass/fail indicators** — Green checkmarks and red crosses"
+msgstr ""
+
+#: ../../user/features/testing.md:38
+msgid "**Output** — Stdout/stderr for each test"
+msgstr ""
+
+#: ../../user/features/testing.md:39
+msgid "**Duration** — Execution time per test"
+msgstr ""
+
+#: ../../user/features/testing.md:41
+msgid "How It Works"
+msgstr ""
+
+#: ../../user/features/testing.md:43
+msgid "The plugin compiles your `.res` test file to JavaScript"
+msgstr ""
+
+#: ../../user/features/testing.md:44
+msgid "It runs the compiled `.js` file with Jest or Vitest"
+msgstr ""
+
+#: ../../user/features/testing.md:45
+msgid "Test output is parsed and displayed in the SMTestRunner UI"
+msgstr ""
+
+#: ../../user/features/testing.md:46
+msgid ""
+"File paths in test results are mapped back to the original `.res` source "
+"files"
+msgstr ""
+
+#: ../../user/features/testing.md:49
+msgid ""
+"Test running requires that your ReScript project is properly configured "
+"with a test framework and that the ReScript compiler has already compiled"
+" the test files."
+msgstr ""
+

@@ -1,0 +1,200 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/installation.md:1
+msgid "Installation"
+msgstr "インストール"
+
+#: ../../user/installation.md:3
+msgid "Requirements"
+msgstr "必要条件"
+
+#: ../../user/installation.md:5
+msgid ""
+"**JetBrains IDE** — IntelliJ IDEA 2025.3+ (Ultimate or Community), "
+"WebStorm, or other JetBrains IDE with LSP support"
+msgstr ""
+"**JetBrains IDE** — IntelliJ IDEA 2025.3+（Ultimate または Community）、"
+"WebStorm、またはその他の LSP 対応 JetBrains IDE"
+
+#: ../../user/installation.md:6
+msgid "**JDK** — 21 or later (bundled with JetBrains IDEs)"
+msgstr "**JDK** — 21 以降（JetBrains IDE にバンドル済み）"
+
+#: ../../user/installation.md:7
+msgid ""
+"**Node.js** — Installed and available in PATH (required for the Language "
+"Server)"
+msgstr ""
+"**Node.js** — インストール済みで PATH に含まれていること（Language Server に"
+"必要）"
+
+#: ../../user/installation.md:9
+msgid "Step 1: Install the Plugin"
+msgstr "ステップ 1: プラグインのインストール"
+
+#: ../../user/installation.md:11
+msgid "From JetBrains Marketplace"
+msgstr "JetBrains Marketplace からインストール"
+
+#: ../../user/installation.md:13
+msgid "Open your JetBrains IDE"
+msgstr "JetBrains IDE を開く"
+
+#: ../../user/installation.md:14
+msgid "Go to **Settings** → **Plugins** → **Marketplace**"
+msgstr "**Settings** → **Plugins** → **Marketplace** を開く"
+
+#: ../../user/installation.md:15
+msgid "Search for **\"ReScript\"**"
+msgstr "**\"ReScript\"** を検索する"
+
+#: ../../user/installation.md:16
+msgid "Click **Install**"
+msgstr "**Install** をクリックする"
+
+#: ../../user/installation.md:17 ../../user/installation.md:24
+msgid "Restart the IDE when prompted"
+msgstr "プロンプトが表示されたら IDE を再起動する"
+
+#: ../../user/installation.md:19
+msgid "From Disk (Manual)"
+msgstr "ディスクからインストール（手動）"
+
+#: ../../user/installation.md:21
+msgid ""
+"Download the latest `.zip` from the [GitHub "
+"Releases](https://github.com/Nagatatz/rescript-intellij-plugin/releases) "
+"page"
+msgstr ""
+"[GitHub Releases](https://github.com/Nagatatz/rescript-intellij-plugin/"
+"releases) ページから最新の `.zip` をダウンロードする"
+
+#: ../../user/installation.md:22
+msgid ""
+"Go to **Settings** → **Plugins** → **⚙️** → **Install Plugin from "
+"Disk...**"
+msgstr ""
+"**Settings** → **Plugins** → **⚙️** → **Install Plugin from Disk...** "
+"を開く"
+
+#: ../../user/installation.md:23
+msgid "Select the downloaded `.zip` file"
+msgstr "ダウンロードした `.zip` ファイルを選択する"
+
+#: ../../user/installation.md:26
+msgid "Step 2: Install the ReScript Language Server"
+msgstr "ステップ 2: ReScript Language Server のインストール"
+
+#: ../../user/installation.md:28
+msgid ""
+"The plugin uses the [ReScript Language Server](https://github.com"
+"/rescript-lang/rescript-vscode) for semantic features like code "
+"completion, diagnostics, and navigation. You need to install it in your "
+"project:"
+msgstr ""
+"このプラグインは、コード補完、診断、ナビゲーションなどのセマンティック機能の"
+"ために [ReScript Language Server](https://github.com/rescript-lang/"
+"rescript-vscode) を使用します。プロジェクトにインストールする必要があります:"
+
+#: ../../user/installation.md:39
+msgid ""
+"Local installation (per-project) is recommended. The plugin automatically"
+" detects the Language Server in your project's `node_modules/` directory."
+msgstr ""
+"ローカルインストール（プロジェクト単位）を推奨します。プラグインはプロジェクト"
+"の `node_modules/` ディレクトリ内の Language Server を自動的に検出します。"
+
+#: ../../user/installation.md:42
+msgid "Detection Order"
+msgstr "検出順序"
+
+#: ../../user/installation.md:44
+msgid "The plugin searches for the Language Server in this order:"
+msgstr "プラグインは以下の順序で Language Server を検索します:"
+
+#: ../../user/installation.md:46
+msgid "`node_modules/.bin/rescript-language-server` (project-local)"
+msgstr "`node_modules/.bin/rescript-language-server`（プロジェクトローカル）"
+
+#: ../../user/installation.md:47
+msgid "Parent directories' `node_modules/.bin/` (monorepo support)"
+msgstr "親ディレクトリの `node_modules/.bin/`（monorepo 対応）"
+
+#: ../../user/installation.md:48
+msgid "`node_modules/@rescript/language-server/out/cli.js` (fallback)"
+msgstr "`node_modules/@rescript/language-server/out/cli.js`（フォールバック）"
+
+#: ../../user/installation.md:49
+msgid "Global installation (via `which` / `where`)"
+msgstr "グローバルインストール（`which` / `where` 経由）"
+
+#: ../../user/installation.md:51
+msgid "Step 3: Verify"
+msgstr "ステップ 3: 動作確認"
+
+#: ../../user/installation.md:53
+msgid "Open a `.res` file in your project"
+msgstr "プロジェクト内の `.res` ファイルを開く"
+
+#: ../../user/installation.md:54
+msgid "You should see:"
+msgstr "以下が確認できるはずです:"
+
+#: ../../user/installation.md:55
+msgid "**Syntax highlighting** — Keywords, strings, comments are colored"
+msgstr "**シンタックスハイライト** — キーワード、文字列、コメントが色分け表示される"
+
+#: ../../user/installation.md:56
+msgid ""
+"**No warning banner** — If the Language Server is found, no notification "
+"bar appears"
+msgstr ""
+"**警告バナーが表示されない** — Language Server が検出されると、通知バーは"
+"表示されません"
+
+#: ../../user/installation.md:57
+msgid "**Code completion** — Type a few characters and see completion suggestions"
+msgstr "**コード補完** — 数文字入力すると補完候補が表示される"
+
+#: ../../user/installation.md:60
+msgid ""
+"If the Language Server is not detected, a notification bar will appear at"
+" the top of the editor with instructions to install it. Native features "
+"(syntax highlighting, code folding, etc.) will still work without the "
+"Language Server."
+msgstr ""
+"Language Server が検出されない場合、エディタ上部にインストール手順を示す"
+"通知バーが表示されます。ネイティブ機能（シンタックスハイライト、コード"
+"折りたたみなど）は Language Server なしでも動作します。"
+
+#: ../../user/installation.md:63
+msgid "Troubleshooting Installation"
+msgstr "インストールのトラブルシューティング"
+
+#: ../../user/installation.md:65
+msgid ""
+"See the [Troubleshooting](troubleshooting.md) page for common "
+"installation issues."
+msgstr ""
+"一般的なインストールの問題については、[トラブルシューティング]"
+"(troubleshooting.md) ページを参照してください。"

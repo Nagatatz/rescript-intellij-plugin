@@ -1,0 +1,247 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/building.md:1
+msgid "Building & Running"
+msgstr ""
+
+#: ../../dev/building.md:3
+msgid "Build Commands"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Command"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Description"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew buildPlugin`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Build the plugin (includes lexer generation, compilation, packaging)"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew clean buildPlugin`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Clean build from scratch"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew runIde`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Launch a development IDE instance with the plugin loaded"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew test`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Run all tests"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew ktlintCheck`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Run ktlint code style checks"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew ktlintFormat`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Auto-fix ktlint issues"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew koverHtmlReport`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Generate HTML code coverage report"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew verifyPluginStructure`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Verify plugin descriptor and structure"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew verifyPluginProjectConfiguration`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Verify project configuration"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "`./gradlew verifyPlugin`"
+msgstr ""
+
+#: ../../dev/building.md
+msgid "Verify binary compatibility"
+msgstr ""
+
+#: ../../dev/building.md:18
+msgid "JFlex Lexer Generation"
+msgstr ""
+
+#: ../../dev/building.md:20
+msgid ""
+"The JFlex lexer (`RescriptFlexLexer.java`) is auto-generated from "
+"`Rescript.flex` during the build:"
+msgstr ""
+
+#: ../../dev/building.md:22
+msgid "**Source:** `src/main/java/com/rescript/plugin/lang/Rescript.flex`"
+msgstr ""
+
+#: ../../dev/building.md:23
+msgid ""
+"**Generated:** "
+"`src/main/java/com/rescript/plugin/lang/RescriptFlexLexer.java`"
+msgstr ""
+
+#: ../../dev/building.md:24
+msgid "**Gradle task:** `generateRescriptLexer`"
+msgstr ""
+
+#: ../../dev/building.md:26
+msgid ""
+"The `generateRescriptLexer` task is a dependency of `compileJava` and "
+"`compileKotlin`, so you never need to run it manually. The generated file"
+" is listed in `.gitignore`."
+msgstr ""
+
+#: ../../dev/building.md:29
+msgid ""
+"Never edit `RescriptFlexLexer.java` directly. Always modify "
+"`Rescript.flex` and let the build regenerate the Java file."
+msgstr ""
+
+#: ../../dev/building.md:32
+msgid "Plugin Packaging"
+msgstr ""
+
+#: ../../dev/building.md:34
+msgid "After `./gradlew buildPlugin`, the packaged plugin is at:"
+msgstr ""
+
+#: ../../dev/building.md:40
+msgid ""
+"This `.zip` can be installed in any compatible JetBrains IDE via "
+"**Settings** → **Plugins** → **Install Plugin from Disk**."
+msgstr ""
+
+#: ../../dev/building.md:42
+msgid "Gradle Configuration"
+msgstr ""
+
+#: ../../dev/building.md:44
+msgid "Key configuration files:"
+msgstr ""
+
+#: ../../dev/building.md:28
+msgid "File"
+msgstr ""
+
+#: ../../dev/building.md:28
+msgid "Purpose"
+msgstr ""
+
+#: ../../dev/building.md:28
+msgid "`build.gradle.kts`"
+msgstr ""
+
+#: ../../dev/building.md:28
+msgid "Build script (plugins, dependencies, tasks)"
+msgstr ""
+
+#: ../../dev/building.md:28
+msgid "`gradle.properties`"
+msgstr ""
+
+#: ../../dev/building.md:28
+msgid "Version numbers, platform settings"
+msgstr ""
+
+#: ../../dev/building.md:28
+msgid "`settings.gradle.kts`"
+msgstr ""
+
+#: ../../dev/building.md:28
+msgid "Project name and repository configuration"
+msgstr ""
+
+#: ../../dev/building.md:52
+msgid "Platform Version"
+msgstr ""
+
+#: ../../dev/building.md:54
+msgid "The target IntelliJ Platform version is configured in `gradle.properties`:"
+msgstr ""
+
+#: ../../dev/building.md:61
+msgid "CI Pipeline"
+msgstr ""
+
+#: ../../dev/building.md:63
+msgid ""
+"The GitHub Actions CI pipeline (`.github/workflows/ci.yml`) runs on every"
+" push and PR:"
+msgstr ""
+
+#: ../../dev/building.md:65
+msgid "actionlint — Validate GitHub Actions workflow files"
+msgstr ""
+
+#: ../../dev/building.md:66
+msgid "ktlint — Code style checks"
+msgstr ""
+
+#: ../../dev/building.md:67
+msgid "Build — Compile and package"
+msgstr ""
+
+#: ../../dev/building.md:68
+msgid "Test — Run tests with coverage (Kover)"
+msgstr ""
+
+#: ../../dev/building.md:69
+msgid "Verify — Plugin structure and binary compatibility (push only)"
+msgstr ""
+

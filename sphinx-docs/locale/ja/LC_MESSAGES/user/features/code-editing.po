@@ -1,0 +1,318 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/features/code-editing.md:1
+msgid "Code Editing"
+msgstr ""
+
+#: ../../user/features/code-editing.md:3
+msgid ""
+"The plugin provides a rich set of editing features that make writing "
+"ReScript code more productive."
+msgstr ""
+
+#: ../../user/features/code-editing.md:5
+msgid "Code Folding"
+msgstr ""
+
+#: ../../user/features/code-editing.md:7
+msgid "Collapse and expand blocks to focus on the code that matters."
+msgstr ""
+
+#: ../../user/features/code-editing.md:9
+msgid "Foldable Elements"
+msgstr ""
+
+#: ../../user/features/code-editing.md:11
+#, python-brace-format
+msgid "**Module declarations** — `module Name = { ... }`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:12
+#, python-brace-format
+msgid "**Let bindings** — Multi-line `let` with `{ ... }`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:13
+msgid "**Type definitions** — Multi-line `type` declarations"
+msgstr ""
+
+#: ../../user/features/code-editing.md:14
+msgid "**Block comments** — `/* ... */`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:15
+msgid "**Custom regions** — `//#region` ... `//#endregion`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:17
+msgid "Custom Regions"
+msgstr ""
+
+#: ../../user/features/code-editing.md:19
+msgid ""
+"Use `//#region` and `//#endregion` markers to create custom foldable "
+"sections:"
+msgstr ""
+
+#: ../../user/features/code-editing.md:28
+msgid "Code Formatting"
+msgstr ""
+
+#: ../../user/features/code-editing.md:30
+msgid ""
+"Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file "
+"using the `rescript format` CLI."
+msgstr ""
+
+#: ../../user/features/code-editing.md:33
+msgid ""
+"Formatting requires the ReScript compiler (`rescript`) to be installed in"
+" your project."
+msgstr ""
+
+#: ../../user/features/code-editing.md:36
+msgid "Brace Matching"
+msgstr ""
+
+#: ../../user/features/code-editing.md:38
+msgid "The editor highlights matching brace pairs:"
+msgstr ""
+
+#: ../../user/features/code-editing.md:39
+#, python-brace-format
+msgid "`{` and `}`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:40
+msgid "`[` and `]`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:41
+msgid "`(` and `)`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:43
+msgid "Smart Quotes"
+msgstr ""
+
+#: ../../user/features/code-editing.md:45
+msgid ""
+"When you type `\"`, `'`, or `` ` ``, the closing quote is automatically "
+"inserted."
+msgstr ""
+
+#: ../../user/features/code-editing.md:47
+msgid "Smart Enter"
+msgstr ""
+
+#: ../../user/features/code-editing.md:49
+msgid ""
+"Press `Shift+Enter` to intelligently complete the current statement and "
+"start a new line:"
+msgstr ""
+
+#: ../../user/features/code-editing.md:51
+msgid "Closes unclosed parentheses and braces"
+msgstr ""
+
+#: ../../user/features/code-editing.md:52
+msgid "Adds missing `switch` body braces"
+msgstr ""
+
+#: ../../user/features/code-editing.md:53
+msgid "Moves the cursor to the right position"
+msgstr ""
+
+#: ../../user/features/code-editing.md:55
+msgid "Comment Toggle"
+msgstr ""
+
+#: ../../user/features/code-editing.md:57
+msgid "`Ctrl+/` — Toggle line comment (`//`)"
+msgstr ""
+
+#: ../../user/features/code-editing.md:58
+msgid "`Ctrl+Shift+/` — Toggle block comment (`/* */`)"
+msgstr ""
+
+#: ../../user/features/code-editing.md:60
+msgid "Statement Mover"
+msgstr ""
+
+#: ../../user/features/code-editing.md:62
+msgid "Move top-level declarations up or down:"
+msgstr ""
+
+#: ../../user/features/code-editing.md:64
+msgid "`Alt+Shift+Up` — Move declaration up"
+msgstr ""
+
+#: ../../user/features/code-editing.md:65
+msgid "`Alt+Shift+Down` — Move declaration down"
+msgstr ""
+
+#: ../../user/features/code-editing.md:67
+msgid "This moves the entire declaration (including decorators) as a unit."
+msgstr ""
+
+#: ../../user/features/code-editing.md:69
+msgid "Intention Actions"
+msgstr ""
+
+#: ../../user/features/code-editing.md:71
+msgid "Press `Alt+Enter` on an expression to see available intentions:"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Intention"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Description"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Wrap with `Some(...)`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Wrap expression in `Some()`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Wrap with `Ok(...)`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Wrap expression in `Ok()`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Wrap with `Error(...)`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Wrap expression in `Error()`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Add `@genType`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:32
+msgid "Add `@genType` annotation to a declaration"
+msgstr ""
+
+#: ../../user/features/code-editing.md:80
+msgid "Surround With"
+msgstr ""
+
+#: ../../user/features/code-editing.md:82
+msgid "Select code and press `Ctrl+Alt+T` to surround it with:"
+msgstr ""
+
+#: ../../user/features/code-editing.md:84
+msgid "`if` expression"
+msgstr ""
+
+#: ../../user/features/code-editing.md:85
+msgid "`switch` expression"
+msgstr ""
+
+#: ../../user/features/code-editing.md:86
+msgid "`try` / `catch` block"
+msgstr ""
+
+#: ../../user/features/code-editing.md:87
+#, python-brace-format
+msgid "Block scope `{ ... }`"
+msgstr ""
+
+#: ../../user/features/code-editing.md:89
+msgid "Import Optimization"
+msgstr ""
+
+#: ../../user/features/code-editing.md:91
+msgid ""
+"Press `Ctrl+Alt+O` to remove duplicate `open` statements from the current"
+" file."
+msgstr ""
+
+#: ../../user/features/code-editing.md:93
+msgid "Rename"
+msgstr ""
+
+#: ../../user/features/code-editing.md:95
+msgid ""
+"Press `Shift+F6` to rename a symbol across the project. The Language "
+"Server handles finding all references and updating them."
+msgstr ""
+
+#: ../../user/features/code-editing.md:97
+msgid "Paste as JSON.t"
+msgstr ""
+
+#: ../../user/features/code-editing.md:99
+msgid ""
+"Use **Edit** → **Paste as JSON.t** to convert JSON from your clipboard "
+"into a ReScript `JSON.t` value."
+msgstr ""
+
+#: ../../user/features/code-editing.md:101
+msgid "Code Generation"
+msgstr ""
+
+#: ../../user/features/code-editing.md:103
+msgid "Press `Cmd+N` (or `Alt+Insert`) to open the Generate menu:"
+msgstr ""
+
+#: ../../user/features/code-editing.md:105
+msgid "**Generate Switch Arms** — Auto-generate match arms for a variant type"
+msgstr ""
+
+#: ../../user/features/code-editing.md:106
+msgid ""
+"**Generate Module Type** — Generate a module type skeleton from a module "
+"implementation"
+msgstr ""
+
+#: ../../user/features/code-editing.md:108
+msgid "Spellchecking"
+msgstr ""
+
+#: ../../user/features/code-editing.md:110
+msgid "The plugin supports IntelliJ's built-in spellchecker for:"
+msgstr ""
+
+#: ../../user/features/code-editing.md:112
+msgid "Comments (line and block)"
+msgstr ""
+
+#: ../../user/features/code-editing.md:113
+msgid "String literals"
+msgstr ""
+
+#: ../../user/features/code-editing.md:114
+msgid "Identifiers (camelCase splitting)"
+msgstr ""
+

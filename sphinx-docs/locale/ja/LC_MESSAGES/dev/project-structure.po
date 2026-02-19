@@ -1,0 +1,476 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/project-structure.md:1
+msgid "Project Structure"
+msgstr ""
+
+#: ../../dev/project-structure.md:3
+msgid "Top-Level Layout"
+msgstr ""
+
+#: ../../dev/project-structure.md:23
+msgid "Source Code Organization"
+msgstr ""
+
+#: ../../dev/project-structure.md:25
+msgid "All plugin code is under `src/main/kotlin/com/rescript/plugin/`:"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Package"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Purpose"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Key Files"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`(root)`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Core definitions"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptLanguage.kt`, `RescriptFileTypes.kt`, `RescriptIcons.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`lang/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Lexer, parser, tokens"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptLexer.kt`, `RescriptParser.kt`, `RescriptTokenTypes.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`lang/psi/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "PSI element classes"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptPsi.kt`, `RescriptStringLiteral.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`highlight/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Syntax highlighting"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptSyntaxHighlighter.kt`, `RescriptColorSettingsPage.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`lsp/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "LSP integration"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptLspServerDescriptor.kt`, `RescriptSemanticTokensSupport.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`run/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Run configurations"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptRunConfiguration.kt`, `RescriptCliDetector.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`test/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Test runner"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptTestRunConfiguration.kt`, `RescriptTestFrameworkDetector.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`structure/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Structure view"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptStructureViewFactory.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`folding/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Code folding"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptFoldingBuilder.kt`, `RescriptCustomFoldingProvider.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`editor/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Editor enhancements"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptSmartEnterProcessor.kt`, `RescriptStatementUpDownMover.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`completion/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Completion features"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptPostfixTemplateProvider.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`navigation/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Navigation features"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptSymbolContributor.kt`, `RescriptSwitchFileAction.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`analysis/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Code analysis"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptReanalyzeAnnotator.kt`, `RescriptUnusedCodeInspection.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`formatter/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Formatting"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptFormattingService.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`codestyle/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Code style"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptCodeStyleSettingsProvider.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`config/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Configuration"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptJsonIconProvider.kt`, `RescriptJsonSchemaProviderFactory.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`settings/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Plugin settings"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptProjectSettings.kt`, `RescriptConfigurable.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`intention/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Intention actions"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptWrapWithIntention.kt`, `RescriptAddGenTypeIntention.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`surround/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Surround with"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptSurroundDescriptor.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`imports/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Import management"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptImportOptimizer.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`injection/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Language injection"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptRawJsInjector.kt`, `RescriptMarkdownCodeFenceProvider.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`spellcheck/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Spellchecking"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptSpellcheckingStrategy.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`indexing/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Indexing"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptTodoIndexer.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`template/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "File creation"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptCreateFileAction.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`statusbar/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Status bar"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptCompilerStatusWidgetFactory.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`codevision/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Code Lens"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptCodeVisionProvider.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`preview/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "JS preview"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptCompiledJsPreviewPanel.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`hierarchy/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Module hierarchy"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptModuleHierarchyProvider.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`paste/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Paste actions"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptPasteAsJsonAction.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`generate/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Code generation"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptGenerateSwitchAction.kt`, `RescriptGenerateModuleTypeAction.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`wizard/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Project wizard"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptModuleBuilder.kt`, `RescriptProjectWizardStep.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`commenter/`"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "Comment toggle"
+msgstr ""
+
+#: ../../dev/project-structure.md
+msgid "`RescriptCommenter.kt`"
+msgstr ""
+
+#: ../../dev/project-structure.md:62
+msgid "Resources"
+msgstr ""
+
+#: ../../dev/project-structure.md:82
+msgid "Key Entry Points"
+msgstr ""
+
+#: ../../dev/project-structure.md:84
+msgid "plugin.xml"
+msgstr ""
+
+#: ../../dev/project-structure.md:86
+msgid ""
+"`src/main/resources/META-INF/plugin.xml` is the central registry for all "
+"plugin features. Every extension point implementation is registered here."
+" When adding a new feature, you'll almost always need to add an entry to "
+"this file."
+msgstr ""
+
+#: ../../dev/project-structure.md:88
+msgid "Rescript.flex"
+msgstr ""
+
+#: ../../dev/project-structure.md:90
+msgid ""
+"`src/main/java/com/rescript/plugin/lang/Rescript.flex` defines the lexer "
+"rules. Changes here require running `./gradlew buildPlugin` to regenerate"
+" `RescriptFlexLexer.java`."
+msgstr ""
+
+#: ../../dev/project-structure.md:92
+msgid "RescriptTokenTypes.kt"
+msgstr ""
+
+#: ../../dev/project-structure.md:94
+msgid ""
+"`src/main/kotlin/com/rescript/plugin/lang/RescriptTokenTypes.kt` defines "
+"all token types and token sets. When adding new tokens to the lexer, you "
+"must also add them here."
+msgstr ""
+

@@ -1,0 +1,339 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/features/code-completion.md:1
+msgid "Code Completion"
+msgstr ""
+
+#: ../../user/features/code-completion.md:3
+msgid ""
+"The plugin provides multiple completion mechanisms to help you write code"
+" faster."
+msgstr ""
+
+#: ../../user/features/code-completion.md:5
+msgid "LSP Completion"
+msgstr ""
+
+#: ../../user/features/code-completion.md:7
+msgid ""
+"The Language Server provides intelligent, type-aware completions. Trigger"
+" completion with `Ctrl+Space` (or `Cmd+Space` on macOS), or just start "
+"typing."
+msgstr ""
+
+#: ../../user/features/code-completion.md:9
+msgid "What Gets Completed"
+msgstr ""
+
+#: ../../user/features/code-completion.md:11
+msgid "Variable and function names"
+msgstr ""
+
+#: ../../user/features/code-completion.md:12
+msgid "Module names and paths"
+msgstr ""
+
+#: ../../user/features/code-completion.md:13
+msgid "Record field names"
+msgstr ""
+
+#: ../../user/features/code-completion.md:14
+msgid "Variant constructors"
+msgstr ""
+
+#: ../../user/features/code-completion.md:15
+msgid "Type names"
+msgstr ""
+
+#: ../../user/features/code-completion.md:16
+msgid "Pipe (`|>`) chain suggestions"
+msgstr ""
+
+#: ../../user/features/code-completion.md:18
+msgid "Postfix Completion"
+msgstr ""
+
+#: ../../user/features/code-completion.md:20
+msgid ""
+"Type an expression followed by `.` and a postfix template name to "
+"transform the expression."
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "Template"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "Input"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "Output"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`.switch`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr.switch`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+#, python-brace-format
+msgid "`switch expr { | _ => () }`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`.pipe`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr.pipe`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr->`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`.log`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr.log`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`Js.log(expr)`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`.some`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr.some`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`Some(expr)`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`.ok`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr.ok`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`Ok(expr)`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`.error`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr.error`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`Error(expr)`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`.ignore`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr.ignore`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expr->ignore`"
+msgstr ""
+
+#: ../../user/features/code-completion.md:32
+msgid "Live Templates"
+msgstr ""
+
+#: ../../user/features/code-completion.md:34
+msgid ""
+"Type a snippet abbreviation and press `Tab` to expand. Available "
+"templates:"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "Abbreviation"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "Expansion"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`let`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`let name = value`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`letfn`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+#, python-brace-format
+msgid "`let name = (params) => { ... }`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`mod`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+#, python-brace-format
+msgid "`module Name = { ... }`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`switch`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+#, python-brace-format
+msgid "`switch expr { | pattern => ... }`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`if`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+#, python-brace-format
+msgid "`if condition { ... }`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`ifelse`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+#, python-brace-format
+msgid "`if condition { ... } else { ... }`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`type`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`type name = ...`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`typerec`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+#, python-brace-format
+msgid "`type name = { ... }`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`typevar`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`type name = Variant1 | Variant2`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`ext`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`@module(\"...\") external name: type = \"name\"`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`comp`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "React component boilerplate"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`pipe`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`->` pipe expression"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`test`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "Test case boilerplate"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`desc`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "Test describe block"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "`expect`"
+msgstr ""
+
+#: ../../user/features/code-completion.md
+msgid "Expect assertion"
+msgstr ""
+
+#: ../../user/features/code-completion.md:54
+msgid ""
+"Go to **Settings** → **Editor** → **Live Templates** → **ReScript** to "
+"view and customize templates."
+msgstr ""
+
+#: ../../user/features/code-completion.md:56
+msgid "Signature Help"
+msgstr ""
+
+#: ../../user/features/code-completion.md:58
+msgid ""
+"When you type `(` after a function name, a popup shows the function's "
+"parameter information (types and names). This helps you fill in arguments"
+" correctly without checking the documentation."
+msgstr ""
+

@@ -1,0 +1,214 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/features/advanced.md:1
+msgid "Advanced Features"
+msgstr ""
+
+#: ../../user/features/advanced.md:3
+msgid ""
+"These features provide additional productivity tools for ReScript "
+"development."
+msgstr ""
+
+#: ../../user/features/advanced.md:5
+msgid "Code Lens"
+msgstr ""
+
+#: ../../user/features/advanced.md:7
+msgid ""
+"Function definitions display their inferred type signatures as inline "
+"annotations above the function:"
+msgstr ""
+
+#: ../../user/features/advanced.md:14
+msgid ""
+"Code Lens annotations are provided by the Language Server via the "
+"CodeVision API."
+msgstr ""
+
+#: ../../user/features/advanced.md:16
+msgid "Compiled JavaScript Preview"
+msgstr ""
+
+#: ../../user/features/advanced.md:18
+msgid ""
+"A tool window that shows the compiled JavaScript output for the current "
+"ReScript file."
+msgstr ""
+
+#: ../../user/features/advanced.md:20
+msgid "**Open:** **View** → **Tool Windows** → **Compiled JS Preview**"
+msgstr ""
+
+#: ../../user/features/advanced.md:22
+msgid "The preview updates automatically as you edit and save your ReScript file."
+msgstr ""
+
+#: ../../user/features/advanced.md:24
+msgid "Module Hierarchy"
+msgstr ""
+
+#: ../../user/features/advanced.md:26
+msgid "View the module dependency hierarchy for any ReScript module."
+msgstr ""
+
+#: ../../user/features/advanced.md:28
+msgid ""
+"**Open:** Right-click on a module → **Module Hierarchy** (or use "
+"**Navigate** → **Type Hierarchy**)"
+msgstr ""
+
+#: ../../user/features/advanced.md:30
+msgid "The hierarchy shows:"
+msgstr ""
+
+#: ../../user/features/advanced.md:31
+msgid "Module nesting (parent/child relationships)"
+msgstr ""
+
+#: ../../user/features/advanced.md:32
+msgid "Dependencies via `open` and `include` statements"
+msgstr ""
+
+#: ../../user/features/advanced.md:34
+msgid "Inlay Hints"
+msgstr ""
+
+#: ../../user/features/advanced.md:36
+msgid ""
+"The Language Server displays inferred types as inline hints next to "
+"variables and parameters:"
+msgstr ""
+
+#: ../../user/features/advanced.md:43
+msgid ""
+"Toggle inlay hints in **Settings** → **Editor** → **Inlay Hints** → "
+"**ReScript**."
+msgstr ""
+
+#: ../../user/features/advanced.md:45
+msgid "JSON Schema for rescript.json"
+msgstr ""
+
+#: ../../user/features/advanced.md:47
+msgid ""
+"The plugin provides JSON Schema validation and completion for "
+"`rescript.json` and `bsconfig.json` files:"
+msgstr ""
+
+#: ../../user/features/advanced.md:49
+msgid "Auto-completion for configuration keys"
+msgstr ""
+
+#: ../../user/features/advanced.md:50
+msgid "Validation of values"
+msgstr ""
+
+#: ../../user/features/advanced.md:51
+msgid "Hover documentation for each field"
+msgstr ""
+
+#: ../../user/features/advanced.md:53
+msgid "Markdown Code Fence Highlighting"
+msgstr ""
+
+#: ../../user/features/advanced.md:55
+msgid "ReScript code blocks in Markdown files are syntax-highlighted:"
+msgstr ""
+
+#: ../../user/features/advanced.md:63
+msgid ""
+"This requires the Markdown plugin to be installed (bundled with most "
+"JetBrains IDEs)."
+msgstr ""
+
+#: ../../user/features/advanced.md:65
+#, python-format
+msgid "JavaScript Injection in %raw()"
+msgstr ""
+
+#: ../../user/features/advanced.md:67
+#, python-format
+msgid ""
+"JavaScript code inside `%raw()` blocks is highlighted with JavaScript "
+"syntax:"
+msgstr ""
+
+#: ../../user/features/advanced.md:77
+msgid "This requires the JavaScript plugin to be available."
+msgstr ""
+
+#: ../../user/features/advanced.md:79
+msgid "Project Wizard"
+msgstr ""
+
+#: ../../user/features/advanced.md:81
+msgid "Create new ReScript projects from the IDE:"
+msgstr ""
+
+#: ../../user/features/advanced.md:83
+msgid "**File** → **New** → **Project**"
+msgstr ""
+
+#: ../../user/features/advanced.md:84
+msgid "Select **ReScript** from the generator list"
+msgstr ""
+
+#: ../../user/features/advanced.md:85
+msgid "Configure project name and location"
+msgstr ""
+
+#: ../../user/features/advanced.md:86
+msgid ""
+"The wizard generates a basic ReScript project structure with "
+"`rescript.json`"
+msgstr ""
+
+#: ../../user/features/advanced.md:88
+msgid "File Templates"
+msgstr ""
+
+#: ../../user/features/advanced.md:90
+msgid "Create new ReScript files with pre-filled boilerplate:"
+msgstr ""
+
+#: ../../user/features/advanced.md:92
+msgid "Right-click on a directory → **New** → **ReScript File**"
+msgstr ""
+
+#: ../../user/features/advanced.md:93
+msgid "Choose a template:"
+msgstr ""
+
+#: ../../user/features/advanced.md:94
+msgid "**Module** — Basic module file"
+msgstr ""
+
+#: ../../user/features/advanced.md:95
+msgid "**Interface** — Interface (`.resi`) file"
+msgstr ""
+
+#: ../../user/features/advanced.md:96
+msgid "**Component** — React component boilerplate"
+msgstr ""
+
