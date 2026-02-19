@@ -120,4 +120,85 @@ class RescriptSmartEnterProcessorTest {
         val result = processor.analyzeLine("switch list {")
         assertFalse(result.hasSwitchWithoutBrace)
     }
+
+    // -- Additional edge cases --
+
+    @Test
+    fun testAnalyzeLineWhitespaceOnlyLine() {
+        val result = processor.analyzeLine("   \t  ")
+        assertNull(result.unclosedBracket)
+        assertFalse(result.hasSwitchWithoutBrace)
+        assertFalse(result.hasPipeWithoutArrow)
+    }
+
+    @Test
+    fun testAnalyzeLineCommentOnlyLine() {
+        val result = processor.analyzeLine("// this is a comment")
+        assertNull(result.unclosedBracket)
+        assertFalse(result.hasSwitchWithoutBrace)
+        assertFalse(result.hasPipeWithoutArrow)
+    }
+
+    @Test
+    fun testAnalyzeLineBlockCommentOnly() {
+        val result = processor.analyzeLine("/* block comment */")
+        assertNull(result.unclosedBracket)
+        assertFalse(result.hasSwitchWithoutBrace)
+        assertFalse(result.hasPipeWithoutArrow)
+    }
+
+    @Test
+    fun testAnalyzeLineTemplateLiteralBacktick() {
+        val result = processor.analyzeLine("let x = `hello")
+        // Template literal with backtick — no unclosed bracket
+        assertNull(result.unclosedBracket)
+        assertFalse(result.hasSwitchWithoutBrace)
+    }
+
+    @Test
+    fun testAnalyzeLineSwitchInsideComment() {
+        // "switch" inside a comment should still be lexed but the brace check may still detect it;
+        // this documents current behavior
+        val result = processor.analyzeLine("// switch x")
+        // The comment is a single token, so switch won't be detected
+        assertFalse(result.hasSwitchWithoutBrace)
+    }
+
+    @Test
+    fun testAnalyzeLinePipeArrowWithTrailingContent() {
+        val result = processor.analyzeLine("| Some(x) => process(x)")
+        assertFalse(result.hasPipeWithoutArrow)
+    }
+
+    @Test
+    fun testAnalyzeLineMultiplePipesNoArrow() {
+        val result = processor.analyzeLine("| Some(x) | None")
+        assertTrue(result.hasPipeWithoutArrow)
+    }
+
+    @Test
+    fun testAnalyzeLineOnlyBraces() {
+        val result = processor.analyzeLine("{}")
+        assertNull(result.unclosedBracket)
+    }
+
+    @Test
+    fun testAnalyzeLineIndentedSwitch() {
+        val result = processor.analyzeLine("    switch value")
+        assertTrue(result.hasSwitchWithoutBrace)
+    }
+
+    @Test
+    fun testAnalyzeLineIndentedPipe() {
+        val result = processor.analyzeLine("    | None")
+        assertTrue(result.hasPipeWithoutArrow)
+    }
+
+    @Test
+    fun testLineAnalysisDefaultValues() {
+        val analysis = RescriptSmartEnterProcessor.LineAnalysis()
+        assertFalse(analysis.hasSwitchWithoutBrace)
+        assertFalse(analysis.hasPipeWithoutArrow)
+        assertNull(analysis.unclosedBracket)
+    }
 }
