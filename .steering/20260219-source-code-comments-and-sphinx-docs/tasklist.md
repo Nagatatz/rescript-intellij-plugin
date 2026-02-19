@@ -52,5 +52,5 @@
 
 ## Phase 4: CLAUDE.md Update
 
-- [ ] 4.1 Add "コードコメント規約" section to CLAUDE.md
-- [ ] 4.2 tasklist.md update & commit (`📝 Add code commenting conventions to CLAUDE.md`)
+- [x] 4.1 Add "コードコメント規約" section to CLAUDE.md
+- [x] 4.2 tasklist.md update & commit (`📝 Add code commenting conventions to CLAUDE.md`)
