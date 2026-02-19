@@ -23,6 +23,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var lspServerPath: String = ""
         var nodePath: String = ""
         var incrementalTypecheckingEnabled: Boolean = true
+        var removeUnusedOpensEnabled: Boolean = true
     }
 
     override fun getState(): State = state
@@ -47,6 +48,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.incrementalTypecheckingEnabled
         set(value) {
             state.incrementalTypecheckingEnabled = value
+        }
+
+    var removeUnusedOpensEnabled: Boolean
+        get() = state.removeUnusedOpensEnabled
+        set(value) {
+            state.removeUnusedOpensEnabled = value
         }
 
     companion object {
