@@ -282,6 +282,11 @@
         <!-- Module Hierarchy -->
         <hierarchyProvider language="ReScript"
                            implementationClass="com.rescript.plugin.hierarchy.RescriptModuleHierarchyProvider"/>
+
+        <!-- Project Wizard -->
+        <moduleBuilder builderClass="com.rescript.plugin.wizard.RescriptModuleBuilder"
+                       id="RESCRIPT_MODULE"
+                       order="last"/>
     </extensions>
 
     <actions>
@@ -317,5 +322,12 @@
                 description="Convert clipboard JSON to ReScript JSON.t">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
+        <!-- Code Generation (Cmd+N / Alt+Insert) -->
+        <group id="ReScript.GenerateGroup"
+               class="com.rescript.plugin.generate.RescriptGenerateGroup"
+               text="ReScript"
+               popup="true">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </group>
     </actions>
 </idea-plugin>
