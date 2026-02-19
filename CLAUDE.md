@@ -498,6 +498,10 @@ cd <メインリポジトリの絶対パス>
 - `pluginSinceBuild` / `pluginUntilBuild` は `gradle.properties` で管理
 - Gradle Configuration Cache が有効化されている
 
+### エージェント実行ルール
+
+Task ツール（サブエージェント）を使用する場合、`run_in_background` は **明示的に指示された場合のみ** 使用すること。デフォルトではフォアグラウンドで実行し、結果を直接確認できるようにする。
+
 ### ドキュメントの分類
 
 #### 1. 永続的ドキュメント（`docs/`）
