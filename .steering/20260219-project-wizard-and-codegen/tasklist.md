@@ -13,16 +13,16 @@
 
 ## Feature 2: Code Generation
 
-- [ ] RescriptTypeDeclarationParser.kt を実装
-- [ ] RescriptTypeDeclarationParserTest.kt を作成
-- [ ] RescriptGenerateSwitchAction.kt を実装
-- [ ] RescriptGenerateSwitchActionTest.kt を作成
-- [ ] RescriptGenerateModuleTypeAction.kt を実装
-- [ ] RescriptGenerateModuleTypeActionTest.kt を作成
-- [ ] RescriptGenerateGroup.kt を実装（テスト省略: ActionGroup UI）
-- [ ] plugin.xml に GenerateGroup を登録
-- [ ] ビルド確認
-- [ ] コミット: ✨ Add Code Generation for switch arms and module types
+- [x] RescriptTypeDeclarationParser.kt を実装
+- [x] RescriptTypeDeclarationParserTest.kt を作成
+- [x] RescriptGenerateSwitchAction.kt を実装
+- [x] RescriptGenerateSwitchActionTest.kt を作成
+- [x] RescriptGenerateModuleTypeAction.kt を実装
+- [x] RescriptGenerateModuleTypeActionTest.kt を作成
+- [x] RescriptGenerateGroup.kt を実装（テスト省略: ActionGroup UI）
+- [x] plugin.xml に GenerateGroup を登録
+- [x] ビルド確認
+- [x] コミット: ✨ Add Code Generation for switch arms and module types
 
 ## ドキュメント更新
 
