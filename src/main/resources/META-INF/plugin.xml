@@ -294,6 +294,10 @@
         <moduleBuilder builderClass="com.rescript.plugin.wizard.RescriptModuleBuilder"
                        id="RESCRIPT_MODULE"
                        order="last"/>
+
+        <!-- Error Lens (inline diagnostic display) -->
+        <editorFactoryListener
+                implementation="com.rescript.plugin.errorlens.RescriptErrorLensEditorListener"/>
     </extensions>
 
     <actions>
