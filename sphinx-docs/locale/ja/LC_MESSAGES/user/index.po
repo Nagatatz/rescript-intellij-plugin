@@ -21,105 +21,124 @@ msgstr ""
 
 #: ../../user/index.md:1
 msgid "User Guide"
-msgstr ""
+msgstr "ユーザーガイド"
 
 #: ../../user/index.md:3
 msgid ""
 "Everything you need to get started with the ReScript IntelliJ Plugin and "
 "make the most of its features."
 msgstr ""
+"ReScript IntelliJ Plugin を使い始め、その機能を最大限に活用するために"
+"必要なすべての情報を提供します。"
 
 #: ../../user/index.md:5
 msgid "Getting Started"
-msgstr ""
+msgstr "はじめに"
 
 #: ../../user/index.md:7
 msgid ""
 "[Installation](installation.md) — Install the plugin and set up the "
 "Language Server"
 msgstr ""
+"[インストール](installation.md) — プラグインのインストールと Language Server "
+"のセットアップ"
 
 #: ../../user/index.md:8
 msgid ""
 "[Quick Start](quickstart.md) — Your first steps with ReScript in a "
 "JetBrains IDE"
 msgstr ""
+"[クイックスタート](quickstart.md) — JetBrains IDE での ReScript の最初の"
+"ステップ"
 
 #: ../../user/index.md:9
 msgid ""
 "[ReScript Basics](rescript-basics.md) — Setting up a ReScript project "
 "from scratch"
 msgstr ""
+"[ReScript の基本](rescript-basics.md) — ReScript プロジェクトをゼロから"
+"セットアップ"
 
 #: ../../user/index.md:11
 msgid "Features"
-msgstr ""
+msgstr "機能"
 
 #: ../../user/index.md:13
 msgid "[Feature Overview](features/index.md) — All features at a glance"
-msgstr ""
+msgstr "[機能概要](features/index.md) — すべての機能を一覧で確認"
 
 #: ../../user/index.md:14
 msgid ""
 "[Syntax Highlighting](features/syntax-highlighting.md) — Lexer-based and "
 "semantic highlighting"
 msgstr ""
+"[シンタックスハイライト](features/syntax-highlighting.md) — レクサーベースと"
+"セマンティックハイライト"
 
 #: ../../user/index.md:15
 msgid ""
 "[Code Completion](features/code-completion.md) — Intelligent completions "
 "via LSP"
 msgstr ""
+"[コード補完](features/code-completion.md) — LSP によるインテリジェントな補完"
 
 #: ../../user/index.md:16
 msgid ""
 "[Navigation](features/navigation.md) — Go to Definition, Symbol, Related "
 "files"
 msgstr ""
+"[ナビゲーション](features/navigation.md) — 定義へ移動、シンボル検索、"
+"関連ファイル"
 
 #: ../../user/index.md:17
 msgid ""
 "[Code Editing](features/code-editing.md) — Folding, formatting, "
 "intentions, surround"
 msgstr ""
+"[コード編集](features/code-editing.md) — 折りたたみ、フォーマット、"
+"インテンション、囲む"
 
 #: ../../user/index.md:18
 msgid "[Run & Build](features/run-build.md) — Run configurations and build status"
-msgstr ""
+msgstr "[実行とビルド](features/run-build.md) — 実行構成とビルドステータス"
 
 #: ../../user/index.md:19
 msgid "[Testing](features/testing.md) — Test runner integration (Jest/Vitest)"
-msgstr ""
+msgstr "[テスト](features/testing.md) — テストランナー統合（Jest/Vitest）"
 
 #: ../../user/index.md:20
 msgid ""
 "[Code Analysis](features/code-analysis.md) — Inspections, dead code "
 "analysis, import optimization"
 msgstr ""
+"[コード分析](features/code-analysis.md) — インスペクション、デッドコード分析、"
+"インポート最適化"
 
 #: ../../user/index.md:21
 msgid ""
 "[Advanced Features](features/advanced.md) — Code Lens, Compiled JS "
 "Preview, Module Hierarchy"
 msgstr ""
+"[高度な機能](features/advanced.md) — Code Lens、コンパイル済み JS プレビュー、"
+"モジュール階層"
 
 #: ../../user/index.md:23
 msgid "Reference"
-msgstr ""
+msgstr "リファレンス"
 
 #: ../../user/index.md:25
 msgid "[Configuration](configuration.md) — Plugin settings"
-msgstr ""
+msgstr "[設定](configuration.md) — プラグインの設定"
 
 #: ../../user/index.md:26
 msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference"
-msgstr ""
+msgstr "[キーボードショートカット](keyboard-shortcuts.md) — ショートカットリファレンス"
 
 #: ../../user/index.md:27
 msgid "[Troubleshooting](troubleshooting.md) — Common issues and solutions"
-msgstr ""
+msgstr "[トラブルシューティング](troubleshooting.md) — よくある問題と解決方法"
 
 #: ../../user/index.md:28
 msgid "[Changelog](changelog.md) — Release notes"
-msgstr ""
+msgstr "[変更履歴](changelog.md) — リリースノート"
 
