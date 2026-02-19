@@ -461,6 +461,8 @@ flowchart TD
 | `com.intellij.toolWindow` | `RescriptCompiledJsPreviewToolWindowFactory` | コンパイル済み JS プレビュー | 実装済み |
 | `com.intellij.globalInspection` | `RescriptUnusedCodeInspection` | 未使用コード検出（reanalyze） | 実装済み |
 | `com.intellij.hierarchyProvider` | `RescriptModuleHierarchyProvider` | モジュール階層ビュー | 実装済み |
+| `com.intellij.moduleBuilder` | `RescriptModuleBuilder` | Project Wizard（New Project） | 実装済み |
+| `<group>` | `RescriptGenerateGroup` | Code Generation（Generate メニュー） | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
