@@ -1,5 +1,10 @@
 package com.rescript.plugin.hierarchy
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
+import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.lang.psi.RescriptElementTypes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -123,5 +128,120 @@ class RescriptDependencyAnalyzerTest {
     fun `empty module tree is empty list`() {
         val nodes = emptyList<RescriptDependencyAnalyzer.ModuleNode>()
         assertTrue(nodes.isEmpty())
+    }
+
+    // ── extractModulePath PSI stub tests ──────────────────────────────
+
+    @Test
+    fun `extractModulePath with OPEN and dotted module`() {
+        val element = buildStatement(RescriptTokenTypes.OPEN, listOf("Belt", ".", "Array"))
+        assertEquals("Belt.Array", RescriptDependencyAnalyzer.extractModulePath(element))
+    }
+
+    @Test
+    fun `extractModulePath with OPEN and single module`() {
+        val element = buildStatement(RescriptTokenTypes.OPEN, listOf("Utils"))
+        assertEquals("Utils", RescriptDependencyAnalyzer.extractModulePath(element))
+    }
+
+    @Test
+    fun `extractModulePath with no children after keyword`() {
+        val element = buildStatement(RescriptTokenTypes.OPEN, emptyList())
+        assertEquals("", RescriptDependencyAnalyzer.extractModulePath(element))
+    }
+
+    @Test
+    fun `extractModulePath with INCLUDE keyword`() {
+        val element = buildStatement(RescriptTokenTypes.INCLUDE, listOf("Utils"))
+        assertEquals("Utils", RescriptDependencyAnalyzer.extractModulePath(element))
+    }
+
+    @Test
+    fun `extractModulePath with INCLUDE and dotted module`() {
+        val element = buildStatement(RescriptTokenTypes.INCLUDE, listOf("Belt", ".", "Map"))
+        assertEquals("Belt.Map", RescriptDependencyAnalyzer.extractModulePath(element))
+    }
+
+    // ── Stub helpers ─────────────────────────────────────────────────
+
+    private fun buildStatement(
+        keywordType: IElementType,
+        pathTokens: List<String>,
+    ): PsiElement {
+        data class TokenInfo(
+            val type: IElementType,
+            val text: String,
+        )
+
+        val tokens = mutableListOf(TokenInfo(keywordType, keywordType.toString().lowercase()))
+        for (token in pathTokens) {
+            if (token == ".") {
+                tokens.add(TokenInfo(RescriptTokenTypes.DOT, "."))
+            } else {
+                tokens.add(TokenInfo(RescriptTokenTypes.UIDENT, token))
+            }
+        }
+
+        val children = tokens.map { info -> SimpleStubElement(info.type, info.text) }
+        for (i in children.indices) {
+            if (i + 1 < children.size) {
+                children[i].next = children[i + 1]
+            }
+        }
+
+        val parentType =
+            if (keywordType == RescriptTokenTypes.INCLUDE) {
+                RescriptElementTypes.INCLUDE_STATEMENT
+            } else {
+                RescriptElementTypes.OPEN_STATEMENT
+            }
+
+        return object : SimpleStubElement(parentType, tokens.joinToString(" ") { it.text }) {
+            override fun getFirstChild(): PsiElement = children.first()
+        }
+    }
+
+    private open class SimpleStubElement(
+        private val elementType: IElementType,
+        private val textContent: String,
+    ) : PsiElement by stubProxy() {
+        var next: PsiElement? = null
+
+        override fun getNode(): ASTNode = stubAstNode(elementType)
+
+        override fun getText(): String = textContent
+
+        override fun getNextSibling(): PsiElement? = next
+
+        override fun getFirstChild(): PsiElement? = null
+    }
+
+    companion object {
+        fun stubAstNode(type: IElementType): ASTNode =
+            java.lang.reflect.Proxy.newProxyInstance(
+                ASTNode::class.java.classLoader,
+                arrayOf(ASTNode::class.java),
+            ) { _, method, _ ->
+                when (method.name) {
+                    "getElementType" -> type
+                    "toString" -> "StubASTNode($type)"
+                    "hashCode" -> type.hashCode()
+                    "equals" -> false
+                    else -> null
+                }
+            } as ASTNode
+
+        inline fun <reified T> stubProxy(): T =
+            java.lang.reflect.Proxy.newProxyInstance(
+                T::class.java.classLoader,
+                arrayOf(T::class.java),
+            ) { proxy, method, _ ->
+                when (method.name) {
+                    "toString" -> "StubProxy(${T::class.simpleName})"
+                    "hashCode" -> System.identityHashCode(proxy)
+                    "equals" -> false
+                    else -> null
+                }
+            } as T
     }
 }

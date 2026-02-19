@@ -1,6 +1,7 @@
 package com.rescript.plugin.analysis
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -122,5 +123,17 @@ class RescriptUnusedCodeInspectionTest {
     fun `isGraphNeeded returns false`() {
         val inspection = RescriptUnusedCodeInspection()
         assertEquals(false, inspection.isGraphNeeded)
+    }
+
+    @Test
+    fun `inspection is a GlobalInspectionTool`() {
+        val inspection = RescriptUnusedCodeInspection()
+        assertTrue(inspection is com.intellij.codeInspection.GlobalInspectionTool)
+    }
+
+    @Test
+    fun `inspection can be instantiated`() {
+        val inspection = RescriptUnusedCodeInspection()
+        assertNotNull(inspection)
     }
 }
