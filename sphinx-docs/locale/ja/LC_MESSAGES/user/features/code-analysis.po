@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/features/code-analysis.md:1
+msgid "Code Analysis"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:3
+msgid ""
+"The plugin provides several code analysis features to help you maintain "
+"clean, correct code."
+msgstr ""
+
+#: ../../user/features/code-analysis.md:5
+msgid "Real-Time Diagnostics"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:7
+msgid ""
+"The Language Server provides real-time error and warning diagnostics as "
+"you type:"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:9
+msgid "**Errors** — Shown with red underlines"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:10
+msgid "**Warnings** — Shown with yellow underlines"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:11
+msgid "**Info** — Shown with subtle underlines"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:13
+msgid "View all diagnostics in the **Problems** panel (`Alt+6`)."
+msgstr ""
+
+#: ../../user/features/code-analysis.md:15
+msgid "Code Inspections"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:17
+msgid "The plugin includes built-in inspections that run locally:"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:19
+msgid "Duplicate Open Detection"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:21
+msgid "Detects when the same module is opened multiple times:"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:28
+msgid "Empty Module Detection"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:30
+msgid "Warns about empty module declarations:"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:36
+msgid "Missing Configuration"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:38
+msgid ""
+"Warns when `rescript.json` (or `bsconfig.json`) is not found in the "
+"project root."
+msgstr ""
+
+#: ../../user/features/code-analysis.md:40
+msgid "Dead Code Analysis (reanalyze)"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:42
+msgid ""
+"The plugin integrates with [reanalyze](https://github.com/rescript-"
+"association/reanalyze) to detect:"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:44
+msgid "**Dead code** — Unused functions, values, and types"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:45
+msgid "**Dead exceptions** — Unused exception declarations"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:46
+msgid "**Unhandled exceptions** — Exception paths not covered by try/catch"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:48
+msgid "How It Works"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:50
+msgid "reanalyze runs as an external annotator on file save"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:51
+msgid "Results appear as editor annotations (warnings/info)"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:52
+msgid "Quick fixes are available:"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:53
+msgid "Add `_` prefix to mark as intentionally unused"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:54
+msgid "Remove the `_` prefix when code is actually used"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:56
+msgid "Global Inspection"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:58
+msgid ""
+"Run **Code** → **Inspect Code** to analyze the entire project for dead "
+"code. Results are grouped by category in the Inspection Results panel."
+msgstr ""
+
+#: ../../user/features/code-analysis.md:60
+msgid "Import Optimization"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:62
+msgid "Press `Ctrl+Alt+O` to optimize imports:"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:64
+msgid "Removes duplicate `open` statements"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:65
+msgid "Keeps unique `open` statements in their original order"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:67
+msgid "Quick Fixes (LSP)"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:69
+msgid "The Language Server provides automatic code fixes via `Alt+Enter`:"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:71
+msgid "Add missing imports"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:72
+msgid "Add type annotations"
+msgstr ""
+
+#: ../../user/features/code-analysis.md:73
+msgid "Fix common type errors"
+msgstr ""
+

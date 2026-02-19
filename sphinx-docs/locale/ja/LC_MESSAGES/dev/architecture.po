@@ -1,0 +1,325 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/architecture.md:1
+msgid "Architecture"
+msgstr ""
+
+#: ../../dev/architecture.md:3
+msgid ""
+"The ReScript IntelliJ Plugin uses a **hybrid architecture** that combines"
+" a built-in lexer with an external Language Server."
+msgstr ""
+
+#: ../../dev/architecture.md:5
+msgid "Overview"
+msgstr ""
+
+#: ../../dev/architecture.md:40
+msgid "Layer 1: Language Foundation"
+msgstr ""
+
+#: ../../dev/architecture.md:42
+msgid ""
+"This layer is entirely built into the plugin and works without any "
+"external dependencies."
+msgstr ""
+
+#: ../../dev/architecture.md:44
+msgid "JFlex Lexer"
+msgstr ""
+
+#: ../../dev/architecture.md:46
+msgid "**Source:** `src/main/java/com/rescript/plugin/lang/Rescript.flex`"
+msgstr ""
+
+#: ../../dev/architecture.md:47
+msgid "**Generated:** `RescriptFlexLexer.java` (auto-generated, not committed)"
+msgstr ""
+
+#: ../../dev/architecture.md:48
+msgid "**Wrapper:** `RescriptLexer.kt` (FlexAdapter)"
+msgstr ""
+
+#: ../../dev/architecture.md:50
+msgid ""
+"The lexer tokenizes ReScript source code into token types defined in "
+"`RescriptTokenTypes.kt`. It handles:"
+msgstr ""
+
+#: ../../dev/architecture.md:52
+msgid "Keywords, identifiers, literals, operators, punctuation"
+msgstr ""
+
+#: ../../dev/architecture.md:53
+msgid "Nested block comments (`/* /* */ */`)"
+msgstr ""
+
+#: ../../dev/architecture.md:54
+#, python-brace-format
+msgid "Template string interpolation (`` `${expr}` ``)"
+msgstr ""
+
+#: ../../dev/architecture.md:55
+msgid "Declaration context tracking (`let`/`type` → identifier classification)"
+msgstr ""
+
+#: ../../dev/architecture.md:57
+msgid "Lightweight Parser"
+msgstr ""
+
+#: ../../dev/architecture.md:59
+msgid "**Source:** `RescriptParser.kt`"
+msgstr ""
+
+#: ../../dev/architecture.md:61
+msgid ""
+"The parser only recognizes **top-level declarations** — it does not parse"
+" expressions, types, or JSX in detail. This is intentional: complex "
+"parsing is delegated to the Language Server."
+msgstr ""
+
+#: ../../dev/architecture.md:63
+msgid "Recognized declarations:"
+msgstr ""
+
+#: ../../dev/architecture.md:64
+msgid "`let` / `let rec` bindings"
+msgstr ""
+
+#: ../../dev/architecture.md:65
+msgid "`type` / `type rec` definitions"
+msgstr ""
+
+#: ../../dev/architecture.md:66
+msgid "`module` / `module type` / `module rec` declarations"
+msgstr ""
+
+#: ../../dev/architecture.md:67
+msgid "`external` bindings (FFI)"
+msgstr ""
+
+#: ../../dev/architecture.md:68
+msgid "`open` / `include` directives"
+msgstr ""
+
+#: ../../dev/architecture.md:69
+msgid "`exception` declarations"
+msgstr ""
+
+#: ../../dev/architecture.md:70
+msgid "`@decorator` annotations"
+msgstr ""
+
+#: ../../dev/architecture.md:72
+msgid "PSI Tree"
+msgstr ""
+
+#: ../../dev/architecture.md:74
+msgid "The parser produces a PSI (Program Structure Interface) tree used by:"
+msgstr ""
+
+#: ../../dev/architecture.md:75
+msgid "**Code folding** — Collapse multi-line declarations"
+msgstr ""
+
+#: ../../dev/architecture.md:76
+msgid "**Structure view** — Display file outline"
+msgstr ""
+
+#: ../../dev/architecture.md:77
+msgid "**Statement mover** — Move declarations up/down"
+msgstr ""
+
+#: ../../dev/architecture.md:79
+msgid "Layer 2: LSP Integration"
+msgstr ""
+
+#: ../../dev/architecture.md:81
+msgid "This layer communicates with the ReScript Language Server over stdio."
+msgstr ""
+
+#: ../../dev/architecture.md:83
+msgid "Key Classes"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "Class"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "Role"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "`RescriptLspServerSupportProvider`"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "Decides when to start the LSP server"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "`RescriptLspServerDescriptor`"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "Configures server detection and launch"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "`RescriptLanguageServer`"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "Custom LSP request interface"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "`RescriptLsp4jClient`"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "Custom LSP notification receiver"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "`RescriptSemanticTokensSupport`"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "Maps LSP semantic tokens to colors"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "`RescriptCompilationStatusService`"
+msgstr ""
+
+#: ../../dev/architecture.md
+msgid "Tracks build status from LSP notifications"
+msgstr ""
+
+#: ../../dev/architecture.md:94
+msgid "LSP Server Detection"
+msgstr ""
+
+#: ../../dev/architecture.md:96
+msgid "The plugin searches for the Language Server in this order:"
+msgstr ""
+
+#: ../../dev/architecture.md:98
+msgid "`node_modules/.bin/rescript-language-server` (project-local binary)"
+msgstr ""
+
+#: ../../dev/architecture.md:99
+msgid "Parent directory `node_modules/.bin/` (monorepo support)"
+msgstr ""
+
+#: ../../dev/architecture.md:100
+msgid "`node_modules/@rescript/language-server/out/cli.js` (JS fallback)"
+msgstr ""
+
+#: ../../dev/architecture.md:101
+msgid "Global installation via `which` / `where`"
+msgstr ""
+
+#: ../../dev/architecture.md:103
+msgid "Custom LSP Extensions"
+msgstr ""
+
+#: ../../dev/architecture.md:105
+msgid ""
+"The plugin uses ReScript-specific LSP requests beyond the standard "
+"protocol:"
+msgstr ""
+
+#: ../../dev/architecture.md:107
+msgid "`textDocument/createInterface` — Generate `.resi` from `.res`"
+msgstr ""
+
+#: ../../dev/architecture.md:108
+msgid "`textDocument/openCompiled` — Get compiled JS path"
+msgstr ""
+
+#: ../../dev/architecture.md:109
+msgid "`rescript/compilationStatus` — Build status notifications"
+msgstr ""
+
+#: ../../dev/architecture.md:111
+msgid "Layer 3: IDE Integration"
+msgstr ""
+
+#: ../../dev/architecture.md:113
+msgid "Additional IDE features that build on both layers:"
+msgstr ""
+
+#: ../../dev/architecture.md:115
+msgid "**Run configurations** — Execute ReScript build commands"
+msgstr ""
+
+#: ../../dev/architecture.md:116
+msgid "**External formatter** — `rescript format` CLI integration"
+msgstr ""
+
+#: ../../dev/architecture.md:117
+msgid "**Code inspections** — Local analysis (duplicate opens, empty modules)"
+msgstr ""
+
+#: ../../dev/architecture.md:118
+msgid "**reanalyze integration** — Dead code analysis via external tool"
+msgstr ""
+
+#: ../../dev/architecture.md:119
+msgid "**Test runner** — Jest/Vitest integration with SMTestRunner"
+msgstr ""
+
+#: ../../dev/architecture.md:121
+msgid "Design Principles"
+msgstr ""
+
+#: ../../dev/architecture.md:123
+msgid ""
+"**Delegate complex parsing to LSP** — The plugin never attempts to fully "
+"parse ReScript. Expression-level understanding comes from the Language "
+"Server."
+msgstr ""
+
+#: ../../dev/architecture.md:125
+msgid ""
+"**Graceful degradation** — If the Language Server is unavailable, all "
+"native features (highlighting, folding, structure view) still work."
+msgstr ""
+
+#: ../../dev/architecture.md:127
+msgid ""
+"**Use platform APIs** — The plugin uses IntelliJ Platform's official LSP "
+"API (`com.intellij.platform.lsp`) rather than implementing LSP from "
+"scratch."
+msgstr ""
+
+#: ../../dev/architecture.md:129
+msgid ""
+"**Keep the codebase small** — By leveraging the Language Server, the "
+"plugin avoids duplicating the complex ReScript type system and analysis "
+"logic."
+msgstr ""
+

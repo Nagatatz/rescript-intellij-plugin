@@ -1,0 +1,338 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/configuration.md:1
+msgid "Configuration"
+msgstr ""
+
+#: ../../user/configuration.md:3
+msgid ""
+"The plugin provides configuration options through the JetBrains IDE "
+"settings."
+msgstr ""
+
+#: ../../user/configuration.md:5
+msgid "Plugin Settings"
+msgstr ""
+
+#: ../../user/configuration.md:7
+msgid ""
+"Go to **Settings** → **Languages & Frameworks** → **ReScript** to access "
+"plugin-specific settings."
+msgstr ""
+
+#: ../../user/configuration.md:9
+msgid "Incremental Type Checking"
+msgstr ""
+
+#: ../../user/configuration.md:11
+msgid ""
+"Enable or disable incremental type checking in the Language Server. When "
+"enabled, the Language Server only re-checks files that have changed, "
+"improving performance on large projects."
+msgstr ""
+
+#: ../../user/configuration.md:13
+msgid "reanalyze Path"
+msgstr ""
+
+#: ../../user/configuration.md:15
+msgid ""
+"Configure a custom path to the `reanalyze` binary for dead code analysis."
+" By default, the plugin searches for `reanalyze` in `node_modules/.bin/`."
+msgstr ""
+
+#: ../../user/configuration.md:17
+msgid "Color Scheme"
+msgstr ""
+
+#: ../../user/configuration.md:19
+msgid ""
+"Go to **Settings** → **Editor** → **Color Scheme** → **ReScript** to "
+"customize syntax highlighting colors."
+msgstr ""
+
+#: ../../user/configuration.md:21
+msgid "Available Color Keys"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Key"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Description"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Keyword"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`let`, `type`, `module`, `switch`, etc."
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "String"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "String literals and template strings"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Number"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Integer and float literals"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Line comment"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`// ...` comments"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Block comment"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`/* ... */` comments"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Operator"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`+`, `-`, `=>`, `|>`, etc."
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Braces"
+msgstr ""
+
+#: ../../user/configuration.md
+#, python-brace-format
+msgid "`{`, `}`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Brackets"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`[`, `]`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Parentheses"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`(`, `)`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Dot"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`.`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Comma"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`,`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Semicolon"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`;`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Type argument"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`'a`, `'b`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Polymorphic variant"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`#Tag`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Module name"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`Belt`, `Array`"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Decorator"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "`@module`, `@send`"
+msgstr ""
+
+#: ../../user/configuration.md:42
+msgid "Semantic Highlighting Colors"
+msgstr ""
+
+#: ../../user/configuration.md:44
+msgid ""
+"When the Language Server is connected, additional semantic token colors "
+"are available:"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Variable"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Variables and parameters"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Type"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Type names"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Namespace"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Module names"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Enum member"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Variant constructors"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Property"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Record fields"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Interface"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "JSX HTML elements"
+msgstr ""
+
+#: ../../user/configuration.md:55
+msgid "Code Style"
+msgstr ""
+
+#: ../../user/configuration.md:57
+msgid ""
+"Go to **Settings** → **Editor** → **Code Style** → **ReScript** to "
+"configure indentation."
+msgstr ""
+
+#: ../../user/configuration.md:59
+msgid "Options"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Setting"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Default"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Tab size"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "2"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Indent"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Continuation indent"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "Use tab character"
+msgstr ""
+
+#: ../../user/configuration.md
+msgid "No (spaces)"
+msgstr ""
+
+#: ../../user/configuration.md:68
+msgid "Inlay Hints"
+msgstr ""
+
+#: ../../user/configuration.md:70
+msgid ""
+"Go to **Settings** → **Editor** → **Inlay Hints** → **ReScript** to "
+"toggle inlay hint visibility."
+msgstr ""
+
+#: ../../user/configuration.md:72
+msgid "Live Templates"
+msgstr ""
+
+#: ../../user/configuration.md:74
+msgid ""
+"Go to **Settings** → **Editor** → **Live Templates** → **ReScript** to "
+"view, edit, and add custom live templates."
+msgstr ""
+

@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/features/navigation.md:1
+msgid "Navigation"
+msgstr ""
+
+#: ../../user/features/navigation.md:3
+msgid ""
+"The plugin provides several navigation features to help you move through "
+"your codebase efficiently."
+msgstr ""
+
+#: ../../user/features/navigation.md:5
+msgid "Go to Definition"
+msgstr ""
+
+#: ../../user/features/navigation.md:7
+msgid ""
+"Hold `Ctrl` (`Cmd` on macOS) and click on a symbol, or press `Ctrl+B` to "
+"jump to its definition."
+msgstr ""
+
+#: ../../user/features/navigation.md:9
+msgid "Works for:"
+msgstr ""
+
+#: ../../user/features/navigation.md:10
+msgid "Variables and functions"
+msgstr ""
+
+#: ../../user/features/navigation.md:11
+msgid "Types"
+msgstr ""
+
+#: ../../user/features/navigation.md:12
+msgid "Modules"
+msgstr ""
+
+#: ../../user/features/navigation.md:13
+msgid "External bindings"
+msgstr ""
+
+#: ../../user/features/navigation.md:15
+msgid "Find References"
+msgstr ""
+
+#: ../../user/features/navigation.md:17
+msgid ""
+"Right-click on a symbol and select **Find Usages** (or press `Alt+F7`) to"
+" see all locations where the symbol is used."
+msgstr ""
+
+#: ../../user/features/navigation.md:19
+msgid "Go to Symbol"
+msgstr ""
+
+#: ../../user/features/navigation.md:21
+msgid ""
+"Press `Ctrl+Alt+O` (`Cmd+Option+O` on macOS) to search for any symbol "
+"across your project by name."
+msgstr ""
+
+#: ../../user/features/navigation.md:23
+msgid "Structure View"
+msgstr ""
+
+#: ../../user/features/navigation.md:25
+msgid ""
+"Press `Alt+7` (`Cmd+7` on macOS) to open the Structure panel, which shows"
+" an outline of the current file:"
+msgstr ""
+
+#: ../../user/features/navigation.md:27
+msgid "Module declarations"
+msgstr ""
+
+#: ../../user/features/navigation.md:28
+msgid "Function bindings (`let`)"
+msgstr ""
+
+#: ../../user/features/navigation.md:29
+msgid "Type definitions"
+msgstr ""
+
+#: ../../user/features/navigation.md:30
+msgid "External declarations"
+msgstr ""
+
+#: ../../user/features/navigation.md:31
+msgid "Exception declarations"
+msgstr ""
+
+#: ../../user/features/navigation.md:33
+msgid "File Switching (.res ↔ .resi)"
+msgstr ""
+
+#: ../../user/features/navigation.md:35
+msgid ""
+"Press `Alt+O` to switch between a ReScript source file (`.res`) and its "
+"interface file (`.resi`)."
+msgstr ""
+
+#: ../../user/features/navigation.md:37
+msgid "Go to Related"
+msgstr ""
+
+#: ../../user/features/navigation.md:39
+msgid "Use **Navigate** → **Related Symbol** to jump between related files:"
+msgstr ""
+
+#: ../../user/features/navigation.md:41
+msgid "`.res` → `.resi` (interface)"
+msgstr ""
+
+#: ../../user/features/navigation.md:42
+msgid "`.res` → `.js` (compiled output)"
+msgstr ""
+
+#: ../../user/features/navigation.md:43
+msgid "`.resi` → `.res` (implementation)"
+msgstr ""
+
+#: ../../user/features/navigation.md:45
+msgid "Create Interface File"
+msgstr ""
+
+#: ../../user/features/navigation.md:47
+msgid ""
+"With a `.res` file open, use **Navigate** → **Create Interface File** to "
+"auto-generate a `.resi` interface file from the Language Server."
+msgstr ""
+
+#: ../../user/features/navigation.md:49
+msgid "Open Compiled JavaScript"
+msgstr ""
+
+#: ../../user/features/navigation.md:51
+msgid ""
+"Press `Alt+Shift+J` to open the compiled JavaScript output for the "
+"current `.res` file. The plugin asks the Language Server for the compiled"
+" file path and opens it in the editor."
+msgstr ""
+
+#: ../../user/features/navigation.md:53
+msgid "Qualified Name Copy"
+msgstr ""
+
+#: ../../user/features/navigation.md:55
+msgid ""
+"Press `Cmd+Shift+Alt+C` to copy the fully qualified name of the symbol at"
+" the cursor (e.g., `Module.SubModule.functionName`)."
+msgstr ""
+
+#: ../../user/features/navigation.md:57
+msgid "Breadcrumb Navigation"
+msgstr ""
+
+#: ../../user/features/navigation.md:59
+msgid ""
+"The editor shows a breadcrumb trail at the top, displaying your current "
+"scope path (file → module → function). Click any segment to navigate to "
+"that scope."
+msgstr ""
+

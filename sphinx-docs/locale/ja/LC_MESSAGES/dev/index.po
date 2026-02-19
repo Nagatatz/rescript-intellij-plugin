@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/index.md:1
+msgid "Developer Guide"
+msgstr ""
+
+#: ../../dev/index.md:3
+msgid ""
+"This section covers everything you need to contribute to the ReScript "
+"IntelliJ Plugin."
+msgstr ""
+
+#: ../../dev/index.md:5
+msgid "Getting Started"
+msgstr ""
+
+#: ../../dev/index.md:7
+msgid "[Development Setup](setup.md) — Set up your development environment"
+msgstr ""
+
+#: ../../dev/index.md:8
+msgid ""
+"[Building & Running](building.md) — Build the plugin and run a dev IDE "
+"instance"
+msgstr ""
+
+#: ../../dev/index.md:10
+msgid "Understanding the Codebase"
+msgstr ""
+
+#: ../../dev/index.md:12
+msgid ""
+"[Architecture](architecture.md) — How the plugin is structured (lexer + "
+"LSP hybrid)"
+msgstr ""
+
+#: ../../dev/index.md:13
+msgid ""
+"[Project Structure](project-structure.md) — Source code layout and key "
+"files"
+msgstr ""
+
+#: ../../dev/index.md:15
+msgid "Contributing"
+msgstr ""
+
+#: ../../dev/index.md:17
+msgid "[Extending the Plugin](extending.md) — How to add new features"
+msgstr ""
+
+#: ../../dev/index.md:18
+msgid "[Testing Guide](testing.md) — Writing and running tests"
+msgstr ""
+
+#: ../../dev/index.md:19
+msgid ""
+"[Contributing Guide](contributing.md) — Workflow, conventions, and PR "
+"process"
+msgstr ""
+

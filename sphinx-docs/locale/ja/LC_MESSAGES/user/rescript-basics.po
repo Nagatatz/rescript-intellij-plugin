@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/rescript-basics.md:1
+msgid "ReScript Basics"
+msgstr ""
+
+#: ../../user/rescript-basics.md:3
+msgid ""
+"This page helps you get a ReScript project up and running if you're new "
+"to ReScript."
+msgstr ""
+
+#: ../../user/rescript-basics.md:6
+msgid ""
+"For comprehensive ReScript documentation, visit the official [ReScript "
+"docs](https://rescript-lang.org/docs/manual/latest/introduction)."
+msgstr ""
+
+#: ../../user/rescript-basics.md:9
+msgid "Setting Up a New Project"
+msgstr ""
+
+#: ../../user/rescript-basics.md:11
+msgid "Option 1: Using the Project Wizard"
+msgstr ""
+
+#: ../../user/rescript-basics.md:13
+msgid "**File** → **New** → **Project**"
+msgstr ""
+
+#: ../../user/rescript-basics.md:14
+msgid "Select **ReScript** from the generator list"
+msgstr ""
+
+#: ../../user/rescript-basics.md:15
+msgid "Fill in the project name and location"
+msgstr ""
+
+#: ../../user/rescript-basics.md:16
+msgid "Click **Create**"
+msgstr ""
+
+#: ../../user/rescript-basics.md:18
+msgid ""
+"The wizard generates a basic project structure with `rescript.json` and "
+"source files."
+msgstr ""
+
+#: ../../user/rescript-basics.md:20
+msgid "Option 2: Manual Setup"
+msgstr ""
+
+#: ../../user/rescript-basics.md:22
+msgid "Create a new directory for your project"
+msgstr ""
+
+#: ../../user/rescript-basics.md:23
+msgid "Initialize with npm:"
+msgstr ""
+
+#: ../../user/rescript-basics.md:31
+msgid "Install ReScript:"
+msgstr ""
+
+#: ../../user/rescript-basics.md:37
+msgid "Install the Language Server:"
+msgstr ""
+
+#: ../../user/rescript-basics.md:43
+msgid "Create `rescript.json`:"
+msgstr ""
+
+#: ../../user/rescript-basics.md:58
+msgid "Create `src/` directory and your first `.res` file:"
+msgstr ""
+
+#: ../../user/rescript-basics.md:70
+msgid "Build:"
+msgstr ""
+
+#: ../../user/rescript-basics.md:76
+msgid "Project Structure"
+msgstr ""
+
+#: ../../user/rescript-basics.md:78
+msgid "A typical ReScript project looks like:"
+msgstr ""
+
+#: ../../user/rescript-basics.md:95
+msgid "Key Files"
+msgstr ""
+
+#: ../../user/rescript-basics.md:97
+msgid "rescript.json"
+msgstr ""
+
+#: ../../user/rescript-basics.md:99
+msgid ""
+"The main configuration file for your ReScript project. The plugin "
+"provides JSON Schema validation and auto-completion for this file."
+msgstr ""
+
+#: ../../user/rescript-basics.md:101
+msgid "Key fields:"
+msgstr ""
+
+#: ../../user/rescript-basics.md:102
+msgid "`name` — Package name"
+msgstr ""
+
+#: ../../user/rescript-basics.md:103
+msgid "`sources` — Source directories to compile"
+msgstr ""
+
+#: ../../user/rescript-basics.md:104
+msgid "`bs-dependencies` — ReScript package dependencies"
+msgstr ""
+
+#: ../../user/rescript-basics.md:105
+msgid "`package-specs` — Output format (commonjs or esmodule)"
+msgstr ""
+
+#: ../../user/rescript-basics.md:107
+msgid ".res Files"
+msgstr ""
+
+#: ../../user/rescript-basics.md:109
+msgid ""
+"ReScript source files. Each `.res` file defines a module with the same "
+"name as the file."
+msgstr ""
+
+#: ../../user/rescript-basics.md:111
+msgid ".resi Files"
+msgstr ""
+
+#: ../../user/rescript-basics.md:113
+msgid ""
+"ReScript interface files. They define the public API of the corresponding"
+" `.res` module. Use `Alt+O` to switch between `.res` and `.resi` files."
+msgstr ""
+
+#: ../../user/rescript-basics.md:115
+msgid "Basic Syntax Quick Reference"
+msgstr ""
+

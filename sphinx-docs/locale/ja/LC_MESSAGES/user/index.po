@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/index.md:1
+msgid "User Guide"
+msgstr ""
+
+#: ../../user/index.md:3
+msgid ""
+"Everything you need to get started with the ReScript IntelliJ Plugin and "
+"make the most of its features."
+msgstr ""
+
+#: ../../user/index.md:5
+msgid "Getting Started"
+msgstr ""
+
+#: ../../user/index.md:7
+msgid ""
+"[Installation](installation.md) — Install the plugin and set up the "
+"Language Server"
+msgstr ""
+
+#: ../../user/index.md:8
+msgid ""
+"[Quick Start](quickstart.md) — Your first steps with ReScript in a "
+"JetBrains IDE"
+msgstr ""
+
+#: ../../user/index.md:9
+msgid ""
+"[ReScript Basics](rescript-basics.md) — Setting up a ReScript project "
+"from scratch"
+msgstr ""
+
+#: ../../user/index.md:11
+msgid "Features"
+msgstr ""
+
+#: ../../user/index.md:13
+msgid "[Feature Overview](features/index.md) — All features at a glance"
+msgstr ""
+
+#: ../../user/index.md:14
+msgid ""
+"[Syntax Highlighting](features/syntax-highlighting.md) — Lexer-based and "
+"semantic highlighting"
+msgstr ""
+
+#: ../../user/index.md:15
+msgid ""
+"[Code Completion](features/code-completion.md) — Intelligent completions "
+"via LSP"
+msgstr ""
+
+#: ../../user/index.md:16
+msgid ""
+"[Navigation](features/navigation.md) — Go to Definition, Symbol, Related "
+"files"
+msgstr ""
+
+#: ../../user/index.md:17
+msgid ""
+"[Code Editing](features/code-editing.md) — Folding, formatting, "
+"intentions, surround"
+msgstr ""
+
+#: ../../user/index.md:18
+msgid "[Run & Build](features/run-build.md) — Run configurations and build status"
+msgstr ""
+
+#: ../../user/index.md:19
+msgid "[Testing](features/testing.md) — Test runner integration (Jest/Vitest)"
+msgstr ""
+
+#: ../../user/index.md:20
+msgid ""
+"[Code Analysis](features/code-analysis.md) — Inspections, dead code "
+"analysis, import optimization"
+msgstr ""
+
+#: ../../user/index.md:21
+msgid ""
+"[Advanced Features](features/advanced.md) — Code Lens, Compiled JS "
+"Preview, Module Hierarchy"
+msgstr ""
+
+#: ../../user/index.md:23
+msgid "Reference"
+msgstr ""
+
+#: ../../user/index.md:25
+msgid "[Configuration](configuration.md) — Plugin settings"
+msgstr ""
+
+#: ../../user/index.md:26
+msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference"
+msgstr ""
+
+#: ../../user/index.md:27
+msgid "[Troubleshooting](troubleshooting.md) — Common issues and solutions"
+msgstr ""
+
+#: ../../user/index.md:28
+msgid "[Changelog](changelog.md) — Release notes"
+msgstr ""
+

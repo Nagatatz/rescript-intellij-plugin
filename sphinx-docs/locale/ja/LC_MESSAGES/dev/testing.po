@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/testing.md:1
+msgid "Testing Guide"
+msgstr ""
+
+#: ../../dev/testing.md:3
+msgid "Running Tests"
+msgstr ""
+
+#: ../../dev/testing.md:16
+msgid "Test Structure"
+msgstr ""
+
+#: ../../dev/testing.md:18
+msgid ""
+"Tests are located in `src/test/kotlin/com/rescript/plugin/` and mirror "
+"the source code package structure:"
+msgstr ""
+
+#: ../../dev/testing.md:33
+msgid "Writing Tests"
+msgstr ""
+
+#: ../../dev/testing.md:35
+msgid "Test Conventions"
+msgstr ""
+
+#: ../../dev/testing.md:37
+msgid "**File naming:** `<TargetClass>Test.kt`"
+msgstr ""
+
+#: ../../dev/testing.md:38
+msgid "**Location:** Same package as the class being tested"
+msgstr ""
+
+#: ../../dev/testing.md:39
+msgid "**Framework:** JUnit 5 with IntelliJ test fixtures"
+msgstr ""
+
+#: ../../dev/testing.md:41
+msgid "IntelliJ Test Fixtures"
+msgstr ""
+
+#: ../../dev/testing.md:43
+msgid "Most tests extend IntelliJ Platform test base classes:"
+msgstr ""
+
+#: ../../dev/testing.md:58
+msgid "Test Data Files"
+msgstr ""
+
+#: ../../dev/testing.md:60
+msgid "Test data files go in `src/test/testData/<feature>/`:"
+msgstr ""
+
+#: ../../dev/testing.md:72
+msgid "Lexer Tests"
+msgstr ""
+
+#: ../../dev/testing.md:74
+msgid "Test that the lexer produces correct token sequences:"
+msgstr ""
+
+#: ../../dev/testing.md:86
+msgid "Parser Tests"
+msgstr ""
+
+#: ../../dev/testing.md:88
+msgid "Test that the parser produces correct PSI structures:"
+msgstr ""
+
+#: ../../dev/testing.md:99
+msgid "Test Coverage"
+msgstr ""
+
+#: ../../dev/testing.md:101
+msgid ""
+"The project uses [Kover](https://github.com/Kotlin/kotlinx-kover) for "
+"code coverage."
+msgstr ""
+
+#: ../../dev/testing.md:111
+msgid "Coverage reports are generated at `build/reports/kover/html/`."
+msgstr ""
+
+#: ../../dev/testing.md:113
+msgid "Coverage Requirements"
+msgstr ""
+
+#: ../../dev/testing.md:115
+msgid "New code should have test coverage"
+msgstr ""
+
+#: ../../dev/testing.md:116
+msgid "CI reports coverage on pull requests"
+msgstr ""
+
+#: ../../dev/testing.md:117
+msgid ""
+"Exceptions: UI components (Swing), LSP integration classes that require a"
+" running server"
+msgstr ""
+
+#: ../../dev/testing.md:119
+msgid "CI Testing"
+msgstr ""
+
+#: ../../dev/testing.md:121
+msgid "The CI pipeline runs tests automatically on every push and PR:"
+msgstr ""
+
+#: ../../dev/testing.md:123
+msgid "`./gradlew test koverXmlReport koverHtmlReport`"
+msgstr ""
+
+#: ../../dev/testing.md:124
+msgid "Coverage is reported on PRs via the Kover report action"
+msgstr ""
+
+#: ../../dev/testing.md:125
+msgid "Test results are uploaded as artifacts"
+msgstr ""
+
