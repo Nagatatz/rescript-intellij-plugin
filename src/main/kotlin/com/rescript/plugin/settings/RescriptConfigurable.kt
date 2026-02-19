@@ -4,9 +4,12 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.ConfigurationException
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.ui.FormBuilder
+import com.rescript.plugin.errorlens.RescriptErrorLensSeverity
 import java.io.File
+import javax.swing.DefaultComboBoxModel
 import javax.swing.JCheckBox
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -25,6 +28,9 @@ class RescriptConfigurable(
     private var lspServerPathField: TextFieldWithBrowseButton? = null
     private var nodePathField: TextFieldWithBrowseButton? = null
     private var incrementalTypecheckingCheckbox: JCheckBox? = null
+    private var errorLensCheckbox: JCheckBox? = null
+    private var errorLensMinSeverityCombo: ComboBox<String>? = null
+    private var removeUnusedOpensCheckbox: JCheckBox? = null
 
     override fun getDisplayName(): String = "ReScript"
 
@@ -59,6 +65,16 @@ class RescriptConfigurable(
         val incrementalCheckbox = JCheckBox("Enable incremental type checking", true)
         incrementalTypecheckingCheckbox = incrementalCheckbox
 
+        val elCheckbox = JCheckBox("Enable Error Lens (inline diagnostic display)", true)
+        errorLensCheckbox = elCheckbox
+
+        val severityCombo =
+            ComboBox(DefaultComboBoxModel(RescriptErrorLensSeverity.SEVERITY_NAMES.toTypedArray()))
+        errorLensMinSeverityCombo = severityCombo
+
+        val unusedOpensCheckbox = JCheckBox("Remove unused open statements (requires LSP)", true)
+        removeUnusedOpensCheckbox = unusedOpensCheckbox
+
         val formPanel =
             FormBuilder
                 .createFormBuilder()
@@ -70,6 +86,15 @@ class RescriptConfigurable(
                 .addComponent(incrementalCheckbox)
                 .addTooltip(
                     "When enabled, the LSP server uses incremental type checking for faster feedback. Requires LSP server restart.",
+                ).addSeparator()
+                .addComponent(elCheckbox)
+                .addTooltip("Show diagnostic messages inline at the end of editor lines. Requires reopening files.")
+                .addLabeledComponent("Minimum severity:", severityCombo)
+                .addTooltip("Only show diagnostics at or above this severity level.")
+                .addSeparator()
+                .addComponent(unusedOpensCheckbox)
+                .addTooltip(
+                    "When enabled, Optimize Imports also removes unused open statements detected by the LSP server.",
                 ).addComponentFillVertically(JPanel(), 0)
                 .panel
 
@@ -81,7 +106,10 @@ class RescriptConfigurable(
         val settings = RescriptProjectSettings.getInstance(project)
         return lspServerPathField?.text != settings.lspServerPath ||
             nodePathField?.text != settings.nodePath ||
-            incrementalTypecheckingCheckbox?.isSelected != settings.incrementalTypecheckingEnabled
+            incrementalTypecheckingCheckbox?.isSelected != settings.incrementalTypecheckingEnabled ||
+            errorLensCheckbox?.isSelected != settings.errorLensEnabled ||
+            errorLensMinSeverityCombo?.selectedItem != settings.errorLensMinSeverity ||
+            removeUnusedOpensCheckbox?.isSelected != settings.removeUnusedOpensEnabled
     }
 
     @Throws(ConfigurationException::class)
@@ -100,6 +128,9 @@ class RescriptConfigurable(
         settings.lspServerPath = lspPath
         settings.nodePath = nodePath
         settings.incrementalTypecheckingEnabled = incrementalTypecheckingCheckbox?.isSelected ?: true
+        settings.errorLensEnabled = errorLensCheckbox?.isSelected ?: true
+        settings.errorLensMinSeverity = errorLensMinSeverityCombo?.selectedItem as? String ?: "WARNING"
+        settings.removeUnusedOpensEnabled = removeUnusedOpensCheckbox?.isSelected ?: true
 
         com.intellij.platform.lsp.api.LspServerManager
             .getInstance(project)
@@ -111,6 +142,9 @@ class RescriptConfigurable(
         lspServerPathField?.text = settings.lspServerPath
         nodePathField?.text = settings.nodePath
         incrementalTypecheckingCheckbox?.isSelected = settings.incrementalTypecheckingEnabled
+        errorLensCheckbox?.isSelected = settings.errorLensEnabled
+        errorLensMinSeverityCombo?.selectedItem = settings.errorLensMinSeverity
+        removeUnusedOpensCheckbox?.isSelected = settings.removeUnusedOpensEnabled
     }
 
     override fun disposeUIResources() {
@@ -118,5 +152,8 @@ class RescriptConfigurable(
         lspServerPathField = null
         nodePathField = null
         incrementalTypecheckingCheckbox = null
+        errorLensCheckbox = null
+        errorLensMinSeverityCombo = null
+        removeUnusedOpensCheckbox = null
     }
 }

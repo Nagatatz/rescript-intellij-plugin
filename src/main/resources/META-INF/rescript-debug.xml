@@ -1,0 +1,4 @@
+<idea-plugin>
+    <!-- Extensions requiring JavaScriptDebugger plugin -->
+    <!-- Reserved for future V8 debugger protocol integration -->
+</idea-plugin>

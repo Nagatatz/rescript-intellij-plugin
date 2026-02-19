@@ -33,6 +33,8 @@
     <depends optional="true" config-file="rescript-json.xml">com.intellij.modules.json</depends>
     <depends optional="true" config-file="rescript-js-injection.xml">JavaScript</depends>
     <depends optional="true" config-file="rescript-markdown.xml">org.intellij.plugins.markdown</depends>
+    <depends optional="true" config-file="rescript-debug.xml">JavaScriptDebugger</depends>
+    <depends optional="true" config-file="rescript-nodejs.xml">NodeJS</depends>
 
     <extensions defaultExtensionNs="com.intellij">
 
@@ -89,6 +91,10 @@
         <!-- Run Configuration -->
         <configurationType
                 implementation="com.rescript.plugin.run.RescriptRunConfigurationType"/>
+
+        <!-- Debug Run Configuration -->
+        <configurationType
+                implementation="com.rescript.plugin.debug.RescriptDebugConfigurationType"/>
 
         <!-- Console Filter (clickable file:line links in compiler output) -->
         <consoleFilterProvider
@@ -294,6 +300,10 @@
         <moduleBuilder builderClass="com.rescript.plugin.wizard.RescriptModuleBuilder"
                        id="RESCRIPT_MODULE"
                        order="last"/>
+
+        <!-- Error Lens (inline diagnostic display) -->
+        <editorFactoryListener
+                implementation="com.rescript.plugin.errorlens.RescriptErrorLensEditorListener"/>
     </extensions>
 
     <actions>
@@ -328,6 +338,13 @@
                 text="Paste as JSON.t"
                 description="Convert clipboard JSON to ReScript JSON.t">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+        <action id="ReScript.DebugCompiledJs"
+                class="com.rescript.plugin.debug.RescriptDebugCompiledJsAction"
+                text="Debug Compiled JavaScript"
+                description="Debug compiled JS for this ReScript file with Node.js">
+            <add-to-group group-id="GoToMenu" anchor="last"/>
+            <keyboard-shortcut first-keystroke="alt shift D" keymap="$default"/>
         </action>
         <!-- Code Generation (Cmd+N / Alt+Insert) -->
         <group id="ReScript.GenerateGroup"
