@@ -273,6 +273,11 @@
         <!-- Compiled JS Preview Tool Window -->
         <toolWindow id="ReScript JS" anchor="right" icon="AllIcons.FileTypes.JavaScript"
                     factoryClass="com.rescript.plugin.preview.RescriptCompiledJsPreviewToolWindowFactory"/>
+
+        <!-- Unused Code Detection (via reanalyze) -->
+        <globalInspection language="ReScript" groupName="ReScript" shortName="RescriptUnusedCode"
+                          displayName="Unused code (via reanalyze)" enabledByDefault="true" level="WARNING"
+                          implementationClass="com.rescript.plugin.analysis.RescriptUnusedCodeInspection"/>
     </extensions>
 
     <actions>

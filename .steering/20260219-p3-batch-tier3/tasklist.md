@@ -27,13 +27,13 @@
 - [x] ビルド確認・コミット
 
 ## Feature 3: Unused Code Detection
-- [ ] `RescriptReanalyzeAnnotator.kt` 拡張（name フィールド + Quick Fix）
-- [ ] `RescriptReanalyzeQuickFix.kt` 実装
-- [ ] `RescriptUnusedCodeInspection.kt` 実装
-- [ ] plugin.xml に extension point 登録
-- [ ] `RescriptReanalyzeQuickFixTest.kt` テスト作成
-- [ ] `RescriptUnusedCodeInspectionTest.kt` テスト作成
-- [ ] ビルド確認・コミット
+- [x] `RescriptReanalyzeAnnotator.kt` 拡張（name フィールド + Quick Fix）
+- [x] `RescriptReanalyzeQuickFix.kt` 実装
+- [x] `RescriptUnusedCodeInspection.kt` 実装
+- [x] plugin.xml に extension point 登録
+- [x] `RescriptReanalyzeQuickFixTest.kt` テスト作成
+- [x] `RescriptUnusedCodeInspectionTest.kt` テスト作成
+- [x] ビルド確認・コミット
 
 ## Feature 4: Module Hierarchy
 - [ ] `RescriptDependencyAnalyzer.kt` 実装
