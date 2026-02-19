@@ -23,6 +23,8 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var lspServerPath: String = ""
         var nodePath: String = ""
         var incrementalTypecheckingEnabled: Boolean = true
+        var errorLensEnabled: Boolean = true
+        var errorLensMinSeverity: String = "WARNING"
     }
 
     override fun getState(): State = state
@@ -47,6 +49,18 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.incrementalTypecheckingEnabled
         set(value) {
             state.incrementalTypecheckingEnabled = value
+        }
+
+    var errorLensEnabled: Boolean
+        get() = state.errorLensEnabled
+        set(value) {
+            state.errorLensEnabled = value
+        }
+
+    var errorLensMinSeverity: String
+        get() = state.errorLensMinSeverity
+        set(value) {
+            state.errorLensMinSeverity = value
         }
 
     companion object {
