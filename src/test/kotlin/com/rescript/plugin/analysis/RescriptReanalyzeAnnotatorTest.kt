@@ -110,4 +110,89 @@ class RescriptReanalyzeAnnotatorTest {
         val result = RescriptReanalyzeAnnotator.findReanalyzeTool("/nonexistent/path")
         assertNull(result)
     }
+
+    @Test
+    fun `parseJsonOutput matches by exact filePath`() {
+        val json =
+            """
+            [
+                {
+                    "name": "unusedVariable",
+                    "kind": "warning",
+                    "file": "/project/src/App.res",
+                    "range": [1, 0, 1, 5],
+                    "message": "exact match"
+                }
+            ]
+            """.trimIndent()
+
+        val result = RescriptReanalyzeAnnotator.parseJsonOutput(json, "/project/src/App.res")
+        assertEquals(1, result.size)
+        assertEquals("exact match", result[0].message)
+    }
+
+    @Test
+    fun `parseJsonOutput matches when filePath ends with file`() {
+        val json =
+            """
+            [
+                {
+                    "name": "deadCode",
+                    "kind": "warning",
+                    "file": "src/App.res",
+                    "range": [2, 0, 2, 10],
+                    "message": "reverse match"
+                }
+            ]
+            """.trimIndent()
+
+        val result = RescriptReanalyzeAnnotator.parseJsonOutput(json, "/project/src/App.res")
+        assertEquals(1, result.size)
+        assertEquals("reverse match", result[0].message)
+    }
+
+    @Test
+    fun `parseAllDiagnostics skips entries with range size less than 4`() {
+        val json =
+            """
+            [
+                {
+                    "name": "test",
+                    "kind": "warning",
+                    "file": "App.res",
+                    "range": [1, 0, 1],
+                    "message": "short range"
+                }
+            ]
+            """.trimIndent()
+
+        val result = RescriptReanalyzeAnnotator.parseAllDiagnostics(json)
+        assertTrue(result.isEmpty())
+    }
+
+    @Test
+    fun `doAnnotate returns null when info is null`() {
+        val annotator = RescriptReanalyzeAnnotator()
+        val result = annotator.doAnnotate(null)
+        assertNull(result)
+    }
+
+    @Test
+    fun `parseJsonOutput defaults name to unknown when missing`() {
+        val json =
+            """
+            [
+                {
+                    "kind": "warning",
+                    "file": "App.res",
+                    "range": [1, 0, 1, 5],
+                    "message": "no name field"
+                }
+            ]
+            """.trimIndent()
+
+        val result = RescriptReanalyzeAnnotator.parseJsonOutput(json, "/project/App.res")
+        assertEquals(1, result.size)
+        assertEquals("unknown", result[0].name)
+    }
 }
