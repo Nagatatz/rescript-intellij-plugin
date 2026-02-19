@@ -74,6 +74,8 @@ jobs:
 
       - name: Build site
         run: make build-all
+        env:
+          SPHINX_SITE_PREFIX: /rescript-intellij-plugin
 
       - name: Upload Pages artifact
         if: github.event_name == 'push'
