@@ -49,7 +49,7 @@ sealed class RescriptReanalyzeQuickFix(
                 end = findWordEnd(text, offset)
             }
 
-            if (start >= end || start < 0) return
+            if (start !in 0 until end) return
             val identifier =
                 document.getText(
                     com.intellij.openapi.util
@@ -131,11 +131,9 @@ sealed class RescriptReanalyzeQuickFix(
          * Creates appropriate quick fixes based on the diagnostic name.
          */
         fun createQuickFixes(diagnosticName: String): List<IntentionAction> =
-            when {
-                diagnosticName in UNUSED_NAMES ->
-                    listOf(PrefixWithUnderscore(), RemoveUnused())
-                diagnosticName in DEAD_CODE_NAMES ->
-                    listOf(RemoveUnused())
+            when (diagnosticName) {
+                in UNUSED_NAMES -> listOf(PrefixWithUnderscore(), RemoveUnused())
+                in DEAD_CODE_NAMES -> listOf(RemoveUnused())
                 else -> emptyList()
             }
 

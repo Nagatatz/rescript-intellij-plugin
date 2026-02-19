@@ -56,8 +56,8 @@ class RescriptGenerateSwitchAction : AnAction("Switch Arms", "Generate switch ar
         val offset = editor.caretModel.offset
         val element = psiFile.findElementAt(offset)
         val typeDecl =
-            element?.let {
-                PsiTreeUtil.findFirstParent(it) {
+            element?.let { el ->
+                PsiTreeUtil.findFirstParent(el) {
                     it.node?.elementType == RescriptElementTypes.TYPE_DECLARATION
                 }
             }
