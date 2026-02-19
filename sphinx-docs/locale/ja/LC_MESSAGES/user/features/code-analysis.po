@@ -4,13 +4,12 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2026-02-19 18:14+0900\n"
+"PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -22,163 +21,615 @@ msgstr ""
 
 #: ../../user/features/code-analysis.md:1
 msgid "Code Analysis"
-msgstr ""
+msgstr "コード分析"
 
 #: ../../user/features/code-analysis.md:3
 msgid ""
 "The plugin provides several code analysis features to help you maintain "
 "clean, correct code."
 msgstr ""
+"このプラグインは、クリーンで正しいコードを維持するためのさまざまなコード分析機能を"
+"提供します。"
 
 #: ../../user/features/code-analysis.md:5
 msgid "Real-Time Diagnostics"
-msgstr ""
+msgstr "リアルタイム診断"
 
 #: ../../user/features/code-analysis.md:7
 msgid ""
 "The Language Server provides real-time error and warning diagnostics as "
 "you type:"
 msgstr ""
+"Language Server は、入力中にリアルタイムでエラーおよび警告の診断を提供します:"
 
 #: ../../user/features/code-analysis.md:9
-msgid "**Errors** — Shown with red underlines"
-msgstr ""
+msgid "**Errors** --- Shown with red underlines"
+msgstr "**Errors** --- 赤い下線で表示されます"
 
 #: ../../user/features/code-analysis.md:10
-msgid "**Warnings** — Shown with yellow underlines"
-msgstr ""
+msgid "**Warnings** --- Shown with yellow underlines"
+msgstr "**Warnings** --- 黄色い下線で表示されます"
 
 #: ../../user/features/code-analysis.md:11
-msgid "**Info** — Shown with subtle underlines"
-msgstr ""
+msgid "**Info** --- Shown with subtle underlines"
+msgstr "**Info** --- 控えめな下線で表示されます"
 
 #: ../../user/features/code-analysis.md:13
 msgid "View all diagnostics in the **Problems** panel (`Alt+6`)."
-msgstr ""
+msgstr "すべての診断は **Problems** パネル (`Alt+6`) で確認できます。"
 
 #: ../../user/features/code-analysis.md:15
 msgid "Code Inspections"
-msgstr ""
+msgstr "コードインスペクション"
 
 #: ../../user/features/code-analysis.md:17
-msgid "The plugin includes built-in inspections that run locally:"
+msgid ""
+"The plugin includes built-in inspections that run locally without "
+"requiring the Language Server."
 msgstr ""
+"このプラグインには、Language Server を必要とせずローカルで実行される"
+"ビルトインインスペクションが含まれています。"
 
 #: ../../user/features/code-analysis.md:19
 msgid "Duplicate Open Detection"
-msgstr ""
+msgstr "重複 open の検出"
 
 #: ../../user/features/code-analysis.md:21
-msgid "Detects when the same module is opened multiple times:"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:28
-msgid "Empty Module Detection"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:30
-msgid "Warns about empty module declarations:"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:36
-msgid "Missing Configuration"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:38
 msgid ""
-"Warns when `rescript.json` (or `bsconfig.json`) is not found in the "
-"project root."
+"Detects when the same module is opened multiple times in the same file. "
+"Duplicate `open` statements are redundant and add unnecessary noise to "
+"the code."
 msgstr ""
+"同じファイル内で同一モジュールが複数回 open されている場合を検出します。"
+"重複する `open` 文は冗長であり、コードに不要なノイズを加えます。"
 
-#: ../../user/features/code-analysis.md:40
-msgid "Dead Code Analysis (reanalyze)"
-msgstr ""
+#: ../../user/features/code-analysis.md:23
+msgid "**Before** (duplicate detected):"
+msgstr "**Before** (重複検出時):"
 
-#: ../../user/features/code-analysis.md:42
-msgid ""
-"The plugin integrates with [reanalyze](https://github.com/rescript-"
-"association/reanalyze) to detect:"
-msgstr ""
+#: ../../user/features/code-analysis.md:34
+msgid "**After** (optimized):"
+msgstr "**After** (最適化後):"
 
 #: ../../user/features/code-analysis.md:44
-msgid "**Dead code** — Unused functions, values, and types"
+msgid ""
+"The inspection highlights the duplicate `open` statement with a warning. "
+"You can remove it manually or use **Optimize Imports** (`Ctrl+Alt+O`) to "
+"remove all duplicates automatically."
 msgstr ""
-
-#: ../../user/features/code-analysis.md:45
-msgid "**Dead exceptions** — Unused exception declarations"
-msgstr ""
+"インスペクションは重複する `open` 文を警告としてハイライトします。"
+"手動で削除するか、**Optimize Imports** (`Ctrl+Alt+O`) を使用して"
+"すべての重複を自動的に削除できます。"
 
 #: ../../user/features/code-analysis.md:46
-msgid "**Unhandled exceptions** — Exception paths not covered by try/catch"
-msgstr ""
+msgid "Empty Module Detection"
+msgstr "空モジュールの検出"
 
 #: ../../user/features/code-analysis.md:48
-msgid "How It Works"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:50
-msgid "reanalyze runs as an external annotator on file save"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:51
-msgid "Results appear as editor annotations (warnings/info)"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:52
-msgid "Quick fixes are available:"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:53
-msgid "Add `_` prefix to mark as intentionally unused"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:54
-msgid "Remove the `_` prefix when code is actually used"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:56
-msgid "Global Inspection"
-msgstr ""
-
-#: ../../user/features/code-analysis.md:58
 msgid ""
-"Run **Code** → **Inspect Code** to analyze the entire project for dead "
-"code. Results are grouped by category in the Inspection Results panel."
+"Warns about module declarations that have no content. Empty modules are "
+"typically leftover scaffolding or incomplete implementations."
 msgstr ""
+"内容のないモジュール宣言について警告します。空のモジュールは、"
+"通常、残されたスキャフォールディングや不完全な実装です。"
 
 #: ../../user/features/code-analysis.md:60
-msgid "Import Optimization"
+msgid ""
+"The warning appears on the empty module declaration, prompting you to "
+"either add content or remove the empty module."
 msgstr ""
+"空のモジュール宣言に警告が表示され、内容を追加するか"
+"空のモジュールを削除するよう促します。"
 
 #: ../../user/features/code-analysis.md:62
-msgid "Press `Ctrl+Alt+O` to optimize imports:"
-msgstr ""
+msgid "Missing Configuration"
+msgstr "設定ファイルの欠落"
 
 #: ../../user/features/code-analysis.md:64
-msgid "Removes duplicate `open` statements"
+msgid ""
+"When no `rescript.json` (or legacy `bsconfig.json`) is found in the "
+"project root, the plugin displays an editor notification bar at the top "
+"of ReScript files. This configuration file is essential for:"
 msgstr ""
+"プロジェクトルートに `rescript.json` (または旧 `bsconfig.json`) が"
+"見つからない場合、プラグインは ReScript ファイルの上部にエディタ通知バーを"
+"表示します。この設定ファイルは以下の理由で不可欠です:"
 
-#: ../../user/features/code-analysis.md:65
-msgid "Keeps unique `open` statements in their original order"
+#: ../../user/features/code-analysis.md:66
+msgid ""
+"**ReScript compiler** --- Without it, the project cannot be built. The "
+"compiler uses this file to locate source directories, dependencies, and "
+"build settings."
 msgstr ""
+"**ReScript compiler** --- この設定ファイルがないと、プロジェクトをビルドできません。"
+"コンパイラはこのファイルを使用して、ソースディレクトリ、依存関係、ビルド設定を"
+"特定します。"
 
 #: ../../user/features/code-analysis.md:67
-msgid "Quick Fixes (LSP)"
+msgid ""
+"**Language Server** --- The LSP server relies on `rescript.json` to "
+"understand the project structure. Without it, features like auto-"
+"completion, go-to-definition, and diagnostics will not function."
 msgstr ""
+"**Language Server** --- LSP サーバーはプロジェクト構造を理解するために "
+"`rescript.json` に依存しています。これがないと、自動補完、定義へのジャンプ、"
+"診断などの機能が動作しません。"
 
-#: ../../user/features/code-analysis.md:69
-msgid "The Language Server provides automatic code fixes via `Alt+Enter`:"
+#: ../../user/features/code-analysis.md:68
+msgid ""
+"**Plugin features** --- Several plugin features (Code Lens, semantic "
+"highlighting, inlay hints) depend on the Language Server, which in turn "
+"requires the configuration file."
 msgstr ""
+"**Plugin features** --- いくつかのプラグイン機能 (Code Lens、セマンティック"
+"ハイライト、インレイヒント) は Language Server に依存しており、Language Server は"
+"設定ファイルを必要とします。"
 
-#: ../../user/features/code-analysis.md:71
-msgid "Add missing imports"
+#: ../../user/features/code-analysis.md:70
+msgid ""
+"If you see this warning, create a `rescript.json` file in your project "
+"root. The easiest way is to use the Project Wizard (**File** > **New** > "
+"**Project** > **ReScript**) or initialize a project with `npm init "
+"rescript-app@latest`."
 msgstr ""
+"この警告が表示された場合は、プロジェクトルートに `rescript.json` ファイルを"
+"作成してください。最も簡単な方法は、Project Wizard (**File** > **New** > "
+"**Project** > **ReScript**) を使用するか、`npm init "
+"rescript-app@latest` でプロジェクトを初期化することです。"
 
 #: ../../user/features/code-analysis.md:72
-msgid "Add type annotations"
-msgstr ""
+msgid "Dead Code Analysis (reanalyze)"
+msgstr "デッドコード分析 (reanalyze)"
 
-#: ../../user/features/code-analysis.md:73
-msgid "Fix common type errors"
+#: ../../user/features/code-analysis.md:74
+msgid ""
+"The plugin integrates with [reanalyze](https://github.com/rescript-"
+"association/reanalyze), a static analysis tool built into `rescript-"
+"tools`, to detect unused and dead code in your project."
 msgstr ""
+"このプラグインは、`rescript-tools` に組み込まれた静的分析ツールである "
+"[reanalyze](https://github.com/rescript-"
+"association/reanalyze) と統合し、プロジェクト内の未使用コードや"
+"デッドコードを検出します。"
 
+#: ../../user/features/code-analysis.md:76
+msgid "What It Detects"
+msgstr "検出対象"
+
+#: ../../user/features/code-analysis.md:78
+msgid ""
+"**Dead code** --- Unused functions, values, types, and modules that are "
+"never referenced"
+msgstr ""
+"**デッドコード** --- 一度も参照されない未使用の関数、値、型、モジュール"
+
+#: ../../user/features/code-analysis.md:79
+msgid ""
+"**Dead exceptions** --- Exception declarations that are never raised or "
+"caught"
+msgstr ""
+"**デッド例外** --- 一度も発生または捕捉されない例外宣言"
+
+#: ../../user/features/code-analysis.md:80
+msgid ""
+"**Unhandled exceptions** --- Exception paths not covered by try/catch "
+"blocks"
+msgstr ""
+"**未処理例外** --- try/catch ブロックでカバーされていない例外パス"
+
+#: ../../user/features/code-analysis.md:82
+msgid "Code Example"
+msgstr "コード例"
+
+#: ../../user/features/code-analysis.md:84
+msgid "Consider a file with an unused helper function:"
+msgstr "未使用のヘルパー関数を含むファイルを考えてみましょう:"
+
+#: ../../user/features/code-analysis.md:95
+msgid ""
+"The reanalyze tool detects that `formatName` is dead code and displays a "
+"warning annotation on the function definition: **\"formatName is dead "
+"code\"**."
+msgstr ""
+"reanalyze ツールは `formatName` がデッドコードであることを検出し、"
+"関数定義に警告アノテーションを表示します: **\"formatName is dead "
+"code\"**。"
+
+#: ../../user/features/code-analysis.md:97
+msgid "Quick Fixes"
+msgstr "クイックフィックス"
+
+#: ../../user/features/code-analysis.md:99
+msgid ""
+"When reanalyze identifies unused or dead code, the plugin offers quick "
+"fixes via `Alt+Enter`:"
+msgstr ""
+"reanalyze が未使用コードやデッドコードを検出すると、プラグインは "
+"`Alt+Enter` でクイックフィックスを提供します:"
+
+#: ../../user/features/code-analysis.md:101
+msgid ""
+"**1. Prefix with underscore** --- Marks the identifier as intentionally "
+"unused. This is useful when you want to keep the code for documentation "
+"or future use:"
+msgstr ""
+"**1. アンダースコアプレフィックスの付与** --- 識別子を意図的に未使用であると"
+"マークします。ドキュメントや将来の使用のためにコードを残しておきたい場合に"
+"便利です:"
+
+#: ../../user/features/code-analysis.md:111
+msgid ""
+"**2. Remove unused code** --- Deletes the entire declaration line. Use "
+"this when the code is truly no longer needed:"
+msgstr ""
+"**2. 未使用コードの削除** --- 宣言行全体を削除します。"
+"コードが本当に不要になった場合に使用します:"
+
+#: ../../user/features/code-analysis.md:122
+msgid "The available quick fixes depend on the diagnostic type:"
+msgstr "利用可能なクイックフィックスは診断タイプによって異なります:"
+
+#: ../../user/features/code-analysis.md:123
+msgid ""
+"**Unused variables/arguments/values/types/modules** --- Both \"Prefix "
+"with underscore\" and \"Remove unused code\" are offered"
+msgstr ""
+"**未使用の変数/引数/値/型/モジュール** --- \"Prefix "
+"with underscore\" と \"Remove unused code\" の両方が提供されます"
+
+#: ../../user/features/code-analysis.md:124
+msgid ""
+"**Dead code/modules/types/values/exceptions** --- Only \"Remove unused "
+"code\" is offered"
+msgstr ""
+"**デッドコード/モジュール/型/値/例外** --- \"Remove unused "
+"code\" のみが提供されます"
+
+#: ../../user/features/code-analysis.md:126
+msgid "Setup Requirements"
+msgstr "セットアップ要件"
+
+#: ../../user/features/code-analysis.md:128
+msgid "The reanalyze integration requires:"
+msgstr "reanalyze 統合には以下が必要です:"
+
+#: ../../user/features/code-analysis.md:130
+msgid ""
+"**ReScript compiler installed** --- The `rescript` package must be in "
+"your project's `node_modules`. The plugin looks for `rescript-tools` (or "
+"`rescript-tools.exe` on Windows) in `node_modules/rescript/`."
+msgstr ""
+"**ReScript コンパイラのインストール** --- `rescript` パッケージがプロジェクトの "
+"`node_modules` に存在する必要があります。プラグインは `node_modules/rescript/` 内の "
+"`rescript-tools` (Windows では `rescript-tools.exe`) を検索します。"
+
+#: ../../user/features/code-analysis.md:132
+msgid ""
+"**Project must be built** --- reanalyze operates on the compiled output. "
+"Run `rescript build` at least once before expecting dead code analysis "
+"results."
+msgstr ""
+"**プロジェクトのビルドが必要** --- reanalyze はコンパイル出力に対して動作します。"
+"デッドコード分析の結果を得るには、事前に `rescript build` を少なくとも一度"
+"実行してください。"
+
+#: ../../user/features/code-analysis.md:134
+msgid ""
+"**Optional: reanalyze configuration in rescript.json** --- You can fine-"
+"tune the analysis by adding a `reanalyze` section to your "
+"`rescript.json`:"
+msgstr ""
+"**オプション: rescript.json での reanalyze 設定** --- `rescript.json` に "
+"`reanalyze` セクションを追加することで分析を細かく調整できます:"
+
+#: ../../user/features/code-analysis.md:148
+msgid "Configuration options:"
+msgstr "設定オプション:"
+
+#: ../../user/features/code-analysis.md:149
+msgid ""
+"`analysis` --- Array of analysis types to enable: `\"dce\"` (dead code "
+"elimination), `\"exception\"` (exception analysis), `\"termination\"` "
+"(infinite loop detection)"
+msgstr ""
+"`analysis` --- 有効にする分析タイプの配列: `\"dce\"` (デッドコード"
+"除去)、`\"exception\"` (例外分析)、`\"termination\"` "
+"(無限ループ検出)"
+
+#: ../../user/features/code-analysis.md:150
+msgid ""
+"`suppress` --- Array of directory paths to exclude from analysis (useful "
+"for FFI bindings)"
+msgstr ""
+"`suppress` --- 分析から除外するディレクトリパスの配列 (FFI バインディングに"
+"便利です)"
+
+#: ../../user/features/code-analysis.md:151
+msgid ""
+"`unsuppress` --- Specific files within suppressed directories to re-"
+"include"
+msgstr ""
+"`unsuppress` --- 除外されたディレクトリ内で再び分析対象に含める"
+"特定のファイル"
+
+#: ../../user/features/code-analysis.md:152
+msgid ""
+"`transitive` --- Whether to report transitively dead items (default: "
+"`false`)"
+msgstr ""
+"`transitive` --- 推移的にデッドな項目を報告するかどうか (デフォルト: "
+"`false`)"
+
+#: ../../user/features/code-analysis.md:154
+msgid "How It Works"
+msgstr "動作の仕組み"
+
+#: ../../user/features/code-analysis.md:156
+msgid "The reanalyze annotator follows a three-phase lifecycle:"
+msgstr "reanalyze アノテータは 3 つのフェーズで動作します:"
+
+#: ../../user/features/code-analysis.md:158
+msgid ""
+"**Collect** --- On the EDT (Event Dispatch Thread), gathers the file path"
+" and project base path"
+msgstr ""
+"**Collect** --- EDT (Event Dispatch Thread) 上で、ファイルパスと"
+"プロジェクトのベースパスを収集します"
+
+#: ../../user/features/code-analysis.md:159
+msgid ""
+"**Annotate** --- In a background thread, runs `rescript-tools reanalyze "
+"-json` and parses the JSON output"
+msgstr ""
+"**Annotate** --- バックグラウンドスレッドで `rescript-tools reanalyze "
+"-json` を実行し、JSON 出力を解析します"
+
+#: ../../user/features/code-analysis.md:160
+msgid ""
+"**Apply** --- Maps diagnostics back to editor positions and creates "
+"warning annotations with quick-fix actions"
+msgstr ""
+"**Apply** --- 診断結果をエディタの位置にマッピングし、"
+"クイックフィックスアクション付きの警告アノテーションを作成します"
+
+#: ../../user/features/code-analysis.md:162
+msgid "Global Inspection"
+msgstr "グローバルインスペクション"
+
+#: ../../user/features/code-analysis.md:164
+msgid ""
+"In addition to per-file annotations in the editor, you can analyze the "
+"entire project at once:"
+msgstr ""
+"エディタ内のファイルごとのアノテーションに加えて、"
+"プロジェクト全体を一括で分析することもできます:"
+
+#: ../../user/features/code-analysis.md:166
+msgid "Go to **Code** > **Inspect Code**"
+msgstr "**Code** > **Inspect Code** を選択します"
+
+#: ../../user/features/code-analysis.md:167
+msgid "Select the inspection scope (whole project or specific directories)"
+msgstr "インスペクションのスコープを選択します (プロジェクト全体または特定のディレクトリ)"
+
+#: ../../user/features/code-analysis.md:168
+msgid "Results appear in the **Inspection Results** panel, grouped by file"
+msgstr "結果は **Inspection Results** パネルにファイルごとにグループ化されて表示されます"
+
+#: ../../user/features/code-analysis.md:170
+msgid ""
+"The global inspection runs a single invocation of `rescript-tools "
+"reanalyze -json` and distributes the results across all affected ReScript"
+" files in the project."
+msgstr ""
+"グローバルインスペクションは `rescript-tools "
+"reanalyze -json` を一度だけ実行し、プロジェクト内の影響を受けるすべての "
+"ReScript ファイルに結果を分配します。"
+
+#: ../../user/features/code-analysis.md:172
+msgid "Import Optimization"
+msgstr "インポートの最適化"
+
+#: ../../user/features/code-analysis.md:174
+msgid ""
+"Press `Ctrl+Alt+O` (or `Cmd+Alt+O` on macOS) to optimize imports in the "
+"current file."
+msgstr ""
+"`Ctrl+Alt+O` (macOS では `Cmd+Alt+O`) を押して、現在のファイルの"
+"インポートを最適化します。"
+
+#: ../../user/features/code-analysis.md:176
+msgid "The import optimizer performs the following actions:"
+msgstr "インポートオプティマイザは以下のアクションを実行します:"
+
+#: ../../user/features/code-analysis.md:178
+msgid ""
+"**Removes duplicate `open` statements** --- When the same module path "
+"appears in multiple `open` statements, only the first occurrence is kept"
+msgstr ""
+"**重複する `open` 文の削除** --- 同じモジュールパスが複数の `open` 文に"
+"含まれている場合、最初の出現のみが保持されます"
+
+#: ../../user/features/code-analysis.md:179
+msgid ""
+"**Preserves order** --- Unique `open` statements remain in their original"
+" position in the file"
+msgstr ""
+"**順序の保持** --- 一意な `open` 文はファイル内の元の位置に"
+"そのまま残ります"
+
+#: ../../user/features/code-analysis.md:180
+msgid ""
+"**Preserves non-duplicate opens** --- The optimizer only removes exact "
+"duplicates; it does not remove unused opens (since that requires semantic"
+" analysis from the compiler)"
+msgstr ""
+"**重複しない open の保持** --- オプティマイザは完全な重複のみを削除します。"
+"未使用の open は削除しません (コンパイラによるセマンティック分析が"
+"必要なため)"
+
+#: ../../user/features/code-analysis.md:182
+msgid "**Example:**"
+msgstr "**例:**"
+
+#: ../../user/features/code-analysis.md:204
+msgid ""
+"After running the optimizer, a notification displays the result (e.g., "
+"\"Removed 2 duplicate open statement(s)\" or \"No duplicate open "
+"statements found\")."
+msgstr ""
+"オプティマイザの実行後、結果が通知として表示されます (例: "
+"\"Removed 2 duplicate open statement(s)\" または \"No duplicate open "
+"statements found\")。"
+
+#: ../../user/features/code-analysis.md:206
+msgid "Quick Fixes (LSP)"
+msgstr "クイックフィックス (LSP)"
+
+#: ../../user/features/code-analysis.md:208
+msgid ""
+"The Language Server provides automatic code fixes via `Alt+Enter` (or the"
+" light bulb icon in the gutter). These LSP-powered quick fixes operate on"
+" semantic analysis from the ReScript compiler and can handle situations "
+"that local inspections cannot."
+msgstr ""
+"Language Server は `Alt+Enter` (またはガター内の電球アイコン) を通じて"
+"自動コード修正を提供します。これらの LSP ベースのクイックフィックスは "
+"ReScript コンパイラのセマンティック分析に基づいて動作し、"
+"ローカルインスペクションでは対応できない状況を処理できます。"
+
+#: ../../user/features/code-analysis.md:210
+msgid "Available quick fixes include:"
+msgstr "利用可能なクイックフィックスには以下が含まれます:"
+
+#: ../../user/features/code-analysis.md:212
+msgid ""
+"**Add missing type annotation** --- When the compiler suggests adding a "
+"type constraint to resolve ambiguity"
+msgstr ""
+"**不足している型注釈の追加** --- コンパイラが曖昧さを解消するために"
+"型制約の追加を提案する場合"
+
+#: ../../user/features/code-analysis.md:213
+msgid ""
+"**Add missing open** --- Inserts an `open` statement for a module that "
+"contains the referenced value"
+msgstr ""
+"**不足している open の追加** --- 参照されている値を含むモジュールの "
+"`open` 文を挿入します"
+
+#: ../../user/features/code-analysis.md:214
+msgid ""
+"**Fix type mismatch** --- Suggests corrections when types do not match "
+"(e.g., wrapping in `Some()` for option types)"
+msgstr ""
+"**型の不一致の修正** --- 型が一致しない場合に修正を提案します "
+"(例: option 型に対する `Some()` でのラップ)"
+
+#: ../../user/features/code-analysis.md:215
+msgid ""
+"**Insert missing pattern** --- Adds unhandled cases to incomplete pattern"
+" matches"
+msgstr ""
+"**不足しているパターンの挿入** --- 不完全なパターンマッチに"
+"未処理のケースを追加します"
+
+#: ../../user/features/code-analysis.md:216
+msgid ""
+"**Convert deprecated syntax** --- Updates old ReScript syntax to the "
+"current version"
+msgstr ""
+"**非推奨構文の変換** --- 古い ReScript 構文を現在のバージョンに"
+"更新します"
+
+#: ../../user/features/code-analysis.md:218
+msgid ""
+"Quick fixes appear contextually based on the compiler diagnostic at the "
+"cursor position. Press `Alt+Enter` to see all available actions, or click"
+" the light bulb icon that appears in the editor gutter."
+msgstr ""
+"クイックフィックスは、カーソル位置のコンパイラ診断に基づいてコンテキストに"
+"応じて表示されます。`Alt+Enter` を押してすべての利用可能なアクションを確認するか、"
+"エディタガターに表示される電球アイコンをクリックしてください。"
+
+#~ msgid "**Errors** — Shown with red underlines"
+#~ msgstr ""
+
+#~ msgid "**Warnings** — Shown with yellow underlines"
+#~ msgstr ""
+
+#~ msgid "**Info** — Shown with subtle underlines"
+#~ msgstr ""
+
+#~ msgid "The plugin includes built-in inspections that run locally:"
+#~ msgstr ""
+
+#~ msgid "Detects when the same module is opened multiple times:"
+#~ msgstr ""
+
+#~ msgid "Warns about empty module declarations:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Warns when `rescript.json` (or "
+#~ "`bsconfig.json`) is not found in the "
+#~ "project root."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The plugin integrates with "
+#~ "[reanalyze](https://github.com/rescript-association/reanalyze)"
+#~ " to detect:"
+#~ msgstr ""
+
+#~ msgid "**Dead code** — Unused functions, values, and types"
+#~ msgstr ""
+
+#~ msgid "**Dead exceptions** — Unused exception declarations"
+#~ msgstr ""
+
+#~ msgid "**Unhandled exceptions** — Exception paths not covered by try/catch"
+#~ msgstr ""
+
+#~ msgid "reanalyze runs as an external annotator on file save"
+#~ msgstr ""
+
+#~ msgid "Results appear as editor annotations (warnings/info)"
+#~ msgstr ""
+
+#~ msgid "Quick fixes are available:"
+#~ msgstr ""
+
+#~ msgid "Add `_` prefix to mark as intentionally unused"
+#~ msgstr ""
+
+#~ msgid "Remove the `_` prefix when code is actually used"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Run **Code** → **Inspect Code** to "
+#~ "analyze the entire project for dead "
+#~ "code. Results are grouped by category"
+#~ " in the Inspection Results panel."
+#~ msgstr ""
+
+#~ msgid "Press `Ctrl+Alt+O` to optimize imports:"
+#~ msgstr ""
+
+#~ msgid "Removes duplicate `open` statements"
+#~ msgstr ""
+
+#~ msgid "Keeps unique `open` statements in their original order"
+#~ msgstr ""
+
+#~ msgid "The Language Server provides automatic code fixes via `Alt+Enter`:"
+#~ msgstr ""
+
+#~ msgid "Add missing imports"
+#~ msgstr ""
+
+#~ msgid "Add type annotations"
+#~ msgstr ""
+
+#~ msgid "Fix common type errors"
+#~ msgstr ""

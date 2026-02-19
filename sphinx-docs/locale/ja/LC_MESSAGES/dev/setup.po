@@ -4,14 +4,13 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-19 17:39+0900\n"
+"Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -22,153 +21,156 @@ msgstr ""
 
 #: ../../dev/setup.md:1
 msgid "Development Setup"
-msgstr ""
+msgstr "開発環境のセットアップ"
 
 #: ../../dev/setup.md:3
 msgid "Prerequisites"
-msgstr ""
+msgstr "前提条件"
 
 #: ../../dev/setup.md
 msgid "Requirement"
-msgstr ""
+msgstr "要件"
 
 #: ../../dev/setup.md
 msgid "Version"
-msgstr ""
+msgstr "バージョン"
 
 #: ../../dev/setup.md
 msgid "JDK"
-msgstr ""
+msgstr "JDK"
 
 #: ../../dev/setup.md
 msgid "21 or later"
-msgstr ""
+msgstr "21 以降"
 
 #: ../../dev/setup.md
 msgid "IntelliJ IDEA"
-msgstr ""
+msgstr "IntelliJ IDEA"
 
 #: ../../dev/setup.md
 msgid "2025.3+ (Ultimate or Community)"
-msgstr ""
+msgstr "2025.3+ (Ultimate または Community)"
 
 #: ../../dev/setup.md
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: ../../dev/setup.md
 msgid "Any recent version"
-msgstr ""
+msgstr "最新バージョン"
 
 #: ../../dev/setup.md
 msgid "Node.js"
-msgstr ""
+msgstr "Node.js"
 
 #: ../../dev/setup.md
 msgid "For testing LSP features"
-msgstr ""
+msgstr "LSP 機能のテスト用"
 
 #: ../../dev/setup.md:12
 msgid "Clone the Repository"
-msgstr ""
+msgstr "リポジトリのクローン"
 
 #: ../../dev/setup.md:19
 msgid "Open in IntelliJ IDEA"
-msgstr ""
+msgstr "IntelliJ IDEA で開く"
 
 #: ../../dev/setup.md:21
 msgid "Open IntelliJ IDEA"
-msgstr ""
+msgstr "IntelliJ IDEA を開きます"
 
 #: ../../dev/setup.md:22
 msgid "**File** → **Open** → Select the cloned repository"
-msgstr ""
+msgstr "**File** → **Open** → クローンしたリポジトリを選択"
 
 #: ../../dev/setup.md:23
 msgid "IntelliJ will detect the Gradle project and import it automatically"
-msgstr ""
+msgstr "IntelliJ が Gradle プロジェクトを検出し、自動的にインポートします"
 
 #: ../../dev/setup.md:24
 msgid "Wait for the Gradle sync to complete (this downloads dependencies)"
-msgstr ""
+msgstr "Gradle の同期が完了するまで待ちます（依存関係がダウンロードされます）"
 
 #: ../../dev/setup.md:26
 msgid "Verify the Setup"
-msgstr ""
+msgstr "セットアップの確認"
 
 #: ../../dev/setup.md:28
 msgid "Run the build to ensure everything is configured correctly:"
-msgstr ""
+msgstr "ビルドを実行して、すべてが正しく設定されていることを確認します:"
 
 #: ../../dev/setup.md:34
 msgid "This will:"
-msgstr ""
+msgstr "これにより以下が実行されます:"
 
 #: ../../dev/setup.md:35
 msgid "Generate the JFlex lexer (`RescriptFlexLexer.java`) from `Rescript.flex`"
-msgstr ""
+msgstr "`Rescript.flex` から JFlex レクサー (`RescriptFlexLexer.java`) を生成"
 
 #: ../../dev/setup.md:36
 msgid "Compile all Kotlin source code"
-msgstr ""
+msgstr "すべての Kotlin ソースコードをコンパイル"
 
 #: ../../dev/setup.md:37
 msgid "Run ktlint checks"
-msgstr ""
+msgstr "ktlint チェックを実行"
 
 #: ../../dev/setup.md:38
 msgid "Package the plugin"
-msgstr ""
+msgstr "プラグインをパッケージング"
 
 #: ../../dev/setup.md:40
 msgid "Run a Development IDE Instance"
-msgstr ""
+msgstr "開発用 IDE インスタンスの起動"
 
 #: ../../dev/setup.md:46
 msgid ""
 "This launches a fresh IntelliJ IDEA instance with the plugin loaded. You "
 "can open a ReScript project in this instance to test your changes."
 msgstr ""
+"プラグインが読み込まれた新しい IntelliJ IDEA インスタンスが起動します。"
+"このインスタンスで ReScript プロジェクトを開いて変更をテストできます。"
 
 #: ../../dev/setup.md:48
 msgid "Project JDK Configuration"
-msgstr ""
+msgstr "プロジェクト JDK の設定"
 
 #: ../../dev/setup.md:50
 msgid "If IntelliJ doesn't automatically detect your JDK:"
-msgstr ""
+msgstr "IntelliJ が JDK を自動検出しない場合:"
 
 #: ../../dev/setup.md:52
 msgid "**File** → **Project Structure** → **Project**"
-msgstr ""
+msgstr "**File** → **Project Structure** → **Project**"
 
 #: ../../dev/setup.md:53
 msgid "Set **SDK** to JDK 21+"
-msgstr ""
+msgstr "**SDK** を JDK 21+ に設定"
 
 #: ../../dev/setup.md:54
 msgid "Set **Language level** to 21"
-msgstr ""
+msgstr "**Language level** を 21 に設定"
 
 #: ../../dev/setup.md:56
 msgid "Recommended IDE Plugins"
-msgstr ""
+msgstr "推奨 IDE プラグイン"
 
 #: ../../dev/setup.md:58
 msgid ""
 "For development, consider installing these plugins in your development "
 "IDE:"
 msgstr ""
+"開発にあたって、開発用 IDE に以下のプラグインのインストールを検討してください:"
 
 #: ../../dev/setup.md:60
 msgid "**Kotlin** — Should be bundled"
-msgstr ""
+msgstr "**Kotlin** — バンドル済みのはずです"
 
 #: ../../dev/setup.md:61
 msgid "**Gradle** — Should be bundled"
-msgstr ""
+msgstr "**Gradle** — バンドル済みのはずです"
 
 #: ../../dev/setup.md:62
 msgid "**Grammar-Kit** — Helpful for working with JFlex/BNF grammars"
-msgstr ""
+msgstr "**Grammar-Kit** — JFlex/BNF 文法の作業に役立ちます"
 

@@ -1,17 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
+# Japanese translations for ReScript IntelliJ Plugin.
 # Copyright (C) 2026, Nagatatz
 # This file is distributed under the same license as the ReScript IntelliJ
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-19 17:39+0900\n"
+"Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -58,23 +57,23 @@ msgstr "JetBrains Marketplace からインストール"
 
 #: ../../user/installation.md:13
 msgid "Open your JetBrains IDE"
-msgstr "JetBrains IDE を開く"
+msgstr "JetBrains IDE を開きます"
 
 #: ../../user/installation.md:14
 msgid "Go to **Settings** → **Plugins** → **Marketplace**"
-msgstr "**Settings** → **Plugins** → **Marketplace** を開く"
+msgstr "**Settings** → **Plugins** → **Marketplace** を開きます"
 
 #: ../../user/installation.md:15
 msgid "Search for **\"ReScript\"**"
-msgstr "**\"ReScript\"** を検索する"
+msgstr "**\"ReScript\"** を検索します"
 
 #: ../../user/installation.md:16
 msgid "Click **Install**"
-msgstr "**Install** をクリックする"
+msgstr "**Install** をクリックします"
 
 #: ../../user/installation.md:17 ../../user/installation.md:24
 msgid "Restart the IDE when prompted"
-msgstr "プロンプトが表示されたら IDE を再起動する"
+msgstr "プロンプトが表示されたら IDE を再起動します"
 
 #: ../../user/installation.md:19
 msgid "From Disk (Manual)"
@@ -87,7 +86,7 @@ msgid ""
 "page"
 msgstr ""
 "[GitHub Releases](https://github.com/Nagatatz/rescript-intellij-plugin/"
-"releases) ページから最新の `.zip` をダウンロードする"
+"releases) ページから最新の `.zip` をダウンロードします"
 
 #: ../../user/installation.md:22
 msgid ""
@@ -95,11 +94,11 @@ msgid ""
 "Disk...**"
 msgstr ""
 "**Settings** → **Plugins** → **⚙️** → **Install Plugin from Disk...** "
-"を開く"
+"を開きます"
 
 #: ../../user/installation.md:23
 msgid "Select the downloaded `.zip` file"
-msgstr "ダウンロードした `.zip` ファイルを選択する"
+msgstr "ダウンロードした `.zip` ファイルを選択します"
 
 #: ../../user/installation.md:26
 msgid "Step 2: Install the ReScript Language Server"
@@ -154,7 +153,7 @@ msgstr "ステップ 3: 動作確認"
 
 #: ../../user/installation.md:53
 msgid "Open a `.res` file in your project"
-msgstr "プロジェクト内の `.res` ファイルを開く"
+msgstr "プロジェクト内の `.res` ファイルを開きます"
 
 #: ../../user/installation.md:54
 msgid "You should see:"

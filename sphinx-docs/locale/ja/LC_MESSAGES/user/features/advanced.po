@@ -4,13 +4,12 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2026-02-19 18:14+0900\n"
+"PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -22,193 +21,1041 @@ msgstr ""
 
 #: ../../user/features/advanced.md:1
 msgid "Advanced Features"
-msgstr ""
+msgstr "高度な機能"
 
 #: ../../user/features/advanced.md:3
 msgid ""
 "These features provide additional productivity tools for ReScript "
 "development."
 msgstr ""
+"これらの機能は、ReScript 開発のための追加の生産性向上ツールを提供します。"
 
 #: ../../user/features/advanced.md:5
 msgid "Code Lens"
-msgstr ""
+msgstr "Code Lens"
 
 #: ../../user/features/advanced.md:7
 msgid ""
-"Function definitions display their inferred type signatures as inline "
-"annotations above the function:"
+"Code Lens displays inferred type signatures as inline annotations above "
+"function definitions. This gives you immediate visibility into the types "
+"the compiler has inferred, without needing to hover over each identifier."
 msgstr ""
-
-#: ../../user/features/advanced.md:14
-msgid ""
-"Code Lens annotations are provided by the Language Server via the "
-"CodeVision API."
-msgstr ""
-
-#: ../../user/features/advanced.md:16
-msgid "Compiled JavaScript Preview"
-msgstr ""
-
-#: ../../user/features/advanced.md:18
-msgid ""
-"A tool window that shows the compiled JavaScript output for the current "
-"ReScript file."
-msgstr ""
+"Code Lens は、推論された型シグネチャを関数定義の上にインライン注釈として表示します。"
+"各識別子にホバーすることなく、コンパイラが推論した型を即座に確認できます。"
 
 #: ../../user/features/advanced.md:20
-msgid "**Open:** **View** → **Tool Windows** → **Compiled JS Preview**"
-msgstr ""
+msgid "How It Works"
+msgstr "仕組み"
 
 #: ../../user/features/advanced.md:22
-msgid "The preview updates automatically as you edit and save your ReScript file."
+msgid ""
+"Code Lens is powered by the LSP `textDocument/codeLens` protocol, bridged"
+" to IntelliJ's CodeVision API:"
 msgstr ""
+"Code Lens は LSP の `textDocument/codeLens` プロトコルを利用し、"
+"IntelliJ の CodeVision API に橋渡しされます:"
 
 #: ../../user/features/advanced.md:24
-msgid "Module Hierarchy"
+msgid ""
+"The plugin sends a `codeLens` request to the rescript-language-server for"
+" the current file"
 msgstr ""
+"プラグインは現在のファイルに対して rescript-language-server に `codeLens` "
+"リクエストを送信します"
+
+#: ../../user/features/advanced.md:25
+msgid ""
+"The language server returns an array of Code Lens entries, each "
+"containing a line position and a `command.title` with the inferred type "
+"string"
+msgstr ""
+"Language Server は Code Lens エントリの配列を返します。各エントリには"
+"行位置と、推論された型文字列を含む `command.title` が含まれます"
 
 #: ../../user/features/advanced.md:26
-msgid "View the module dependency hierarchy for any ReScript module."
+msgid ""
+"The plugin maps each entry to a `TextCodeVisionEntry` and positions it "
+"above the corresponding line in the editor"
 msgstr ""
+"プラグインは各エントリを `TextCodeVisionEntry` にマッピングし、"
+"エディタ内の対応する行の上に配置します"
 
 #: ../../user/features/advanced.md:28
 msgid ""
-"**Open:** Right-click on a module → **Module Hierarchy** (or use "
-"**Navigate** → **Type Hierarchy**)"
+"Code Lens annotations are **display-only** --- they show the inferred "
+"type but do not trigger any action when clicked."
 msgstr ""
+"Code Lens の注釈は **表示専用** です --- 推論された型を表示しますが、"
+"クリックしてもアクションは実行されません。"
 
-#: ../../user/features/advanced.md:30
-msgid "The hierarchy shows:"
-msgstr ""
-
-#: ../../user/features/advanced.md:31
-msgid "Module nesting (parent/child relationships)"
-msgstr ""
+#: ../../user/features/advanced.md:30 ../../user/features/advanced.md:167
+msgid "Configuration"
+msgstr "設定"
 
 #: ../../user/features/advanced.md:32
-msgid "Dependencies via `open` and `include` statements"
+msgid ""
+"**Toggle Code Lens:** Go to **Settings** > **Editor** > **Inlay Hints** >"
+" **Code Vision** and find \"ReScript Type Annotations\" in the list"
 msgstr ""
+"**Code Lens の切り替え:** **Settings** > **Editor** > **Inlay Hints** > "
+"**Code Vision** を開き、リストから \"ReScript Type Annotations\" を見つけてください"
+
+#: ../../user/features/advanced.md:33
+msgid ""
+"**Anchor position:** Annotations always appear above the function "
+"definition line (top anchor)"
+msgstr ""
+"**アンカー位置:** 注釈は常に関数定義行の上に表示されます（トップアンカー）"
 
 #: ../../user/features/advanced.md:34
-msgid "Inlay Hints"
-msgstr ""
-
-#: ../../user/features/advanced.md:36
 msgid ""
-"The Language Server displays inferred types as inline hints next to "
-"variables and parameters:"
+"**File types:** Code Lens is shown only in `.res` files, not in `.resi` "
+"interface files (since interface files already contain explicit type "
+"declarations)"
 msgstr ""
+"**ファイルタイプ:** Code Lens は `.res` ファイルにのみ表示され、`.resi` "
+"インターフェースファイルには表示されません（インターフェースファイルには既に明示的な"
+"型宣言が含まれているため）"
 
-#: ../../user/features/advanced.md:43
+#: ../../user/features/advanced.md:36 ../../user/features/advanced.md:236
+#: ../../user/features/advanced.md:275
+msgid "Requirements"
+msgstr "要件"
+
+#: ../../user/features/advanced.md:38
 msgid ""
-"Toggle inlay hints in **Settings** → **Editor** → **Inlay Hints** → "
-"**ReScript**."
+"Code Lens requires the Language Server to be running. If the LSP server "
+"is not connected, no annotations are displayed. The project must also be "
+"built at least once so the language server has type information "
+"available."
 msgstr ""
+"Code Lens を使用するには Language Server が実行されている必要があります。"
+"LSP サーバーに接続されていない場合、注釈は表示されません。また、Language Server が"
+"型情報を利用できるように、プロジェクトを少なくとも一度ビルドする必要があります。"
 
-#: ../../user/features/advanced.md:45
-msgid "JSON Schema for rescript.json"
-msgstr ""
+#: ../../user/features/advanced.md:40
+msgid "Compiled JavaScript Preview"
+msgstr "コンパイル済み JavaScript プレビュー"
 
-#: ../../user/features/advanced.md:47
+#: ../../user/features/advanced.md:42
 msgid ""
-"The plugin provides JSON Schema validation and completion for "
-"`rescript.json` and `bsconfig.json` files:"
+"A dedicated tool window that shows the compiled JavaScript output for the"
+" currently active ReScript file, providing a side-by-side view of your "
+"ReScript source and its JavaScript compilation result."
 msgstr ""
+"現在アクティブな ReScript ファイルのコンパイル済み JavaScript 出力を表示する"
+"専用ツールウィンドウです。ReScript ソースとその JavaScript コンパイル結果を"
+"並べて表示できます。"
 
-#: ../../user/features/advanced.md:49
-msgid "Auto-completion for configuration keys"
-msgstr ""
+#: ../../user/features/advanced.md:44
+msgid "**Open:** **View** > **Tool Windows** > **Compiled JS Preview**"
+msgstr "**開き方:** **View** > **Tool Windows** > **Compiled JS Preview**"
+
+#: ../../user/features/advanced.md:46
+msgid "Auto-Update Behavior"
+msgstr "自動更新の動作"
+
+#: ../../user/features/advanced.md:48
+msgid "The preview panel automatically refreshes in two situations:"
+msgstr "プレビューパネルは以下の 2 つの状況で自動的に更新されます:"
 
 #: ../../user/features/advanced.md:50
-msgid "Validation of values"
+msgid ""
+"**Active file change** --- When you switch between editor tabs, the "
+"preview updates to show the compiled JS for the newly focused `.res` or "
+"`.resi` file"
 msgstr ""
+"**アクティブファイルの切り替え** --- エディタタブを切り替えると、"
+"新しくフォーカスされた `.res` または `.resi` ファイルのコンパイル済み JS を"
+"表示するようにプレビューが更新されます"
 
 #: ../../user/features/advanced.md:51
-msgid "Hover documentation for each field"
+msgid ""
+"**Compilation success** --- When the ReScript compiler finishes a "
+"successful build (detected via `rescript/compilationStatus` LSP "
+"notification), the preview reloads to display the latest compiled output"
 msgstr ""
+"**コンパイル成功時** --- ReScript コンパイラのビルドが成功すると"
+"（`rescript/compilationStatus` LSP 通知で検出）、プレビューがリロードされ"
+"最新のコンパイル出力が表示されます"
 
 #: ../../user/features/advanced.md:53
-msgid "Markdown Code Fence Highlighting"
-msgstr ""
+msgid "Split View Setup"
+msgstr "分割表示のセットアップ"
 
 #: ../../user/features/advanced.md:55
-msgid "ReScript code blocks in Markdown files are syntax-highlighted:"
-msgstr ""
+msgid "For a side-by-side workflow:"
+msgstr "並列表示のワークフロー:"
 
-#: ../../user/features/advanced.md:63
+#: ../../user/features/advanced.md:57
+msgid "Open a `.res` file in the editor"
+msgstr "エディタで `.res` ファイルを開きます"
+
+#: ../../user/features/advanced.md:58
+msgid "Open **View** > **Tool Windows** > **Compiled JS Preview**"
+msgstr "**View** > **Tool Windows** > **Compiled JS Preview** を開きます"
+
+#: ../../user/features/advanced.md:59
 msgid ""
-"This requires the Markdown plugin to be installed (bundled with most "
-"JetBrains IDEs)."
+"Drag the tool window tab to the right side of the editor to create a "
+"vertical split"
 msgstr ""
+"ツールウィンドウのタブをエディタの右側にドラッグして、垂直分割を作成します"
 
-#: ../../user/features/advanced.md:65
-#, python-format
-msgid "JavaScript Injection in %raw()"
+#: ../../user/features/advanced.md:60
+msgid ""
+"As you edit and save your ReScript code, the JavaScript output updates "
+"automatically on the right"
 msgstr ""
+"ReScript コードを編集・保存すると、右側の JavaScript 出力が自動的に更新されます"
+
+#: ../../user/features/advanced.md:62
+msgid "Toolbar Actions"
+msgstr "ツールバーアクション"
+
+#: ../../user/features/advanced.md:64
+msgid "The preview panel includes two toolbar buttons:"
+msgstr "プレビューパネルには 2 つのツールバーボタンがあります:"
+
+#: ../../user/features/advanced.md:66
+msgid ""
+"**Refresh** --- Manually reloads the compiled JS content for the current "
+"file"
+msgstr ""
+"**Refresh** --- 現在のファイルのコンパイル済み JS コンテンツを手動でリロードします"
 
 #: ../../user/features/advanced.md:67
-#, python-format
 msgid ""
-"JavaScript code inside `%raw()` blocks is highlighted with JavaScript "
-"syntax:"
+"**Open in Editor** --- Opens the compiled `.js` file as a full editor tab"
+" (useful for searching or copying larger sections)"
 msgstr ""
+"**Open in Editor** --- コンパイル済みの `.js` ファイルをフルエディタタブとして"
+"開きます（大きなセクションの検索やコピーに便利です）"
 
-#: ../../user/features/advanced.md:77
-msgid "This requires the JavaScript plugin to be available."
-msgstr ""
+#: ../../user/features/advanced.md:69
+msgid "Use Cases"
+msgstr "ユースケース"
 
-#: ../../user/features/advanced.md:79
-msgid "Project Wizard"
+#: ../../user/features/advanced.md:71
+msgid ""
+"**Understanding compilation output** --- See how ReScript constructs "
+"(pattern matching, pipe operators, variants) translate to JavaScript"
 msgstr ""
+"**コンパイル出力の理解** --- ReScript の構文（パターンマッチング、パイプ演算子、"
+"バリアント）が JavaScript にどのように変換されるかを確認できます"
 
-#: ../../user/features/advanced.md:81
-msgid "Create new ReScript projects from the IDE:"
+#: ../../user/features/advanced.md:72
+msgid ""
+"**Debugging** --- Compare the source and output when investigating "
+"runtime behavior"
 msgstr ""
+"**デバッグ** --- ランタイムの動作を調査する際に、ソースと出力を比較できます"
 
-#: ../../user/features/advanced.md:83
-msgid "**File** → **New** → **Project**"
+#: ../../user/features/advanced.md:73
+msgid ""
+"**Performance review** --- Verify that the generated JavaScript is "
+"efficient and meets expectations"
 msgstr ""
+"**パフォーマンスレビュー** --- 生成された JavaScript が効率的で"
+"期待通りであることを確認できます"
+
+#: ../../user/features/advanced.md:74
+msgid "**Learning** --- Understand how ReScript features map to JavaScript idioms"
+msgstr "**学習** --- ReScript の機能が JavaScript のイディオムにどのように対応するかを理解できます"
+
+#: ../../user/features/advanced.md:76
+msgid ""
+"If the compiled JS file is not found (e.g., the project has not been "
+"built), the panel displays a message prompting you to build the project "
+"first."
+msgstr ""
+"コンパイル済み JS ファイルが見つからない場合（例: プロジェクトがビルドされていない場合）、"
+"パネルにプロジェクトを先にビルドするよう促すメッセージが表示されます。"
+
+#: ../../user/features/advanced.md:78
+msgid "Module Hierarchy"
+msgstr "モジュール階層"
+
+#: ../../user/features/advanced.md:80
+msgid ""
+"View the module structure and dependency relationships for any ReScript "
+"module."
+msgstr ""
+"任意の ReScript モジュールのモジュール構造と依存関係を表示します。"
+
+#: ../../user/features/advanced.md:82
+msgid ""
+"**Open:** Place the cursor on a module, then use **Navigate** > **Type "
+"Hierarchy** (`Ctrl+H`)"
+msgstr ""
+"**開き方:** モジュール上にカーソルを置き、**Navigate** > **Type "
+"Hierarchy** (`Ctrl+H`) を使用します"
 
 #: ../../user/features/advanced.md:84
-msgid "Select **ReScript** from the generator list"
-msgstr ""
-
-#: ../../user/features/advanced.md:85
-msgid "Configure project name and location"
-msgstr ""
+msgid "Two View Modes"
+msgstr "2 つの表示モード"
 
 #: ../../user/features/advanced.md:86
-msgid ""
-"The wizard generates a basic ReScript project structure with "
-"`rescript.json`"
-msgstr ""
+msgid "The hierarchy browser provides two distinct tree views:"
+msgstr "階層ブラウザには 2 つの異なるツリービューがあります:"
 
 #: ../../user/features/advanced.md:88
-msgid "File Templates"
-msgstr ""
+msgid "**1. Module Nesting**"
+msgstr "**1. モジュールのネスト**"
 
 #: ../../user/features/advanced.md:90
-msgid "Create new ReScript files with pre-filled boilerplate:"
+msgid ""
+"Shows the nested module structure within a file. This is the default "
+"view. It displays how modules are organized hierarchically:"
 msgstr ""
+"ファイル内のネストされたモジュール構造を表示します。これがデフォルトのビューです。"
+"モジュールが階層的にどのように構成されているかを表示します:"
 
-#: ../../user/features/advanced.md:92
-msgid "Right-click on a directory → **New** → **ReScript File**"
+#: ../../user/features/advanced.md:111
+msgid "In the hierarchy view, this displays as:"
+msgstr "階層ビューでは、以下のように表示されます:"
+
+#: ../../user/features/advanced.md:122
+msgid "**2. Module Dependencies**"
+msgstr "**2. モジュールの依存関係**"
+
+#: ../../user/features/advanced.md:124
+msgid ""
+"Shows modules referenced by `open` and `include` statements. This view "
+"reveals the external dependencies of the current file:"
 msgstr ""
+"`open` および `include` ステートメントで参照されるモジュールを表示します。"
+"このビューは、現在のファイルの外部依存関係を明らかにします:"
 
-#: ../../user/features/advanced.md:93
-msgid "Choose a template:"
+#: ../../user/features/advanced.md:134
+msgid "The dependency view lists:"
+msgstr "依存関係ビューには以下が表示されます:"
+
+#: ../../user/features/advanced.md:143
+msgid "Navigation"
+msgstr "ナビゲーション"
+
+#: ../../user/features/advanced.md:145
+msgid "The hierarchy view supports:"
+msgstr "階層ビューは以下をサポートしています:"
+
+#: ../../user/features/advanced.md:147
+msgid ""
+"**Module Nesting** and **Module Dependencies** view switching via toolbar"
+" buttons"
 msgstr ""
+"ツールバーボタンによる **Module Nesting** と **Module Dependencies** の"
+"ビュー切り替え"
 
-#: ../../user/features/advanced.md:94
-msgid "**Module** — Basic module file"
+#: ../../user/features/advanced.md:148
+msgid "Alphabetical sorting of modules by name"
+msgstr "モジュール名によるアルファベット順のソート"
+
+#: ../../user/features/advanced.md:149
+msgid "Navigation to the source module by double-clicking a node"
+msgstr "ノードをダブルクリックしてソースモジュールに移動"
+
+#: ../../user/features/advanced.md:151
+msgid "Inlay Hints"
+msgstr "Inlay Hints"
+
+#: ../../user/features/advanced.md:153
+msgid ""
+"The Language Server displays inferred types as inline hints next to "
+"variables and parameters, making it easier to understand code without "
+"explicit type annotations."
 msgstr ""
+"Language Server は、変数やパラメータの横に推論された型をインラインヒントとして"
+"表示します。明示的な型注釈がなくてもコードを理解しやすくなります。"
 
-#: ../../user/features/advanced.md:95
-msgid "**Interface** — Interface (`.resi`) file"
+#: ../../user/features/advanced.md:169
+msgid ""
+"Navigate to **Settings** > **Editor** > **Inlay Hints** > **ReScript** to"
+" configure inlay hints:"
 msgstr ""
+"**Settings** > **Editor** > **Inlay Hints** > **ReScript** に移動して"
+"Inlay Hints を設定します:"
 
-#: ../../user/features/advanced.md:96
-msgid "**Component** — React component boilerplate"
+#: ../../user/features/advanced.md:171
+msgid "**Enable/disable** --- Toggle inlay hints globally for ReScript files"
+msgstr "**有効化/無効化** --- ReScript ファイル全体の Inlay Hints を切り替えます"
+
+#: ../../user/features/advanced.md:172
+msgid ""
+"Inlay hints are provided by the Language Server; their availability "
+"depends on the LSP server being connected and the project being built"
 msgstr ""
+"Inlay Hints は Language Server によって提供されます。利用可能かどうかは "
+"LSP サーバーが接続されているかどうか、およびプロジェクトがビルドされているかどうかに"
+"依存します"
 
+#: ../../user/features/advanced.md:174
+msgid "Difference from Code Lens"
+msgstr "Code Lens との違い"
+
+#: ../../user/features/advanced.md:176
+msgid ""
+"**Code Lens** shows the full function signature **above** the function "
+"definition line"
+msgstr ""
+"**Code Lens** は関数定義行の **上に** 完全な関数シグネチャを表示します"
+
+#: ../../user/features/advanced.md:177
+msgid ""
+"**Inlay Hints** show individual type annotations **inline** next to each "
+"variable or parameter"
+msgstr ""
+"**Inlay Hints** は各変数やパラメータの横に個別の型注釈を **インラインで** 表示します"
+
+#: ../../user/features/advanced.md:179
+msgid ""
+"Both features rely on the Language Server, but they display information "
+"in different locations and at different granularities."
+msgstr ""
+"どちらの機能も Language Server に依存していますが、異なる場所で異なる粒度の"
+"情報を表示します。"
+
+#: ../../user/features/advanced.md:181
+msgid "JSON Schema for rescript.json"
+msgstr "rescript.json の JSON Schema"
+
+#: ../../user/features/advanced.md:183
+msgid ""
+"The plugin provides JSON Schema validation and auto-completion for "
+"`rescript.json` and `bsconfig.json` configuration files. The schema "
+"covers the full ReScript build configuration specification."
+msgstr ""
+"プラグインは `rescript.json` および `bsconfig.json` 設定ファイルに対して "
+"JSON Schema バリデーションと自動補完を提供します。スキーマは ReScript ビルド設定"
+"の完全な仕様をカバーしています。"
+
+#: ../../user/features/advanced.md:185
+msgid "Auto-Completed Fields"
+msgstr "自動補完されるフィールド"
+
+#: ../../user/features/advanced.md:187
+msgid ""
+"When editing `rescript.json`, you get auto-completion and validation for "
+"all top-level and nested fields, including:"
+msgstr ""
+"`rescript.json` を編集する際、以下を含むすべてのトップレベルおよびネストされた"
+"フィールドに対して自動補完とバリデーションが利用できます:"
+
+#: ../../user/features/advanced.md
+msgid "Field"
+msgstr "フィールド"
+
+#: ../../user/features/advanced.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/features/advanced.md
+msgid "`name`"
+msgstr "`name`"
+
+#: ../../user/features/advanced.md
+msgid "Package name (required)"
+msgstr "パッケージ名（必須）"
+
+#: ../../user/features/advanced.md
+msgid "`sources`"
+msgstr "`sources`"
+
+#: ../../user/features/advanced.md
+msgid "Source directory configuration (required)"
+msgstr "ソースディレクトリの設定（必須）"
+
+#: ../../user/features/advanced.md
+msgid "`bs-dependencies`"
+msgstr "`bs-dependencies`"
+
+#: ../../user/features/advanced.md
+msgid "ReScript package dependencies"
+msgstr "ReScript パッケージの依存関係"
+
+#: ../../user/features/advanced.md
+msgid "`dev-dependencies`"
+msgstr "`dev-dependencies`"
+
+#: ../../user/features/advanced.md
+msgid "Development-only ReScript dependencies"
+msgstr "開発時のみの ReScript 依存関係"
+
+#: ../../user/features/advanced.md
+msgid "`jsx`"
+msgstr "`jsx`"
+
+#: ../../user/features/advanced.md
+msgid "JSX transformation settings (`version`, `module`, `preserve`)"
+msgstr "JSX 変換設定（`version`、`module`、`preserve`）"
+
+#: ../../user/features/advanced.md
+msgid "`suffix`"
+msgstr "`suffix`"
+
+#: ../../user/features/advanced.md
+msgid "Output file suffix (e.g., `.res.mjs`, `.js`)"
+msgstr "出力ファイルのサフィックス（例: `.res.mjs`、`.js`）"
+
+#: ../../user/features/advanced.md
+msgid "`package-specs`"
+msgstr "`package-specs`"
+
+#: ../../user/features/advanced.md
+msgid "Module format (`esmodule` or `commonjs`)"
+msgstr "モジュール形式（`esmodule` または `commonjs`）"
+
+#: ../../user/features/advanced.md
+msgid "`namespace`"
+msgstr "`namespace`"
+
+#: ../../user/features/advanced.md
+msgid "Package namespace configuration"
+msgstr "パッケージの名前空間設定"
+
+#: ../../user/features/advanced.md
+msgid "`ppx-flags`"
+msgstr "`ppx-flags`"
+
+#: ../../user/features/advanced.md
+msgid "PPX preprocessor macros"
+msgstr "PPX プリプロセッサマクロ"
+
+#: ../../user/features/advanced.md
+msgid "`warnings`"
+msgstr "`warnings`"
+
+#: ../../user/features/advanced.md
+msgid "Warning number configuration and error promotion"
+msgstr "警告番号の設定とエラーへの昇格"
+
+#: ../../user/features/advanced.md
+msgid "`reanalyze`"
+msgstr "`reanalyze`"
+
+#: ../../user/features/advanced.md
+msgid "Dead code analysis settings (`analysis`, `suppress`, `transitive`)"
+msgstr "デッドコード解析設定（`analysis`、`suppress`、`transitive`）"
+
+#: ../../user/features/advanced.md
+msgid "`editor`"
+msgstr "`editor`"
+
+#: ../../user/features/advanced.md
+msgid "Editor-specific settings (autocomplete extensions)"
+msgstr "エディタ固有の設定（自動補完拡張）"
+
+#: ../../user/features/advanced.md
+msgid "`experimental-features`"
+msgstr "`experimental-features`"
+
+#: ../../user/features/advanced.md
+msgid "Experimental compiler features (e.g., `LetUnwrap`)"
+msgstr "実験的なコンパイラ機能（例: `LetUnwrap`）"
+
+#: ../../user/features/advanced.md:205
+msgid "Features"
+msgstr "機能"
+
+#: ../../user/features/advanced.md:207
+msgid ""
+"**Auto-completion** --- Press `Ctrl+Space` to see available configuration"
+" keys at any nesting level"
+msgstr ""
+"**自動補完** --- `Ctrl+Space` を押すと、任意のネストレベルで利用可能な"
+"設定キーを確認できます"
+
+#: ../../user/features/advanced.md:208
+msgid ""
+"**Validation** --- Invalid values are highlighted with error markers "
+"(e.g., using an unsupported module format)"
+msgstr ""
+"**バリデーション** --- 無効な値はエラーマーカーでハイライトされます"
+"（例: サポートされていないモジュール形式の使用）"
+
+#: ../../user/features/advanced.md:209
+msgid ""
+"**Hover documentation** --- Hover over any key to see its description and"
+" expected type"
+msgstr ""
+"**ホバードキュメント** --- 任意のキーにホバーすると、説明と期待される型を"
+"確認できます"
+
+#: ../../user/features/advanced.md:210
+msgid ""
+"**Nested structure support** --- Full completion inside `sources`, `jsx`,"
+" `reanalyze`, and other nested objects"
+msgstr ""
+"**ネスト構造のサポート** --- `sources`、`jsx`、`reanalyze` などのネストされた"
+"オブジェクト内での完全な補完"
+
+#: ../../user/features/advanced.md:212
+msgid ""
+"The schema file is bundled with the plugin and applied automatically when"
+" you open any file named `rescript.json` or `bsconfig.json`."
+msgstr ""
+"スキーマファイルはプラグインにバンドルされており、`rescript.json` または "
+"`bsconfig.json` という名前のファイルを開くと自動的に適用されます。"
+
+#: ../../user/features/advanced.md:214
+msgid "Markdown Code Fence Highlighting"
+msgstr "Markdown コードフェンスのハイライト"
+
+#: ../../user/features/advanced.md:216
+msgid "ReScript code blocks in Markdown files receive full syntax highlighting:"
+msgstr "Markdown ファイル内の ReScript コードブロックに完全なシンタックスハイライトが適用されます:"
+
+#: ../../user/features/advanced.md:226
+msgid "Integration Mechanism"
+msgstr "統合メカニズム"
+
+#: ../../user/features/advanced.md:228
+msgid ""
+"The plugin registers a `CodeFenceLanguageProvider` that recognizes three "
+"info-string identifiers:"
+msgstr ""
+"プラグインは 3 つの info-string 識別子を認識する `CodeFenceLanguageProvider` "
+"を登録します:"
+
+#: ../../user/features/advanced.md:230
+msgid "`` ```rescript `` --- Primary identifier"
+msgstr "`` ```rescript `` --- 主要な識別子"
+
+#: ../../user/features/advanced.md:231
+msgid "`` ```res `` --- Short form for ReScript implementation files"
+msgstr "`` ```res `` --- ReScript 実装ファイルの短縮形"
+
+#: ../../user/features/advanced.md:232
+msgid "`` ```resi `` --- Short form for ReScript interface files"
+msgstr "`` ```resi `` --- ReScript インターフェースファイルの短縮形"
+
+#: ../../user/features/advanced.md:234
+msgid ""
+"When the Markdown plugin encounters a code fence with one of these "
+"identifiers, it delegates syntax highlighting to the ReScript lexer. This"
+" provides the same token-level highlighting (keywords, strings, comments,"
+" operators) that you see in `.res` files."
+msgstr ""
+"Markdown プラグインがこれらの識別子のいずれかを持つコードフェンスを検出すると、"
+"シンタックスハイライトを ReScript レクサーに委譲します。これにより、`.res` ファイルで"
+"見られるのと同じトークンレベルのハイライト（キーワード、文字列、コメント、演算子）が"
+"提供されます。"
+
+#: ../../user/features/advanced.md:238
+msgid ""
+"This feature requires the **Markdown** plugin to be installed, which is "
+"bundled with most JetBrains IDEs. If the Markdown plugin is not present, "
+"code fences render as plain text."
+msgstr ""
+"この機能を使用するには **Markdown** プラグインがインストールされている必要があります。"
+"Markdown プラグインはほとんどの JetBrains IDE にバンドルされています。"
+"Markdown プラグインが存在しない場合、コードフェンスはプレーンテキストとして表示されます。"
+
+#: ../../user/features/advanced.md:240
+#, python-format
+msgid "JavaScript Injection in %raw()"
+msgstr "%raw() 内の JavaScript インジェクション"
+
+#: ../../user/features/advanced.md:242
+#, python-format
+msgid ""
+"JavaScript code inside `%raw()` and `%%raw()` blocks receives full "
+"JavaScript syntax highlighting, enabling comfortable FFI (Foreign "
+"Function Interface) editing within ReScript files."
+msgstr ""
+"`%raw()` および `%%raw()` ブロック内の JavaScript コードに完全な JavaScript "
+"シンタックスハイライトが適用され、ReScript ファイル内での快適な FFI（Foreign "
+"Function Interface）編集が可能になります。"
+
+#: ../../user/features/advanced.md:259
+msgid "Language Injection Mechanism"
+msgstr "言語インジェクションメカニズム"
+
+#: ../../user/features/advanced.md:261
+#, python-format
+msgid ""
+"The plugin uses IntelliJ's `MultiHostInjector` API to inject JavaScript "
+"into string literals inside `%raw()` blocks:"
+msgstr ""
+"プラグインは IntelliJ の `MultiHostInjector` API を使用して、`%raw()` ブロック内の"
+"文字列リテラルに JavaScript をインジェクトします:"
+
+#: ../../user/features/advanced.md:263
+#, python-format
+msgid ""
+"**Pattern detection** --- The injector checks whether a string literal is"
+" preceded by the token pattern `% raw (` (with optional whitespace "
+"between tokens)"
+msgstr ""
+"**パターン検出** --- インジェクターは、文字列リテラルの前にトークンパターン "
+"`% raw (`（トークン間のオプションの空白あり）が存在するかどうかをチェックします"
+
+#: ../../user/features/advanced.md:264
+msgid ""
+"**Range calculation** --- For regular strings (`\"...\"`), the enclosing "
+"quotes are trimmed from the injection range. For template strings (`` ` "
+"... ` ``), the full string content is used"
+msgstr ""
+"**範囲計算** --- 通常の文字列（`\"...\"`）の場合、囲んでいる引用符はインジェクション"
+"範囲から除外されます。テンプレート文字列（`` ` ... ` ``）の場合、"
+"文字列の全内容が使用されます"
+
+#: ../../user/features/advanced.md:265
+msgid ""
+"**Language resolution** --- The injector looks for either \"JavaScript\" "
+"or \"ECMAScript 6\" language support in the IDE"
+msgstr ""
+"**言語解決** --- インジェクターは IDE 内で \"JavaScript\" または "
+"\"ECMAScript 6\" の言語サポートを検索します"
+
+#: ../../user/features/advanced.md:267
+msgid "What You Get"
+msgstr "利用できる機能"
+
+#: ../../user/features/advanced.md:269
+#, python-format
+msgid "Inside injected `%raw()` blocks, you have access to:"
+msgstr "インジェクトされた `%raw()` ブロック内では、以下の機能を利用できます:"
+
+#: ../../user/features/advanced.md:271
+msgid "JavaScript syntax highlighting (keywords, strings, numbers, comments)"
+msgstr "JavaScript シンタックスハイライト（キーワード、文字列、数値、コメント）"
+
+#: ../../user/features/advanced.md:272
+msgid "Basic error highlighting for JavaScript syntax errors"
+msgstr "JavaScript 構文エラーの基本的なエラーハイライト"
+
+#: ../../user/features/advanced.md:273
+msgid "Bracket matching within the JavaScript block"
+msgstr "JavaScript ブロック内の括弧マッチング"
+
+#: ../../user/features/advanced.md:277
+msgid ""
+"This feature requires the **JavaScript** plugin (or JavaScript and "
+"TypeScript support) to be available in your JetBrains IDE. IntelliJ IDEA "
+"Ultimate and WebStorm include this by default. For IntelliJ IDEA "
+"Community, you may need to install the JavaScript plugin separately."
+msgstr ""
+"この機能を使用するには、JetBrains IDE で **JavaScript** プラグイン（または "
+"JavaScript および TypeScript サポート）が利用可能である必要があります。"
+"IntelliJ IDEA Ultimate と WebStorm にはデフォルトで含まれています。"
+"IntelliJ IDEA Community の場合、JavaScript プラグインを別途インストールする"
+"必要がある場合があります。"
+
+#: ../../user/features/advanced.md:279
+msgid "Project Wizard"
+msgstr "プロジェクトウィザード"
+
+#: ../../user/features/advanced.md:281
+msgid ""
+"Create new ReScript projects directly from the IDE with pre-configured "
+"build files and starter code."
+msgstr ""
+"事前設定されたビルドファイルとスターターコードを使用して、IDE から直接新しい "
+"ReScript プロジェクトを作成します。"
+
+#: ../../user/features/advanced.md:283
+msgid "Steps"
+msgstr "手順"
+
+#: ../../user/features/advanced.md:285
+msgid "**File** > **New** > **Project**"
+msgstr "**File** > **New** > **Project**"
+
+#: ../../user/features/advanced.md:286
+msgid "Select **ReScript** from the generator list on the left"
+msgstr "左側のジェネレーターリストから **ReScript** を選択します"
+
+#: ../../user/features/advanced.md:287
+msgid "Configure project settings:"
+msgstr "プロジェクト設定を構成します:"
+
+#: ../../user/features/advanced.md:288
+msgid "**Project name** and **location**"
+msgstr "**プロジェクト名** と **保存場所**"
+
+#: ../../user/features/advanced.md:289
+msgid "**Package manager** --- Choose between npm, pnpm, or yarn"
+msgstr "**パッケージマネージャ** --- npm、pnpm、または yarn から選択します"
+
+#: ../../user/features/advanced.md:290
+msgid ""
+"**Include React** --- Toggle to add React and `@rescript/react` "
+"dependencies"
+msgstr ""
+"**Include React** --- React と `@rescript/react` の依存関係を追加するかどうかを切り替えます"
+
+#: ../../user/features/advanced.md:291
+msgid "Click **Create** to generate the project"
+msgstr "**Create** をクリックしてプロジェクトを生成します"
+
+#: ../../user/features/advanced.md:293
+msgid "Generated Project Structure"
+msgstr "生成されるプロジェクト構造"
+
+#: ../../user/features/advanced.md:295
+msgid "**Basic project** (without React):"
+msgstr "**基本プロジェクト**（React なし）:"
+
+#: ../../user/features/advanced.md:305
+msgid "**React project** (with Include React enabled):"
+msgstr "**React プロジェクト**（Include React 有効時）:"
+
+#: ../../user/features/advanced.md:315
+msgid "Generated File Contents"
+msgstr "生成されるファイルの内容"
+
+#: ../../user/features/advanced.md:317
+msgid "**rescript.json** (basic project):"
+msgstr "**rescript.json**（基本プロジェクト）:"
+
+#: ../../user/features/advanced.md:335
+msgid ""
+"When React is included, the `rescript.json` also contains a `jsx` section"
+" and `@rescript/react` in `bs-dependencies`."
+msgstr ""
+"React を含める場合、`rescript.json` には `jsx` セクションと "
+"`bs-dependencies` 内の `@rescript/react` も含まれます。"
+
+#: ../../user/features/advanced.md:337
+msgid "**src/App.res** (basic project):"
+msgstr "**src/App.res**（基本プロジェクト）:"
+
+#: ../../user/features/advanced.md:345
+msgid "**src/App.res** (React project):"
+msgstr "**src/App.res**（React プロジェクト）:"
+
+#: ../../user/features/advanced.md:356
+msgid "After Project Creation"
+msgstr "プロジェクト作成後"
+
+#: ../../user/features/advanced.md:358
+msgid "After the wizard creates the project:"
+msgstr "ウィザードがプロジェクトを作成した後:"
+
+#: ../../user/features/advanced.md:360
+msgid ""
+"Run your package manager's install command (e.g., `npm install`) to "
+"install dependencies"
+msgstr ""
+"パッケージマネージャの install コマンド（例: `npm install`）を実行して"
+"依存関係をインストールします"
+
+#: ../../user/features/advanced.md:361
+msgid ""
+"Run `rescript build` (or use the ReScript run configuration) to compile "
+"the project"
+msgstr ""
+"`rescript build` を実行（または ReScript 実行構成を使用）してプロジェクトを"
+"コンパイルします"
+
+#: ../../user/features/advanced.md:362
+msgid ""
+"The Language Server will start automatically once `@rescript/language-"
+"server` is available in `node_modules`"
+msgstr ""
+"`node_modules` に `@rescript/language-server` が利用可能になると、"
+"Language Server が自動的に起動します"
+
+#: ../../user/features/advanced.md:364
+msgid "File Templates"
+msgstr "ファイルテンプレート"
+
+#: ../../user/features/advanced.md:366
+msgid ""
+"Create new ReScript files with pre-filled boilerplate code via the "
+"context menu."
+msgstr ""
+"コンテキストメニューから、事前に記入されたボイラープレートコード付きの新しい "
+"ReScript ファイルを作成します。"
+
+#: ../../user/features/advanced.md:368
+msgid "How to Use"
+msgstr "使い方"
+
+#: ../../user/features/advanced.md:370
+msgid "Right-click on a directory in the Project panel"
+msgstr "Project パネルでディレクトリを右クリックします"
+
+#: ../../user/features/advanced.md:371
+msgid "Select **New** > **ReScript File**"
+msgstr "**New** > **ReScript File** を選択します"
+
+#: ../../user/features/advanced.md:372
+msgid "Enter the file name (without extension)"
+msgstr "ファイル名（拡張子なし）を入力します"
+
+#: ../../user/features/advanced.md:373
+msgid "Choose a template from the dropdown"
+msgstr "ドロップダウンからテンプレートを選択します"
+
+#: ../../user/features/advanced.md:375
+msgid "Available Templates"
+msgstr "利用可能なテンプレート"
+
+#: ../../user/features/advanced.md:377
+msgid "**Module** --- Creates a `.res` file with a module comment header:"
+msgstr "**Module** --- モジュールコメントヘッダー付きの `.res` ファイルを作成します:"
+
+#: ../../user/features/advanced.md:383
+msgid "**Interface** --- Creates a `.resi` interface file with a comment header:"
+msgstr "**Interface** --- コメントヘッダー付きの `.resi` インターフェースファイルを作成します:"
+
+#: ../../user/features/advanced.md:389
+msgid ""
+"**Component** --- Creates a `.res` file with a React component "
+"boilerplate:"
+msgstr ""
+"**Component** --- React コンポーネントのボイラープレート付きの `.res` ファイルを作成します:"
+
+#: ../../user/features/advanced.md:398
+msgid ""
+"In all templates, the file name you enter is automatically substituted "
+"into the template content. The Component template is particularly useful "
+"for React projects, providing a ready-to-use functional component with "
+"JSX."
+msgstr ""
+"すべてのテンプレートにおいて、入力したファイル名が自動的にテンプレートの内容に"
+"置換されます。Component テンプレートは React プロジェクトで特に便利で、"
+"すぐに使える JSX 付きの関数コンポーネントが提供されます。"
+
+#: ../../user/features/advanced.md:400
+msgid "Customizing Templates"
+msgstr "テンプレートのカスタマイズ"
+
+#: ../../user/features/advanced.md:402
+#, python-brace-format
+msgid ""
+"File templates can be customized in **Settings** > **Editor** > **File "
+"and Code Templates**. Look for the templates under the **Internal** tab "
+"with names starting with \"ReScript\". You can modify the template "
+"content using IntelliJ's template variable syntax (e.g., `${NAME}` for "
+"the file name)."
+msgstr ""
+"ファイルテンプレートは **Settings** > **Editor** > **File and Code Templates** で"
+"カスタマイズできます。**Internal** タブで \"ReScript\" で始まる名前のテンプレートを"
+"探してください。IntelliJ のテンプレート変数構文（例: `${NAME}` でファイル名）を"
+"使用してテンプレートの内容を変更できます。"
+
+#~ msgid ""
+#~ "Function definitions display their inferred"
+#~ " type signatures as inline annotations "
+#~ "above the function:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Code Lens annotations are provided by"
+#~ " the Language Server via the "
+#~ "CodeVision API."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A tool window that shows the "
+#~ "compiled JavaScript output for the "
+#~ "current ReScript file."
+#~ msgstr ""
+
+#~ msgid "**Open:** **View** → **Tool Windows** → **Compiled JS Preview**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The preview updates automatically as you"
+#~ " edit and save your ReScript file."
+#~ msgstr ""
+
+#~ msgid "View the module dependency hierarchy for any ReScript module."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "**Open:** Right-click on a module "
+#~ "→ **Module Hierarchy** (or use "
+#~ "**Navigate** → **Type Hierarchy**)"
+#~ msgstr ""
+
+#~ msgid "The hierarchy shows:"
+#~ msgstr ""
+
+#~ msgid "Module nesting (parent/child relationships)"
+#~ msgstr ""
+
+#~ msgid "Dependencies via `open` and `include` statements"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The Language Server displays inferred "
+#~ "types as inline hints next to "
+#~ "variables and parameters:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Toggle inlay hints in **Settings** → "
+#~ "**Editor** → **Inlay Hints** → "
+#~ "**ReScript**."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The plugin provides JSON Schema "
+#~ "validation and completion for `rescript.json`"
+#~ " and `bsconfig.json` files:"
+#~ msgstr ""
+
+#~ msgid "Auto-completion for configuration keys"
+#~ msgstr ""
+
+#~ msgid "Validation of values"
+#~ msgstr ""
+
+#~ msgid "Hover documentation for each field"
+#~ msgstr ""
+
+#~ msgid "ReScript code blocks in Markdown files are syntax-highlighted:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This requires the Markdown plugin to "
+#~ "be installed (bundled with most "
+#~ "JetBrains IDEs)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "JavaScript code inside `%raw()` blocks "
+#~ "is highlighted with JavaScript syntax:"
+#~ msgstr ""
+
+#~ msgid "This requires the JavaScript plugin to be available."
+#~ msgstr ""
+
+#~ msgid "Create new ReScript projects from the IDE:"
+#~ msgstr ""
+
+#~ msgid "**File** → **New** → **Project**"
+#~ msgstr ""
+
+#~ msgid "Select **ReScript** from the generator list"
+#~ msgstr ""
+
+#~ msgid "Configure project name and location"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The wizard generates a basic ReScript"
+#~ " project structure with `rescript.json`"
+#~ msgstr ""
+
+#~ msgid "Create new ReScript files with pre-filled boilerplate:"
+#~ msgstr ""
+
+#~ msgid "Right-click on a directory → **New** → **ReScript File**"
+#~ msgstr ""
+
+#~ msgid "Choose a template:"
+#~ msgstr ""
+
+#~ msgid "**Module** — Basic module file"
+#~ msgstr ""
+
+#~ msgid "**Interface** — Interface (`.resi`) file"
+#~ msgstr ""
+
+#~ msgid "**Component** — React component boilerplate"
+#~ msgstr ""

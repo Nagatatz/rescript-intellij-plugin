@@ -4,14 +4,13 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-19 17:39+0900\n"
+"Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -22,132 +21,145 @@ msgstr ""
 
 #: ../../dev/extending.md:1
 msgid "Extending the Plugin"
-msgstr ""
+msgstr "プラグインの拡張"
 
 #: ../../dev/extending.md:3
 msgid ""
 "This guide explains how to add new features to the plugin, following "
 "established patterns."
 msgstr ""
+"このガイドでは、確立されたパターンに従ってプラグインに新機能を追加する方法を説明します。"
 
 #: ../../dev/extending.md:5
 msgid "General Workflow"
-msgstr ""
+msgstr "一般的なワークフロー"
 
 #: ../../dev/extending.md:7
 msgid ""
 "**Create a new Kotlin file** in the appropriate package under "
 "`src/main/kotlin/com/rescript/plugin/`"
 msgstr ""
+"`src/main/kotlin/com/rescript/plugin/` 配下の適切なパッケージに"
+"**新しい Kotlin ファイルを作成**"
 
 #: ../../dev/extending.md:8
 msgid "**Implement the IntelliJ Platform extension point** interface"
-msgstr ""
+msgstr "**IntelliJ Platform の Extension Point** インターフェースを実装"
 
 #: ../../dev/extending.md:9
 msgid "**Register in `plugin.xml`** under the correct extension point"
-msgstr ""
+msgstr "正しい Extension Point の下に **`plugin.xml` で登録**"
 
 #: ../../dev/extending.md:10
 msgid "**Add tests** in `src/test/kotlin/com/rescript/plugin/`"
-msgstr ""
+msgstr "`src/test/kotlin/com/rescript/plugin/` に**テストを追加**"
 
 #: ../../dev/extending.md:11
 msgid "**Build and test**: `./gradlew buildPlugin`"
-msgstr ""
+msgstr "**ビルドとテスト**: `./gradlew buildPlugin`"
 
 #: ../../dev/extending.md:13
 msgid "Common Extension Point Patterns"
-msgstr ""
+msgstr "一般的な Extension Point パターン"
 
 #: ../../dev/extending.md:15
 msgid "Adding a New Inspection"
-msgstr ""
+msgstr "新しいインスペクションの追加"
 
 #: ../../dev/extending.md:17
 msgid "Inspections analyze code and report problems."
-msgstr ""
+msgstr "インスペクションはコードを分析し、問題を報告します。"
 
 #: ../../dev/extending.md:33 ../../dev/extending.md:66
 #: ../../dev/extending.md:92
 msgid "Register in `plugin.xml`:"
-msgstr ""
+msgstr "`plugin.xml` で登録:"
 
 #: ../../dev/extending.md:45
 msgid "Adding a New Intention Action"
-msgstr ""
+msgstr "新しいインテンションアクションの追加"
 
 #: ../../dev/extending.md:47
 msgid "Intentions provide quick actions via `Alt+Enter`."
-msgstr ""
+msgstr "インテンションは `Alt+Enter` でクイックアクションを提供します。"
 
 #: ../../dev/extending.md:76
 msgid "Adding a New Action"
-msgstr ""
+msgstr "新しいアクションの追加"
 
 #: ../../dev/extending.md:78
 msgid "Actions appear in menus and can have keyboard shortcuts."
-msgstr ""
+msgstr "アクションはメニューに表示され、キーボードショートカットを割り当てることができます。"
 
 #: ../../dev/extending.md:104
 msgid "Adding New Lexer Tokens"
-msgstr ""
+msgstr "新しいレクサートークンの追加"
 
 #: ../../dev/extending.md:106
 msgid "To add a new token type to the lexer:"
-msgstr ""
+msgstr "レクサーに新しいトークン型を追加するには:"
 
 #: ../../dev/extending.md:108
 msgid "**Edit `Rescript.flex`** — Add the token rule"
-msgstr ""
+msgstr "**`Rescript.flex` を編集** — トークンルールを追加"
 
 #: ../../dev/extending.md:109
 msgid ""
 "**Edit `RescriptTokenTypes.kt`** — Define the `IElementType` constant and"
 " add it to the appropriate `TokenSet`"
 msgstr ""
+"**`RescriptTokenTypes.kt` を編集** — `IElementType` 定数を定義し、"
+"適切な `TokenSet` に追加"
 
 #: ../../dev/extending.md:110
 msgid ""
 "**Edit `RescriptSyntaxHighlighter.kt`** — Map the token to a "
 "`TextAttributesKey`"
 msgstr ""
+"**`RescriptSyntaxHighlighter.kt` を編集** — トークンを "
+"`TextAttributesKey` にマッピング"
 
 #: ../../dev/extending.md:111
 msgid "**Build** — `./gradlew buildPlugin` to regenerate the lexer"
-msgstr ""
+msgstr "**ビルド** — `./gradlew buildPlugin` でレクサーを再生成"
 
 #: ../../dev/extending.md:113
 msgid "Adding a Postfix Template"
-msgstr ""
+msgstr "Postfix テンプレートの追加"
 
 #: ../../dev/extending.md:131
 msgid "File Naming Conventions"
-msgstr ""
+msgstr "ファイル命名規則"
 
 #: ../../dev/extending.md:133
 msgid "Classes: `Rescript<Feature><Type>.kt` (e.g., `RescriptFoldingBuilder.kt`)"
-msgstr ""
+msgstr "クラス: `Rescript<Feature><Type>.kt` (例: `RescriptFoldingBuilder.kt`)"
 
 #: ../../dev/extending.md:134
 msgid ""
 "Tests: `Rescript<Feature><Type>Test.kt` (e.g., "
 "`RescriptFoldingBuilderTest.kt`)"
 msgstr ""
+"テスト: `Rescript<Feature><Type>Test.kt` (例: "
+"`RescriptFoldingBuilderTest.kt`)"
 
 #: ../../dev/extending.md:135
 msgid ""
 "Package: Match the feature category (e.g., `folding/`, `navigation/`, "
 "`analysis/`)"
 msgstr ""
+"パッケージ: 機能カテゴリに合わせる (例: `folding/`, `navigation/`, "
+"`analysis/`)"
 
 #: ../../dev/extending.md:137
 msgid "KDoc Requirements"
-msgstr ""
+msgstr "KDoc 要件"
 
 #: ../../dev/extending.md:139
 msgid ""
 "All classes and non-trivial public methods must have KDoc comments in "
 "English. See the [Contributing Guide](contributing.md) for details."
 msgstr ""
+"すべてのクラスと非自明な公開メソッドには英語で KDoc コメントを記述する必要があります。"
+"詳細は [Contributing Guide](contributing.md) を参照してください。"
 

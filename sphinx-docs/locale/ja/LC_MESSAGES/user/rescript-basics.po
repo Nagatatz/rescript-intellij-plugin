@@ -4,14 +4,13 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-19 18:00+0900\n"
+"Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -22,145 +21,159 @@ msgstr ""
 
 #: ../../user/rescript-basics.md:1
 msgid "ReScript Basics"
-msgstr ""
+msgstr "ReScript の基本"
 
 #: ../../user/rescript-basics.md:3
 msgid ""
 "This page helps you get a ReScript project up and running if you're new "
 "to ReScript."
 msgstr ""
+"ReScript を初めて使う方向けに、プロジェクトのセットアップと基本的な使い方を"
+"説明します。"
 
 #: ../../user/rescript-basics.md:6
 msgid ""
 "For comprehensive ReScript documentation, visit the official [ReScript "
 "docs](https://rescript-lang.org/docs/manual/latest/introduction)."
 msgstr ""
+"ReScript の包括的なドキュメントについては、公式の [ReScript "
+"docs](https://rescript-lang.org/docs/manual/latest/introduction) を"
+"参照してください。"
 
 #: ../../user/rescript-basics.md:9
 msgid "Setting Up a New Project"
-msgstr ""
+msgstr "新規プロジェクトのセットアップ"
 
 #: ../../user/rescript-basics.md:11
 msgid "Option 1: Using the Project Wizard"
-msgstr ""
+msgstr "方法 1: プロジェクトウィザードを使用する"
 
 #: ../../user/rescript-basics.md:13
 msgid "**File** → **New** → **Project**"
-msgstr ""
+msgstr "**File** → **New** → **Project** を選択します"
 
 #: ../../user/rescript-basics.md:14
 msgid "Select **ReScript** from the generator list"
-msgstr ""
+msgstr "ジェネレーター一覧から **ReScript** を選択します"
 
 #: ../../user/rescript-basics.md:15
 msgid "Fill in the project name and location"
-msgstr ""
+msgstr "プロジェクト名と保存場所を入力します"
 
 #: ../../user/rescript-basics.md:16
 msgid "Click **Create**"
-msgstr ""
+msgstr "**Create** をクリックします"
 
 #: ../../user/rescript-basics.md:18
 msgid ""
 "The wizard generates a basic project structure with `rescript.json` and "
 "source files."
 msgstr ""
+"ウィザードにより、`rescript.json` とソースファイルを含む基本的なプロジェクト"
+"構造が生成されます。"
 
 #: ../../user/rescript-basics.md:20
 msgid "Option 2: Manual Setup"
-msgstr ""
+msgstr "方法 2: 手動セットアップ"
 
 #: ../../user/rescript-basics.md:22
 msgid "Create a new directory for your project"
-msgstr ""
+msgstr "プロジェクト用の新しいディレクトリを作成します"
 
 #: ../../user/rescript-basics.md:23
 msgid "Initialize with npm:"
-msgstr ""
+msgstr "npm で初期化します:"
 
 #: ../../user/rescript-basics.md:31
 msgid "Install ReScript:"
-msgstr ""
+msgstr "ReScript をインストールします:"
 
 #: ../../user/rescript-basics.md:37
 msgid "Install the Language Server:"
-msgstr ""
+msgstr "Language Server をインストールします:"
 
 #: ../../user/rescript-basics.md:43
 msgid "Create `rescript.json`:"
-msgstr ""
+msgstr "`rescript.json` を作成します:"
 
 #: ../../user/rescript-basics.md:58
 msgid "Create `src/` directory and your first `.res` file:"
-msgstr ""
+msgstr "`src/` ディレクトリと最初の `.res` ファイルを作成します:"
 
 #: ../../user/rescript-basics.md:70
 msgid "Build:"
-msgstr ""
+msgstr "ビルドします:"
 
 #: ../../user/rescript-basics.md:76
 msgid "Project Structure"
-msgstr ""
+msgstr "プロジェクト構成"
 
 #: ../../user/rescript-basics.md:78
 msgid "A typical ReScript project looks like:"
-msgstr ""
+msgstr "一般的な ReScript プロジェクトの構成は以下のとおりです:"
 
 #: ../../user/rescript-basics.md:95
 msgid "Key Files"
-msgstr ""
+msgstr "主要なファイル"
 
 #: ../../user/rescript-basics.md:97
 msgid "rescript.json"
-msgstr ""
+msgstr "rescript.json"
 
 #: ../../user/rescript-basics.md:99
 msgid ""
 "The main configuration file for your ReScript project. The plugin "
 "provides JSON Schema validation and auto-completion for this file."
 msgstr ""
+"ReScript プロジェクトのメイン設定ファイルです。プラグインはこのファイルに対して"
+" JSON Schema のバリデーションと自動補完を提供します。"
 
 #: ../../user/rescript-basics.md:101
 msgid "Key fields:"
-msgstr ""
+msgstr "主要なフィールド:"
 
 #: ../../user/rescript-basics.md:102
 msgid "`name` — Package name"
-msgstr ""
+msgstr "`name` --- パッケージ名"
 
 #: ../../user/rescript-basics.md:103
 msgid "`sources` — Source directories to compile"
-msgstr ""
+msgstr "`sources` --- コンパイル対象のソースディレクトリ"
 
 #: ../../user/rescript-basics.md:104
 msgid "`bs-dependencies` — ReScript package dependencies"
-msgstr ""
+msgstr "`bs-dependencies` --- ReScript パッケージの依存関係"
 
 #: ../../user/rescript-basics.md:105
 msgid "`package-specs` — Output format (commonjs or esmodule)"
-msgstr ""
+msgstr "`package-specs` --- 出力形式（commonjs または esmodule）"
 
 #: ../../user/rescript-basics.md:107
 msgid ".res Files"
-msgstr ""
+msgstr ".res ファイル"
 
 #: ../../user/rescript-basics.md:109
 msgid ""
 "ReScript source files. Each `.res` file defines a module with the same "
 "name as the file."
 msgstr ""
+"ReScript のソースファイルです。各 `.res` ファイルは、ファイル名と同じ名前の"
+"モジュールを定義します。"
 
 #: ../../user/rescript-basics.md:111
 msgid ".resi Files"
-msgstr ""
+msgstr ".resi ファイル"
 
 #: ../../user/rescript-basics.md:113
 msgid ""
 "ReScript interface files. They define the public API of the corresponding"
 " `.res` module. Use `Alt+O` to switch between `.res` and `.resi` files."
 msgstr ""
+"ReScript のインターフェースファイルです。対応する `.res` モジュールの公開 API"
+" を定義します。`Alt+O` で `.res` ファイルと `.resi` ファイルを切り替え"
+"られます。"
 
 #: ../../user/rescript-basics.md:115
 msgid "Basic Syntax Quick Reference"
-msgstr ""
+msgstr "基本構文クイックリファレンス"
 
