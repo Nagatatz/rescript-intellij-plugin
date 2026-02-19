@@ -20,11 +20,11 @@
 - [x] ビルド確認・コミット
 
 ## Feature 2: Compiled JS Preview
-- [ ] `RescriptCompiledJsPreviewToolWindowFactory.kt` 実装
-- [ ] `RescriptCompiledJsPreviewPanel.kt` 実装（テスト省略: Swing + EditorEx）
-- [ ] plugin.xml に extension point 登録
-- [ ] `RescriptCompiledJsPreviewToolWindowFactoryTest.kt` テスト作成
-- [ ] ビルド確認・コミット
+- [x] `RescriptCompiledJsPreviewToolWindowFactory.kt` 実装
+- [x] `RescriptCompiledJsPreviewPanel.kt` 実装（テスト省略: Swing + EditorEx）
+- [x] plugin.xml に extension point 登録
+- [x] `RescriptCompiledJsPreviewToolWindowFactoryTest.kt` テスト作成
+- [x] ビルド確認・コミット
 
 ## Feature 3: Unused Code Detection
 - [ ] `RescriptReanalyzeAnnotator.kt` 拡張（name フィールド + Quick Fix）
