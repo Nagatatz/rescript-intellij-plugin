@@ -13,16 +13,19 @@ class RescriptProjectGeneratorTest {
     }
 
     @Test
-    fun `generateRescriptJson includes sources config`() {
+    fun `generateRescriptJson includes sources config as object`() {
         val json = RescriptProjectGenerator.generateRescriptJson("my-app", false)
+        assertTrue(json.contains("\"sources\""))
         assertTrue(json.contains("\"dir\": \"src\""))
         assertTrue(json.contains("\"subdirs\": true"))
     }
 
     @Test
-    fun `generateRescriptJson includes package-type and suffix`() {
+    fun `generateRescriptJson includes package-specs and suffix`() {
         val json = RescriptProjectGenerator.generateRescriptJson("my-app", false)
-        assertTrue(json.contains("\"package-type\": \"module\""))
+        assertTrue(json.contains("\"package-specs\""))
+        assertTrue(json.contains("\"module\": \"esmodule\""))
+        assertTrue(json.contains("\"in-source\": true"))
         assertTrue(json.contains("\"suffix\": \".res.mjs\""))
     }
 
@@ -63,16 +66,16 @@ class RescriptProjectGeneratorTest {
     @Test
     fun `generatePackageJson includes scripts`() {
         val json = RescriptProjectGenerator.generatePackageJson("my-app", false)
-        assertTrue(json.contains("\"build\": \"rescript build\""))
-        assertTrue(json.contains("\"clean\": \"rescript clean\""))
-        assertTrue(json.contains("\"dev\": \"rescript build -w\""))
+        assertTrue(json.contains("\"res:build\": \"rescript\""))
+        assertTrue(json.contains("\"res:clean\": \"rescript clean\""))
+        assertTrue(json.contains("\"res:dev\": \"rescript -w\""))
     }
 
     @Test
-    fun `generatePackageJson includes rescript dependencies`() {
+    fun `generatePackageJson includes rescript dependency without core`() {
         val json = RescriptProjectGenerator.generatePackageJson("my-app", false)
-        assertTrue(json.contains("\"rescript\""))
-        assertTrue(json.contains("\"@rescript/core\""))
+        assertTrue(json.contains("\"rescript\": \"^12.0.0\""))
+        assertFalse(json.contains("\"@rescript/core\""))
     }
 
     @Test
@@ -86,16 +89,16 @@ class RescriptProjectGeneratorTest {
     @Test
     fun `generatePackageJson with React includes react deps`() {
         val json = RescriptProjectGenerator.generatePackageJson("my-app", true)
-        assertTrue(json.contains("\"react\""))
-        assertTrue(json.contains("\"react-dom\""))
-        assertTrue(json.contains("\"@rescript/react\""))
+        assertTrue(json.contains("\"react\": \"^19.0.0\""))
+        assertTrue(json.contains("\"react-dom\": \"^19.0.0\""))
+        assertTrue(json.contains("\"@rescript/react\": \"^0.14.0\""))
     }
 
     @Test
     fun `generateStarterModule produces valid ReScript`() {
         val code = RescriptProjectGenerator.generateStarterModule()
-        assertTrue(code.contains("let greeting"))
         assertTrue(code.contains("Console.log"))
+        assertTrue(code.contains("Hello, ReScript!"))
     }
 
     @Test

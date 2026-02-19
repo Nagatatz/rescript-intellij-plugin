@@ -52,13 +52,14 @@ object RescriptProjectGenerator {
         return buildString {
             appendLine("{")
             appendLine("  \"name\": \"$name\",")
-            appendLine("  \"sources\": [")
-            appendLine("    {")
-            appendLine("      \"dir\": \"src\",")
-            appendLine("      \"subdirs\": true")
-            appendLine("    }")
-            appendLine("  ],")
-            appendLine("  \"package-type\": \"module\",")
+            appendLine("  \"sources\": {")
+            appendLine("    \"dir\": \"src\",")
+            appendLine("    \"subdirs\": true")
+            appendLine("  },")
+            appendLine("  \"package-specs\": {")
+            appendLine("    \"module\": \"esmodule\",")
+            appendLine("    \"in-source\": true")
+            appendLine("  },")
             appendLine("  \"suffix\": \".res.mjs\",")
             appendLine("  \"bs-dependencies\": [$bsDeps],")
             if (jsxSection.isNotEmpty()) {
@@ -82,13 +83,12 @@ object RescriptProjectGenerator {
     ): String {
         val deps =
             buildString {
-                appendLine("    \"rescript\": \"^11.0.0\",")
-                append("    \"@rescript/core\": \"^1.0.0\"")
+                append("    \"rescript\": \"^12.0.0\"")
                 if (includeReact) {
                     appendLine(",")
-                    appendLine("    \"react\": \"^18.0.0\",")
-                    appendLine("    \"react-dom\": \"^18.0.0\",")
-                    append("    \"@rescript/react\": \"^0.13.0\"")
+                    appendLine("    \"react\": \"^19.0.0\",")
+                    appendLine("    \"react-dom\": \"^19.0.0\",")
+                    append("    \"@rescript/react\": \"^0.14.0\"")
                 }
             }
 
@@ -97,9 +97,9 @@ object RescriptProjectGenerator {
             appendLine("  \"name\": \"$name\",")
             appendLine("  \"version\": \"0.1.0\",")
             appendLine("  \"scripts\": {")
-            appendLine("    \"build\": \"rescript build\",")
-            appendLine("    \"clean\": \"rescript clean\",")
-            appendLine("    \"dev\": \"rescript build -w\"")
+            appendLine("    \"res:build\": \"rescript\",")
+            appendLine("    \"res:clean\": \"rescript clean\",")
+            appendLine("    \"res:dev\": \"rescript -w\"")
             appendLine("  },")
             appendLine("  \"dependencies\": {")
             appendLine(deps)
@@ -108,12 +108,7 @@ object RescriptProjectGenerator {
         }
     }
 
-    fun generateStarterModule(): String =
-        buildString {
-            appendLine("let greeting = \"Hello, ReScript!\"")
-            appendLine("")
-            append("Console.log(greeting)")
-        }
+    fun generateStarterModule(): String = "Console.log(\"Hello, ReScript!\")"
 
     fun generateReactComponent(): String =
         buildString {
