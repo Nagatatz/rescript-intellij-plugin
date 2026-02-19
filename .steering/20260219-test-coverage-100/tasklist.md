@@ -46,7 +46,7 @@
 - [x] 3.2 カバレッジレポート生成 & 確認
 - [x] 3.3 コミット
 - [x] 3.4 `./gradlew buildPlugin` 成功確認
-- [ ] 3.5 feature/test-coverage-100 → main マージ
+- [x] 3.5 feature/test-coverage-100 → main マージ
 
 ## 到達不能エリア（テスト免除）
 

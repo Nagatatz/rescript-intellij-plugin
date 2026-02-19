@@ -49,4 +49,4 @@
 - [x] 全機能ブランチをバッチブランチにマージ
 - [x] 最終ビルド確認
 - [x] 共有ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
-- [ ] main にマージ
+- [x] main にマージ
