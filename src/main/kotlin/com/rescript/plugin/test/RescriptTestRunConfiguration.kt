@@ -78,6 +78,7 @@ class RescriptTestRunConfiguration(
                 ?: throw RuntimeConfigurationError("Working directory is not set")
         val packageJson = java.io.File(effectiveWorkDir, "package.json")
         if (!packageJson.exists()) {
+            @Suppress("DialogTitleCapitalization")
             throw RuntimeConfigurationError("package.json not found in working directory")
         }
     }

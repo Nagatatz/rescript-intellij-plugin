@@ -21,7 +21,7 @@ import javax.swing.JTree
  * @see RescriptModuleDependencyTreeStructure for the dependency tree builder
  */
 class RescriptModuleHierarchyBrowser(
-    private val rootElement: PsiElement,
+    rootElement: PsiElement,
 ) : HierarchyBrowserBaseEx(rootElement.project, rootElement) {
     companion object {
         const val MODULE_NESTING_TYPE = "Module Nesting"
@@ -37,6 +37,7 @@ class RescriptModuleHierarchyBrowser(
         trees[MODULE_DEPENDENCIES_TYPE] = createTree(false)
     }
 
+    @Suppress("RedundantNullableReturnType")
     override fun getContentDisplayName(
         typeName: String,
         element: PsiElement,
@@ -65,6 +66,7 @@ class RescriptModuleHierarchyBrowser(
 
     override fun getActionPlace(): String = "RescriptModuleHierarchy"
 
+    @Suppress("RedundantNullableReturnType")
     override fun getComparator(): Comparator<NodeDescriptor<*>>? =
         Comparator { o1, o2 ->
             val n1 = o1.toString()

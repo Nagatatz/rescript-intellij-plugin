@@ -19,6 +19,7 @@ import com.rescript.plugin.lang.psi.RescriptPsiUtils
  */
 class RescriptGenerateModuleTypeAction :
     AnAction("Module Type", "Generate module type signature from module", null) {
+    @Suppress("DuplicatedCode")
     override fun actionPerformed(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val psiFile = e.getData(CommonDataKeys.PSI_FILE) ?: return
@@ -43,6 +44,7 @@ class RescriptGenerateModuleTypeAction :
         }
     }
 
+    @Suppress("DuplicatedCode")
     override fun update(e: AnActionEvent) {
         val psiFile = e.getData(CommonDataKeys.PSI_FILE)
         val editor = e.getData(CommonDataKeys.EDITOR)
@@ -55,8 +57,8 @@ class RescriptGenerateModuleTypeAction :
         val offset = editor.caretModel.offset
         val element = psiFile.findElementAt(offset)
         val moduleDecl =
-            element?.let {
-                PsiTreeUtil.findFirstParent(it) {
+            element?.let { el ->
+                PsiTreeUtil.findFirstParent(el) {
                     it.node?.elementType == RescriptElementTypes.MODULE_DECLARATION
                 }
             }

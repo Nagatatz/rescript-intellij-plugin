@@ -1,6 +1,6 @@
 package com.rescript.plugin.run
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class RescriptConfigurationFactoryTest {

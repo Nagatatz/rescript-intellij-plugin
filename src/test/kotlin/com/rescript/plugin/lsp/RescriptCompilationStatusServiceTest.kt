@@ -1,6 +1,7 @@
 package com.rescript.plugin.lsp
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class RescriptCompilationStatusServiceTest {

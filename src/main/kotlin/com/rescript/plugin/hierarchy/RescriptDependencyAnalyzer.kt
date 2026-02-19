@@ -71,23 +71,6 @@ object RescriptDependencyAnalyzer {
     }
 
     /**
-     * Builds a tree of nested MODULE_DECLARATION elements from a file.
-     */
-    fun buildModuleTree(file: PsiFile): List<ModuleNode> = collectModuleNodes(file)
-
-    private fun collectModuleNodes(scope: PsiElement): List<ModuleNode> {
-        val nodes = mutableListOf<ModuleNode>()
-        for (child in scope.children) {
-            if (child.node?.elementType == RescriptElementTypes.MODULE_DECLARATION) {
-                val name = RescriptPsiUtils.extractName(child)
-                val children = collectModuleNodes(child)
-                nodes.add(ModuleNode(name, child, children))
-            }
-        }
-        return nodes
-    }
-
-    /**
      * Extracts the module path from an OPEN_STATEMENT or INCLUDE_STATEMENT element.
      * e.g., "open Belt.Array" -> "Belt.Array"
      * e.g., "include Utils" -> "Utils"
@@ -111,9 +94,28 @@ object RescriptDependencyAnalyzer {
     }
 
     /**
+     * Builds a tree of nested MODULE_DECLARATION elements from a file.
+     */
+    @Suppress("unused")
+    fun buildModuleTree(file: PsiFile): List<ModuleNode> = collectModuleNodes(file)
+
+    private fun collectModuleNodes(scope: PsiElement): List<ModuleNode> {
+        val nodes = mutableListOf<ModuleNode>()
+        for (child in scope.children) {
+            if (child.node?.elementType == RescriptElementTypes.MODULE_DECLARATION) {
+                val name = RescriptPsiUtils.extractName(child)
+                val children = collectModuleNodes(child)
+                nodes.add(ModuleNode(name, child, children))
+            }
+        }
+        return nodes
+    }
+
+    /**
      * Gets all unique module names referenced by open/include statements in a file.
      * Returns just the top-level module name (e.g., "Belt" from "Belt.Array").
      */
+    @Suppress("unused")
     fun getReferencedModuleNames(file: PsiFile): Set<String> {
         val refs = extractModuleReferences(file)
         return refs

@@ -5,7 +5,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class RescriptSpellcheckingStrategyTest {

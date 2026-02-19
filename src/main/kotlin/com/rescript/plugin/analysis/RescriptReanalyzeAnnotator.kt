@@ -83,6 +83,7 @@ class RescriptReanalyzeAnnotator :
         }
     }
 
+    @Suppress("DuplicatedCode")
     override fun apply(
         file: PsiFile,
         result: AnnotationResult?,
@@ -138,6 +139,7 @@ class RescriptReanalyzeAnnotator :
             return null
         }
 
+        @Suppress("DuplicatedCode")
         fun parseJsonOutput(
             json: String,
             filePath: String,
