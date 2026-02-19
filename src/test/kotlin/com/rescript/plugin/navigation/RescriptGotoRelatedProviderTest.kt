@@ -71,7 +71,7 @@ class RescriptGotoRelatedProviderTest : BasePlatformTestCase() {
         assertTrue(items.isEmpty())
     }
 
-    fun testResFileWithGeneratedJs() {
+    fun testResFileWithGeneratedBsJs() {
         val resFile = myFixture.addFileToProject("Module.res", "let x = 1")
         myFixture.addFileToProject("lib/js/Module.bs.js", "var x = 1;")
 
@@ -86,6 +86,57 @@ class RescriptGotoRelatedProviderTest : BasePlatformTestCase() {
 
         val fileNames = items.map { it.element?.containingFile?.name }
         assertTrue("Module.bs.js" in fileNames)
+    }
+
+    fun testResFileWithGeneratedMjs() {
+        val resFile = myFixture.addFileToProject("MjsMod.res", "let x = 1")
+        myFixture.addFileToProject("lib/js/MjsMod.mjs", "var x = 1;")
+
+        val context =
+            SimpleDataContext
+                .builder()
+                .add(CommonDataKeys.PROJECT, project)
+                .add(CommonDataKeys.VIRTUAL_FILE, resFile.virtualFile)
+                .build()
+
+        val items = provider.getItems(context)
+
+        val fileNames = items.map { it.element?.containingFile?.name }
+        assertTrue("MjsMod.mjs" in fileNames)
+    }
+
+    fun testResFileWithGeneratedPlainJs() {
+        val resFile = myFixture.addFileToProject("JsMod.res", "let x = 1")
+        myFixture.addFileToProject("lib/js/JsMod.js", "var x = 1;")
+
+        val context =
+            SimpleDataContext
+                .builder()
+                .add(CommonDataKeys.PROJECT, project)
+                .add(CommonDataKeys.VIRTUAL_FILE, resFile.virtualFile)
+                .build()
+
+        val items = provider.getItems(context)
+
+        val fileNames = items.map { it.element?.containingFile?.name }
+        assertTrue("JsMod.js" in fileNames)
+    }
+
+    fun testResFileInSubdirectoryWithGeneratedJs() {
+        val resFile = myFixture.addFileToProject("src/components/Button.res", "let make = () => <div/>")
+        myFixture.addFileToProject("lib/js/src/components/Button.bs.js", "var make = function() {};")
+
+        val context =
+            SimpleDataContext
+                .builder()
+                .add(CommonDataKeys.PROJECT, project)
+                .add(CommonDataKeys.VIRTUAL_FILE, resFile.virtualFile)
+                .build()
+
+        val items = provider.getItems(context)
+
+        val fileNames = items.map { it.element?.containingFile?.name }
+        assertTrue("Button.bs.js" in fileNames)
     }
 
     fun testResFileWithResiAndJs() {
@@ -105,5 +156,28 @@ class RescriptGotoRelatedProviderTest : BasePlatformTestCase() {
         val fileNames = items.map { it.element?.containingFile?.name }
         assertTrue("Full.resi" in fileNames)
         assertTrue("Full.bs.js" in fileNames)
+    }
+
+    fun testEmptyContextReturnsEmpty() {
+        val context =
+            SimpleDataContext
+                .builder()
+                .build()
+
+        val items = provider.getItems(context)
+
+        assertTrue(items.isEmpty())
+    }
+
+    fun testContextWithoutFileReturnsEmpty() {
+        val context =
+            SimpleDataContext
+                .builder()
+                .add(CommonDataKeys.PROJECT, project)
+                .build()
+
+        val items = provider.getItems(context)
+
+        assertTrue(items.isEmpty())
     }
 }
