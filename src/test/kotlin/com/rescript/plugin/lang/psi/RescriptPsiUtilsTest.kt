@@ -1,46 +1,36 @@
 package com.rescript.plugin.lang.psi
 
 import com.intellij.icons.AllIcons
-import com.intellij.psi.PsiElement
 import com.rescript.plugin.RescriptTestUtils
+import com.rescript.plugin.RescriptTestUtils.SimpleStubElement
 import com.rescript.plugin.lang.RescriptTokenTypes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class RescriptPsiUtilsTest {
-    // ── extractName ──
-
     @Test
-    fun `extractName returns name from let declaration`() {
+    fun `extractName for LET_DECLARATION returns identifier`() {
         val node =
             RescriptTestUtils.stubAstNodeWithChildren(
                 RescriptElementTypes.LET_DECLARATION,
                 listOf(
                     RescriptTokenTypes.LET to "let",
-                    RescriptTokenTypes.LIDENT to "myFunc",
+                    RescriptTokenTypes.LIDENT to "foo",
                 ),
             )
-        val element = stubPsiElement(node)
-        assertEquals("myFunc", RescriptPsiUtils.extractName(element))
+        val element = SimpleStubElement(RescriptElementTypes.LET_DECLARATION, "let foo = 1")
+        // Override getNode to return our custom node
+        val psiElement =
+            object : SimpleStubElement(RescriptElementTypes.LET_DECLARATION, "let foo = 1") {
+                override fun getNode() = node
+            }
+        assertEquals("foo", RescriptPsiUtils.extractName(psiElement))
     }
 
     @Test
-    fun `extractName returns name from type declaration`() {
-        val node =
-            RescriptTestUtils.stubAstNodeWithChildren(
-                RescriptElementTypes.TYPE_DECLARATION,
-                listOf(
-                    RescriptTokenTypes.TYPE to "type",
-                    RescriptTokenTypes.LIDENT to "color",
-                ),
-            )
-        val element = stubPsiElement(node)
-        assertEquals("color", RescriptPsiUtils.extractName(element))
-    }
-
-    @Test
-    fun `extractName returns name from module declaration`() {
+    fun `extractName for MODULE_DECLARATION returns uident`() {
         val node =
             RescriptTestUtils.stubAstNodeWithChildren(
                 RescriptElementTypes.MODULE_DECLARATION,
@@ -49,8 +39,28 @@ class RescriptPsiUtilsTest {
                     RescriptTokenTypes.UIDENT to "MyModule",
                 ),
             )
-        val element = stubPsiElement(node)
-        assertEquals("MyModule", RescriptPsiUtils.extractName(element))
+        val psiElement =
+            object : SimpleStubElement(RescriptElementTypes.MODULE_DECLARATION, "module MyModule = {}") {
+                override fun getNode() = node
+            }
+        assertEquals("MyModule", RescriptPsiUtils.extractName(psiElement))
+    }
+
+    @Test
+    fun `extractName for TYPE_DECLARATION returns identifier`() {
+        val node =
+            RescriptTestUtils.stubAstNodeWithChildren(
+                RescriptElementTypes.TYPE_DECLARATION,
+                listOf(
+                    RescriptTokenTypes.TYPE to "type",
+                    RescriptTokenTypes.LIDENT to "person",
+                ),
+            )
+        val psiElement =
+            object : SimpleStubElement(RescriptElementTypes.TYPE_DECLARATION, "type person = {}") {
+                override fun getNode() = node
+            }
+        assertEquals("person", RescriptPsiUtils.extractName(psiElement))
     }
 
     @Test
@@ -61,11 +71,14 @@ class RescriptPsiUtilsTest {
                 listOf(
                     RescriptTokenTypes.LET to "let",
                     RescriptTokenTypes.REC to "rec",
-                    RescriptTokenTypes.LIDENT to "loop",
+                    RescriptTokenTypes.LIDENT to "factorial",
                 ),
             )
-        val element = stubPsiElement(node)
-        assertEquals("loop", RescriptPsiUtils.extractName(element))
+        val psiElement =
+            object : SimpleStubElement(RescriptElementTypes.LET_DECLARATION, "let rec factorial = ...") {
+                override fun getNode() = node
+            }
+        assertEquals("factorial", RescriptPsiUtils.extractName(psiElement))
     }
 
     @Test
@@ -77,114 +90,105 @@ class RescriptPsiUtilsTest {
                     RescriptTokenTypes.LET to "let",
                 ),
             )
-        val element = stubPsiElement(node)
-        assertEquals("(anonymous)", RescriptPsiUtils.extractName(element))
+        val psiElement =
+            object : SimpleStubElement(RescriptElementTypes.LET_DECLARATION, "let") {
+                override fun getNode() = node
+            }
+        assertEquals("(anonymous)", RescriptPsiUtils.extractName(psiElement))
     }
 
     @Test
     fun `extractName returns unknown when node is null`() {
-        val element = RescriptTestUtils.stubProxy<PsiElement>()
-        assertEquals("(unknown)", RescriptPsiUtils.extractName(element))
+        // Use a proxy-based PsiElement that returns null for getNode()
+        val psiElement = RescriptTestUtils.stubProxy<com.intellij.psi.PsiElement>()
+        assertEquals("(unknown)", RescriptPsiUtils.extractName(psiElement))
     }
 
-    // ── getIcon ──
+    // --- getIcon ---
 
     @Test
-    fun `getIcon returns Function for let declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.LET_DECLARATION)
+    fun `getIcon for LET_DECLARATION returns Function icon`() {
+        val element = SimpleStubElement(RescriptElementTypes.LET_DECLARATION, "let x = 1")
         assertEquals(AllIcons.Nodes.Function, RescriptPsiUtils.getIcon(element))
     }
 
     @Test
-    fun `getIcon returns Type for type declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.TYPE_DECLARATION)
+    fun `getIcon for TYPE_DECLARATION returns Type icon`() {
+        val element = SimpleStubElement(RescriptElementTypes.TYPE_DECLARATION, "type t = int")
         assertEquals(AllIcons.Nodes.Type, RescriptPsiUtils.getIcon(element))
     }
 
     @Test
-    fun `getIcon returns Module for module declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.MODULE_DECLARATION)
+    fun `getIcon for MODULE_DECLARATION returns Module icon`() {
+        val element = SimpleStubElement(RescriptElementTypes.MODULE_DECLARATION, "module M = {}")
         assertEquals(AllIcons.Nodes.Module, RescriptPsiUtils.getIcon(element))
     }
 
     @Test
-    fun `getIcon returns PluginJB for external declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.EXTERNAL_DECLARATION)
+    fun `getIcon for EXTERNAL_DECLARATION returns PluginJB icon`() {
+        val element = SimpleStubElement(RescriptElementTypes.EXTERNAL_DECLARATION, "external f: int => int")
         assertEquals(AllIcons.Nodes.PluginJB, RescriptPsiUtils.getIcon(element))
     }
 
     @Test
-    fun `getIcon returns ExceptionClass for exception declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.EXCEPTION_DECLARATION)
+    fun `getIcon for EXCEPTION_DECLARATION returns ExceptionClass icon`() {
+        val element = SimpleStubElement(RescriptElementTypes.EXCEPTION_DECLARATION, "exception MyError")
         assertEquals(AllIcons.Nodes.ExceptionClass, RescriptPsiUtils.getIcon(element))
     }
 
     @Test
-    fun `getIcon returns null for unknown element type`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.OPEN_STATEMENT)
+    fun `getIcon for unknown type returns null`() {
+        val element = SimpleStubElement(RescriptTokenTypes.LIDENT, "foo")
         assertNull(RescriptPsiUtils.getIcon(element))
     }
 
-    // ── getElementDescription ──
+    // --- getElementDescription ---
 
     @Test
-    fun `getElementDescription returns let declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.LET_DECLARATION)
+    fun `getElementDescription for LET_DECLARATION`() {
+        val element = SimpleStubElement(RescriptElementTypes.LET_DECLARATION, "let x = 1")
         assertEquals("let declaration", RescriptPsiUtils.getElementDescription(element))
     }
 
     @Test
-    fun `getElementDescription returns type declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.TYPE_DECLARATION)
+    fun `getElementDescription for TYPE_DECLARATION`() {
+        val element = SimpleStubElement(RescriptElementTypes.TYPE_DECLARATION, "type t = int")
         assertEquals("type declaration", RescriptPsiUtils.getElementDescription(element))
     }
 
     @Test
-    fun `getElementDescription returns module declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.MODULE_DECLARATION)
+    fun `getElementDescription for MODULE_DECLARATION`() {
+        val element = SimpleStubElement(RescriptElementTypes.MODULE_DECLARATION, "module M = {}")
         assertEquals("module declaration", RescriptPsiUtils.getElementDescription(element))
     }
 
     @Test
-    fun `getElementDescription returns external declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.EXTERNAL_DECLARATION)
+    fun `getElementDescription for EXTERNAL_DECLARATION`() {
+        val element = SimpleStubElement(RescriptElementTypes.EXTERNAL_DECLARATION, "external f: int")
         assertEquals("external declaration", RescriptPsiUtils.getElementDescription(element))
     }
 
     @Test
-    fun `getElementDescription returns exception declaration`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.EXCEPTION_DECLARATION)
+    fun `getElementDescription for EXCEPTION_DECLARATION`() {
+        val element = SimpleStubElement(RescriptElementTypes.EXCEPTION_DECLARATION, "exception E")
         assertEquals("exception declaration", RescriptPsiUtils.getElementDescription(element))
     }
 
     @Test
-    fun `getElementDescription returns null for unknown type`() {
-        val element = stubPsiElementWithType(RescriptElementTypes.OPEN_STATEMENT)
+    fun `getElementDescription for unknown type returns null`() {
+        val element = SimpleStubElement(RescriptTokenTypes.LIDENT, "foo")
         assertNull(RescriptPsiUtils.getElementDescription(element))
     }
 
-    // ── NAVIGABLE_TYPES ──
+    // --- NAVIGABLE_TYPES ---
 
     @Test
-    fun `NAVIGABLE_TYPES contains expected types`() {
-        val types = RescriptPsiUtils.NAVIGABLE_TYPES
-        assertEquals(5, types.size)
-        assert(RescriptElementTypes.LET_DECLARATION in types)
-        assert(RescriptElementTypes.TYPE_DECLARATION in types)
-        assert(RescriptElementTypes.MODULE_DECLARATION in types)
-        assert(RescriptElementTypes.EXTERNAL_DECLARATION in types)
-        assert(RescriptElementTypes.EXCEPTION_DECLARATION in types)
+    fun `NAVIGABLE_TYPES contains all 5 declaration types`() {
+        assertEquals(5, RescriptPsiUtils.NAVIGABLE_TYPES.size)
+        assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.LET_DECLARATION))
+        assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.TYPE_DECLARATION))
+        assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.MODULE_DECLARATION))
+        assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.EXTERNAL_DECLARATION))
+        assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.EXCEPTION_DECLARATION))
     }
-
-    // ── helpers ──
-
-    private fun stubPsiElement(node: com.intellij.lang.ASTNode): PsiElement =
-        object : PsiElement by RescriptTestUtils.stubProxy() {
-            override fun getNode() = node
-        }
-
-    private fun stubPsiElementWithType(type: com.intellij.psi.tree.IElementType): PsiElement =
-        object : PsiElement by RescriptTestUtils.stubProxy() {
-            override fun getNode() = RescriptTestUtils.stubAstNode(type)
-        }
 }

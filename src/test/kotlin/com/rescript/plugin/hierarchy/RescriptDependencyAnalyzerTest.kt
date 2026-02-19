@@ -162,7 +162,108 @@ class RescriptDependencyAnalyzerTest {
         assertEquals("Belt.Map", RescriptDependencyAnalyzer.extractModulePath(element))
     }
 
+    @Test
+    fun `extractModulePath with deeply nested module`() {
+        val element = buildStatement(RescriptTokenTypes.OPEN, listOf("Belt", ".", "Map", ".", "String"))
+        assertEquals("Belt.Map.String", RescriptDependencyAnalyzer.extractModulePath(element))
+    }
+
+    // ── extractModuleReferences tests ─────────────────────────────────
+
+    @Test
+    fun `extractModuleReferences from scope with open statement`() {
+        val openStmt = buildStatement(RescriptTokenTypes.OPEN, listOf("Belt", ".", "Array"))
+        val scope = buildScopeWith(listOf(openStmt to RescriptElementTypes.OPEN_STATEMENT))
+        val refs = RescriptDependencyAnalyzer.extractModuleReferences(scope)
+        assertEquals(1, refs.size)
+        assertEquals("Belt.Array", refs[0].modulePath)
+        assertEquals(RescriptDependencyAnalyzer.ReferenceKind.OPEN, refs[0].kind)
+    }
+
+    @Test
+    fun `extractModuleReferences from scope with include statement`() {
+        val includeStmt = buildStatement(RescriptTokenTypes.INCLUDE, listOf("Utils"))
+        val scope = buildScopeWith(listOf(includeStmt to RescriptElementTypes.INCLUDE_STATEMENT))
+        val refs = RescriptDependencyAnalyzer.extractModuleReferences(scope)
+        assertEquals(1, refs.size)
+        assertEquals("Utils", refs[0].modulePath)
+        assertEquals(RescriptDependencyAnalyzer.ReferenceKind.INCLUDE, refs[0].kind)
+    }
+
+    @Test
+    fun `extractModuleReferences returns empty for scope with no open or include`() {
+        val scope = buildScopeWith(emptyList())
+        val refs = RescriptDependencyAnalyzer.extractModuleReferences(scope)
+        assertTrue(refs.isEmpty())
+    }
+
+    @Test
+    fun `extractModuleReferences from scope with multiple opens`() {
+        val open1 = buildStatement(RescriptTokenTypes.OPEN, listOf("Belt", ".", "Array"))
+        val open2 = buildStatement(RescriptTokenTypes.OPEN, listOf("Js", ".", "Promise"))
+        val scope =
+            buildScopeWith(
+                listOf(
+                    open1 to RescriptElementTypes.OPEN_STATEMENT,
+                    open2 to RescriptElementTypes.OPEN_STATEMENT,
+                ),
+            )
+        val refs = RescriptDependencyAnalyzer.extractModuleReferences(scope)
+        assertEquals(2, refs.size)
+        assertEquals("Belt.Array", refs[0].modulePath)
+        assertEquals("Js.Promise", refs[1].modulePath)
+    }
+
+    // ── getReferencedModuleNames tests ────────────────────────────────
+
+    @Test
+    fun `ModuleReference data class properties`() {
+        val elem = buildStatement(RescriptTokenTypes.OPEN, listOf("Belt"))
+        val ref =
+            RescriptDependencyAnalyzer.ModuleReference(
+                "Belt.Array",
+                RescriptDependencyAnalyzer.ReferenceKind.OPEN,
+                elem,
+            )
+        assertEquals("Belt.Array", ref.modulePath)
+        assertEquals(RescriptDependencyAnalyzer.ReferenceKind.OPEN, ref.kind)
+    }
+
     // ── Stub helpers ─────────────────────────────────────────────────
+
+    /**
+     * Builds a scope PsiElement with children that have correct element types.
+     */
+    private fun buildScopeWith(children: List<Pair<PsiElement, IElementType>>): PsiElement {
+        val childArray =
+            children
+                .map { (elem, type) ->
+                    // Wrap the element so its node returns the expected type
+                    object : SimpleStubElement(type, elem.text ?: "") {
+                        override fun getFirstChild(): PsiElement? =
+                            (elem as? SimpleStubElement)?.let { null } ?: elem.firstChild
+
+                        override fun getNextSibling(): PsiElement? = null
+
+                        init {
+                            // The children list is linked through next
+                        }
+                    }
+                }.toTypedArray()
+
+        // Link next siblings
+        for (i in childArray.indices) {
+            if (i + 1 < childArray.size) {
+                childArray[i].next = childArray[i + 1]
+            }
+        }
+
+        return object : SimpleStubElement(RescriptElementTypes.MODULE_DECLARATION, "scope") {
+            override fun getChildren(): Array<PsiElement> = childArray as Array<PsiElement>
+
+            override fun getFirstChild(): PsiElement? = childArray.firstOrNull()
+        }
+    }
 
     private fun buildStatement(
         keywordType: IElementType,

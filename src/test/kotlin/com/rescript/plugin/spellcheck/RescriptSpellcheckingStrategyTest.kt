@@ -1,70 +1,104 @@
 package com.rescript.plugin.spellcheck
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
-import com.rescript.plugin.RescriptTestUtils
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.assertNotSame
-import org.junit.Assert.assertSame
+import org.junit.Assert.*
 import org.junit.Test
 
 class RescriptSpellcheckingStrategyTest {
     private val strategy = RescriptSpellcheckingStrategy()
 
+    private fun stubElement(type: IElementType): PsiElement =
+        java.lang.reflect.Proxy.newProxyInstance(
+            PsiElement::class.java.classLoader,
+            arrayOf(PsiElement::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "getNode" ->
+                    java.lang.reflect.Proxy.newProxyInstance(
+                        ASTNode::class.java.classLoader,
+                        arrayOf(ASTNode::class.java),
+                    ) { _, m, _ ->
+                        when (m.name) {
+                            "getElementType" -> type
+                            "toString" -> "StubASTNode($type)"
+                            "hashCode" -> type.hashCode()
+                            "equals" -> false
+                            else -> null
+                        }
+                    } as ASTNode
+
+                "toString" -> "StubPsiElement($type)"
+                "hashCode" -> type.hashCode()
+                "equals" -> false
+                else -> null
+            }
+        } as PsiElement
+
+    private fun stubElementNullNode(): PsiElement =
+        java.lang.reflect.Proxy.newProxyInstance(
+            PsiElement::class.java.classLoader,
+            arrayOf(PsiElement::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "getNode" -> null
+                "toString" -> "StubPsiElement(null)"
+                "hashCode" -> 0
+                "equals" -> false
+                else -> null
+            }
+        } as PsiElement
+
     @Test
-    fun `single comment returns TEXT_TOKENIZER`() {
-        val element = RescriptTestUtils.SimpleStubElement(RescriptTokenTypes.SINGLE_COMMENT, "// comment")
-        val tokenizer = strategy.getTokenizer(element)
-        assertSame(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
+    fun `SINGLE_COMMENT returns TEXT_TOKENIZER`() {
+        val tokenizer = strategy.getTokenizer(stubElement(RescriptTokenTypes.SINGLE_COMMENT))
+        assertEquals(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
     }
 
     @Test
-    fun `multi comment returns TEXT_TOKENIZER`() {
-        val element = RescriptTestUtils.SimpleStubElement(RescriptTokenTypes.MULTI_COMMENT, "/* comment */")
-        val tokenizer = strategy.getTokenizer(element)
-        assertSame(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
+    fun `MULTI_COMMENT returns TEXT_TOKENIZER`() {
+        val tokenizer = strategy.getTokenizer(stubElement(RescriptTokenTypes.MULTI_COMMENT))
+        assertEquals(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
     }
 
     @Test
-    fun `string value returns TEXT_TOKENIZER`() {
-        val element = RescriptTestUtils.SimpleStubElement(RescriptTokenTypes.STRING_VALUE, "\"hello\"")
-        val tokenizer = strategy.getTokenizer(element)
-        assertSame(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
+    fun `STRING_VALUE returns TEXT_TOKENIZER`() {
+        val tokenizer = strategy.getTokenizer(stubElement(RescriptTokenTypes.STRING_VALUE))
+        assertEquals(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
     }
 
     @Test
-    fun `lident returns identifier tokenizer`() {
-        val element = RescriptTestUtils.SimpleStubElement(RescriptTokenTypes.LIDENT, "myVariable")
-        val tokenizer = strategy.getTokenizer(element)
-        assertNotSame(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
-        assertNotSame(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
+    fun `LIDENT returns identifier tokenizer`() {
+        val tokenizer = strategy.getTokenizer(stubElement(RescriptTokenTypes.LIDENT))
+        assertNotEquals(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
+        assertNotEquals(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
     }
 
     @Test
-    fun `uident returns identifier tokenizer`() {
-        val element = RescriptTestUtils.SimpleStubElement(RescriptTokenTypes.UIDENT, "MyModule")
-        val tokenizer = strategy.getTokenizer(element)
-        assertNotSame(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
-        assertNotSame(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
+    fun `UIDENT returns identifier tokenizer`() {
+        val tokenizer = strategy.getTokenizer(stubElement(RescriptTokenTypes.UIDENT))
+        assertNotEquals(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
+        assertNotEquals(SpellcheckingStrategy.TEXT_TOKENIZER, tokenizer)
     }
 
     @Test
-    fun `keyword returns EMPTY_TOKENIZER`() {
-        val element = RescriptTestUtils.SimpleStubElement(RescriptTokenTypes.LET, "let")
-        val tokenizer = strategy.getTokenizer(element)
-        assertSame(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
+    fun `LBRACE returns EMPTY_TOKENIZER`() {
+        val tokenizer = strategy.getTokenizer(stubElement(RescriptTokenTypes.LBRACE))
+        assertEquals(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
     }
 
     @Test
-    fun `operator returns EMPTY_TOKENIZER`() {
-        val element = RescriptTestUtils.SimpleStubElement(RescriptTokenTypes.PLUS, "+")
-        val tokenizer = strategy.getTokenizer(element)
-        assertSame(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
+    fun `LET returns EMPTY_TOKENIZER`() {
+        val tokenizer = strategy.getTokenizer(stubElement(RescriptTokenTypes.LET))
+        assertEquals(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
     }
 
     @Test
-    fun `int value returns EMPTY_TOKENIZER`() {
-        val element = RescriptTestUtils.SimpleStubElement(RescriptTokenTypes.INT_VALUE, "42")
-        val tokenizer = strategy.getTokenizer(element)
-        assertSame(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
+    fun `null node returns EMPTY_TOKENIZER`() {
+        val tokenizer = strategy.getTokenizer(stubElementNullNode())
+        assertEquals(SpellcheckingStrategy.EMPTY_TOKENIZER, tokenizer)
     }
 }

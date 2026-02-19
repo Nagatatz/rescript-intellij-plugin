@@ -235,4 +235,122 @@ class RescriptStatementUpDownMoverTest {
         assertNotNull(result)
         assertEquals(RescriptElementTypes.LET_DECLARATION, result!!.node?.elementType)
     }
+
+    // -- findLeadingAnnotation PSI stub tests --
+
+    @Test
+    fun testFindLeadingAnnotationReturnsDeclarationWhenNoPrevSibling() {
+        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = null)
+        val result = mover.findLeadingAnnotation(declaration)
+        assertEquals(RescriptElementTypes.LET_DECLARATION, result.node?.elementType)
+    }
+
+    @Test
+    fun testFindLeadingAnnotationReturnsDeclarationWhenPrevIsNotAnnotation() {
+        val prevDecl = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = null)
+        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = prevDecl)
+        val result = mover.findLeadingAnnotation(declaration)
+        assertEquals(RescriptElementTypes.LET_DECLARATION, result.node?.elementType)
+    }
+
+    @Test
+    fun testFindLeadingAnnotationFindsAnnotation() {
+        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
+        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = annotation)
+        val result = mover.findLeadingAnnotation(declaration)
+        assertEquals(RescriptElementTypes.ANNOTATION, result.node?.elementType)
+    }
+
+    @Test
+    fun testFindLeadingAnnotationFindsChainedAnnotations() {
+        val firstAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
+        val secondAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = firstAnnotation)
+        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = secondAnnotation)
+        val result = mover.findLeadingAnnotation(declaration)
+        assertEquals(RescriptElementTypes.ANNOTATION, result.node?.elementType)
+    }
+
+    @Test
+    fun testFindLeadingAnnotationSkipsWhitespaceBeforeAnnotation() {
+        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
+        val whitespace = stubPsiElement(TokenType.WHITE_SPACE, prevSibling = annotation)
+        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = whitespace)
+        val result = mover.findLeadingAnnotation(declaration)
+        assertEquals(RescriptElementTypes.ANNOTATION, result.node?.elementType)
+    }
+
+    // -- findNextDeclaration annotation branch tests --
+
+    @Test
+    fun testFindNextDeclarationFindsDeclarationAfterAnnotation() {
+        val nextDecl = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, nextSibling = null)
+        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = nextDecl)
+        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val result = mover.findNextDeclaration(current)
+        assertNotNull(result)
+        assertEquals(RescriptElementTypes.TYPE_DECLARATION, result!!.node?.elementType)
+    }
+
+    @Test
+    fun testFindNextDeclarationReturnsNullWhenAnnotationFollowedByNonDeclaration() {
+        val jsxElement = stubPsiElement(RescriptElementTypes.JSX_ELEMENT, nextSibling = null)
+        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = jsxElement)
+        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val result = mover.findNextDeclaration(current)
+        assertNull(result)
+    }
+
+    @Test
+    fun testFindNextDeclarationReturnsNullWhenAnnotationHasNoNextSibling() {
+        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = null)
+        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val result = mover.findNextDeclaration(current)
+        assertNull(result)
+    }
+
+    @Test
+    fun testFindNextDeclarationSkipsWhitespaceAfterAnnotation() {
+        val nextDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION, nextSibling = null)
+        val whitespace = stubPsiElement(TokenType.WHITE_SPACE, nextSibling = nextDecl)
+        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = whitespace)
+        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val result = mover.findNextDeclaration(current)
+        assertNotNull(result)
+        assertEquals(RescriptElementTypes.MODULE_DECLARATION, result!!.node?.elementType)
+    }
+
+    @Test
+    fun testFindNextDeclarationSkipsMultipleAnnotations() {
+        val nextDecl = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, nextSibling = null)
+        val secondAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = nextDecl)
+        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = secondAnnotation)
+        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val result = mover.findNextDeclaration(current)
+        assertNotNull(result)
+        assertEquals(RescriptElementTypes.TYPE_DECLARATION, result!!.node?.elementType)
+    }
+
+    // -- findPreviousDeclaration additional tests --
+
+    @Test
+    fun testFindPreviousDeclarationSkipsMultipleAnnotations() {
+        val prevDecl = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = null)
+        val firstAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = prevDecl)
+        val secondAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = firstAnnotation)
+        val current = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = secondAnnotation)
+        val result = mover.findPreviousDeclaration(current)
+        assertNotNull(result)
+        assertEquals(RescriptElementTypes.LET_DECLARATION, result!!.node?.elementType)
+    }
+
+    @Test
+    fun testFindPreviousDeclarationSkipsWhitespaceAndAnnotation() {
+        val prevDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION, prevSibling = null)
+        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = prevDecl)
+        val whitespace = stubPsiElement(TokenType.WHITE_SPACE, prevSibling = annotation)
+        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = whitespace)
+        val result = mover.findPreviousDeclaration(current)
+        assertNotNull(result)
+        assertEquals(RescriptElementTypes.MODULE_DECLARATION, result!!.node?.elementType)
+    }
 }

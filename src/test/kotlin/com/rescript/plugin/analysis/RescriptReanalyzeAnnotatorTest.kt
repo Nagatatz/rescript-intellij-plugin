@@ -195,4 +195,143 @@ class RescriptReanalyzeAnnotatorTest {
         assertEquals(1, result.size)
         assertEquals("unknown", result[0].name)
     }
+
+    @Test
+    fun `parseJsonOutput handles empty array`() {
+        val result = RescriptReanalyzeAnnotator.parseJsonOutput("[]", "/project/App.res")
+        assertTrue(result.isEmpty())
+    }
+
+    @Test
+    fun `parseJsonOutput skips entries without file field`() {
+        val json =
+            """
+            [{"range": [1, 0, 1, 10], "message": "test"}]
+            """.trimIndent()
+        val result = RescriptReanalyzeAnnotator.parseJsonOutput(json, "/project/App.res")
+        assertTrue(result.isEmpty())
+    }
+
+    @Test
+    fun `parseJsonOutput skips entries without message field`() {
+        val json =
+            """
+            [{"file": "App.res", "range": [1, 0, 1, 10]}]
+            """.trimIndent()
+        val result = RescriptReanalyzeAnnotator.parseJsonOutput(json, "/project/App.res")
+        assertTrue(result.isEmpty())
+    }
+
+    // --- parseAllDiagnostics ---
+
+    @Test
+    fun `parseAllDiagnostics returns empty for blank input`() {
+        assertTrue(RescriptReanalyzeAnnotator.parseAllDiagnostics("").isEmpty())
+    }
+
+    @Test
+    fun `parseAllDiagnostics returns empty for whitespace`() {
+        assertTrue(RescriptReanalyzeAnnotator.parseAllDiagnostics("   ").isEmpty())
+    }
+
+    @Test
+    fun `parseAllDiagnostics parses all entries without file filtering`() {
+        val json =
+            """
+            [
+                {"file": "A.res", "range": [1, 0, 1, 10], "message": "msg1", "name": "n1"},
+                {"file": "B.res", "range": [2, 0, 2, 20], "message": "msg2", "name": "n2"}
+            ]
+            """.trimIndent()
+        val result = RescriptReanalyzeAnnotator.parseAllDiagnostics(json)
+        assertEquals(2, result.size)
+        assertEquals("A.res", result[0].first)
+        assertEquals("B.res", result[1].first)
+        assertEquals("n1", result[0].second.name)
+        assertEquals("n2", result[1].second.name)
+    }
+
+    @Test
+    fun `parseAllDiagnostics returns empty for invalid JSON`() {
+        assertTrue(RescriptReanalyzeAnnotator.parseAllDiagnostics("invalid").isEmpty())
+    }
+
+    @Test
+    fun `parseAllDiagnostics returns empty for empty array`() {
+        assertTrue(RescriptReanalyzeAnnotator.parseAllDiagnostics("[]").isEmpty())
+    }
+
+    @Test
+    fun `parseAllDiagnostics defaults name to unknown`() {
+        val json = """[{"file": "A.res", "range": [1, 0, 1, 10], "message": "msg"}]"""
+        val result = RescriptReanalyzeAnnotator.parseAllDiagnostics(json)
+        assertEquals(1, result.size)
+        assertEquals("unknown", result[0].second.name)
+    }
+
+    @Test
+    fun `parseAllDiagnostics skips entries without file`() {
+        val json = """[{"range": [1, 0, 1, 10], "message": "msg"}]"""
+        assertTrue(RescriptReanalyzeAnnotator.parseAllDiagnostics(json).isEmpty())
+    }
+
+    @Test
+    fun `parseAllDiagnostics skips entries without message`() {
+        val json = """[{"file": "A.res", "range": [1, 0, 1, 10]}]"""
+        assertTrue(RescriptReanalyzeAnnotator.parseAllDiagnostics(json).isEmpty())
+    }
+
+    // --- Data classes ---
+
+    @Test
+    fun `CollectedInfo holds filePath and projectBasePath`() {
+        val info = RescriptReanalyzeAnnotator.CollectedInfo("/a/b.res", "/a")
+        assertEquals("/a/b.res", info.filePath)
+        assertEquals("/a", info.projectBasePath)
+    }
+
+    @Test
+    fun `CollectedInfo equality`() {
+        val a = RescriptReanalyzeAnnotator.CollectedInfo("/a.res", "/a")
+        val b = RescriptReanalyzeAnnotator.CollectedInfo("/a.res", "/a")
+        assertEquals(a, b)
+    }
+
+    @Test
+    fun `ReanalyzeDiagnostic data class properties`() {
+        val diag = RescriptReanalyzeAnnotator.ReanalyzeDiagnostic("dead", "Dead code", 1, 2, 3, 4)
+        assertEquals("dead", diag.name)
+        assertEquals("Dead code", diag.message)
+        assertEquals(1, diag.startLine)
+        assertEquals(2, diag.startChar)
+        assertEquals(3, diag.endLine)
+        assertEquals(4, diag.endChar)
+    }
+
+    @Test
+    fun `AnnotationResult holds diagnostics list`() {
+        val diag = RescriptReanalyzeAnnotator.ReanalyzeDiagnostic("x", "msg", 0, 0, 0, 5)
+        val result = RescriptReanalyzeAnnotator.AnnotationResult(listOf(diag))
+        assertEquals(1, result.diagnostics.size)
+    }
+
+    @Test
+    fun `AnnotationResult empty diagnostics`() {
+        val result = RescriptReanalyzeAnnotator.AnnotationResult(emptyList())
+        assertTrue(result.diagnostics.isEmpty())
+    }
+
+    // --- findReanalyzeTool ---
+
+    @Test
+    fun `findReanalyzeTool returns null for temp dir without node_modules`() {
+        val tempDir =
+            java.nio.file.Files
+                .createTempDirectory("reanalyze-test")
+        try {
+            assertNull(RescriptReanalyzeAnnotator.findReanalyzeTool(tempDir.toString()))
+        } finally {
+            tempDir.toFile().deleteRecursively()
+        }
+    }
 }

@@ -1,137 +1,157 @@
 package com.rescript.plugin.refactor
 
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class RescriptNamesValidatorTest {
     private val validator = RescriptNamesValidator()
 
-    // ── isIdentifier: lident ──
+    // --- isIdentifier ---
 
     @Test
-    fun `lowercase identifier is valid`() {
-        assertTrue(validator.isIdentifier("myVar", null))
+    fun `lident - simple lowercase`() {
+        assertTrue(validator.isIdentifier("foo", null))
     }
 
     @Test
-    fun `underscore-prefixed identifier is valid`() {
-        assertTrue(validator.isIdentifier("_unused", null))
+    fun `lident - underscore prefix`() {
+        assertTrue(validator.isIdentifier("_bar", null))
     }
 
     @Test
-    fun `identifier with prime is valid`() {
+    fun `lident - camelCase`() {
+        assertTrue(validator.isIdentifier("camelCase", null))
+    }
+
+    @Test
+    fun `lident - with prime`() {
         assertTrue(validator.isIdentifier("x'", null))
     }
 
     @Test
-    fun `identifier with digits is valid`() {
-        assertTrue(validator.isIdentifier("item2", null))
-    }
-
-    @Test
-    fun `single underscore is valid`() {
+    fun `lident - single underscore`() {
         assertTrue(validator.isIdentifier("_", null))
     }
 
     @Test
-    fun `single lowercase letter is valid`() {
-        assertTrue(validator.isIdentifier("x", null))
+    fun `lident - with digits`() {
+        assertTrue(validator.isIdentifier("foo123", null))
     }
 
-    // ── isIdentifier: uident ──
+    @Test
+    fun `uident - simple uppercase`() {
+        assertTrue(validator.isIdentifier("Foo", null))
+    }
 
     @Test
-    fun `uppercase identifier is valid`() {
+    fun `uident - module name`() {
+        assertTrue(validator.isIdentifier("Belt", null))
+    }
+
+    @Test
+    fun `uident - MyModule`() {
         assertTrue(validator.isIdentifier("MyModule", null))
     }
 
     @Test
-    fun `single uppercase letter is valid`() {
-        assertTrue(validator.isIdentifier("A", null))
-    }
-
-    @Test
-    fun `uppercase with digits is valid`() {
-        assertTrue(validator.isIdentifier("Option2", null))
-    }
-
-    // ── isIdentifier: invalid ──
-
-    @Test
-    fun `empty string is not identifier`() {
+    fun `invalid - empty string`() {
         assertFalse(validator.isIdentifier("", null))
     }
 
     @Test
-    fun `digit-starting string is not identifier`() {
-        assertFalse(validator.isIdentifier("123abc", null))
+    fun `invalid - starts with digit`() {
+        assertFalse(validator.isIdentifier("123", null))
     }
 
     @Test
-    fun `string with spaces is not identifier`() {
-        assertFalse(validator.isIdentifier("my var", null))
+    fun `invalid - contains space`() {
+        assertFalse(validator.isIdentifier("foo bar", null))
     }
 
     @Test
-    fun `string with hyphen is not identifier`() {
-        assertFalse(validator.isIdentifier("my-var", null))
+    fun `invalid - starts with dash`() {
+        assertFalse(validator.isIdentifier("-invalid", null))
     }
 
     @Test
-    fun `string with special chars is not identifier`() {
-        assertFalse(validator.isIdentifier("foo@bar", null))
+    fun `invalid - starts with at`() {
+        assertFalse(validator.isIdentifier("@attr", null))
     }
 
-    // ── isKeyword ──
+    @Test
+    fun `invalid - dot notation`() {
+        assertFalse(validator.isIdentifier("Belt.Array", null))
+    }
+
+    // --- isKeyword ---
 
     @Test
-    fun `let is keyword`() {
+    fun `keyword - let`() {
         assertTrue(validator.isKeyword("let", null))
     }
 
     @Test
-    fun `switch is keyword`() {
-        assertTrue(validator.isKeyword("switch", null))
-    }
-
-    @Test
-    fun `module is keyword`() {
-        assertTrue(validator.isKeyword("module", null))
-    }
-
-    @Test
-    fun `type is keyword`() {
+    fun `keyword - type`() {
         assertTrue(validator.isKeyword("type", null))
     }
 
     @Test
-    fun `if is keyword`() {
+    fun `keyword - module`() {
+        assertTrue(validator.isKeyword("module", null))
+    }
+
+    @Test
+    fun `keyword - switch`() {
+        assertTrue(validator.isKeyword("switch", null))
+    }
+
+    @Test
+    fun `keyword - if`() {
         assertTrue(validator.isKeyword("if", null))
     }
 
     @Test
-    fun `async is keyword`() {
+    fun `keyword - open`() {
+        assertTrue(validator.isKeyword("open", null))
+    }
+
+    @Test
+    fun `keyword - external`() {
+        assertTrue(validator.isKeyword("external", null))
+    }
+
+    @Test
+    fun `keyword - rec`() {
+        assertTrue(validator.isKeyword("rec", null))
+    }
+
+    @Test
+    fun `keyword - async`() {
         assertTrue(validator.isKeyword("async", null))
     }
 
     @Test
-    fun `await is keyword`() {
+    fun `keyword - await`() {
         assertTrue(validator.isKeyword("await", null))
     }
 
     @Test
-    fun `non-keyword is not keyword`() {
-        assertFalse(validator.isKeyword("myFunction", null))
+    fun `not keyword - foo`() {
+        assertFalse(validator.isKeyword("foo", null))
     }
 
     @Test
-    fun `empty string is not keyword`() {
+    fun `not keyword - Belt`() {
+        assertFalse(validator.isKeyword("Belt", null))
+    }
+
+    @Test
+    fun `not keyword - notAKeyword`() {
+        assertFalse(validator.isKeyword("notAKeyword", null))
+    }
+
+    @Test
+    fun `not keyword - empty string`() {
         assertFalse(validator.isKeyword("", null))
-    }
-
-    @Test
-    fun `capitalized keyword is not keyword`() {
-        assertFalse(validator.isKeyword("Let", null))
     }
 }

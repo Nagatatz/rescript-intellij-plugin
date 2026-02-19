@@ -201,4 +201,72 @@ class RescriptSmartEnterProcessorTest {
         assertFalse(analysis.hasPipeWithoutArrow)
         assertNull(analysis.unclosedBracket)
     }
+
+    @Test
+    fun testAnalyzeLineExtraClosingBraceNoUnclosed() {
+        // More closing than opening should not report unclosed
+        val result = processor.analyzeLine("let x = }}")
+        assertNull(result.unclosedBracket)
+    }
+
+    @Test
+    fun testAnalyzeLineExtraClosingParenNoUnclosed() {
+        val result = processor.analyzeLine("foo))")
+        assertNull(result.unclosedBracket)
+    }
+
+    @Test
+    fun testAnalyzeLineExtraClosingBracketNoUnclosed() {
+        val result = processor.analyzeLine("arr]]")
+        assertNull(result.unclosedBracket)
+    }
+
+    @Test
+    fun testAnalyzeLineSwitchWithPipeAndArrow() {
+        // switch keyword on same line as pipe and arrow
+        val result = processor.analyzeLine("switch x { | A => 1 }")
+        assertFalse(result.hasSwitchWithoutBrace)
+        // pipe is present but so is arrow, and switch is present so no hasPipeWithoutArrow
+        assertFalse(result.hasPipeWithoutArrow)
+    }
+
+    @Test
+    fun testAnalyzeLineArrowWithoutPipe() {
+        val result = processor.analyzeLine("let f = (x) =>")
+        assertFalse(result.hasPipeWithoutArrow)
+        assertNull(result.unclosedBracket)
+    }
+
+    @Test
+    fun testAnalyzeLineOnlyClosingBrace() {
+        val result = processor.analyzeLine("}")
+        assertNull(result.unclosedBracket)
+    }
+
+    @Test
+    fun testAnalyzeLineMixedBracketsAndParens() {
+        val result = processor.analyzeLine("let x = {a: [1, 2]")
+        assertEquals('{', result.unclosedBracket)
+    }
+
+    @Test
+    fun testAnalyzeLineBalancedMixedBrackets() {
+        val result = processor.analyzeLine("let x = {a: [1, (2)]}")
+        assertNull(result.unclosedBracket)
+    }
+
+    @Test
+    fun testLineAnalysisDataClassEquality() {
+        val a = RescriptSmartEnterProcessor.LineAnalysis(hasSwitchWithoutBrace = true)
+        val b = RescriptSmartEnterProcessor.LineAnalysis(hasSwitchWithoutBrace = true)
+        assertEquals(a, b)
+    }
+
+    @Test
+    fun testLineAnalysisDataClassCopy() {
+        val original = RescriptSmartEnterProcessor.LineAnalysis(unclosedBracket = '{')
+        val copy = original.copy(hasPipeWithoutArrow = true)
+        assertEquals('{', copy.unclosedBracket)
+        assertTrue(copy.hasPipeWithoutArrow)
+    }
 }

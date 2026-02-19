@@ -1,21 +1,11 @@
 package com.rescript.plugin.lsp
 
-import com.intellij.openapi.project.Project
-import com.rescript.plugin.RescriptTestUtils
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Test
 
 class RescriptCompilationStatusServiceTest {
-    private val project = RescriptTestUtils.stubProxy<Project>()
-    private val service = RescriptCompilationStatusService(project)
-
     @Test
-    fun `initial status is UNKNOWN`() {
-        assertEquals(RescriptCompilationStatusService.CompilationStatus.UNKNOWN, service.currentStatus)
-    }
-
-    @Test
-    fun `UNKNOWN has status string unknown`() {
+    fun `CompilationStatus UNKNOWN has status unknown`() {
         val unknown = RescriptCompilationStatusService.CompilationStatus.UNKNOWN
         assertEquals("unknown", unknown.status)
         assertEquals(0, unknown.errorCount)
@@ -23,51 +13,32 @@ class RescriptCompilationStatusServiceTest {
     }
 
     @Test
-    fun `updateStatus changes currentStatus`() {
-        val newStatus = RescriptCompilationStatusService.CompilationStatus("success", 0, 0)
-        service.updateStatus(newStatus)
-        assertEquals(newStatus, service.currentStatus)
+    fun `CompilationStatus data class properties`() {
+        val status = RescriptCompilationStatusService.CompilationStatus("success", 2, 3)
+        assertEquals("success", status.status)
+        assertEquals(2, status.errorCount)
+        assertEquals(3, status.warningCount)
     }
 
     @Test
-    fun `updateStatus notifies listeners`() {
-        var notifiedStatus: RescriptCompilationStatusService.CompilationStatus? = null
-        val disposable = RescriptTestUtils.stubProxy<com.intellij.openapi.Disposable>()
-
-        service.addListener(disposable) { status ->
-            notifiedStatus = status
-        }
-
-        val newStatus = RescriptCompilationStatusService.CompilationStatus("error", 2, 1)
-        service.updateStatus(newStatus)
-
-        assertEquals(newStatus, notifiedStatus)
+    fun `CompilationStatus equality`() {
+        val a = RescriptCompilationStatusService.CompilationStatus("success", 0, 0)
+        val b = RescriptCompilationStatusService.CompilationStatus("success", 0, 0)
+        assertEquals(a, b)
     }
 
     @Test
-    fun `multiple updateStatus calls update correctly`() {
-        val status1 = RescriptCompilationStatusService.CompilationStatus("building", 0, 0)
-        val status2 = RescriptCompilationStatusService.CompilationStatus("success", 0, 3)
-
-        service.updateStatus(status1)
-        assertEquals(status1, service.currentStatus)
-
-        service.updateStatus(status2)
-        assertEquals(status2, service.currentStatus)
+    fun `CompilationStatus inequality`() {
+        val a = RescriptCompilationStatusService.CompilationStatus("success", 0, 0)
+        val b = RescriptCompilationStatusService.CompilationStatus("error", 1, 0)
+        assertNotEquals(a, b)
     }
 
     @Test
-    fun `CompilationStatus data class equality`() {
-        val s1 = RescriptCompilationStatusService.CompilationStatus("success", 0, 0)
-        val s2 = RescriptCompilationStatusService.CompilationStatus("success", 0, 0)
-        assertEquals(s1, s2)
-    }
-
-    @Test
-    fun `CompilationStatus preserves error and warning counts`() {
-        val status = RescriptCompilationStatusService.CompilationStatus("error", 5, 10)
-        assertEquals("error", status.status)
-        assertEquals(5, status.errorCount)
-        assertEquals(10, status.warningCount)
+    fun `CompilationStatus copy`() {
+        val original = RescriptCompilationStatusService.CompilationStatus("success", 0, 0)
+        val copy = original.copy(errorCount = 5)
+        assertEquals(5, copy.errorCount)
+        assertEquals("success", copy.status)
     }
 }

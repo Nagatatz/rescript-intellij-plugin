@@ -164,6 +164,57 @@ class RescriptReanalyzeQuickFixTest {
         assertEquals("ReScript reanalyze", fix.familyName)
     }
 
+    @Test
+    fun `createQuickFixes for empty string returns empty`() {
+        assertTrue(RescriptReanalyzeQuickFix.createQuickFixes("").isEmpty())
+    }
+
+    @Test
+    fun `findWordStart coerces offset past end`() {
+        // offset exceeds text length, coerces to last index
+        val result = RescriptReanalyzeQuickFix.findWordStart("hello", 100)
+        assertEquals(0, result)
+    }
+
+    @Test
+    fun `findWordEnd returns offset when beyond length`() {
+        assertEquals(10, RescriptReanalyzeQuickFix.findWordEnd("hello", 10))
+    }
+
+    @Test
+    fun `findWordStart at space looks back to previous word`() {
+        // At offset 5 (space), text[i-1]='o' is identifier char, so walks back to 0
+        assertEquals(0, RescriptReanalyzeQuickFix.findWordStart("hello world", 5))
+    }
+
+    @Test
+    fun `findWordEnd at exact boundary`() {
+        assertEquals(5, RescriptReanalyzeQuickFix.findWordEnd("hello world", 5))
+    }
+
+    @Test
+    fun `findWordStart with digits`() {
+        assertEquals(4, RescriptReanalyzeQuickFix.findWordStart("let x42 = 0", 6))
+    }
+
+    @Test
+    fun `findWordEnd with digits`() {
+        assertEquals(7, RescriptReanalyzeQuickFix.findWordEnd("let x42 = 0", 4))
+    }
+
+    @Test
+    fun `PrefixWithUnderscore invoke with null editor does nothing`() {
+        val fix = RescriptReanalyzeQuickFix.PrefixWithUnderscore()
+        // Should not throw when editor is null
+        fix.invoke(stubProject(), null, null)
+    }
+
+    @Test
+    fun `RemoveUnused invoke with null editor does nothing`() {
+        val fix = RescriptReanalyzeQuickFix.RemoveUnused()
+        fix.invoke(stubProject(), null, null)
+    }
+
     private fun stubProject(): com.intellij.openapi.project.Project =
         java.lang.reflect.Proxy.newProxyInstance(
             com.intellij.openapi.project.Project::class.java.classLoader,

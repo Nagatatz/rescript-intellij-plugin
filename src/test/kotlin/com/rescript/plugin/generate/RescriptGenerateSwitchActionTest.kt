@@ -74,6 +74,18 @@ class RescriptGenerateSwitchActionTest {
     }
 
     @Test
+    fun `generates switch for empty constructor list`() {
+        val constructors = emptyList<VariantConstructor>()
+        val result = RescriptGenerateSwitchAction.generateSwitchText(constructors)
+        val expected =
+            buildString {
+                appendLine("switch value {")
+                append("}")
+            }
+        assertEquals(expected, result)
+    }
+
+    @Test
     fun `end to end parse and generate`() {
         val typeDecl = "type color = Red | Green | Blue"
         val parsed = RescriptTypeDeclarationParser.parse(typeDecl)

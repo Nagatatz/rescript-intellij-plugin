@@ -197,4 +197,65 @@ class RescriptSurroundDescriptorTest {
         val surrounder = RescriptBlockSurrounder()
         assertFalse(surrounder.isApplicable(emptyArray()))
     }
+
+    @Test
+    fun testSurroundElementsReturnsNullForEmptyArray() {
+        val surrounder = RescriptIfSurrounder()
+        val result = surrounder.surroundElements(stubProject(), stubEditor(), emptyArray())
+        assertEquals(null, result)
+    }
+
+    @Test
+    fun testBlockSurrounderWithEmptyContent() {
+        val surrounder = RescriptBlockSurrounder()
+        val result = surrounder.generateTemplate("")
+        assertEquals("{\n  \n}", result)
+    }
+
+    @Test
+    fun testSwitchSurrounderWithEmptyContent() {
+        val surrounder = RescriptSwitchSurrounder()
+        val result = surrounder.generateTemplate("")
+        assertEquals("switch expr {\n| _ => \n}", result)
+    }
+
+    @Test
+    fun testTrySurrounderWithEmptyContent() {
+        val surrounder = RescriptTrySurrounder()
+        val result = surrounder.generateTemplate("")
+        assertEquals("try {\n  \n} catch {\n| exn => ()\n}", result)
+    }
+
+    @Test
+    fun testIfSurrounderWithEmptyContent() {
+        val surrounder = RescriptIfSurrounder()
+        val result = surrounder.generateTemplate("")
+        assertEquals("if (condition) {\n  \n}", result)
+    }
+
+    private fun stubProject(): com.intellij.openapi.project.Project =
+        java.lang.reflect.Proxy.newProxyInstance(
+            com.intellij.openapi.project.Project::class.java.classLoader,
+            arrayOf(com.intellij.openapi.project.Project::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "toString" -> "StubProject"
+                "hashCode" -> 0
+                "equals" -> false
+                else -> null
+            }
+        } as com.intellij.openapi.project.Project
+
+    private fun stubEditor(): com.intellij.openapi.editor.Editor =
+        java.lang.reflect.Proxy.newProxyInstance(
+            com.intellij.openapi.editor.Editor::class.java.classLoader,
+            arrayOf(com.intellij.openapi.editor.Editor::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "toString" -> "StubEditor"
+                "hashCode" -> 0
+                "equals" -> false
+                else -> null
+            }
+        } as com.intellij.openapi.editor.Editor
 }
