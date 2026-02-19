@@ -12,6 +12,7 @@
 - **Hover documentation** — Via LSP
 - **Find references** — Via LSP
 - **Diagnostics** — Real-time error and warning display via LSP
+- **Error Lens** — Inline diagnostic messages at the end of editor lines (configurable severity threshold)
 - **Inlay hints** — Type annotations via LSP
 - **Code folding** — Collapse blocks, comments, and multi-line JSX elements
 - **Brace matching** — Automatic matching for `{}`, `[]`, `()`
@@ -19,6 +20,8 @@
 - **Structure view** — Navigate module, function, and type declarations
 - **LSP auto-install** — One-click installation of `@rescript/language-server` with auto-detected package manager
 - **Run configuration** — Build ReScript projects from the IDE
+- **Debugger integration** — Debug compiled JavaScript via Node.js (Ultimate/WebStorm)
+- **Unused open removal** — Auto-detect and remove unused `open` statements via LSP diagnostics
 - **Semantic highlighting** — Enhanced token coloring via LSP semantic tokens
 - **Code style** — Indentation settings for ReScript files
 - **rescript.json icon** — Custom icon for ReScript configuration files

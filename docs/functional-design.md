@@ -467,6 +467,9 @@ flowchart TD
 | `com.intellij.hierarchyProvider` | `RescriptModuleHierarchyProvider` | モジュール階層ビュー | 実装済み |
 | `com.intellij.moduleBuilder` | `RescriptModuleBuilder` | Project Wizard（New Project） | 実装済み |
 | `<group>` | `RescriptGenerateGroup` | Code Generation（Generate メニュー） | 実装済み |
+| `com.intellij.editorFactoryListener` | `RescriptErrorLensEditorListener` | Error Lens（行末インライン診断表示） | 実装済み |
+| `com.intellij.configurationType` | `RescriptDebugConfigurationType` | デバッグ実行構成 | 実装済み |
+| `<action>` | `RescriptDebugCompiledJsAction` | Debug Compiled JS アクション | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -574,6 +577,9 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | Paste as JSON.t | クリップボード変換コマンド | `RescriptPasteAsJsonAction` | 同等 |
 | `//#region` 折りたたみ | VS Code 標準 region markers | `RescriptCustomFoldingProvider` | 同等 |
 | Incremental Type Checking 設定 | VS Code 設定 | `RescriptConfigurable` + LSP initOptions | 同等 |
+| Error Lens | Error Lens 拡張 (サードパーティ) | `RescriptErrorLensManager` | 同等（VS Code では別拡張が必要） |
+| デバッグ統合 | VS Code Node.js Debugger | `RescriptDebugRunConfiguration` | コンパイル済み JS のデバッグ（Ultimate/WebStorm） |
+| 未使用 open 自動削除 | — | `RescriptImportOptimizer` + `RescriptUnusedOpenDetector` | 本プラグイン独自（LSP 診断活用） |
 
 ### 未実装機能（rescript-vscode にあり、本プラグインに未実装）
 
