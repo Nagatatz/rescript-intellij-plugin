@@ -158,9 +158,25 @@ src/main/
 │   │   ├── RescriptFoldingBuilder.kt      # コード折りたたみ (CustomFoldingBuilder)
 │   │   └── RescriptCustomFoldingProvider.kt  # //#region カスタム折りたたみ
 │   ├── wizard/
+│   │   ├── PackageManager.kt                 # パッケージマネージャ定義
+│   │   ├── ProjectTemplate.kt                # 12 テンプレート enum + カテゴリ
+│   │   ├── ProjectFileBuilders.kt            # 共有ファイル生成ユーティリティ
 │   │   ├── RescriptModuleBuilder.kt          # Project Wizard (New Project)
-│   │   ├── RescriptProjectWizardStep.kt      # ウィザード設定ステップ UI
-│   │   └── RescriptProjectGenerator.kt       # プロジェクトファイル生成
+│   │   ├── RescriptProjectWizardStep.kt      # テンプレート選択 UI
+│   │   ├── RescriptProjectGenerator.kt       # プロジェクトファイル生成
+│   │   └── templates/                        # テンプレート別ファイル生成
+│   │       ├── BasicTemplateFiles.kt
+│   │       ├── ViteReactTemplateFiles.kt
+│   │       ├── NextjsTemplateFiles.kt
+│   │       ├── ElectronTemplateFiles.kt
+│   │       ├── HonoTemplateFiles.kt
+│   │       ├── CloudflareWorkersTemplateFiles.kt
+│   │       ├── AwsLambdaTemplateFiles.kt
+│   │       ├── GoogleCloudRunTemplateFiles.kt
+│   │       ├── ReactNativeTemplateFiles.kt
+│   │       ├── NpmLibraryTemplateFiles.kt
+│   │       ├── CliToolTemplateFiles.kt
+│   │       └── MonorepoTemplateFiles.kt
 │   ├── generate/
 │   │   ├── RescriptGenerateGroup.kt              # Generate メニューグループ
 │   │   ├── RescriptTypeDeclarationParser.kt      # テキストベース型宣言パーサー

@@ -278,7 +278,7 @@ This feature requires the **JavaScript** plugin (or JavaScript and TypeScript su
 
 ## Project Wizard
 
-Create new ReScript projects directly from the IDE with pre-configured build files and starter code.
+Create new ReScript projects directly from the IDE with 12 pre-configured templates covering frontend, backend, serverless, mobile, and more.
 
 ### Steps
 
@@ -286,72 +286,87 @@ Create new ReScript projects directly from the IDE with pre-configured build fil
 2. Select **ReScript** from the generator list on the left
 3. Configure project settings:
    - **Project name** and **location**
+   - **Template** --- Choose from 12 project templates grouped by category
    - **Package manager** --- Choose between npm, pnpm, or yarn
-   - **Include React** --- Toggle to add React and `@rescript/react` dependencies
 4. Click **Create** to generate the project
+
+### Available Templates
+
+| Category | Template | Description |
+|----------|----------|-------------|
+| Basic | **Basic** | Minimal ReScript project with console output |
+| Frontend | **Vite + React** | React single-page application with Vite bundler |
+| Frontend | **Next.js** | Server-side rendered React application with Next.js |
+| Desktop | **Electron** | Cross-platform desktop application with Electron |
+| Backend | **Hono (Node.js)** | Lightweight web server with Hono framework on Node.js |
+| Serverless | **Cloudflare Workers** | Serverless API on Cloudflare Workers with Hono |
+| Serverless | **AWS Lambda** | Serverless function on AWS Lambda with Hono |
+| Serverless | **Google Cloud Run** | Container-based service on Google Cloud Run with Hono |
+| Mobile | **React Native (Expo)** | Mobile application with React Native and Expo |
+| Library | **npm Library** | Publishable npm package with `@genType` for TypeScript consumers |
+| Tool | **CLI Tool** | Command-line tool with argument parsing |
+| Full Stack | **Monorepo (Hono + React)** | Full-stack monorepo with Hono backend and React frontend |
 
 ### Generated Project Structure
 
-**Basic project** (without React):
+Each template generates a ready-to-use project with `rescript.json`, `package.json`, and template-specific source files.
+
+**Basic template:**
 
 ```
 my-project/
-+-- rescript.json         # ReScript build configuration
-+-- package.json          # Node.js package manifest
++-- rescript.json
++-- package.json
 +-- src/
-    +-- App.res           # Starter module
+    +-- App.res
 ```
 
-**React project** (with Include React enabled):
+**Vite + React template:**
 
 ```
 my-project/
-+-- rescript.json         # Includes jsx configuration
-+-- package.json          # Includes react and @rescript/react dependencies
++-- rescript.json
++-- package.json
++-- index.html
++-- vite.config.mjs
 +-- src/
-    +-- App.res           # React component starter
+    +-- App.res
+    +-- Main.res
 ```
 
-### Generated File Contents
+**Monorepo template:**
 
-**rescript.json** (basic project):
-
-```json
-{
-  "name": "my-project",
-  "sources": [
-    {
-      "dir": "src",
-      "subdirs": true
-    }
-  ],
-  "package-type": "module",
-  "suffix": ".res.mjs",
-  "bs-dependencies": ["@rescript/core"],
-  "bsc-flags": ["-open RescriptCore"]
-}
+```
+my-project/
++-- package.json            # Root with workspaces
++-- packages/
+    +-- shared/
+    |   +-- rescript.json
+    |   +-- package.json
+    |   +-- src/Types.res
+    +-- server/
+    |   +-- rescript.json
+    |   +-- package.json
+    |   +-- src/Server.res
+    +-- client/
+        +-- rescript.json
+        +-- package.json
+        +-- src/App.res
 ```
 
-When React is included, the `rescript.json` also contains a `jsx` section and `@rescript/react` in `bs-dependencies`.
+### Template Details
 
-**src/App.res** (basic project):
+**React-based templates** (Vite+React, Next.js, Electron, React Native) include JSX configuration in `rescript.json` and React dependencies.
 
-```rescript
-let greeting = "Hello, ReScript!"
+**Hono-based templates** (Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run) share common Hono bindings (`src/Hono.res`) and differ in their deployment configuration:
+- **Hono (Node.js)** --- Uses `@hono/node-server` for local development
+- **Cloudflare Workers** --- Includes `wrangler.jsonc` configuration
+- **AWS Lambda** --- Includes esbuild bundling and Lambda adapter bindings
+- **Google Cloud Run** --- Includes a `Dockerfile` for containerized deployment
 
-Console.log(greeting)
-```
+**npm Library** includes `@genType` configuration for generating TypeScript type definitions.
 
-**src/App.res** (React project):
-
-```rescript
-@react.component
-let make = () => {
-  <div>
-    {React.string("Hello, ReScript + React!")}
-  </div>
-}
-```
+**CLI Tool** includes a `bin` entry in `package.json` and argument parsing via `Process.argv`.
 
 ### After Project Creation
 
