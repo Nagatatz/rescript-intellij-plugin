@@ -19,6 +19,13 @@ enum class PackageManager(
  * (either a plain module or a React component).
  */
 object RescriptProjectGenerator {
+    /**
+     * Generates the content of `rescript.json` for a new project.
+     *
+     * @param name the project name
+     * @param includeReact whether to include JSX config and React dependencies
+     * @return the JSON content as a string
+     */
     fun generateRescriptJson(
         name: String,
         includeReact: Boolean,
@@ -62,6 +69,13 @@ object RescriptProjectGenerator {
         }
     }
 
+    /**
+     * Generates the content of `package.json` for a new project.
+     *
+     * @param name the project name
+     * @param includeReact whether to include React and related dependencies
+     * @return the JSON content as a string
+     */
     fun generatePackageJson(
         name: String,
         includeReact: Boolean,

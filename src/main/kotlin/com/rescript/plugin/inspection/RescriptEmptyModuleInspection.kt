@@ -67,6 +67,7 @@ class RescriptEmptyModuleInspection : LocalInspectionTool() {
         }
     }
 
+    /** Quick fix that removes the empty module declaration and any preceding annotation. */
     private class RemoveEmptyModuleQuickFix : LocalQuickFix {
         override fun getFamilyName(): String = "Remove empty module"
 

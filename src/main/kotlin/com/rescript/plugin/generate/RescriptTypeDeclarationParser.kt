@@ -36,6 +36,12 @@ sealed class TypeShape {
  * @see RescriptGenerateSwitchAction
  */
 object RescriptTypeDeclarationParser {
+    /**
+     * Parses a ReScript type declaration text into a [TypeShape].
+     *
+     * @param declarationText the raw text of the type declaration (e.g., `type color = Red | Green | Blue`)
+     * @return the parsed shape (Variant, Record, or Unknown)
+     */
     fun parse(declarationText: String): TypeShape {
         val body = extractBody(declarationText) ?: return TypeShape.Unknown
         val trimmed = body.trim()
@@ -55,6 +61,12 @@ object RescriptTypeDeclarationParser {
         return TypeShape.Unknown
     }
 
+    /**
+     * Extracts the type name from a declaration text.
+     *
+     * @param declarationText the raw text (e.g., `type color = Red | Blue`)
+     * @return the type name (e.g., `"color"`), or null if not found
+     */
     fun extractTypeName(declarationText: String): String? {
         val match = Regex("""^\s*type\s+(\w+)""").find(declarationText)
         return match?.groupValues?.get(1)

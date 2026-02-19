@@ -67,11 +67,18 @@ class RescriptGenerateModuleTypeAction :
     }
 
     companion object {
+        /** Represents a single declaration (let, type, module) within a module body. */
         data class Declaration(
             val kind: String,
             val name: String,
         )
 
+        /**
+         * Collects let, type, external, and module declarations from a module body.
+         *
+         * @param moduleDecl the MODULE_DECLARATION PSI element to scan
+         * @return list of declarations found within the module
+         */
         fun collectDeclarations(moduleDecl: PsiElement): List<Declaration> {
             val declarations = mutableListOf<Declaration>()
 
@@ -98,6 +105,13 @@ class RescriptGenerateModuleTypeAction :
             return declarations
         }
 
+        /**
+         * Generates a `module type` signature text from a module name and its declarations.
+         *
+         * @param moduleName the name of the module
+         * @param declarations the declarations to include in the type signature
+         * @return the generated module type text
+         */
         fun generateModuleTypeText(
             moduleName: String,
             declarations: List<Declaration>,

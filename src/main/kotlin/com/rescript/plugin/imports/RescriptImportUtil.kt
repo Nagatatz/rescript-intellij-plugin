@@ -3,6 +3,12 @@ package com.rescript.plugin.imports
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
 
+/**
+ * Utility for extracting module path information from `open` statement PSI elements.
+ *
+ * @see com.rescript.plugin.inspection.RescriptDuplicateOpenInspection
+ * @see com.rescript.plugin.imports.RescriptImportOptimizer
+ */
 object RescriptImportUtil {
     /**
      * Extracts the module path from an OPEN_STATEMENT PsiElement.

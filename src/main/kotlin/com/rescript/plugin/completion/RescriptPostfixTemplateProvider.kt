@@ -71,6 +71,7 @@ class RescriptPostfixTemplateProvider : PostfixTemplateProvider {
     }
 }
 
+/** Base class for ReScript postfix templates with shared applicability check. */
 private abstract class RescriptPostfixTemplateBase(
     name: String,
     example: String,
@@ -83,6 +84,7 @@ private abstract class RescriptPostfixTemplateBase(
     ): Boolean = RescriptPostfixTemplateProvider.isRescriptApplicable(context)
 }
 
+/** Postfix template: `expr.switch` -> `switch expr { | _ => }`. */
 private class SwitchPostfixTemplate(
     provider: PostfixTemplateProvider,
 ) : RescriptPostfixTemplateBase("switch", "switch expr { | _ => }", provider) {
@@ -104,6 +106,7 @@ private class SwitchPostfixTemplate(
     }
 }
 
+/** Postfix template: `expr.pipe` -> `expr->`. */
 private class PipePostfixTemplate(
     provider: PostfixTemplateProvider,
 ) : RescriptPostfixTemplateBase("pipe", "expr->", provider) {
@@ -125,6 +128,7 @@ private class PipePostfixTemplate(
     }
 }
 
+/** Postfix template: `expr.log` -> `Console.log(expr)`. */
 private class LogPostfixTemplate(
     provider: PostfixTemplateProvider,
 ) : RescriptPostfixTemplateBase("log", "Console.log(expr)", provider) {
@@ -146,6 +150,7 @@ private class LogPostfixTemplate(
     }
 }
 
+/** Postfix template: `expr.some` -> `Some(expr)`. */
 private class SomePostfixTemplate(
     provider: PostfixTemplateProvider,
 ) : RescriptPostfixTemplateBase("some", "Some(expr)", provider) {
@@ -157,6 +162,7 @@ private class SomePostfixTemplate(
     }
 }
 
+/** Postfix template: `expr.ok` -> `Ok(expr)`. */
 private class OkPostfixTemplate(
     provider: PostfixTemplateProvider,
 ) : RescriptPostfixTemplateBase("ok", "Ok(expr)", provider) {
@@ -168,6 +174,7 @@ private class OkPostfixTemplate(
     }
 }
 
+/** Postfix template: `expr.error` -> `Error(expr)`. */
 private class ErrorPostfixTemplate(
     provider: PostfixTemplateProvider,
 ) : RescriptPostfixTemplateBase("error", "Error(expr)", provider) {
@@ -179,6 +186,7 @@ private class ErrorPostfixTemplate(
     }
 }
 
+/** Postfix template: `expr.ignore` -> `expr->ignore`. */
 private class IgnorePostfixTemplate(
     provider: PostfixTemplateProvider,
 ) : RescriptPostfixTemplateBase("ignore", "expr->ignore", provider) {
