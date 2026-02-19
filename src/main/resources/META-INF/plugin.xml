@@ -353,5 +353,12 @@
                popup="true">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
         </group>
+        <action id="ReScript.GenerateDtsBinding"
+                class="com.rescript.plugin.binding.DtsGenerateBindingAction"
+                text="Generate ReScript Binding"
+                description="Generate ReScript binding from TypeScript .d.ts file">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
     </actions>
 </idea-plugin>

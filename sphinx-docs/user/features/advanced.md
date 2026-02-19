@@ -400,3 +400,61 @@ In all templates, the file name you enter is automatically substituted into the 
 ### Customizing Templates
 
 File templates can be customized in **Settings** > **Editor** > **File and Code Templates**. Look for the templates under the **Internal** tab with names starting with "ReScript". You can modify the template content using IntelliJ's template variable syntax (e.g., `${NAME}` for the file name).
+
+## .d.ts Binding Generation
+
+Generate ReScript `external` binding code from TypeScript `.d.ts` definition files. This automates the tedious process of writing FFI declarations manually.
+
+### How to Use
+
+1. Right-click a `.d.ts` file in the Project panel
+2. Select **Generate ReScript Binding**
+3. The plugin parses the file using the TypeScript Compiler API and generates a `.res` file with binding declarations
+
+The action is also available from the editor context menu when a `.d.ts` file is open.
+
+### Supported Constructs
+
+| TypeScript | ReScript Output |
+|------------|----------------|
+| `function` | `@module external fn: params => ret = "fn"` |
+| `interface` | Record type `type t = { field1: string, field2?: int }` |
+| `class` | Module with `@new`, `@get`, `@send` externals |
+| `type` alias | `type t = typeStr` |
+| `enum` (string) | Polymorphic variant `type t = [#"a" \| #"b"]` |
+| `enum` (numeric) | Module with `@inline let` constants |
+| `const` / `let` | `@module external name: type = "name"` |
+
+### Type Mapping
+
+| TypeScript | ReScript |
+|------------|----------|
+| `string` | `string` |
+| `number` | `float` |
+| `boolean` | `bool` |
+| `void` | `unit` |
+| `any` / `unknown` | `JSON.t` |
+| `T \| null` | `Nullable.t<T>` |
+| `T \| undefined` | `option<T>` |
+| `Array<T>` / `T[]` | `array<T>` |
+| `Promise<T>` | `promise<T>` |
+| `Record<string, T>` | `Dict.t<T>` |
+| `[A, B, C]` | `(A, B, C)` |
+| `(a: A) => B` | `A => B` |
+| String literal union | Polymorphic variant with `@string` |
+
+### Requirements
+
+- **Node.js** must be installed and available in PATH (or configured in Settings)
+- **TypeScript** must be installed in the project's `node_modules` (the plugin searches parent directories for monorepo support)
+
+### Limitations
+
+The following TypeScript constructs are not yet supported and will generate `/* TODO */` comments:
+
+- Conditional types and mapped types
+- Template literal types
+- Complex generics with constraints
+- Intersection types (generates `JSON.t` fallback)
+- Overloaded function signatures (uses first signature)
+- Declaration merging

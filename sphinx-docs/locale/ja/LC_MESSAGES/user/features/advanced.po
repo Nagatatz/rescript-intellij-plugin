@@ -937,6 +937,101 @@ msgstr ""
 "探してください。IntelliJ のテンプレート変数構文（例: `${NAME}` でファイル名）を"
 "使用してテンプレートの内容を変更できます。"
 
+#: ../../user/features/advanced.md
+msgid ".d.ts Binding Generation"
+msgstr ".d.ts バインディング生成"
+
+#: ../../user/features/advanced.md
+msgid ""
+"Generate ReScript `external` binding code from TypeScript `.d.ts` "
+"definition files. This automates the tedious process of writing FFI "
+"declarations manually."
+msgstr ""
+"TypeScript `.d.ts` 定義ファイルから ReScript `external` バインディングコードを"
+"生成します。FFI 宣言を手動で記述する煩雑な作業を自動化します。"
+
+#: ../../user/features/advanced.md
+msgid "How to Use"
+msgstr "使い方"
+
+#: ../../user/features/advanced.md
+msgid "Right-click a `.d.ts` file in the Project panel"
+msgstr "Project パネルで `.d.ts` ファイルを右クリックします"
+
+#: ../../user/features/advanced.md
+msgid "Select **Generate ReScript Binding**"
+msgstr "**Generate ReScript Binding** を選択します"
+
+#: ../../user/features/advanced.md
+msgid ""
+"The plugin parses the file using the TypeScript Compiler API and "
+"generates a `.res` file with binding declarations"
+msgstr ""
+"プラグインが TypeScript Compiler API を使用してファイルを解析し、"
+"バインディング宣言を含む `.res` ファイルを生成します"
+
+#: ../../user/features/advanced.md
+msgid ""
+"The action is also available from the editor context menu when a "
+"`.d.ts` file is open."
+msgstr ""
+"このアクションは `.d.ts` ファイルを開いているときのエディタコンテキストメニューからも利用できます。"
+
+#: ../../user/features/advanced.md
+msgid "Supported Constructs"
+msgstr "サポートされる構文"
+
+#: ../../user/features/advanced.md
+msgid "TypeScript"
+msgstr "TypeScript"
+
+#: ../../user/features/advanced.md
+msgid "ReScript Output"
+msgstr "ReScript 出力"
+
+#: ../../user/features/advanced.md
+msgid "Type Mapping"
+msgstr "型マッピング"
+
+#: ../../user/features/advanced.md
+msgid "ReScript"
+msgstr "ReScript"
+
+#: ../../user/features/advanced.md
+msgid "Limitations"
+msgstr "制限事項"
+
+#: ../../user/features/advanced.md
+msgid ""
+"The following TypeScript constructs are not yet supported and will "
+"generate `/* TODO */` comments:"
+msgstr ""
+"以下の TypeScript 構文はまだサポートされておらず、`/* TODO */` コメントが生成されます:"
+
+#: ../../user/features/advanced.md
+msgid "Conditional types and mapped types"
+msgstr "条件型とマップ型"
+
+#: ../../user/features/advanced.md
+msgid "Template literal types"
+msgstr "テンプレートリテラル型"
+
+#: ../../user/features/advanced.md
+msgid "Complex generics with constraints"
+msgstr "制約付きの複雑なジェネリクス"
+
+#: ../../user/features/advanced.md
+msgid "Intersection types (generates `JSON.t` fallback)"
+msgstr "交差型（`JSON.t` にフォールバック）"
+
+#: ../../user/features/advanced.md
+msgid "Overloaded function signatures (uses first signature)"
+msgstr "オーバーロードされた関数シグネチャ（最初のシグネチャを使用）"
+
+#: ../../user/features/advanced.md
+msgid "Declaration merging"
+msgstr "宣言マージ"
+
 #~ msgid ""
 #~ "Function definitions display their inferred"
 #~ " type signatures as inline annotations "

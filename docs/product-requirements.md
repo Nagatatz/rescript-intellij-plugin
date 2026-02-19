@@ -116,6 +116,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Smart Enter | Shift+Enter で文を補完して改行（括弧閉じ、switch ブレース補完等） | `RescriptSmartEnterProcessor` |
 | Project Wizard | New Project ダイアログから ReScript プロジェクトテンプレート作成 | `RescriptModuleBuilder` + `RescriptProjectWizardStep` |
 | Code Generation | variant switch arms / module type スケルトン自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` |
+| .d.ts → ReScript Binding 生成 | TypeScript `.d.ts` 定義ファイルから ReScript `external` バインディングコードを自動生成 | `DtsGenerateBindingAction` + `DtsToRescriptConverter` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 

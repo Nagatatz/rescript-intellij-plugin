@@ -114,8 +114,8 @@ msgid "Advanced Features"
 msgstr "高度な機能"
 
 #: ../../user/features/index.md:67
-msgid "Code Lens, Compiled JS Preview, Module Hierarchy, and more."
-msgstr "Code Lens、コンパイル済み JS プレビュー、モジュール階層などです。"
+msgid "Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding Generation, and more."
+msgstr "Code Lens、コンパイル済み JS プレビュー、モジュール階層、.d.ts バインディング生成などです。"
 
 #: ../../user/features/index.md:71
 msgid "Native vs. LSP Features"

@@ -64,7 +64,7 @@ Inspections, dead code analysis, and import optimization.
 :link: advanced
 :link-type: doc
 
-Code Lens, Compiled JS Preview, Module Hierarchy, and more.
+Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding Generation, and more.
 :::
 ::::
 
