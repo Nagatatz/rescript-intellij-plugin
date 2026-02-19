@@ -14,5 +14,5 @@
 - [x] Build check: `./gradlew buildPlugin` — PASSED
 - [x] Test check: 62/63 passed (1 pre-existing env issue)
 - [x] Commit: `✨ Add 12 project templates to wizard`
-- [ ] Update docs (CLAUDE.md, product-requirements.md, etc.)
-- [ ] Merge to `main`
+- [x] Update docs (CLAUDE.md, product-requirements.md, etc.)
+- [x] Merge to `main` (committed directly to main)

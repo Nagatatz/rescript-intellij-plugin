@@ -44,6 +44,6 @@ Initial release of the ReScript IntelliJ Plugin.
 - Rename refactoring
 - TODO indexing
 - Spellchecking
-- Project Wizard
+- Project Wizard with 12 templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm Library, CLI Tool, Monorepo)
 - Code Generation (Switch Arms, Module Type)
 - .d.ts to ReScript binding generation

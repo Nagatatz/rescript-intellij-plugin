@@ -64,7 +64,7 @@ Inspections, dead code analysis, and import optimization.
 :link: advanced
 :link-type: doc
 
-Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding Generation, and more.
+Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding Generation, Project Wizard, and more.
 :::
 ::::
 
@@ -90,6 +90,7 @@ Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding Generation, and 
 | Code formatting | | Yes (via CLI) | Invokes `rescript format` through the language server to format the current file. |
 | Signature help | | Yes | Displays parameter information when typing function arguments. Requires type analysis. |
 | Code Lens | | Yes | Shows type annotations above functions via the CodeVision API. Requires type inference. |
+| Project Wizard | Yes | | Creates new projects from 12 pre-configured templates. Generates all build files and starter code locally. |
 
 ### Understanding Native Features
 

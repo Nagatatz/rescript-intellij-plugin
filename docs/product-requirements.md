@@ -114,7 +114,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Statement Up/Down Mover | Alt+Shift+Up/Down でトップレベル宣言を上下移動 | `RescriptStatementUpDownMover` |
 | Qualified Name Copy | Cmd+Shift+Alt+C で完全修飾名コピー | `RescriptQualifiedNameProvider` |
 | Smart Enter | Shift+Enter で文を補完して改行（括弧閉じ、switch ブレース補完等） | `RescriptSmartEnterProcessor` |
-| Project Wizard | New Project ダイアログから ReScript プロジェクトテンプレート作成 | `RescriptModuleBuilder` + `RescriptProjectWizardStep` |
+| Project Wizard | New Project ダイアログから 12 種類のプロジェクトテンプレート選択・作成（Basic, Vite+React, Next.js, Electron, Hono, CF Workers, Lambda, Cloud Run, React Native, npm Library, CLI Tool, Monorepo） | `RescriptModuleBuilder` + `RescriptProjectWizardStep` + `ProjectTemplate` + `ProjectFileBuilders` + `templates/*` |
 | Code Generation | variant switch arms / module type スケルトン自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` |
 | .d.ts → ReScript Binding 生成 | TypeScript `.d.ts` 定義ファイルから ReScript `external` バインディングコードを自動生成 | `DtsGenerateBindingAction` + `DtsToRescriptConverter` |
 

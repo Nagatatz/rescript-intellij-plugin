@@ -26,6 +26,7 @@
 - **Code style** — Indentation settings for ReScript files
 - **rescript.json icon** — Custom icon for ReScript configuration files
 - **.d.ts binding generation** — Generate ReScript external bindings from TypeScript definition files
+- **Project Wizard** — Create new ReScript projects from 12 pre-configured templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm Library, CLI Tool, Monorepo)
 
 ## Requirements
 
