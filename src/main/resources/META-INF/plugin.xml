@@ -263,6 +263,12 @@
         <!-- Smart Enter (Shift+Enter) -->
         <lang.smartEnterProcessor language="ReScript"
                                    implementationClass="com.rescript.plugin.editor.RescriptSmartEnterProcessor"/>
+
+        <!-- Test Runner -->
+        <configurationType
+                implementation="com.rescript.plugin.test.RescriptTestRunConfigurationType"/>
+        <runConfigurationProducer
+                implementation="com.rescript.plugin.test.RescriptTestConfigurationProducer"/>
     </extensions>
 
     <actions>
