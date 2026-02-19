@@ -11,6 +11,13 @@ import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 
+/**
+ * Wizard step UI for configuring a new ReScript project.
+ *
+ * Provides controls for selecting the package manager (npm/pnpm/yarn)
+ * and toggling React support. Values are written back to [RescriptModuleBuilder]
+ * via [updateDataModel].
+ */
 class RescriptProjectWizardStep(
     private val builder: RescriptModuleBuilder,
 ) : ModuleWizardStep() {

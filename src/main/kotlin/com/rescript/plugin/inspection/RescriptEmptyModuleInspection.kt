@@ -12,6 +12,12 @@ import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Local inspection that flags empty module declarations (modules with braces but no declarations).
+ *
+ * Skips module aliases (`module X = Y`). Checks nested modules recursively.
+ * Provides a quick-fix to remove the empty module and any preceding annotation.
+ */
 class RescriptEmptyModuleInspection : LocalInspectionTool() {
     companion object {
         private val DECLARATION_TYPES =

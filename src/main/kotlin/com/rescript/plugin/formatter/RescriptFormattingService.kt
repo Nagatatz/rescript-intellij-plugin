@@ -10,6 +10,14 @@ import com.rescript.plugin.RescriptInterfaceFileType
 import com.rescript.plugin.run.RescriptCliDetector
 import java.io.IOException
 
+/**
+ * Integrates the ReScript CLI formatter (`rescript format`) with IntelliJ's
+ * code formatting system (Cmd+Option+L).
+ *
+ * Pipes the document content to `rescript format --stdin .<ext>` via stdin
+ * and replaces the document with the formatted output. Runs asynchronously
+ * to avoid blocking the UI thread.
+ */
 class RescriptFormattingService : AsyncDocumentFormattingService() {
     companion object {
         private const val NOTIFICATION_GROUP = "ReScript"

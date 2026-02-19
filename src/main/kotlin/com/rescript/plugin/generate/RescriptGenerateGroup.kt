@@ -6,6 +6,12 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Action group for the Generate menu (Alt+Insert) in ReScript files.
+ *
+ * Provides "Switch Arms" and "Module Type" generation actions.
+ * Only visible when the active file is a [RescriptFile].
+ */
 class RescriptGenerateGroup : ActionGroup() {
     private val actions: Array<AnAction> =
         arrayOf(

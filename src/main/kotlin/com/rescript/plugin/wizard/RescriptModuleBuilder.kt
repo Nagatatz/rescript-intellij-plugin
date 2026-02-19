@@ -11,6 +11,15 @@ import com.rescript.plugin.RescriptIcons
 import java.io.File
 import javax.swing.Icon
 
+/**
+ * Module builder for the "New Project" wizard that scaffolds a ReScript project.
+ *
+ * Generates `rescript.json`, `package.json`, a `src/` directory with a starter file,
+ * and optionally includes React support. Package manager selection (npm/pnpm/yarn)
+ * is configurable via [RescriptProjectWizardStep].
+ *
+ * @see RescriptProjectGenerator for the file content generation
+ */
 class RescriptModuleBuilder : ModuleBuilder() {
     var packageManager: PackageManager = PackageManager.NPM
     var includeReact: Boolean = false

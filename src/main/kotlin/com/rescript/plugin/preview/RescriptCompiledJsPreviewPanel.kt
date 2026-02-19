@@ -23,6 +23,17 @@ import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.SwingConstants
 
+/**
+ * Panel that displays the compiled JavaScript output for the active ReScript file.
+ *
+ * Renders the JS content in a read-only [EditorEx] with syntax highlighting.
+ * Automatically updates when the active editor file changes or when compilation
+ * succeeds (via [RescriptCompilationStatusService] listener). Provides toolbar
+ * actions to refresh the preview and open the JS file in a full editor tab.
+ *
+ * @see RescriptCompiledJsPreviewToolWindowFactory for the tool window registration
+ * @see RescriptOpenCompiledJsAction for locating the compiled JS file
+ */
 class RescriptCompiledJsPreviewPanel(
     private val project: Project,
     parentDisposable: Disposable,

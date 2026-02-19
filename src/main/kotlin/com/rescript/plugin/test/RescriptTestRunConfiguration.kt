@@ -16,6 +16,16 @@ import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 
+/**
+ * Run configuration for executing ReScript tests with Jest, Vitest, or a custom command.
+ *
+ * Builds a command line with the appropriate test runner flags (including TeamCity reporters
+ * for SMTestRunner integration), optional test file path, test name filter (`-t`),
+ * and additional user-supplied arguments.
+ *
+ * @see RescriptTestConsoleProperties for SMTestRunner console setup
+ * @see RescriptTestSettingsEditor for the configuration UI
+ */
 class RescriptTestRunConfiguration(
     project: Project,
     factory: ConfigurationFactory,

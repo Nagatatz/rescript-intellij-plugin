@@ -7,6 +7,10 @@ import com.intellij.psi.impl.cache.impl.todo.LexerBasedTodoIndexer
 import com.intellij.psi.search.UsageSearchContext
 import com.rescript.plugin.lang.RescriptLexer
 
+/**
+ * Filter lexer that scans ReScript comment tokens for TODO/FIXME patterns
+ * and feeds them to the IDE's TODO indexing system.
+ */
 private class RescriptFilterLexer(
     originalLexer: Lexer,
     occurrenceConsumer: OccurrenceConsumer,
@@ -18,6 +22,7 @@ private class RescriptFilterLexer(
     }
 }
 
+/** Indexes TODO comments in ReScript files using the JFlex lexer. */
 class RescriptTodoIndexer : LexerBasedTodoIndexer() {
     override fun createLexer(consumer: OccurrenceConsumer): Lexer = RescriptFilterLexer(RescriptLexer(), consumer)
 }

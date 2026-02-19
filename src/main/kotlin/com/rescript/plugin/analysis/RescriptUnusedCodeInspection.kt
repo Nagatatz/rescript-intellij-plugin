@@ -12,6 +12,16 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.search.GlobalSearchScope
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Global inspection that runs `rescript-tools reanalyze -json` to find unused code
+ * across the entire project (Analyze > Inspect Code).
+ *
+ * Unlike [RescriptReanalyzeAnnotator] which operates on individual files in the editor,
+ * this inspection collects all diagnostics from a single reanalyze invocation and
+ * distributes them to the corresponding [RescriptFile] instances via [ProblemDescriptionsProcessor].
+ *
+ * @see RescriptReanalyzeAnnotator for per-file annotation in the editor
+ */
 class RescriptUnusedCodeInspection : GlobalInspectionTool() {
     override fun runInspection(
         scope: com.intellij.analysis.AnalysisScope,

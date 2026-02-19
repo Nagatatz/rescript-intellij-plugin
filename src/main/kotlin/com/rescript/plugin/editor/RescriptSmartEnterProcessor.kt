@@ -8,6 +8,14 @@ import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.RescriptLexer
 import com.rescript.plugin.lang.RescriptTokenTypes as T
 
+/**
+ * Smart Enter processor for ReScript (Shift+Enter).
+ *
+ * Analyzes the current line and performs context-aware completions:
+ * - `switch expr` without `{` -> inserts `{ | }` block with cursor on the pipe arm
+ * - `| pattern` without `=>` -> appends ` => `
+ * - Unclosed `{`, `(`, or `[` -> inserts newline with closing bracket and proper indentation
+ */
 class RescriptSmartEnterProcessor : SmartEnterProcessor() {
     override fun process(
         project: Project,

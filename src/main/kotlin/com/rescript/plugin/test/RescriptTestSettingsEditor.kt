@@ -10,6 +10,12 @@ import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
 import javax.swing.JTextField
 
+/**
+ * Settings editor UI for [RescriptTestRunConfiguration].
+ *
+ * Provides form fields for framework selection, working directory, test file path,
+ * test name filter, and additional command-line arguments.
+ */
 class RescriptTestSettingsEditor(
     private val project: Project,
 ) : SettingsEditor<RescriptTestRunConfiguration>() {

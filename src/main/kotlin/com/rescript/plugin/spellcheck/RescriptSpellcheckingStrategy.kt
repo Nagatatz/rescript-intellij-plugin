@@ -7,6 +7,12 @@ import com.intellij.spellchecker.tokenizer.Tokenizer
 import com.intellij.spellchecker.tokenizer.TokenizerBase
 import com.rescript.plugin.lang.RescriptTokenTypes
 
+/**
+ * Enables spellchecking in ReScript files for comments, strings, and identifiers.
+ *
+ * Comments and strings use text tokenization; identifiers use camelCase/snake_case splitting.
+ * Keywords, operators, and other tokens are excluded from spellchecking.
+ */
 class RescriptSpellcheckingStrategy : SpellcheckingStrategy() {
     private val identifierTokenizer: Tokenizer<PsiElement> =
         TokenizerBase(PlainTextSplitter.getInstance())

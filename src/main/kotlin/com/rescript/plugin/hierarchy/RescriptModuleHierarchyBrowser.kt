@@ -12,6 +12,14 @@ import com.rescript.plugin.lang.psi.RescriptPsiUtils
 import javax.swing.JPanel
 import javax.swing.JTree
 
+/**
+ * Hierarchy browser UI for ReScript modules, supporting two view types:
+ * - **Module Nesting**: shows the nested module structure within a file
+ * - **Module Dependencies**: shows modules referenced by `open`/`include` statements
+ *
+ * @see RescriptModuleHierarchyTreeStructure for the nesting tree builder
+ * @see RescriptModuleDependencyTreeStructure for the dependency tree builder
+ */
 class RescriptModuleHierarchyBrowser(
     private val rootElement: PsiElement,
 ) : HierarchyBrowserBaseEx(rootElement.project, rootElement) {

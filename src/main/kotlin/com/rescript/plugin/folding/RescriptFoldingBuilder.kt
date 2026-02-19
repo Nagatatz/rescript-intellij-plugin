@@ -10,6 +10,17 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 
+/**
+ * Code folding builder for ReScript files.
+ *
+ * Creates fold regions for:
+ * - Multi-line block comments (`/* ... */`)
+ * - Module, let, and type declarations containing braces
+ * - Multi-line JSX elements and fragments
+ *
+ * Also supports custom folding regions via `//#region` comments
+ * (delegated to [RescriptCustomFoldingProvider]).
+ */
 open class RescriptFoldingBuilder : CustomFoldingBuilder() {
     companion object {
         private val FOLDABLE_DECLARATION_TYPES =

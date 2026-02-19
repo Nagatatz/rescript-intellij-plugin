@@ -8,6 +8,12 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
+/**
+ * Represents a single element in the ReScript Structure View tree.
+ *
+ * Wraps a [NavigatablePsiElement] (e.g., a let/type/module declaration) and
+ * delegates name extraction, icon resolution, and child discovery to [RescriptPsiUtils].
+ */
 class RescriptStructureViewElement(
     private val element: NavigatablePsiElement,
 ) : StructureViewTreeElement,

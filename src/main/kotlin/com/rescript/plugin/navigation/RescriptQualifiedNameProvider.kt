@@ -8,6 +8,13 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
+/**
+ * Provides fully qualified names for ReScript declarations (Cmd+Shift+Alt+C).
+ *
+ * Generates qualified names in the form `FileName.ModulePath.declarationName`
+ * (e.g., `Utils.StringHelper.trim`) by walking up the PSI tree to collect
+ * enclosing module names.
+ */
 class RescriptQualifiedNameProvider : QualifiedNameProvider {
     companion object {
         internal val SUPPORTED_TYPES = RescriptPsiUtils.NAVIGABLE_TYPES

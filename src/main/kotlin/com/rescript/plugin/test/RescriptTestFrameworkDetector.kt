@@ -6,6 +6,12 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vfs.VirtualFile
 
+/**
+ * Supported test frameworks for running ReScript tests.
+ *
+ * Each entry provides its persistent [id], human-readable [displayName],
+ * and [defaultCommand] used when constructing the test runner command line.
+ */
 enum class TestFramework(
     val id: String,
     val displayName: String,
@@ -16,6 +22,11 @@ enum class TestFramework(
     CUSTOM("custom", "Custom", ""),
 }
 
+/**
+ * Detects the test framework (Jest or Vitest) from the project's `package.json`
+ * dependencies or from the presence of framework-specific config files
+ * (e.g., `vitest.config.ts`, `jest.config.js`).
+ */
 object RescriptTestFrameworkDetector {
     private val LOG = logger<RescriptTestFrameworkDetector>()
 

@@ -6,6 +6,13 @@ import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Optimizes imports in ReScript files by removing duplicate `open` statements.
+ *
+ * Invoked via Ctrl+Alt+O (Optimize Imports). Scans top-level `open` statements,
+ * identifies duplicates by module path, and deletes them in reverse order to
+ * preserve offsets during deletion.
+ */
 class RescriptImportOptimizer : ImportOptimizer {
     override fun supports(file: PsiFile): Boolean = file is RescriptFile
 

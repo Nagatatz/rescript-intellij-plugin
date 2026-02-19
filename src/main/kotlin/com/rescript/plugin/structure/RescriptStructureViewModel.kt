@@ -7,6 +7,9 @@ import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
 
+/**
+ * View model for the ReScript Structure View, supporting alphabetical sorting.
+ */
 class RescriptStructureViewModel(
     psiFile: PsiFile,
     editor: Editor?,

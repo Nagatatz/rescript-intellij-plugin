@@ -9,6 +9,19 @@ import com.intellij.openapi.ide.CopyPasteManager
 import com.rescript.plugin.lang.psi.RescriptFile
 import java.awt.datatransfer.DataFlavor
 
+/**
+ * Editor action that pastes clipboard JSON content as ReScript `JSON.t` type expressions.
+ *
+ * Converts JSON values to their ReScript typed equivalents:
+ * - `null` -> `JSON.Null`
+ * - `true` -> `JSON.Boolean(true)`
+ * - `42` -> `JSON.Number(42.)`
+ * - `"hello"` -> `JSON.String("hello")`
+ * - `[...]` -> `JSON.Array([...])`
+ * - `{...}` -> `JSON.Object(dict{...})`
+ *
+ * Only available when editing a ReScript file and the clipboard contains valid JSON.
+ */
 class RescriptPasteAsJsonAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return

@@ -14,6 +14,12 @@ import com.rescript.plugin.lsp.RescriptLanguageServer
 import com.rescript.plugin.lsp.RescriptLspServerSupportProvider
 import org.eclipse.lsp4j.TextDocumentIdentifier
 
+/**
+ * Action to generate a `.resi` interface file from a `.res` source file.
+ *
+ * Sends the LSP custom request `textDocument/createInterface` to the
+ * rescript-language-server and opens the generated interface file in the editor.
+ */
 class RescriptCreateInterfaceAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return

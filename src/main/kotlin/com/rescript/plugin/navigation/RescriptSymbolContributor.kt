@@ -15,6 +15,13 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
+/**
+ * Contributes ReScript symbols to the Go to Symbol dialog (Cmd+Option+O).
+ *
+ * Scans all `.res` and `.resi` files in the project for navigable declarations
+ * (let, type, module, external, exception) and makes them searchable by name.
+ * Recursively descends into nested module declarations.
+ */
 class RescriptSymbolContributor : ChooseByNameContributorEx {
     override fun processNames(
         processor: Processor<in String>,

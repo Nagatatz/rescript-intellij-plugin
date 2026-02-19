@@ -4,6 +4,11 @@ import com.intellij.execution.configurations.ConfigurationTypeBase
 import com.intellij.openapi.util.NotNullLazyValue
 import com.rescript.plugin.RescriptIcons
 
+/**
+ * Defines the "ReScript Test" run configuration type that appears in Run/Debug Configurations.
+ *
+ * Supports running tests with Jest, Vitest, or a custom command via [RescriptTestConfigurationFactory].
+ */
 class RescriptTestRunConfigurationType :
     ConfigurationTypeBase(
         ID,
