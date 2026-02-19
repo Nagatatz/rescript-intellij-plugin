@@ -1,0 +1,4 @@
+<idea-plugin>
+    <!-- Extensions requiring NodeJS plugin -->
+    <!-- Reserved for future Node.js interpreter selection integration -->
+</idea-plugin>
