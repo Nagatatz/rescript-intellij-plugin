@@ -7,6 +7,13 @@ import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 
+/**
+ * Project-level persistent settings for the ReScript plugin.
+ *
+ * Stores configuration for the LSP server path, Node.js interpreter path,
+ * and incremental type-checking toggle. Persisted in `rescriptSettings.xml`
+ * within the project's `.idea/` directory.
+ */
 @Service(Service.Level.PROJECT)
 @State(name = "RescriptSettings", storages = [Storage("rescriptSettings.xml")])
 class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings.State> {

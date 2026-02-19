@@ -8,6 +8,12 @@ import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 
+/**
+ * Adds a run gutter icon to the first top-level declaration in ReScript files.
+ *
+ * The icon appears only when `rescript.json` exists in the project root,
+ * indicating that the file belongs to a ReScript project that can be built.
+ */
 class RescriptRunLineMarkerContributor : RunLineMarkerContributor() {
     companion object {
         private val DECLARATION_KEYWORDS =
@@ -24,6 +30,11 @@ class RescriptRunLineMarkerContributor : RunLineMarkerContributor() {
                 RescriptElementTypes.MODULE_DECLARATION,
             )
 
+        /**
+         * Determines whether a run gutter icon should be shown for the given element.
+         * Returns true only for the keyword token of the first top-level declaration
+         * in a `.res` file within a project that has `rescript.json`.
+         */
         fun shouldShowMarker(element: PsiElement): Boolean {
             val tokenType = element.node?.elementType ?: return false
             if (tokenType !in DECLARATION_KEYWORDS) return false

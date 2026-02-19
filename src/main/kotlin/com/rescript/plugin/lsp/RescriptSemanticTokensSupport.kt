@@ -5,6 +5,14 @@ import com.intellij.platform.lsp.api.customization.LspSemanticTokensSupport
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
 
+/**
+ * Maps LSP semantic token types to IntelliJ [TextAttributesKey]s for ReScript.
+ *
+ * Translates semantic token types returned by rescript-language-server
+ * (e.g., "variable", "type", "namespace") into the corresponding highlighting
+ * attribute keys defined in [RescriptSyntaxHighlighter]. Unknown token types
+ * fall back to lexer-based highlighting.
+ */
 class RescriptSemanticTokensSupport : LspSemanticTokensSupport() {
     override fun shouldAskServerForSemanticTokens(psiFile: PsiFile): Boolean = true
 

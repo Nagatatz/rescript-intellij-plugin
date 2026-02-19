@@ -7,10 +7,17 @@ import com.jetbrains.jsonSchema.extension.JsonSchemaProviderFactory
 import com.jetbrains.jsonSchema.extension.SchemaType
 import com.jetbrains.jsonSchema.impl.JsonSchemaVersion
 
+/**
+ * Factory that registers a JSON Schema provider for ReScript configuration files.
+ *
+ * Provides schema validation and completion for `rescript.json` and `bsconfig.json`
+ * using the bundled schema at `/schemas/rescript.schema.json`.
+ */
 class RescriptJsonSchemaProviderFactory : JsonSchemaProviderFactory {
     override fun getProviders(project: Project): List<JsonSchemaFileProvider> = listOf(RescriptJsonSchemaFileProvider())
 }
 
+/** Provides the embedded JSON schema for ReScript configuration files. */
 private class RescriptJsonSchemaFileProvider : JsonSchemaFileProvider {
     override fun isAvailable(file: VirtualFile): Boolean = file.name in CONFIG_FILE_NAMES
 

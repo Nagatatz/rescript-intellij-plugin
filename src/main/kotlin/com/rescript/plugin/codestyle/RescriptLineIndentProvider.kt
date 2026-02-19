@@ -12,6 +12,13 @@ import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.RescriptLexer
 import com.rescript.plugin.lang.RescriptTokenTypes as T
 
+/**
+ * Provides automatic line indentation for ReScript files.
+ *
+ * Determines the indentation for a new line by analyzing the last significant token
+ * of the previous non-empty line. Lines ending with indent triggers (`{`, `(`, `[`, `=>`)
+ * cause an extra indentation level to be added.
+ */
 class RescriptLineIndentProvider : LineIndentProvider {
     override fun isSuitableFor(language: Language?): Boolean = language == RescriptLanguage
 
@@ -55,6 +62,10 @@ class RescriptLineIndentProvider : LineIndentProvider {
         return null
     }
 
+    /**
+     * Tokenizes a line and returns the last non-whitespace, non-comment token type.
+     * Used to determine whether the next line should be indented.
+     */
     internal fun findLastSignificantToken(lineText: String): IElementType? {
         val lexer = RescriptLexer()
         lexer.start(lineText)

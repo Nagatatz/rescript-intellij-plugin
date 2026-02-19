@@ -11,13 +11,13 @@
 
 ## Phase 2: lsp/ + codestyle/ + config/ + run/ + settings/ (21 files)
 
-- [ ] 2.1 Add KDoc comments to lsp/ (6 files)
-- [ ] 2.2 Add KDoc comments to codestyle/ (2 files)
-- [ ] 2.3 Add KDoc comments to config/ (2 files)
-- [ ] 2.4 Add KDoc comments to run/ (9 files)
-- [ ] 2.5 Add KDoc comments to settings/ (2 files)
-- [ ] 2.6 `./gradlew buildPlugin` success
-- [ ] 2.7 tasklist.md update & commit (`📝 Add KDoc comments to lsp, codestyle, config, run, and settings packages`)
+- [x] 2.1 Add KDoc comments to lsp/ (6 files)
+- [x] 2.2 Add KDoc comments to codestyle/ (2 files)
+- [x] 2.3 Add KDoc comments to config/ (2 files)
+- [x] 2.4 Add KDoc comments to run/ (9 files)
+- [x] 2.5 Add KDoc comments to settings/ (2 files)
+- [x] 2.6 `./gradlew buildPlugin` success
+- [x] 2.7 tasklist.md update & commit (`📝 Add KDoc comments to lsp, codestyle, config, run, and settings packages`)
 
 ## Phase 3: Remaining packages (49 files)
 

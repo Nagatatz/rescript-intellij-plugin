@@ -11,6 +11,13 @@ import javax.swing.JCheckBox
 import javax.swing.JComponent
 import javax.swing.JPanel
 
+/**
+ * Settings UI for the ReScript plugin, accessible via
+ * Settings > Languages & Frameworks > ReScript.
+ *
+ * Allows users to configure the LSP server path, Node.js interpreter path,
+ * and incremental type-checking. Applying settings triggers an LSP server restart.
+ */
 class RescriptConfigurable(
     private val project: Project,
 ) : Configurable {

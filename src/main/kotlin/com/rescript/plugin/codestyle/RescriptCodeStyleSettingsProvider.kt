@@ -6,6 +6,12 @@ import com.intellij.psi.codeStyle.CommonCodeStyleSettings
 import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider
 import com.rescript.plugin.RescriptLanguage
 
+/**
+ * Provides default code style settings for ReScript files.
+ *
+ * Configures indentation defaults (2 spaces, no tabs) to match ReScript conventions
+ * and exposes indent-related settings in Settings > Editor > Code Style > ReScript.
+ */
 class RescriptCodeStyleSettingsProvider : LanguageCodeStyleSettingsProvider() {
     override fun getLanguage(): Language = RescriptLanguage
 
