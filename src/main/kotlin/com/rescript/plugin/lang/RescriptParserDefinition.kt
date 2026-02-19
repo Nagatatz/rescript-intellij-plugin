@@ -14,6 +14,17 @@ import com.intellij.psi.tree.TokenSet
 import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Parser definition that wires together the ReScript lexer, parser, and PSI element factory.
+ *
+ * Provides the IntelliJ Platform with the components needed to tokenize and parse
+ * ReScript files into PSI trees. The actual parsing is lightweight — only top-level
+ * declarations and JSX structures are recognized; deeper semantic analysis is
+ * delegated to the LSP server.
+ *
+ * @see RescriptLexer
+ * @see RescriptParser
+ */
 class RescriptParserDefinition : ParserDefinition {
     companion object {
         val FILE = IFileElementType(RescriptLanguage)

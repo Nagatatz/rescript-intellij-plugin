@@ -6,6 +6,13 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.RescriptTokenTypes as T
 
+/**
+ * Brace matcher for ReScript that enables brace highlighting and navigation.
+ *
+ * Defines matched pairs for curly braces `{}`, square brackets `[]`, and
+ * parentheses `()`. Curly braces are marked as structural (block-level),
+ * enabling code folding at brace boundaries.
+ */
 class RescriptBraceMatcher : PairedBraceMatcher {
     companion object {
         private val PAIRS =

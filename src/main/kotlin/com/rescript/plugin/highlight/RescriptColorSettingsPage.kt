@@ -6,9 +6,19 @@ import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
 import com.rescript.plugin.RescriptIcons
 
+/**
+ * Color settings page for ReScript syntax highlighting customization.
+ *
+ * Accessible via Settings > Editor > Color Scheme > ReScript. Displays a demo
+ * ReScript code snippet with configurable color attributes for both lexer-based
+ * tokens (keywords, strings, operators) and LSP semantic tokens (variables, types).
+ *
+ * The demo text uses custom tags (e.g., `<var>`, `<typ>`, `<ns>`) to demonstrate
+ * semantic highlighting colors that would normally come from the LSP server.
+ */
 class RescriptColorSettingsPage : ColorSettingsPage {
     companion object {
-        // ── Lexer-based attributes ──
+        // ── Lexer-based attribute descriptors ──
         private val LEXER_DESCRIPTORS =
             arrayOf(
                 AttributesDescriptor("Keyword", RescriptSyntaxHighlighter.KEYWORD),
