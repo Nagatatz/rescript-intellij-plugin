@@ -263,6 +263,11 @@
         <!-- Smart Enter (Shift+Enter) -->
         <lang.smartEnterProcessor language="ReScript"
                                    implementationClass="com.rescript.plugin.editor.RescriptSmartEnterProcessor"/>
+
+        <!-- Unused Code Detection (via reanalyze) -->
+        <globalInspection language="ReScript" groupName="ReScript" shortName="RescriptUnusedCode"
+                          displayName="Unused code (via reanalyze)" enabledByDefault="true" level="WARNING"
+                          implementationClass="com.rescript.plugin.analysis.RescriptUnusedCodeInspection"/>
     </extensions>
 
     <actions>

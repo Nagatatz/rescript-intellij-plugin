@@ -2,38 +2,38 @@
 
 ## セットアップ
 - [x] ステアリングドキュメント作成
-- [ ] バッチブランチ `feature/p3-batch-tier3` 作成
+- [x] バッチブランチ `feature/p3-batch-tier3` 作成
 
 ## Feature 1: Test Runner Integration
-- [ ] `RescriptTestFrameworkDetector.kt` 実装
-- [ ] `RescriptTestRunConfigurationType.kt` 実装
-- [ ] `RescriptTestRunConfigurationOptions.kt` 実装
-- [ ] `RescriptTestConfigurationFactory.kt` 実装
-- [ ] `RescriptTestRunConfiguration.kt` 実装
-- [ ] `RescriptTestSettingsEditor.kt` 実装（テスト省略: Swing UI）
-- [ ] `RescriptTestConsoleProperties.kt` 実装
-- [ ] `RescriptTestLocator.kt` 実装
-- [ ] `RescriptTestConfigurationProducer.kt` 実装（テスト省略: IDE コンテキスト必須）
-- [ ] plugin.xml に extension point 登録
-- [ ] `RescriptTestFrameworkDetectorTest.kt` テスト作成
-- [ ] `RescriptTestLocatorTest.kt` テスト作成
-- [ ] ビルド確認・コミット
+- [x] `RescriptTestFrameworkDetector.kt` 実装
+- [x] `RescriptTestRunConfigurationType.kt` 実装
+- [x] `RescriptTestRunConfigurationOptions.kt` 実装
+- [x] `RescriptTestConfigurationFactory.kt` 実装
+- [x] `RescriptTestRunConfiguration.kt` 実装
+- [x] `RescriptTestSettingsEditor.kt` 実装（テスト省略: Swing UI）
+- [x] `RescriptTestConsoleProperties.kt` 実装
+- [x] `RescriptTestLocator.kt` 実装
+- [x] `RescriptTestConfigurationProducer.kt` 実装（テスト省略: IDE コンテキスト必須）
+- [x] plugin.xml に extension point 登録
+- [x] `RescriptTestFrameworkDetectorTest.kt` テスト作成
+- [x] `RescriptTestLocatorTest.kt` テスト作成
+- [x] ビルド確認・コミット
 
 ## Feature 2: Compiled JS Preview
-- [ ] `RescriptCompiledJsPreviewToolWindowFactory.kt` 実装
-- [ ] `RescriptCompiledJsPreviewPanel.kt` 実装（テスト省略: Swing + EditorEx）
-- [ ] plugin.xml に extension point 登録
-- [ ] `RescriptCompiledJsPreviewToolWindowFactoryTest.kt` テスト作成
-- [ ] ビルド確認・コミット
+- [x] `RescriptCompiledJsPreviewToolWindowFactory.kt` 実装
+- [x] `RescriptCompiledJsPreviewPanel.kt` 実装（テスト省略: Swing + EditorEx）
+- [x] plugin.xml に extension point 登録
+- [x] `RescriptCompiledJsPreviewToolWindowFactoryTest.kt` テスト作成
+- [x] ビルド確認・コミット
 
 ## Feature 3: Unused Code Detection
-- [ ] `RescriptReanalyzeAnnotator.kt` 拡張（name フィールド + Quick Fix）
-- [ ] `RescriptReanalyzeQuickFix.kt` 実装
-- [ ] `RescriptUnusedCodeInspection.kt` 実装
-- [ ] plugin.xml に extension point 登録
-- [ ] `RescriptReanalyzeQuickFixTest.kt` テスト作成
-- [ ] `RescriptUnusedCodeInspectionTest.kt` テスト作成
-- [ ] ビルド確認・コミット
+- [x] `RescriptReanalyzeAnnotator.kt` 拡張（name フィールド + Quick Fix）
+- [x] `RescriptReanalyzeQuickFix.kt` 実装
+- [x] `RescriptUnusedCodeInspection.kt` 実装
+- [x] plugin.xml に extension point 登録
+- [x] `RescriptReanalyzeQuickFixTest.kt` テスト作成
+- [x] `RescriptUnusedCodeInspectionTest.kt` テスト作成
+- [x] ビルド確認・コミット
 
 ## Feature 4: Module Hierarchy
 - [ ] `RescriptDependencyAnalyzer.kt` 実装

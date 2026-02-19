@@ -20,6 +20,7 @@ class RescriptReanalyzeAnnotator :
     )
 
     data class ReanalyzeDiagnostic(
+        val name: String,
         val message: String,
         val startLine: Int,
         val startChar: Int,
@@ -85,10 +86,18 @@ class RescriptReanalyzeAnnotator :
 
             if (startOffset > docLength || endOffset > docLength || startOffset >= endOffset) continue
 
-            holder
-                .newAnnotation(HighlightSeverity.WARNING, diag.message)
-                .range(TextRange(startOffset, endOffset))
-                .create()
+            val quickFixes = RescriptReanalyzeQuickFix.createQuickFixes(diag.name)
+
+            val builder =
+                holder
+                    .newAnnotation(HighlightSeverity.WARNING, diag.message)
+                    .range(TextRange(startOffset, endOffset))
+
+            for (fix in quickFixes) {
+                builder.withFix(fix)
+            }
+
+            builder.create()
         }
     }
 
@@ -139,14 +148,54 @@ class RescriptReanalyzeAnnotator :
                     if (range.size() < 4) return@mapNotNull null
 
                     val message = obj.get("message")?.asString ?: return@mapNotNull null
+                    val name = obj.get("name")?.asString ?: "unknown"
 
                     ReanalyzeDiagnostic(
+                        name = name,
                         message = message,
                         startLine = range[0].asInt,
                         startChar = range[1].asInt,
                         endLine = range[2].asInt,
                         endChar = range[3].asInt,
                     )
+                }
+            } catch (e: Exception) {
+                LOG.debug("Failed to parse reanalyze JSON output", e)
+                emptyList()
+            }
+        }
+
+        /**
+         * Parse all diagnostics from reanalyze JSON output, without filtering by file.
+         * Used by GlobalInspectionTool for project-wide analysis.
+         */
+        fun parseAllDiagnostics(json: String): List<Pair<String, ReanalyzeDiagnostic>> {
+            if (json.isBlank()) return emptyList()
+
+            return try {
+                val array =
+                    com.google.gson.JsonParser
+                        .parseString(json)
+                        .asJsonArray
+                array.mapNotNull { element ->
+                    val obj = element.asJsonObject
+                    val file = obj.get("file")?.asString ?: return@mapNotNull null
+
+                    val range = obj.getAsJsonArray("range") ?: return@mapNotNull null
+                    if (range.size() < 4) return@mapNotNull null
+
+                    val message = obj.get("message")?.asString ?: return@mapNotNull null
+                    val name = obj.get("name")?.asString ?: "unknown"
+
+                    file to
+                        ReanalyzeDiagnostic(
+                            name = name,
+                            message = message,
+                            startLine = range[0].asInt,
+                            startChar = range[1].asInt,
+                            endLine = range[2].asInt,
+                            endChar = range[3].asInt,
+                        )
                 }
             } catch (e: Exception) {
                 LOG.debug("Failed to parse reanalyze JSON output", e)
