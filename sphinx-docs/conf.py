@@ -46,7 +46,11 @@ gettext_compact = False  # One .po file per source document
 
 # -- ReScript Pygments lexer & styles (auto-generated from Rescript.flex) ----
 
-from rescript_lexer import RescriptDarculaStyle, RescriptDefaultStyle, RescriptLexer  # noqa: E402
+from rescript_lexer import (  # noqa: E402, F401
+    RescriptDarculaStyle,
+    RescriptDefaultStyle,
+    RescriptLexer,
+)
 from sphinx.highlighting import lexer_classes  # noqa: E402
 
 # Register the custom ReScript lexer
@@ -85,6 +89,9 @@ pygments_dark_style = "rescript_lexer.RescriptDarculaStyle"
 html_static_path = ["_static"]
 html_css_files = ["css/custom.css"]
 templates_path = ["_templates"]
+
+# Pagefind search page (replaces default Sphinx search)
+html_additional_pages = {"search": "search.html"}
 
 # Suppress toctree warnings for locale files
 suppress_warnings = ["toc.excluded"]

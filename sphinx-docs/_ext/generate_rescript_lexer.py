@@ -67,10 +67,20 @@ def parse_flex_keywords(flex_text: str) -> dict:
             option_types.append(word)
         elif token == "BOOL_VALUE":
             bool_values.append(word)
-        elif token not in ("LIDENT", "UIDENT", "INT_VALUE", "FLOAT_VALUE",
-                           "TYPE_ARGUMENT", "POLY_VARIANT", "JS_STRING_OPEN",
-                           "STRING_VALUE", "MULTI_COMMENT", "SINGLE_COMMENT",
-                           "CHAR_VALUE", "UNDERSCORE"):
+        elif token not in (
+            "LIDENT",
+            "UIDENT",
+            "INT_VALUE",
+            "FLOAT_VALUE",
+            "TYPE_ARGUMENT",
+            "POLY_VARIANT",
+            "JS_STRING_OPEN",
+            "STRING_VALUE",
+            "MULTI_COMMENT",
+            "SINGLE_COMMENT",
+            "CHAR_VALUE",
+            "UNDERSCORE",
+        ):
             keywords.append(word)
 
     # Extract multi-char operators from INITIAL state
@@ -99,12 +109,35 @@ def parse_flex_keywords(flex_text: str) -> dict:
 
         # Filter: only operator tokens, not keywords/strings/punctuation
         if token in (
-            "STRING_CONCAT", "SHARPSHARP", "SHORTCUT", "ARROW", "RIGHT_ARROW",
-            "LEFT_ARROW", "PIPE_FORWARD", "TAG_LT_SLASH", "TAG_AUTO_CLOSE",
-            "EQEQEQ", "EQEQ", "EQ", "NOT_EQEQ", "NOT_EQ", "COLON_EQ",
-            "COLON_GT", "LT_OR_EQUAL", "L_AND", "L_OR",
-            "PLUSDOT", "MINUSDOT", "SLASHDOT", "STARDOT",
-            "PLUS", "MINUS", "SLASH", "STAR", "PERCENT", "CARRET",
+            "STRING_CONCAT",
+            "SHARPSHARP",
+            "SHORTCUT",
+            "ARROW",
+            "RIGHT_ARROW",
+            "LEFT_ARROW",
+            "PIPE_FORWARD",
+            "TAG_LT_SLASH",
+            "TAG_AUTO_CLOSE",
+            "EQEQEQ",
+            "EQEQ",
+            "EQ",
+            "NOT_EQEQ",
+            "NOT_EQ",
+            "COLON_EQ",
+            "COLON_GT",
+            "LT_OR_EQUAL",
+            "L_AND",
+            "L_OR",
+            "PLUSDOT",
+            "MINUSDOT",
+            "SLASHDOT",
+            "STARDOT",
+            "PLUS",
+            "MINUS",
+            "SLASH",
+            "STAR",
+            "PERCENT",
+            "CARRET",
         ):
             operators.append(symbol)
 
