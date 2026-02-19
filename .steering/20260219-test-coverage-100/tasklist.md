@@ -3,13 +3,13 @@
 ## Phase 1: バッチブランチ & Worktree 準備
 
 - [x] 1.1 バッチブランチ `feature/test-coverage-100` を main から作成
-- [ ] 1.2 ステアリングドキュメントをバッチブランチにコミット
-- [ ] 1.3 4 つの worktree を作成
+- [x] 1.2 ステアリングドキュメントをバッチブランチにコミット
+- [x] 1.3 4 つの worktree を作成
   - `../rescript-wt-unit-tests/` (test/unit-tests)
   - `../rescript-wt-inspection-analysis/` (test/inspection-analysis)
   - `../rescript-wt-editor-intention/` (test/editor-intention)
   - `../rescript-wt-navigation-misc/` (test/navigation-misc)
-- [ ] 1.4 window-instructions.md を作成
+- [x] 1.4 window-instructions.md を作成
 
 ## Phase 2: 並列実装（4 worktree）
 
