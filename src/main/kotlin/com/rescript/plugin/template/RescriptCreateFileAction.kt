@@ -8,6 +8,12 @@ import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptIcons
 
+/**
+ * "New > ReScript File" action in the Project tool window context menu.
+ *
+ * Offers three file templates: Module (.res), Interface (.resi), and Component (.res).
+ * Automatically capitalizes the file name to follow ReScript module naming conventions.
+ */
 class RescriptCreateFileAction :
     CreateFileFromTemplateAction("ReScript File", "Create a new ReScript file", RescriptIcons.FILE),
     DumbAware {

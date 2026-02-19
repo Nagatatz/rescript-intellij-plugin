@@ -6,6 +6,12 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
 
+/**
+ * Automatically creates [RescriptTestRunConfiguration] from context (e.g., right-clicking a test file).
+ *
+ * Only produces configurations for `.res`/`.resi` files whose names end with `_test`, `Test`,
+ * `_spec`, or `Spec`. The test framework is auto-detected via [RescriptTestFrameworkDetector].
+ */
 class RescriptTestConfigurationProducer : LazyRunConfigurationProducer<RescriptTestRunConfiguration>() {
     override fun getConfigurationFactory(): ConfigurationFactory =
         RescriptTestRunConfigurationType().configurationFactories.first()

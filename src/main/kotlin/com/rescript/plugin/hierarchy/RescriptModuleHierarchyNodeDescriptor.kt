@@ -6,6 +6,11 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
+/**
+ * Node descriptor for module hierarchy tree nodes.
+ *
+ * Renders each node with the module name and icon extracted via [RescriptPsiUtils].
+ */
 class RescriptModuleHierarchyNodeDescriptor(
     project: Project,
     parentDescriptor: NodeDescriptor<*>?,

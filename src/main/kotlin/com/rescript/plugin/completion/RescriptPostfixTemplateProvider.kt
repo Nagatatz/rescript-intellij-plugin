@@ -9,6 +9,18 @@ import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.RescriptTokenTypes
 
+/**
+ * Provides postfix completion templates for ReScript expressions.
+ *
+ * Supports the following templates triggered by typing `.` after an expression:
+ * - `.switch` -> `switch expr { | _ => }`
+ * - `.pipe` -> `expr->`
+ * - `.log` -> `Console.log(expr)`
+ * - `.some` -> `Some(expr)`
+ * - `.ok` -> `Ok(expr)`
+ * - `.error` -> `Error(expr)`
+ * - `.ignore` -> `expr->ignore`
+ */
 class RescriptPostfixTemplateProvider : PostfixTemplateProvider {
     private val templates: Set<PostfixTemplate> =
         setOf(

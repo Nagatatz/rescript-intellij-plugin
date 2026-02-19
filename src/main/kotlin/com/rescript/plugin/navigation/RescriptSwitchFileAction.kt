@@ -5,6 +5,11 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.fileEditor.FileEditorManager
 
+/**
+ * Action to switch between a ReScript source file (.res) and its interface (.resi).
+ *
+ * Bound to Alt+O. Looks for the counterpart file in the same directory.
+ */
 class RescriptSwitchFileAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return

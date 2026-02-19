@@ -8,6 +8,14 @@ import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Entry point for the ReScript module hierarchy feature (Ctrl+H / Navigate > Type Hierarchy).
+ *
+ * Determines the hierarchy target by walking up from the caret position to find
+ * the nearest MODULE_DECLARATION, falling back to the file itself.
+ *
+ * @see RescriptModuleHierarchyBrowser for the hierarchy UI
+ */
 class RescriptModuleHierarchyProvider : HierarchyProvider {
     override fun getTarget(dataContext: DataContext): PsiElement? {
         val file = CommonDataKeys.PSI_FILE.getData(dataContext) ?: return null

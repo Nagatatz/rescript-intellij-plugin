@@ -12,6 +12,12 @@ import com.rescript.plugin.imports.RescriptImportUtil
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Local inspection that detects duplicate `open` statements within the same scope.
+ *
+ * Checks both file-level and nested module scopes recursively.
+ * Provides a quick-fix to remove the duplicate `open` statement.
+ */
 class RescriptDuplicateOpenInspection : LocalInspectionTool() {
     override fun buildVisitor(
         holder: ProblemsHolder,

@@ -9,6 +9,14 @@ import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.GlobalSearchScope
 
+/**
+ * Resolves test file locations from SMTestRunner protocol URLs back to `.res` source files.
+ *
+ * Handles three resolution strategies:
+ * 1. Direct relative path lookup from the project root
+ * 2. Compiled JS path conversion (e.g., `lib/js/src/MyTest.bs.js` -> `src/MyTest.res`)
+ * 3. Absolute file path resolution
+ */
 class RescriptTestLocator : SMTestLocator {
     companion object {
         val INSTANCE = RescriptTestLocator()

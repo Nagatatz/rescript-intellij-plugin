@@ -10,6 +10,13 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Provides "Surround With" templates for ReScript code (Ctrl+Alt+T).
+ *
+ * Available surrounders: `if (...)`, `switch ...`, `try ... catch`, and `{ }`.
+ * Determines the elements to surround by finding the common PSI parent
+ * of the selection range.
+ */
 class RescriptSurroundDescriptor : SurroundDescriptor {
     private val surrounders: Array<Surrounder> =
         arrayOf(
@@ -40,6 +47,10 @@ class RescriptSurroundDescriptor : SurroundDescriptor {
     override fun isExclusive(): Boolean = false
 }
 
+/**
+ * Base class for ReScript surrounders that wraps selected text in a template
+ * and positions the caret at a placeholder location within the generated code.
+ */
 abstract class RescriptBaseSurrounder(
     private val description: String,
 ) : Surrounder {

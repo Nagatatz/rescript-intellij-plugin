@@ -2,6 +2,12 @@ package com.rescript.plugin.folding
 
 import com.intellij.lang.folding.CustomFoldingProvider
 
+/**
+ * Supports custom folding regions using `//#region` and `//#endregion` comments.
+ *
+ * Accepts both `//#region` and `// #region` (with space) variants.
+ * The region name (text after the marker) is used as the fold placeholder text.
+ */
 class RescriptCustomFoldingProvider : CustomFoldingProvider() {
     override fun isCustomRegionStart(elementText: String): Boolean {
         val trimmed = elementText.trimStart()

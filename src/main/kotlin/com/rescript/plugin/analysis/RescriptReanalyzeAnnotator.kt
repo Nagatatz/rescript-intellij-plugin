@@ -12,6 +12,21 @@ import com.rescript.plugin.lang.psi.RescriptFile
 import java.nio.file.Files
 import java.nio.file.Path
 
+/**
+ * External annotator that runs `rescript-tools reanalyze -json` to detect dead code
+ * and unused declarations in ReScript files.
+ *
+ * The three-phase ExternalAnnotator lifecycle:
+ * 1. [collectInformation] — gathers file path and project base path on the EDT
+ * 2. [doAnnotate] — runs `reanalyze` CLI in a background thread, parses JSON output
+ * 3. [apply] — maps diagnostics to editor annotations with quick-fix actions
+ *
+ * The reanalyze tool is located by walking up from the project root looking for
+ * `node_modules/rescript/rescript-tools` (or `.exe` on Windows).
+ *
+ * @see RescriptReanalyzeQuickFix for the quick-fix actions attached to annotations
+ * @see RescriptUnusedCodeInspection for project-wide analysis using the same tool
+ */
 class RescriptReanalyzeAnnotator :
     ExternalAnnotator<RescriptReanalyzeAnnotator.CollectedInfo, RescriptReanalyzeAnnotator.AnnotationResult>() {
     data class CollectedInfo(

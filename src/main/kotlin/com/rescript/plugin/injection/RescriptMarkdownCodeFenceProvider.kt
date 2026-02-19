@@ -7,6 +7,12 @@ import com.intellij.lang.Language
 import com.rescript.plugin.RescriptLanguage
 import org.intellij.plugins.markdown.injection.CodeFenceLanguageProvider
 
+/**
+ * Provides ReScript language injection for Markdown code fences.
+ *
+ * Recognizes `rescript`, `res`, and `resi` as info-string identifiers
+ * to enable ReScript syntax highlighting within Markdown documents.
+ */
 class RescriptMarkdownCodeFenceProvider : CodeFenceLanguageProvider {
     override fun getLanguageByInfoString(infoString: String): Language? {
         val trimmed = infoString.trim().lowercase()

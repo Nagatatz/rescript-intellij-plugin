@@ -15,6 +15,13 @@ import java.nio.file.Path
 import java.util.function.Function
 import javax.swing.JComponent
 
+/**
+ * Shows an editor notification bar when the ReScript Language Server is not found.
+ *
+ * Appears at the top of `.res`/`.resi` files when `@rescript/language-server` is neither
+ * installed in `node_modules` nor configured in plugin settings. Provides "Configure..."
+ * and "Dismiss" actions.
+ */
 class RescriptEditorNotificationProvider :
     EditorNotificationProvider,
     DumbAware {

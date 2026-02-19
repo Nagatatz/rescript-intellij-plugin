@@ -6,6 +6,12 @@ import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.openapi.components.BaseState
 import com.intellij.openapi.project.Project
 
+/**
+ * Factory for creating [RescriptTestRunConfiguration] instances.
+ *
+ * Registered via [RescriptTestRunConfigurationType] to provide template configurations
+ * for the Run/Debug Configurations dialog.
+ */
 class RescriptTestConfigurationFactory(
     type: ConfigurationType,
 ) : ConfigurationFactory(type) {

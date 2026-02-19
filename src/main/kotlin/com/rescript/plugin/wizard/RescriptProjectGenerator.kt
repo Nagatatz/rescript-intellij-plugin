@@ -1,5 +1,8 @@
 package com.rescript.plugin.wizard
 
+/**
+ * Supported package managers for ReScript project initialization.
+ */
 enum class PackageManager(
     val command: String,
 ) {
@@ -8,6 +11,13 @@ enum class PackageManager(
     YARN("yarn"),
 }
 
+/**
+ * Generates starter project files for a new ReScript project.
+ *
+ * Produces `rescript.json` (with optional JSX config), `package.json` (with
+ * rescript and optional React dependencies), and a starter `.res` module
+ * (either a plain module or a React component).
+ */
 object RescriptProjectGenerator {
     fun generateRescriptJson(
         name: String,

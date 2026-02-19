@@ -5,6 +5,12 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 
+/**
+ * Factory for the "ReScript JS" tool window that shows a live preview
+ * of the compiled JavaScript output for the currently active `.res` file.
+ *
+ * @see RescriptCompiledJsPreviewPanel for the panel implementation
+ */
 class RescriptCompiledJsPreviewToolWindowFactory :
     ToolWindowFactory,
     DumbAware {

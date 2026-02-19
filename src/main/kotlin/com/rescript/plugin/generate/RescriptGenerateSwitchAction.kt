@@ -8,6 +8,13 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Generate action that creates a `switch` expression with exhaustive pattern-match arms
+ * from a variant type declaration at the caret.
+ *
+ * Parses the enclosing TYPE_DECLARATION using [RescriptTypeDeclarationParser],
+ * generates a switch body with one arm per constructor, and inserts it after the type.
+ */
 class RescriptGenerateSwitchAction : AnAction("Switch Arms", "Generate switch arms from variant type", null) {
     override fun actionPerformed(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return

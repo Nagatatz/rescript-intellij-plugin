@@ -8,6 +8,15 @@ import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.psi.PsiManager
 
+/**
+ * Provides "Go to Related" items for ReScript files.
+ *
+ * From a `.res` file, offers navigation to:
+ * - The corresponding `.resi` interface file
+ * - The compiled JavaScript file under `lib/js/`
+ *
+ * From a `.resi` file, offers navigation to the corresponding `.res` source file.
+ */
 class RescriptGotoRelatedProvider : GotoRelatedProvider() {
     override fun getItems(context: DataContext): List<GotoRelatedItem> {
         val project = CommonDataKeys.PROJECT.getData(context) ?: return emptyList()

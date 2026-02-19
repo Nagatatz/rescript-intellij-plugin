@@ -1,16 +1,19 @@
 package com.rescript.plugin.generate
 
+/** A single constructor arm in a variant type declaration. */
 data class VariantConstructor(
     val name: String,
     val payload: String?,
 )
 
+/** A single field in a record type declaration. */
 data class RecordField(
     val name: String,
     val typeAnnotation: String,
     val isMutable: Boolean,
 )
 
+/** Sealed hierarchy representing the parsed shape of a ReScript type declaration. */
 sealed class TypeShape {
     data class Variant(
         val constructors: List<VariantConstructor>,
@@ -23,6 +26,15 @@ sealed class TypeShape {
     data object Unknown : TypeShape()
 }
 
+/**
+ * Text-based parser for ReScript type declarations.
+ *
+ * Extracts the shape (variant or record) from the raw text of a `type` declaration.
+ * Used by code generation actions to produce switch arms or module type signatures
+ * from existing type definitions.
+ *
+ * @see RescriptGenerateSwitchAction
+ */
 object RescriptTypeDeclarationParser {
     fun parse(declarationText: String): TypeShape {
         val body = extractBody(declarationText) ?: return TypeShape.Unknown

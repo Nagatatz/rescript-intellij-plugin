@@ -7,6 +7,13 @@ import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Local inspection that warns when neither `rescript.json` nor `bsconfig.json`
+ * is found in the project root directory.
+ *
+ * Without a configuration file, the LSP server cannot start and most
+ * IDE features (completion, diagnostics, etc.) will not function.
+ */
 class RescriptMissingConfigInspection : LocalInspectionTool() {
     override fun buildVisitor(
         holder: ProblemsHolder,

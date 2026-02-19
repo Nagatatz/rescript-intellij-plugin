@@ -11,6 +11,12 @@ import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
+/**
+ * Enables moving top-level declarations up/down with Alt+Shift+Up/Down.
+ *
+ * Moves entire declaration blocks (including leading annotations) as a unit.
+ * Supports let, type, module, external, open, include, and exception declarations.
+ */
 class RescriptStatementUpDownMover : StatementUpDownMover() {
     companion object {
         /** All element types that represent movable declarations. */

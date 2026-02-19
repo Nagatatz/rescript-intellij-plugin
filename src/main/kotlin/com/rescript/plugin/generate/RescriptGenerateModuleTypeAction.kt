@@ -10,6 +10,13 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
+/**
+ * Generate action that creates a `module type` signature from the module declaration at the caret.
+ *
+ * Collects all `let`, `type`, `external`, and nested `module` declarations within the
+ * target module and generates a type signature skeleton with placeholder types (`'a`).
+ * The generated module type is inserted above the module declaration.
+ */
 class RescriptGenerateModuleTypeAction :
     AnAction("Module Type", "Generate module type signature from module", null) {
     override fun actionPerformed(e: AnActionEvent) {
