@@ -263,6 +263,10 @@
         <!-- Smart Enter (Shift+Enter) -->
         <lang.smartEnterProcessor language="ReScript"
                                    implementationClass="com.rescript.plugin.editor.RescriptSmartEnterProcessor"/>
+
+        <!-- Module Hierarchy -->
+        <hierarchyProvider language="ReScript"
+                           implementationClass="com.rescript.plugin.hierarchy.RescriptModuleHierarchyProvider"/>
     </extensions>
 
     <actions>
