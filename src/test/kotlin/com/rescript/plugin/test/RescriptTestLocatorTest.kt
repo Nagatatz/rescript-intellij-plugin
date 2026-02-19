@@ -1,10 +1,20 @@
 package com.rescript.plugin.test
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
 import org.junit.Test
 
 class RescriptTestLocatorTest {
+    @Test
+    fun `INSTANCE is a singleton`() {
+        val a = RescriptTestLocator.INSTANCE
+        val b = RescriptTestLocator.INSTANCE
+        assertNotNull(a)
+        assertSame(a, b)
+    }
+
     @Test
     fun `compiledJsToResPath converts bs js path`() {
         assertEquals(
@@ -68,6 +78,33 @@ class RescriptTestLocatorTest {
         assertEquals(
             "MyTest.res",
             RescriptTestLocator.compiledJsToResPath("lib/js/MyTest.bs.js"),
+        )
+    }
+
+    @Test
+    fun `compiledJsToResPath returns null for lib prefix with non-js suffix`() {
+        // lib/js/ prefix present but file doesn't end in a known JS suffix
+        assertNull(RescriptTestLocator.compiledJsToResPath("lib/js/src/MyTest.ts"))
+    }
+
+    @Test
+    fun `compiledJsToResPath returns null for lib prefix with res suffix`() {
+        assertNull(RescriptTestLocator.compiledJsToResPath("lib/js/src/MyTest.res"))
+    }
+
+    @Test
+    fun `compiledJsToResPath handles lib es6 with mjs`() {
+        assertEquals(
+            "src/MyTest.res",
+            RescriptTestLocator.compiledJsToResPath("lib/es6/src/MyTest.mjs"),
+        )
+    }
+
+    @Test
+    fun `compiledJsToResPath handles lib bs with plain js`() {
+        assertEquals(
+            "src/MyTest.res",
+            RescriptTestLocator.compiledJsToResPath("lib/bs/src/MyTest.js"),
         )
     }
 }
