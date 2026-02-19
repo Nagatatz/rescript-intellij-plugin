@@ -26,12 +26,12 @@
 
 ## ドキュメント更新
 
-- [ ] CLAUDE.md プロジェクト構成図を更新
-- [ ] docs/product-requirements.md を更新
-- [ ] docs/functional-design.md を更新
-- [ ] コミット: 📝 Update docs for Project Wizard and Code Generation
+- [x] CLAUDE.md プロジェクト構成図を更新
+- [x] docs/product-requirements.md を更新
+- [x] docs/functional-design.md を更新
+- [x] コミット: 📝 Update docs for Project Wizard and Code Generation
 
 ## 最終確認
 
-- [ ] ./gradlew buildPlugin 成功
-- [ ] ./gradlew test 全テスト PASS
+- [x] ./gradlew buildPlugin 成功
+- [x] ./gradlew test 全テスト PASS

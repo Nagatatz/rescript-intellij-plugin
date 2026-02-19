@@ -113,6 +113,8 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Statement Up/Down Mover | Alt+Shift+Up/Down でトップレベル宣言を上下移動 | `RescriptStatementUpDownMover` |
 | Qualified Name Copy | Cmd+Shift+Alt+C で完全修飾名コピー | `RescriptQualifiedNameProvider` |
 | Smart Enter | Shift+Enter で文を補完して改行（括弧閉じ、switch ブレース補完等） | `RescriptSmartEnterProcessor` |
+| Project Wizard | New Project ダイアログから ReScript プロジェクトテンプレート作成 | `RescriptModuleBuilder` + `RescriptProjectWizardStep` |
+| Code Generation | variant switch arms / module type スケルトン自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -159,13 +161,13 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 |---|---|---|---|---|
 | ~~Test Runner Integration~~ | ~~IDE 内テスト実行・結果表示（GUI テストランナー）~~ | ~~実装済み~~ | ~~中〜高~~ | ~~Elm, Svelte, Dart, Kotlin~~ |
 | ~~Compiled JS Preview~~ | ~~ReScript ⇔ 生成 JS のツールウィンドウ表示~~ | ~~実装済み~~ | ~~中~~ | ~~CoffeeScript (split view), Kotlin (decompile)~~ |
-| Project Wizard | 新規 ReScript プロジェクトテンプレート | `moduleBuilder` + `projectTemplate` | 中 | Svelte, Dart, Kotlin |
+| ~~Project Wizard~~ | ~~新規 ReScript プロジェクトテンプレート~~ | ~~実装済み~~ | ~~中~~ | ~~Svelte, Dart, Kotlin~~ |
 | ~~Smart Enter~~ | ~~文の自動補完と改行（括弧閉じ等）~~ | ~~実装済み~~ | ~~中~~ | ~~Kotlin, JS/TS~~ |
 | ~~Statement Up/Down Mover~~ | ~~宣言単位の上下移動~~ | ~~実装済み~~ | ~~低~~ | ~~Kotlin, JS/TS~~ |
 | ~~Unused Code Detection~~ | ~~未使用変数・関数・open の検出（Quick Fix + Global Inspection）~~ | ~~実装済み~~ | ~~中~~ | ~~Elm, Dart, Kotlin~~ |
 | ~~Module Hierarchy~~ | ~~モジュールネスト・依存関係ビュー（open/include）~~ | ~~実装済み（Type/Call Hierarchy の代替）~~ | ~~高~~ | ~~Kotlin, JS/TS, Dart~~ |
 | ~~Qualified Name Copy~~ | ~~完全修飾名（`Module.subModule.name`）のコピー~~ | ~~実装済み~~ | ~~低~~ | ~~Kotlin, JS/TS~~ |
-| Code Generation | variant arms 自動生成、module type 生成等 | `GenerateGroup` アクション | 中〜高 | Elm (JSON enc/dec), Dart, Kotlin |
+| ~~Code Generation~~ | ~~variant arms 自動生成、module type 生成等~~ | ~~実装済み~~ | ~~中〜高~~ | ~~Elm (JSON enc/dec), Dart, Kotlin~~ |
 
 ## 4. 成功の定義
 

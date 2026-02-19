@@ -139,6 +139,15 @@ src/main/
 │   ├── folding/
 │   │   ├── RescriptFoldingBuilder.kt      # コード折りたたみ (CustomFoldingBuilder)
 │   │   └── RescriptCustomFoldingProvider.kt  # //#region カスタム折りたたみ
+│   ├── wizard/
+│   │   ├── RescriptModuleBuilder.kt          # Project Wizard (New Project)
+│   │   ├── RescriptProjectWizardStep.kt      # ウィザード設定ステップ UI
+│   │   └── RescriptProjectGenerator.kt       # プロジェクトファイル生成
+│   ├── generate/
+│   │   ├── RescriptGenerateGroup.kt              # Generate メニューグループ
+│   │   ├── RescriptTypeDeclarationParser.kt      # テキストベース型宣言パーサー
+│   │   ├── RescriptGenerateSwitchAction.kt       # Switch Arms 生成
+│   │   └── RescriptGenerateModuleTypeAction.kt   # Module Type 生成
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
 │   └── Rescript.flex                    # JFlex レクサー定義 (ソース)
