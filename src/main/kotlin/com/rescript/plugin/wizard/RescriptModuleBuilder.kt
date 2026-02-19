@@ -14,15 +14,16 @@ import javax.swing.Icon
 /**
  * Module builder for the "New Project" wizard that scaffolds a ReScript project.
  *
- * Generates `rescript.json`, `package.json`, a `src/` directory with a starter file,
- * and optionally includes React support. Package manager selection (npm/pnpm/yarn)
- * is configurable via [RescriptProjectWizardStep].
+ * Generates project files based on the selected [ProjectTemplate], which determines
+ * the project structure (rescript.json, package.json, starter files, etc.).
+ * Package manager selection (npm/pnpm/yarn) is configurable via [RescriptProjectWizardStep].
  *
- * @see RescriptProjectGenerator for the file content generation
+ * @see ProjectTemplate for available templates
+ * @see RescriptProjectGenerator for file content generation
  */
 class RescriptModuleBuilder : ModuleBuilder() {
     var packageManager: PackageManager = PackageManager.NPM
-    var includeReact: Boolean = false
+    var selectedTemplate: ProjectTemplate = ProjectTemplate.BASIC
 
     override fun getModuleType(): ModuleType<*> = ModuleTypeManager.getInstance().defaultModuleType
 
@@ -42,33 +43,25 @@ class RescriptModuleBuilder : ModuleBuilder() {
     override fun setupRootModel(modifiableRootModel: ModifiableRootModel) {
         val contentRoot = doAddContentEntry(modifiableRootModel) ?: return
         val rootPath = contentRoot.file?.path ?: return
-
         val projectName = modifiableRootModel.module.name
 
-        // Create src directory
-        val srcDir = File(rootPath, "src")
-        srcDir.mkdirs()
+        val files = RescriptProjectGenerator.generateFiles(selectedTemplate, projectName)
 
-        // Generate rescript.json
-        val rescriptJson = File(rootPath, "rescript.json")
-        rescriptJson.writeText(RescriptProjectGenerator.generateRescriptJson(projectName, includeReact))
-
-        // Generate package.json
-        val packageJson = File(rootPath, "package.json")
-        packageJson.writeText(RescriptProjectGenerator.generatePackageJson(projectName, includeReact))
-
-        // Generate starter file
-        val starterFile = File(srcDir, "App.res")
-        if (includeReact) {
-            starterFile.writeText(RescriptProjectGenerator.generateReactComponent())
-        } else {
-            starterFile.writeText(RescriptProjectGenerator.generateStarterModule())
+        // Write all generated files
+        for ((relativePath, content) in files) {
+            val file = File(rootPath, relativePath)
+            file.parentFile.mkdirs()
+            file.writeText(content)
         }
 
-        // Mark src/ as source root
-        val srcVDir = VfsUtil.findFileByIoFile(srcDir, true)
-        if (srcVDir != null) {
-            contentRoot.addSourceFolder(srcVDir, false)
+        // Mark source roots
+        for (sourceRoot in selectedTemplate.sourceRoots) {
+            val srcDir = File(rootPath, sourceRoot)
+            srcDir.mkdirs()
+            val srcVDir = VfsUtil.findFileByIoFile(srcDir, true)
+            if (srcVDir != null) {
+                contentRoot.addSourceFolder(srcVDir, false)
+            }
         }
     }
 }

@@ -2,7 +2,6 @@ package com.rescript.plugin.wizard
 
 import com.rescript.plugin.RescriptIcons
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 
@@ -40,8 +39,8 @@ class RescriptModuleBuilderTest {
     }
 
     @Test
-    fun `default includeReact is false`() {
-        assertFalse(builder.includeReact)
+    fun `default selected template is BASIC`() {
+        assertEquals(ProjectTemplate.BASIC, builder.selectedTemplate)
     }
 
     @Test
@@ -51,8 +50,16 @@ class RescriptModuleBuilderTest {
     }
 
     @Test
-    fun `includeReact can be changed`() {
-        builder.includeReact = true
-        assertEquals(true, builder.includeReact)
+    fun `selected template can be changed`() {
+        builder.selectedTemplate = ProjectTemplate.VITE_REACT
+        assertEquals(ProjectTemplate.VITE_REACT, builder.selectedTemplate)
+    }
+
+    @Test
+    fun `all templates can be selected`() {
+        ProjectTemplate.entries.forEach {
+            builder.selectedTemplate = it
+            assertEquals(it, builder.selectedTemplate)
+        }
     }
 }
