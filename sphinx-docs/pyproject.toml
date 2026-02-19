@@ -1,0 +1,16 @@
+[project]
+name = "rescript-intellij-plugin-docs"
+version = "0.1.0"
+description = "Sphinx documentation for the ReScript IntelliJ Plugin"
+requires-python = ">=3.12"
+dependencies = [
+    "Sphinx>=8.0,<10.0",
+    "furo>=2024.8,<2026.0",
+    "myst-parser>=4.0,<5.0",
+    "sphinx-intl>=2.3,<3.0",
+    "sphinx-copybutton>=0.5,<1.0",
+    "sphinx-design>=0.6,<1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = []

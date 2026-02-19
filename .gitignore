@@ -25,5 +25,14 @@ Thumbs.db
 # Local test data (private, not committed)
 src/test-local/
 
+# Sphinx documentation
+sphinx-docs/_build/
+sphinx-docs/.venv/
+sphinx-docs/.python-version
+sphinx-docs/_ext/rescript_lexer.py
+sphinx-docs/_ext/__pycache__/
+*.mo
+*.pot
+
 # Backup files
 *~
