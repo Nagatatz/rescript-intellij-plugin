@@ -36,14 +36,14 @@
 - [x] ビルド確認・コミット
 
 ## Feature 4: Module Hierarchy
-- [ ] `RescriptDependencyAnalyzer.kt` 実装
-- [ ] `RescriptModuleHierarchyProvider.kt` 実装
-- [ ] `RescriptModuleHierarchyBrowser.kt` 実装（テスト省略: UI）
-- [ ] `RescriptModuleHierarchyTreeStructure.kt` 実装（テスト省略: IDE ツリー）
-- [ ] `RescriptModuleHierarchyNodeDescriptor.kt` 実装（テスト省略: UI）
-- [ ] plugin.xml に extension point 登録
-- [ ] `RescriptDependencyAnalyzerTest.kt` テスト作成
-- [ ] ビルド確認・コミット
+- [x] `RescriptDependencyAnalyzer.kt` 実装
+- [x] `RescriptModuleHierarchyProvider.kt` 実装
+- [x] `RescriptModuleHierarchyBrowser.kt` 実装（テスト省略: UI）
+- [x] `RescriptModuleHierarchyTreeStructure.kt` 実装（テスト省略: IDE ツリー）
+- [x] `RescriptModuleHierarchyNodeDescriptor.kt` 実装（テスト省略: UI）
+- [x] plugin.xml に extension point 登録
+- [x] `RescriptDependencyAnalyzerTest.kt` テスト作成
+- [x] ビルド確認・コミット
 
 ## マージ・仕上げ
 - [ ] 全機能ブランチをバッチブランチにマージ
