@@ -1,5 +1,11 @@
 package com.rescript.plugin.run
 
+/**
+ * Available ReScript CLI commands for the run configuration.
+ *
+ * Each entry defines the command ID (for serialization), display name (for UI),
+ * and the CLI arguments passed to the `rescript` binary.
+ */
 enum class RescriptCommand(
     val id: String,
     val displayName: String,

@@ -6,6 +6,10 @@ import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptIcons
 import javax.swing.Icon
 
+/**
+ * Provides a custom ReScript icon for `rescript.json` and `bsconfig.json` files
+ * in the project tree and editor tabs.
+ */
 class RescriptJsonIconProvider : IconProvider() {
     override fun getIcon(
         element: PsiElement,

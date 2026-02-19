@@ -7,10 +7,17 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFileManager
 import java.io.File
 
+/**
+ * Registers the [RescriptConsoleFilter] for all console outputs in the project.
+ */
 class RescriptConsoleFilterProvider : ConsoleFilterProvider {
     override fun getDefaultFilters(project: Project): Array<Filter> = arrayOf(RescriptConsoleFilter(project))
 }
 
+/**
+ * Console output filter that converts ReScript file paths (e.g., `src/App.res:10:5`)
+ * into clickable hyperlinks that navigate to the referenced source location.
+ */
 class RescriptConsoleFilter(
     private val project: Project,
 ) : Filter {

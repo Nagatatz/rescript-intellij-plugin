@@ -15,6 +15,13 @@ import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 
+/**
+ * Run configuration for executing ReScript CLI commands (build, build-watch, clean).
+ *
+ * Locates the `rescript` CLI via [RescriptCliDetector], constructs a command line
+ * with the selected [RescriptCommand] and optional additional arguments, and
+ * launches it as a colored process with terminal output.
+ */
 class RescriptRunConfiguration(
     project: Project,
     factory: ConfigurationFactory,

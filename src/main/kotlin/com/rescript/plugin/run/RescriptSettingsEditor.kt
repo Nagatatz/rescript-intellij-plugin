@@ -10,6 +10,12 @@ import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
 import javax.swing.JTextField
 
+/**
+ * Settings editor UI for [RescriptRunConfiguration].
+ *
+ * Provides form fields for selecting the ReScript command (build/build-watch/clean),
+ * working directory, and additional CLI arguments.
+ */
 class RescriptSettingsEditor(
     private val project: Project,
 ) : SettingsEditor<RescriptRunConfiguration>() {
