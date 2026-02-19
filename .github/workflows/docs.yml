@@ -1,0 +1,77 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    paths: ['sphinx-docs/**']
+  pull_request:
+    branches: [main]
+    paths: ['sphinx-docs/**']
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sphinx-docs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Generate ReScript Pygments lexer
+        run: make generate-lexer
+
+      - name: Build English HTML
+        run: make html
+
+      - name: Build Japanese HTML
+        run: make build-ja
+
+      - name: Assemble site
+        run: |
+          rm -rf _build/site
+          mkdir -p _build/site
+          cp -r _build/html _build/site/en
+          cp -r _build/html_ja _build/site/ja
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=en/"></head><body><a href="en/">English</a></body></html>' > _build/site/index.html
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: sphinx-docs/_build/site
+
+      - name: Link check (PR only)
+        if: github.event_name == 'pull_request'
+        run: make linkcheck
+        continue-on-error: true
+
+  deploy:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
