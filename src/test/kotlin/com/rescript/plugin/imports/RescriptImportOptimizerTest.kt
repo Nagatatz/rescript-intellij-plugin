@@ -65,6 +65,56 @@ class RescriptImportOptimizerTest {
         assertEquals("Belt", RescriptImportUtil.extractModulePath(openStmt))
     }
 
+    // ── buildNotificationMessage() tests ─────────────────────────────
+
+    @Test
+    fun testNotificationMessageNoDuplicatesNoUnused() {
+        assertEquals(
+            "No open statements to remove",
+            RescriptImportOptimizer.buildNotificationMessage(0, 0),
+        )
+    }
+
+    @Test
+    fun testNotificationMessageOnlyDuplicates() {
+        assertEquals(
+            "Removed 3 duplicate open statement(s)",
+            RescriptImportOptimizer.buildNotificationMessage(3, 0),
+        )
+    }
+
+    @Test
+    fun testNotificationMessageOnlyUnused() {
+        assertEquals(
+            "Removed 2 unused open statement(s)",
+            RescriptImportOptimizer.buildNotificationMessage(0, 2),
+        )
+    }
+
+    @Test
+    fun testNotificationMessageBothDuplicatesAndUnused() {
+        assertEquals(
+            "Removed 1 duplicate and 4 unused open statement(s)",
+            RescriptImportOptimizer.buildNotificationMessage(1, 4),
+        )
+    }
+
+    @Test
+    fun testNotificationMessageSingleDuplicate() {
+        assertEquals(
+            "Removed 1 duplicate open statement(s)",
+            RescriptImportOptimizer.buildNotificationMessage(1, 0),
+        )
+    }
+
+    @Test
+    fun testNotificationMessageSingleUnused() {
+        assertEquals(
+            "Removed 1 unused open statement(s)",
+            RescriptImportOptimizer.buildNotificationMessage(0, 1),
+        )
+    }
+
     // ── Stub helpers ─────────────────────────────────────────────────
 
     private fun buildOpenStatement(pathTokens: List<String>): PsiElement {

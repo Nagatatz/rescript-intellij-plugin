@@ -54,9 +54,10 @@ Key configuration files:
 The target IntelliJ Platform version is configured in `gradle.properties`:
 
 ```properties
-pluginSinceBuild = 253    # IntelliJ 2025.3+
-pluginUntilBuild = 253.*  # Compatible until 2025.3.x
+pluginSinceBuild = 253.0  # IntelliJ 2025.3+
 ```
+
+Note: `pluginUntilBuild` is intentionally not set, allowing the plugin to be compatible with all future platform versions.
 
 ## CI Pipeline
 

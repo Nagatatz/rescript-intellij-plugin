@@ -133,8 +133,22 @@ src/main/
 │   │   └── RescriptCodeVisionProvider.kt  # Code Lens (LSP codeLens → CodeVision)
 │   ├── statusbar/
 │   │   └── RescriptCompilerStatusWidgetFactory.kt  # ビルドステータス表示
+│   ├── errorlens/
+│   │   ├── RescriptErrorLensEditorListener.kt      # FileEditorManagerListener
+│   │   ├── RescriptErrorLensManager.kt             # エディタ単位の管理 (DaemonListener + Inlay Map)
+│   │   ├── RescriptErrorLensRenderer.kt            # EditorCustomElementRenderer
+│   │   ├── RescriptErrorLensSeverity.kt            # 重要度 → 色マッピング
+│   │   └── RescriptErrorLensHighlighterInfo.kt     # RangeHighlighter → DiagnosticInfo 変換
+│   ├── debug/
+│   │   ├── RescriptDebugCompiledJsAction.kt        # Debug Compiled JS アクション
+│   │   ├── RescriptDebugConfigurationType.kt       # Run Configuration タイプ
+│   │   ├── RescriptDebugConfigurationFactory.kt    # ファクトリ
+│   │   ├── RescriptDebugRunConfiguration.kt        # 実行構成
+│   │   ├── RescriptDebugRunConfigurationOptions.kt # 永続化オプション
+│   │   └── RescriptDebugSettingsEditor.kt          # 設定 UI
 │   ├── imports/
-│   │   └── RescriptImportOptimizer.kt   # Import Optimizer (重複 open 削除)
+│   │   ├── RescriptImportOptimizer.kt   # Import Optimizer (重複 + 未使用 open 削除)
+│   │   └── RescriptUnusedOpenDetector.kt # LSP 診断から未使用 open を検出
 │   ├── intention/
 │   │   ├── RescriptWrapWithIntention.kt     # Wrap with Some/Ok/Error
 │   │   └── RescriptAddGenTypeIntention.kt   # Add @genType annotation
