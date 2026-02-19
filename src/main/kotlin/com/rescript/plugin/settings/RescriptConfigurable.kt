@@ -30,6 +30,7 @@ class RescriptConfigurable(
     private var incrementalTypecheckingCheckbox: JCheckBox? = null
     private var errorLensCheckbox: JCheckBox? = null
     private var errorLensMinSeverityCombo: ComboBox<String>? = null
+    private var removeUnusedOpensCheckbox: JCheckBox? = null
 
     override fun getDisplayName(): String = "ReScript"
 
@@ -71,6 +72,9 @@ class RescriptConfigurable(
             ComboBox(DefaultComboBoxModel(RescriptErrorLensSeverity.SEVERITY_NAMES.toTypedArray()))
         errorLensMinSeverityCombo = severityCombo
 
+        val unusedOpensCheckbox = JCheckBox("Remove unused open statements (requires LSP)", true)
+        removeUnusedOpensCheckbox = unusedOpensCheckbox
+
         val formPanel =
             FormBuilder
                 .createFormBuilder()
@@ -87,7 +91,11 @@ class RescriptConfigurable(
                 .addTooltip("Show diagnostic messages inline at the end of editor lines. Requires reopening files.")
                 .addLabeledComponent("Minimum severity:", severityCombo)
                 .addTooltip("Only show diagnostics at or above this severity level.")
-                .addComponentFillVertically(JPanel(), 0)
+                .addSeparator()
+                .addComponent(unusedOpensCheckbox)
+                .addTooltip(
+                    "When enabled, Optimize Imports also removes unused open statements detected by the LSP server.",
+                ).addComponentFillVertically(JPanel(), 0)
                 .panel
 
         panel = formPanel
@@ -100,7 +108,8 @@ class RescriptConfigurable(
             nodePathField?.text != settings.nodePath ||
             incrementalTypecheckingCheckbox?.isSelected != settings.incrementalTypecheckingEnabled ||
             errorLensCheckbox?.isSelected != settings.errorLensEnabled ||
-            errorLensMinSeverityCombo?.selectedItem != settings.errorLensMinSeverity
+            errorLensMinSeverityCombo?.selectedItem != settings.errorLensMinSeverity ||
+            removeUnusedOpensCheckbox?.isSelected != settings.removeUnusedOpensEnabled
     }
 
     @Throws(ConfigurationException::class)
@@ -121,6 +130,7 @@ class RescriptConfigurable(
         settings.incrementalTypecheckingEnabled = incrementalTypecheckingCheckbox?.isSelected ?: true
         settings.errorLensEnabled = errorLensCheckbox?.isSelected ?: true
         settings.errorLensMinSeverity = errorLensMinSeverityCombo?.selectedItem as? String ?: "WARNING"
+        settings.removeUnusedOpensEnabled = removeUnusedOpensCheckbox?.isSelected ?: true
 
         com.intellij.platform.lsp.api.LspServerManager
             .getInstance(project)
@@ -134,6 +144,7 @@ class RescriptConfigurable(
         incrementalTypecheckingCheckbox?.isSelected = settings.incrementalTypecheckingEnabled
         errorLensCheckbox?.isSelected = settings.errorLensEnabled
         errorLensMinSeverityCombo?.selectedItem = settings.errorLensMinSeverity
+        removeUnusedOpensCheckbox?.isSelected = settings.removeUnusedOpensEnabled
     }
 
     override fun disposeUIResources() {
@@ -143,5 +154,6 @@ class RescriptConfigurable(
         incrementalTypecheckingCheckbox = null
         errorLensCheckbox = null
         errorLensMinSeverityCombo = null
+        removeUnusedOpensCheckbox = null
     }
 }

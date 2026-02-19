@@ -25,6 +25,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var incrementalTypecheckingEnabled: Boolean = true
         var errorLensEnabled: Boolean = true
         var errorLensMinSeverity: String = "WARNING"
+        var removeUnusedOpensEnabled: Boolean = true
     }
 
     override fun getState(): State = state
@@ -61,6 +62,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.errorLensMinSeverity
         set(value) {
             state.errorLensMinSeverity = value
+        }
+
+    var removeUnusedOpensEnabled: Boolean
+        get() = state.removeUnusedOpensEnabled
+        set(value) {
+            state.removeUnusedOpensEnabled = value
         }
 
     companion object {
