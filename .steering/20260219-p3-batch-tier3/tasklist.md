@@ -46,7 +46,7 @@
 - [x] ビルド確認・コミット
 
 ## マージ・仕上げ
-- [ ] 全機能ブランチをバッチブランチにマージ
-- [ ] 最終ビルド確認
-- [ ] 共有ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
+- [x] 全機能ブランチをバッチブランチにマージ
+- [x] 最終ビルド確認
+- [x] 共有ドキュメント更新（CLAUDE.md, product-requirements.md, functional-design.md）
 - [ ] main にマージ
