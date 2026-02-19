@@ -198,7 +198,7 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 
 | 要件 | 詳細 |
 |---|---|
-| 対象 IDE | IntelliJ IDEA Ultimate 2025.3+（将来的に Community Edition 対応） |
+| 対象 IDE | IntelliJ IDEA (Ultimate / Community) 2025.3+、および全 JetBrains IDE |
 | JDK | 21+ |
 | OS | Windows / macOS / Linux（JetBrains IDE が動作する全 OS） |
 | 依存ツール | Node.js（PATH で利用可能）、`@rescript/language-server` |
@@ -371,7 +371,7 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 
 ### NFR-03: 保守性
 
-- コードベースを小さく保つ（目標: Kotlin 1,000行以下 + JFlex 定義 500行以下）
+- コードベースを適正規模に保つ（機能追加に伴い成長するが、不要な複雑さを避ける）
 - 複雑な式パースを避け、LSP に委譲する設計を維持する
 - IntelliJ Platform の公式 API のみを使用する（internal API の使用禁止）
 
