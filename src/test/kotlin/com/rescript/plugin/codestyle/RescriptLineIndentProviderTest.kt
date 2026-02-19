@@ -1,7 +1,10 @@
 package com.rescript.plugin.codestyle
 
+import com.rescript.plugin.RescriptLanguage
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import com.rescript.plugin.lang.RescriptTokenTypes as T
 
@@ -149,5 +152,64 @@ class RescriptLineIndentProviderTest {
     @Test
     fun `complex expression last token is RPAREN`() {
         assertEquals(T.RPAREN, lastToken("Belt.Array.map(arr, fn)"))
+    }
+
+    // ── isSuitableFor tests ────────────────────────────────────────────
+
+    @Test
+    fun `isSuitableFor returns true for RescriptLanguage`() {
+        assertTrue(provider.isSuitableFor(RescriptLanguage))
+    }
+
+    @Test
+    fun `isSuitableFor returns false for null`() {
+        assertFalse(provider.isSuitableFor(null))
+    }
+
+    // ── Additional findLastSignificantToken tests ──────────────────────
+
+    @Test
+    fun `pipe token is last significant`() {
+        assertEquals(T.PIPE, lastToken("| "))
+    }
+
+    @Test
+    fun `switch keyword is last significant`() {
+        assertEquals(T.SWITCH, lastToken("switch"))
+    }
+
+    @Test
+    fun `equal sign is last significant`() {
+        assertEquals(T.EQ, lastToken("let x ="))
+    }
+
+    @Test
+    fun `comma is last significant`() {
+        assertEquals(T.COMMA, lastToken("a, b,"))
+    }
+
+    @Test
+    fun `tab-only line returns null`() {
+        assertNull(lastToken("\t\t"))
+    }
+
+    @Test
+    fun `mixed whitespace and tabs returns null`() {
+        assertNull(lastToken("  \t  \t  "))
+    }
+
+    @Test
+    fun `lbracket in array pattern`() {
+        assertEquals(T.LBRACKET, lastToken("let ["))
+    }
+
+    @Test
+    fun `arrow after nested parens`() {
+        assertEquals(T.ARROW, lastToken("| Some((a, b)) =>"))
+    }
+
+    @Test
+    fun `lbrace in if-else block`() {
+        assertEquals(T.LBRACE, lastToken("if condition {"))
     }
 }
