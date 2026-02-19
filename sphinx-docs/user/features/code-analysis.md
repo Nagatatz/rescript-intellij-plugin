@@ -6,68 +6,213 @@ The plugin provides several code analysis features to help you maintain clean, c
 
 The Language Server provides real-time error and warning diagnostics as you type:
 
-- **Errors** — Shown with red underlines
-- **Warnings** — Shown with yellow underlines
-- **Info** — Shown with subtle underlines
+- **Errors** --- Shown with red underlines
+- **Warnings** --- Shown with yellow underlines
+- **Info** --- Shown with subtle underlines
 
 View all diagnostics in the **Problems** panel (`Alt+6`).
 
 ## Code Inspections
 
-The plugin includes built-in inspections that run locally:
+The plugin includes built-in inspections that run locally without requiring the Language Server.
 
 ### Duplicate Open Detection
 
-Detects when the same module is opened multiple times:
+Detects when the same module is opened multiple times in the same file. Duplicate `open` statements are redundant and add unnecessary noise to the code.
+
+**Before** (duplicate detected):
 
 ```rescript
 open Belt
-open Belt  // ← Warning: duplicate open
+open Belt.Array
+open Belt  // Warning: duplicate open statement
+
+let arr = [1, 2, 3]
+let doubled = arr->Array.map(x => x * 2)
 ```
+
+**After** (optimized):
+
+```rescript
+open Belt
+open Belt.Array
+
+let arr = [1, 2, 3]
+let doubled = arr->Array.map(x => x * 2)
+```
+
+The inspection highlights the duplicate `open` statement with a warning. You can remove it manually or use **Optimize Imports** (`Ctrl+Alt+O`) to remove all duplicates automatically.
 
 ### Empty Module Detection
 
-Warns about empty module declarations:
+Warns about module declarations that have no content. Empty modules are typically leftover scaffolding or incomplete implementations.
 
 ```rescript
-module Empty = {}  // ← Warning: empty module
+module Utils = {
+  // Warning: empty module body
+}
+
+module Helpers = {
+  let format = (s) => s->String.trim
+}
 ```
+
+The warning appears on the empty module declaration, prompting you to either add content or remove the empty module.
 
 ### Missing Configuration
 
-Warns when `rescript.json` (or `bsconfig.json`) is not found in the project root.
+When no `rescript.json` (or legacy `bsconfig.json`) is found in the project root, the plugin displays an editor notification bar at the top of ReScript files. This configuration file is essential for:
+
+- **ReScript compiler** --- Without it, the project cannot be built. The compiler uses this file to locate source directories, dependencies, and build settings.
+- **Language Server** --- The LSP server relies on `rescript.json` to understand the project structure. Without it, features like auto-completion, go-to-definition, and diagnostics will not function.
+- **Plugin features** --- Several plugin features (Code Lens, semantic highlighting, inlay hints) depend on the Language Server, which in turn requires the configuration file.
+
+If you see this warning, create a `rescript.json` file in your project root. The easiest way is to use the Project Wizard (**File** > **New** > **Project** > **ReScript**) or initialize a project with `npm init rescript-app@latest`.
 
 ## Dead Code Analysis (reanalyze)
 
-The plugin integrates with [reanalyze](https://github.com/rescript-association/reanalyze) to detect:
+The plugin integrates with [reanalyze](https://github.com/rescript-association/reanalyze), a static analysis tool built into `rescript-tools`, to detect unused and dead code in your project.
 
-- **Dead code** — Unused functions, values, and types
-- **Dead exceptions** — Unused exception declarations
-- **Unhandled exceptions** — Exception paths not covered by try/catch
+### What It Detects
+
+- **Dead code** --- Unused functions, values, types, and modules that are never referenced
+- **Dead exceptions** --- Exception declarations that are never raised or caught
+- **Unhandled exceptions** --- Exception paths not covered by try/catch blocks
+
+### Code Example
+
+Consider a file with an unused helper function:
+
+```rescript
+let formatName = (first, last) => `${first} ${last}`
+
+let greet = (name) => `Hello, ${name}!`
+
+// Only greet is used elsewhere in the project.
+// formatName is never called from any other module.
+```
+
+The reanalyze tool detects that `formatName` is dead code and displays a warning annotation on the function definition: **"formatName is dead code"**.
+
+### Quick Fixes
+
+When reanalyze identifies unused or dead code, the plugin offers quick fixes via `Alt+Enter`:
+
+**1. Prefix with underscore** --- Marks the identifier as intentionally unused. This is useful when you want to keep the code for documentation or future use:
+
+```rescript
+// Before: warning on unused function
+let formatName = (first, last) => `${first} ${last}`
+
+// After: applying "Prefix with underscore" quick fix
+let _formatName = (first, last) => `${first} ${last}`
+```
+
+**2. Remove unused code** --- Deletes the entire declaration line. Use this when the code is truly no longer needed:
+
+```rescript
+// Before
+let formatName = (first, last) => `${first} ${last}`
+let greet = (name) => `Hello, ${name}!`
+
+// After: applying "Remove unused code" quick fix on formatName
+let greet = (name) => `Hello, ${name}!`
+```
+
+The available quick fixes depend on the diagnostic type:
+- **Unused variables/arguments/values/types/modules** --- Both "Prefix with underscore" and "Remove unused code" are offered
+- **Dead code/modules/types/values/exceptions** --- Only "Remove unused code" is offered
+
+### Setup Requirements
+
+The reanalyze integration requires:
+
+1. **ReScript compiler installed** --- The `rescript` package must be in your project's `node_modules`. The plugin looks for `rescript-tools` (or `rescript-tools.exe` on Windows) in `node_modules/rescript/`.
+
+2. **Project must be built** --- reanalyze operates on the compiled output. Run `rescript build` at least once before expecting dead code analysis results.
+
+3. **Optional: reanalyze configuration in rescript.json** --- You can fine-tune the analysis by adding a `reanalyze` section to your `rescript.json`:
+
+```json
+{
+  "name": "my-project",
+  "sources": [{"dir": "src", "subdirs": true}],
+  "reanalyze": {
+    "analysis": ["dce", "exception"],
+    "suppress": ["src/bindings"],
+    "transitive": false
+  }
+}
+```
+
+Configuration options:
+- `analysis` --- Array of analysis types to enable: `"dce"` (dead code elimination), `"exception"` (exception analysis), `"termination"` (infinite loop detection)
+- `suppress` --- Array of directory paths to exclude from analysis (useful for FFI bindings)
+- `unsuppress` --- Specific files within suppressed directories to re-include
+- `transitive` --- Whether to report transitively dead items (default: `false`)
 
 ### How It Works
 
-1. reanalyze runs as an external annotator on file save
-2. Results appear as editor annotations (warnings/info)
-3. Quick fixes are available:
-   - Add `_` prefix to mark as intentionally unused
-   - Remove the `_` prefix when code is actually used
+The reanalyze annotator follows a three-phase lifecycle:
+
+1. **Collect** --- On the EDT (Event Dispatch Thread), gathers the file path and project base path
+2. **Annotate** --- In a background thread, runs `rescript-tools reanalyze -json` and parses the JSON output
+3. **Apply** --- Maps diagnostics back to editor positions and creates warning annotations with quick-fix actions
 
 ### Global Inspection
 
-Run **Code** → **Inspect Code** to analyze the entire project for dead code. Results are grouped by category in the Inspection Results panel.
+In addition to per-file annotations in the editor, you can analyze the entire project at once:
+
+1. Go to **Code** > **Inspect Code**
+2. Select the inspection scope (whole project or specific directories)
+3. Results appear in the **Inspection Results** panel, grouped by file
+
+The global inspection runs a single invocation of `rescript-tools reanalyze -json` and distributes the results across all affected ReScript files in the project.
 
 ## Import Optimization
 
-Press `Ctrl+Alt+O` to optimize imports:
+Press `Ctrl+Alt+O` (or `Cmd+Alt+O` on macOS) to optimize imports in the current file.
 
-- Removes duplicate `open` statements
-- Keeps unique `open` statements in their original order
+The import optimizer performs the following actions:
+
+- **Removes duplicate `open` statements** --- When the same module path appears in multiple `open` statements, only the first occurrence is kept
+- **Preserves order** --- Unique `open` statements remain in their original position in the file
+- **Preserves non-duplicate opens** --- The optimizer only removes exact duplicates; it does not remove unused opens (since that requires semantic analysis from the compiler)
+
+**Example:**
+
+```rescript
+// Before optimization
+open Belt
+open Belt.Array
+open Belt
+open Belt.Option
+open Belt.Array
+
+let x = [1, 2, 3]->Array.map(v => Some(v))
+```
+
+```rescript
+// After Ctrl+Alt+O
+open Belt
+open Belt.Array
+open Belt.Option
+
+let x = [1, 2, 3]->Array.map(v => Some(v))
+```
+
+After running the optimizer, a notification displays the result (e.g., "Removed 2 duplicate open statement(s)" or "No duplicate open statements found").
 
 ## Quick Fixes (LSP)
 
-The Language Server provides automatic code fixes via `Alt+Enter`:
+The Language Server provides automatic code fixes via `Alt+Enter` (or the light bulb icon in the gutter). These LSP-powered quick fixes operate on semantic analysis from the ReScript compiler and can handle situations that local inspections cannot.
 
-- Add missing imports
-- Add type annotations
-- Fix common type errors
+Available quick fixes include:
+
+- **Add missing type annotation** --- When the compiler suggests adding a type constraint to resolve ambiguity
+- **Add missing open** --- Inserts an `open` statement for a module that contains the referenced value
+- **Fix type mismatch** --- Suggests corrections when types do not match (e.g., wrapping in `Some()` for option types)
+- **Insert missing pattern** --- Adds unhandled cases to incomplete pattern matches
+- **Convert deprecated syntax** --- Updates old ReScript syntax to the current version
+
+Quick fixes appear contextually based on the compiler diagnostic at the cursor position. Press `Alt+Enter` to see all available actions, or click the light bulb icon that appears in the editor gutter.

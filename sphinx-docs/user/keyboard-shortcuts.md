@@ -18,6 +18,22 @@ Shortcuts shown are for macOS. On Windows/Linux, replace `Cmd` with `Ctrl` and `
 | `Alt+F7` | Find Usages |
 | `Cmd+7` | Structure View |
 
+### Tips
+
+The most frequently used navigation shortcut is **Cmd+B** (Go to Definition). Press it on any identifier --- a function name, a module reference, a type --- and the IDE jumps to where it is defined. If the definition is in another file, that file opens automatically. You can also hold `Cmd` and click on an identifier with the mouse for the same effect.
+
+**Go to Symbol** (`Cmd+Option+O`) is the fastest way to open a file when you know the name of the function or type you are looking for. Start typing a partial name, and the dialog filters all symbols across the project. This is especially useful in large codebases where you may not remember which module contains a particular function.
+
+**Switch between .res and .resi** (`Alt+O`) is invaluable when working with interfaces. If you are editing `MyModule.res` and want to check or update its interface, press `Alt+O` to jump to `MyModule.resi` instantly. Press it again to jump back. If the `.resi` file does not exist, you can generate one using the **Create Interface** action available in the **Navigate > Go to Related** menu.
+
+**Open compiled JavaScript** (`Alt+Shift+J`) opens the `.js` file that the ReScript compiler generated from the current `.res` file. This is useful for debugging interop issues, verifying that the compiled output matches your expectations, or understanding how ReScript translates specific patterns to JavaScript.
+
+**Copy qualified name** (`Cmd+Shift+Alt+C`) copies the fully qualified module path of the symbol at the cursor (e.g., `MyModule.SubModule.myFunction`). This is convenient when writing `open` statements, referencing symbols in documentation, or constructing imports in JavaScript interop code.
+
+**Find Usages** (`Alt+F7`) locates every reference to the symbol at the cursor across the entire project. The results appear in a tool window grouped by file, making it easy to understand the impact of changing a function or type.
+
+**Structure View** (`Cmd+7`) opens a sidebar showing the outline of the current file: all `let` bindings, `type` definitions, `module` declarations, and `external` bindings. You can click any item to jump to it. This is particularly useful for navigating long files with many declarations.
+
 ## Editing
 
 | Shortcut | Action |
@@ -33,6 +49,22 @@ Shortcuts shown are for macOS. On Windows/Linux, replace `Cmd` with `Ctrl` and `
 | `Ctrl+Alt+O` | Optimize imports (remove duplicate opens) |
 | `Shift+F6` | Rename symbol |
 
+### Tips
+
+**Alt+Enter** is the Swiss Army knife shortcut for quick fixes and context-aware actions. Place your cursor on an expression and press `Alt+Enter` to see available intentions. For example, on any expression you can choose **Wrap with Some(...)**, **Wrap with Ok(...)**, or **Wrap with Error(...)** to wrap the expression in an `option` or `result` constructor. On a declaration without a `@genType` annotation, you can choose **Add @genType** to add the decorator. The available intentions change depending on what is under the cursor.
+
+**Format file** (`Cmd+Option+L`) runs `rescript format` through the language server on the current file. This reformats the entire file according to the standard ReScript style. Unlike some formatters that only adjust whitespace, `rescript format` can also normalize syntax (e.g., standardizing arrow function formatting). Since formatting requires the LSP, this shortcut has no effect when the language server is disconnected.
+
+**Smart Enter** (`Shift+Enter`) is a time-saver when you want to start a new line below the current one without moving to the end of the line first. It completes the current statement contextually and positions the cursor on a new line with proper indentation.
+
+**Move declaration up/down** (`Alt+Shift+Up/Down`) moves the entire top-level declaration at the cursor position up or down. Unlike the standard line-move shortcut, this operates on logical declarations --- it moves the whole `let` binding, `type` definition, or `module` block as a unit. This is useful for reordering declarations within a file without cut-and-paste.
+
+**Surround with** (`Ctrl+Alt+T`) wraps the selected code in a control structure. Select an expression or block of code, press the shortcut, and choose from `if ... { }`, `switch ... { }`, `try { } catch { }`, or `{ }` (plain block). The selected code is placed inside the chosen structure with the cursor positioned for you to fill in the condition or pattern.
+
+**Optimize imports** (`Ctrl+Alt+O`) removes duplicate `open` statements from the file. If you have accidentally opened the same module multiple times, this shortcut cleans them up in one action.
+
+**Rename symbol** (`Shift+F6`) renames the identifier at the cursor and updates all references across the project. This works for `let` bindings, type names, module names, and other named entities. Since it relies on semantic analysis, it requires the LSP to be connected.
+
 ## Completion
 
 | Shortcut | Action |
@@ -41,7 +73,29 @@ Shortcuts shown are for macOS. On Windows/Linux, replace `Cmd` with `Ctrl` and `
 | `Tab` | Expand live template |
 | `.switch` | Postfix: wrap in switch |
 | `.pipe` | Postfix: add pipe operator |
-| `.log` | Postfix: wrap in Js.log |
+| `.log` | Postfix: wrap in Console.log |
+| `.some` | Postfix: wrap in Some(...) |
+| `.ok` | Postfix: wrap in Ok(...) |
+| `.error` | Postfix: wrap in Error(...) |
+| `.ignore` | Postfix: pipe to ignore |
+
+### Tips
+
+**Code completion** (`Cmd+Space`) triggers the LSP completion popup, which provides context-aware suggestions based on the current scope and expected type. The completions include module members, record fields, variant constructors, and function names. Type information is shown alongside each suggestion, so you can distinguish between functions with similar names. Pressing `Tab` or `Enter` on a suggestion inserts it.
+
+**Postfix templates** are one of the most productive features for writing idiomatic ReScript. They work by typing a dot (`.`) after an expression and then the template name. The expression is automatically rewritten into the expanded form.
+
+The **`.switch`** postfix is especially useful when you want to pattern-match on a value. Type `myOption.switch` and the expression is rewritten to `switch myOption { | _ => }` with the cursor positioned after the arrow, ready for you to fill in the cases. This is faster than typing the `switch` keyword, parentheses, and braces manually.
+
+The **`.pipe`** postfix converts `expr.pipe` into `expr->`, which is the standard ReScript pipe-first syntax. This is convenient when chaining operations: you can type the initial expression, add `.pipe`, and immediately start typing the function name.
+
+The **`.log`** postfix wraps an expression in `Console.log(...)` for quick debugging. Type `myValue.log` and it becomes `Console.log(myValue)`. This is the fastest way to add a debug print statement.
+
+The **`.some`**, **`.ok`**, and **`.error`** postfix templates wrap the preceding expression in the corresponding constructor: `Some(...)`, `Ok(...)`, or `Error(...)`. These are handy when you need to lift a plain value into an `option` or `result` type.
+
+The **`.ignore`** postfix appends `->ignore` to the expression, which discards the return value. This is a common pattern in ReScript when calling a function for its side effects but not using the return value.
+
+**Live templates** are expanded with `Tab` after typing the abbreviation. Unlike postfix templates (which transform existing expressions), live templates insert new code patterns. For example, typing `let` followed by `Tab` expands into a `let` binding skeleton with tab stops for the name and value.
 
 ## Code Generation
 
@@ -49,12 +103,24 @@ Shortcuts shown are for macOS. On Windows/Linux, replace `Cmd` with `Ctrl` and `
 |----------|--------|
 | `Cmd+N` / `Alt+Insert` | Generate menu (Switch Arms, Module Type) |
 
+### Tips
+
+The **Generate** menu (`Cmd+N`) provides code generation actions that create boilerplate code from context. Place your cursor inside a `switch` expression and choose **Generate Switch Arms** to automatically generate pattern match arms for all constructors of the matched variant type. This is especially useful for large variant types where manually typing all cases is tedious and error-prone.
+
+**Generate Module Type** creates a module type signature from the current module's contents. This can save time when you need to create a `.resi` interface file or define a module type for a functor argument.
+
 ## Running
 
 | Shortcut | Action |
 |----------|--------|
 | `Ctrl+R` / `Shift+F10` | Run current configuration |
 | `Alt+6` | Open Problems panel |
+
+### Tips
+
+**Run current configuration** (`Ctrl+R` or `Shift+F10`) executes the currently selected run configuration, which is typically a ReScript build command. The plugin automatically creates run configurations based on the `rescript.json` file in your project. You can also run tests directly from gutter icons next to test functions.
+
+The **Problems panel** (`Alt+6`) displays all diagnostics reported by the language server: type errors, syntax errors, and warnings. Each entry shows the file, line number, and error message. Double-clicking an entry jumps to the exact location in the source file. This panel is the central place for reviewing all issues in your project at a glance.
 
 ## View
 
@@ -64,3 +130,11 @@ Shortcuts shown are for macOS. On Windows/Linux, replace `Cmd` with `Ctrl` and `
 | `Cmd+Shift+Minus` | Collapse all folds |
 | `Cmd+Plus` | Expand fold at cursor |
 | `Cmd+Minus` | Collapse fold at cursor |
+
+### Tips
+
+**Code folding** helps manage large files by collapsing regions you are not currently working on. The plugin supports folding for all top-level declarations (`let`, `type`, `module`, `external`), block comments, and custom region markers (`//#region` ... `//#endregion`).
+
+**Collapse all folds** (`Cmd+Shift+Minus`) is particularly useful when opening a large file for the first time: it gives you a high-level overview of all declarations, similar to the Structure View but inline. You can then selectively expand individual declarations with `Cmd+Plus` to drill into the ones you need.
+
+Custom region markers let you define your own foldable sections. Add `//#region Section Name` and `//#endregion` comments around a group of related declarations, and the IDE treats them as a collapsible unit. This is handy for organizing utility modules or grouping related functions.
