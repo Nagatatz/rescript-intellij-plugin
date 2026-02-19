@@ -1,0 +1,10 @@
+{% extends "furo/base.html" %}
+
+{% block footer %}
+{{ super() }}
+<div class="language-switcher">
+  <a href="/en/{{ pagename }}.html"{% if language == 'en' %} class="active"{% endif %}>EN</a>
+  <span class="separator">|</span>
+  <a href="/ja/{{ pagename }}.html"{% if language == 'ja' %} class="active"{% endif %}>JA</a>
+</div>
+{% endblock %}

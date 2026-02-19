@@ -1,0 +1,29 @@
+/* Language switcher in footer */
+.language-switcher {
+    text-align: center;
+    padding: 1rem 0 0.5rem;
+    font-size: 0.9rem;
+}
+
+.language-switcher a {
+    color: var(--color-foreground-secondary);
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.language-switcher a:hover {
+    color: var(--color-foreground-primary);
+    background-color: var(--color-background-hover);
+}
+
+.language-switcher a.active {
+    font-weight: bold;
+    color: var(--color-foreground-primary);
+}
+
+.language-switcher .separator {
+    color: var(--color-foreground-border);
+    margin: 0 0.25rem;
+}
