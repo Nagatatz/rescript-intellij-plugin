@@ -91,7 +91,8 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | スペルチェック | コメント・文字列・識別子のスペルチェック | `RescriptSpellcheckingStrategy` |
 | Postfix Completion | `.switch`, `.pipe`, `.log`, `.some`, `.ok`, `.error`, `.ignore` の式後方補完 | `RescriptPostfixTemplateProvider` |
 | Console Filter | コンパイルエラー出力のファイルパス:行番号をクリック可能リンクに変換 | `RescriptConsoleFilterProvider` |
-| Editor Notification Bar | LSP 未検出時のエディタ上部案内バー表示 | `RescriptEditorNotificationProvider` |
+| Editor Notification Bar | LSP 未検出時のエディタ上部案内バー表示（Install ボタン付き） | `RescriptEditorNotificationProvider` |
+| LSP 自動インストール促進 | プロジェクト起動時のバルーン通知 + パッケージマネージャ自動検出によるワンクリックインストール | `RescriptLspStartupActivity` + `RescriptLspInstaller` + `RescriptPackageManagerDetector` |
 | JSON Schema 提供 | `rescript.json`/`bsconfig.json` の補完・バリデーション | `RescriptJsonSchemaProviderFactory` |
 | `%raw()` JS ハイライト | `%raw()` 内の JavaScript をハイライト | `RescriptRawJsInjector` + `RescriptAstFactory` |
 | Go to Related | `Navigate > Related Symbol` で `.res`/`.resi`/`.js` 間の関連ファイルジャンプ | `RescriptGotoRelatedProvider` |
@@ -335,6 +336,8 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 - 検索順序: `node_modules/@rescript/language-server/out/server.js` → グローバルインストール
 - LSP サーバーを stdio 経由で起動・管理する
 - サーバーの異常終了時に適切にハンドリングする
+- LSP 未検出時、エディタ通知バーおよびプロジェクト起動時バルーンでインストールを促進する
+- パッケージマネージャ（npm/yarn/pnpm）をロックファイルから自動検出し、ワンクリックでバックグラウンドインストールを実行する
 
 ### FR-06: LSP 機能連携
 
@@ -381,5 +384,5 @@ rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラ
 ### NFR-05: ユーザビリティ
 
 - プラグインインストール後、追加設定なしでネイティブ機能が動作する
-- LSP 機能は `@rescript/language-server` のインストールのみで動作する
+- LSP 機能は `@rescript/language-server` のインストールのみで動作する（プラグインがワンクリックインストールを提供）
 - エラーメッセージは原因と対処法を含む明確な内容とする

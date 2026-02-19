@@ -17,6 +17,7 @@
 - **Brace matching** — Automatic matching for `{}`, `[]`, `()`
 - **Comments** — Toggle line (`//`) and block (`/* */`) comments
 - **Structure view** — Navigate module, function, and type declarations
+- **LSP auto-install** — One-click installation of `@rescript/language-server` with auto-detected package manager
 - **Run configuration** — Build ReScript projects from the IDE
 - **Semantic highlighting** — Enhanced token coloring via LSP semantic tokens
 - **Code style** — Indentation settings for ReScript files

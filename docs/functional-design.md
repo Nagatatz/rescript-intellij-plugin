@@ -21,6 +21,7 @@ graph TB
             subgraph Layer2["レイヤー 2: LSP 統合"]
                 LSPP[LspServerSupportProvider<br/>サーバー起動判定]
                 LSPD[LspServerDescriptor<br/>サーバー検出・設定]
+                LSPI[LspInstaller<br/>自動インストール促進]
             end
         end
         subgraph PlatformAPI["IntelliJ Platform API"]
@@ -347,6 +348,7 @@ flowchart TD
     E -->|No| G{which/where で<br/>グローバルインストールを検索}
     G -->|Found| C
     G -->|Not Found| H[サーバー起動失敗<br/>LSP 機能無効]
+    H --> H2[エディタ通知バー +<br/>起動時バルーンで<br/>インストール促進]
 
     C --> I[コマンド構築:<br/>server_path --stdio]
     F --> J[コマンド構築:<br/>node cli.js --stdio]
@@ -432,7 +434,9 @@ flowchart TD
 | `com.intellij.spellchecker.support` | `RescriptSpellcheckingStrategy` | スペルチェック | 実装済み |
 | `com.intellij.codeInsight.template.postfixTemplateProvider` | `RescriptPostfixTemplateProvider` | Postfix Completion | 実装済み |
 | `com.intellij.consoleFilterProvider` | `RescriptConsoleFilterProvider` | コンソール出力のファイルパスリンク化 | 実装済み |
-| `com.intellij.editorNotificationProvider` | `RescriptEditorNotificationProvider` | LSP 未検出時の案内バー | 実装済み |
+| `com.intellij.editorNotificationProvider` | `RescriptEditorNotificationProvider` | LSP 未検出時の案内バー（Install ボタン付き） | 実装済み |
+| `com.intellij.notificationGroup` | `ReScript` | バルーン通知グループ（LSP インストール促進等） | 実装済み |
+| `com.intellij.postStartupActivity` | `RescriptLspStartupActivity` | プロジェクト起動時 LSP インストール促進通知 | 実装済み |
 | `json.schemaProviderFactory` | `RescriptJsonSchemaProviderFactory` | rescript.json JSON Schema 提供 | 実装済み |
 | `com.intellij.lang.ast.factory` | `RescriptAstFactory` | 文字列リテラルの言語インジェクション対応 | 実装済み |
 | `com.intellij.multiHostInjector` | `RescriptRawJsInjector` | `%raw()` 内 JavaScript ハイライト (optional: JavaScript) | 実装済み |
