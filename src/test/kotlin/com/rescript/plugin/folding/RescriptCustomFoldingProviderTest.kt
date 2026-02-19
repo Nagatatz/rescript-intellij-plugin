@@ -72,4 +72,51 @@ class RescriptCustomFoldingProviderTest {
     fun `getEndString returns endregion marker`() {
         assertEquals("//#endregion", provider.getEndString())
     }
+
+    // -- Additional edge cases --
+
+    @Test
+    fun `isCustomRegionEnd handles leading whitespace`() {
+        assertTrue(provider.isCustomRegionEnd("  //#endregion"))
+    }
+
+    @Test
+    fun `isCustomRegionEnd handles tab leading whitespace`() {
+        assertTrue(provider.isCustomRegionEnd("\t//#endregion"))
+    }
+
+    @Test
+    fun `isCustomRegionEnd with space variant and leading whitespace`() {
+        assertTrue(provider.isCustomRegionEnd("    // #endregion"))
+    }
+
+    @Test
+    fun `getPlaceholderText returns ellipsis for region with only spaces after prefix`() {
+        assertEquals("...", provider.getPlaceholderText("//#region   "))
+    }
+
+    @Test
+    fun `getPlaceholderText returns ellipsis for space variant unnamed region`() {
+        assertEquals("...", provider.getPlaceholderText("// #region"))
+    }
+
+    @Test
+    fun `getPlaceholderText returns ellipsis for space variant with trailing spaces`() {
+        assertEquals("...", provider.getPlaceholderText("// #region   "))
+    }
+
+    @Test
+    fun `getPlaceholderText with leading whitespace`() {
+        assertEquals("Section", provider.getPlaceholderText("  //#region Section"))
+    }
+
+    @Test
+    fun `isCustomRegionStart rejects endregion`() {
+        assertFalse(provider.isCustomRegionStart("//#endregion"))
+    }
+
+    @Test
+    fun `isCustomRegionEnd rejects region start`() {
+        assertFalse(provider.isCustomRegionEnd("//#region Foo"))
+    }
 }

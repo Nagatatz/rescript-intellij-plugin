@@ -123,4 +123,78 @@ class RescriptSurroundDescriptorTest {
         val result = surrounder.generateTemplate("let x = parse(s)\nlet y = process(x)")
         assertEquals("try {\n  let x = parse(s)\nlet y = process(x)\n} catch {\n| exn => ()\n}", result)
     }
+
+    // -- isApplicable tests --
+
+    @Test
+    fun testIsApplicableReturnsTrueForNonEmptyArray() {
+        val surrounder = RescriptIfSurrounder()
+        val element =
+            java.lang.reflect.Proxy.newProxyInstance(
+                com.intellij.psi.PsiElement::class.java.classLoader,
+                arrayOf(com.intellij.psi.PsiElement::class.java),
+            ) { _, method, _ ->
+                when (method.name) {
+                    "toString" -> "StubElement"
+                    "hashCode" -> 0
+                    "equals" -> false
+                    else -> null
+                }
+            } as com.intellij.psi.PsiElement
+        assertTrue(surrounder.isApplicable(arrayOf(element)))
+    }
+
+    @Test
+    fun testIsApplicableReturnsFalseForEmptyArray() {
+        val surrounder = RescriptIfSurrounder()
+        assertFalse(surrounder.isApplicable(emptyArray()))
+    }
+
+    @Test
+    fun testSwitchSurrounderIsApplicableNonEmpty() {
+        val surrounder = RescriptSwitchSurrounder()
+        val element =
+            java.lang.reflect.Proxy.newProxyInstance(
+                com.intellij.psi.PsiElement::class.java.classLoader,
+                arrayOf(com.intellij.psi.PsiElement::class.java),
+            ) { _, method, _ ->
+                when (method.name) {
+                    "toString" -> "StubElement"
+                    "hashCode" -> 0
+                    "equals" -> false
+                    else -> null
+                }
+            } as com.intellij.psi.PsiElement
+        assertTrue(surrounder.isApplicable(arrayOf(element)))
+    }
+
+    @Test
+    fun testTrySurrounderIsApplicableEmpty() {
+        val surrounder = RescriptTrySurrounder()
+        assertFalse(surrounder.isApplicable(emptyArray()))
+    }
+
+    @Test
+    fun testBlockSurrounderIsApplicableNonEmpty() {
+        val surrounder = RescriptBlockSurrounder()
+        val element =
+            java.lang.reflect.Proxy.newProxyInstance(
+                com.intellij.psi.PsiElement::class.java.classLoader,
+                arrayOf(com.intellij.psi.PsiElement::class.java),
+            ) { _, method, _ ->
+                when (method.name) {
+                    "toString" -> "StubElement"
+                    "hashCode" -> 0
+                    "equals" -> false
+                    else -> null
+                }
+            } as com.intellij.psi.PsiElement
+        assertTrue(surrounder.isApplicable(arrayOf(element)))
+    }
+
+    @Test
+    fun testBlockSurrounderIsApplicableEmpty() {
+        val surrounder = RescriptBlockSurrounder()
+        assertFalse(surrounder.isApplicable(emptyArray()))
+    }
 }
