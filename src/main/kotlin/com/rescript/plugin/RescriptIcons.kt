@@ -2,6 +2,12 @@ package com.rescript.plugin
 
 import com.intellij.openapi.util.IconLoader
 
+/**
+ * Central registry of all icons used by the ReScript plugin.
+ *
+ * Icons are loaded from `/icons/` resources and used across file types,
+ * tool windows, gutter markers, and structure views.
+ */
 object RescriptIcons {
     @JvmField val FILE = IconLoader.getIcon("/icons/rescript-file.svg", RescriptIcons::class.java)
 

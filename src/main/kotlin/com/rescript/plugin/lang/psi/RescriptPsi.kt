@@ -6,6 +6,12 @@ import com.intellij.psi.FileViewProvider
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.RescriptLanguage
 
+/**
+ * Custom [IElementType] subclass for ReScript composite PSI elements.
+ *
+ * Used to define element types for declarations, statements, and JSX structures
+ * recognized by the lightweight parser.
+ */
 class RescriptElementType(
     debugName: String,
 ) : IElementType(debugName, RescriptLanguage)
@@ -36,6 +42,11 @@ object RescriptElementTypes {
     @JvmField val JSX_FRAGMENT = RescriptElementType("JSX_FRAGMENT")
 }
 
+/**
+ * PSI file representation for ReScript source and interface files.
+ *
+ * Serves as the root of the PSI tree for `.res` and `.resi` files.
+ */
 class RescriptFile(
     viewProvider: FileViewProvider,
 ) : PsiFileBase(viewProvider, RescriptLanguage) {

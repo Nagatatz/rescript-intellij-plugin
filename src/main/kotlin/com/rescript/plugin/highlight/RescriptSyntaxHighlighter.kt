@@ -11,9 +11,19 @@ import com.rescript.plugin.lang.RescriptLexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors as Defaults
 import com.rescript.plugin.lang.RescriptTokenTypes as T
 
+/**
+ * Provides syntax highlighting for ReScript files using JFlex lexer tokens.
+ *
+ * Maps each [RescriptTokenTypes] token to a [TextAttributesKey] for IDE color scheme
+ * integration. Defines both lexer-based attribute keys (keywords, strings, operators, etc.)
+ * and semantic token attribute keys (variables, types, namespaces) used by the LSP
+ * semantic tokens provider.
+ *
+ * @see RescriptSemanticTokensSupport
+ */
 class RescriptSyntaxHighlighter : SyntaxHighlighterBase() {
     companion object {
-        // Attribute keys
+        // ── Lexer-based attribute keys ──
         val KEYWORD = createTextAttributesKey("RESCRIPT_KEYWORD", Defaults.KEYWORD)
         val STRING = createTextAttributesKey("RESCRIPT_STRING", Defaults.STRING)
         val NUMBER = createTextAttributesKey("RESCRIPT_NUMBER", Defaults.NUMBER)
