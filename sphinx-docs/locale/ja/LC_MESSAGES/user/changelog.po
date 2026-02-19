@@ -195,3 +195,7 @@ msgstr "プロジェクトウィザード"
 #: ../../user/changelog.md:48
 msgid "Code Generation (Switch Arms, Module Type)"
 msgstr "コード生成（Switch Arms、Module Type）"
+
+#: ../../user/changelog.md
+msgid ".d.ts to ReScript binding generation"
+msgstr ".d.ts から ReScript バインディングの生成"

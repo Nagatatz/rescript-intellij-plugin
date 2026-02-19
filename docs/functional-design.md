@@ -470,6 +470,7 @@ flowchart TD
 | `com.intellij.editorFactoryListener` | `RescriptErrorLensEditorListener` | Error Lens（行末インライン診断表示） | 実装済み |
 | `com.intellij.configurationType` | `RescriptDebugConfigurationType` | デバッグ実行構成 | 実装済み |
 | `<action>` | `RescriptDebugCompiledJsAction` | Debug Compiled JS アクション | 実装済み |
+| `<action>` | `DtsGenerateBindingAction` | .d.ts → ReScript バインディング生成 | 実装済み |
 
 ## 4. ファイル構成と依存関係
 

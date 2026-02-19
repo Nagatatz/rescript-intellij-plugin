@@ -46,3 +46,4 @@ Initial release of the ReScript IntelliJ Plugin.
 - Spellchecking
 - Project Wizard
 - Code Generation (Switch Arms, Module Type)
+- .d.ts to ReScript binding generation

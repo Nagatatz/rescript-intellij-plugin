@@ -25,6 +25,7 @@
 - **Semantic highlighting** — Enhanced token coloring via LSP semantic tokens
 - **Code style** — Indentation settings for ReScript files
 - **rescript.json icon** — Custom icon for ReScript configuration files
+- **.d.ts binding generation** — Generate ReScript external bindings from TypeScript definition files
 
 ## Requirements
 

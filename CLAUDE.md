@@ -166,6 +166,13 @@ src/main/
 │   │   ├── RescriptTypeDeclarationParser.kt      # テキストベース型宣言パーサー
 │   │   ├── RescriptGenerateSwitchAction.kt       # Switch Arms 生成
 │   │   └── RescriptGenerateModuleTypeAction.kt   # Module Type 生成
+│   ├── binding/
+│   │   ├── DtsJsonModel.kt              # .d.ts JSON 中間表現データモデル + Gson デシリアライザ
+│   │   ├── DtsTypeMapper.kt             # TypeScript → ReScript 型マッピング
+│   │   ├── DtsToRescriptConverter.kt    # JSON モデル → ReScript バインディングコード生成
+│   │   ├── DtsNodeDetector.kt           # Node.js / TypeScript パッケージ検出
+│   │   ├── DtsParserProcess.kt          # Node.js プロセス実行（dts-to-json.js 起動）
+│   │   └── DtsGenerateBindingAction.kt  # .d.ts バインディング生成アクション
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
 │   └── Rescript.flex                    # JFlex レクサー定義 (ソース)
@@ -180,6 +187,8 @@ src/main/
     │   ├── ReScript Module.res.ft       # モジュールテンプレート
     │   ├── ReScript Interface.resi.ft   # インターフェーステンプレート
     │   └── ReScript Component.res.ft    # React コンポーネントテンプレート
+    ├── scripts/
+    │   └── dts-to-json.js               # バンドル Node.js パーサースクリプト
     ├── schemas/
     │   └── rescript.schema.json         # rescript.json 用 JSON Schema
     └── icons/                           # SVG アイコン

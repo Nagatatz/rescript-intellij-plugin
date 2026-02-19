@@ -20,6 +20,7 @@ import java.nio.file.StandardCopyOption
 object DtsParserProcess {
     private const val SCRIPT_RESOURCE = "/scripts/dts-to-json.js"
     private const val TIMEOUT_MS = 30_000L
+    private val LOG = logger<DtsParserProcess>()
 
     @Volatile
     private var cachedScriptPath: Path? = null
@@ -109,8 +110,6 @@ object DtsParserProcess {
         LOG.info("Extracted dts-to-json.js to: $tempFile")
         return tempFile
     }
-
-    private val LOG = logger<DtsParserProcess>()
 }
 
 /**
