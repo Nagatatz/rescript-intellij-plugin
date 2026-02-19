@@ -181,4 +181,97 @@ class RescriptAddGenTypeIntentionTest {
             )
         assertFalse(RescriptAddGenTypeIntention.hasGenTypeAnnotation(declaration))
     }
+
+    @Test
+    fun testHasGenTypeAnnotationSkipsWhitespaceBetween() {
+        // Whitespace (blank text) between annotation and declaration is skipped
+        val annotation =
+            stubPsiElement(
+                RescriptElementTypes.ANNOTATION,
+                text = "@genType",
+                prevSibling = null,
+            )
+        val whitespace =
+            stubPsiElement(
+                RescriptElementTypes.ANNOTATION, // type doesn't matter since text is blank
+                text = "  ",
+                prevSibling = annotation,
+            )
+        // Actually, the whitespace element's text is blank so it won't break the loop
+        // But we need to use a non-ANNOTATION type for whitespace
+        // Let's use a proper whitespace element
+        val ws = stubWhitespace(annotation)
+        val declaration =
+            stubPsiElement(
+                RescriptElementTypes.LET_DECLARATION,
+                prevSibling = ws,
+            )
+        assertTrue(RescriptAddGenTypeIntention.hasGenTypeAnnotation(declaration))
+    }
+
+    @Test
+    fun testHasGenTypeAnnotationReturnsFalseForNonAnnotationPrev() {
+        // A non-blank, non-annotation prev sibling breaks the loop
+        val otherDecl =
+            stubPsiElement(
+                RescriptElementTypes.LET_DECLARATION,
+                text = "let x = 1",
+                prevSibling = null,
+            )
+        val declaration =
+            stubPsiElement(
+                RescriptElementTypes.TYPE_DECLARATION,
+                prevSibling = otherDecl,
+            )
+        assertFalse(RescriptAddGenTypeIntention.hasGenTypeAnnotation(declaration))
+    }
+
+    @Test
+    fun testFindParentDeclarationWalksMultipleLevels() {
+        val moduleDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
+        val intermediate = stubPsiElement(RescriptElementTypes.ANNOTATION, parent = moduleDecl)
+        val child = stubPsiElement(RescriptElementTypes.ANNOTATION, parent = intermediate)
+        val result = RescriptAddGenTypeIntention.findParentDeclaration(child)
+        assertNotNull(result)
+        assertEquals(RescriptElementTypes.MODULE_DECLARATION, result!!.node?.elementType)
+    }
+
+    @Test
+    fun testIsAvailableReturnsFalseForNullEditor() {
+        val intention = RescriptAddGenTypeIntention()
+        val element = stubPsiElement(RescriptElementTypes.LET_DECLARATION)
+        val project = stubProject()
+        // containingFile returns null (not RescriptFile), so returns false
+        assertFalse(intention.isAvailable(project, null, element))
+    }
+
+    private fun stubWhitespace(prevSibling: PsiElement?): PsiElement =
+        java.lang.reflect.Proxy.newProxyInstance(
+            PsiElement::class.java.classLoader,
+            arrayOf(PsiElement::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "getNode" -> null
+                "getParent" -> null
+                "getPrevSibling" -> prevSibling
+                "getText" -> "\n"
+                "toString" -> "StubWhitespace"
+                "hashCode" -> 0
+                "equals" -> false
+                else -> null
+            }
+        } as PsiElement
+
+    private fun stubProject(): com.intellij.openapi.project.Project =
+        java.lang.reflect.Proxy.newProxyInstance(
+            com.intellij.openapi.project.Project::class.java.classLoader,
+            arrayOf(com.intellij.openapi.project.Project::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "toString" -> "StubProject"
+                "hashCode" -> 0
+                "equals" -> false
+                else -> null
+            }
+        } as com.intellij.openapi.project.Project
 }

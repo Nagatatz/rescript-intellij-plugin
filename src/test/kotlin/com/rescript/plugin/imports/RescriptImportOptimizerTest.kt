@@ -1,8 +1,9 @@
 package com.rescript.plugin.imports
 
-import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
+import com.rescript.plugin.RescriptTestUtils.SimpleStubElement
+import com.rescript.plugin.RescriptTestUtils.stubProxy
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import org.junit.Assert.assertEquals
@@ -100,55 +101,10 @@ class RescriptImportOptimizerTest {
     ) : PsiElement by stubProxy() {
         var next: PsiElement? = null
 
-        override fun getNode(): ASTNode? = null
+        override fun getNode(): com.intellij.lang.ASTNode? = null
 
         override fun getText(): String = textContent
 
         override fun getNextSibling(): PsiElement? = next
-    }
-
-    /** Minimal PsiElement stub that exposes elementType, text, and sibling chain. */
-    private open class SimpleStubElement(
-        private val elementType: IElementType,
-        private val textContent: String,
-    ) : PsiElement by stubProxy() {
-        var next: PsiElement? = null
-
-        override fun getNode(): ASTNode = stubAstNode(elementType)
-
-        override fun getText(): String = textContent
-
-        override fun getNextSibling(): PsiElement? = next
-
-        override fun getFirstChild(): PsiElement? = null
-    }
-
-    companion object {
-        fun stubAstNode(type: IElementType): ASTNode =
-            java.lang.reflect.Proxy.newProxyInstance(
-                ASTNode::class.java.classLoader,
-                arrayOf(ASTNode::class.java),
-            ) { _, method, _ ->
-                when (method.name) {
-                    "getElementType" -> type
-                    "toString" -> "StubASTNode($type)"
-                    "hashCode" -> type.hashCode()
-                    "equals" -> false
-                    else -> null
-                }
-            } as ASTNode
-
-        inline fun <reified T> stubProxy(): T =
-            java.lang.reflect.Proxy.newProxyInstance(
-                T::class.java.classLoader,
-                arrayOf(T::class.java),
-            ) { proxy, method, _ ->
-                when (method.name) {
-                    "toString" -> "StubProxy(${T::class.simpleName})"
-                    "hashCode" -> System.identityHashCode(proxy)
-                    "equals" -> false
-                    else -> null
-                }
-            } as T
     }
 }

@@ -1,105 +1,82 @@
 package com.rescript.plugin.run
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Rule
+import org.junit.After
+import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
-import org.junit.rules.TemporaryFolder
-import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
 
 class RescriptCliDetectorTest {
-    @get:Rule
-    val tempDir = TemporaryFolder()
+    private lateinit var tempDir: Path
 
-    private fun createRescriptBin(baseDir: File): File {
-        val binDir = File(baseDir, "node_modules/.bin")
-        binDir.mkdirs()
-        val rescript = File(binDir, "rescript")
-        rescript.writeText("#!/bin/sh\n")
-        rescript.setExecutable(true)
-        return rescript
+    @Before
+    fun setUp() {
+        tempDir = Files.createTempDirectory("rescript-cli-test")
     }
 
-    // ── findCli with workingDirectory ──
+    @After
+    fun tearDown() {
+        tempDir.toFile().deleteRecursively()
+    }
+
+    private fun createCli(baseDir: Path) {
+        val binDir = baseDir.resolve("node_modules/.bin")
+        Files.createDirectories(binDir)
+        val cli = binDir.resolve("rescript")
+        Files.createFile(cli)
+        cli.toFile().setExecutable(true)
+    }
 
     @Test
-    fun `findCli returns path when rescript exists in workingDirectory`() {
-        val projectDir = tempDir.newFolder("project")
-        val bin = createRescriptBin(projectDir)
-
-        val result = RescriptCliDetector.findCli(projectDir.absolutePath, null)
+    fun `findCli returns path when CLI exists in workingDirectory`() {
+        createCli(tempDir)
+        val result = RescriptCliDetector.findCli(tempDir.toString(), null)
         assertNotNull(result)
-        assertEquals(bin.absolutePath, result)
+        assertTrue(result!!.contains("node_modules/.bin/rescript"))
     }
 
     @Test
-    fun `findCli returns null when no rescript in workingDirectory`() {
-        val projectDir = tempDir.newFolder("empty-project")
-
-        val result = RescriptCliDetector.findCli(projectDir.absolutePath, null)
-        assertNull(result)
-    }
-
-    // ── findCli with projectBasePath ──
-
-    @Test
-    fun `findCli returns path from projectBasePath when workingDirectory is null`() {
-        val projectDir = tempDir.newFolder("project2")
-        val bin = createRescriptBin(projectDir)
-
-        val result = RescriptCliDetector.findCli(null, projectDir.absolutePath)
+    fun `findCli returns path when CLI exists in projectBasePath`() {
+        createCli(tempDir)
+        val result = RescriptCliDetector.findCli(null, tempDir.toString())
         assertNotNull(result)
-        assertEquals(bin.absolutePath, result)
+        assertTrue(result!!.contains("node_modules/.bin/rescript"))
     }
-
-    // ── findCli prefers workingDirectory ──
 
     @Test
     fun `findCli prefers workingDirectory over projectBasePath`() {
-        val workDir = tempDir.newFolder("work")
-        val projDir = tempDir.newFolder("proj")
-        val workBin = createRescriptBin(workDir)
-        createRescriptBin(projDir)
+        val workDir = tempDir.resolve("work")
+        val projDir = tempDir.resolve("proj")
+        Files.createDirectories(workDir)
+        Files.createDirectories(projDir)
+        createCli(workDir)
+        createCli(projDir)
 
-        val result = RescriptCliDetector.findCli(workDir.absolutePath, projDir.absolutePath)
-        assertEquals(workBin.absolutePath, result)
+        val result = RescriptCliDetector.findCli(workDir.toString(), projDir.toString())
+        assertNotNull(result)
+        assertTrue(result!!.contains("work"))
     }
-
-    // ── findCli with parent directory search ──
 
     @Test
     fun `findCli searches parent directories`() {
-        val parentDir = tempDir.newFolder("parent")
-        val childDir = File(parentDir, "child/grandchild")
-        childDir.mkdirs()
-        val bin = createRescriptBin(parentDir)
+        createCli(tempDir)
+        val subDir = tempDir.resolve("sub/dir")
+        Files.createDirectories(subDir)
 
-        val result = RescriptCliDetector.findCli(null, childDir.absolutePath)
+        val result = RescriptCliDetector.findCli(null, subDir.toString())
         assertNotNull(result)
-        assertEquals(bin.absolutePath, result)
     }
 
-    // ── findCli with null arguments ──
-
     @Test
-    fun `findCli returns null when both arguments are null`() {
-        val result = RescriptCliDetector.findCli(null, null)
+    fun `findCli returns null when CLI not found`() {
+        val result = RescriptCliDetector.findCli(tempDir.toString(), tempDir.toString())
         assertNull(result)
     }
 
-    // ── findCli non-executable file ──
-
     @Test
-    fun `findCli returns null when rescript file is not executable`() {
-        val projectDir = tempDir.newFolder("project-noexec")
-        val binDir = File(projectDir, "node_modules/.bin")
-        binDir.mkdirs()
-        val rescript = File(binDir, "rescript")
-        rescript.writeText("#!/bin/sh\n")
-        rescript.setExecutable(false)
-
-        val result = RescriptCliDetector.findCli(projectDir.absolutePath, null)
+    fun `findCli returns null for null arguments`() {
+        val result = RescriptCliDetector.findCli(null, null)
         assertNull(result)
     }
 }

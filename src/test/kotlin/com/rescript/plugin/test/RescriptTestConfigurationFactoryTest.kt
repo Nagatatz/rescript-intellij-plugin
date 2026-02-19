@@ -1,6 +1,6 @@
 package com.rescript.plugin.test
 
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Test
 
 class RescriptTestConfigurationFactoryTest {
@@ -8,8 +8,8 @@ class RescriptTestConfigurationFactoryTest {
     private val factory = RescriptTestConfigurationFactory(type)
 
     @Test
-    fun `getId returns RescriptTestRunConfiguration`() {
-        assertEquals("RescriptTestRunConfiguration", factory.id)
+    fun `getId returns RescriptTestRunConfiguration ID`() {
+        assertEquals(RescriptTestRunConfigurationType.ID, factory.id)
     }
 
     @Test
