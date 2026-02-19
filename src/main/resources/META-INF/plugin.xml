@@ -269,6 +269,10 @@
                 implementation="com.rescript.plugin.test.RescriptTestRunConfigurationType"/>
         <runConfigurationProducer
                 implementation="com.rescript.plugin.test.RescriptTestConfigurationProducer"/>
+
+        <!-- Compiled JS Preview Tool Window -->
+        <toolWindow id="ReScript JS" anchor="right" icon="AllIcons.FileTypes.JavaScript"
+                    factoryClass="com.rescript.plugin.preview.RescriptCompiledJsPreviewToolWindowFactory"/>
     </extensions>
 
     <actions>
