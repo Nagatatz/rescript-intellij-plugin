@@ -194,9 +194,16 @@
         <codeInsight.template.postfixTemplateProvider language="ReScript"
                                                       implementationClass="com.rescript.plugin.completion.RescriptPostfixTemplateProvider"/>
 
+        <!-- Notification group for ReScript balloon notifications -->
+        <notificationGroup id="ReScript" displayType="BALLOON"/>
+
         <!-- Editor notification (LSP not found) -->
         <editorNotificationProvider
                 implementation="com.rescript.plugin.editor.RescriptEditorNotificationProvider"/>
+
+        <!-- Startup activity: prompt LSP installation for ReScript projects -->
+        <postStartupActivity
+                implementation="com.rescript.plugin.lsp.RescriptLspStartupActivity"/>
 
         <!-- AST factory for language injection support in string literals -->
         <lang.ast.factory language="ReScript"
