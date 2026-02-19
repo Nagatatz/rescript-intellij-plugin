@@ -52,7 +52,11 @@ src/main/
 │   │   ├── RescriptLanguageServer.kt            # カスタム LSP リクエストインターフェース
 │   │   ├── RescriptLsp4jClient.kt               # カスタム LSP 通知受信クライアント
 │   │   ├── RescriptCompilationStatusService.kt  # コンパイル状態保持サービス
-│   │   └── RescriptSemanticTokensSupport.kt     # セマンティックトークン対応
+│   │   ├── RescriptSemanticTokensSupport.kt     # セマンティックトークン対応
+│   │   ├── RescriptLspDetector.kt               # LSP・プロジェクト検出ユーティリティ
+│   │   ├── RescriptPackageManagerDetector.kt    # パッケージマネージャ検出 (npm/yarn/pnpm)
+│   │   ├── RescriptLspInstaller.kt              # LSP バックグラウンドインストール
+│   │   └── RescriptLspStartupActivity.kt        # プロジェクト起動時 LSP インストール通知
 │   ├── codestyle/
 │   │   ├── RescriptCodeStyleSettingsProvider.kt  # コードスタイル設定
 │   │   └── RescriptLineIndentProvider.kt         # インデント制御
