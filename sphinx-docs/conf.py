@@ -1,6 +1,7 @@
 # Configuration file for the Sphinx documentation builder.
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
 import sys
 from pathlib import Path
 
@@ -89,6 +90,12 @@ pygments_dark_style = "rescript_lexer.RescriptDarculaStyle"
 html_static_path = ["_static"]
 html_css_files = ["css/custom.css"]
 templates_path = ["_templates"]
+
+# Site prefix for GitHub Pages (e.g., "/rescript-intellij-plugin")
+# Set SPHINX_SITE_PREFIX env var for deployment; empty for local dev.
+html_context = {
+    "site_prefix": os.environ.get("SPHINX_SITE_PREFIX", ""),
+}
 
 # Pagefind search page (replaces default Sphinx search)
 html_additional_pages = {"search": "search.html"}
