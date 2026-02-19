@@ -1,17 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
+# Japanese translations for ReScript IntelliJ Plugin.
 # Copyright (C) 2026, Nagatatz
 # This file is distributed under the same license as the ReScript IntelliJ
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-19 17:39+0900\n"
+"Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -22,137 +21,151 @@ msgstr ""
 
 #: ../../user/features/navigation.md:1
 msgid "Navigation"
-msgstr ""
+msgstr "ナビゲーション"
 
 #: ../../user/features/navigation.md:3
 msgid ""
 "The plugin provides several navigation features to help you move through "
 "your codebase efficiently."
 msgstr ""
+"このプラグインは、コードベース内を効率的に移動するためのいくつかのナビゲーション"
+"機能を提供します。"
 
 #: ../../user/features/navigation.md:5
 msgid "Go to Definition"
-msgstr ""
+msgstr "定義へ移動"
 
 #: ../../user/features/navigation.md:7
 msgid ""
 "Hold `Ctrl` (`Cmd` on macOS) and click on a symbol, or press `Ctrl+B` to "
 "jump to its definition."
 msgstr ""
+"`Ctrl`（macOS では `Cmd`）を押しながらシンボルをクリックするか、`Ctrl+B` を押して"
+"定義元にジャンプします。"
 
 #: ../../user/features/navigation.md:9
 msgid "Works for:"
-msgstr ""
+msgstr "対応するもの:"
 
 #: ../../user/features/navigation.md:10
 msgid "Variables and functions"
-msgstr ""
+msgstr "変数と関数"
 
 #: ../../user/features/navigation.md:11
 msgid "Types"
-msgstr ""
+msgstr "型"
 
 #: ../../user/features/navigation.md:12
 msgid "Modules"
-msgstr ""
+msgstr "モジュール"
 
 #: ../../user/features/navigation.md:13
 msgid "External bindings"
-msgstr ""
+msgstr "External バインディング"
 
 #: ../../user/features/navigation.md:15
 msgid "Find References"
-msgstr ""
+msgstr "参照の検索"
 
 #: ../../user/features/navigation.md:17
 msgid ""
 "Right-click on a symbol and select **Find Usages** (or press `Alt+F7`) to"
 " see all locations where the symbol is used."
 msgstr ""
+"シンボルを右クリックして **Find Usages** を選択するか（または `Alt+F7` を押す）、"
+"そのシンボルが使用されているすべての箇所を表示します。"
 
 #: ../../user/features/navigation.md:19
 msgid "Go to Symbol"
-msgstr ""
+msgstr "シンボルへ移動"
 
 #: ../../user/features/navigation.md:21
 msgid ""
 "Press `Ctrl+Alt+O` (`Cmd+Option+O` on macOS) to search for any symbol "
 "across your project by name."
 msgstr ""
+"`Ctrl+Alt+O`（macOS では `Cmd+Option+O`）を押すと、プロジェクト全体で"
+"シンボルを名前で検索できます。"
 
 #: ../../user/features/navigation.md:23
 msgid "Structure View"
-msgstr ""
+msgstr "ストラクチャービュー"
 
 #: ../../user/features/navigation.md:25
 msgid ""
 "Press `Alt+7` (`Cmd+7` on macOS) to open the Structure panel, which shows"
 " an outline of the current file:"
 msgstr ""
+"`Alt+7`（macOS では `Cmd+7`）を押すと Structure パネルが開き、現在のファイルの"
+"アウトラインが表示されます:"
 
 #: ../../user/features/navigation.md:27
 msgid "Module declarations"
-msgstr ""
+msgstr "モジュール宣言"
 
 #: ../../user/features/navigation.md:28
 msgid "Function bindings (`let`)"
-msgstr ""
+msgstr "関数バインディング（`let`）"
 
 #: ../../user/features/navigation.md:29
 msgid "Type definitions"
-msgstr ""
+msgstr "型定義"
 
 #: ../../user/features/navigation.md:30
 msgid "External declarations"
-msgstr ""
+msgstr "External 宣言"
 
 #: ../../user/features/navigation.md:31
 msgid "Exception declarations"
-msgstr ""
+msgstr "例外宣言"
 
 #: ../../user/features/navigation.md:33
 msgid "File Switching (.res ↔ .resi)"
-msgstr ""
+msgstr "ファイル切り替え（.res ↔ .resi）"
 
 #: ../../user/features/navigation.md:35
 msgid ""
 "Press `Alt+O` to switch between a ReScript source file (`.res`) and its "
 "interface file (`.resi`)."
 msgstr ""
+"`Alt+O` を押すと、ReScript ソースファイル（`.res`）とそのインターフェース"
+"ファイル（`.resi`）を切り替えられます。"
 
 #: ../../user/features/navigation.md:37
 msgid "Go to Related"
-msgstr ""
+msgstr "関連ファイルへ移動"
 
 #: ../../user/features/navigation.md:39
 msgid "Use **Navigate** → **Related Symbol** to jump between related files:"
-msgstr ""
+msgstr "**Navigate** → **Related Symbol** を使用して関連ファイル間を移動します:"
 
 #: ../../user/features/navigation.md:41
 msgid "`.res` → `.resi` (interface)"
-msgstr ""
+msgstr "`.res` → `.resi`（インターフェース）"
 
 #: ../../user/features/navigation.md:42
 msgid "`.res` → `.js` (compiled output)"
-msgstr ""
+msgstr "`.res` → `.js`（コンパイル出力）"
 
 #: ../../user/features/navigation.md:43
 msgid "`.resi` → `.res` (implementation)"
-msgstr ""
+msgstr "`.resi` → `.res`（実装）"
 
 #: ../../user/features/navigation.md:45
 msgid "Create Interface File"
-msgstr ""
+msgstr "インターフェースファイルの作成"
 
 #: ../../user/features/navigation.md:47
 msgid ""
 "With a `.res` file open, use **Navigate** → **Create Interface File** to "
 "auto-generate a `.resi` interface file from the Language Server."
 msgstr ""
+"`.res` ファイルを開いた状態で、**Navigate** → **Create Interface File** を使用"
+"すると、Language Server から `.resi` インターフェースファイルを自動生成できます。"
 
 #: ../../user/features/navigation.md:49
 msgid "Open Compiled JavaScript"
-msgstr ""
+msgstr "コンパイル済み JavaScript を開く"
 
 #: ../../user/features/navigation.md:51
 msgid ""
@@ -160,20 +173,25 @@ msgid ""
 "current `.res` file. The plugin asks the Language Server for the compiled"
 " file path and opens it in the editor."
 msgstr ""
+"`Alt+Shift+J` を押すと、現在の `.res` ファイルのコンパイル済み JavaScript 出力を"
+"開きます。プラグインは Language Server にコンパイル済みファイルのパスを問い合わせ、"
+"エディタで開きます。"
 
 #: ../../user/features/navigation.md:53
 msgid "Qualified Name Copy"
-msgstr ""
+msgstr "完全修飾名のコピー"
 
 #: ../../user/features/navigation.md:55
 msgid ""
 "Press `Cmd+Shift+Alt+C` to copy the fully qualified name of the symbol at"
 " the cursor (e.g., `Module.SubModule.functionName`)."
 msgstr ""
+"`Cmd+Shift+Alt+C` を押すと、カーソル位置のシンボルの完全修飾名"
+"（例: `Module.SubModule.functionName`）をコピーします。"
 
 #: ../../user/features/navigation.md:57
 msgid "Breadcrumb Navigation"
-msgstr ""
+msgstr "パンくずナビゲーション"
 
 #: ../../user/features/navigation.md:59
 msgid ""
@@ -181,4 +199,5 @@ msgid ""
 "scope path (file → module → function). Click any segment to navigate to "
 "that scope."
 msgstr ""
-
+"エディタの上部にパンくずが表示され、現在のスコープパス（ファイル → モジュール → "
+"関数）を示します。任意のセグメントをクリックすると、そのスコープに移動できます。"

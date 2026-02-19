@@ -1,17 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
+# Japanese translations for ReScript IntelliJ Plugin.
 # Copyright (C) 2026, Nagatatz
 # This file is distributed under the same license as the ReScript IntelliJ
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-19 17:39+0900\n"
+"Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -22,178 +21,177 @@ msgstr ""
 
 #: ../../user/changelog.md:1
 msgid "Changelog"
-msgstr ""
+msgstr "変更履歴"
 
 #: ../../user/changelog.md:3
 msgid "Unreleased"
-msgstr ""
+msgstr "未リリース"
 
 #: ../../user/changelog.md:5
 msgid "Initial release of the ReScript IntelliJ Plugin."
-msgstr ""
+msgstr "ReScript IntelliJ Plugin の初回リリースです。"
 
 #: ../../user/changelog.md:7
 msgid "Features"
-msgstr ""
+msgstr "機能"
 
 #: ../../user/changelog.md:9
 msgid "Full syntax highlighting via JFlex lexer"
-msgstr ""
+msgstr "JFlex レクサーによる完全なシンタックスハイライト"
 
 #: ../../user/changelog.md:10
 msgid "LSP integration with `@rescript/language-server`"
-msgstr ""
+msgstr "`@rescript/language-server` との LSP 統合"
 
 #: ../../user/changelog.md:11
 msgid "Semantic highlighting via LSP semantic tokens"
-msgstr ""
+msgstr "LSP セマンティックトークンによるセマンティックハイライト"
 
 #: ../../user/changelog.md:12
 msgid "Code completion, Go to Definition, Hover, Find Usages"
-msgstr ""
+msgstr "コード補完、定義へ移動、ホバー、使用箇所の検索"
 
 #: ../../user/changelog.md:13
 msgid "Code folding (modules, declarations, comments, custom regions)"
-msgstr ""
+msgstr "コード折りたたみ（モジュール、宣言、コメント、カスタムリージョン）"
 
 #: ../../user/changelog.md:14
 msgid "Brace matching and smart quotes"
-msgstr ""
+msgstr "括弧の対応付けとスマート引用符"
 
 #: ../../user/changelog.md:15
 msgid "Structure view"
-msgstr ""
+msgstr "ストラクチャービュー"
 
 #: ../../user/changelog.md:16
 msgid "Code formatting via `rescript format` CLI"
-msgstr ""
+msgstr "`rescript format` CLI によるコードフォーマット"
 
 #: ../../user/changelog.md:17
 msgid "Run configurations (Build, Build Watch, Clean)"
-msgstr ""
+msgstr "実行構成（Build、Build Watch、Clean）"
 
 #: ../../user/changelog.md:18
 msgid "Test runner integration (Jest/Vitest)"
-msgstr ""
+msgstr "テストランナー統合（Jest/Vitest）"
 
 #: ../../user/changelog.md:19
 msgid "Code inspections (duplicate open, empty module, missing config)"
-msgstr ""
+msgstr "コードインスペクション（重複 open、空モジュール、設定ファイルの欠落）"
 
 #: ../../user/changelog.md:20
 msgid "Dead code analysis via reanalyze"
-msgstr ""
+msgstr "reanalyze によるデッドコード分析"
 
 #: ../../user/changelog.md:21
 msgid "Import optimization"
-msgstr ""
+msgstr "インポートの最適化"
 
 #: ../../user/changelog.md:22
 msgid "Intention actions (Wrap with Some/Ok/Error, Add @genType)"
-msgstr ""
+msgstr "インテンションアクション（Some/Ok/Error でラップ、@genType の追加）"
 
 #: ../../user/changelog.md:23
 msgid "Surround with (if/switch/try/block)"
-msgstr ""
+msgstr "Surround with（if/switch/try/block）"
 
 #: ../../user/changelog.md:24
 msgid "Postfix completion (.switch, .pipe, .log, etc.)"
-msgstr ""
+msgstr "Postfix 補完（.switch、.pipe、.log など）"
 
 #: ../../user/changelog.md:25
 msgid "Live templates (15 snippets)"
-msgstr ""
+msgstr "Live Templates（15 スニペット）"
 
 #: ../../user/changelog.md:26
 msgid "File templates (Module, Interface, Component)"
-msgstr ""
+msgstr "ファイルテンプレート（Module、Interface、Component）"
 
 #: ../../user/changelog.md:27
 msgid "Go to Symbol, Go to Related, File switching (.res/.resi)"
-msgstr ""
+msgstr "シンボルへ移動、関連ファイルへ移動、ファイル切り替え（.res/.resi）"
 
 #: ../../user/changelog.md:28
 msgid "Create interface file, Open compiled JavaScript"
-msgstr ""
+msgstr "インターフェースファイルの作成、コンパイル済み JavaScript を開く"
 
 #: ../../user/changelog.md:29
 msgid "Code Lens (type annotations)"
-msgstr ""
+msgstr "Code Lens（型注釈）"
 
 #: ../../user/changelog.md:30
 msgid "Compiled JS Preview tool window"
-msgstr ""
+msgstr "コンパイル済み JS プレビューツールウィンドウ"
 
 #: ../../user/changelog.md:31
 msgid "Module Hierarchy view"
-msgstr ""
+msgstr "モジュール階層ビュー"
 
 #: ../../user/changelog.md:32
 msgid "Build status in status bar"
-msgstr ""
+msgstr "ステータスバーのビルドステータス"
 
 #: ../../user/changelog.md:33
 msgid "Signature Help"
-msgstr ""
+msgstr "Signature Help"
 
 #: ../../user/changelog.md:34
 msgid "Statement up/down mover"
-msgstr ""
+msgstr "ステートメントの上下移動"
 
 #: ../../user/changelog.md:35
 msgid "Smart Enter"
-msgstr ""
+msgstr "Smart Enter"
 
 #: ../../user/changelog.md:36
 msgid "Qualified name copy"
-msgstr ""
+msgstr "完全修飾名のコピー"
 
 #: ../../user/changelog.md:37
 msgid "Console output file path links"
-msgstr ""
+msgstr "コンソール出力のファイルパスリンク"
 
 #: ../../user/changelog.md:38
 msgid "Editor notification bar (LSP not found)"
-msgstr ""
+msgstr "エディタ通知バー（LSP 未検出）"
 
 #: ../../user/changelog.md:39
 msgid "JSON Schema for rescript.json"
-msgstr ""
+msgstr "rescript.json 用の JSON Schema"
 
 #: ../../user/changelog.md:40
 #, python-format
 msgid "JavaScript injection in %raw()"
-msgstr ""
+msgstr "%raw() 内の JavaScript インジェクション"
 
 #: ../../user/changelog.md:41
 msgid "Markdown code fence highlighting"
-msgstr ""
+msgstr "Markdown コードフェンスのハイライト"
 
 #: ../../user/changelog.md:42
 msgid "Paste as JSON.t"
-msgstr ""
+msgstr "JSON.t として貼り付け"
 
 #: ../../user/changelog.md:43
 msgid "Breadcrumb navigation"
-msgstr ""
+msgstr "パンくずナビゲーション"
 
 #: ../../user/changelog.md:44
 msgid "Rename refactoring"
-msgstr ""
+msgstr "リネームリファクタリング"
 
 #: ../../user/changelog.md:45
 msgid "TODO indexing"
-msgstr ""
+msgstr "TODO インデクシング"
 
 #: ../../user/changelog.md:46
 msgid "Spellchecking"
-msgstr ""
+msgstr "スペルチェック"
 
 #: ../../user/changelog.md:47
 msgid "Project Wizard"
-msgstr ""
+msgstr "プロジェクトウィザード"
 
 #: ../../user/changelog.md:48
 msgid "Code Generation (Switch Arms, Module Type)"
-msgstr ""
-
+msgstr "コード生成（Switch Arms、Module Type）"

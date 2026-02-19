@@ -4,14 +4,13 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2026-02-19 18:14+0900\n"
+"PO-Revision-Date: 2026-02-19 18:14+0900\n"
+"Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -22,74 +21,79 @@ msgstr ""
 
 #: ../../dev/architecture.md:1
 msgid "Architecture"
-msgstr ""
+msgstr "アーキテクチャ"
 
 #: ../../dev/architecture.md:3
 msgid ""
 "The ReScript IntelliJ Plugin uses a **hybrid architecture** that combines"
 " a built-in lexer with an external Language Server."
 msgstr ""
+"ReScript IntelliJ Plugin は、組み込みレクサーと外部 Language Server を組み合わせた"
+"**ハイブリッドアーキテクチャ**を採用しています。"
 
 #: ../../dev/architecture.md:5
 msgid "Overview"
-msgstr ""
+msgstr "概要"
 
 #: ../../dev/architecture.md:40
 msgid "Layer 1: Language Foundation"
-msgstr ""
+msgstr "レイヤー 1: 言語基盤"
 
 #: ../../dev/architecture.md:42
 msgid ""
 "This layer is entirely built into the plugin and works without any "
 "external dependencies."
 msgstr ""
+"このレイヤーはプラグインに完全に組み込まれており、外部依存なしで動作します。"
 
 #: ../../dev/architecture.md:44
 msgid "JFlex Lexer"
-msgstr ""
+msgstr "JFlex レクサー"
 
 #: ../../dev/architecture.md:46
 msgid "**Source:** `src/main/java/com/rescript/plugin/lang/Rescript.flex`"
-msgstr ""
+msgstr "**ソース:** `src/main/java/com/rescript/plugin/lang/Rescript.flex`"
 
 #: ../../dev/architecture.md:47
 msgid "**Generated:** `RescriptFlexLexer.java` (auto-generated, not committed)"
-msgstr ""
+msgstr "**生成ファイル:** `RescriptFlexLexer.java` (自動生成、コミット対象外)"
 
 #: ../../dev/architecture.md:48
 msgid "**Wrapper:** `RescriptLexer.kt` (FlexAdapter)"
-msgstr ""
+msgstr "**ラッパー:** `RescriptLexer.kt` (FlexAdapter)"
 
 #: ../../dev/architecture.md:50
 msgid ""
 "The lexer tokenizes ReScript source code into token types defined in "
 "`RescriptTokenTypes.kt`. It handles:"
 msgstr ""
+"レクサーは ReScript ソースコードを `RescriptTokenTypes.kt` で定義された"
+"トークン型にトークン化します。以下を処理します:"
 
 #: ../../dev/architecture.md:52
 msgid "Keywords, identifiers, literals, operators, punctuation"
-msgstr ""
+msgstr "キーワード、識別子、リテラル、演算子、句読点"
 
 #: ../../dev/architecture.md:53
 msgid "Nested block comments (`/* /* */ */`)"
-msgstr ""
+msgstr "ネストされたブロックコメント (`/* /* */ */`)"
 
 #: ../../dev/architecture.md:54
 #, python-brace-format
 msgid "Template string interpolation (`` `${expr}` ``)"
-msgstr ""
+msgstr "テンプレート文字列補間 (`` `${expr}` ``)"
 
 #: ../../dev/architecture.md:55
 msgid "Declaration context tracking (`let`/`type` → identifier classification)"
-msgstr ""
+msgstr "宣言コンテキスト追跡 (`let`/`type` → 識別子分類)"
 
 #: ../../dev/architecture.md:57
 msgid "Lightweight Parser"
-msgstr ""
+msgstr "軽量パーサー"
 
 #: ../../dev/architecture.md:59
 msgid "**Source:** `RescriptParser.kt`"
-msgstr ""
+msgstr "**ソース:** `RescriptParser.kt`"
 
 #: ../../dev/architecture.md:61
 msgid ""
@@ -97,229 +101,946 @@ msgid ""
 " expressions, types, or JSX in detail. This is intentional: complex "
 "parsing is delegated to the Language Server."
 msgstr ""
+"パーサーは**トップレベル宣言**のみを認識し、式、型、JSX の詳細な解析は行いません。"
+"これは意図的な設計であり、複雑な解析は Language Server に委譲しています。"
 
 #: ../../dev/architecture.md:63
 msgid "Recognized declarations:"
-msgstr ""
+msgstr "認識される宣言:"
 
 #: ../../dev/architecture.md:64
 msgid "`let` / `let rec` bindings"
-msgstr ""
+msgstr "`let` / `let rec` バインディング"
 
 #: ../../dev/architecture.md:65
 msgid "`type` / `type rec` definitions"
-msgstr ""
+msgstr "`type` / `type rec` 定義"
 
 #: ../../dev/architecture.md:66
 msgid "`module` / `module type` / `module rec` declarations"
-msgstr ""
+msgstr "`module` / `module type` / `module rec` 宣言"
 
 #: ../../dev/architecture.md:67
 msgid "`external` bindings (FFI)"
-msgstr ""
+msgstr "`external` バインディング (FFI)"
 
 #: ../../dev/architecture.md:68
 msgid "`open` / `include` directives"
-msgstr ""
+msgstr "`open` / `include` ディレクティブ"
 
 #: ../../dev/architecture.md:69
 msgid "`exception` declarations"
-msgstr ""
+msgstr "`exception` 宣言"
 
 #: ../../dev/architecture.md:70
 msgid "`@decorator` annotations"
-msgstr ""
+msgstr "`@decorator` アノテーション"
 
 #: ../../dev/architecture.md:72
 msgid "PSI Tree"
-msgstr ""
+msgstr "PSI ツリー"
 
 #: ../../dev/architecture.md:74
 msgid "The parser produces a PSI (Program Structure Interface) tree used by:"
-msgstr ""
+msgstr "パーサーは以下の機能で使用される PSI (Program Structure Interface) ツリーを生成します:"
 
 #: ../../dev/architecture.md:75
 msgid "**Code folding** — Collapse multi-line declarations"
-msgstr ""
+msgstr "**コード折りたたみ** — 複数行の宣言を折りたたみ"
 
 #: ../../dev/architecture.md:76
 msgid "**Structure view** — Display file outline"
-msgstr ""
+msgstr "**ストラクチャービュー** — ファイルのアウトラインを表示"
 
 #: ../../dev/architecture.md:77
 msgid "**Statement mover** — Move declarations up/down"
-msgstr ""
+msgstr "**ステートメントムーバー** — 宣言の上下移動"
 
 #: ../../dev/architecture.md:79
 msgid "Layer 2: LSP Integration"
-msgstr ""
+msgstr "レイヤー 2: LSP 統合"
 
 #: ../../dev/architecture.md:81
 msgid "This layer communicates with the ReScript Language Server over stdio."
-msgstr ""
+msgstr "このレイヤーは stdio 経由で ReScript Language Server と通信します。"
 
 #: ../../dev/architecture.md:83
 msgid "Key Classes"
-msgstr ""
+msgstr "主要クラス"
 
 #: ../../dev/architecture.md
 msgid "Class"
-msgstr ""
+msgstr "クラス"
 
 #: ../../dev/architecture.md
 msgid "Role"
-msgstr ""
+msgstr "役割"
 
 #: ../../dev/architecture.md
 msgid "`RescriptLspServerSupportProvider`"
-msgstr ""
+msgstr "`RescriptLspServerSupportProvider`"
 
 #: ../../dev/architecture.md
 msgid "Decides when to start the LSP server"
-msgstr ""
+msgstr "LSP サーバーの起動タイミングを判定"
 
 #: ../../dev/architecture.md
 msgid "`RescriptLspServerDescriptor`"
-msgstr ""
+msgstr "`RescriptLspServerDescriptor`"
 
 #: ../../dev/architecture.md
 msgid "Configures server detection and launch"
-msgstr ""
+msgstr "サーバーの検出と起動を設定"
 
 #: ../../dev/architecture.md
 msgid "`RescriptLanguageServer`"
-msgstr ""
+msgstr "`RescriptLanguageServer`"
 
 #: ../../dev/architecture.md
 msgid "Custom LSP request interface"
-msgstr ""
+msgstr "カスタム LSP リクエストインターフェース"
 
 #: ../../dev/architecture.md
 msgid "`RescriptLsp4jClient`"
-msgstr ""
+msgstr "`RescriptLsp4jClient`"
 
 #: ../../dev/architecture.md
 msgid "Custom LSP notification receiver"
-msgstr ""
+msgstr "カスタム LSP 通知受信クライアント"
 
 #: ../../dev/architecture.md
 msgid "`RescriptSemanticTokensSupport`"
-msgstr ""
+msgstr "`RescriptSemanticTokensSupport`"
 
 #: ../../dev/architecture.md
 msgid "Maps LSP semantic tokens to colors"
-msgstr ""
+msgstr "LSP セマンティックトークンを色にマッピング"
 
 #: ../../dev/architecture.md
 msgid "`RescriptCompilationStatusService`"
-msgstr ""
+msgstr "`RescriptCompilationStatusService`"
 
 #: ../../dev/architecture.md
 msgid "Tracks build status from LSP notifications"
-msgstr ""
+msgstr "LSP 通知からビルド状態を追跡"
 
 #: ../../dev/architecture.md:94
-msgid "LSP Server Detection"
-msgstr ""
+msgid "Class Responsibilities in Detail"
+msgstr "各クラスの責務の詳細"
 
 #: ../../dev/architecture.md:96
-msgid "The plugin searches for the Language Server in this order:"
-msgstr ""
+msgid "RescriptLspServerSupportProvider"
+msgstr "RescriptLspServerSupportProvider"
 
 #: ../../dev/architecture.md:98
-msgid "`node_modules/.bin/rescript-language-server` (project-local binary)"
+msgid ""
+"**File:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptLspServerSupportProvider.kt`"
 msgstr ""
-
-#: ../../dev/architecture.md:99
-msgid "Parent directory `node_modules/.bin/` (monorepo support)"
-msgstr ""
+"**ファイル:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptLspServerSupportProvider.kt`"
 
 #: ../../dev/architecture.md:100
+msgid ""
+"This class implements the `LspServerSupportProvider` interface from the "
+"IntelliJ Platform LSP API. It is the entry point that the platform calls "
+"whenever a file is opened in the editor. Its sole responsibility is "
+"deciding whether the LSP server should be started for the given file."
+msgstr ""
+"このクラスは IntelliJ Platform LSP API の `LspServerSupportProvider` インターフェースを"
+"実装しています。エディタでファイルが開かれるたびにプラットフォームから呼び出される"
+"エントリーポイントです。その唯一の責務は、指定されたファイルに対して LSP サーバーを"
+"起動すべきかどうかを判定することです。"
+
+#: ../../dev/architecture.md:102
+msgid ""
+"The decision logic is straightforward: if the opened file has a `.res` or"
+" `.resi` extension, the provider calls "
+"`serverStarter.ensureServerStarted()` with a new "
+"`RescriptLspServerDescriptor` instance. The `ensureServerStarted` method "
+"is idempotent --- if the server is already running for the project, it "
+"does nothing. If the file extension does not match, the provider returns "
+"without action."
+msgstr ""
+"判定ロジックはシンプルです。開かれたファイルの拡張子が `.res` または `.resi` であれば、"
+"プロバイダーは新しい `RescriptLspServerDescriptor` インスタンスを使用して "
+"`serverStarter.ensureServerStarted()` を呼び出します。`ensureServerStarted` メソッドは"
+"冪等です --- サーバーがプロジェクトで既に実行中の場合は何もしません。ファイル拡張子が"
+"一致しない場合、プロバイダーは何もせずに返します。"
+
+#: ../../dev/architecture.md:104
+msgid ""
+"The list of recognized extensions is defined in the companion object as "
+"`RESCRIPT_EXTENSIONS = setOf(\"res\", \"resi\")` and is reused by "
+"`RescriptLspServerDescriptor.isSupportedFile()` for consistency."
+msgstr ""
+"認識される拡張子のリストはコンパニオンオブジェクトで "
+"`RESCRIPT_EXTENSIONS = setOf(\"res\", \"resi\")` として定義されており、"
+"一貫性のために `RescriptLspServerDescriptor.isSupportedFile()` でも再利用されます。"
+
+#: ../../dev/architecture.md:106
+msgid ""
+"This class does not contain any server configuration, detection, or "
+"lifecycle logic. It serves purely as a trigger that bridges the "
+"platform's file-open event to the LSP server lifecycle."
+msgstr ""
+"このクラスにはサーバーの設定、検出、ライフサイクル管理のロジックは含まれていません。"
+"プラットフォームのファイルオープンイベントと LSP サーバーのライフサイクルを橋渡しする"
+"トリガーとして機能するだけです。"
+
+#: ../../dev/architecture.md:108
+msgid "RescriptLspServerDescriptor"
+msgstr "RescriptLspServerDescriptor"
+
+#: ../../dev/architecture.md:110
+msgid ""
+"**File:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptLspServerDescriptor.kt`"
+msgstr ""
+"**ファイル:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptLspServerDescriptor.kt`"
+
+#: ../../dev/architecture.md:112
+msgid ""
+"This class extends `ProjectWideLspServerDescriptor` and is responsible "
+"for all aspects of finding, configuring, and launching the language "
+"server process."
+msgstr ""
+"このクラスは `ProjectWideLspServerDescriptor` を継承し、Language Server プロセスの"
+"検出、設定、起動のすべてを担当します。"
+
+#: ../../dev/architecture.md:114
+msgid "**Server detection order:**"
+msgstr "**サーバー検出順序:**"
+
+#: ../../dev/architecture.md:116
+msgid ""
+"The `createCommandLine()` method resolves the language server binary "
+"through the following steps:"
+msgstr ""
+"`createCommandLine()` メソッドは以下の手順で Language Server バイナリを解決します:"
+
+#: ../../dev/architecture.md:118
+msgid ""
+"**Custom path check:** If the user has configured a custom LSP server "
+"path in Settings > Languages & Frameworks > ReScript, that path is used "
+"directly. This allows developers to point to a development build of the "
+"language server or a specific version."
+msgstr ""
+"**カスタムパスの確認:** ユーザーが Settings > Languages & Frameworks > ReScript で"
+"カスタム LSP サーバーパスを設定している場合、そのパスが直接使用されます。"
+"これにより、開発者は Language Server の開発ビルドや特定のバージョンを指定できます。"
+
+#: ../../dev/architecture.md:120
+msgid ""
+"**Project-local `node_modules`:** The plugin checks `<project-"
+"root>/node_modules/.bin/rescript-language-server` for an executable "
+"binary. This covers the standard case where `@rescript/language-server` "
+"is installed as a project dependency."
+msgstr ""
+"**プロジェクトローカルの `node_modules`:** プラグインは "
+"`<project-root>/node_modules/.bin/rescript-language-server` に実行可能な"
+"バイナリがあるかを確認します。`@rescript/language-server` がプロジェクトの"
+"依存関係としてインストールされている標準的なケースに対応します。"
+
+#: ../../dev/architecture.md:122
+msgid ""
+"**JS fallback in project:** If the `.bin` executable is not found, it "
+"checks `<project-root>/node_modules/@rescript/language-"
+"server/out/cli.js`. This handles cases where the `.bin` symlink was not "
+"created (e.g., certain installation methods or Windows environments)."
+msgstr ""
+"**プロジェクト内の JS フォールバック:** `.bin` の実行ファイルが見つからない場合、"
+"`<project-root>/node_modules/@rescript/language-server/out/cli.js` を"
+"確認します。`.bin` のシンボリックリンクが作成されなかったケース（特定のインストール"
+"方法や Windows 環境など）に対応します。"
+
+#: ../../dev/architecture.md:124
+msgid ""
+"**Parent directory traversal (monorepo):** The plugin walks up from the "
+"project root to each parent directory, checking `node_modules/.bin/` and "
+"`node_modules/@rescript/language-server/out/cli.js` at each level. This "
+"supports monorepo setups where `@rescript/language-server` is hoisted to "
+"a workspace root."
+msgstr ""
+"**親ディレクトリの走査 (monorepo):** プラグインはプロジェクトルートから各親ディレクトリ"
+"に向かって走査し、各レベルで `node_modules/.bin/` と "
+"`node_modules/@rescript/language-server/out/cli.js` を確認します。"
+"`@rescript/language-server` がワークスペースルートにホイストされている monorepo "
+"構成をサポートします。"
+
+#: ../../dev/architecture.md:126
+msgid ""
+"**Global PATH lookup:** As a final fallback, the plugin runs `which "
+"rescript-language-server` (Unix) or `where rescript-language-server` "
+"(Windows) to find a globally installed binary."
+msgstr ""
+"**グローバル PATH 検索:** 最後のフォールバックとして、プラグインは "
+"`which rescript-language-server` (Unix) または "
+"`where rescript-language-server` (Windows) を実行して、グローバルにインストールされた"
+"バイナリを検索します。"
+
+#: ../../dev/architecture.md:128
+msgid ""
+"**Error:** If none of the above steps succeed, an `ExecutionException` is"
+" thrown with a user-facing message explaining how to install the language"
+" server."
+msgstr ""
+"**エラー:** 上記のいずれの手順も成功しない場合、Language Server のインストール方法を"
+"説明するユーザー向けメッセージとともに `ExecutionException` がスローされます。"
+
+#: ../../dev/architecture.md:130
+msgid "**Launch configuration:**"
+msgstr "**起動設定:**"
+
+#: ../../dev/architecture.md:132
+msgid ""
+"If the resolved path ends with `.js`, the server is launched as `node "
+"<path> --stdio` (using the custom Node.js path from settings or `node` "
+"from PATH). Otherwise, the binary is executed directly with `--stdio`. "
+"The working directory is set to the project root."
+msgstr ""
+"解決されたパスが `.js` で終わる場合、サーバーは `node <path> --stdio` として"
+"起動されます（設定のカスタム Node.js パスまたは PATH の `node` を使用）。"
+"それ以外の場合、バイナリは `--stdio` で直接実行されます。"
+"作業ディレクトリはプロジェクトルートに設定されます。"
+
+#: ../../dev/architecture.md:134
+msgid "**Initialization options:**"
+msgstr "**初期化オプション:**"
+
+#: ../../dev/architecture.md:136
+msgid ""
+"The `createInitializationOptions()` method sends configuration to the "
+"language server during initialization. Currently it sends:"
+msgstr ""
+"`createInitializationOptions()` メソッドは初期化時に Language Server に設定を送信します。"
+"現在、以下を送信します:"
+
+#: ../../dev/architecture.md:137
+msgid "`extensionConfiguration.codeLens: true` to enable Code Lens support."
+msgstr "Code Lens サポートを有効にするための `extensionConfiguration.codeLens: true`。"
+
+#: ../../dev/architecture.md:138
+msgid ""
+"`extensionConfiguration.incrementalTypechecking.enabled` to control "
+"incremental type checking based on the user's setting."
+msgstr ""
+"ユーザーの設定に基づいてインクリメンタル型チェックを制御するための "
+"`extensionConfiguration.incrementalTypechecking.enabled`。"
+
+#: ../../dev/architecture.md:140
+msgid "**Customization hooks:**"
+msgstr "**カスタマイズフック:**"
+
+#: ../../dev/architecture.md:142
+msgid "The descriptor configures two important customizations:"
+msgstr "ディスクリプタは 2 つの重要なカスタマイズを設定します:"
+
+#: ../../dev/architecture.md:143
+msgid ""
+"`lsp4jServerClass` is set to `RescriptLanguageServer::class.java` to "
+"enable custom request methods."
+msgstr ""
+"カスタムリクエストメソッドを有効にするため、`lsp4jServerClass` に "
+"`RescriptLanguageServer::class.java` を設定。"
+
+#: ../../dev/architecture.md:144
+msgid ""
+"`createLsp4jClient()` returns a `RescriptLsp4jClient` instance to handle "
+"custom notifications."
+msgstr ""
+"カスタム通知を処理するため、`createLsp4jClient()` が `RescriptLsp4jClient` "
+"インスタンスを返す。"
+
+#: ../../dev/architecture.md:145
+msgid ""
+"`lspCustomization.semanticTokensCustomizer` is set to a "
+"`RescriptSemanticTokensSupport` instance for semantic highlighting."
+msgstr ""
+"セマンティックハイライトのため、`lspCustomization.semanticTokensCustomizer` に "
+"`RescriptSemanticTokensSupport` インスタンスを設定。"
+
+#: ../../dev/architecture.md:147
+msgid "RescriptLanguageServer"
+msgstr "RescriptLanguageServer"
+
+#: ../../dev/architecture.md:149
+msgid ""
+"**File:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptLanguageServer.kt`"
+msgstr ""
+"**ファイル:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptLanguageServer.kt`"
+
+#: ../../dev/architecture.md:151
+msgid ""
+"This is an interface (not a class) that extends the standard "
+"`LanguageServer` interface from LSP4J. It declares additional JSON-RPC "
+"request methods that are specific to the ReScript language server and not"
+" part of the standard LSP protocol."
+msgstr ""
+"これはクラスではなくインターフェースであり、LSP4J の標準 `LanguageServer` "
+"インターフェースを継承しています。ReScript Language Server 固有の JSON-RPC "
+"リクエストメソッドを宣言しており、標準 LSP プロトコルには含まれないものです。"
+
+#: ../../dev/architecture.md:153
+msgid "**Custom requests:**"
+msgstr "**カスタムリクエスト:**"
+
+#: ../../dev/architecture.md:155
+msgid ""
+"**`textDocument/createInterface`** --- Takes a `TextDocumentIdentifier` "
+"(pointing to a `.res` file) and asks the language server to generate a "
+"`.resi` interface file from it. The server returns a "
+"`TextDocumentIdentifier` pointing to the generated file. This is used by "
+"the `RescriptCreateInterfaceAction` to provide the \"Create Interface\" "
+"navigation action."
+msgstr ""
+"**`textDocument/createInterface`** --- `.res` ファイルを指す `TextDocumentIdentifier` "
+"を受け取り、Language Server にそこから `.resi` インターフェースファイルを生成するよう"
+"要求します。サーバーは生成されたファイルを指す `TextDocumentIdentifier` を返します。"
+"これは `RescriptCreateInterfaceAction` が「Create Interface」ナビゲーション"
+"アクションを提供するために使用されます。"
+
+#: ../../dev/architecture.md:157
+msgid ""
+"**`textDocument/openCompiled`** --- Takes a `TextDocumentIdentifier` "
+"(pointing to a `.res` file) and asks the language server to resolve the "
+"path to the compiled JavaScript output. The server returns a "
+"`TextDocumentIdentifier` pointing to the `.js` file. This powers the "
+"`RescriptOpenCompiledJsAction` and the Compiled JS Preview panel."
+msgstr ""
+"**`textDocument/openCompiled`** --- `.res` ファイルを指す `TextDocumentIdentifier` "
+"を受け取り、Language Server にコンパイル済み JavaScript 出力へのパスを解決するよう"
+"要求します。サーバーは `.js` ファイルを指す `TextDocumentIdentifier` を返します。"
+"これは `RescriptOpenCompiledJsAction` と Compiled JS Preview パネルで使用されます。"
+
+#: ../../dev/architecture.md:159
+msgid ""
+"Both methods are annotated with `@JsonRequest` so that LSP4J "
+"automatically handles the JSON-RPC serialization and dispatching. They "
+"return `CompletableFuture` for asynchronous execution."
+msgstr ""
+"両メソッドは `@JsonRequest` アノテーションが付与されており、LSP4J が JSON-RPC の"
+"シリアライズとディスパッチを自動的に処理します。非同期実行のために "
+"`CompletableFuture` を返します。"
+
+#: ../../dev/architecture.md:161
+msgid ""
+"The reason for defining a custom interface instead of relying on "
+"`LanguageServer` directly is that LSP4J uses reflection on the interface "
+"type specified in `lsp4jServerClass` to discover available methods. By "
+"declaring these methods on a sub-interface, the plugin makes them "
+"available for invocation through the standard LSP4J request mechanism."
+msgstr ""
+"`LanguageServer` を直接使用せずカスタムインターフェースを定義する理由は、LSP4J が "
+"`lsp4jServerClass` で指定されたインターフェース型に対してリフレクションを使用して"
+"利用可能なメソッドを検出するためです。サブインターフェースでこれらのメソッドを宣言"
+"することで、プラグインは標準の LSP4J リクエスト機構を通じてそれらを呼び出し可能に"
+"しています。"
+
+#: ../../dev/architecture.md:163
+msgid "RescriptLsp4jClient"
+msgstr "RescriptLsp4jClient"
+
+#: ../../dev/architecture.md:165
+msgid "**File:** `src/main/kotlin/com/rescript/plugin/lsp/RescriptLsp4jClient.kt`"
+msgstr "**ファイル:** `src/main/kotlin/com/rescript/plugin/lsp/RescriptLsp4jClient.kt`"
+
+#: ../../dev/architecture.md:167
+msgid ""
+"This class extends `Lsp4jClient` and handles ReScript-specific "
+"notifications sent from the language server to the IDE. While the "
+"standard LSP client handles standard notifications (diagnostics, log "
+"messages, etc.), this subclass adds support for custom notifications."
+msgstr ""
+"このクラスは `Lsp4jClient` を継承し、Language Server から IDE に送信される "
+"ReScript 固有の通知を処理します。標準 LSP クライアントが標準通知（診断、ログ"
+"メッセージなど）を処理する一方、このサブクラスはカスタム通知のサポートを追加します。"
+
+#: ../../dev/architecture.md:169
+msgid "**Handled notifications:**"
+msgstr "**処理する通知:**"
+
+#: ../../dev/architecture.md:171
+msgid ""
+"**`rescript/compilationStatus`** --- This notification is sent by the "
+"ReScript language server whenever the build status changes (e.g., "
+"compilation started, compilation succeeded, compilation failed with "
+"errors). The notification includes the following parameters:"
+msgstr ""
+"**`rescript/compilationStatus`** --- この通知は、ビルド状態が変化するたびに "
+"ReScript Language Server から送信されます（例: コンパイル開始、コンパイル成功、"
+"エラーによるコンパイル失敗）。通知には以下のパラメータが含まれます:"
+
+#: ../../dev/architecture.md:172
+msgid "`project` --- The project name."
+msgstr "`project` --- プロジェクト名。"
+
+#: ../../dev/architecture.md:173
+msgid "`projectRootPath` --- The root path of the ReScript project."
+msgstr "`projectRootPath` --- ReScript プロジェクトのルートパス。"
+
+#: ../../dev/architecture.md:174
+msgid ""
+"`status` --- A string indicating the compilation state (e.g., "
+"`\"success\"`, `\"failed\"`, `\"building\"`)."
+msgstr ""
+"`status` --- コンパイル状態を示す文字列（例: "
+"`\"success\"`, `\"failed\"`, `\"building\"`）。"
+
+#: ../../dev/architecture.md:175
+msgid "`errorCount` --- The number of compilation errors."
+msgstr "`errorCount` --- コンパイルエラーの数。"
+
+#: ../../dev/architecture.md:176
+msgid "`warningCount` --- The number of compilation warnings."
+msgstr "`warningCount` --- コンパイル警告の数。"
+
+#: ../../dev/architecture.md:178
+msgid ""
+"When this notification arrives, the client checks that the project is not"
+" disposed (to prevent errors during shutdown) and then delegates to "
+"`RescriptCompilationStatusService.updateStatus()` to store the new status"
+" and notify any registered listeners (such as the status bar widget)."
+msgstr ""
+"この通知を受信すると、クライアントはプロジェクトが破棄されていないことを確認し"
+"（シャットダウン時のエラーを防ぐため）、`RescriptCompilationStatusService.updateStatus()` "
+"に委譲して新しい状態を保存し、登録済みのリスナー（ステータスバーウィジェットなど）"
+"に通知します。"
+
+#: ../../dev/architecture.md:180
+msgid ""
+"The `@JsonNotification` annotation on the `compilationStatus` method "
+"tells LSP4J to route incoming `rescript/compilationStatus` messages to "
+"this method via reflection. The `@Suppress(\"unused\")` annotation is "
+"present because the method is never called directly from Kotlin code --- "
+"it is invoked only by LSP4J's reflection-based dispatch."
+msgstr ""
+"`compilationStatus` メソッドの `@JsonNotification` アノテーションは、受信した "
+"`rescript/compilationStatus` メッセージをリフレクション経由でこのメソッドに"
+"ルーティングするよう LSP4J に指示します。`@Suppress(\"unused\")` アノテーションは、"
+"このメソッドが Kotlin コードから直接呼び出されることはなく、LSP4J のリフレクション"
+"ベースのディスパッチによってのみ呼び出されるために付与されています。"
+
+#: ../../dev/architecture.md:182
+msgid "RescriptSemanticTokensSupport"
+msgstr "RescriptSemanticTokensSupport"
+
+#: ../../dev/architecture.md:184
+msgid ""
+"**File:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptSemanticTokensSupport.kt`"
+msgstr ""
+"**ファイル:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptSemanticTokensSupport.kt`"
+
+#: ../../dev/architecture.md:186
+msgid ""
+"This class extends `LspSemanticTokensSupport` and maps LSP semantic token"
+" types (strings like `\"variable\"`, `\"type\"`, `\"namespace\"`) to "
+"IntelliJ `TextAttributesKey` instances for rendering in the editor."
+msgstr ""
+"このクラスは `LspSemanticTokensSupport` を継承し、LSP セマンティックトークン型"
+"（`\"variable\"`, `\"type\"`, `\"namespace\"` などの文字列）を IntelliJ の "
+"`TextAttributesKey` インスタンスにマッピングしてエディタでのレンダリングに使用します。"
+
+#: ../../dev/architecture.md:188
+msgid "**Token type mapping:**"
+msgstr "**トークン型マッピング:**"
+
+#: ../../dev/architecture.md
+msgid "LSP Token Type"
+msgstr "LSP トークン型"
+
+#: ../../dev/architecture.md
+msgid "IntelliJ TextAttributesKey"
+msgstr "IntelliJ TextAttributesKey"
+
+#: ../../dev/architecture.md
+msgid "Visual Purpose"
+msgstr "表示上の用途"
+
+#: ../../dev/architecture.md
+msgid "`variable`"
+msgstr "`variable`"
+
+#: ../../dev/architecture.md
+msgid "`SEMANTIC_VARIABLE`"
+msgstr "`SEMANTIC_VARIABLE`"
+
+#: ../../dev/architecture.md
+msgid "Local variables, function parameters"
+msgstr "ローカル変数、関数パラメータ"
+
+#: ../../dev/architecture.md
+msgid "`type`"
+msgstr "`type`"
+
+#: ../../dev/architecture.md
+msgid "`SEMANTIC_TYPE`"
+msgstr "`SEMANTIC_TYPE`"
+
+#: ../../dev/architecture.md
+msgid "Type names (e.g., `int`, `option`, user-defined types)"
+msgstr "型名（例: `int`, `option`, ユーザー定義型）"
+
+#: ../../dev/architecture.md
+msgid "`namespace`"
+msgstr "`namespace`"
+
+#: ../../dev/architecture.md
+msgid "`SEMANTIC_NAMESPACE`"
+msgstr "`SEMANTIC_NAMESPACE`"
+
+#: ../../dev/architecture.md
+msgid "Module names (semantically resolved)"
+msgstr "モジュール名（セマンティック解決済み）"
+
+#: ../../dev/architecture.md
+msgid "`enumMember`"
+msgstr "`enumMember`"
+
+#: ../../dev/architecture.md
+msgid "`SEMANTIC_ENUM_MEMBER`"
+msgstr "`SEMANTIC_ENUM_MEMBER`"
+
+#: ../../dev/architecture.md
+msgid "Variant constructors (e.g., `Some`, `None`, `Ok`)"
+msgstr "バリアントコンストラクタ（例: `Some`, `None`, `Ok`）"
+
+#: ../../dev/architecture.md
+msgid "`property`"
+msgstr "`property`"
+
+#: ../../dev/architecture.md
+msgid "`SEMANTIC_PROPERTY`"
+msgstr "`SEMANTIC_PROPERTY`"
+
+#: ../../dev/architecture.md
+msgid "Record field names"
+msgstr "レコードフィールド名"
+
+#: ../../dev/architecture.md
+msgid "`interface`"
+msgstr "`interface`"
+
+#: ../../dev/architecture.md
+msgid "`SEMANTIC_INTERFACE`"
+msgstr "`SEMANTIC_INTERFACE`"
+
+#: ../../dev/architecture.md
+msgid "JSX HTML element names (e.g., `div`, `span`)"
+msgstr "JSX HTML 要素名（例: `div`, `span`）"
+
+#: ../../dev/architecture.md
+msgid "`operator`"
+msgstr "`operator`"
+
+#: ../../dev/architecture.md
+msgid "`SEMANTIC_OPERATOR`"
+msgstr "`SEMANTIC_OPERATOR`"
+
+#: ../../dev/architecture.md
+msgid "Operators (semantically resolved)"
+msgstr "演算子（セマンティック解決済み）"
+
+#: ../../dev/architecture.md
+msgid "`modifier`"
+msgstr "`modifier`"
+
+#: ../../dev/architecture.md
+msgid "`SEMANTIC_MODIFIER`"
+msgstr "`SEMANTIC_MODIFIER`"
+
+#: ../../dev/architecture.md
+msgid "JSX tag brackets (semantically resolved)"
+msgstr "JSX タグブラケット（セマンティック解決済み）"
+
+#: ../../dev/architecture.md:201
+msgid ""
+"**Fallback behavior:** If the language server returns a token type not "
+"listed above (e.g., a future addition to the protocol), the "
+"`getTextAttributesKey()` method returns `null`. This tells the IntelliJ "
+"Platform to preserve the lexer-based highlighting for that token, "
+"ensuring that unrecognized semantic token types do not cause highlighting"
+" to disappear."
+msgstr ""
+"**フォールバック動作:** Language Server が上記にないトークン型を返した場合"
+"（例: プロトコルへの将来の追加）、`getTextAttributesKey()` メソッドは `null` を"
+"返します。これにより IntelliJ Platform はそのトークンに対してレクサーベースの"
+"ハイライトを保持し、認識されないセマンティックトークン型によってハイライトが"
+"消えることを防ぎます。"
+
+#: ../../dev/architecture.md:203
+msgid ""
+"**Always-on behavior:** The `shouldAskServerForSemanticTokens()` method "
+"unconditionally returns `true`, meaning the plugin always requests "
+"semantic tokens when the LSP is connected. This ensures that semantic "
+"highlighting is active as soon as the language server is running, without"
+" requiring any user action."
+msgstr ""
+"**常時有効動作:** `shouldAskServerForSemanticTokens()` メソッドは無条件に `true` "
+"を返します。つまり、LSP が接続されている場合、プラグインは常にセマンティックトークン"
+"を要求します。これにより、Language Server が実行されるとすぐに、ユーザーの操作なしで"
+"セマンティックハイライトが有効になります。"
+
+#: ../../dev/architecture.md:205
+msgid ""
+"The `modifiers` parameter in `getTextAttributesKey()` is currently not "
+"used by the ReScript language server but is available for future use "
+"(e.g., distinguishing `readonly` properties or `deprecated` identifiers)."
+msgstr ""
+"`getTextAttributesKey()` の `modifiers` パラメータは現在 ReScript Language Server "
+"では使用されていませんが、将来の使用に備えて利用可能です"
+"（例: `readonly` プロパティや `deprecated` 識別子の区別）。"
+
+#: ../../dev/architecture.md:207
+msgid "RescriptCompilationStatusService"
+msgstr "RescriptCompilationStatusService"
+
+#: ../../dev/architecture.md:209
+msgid ""
+"**File:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptCompilationStatusService.kt`"
+msgstr ""
+"**ファイル:** "
+"`src/main/kotlin/com/rescript/plugin/lsp/RescriptCompilationStatusService.kt`"
+
+#: ../../dev/architecture.md:211
+msgid ""
+"This is a project-level service (`@Service(Service.Level.PROJECT)`) that "
+"maintains the current compilation status of the ReScript project. It acts"
+" as a centralized store and event bus for build state information."
+msgstr ""
+"これはプロジェクトレベルのサービス (`@Service(Service.Level.PROJECT)`) であり、"
+"ReScript プロジェクトの現在のコンパイル状態を保持します。ビルド状態情報の"
+"集中ストアおよびイベントバスとして機能します。"
+
+#: ../../dev/architecture.md:213
+msgid "**State management:**"
+msgstr "**状態管理:**"
+
+#: ../../dev/architecture.md:215
+msgid ""
+"The service holds a single `@Volatile` property `currentStatus` of type "
+"`CompilationStatus`, which is a data class containing three fields:"
+msgstr ""
+"サービスは `CompilationStatus` 型の `@Volatile` プロパティ `currentStatus` を 1 つ"
+"保持しています。これは 3 つのフィールドを含むデータクラスです:"
+
+#: ../../dev/architecture.md:216
+msgid ""
+"`status: String` --- The build state, typically `\"success\"`, "
+"`\"failed\"`, `\"building\"`, or `\"unknown\"`."
+msgstr ""
+"`status: String` --- ビルド状態。通常 `\"success\"`, "
+"`\"failed\"`, `\"building\"`, または `\"unknown\"`。"
+
+#: ../../dev/architecture.md:217
+msgid "`errorCount: Int` --- The number of compilation errors in the last build."
+msgstr "`errorCount: Int` --- 最後のビルドにおけるコンパイルエラーの数。"
+
+#: ../../dev/architecture.md:218
+msgid ""
+"`warningCount: Int` --- The number of compilation warnings in the last "
+"build."
+msgstr ""
+"`warningCount: Int` --- 最後のビルドにおけるコンパイル警告の数。"
+
+#: ../../dev/architecture.md:220
+msgid ""
+"The initial state is `CompilationStatus.UNKNOWN` (status `\"unknown\"`, "
+"zero errors, zero warnings)."
+msgstr ""
+"初期状態は `CompilationStatus.UNKNOWN`（status `\"unknown\"`、エラー 0、警告 0）です。"
+
+#: ../../dev/architecture.md:222
+msgid "**Update flow:**"
+msgstr "**更新フロー:**"
+
+#: ../../dev/architecture.md:224
+msgid ""
+"The ReScript language server sends a `rescript/compilationStatus` "
+"notification when the build state changes."
+msgstr ""
+"ReScript Language Server がビルド状態の変化時に `rescript/compilationStatus` "
+"通知を送信します。"
+
+#: ../../dev/architecture.md:225
+msgid ""
+"`RescriptLsp4jClient.compilationStatus()` receives the notification and "
+"calls `updateStatus()` on this service."
+msgstr ""
+"`RescriptLsp4jClient.compilationStatus()` が通知を受信し、このサービスの "
+"`updateStatus()` を呼び出します。"
+
+#: ../../dev/architecture.md:226
+msgid ""
+"`updateStatus()` stores the new status in `currentStatus` and iterates "
+"over all registered listeners, calling `statusChanged()` on each one."
+msgstr ""
+"`updateStatus()` が `currentStatus` に新しい状態を保存し、登録済みの全リスナーを"
+"走査して各リスナーの `statusChanged()` を呼び出します。"
+
+#: ../../dev/architecture.md:228
+msgid "**Listener management:**"
+msgstr "**リスナー管理:**"
+
+#: ../../dev/architecture.md:230
+msgid ""
+"Components that need to react to build state changes (such as the status "
+"bar widget `RescriptCompilerStatusWidgetFactory`) register a "
+"`CompilationStatusListener` via `addListener(disposable, listener)`. The "
+"listener is automatically removed when the provided `Disposable` is "
+"disposed, preventing memory leaks when tool windows or widgets are "
+"closed."
+msgstr ""
+"ビルド状態の変化に反応する必要があるコンポーネント（ステータスバーウィジェット "
+"`RescriptCompilerStatusWidgetFactory` など）は、"
+"`addListener(disposable, listener)` を通じて `CompilationStatusListener` を"
+"登録します。リスナーは提供された `Disposable` が破棄されると自動的に削除され、"
+"ツールウィンドウやウィジェットが閉じられた際のメモリリークを防ぎます。"
+
+#: ../../dev/architecture.md:232
+msgid ""
+"The `CompilationStatusListener` is defined as a functional interface "
+"(`fun interface`), so listeners can be registered with a lambda:"
+msgstr ""
+"`CompilationStatusListener` は関数型インターフェース (`fun interface`) として"
+"定義されているため、リスナーをラムダで登録できます:"
+
+#: ../../dev/architecture.md:240
+msgid ""
+"**Thread safety:** The `currentStatus` property is marked `@Volatile` to "
+"ensure visibility across threads, since `updateStatus()` is called from "
+"the LSP message processing thread while `currentStatus` may be read from "
+"the EDT (UI thread)."
+msgstr ""
+"**スレッドセーフティ:** `currentStatus` プロパティは `@Volatile` が付与されており、"
+"スレッド間の可視性を保証します。`updateStatus()` は LSP メッセージ処理スレッドから"
+"呼び出される一方、`currentStatus` は EDT (UI スレッド) から読み取られる可能性が"
+"あるためです。"
+
+#: ../../dev/architecture.md:242
+msgid "LSP Server Detection"
+msgstr "LSP サーバー検出"
+
+#: ../../dev/architecture.md:244
+msgid "The plugin searches for the Language Server in this order:"
+msgstr "プラグインは以下の順序で Language Server を検索します:"
+
+#: ../../dev/architecture.md:246
+msgid "Custom path configured in Settings > Languages & Frameworks > ReScript"
+msgstr "Settings > Languages & Frameworks > ReScript で設定されたカスタムパス"
+
+#: ../../dev/architecture.md:247
+msgid "`node_modules/.bin/rescript-language-server` (project-local binary)"
+msgstr "`node_modules/.bin/rescript-language-server` (プロジェクトローカルバイナリ)"
+
+#: ../../dev/architecture.md:248
 msgid "`node_modules/@rescript/language-server/out/cli.js` (JS fallback)"
-msgstr ""
+msgstr "`node_modules/@rescript/language-server/out/cli.js` (JS フォールバック)"
 
-#: ../../dev/architecture.md:101
+#: ../../dev/architecture.md:249
+msgid "Parent directory `node_modules/.bin/` (monorepo support, walks up to root)"
+msgstr "親ディレクトリの `node_modules/.bin/` (monorepo サポート、ルートまで走査)"
+
+#: ../../dev/architecture.md:250
 msgid "Global installation via `which` / `where`"
-msgstr ""
+msgstr "`which` / `where` によるグローバルインストール"
 
-#: ../../dev/architecture.md:103
+#: ../../dev/architecture.md:252
 msgid "Custom LSP Extensions"
-msgstr ""
+msgstr "カスタム LSP 拡張"
 
-#: ../../dev/architecture.md:105
+#: ../../dev/architecture.md:254
 msgid ""
 "The plugin uses ReScript-specific LSP requests beyond the standard "
 "protocol:"
 msgstr ""
+"プラグインは標準プロトコルに加えて ReScript 固有の LSP リクエストを使用します:"
 
-#: ../../dev/architecture.md:107
+#: ../../dev/architecture.md:256
 msgid "`textDocument/createInterface` — Generate `.resi` from `.res`"
-msgstr ""
+msgstr "`textDocument/createInterface` — `.res` から `.resi` を生成"
 
-#: ../../dev/architecture.md:108
+#: ../../dev/architecture.md:257
 msgid "`textDocument/openCompiled` — Get compiled JS path"
-msgstr ""
+msgstr "`textDocument/openCompiled` — コンパイル済み JS パスを取得"
 
-#: ../../dev/architecture.md:109
+#: ../../dev/architecture.md:258
 msgid "`rescript/compilationStatus` — Build status notifications"
-msgstr ""
+msgstr "`rescript/compilationStatus` — ビルド状態の通知"
 
-#: ../../dev/architecture.md:111
+#: ../../dev/architecture.md:260
 msgid "Layer 3: IDE Integration"
-msgstr ""
+msgstr "レイヤー 3: IDE 統合"
 
-#: ../../dev/architecture.md:113
+#: ../../dev/architecture.md:262
 msgid "Additional IDE features that build on both layers:"
-msgstr ""
+msgstr "両レイヤーの上に構築される追加の IDE 機能:"
 
-#: ../../dev/architecture.md:115
+#: ../../dev/architecture.md:264
 msgid "**Run configurations** — Execute ReScript build commands"
-msgstr ""
+msgstr "**実行構成** — ReScript ビルドコマンドの実行"
 
-#: ../../dev/architecture.md:116
+#: ../../dev/architecture.md:265
 msgid "**External formatter** — `rescript format` CLI integration"
-msgstr ""
+msgstr "**外部フォーマッタ** — `rescript format` CLI 連携"
 
-#: ../../dev/architecture.md:117
+#: ../../dev/architecture.md:266
 msgid "**Code inspections** — Local analysis (duplicate opens, empty modules)"
-msgstr ""
+msgstr "**コードインスペクション** — ローカル分析（重複 open、空モジュール）"
 
-#: ../../dev/architecture.md:118
+#: ../../dev/architecture.md:267
 msgid "**reanalyze integration** — Dead code analysis via external tool"
-msgstr ""
+msgstr "**reanalyze 連携** — 外部ツールによるデッドコード分析"
 
-#: ../../dev/architecture.md:119
+#: ../../dev/architecture.md:268
 msgid "**Test runner** — Jest/Vitest integration with SMTestRunner"
-msgstr ""
+msgstr "**テストランナー** — SMTestRunner による Jest/Vitest 連携"
 
-#: ../../dev/architecture.md:121
+#: ../../dev/architecture.md:270
 msgid "Design Principles"
-msgstr ""
+msgstr "設計原則"
 
-#: ../../dev/architecture.md:123
+#: ../../dev/architecture.md:272
 msgid ""
 "**Delegate complex parsing to LSP** — The plugin never attempts to fully "
 "parse ReScript. Expression-level understanding comes from the Language "
 "Server."
 msgstr ""
+"**複雑な解析を LSP に委譲** — プラグインは ReScript を完全に解析しようとしません。"
+"式レベルの理解は Language Server から提供されます。"
 
-#: ../../dev/architecture.md:125
+#: ../../dev/architecture.md:274
 msgid ""
 "**Graceful degradation** — If the Language Server is unavailable, all "
 "native features (highlighting, folding, structure view) still work."
 msgstr ""
+"**グレースフルデグラデーション** — Language Server が利用できない場合でも、"
+"すべてのネイティブ機能（ハイライト、折りたたみ、ストラクチャービュー）は動作します。"
 
-#: ../../dev/architecture.md:127
+#: ../../dev/architecture.md:276
 msgid ""
 "**Use platform APIs** — The plugin uses IntelliJ Platform's official LSP "
 "API (`com.intellij.platform.lsp`) rather than implementing LSP from "
 "scratch."
 msgstr ""
+"**プラットフォーム API の使用** — プラグインは LSP をゼロから実装するのではなく、"
+"IntelliJ Platform の公式 LSP API (`com.intellij.platform.lsp`) を使用します。"
 
-#: ../../dev/architecture.md:129
+#: ../../dev/architecture.md:278
 msgid ""
 "**Keep the codebase small** — By leveraging the Language Server, the "
 "plugin avoids duplicating the complex ReScript type system and analysis "
 "logic."
 msgstr ""
+"**コードベースをコンパクトに** — Language Server を活用することで、プラグインは"
+"複雑な ReScript 型システムと分析ロジックの重複を回避します。"
+
+#~ msgid "Parent directory `node_modules/.bin/` (monorepo support)"
+#~ msgstr ""
 

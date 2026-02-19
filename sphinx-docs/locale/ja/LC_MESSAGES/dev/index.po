@@ -4,14 +4,13 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-19 17:39+0900\n"
+"Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -22,59 +21,64 @@ msgstr ""
 
 #: ../../dev/index.md:1
 msgid "Developer Guide"
-msgstr ""
+msgstr "開発者ガイド"
 
 #: ../../dev/index.md:3
 msgid ""
 "This section covers everything you need to contribute to the ReScript "
 "IntelliJ Plugin."
 msgstr ""
+"このセクションでは、ReScript IntelliJ Plugin への貢献に必要なすべての情報を説明します。"
 
 #: ../../dev/index.md:5
 msgid "Getting Started"
-msgstr ""
+msgstr "はじめに"
 
 #: ../../dev/index.md:7
 msgid "[Development Setup](setup.md) — Set up your development environment"
-msgstr ""
+msgstr "[開発環境のセットアップ](setup.md) — 開発環境を構築する"
 
 #: ../../dev/index.md:8
 msgid ""
 "[Building & Running](building.md) — Build the plugin and run a dev IDE "
 "instance"
 msgstr ""
+"[ビルドと実行](building.md) — プラグインのビルドと開発用 IDE インスタンスの起動"
 
 #: ../../dev/index.md:10
 msgid "Understanding the Codebase"
-msgstr ""
+msgstr "コードベースの理解"
 
 #: ../../dev/index.md:12
 msgid ""
 "[Architecture](architecture.md) — How the plugin is structured (lexer + "
 "LSP hybrid)"
 msgstr ""
+"[アーキテクチャ](architecture.md) — プラグインの構造（レクサー + LSP ハイブリッド）"
 
 #: ../../dev/index.md:13
 msgid ""
 "[Project Structure](project-structure.md) — Source code layout and key "
 "files"
 msgstr ""
+"[プロジェクト構成](project-structure.md) — ソースコードのレイアウトと主要ファイル"
 
 #: ../../dev/index.md:15
 msgid "Contributing"
-msgstr ""
+msgstr "コントリビュート"
 
 #: ../../dev/index.md:17
 msgid "[Extending the Plugin](extending.md) — How to add new features"
-msgstr ""
+msgstr "[プラグインの拡張](extending.md) — 新機能の追加方法"
 
 #: ../../dev/index.md:18
 msgid "[Testing Guide](testing.md) — Writing and running tests"
-msgstr ""
+msgstr "[テストガイド](testing.md) — テストの作成と実行"
 
 #: ../../dev/index.md:19
 msgid ""
 "[Contributing Guide](contributing.md) — Workflow, conventions, and PR "
 "process"
 msgstr ""
+"[コントリビューションガイド](contributing.md) — ワークフロー、規約、PR プロセス"
 

@@ -4,13 +4,12 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -22,427 +21,427 @@ msgstr ""
 
 #: ../../dev/project-structure.md:1
 msgid "Project Structure"
-msgstr ""
+msgstr "プロジェクト構造"
 
 #: ../../dev/project-structure.md:3
 msgid "Top-Level Layout"
-msgstr ""
+msgstr "トップレベルレイアウト"
 
 #: ../../dev/project-structure.md:23
 msgid "Source Code Organization"
-msgstr ""
+msgstr "ソースコードの構成"
 
 #: ../../dev/project-structure.md:25
 msgid "All plugin code is under `src/main/kotlin/com/rescript/plugin/`:"
-msgstr ""
+msgstr "すべてのプラグインコードは `src/main/kotlin/com/rescript/plugin/` 配下にあります:"
 
 #: ../../dev/project-structure.md
 msgid "Package"
-msgstr ""
+msgstr "パッケージ"
 
 #: ../../dev/project-structure.md
 msgid "Purpose"
-msgstr ""
+msgstr "用途"
 
 #: ../../dev/project-structure.md
 msgid "Key Files"
-msgstr ""
+msgstr "主要ファイル"
 
 #: ../../dev/project-structure.md
 msgid "`(root)`"
-msgstr ""
+msgstr "`(root)`"
 
 #: ../../dev/project-structure.md
 msgid "Core definitions"
-msgstr ""
+msgstr "コア定義"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptLanguage.kt`, `RescriptFileTypes.kt`, `RescriptIcons.kt`"
-msgstr ""
+msgstr "`RescriptLanguage.kt`, `RescriptFileTypes.kt`, `RescriptIcons.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`lang/`"
-msgstr ""
+msgstr "`lang/`"
 
 #: ../../dev/project-structure.md
 msgid "Lexer, parser, tokens"
-msgstr ""
+msgstr "レキサー、パーサー、トークン"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptLexer.kt`, `RescriptParser.kt`, `RescriptTokenTypes.kt`"
-msgstr ""
+msgstr "`RescriptLexer.kt`, `RescriptParser.kt`, `RescriptTokenTypes.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`lang/psi/`"
-msgstr ""
+msgstr "`lang/psi/`"
 
 #: ../../dev/project-structure.md
 msgid "PSI element classes"
-msgstr ""
+msgstr "PSI 要素クラス"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptPsi.kt`, `RescriptStringLiteral.kt`"
-msgstr ""
+msgstr "`RescriptPsi.kt`, `RescriptStringLiteral.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`highlight/`"
-msgstr ""
+msgstr "`highlight/`"
 
 #: ../../dev/project-structure.md
 msgid "Syntax highlighting"
-msgstr ""
+msgstr "シンタックスハイライト"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptSyntaxHighlighter.kt`, `RescriptColorSettingsPage.kt`"
-msgstr ""
+msgstr "`RescriptSyntaxHighlighter.kt`, `RescriptColorSettingsPage.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`lsp/`"
-msgstr ""
+msgstr "`lsp/`"
 
 #: ../../dev/project-structure.md
 msgid "LSP integration"
-msgstr ""
+msgstr "LSP 統合"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptLspServerDescriptor.kt`, `RescriptSemanticTokensSupport.kt`"
-msgstr ""
+msgstr "`RescriptLspServerDescriptor.kt`, `RescriptSemanticTokensSupport.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`run/`"
-msgstr ""
+msgstr "`run/`"
 
 #: ../../dev/project-structure.md
 msgid "Run configurations"
-msgstr ""
+msgstr "実行構成"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptRunConfiguration.kt`, `RescriptCliDetector.kt`"
-msgstr ""
+msgstr "`RescriptRunConfiguration.kt`, `RescriptCliDetector.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`test/`"
-msgstr ""
+msgstr "`test/`"
 
 #: ../../dev/project-structure.md
 msgid "Test runner"
-msgstr ""
+msgstr "テストランナー"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptTestRunConfiguration.kt`, `RescriptTestFrameworkDetector.kt`"
-msgstr ""
+msgstr "`RescriptTestRunConfiguration.kt`, `RescriptTestFrameworkDetector.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`structure/`"
-msgstr ""
+msgstr "`structure/`"
 
 #: ../../dev/project-structure.md
 msgid "Structure view"
-msgstr ""
+msgstr "ストラクチャービュー"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptStructureViewFactory.kt`"
-msgstr ""
+msgstr "`RescriptStructureViewFactory.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`folding/`"
-msgstr ""
+msgstr "`folding/`"
 
 #: ../../dev/project-structure.md
 msgid "Code folding"
-msgstr ""
+msgstr "コード折りたたみ"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptFoldingBuilder.kt`, `RescriptCustomFoldingProvider.kt`"
-msgstr ""
+msgstr "`RescriptFoldingBuilder.kt`, `RescriptCustomFoldingProvider.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`editor/`"
-msgstr ""
+msgstr "`editor/`"
 
 #: ../../dev/project-structure.md
 msgid "Editor enhancements"
-msgstr ""
+msgstr "エディタ拡張"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptSmartEnterProcessor.kt`, `RescriptStatementUpDownMover.kt`"
-msgstr ""
+msgstr "`RescriptSmartEnterProcessor.kt`, `RescriptStatementUpDownMover.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`completion/`"
-msgstr ""
+msgstr "`completion/`"
 
 #: ../../dev/project-structure.md
 msgid "Completion features"
-msgstr ""
+msgstr "補完機能"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptPostfixTemplateProvider.kt`"
-msgstr ""
+msgstr "`RescriptPostfixTemplateProvider.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`navigation/`"
-msgstr ""
+msgstr "`navigation/`"
 
 #: ../../dev/project-structure.md
 msgid "Navigation features"
-msgstr ""
+msgstr "ナビゲーション機能"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptSymbolContributor.kt`, `RescriptSwitchFileAction.kt`"
-msgstr ""
+msgstr "`RescriptSymbolContributor.kt`, `RescriptSwitchFileAction.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`analysis/`"
-msgstr ""
+msgstr "`analysis/`"
 
 #: ../../dev/project-structure.md
 msgid "Code analysis"
-msgstr ""
+msgstr "コード分析"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptReanalyzeAnnotator.kt`, `RescriptUnusedCodeInspection.kt`"
-msgstr ""
+msgstr "`RescriptReanalyzeAnnotator.kt`, `RescriptUnusedCodeInspection.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`formatter/`"
-msgstr ""
+msgstr "`formatter/`"
 
 #: ../../dev/project-structure.md
 msgid "Formatting"
-msgstr ""
+msgstr "フォーマット"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptFormattingService.kt`"
-msgstr ""
+msgstr "`RescriptFormattingService.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`codestyle/`"
-msgstr ""
+msgstr "`codestyle/`"
 
 #: ../../dev/project-structure.md
 msgid "Code style"
-msgstr ""
+msgstr "コードスタイル"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptCodeStyleSettingsProvider.kt`"
-msgstr ""
+msgstr "`RescriptCodeStyleSettingsProvider.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`config/`"
-msgstr ""
+msgstr "`config/`"
 
 #: ../../dev/project-structure.md
 msgid "Configuration"
-msgstr ""
+msgstr "設定"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptJsonIconProvider.kt`, `RescriptJsonSchemaProviderFactory.kt`"
-msgstr ""
+msgstr "`RescriptJsonIconProvider.kt`, `RescriptJsonSchemaProviderFactory.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`settings/`"
-msgstr ""
+msgstr "`settings/`"
 
 #: ../../dev/project-structure.md
 msgid "Plugin settings"
-msgstr ""
+msgstr "プラグイン設定"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptProjectSettings.kt`, `RescriptConfigurable.kt`"
-msgstr ""
+msgstr "`RescriptProjectSettings.kt`, `RescriptConfigurable.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`intention/`"
-msgstr ""
+msgstr "`intention/`"
 
 #: ../../dev/project-structure.md
 msgid "Intention actions"
-msgstr ""
+msgstr "インテンションアクション"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptWrapWithIntention.kt`, `RescriptAddGenTypeIntention.kt`"
-msgstr ""
+msgstr "`RescriptWrapWithIntention.kt`, `RescriptAddGenTypeIntention.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`surround/`"
-msgstr ""
+msgstr "`surround/`"
 
 #: ../../dev/project-structure.md
 msgid "Surround with"
-msgstr ""
+msgstr "Surround with"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptSurroundDescriptor.kt`"
-msgstr ""
+msgstr "`RescriptSurroundDescriptor.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`imports/`"
-msgstr ""
+msgstr "`imports/`"
 
 #: ../../dev/project-structure.md
 msgid "Import management"
-msgstr ""
+msgstr "インポート管理"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptImportOptimizer.kt`"
-msgstr ""
+msgstr "`RescriptImportOptimizer.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`injection/`"
-msgstr ""
+msgstr "`injection/`"
 
 #: ../../dev/project-structure.md
 msgid "Language injection"
-msgstr ""
+msgstr "言語インジェクション"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptRawJsInjector.kt`, `RescriptMarkdownCodeFenceProvider.kt`"
-msgstr ""
+msgstr "`RescriptRawJsInjector.kt`, `RescriptMarkdownCodeFenceProvider.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`spellcheck/`"
-msgstr ""
+msgstr "`spellcheck/`"
 
 #: ../../dev/project-structure.md
 msgid "Spellchecking"
-msgstr ""
+msgstr "スペルチェック"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptSpellcheckingStrategy.kt`"
-msgstr ""
+msgstr "`RescriptSpellcheckingStrategy.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`indexing/`"
-msgstr ""
+msgstr "`indexing/`"
 
 #: ../../dev/project-structure.md
 msgid "Indexing"
-msgstr ""
+msgstr "インデックス"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptTodoIndexer.kt`"
-msgstr ""
+msgstr "`RescriptTodoIndexer.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`template/`"
-msgstr ""
+msgstr "`template/`"
 
 #: ../../dev/project-structure.md
 msgid "File creation"
-msgstr ""
+msgstr "ファイル作成"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptCreateFileAction.kt`"
-msgstr ""
+msgstr "`RescriptCreateFileAction.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`statusbar/`"
-msgstr ""
+msgstr "`statusbar/`"
 
 #: ../../dev/project-structure.md
 msgid "Status bar"
-msgstr ""
+msgstr "ステータスバー"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptCompilerStatusWidgetFactory.kt`"
-msgstr ""
+msgstr "`RescriptCompilerStatusWidgetFactory.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`codevision/`"
-msgstr ""
+msgstr "`codevision/`"
 
 #: ../../dev/project-structure.md
 msgid "Code Lens"
-msgstr ""
+msgstr "Code Lens"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptCodeVisionProvider.kt`"
-msgstr ""
+msgstr "`RescriptCodeVisionProvider.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`preview/`"
-msgstr ""
+msgstr "`preview/`"
 
 #: ../../dev/project-structure.md
 msgid "JS preview"
-msgstr ""
+msgstr "JS プレビュー"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptCompiledJsPreviewPanel.kt`"
-msgstr ""
+msgstr "`RescriptCompiledJsPreviewPanel.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`hierarchy/`"
-msgstr ""
+msgstr "`hierarchy/`"
 
 #: ../../dev/project-structure.md
 msgid "Module hierarchy"
-msgstr ""
+msgstr "モジュール階層"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptModuleHierarchyProvider.kt`"
-msgstr ""
+msgstr "`RescriptModuleHierarchyProvider.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`paste/`"
-msgstr ""
+msgstr "`paste/`"
 
 #: ../../dev/project-structure.md
 msgid "Paste actions"
-msgstr ""
+msgstr "ペーストアクション"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptPasteAsJsonAction.kt`"
-msgstr ""
+msgstr "`RescriptPasteAsJsonAction.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`generate/`"
-msgstr ""
+msgstr "`generate/`"
 
 #: ../../dev/project-structure.md
 msgid "Code generation"
-msgstr ""
+msgstr "コード生成"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptGenerateSwitchAction.kt`, `RescriptGenerateModuleTypeAction.kt`"
-msgstr ""
+msgstr "`RescriptGenerateSwitchAction.kt`, `RescriptGenerateModuleTypeAction.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`wizard/`"
-msgstr ""
+msgstr "`wizard/`"
 
 #: ../../dev/project-structure.md
 msgid "Project wizard"
-msgstr ""
+msgstr "プロジェクトウィザード"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptModuleBuilder.kt`, `RescriptProjectWizardStep.kt`"
-msgstr ""
+msgstr "`RescriptModuleBuilder.kt`, `RescriptProjectWizardStep.kt`"
 
 #: ../../dev/project-structure.md
 msgid "`commenter/`"
-msgstr ""
+msgstr "`commenter/`"
 
 #: ../../dev/project-structure.md
 msgid "Comment toggle"
-msgstr ""
+msgstr "コメント切り替え"
 
 #: ../../dev/project-structure.md
 msgid "`RescriptCommenter.kt`"
-msgstr ""
+msgstr "`RescriptCommenter.kt`"
 
 #: ../../dev/project-structure.md:62
 msgid "Resources"
-msgstr ""
+msgstr "リソース"
 
 #: ../../dev/project-structure.md:82
 msgid "Key Entry Points"
-msgstr ""
+msgstr "主要なエントリポイント"
 
 #: ../../dev/project-structure.md:84
 msgid "plugin.xml"
-msgstr ""
+msgstr "plugin.xml"
 
 #: ../../dev/project-structure.md:86
 msgid ""
@@ -451,10 +450,13 @@ msgid ""
 " When adding a new feature, you'll almost always need to add an entry to "
 "this file."
 msgstr ""
+"`src/main/resources/META-INF/plugin.xml` はすべてのプラグイン機能の中央レジストリです。"
+"すべての Extension Point 実装がここに登録されます。"
+"新しい機能を追加する場合、ほぼ必ずこのファイルにエントリを追加する必要があります。"
 
 #: ../../dev/project-structure.md:88
 msgid "Rescript.flex"
-msgstr ""
+msgstr "Rescript.flex"
 
 #: ../../dev/project-structure.md:90
 msgid ""
@@ -462,10 +464,13 @@ msgid ""
 "rules. Changes here require running `./gradlew buildPlugin` to regenerate"
 " `RescriptFlexLexer.java`."
 msgstr ""
+"`src/main/java/com/rescript/plugin/lang/Rescript.flex` はレキサールールを定義しています。"
+"ここを変更した場合、`./gradlew buildPlugin` を実行して "
+"`RescriptFlexLexer.java` を再生成する必要があります。"
 
 #: ../../dev/project-structure.md:92
 msgid "RescriptTokenTypes.kt"
-msgstr ""
+msgstr "RescriptTokenTypes.kt"
 
 #: ../../dev/project-structure.md:94
 msgid ""
@@ -473,4 +478,6 @@ msgid ""
 "all token types and token sets. When adding new tokens to the lexer, you "
 "must also add them here."
 msgstr ""
-
+"`src/main/kotlin/com/rescript/plugin/lang/RescriptTokenTypes.kt` はすべての"
+"トークンタイプとトークンセットを定義しています。レキサーに新しいトークンを追加する場合、"
+"ここにも追加する必要があります。"
