@@ -123,4 +123,57 @@ class RescriptReanalyzeQuickFixTest {
         val fix = RescriptReanalyzeQuickFix.RemoveUnused()
         assertTrue(fix.startInWriteAction())
     }
+
+    @Test
+    fun `PrefixWithUnderscore isAvailable returns true`() {
+        val fix = RescriptReanalyzeQuickFix.PrefixWithUnderscore()
+        assertTrue(fix.isAvailable(stubProject(), null, null))
+    }
+
+    @Test
+    fun `RemoveUnused isAvailable returns true`() {
+        val fix = RescriptReanalyzeQuickFix.RemoveUnused()
+        assertTrue(fix.isAvailable(stubProject(), null, null))
+    }
+
+    @Test
+    fun `findWordStart handles empty string`() {
+        assertEquals(0, RescriptReanalyzeQuickFix.findWordStart("", 0))
+    }
+
+    @Test
+    fun `findWordEnd returns offset unchanged when beyond text length`() {
+        // When offset exceeds text length, the while loop never enters
+        assertEquals(10, RescriptReanalyzeQuickFix.findWordEnd("hello", 10))
+    }
+
+    @Test
+    fun `findWordEnd handles identifier with apostrophe`() {
+        // isIdentifierChar includes apostrophe, so x' is treated as identifier chars
+        assertEquals(2, RescriptReanalyzeQuickFix.findWordEnd("x' ", 0))
+    }
+
+    @Test
+    fun `findWordStart handles identifier with apostrophe`() {
+        assertEquals(0, RescriptReanalyzeQuickFix.findWordStart("x' ", 2))
+    }
+
+    @Test
+    fun `RemoveUnused familyName is ReScript reanalyze`() {
+        val fix = RescriptReanalyzeQuickFix.RemoveUnused()
+        assertEquals("ReScript reanalyze", fix.familyName)
+    }
+
+    private fun stubProject(): com.intellij.openapi.project.Project =
+        java.lang.reflect.Proxy.newProxyInstance(
+            com.intellij.openapi.project.Project::class.java.classLoader,
+            arrayOf(com.intellij.openapi.project.Project::class.java),
+        ) { proxy, method, _ ->
+            when (method.name) {
+                "toString" -> "StubProject"
+                "hashCode" -> System.identityHashCode(proxy)
+                "equals" -> false
+                else -> null
+            }
+        } as com.intellij.openapi.project.Project
 }
