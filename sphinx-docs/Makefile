@@ -4,7 +4,7 @@ SPHINXINTL    ?= uv run sphinx-intl
 SOURCEDIR     = .
 BUILDDIR      = _build
 
-.PHONY: help install clean html gettext update-po build-ja build-all serve linkcheck generate-lexer
+.PHONY: help install clean html gettext update-po build-ja build-all serve linkcheck generate-lexer pagefind lint typecheck test check
 
 help:
 	@echo "Usage:"
@@ -14,10 +14,15 @@ help:
 	@echo "  make gettext         Extract translatable strings (.pot)"
 	@echo "  make update-po       Update Japanese .po files from .pot"
 	@echo "  make build-ja        Build Japanese HTML"
-	@echo "  make build-all       Build EN + JA and assemble final site"
+	@echo "  make build-all       Build EN + JA and assemble final site with Pagefind"
 	@echo "  make serve           Serve the built site on localhost:8000"
 	@echo "  make clean           Remove build artifacts"
 	@echo "  make linkcheck       Check for broken links"
+	@echo "  make pagefind        Build Pagefind search index"
+	@echo "  make lint            Run ruff linter and formatter check"
+	@echo "  make typecheck       Run mypy type checker"
+	@echo "  make test            Run pytest"
+	@echo "  make check           Run all quality checks (lint + typecheck + test)"
 
 install:
 	uv sync
@@ -40,6 +45,9 @@ update-po: gettext
 build-ja: generate-lexer
 	$(SPHINXBUILD) -b html -D language=ja $(SPHINXOPTS) $(SOURCEDIR) $(BUILDDIR)/html_ja
 
+pagefind:
+	npx pagefind --site $(BUILDDIR)/site
+
 build-all: html build-ja
 	@echo "Assembling final site..."
 	rm -rf $(BUILDDIR)/site
@@ -47,6 +55,7 @@ build-all: html build-ja
 	cp -r $(BUILDDIR)/html $(BUILDDIR)/site/en
 	cp -r $(BUILDDIR)/html_ja $(BUILDDIR)/site/ja
 	@echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=en/"></head><body><a href="en/">English</a></body></html>' > $(BUILDDIR)/site/index.html
+	npx pagefind --site $(BUILDDIR)/site
 	@echo "Site assembled at $(BUILDDIR)/site/"
 
 serve: build-all
@@ -55,3 +64,15 @@ serve: build-all
 
 linkcheck: generate-lexer
 	$(SPHINXBUILD) -b linkcheck $(SPHINXOPTS) $(SOURCEDIR) $(BUILDDIR)/linkcheck
+
+lint:
+	uv run ruff check .
+	uv run ruff format --check .
+
+typecheck:
+	uv run mypy _ext/generate_rescript_lexer.py
+
+test:
+	uv run pytest
+
+check: lint typecheck test

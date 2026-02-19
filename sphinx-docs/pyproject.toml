@@ -12,5 +12,43 @@ dependencies = [
     "sphinx-design>=0.6,<1.0",
 ]
 
+[dependency-groups]
+dev = [
+    "ruff>=0.9",
+    "mypy>=1.13",
+    "pytest>=8.0",
+    "pytest-cov>=6.0",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = []
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"conf.py" = ["E402"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+exclude = ["conf\\.py"]
+
+[[tool.mypy.overrides]]
+module = ["sphinx.*", "pygments.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short"

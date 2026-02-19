@@ -19,7 +19,7 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  lint-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -34,6 +34,40 @@ jobs:
 
       - name: Install dependencies
         run: uv sync
+
+      - name: Ruff lint
+        run: uv run ruff check .
+
+      - name: Ruff format check
+        run: uv run ruff format --check .
+
+      - name: Mypy type check
+        run: uv run mypy _ext/generate_rescript_lexer.py
+
+      - name: Pytest
+        run: uv run pytest
+
+  build:
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sphinx-docs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Generate ReScript Pygments lexer
         run: make generate-lexer
@@ -51,6 +85,9 @@ jobs:
           cp -r _build/html _build/site/en
           cp -r _build/html_ja _build/site/ja
           echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=en/"></head><body><a href="en/">English</a></body></html>' > _build/site/index.html
+
+      - name: Build Pagefind search index
+        run: npx pagefind --site _build/site
 
       - name: Upload Pages artifact
         if: github.event_name == 'push'
