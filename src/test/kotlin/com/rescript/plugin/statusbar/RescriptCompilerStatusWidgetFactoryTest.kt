@@ -114,4 +114,60 @@ class RescriptCompilerStatusWidgetFactoryTest {
         val status = CompilationStatus("unknown", 0, 0)
         assertEquals("ReScript compiler status unknown", RescriptCompilerStatusWidget.formatTooltip(status))
     }
+
+    // ── Edge cases ──
+
+    @Test
+    fun testWidgetIdConstant() {
+        assertEquals("RescriptCompilerStatus", RescriptCompilerStatusWidgetFactory.WIDGET_ID)
+    }
+
+    @Test
+    fun testTextZeroErrors() {
+        val status = CompilationStatus("error", 0, 0)
+        assertEquals("ReScript: 0 errors", RescriptCompilerStatusWidget.formatText(status))
+    }
+
+    @Test
+    fun testTextZeroWarnings() {
+        val status = CompilationStatus("warning", 0, 0)
+        assertEquals("ReScript: 0 warnings", RescriptCompilerStatusWidget.formatText(status))
+    }
+
+    @Test
+    fun testTooltipErrorWithWarnings() {
+        val status = CompilationStatus("error", 1, 3)
+        assertEquals(
+            "ReScript compilation failed: 1 error, 3 warnings",
+            RescriptCompilerStatusWidget.formatTooltip(status),
+        )
+    }
+
+    @Test
+    fun testTooltipErrorZeroErrorsWithWarnings() {
+        // Error status but errorCount=0, warningCount>0
+        val status = CompilationStatus("error", 0, 2)
+        assertEquals(
+            "ReScript compilation failed: 2 warnings",
+            RescriptCompilerStatusWidget.formatTooltip(status),
+        )
+    }
+
+    @Test
+    fun testTooltipErrorZeroErrorsZeroWarnings() {
+        val status = CompilationStatus("error", 0, 0)
+        assertEquals(
+            "ReScript compilation failed: ",
+            RescriptCompilerStatusWidget.formatTooltip(status),
+        )
+    }
+
+    @Test
+    fun testTooltipSingleErrorSingleWarning() {
+        val status = CompilationStatus("error", 1, 1)
+        assertEquals(
+            "ReScript compilation failed: 1 error, 1 warning",
+            RescriptCompilerStatusWidget.formatTooltip(status),
+        )
+    }
 }

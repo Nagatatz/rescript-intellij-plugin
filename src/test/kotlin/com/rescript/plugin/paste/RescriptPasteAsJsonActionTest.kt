@@ -1,5 +1,6 @@
 package com.rescript.plugin.paste
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -131,5 +132,33 @@ class RescriptPasteAsJsonActionTest {
             "JSON.String(\"hello\\nworld\\t!\")",
             RescriptPasteAsJsonAction.convertJsonToRescript(json),
         )
+    }
+
+    @Test
+    fun `escapes backslash in strings`() {
+        val json =
+            com.google.gson.JsonParser
+                .parseString("\"path\\\\to\\\\file\"")
+        assertEquals(
+            "JSON.String(\"path\\\\to\\\\file\")",
+            RescriptPasteAsJsonAction.convertJsonToRescript(json),
+        )
+    }
+
+    @Test
+    fun `escapes quotes in strings`() {
+        val json =
+            com.google.gson.JsonParser
+                .parseString("\"say \\\"hello\\\"\"")
+        assertEquals(
+            "JSON.String(\"say \\\"hello\\\"\")",
+            RescriptPasteAsJsonAction.convertJsonToRescript(json),
+        )
+    }
+
+    @Test
+    fun `getActionUpdateThread returns BGT`() {
+        val action = RescriptPasteAsJsonAction()
+        assertEquals(ActionUpdateThread.BGT, action.actionUpdateThread)
     }
 }

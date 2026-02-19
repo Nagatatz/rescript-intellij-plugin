@@ -46,6 +46,24 @@ class RescriptImportOptimizerTest {
         assertEquals("", RescriptImportUtil.extractModulePath(openStmt))
     }
 
+    @Test
+    fun testExtractModulePathSkipsChildWithNullNode() {
+        // Build open statement with a child whose node returns null
+        val openChild = SimpleStubElement(RescriptTokenTypes.OPEN, "open")
+        val nullNodeChild = NullNodeStubElement("whitespace")
+        val moduleChild = SimpleStubElement(RescriptTokenTypes.UIDENT, "Belt")
+
+        openChild.next = nullNodeChild
+        nullNodeChild.next = moduleChild
+
+        val openStmt =
+            object : SimpleStubElement(RescriptElementTypes.OPEN_STATEMENT, "open Belt") {
+                override fun getFirstChild(): PsiElement = openChild
+            }
+
+        assertEquals("Belt", RescriptImportUtil.extractModulePath(openStmt))
+    }
+
     // ── Stub helpers ─────────────────────────────────────────────────
 
     private fun buildOpenStatement(pathTokens: List<String>): PsiElement {
@@ -74,6 +92,19 @@ class RescriptImportOptimizerTest {
         return object : SimpleStubElement(RescriptElementTypes.OPEN_STATEMENT, "open ${pathTokens.joinToString("")}") {
             override fun getFirstChild(): PsiElement = children.first()
         }
+    }
+
+    /** PsiElement stub whose getNode() returns null, simulating missing AST. */
+    private class NullNodeStubElement(
+        private val textContent: String,
+    ) : PsiElement by stubProxy() {
+        var next: PsiElement? = null
+
+        override fun getNode(): ASTNode? = null
+
+        override fun getText(): String = textContent
+
+        override fun getNextSibling(): PsiElement? = next
     }
 
     /** Minimal PsiElement stub that exposes elementType, text, and sibling chain. */
