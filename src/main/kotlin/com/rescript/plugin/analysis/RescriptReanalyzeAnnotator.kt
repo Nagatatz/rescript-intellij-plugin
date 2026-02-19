@@ -83,7 +83,6 @@ class RescriptReanalyzeAnnotator :
         }
     }
 
-    @Suppress("DuplicatedCode")
     override fun apply(
         file: PsiFile,
         result: AnnotationResult?,
@@ -139,7 +138,39 @@ class RescriptReanalyzeAnnotator :
             return null
         }
 
-        @Suppress("DuplicatedCode")
+        /**
+         * Parses a single JSON object entry from reanalyze output into a file-diagnostic pair.
+         *
+         * @param obj the JSON object representing one diagnostic entry
+         * @return a pair of (file path, diagnostic), or null if the entry is malformed
+         */
+        fun parseDiagnosticEntry(obj: com.google.gson.JsonObject): Pair<String, ReanalyzeDiagnostic>? {
+            val file = obj.get("file")?.asString ?: return null
+
+            val range = obj.getAsJsonArray("range") ?: return null
+            if (range.size() < 4) return null
+
+            val message = obj.get("message")?.asString ?: return null
+            val name = obj.get("name")?.asString ?: "unknown"
+
+            return file to
+                ReanalyzeDiagnostic(
+                    name = name,
+                    message = message,
+                    startLine = range[0].asInt,
+                    startChar = range[1].asInt,
+                    endLine = range[2].asInt,
+                    endChar = range[3].asInt,
+                )
+        }
+
+        /**
+         * Parses reanalyze JSON output and returns diagnostics matching the given file path.
+         *
+         * @param json the raw JSON string from reanalyze
+         * @param filePath the absolute file path to filter diagnostics for
+         * @return list of diagnostics for the specified file
+         */
         fun parseJsonOutput(
             json: String,
             filePath: String,
@@ -152,29 +183,15 @@ class RescriptReanalyzeAnnotator :
                         .parseString(json)
                         .asJsonArray
                 array.mapNotNull { element ->
-                    val obj = element.asJsonObject
-                    val file = obj.get("file")?.asString ?: return@mapNotNull null
+                    val (file, diagnostic) = parseDiagnosticEntry(element.asJsonObject) ?: return@mapNotNull null
+                    // Filter: keep only diagnostics matching the target file
                     if (!file.endsWith(filePath.substringAfterLast("/")) &&
                         file != filePath &&
                         !filePath.endsWith(file)
                     ) {
                         return@mapNotNull null
                     }
-
-                    val range = obj.getAsJsonArray("range") ?: return@mapNotNull null
-                    if (range.size() < 4) return@mapNotNull null
-
-                    val message = obj.get("message")?.asString ?: return@mapNotNull null
-                    val name = obj.get("name")?.asString ?: "unknown"
-
-                    ReanalyzeDiagnostic(
-                        name = name,
-                        message = message,
-                        startLine = range[0].asInt,
-                        startChar = range[1].asInt,
-                        endLine = range[2].asInt,
-                        endChar = range[3].asInt,
-                    )
+                    diagnostic
                 }
             } catch (e: Exception) {
                 LOG.debug("Failed to parse reanalyze JSON output", e)
@@ -185,6 +202,9 @@ class RescriptReanalyzeAnnotator :
         /**
          * Parse all diagnostics from reanalyze JSON output, without filtering by file.
          * Used by GlobalInspectionTool for project-wide analysis.
+         *
+         * @param json the raw JSON string from reanalyze
+         * @return list of (file path, diagnostic) pairs for all entries
          */
         fun parseAllDiagnostics(json: String): List<Pair<String, ReanalyzeDiagnostic>> {
             if (json.isBlank()) return emptyList()
@@ -195,24 +215,7 @@ class RescriptReanalyzeAnnotator :
                         .parseString(json)
                         .asJsonArray
                 array.mapNotNull { element ->
-                    val obj = element.asJsonObject
-                    val file = obj.get("file")?.asString ?: return@mapNotNull null
-
-                    val range = obj.getAsJsonArray("range") ?: return@mapNotNull null
-                    if (range.size() < 4) return@mapNotNull null
-
-                    val message = obj.get("message")?.asString ?: return@mapNotNull null
-                    val name = obj.get("name")?.asString ?: "unknown"
-
-                    file to
-                        ReanalyzeDiagnostic(
-                            name = name,
-                            message = message,
-                            startLine = range[0].asInt,
-                            startChar = range[1].asInt,
-                            endLine = range[2].asInt,
-                            endChar = range[3].asInt,
-                        )
+                    parseDiagnosticEntry(element.asJsonObject)
                 }
             } catch (e: Exception) {
                 LOG.debug("Failed to parse reanalyze JSON output", e)
