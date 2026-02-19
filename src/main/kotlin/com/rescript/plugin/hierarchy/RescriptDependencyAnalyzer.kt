@@ -29,6 +29,7 @@ object RescriptDependencyAnalyzer {
         val element: PsiElement,
     )
 
+    /** Distinguishes between `open` and `include` module references. */
     enum class ReferenceKind {
         OPEN,
         INCLUDE,

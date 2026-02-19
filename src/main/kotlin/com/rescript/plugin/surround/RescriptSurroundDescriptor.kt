@@ -89,6 +89,7 @@ abstract class RescriptBaseSurrounder(
     }
 }
 
+/** Surrounds selected code with `if (condition) { ... }`. */
 class RescriptIfSurrounder : RescriptBaseSurrounder("if (...)") {
     override fun generateTemplate(selectedText: String): String = "if (condition) {\n  $selectedText\n}"
 
@@ -98,6 +99,7 @@ class RescriptIfSurrounder : RescriptBaseSurrounder("if (...)") {
     }
 }
 
+/** Surrounds selected code with `switch expr { | _ => ... }`. */
 class RescriptSwitchSurrounder : RescriptBaseSurrounder("switch ...") {
     override fun generateTemplate(selectedText: String): String = "switch expr {\n| _ => $selectedText\n}"
 
@@ -107,6 +109,7 @@ class RescriptSwitchSurrounder : RescriptBaseSurrounder("switch ...") {
     }
 }
 
+/** Surrounds selected code with `try { ... } catch { | exn => () }`. */
 class RescriptTrySurrounder : RescriptBaseSurrounder("try ... catch") {
     override fun generateTemplate(selectedText: String): String = "try {\n  $selectedText\n} catch {\n| exn => ()\n}"
 
@@ -116,6 +119,7 @@ class RescriptTrySurrounder : RescriptBaseSurrounder("try ... catch") {
     }
 }
 
+/** Surrounds selected code with `{ ... }`. */
 class RescriptBlockSurrounder : RescriptBaseSurrounder("{ }") {
     override fun generateTemplate(selectedText: String): String = "{\n  $selectedText\n}"
 

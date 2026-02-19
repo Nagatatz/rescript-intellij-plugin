@@ -32,6 +32,10 @@ class RescriptCompilerStatusWidgetFactory : StatusBarWidgetFactory {
 
     override fun createWidget(project: Project): StatusBarWidget = RescriptCompilerStatusWidget(project)
 
+    /**
+     * Status bar widget that displays the current ReScript compilation state.
+     * Listens to [RescriptCompilationStatusService] for status updates.
+     */
     class RescriptCompilerStatusWidget(
         private val project: Project,
     ) : StatusBarWidget,

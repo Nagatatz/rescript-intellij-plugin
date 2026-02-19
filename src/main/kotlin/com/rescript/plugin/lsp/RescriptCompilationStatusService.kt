@@ -21,11 +21,22 @@ class RescriptCompilationStatusService(
 
     private val listeners = mutableListOf<CompilationStatusListener>()
 
+    /**
+     * Updates the current compilation status and notifies all registered listeners.
+     *
+     * @param status the new compilation status received from the LSP server
+     */
     fun updateStatus(status: CompilationStatus) {
         currentStatus = status
         listeners.forEach { it.statusChanged(status) }
     }
 
+    /**
+     * Registers a listener that is notified on compilation status changes.
+     *
+     * @param disposable the parent disposable; the listener is removed when disposed
+     * @param listener the callback to invoke on status changes
+     */
     fun addListener(
         disposable: Disposable,
         listener: CompilationStatusListener,

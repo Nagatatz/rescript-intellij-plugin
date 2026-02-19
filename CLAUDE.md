@@ -362,6 +362,10 @@ git branch -d feature/<機能名>
   - `docs/product-requirements.md` — 実装済み機能一覧・ロードマップの更新（新機能を実装した場合、ロードマップから実装済みへ移動）
   - `docs/functional-design.md` — Extension Point 登録マップ・機能対比表の更新
   - その他 `docs/` 配下 — 変更がアーキテクチャや設計に影響する場合
+  - `sphinx-docs/` — ユーザー向け Sphinx ドキュメント。新機能追加・変更時に以下を更新すること:
+    - 英語ソース（`sphinx-docs/user/` や `sphinx-docs/dev/` 配下の該当 `.md` ファイル）
+    - 日本語翻訳（`sphinx-docs/locale/ja/LC_MESSAGES/` 配下の対応する `.po` ファイル。`make update-po` で `.pot` を再生成してから翻訳を追記する）
+    - 該当ページ例: `user/installation.md`（インストール手順）、`user/features/*.md`（機能説明）、`user/changelog.md`（変更履歴）、`dev/project-structure.md`（構造変更時）
 
 **禁止事項:**
 - ステアリングファイルを作成せずにコード変更を行うことは禁止する

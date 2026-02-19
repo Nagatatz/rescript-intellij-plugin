@@ -42,8 +42,11 @@ abstract class RescriptWrapWithIntention(
     }
 }
 
+/** Wraps the selected expression with `Some(...)`. */
 class RescriptWrapWithSomeIntention : RescriptWrapWithIntention("Some")
 
+/** Wraps the selected expression with `Ok(...)`. */
 class RescriptWrapWithOkIntention : RescriptWrapWithIntention("Ok")
 
+/** Wraps the selected expression with `Error(...)`. */
 class RescriptWrapWithErrorIntention : RescriptWrapWithIntention("Error")

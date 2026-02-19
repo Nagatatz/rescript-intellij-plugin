@@ -56,6 +56,12 @@ class RescriptSymbolContributor : ChooseByNameContributorEx {
         }
     }
 
+    /**
+     * Recursively collects symbol names from navigable declarations in the PSI tree.
+     *
+     * @param element the root element to collect names from
+     * @param processor the processor to receive each discovered name
+     */
     private fun collectNames(
         element: com.intellij.psi.PsiElement,
         processor: Processor<in String>,
@@ -74,6 +80,13 @@ class RescriptSymbolContributor : ChooseByNameContributorEx {
         }
     }
 
+    /**
+     * Recursively collects navigation items matching the given name from the PSI tree.
+     *
+     * @param element the root element to search in
+     * @param name the symbol name to match
+     * @param processor the processor to receive each matching navigation item
+     */
     private fun collectElements(
         element: com.intellij.psi.PsiElement,
         name: String,

@@ -57,6 +57,7 @@ class RescriptDuplicateOpenInspection : LocalInspectionTool() {
         }
     }
 
+    /** Quick fix that removes the duplicate `open` statement from the source. */
     private class RemoveDuplicateOpenQuickFix : LocalQuickFix {
         override fun getFamilyName(): String = "Remove duplicate open"
 
