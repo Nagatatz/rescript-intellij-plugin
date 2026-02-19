@@ -292,6 +292,34 @@ class ExampleClass {
 - `🐛 Fix PDF parsing error for edge cases`
 - `🔧 Configure ktlint and plugin verification`
 
+### ブランチ運用ルール
+
+**以下は強制的な行動指示であり、例外なく従うこと。**
+
+機能追加・変更・バグ修正・リファクタリング・テスト追加など、コードの変更を伴う作業は**必ず `main` から新しいブランチを作成して行うこと**。`main` ブランチに直接コミットすることは禁止する。
+
+**手順:**
+1. `main` ブランチから作業用ブランチを作成する（ブランチ命名規則に従う）
+2. 作業用ブランチで実装・コミットを行う
+3. 完了後、ユーザーに `main` へのマージ可否を確認する
+4. 承認後、`main` にマージしてブランチを削除する
+
+```bash
+# ブランチ作成
+git checkout main
+git checkout -b feature/<機能名>
+
+# 実装・コミット後、main にマージ
+git checkout main
+git merge feature/<機能名>
+git branch -d feature/<機能名>
+```
+
+**例外:** 以下のケースでは `main` への直接コミットを許可する:
+- タイポ修正、1行の設定変更など明らかに軽微な修正
+- ステアリングドキュメント（`.steering/`）のみの変更
+- `CLAUDE.md` や `docs/` のみのドキュメント更新
+
 ### ブランチ命名規則
 
 | プレフィックス | 用途 | 例 |
