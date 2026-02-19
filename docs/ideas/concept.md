@@ -1,5 +1,7 @@
 # ReScript IntelliJ Plugin
 
+> **Note (2026-02):** This document was created during the initial planning phase and reflects the original concept. The plugin has since grown significantly beyond the scope described here (8,500+ Kotlin lines, 60+ source files, full LSP integration with semantic tokens, code generation, debugger support, etc.). For the current state, refer to `CLAUDE.md` and `docs/product-requirements.md`.
+
 [ReScript](https://rescript-lang.org) の言語サポートを JetBrains IDE に提供するプラグインです。
 
 既存の [reasonml-idea-plugin](https://github.com/reasonml-editor/reasonml-idea-plugin) がメンテナンス停止状態にあるため、フルスクラッチで新規に開発しています。ReScript/Reason/OCaml の3言語共有アーキテクチャを捨て、ReScript 専用のクリーンな設計を採用しました。

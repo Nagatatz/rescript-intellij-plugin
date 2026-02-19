@@ -1,6 +1,7 @@
 package com.rescript.plugin.analysis
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -319,6 +320,100 @@ class RescriptReanalyzeAnnotatorTest {
     fun `AnnotationResult empty diagnostics`() {
         val result = RescriptReanalyzeAnnotator.AnnotationResult(emptyList())
         assertTrue(result.diagnostics.isEmpty())
+    }
+
+    // --- parseDiagnosticEntry ---
+
+    @Test
+    fun `parseDiagnosticEntry returns pair for valid entry`() {
+        val obj =
+            com.google.gson.JsonParser
+                .parseString("""{"file": "App.res", "range": [1, 0, 1, 10], "message": "msg", "name": "unused"}""")
+                .asJsonObject
+        val result = RescriptReanalyzeAnnotator.parseDiagnosticEntry(obj)
+        assertNotNull(result)
+        assertEquals("App.res", result!!.first)
+        assertEquals("unused", result.second.name)
+        assertEquals("msg", result.second.message)
+        assertEquals(1, result.second.startLine)
+        assertEquals(0, result.second.startChar)
+        assertEquals(1, result.second.endLine)
+        assertEquals(10, result.second.endChar)
+    }
+
+    @Test
+    fun `parseDiagnosticEntry returns null when file is missing`() {
+        val obj =
+            com.google.gson.JsonParser
+                .parseString("""{"range": [1, 0, 1, 10], "message": "msg"}""")
+                .asJsonObject
+        assertNull(RescriptReanalyzeAnnotator.parseDiagnosticEntry(obj))
+    }
+
+    @Test
+    fun `parseDiagnosticEntry returns null when range is missing`() {
+        val obj =
+            com.google.gson.JsonParser
+                .parseString("""{"file": "App.res", "message": "msg"}""")
+                .asJsonObject
+        assertNull(RescriptReanalyzeAnnotator.parseDiagnosticEntry(obj))
+    }
+
+    @Test
+    fun `parseDiagnosticEntry returns null when range has fewer than 4 elements`() {
+        val obj =
+            com.google.gson.JsonParser
+                .parseString("""{"file": "App.res", "range": [1, 0, 1], "message": "msg"}""")
+                .asJsonObject
+        assertNull(RescriptReanalyzeAnnotator.parseDiagnosticEntry(obj))
+    }
+
+    @Test
+    fun `parseDiagnosticEntry returns null when message is missing`() {
+        val obj =
+            com.google.gson.JsonParser
+                .parseString("""{"file": "App.res", "range": [1, 0, 1, 10]}""")
+                .asJsonObject
+        assertNull(RescriptReanalyzeAnnotator.parseDiagnosticEntry(obj))
+    }
+
+    @Test
+    fun `parseDiagnosticEntry defaults name to unknown`() {
+        val obj =
+            com.google.gson.JsonParser
+                .parseString("""{"file": "App.res", "range": [1, 0, 1, 10], "message": "msg"}""")
+                .asJsonObject
+        val result = RescriptReanalyzeAnnotator.parseDiagnosticEntry(obj)
+        assertNotNull(result)
+        assertEquals("unknown", result!!.second.name)
+    }
+
+    @Test
+    fun `parseDiagnosticEntry handles range with more than 4 elements`() {
+        val obj =
+            com.google.gson.JsonParser
+                .parseString("""{"file": "A.res", "range": [1, 2, 3, 4, 5, 6], "message": "ok", "name": "n"}""")
+                .asJsonObject
+        val result = RescriptReanalyzeAnnotator.parseDiagnosticEntry(obj)
+        assertNotNull(result)
+        assertEquals(1, result!!.second.startLine)
+        assertEquals(2, result.second.startChar)
+        assertEquals(3, result.second.endLine)
+        assertEquals(4, result.second.endChar)
+    }
+
+    @Test
+    fun `parseDiagnosticEntry handles range with exactly 4 elements`() {
+        val obj =
+            com.google.gson.JsonParser
+                .parseString("""{"file": "B.res", "range": [0, 0, 0, 0], "message": "zero", "name": "z"}""")
+                .asJsonObject
+        val result = RescriptReanalyzeAnnotator.parseDiagnosticEntry(obj)
+        assertNotNull(result)
+        assertEquals(0, result!!.second.startLine)
+        assertEquals(0, result.second.startChar)
+        assertEquals(0, result.second.endLine)
+        assertEquals(0, result.second.endChar)
     }
 
     // --- findReanalyzeTool ---
