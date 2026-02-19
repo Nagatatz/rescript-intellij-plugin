@@ -99,7 +99,27 @@ src/main/
 │   ├── completion/
 │   │   └── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log 等)
 │   ├── analysis/
-│   │   └── RescriptReanalyzeAnnotator.kt  # reanalyze デッドコード分析
+│   │   ├── RescriptReanalyzeAnnotator.kt  # reanalyze デッドコード分析
+│   │   ├── RescriptReanalyzeQuickFix.kt   # Quick Fix (プレフィックス付与・削除)
+│   │   └── RescriptUnusedCodeInspection.kt  # Global Inspection (プロジェクト全体分析)
+│   ├── test/
+│   │   ├── RescriptTestRunConfigurationType.kt   # テスト実行構成タイプ
+│   │   ├── RescriptTestRunConfiguration.kt       # テスト実行構成
+│   │   ├── RescriptTestConfigurationFactory.kt   # テスト構成ファクトリ
+│   │   ├── RescriptTestConfigurationProducer.kt  # コンテキストからの自動構成
+│   │   ├── RescriptTestFrameworkDetector.kt      # jest/vitest 自動検出
+│   │   ├── RescriptTestConsoleProperties.kt      # SMTRunner テストツリー
+│   │   ├── RescriptTestLocator.kt                # compiled JS → .res パス変換
+│   │   └── RescriptTestSettingsEditor.kt         # テスト設定 UI
+│   ├── preview/
+│   │   ├── RescriptCompiledJsPreviewToolWindowFactory.kt  # JS プレビューツールウィンドウ
+│   │   └── RescriptCompiledJsPreviewPanel.kt              # プレビューパネル
+│   ├── hierarchy/
+│   │   ├── RescriptModuleHierarchyProvider.kt        # モジュール階層エントリポイント
+│   │   ├── RescriptModuleHierarchyBrowser.kt         # 階層ビュー UI
+│   │   ├── RescriptModuleHierarchyTreeStructure.kt   # ツリー構造
+│   │   ├── RescriptModuleHierarchyNodeDescriptor.kt  # ノード記述子
+│   │   └── RescriptDependencyAnalyzer.kt             # モジュール依存関係分析
 │   ├── paste/
 │   │   └── RescriptPasteAsJsonAction.kt   # Paste as JSON.t
 │   ├── injection/
