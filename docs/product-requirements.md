@@ -117,6 +117,18 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Project Wizard | New Project ダイアログから 12 種類のプロジェクトテンプレート選択・作成（Basic, Vite+React, Next.js, Electron, Hono, CF Workers, Lambda, Cloud Run, React Native, npm Library, CLI Tool, Monorepo） | `RescriptModuleBuilder` + `RescriptProjectWizardStep` + `ProjectTemplate` + `ProjectFileBuilders` + `templates/*` |
 | Code Generation | variant switch arms / module type スケルトン自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` |
 | .d.ts → ReScript Binding 生成 | TypeScript `.d.ts` 定義ファイルから ReScript `external` バインディングコードを自動生成 | `DtsGenerateBindingAction` + `DtsToRescriptConverter` |
+| Completion Confidence | コメント・文字列内での補完ポップアップ抑制 | `RescriptCompletionConfidence` |
+| Live Template コンテキスト | ReScript 専用コンテキスト + moduleName/componentName マクロ | `RescriptTemplateContextType` + `RescriptLiveTemplateMacros` |
+| Additional Snippets | 6 新 Live Templates (`@module`, `@val`, `@send`, `@get`, `@set`, `comp`) + 2 新 Postfix (`.promise`, `.await`) | `ReScript.xml` + `RescriptPostfixTemplateProvider` |
+| Problem Highlight Filter | `node_modules/`, `lib/bs/`, `lib/ocaml/` 内のハイライト抑制 | `RescriptProblemHighlightFilter` |
+| Enter Handler | ドキュメントコメント (`/** */`) と行コメント (`//`) の自動継続 | `RescriptEnterHandler` |
+| Join Lines | let バインディング・パイプチェーン・アロー関数のスマート行結合 | `RescriptJoinLinesHandler` |
+| Word Selection | 文字列・括弧・コメントの選択拡大/縮小 | `RescriptWordSelectionHandler` (3ハンドラ) |
+| Highlight Usages | switch/if/try 等の対応キーワードハイライト | `RescriptHighlightUsagesHandlerFactory` |
+| Goto Super | .res → .resi 宣言ジャンプ (Ctrl+U) | `RescriptGotoSuperHandler` |
+| External Documentation | Belt/Js モジュールの外部ドキュメント URL (Shift+F1) | `RescriptDocumentationProvider` |
+| Run Anything | Ctrl+Ctrl で ReScript CLI コマンド実行 (build/clean/format) | `RescriptRunAnythingProvider` |
+| Expression Type Info | カーソル位置の式の型を LSP hover で表示 (Ctrl+Shift+P) | `RescriptExpressionTypeProvider` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
