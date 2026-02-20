@@ -348,6 +348,10 @@
         <!-- Highlight Usages (keyword-based: switch/if/try/pipe) -->
         <highlightUsagesHandlerFactory
                 implementation="com.rescript.plugin.highlight.RescriptHighlightUsagesHandlerFactory"/>
+
+        <!-- Goto Super (.res -> .resi declaration jump) -->
+        <codeInsight.gotoSuper language="ReScript"
+                                implementationClass="com.rescript.plugin.navigation.RescriptGotoSuperHandler"/>
     </extensions>
 
     <actions>
