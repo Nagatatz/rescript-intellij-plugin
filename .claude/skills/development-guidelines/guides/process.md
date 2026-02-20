@@ -32,7 +32,7 @@
 ### 2.2 作業ディレクトリの作成
 
 ```
-.steering/[YYYYMMDD]-[開発タイトル]/
+.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/
 ├── requirements.md    # 要件定義
 ├── design.md          # 設計方針
 └── tasklist.md        # タスクリスト

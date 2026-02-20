@@ -383,7 +383,7 @@ git branch -d feature/<機能名>
 
 ユーザーから機能追加・変更・バグ修正など、コードの変更を伴う指示を受けた場合、**コードを1行も書く前に**以下のステアリングワークフローを必ず実行すること:
 
-1. `.steering/[YYYYMMDD]-[開発タイトル]/` ディレクトリを作成する
+1. `.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/` ディレクトリを作成する
 2. `requirements.md` を作成し、ユーザーの承認を得る
 3. `design.md` を作成し、ユーザーの承認を得る
 4. `tasklist.md` を作成し、ユーザーの承認を得る
@@ -426,7 +426,7 @@ git branch -d feature/<機能名>
 
 ### 単一機能実装の手順
 
-1. **メインリポジトリ:** ステアリングドキュメント（`.steering/[YYYYMMDD]-[機能名]/`）を作成・承認（`main` ブランチ上）
+1. **メインリポジトリ:** ステアリングドキュメント（`.steering/[YYYYMMDD]-[NNN]-[機能名]/`）を作成・承認（`main` ブランチ上）
 2. **メインリポジトリ:** git worktree を作成（feature ブランチ付き）
    ```bash
    git worktree add ../rescript-wt-<機能名> -b feature/<機能名>
@@ -469,7 +469,7 @@ main
 
 1. **メインウィンドウ（バッチブランチ作成・計画）:**
    - `main` から バッチブランチ `feature/<バッチ名>` を作成
-   - バッチブランチ上で全体のステアリングディレクトリ `.steering/[YYYYMMDD]-[バッチ名]/` を作成
+   - バッチブランチ上で全体のステアリングディレクトリ `.steering/[YYYYMMDD]-[NNN]-[バッチ名]/` を作成
    - requirements.md, design.md, tasklist.md, window-instructions.md を作成・承認
    - ステアリングドキュメントをバッチブランチにコミット
    - バッチブランチから各機能用の git worktree を作成（ブランチ命名規則に従う）
@@ -477,7 +477,7 @@ main
 2. **各ウィンドウ（ステアリング + 実装）:**
    - メインリポジトリディレクトリから `cd` で worktree ディレクトリに移動
    - 命令文を貼り付け、以下を自律的に実行:
-     - **機能固有のステアリングディレクトリ** `.steering/[YYYYMMDD]-[機能名]/` を作成
+     - **機能固有のステアリングディレクトリ** `.steering/[YYYYMMDD]-[NNN]-[機能名]/` を作成
      - requirements.md, design.md, tasklist.md を作成（承認確認は不要 — 親ウィンドウで承認済み）
      - 実装・ビルド確認
      - コミット
@@ -525,7 +525,7 @@ git worktree add ../rescript-wt-<機能名> -b feature/<機能名>
 
 #### 命令文のフォーマット
 
-各ウィンドウへの命令文は `.steering/[YYYYMMDD]-[バッチ名]/window-instructions.md` に記録する。
+各ウィンドウへの命令文は `.steering/[YYYYMMDD]-[NNN]-[バッチ名]/window-instructions.md` に記録する。
 命令文には以下を含めること:
 
 - ブランチ名と対象機能の説明
@@ -545,7 +545,7 @@ cd <worktreeの絶対パス>
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。連続して作成・実装してください。
 
 ## ステップ 1: ステアリングドキュメント作成
-`.steering/[YYYYMMDD]-[機能名]/` ディレクトリを作成し、requirements.md, design.md, tasklist.md を作成。
+`.steering/[YYYYMMDD]-[NNN]-[機能名]/` ディレクトリを作成し、requirements.md, design.md, tasklist.md を作成。
 
 ## ステップ 2: 実装
 設計に従い実装。
@@ -631,7 +631,7 @@ Task ツール（サブエージェント）を使用する場合、`run_in_back
 　- 英語・日本語対応表
 　- コード上の命名規則
 
-#### 2. 作業単位のドキュメント（`.steering/[YYYYMMDD]-[開発タイトル]/`）
+#### 2. 作業単位のドキュメント（`.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/`）
 
 特定の開発作業における「**今回何をするか**」を定義する一時的なステアリングファイル。
 作業完了後は参照用として保持されますが、新しい作業では新しいディレクトリを作成します。
@@ -656,14 +656,16 @@ Task ツール（サブエージェント）を使用する場合、`run_in_back
 ### ステアリングディレクトリの命名規則
 
 ```
-.steering/[YYYYMMDD]-[開発タイトル]/
+.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/
 ```
 
+`[NNN]` は 3 桁のシリアル番号（001 から開始、日付が変わるとリセット）。同一日付内で実装順序を明確にするために付与する。
+
 **例：**
-- `.steering/20250103-initial-implementation/`
-- `.steering/20250115-add-tag-feature/`
-- `.steering/20250120-fix-filter-bug/`
-- `.steering/20250201-improve-performance/`
+- `.steering/20250103-001-initial-implementation/`
+- `.steering/20250115-001-add-tag-feature/`
+- `.steering/20250115-002-fix-filter-bug/`
+- `.steering/20250201-001-improve-performance/`
 
 ## 開発プロセス
 
@@ -694,19 +696,19 @@ mkdir -p .steering
 初回実装用のディレクトリを作成し、実装に必要なドキュメントを配置します。
 
 ```bash
-mkdir -p .steering/[YYYYMMDD]-initial-implementation
+mkdir -p .steering/[YYYYMMDD]-001-initial-implementation
 ```
 
 作成するドキュメント：
-1. `.steering/[YYYYMMDD]-initial-implementation/requirements.md` - 初回実装の要求
-2. `.steering/[YYYYMMDD]-initial-implementation/design.md` - 実装設計
-3. `.steering/[YYYYMMDD]-initial-implementation/tasklist.md` - 実装タスク
+1. `.steering/[YYYYMMDD]-001-initial-implementation/requirements.md` - 初回実装の要求
+2. `.steering/[YYYYMMDD]-001-initial-implementation/design.md` - 実装設計
+3. `.steering/[YYYYMMDD]-001-initial-implementation/tasklist.md` - 実装タスク
 
 #### 4. 環境セットアップ
 
 #### 5. 実装開始
 
-`.steering/[YYYYMMDD]-initial-implementation/tasklist.md` に基づいて実装を進めます。
+`.steering/[YYYYMMDD]-001-initial-implementation/tasklist.md` に基づいて実装を進めます。
 
 #### 6. 品質チェック
 
@@ -722,12 +724,12 @@ mkdir -p .steering/[YYYYMMDD]-initial-implementation
 新しい作業用のディレクトリを作成します。
 
 ```bash
-mkdir -p .steering/[YYYYMMDD]-[開発タイトル]
+mkdir -p .steering/[YYYYMMDD]-[NNN]-[開発タイトル]
 ```
 
 **例：**
 ```bash
-mkdir -p .steering/20250115-add-tag-feature
+mkdir -p .steering/20250115-001-add-tag-feature
 ```
 
 #### 3. 作業ドキュメント作成
@@ -735,9 +737,9 @@ mkdir -p .steering/20250115-add-tag-feature
 作業単位のドキュメントを作成します。
 各ドキュメント作成後、必ず確認・承認を得てから次に進みます。
 
-1. `.steering/[YYYYMMDD]-[開発タイトル]/requirements.md` - 要求内容
-2. `.steering/[YYYYMMDD]-[開発タイトル]/design.md` - 設計
-3. `.steering/[YYYYMMDD]-[開発タイトル]/tasklist.md` - タスクリスト
+1. `.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/requirements.md` - 要求内容
+2. `.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/design.md` - 設計
+3. `.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/tasklist.md` - タスクリスト
 
 **重要：** 1ファイルごとに作成後、必ず確認・承認を得てから次のファイル作成を行う
 
@@ -747,7 +749,7 @@ mkdir -p .steering/20250115-add-tag-feature
 
 #### 5. 実装開始
 
-`.steering/[YYYYMMDD]-[開発タイトル]/tasklist.md` に基づいて実装を進めます。
+`.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/tasklist.md` に基づいて実装を進めます。
 
 #### 6. 品質チェック
 

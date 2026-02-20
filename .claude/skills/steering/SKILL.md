@@ -34,10 +34,10 @@ allowed-tools: Read, Write, Edit, Glob, Bash
 
 #### 1. ステアリングディレクトリの確認
 
-現在の日付を取得し、`.steering/[YYYYMMDD]-[機能名]/` の形式でディレクトリを作成する。
+現在の日付を取得し、`.steering/[YYYYMMDD]-[NNN]-[機能名]/` の形式でディレクトリを作成する。`[NNN]` は 3 桁のシリアル番号（001 から開始、日付が変わるとリセット）。既存の同日ディレクトリを確認して次の番号を採番する。
 
 ```bash
-# 例: .steering/20260215-user-authentication/
+# 例: .steering/20260215-001-user-authentication/
 ```
 
 機能名は引数から取得する。引数がない場合はユーザーに確認する。
