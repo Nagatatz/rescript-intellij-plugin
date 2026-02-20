@@ -20,9 +20,9 @@ internal object ReactNativeTemplateFiles {
                             "rescript" to "^12.0.0",
                             "@rescript/core" to "^1.0.0",
                             "@rescript/react" to "^0.14.0",
-                            "react" to "^19.0.0",
-                            "react-native" to "^0.76.0",
-                            "expo" to "^52.0.0",
+                            "react" to "^19.0.4",
+                            "react-native" to "^0.78.0",
+                            "expo" to "^53.0.0",
                         ),
                     scripts =
                         linkedMapOf(

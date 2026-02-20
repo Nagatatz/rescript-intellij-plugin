@@ -15,7 +15,7 @@ internal object CloudflareWorkersTemplateFiles {
                             "@rescript/core" to "^1.0.0",
                             "hono" to "^4.0.0",
                         ),
-                    devDependencies = linkedMapOf("wrangler" to "^3.0.0"),
+                    devDependencies = linkedMapOf("wrangler" to "^4.0.0"),
                     scripts =
                         linkedMapOf(
                             "dev" to "wrangler dev",
