@@ -410,6 +410,10 @@
         <!-- Move Element Left/Right (Alt+Shift+Cmd+Left/Right) -->
         <moveLeftRightHandler language="ReScript"
                 implementationClass="com.rescript.plugin.editor.RescriptMoveElementHandler"/>
+
+        <!-- Usage type classification for Find Usages grouping -->
+        <usageTypeProvider
+                implementation="com.rescript.plugin.lang.RescriptUsageTypeProvider"/>
     </extensions>
 
     <actions>
