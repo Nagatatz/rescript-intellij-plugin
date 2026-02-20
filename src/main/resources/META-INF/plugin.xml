@@ -422,6 +422,10 @@
         <!-- Split/Join List (1-line ↔ multi-line) -->
         <listSplitJoinContext
                 implementation="com.rescript.plugin.editor.RescriptListSplitJoinContext"/>
+
+        <!-- Quick Documentation (Ctrl+Q / hover fallback) -->
+        <lang.documentationProvider language="ReScript"
+                implementationClass="com.rescript.plugin.documentation.RescriptDocumentationProvider"/>
     </extensions>
 
     <actions>
