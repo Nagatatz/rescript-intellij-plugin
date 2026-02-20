@@ -362,6 +362,10 @@
         <!-- Reader mode for node_modules .res/.resi files -->
         <readerModeMatcher
                 implementation="com.rescript.plugin.editor.RescriptReaderModeMatcher"/>
+
+        <!-- Lookup character filter for completion behavior -->
+        <lookup.charFilter
+                implementation="com.rescript.plugin.completion.RescriptLookupCharFilter"/>
     </extensions>
 
     <actions>
