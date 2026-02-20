@@ -29,6 +29,12 @@
 - **rescript.json icon** — Custom icon for ReScript configuration files
 - **.d.ts binding generation** — Generate ReScript external bindings from TypeScript definition files
 - **Project Wizard** — Create new ReScript projects from 12 pre-configured templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm Library, CLI Tool, Monorepo)
+- **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (Ctrl+Shift+Delete)
+- **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
+- **Go to Test** — Navigate between implementation and test files, create test boilerplate (Ctrl+Shift+T)
+- **Find Usages** — Symbol indexing and usage search for ReScript identifiers
+- **Context Info** — Sticky declaration header when scrolling through long files
+- **Project View nesting** — `.resi` interface files nested under corresponding `.res` files
 
 ## Requirements
 

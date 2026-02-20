@@ -117,6 +117,14 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Project Wizard | New Project ダイアログから 12 種類のプロジェクトテンプレート選択・作成（Basic, Vite+React, Next.js, Electron, Hono, CF Workers, Lambda, Cloud Run, React Native, npm Library, CLI Tool, Monorepo） | `RescriptModuleBuilder` + `RescriptProjectWizardStep` + `ProjectTemplate` + `ProjectFileBuilders` + `templates/*` |
 | Code Generation | variant switch arms / module type スケルトン自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` |
 | .d.ts → ReScript Binding 生成 | TypeScript `.d.ts` 定義ファイルから ReScript `external` バインディングコードを自動生成 | `DtsGenerateBindingAction` + `DtsToRescriptConverter` |
+| Bundled Dictionary | ReScript 固有用語（genType, Belt, functor 等）のスペルチェック辞書 | `RescriptBundledDictionaryProvider` + `rescript.dic` |
+| Test Source Filter | `*_test.res`、`*.test.res`、`__tests__/` ディレクトリの自動テストファイル認識 | `RescriptTestSourcesFilter` |
+| Context Info | スクロール時にトップレベル宣言のヘッダーをエディタ上部に固定表示 | `RescriptDeclarationRangeHandler` |
+| Find Usages | WordsScanner によるシンボルインデキシング + 使用箇所検索 UI | `RescriptFindUsagesProvider` |
+| Unwrap/Remove | Some/Ok/Error/if/switch/try/ブレースの除去 (Ctrl+Shift+Delete) | `RescriptUnwrapDescriptor` |
+| JSX 閉じタグ自動挿入 | `>` 入力時に対応する閉じタグ `</tag>` を自動補完 | `RescriptTypedHandler` |
+| Go to Test / Create Test | 実装⇔テストファイル間のナビゲーション・新規テスト作成 (Ctrl+Shift+T) | `RescriptTestCreator` |
+| Project View .resi ネスト | `.resi` インターフェースファイルを対応する `.res` の下にネスト表示 | `RescriptTreeStructureProvider` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
