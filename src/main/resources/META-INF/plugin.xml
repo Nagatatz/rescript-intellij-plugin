@@ -374,6 +374,10 @@
         <!-- Backspace handler (JSX tag pair deletion) -->
         <backspaceHandlerDelegate
                 implementation="com.rescript.plugin.editor.RescriptBackspaceHandler"/>
+
+        <!-- Color preview swatches in editor gutter -->
+        <colorProvider
+                implementation="com.rescript.plugin.editor.RescriptColorProvider"/>
     </extensions>
 
     <actions>
