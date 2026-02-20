@@ -481,6 +481,21 @@ flowchart TD
 | `com.intellij.treeStructureProvider` | `RescriptTreeStructureProvider` | Project View .resi ネスト表示 | 実装済み |
 | `com.intellij.projectViewNestingRulesProvider` | `RescriptFileNestingProvider` | .res.js を .res の子にネスト表示 | 実装済み |
 | `com.intellij.projectViewNodeDecorator` | `RescriptCompiledJsNodeDecorator` | コンパイル済み JS を灰色表示 | 実装済み |
+| `com.intellij.completion.confidence` | `RescriptCompletionConfidence` | コメント・文字列内の補完ポップアップ抑制 | 実装済み |
+| `com.intellij.liveTemplateContext` | `RescriptTemplateContextType` | ReScript 専用 Live Template コンテキスト | 実装済み |
+| `com.intellij.liveTemplateMacro` | `RescriptModuleNameMacro` | rescriptModuleName マクロ | 実装済み |
+| `com.intellij.liveTemplateMacro` | `RescriptComponentNameMacro` | rescriptComponentName マクロ | 実装済み |
+| `com.intellij.problemHighlightFilter` | `RescriptProblemHighlightFilter` | node_modules 等のハイライト抑制 | 実装済み |
+| `com.intellij.enterHandlerDelegate` | `RescriptEnterHandler` | ドキュメントコメント・行コメント自動継続 | 実装済み |
+| `com.intellij.joinLinesHandler` | `RescriptJoinLinesHandler` | スマート行結合 | 実装済み |
+| `com.intellij.extendWordSelectionHandler` | `RescriptStringSelectionHandler` | 文字列選択拡大 | 実装済み |
+| `com.intellij.extendWordSelectionHandler` | `RescriptBracketSelectionHandler` | 括弧選択拡大 | 実装済み |
+| `com.intellij.extendWordSelectionHandler` | `RescriptCommentSelectionHandler` | コメント選択拡大 | 実装済み |
+| `com.intellij.highlightUsagesHandlerFactory` | `RescriptHighlightUsagesHandlerFactory` | switch/if/try キーワードハイライト | 実装済み |
+| `com.intellij.codeInsight.gotoSuper` | `RescriptGotoSuperHandler` | .res → .resi 宣言ジャンプ | 実装済み |
+| `com.intellij.lang.documentationProvider` | `RescriptDocumentationProvider` | 外部ドキュメント URL | 実装済み |
+| `com.intellij.runAnything` | `RescriptRunAnythingProvider` | Run Anything CLI コマンド | 実装済み |
+| `com.intellij.codeInsight.expressionTypeProvider` | `RescriptExpressionTypeProvider` | 式の型表示 (LSP hover) | 実装済み |
 
 ## 4. ファイル構成と依存関係
 

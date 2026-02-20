@@ -350,6 +350,60 @@
         <!-- Project View: gray out compiled .res.js files -->
         <projectViewNodeDecorator
                 implementation="com.rescript.plugin.projectview.RescriptCompiledJsNodeDecorator"/>
+
+        <!-- Completion Confidence (suppress auto-popup in comments/strings) -->
+        <completion.confidence language="ReScript"
+                               implementationClass="com.rescript.plugin.completion.RescriptCompletionConfidence"/>
+
+        <!-- Live Template Context -->
+        <liveTemplateContext
+                implementation="com.rescript.plugin.completion.RescriptTemplateContextType"/>
+
+        <!-- Live Template Macros -->
+        <liveTemplateMacro
+                implementation="com.rescript.plugin.completion.RescriptModuleNameMacro"/>
+        <liveTemplateMacro
+                implementation="com.rescript.plugin.completion.RescriptComponentNameMacro"/>
+
+        <!-- Problem Highlight Filter (suppress diagnostics in node_modules/lib) -->
+        <problemHighlightFilter
+                implementation="com.rescript.plugin.analysis.RescriptProblemHighlightFilter"/>
+
+        <!-- Enter Handler (doc comment continuation) -->
+        <enterHandlerDelegate
+                implementation="com.rescript.plugin.editor.RescriptEnterHandler"/>
+
+        <!-- Join Lines (smart line joining) -->
+        <joinLinesHandler
+                implementation="com.rescript.plugin.editor.RescriptJoinLinesHandler"/>
+
+        <!-- Extend/Shrink Word Selection -->
+        <extendWordSelectionHandler
+                implementation="com.rescript.plugin.editor.RescriptStringSelectionHandler"/>
+        <extendWordSelectionHandler
+                implementation="com.rescript.plugin.editor.RescriptBracketSelectionHandler"/>
+        <extendWordSelectionHandler
+                implementation="com.rescript.plugin.editor.RescriptCommentSelectionHandler"/>
+
+        <!-- Highlight Usages (keyword-based: switch/if/try/pipe) -->
+        <highlightUsagesHandlerFactory
+                implementation="com.rescript.plugin.highlight.RescriptHighlightUsagesHandlerFactory"/>
+
+        <!-- Goto Super (.res -> .resi declaration jump) -->
+        <codeInsight.gotoSuper language="ReScript"
+                                implementationClass="com.rescript.plugin.navigation.RescriptGotoSuperHandler"/>
+
+        <!-- External Documentation (Shift+F1 for rescript-lang.org) -->
+        <lang.documentationProvider language="ReScript"
+                                     implementationClass="com.rescript.plugin.documentation.RescriptDocumentationProvider"/>
+
+        <!-- Run Anything Provider (rescript build/clean/format) -->
+        <runAnythingProvider
+                implementation="com.rescript.plugin.run.RescriptRunAnythingProvider"/>
+
+        <!-- Expression Type Info (Ctrl+Shift+P via LSP hover) -->
+        <codeInsight.expressionTypeProvider language="ReScript"
+                                             implementationClass="com.rescript.plugin.lsp.RescriptExpressionTypeProvider"/>
     </extensions>
 
     <actions>

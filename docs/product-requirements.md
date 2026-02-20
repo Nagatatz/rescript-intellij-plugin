@@ -126,6 +126,18 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Go to Test / Create Test | 実装⇔テストファイル間のナビゲーション・新規テスト作成 (Ctrl+Shift+T) | `RescriptTestCreator` |
 | Project View .resi ネスト | `.resi` インターフェースファイルを対応する `.res` の下にネスト表示 | `RescriptTreeStructureProvider` |
 | Project View ファイルネスト | コンパイル済み `.res.js` を `.res` の子としてネスト表示し、灰色で表示 | `RescriptFileNestingProvider` + `RescriptCompiledJsNodeDecorator` |
+| Completion Confidence | コメント・文字列内での補完ポップアップ抑制 | `RescriptCompletionConfidence` |
+| Live Template コンテキスト | ReScript 専用コンテキスト + moduleName/componentName マクロ | `RescriptTemplateContextType` + `RescriptLiveTemplateMacros` |
+| Additional Snippets | 6 新 Live Templates (`@module`, `@val`, `@send`, `@get`, `@set`, `comp`) + 2 新 Postfix (`.promise`, `.await`) | `ReScript.xml` + `RescriptPostfixTemplateProvider` |
+| Problem Highlight Filter | `node_modules/`, `lib/bs/`, `lib/ocaml/` 内のハイライト抑制 | `RescriptProblemHighlightFilter` |
+| Enter Handler | ドキュメントコメント (`/** */`) と行コメント (`//`) の自動継続 | `RescriptEnterHandler` |
+| Join Lines | let バインディング・パイプチェーン・アロー関数のスマート行結合 | `RescriptJoinLinesHandler` |
+| Word Selection | 文字列・括弧・コメントの選択拡大/縮小 | `RescriptWordSelectionHandler` (3ハンドラ) |
+| Highlight Usages | switch/if/try 等の対応キーワードハイライト | `RescriptHighlightUsagesHandlerFactory` |
+| Goto Super | .res → .resi 宣言ジャンプ (Ctrl+U) | `RescriptGotoSuperHandler` |
+| External Documentation | Belt/Js モジュールの外部ドキュメント URL (Shift+F1) | `RescriptDocumentationProvider` |
+| Run Anything | Ctrl+Ctrl で ReScript CLI コマンド実行 (build/clean/format) | `RescriptRunAnythingProvider` |
+| Expression Type Info | カーソル位置の式の型を LSP hover で表示 (Ctrl+Shift+P) | `RescriptExpressionTypeProvider` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 

@@ -47,7 +47,8 @@ src/main/
 │   │   ├── RescriptSyntaxHighlighter.kt
 │   │   ├── RescriptSyntaxHighlighterFactory.kt
 │   │   ├── RescriptColorSettingsPage.kt # ハイライト色設定 UI
-│   │   └── RescriptBraceMatcher.kt
+│   │   ├── RescriptBraceMatcher.kt
+│   │   └── RescriptHighlightUsagesHandlerFactory.kt  # switch/if/try キーワードハイライト
 │   ├── lsp/
 │   │   ├── RescriptLspServerSupportProvider.kt  # LSP サーバー起動判定
 │   │   ├── RescriptLspServerDescriptor.kt       # LSP サーバー設定
@@ -58,7 +59,8 @@ src/main/
 │   │   ├── RescriptLspDetector.kt               # LSP・プロジェクト検出ユーティリティ
 │   │   ├── RescriptPackageManagerDetector.kt    # パッケージマネージャ検出 (npm/yarn/pnpm)
 │   │   ├── RescriptLspInstaller.kt              # LSP バックグラウンドインストール
-│   │   └── RescriptLspStartupActivity.kt        # プロジェクト起動時 LSP インストール通知
+│   │   ├── RescriptLspStartupActivity.kt        # プロジェクト起動時 LSP インストール通知
+│   │   └── RescriptExpressionTypeProvider.kt    # 式の型表示 (Ctrl+Shift+P)
 │   ├── codestyle/
 │   │   ├── RescriptCodeStyleSettingsProvider.kt  # コードスタイル設定
 │   │   └── RescriptLineIndentProvider.kt         # インデント制御
@@ -74,6 +76,7 @@ src/main/
 │   │   ├── RescriptRunConfigurationOptions.kt
 │   │   ├── RescriptRunConfigurationType.kt
 │   │   ├── RescriptRunLineMarkerContributor.kt  # ガター実行アイコン
+│   │   ├── RescriptRunAnythingProvider.kt  # Run Anything (Ctrl+Ctrl) コマンド
 │   │   └── RescriptSettingsEditor.kt    # 実行構成 UI
 │   ├── settings/
 │   │   ├── RescriptProjectSettings.kt     # プロジェクト単位の設定永続化
@@ -91,7 +94,10 @@ src/main/
 │   │   ├── RescriptSmartEnterProcessor.kt   # Smart Enter (Shift+Enter)
 │   │   ├── RescriptDeclarationRangeHandler.kt  # Context Info (スクロール時の宣言ヘッダー固定)
 │   │   ├── RescriptUnwrapDescriptor.kt      # Unwrap/Remove (Ctrl+Shift+Delete)
-│   │   └── RescriptTypedHandler.kt          # JSX 閉じタグ自動挿入
+│   │   ├── RescriptTypedHandler.kt          # JSX 閉じタグ自動挿入
+│   │   ├── RescriptEnterHandler.kt          # ドキュメントコメント・行コメント自動継続
+│   │   ├── RescriptJoinLinesHandler.kt      # スマート行結合 (let/pipe/arrow)
+│   │   └── RescriptWordSelectionHandler.kt  # 文字列・括弧・コメントの選択拡大/縮小
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
@@ -101,18 +107,23 @@ src/main/
 │   │   ├── RescriptCreateInterfaceAction.kt    # .resi インターフェース生成
 │   │   ├── RescriptOpenCompiledJsAction.kt     # コンパイル済み JS を開く (Alt+Shift+J)
 │   │   ├── RescriptQualifiedNameProvider.kt    # 完全修飾名コピー (Cmd+Shift+Alt+C)
-│   │   └── RescriptTestCreator.kt              # Go to Test / Create Test (Ctrl+Shift+T)
+│   │   ├── RescriptTestCreator.kt              # Go to Test / Create Test (Ctrl+Shift+T)
+│   │   └── RescriptGotoSuperHandler.kt         # .res → .resi 宣言ジャンプ (Ctrl+U)
 │   ├── template/
 │   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── spellcheck/
 │   │   ├── RescriptSpellcheckingStrategy.kt  # スペルチェック対応
 │   │   └── RescriptBundledDictionaryProvider.kt  # ReScript 用語バンドル辞書
 │   ├── completion/
-│   │   └── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log 等)
+│   │   ├── RescriptCompletionConfidence.kt    # 補完ポップアップ制御 (コメント・文字列内抑制)
+│   │   ├── RescriptTemplateContextType.kt     # Live Template コンテキスト (ReScript 専用)
+│   │   ├── RescriptLiveTemplateMacros.kt      # Live Template マクロ (moduleName, componentName)
+│   │   └── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log, .promise, .await 等)
 │   ├── analysis/
 │   │   ├── RescriptReanalyzeAnnotator.kt  # reanalyze デッドコード分析
 │   │   ├── RescriptReanalyzeQuickFix.kt   # Quick Fix (プレフィックス付与・削除)
-│   │   └── RescriptUnusedCodeInspection.kt  # Global Inspection (プロジェクト全体分析)
+│   │   ├── RescriptUnusedCodeInspection.kt  # Global Inspection (プロジェクト全体分析)
+│   │   └── RescriptProblemHighlightFilter.kt  # node_modules 等のハイライト抑制
 │   ├── test/
 │   │   ├── RescriptTestRunConfigurationType.kt   # テスト実行構成タイプ
 │   │   ├── RescriptTestRunConfiguration.kt       # テスト実行構成
@@ -214,6 +225,8 @@ src/main/
 │   │   └── DtsGenerateBindingAction.kt  # .d.ts バインディング生成アクション
 │   ├── projectview/
 │   │   └── RescriptTreeStructureProvider.kt  # Project View .resi ネスト表示
+│   ├── documentation/
+│   │   └── RescriptDocumentationProvider.kt  # 外部ドキュメント URL (Shift+F1)
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
 │   └── Rescript.flex                    # JFlex レクサー定義 (ソース)
@@ -229,7 +242,7 @@ src/main/
     │   ├── RescriptDarcula.xml          # Darcula テーマ用配色
     │   └── RescriptDefault.xml          # Default テーマ用配色
     ├── liveTemplates/
-    │   └── ReScript.xml                 # Live Templates (15スニペット)
+    │   └── ReScript.xml                 # Live Templates (21スニペット、ReScript 専用コンテキスト)
     ├── fileTemplates/internal/
     │   ├── ReScript Module.res.ft       # モジュールテンプレート
     │   ├── ReScript Interface.resi.ft   # インターフェーステンプレート
@@ -279,7 +292,9 @@ src/main/
 - **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
 - **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成
 - **Surround With** (`surround/`) — if/switch/try/block で囲む
-- **Postfix Completion** (`completion/`) — .switch, .pipe, .log 等
+- **Postfix Completion** (`completion/`) — .switch, .pipe, .log, .promise, .await 等
+- **Completion Confidence** (`completion/`) — コメント・文字列内の補完ポップアップ抑制
+- **Live Template コンテキスト** (`completion/`) — ReScript 専用コンテキスト + moduleName/componentName マクロ
 - **コード折りたたみ** (`folding/`) — ブロック折りたたみ、//#region カスタム折りたたみ
 - **パンくずリスト** (`breadcrumb/`) — エディタ上部のナビゲーション
 - **Generate アクション** (`generate/`) — Switch Arms / Module Type 生成
@@ -292,6 +307,15 @@ src/main/
 - **バンドル辞書** (`spellcheck/`) — ReScript 固有用語のスペルチェック辞書
 - **テストファイル認識** (`test/`) — `*_test.res`、`*.test.res`、`__tests__/` の自動認識
 - **Project View ネスト** (`projectview/`) — `.resi` を対応する `.res` の下にネスト表示
+- **Enter Handler** (`editor/`) — ドキュメントコメント・行コメントの自動継続
+- **Join Lines** (`editor/`) — let/pipe/arrow のスマート行結合
+- **Word Selection** (`editor/`) — 文字列・括弧・コメントの選択拡大/縮小
+- **Highlight Usages** (`highlight/`) — switch/if/try 等の対応キーワードハイライト
+- **Goto Super** (`navigation/`) — .res → .resi 宣言ジャンプ (Ctrl+U)
+- **External Documentation** (`documentation/`) — Belt/Js モジュールの外部ドキュメント URL (Shift+F1)
+- **Run Anything** (`run/`) — Ctrl+Ctrl で ReScript CLI コマンド実行
+- **Expression Type** (`lsp/`) — カーソル位置の式の型を LSP hover で表示 (Ctrl+Shift+P)
+- **Problem Highlight Filter** (`analysis/`) — node_modules 等のハイライト抑制
 
 ## 開発規約
 
