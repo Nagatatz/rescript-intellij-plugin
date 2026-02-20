@@ -7,7 +7,7 @@
         <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
         <variable name="VALUE" expression="" defaultValue="value" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -19,7 +19,7 @@
         <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
         <variable name="PARAMS" expression="" defaultValue="params" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -30,7 +30,7 @@
               toShortenFQNames="false">
         <variable name="NAME" expression="" defaultValue="Name" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -41,7 +41,7 @@
               toShortenFQNames="false">
         <variable name="NAME" expression="" defaultValue="Name" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -52,7 +52,7 @@
               toShortenFQNames="false">
         <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -64,7 +64,7 @@
         <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
         <variable name="VARIANT" expression="" defaultValue="Variant" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -77,7 +77,7 @@
         <variable name="FIELD" expression="" defaultValue="field" alwaysStopAt="true"/>
         <variable name="TYPE" expression="" defaultValue="string" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -90,7 +90,7 @@
         <variable name="TYPE" expression="" defaultValue="'a" alwaysStopAt="true"/>
         <variable name="JS_NAME" expression="" defaultValue="jsName" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -102,7 +102,7 @@
         <variable name="EXPR" expression="" defaultValue="expr" alwaysStopAt="true"/>
         <variable name="PATTERN" expression="" defaultValue="pattern" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -114,7 +114,7 @@
         <variable name="EXN" expression="" defaultValue="exn" alwaysStopAt="true"/>
         <variable name="HANDLER" expression="" defaultValue="()" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -128,7 +128,7 @@
         <variable name="FINISH" expression="" defaultValue="10" alwaysStopAt="true"/>
         <variable name="BODY" expression="" defaultValue="" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -139,7 +139,7 @@
               toShortenFQNames="false">
         <variable name="COND" expression="" defaultValue="condition" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -151,7 +151,7 @@
         <variable name="COND" expression="" defaultValue="condition" alwaysStopAt="true"/>
         <variable name="THEN" expression="" defaultValue="" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -162,7 +162,7 @@
               toShortenFQNames="false">
         <variable name="FUNC" expression="" defaultValue="func" alwaysStopAt="true"/>
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 
@@ -172,7 +172,89 @@
               toReformat="true"
               toShortenFQNames="false">
         <context>
-            <option name="OTHER" value="true"/>
+            <option name="RESCRIPT" value="true"/>
+        </context>
+    </template>
+
+    <!-- FFI binding templates -->
+    <template name="@module"
+              value="@module(&quot;$MODULE$&quot;)&#10;external $NAME$: $TYPE$ = &quot;$JS_NAME$&quot;"
+              description="@module external binding"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="MODULE" expression="" defaultValue="module-name" alwaysStopAt="true"/>
+        <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <variable name="TYPE" expression="" defaultValue="'a" alwaysStopAt="true"/>
+        <variable name="JS_NAME" expression="" defaultValue="default" alwaysStopAt="true"/>
+        <context>
+            <option name="RESCRIPT" value="true"/>
+        </context>
+    </template>
+
+    <template name="@val"
+              value="@val external $NAME$: $TYPE$ = &quot;$JS_NAME$&quot;"
+              description="@val external binding"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <variable name="TYPE" expression="" defaultValue="'a" alwaysStopAt="true"/>
+        <variable name="JS_NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <context>
+            <option name="RESCRIPT" value="true"/>
+        </context>
+    </template>
+
+    <template name="@send"
+              value="@send external $NAME$: ($OBJ$, $PARAMS$) =&gt; $RET$ = &quot;$JS_NAME$&quot;"
+              description="@send external binding"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <variable name="OBJ" expression="" defaultValue="obj" alwaysStopAt="true"/>
+        <variable name="PARAMS" expression="" defaultValue="'a" alwaysStopAt="true"/>
+        <variable name="RET" expression="" defaultValue="unit" alwaysStopAt="true"/>
+        <variable name="JS_NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <context>
+            <option name="RESCRIPT" value="true"/>
+        </context>
+    </template>
+
+    <template name="@get"
+              value="@get external $NAME$: $OBJ$ =&gt; $RET$ = &quot;$JS_NAME$&quot;"
+              description="@get external binding"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <variable name="OBJ" expression="" defaultValue="obj" alwaysStopAt="true"/>
+        <variable name="RET" expression="" defaultValue="'a" alwaysStopAt="true"/>
+        <variable name="JS_NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <context>
+            <option name="RESCRIPT" value="true"/>
+        </context>
+    </template>
+
+    <template name="@set"
+              value="@set external $NAME$: ($OBJ$, $VAL$) =&gt; unit = &quot;$JS_NAME$&quot;"
+              description="@set external binding"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <variable name="OBJ" expression="" defaultValue="obj" alwaysStopAt="true"/>
+        <variable name="VAL" expression="" defaultValue="'a" alwaysStopAt="true"/>
+        <variable name="JS_NAME" expression="" defaultValue="name" alwaysStopAt="true"/>
+        <context>
+            <option name="RESCRIPT" value="true"/>
+        </context>
+    </template>
+
+    <template name="comp"
+              value="@react.component&#10;let make = (~$PROPS$) =&gt; {&#10;  $END$&#10;}"
+              description="React component"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="PROPS" expression="" defaultValue="children" alwaysStopAt="true"/>
+        <context>
+            <option name="RESCRIPT" value="true"/>
         </context>
     </template>
 </templateSet>

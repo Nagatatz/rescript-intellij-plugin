@@ -16,8 +16,8 @@ class RescriptPostfixTemplateProviderTest {
     private val provider = RescriptPostfixTemplateProvider()
 
     @Test
-    fun testTemplateCountIsSeven() {
-        assertEquals(7, provider.templates.size)
+    fun testTemplateCountIsNine() {
+        assertEquals(9, provider.templates.size)
     }
 
     @Test
@@ -56,8 +56,18 @@ class RescriptPostfixTemplateProviderTest {
     }
 
     @Test
+    fun testTemplateKeysContainPromise() {
+        assertTrue(provider.templates.any { it.key == ".promise" })
+    }
+
+    @Test
+    fun testTemplateKeysContainAwait() {
+        assertTrue(provider.templates.any { it.key == ".await" })
+    }
+
+    @Test
     fun testAllTemplateKeysExactly() {
-        val expectedKeys = setOf(".switch", ".pipe", ".log", ".some", ".ok", ".error", ".ignore")
+        val expectedKeys = setOf(".switch", ".pipe", ".log", ".some", ".ok", ".error", ".ignore", ".promise", ".await")
         val actualKeys = provider.templates.map { it.key }.toSet()
         assertEquals(expectedKeys, actualKeys)
     }
@@ -123,6 +133,18 @@ class RescriptPostfixTemplateProviderTest {
     fun testIgnoreTemplateExample() {
         val ignoreTemplate = provider.templates.first { it.key == ".ignore" }
         assertEquals("expr->ignore", ignoreTemplate.example)
+    }
+
+    @Test
+    fun testPromiseTemplateExample() {
+        val promiseTemplate = provider.templates.first { it.key == ".promise" }
+        assertEquals("expr->Promise.then(result => { ... })", promiseTemplate.example)
+    }
+
+    @Test
+    fun testAwaitTemplateExample() {
+        val awaitTemplate = provider.templates.first { it.key == ".await" }
+        assertEquals("await expr", awaitTemplate.example)
     }
 
     @Test

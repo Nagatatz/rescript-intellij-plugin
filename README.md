@@ -44,11 +44,13 @@
 - **Module hierarchy** — Visualize module dependency tree
 - **Copy qualified name** — Copy fully-qualified module path (`Cmd+Shift+Alt+C`)
 - **Context Info** — Sticky declaration header when scrolling through long files
+- **Goto Super** — Jump from `.res` declaration to matching `.resi` declaration (`Ctrl+U`)
+- **External documentation** — Open ReScript documentation for Belt/Js modules (`Shift+F1`)
 
 ### Editing Assistance
 
-- **Live Templates** — 15 code snippets (`let`, `mod`, `sw`, `pipe`, `log`, etc.)
-- **Postfix Completion** — `.switch`, `.pipe`, `.log` and more
+- **Live Templates** — 21 code snippets with ReScript-aware context (`let`, `mod`, `sw`, `pipe`, `log`, `@module`, `@val`, `comp`, etc.)
+- **Postfix Completion** — `.switch`, `.pipe`, `.log`, `.promise`, `.await` and more
 - **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
@@ -56,6 +58,9 @@
 - **Generate actions** — Generate switch arms and module types (`Cmd+N`)
 - **Statement mover** — Move declarations up/down (`Alt+Shift+Up/Down`)
 - **Smart Enter** — Insert new line with correct indentation (`Shift+Enter`)
+- **Comment continuation** — Auto-continue `//` and `/** */` comments on Enter
+- **Smart join lines** — Intelligent line joining for let bindings, pipe chains, and arrow functions
+- **Extend/shrink selection** — Context-aware selection for strings, brackets, and comments
 - **File templates** — Create Module, Interface, and React Component files
 - **Paste as JSON.t** — Convert clipboard JSON to ReScript `JSON.t`
 - **.d.ts binding generation** — Generate ReScript bindings from TypeScript definition files
@@ -68,10 +73,15 @@
 - **Duplicate open detection** — Warn on duplicate `open` statements
 - **Empty module detection** — Warn on empty module declarations
 - **Missing rescript.json** — Warn when configuration file is absent
+- **Highlight usages** — Highlight related keywords (switch/if/try and matching control flow keywords)
+- **Problem filter** — Suppress highlighting in `node_modules/`, `lib/bs/`, `lib/ocaml/`
 
 ### Build, Run & Test
 
 - **Run configuration** — Build ReScript projects from the IDE with gutter run icons
+- **Run Anything** — Execute ReScript CLI commands from Run Anything dialog (`Ctrl+Ctrl`)
+- **Expression type** — Show inferred type at caret position (`Ctrl+Shift+P`)
+- **Completion confidence** — Suppress auto-popup in comments and string literals
 - **Test runner** — Run tests with auto-detected jest/vitest (SMTRunner test tree)
 - **Debugger integration** — Debug compiled JavaScript via Node.js (`Alt+Shift+D`)
 - **Compiler status** — Real-time build status in the status bar
