@@ -28,9 +28,14 @@ class RescriptConfigurable(
     private var lspServerPathField: TextFieldWithBrowseButton? = null
     private var nodePathField: TextFieldWithBrowseButton? = null
     private var incrementalTypecheckingCheckbox: JCheckBox? = null
+    private var incrementalAcrossFilesCheckbox: JCheckBox? = null
     private var errorLensCheckbox: JCheckBox? = null
     private var errorLensMinSeverityCombo: ComboBox<String>? = null
     private var removeUnusedOpensCheckbox: JCheckBox? = null
+    private var rescriptBinaryPathField: TextFieldWithBrowseButton? = null
+    private var platformPathField: TextFieldWithBrowseButton? = null
+    private var runtimePathField: TextFieldWithBrowseButton? = null
+    private var logLevelCombo: ComboBox<String>? = null
 
     override fun getDisplayName(): String = "ReScript"
 
@@ -65,6 +70,9 @@ class RescriptConfigurable(
         val incrementalCheckbox = JCheckBox("Enable incremental type checking", true)
         incrementalTypecheckingCheckbox = incrementalCheckbox
 
+        val acrossFilesCheckbox = JCheckBox("Cross-file incremental type checking (experimental)", false)
+        incrementalAcrossFilesCheckbox = acrossFilesCheckbox
+
         val elCheckbox = JCheckBox("Enable Error Lens (inline diagnostic display)", true)
         errorLensCheckbox = elCheckbox
 
@@ -74,6 +82,48 @@ class RescriptConfigurable(
 
         val unusedOpensCheckbox = JCheckBox("Remove unused open statements (requires LSP)", true)
         removeUnusedOpensCheckbox = unusedOpensCheckbox
+
+        val binaryPathField =
+            TextFieldWithBrowseButton().apply {
+                @Suppress("DialogTitleCapitalization")
+                addBrowseFolderListener(
+                    project,
+                    FileChooserDescriptorFactory
+                        .singleFile()
+                        .withTitle("ReScript Binary Path")
+                        .withDescription("Select the ReScript compiler binary"),
+                )
+            }
+        rescriptBinaryPathField = binaryPathField
+
+        val platPathField =
+            TextFieldWithBrowseButton().apply {
+                @Suppress("DialogTitleCapitalization")
+                addBrowseFolderListener(
+                    project,
+                    FileChooserDescriptorFactory
+                        .createSingleFolderDescriptor()
+                        .withTitle("Platform Path")
+                        .withDescription("Select the ReScript platform directory"),
+                )
+            }
+        platformPathField = platPathField
+
+        val rtPathField =
+            TextFieldWithBrowseButton().apply {
+                @Suppress("DialogTitleCapitalization")
+                addBrowseFolderListener(
+                    project,
+                    FileChooserDescriptorFactory
+                        .createSingleFolderDescriptor()
+                        .withTitle("Runtime Path")
+                        .withDescription("Select the ReScript runtime directory"),
+                )
+            }
+        runtimePathField = rtPathField
+
+        val logCombo = ComboBox(DefaultComboBoxModel(LOG_LEVELS))
+        logLevelCombo = logCombo
 
         val formPanel =
             FormBuilder
@@ -86,6 +136,9 @@ class RescriptConfigurable(
                 .addComponent(incrementalCheckbox)
                 .addTooltip(
                     "When enabled, the LSP server uses incremental type checking for faster feedback. Requires LSP server restart.",
+                ).addComponent(acrossFilesCheckbox)
+                .addTooltip(
+                    "Enable cross-file incremental type checking. Experimental feature. Requires LSP server restart.",
                 ).addSeparator()
                 .addComponent(elCheckbox)
                 .addTooltip("Show diagnostic messages inline at the end of editor lines. Requires reopening files.")
@@ -95,7 +148,16 @@ class RescriptConfigurable(
                 .addComponent(unusedOpensCheckbox)
                 .addTooltip(
                     "When enabled, Optimize Imports also removes unused open statements detected by the LSP server.",
-                ).addComponentFillVertically(JPanel(), 0)
+                ).addSeparator()
+                .addLabeledComponent("ReScript binary path:", binaryPathField)
+                .addTooltip("Leave empty to auto-detect. Path to the ReScript compiler binary.")
+                .addLabeledComponent("Platform path:", platPathField)
+                .addTooltip("Leave empty to auto-detect. Path to the ReScript platform directory.")
+                .addLabeledComponent("Runtime path:", rtPathField)
+                .addTooltip("Leave empty to auto-detect. Path to the ReScript runtime directory.")
+                .addLabeledComponent("Log level:", logCombo)
+                .addTooltip("LSP server log verbosity level.")
+                .addComponentFillVertically(JPanel(), 0)
                 .panel
 
         panel = formPanel
@@ -107,15 +169,23 @@ class RescriptConfigurable(
         return lspServerPathField?.text != settings.lspServerPath ||
             nodePathField?.text != settings.nodePath ||
             incrementalTypecheckingCheckbox?.isSelected != settings.incrementalTypecheckingEnabled ||
+            incrementalAcrossFilesCheckbox?.isSelected != settings.incrementalTypecheckingAcrossFiles ||
             errorLensCheckbox?.isSelected != settings.errorLensEnabled ||
             errorLensMinSeverityCombo?.selectedItem != settings.errorLensMinSeverity ||
-            removeUnusedOpensCheckbox?.isSelected != settings.removeUnusedOpensEnabled
+            removeUnusedOpensCheckbox?.isSelected != settings.removeUnusedOpensEnabled ||
+            rescriptBinaryPathField?.text != settings.rescriptBinaryPath ||
+            platformPathField?.text != settings.platformPath ||
+            runtimePathField?.text != settings.runtimePath ||
+            logLevelCombo?.selectedItem != settings.logLevel
     }
 
     @Throws(ConfigurationException::class)
     override fun apply() {
         val lspPath = lspServerPathField?.text?.trim() ?: ""
         val nodePath = nodePathField?.text?.trim() ?: ""
+        val binaryPath = rescriptBinaryPathField?.text?.trim() ?: ""
+        val platPath = platformPathField?.text?.trim() ?: ""
+        val rtPath = runtimePathField?.text?.trim() ?: ""
 
         if (lspPath.isNotEmpty() && !File(lspPath).exists()) {
             throw ConfigurationException("Language server path does not exist: $lspPath")
@@ -123,14 +193,28 @@ class RescriptConfigurable(
         if (nodePath.isNotEmpty() && !File(nodePath).exists()) {
             throw ConfigurationException("Node.js interpreter path does not exist: $nodePath")
         }
+        if (binaryPath.isNotEmpty() && !File(binaryPath).exists()) {
+            throw ConfigurationException("ReScript binary path does not exist: $binaryPath")
+        }
+        if (platPath.isNotEmpty() && !File(platPath).exists()) {
+            throw ConfigurationException("Platform path does not exist: $platPath")
+        }
+        if (rtPath.isNotEmpty() && !File(rtPath).exists()) {
+            throw ConfigurationException("Runtime path does not exist: $rtPath")
+        }
 
         val settings = RescriptProjectSettings.getInstance(project)
         settings.lspServerPath = lspPath
         settings.nodePath = nodePath
         settings.incrementalTypecheckingEnabled = incrementalTypecheckingCheckbox?.isSelected ?: true
+        settings.incrementalTypecheckingAcrossFiles = incrementalAcrossFilesCheckbox?.isSelected ?: false
         settings.errorLensEnabled = errorLensCheckbox?.isSelected ?: true
         settings.errorLensMinSeverity = errorLensMinSeverityCombo?.selectedItem as? String ?: "WARNING"
         settings.removeUnusedOpensEnabled = removeUnusedOpensCheckbox?.isSelected ?: true
+        settings.rescriptBinaryPath = binaryPath
+        settings.platformPath = platPath
+        settings.runtimePath = rtPath
+        settings.logLevel = logLevelCombo?.selectedItem as? String ?: "info"
 
         com.intellij.platform.lsp.api.LspServerManager
             .getInstance(project)
@@ -142,9 +226,14 @@ class RescriptConfigurable(
         lspServerPathField?.text = settings.lspServerPath
         nodePathField?.text = settings.nodePath
         incrementalTypecheckingCheckbox?.isSelected = settings.incrementalTypecheckingEnabled
+        incrementalAcrossFilesCheckbox?.isSelected = settings.incrementalTypecheckingAcrossFiles
         errorLensCheckbox?.isSelected = settings.errorLensEnabled
         errorLensMinSeverityCombo?.selectedItem = settings.errorLensMinSeverity
         removeUnusedOpensCheckbox?.isSelected = settings.removeUnusedOpensEnabled
+        rescriptBinaryPathField?.text = settings.rescriptBinaryPath
+        platformPathField?.text = settings.platformPath
+        runtimePathField?.text = settings.runtimePath
+        logLevelCombo?.selectedItem = settings.logLevel
     }
 
     override fun disposeUIResources() {
@@ -152,8 +241,17 @@ class RescriptConfigurable(
         lspServerPathField = null
         nodePathField = null
         incrementalTypecheckingCheckbox = null
+        incrementalAcrossFilesCheckbox = null
         errorLensCheckbox = null
         errorLensMinSeverityCombo = null
         removeUnusedOpensCheckbox = null
+        rescriptBinaryPathField = null
+        platformPathField = null
+        runtimePathField = null
+        logLevelCombo = null
+    }
+
+    companion object {
+        private val LOG_LEVELS = arrayOf("error", "warn", "info", "log")
     }
 }

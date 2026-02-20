@@ -72,6 +72,8 @@ object RescriptTokenTypes {
 
     @JvmField val LIST = token("LIST")
 
+    @JvmField val DICT = token("DICT")
+
     @JvmField val MODULE = token("MODULE")
 
     @JvmField val MUTABLE = token("MUTABLE")
@@ -93,6 +95,8 @@ object RescriptTokenTypes {
     @JvmField val PRI = token("PRI")
 
     @JvmField val RAW = token("RAW")
+
+    @JvmField val FFI = token("FFI")
 
     @JvmField val REC = token("REC")
 
@@ -342,6 +346,7 @@ object RescriptTokenTypes {
             LAZY,
             LET,
             LIST,
+            DICT,
             MODULE,
             MUTABLE,
             NEW,
@@ -353,6 +358,7 @@ object RescriptTokenTypes {
             PUB,
             PRI,
             RAW,
+            FFI,
             REC,
             SIG,
             STRUCT,

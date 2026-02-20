@@ -262,6 +262,27 @@ class RescriptLexerTest {
         assertEquals(listOf(RescriptTokenTypes.LAZY), tokenTypesNoWs("lazy"))
     }
 
+    @Test
+    fun `keyword - ffi`() {
+        assertEquals(listOf(RescriptTokenTypes.FFI), tokenTypesNoWs("ffi"))
+    }
+
+    @Test
+    fun `keyword - dict`() {
+        assertEquals(listOf(RescriptTokenTypes.DICT), tokenTypesNoWs("dict"))
+    }
+
+    @Test
+    fun `keyword - dict with braces`() {
+        val types = tokenTypesNoWs("""dict{"key": "value"}""")
+        assertEquals(RescriptTokenTypes.DICT, types[0])
+        assertEquals(RescriptTokenTypes.LBRACE, types[1])
+        assertEquals(RescriptTokenTypes.STRING_VALUE, types[2])
+        assertEquals(RescriptTokenTypes.COLON, types[3])
+        assertEquals(RescriptTokenTypes.STRING_VALUE, types[4])
+        assertEquals(RescriptTokenTypes.RBRACE, types[5])
+    }
+
     // ════════════════════════════════════════════════════════════════
     // Keyword operators
     // ════════════════════════════════════════════════════════════════

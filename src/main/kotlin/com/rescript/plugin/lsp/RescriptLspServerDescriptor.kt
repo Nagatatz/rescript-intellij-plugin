@@ -43,10 +43,15 @@ class RescriptLspServerDescriptor(
         return mapOf(
             "extensionConfiguration" to
                 mapOf(
+                    "binaryPath" to settings.rescriptBinaryPath.ifEmpty { null },
+                    "platformPath" to settings.platformPath.ifEmpty { null },
+                    "runtimePath" to settings.runtimePath.ifEmpty { null },
+                    "logLevel" to settings.logLevel,
                     "codeLens" to true,
                     "incrementalTypechecking" to
                         mapOf(
                             "enabled" to settings.incrementalTypecheckingEnabled,
+                            "acrossFiles" to settings.incrementalTypecheckingAcrossFiles,
                         ),
                 ),
         )
