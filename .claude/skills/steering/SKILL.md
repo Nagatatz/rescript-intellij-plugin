@@ -1,6 +1,7 @@
 ---
 description: 作業指示毎の作業計画、タスクリストをドキュメントに記録するためのスキル。ユーザーからの指示をトリガーとした作業計画時、実装時、検証時に読み込む。
-allowed-tools: Read, Write, Edit, Glob, Bash
+allowed-tools: Read, Glob, Grep, Write, Edit, Bash
+disable-model-invocation: true
 ---
 
 # Steering スキル

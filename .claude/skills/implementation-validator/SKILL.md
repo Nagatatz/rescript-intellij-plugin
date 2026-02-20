@@ -1,7 +1,8 @@
 ---
 description: 実装コードの品質を5つの観点で検証する（スペック準拠・コード品質・テストカバレッジ・セキュリティ・パフォーマンス）
 model: sonnet
-allowed-tools: Bash, Read, Glob, Grep
+allowed-tools: Read, Glob, Grep, Bash
+context: fork
 ---
 
 # 実装コード検証
