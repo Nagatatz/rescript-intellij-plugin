@@ -398,6 +398,10 @@
         <!-- HTML to ReScript JSX conversion on paste -->
         <copyPastePostProcessor
                 implementation="com.rescript.plugin.paste.RescriptPasteAsJsxProcessor"/>
+
+        <!-- Package Dependencies Tool Window (rescript.json) -->
+        <toolWindow id="ReScript Dependencies" anchor="right" icon="AllIcons.Nodes.PpLib"
+                factoryClass="com.rescript.plugin.dependencies.RescriptDependenciesToolWindowFactory"/>
     </extensions>
 
     <actions>
