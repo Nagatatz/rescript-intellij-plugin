@@ -350,6 +350,10 @@
         <!-- Project View: gray out compiled .res.js files -->
         <projectViewNodeDecorator
                 implementation="com.rescript.plugin.projectview.RescriptCompiledJsNodeDecorator"/>
+
+        <!-- Predefined code style ("ReScript Standard" preset) -->
+        <predefinedCodeStyle
+                implementation="com.rescript.plugin.codestyle.RescriptPredefinedCodeStyle"/>
     </extensions>
 
     <actions>
