@@ -25,6 +25,36 @@
 - `🐛 Fix PDF parsing error for edge cases`
 - `🔧 Configure ktlint and plugin verification`
 
+## コミット粒度
+
+**以下は強制的な行動指示であり、例外なく従うこと。**
+
+コミットは**最低でも機能単位**で分割すること。複数の独立した機能を1つのコミットにまとめることは禁止する。
+
+**原則:**
+- 1つのコミットには1つの論理的な変更のみを含める
+- 機能の実装コード + 対応するテスト + plugin.xml 登録は同一コミットに含めてよい
+- ドキュメント更新（CLAUDE.md, README.md, docs/ 等）は、該当機能のコミットに含めるか、全機能実装後に1つのドキュメント更新コミットとしてまとめる
+- tasklist.md の更新は各コミットに含めること
+
+**禁止事項:**
+- 複数の独立した機能を1つの巨大コミットにまとめること（例: 13個の新機能を1コミットにする）
+- 「一括実装」のような粒度の粗いコミット
+
+**例（良い例）:**
+```
+✨ Add completion confidence for ReScript
+✨ Add ReScript-specific live template context
+✨ Add enter handler for comment continuation
+✨ Add smart join lines handler
+📝 Update docs for A-priority features
+```
+
+**例（悪い例）:**
+```
+✨ Add 13 A-priority IDE features  ← 粒度が粗すぎる
+```
+
 ## ブランチ運用ルール
 
 **以下は強制的な行動指示であり、例外なく従うこと。**
