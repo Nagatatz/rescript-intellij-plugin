@@ -332,6 +332,10 @@
         <!-- Enter Handler (doc comment continuation) -->
         <enterHandlerDelegate
                 implementation="com.rescript.plugin.editor.RescriptEnterHandler"/>
+
+        <!-- Join Lines (smart line joining) -->
+        <joinLinesHandler
+                implementation="com.rescript.plugin.editor.RescriptJoinLinesHandler"/>
     </extensions>
 
     <actions>
