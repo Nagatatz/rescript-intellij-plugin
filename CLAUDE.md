@@ -133,6 +133,9 @@ src/main/
 │   │   ├── RescriptModuleHierarchyTreeStructure.kt   # ツリー構造
 │   │   ├── RescriptModuleHierarchyNodeDescriptor.kt  # ノード記述子
 │   │   └── RescriptDependencyAnalyzer.kt             # モジュール依存関係分析
+│   ├── projectview/
+│   │   ├── RescriptFileNestingProvider.kt       # .res.js を .res の子にネスト表示
+│   │   └── RescriptCompiledJsNodeDecorator.kt   # コンパイル済み JS を灰色表示
 │   ├── paste/
 │   │   └── RescriptPasteAsJsonAction.kt   # Paste as JSON.t
 │   ├── injection/
@@ -269,6 +272,7 @@ src/main/
 - **Error Lens** (`errorlens/`) — エディタ行内にインライン診断表示
 - **JS プレビュー** (`preview/`) — コンパイル済み JS のリアルタイムプレビュー
 - **モジュール階層** (`hierarchy/`) — モジュール依存関係のツリー表示
+- **Project View** (`projectview/`) — コンパイル済み JS のネスト表示・灰色化
 - **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成
 - **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析
 - **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション

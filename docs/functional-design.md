@@ -479,6 +479,8 @@ flowchart TD
 | `com.intellij.typedHandler` | `RescriptTypedHandler` | JSX 閉じタグ自動挿入 | 実装済み |
 | `com.intellij.testCreator` | `RescriptTestCreator` | Go to Test / Create Test (Ctrl+Shift+T) | 実装済み |
 | `com.intellij.treeStructureProvider` | `RescriptTreeStructureProvider` | Project View .resi ネスト表示 | 実装済み |
+| `com.intellij.projectViewNestingRulesProvider` | `RescriptFileNestingProvider` | .res.js を .res の子にネスト表示 | 実装済み |
+| `com.intellij.projectViewNodeDecorator` | `RescriptCompiledJsNodeDecorator` | コンパイル済み JS を灰色表示 | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -597,6 +599,7 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | Project View ネスト | VS Code file nesting | `RescriptTreeStructureProvider` | 同等（.resi を .res 下にネスト） |
 | テストファイル認識 | — | `RescriptTestSourcesFilter` | 本プラグイン独自 |
 | バンドル辞書 | — | `RescriptBundledDictionaryProvider` | 本プラグイン独自 |
+| Project View ファイルネスト | — | `RescriptFileNestingProvider` + `RescriptCompiledJsNodeDecorator` | 本プラグイン独自（.res.js を .res 配下にネスト・灰色表示） |
 
 ### 未実装機能（rescript-vscode にあり、本プラグインに未実装）
 

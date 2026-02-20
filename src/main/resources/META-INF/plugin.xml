@@ -342,6 +342,14 @@
         <!-- Project View: nest .resi under .res -->
         <treeStructureProvider
                 implementation="com.rescript.plugin.projectview.RescriptTreeStructureProvider"/>
+
+        <!-- Project View: nest .res.js under .res -->
+        <projectViewNestingRulesProvider
+                implementation="com.rescript.plugin.projectview.RescriptFileNestingProvider"/>
+
+        <!-- Project View: gray out compiled .res.js files -->
+        <projectViewNodeDecorator
+                implementation="com.rescript.plugin.projectview.RescriptCompiledJsNodeDecorator"/>
     </extensions>
 
     <actions>
