@@ -426,6 +426,10 @@
         <!-- Quick Documentation (Ctrl+Q / hover fallback) -->
         <lang.documentationProvider language="ReScript"
                 implementationClass="com.rescript.plugin.documentation.RescriptDocumentationProvider"/>
+
+        <!-- Safe Delete with usage check (Refactor > Safe Delete) -->
+        <refactoring.safeDeleteProcessor
+                implementation="com.rescript.plugin.refactor.RescriptSafeDeleteProcessor"/>
     </extensions>
 
     <actions>
