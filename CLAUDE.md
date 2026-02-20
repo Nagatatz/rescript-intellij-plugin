@@ -40,6 +40,7 @@ src/main/
 │   │   ├── RescriptAstFactory.kt        # AST ファクトリ (文字列リテラルの言語インジェクション対応)
 │   │   └── psi/
 │   │       ├── RescriptPsi.kt           # PSI 要素クラス
+│   │       ├── RescriptPsiUtils.kt      # PSI ユーティリティ (要素探索・判定)
 │   │       └── RescriptStringLiteral.kt # 文字列リテラル PSI (PsiLanguageInjectionHost)
 │   ├── highlight/
 │   │   ├── RescriptSyntaxHighlighter.kt
@@ -114,6 +115,7 @@ src/main/
 │   │   ├── RescriptTestFrameworkDetector.kt      # jest/vitest 自動検出
 │   │   ├── RescriptTestConsoleProperties.kt      # SMTRunner テストツリー
 │   │   ├── RescriptTestLocator.kt                # compiled JS → .res パス変換
+│   │   ├── RescriptTestRunConfigurationOptions.kt # テスト実行構成オプション永続化
 │   │   └── RescriptTestSettingsEditor.kt         # テスト設定 UI
 │   ├── preview/
 │   │   ├── RescriptCompiledJsPreviewToolWindowFactory.kt  # JS プレビューツールウィンドウ
@@ -148,17 +150,18 @@ src/main/
 │   │   └── RescriptDebugSettingsEditor.kt          # 設定 UI
 │   ├── imports/
 │   │   ├── RescriptImportOptimizer.kt   # Import Optimizer (重複 + 未使用 open 削除)
+│   │   ├── RescriptImportUtil.kt        # Import 操作ユーティリティ
 │   │   └── RescriptUnusedOpenDetector.kt # LSP 診断から未使用 open を検出
 │   ├── intention/
 │   │   ├── RescriptWrapWithIntention.kt     # Wrap with Some/Ok/Error
-│   │   └── RescriptAddGenTypeIntention.kt   # Add @genType annotation
+│   │   ├── RescriptAddGenTypeIntention.kt   # Add @genType annotation
+│   │   └── RescriptGenerateDocCommentIntention.kt  # KDoc コメント生成
 │   ├── surround/
 │   │   └── RescriptSurroundDescriptor.kt    # Surround With (if/switch/try/block)
 │   ├── folding/
 │   │   ├── RescriptFoldingBuilder.kt      # コード折りたたみ (CustomFoldingBuilder)
 │   │   └── RescriptCustomFoldingProvider.kt  # //#region カスタム折りたたみ
 │   ├── wizard/
-│   │   ├── PackageManager.kt                 # パッケージマネージャ定義
 │   │   ├── ProjectTemplate.kt                # 12 テンプレート enum + カテゴリ
 │   │   ├── ProjectFileBuilders.kt            # 共有ファイル生成ユーティリティ
 │   │   ├── RescriptModuleBuilder.kt          # Project Wizard (New Project)
@@ -180,8 +183,18 @@ src/main/
 │   ├── generate/
 │   │   ├── RescriptGenerateGroup.kt              # Generate メニューグループ
 │   │   ├── RescriptTypeDeclarationParser.kt      # テキストベース型宣言パーサー
+│   │   ├── RescriptGenerateActionUtil.kt         # Generate アクション共通ユーティリティ
 │   │   ├── RescriptGenerateSwitchAction.kt       # Switch Arms 生成
 │   │   └── RescriptGenerateModuleTypeAction.kt   # Module Type 生成
+│   ├── breadcrumb/
+│   │   └── RescriptBreadcrumbsProvider.kt  # パンくずリストナビゲーション
+│   ├── refactor/
+│   │   ├── RescriptRenameHandler.kt     # LSP 経由リネームハンドラ
+│   │   └── RescriptNamesValidator.kt    # 識別子バリデーション
+│   ├── inspection/
+│   │   ├── RescriptMissingConfigInspection.kt   # rescript.json 欠落警告
+│   │   ├── RescriptDuplicateOpenInspection.kt   # 重複 open 検出
+│   │   └── RescriptEmptyModuleInspection.kt     # 空モジュール検出
 │   ├── binding/
 │   │   ├── DtsJsonModel.kt              # .d.ts JSON 中間表現データモデル + Gson デシリアライザ
 │   │   ├── DtsTypeMapper.kt             # TypeScript → ReScript 型マッピング
@@ -193,7 +206,13 @@ src/main/
 ├── java/com/rescript/plugin/lang/
 │   └── Rescript.flex                    # JFlex レクサー定義 (ソース)
 └── resources/
-    ├── META-INF/plugin.xml              # プラグイン登録 (extension points)
+    ├── META-INF/
+    │   ├── plugin.xml                   # プラグイン登録 (extension points)
+    │   ├── rescript-json.xml            # JSON Schema (optional dep: com.intellij.modules.json)
+    │   ├── rescript-js-injection.xml    # %raw() JS インジェクション (optional dep: JavaScript)
+    │   ├── rescript-markdown.xml        # Markdown コードフェンス (optional dep: Markdown)
+    │   ├── rescript-debug.xml           # デバッグ統合 (optional dep: JavaScriptDebugger)
+    │   └── rescript-nodejs.xml          # Node.js 統合 (optional dep: NodeJS)
     ├── colorSchemes/
     │   ├── RescriptDarcula.xml          # Darcula テーマ用配色
     │   └── RescriptDefault.xml          # Default テーマ用配色
@@ -229,17 +248,33 @@ src/main/
 
 ### レイヤー 3: IDE 統合機能
 - **実行構成** (`run/`) — rescript.json 経由の ReScript ビルド実行
+- **テスト実行** (`test/`) — jest/vitest 自動検出、SMTRunner テストツリー
+- **デバッグ** (`debug/`) — コンパイル済み JS のデバッグ実行
 - **コードフォーマッタ** (`formatter/`) — `rescript format` CLI による外部フォーマッタ連携（`Cmd+Option+L`）
 - **コードスタイル** (`codestyle/`) — インデント設定
 - **カラースキーム** (`colorSchemes/`) — Darcula / Default テーマ用の専用配色
 - **rescript.json アイコン** (`config/`) — 設定ファイルへの専用アイコン表示
 - **ビルドステータス** (`statusbar/`) — ステータスバーにコンパイル状態表示
+- **Error Lens** (`errorlens/`) — エディタ行内にインライン診断表示
+- **JS プレビュー** (`preview/`) — コンパイル済み JS のリアルタイムプレビュー
+- **モジュール階層** (`hierarchy/`) — モジュール依存関係のツリー表示
+- **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成
+- **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析
+- **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション
+- **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
+- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成
+- **Surround With** (`surround/`) — if/switch/try/block で囲む
+- **Postfix Completion** (`completion/`) — .switch, .pipe, .log 等
+- **コード折りたたみ** (`folding/`) — ブロック折りたたみ、//#region カスタム折りたたみ
+- **パンくずリスト** (`breadcrumb/`) — エディタ上部のナビゲーション
+- **Generate アクション** (`generate/`) — Switch Arms / Module Type 生成
+- **.d.ts バインディング生成** (`binding/`) — TypeScript 型定義から ReScript バインディングを自動生成
 
 ## 開発規約
 
 - パッケージ: `com.rescript.plugin.*`
 - プラグイン ID: `com.rescript.plugin`
-- extension point の登録は `plugin.xml` で行う
+- extension point の登録は `plugin.xml` で行う（オプション依存は `META-INF/rescript-*.xml` に分離）
 - 新しい言語機能を追加する場合は、既存のファイル構成（highlight/, lang/, lsp/ 等）に従う
 - レクサーにトークンを追加する場合は `Rescript.flex` と `RescriptTokenTypes.kt` の両方を更新する
 - テストは `src/test/` に配置する
@@ -256,6 +291,6 @@ src/main/
 
 - `RescriptFlexLexer.java` は自動生成ファイル。直接編集せず、`Rescript.flex` を編集すること
 - LSP 機能は `@rescript/language-server` が利用可能な環境でのみ動作する
-- `pluginSinceBuild` / `pluginUntilBuild` は `gradle.properties` で管理
+- `pluginSinceBuild` は `gradle.properties` で管理（`pluginUntilBuild` は前方互換性のため意図的に未設定）
 - Gradle Configuration Cache が有効化されている
 - Task ツール（サブエージェント）を使用する場合、`run_in_background` は **明示的に指示された場合のみ** 使用すること
