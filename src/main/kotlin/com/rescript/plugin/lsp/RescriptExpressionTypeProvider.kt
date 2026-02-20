@@ -1,0 +1,114 @@
+package com.rescript.plugin.lsp
+
+import com.intellij.lang.ExpressionTypeProvider
+import com.intellij.platform.lsp.api.LspServerManager
+import com.intellij.psi.PsiElement
+import com.rescript.plugin.RescriptLanguage
+import org.eclipse.lsp4j.HoverParams
+import org.eclipse.lsp4j.Position
+import org.eclipse.lsp4j.TextDocumentIdentifier
+
+/**
+ * Provides expression type information for ReScript via LSP hover.
+ *
+ * Triggered by Ctrl+Shift+P to show the inferred type of the expression
+ * at the caret position. Extracts type information from the LSP
+ * `textDocument/hover` response.
+ *
+ * @see RescriptLspServerDescriptor for LSP server configuration
+ */
+class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
+    override fun getInformationHint(element: PsiElement): String {
+        val file = element.containingFile ?: return NO_TYPE
+        val project = file.project
+        val virtualFile = file.virtualFile ?: return NO_TYPE
+
+        try {
+            @Suppress("UnstableApiUsage")
+            val servers =
+                LspServerManager
+                    .getInstance(project)
+                    .getServersForProvider(RescriptLspServerSupportProvider::class.java)
+
+            val server = servers.firstOrNull() ?: return NO_TYPE
+
+            val document = file.viewProvider.document ?: return NO_TYPE
+            val offset = element.textRange.startOffset
+            val lineNumber = document.getLineNumber(offset)
+            val column = offset - document.getLineStartOffset(lineNumber)
+
+            val uri =
+                virtualFile.url.let { url ->
+                    if (url.startsWith("file://")) url else "file://${virtualFile.path}"
+                }
+
+            val params =
+                HoverParams(
+                    TextDocumentIdentifier(uri),
+                    Position(lineNumber, column),
+                )
+
+            val hoverResult =
+                server.sendRequestSync { languageServer ->
+                    languageServer.textDocumentService.hover(params)
+                } ?: return NO_TYPE
+
+            val content = hoverResult.contents ?: return NO_TYPE
+
+            val typeText =
+                when {
+                    content.isLeft ->
+                        content.left
+                            .firstOrNull()
+                            ?.let { if (it.isLeft) it.left else it.right.value }
+                    content.isRight -> {
+                        val markdown = content.right.value
+                        extractTypeFromMarkdown(markdown)
+                    }
+                    else -> null
+                }
+
+            return typeText?.let { escapeHtml(it) } ?: NO_TYPE
+        } catch (_: Exception) {
+            return NO_TYPE
+        }
+    }
+
+    override fun getExpressionsAt(elementAt: PsiElement): List<PsiElement> {
+        if (elementAt.language != RescriptLanguage) return emptyList()
+        return listOf(elementAt)
+    }
+
+    override fun getErrorHint(): String = NO_TYPE
+
+    companion object {
+        private const val NO_TYPE = "No type information available"
+
+        /**
+         * Extracts type information from LSP hover markdown content.
+         *
+         * The hover response typically contains a code block with the type signature.
+         * This method extracts the text within the first code fence.
+         *
+         * @param markdown the raw markdown from LSP hover
+         * @return the extracted type text, or the raw content if no code fence found
+         */
+        internal fun extractTypeFromMarkdown(markdown: String): String {
+            // Try to extract from code fence
+            val codeFencePattern = Regex("```(?:rescript)?\\s*\\n(.+?)\\n```", RegexOption.DOT_MATCHES_ALL)
+            codeFencePattern.find(markdown)?.let { return it.groupValues[1].trim() }
+
+            // Try inline code
+            val inlineCodePattern = Regex("`(.+?)`")
+            inlineCodePattern.find(markdown)?.let { return it.groupValues[1].trim() }
+
+            return markdown.trim()
+        }
+
+        private fun escapeHtml(text: String): String =
+            text
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+    }
+}

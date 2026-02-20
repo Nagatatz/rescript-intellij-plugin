@@ -360,6 +360,10 @@
         <!-- Run Anything Provider (rescript build/clean/format) -->
         <runAnythingProvider
                 implementation="com.rescript.plugin.run.RescriptRunAnythingProvider"/>
+
+        <!-- Expression Type Info (Ctrl+Shift+P via LSP hover) -->
+        <codeInsight.expressionTypeProvider language="ReScript"
+                                             implementationClass="com.rescript.plugin.lsp.RescriptExpressionTypeProvider"/>
     </extensions>
 
     <actions>
