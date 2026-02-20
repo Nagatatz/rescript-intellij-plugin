@@ -352,6 +352,10 @@
         <!-- Goto Super (.res -> .resi declaration jump) -->
         <codeInsight.gotoSuper language="ReScript"
                                 implementationClass="com.rescript.plugin.navigation.RescriptGotoSuperHandler"/>
+
+        <!-- External Documentation (Shift+F1 for rescript-lang.org) -->
+        <lang.documentationProvider language="ReScript"
+                                     implementationClass="com.rescript.plugin.documentation.RescriptDocumentationProvider"/>
     </extensions>
 
     <actions>
