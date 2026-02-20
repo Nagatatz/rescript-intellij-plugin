@@ -38,6 +38,7 @@ src/main/
 │   │   ├── RescriptParser.kt            # 軽量パーサー (トップレベル宣言 + JSX)
 │   │   ├── RescriptParserDefinition.kt  # ParserDefinition
 │   │   ├── RescriptAstFactory.kt        # AST ファクトリ (文字列リテラルの言語インジェクション対応)
+│   │   ├── RescriptFindUsagesProvider.kt  # Find Usages + WordsScanner
 │   │   └── psi/
 │   │       ├── RescriptPsi.kt           # PSI 要素クラス
 │   │       ├── RescriptPsiUtils.kt      # PSI ユーティリティ (要素探索・判定)
@@ -87,7 +88,10 @@ src/main/
 │   │   ├── RescriptQuoteHandler.kt        # スマート引用符補完
 │   │   ├── RescriptEditorNotificationProvider.kt  # LSP 未検出時の案内バー
 │   │   ├── RescriptStatementUpDownMover.kt  # 宣言の上下移動 (Alt+Shift+Up/Down)
-│   │   └── RescriptSmartEnterProcessor.kt   # Smart Enter (Shift+Enter)
+│   │   ├── RescriptSmartEnterProcessor.kt   # Smart Enter (Shift+Enter)
+│   │   ├── RescriptDeclarationRangeHandler.kt  # Context Info (スクロール時の宣言ヘッダー固定)
+│   │   ├── RescriptUnwrapDescriptor.kt      # Unwrap/Remove (Ctrl+Shift+Delete)
+│   │   └── RescriptTypedHandler.kt          # JSX 閉じタグ自動挿入
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
@@ -96,11 +100,13 @@ src/main/
 │   │   ├── RescriptGotoRelatedProvider.kt      # Go to Related (.res/.resi/.js ジャンプ)
 │   │   ├── RescriptCreateInterfaceAction.kt    # .resi インターフェース生成
 │   │   ├── RescriptOpenCompiledJsAction.kt     # コンパイル済み JS を開く (Alt+Shift+J)
-│   │   └── RescriptQualifiedNameProvider.kt    # 完全修飾名コピー (Cmd+Shift+Alt+C)
+│   │   ├── RescriptQualifiedNameProvider.kt    # 完全修飾名コピー (Cmd+Shift+Alt+C)
+│   │   └── RescriptTestCreator.kt              # Go to Test / Create Test (Ctrl+Shift+T)
 │   ├── template/
 │   │   └── RescriptCreateFileAction.kt    # New > ReScript File アクション
 │   ├── spellcheck/
-│   │   └── RescriptSpellcheckingStrategy.kt  # スペルチェック対応
+│   │   ├── RescriptSpellcheckingStrategy.kt  # スペルチェック対応
+│   │   └── RescriptBundledDictionaryProvider.kt  # ReScript 用語バンドル辞書
 │   ├── completion/
 │   │   └── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log 等)
 │   ├── analysis/
@@ -116,7 +122,8 @@ src/main/
 │   │   ├── RescriptTestConsoleProperties.kt      # SMTRunner テストツリー
 │   │   ├── RescriptTestLocator.kt                # compiled JS → .res パス変換
 │   │   ├── RescriptTestRunConfigurationOptions.kt # テスト実行構成オプション永続化
-│   │   └── RescriptTestSettingsEditor.kt         # テスト設定 UI
+│   │   ├── RescriptTestSettingsEditor.kt         # テスト設定 UI
+│   │   └── RescriptTestSourcesFilter.kt          # テストファイル認識 (*_test.res, __tests__/)
 │   ├── preview/
 │   │   ├── RescriptCompiledJsPreviewToolWindowFactory.kt  # JS プレビューツールウィンドウ
 │   │   └── RescriptCompiledJsPreviewPanel.kt              # プレビューパネル
@@ -202,6 +209,8 @@ src/main/
 │   │   ├── DtsNodeDetector.kt           # Node.js / TypeScript パッケージ検出
 │   │   ├── DtsParserProcess.kt          # Node.js プロセス実行（dts-to-json.js 起動）
 │   │   └── DtsGenerateBindingAction.kt  # .d.ts バインディング生成アクション
+│   ├── projectview/
+│   │   └── RescriptTreeStructureProvider.kt  # Project View .resi ネスト表示
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
 │   └── Rescript.flex                    # JFlex レクサー定義 (ソース)
@@ -222,6 +231,8 @@ src/main/
     │   ├── ReScript Module.res.ft       # モジュールテンプレート
     │   ├── ReScript Interface.resi.ft   # インターフェーステンプレート
     │   └── ReScript Component.res.ft    # React コンポーネントテンプレート
+    ├── dictionaries/
+    │   └── rescript.dic                   # ReScript 用語スペルチェック辞書
     ├── scripts/
     │   └── dts-to-json.js               # バンドル Node.js パーサースクリプト
     ├── schemas/
@@ -269,6 +280,14 @@ src/main/
 - **パンくずリスト** (`breadcrumb/`) — エディタ上部のナビゲーション
 - **Generate アクション** (`generate/`) — Switch Arms / Module Type 生成
 - **.d.ts バインディング生成** (`binding/`) — TypeScript 型定義から ReScript バインディングを自動生成
+- **Unwrap/Remove** (`editor/`) — Some/Ok/Error/if/switch/try/ブレースの除去 (Ctrl+Shift+Delete)
+- **JSX 閉じタグ自動挿入** (`editor/`) — `>` 入力時に閉じタグを自動補完
+- **Context Info** (`editor/`) — スクロール時にトップレベル宣言のヘッダーを固定表示
+- **Go to Test** (`navigation/`) — 実装⇔テストファイル間のナビゲーション・新規テスト作成 (Ctrl+Shift+T)
+- **Find Usages** (`lang/`) — WordsScanner によるシンボルインデキシング + 使用箇所検索
+- **バンドル辞書** (`spellcheck/`) — ReScript 固有用語のスペルチェック辞書
+- **テストファイル認識** (`test/`) — `*_test.res`、`*.test.res`、`__tests__/` の自動認識
+- **Project View ネスト** (`projectview/`) — `.resi` を対応する `.res` の下にネスト表示
 
 ## 開発規約
 

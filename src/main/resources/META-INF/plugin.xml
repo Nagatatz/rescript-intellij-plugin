@@ -310,6 +310,38 @@
         <!-- Error Lens (inline diagnostic display) -->
         <editorFactoryListener
                 implementation="com.rescript.plugin.errorlens.RescriptErrorLensEditorListener"/>
+
+        <!-- Bundled dictionary for ReScript-specific terms -->
+        <spellchecker.bundledDictionaryProvider
+                implementation="com.rescript.plugin.spellcheck.RescriptBundledDictionaryProvider"/>
+
+        <!-- Test source filter (recognize *_test.res, __tests__/) -->
+        <testSourcesFilter
+                implementation="com.rescript.plugin.test.RescriptTestSourcesFilter"/>
+
+        <!-- Context Info (sticky declaration header on scroll) -->
+        <declarationRangeHandler key="com.rescript.plugin.lang.psi.RescriptElementType"
+                implementationClass="com.rescript.plugin.editor.RescriptDeclarationRangeHandler"/>
+
+        <!-- Find Usages provider -->
+        <lang.findUsagesProvider language="ReScript"
+                implementationClass="com.rescript.plugin.lang.RescriptFindUsagesProvider"/>
+
+        <!-- Unwrap/Remove (Ctrl+Shift+Delete) -->
+        <lang.unwrapDescriptor language="ReScript"
+                implementationClass="com.rescript.plugin.editor.RescriptUnwrapDescriptor"/>
+
+        <!-- JSX auto-close tag on '>' -->
+        <typedHandler
+                implementation="com.rescript.plugin.editor.RescriptTypedHandler"/>
+
+        <!-- Go to Test / Create Test (Ctrl+Shift+T) -->
+        <testCreator language="ReScript"
+                implementation="com.rescript.plugin.navigation.RescriptTestCreator"/>
+
+        <!-- Project View: nest .resi under .res -->
+        <treeStructureProvider
+                implementation="com.rescript.plugin.projectview.RescriptTreeStructureProvider"/>
     </extensions>
 
     <actions>

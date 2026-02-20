@@ -16,7 +16,7 @@
 - **Brace matching** — Automatic matching for `{}`, `[]`, `()`
 - **Smart quotes** — Automatic quote pair completion
 - **Line & block comments** — Toggle `//` and `/* */` comments
-- **Spell checking** — Integrated spell checker for comments and strings
+- **Spell checking** — Integrated spell checker for comments and strings with bundled ReScript dictionary
 - **Breadcrumb navigation** — Editor breadcrumbs showing current code context
 
 ### Code Intelligence (via LSP)
@@ -25,6 +25,7 @@
 - **Go to definition** — Navigate to symbol definitions
 - **Hover documentation** — Inline type information and docs on hover
 - **Find references** — Locate all usages of a symbol
+- **Find Usages** — Symbol indexing and usage search for ReScript identifiers
 - **Rename refactoring** — Safe project-wide renaming
 - **Diagnostics** — Real-time error and warning display
 - **Inlay hints** — Type annotations displayed inline
@@ -37,10 +38,12 @@
 - **Structure view** — Navigate module, function, and type declarations
 - **Switch .res/.resi** — Toggle between implementation and interface files (`Alt+O`)
 - **Go to Related** — Jump between `.res`, `.resi`, and compiled `.js` files
+- **Go to Test** — Navigate between implementation and test files, create test boilerplate (`Ctrl+Shift+T`)
 - **Open Compiled JavaScript** — View compiled JS output (`Alt+Shift+J`)
 - **Create Interface File** — Generate `.resi` from current `.res` file
 - **Module hierarchy** — Visualize module dependency tree
 - **Copy qualified name** — Copy fully-qualified module path (`Cmd+Shift+Alt+C`)
+- **Context Info** — Sticky declaration header when scrolling through long files
 
 ### Editing Assistance
 
@@ -48,6 +51,8 @@
 - **Postfix Completion** — `.switch`, `.pipe`, `.log` and more
 - **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block
+- **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
+- **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
 - **Generate actions** — Generate switch arms and module types (`Cmd+N`)
 - **Statement mover** — Move declarations up/down (`Alt+Shift+Up/Down`)
 - **Smart Enter** — Insert new line with correct indentation (`Shift+Enter`)
@@ -78,6 +83,7 @@
 - **LSP auto-install** — One-click installation of `@rescript/language-server` with auto-detected package manager
 - **Project Wizard** — Create new projects from 12 templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm Library, CLI Tool, Monorepo)
 - **Compiled JS preview** — Real-time preview of compiled JavaScript in a tool window
+- **Project View nesting** — `.resi` interface files nested under corresponding `.res` files
 - **rescript.json support** — Custom icon and JSON Schema for configuration files
 - **`%raw()` JS injection** — JavaScript syntax highlighting inside `%raw()` blocks
 - **Markdown code fence** — ReScript syntax highlighting in Markdown code blocks
