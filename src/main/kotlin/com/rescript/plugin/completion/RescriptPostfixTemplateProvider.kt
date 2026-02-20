@@ -20,6 +20,8 @@ import com.rescript.plugin.lang.RescriptTokenTypes
  * - `.ok` -> `Ok(expr)`
  * - `.error` -> `Error(expr)`
  * - `.ignore` -> `expr->ignore`
+ * - `.promise` -> `expr->Promise.then(result => { ... })`
+ * - `.await` -> `await expr`
  */
 class RescriptPostfixTemplateProvider : PostfixTemplateProvider {
     private val templates: Set<PostfixTemplate> =
@@ -31,6 +33,8 @@ class RescriptPostfixTemplateProvider : PostfixTemplateProvider {
             OkPostfixTemplate(this),
             ErrorPostfixTemplate(this),
             IgnorePostfixTemplate(this),
+            PromisePostfixTemplate(this),
+            AwaitPostfixTemplate(this),
         )
 
     override fun getTemplates(): Set<PostfixTemplate> = templates
@@ -203,6 +207,52 @@ private class IgnorePostfixTemplate(
                     .TextRange(context.textRange.startOffset, dotOffset),
             )
         val replacement = "$exprText->ignore"
+        document.replaceString(context.textRange.startOffset, endOffset, replacement)
+        editor.caretModel.moveToOffset(context.textRange.startOffset + replacement.length)
+    }
+}
+
+/** Postfix template: `expr.promise` -> `expr->Promise.then(result => { ... })`. */
+private class PromisePostfixTemplate(
+    provider: PostfixTemplateProvider,
+) : RescriptPostfixTemplateBase("promise", "expr->Promise.then(result => { ... })", provider) {
+    override fun expand(
+        context: PsiElement,
+        editor: Editor,
+    ) {
+        val document = editor.document
+        val endOffset = context.textRange.endOffset
+        val dotOffset = findDotBefore(document, endOffset) ?: return
+        val exprText =
+            document.getText(
+                com.intellij.openapi.util
+                    .TextRange(context.textRange.startOffset, dotOffset),
+            )
+        val replacement = "$exprText->Promise.then(result => {\n  \n})"
+        document.replaceString(context.textRange.startOffset, endOffset, replacement)
+        // Place caret inside the callback body
+        val caretPos = context.textRange.startOffset + exprText.length + "->Promise.then(result => {\n  ".length
+        editor.caretModel.moveToOffset(caretPos)
+    }
+}
+
+/** Postfix template: `expr.await` -> `await expr`. */
+private class AwaitPostfixTemplate(
+    provider: PostfixTemplateProvider,
+) : RescriptPostfixTemplateBase("await", "await expr", provider) {
+    override fun expand(
+        context: PsiElement,
+        editor: Editor,
+    ) {
+        val document = editor.document
+        val endOffset = context.textRange.endOffset
+        val dotOffset = findDotBefore(document, endOffset) ?: return
+        val exprText =
+            document.getText(
+                com.intellij.openapi.util
+                    .TextRange(context.textRange.startOffset, dotOffset),
+            )
+        val replacement = "await $exprText"
         document.replaceString(context.textRange.startOffset, endOffset, replacement)
         editor.caretModel.moveToOffset(context.textRange.startOffset + replacement.length)
     }
