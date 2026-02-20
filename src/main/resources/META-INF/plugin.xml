@@ -382,6 +382,10 @@
         <!-- VCS Code Vision (author/last-change annotations on declarations) -->
         <vcs.codeVisionLanguageContext language="ReScript"
                 implementationClass="com.rescript.plugin.codevision.RescriptVcsCodeVisionContext"/>
+
+        <!-- Project View: "has interface" suffix and rescript.json version -->
+        <projectViewNodeDecorator
+                implementation="com.rescript.plugin.projectview.RescriptProjectViewNodeDecorator"/>
     </extensions>
 
     <actions>
