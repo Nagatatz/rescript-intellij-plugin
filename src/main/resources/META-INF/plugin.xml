@@ -314,6 +314,10 @@
         <!-- Completion Confidence (suppress auto-popup in comments/strings) -->
         <completion.confidence language="ReScript"
                                implementationClass="com.rescript.plugin.completion.RescriptCompletionConfidence"/>
+
+        <!-- Live Template Context -->
+        <liveTemplateContext
+                implementation="com.rescript.plugin.completion.RescriptTemplateContextType"/>
     </extensions>
 
     <actions>
