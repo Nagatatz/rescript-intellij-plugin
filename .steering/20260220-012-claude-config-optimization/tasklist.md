@@ -21,4 +21,4 @@
 
 - [x] 分離されたルールファイルの内容が元の CLAUDE.md と一致することを確認
 - [x] tasklist.md を更新してコミット
-- [ ] main にマージして worktree を削除
+- [x] main にマージして worktree を削除
