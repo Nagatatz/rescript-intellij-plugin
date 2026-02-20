@@ -471,6 +471,14 @@ flowchart TD
 | `com.intellij.configurationType` | `RescriptDebugConfigurationType` | デバッグ実行構成 | 実装済み |
 | `<action>` | `RescriptDebugCompiledJsAction` | Debug Compiled JS アクション | 実装済み |
 | `<action>` | `DtsGenerateBindingAction` | .d.ts → ReScript バインディング生成 | 実装済み |
+| `com.intellij.spellchecker.bundledDictionaryProvider` | `RescriptBundledDictionaryProvider` | ReScript 用語バンドル辞書 | 実装済み |
+| `com.intellij.testSourcesFilter` | `RescriptTestSourcesFilter` | テストファイル認識 (*_test.res, __tests__/) | 実装済み |
+| `com.intellij.declarationRangeHandler` | `RescriptDeclarationRangeHandler` | Context Info（宣言ヘッダー固定表示） | 実装済み |
+| `com.intellij.lang.findUsagesProvider` | `RescriptFindUsagesProvider` | Find Usages + WordsScanner | 実装済み |
+| `com.intellij.lang.unwrapDescriptor` | `RescriptUnwrapDescriptor` | Unwrap/Remove (Ctrl+Shift+Delete) | 実装済み |
+| `com.intellij.typedHandler` | `RescriptTypedHandler` | JSX 閉じタグ自動挿入 | 実装済み |
+| `com.intellij.testCreator` | `RescriptTestCreator` | Go to Test / Create Test (Ctrl+Shift+T) | 実装済み |
+| `com.intellij.treeStructureProvider` | `RescriptTreeStructureProvider` | Project View .resi ネスト表示 | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
@@ -581,6 +589,14 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | Error Lens | Error Lens 拡張 (サードパーティ) | `RescriptErrorLensManager` | 同等（VS Code では別拡張が必要） |
 | デバッグ統合 | VS Code Node.js Debugger | `RescriptDebugRunConfiguration` | コンパイル済み JS のデバッグ（Ultimate/WebStorm） |
 | 未使用 open 自動削除 | — | `RescriptImportOptimizer` + `RescriptUnusedOpenDetector` | 本プラグイン独自（LSP 診断活用） |
+| Unwrap/Remove | — | `RescriptUnwrapDescriptor` | 本プラグイン独自 (Ctrl+Shift+Delete) |
+| JSX 閉じタグ自動挿入 | VS Code 標準 auto-closing tags | `RescriptTypedHandler` | 同等 |
+| Go to Test / Create Test | — | `RescriptTestCreator` | 本プラグイン独自 (Ctrl+Shift+T) |
+| Find Usages | — | `RescriptFindUsagesProvider` | 本プラグイン独自（WordsScanner 統合） |
+| Context Info | VS Code sticky scroll | `RescriptDeclarationRangeHandler` | 同等 |
+| Project View ネスト | VS Code file nesting | `RescriptTreeStructureProvider` | 同等（.resi を .res 下にネスト） |
+| テストファイル認識 | — | `RescriptTestSourcesFilter` | 本プラグイン独自 |
+| バンドル辞書 | — | `RescriptBundledDictionaryProvider` | 本プラグイン独自 |
 
 ### 未実装機能（rescript-vscode にあり、本プラグインに未実装）
 
