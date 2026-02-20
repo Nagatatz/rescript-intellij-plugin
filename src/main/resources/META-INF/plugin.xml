@@ -394,6 +394,10 @@
         <!-- Index of open statements for fast module lookup -->
         <fileBasedIndex
                 implementation="com.rescript.plugin.indexing.RescriptOpenStatementIndex"/>
+
+        <!-- HTML to ReScript JSX conversion on paste -->
+        <copyPastePostProcessor
+                implementation="com.rescript.plugin.paste.RescriptPasteAsJsxProcessor"/>
     </extensions>
 
     <actions>
