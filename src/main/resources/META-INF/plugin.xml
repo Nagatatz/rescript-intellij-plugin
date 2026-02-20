@@ -356,6 +356,10 @@
         <!-- External Documentation (Shift+F1 for rescript-lang.org) -->
         <lang.documentationProvider language="ReScript"
                                      implementationClass="com.rescript.plugin.documentation.RescriptDocumentationProvider"/>
+
+        <!-- Run Anything Provider (rescript build/clean/format) -->
+        <runAnythingProvider
+                implementation="com.rescript.plugin.run.RescriptRunAnythingProvider"/>
     </extensions>
 
     <actions>
