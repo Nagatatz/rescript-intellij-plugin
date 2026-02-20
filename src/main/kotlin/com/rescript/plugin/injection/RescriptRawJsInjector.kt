@@ -10,8 +10,9 @@ import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptStringLiteral
 
 /**
- * Injects JavaScript language into `%raw("...")` and `%%raw(`...`)` blocks
- * in ReScript files, enabling JS syntax highlighting within raw FFI expressions.
+ * Injects JavaScript language into `%raw("...")`, `%%raw(`...`)`,
+ * `%ffi("...")`, and `%%ffi(`...`)` blocks in ReScript files,
+ * enabling JS syntax highlighting within raw and FFI expressions.
  */
 class RescriptRawJsInjector : MultiHostInjector {
     override fun elementsToInjectIn(): List<Class<out PsiElement>> = listOf(RescriptStringLiteral::class.java)
@@ -37,8 +38,9 @@ class RescriptRawJsInjector : MultiHostInjector {
             ?: Language.findLanguageByID("ECMAScript 6")
 
     /**
-     * Checks if the given element is a string literal inside a `%raw()` or `%%raw()` block
-     * by walking backwards through PSI siblings to find the PERCENT -> RAW -> LPAREN pattern.
+     * Checks if the given element is a string literal inside a `%raw()`, `%%raw()`,
+     * `%ffi()`, or `%%ffi()` block by walking backwards through PSI siblings to find
+     * the PERCENT -> (RAW|FFI) -> LPAREN pattern.
      */
     private fun isInsideRawBlock(element: PsiElement): Boolean {
         var current = element.prevSibling
@@ -55,8 +57,10 @@ class RescriptRawJsInjector : MultiHostInjector {
         if (current == null || current.node.elementType != RescriptTokenTypes.LPAREN) return false
         current = skipWhitespace(current.prevSibling)
 
-        // Expect RAW
-        if (current == null || current.node.elementType != RescriptTokenTypes.RAW) return false
+        // Expect RAW or FFI
+        if (current == null) return false
+        val keywordType = current.node.elementType
+        if (keywordType != RescriptTokenTypes.RAW && keywordType != RescriptTokenTypes.FFI) return false
         current = skipWhitespace(current.prevSibling)
 
         // Expect at least one PERCENT
