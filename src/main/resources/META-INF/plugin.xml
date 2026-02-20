@@ -386,6 +386,10 @@
         <!-- Project View: "has interface" suffix and rescript.json version -->
         <projectViewNodeDecorator
                 implementation="com.rescript.plugin.projectview.RescriptProjectViewNodeDecorator"/>
+
+        <!-- String escape on paste into string literals -->
+        <copyPastePreProcessor
+                implementation="com.rescript.plugin.editor.RescriptCopyPastePreProcessor"/>
     </extensions>
 
     <actions>
