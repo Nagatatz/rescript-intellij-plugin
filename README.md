@@ -4,6 +4,8 @@
 
 [ReScript](https://rescript-lang.org) language support for IntelliJ IDEA and other JetBrains IDEs.
 
+**[Documentation](https://nagatatz.github.io/rescript-intellij-plugin/)**
+
 ## Features
 
 - **Syntax highlighting** — Full lexer-based highlighting for ReScript (.res) and interface (.resi) files
