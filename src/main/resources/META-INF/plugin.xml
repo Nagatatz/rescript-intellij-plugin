@@ -370,6 +370,10 @@
         <!-- Inspection suppression via // noinspection comments -->
         <lang.inspectionSuppressor language="ReScript"
                 implementationClass="com.rescript.plugin.inspection.RescriptInspectionSuppressor"/>
+
+        <!-- Backspace handler (JSX tag pair deletion) -->
+        <backspaceHandlerDelegate
+                implementation="com.rescript.plugin.editor.RescriptBackspaceHandler"/>
     </extensions>
 
     <actions>
