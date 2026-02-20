@@ -418,6 +418,10 @@
         <!-- Code block boundary detection (Ctrl+Shift+[ / ]) -->
         <codeBlockProvider language="ReScript"
                 implementationClass="com.rescript.plugin.editor.RescriptCodeBlockHandler"/>
+
+        <!-- Split/Join List (1-line ↔ multi-line) -->
+        <listSplitJoinContext
+                implementation="com.rescript.plugin.editor.RescriptListSplitJoinContext"/>
     </extensions>
 
     <actions>
