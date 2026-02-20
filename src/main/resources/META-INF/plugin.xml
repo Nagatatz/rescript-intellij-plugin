@@ -378,6 +378,10 @@
         <!-- Color preview swatches in editor gutter -->
         <colorProvider
                 implementation="com.rescript.plugin.editor.RescriptColorProvider"/>
+
+        <!-- VCS Code Vision (author/last-change annotations on declarations) -->
+        <vcs.codeVisionLanguageContext language="ReScript"
+                implementationClass="com.rescript.plugin.codevision.RescriptVcsCodeVisionContext"/>
     </extensions>
 
     <actions>
