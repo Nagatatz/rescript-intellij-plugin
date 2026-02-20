@@ -414,6 +414,10 @@
         <!-- Usage type classification for Find Usages grouping -->
         <usageTypeProvider
                 implementation="com.rescript.plugin.lang.RescriptUsageTypeProvider"/>
+
+        <!-- Code block boundary detection (Ctrl+Shift+[ / ]) -->
+        <codeBlockProvider language="ReScript"
+                implementationClass="com.rescript.plugin.editor.RescriptCodeBlockHandler"/>
     </extensions>
 
     <actions>
