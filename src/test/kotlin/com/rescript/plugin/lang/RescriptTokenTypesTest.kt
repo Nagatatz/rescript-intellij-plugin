@@ -38,6 +38,7 @@ class RescriptTokenTypesTest {
                 RescriptTokenTypes.LAZY,
                 RescriptTokenTypes.LET,
                 RescriptTokenTypes.LIST,
+                RescriptTokenTypes.DICT,
                 RescriptTokenTypes.MODULE,
                 RescriptTokenTypes.MUTABLE,
                 RescriptTokenTypes.NEW,
@@ -49,6 +50,7 @@ class RescriptTokenTypesTest {
                 RescriptTokenTypes.PUB,
                 RescriptTokenTypes.PRI,
                 RescriptTokenTypes.RAW,
+                RescriptTokenTypes.FFI,
                 RescriptTokenTypes.REC,
                 RescriptTokenTypes.SIG,
                 RescriptTokenTypes.STRUCT,
@@ -83,7 +85,7 @@ class RescriptTokenTypesTest {
 
     @Test
     fun testKeywordsCount() {
-        assertEquals(60, RescriptTokenTypes.KEYWORDS.types.size)
+        assertEquals(62, RescriptTokenTypes.KEYWORDS.types.size)
     }
 
     @Test
