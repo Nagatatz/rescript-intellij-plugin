@@ -354,6 +354,10 @@
         <!-- Predefined code style ("ReScript Standard" preset) -->
         <predefinedCodeStyle
                 implementation="com.rescript.plugin.codestyle.RescriptPredefinedCodeStyle"/>
+
+        <!-- Element descriptions for refactoring dialogs and Find Usages -->
+        <elementDescriptionProvider
+                implementation="com.rescript.plugin.lang.RescriptElementDescriptionProvider"/>
     </extensions>
 
     <actions>
