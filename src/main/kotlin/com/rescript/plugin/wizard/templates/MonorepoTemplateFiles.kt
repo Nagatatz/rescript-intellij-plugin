@@ -84,10 +84,10 @@ internal object MonorepoTemplateFiles {
                             "@rescript/core" to "^1.0.0",
                             "@rescript/react" to "^0.14.0",
                             "@$projectName/shared" to "*",
-                            "react" to "^19.0.0",
-                            "react-dom" to "^19.0.0",
+                            "react" to "^19.0.4",
+                            "react-dom" to "^19.0.4",
                         ),
-                    devDependencies = linkedMapOf("@vitejs/plugin-react" to "^4.0.0", "vite" to "^6.0.0"),
+                    devDependencies = linkedMapOf("@vitejs/plugin-react" to "^5.0.0", "vite" to "^7.0.0"),
                     scripts =
                         linkedMapOf(
                             "dev" to "vite",
