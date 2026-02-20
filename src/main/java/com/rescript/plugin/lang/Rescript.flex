@@ -116,6 +116,7 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "lazy"        { return RescriptTokenTypes.LAZY; }
     "let"         { yybegin(IN_LOWER_DECLARATION); return RescriptTokenTypes.LET; }
     "list"        { return RescriptTokenTypes.LIST; }
+    "dict"        { return RescriptTokenTypes.DICT; }
     "module"      { return RescriptTokenTypes.MODULE; }
     "mutable"     { return RescriptTokenTypes.MUTABLE; }
     "new"         { return RescriptTokenTypes.NEW; }
@@ -127,6 +128,7 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "pub"         { return RescriptTokenTypes.PUB; }
     "pri"         { return RescriptTokenTypes.PRI; }
     "raw"         { return RescriptTokenTypes.RAW; }
+    "ffi"         { return RescriptTokenTypes.FFI; }
     "rec"         { return RescriptTokenTypes.REC; }
     "sig"         { return RescriptTokenTypes.SIG; }
     "struct"      { return RescriptTokenTypes.STRUCT; }

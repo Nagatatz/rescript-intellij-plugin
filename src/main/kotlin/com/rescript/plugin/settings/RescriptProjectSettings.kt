@@ -23,9 +23,14 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var lspServerPath: String = ""
         var nodePath: String = ""
         var incrementalTypecheckingEnabled: Boolean = true
+        var incrementalTypecheckingAcrossFiles: Boolean = false
         var errorLensEnabled: Boolean = true
         var errorLensMinSeverity: String = "WARNING"
         var removeUnusedOpensEnabled: Boolean = true
+        var rescriptBinaryPath: String = ""
+        var platformPath: String = ""
+        var runtimePath: String = ""
+        var logLevel: String = "info"
     }
 
     override fun getState(): State = state
@@ -68,6 +73,36 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.removeUnusedOpensEnabled
         set(value) {
             state.removeUnusedOpensEnabled = value
+        }
+
+    var incrementalTypecheckingAcrossFiles: Boolean
+        get() = state.incrementalTypecheckingAcrossFiles
+        set(value) {
+            state.incrementalTypecheckingAcrossFiles = value
+        }
+
+    var rescriptBinaryPath: String
+        get() = state.rescriptBinaryPath
+        set(value) {
+            state.rescriptBinaryPath = value
+        }
+
+    var platformPath: String
+        get() = state.platformPath
+        set(value) {
+            state.platformPath = value
+        }
+
+    var runtimePath: String
+        get() = state.runtimePath
+        set(value) {
+            state.runtimePath = value
+        }
+
+    var logLevel: String
+        get() = state.logLevel
+        set(value) {
+            state.logLevel = value
         }
 
     companion object {

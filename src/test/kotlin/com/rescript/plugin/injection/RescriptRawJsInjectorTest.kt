@@ -126,6 +126,50 @@ class RescriptRawJsInjectorTest {
         assertFalse(callIsInsideRawBlock(stringEl))
     }
 
+    // ── FFI pattern tests ─────────────────────────────────────────────
+
+    @Test
+    fun `isInsideRawBlock returns true for percent-ffi-lparen pattern`() {
+        val percent = stubElement(RescriptTokenTypes.PERCENT)
+        val ffi = stubElement(RescriptTokenTypes.FFI, prevSibling = percent)
+        val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = ffi)
+        val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
+
+        assertTrue(callIsInsideRawBlock(stringEl))
+    }
+
+    @Test
+    fun `isInsideRawBlock returns true for double-percent-ffi pattern`() {
+        val percent = stubElement(RescriptTokenTypes.PERCENT)
+        val percent2 = stubElement(RescriptTokenTypes.PERCENT, prevSibling = percent)
+        val ffi = stubElement(RescriptTokenTypes.FFI, prevSibling = percent2)
+        val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = ffi)
+        val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
+
+        assertTrue(callIsInsideRawBlock(stringEl))
+    }
+
+    @Test
+    fun `isInsideRawBlock returns true for ffi with JS_STRING_OPEN`() {
+        val percent = stubElement(RescriptTokenTypes.PERCENT)
+        val percent2 = stubElement(RescriptTokenTypes.PERCENT, prevSibling = percent)
+        val ffi = stubElement(RescriptTokenTypes.FFI, prevSibling = percent2)
+        val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = ffi)
+        val jsOpen = stubElement(RescriptTokenTypes.JS_STRING_OPEN, prevSibling = lparen)
+        val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = jsOpen)
+
+        assertTrue(callIsInsideRawBlock(stringEl))
+    }
+
+    @Test
+    fun `isInsideRawBlock returns false for ffi without PERCENT`() {
+        val ffi = stubElement(RescriptTokenTypes.FFI)
+        val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = ffi)
+        val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
+
+        assertFalse(callIsInsideRawBlock(stringEl))
+    }
+
     // ── elementsToInjectIn test ───────────────────────────────────────
 
     @Test

@@ -9,8 +9,8 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonNotification
  * Custom LSP client that handles ReScript-specific notifications
  * from the language server.
  *
- * Receives `rescript/compilationStatus` notifications and updates
- * [RescriptCompilationStatusService] accordingly.
+ * Receives `rescript/compilationStatus` and `rescript/compilationFinished`
+ * notifications and updates [RescriptCompilationStatusService] accordingly.
  */
 class RescriptLsp4jClient(
     handler: LspServerNotificationsHandler,
@@ -30,11 +30,24 @@ class RescriptLsp4jClient(
         )
     }
 
+    @Suppress("unused") // Called by LSP4J via @JsonNotification reflection
+    @JsonNotification("rescript/compilationFinished")
+    fun compilationFinished(params: CompilationFinishedParams) {
+        if (project.isDisposed) return
+        val service = RescriptCompilationStatusService.getInstance(project)
+        service.notifyCompilationFinished(params)
+    }
+
     data class CompilationStatusParams(
         val project: String = "",
         val projectRootPath: String = "",
         val status: String = "unknown",
         val errorCount: Int = 0,
         val warningCount: Int = 0,
+    )
+
+    data class CompilationFinishedParams(
+        val project: String = "",
+        val projectRootPath: String = "",
     )
 }
