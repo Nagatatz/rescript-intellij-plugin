@@ -310,6 +310,10 @@
         <!-- Error Lens (inline diagnostic display) -->
         <editorFactoryListener
                 implementation="com.rescript.plugin.errorlens.RescriptErrorLensEditorListener"/>
+
+        <!-- Completion Confidence (suppress auto-popup in comments/strings) -->
+        <completion.confidence language="ReScript"
+                               implementationClass="com.rescript.plugin.completion.RescriptCompletionConfidence"/>
     </extensions>
 
     <actions>
