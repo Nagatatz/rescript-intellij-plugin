@@ -244,12 +244,13 @@ src/main/
 - レクサーにトークンを追加する場合は `Rescript.flex` と `RescriptTokenTypes.kt` の両方を更新する
 - テストは `src/test/` に配置する
 
-詳細な規約は `.claude/rules/` を参照:
-- `.claude/rules/testing.md` — テスト規約
-- `.claude/rules/code-comments.md` — コードコメント規約（KDoc）
-- `.claude/rules/git-conventions.md` — Git コミット規約・ブランチ運用
-- `.claude/rules/steering-workflow.md` — ステアリングワークフロー・git worktree 運用
-- `.claude/rules/documentation.md` — ドキュメント管理・開発プロセス
+詳細な規約:
+
+@.claude/rules/testing.md
+@.claude/rules/code-comments.md
+@.claude/rules/git-conventions.md
+@.claude/rules/steering-workflow.md
+@.claude/rules/documentation.md
 
 ## 重要な注意事項
 
