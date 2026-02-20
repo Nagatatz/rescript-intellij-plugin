@@ -1,6 +1,7 @@
 ---
 description: Git操作を自動化する（ブランチ作成・絵文字付きコミット・PR作成・状態確認）
-allowed-tools: Bash, Read, Glob, Grep
+allowed-tools: Read, Glob, Grep, Bash
+disable-model-invocation: true
 ---
 
 # Git ワークフロー
