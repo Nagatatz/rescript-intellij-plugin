@@ -318,6 +318,12 @@
         <!-- Live Template Context -->
         <liveTemplateContext
                 implementation="com.rescript.plugin.completion.RescriptTemplateContextType"/>
+
+        <!-- Live Template Macros -->
+        <liveTemplateMacro
+                implementation="com.rescript.plugin.completion.RescriptModuleNameMacro"/>
+        <liveTemplateMacro
+                implementation="com.rescript.plugin.completion.RescriptComponentNameMacro"/>
     </extensions>
 
     <actions>
