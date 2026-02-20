@@ -324,6 +324,10 @@
                 implementation="com.rescript.plugin.completion.RescriptModuleNameMacro"/>
         <liveTemplateMacro
                 implementation="com.rescript.plugin.completion.RescriptComponentNameMacro"/>
+
+        <!-- Problem Highlight Filter (suppress diagnostics in node_modules/lib) -->
+        <problemHighlightFilter
+                implementation="com.rescript.plugin.analysis.RescriptProblemHighlightFilter"/>
     </extensions>
 
     <actions>
