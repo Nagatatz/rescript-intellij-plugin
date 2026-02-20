@@ -358,6 +358,10 @@
         <!-- Element descriptions for refactoring dialogs and Find Usages -->
         <elementDescriptionProvider
                 implementation="com.rescript.plugin.lang.RescriptElementDescriptionProvider"/>
+
+        <!-- Reader mode for node_modules .res/.resi files -->
+        <readerModeMatcher
+                implementation="com.rescript.plugin.editor.RescriptReaderModeMatcher"/>
     </extensions>
 
     <actions>
