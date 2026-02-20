@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.rescript.plugin</id>
     <name>ReScript</name>
-    <vendor url="https://github.com/rescript-intellij-plugin">ReScript IntelliJ Plugin</vendor>
+    <vendor url="https://github.com/ngtz/rescript-intellij-plugin">Nagatatz</vendor>
 
     <description><![CDATA[
         <h2>ReScript Language Support for IntelliJ IDEA</h2>
