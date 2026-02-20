@@ -248,6 +248,12 @@
             <className>com.rescript.plugin.intention.RescriptAddGenTypeIntention</className>
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptGenerateDocCommentIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
 
         <!-- Surround With -->
         <lang.surroundDescriptor language="ReScript"
