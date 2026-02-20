@@ -406,6 +406,10 @@
         <!-- Auto Import options in Settings > Editor > General > Auto Import -->
         <autoImportOptionsProvider
                 instance="com.rescript.plugin.imports.RescriptAutoImportOptionsProvider"/>
+
+        <!-- Move Element Left/Right (Alt+Shift+Cmd+Left/Right) -->
+        <moveLeftRightHandler language="ReScript"
+                implementationClass="com.rescript.plugin.editor.RescriptMoveElementHandler"/>
     </extensions>
 
     <actions>
