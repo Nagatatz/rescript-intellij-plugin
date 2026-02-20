@@ -11,7 +11,7 @@
 - [x] `AwsLambdaTemplateFiles.kt` のバージョン更新 (esbuild)
 - [x] `MonorepoTemplateFiles.kt` のバージョン更新 (react, react-dom, vite, @vitejs/plugin-react)
 - [x] `TemplateDependencyVersionsTest.kt` テスト作成
-- [ ] `./gradlew buildPlugin` でビルド成功を確認
-- [ ] テスト実行・成功を確認
-- [ ] コミット (`🐛 Fix vulnerable dependency versions in project templates`)
-- [ ] `main` にマージ・ブランチ削除
+- [x] `./gradlew buildPlugin` でビルド成功を確認
+- [x] テスト実行・成功を確認
+- [x] コミット (`🐛 Fix vulnerable dependency versions in project templates`)
+- [x] `main` にマージ・ブランチ削除
