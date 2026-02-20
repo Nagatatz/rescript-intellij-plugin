@@ -344,6 +344,10 @@
                 implementation="com.rescript.plugin.editor.RescriptBracketSelectionHandler"/>
         <extendWordSelectionHandler
                 implementation="com.rescript.plugin.editor.RescriptCommentSelectionHandler"/>
+
+        <!-- Highlight Usages (keyword-based: switch/if/try/pipe) -->
+        <highlightUsagesHandlerFactory
+                implementation="com.rescript.plugin.highlight.RescriptHighlightUsagesHandlerFactory"/>
     </extensions>
 
     <actions>
