@@ -85,6 +85,7 @@
 - **Code style settings** — Indentation configuration for ReScript files
 - **TODO indexing** — Track TODO/FIXME comments in ReScript files
 - **Editor notification** — Guidance banner when LSP server is not detected
+- **File nesting** — Compiled `.res.js` files nested under `.res` in Project view with subdued gray color
 
 ## Requirements
 

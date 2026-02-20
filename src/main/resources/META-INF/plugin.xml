@@ -310,6 +310,14 @@
         <!-- Error Lens (inline diagnostic display) -->
         <editorFactoryListener
                 implementation="com.rescript.plugin.errorlens.RescriptErrorLensEditorListener"/>
+
+        <!-- Project View: nest .res.js under .res -->
+        <projectViewNestingRulesProvider
+                implementation="com.rescript.plugin.projectview.RescriptFileNestingProvider"/>
+
+        <!-- Project View: gray out compiled .res.js files -->
+        <projectViewNodeDecorator
+                implementation="com.rescript.plugin.projectview.RescriptCompiledJsNodeDecorator"/>
     </extensions>
 
     <actions>

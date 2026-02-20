@@ -117,6 +117,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Project Wizard | New Project ダイアログから 12 種類のプロジェクトテンプレート選択・作成（Basic, Vite+React, Next.js, Electron, Hono, CF Workers, Lambda, Cloud Run, React Native, npm Library, CLI Tool, Monorepo） | `RescriptModuleBuilder` + `RescriptProjectWizardStep` + `ProjectTemplate` + `ProjectFileBuilders` + `templates/*` |
 | Code Generation | variant switch arms / module type スケルトン自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` |
 | .d.ts → ReScript Binding 生成 | TypeScript `.d.ts` 定義ファイルから ReScript `external` バインディングコードを自動生成 | `DtsGenerateBindingAction` + `DtsToRescriptConverter` |
+| Project View ファイルネスト | コンパイル済み `.res.js` を `.res` の子としてネスト表示し、灰色で表示 | `RescriptFileNestingProvider` + `RescriptCompiledJsNodeDecorator` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
