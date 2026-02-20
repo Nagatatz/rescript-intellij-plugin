@@ -366,6 +366,10 @@
         <!-- Lookup character filter for completion behavior -->
         <lookup.charFilter
                 implementation="com.rescript.plugin.completion.RescriptLookupCharFilter"/>
+
+        <!-- Inspection suppression via // noinspection comments -->
+        <lang.inspectionSuppressor language="ReScript"
+                implementationClass="com.rescript.plugin.inspection.RescriptInspectionSuppressor"/>
     </extensions>
 
     <actions>
