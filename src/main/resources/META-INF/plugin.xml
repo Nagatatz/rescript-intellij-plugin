@@ -402,6 +402,10 @@
         <!-- Package Dependencies Tool Window (rescript.json) -->
         <toolWindow id="ReScript Dependencies" anchor="right" icon="AllIcons.Nodes.PpLib"
                 factoryClass="com.rescript.plugin.dependencies.RescriptDependenciesToolWindowFactory"/>
+
+        <!-- Auto Import options in Settings > Editor > General > Auto Import -->
+        <autoImportOptionsProvider
+                instance="com.rescript.plugin.imports.RescriptAutoImportOptionsProvider"/>
     </extensions>
 
     <actions>

@@ -31,6 +31,9 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var platformPath: String = ""
         var runtimePath: String = ""
         var logLevel: String = "info"
+        var autoOptimizeImports: Boolean = false
+        var autoAddOpenStatements: Boolean = true
+        var excludedModules: String = ""
     }
 
     override fun getState(): State = state
@@ -103,6 +106,24 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.logLevel
         set(value) {
             state.logLevel = value
+        }
+
+    var autoOptimizeImports: Boolean
+        get() = state.autoOptimizeImports
+        set(value) {
+            state.autoOptimizeImports = value
+        }
+
+    var autoAddOpenStatements: Boolean
+        get() = state.autoAddOpenStatements
+        set(value) {
+            state.autoAddOpenStatements = value
+        }
+
+    var excludedModules: String
+        get() = state.excludedModules
+        set(value) {
+            state.excludedModules = value
         }
 
     companion object {
