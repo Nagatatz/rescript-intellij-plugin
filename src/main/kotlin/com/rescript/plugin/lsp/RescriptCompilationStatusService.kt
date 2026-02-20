@@ -8,7 +8,8 @@ import com.intellij.openapi.util.Disposer
 
 /**
  * Project-level service that holds the current ReScript compilation status
- * received from the LSP server via `rescript/compilationStatus` notifications.
+ * received from the LSP server via `rescript/compilationStatus` and
+ * `rescript/compilationFinished` notifications.
  */
 @Service(Service.Level.PROJECT)
 class RescriptCompilationStatusService(
@@ -20,6 +21,7 @@ class RescriptCompilationStatusService(
         private set
 
     private val listeners = mutableListOf<CompilationStatusListener>()
+    private val finishedListeners = mutableListOf<CompilationFinishedListener>()
 
     /**
      * Updates the current compilation status and notifies all registered listeners.
@@ -29,6 +31,15 @@ class RescriptCompilationStatusService(
     fun updateStatus(status: CompilationStatus) {
         currentStatus = status
         listeners.forEach { it.statusChanged(status) }
+    }
+
+    /**
+     * Notifies all registered finished listeners that compilation has completed.
+     *
+     * @param params the compilation finished parameters from the LSP server
+     */
+    fun notifyCompilationFinished(params: RescriptLsp4jClient.CompilationFinishedParams) {
+        finishedListeners.forEach { it.compilationFinished(params) }
     }
 
     /**
@@ -45,8 +56,26 @@ class RescriptCompilationStatusService(
         Disposer.register(disposable) { listeners.remove(listener) }
     }
 
+    /**
+     * Registers a listener that is notified when compilation finishes.
+     *
+     * @param disposable the parent disposable; the listener is removed when disposed
+     * @param listener the callback to invoke when compilation finishes
+     */
+    fun addFinishedListener(
+        disposable: Disposable,
+        listener: CompilationFinishedListener,
+    ) {
+        finishedListeners.add(listener)
+        Disposer.register(disposable) { finishedListeners.remove(listener) }
+    }
+
     fun interface CompilationStatusListener {
         fun statusChanged(status: CompilationStatus)
+    }
+
+    fun interface CompilationFinishedListener {
+        fun compilationFinished(params: RescriptLsp4jClient.CompilationFinishedParams)
     }
 
     data class CompilationStatus(
