@@ -336,6 +336,14 @@
         <!-- Join Lines (smart line joining) -->
         <joinLinesHandler
                 implementation="com.rescript.plugin.editor.RescriptJoinLinesHandler"/>
+
+        <!-- Extend/Shrink Word Selection -->
+        <extendWordSelectionHandler
+                implementation="com.rescript.plugin.editor.RescriptStringSelectionHandler"/>
+        <extendWordSelectionHandler
+                implementation="com.rescript.plugin.editor.RescriptBracketSelectionHandler"/>
+        <extendWordSelectionHandler
+                implementation="com.rescript.plugin.editor.RescriptCommentSelectionHandler"/>
     </extensions>
 
     <actions>
