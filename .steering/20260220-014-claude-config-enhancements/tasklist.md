@@ -2,9 +2,9 @@
 
 ## フェーズ 0: バッチブランチ準備
 
-- [ ] `feature/claude-config-enhancements` バッチブランチを作成
-- [ ] ステアリングドキュメントをバッチブランチにコミット
-- [ ] 4 トラック用の git worktree を作成
+- [x] `feature/claude-config-enhancements` バッチブランチを作成
+- [x] ステアリングドキュメントをバッチブランチにコミット
+- [x] 4 トラック用の git worktree を作成
 
 ## トラック A: Hooks + settings.json（worktree: `rescript-wt-hooks-settings`）
 
@@ -41,6 +41,6 @@
 
 - [ ] 全トラックをバッチブランチにマージ
 - [ ] 受け入れ条件の検証（settings.json, @import, frontmatter, agents）
-- [ ] `window-instructions.md` を作成（各ウィンドウへの命令文）
+- [x] `window-instructions.md` を作成（各ウィンドウへの命令文）
 - [ ] tasklist.md を更新してバッチブランチにコミット
 - [ ] main にマージして worktree を削除
