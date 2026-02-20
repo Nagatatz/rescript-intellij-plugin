@@ -430,6 +430,10 @@
         <!-- Safe Delete with usage check (Refactor > Safe Delete) -->
         <refactoring.safeDeleteProcessor
                 implementation="com.rescript.plugin.refactor.RescriptSafeDeleteProcessor"/>
+
+        <!-- Name suggestions during rename refactoring -->
+        <nameSuggestionProvider
+                implementation="com.rescript.plugin.refactor.RescriptNameSuggestionProvider"/>
     </extensions>
 
     <actions>
