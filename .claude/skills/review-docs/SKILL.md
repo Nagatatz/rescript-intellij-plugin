@@ -1,7 +1,7 @@
 ---
 description: ドキュメントの品質をレビューし、改善提案を行う（完全性・明確性・一貫性・実装可能性・測定可能性の5観点で評価）
 model: sonnet
-allowed-tools: Read, Glob, Grep
+allowed-tools: Read, Glob, Grep, WebFetch, WebSearch
 ---
 
 # ドキュメントレビュー
