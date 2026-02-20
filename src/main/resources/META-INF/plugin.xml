@@ -328,6 +328,10 @@
         <!-- Problem Highlight Filter (suppress diagnostics in node_modules/lib) -->
         <problemHighlightFilter
                 implementation="com.rescript.plugin.analysis.RescriptProblemHighlightFilter"/>
+
+        <!-- Enter Handler (doc comment continuation) -->
+        <enterHandlerDelegate
+                implementation="com.rescript.plugin.editor.RescriptEnterHandler"/>
     </extensions>
 
     <actions>
