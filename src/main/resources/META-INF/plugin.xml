@@ -390,6 +390,10 @@
         <!-- String escape on paste into string literals -->
         <copyPastePreProcessor
                 implementation="com.rescript.plugin.editor.RescriptCopyPastePreProcessor"/>
+
+        <!-- Index of open statements for fast module lookup -->
+        <fileBasedIndex
+                implementation="com.rescript.plugin.indexing.RescriptOpenStatementIndex"/>
     </extensions>
 
     <actions>
