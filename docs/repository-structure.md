@@ -1,0 +1,219 @@
+# リポジトリ構造定義書 (Repository Structure)
+
+## 1. トップレベル構成
+
+```
+rescript-intellij-plugin/
+├── src/                          # ソースコード
+│   ├── main/                     # プロダクションコード
+│   └── test/                     # テストコード
+├── docs/                         # 永続的ドキュメント（設計・要件）
+├── sphinx-docs/                  # Sphinx ユーザー/開発者向けドキュメント
+├── .steering/                    # 作業単位のステアリングドキュメント（履歴）
+├── .claude/                      # Claude Code 設定・ルール
+├── .github/                      # GitHub Actions ワークフロー
+├── build.gradle.kts              # Gradle ビルド定義
+├── gradle.properties             # プロジェクト設定値
+├── settings.gradle.kts           # Gradle プロジェクト設定
+├── gradlew / gradlew.bat         # Gradle Wrapper
+├── .editorconfig                 # エディタ設定（インデント、行長等）
+├── .gitignore                    # Git 除外設定
+├── qodana.yaml                   # Qodana 静的解析設定
+├── CLAUDE.md                     # Claude Code プロジェクト指示書
+├── README.md                     # プロジェクト README
+└── LICENSE                       # ライセンス
+```
+
+## 2. ソースコード (`src/`)
+
+### 2.1 プロダクションコード (`src/main/`)
+
+#### Kotlin ソース (`src/main/kotlin/com/rescript/plugin/`)
+
+パッケージは機能ドメインごとに分割する。各パッケージは単一の責務を持つ。
+
+| パッケージ | 責務 | 代表クラス |
+|-----------|------|-----------|
+| (ルート) | Language / FileType / Icons 定義 | `RescriptLanguage`, `RescriptFileTypes`, `RescriptIcons` |
+| `lang/` | レクサー、パーサー、トークン定義 | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes` |
+| `lang/psi/` | PSI 要素クラス、ユーティリティ | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils` |
+| `highlight/` | シンタックスハイライト、ブレースマッチング | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher` |
+| `lsp/` | LSP サーバー管理、カスタムプロトコル | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor` |
+| `codestyle/` | コードスタイル、インデント設定 | `RescriptCodeStyleSettingsProvider` |
+| `config/` | rescript.json アイコン、JSON Schema | `RescriptJsonIconProvider`, `RescriptJsonSchemaProviderFactory` |
+| `run/` | 実行構成（ReScript ビルド） | `RescriptRunConfigurationType`, `RescriptRunConfiguration` |
+| `test/` | テスト実行構成（jest/vitest） | `RescriptTestRunConfigurationType` |
+| `debug/` | デバッグ実行構成 | `RescriptDebugConfigurationType` |
+| `settings/` | プロジェクト設定 UI・永続化 | `RescriptConfigurable`, `RescriptProjectSettings` |
+| `structure/` | ストラクチャービュー | `RescriptStructureViewFactory` |
+| `indexing/` | TODO インデクシング | `RescriptTodoIndexer` |
+| `editor/` | エディタ補助（引用符、通知バー、Smart Enter 等） | `RescriptQuoteHandler`, `RescriptSmartEnterProcessor` |
+| `formatter/` | 外部フォーマッタ連携 | `RescriptFormattingService` |
+| `navigation/` | ナビゲーション（Symbol、Related、Switch File 等） | `RescriptSymbolContributor`, `RescriptSwitchFileAction` |
+| `template/` | ファイル作成テンプレート | `RescriptCreateFileAction` |
+| `spellcheck/` | スペルチェック | `RescriptSpellcheckingStrategy` |
+| `completion/` | Postfix Completion | `RescriptPostfixTemplateProvider` |
+| `analysis/` | reanalyze デッドコード分析 | `RescriptReanalyzeAnnotator` |
+| `inspection/` | コードインスペクション（重複 open、空モジュール等） | `RescriptDuplicateOpenInspection` |
+| `preview/` | コンパイル済み JS プレビュー | `RescriptCompiledJsPreviewToolWindowFactory` |
+| `hierarchy/` | モジュール階層ビュー | `RescriptModuleHierarchyProvider` |
+| `paste/` | Paste as JSON.t | `RescriptPasteAsJsonAction` |
+| `injection/` | 言語インジェクション（%raw JS、Markdown） | `RescriptRawJsInjector` |
+| `codevision/` | Code Lens（CodeVision） | `RescriptCodeVisionProvider` |
+| `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
+| `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
+| `imports/` | Import Optimizer（未使用 open 削除） | `RescriptImportOptimizer` |
+| `intention/` | Intention Actions（Wrap with、@genType 追加等） | `RescriptWrapWithIntention` |
+| `surround/` | Surround With | `RescriptSurroundDescriptor` |
+| `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
+| `wizard/` | Project Wizard（新規プロジェクト作成） | `RescriptModuleBuilder` |
+| `wizard/templates/` | 12 種類のプロジェクトテンプレートファイル生成 | `BasicTemplateFiles`, `ViteReactTemplateFiles` 等 |
+| `generate/` | Code Generation（Generate メニュー） | `RescriptGenerateGroup` |
+| `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
+| `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
+| `refactor/` | リネーム、識別子バリデーション | `RescriptRenameHandler` |
+| `commenter/` | コメントトグル | `RescriptCommenter` |
+
+#### Java ソース (`src/main/java/com/rescript/plugin/lang/`)
+
+| ファイル | 説明 |
+|---------|------|
+| `Rescript.flex` | JFlex レクサー定義ファイル（手動編集対象） |
+| `RescriptFlexLexer.java` | JFlex から自動生成（`.gitignore` 対象、直接編集禁止） |
+
+#### リソース (`src/main/resources/`)
+
+| パス | 説明 |
+|------|------|
+| `META-INF/plugin.xml` | メインプラグイン記述子（Extension Point 登録） |
+| `META-INF/rescript-json.xml` | JSON Schema 提供（optional dep: `com.intellij.modules.json`） |
+| `META-INF/rescript-js-injection.xml` | %raw() JS インジェクション（optional dep: `JavaScript`） |
+| `META-INF/rescript-markdown.xml` | Markdown コードフェンス（optional dep: `org.intellij.plugins.markdown`） |
+| `META-INF/rescript-debug.xml` | デバッグ統合（optional dep: `JavaScriptDebugger`） |
+| `META-INF/rescript-nodejs.xml` | Node.js 統合（optional dep: `NodeJS`） |
+| `colorSchemes/` | Darcula / Default テーマ用カラースキーム XML |
+| `liveTemplates/ReScript.xml` | 15 種類の Live Template スニペット |
+| `fileTemplates/internal/` | ファイル作成テンプレート（Module / Interface / Component） |
+| `scripts/dts-to-json.js` | バンドル Node.js スクリプト（.d.ts パーサー） |
+| `schemas/rescript.schema.json` | rescript.json 用 JSON Schema |
+| `icons/` | SVG アイコン（.res / .resi / rescript.json 用、Light/Dark 対応） |
+
+### 2.2 テストコード (`src/test/`)
+
+```
+src/test/kotlin/com/rescript/plugin/
+├── RescriptTestUtils.kt           # テスト共通ユーティリティ
+├── lang/                          # レクサー、パーサー、トークンのテスト
+├── highlight/                     # ハイライト、ブレースマッチングのテスト
+├── lsp/                           # LSP 関連コンポーネントのテスト
+├── ...                            # 各パッケージに対応するテストパッケージ
+└── wizard/templates/              # テンプレート依存バージョンのテスト
+```
+
+テストは対象クラスと同じパッケージ構造に配置し、`<対象クラス名>Test.kt` と命名する。
+
+## 3. ドキュメント
+
+### 3.1 永続的ドキュメント (`docs/`)
+
+プロジェクト全体の設計・要件を定義する恒久的なドキュメント。
+
+| ファイル | 内容 |
+|---------|------|
+| `product-requirements.md` | プロダクト要求定義書（ビジョン、ユーザーストーリー、機能一覧） |
+| `functional-design.md` | 機能設計書（コンポーネント設計、Extension Point マップ） |
+| `development-guidelines.md` | 開発ガイドライン（コーディング規約、テスト規約） |
+| `architecture.md` | 技術仕様書（テクノロジースタック、制約、パフォーマンス要件） |
+| `repository-structure.md` | リポジトリ構造定義書（本ドキュメント） |
+| `glossary.md` | ユビキタス言語定義（用語集） |
+| `ideas/concept.md` | アイデア・コンセプトメモ |
+
+### 3.2 Sphinx ドキュメント (`sphinx-docs/`)
+
+ユーザー向け・開発者向けのドキュメントサイト。GitHub Pages でホスティングされる。
+
+```
+sphinx-docs/
+├── user/                     # ユーザー向けガイド
+│   ├── installation.md       # インストール手順
+│   ├── quickstart.md         # クイックスタート
+│   ├── features/             # 機能別ガイド
+│   ├── troubleshooting.md    # トラブルシューティング
+│   └── changelog.md          # 変更履歴
+├── dev/                      # 開発者向けガイド
+│   ├── setup.md              # 開発環境セットアップ
+│   ├── building.md           # ビルド手順
+│   ├── project-structure.md  # プロジェクト構造
+│   ├── extending.md          # 拡張方法
+│   ├── testing.md            # テスト
+│   └── contributing.md       # コントリビュートガイド
+├── locale/ja/LC_MESSAGES/    # 日本語翻訳 (.po ファイル)
+├── conf.py                   # Sphinx 設定
+└── Makefile                  # ビルドコマンド
+```
+
+### 3.3 ステアリングドキュメント (`.steering/`)
+
+作業単位の一時的なドキュメント。作業完了後は履歴として保持される。
+
+```
+.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/
+├── requirements.md           # 要求内容
+├── design.md                 # 設計
+└── tasklist.md               # タスクリスト
+```
+
+## 4. 設定ファイル
+
+### 4.1 Claude Code (`.claude/`)
+
+```
+.claude/
+├── rules/                    # プロジェクト固有のルール
+│   ├── testing.md            # テスト規約
+│   ├── code-comments.md      # コードコメント規約（KDoc）
+│   ├── git-conventions.md    # Git コミット・ブランチ規約
+│   ├── steering-workflow.md  # ステアリングワークフロー
+│   └── documentation.md      # ドキュメント管理規約
+└── settings.json             # Claude Code ローカル設定
+```
+
+### 4.2 GitHub (`.github/`)
+
+```
+.github/
+├── workflows/
+│   ├── ci.yml                # CI（ビルド、テスト、カバレッジ）
+│   ├── release.yml           # リリース（タグベース）
+│   ├── qodana_code_quality.yml  # Qodana 静的解析
+│   └── docs.yml              # Sphinx ドキュメントビルド・デプロイ
+└── dependabot.yml            # Dependabot 設定
+```
+
+## 5. ファイル配置ルール
+
+### 新しい機能を追加する場合
+
+1. **パッケージ選択**: 既存パッケージの責務に該当するものがあればそこに配置する。該当しない場合は新しいパッケージを作成する
+2. **Extension Point 登録**: `src/main/resources/META-INF/plugin.xml` に登録する。オプション依存の場合は `rescript-*.xml` に分離する
+3. **テスト作成**: `src/test/kotlin/com/rescript/plugin/<パッケージ>/` に `<クラス名>Test.kt` を作成する
+4. **ドキュメント更新**: 必要に応じて `CLAUDE.md`、`docs/functional-design.md`（Extension Point マップ）を更新する
+
+### 命名規則
+
+| 対象 | 規則 | 例 |
+|------|------|-----|
+| Kotlin ファイル | PascalCase、`Rescript` プレフィックス | `RescriptFoldingBuilder.kt` |
+| テストファイル | 対象クラス名 + `Test` サフィックス | `RescriptFoldingBuilderTest.kt` |
+| リソースファイル | kebab-case | `rescript-json.xml` |
+| パッケージ | lowercase、単一単語推奨 | `folding/`, `errorlens/`, `codevision/` |
+
+### 自動生成ファイル
+
+以下のファイルは自動生成されるため、手動編集しないこと:
+
+| ファイル | 生成元 | 生成タスク |
+|---------|--------|-----------|
+| `src/main/java/.../RescriptFlexLexer.java` | `Rescript.flex` | `generateRescriptLexer` |
+| `build/` | ソースコード全体 | `buildPlugin` |
+| `sphinx-docs/_build/` | Sphinx ソース | `make build-all` |
