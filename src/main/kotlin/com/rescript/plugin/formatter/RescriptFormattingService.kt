@@ -118,5 +118,6 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
 
     override fun getNotificationGroupId(): String = NOTIFICATION_GROUP
 
+    @Suppress("DialogTitleCapitalization") // "rescript format" is a CLI command name
     override fun getName(): String = "rescript format"
 }

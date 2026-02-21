@@ -45,6 +45,7 @@ class RescriptLspStartupActivity : ProjectActivity {
         val detection = RescriptPackageManagerDetector.detect(project.basePath)
 
         val notification =
+            @Suppress("DialogTitleCapitalization") // "Language Server" is a product name
             NotificationGroupManager
                 .getInstance()
                 .getNotificationGroup("ReScript")
