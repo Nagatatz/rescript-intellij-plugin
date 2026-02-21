@@ -130,7 +130,8 @@ src/main/
 │   │   ├── RescriptTemplateContextType.kt     # Live Template コンテキスト (ReScript 専用)
 │   │   ├── RescriptLiveTemplateMacros.kt      # Live Template マクロ (moduleName, componentName)
 │   │   ├── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log, .promise, .await 等)
-│   │   └── RescriptLookupCharFilter.kt        # 補完文字フィルタ
+│   │   ├── RescriptLookupCharFilter.kt        # 補完文字フィルタ
+│   │   └── RescriptDecoratorCompletionContributor.kt  # デコレータ補完 (@genType, @module 等)
 │   ├── analysis/
 │   │   ├── RescriptReanalyzeAnnotator.kt  # reanalyze デッドコード分析
 │   │   ├── RescriptReanalyzeQuickFix.kt   # Quick Fix (プレフィックス付与・削除)
@@ -191,7 +192,11 @@ src/main/
 │   ├── intention/
 │   │   ├── RescriptWrapWithIntention.kt     # Wrap with Some/Ok/Error
 │   │   ├── RescriptAddGenTypeIntention.kt   # Add @genType annotation
-│   │   └── RescriptGenerateDocCommentIntention.kt  # KDoc コメント生成
+│   │   ├── RescriptGenerateDocCommentIntention.kt  # KDoc コメント生成
+│   │   ├── RescriptAddIgnoreIntention.kt    # 未使用結果に ->ignore 追加
+│   │   ├── RescriptAddUnderscorePrefixIntention.kt  # 未使用変数に _ プレフィックス追加
+│   │   ├── RescriptRemoveRedundantBracesIntention.kt  # 冗長ブロック { expr } 削除
+│   │   └── RescriptFixIdentifierCaseIntention.kt  # 識別子ケース修正 (PascalCase/camelCase)
 │   ├── surround/
 │   │   └── RescriptSurroundDescriptor.kt    # Surround With (if/switch/try/block)
 │   ├── folding/
@@ -312,7 +317,7 @@ src/main/
 - **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析
 - **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション
 - **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
-- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成
+- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正
 - **Surround With** (`surround/`) — if/switch/try/block で囲む
 - **Postfix Completion** (`completion/`) — .switch, .pipe, .log, .promise, .await 等
 - **Completion Confidence** (`completion/`) — コメント・文字列内の補完ポップアップ抑制
@@ -369,20 +374,9 @@ src/main/
 
 3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、S/A/B 優先度の42件は実装済み。残りの機能を以下のように分類。
 
-### 実装予定（Phase 1-4: 23件）
+### 実装予定（Phase 2-4: 15件）
 
-#### Phase 1: Quick Wins（8件）
-
-| # | 機能 | 種類 | 難易度 |
-|---|------|------|--------|
-| 71 | 未使用結果の `->ignore` Quick Fix | Quick Fix | 低 |
-| 91 | 未使用変数の `_` プレフィックス | Quick Fix | 低 |
-| 72 | 冗長ブロック `{ expr }` 削除 | Inspection | 低 |
-| 90 | デコレータ補完 (`@genType`, `@module` 等) | Completion | 低〜中 |
-| 92 | 演算子優先順位のホバー表示 | Documentation | 低 |
-| 80 | Long Line Inspection Policy | Inspection | 低 |
-| 73 | 識別子ケース修正 | Quick Fix | 低〜中 |
-| 79 | MultiLang Commenter (`%raw()` 内) | Commenter | 低〜中 |
+**Phase 1 実装済み:** #71 (->ignore), #91 (_ プレフィックス), #72 (冗長ブレース削除), #90 (デコレータ補完), #92 (演算子優先順位), #80 (Long Line 抑制), #73 (識別子ケース修正) — 7件実装、#79 (MultiLang Commenter) は ReScript/JS コメント構文同一のため不要
 
 #### Phase 2: ReScript らしさ（6件）
 
