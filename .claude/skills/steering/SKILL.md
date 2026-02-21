@@ -8,6 +8,15 @@ disable-model-invocation: true
 
 ステアリングファイル(`.steering/`)に基づいた実装を支援し、tasklist.mdの進捗管理を確実に行うスキルです。
 
+## 動的コンテキスト
+
+スキル起動時に以下の情報を自動取得する:
+
+- **現在のブランチ:** !`git branch --show-current 2>/dev/null`
+- **最新ステアリング:** !`ls -dt .steering/2026* 2>/dev/null | head -1`
+- **変更ファイル:** !`git status --short 2>/dev/null | head -10`
+- **直近コミット:** !`git log --oneline -3 2>/dev/null`
+
 ## スキルの目的
 
 - ステアリングファイル(requirements.md, design.md, tasklist.md)の作成支援

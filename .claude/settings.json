@@ -1,5 +1,18 @@
 {
   "permissions": {
+    "allow": [
+      "Bash(./gradlew *)",
+      "Bash(git status)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(git checkout -b *)",
+      "Bash(git checkout main)",
+      "Bash(git merge *)",
+      "Bash(git branch -d *)",
+      "Bash(git worktree *)"
+    ],
     "deny": [
       "Read(.env)",
       "Read(.env.*)",
@@ -7,7 +20,8 @@
     ]
   },
   "env": {
-    "BASH_DEFAULT_TIMEOUT_MS": "120000"
+    "BASH_DEFAULT_TIMEOUT_MS": "120000",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "60"
   },
   "hooks": {
     "PreToolUse": [
@@ -38,6 +52,11 @@
       {
         "matcher": "Write|Edit",
         "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/format-kotlin.sh",
+            "timeout": 60
+          },
           {
             "type": "command",
             "command": ".claude/hooks/check-kotlin-build.sh",
