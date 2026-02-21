@@ -364,3 +364,110 @@ src/main/
 - `pluginSinceBuild` は `gradle.properties` で管理（`pluginUntilBuild` は前方互換性のため意図的に未設定）
 - Gradle Configuration Cache が有効化されている
 - Task ツール（サブエージェント）を使用する場合、`run_in_background` は **明示的に指示された場合のみ** 使用すること
+
+## 将来実装予定の機能（ロードマップ）
+
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、S/A/B 優先度の42件は実装済み。残りの機能を以下のように分類。
+
+### 実装予定（Phase 1-4: 23件）
+
+#### Phase 1: Quick Wins（8件）
+
+| # | 機能 | 種類 | 難易度 |
+|---|------|------|--------|
+| 71 | 未使用結果の `->ignore` Quick Fix | Quick Fix | 低 |
+| 91 | 未使用変数の `_` プレフィックス | Quick Fix | 低 |
+| 72 | 冗長ブロック `{ expr }` 削除 | Inspection | 低 |
+| 90 | デコレータ補完 (`@genType`, `@module` 等) | Completion | 低〜中 |
+| 92 | 演算子優先順位のホバー表示 | Documentation | 低 |
+| 80 | Long Line Inspection Policy | Inspection | 低 |
+| 73 | 識別子ケース修正 | Quick Fix | 低〜中 |
+| 79 | MultiLang Commenter (`%raw()` 内) | Commenter | 低〜中 |
+
+#### Phase 2: ReScript らしさ（6件）
+
+| # | 機能 | 種類 | 難易度 |
+|---|------|------|--------|
+| 70 | Pipe ⇔ 関数呼び出し変換 | Intention | 中 |
+| 93 | 常時型表示パネル (Sticky Type Info) | ToolWindow | 中 |
+| 74 | パイプチェーン中間型ヒント | InlayHints | 中 |
+| 78 | Switch ケース統合 | Intention | 中 |
+| 95 | ケースの変数分割 (Case Split) | Intention | 中 |
+| 97 | map/filter チェーン変換 | Intention | 中 |
+
+#### Phase 3: .resi 管理 + コード生成（4件）
+
+| # | 機能 | 種類 | 難易度 |
+|---|------|------|--------|
+| 76 | インターフェース公開/非公開切り替え | Intention | 中 |
+| 94 | .resi シグネチャ同期 | Editor | 中 |
+| 77 | Make 関数生成 | Generate | 中 |
+| 96 | レコードスタブ生成 | Generate | 中 |
+
+#### Phase 4: 補完・分析の強化（5件）
+
+| # | 機能 | 種類 | 難易度 |
+|---|------|------|--------|
+| 98 | 位置引数→ラベル付き引数変換 | Intention | 中 |
+| 84 | Parameter Info Handler (Ctrl+P) | Completion | 中 |
+| 102 | スタイルリンティング | Inspection | 中〜高 |
+| 83 | 型ミスマッチインラインヒント | InlayHints | 中 |
+| 99 | 型ミスマッチ差分表示 | InlayHints | 中〜高 |
+
+### 将来検討（C 優先度: 36件）
+
+低優先度または高難度の機能。必要に応じて個別に実装検討する。
+
+| # | 機能 | カテゴリ | 難易度 |
+|---|------|---------|--------|
+| 43 | Extract Variable | リファクタリング | 高 |
+| 44 | Call Hierarchy | ナビゲーション | 高 |
+| 45 | Go to Implementation | ナビゲーション | 中 |
+| 46 | Search Everywhere | ナビゲーション | 中 |
+| 47 | Navigation Bar Model | ナビゲーション | 低〜中 |
+| 48 | External Annotator (Format Check) | 分析 | 中 |
+| 49 | Unresolved Reference Quick Fix | 分析 | 中〜高 |
+| 50 | Completion Weigher | 補完 | 中 |
+| 51 | Stub Index | インデキシング | 高 |
+| 52 | Code Rearranger | その他 | 中 |
+| 53 | Strip Trailing Spaces | 編集 | 低 |
+| 54 | IntelliLang | インジェクション | 低〜中 |
+| 55 | Formatting for Injected | インジェクション | 低 |
+| 56 | Framework Detector | プロジェクトビュー | 中 |
+| 57 | Scratch File | 実行 | 中〜高 |
+| 58 | REPL | 実行 | 中〜高 |
+| 59 | Grazie Text Extractor | その他 | 低 |
+| 60 | Element Signature Provider | その他 | 低 |
+| 61 | Index Pattern Builder | インデキシング | 低 |
+| 75 | ラベル付き引数の一括挿入 | Intention | 中 |
+| 81 | JSON エンコーダ/デコーダ生成 | Generate | 中〜高 |
+| 82 | 分割代入の導入/解除 | Intention | 中 |
+| 85 | 型注釈一括追加 | Intention | 中 |
+| 86 | React コンポーネント抽出 | リファクタリング | 高 |
+| 87 | PPX 展開ビュー | ToolWindow | 高 |
+| 88 | モジュールタイプ実装生成 | Generate | 高 |
+| 89 | 使用箇所からの関数生成 | Quick Fix | 中〜高 |
+| 100 | 不要な括弧の削除 | Intention | 中 |
+| 101 | 不要な修飾子の削除 | Intention | 中 |
+| 103 | 変更可能性の診断 | Inspection | 中 |
+| 104 | JS→ReScript 変換 | Paste | 中〜高 |
+| 105 | 型ホール支援 | Quick Fix | 高 |
+| 106 | コメント内コード評価 | Editor | 高 |
+| 107 | Worksheet モード | Editor | 高 |
+| 108 | 型シグネチャ検索 | ナビゲーション | 非常に高 |
+| 109 | Implicit/PPX 可視化 | InlayHints | 中 |
+
+### 長期検討（D 優先度: 8件）
+
+パーサーの大幅拡張が前提となる高難度機能。
+
+| # | 機能 | カテゴリ | 難易度 |
+|---|------|---------|--------|
+| 62 | Extract Function | リファクタリング | 非常に高 |
+| 63 | Inline Variable/Function | リファクタリング | 高 |
+| 64 | Change Signature | リファクタリング | 非常に高 |
+| 65 | Introduce Constant | リファクタリング | 高 |
+| 66 | Suggested Refactoring | リファクタリング | 中〜高 |
+| 67 | Dependency Diagram | その他 | 高 |
+| 68 | File Include Provider | ナビゲーション | 中 |
+| 69 | Editor Floating Toolbar | その他 | 中 |
