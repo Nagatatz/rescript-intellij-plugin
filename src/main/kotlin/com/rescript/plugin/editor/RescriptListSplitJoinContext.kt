@@ -48,6 +48,14 @@ class RescriptListSplitJoinContext : DefaultListSplitJoinContext() {
      * @param element the starting element
      * @return the list parent element, or null if none found
      */
+    override fun isSeparator(element: PsiElement): Boolean = element.node?.elementType == RescriptTokenTypes.COMMA
+
+    /**
+     * Finds the nearest parent PSI element that represents a comma-separated list.
+     *
+     * @param element the starting element
+     * @return the list parent element, or null if none found
+     */
     private fun findListParent(element: PsiElement): PsiElement? {
         var current: PsiElement? = element
         while (current != null) {

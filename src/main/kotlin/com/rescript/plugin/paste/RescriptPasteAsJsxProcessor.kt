@@ -40,8 +40,8 @@ class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferable
         editor: Editor,
         bounds: RangeMarker,
         caretOffset: Int,
-        indented: com.intellij.openapi.util.Ref<Boolean>,
-        values: List<TextBlockTransferableData>,
+        indented: com.intellij.openapi.util.Ref<in Boolean>,
+        values: MutableList<out TextBlockTransferableData>,
     ) {
         val file =
             com.intellij.psi.PsiDocumentManager
@@ -226,12 +226,12 @@ private class HtmlTransferData(
     override fun getOffsetCount(): Int = 0
 
     override fun getOffsets(
-        offsets: IntArray?,
+        offsets: IntArray,
         index: Int,
     ): Int = index
 
     override fun setOffsets(
-        offsets: IntArray?,
+        offsets: IntArray,
         index: Int,
     ): Int = index
 

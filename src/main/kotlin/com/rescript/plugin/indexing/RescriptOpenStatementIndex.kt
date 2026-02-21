@@ -53,14 +53,14 @@ class RescriptOpenStatementIndex : FileBasedIndexExtension<String, Void>() {
             result
         }
 
-    override fun getKeyDescriptor(): KeyDescriptor<String> = EnumeratorStringDescriptor.INSTANCE
+    override fun getKeyDescriptor(): KeyDescriptor<String> = EnumeratorStringDescriptor()
 
-    override fun getValueExternalizer(): VoidDataExternalizer = VoidDataExternalizer.INSTANCE
+    override fun getValueExternalizer(): VoidDataExternalizer = VoidDataExternalizer()
 
     override fun getVersion(): Int = 1
 
     override fun getInputFilter(): FileBasedIndex.InputFilter =
-        DefaultFileTypeSpecificInputFilter(RescriptFileType.INSTANCE, RescriptInterfaceFileType.INSTANCE)
+        DefaultFileTypeSpecificInputFilter(RescriptFileType, RescriptInterfaceFileType)
 
     override fun dependsOnFileContent(): Boolean = true
 }
