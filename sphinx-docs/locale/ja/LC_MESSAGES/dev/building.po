@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-02-20 03:32+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -123,9 +123,7 @@ msgstr "JFlex レクサーの生成"
 msgid ""
 "The JFlex lexer (`RescriptFlexLexer.java`) is auto-generated from "
 "`Rescript.flex` during the build:"
-msgstr ""
-"JFlex レクサー（`RescriptFlexLexer.java`）はビルド時に "
-"`Rescript.flex` から自動生成されます:"
+msgstr "JFlex レクサー（`RescriptFlexLexer.java`）はビルド時に `Rescript.flex` から自動生成されます:"
 
 #: ../../dev/building.md:22
 msgid "**Source:** `src/main/java/com/rescript/plugin/lang/Rescript.flex`"
@@ -149,17 +147,16 @@ msgid ""
 "`compileKotlin`, so you never need to run it manually. The generated file"
 " is listed in `.gitignore`."
 msgstr ""
-"`generateRescriptLexer` タスクは `compileJava` と `compileKotlin` の"
-"依存タスクであるため、手動で実行する必要はありません。生成ファイルは "
-"`.gitignore` に含まれています。"
+"`generateRescriptLexer` タスクは `compileJava` と `compileKotlin` "
+"の依存タスクであるため、手動で実行する必要はありません。生成ファイルは `.gitignore` に含まれています。"
 
 #: ../../dev/building.md:29
 msgid ""
 "Never edit `RescriptFlexLexer.java` directly. Always modify "
 "`Rescript.flex` and let the build regenerate the Java file."
 msgstr ""
-"`RescriptFlexLexer.java` を直接編集しないでください。常に "
-"`Rescript.flex` を編集し、ビルドで Java ファイルを再生成してください。"
+"`RescriptFlexLexer.java` を直接編集しないでください。常に `Rescript.flex` を編集し、ビルドで Java "
+"ファイルを再生成してください。"
 
 #: ../../dev/building.md:32
 msgid "Plugin Packaging"
@@ -174,8 +171,8 @@ msgid ""
 "This `.zip` can be installed in any compatible JetBrains IDE via "
 "**Settings** → **Plugins** → **Install Plugin from Disk**."
 msgstr ""
-"この `.zip` は、**Settings** → **Plugins** → **Install Plugin from Disk** から"
-"互換性のある JetBrains IDE にインストールできます。"
+"この `.zip` は、**Settings** → **Plugins** → **Install Plugin from Disk** "
+"から互換性のある JetBrains IDE にインストールできます。"
 
 #: ../../dev/building.md:42
 msgid "Gradle Configuration"
@@ -225,34 +222,39 @@ msgstr "プラットフォームバージョン"
 msgid "The target IntelliJ Platform version is configured in `gradle.properties`:"
 msgstr "対象の IntelliJ Platform バージョンは `gradle.properties` で設定されています:"
 
-#: ../../dev/building.md:61
+#: ../../dev/building.md:60
+msgid ""
+"Note: `pluginUntilBuild` is intentionally not set, allowing the plugin to"
+" be compatible with all future platform versions."
+msgstr ""
+
+#: ../../dev/building.md:62
 msgid "CI Pipeline"
 msgstr "CI パイプライン"
 
-#: ../../dev/building.md:63
+#: ../../dev/building.md:64
 msgid ""
 "The GitHub Actions CI pipeline (`.github/workflows/ci.yml`) runs on every"
 " push and PR:"
-msgstr ""
-"GitHub Actions CI パイプライン（`.github/workflows/ci.yml`）はすべての"
-"プッシュと PR で実行されます:"
+msgstr "GitHub Actions CI パイプライン（`.github/workflows/ci.yml`）はすべてのプッシュと PR で実行されます:"
 
-#: ../../dev/building.md:65
+#: ../../dev/building.md:66
 msgid "actionlint — Validate GitHub Actions workflow files"
 msgstr "actionlint — GitHub Actions ワークフローファイルの検証"
 
-#: ../../dev/building.md:66
+#: ../../dev/building.md:67
 msgid "ktlint — Code style checks"
 msgstr "ktlint — コードスタイルチェック"
 
-#: ../../dev/building.md:67
+#: ../../dev/building.md:68
 msgid "Build — Compile and package"
 msgstr "Build — コンパイルとパッケージング"
 
-#: ../../dev/building.md:68
+#: ../../dev/building.md:69
 msgid "Test — Run tests with coverage (Kover)"
 msgstr "Test — カバレッジ付きテスト実行（Kover）"
 
-#: ../../dev/building.md:69
+#: ../../dev/building.md:70
 msgid "Verify — Plugin structure and binary compatibility (push only)"
 msgstr "Verify — プラグイン構造とバイナリ互換性の検証（プッシュ時のみ）"
+

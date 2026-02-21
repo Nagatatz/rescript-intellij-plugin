@@ -39,6 +39,8 @@ src/main/
 │   │   ├── RescriptParserDefinition.kt  # ParserDefinition
 │   │   ├── RescriptAstFactory.kt        # AST ファクトリ (文字列リテラルの言語インジェクション対応)
 │   │   ├── RescriptFindUsagesProvider.kt  # Find Usages + WordsScanner
+│   │   ├── RescriptElementDescriptionProvider.kt  # 要素説明プロバイダ
+│   │   ├── RescriptUsageTypeProvider.kt   # 使用タイプ分類
 │   │   └── psi/
 │   │       ├── RescriptPsi.kt           # PSI 要素クラス
 │   │       ├── RescriptPsiUtils.kt      # PSI ユーティリティ (要素探索・判定)
@@ -63,7 +65,8 @@ src/main/
 │   │   └── RescriptExpressionTypeProvider.kt    # 式の型表示 (Ctrl+Shift+P)
 │   ├── codestyle/
 │   │   ├── RescriptCodeStyleSettingsProvider.kt  # コードスタイル設定
-│   │   └── RescriptLineIndentProvider.kt         # インデント制御
+│   │   ├── RescriptLineIndentProvider.kt         # インデント制御
+│   │   └── RescriptPredefinedCodeStyle.kt        # "ReScript Standard" プリセット
 │   ├── config/
 │   │   ├── RescriptJsonIconProvider.kt  # rescript.json アイコン
 │   │   └── RescriptJsonSchemaProviderFactory.kt  # JSON Schema 提供
@@ -86,7 +89,8 @@ src/main/
 │   │   ├── RescriptStructureViewFactory.kt
 │   │   └── RescriptStructureViewModel.kt
 │   ├── indexing/
-│   │   └── RescriptTodoIndexer.kt         # TODO インデクシング
+│   │   ├── RescriptTodoIndexer.kt         # TODO インデクシング
+│   │   └── RescriptOpenStatementIndex.kt  # open 文インデックス
 │   ├── editor/
 │   │   ├── RescriptQuoteHandler.kt        # スマート引用符補完
 │   │   ├── RescriptEditorNotificationProvider.kt  # LSP 未検出時の案内バー
@@ -97,7 +101,14 @@ src/main/
 │   │   ├── RescriptTypedHandler.kt          # JSX 閉じタグ自動挿入
 │   │   ├── RescriptEnterHandler.kt          # ドキュメントコメント・行コメント自動継続
 │   │   ├── RescriptJoinLinesHandler.kt      # スマート行結合 (let/pipe/arrow)
-│   │   └── RescriptWordSelectionHandler.kt  # 文字列・括弧・コメントの選択拡大/縮小
+│   │   ├── RescriptWordSelectionHandler.kt  # 文字列・括弧・コメントの選択拡大/縮小
+│   │   ├── RescriptBackspaceHandler.kt      # JSX タグペアのバックスペース削除
+│   │   ├── RescriptColorProvider.kt         # カラープレビュースウォッチ
+│   │   ├── RescriptCopyPastePreProcessor.kt # 文字列ペースト時エスケープ
+│   │   ├── RescriptMoveElementHandler.kt    # 要素の左右移動
+│   │   ├── RescriptCodeBlockHandler.kt      # コードブロック境界検出
+│   │   ├── RescriptListSplitJoinContext.kt  # リスト分割/結合
+│   │   └── RescriptReaderModeMatcher.kt     # node_modules リーダーモード
 │   ├── formatter/
 │   │   └── RescriptFormattingService.kt   # 外部フォーマッタ連携 (rescript format CLI)
 │   ├── navigation/
@@ -118,7 +129,8 @@ src/main/
 │   │   ├── RescriptCompletionConfidence.kt    # 補完ポップアップ制御 (コメント・文字列内抑制)
 │   │   ├── RescriptTemplateContextType.kt     # Live Template コンテキスト (ReScript 専用)
 │   │   ├── RescriptLiveTemplateMacros.kt      # Live Template マクロ (moduleName, componentName)
-│   │   └── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log, .promise, .await 等)
+│   │   ├── RescriptPostfixTemplateProvider.kt  # Postfix Completion (.switch, .pipe, .log, .promise, .await 等)
+│   │   └── RescriptLookupCharFilter.kt        # 補完文字フィルタ
 │   ├── analysis/
 │   │   ├── RescriptReanalyzeAnnotator.kt  # reanalyze デッドコード分析
 │   │   ├── RescriptReanalyzeQuickFix.kt   # Quick Fix (プレフィックス付与・削除)
@@ -148,12 +160,14 @@ src/main/
 │   │   ├── RescriptFileNestingProvider.kt       # .res.js を .res の子にネスト表示
 │   │   └── RescriptCompiledJsNodeDecorator.kt   # コンパイル済み JS を灰色表示
 │   ├── paste/
-│   │   └── RescriptPasteAsJsonAction.kt   # Paste as JSON.t
+│   │   ├── RescriptPasteAsJsonAction.kt       # Paste as JSON.t
+│   │   └── RescriptPasteAsJsxProcessor.kt     # HTML → JSX 変換ペースト
 │   ├── injection/
 │   │   ├── RescriptRawJsInjector.kt    # %raw() 内 JavaScript ハイライト
 │   │   └── RescriptMarkdownCodeFenceProvider.kt  # Markdown コードフェンスハイライト
 │   ├── codevision/
-│   │   └── RescriptCodeVisionProvider.kt  # Code Lens (LSP codeLens → CodeVision)
+│   │   ├── RescriptCodeVisionProvider.kt      # Code Lens (LSP codeLens → CodeVision)
+│   │   └── RescriptVcsCodeVisionContext.kt    # VCS Code Vision アノテーション
 │   ├── statusbar/
 │   │   └── RescriptCompilerStatusWidgetFactory.kt  # ビルドステータス表示
 │   ├── errorlens/
@@ -172,7 +186,8 @@ src/main/
 │   ├── imports/
 │   │   ├── RescriptImportOptimizer.kt   # Import Optimizer (重複 + 未使用 open 削除)
 │   │   ├── RescriptImportUtil.kt        # Import 操作ユーティリティ
-│   │   └── RescriptUnusedOpenDetector.kt # LSP 診断から未使用 open を検出
+│   │   ├── RescriptUnusedOpenDetector.kt # LSP 診断から未使用 open を検出
+│   │   └── RescriptAutoImportOptionsProvider.kt  # Auto Import 設定 UI
 │   ├── intention/
 │   │   ├── RescriptWrapWithIntention.kt     # Wrap with Some/Ok/Error
 │   │   ├── RescriptAddGenTypeIntention.kt   # Add @genType annotation
@@ -210,12 +225,15 @@ src/main/
 │   ├── breadcrumb/
 │   │   └── RescriptBreadcrumbsProvider.kt  # パンくずリストナビゲーション
 │   ├── refactor/
-│   │   ├── RescriptRenameHandler.kt     # LSP 経由リネームハンドラ
-│   │   └── RescriptNamesValidator.kt    # 識別子バリデーション
+│   │   ├── RescriptRenameHandler.kt         # LSP 経由リネームハンドラ
+│   │   ├── RescriptNamesValidator.kt        # 識別子バリデーション
+│   │   ├── RescriptSafeDeleteProcessor.kt   # Safe Delete プロセッサ
+│   │   └── RescriptNameSuggestionProvider.kt  # リネーム名前候補
 │   ├── inspection/
 │   │   ├── RescriptMissingConfigInspection.kt   # rescript.json 欠落警告
 │   │   ├── RescriptDuplicateOpenInspection.kt   # 重複 open 検出
-│   │   └── RescriptEmptyModuleInspection.kt     # 空モジュール検出
+│   │   ├── RescriptEmptyModuleInspection.kt     # 空モジュール検出
+│   │   └── RescriptInspectionSuppressor.kt      # インスペクション抑制
 │   ├── binding/
 │   │   ├── DtsJsonModel.kt              # .d.ts JSON 中間表現データモデル + Gson デシリアライザ
 │   │   ├── DtsTypeMapper.kt             # TypeScript → ReScript 型マッピング
@@ -224,9 +242,13 @@ src/main/
 │   │   ├── DtsParserProcess.kt          # Node.js プロセス実行（dts-to-json.js 起動）
 │   │   └── DtsGenerateBindingAction.kt  # .d.ts バインディング生成アクション
 │   ├── projectview/
-│   │   └── RescriptTreeStructureProvider.kt  # Project View .resi ネスト表示
+│   │   ├── RescriptTreeStructureProvider.kt       # Project View .resi ネスト表示
+│   │   └── RescriptProjectViewNodeDecorator.kt    # Project View ノード装飾
+│   ├── dependencies/
+│   │   ├── RescriptDependenciesToolWindowFactory.kt  # パッケージ依存ツールウィンドウ
+│   │   └── RescriptDependenciesPanel.kt              # 依存パッケージパネル
 │   ├── documentation/
-│   │   └── RescriptDocumentationProvider.kt  # 外部ドキュメント URL (Shift+F1)
+│   │   └── RescriptDocumentationProvider.kt  # 外部ドキュメント URL + Quick Documentation (Ctrl+Q / Shift+F1)
 │   └── commenter/RescriptCommenter.kt
 ├── java/com/rescript/plugin/lang/
 │   └── Rescript.flex                    # JFlex レクサー定義 (ソース)

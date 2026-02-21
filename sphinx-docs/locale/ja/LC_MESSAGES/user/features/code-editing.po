@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 18:14+0900\n"
+"POT-Creation-Date: 2026-02-21 19:39+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -27,9 +27,7 @@ msgstr "コード編集"
 msgid ""
 "The plugin provides a rich set of editing features that make writing "
 "ReScript code more productive."
-msgstr ""
-"このプラグインは、ReScript コードの記述をより生産的にする豊富な編集機能を"
-"提供します。"
+msgstr "このプラグインは、ReScript コードの記述をより生産的にする豊富な編集機能を提供します。"
 
 #: ../../user/features/code-editing.md:5
 msgid "Code Folding"
@@ -73,9 +71,7 @@ msgstr "カスタムリージョン"
 msgid ""
 "Use `//#region` and `//#endregion` markers to create custom foldable "
 "sections:"
-msgstr ""
-"`//#region` と `//#endregion` マーカーを使用してカスタムの折りたたみ可能な"
-"セクションを作成できます:"
+msgstr "`//#region` と `//#endregion` マーカーを使用してカスタムの折りたたみ可能なセクションを作成できます:"
 
 #: ../../user/features/code-editing.md:28
 msgid "Code Formatting"
@@ -86,16 +82,14 @@ msgid ""
 "Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file "
 "using the `rescript format` CLI."
 msgstr ""
-"`Ctrl+Alt+L`（macOS では `Cmd+Option+L`）を押して、`rescript format` CLI を"
-"使用して現在のファイルをフォーマットします。"
+"`Ctrl+Alt+L`（macOS では `Cmd+Option+L`）を押して、`rescript format` CLI "
+"を使用して現在のファイルをフォーマットします。"
 
 #: ../../user/features/code-editing.md:33
 msgid ""
 "Formatting requires the ReScript compiler (`rescript`) to be installed in"
 " your project."
-msgstr ""
-"フォーマットにはプロジェクトに ReScript コンパイラ（`rescript`）がインストール"
-"されている必要があります。"
+msgstr "フォーマットにはプロジェクトに ReScript コンパイラ（`rescript`）がインストールされている必要があります。"
 
 #: ../../user/features/code-editing.md:36
 msgid "Brace Matching"
@@ -126,8 +120,7 @@ msgstr "スマート引用符"
 msgid ""
 "When you type `\"`, `'`, or `` ` ``, the closing quote is automatically "
 "inserted."
-msgstr ""
-"`\"`, `'`, または `` ` `` を入力すると、閉じ引用符が自動的に挿入されます。"
+msgstr "`\"`, `'`, または `` ` `` を入力すると、閉じ引用符が自動的に挿入されます。"
 
 #: ../../user/features/code-editing.md:47
 msgid "Smart Enter"
@@ -137,9 +130,7 @@ msgstr "Smart Enter"
 msgid ""
 "Press `Shift+Enter` to intelligently complete the current statement and "
 "start a new line:"
-msgstr ""
-"`Shift+Enter` を押すと、現在の文をインテリジェントに補完し、新しい行を"
-"開始します:"
+msgstr "`Shift+Enter` を押すと、現在の文をインテリジェントに補完し、新しい行を開始します:"
 
 #: ../../user/features/code-editing.md:51
 msgid "Closes unclosed parentheses and braces"
@@ -241,16 +232,13 @@ msgstr "Some(...) でラップ"
 msgid ""
 "Wraps a selected expression in `Some()`, useful when you need to convert "
 "a plain value into an `option` type."
-msgstr ""
-"選択した式を `Some()` でラップします。プレーンな値を `option` 型に変換する"
-"必要がある場合に便利です。"
+msgstr "選択した式を `Some()` でラップします。プレーンな値を `option` 型に変換する必要がある場合に便利です。"
 
 #: ../../user/features/code-editing.md:84
 msgid ""
 "Select the expression, press `Alt+Enter`, and choose **Wrap with "
 "Some(...)**."
-msgstr ""
-"式を選択し、`Alt+Enter` を押して、**Wrap with Some(...)** を選択します。"
+msgstr "式を選択し、`Alt+Enter` を押して、**Wrap with Some(...)** を選択します。"
 
 #: ../../user/features/code-editing.md:86
 #: ../../user/features/code-editing.md:104
@@ -274,9 +262,7 @@ msgstr "Ok(...) でラップ"
 msgid ""
 "Wraps a selected expression in `Ok()`, useful when returning a success "
 "value from a function that uses the `result` type."
-msgstr ""
-"選択した式を `Ok()` でラップします。`result` 型を使用する関数から成功値を"
-"返す場合に便利です。"
+msgstr "選択した式を `Ok()` でラップします。`result` 型を使用する関数から成功値を返す場合に便利です。"
 
 #: ../../user/features/code-editing.md:111
 msgid "**After** (with `value` selected):"
@@ -290,9 +276,7 @@ msgstr "Error(...) でラップ"
 msgid ""
 "Wraps a selected expression in `Error()`, useful when returning an error "
 "value from a function that uses the `result` type."
-msgstr ""
-"選択した式を `Error()` でラップします。`result` 型を使用する関数からエラー値を"
-"返す場合に便利です。"
+msgstr "選択した式を `Error()` でラップします。`result` 型を使用する関数からエラー値を返す場合に便利です。"
 
 #: ../../user/features/code-editing.md:129
 msgid "**After** (with `message` on the second line selected):"
@@ -309,17 +293,15 @@ msgid ""
 "TypeScript type definitions for the declaration, enabling seamless "
 "interop with TypeScript code."
 msgstr ""
-"`let`, `type`, または `module` 宣言の上に `@genType` アノテーションを追加し"
-"ます。このアノテーションは ReScript コンパイラに宣言の TypeScript 型定義を"
-"生成するよう指示し、TypeScript コードとのシームレスな相互運用を可能にします。"
+"`let`, `type`, または `module` 宣言の上に `@genType` アノテーションを追加します。このアノテーションは "
+"ReScript コンパイラに宣言の TypeScript 型定義を生成するよう指示し、TypeScript "
+"コードとのシームレスな相互運用を可能にします。"
 
 #: ../../user/features/code-editing.md:140
 msgid ""
 "The intention is only available on declarations that do not already have "
 "a `@genType` annotation."
-msgstr ""
-"このインテンションは、まだ `@genType` アノテーションが付与されていない宣言"
-"でのみ利用可能です。"
+msgstr "このインテンションは、まだ `@genType` アノテーションが付与されていない宣言でのみ利用可能です。"
 
 #: ../../user/features/code-editing.md:148
 #: ../../user/features/code-editing.md:166
@@ -385,9 +367,8 @@ msgid ""
 "arm. The cursor is placed on the `expr` placeholder so you can type the "
 "expression to match on."
 msgstr ""
-"選択したコードをデフォルトの `_` アームを持つ `switch` 式内にラップします。"
-"カーソルは `expr` プレースホルダーに配置されるため、マッチする式をすぐに"
-"入力できます。"
+"選択したコードをデフォルトの `_` アームを持つ `switch` 式内にラップします。カーソルは `expr` "
+"プレースホルダーに配置されるため、マッチする式をすぐに入力できます。"
 
 #: ../../user/features/code-editing.md:207
 msgid "**Before** (with `defaultHandler()` selected):"
@@ -403,9 +384,8 @@ msgid ""
 "on the `()` placeholder in the catch arm so you can define the error "
 "handling logic."
 msgstr ""
-"選択したコードを `try` / `catch` ブロックでラップします。カーソルは catch "
-"アームの `()` プレースホルダーに配置されるため、エラー処理ロジックをすぐに"
-"定義できます。"
+"選択したコードを `try` / `catch` ブロックでラップします。カーソルは catch アームの `()` "
+"プレースホルダーに配置されるため、エラー処理ロジックをすぐに定義できます。"
 
 #: ../../user/features/code-editing.md:225
 msgid "**Before** (with `parseJson(input)` selected):"
@@ -420,9 +400,7 @@ msgstr "ブロックスコープ { ... }"
 msgid ""
 "Wraps the selected code in a block scope. This is useful for limiting "
 "variable scope or grouping expressions."
-msgstr ""
-"選択したコードをブロックスコープでラップします。変数のスコープを制限したり、"
-"式をグループ化する場合に便利です。"
+msgstr "選択したコードをブロックスコープでラップします。変数のスコープを制限したり、式をグループ化する場合に便利です。"
 
 #: ../../user/features/code-editing.md:245
 msgid "**Before** (with the two lines selected):"
@@ -436,9 +414,7 @@ msgstr "インポートの最適化"
 msgid ""
 "Press `Ctrl+Alt+O` to remove duplicate `open` statements from the current"
 " file."
-msgstr ""
-"`Ctrl+Alt+O` を押すと、現在のファイルから重複した `open` ステートメントを"
-"削除します。"
+msgstr "`Ctrl+Alt+O` を押すと、現在のファイルから重複した `open` ステートメントを削除します。"
 
 #: ../../user/features/code-editing.md:265
 msgid "Rename"
@@ -448,9 +424,7 @@ msgstr "リネーム"
 msgid ""
 "Press `Shift+F6` to rename a symbol across the project. The Language "
 "Server handles finding all references and updating them."
-msgstr ""
-"`Shift+F6` を押すと、プロジェクト全体でシンボルをリネームします。Language "
-"Server がすべての参照を検索して更新します。"
+msgstr "`Shift+F6` を押すと、プロジェクト全体でシンボルをリネームします。Language Server がすべての参照を検索して更新します。"
 
 #: ../../user/features/code-editing.md:269
 msgid "Paste as JSON.t"
@@ -461,8 +435,8 @@ msgid ""
 "Use **Edit** > **Paste as JSON.t** to convert JSON from your clipboard "
 "into a ReScript `JSON.t` value."
 msgstr ""
-"**Edit** > **Paste as JSON.t** を使用して、クリップボードの JSON を ReScript "
-"の `JSON.t` 値に変換します。"
+"**Edit** > **Paste as JSON.t** を使用して、クリップボードの JSON を ReScript の `JSON.t` "
+"値に変換します。"
 
 #: ../../user/features/code-editing.md:273
 msgid "Code Generation"
@@ -480,8 +454,7 @@ msgstr "**Generate Switch Arms** — バリアント型のマッチアームを�
 msgid ""
 "**Generate Module Type** — Generate a module type skeleton from a module "
 "implementation"
-msgstr ""
-"**Generate Module Type** — モジュール実装からモジュール型のスケルトンを生成"
+msgstr "**Generate Module Type** — モジュール実装からモジュール型のスケルトンを生成"
 
 #: ../../user/features/code-editing.md:280
 msgid "Generate Switch Arms"
@@ -494,17 +467,14 @@ msgid ""
 "you write exhaustive pattern matches without manually listing every "
 "variant."
 msgstr ""
-"キャレットがバリアント型宣言の中にある場合、このアクションはコンストラクター"
-"ごとに1つのアームを持つ `switch` 式を生成します。すべてのバリアントを手動で"
-"列挙することなく、網羅的なパターンマッチを記述できます。"
+"キャレットがバリアント型宣言の中にある場合、このアクションはコンストラクターごとに1つのアームを持つ `switch` "
+"式を生成します。すべてのバリアントを手動で列挙することなく、網羅的なパターンマッチを記述できます。"
 
 #: ../../user/features/code-editing.md:284
 msgid ""
 "Place your caret inside the type declaration and press `Cmd+N` (or "
 "`Alt+Insert`), then choose **Switch Arms**."
-msgstr ""
-"型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、"
-"**Switch Arms** を選択します。"
+msgstr "型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Switch Arms** を選択します。"
 
 #: ../../user/features/code-editing.md:296
 msgid "**After** (inserted below the type declaration):"
@@ -517,9 +487,9 @@ msgid ""
 "(e.g., `Point`) match directly. Replace `todo` with your actual logic for"
 " each arm."
 msgstr ""
-"ペイロードを持つコンストラクター（例: `Circle(float)`）は生成されたアームで "
-"`_` ワイルドカードを取得し、ペイロードのないコンストラクター（例: `Point`）は"
-"直接マッチします。各アームの `todo` を実際のロジックに置き換えてください。"
+"ペイロードを持つコンストラクター（例: `Circle(float)`）は生成されたアームで `_` "
+"ワイルドカードを取得し、ペイロードのないコンストラクター（例: `Point`）は直接マッチします。各アームの `todo` "
+"を実際のロジックに置き換えてください。"
 
 #: ../../user/features/code-editing.md:315
 msgid "Generate Module Type"
@@ -533,17 +503,14 @@ msgid ""
 "`module` declarations found in the module body."
 msgstr ""
 "キャレットがモジュール宣言の中にある場合、このアクションは `module type` "
-"シグネチャのスケルトンを生成し、モジュールの上に挿入します。生成された"
-"シグネチャには、モジュール本体にあるすべての `let`, `type`, `external`、"
-"およびネストされた `module` 宣言が含まれます。"
+"シグネチャのスケルトンを生成し、モジュールの上に挿入します。生成されたシグネチャには、モジュール本体にあるすべての `let`, `type`, "
+"`external`、およびネストされた `module` 宣言が含まれます。"
 
 #: ../../user/features/code-editing.md:319
 msgid ""
 "Place your caret inside the module declaration and press `Cmd+N` (or "
 "`Alt+Insert`), then choose **Module Type**."
-msgstr ""
-"モジュール宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、"
-"**Module Type** を選択します。"
+msgstr "モジュール宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Module Type** を選択します。"
 
 #: ../../user/features/code-editing.md:341
 msgid "**After** (module type inserted above the module):"
@@ -557,10 +524,9 @@ msgid ""
 "their definition body so you can specify the exposed type shape. Nested "
 "modules are listed with an empty `{}` signature for you to fill in."
 msgstr ""
-"生成された型は値の型のプレースホルダーとして `'a` を使用します -- これらを"
-"実際の型シグネチャに置き換えてください。型宣言は定義本体なしで表示されるため、"
-"公開する型の形状を指定できます。ネストされたモジュールは空の `{}` シグネチャで"
-"リストされるため、内容を記入してください。"
+"生成された型は値の型のプレースホルダーとして `'a` を使用します -- "
+"これらを実際の型シグネチャに置き換えてください。型宣言は定義本体なしで表示されるため、公開する型の形状を指定できます。ネストされたモジュールは空の"
+" `{}` シグネチャでリストされるため、内容を記入してください。"
 
 #: ../../user/features/code-editing.md:370
 msgid "Spellchecking"
@@ -581,6 +547,88 @@ msgstr "文字列リテラル"
 #: ../../user/features/code-editing.md:376
 msgid "Identifiers (camelCase splitting)"
 msgstr "識別子（camelCase 分割）"
+
+#: ../../user/features/code-editing.md:378
+msgid "Backspace Handler"
+msgstr "Backspace ハンドラー"
+
+#: ../../user/features/code-editing.md:380
+msgid ""
+"When you delete an opening JSX tag with backspace, the matching closing "
+"tag is automatically removed."
+msgstr "Backspace で開始 JSX タグを削除すると、対応する終了タグも自動的に削除されます。"
+
+#: ../../user/features/code-editing.md:382
+msgid "Move Element Left/Right"
+msgstr "要素の左右移動"
+
+#: ../../user/features/code-editing.md:384
+msgid ""
+"Use `Alt+Shift+Cmd+Left` / `Alt+Shift+Cmd+Right` to swap comma-separated "
+"elements. Works with function arguments, array items, record fields, and "
+"tuple elements."
+msgstr ""
+"`Alt+Shift+Cmd+Left` / `Alt+Shift+Cmd+Right` "
+"でカンマ区切りの要素を入れ替えます。関数の引数、配列の要素、レコードフィールド、タプルの要素に対応しています。"
+
+#: ../../user/features/code-editing.md:386
+msgid "Code Block Selection"
+msgstr "コードブロックの選択"
+
+#: ../../user/features/code-editing.md:388
+msgid ""
+"Use `Ctrl+Shift+[` and `Ctrl+Shift+]` to navigate to the start and end of"
+" the enclosing code block (brace-delimited)."
+msgstr ""
+"`Ctrl+Shift+[` と `Ctrl+Shift+]` "
+"を使用して、囲んでいるコードブロック（ブレース区切り）の先頭と末尾に移動します。"
+
+#: ../../user/features/code-editing.md:390
+msgid "Split/Join List"
+msgstr "リストの分割/結合"
+
+#: ../../user/features/code-editing.md:392
+msgid ""
+"Toggle comma-separated lists between single-line and multi-line format. "
+"Available via **Edit** > **Split/Join List**."
+msgstr ""
+"カンマ区切りのリストを単一行と複数行の形式で切り替えます。"
+"**Edit** > **Split/Join List** から利用できます。"
+
+#: ../../user/features/code-editing.md:394
+msgid "Copy/Paste Escaping"
+msgstr "コピー/ペースト時のエスケープ"
+
+#: ../../user/features/code-editing.md:396
+msgid ""
+"When pasting text into a string literal, special characters (backslash, "
+"quotes, newlines, tabs) are automatically escaped."
+msgstr "文字列リテラルにテキストを貼り付けると、特殊文字（バックスラッシュ、引用符、改行、タブ）が自動的にエスケープされます。"
+
+#: ../../user/features/code-editing.md:398
+msgid "Paste as JSX"
+msgstr "JSX として貼り付け"
+
+#: ../../user/features/code-editing.md:400
+msgid ""
+"When pasting HTML content into a ReScript file, it is automatically "
+"converted to JSX syntax:"
+msgstr "HTML コンテンツを ReScript ファイルに貼り付けると、自動的に JSX 構文に変換されます:"
+
+#: ../../user/features/code-editing.md:401
+msgid ""
+"HTML attributes (`class`, `for`, `onclick`) are renamed to JSX "
+"equivalents (`className`, `htmlFor`, `onClick`)"
+msgstr ""
+"HTML 属性（`class`、`for`、`onclick`）が JSX の同等属性（`className`、`htmlFor`、`onClick`）にリネームされます"
+
+#: ../../user/features/code-editing.md:402
+msgid "Void elements (`<br>`, `<img>`, `<input>`) are self-closed (`<br />`)"
+msgstr "Void 要素（`<br>`、`<img>`、`<input>`）が自己閉じタグ（`<br />`）に変換されます"
+
+#: ../../user/features/code-editing.md:403
+msgid "Inline `style` strings are converted to ReScript style objects"
+msgstr "インライン `style` 文字列が ReScript のスタイルオブジェクトに変換されます"
 
 #~ msgid ""
 #~ "Use **Edit** → **Paste as JSON.t** "

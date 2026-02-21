@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 18:14+0900\n"
+"POT-Creation-Date: 2026-02-21 19:39+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -27,9 +27,7 @@ msgstr "コード補完"
 msgid ""
 "The plugin provides multiple completion mechanisms to help you write code"
 " faster."
-msgstr ""
-"本プラグインは、コードをより速く記述するための複数の補完メカニズムを"
-"提供します。"
+msgstr "本プラグインは、コードをより速く記述するための複数の補完メカニズムを提供します。"
 
 #: ../../user/features/code-completion.md:5
 msgid "LSP Completion"
@@ -41,9 +39,8 @@ msgid ""
 " completion with `Ctrl+Space` (or `Cmd+Space` on macOS), or just start "
 "typing."
 msgstr ""
-"Language Server は、型を考慮したインテリジェントな補完を提供します。"
-"`Ctrl+Space`（macOS では `Cmd+Space`）で補完をトリガーするか、"
-"入力を開始するだけで補完が表示されます。"
+"Language Server は、型を考慮したインテリジェントな補完を提供します。`Ctrl+Space`（macOS では "
+"`Cmd+Space`）で補完をトリガーするか、入力を開始するだけで補完が表示されます。"
 
 #: ../../user/features/code-completion.md:9
 msgid "What Gets Completed"
@@ -81,8 +78,7 @@ msgstr "Postfix Completion"
 msgid ""
 "Type an expression followed by `.` and a postfix template name to "
 "transform the expression."
-msgstr ""
-"式の後に `.` とポストフィックステンプレート名を入力すると、式が変換されます。"
+msgstr "式の後に `.` とポストフィックステンプレート名を入力すると、式が変換されます。"
 
 #: ../../user/features/code-completion.md
 msgid "Template"
@@ -199,9 +195,8 @@ msgid ""
 "the most frequently used postfix templates, as `switch` expressions are "
 "central to ReScript programming."
 msgstr ""
-"値に対してパターンマッチが必要なときに `.switch` を使用します。"
-"`switch` 式は ReScript プログラミングの中核であるため、最も頻繁に使用される"
-"ポストフィックステンプレートの 1 つです。"
+"値に対してパターンマッチが必要なときに `.switch` を使用します。`switch` 式は ReScript "
+"プログラミングの中核であるため、最も頻繁に使用されるポストフィックステンプレートの 1 つです。"
 
 #: ../../user/features/code-completion.md:42
 #: ../../user/features/code-completion.md:62
@@ -227,9 +222,7 @@ msgstr "変換後:"
 msgid ""
 "The cursor is placed after `=>` so you can immediately start typing the "
 "branch body. Add additional arms manually."
-msgstr ""
-"カーソルは `=>` の後に配置されるため、すぐにブランチの本体を入力できます。"
-"追加のアームは手動で追加してください。"
+msgstr "カーソルは `=>` の後に配置されるため、すぐにブランチの本体を入力できます。追加のアームは手動で追加してください。"
 
 #: ../../user/features/code-completion.md:58
 msgid "`.pipe` -- Functional Composition"
@@ -241,17 +234,14 @@ msgid ""
 "first) for chaining function calls, and this template saves keystrokes "
 "when building data transformation pipelines."
 msgstr ""
-"パイプチェーンを開始または拡張するために `.pipe` を使用します。ReScript は "
-"関数呼び出しのチェーンに `->` (pipe first) を使用しており、このテンプレートは"
-"データ変換パイプラインを構築する際のキーストロークを節約します。"
+"パイプチェーンを開始または拡張するために `.pipe` を使用します。ReScript は 関数呼び出しのチェーンに `->` (pipe "
+"first) を使用しており、このテンプレートはデータ変換パイプラインを構築する際のキーストロークを節約します。"
 
 #: ../../user/features/code-completion.md:74
 msgid ""
 "The cursor is placed right after `->` so you can type the next function "
 "name. This is especially useful for building chains:"
-msgstr ""
-"カーソルは `->` の直後に配置されるため、次の関数名をすぐに入力できます。"
-"これはチェーンを構築する際に特に便利です:"
+msgstr "カーソルは `->` の直後に配置されるため、次の関数名をすぐに入力できます。これはチェーンを構築する際に特に便利です:"
 
 #: ../../user/features/code-completion.md:83
 msgid "`.log` -- Debug Logging"
@@ -265,8 +255,7 @@ msgstr "`.log` を使用して、デバッグのために式を `Console.log()` 
 msgid ""
 "This is convenient for quick debugging without manually typing the "
 "wrapping function."
-msgstr ""
-"ラッピング関数を手動で入力することなく、素早くデバッグできるため便利です。"
+msgstr "ラッピング関数を手動で入力することなく、素早くデバッグできるため便利です。"
 
 #: ../../user/features/code-completion.md:101
 msgid "`.some` -- Optional Value Wrapping"
@@ -276,8 +265,7 @@ msgstr "`.some` -- オプショナル値のラッピング"
 msgid ""
 "Use `.some` to wrap a value in the `Some` constructor of the `option` "
 "type."
-msgstr ""
-"`.some` を使用して、`option` 型の `Some` コンストラクタで値をラップします。"
+msgstr "`.some` を使用して、`option` 型の `Some` コンストラクタで値をラップします。"
 
 #: ../../user/features/code-completion.md:117
 msgid "Useful when you need to return an optional value from a function:"
@@ -295,8 +283,7 @@ msgstr "`.ok` と `.error` を使用して、`result` 型のコンストラク�
 msgid ""
 "These are helpful when working with functions that return `result<'a, "
 "'b>`:"
-msgstr ""
-"`result<'a, 'b>` を返す関数を扱う場合に役立ちます:"
+msgstr "`result<'a, 'b>` を返す関数を扱う場合に役立ちます:"
 
 #: ../../user/features/code-completion.md:166
 msgid "`.ignore` -- Discarding Return Values"
@@ -308,8 +295,8 @@ msgid ""
 "discard the return value. This avoids compiler warnings about unused "
 "values."
 msgstr ""
-"副作用のために関数を呼び出し、戻り値を破棄したい場合に `.ignore` を使用します。"
-"これにより、未使用の値に関するコンパイラ警告を回避できます。"
+"副作用のために関数を呼び出し、戻り値を破棄したい場合に `.ignore` "
+"を使用します。これにより、未使用の値に関するコンパイラ警告を回避できます。"
 
 #: ../../user/features/code-completion.md:182
 msgid "Live Templates"
@@ -321,9 +308,8 @@ msgid ""
 "at each placeholder (shown in the expansions below); press `Tab` to move "
 "to the next placeholder."
 msgstr ""
-"スニペットの省略形を入力して `Tab` を押すと展開されます。カーソルは各"
-"プレースホルダー（以下の展開例に表示）で停止し、`Tab` を押すと次の"
-"プレースホルダーに移動します。"
+"スニペットの省略形を入力して `Tab` を押すと展開されます。カーソルは各プレースホルダー（以下の展開例に表示）で停止し、`Tab` "
+"を押すと次のプレースホルダーに移動します。"
 
 #: ../../user/features/code-completion.md:32
 msgid "Abbreviation"
@@ -574,9 +560,7 @@ msgstr "**`typr`** -- レコード型定義"
 msgid ""
 "The cursor stops at `name`, then `field`, then the field type, then "
 "inside the record for additional fields."
-msgstr ""
-"カーソルは `name`、`field`、フィールドの型、レコード内部（追加フィールド用）の"
-"順に停止します。"
+msgstr "カーソルは `name`、`field`、フィールドの型、レコード内部（追加フィールド用）の順に停止します。"
 
 #: ../../user/features/code-completion.md:261
 msgid "**`typv`** -- Variant type definition"
@@ -586,9 +570,7 @@ msgstr "**`typv`** -- バリアント型定義"
 msgid ""
 "The cursor stops at `name`, then `Variant`, allowing you to define the "
 "first constructor and continue adding more."
-msgstr ""
-"カーソルは `name`、`Variant` の順に停止し、最初のコンストラクタを定義して"
-"さらに追加できます。"
+msgstr "カーソルは `name`、`Variant` の順に停止し、最初のコンストラクタを定義してさらに追加できます。"
 
 #: ../../user/features/code-completion.md:270
 msgid "Control Flow"
@@ -618,9 +600,7 @@ msgstr "**`for`** -- for ループ"
 msgid ""
 "The cursor stops at the loop variable `i`, then the start value `0`, then"
 " the end value `10`, then the loop body."
-msgstr ""
-"カーソルはループ変数 `i`、開始値 `0`、終了値 `10`、ループ本体の順に"
-"停止します。"
+msgstr "カーソルはループ変数 `i`、開始値 `0`、終了値 `10`、ループ本体の順に停止します。"
 
 #: ../../user/features/code-completion.md:318
 msgid "FFI (Foreign Function Interface)"
@@ -635,8 +615,8 @@ msgid ""
 "The cursor stops at `name`, then the type annotation, then the JavaScript"
 " name string. Useful for binding to JavaScript functions and values."
 msgstr ""
-"カーソルは `name`、型アノテーション、JavaScript の名前文字列の順に停止します。"
-"JavaScript の関数や値へのバインディングに便利です。"
+"カーソルは `name`、型アノテーション、JavaScript の名前文字列の順に停止します。JavaScript "
+"の関数や値へのバインディングに便利です。"
 
 #: ../../user/features/code-completion.md:328
 msgid "Utility"
@@ -650,9 +630,7 @@ msgstr "**`pipe`** -- 関数呼び出し付きパイプ演算子"
 msgid ""
 "Type this after an expression to pipe it into a function. The cursor "
 "stops at `func`, then inside the parentheses for arguments."
-msgstr ""
-"式の後に入力して関数にパイプします。カーソルは `func` で停止し、次に"
-"括弧内の引数部分で停止します。"
+msgstr "式の後に入力して関数にパイプします。カーソルは `func` で停止し、次に括弧内の引数部分で停止します。"
 
 #: ../../user/features/code-completion.md:338
 msgid "**`log`** -- Console.log"
@@ -671,9 +649,8 @@ msgid ""
 "You can customize all ReScript live templates at **Settings** | "
 "**Editor** | **Live Templates** | **ReScript**. From there you can:"
 msgstr ""
-"すべての ReScript Live Templates は **Settings** | **Editor** | "
-"**Live Templates** | **ReScript** でカスタマイズできます。ここから以下の"
-"操作が可能です:"
+"すべての ReScript Live Templates は **Settings** | **Editor** | **Live "
+"Templates** | **ReScript** でカスタマイズできます。ここから以下の操作が可能です:"
 
 #: ../../user/features/code-completion.md:350
 msgid "Edit existing template expansions and placeholder variables"
@@ -701,8 +678,8 @@ msgid ""
 "parameter information including types and names. This helps you fill in "
 "arguments correctly without checking the documentation."
 msgstr ""
-"関数名の後に `(` を入力すると、型や名前を含む関数のパラメータ情報がポップアップ"
-"で表示されます。ドキュメントを確認せずに引数を正しく入力するのに役立ちます。"
+"関数名の後に `(` "
+"を入力すると、型や名前を含む関数のパラメータ情報がポップアップで表示されます。ドキュメントを確認せずに引数を正しく入力するのに役立ちます。"
 
 #: ../../user/features/code-completion.md:359
 msgid "For example, given a function:"
@@ -720,10 +697,34 @@ msgid ""
 "the language server, including standard library functions and your own "
 "definitions."
 msgstr ""
-"各引数を入力してカンマを入力するたびに、ポップアップは現在のパラメータ位置を"
-"ハイライトするため、どの引数を入力しているかが常にわかります。これは、標準"
-"ライブラリ関数や独自の定義を含め、Language Server がシグネチャを把握している"
-"すべての関数で動作します。"
+"各引数を入力してカンマを入力するたびに、ポップアップは現在のパラメータ位置をハイライトするため、どの引数を入力しているかが常にわかります。これは、標準ライブラリ関数や独自の定義を含め、Language"
+" Server がシグネチャを把握しているすべての関数で動作します。"
+
+#: ../../user/features/code-completion.md:375
+msgid "Lookup Character Filter"
+msgstr "入力文字フィルター"
+
+#: ../../user/features/code-completion.md:377
+msgid ""
+"The plugin intelligently filters completion behavior based on typed "
+"characters:"
+msgstr "プラグインは入力された文字に基づいて補完の動作をインテリジェントにフィルタリングします:"
+
+#: ../../user/features/code-completion.md:378
+msgid ""
+"Typing `.` accepts the current completion and inserts the dot (for module"
+" access patterns)"
+msgstr "`.` を入力すると、現在の補完を確定してドットを挿入します（モジュールアクセスパターン用）"
+
+#: ../../user/features/code-completion.md:379
+msgid ""
+"Typing `(` accepts the current completion and inserts parentheses (for "
+"function calls)"
+msgstr "`(` を入力すると、現在の補完を確定して括弧を挿入します（関数呼び出し用）"
+
+#: ../../user/features/code-completion.md:380
+msgid "Other special characters behave appropriately for ReScript syntax"
+msgstr "その他の特殊文字は ReScript 構文に適した動作をします"
 
 #~ msgid "Pipe (`|>`) chain suggestions"
 #~ msgstr ""
@@ -803,3 +804,4 @@ msgstr ""
 #~ " This helps you fill in arguments "
 #~ "correctly without checking the documentation."
 #~ msgstr ""
+

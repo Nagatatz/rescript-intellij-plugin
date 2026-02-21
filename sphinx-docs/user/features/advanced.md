@@ -473,3 +473,68 @@ The following TypeScript constructs are not yet supported and will generate `/* 
 - Intersection types (generates `JSON.t` fallback)
 - Overloaded function signatures (uses first signature)
 - Declaration merging
+
+## Color Preview
+
+Inline color swatches are displayed in the editor gutter for color values in your ReScript code:
+- Hex colors: `"#ff0000"`, `"#f00"`
+- RGB: `"rgb(255, 0, 0)"`
+- HSL: `"hsl(0, 100%, 50%)"`
+
+Click the swatch to open the color picker.
+
+## VCS Code Vision
+
+Author and last-change annotations appear on top-level declarations (let, type, module, external), providing Git blame information directly in the editor. Enable via **Settings** > **Editor** > **Inlay Hints** > **Code Vision**.
+
+## Package Dependencies
+
+A dedicated tool window shows the dependencies and devDependencies from your `rescript.json`:
+
+**Open:** **View** > **Tool Windows** > **ReScript Dependencies**
+
+The tree view organizes packages into "Dependencies" and "Dev Dependencies" groups with version numbers.
+
+## Quick Documentation
+
+Press `Ctrl+Q` (or hover) to see documentation for ReScript elements. When the LSP server is connected, documentation comes from the language server. When LSP is unavailable, a PSI-based fallback shows the declaration type, name, and source file.
+
+## Safe Delete
+
+Use **Refactor** > **Safe Delete** to delete ReScript declarations with usage checking. If the element is still referenced, a confirmation dialog shows all usage locations before proceeding.
+
+## Name Suggestions
+
+During rename refactoring, the plugin suggests names based on:
+- The element's type (e.g., `user` for `User.t`)
+- The containing file name
+- camelCase conversion from snake_case
+
+## Reader Mode
+
+Files in `node_modules/` directories are automatically displayed in Reader Mode, providing a cleaner read-only view for library source files.
+
+## Open Statement Index
+
+The plugin indexes all `open` statements across your project for fast module resolution. This powers features like auto-import suggestions and module dependency analysis.
+
+## Project View Enhancements
+
+- **Interface indicator:** `.res` files with a corresponding `.resi` show a "(has .resi)" suffix
+- **Version display:** `rescript.json` shows the ReScript version from its content
+
+## Auto Import Options
+
+Configure auto-import behavior in **Settings** > **Editor** > **General** > **Auto Import**:
+- Toggle automatic `open` statement insertion
+- Exclude specific modules from auto-import
+
+## Inspection Suppressor
+
+Suppress specific inspections using `// noinspection` comments:
+
+```rescript
+// noinspection RescriptDuplicateOpen
+open Belt
+open Belt  // This duplicate open won't be flagged
+```

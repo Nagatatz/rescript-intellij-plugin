@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-02-21 19:39+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -189,13 +189,107 @@ msgid "Spellchecking"
 msgstr "スペルチェック"
 
 #: ../../user/changelog.md:47
-msgid "Project Wizard"
-msgstr "プロジェクトウィザード"
+msgid ""
+"Project Wizard with 12 templates (Basic, Vite+React, Next.js, Electron, "
+"Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm"
+" Library, CLI Tool, Monorepo)"
+msgstr ""
+"12 テンプレート対応のプロジェクトウィザード（Basic、Vite+React、Next.js、Electron、"
+"Hono、Cloudflare Workers、AWS Lambda、Google Cloud Run、React Native、npm"
+" Library、CLI Tool、Monorepo）"
 
 #: ../../user/changelog.md:48
 msgid "Code Generation (Switch Arms, Module Type)"
 msgstr "コード生成（Switch Arms、Module Type）"
 
-#: ../../user/changelog.md
+#: ../../user/changelog.md:49
 msgid ".d.ts to ReScript binding generation"
 msgstr ".d.ts から ReScript バインディングの生成"
+
+#: ../../user/changelog.md:50
+msgid "Backspace handler (JSX tag pair deletion)"
+msgstr "Backspace ハンドラー（JSX タグペアの削除）"
+
+#: ../../user/changelog.md:51
+msgid "Move element left/right (Alt+Shift+Cmd+Left/Right)"
+msgstr "要素の左右移動（Alt+Shift+Cmd+Left/Right）"
+
+#: ../../user/changelog.md:52
+msgid "Code block boundary detection (Ctrl+Shift+[ / ])"
+msgstr "コードブロック境界の検出（Ctrl+Shift+[ / ]）"
+
+#: ../../user/changelog.md:53
+msgid "Split/Join list (single-line ↔ multi-line toggle)"
+msgstr "リストの分割/結合（単一行と複数行の切り替え）"
+
+#: ../../user/changelog.md:54
+msgid "Copy/Paste string escaping (auto-escape in string literals)"
+msgstr "コピー/ペースト時の文字列エスケープ（文字列リテラル内の自動エスケープ）"
+
+#: ../../user/changelog.md:55
+msgid "Paste as JSX (HTML → ReScript JSX conversion)"
+msgstr "JSX として貼り付け（HTML から ReScript JSX への変換）"
+
+#: ../../user/changelog.md:56
+msgid "Quick Documentation fallback (Ctrl+Q PSI-based)"
+msgstr "Quick Documentation フォールバック（Ctrl+Q PSI ベース）"
+
+#: ../../user/changelog.md:57
+msgid "Usage type classification for Find Usages"
+msgstr "Find Usages の使用タイプ分類"
+
+#: ../../user/changelog.md:58
+msgid "Safe Delete with usage checking"
+msgstr "使用箇所チェック付きの Safe Delete"
+
+#: ../../user/changelog.md:59
+msgid "Name suggestions during rename"
+msgstr "リネーム時の名前候補提案"
+
+#: ../../user/changelog.md:60
+msgid "Inspection suppressor (// noinspection comments)"
+msgstr "インスペクション抑制（// noinspection コメント）"
+
+#: ../../user/changelog.md:61
+msgid "Color preview swatches in editor gutter"
+msgstr "エディタガターのカラープレビュースウォッチ"
+
+#: ../../user/changelog.md:62
+msgid "VCS Code Vision (author/last-change annotations)"
+msgstr "VCS Code Vision（作成者/最終変更の注釈）"
+
+#: ../../user/changelog.md:63
+msgid "Project View decoration (interface suffix, version display)"
+msgstr "Project View の装飾（インターフェースサフィックス、バージョン表示）"
+
+#: ../../user/changelog.md:64
+msgid "Reader mode for node_modules files"
+msgstr "node_modules ファイルの Reader Mode"
+
+#: ../../user/changelog.md:65
+msgid "Package dependencies tool window"
+msgstr "パッケージ依存関係ツールウィンドウ"
+
+#: ../../user/changelog.md:66
+msgid "Auto import options configuration"
+msgstr "自動インポートオプションの設定"
+
+#: ../../user/changelog.md:67
+msgid "Open statement file-based index"
+msgstr "open ステートメントのファイルベースインデックス"
+
+#: ../../user/changelog.md:68
+msgid "Predefined code style preset"
+msgstr "定義済みコードスタイルプリセット"
+
+#: ../../user/changelog.md:69
+msgid "Element descriptions for refactoring dialogs"
+msgstr "リファクタリングダイアログの要素説明"
+
+#: ../../user/changelog.md:70
+msgid "Lookup character filter for completion"
+msgstr "補完の入力文字フィルター"
+
+#~ msgid "Project Wizard"
+#~ msgstr "プロジェクトウィザード"
+

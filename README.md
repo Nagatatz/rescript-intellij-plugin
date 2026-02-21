@@ -31,6 +31,10 @@
 - **Inlay hints** — Type annotations displayed inline
 - **Signature help** — Parameter info for function calls
 - **Code Vision** — Function type annotations via Code Lens
+- **Quick Documentation** — PSI-based fallback documentation when LSP is unavailable (`Ctrl+Q`)
+- **Usage type classification** — Categorized Find Usages results (open, type, pipe, JSX, etc.)
+- **Safe Delete** — Usage-checking safe delete refactoring (`Refactor > Safe Delete`)
+- **Name suggestions** — Type-based and filename-based name suggestions during rename
 
 ### Navigation
 
@@ -64,6 +68,12 @@
 - **File templates** — Create Module, Interface, and React Component files
 - **Paste as JSON.t** — Convert clipboard JSON to ReScript `JSON.t`
 - **.d.ts binding generation** — Generate ReScript bindings from TypeScript definition files
+- **Backspace handler** — Delete matching JSX tag pairs with backspace
+- **Move element** — Swap comma-separated elements left/right (`Alt+Shift+Cmd+Left/Right`)
+- **Code block selection** — Navigate to code block boundaries (`Ctrl+Shift+[` / `]`)
+- **Split/Join list** — Toggle between single-line and multi-line comma-separated lists
+- **Copy/Paste escaping** — Auto-escape special characters when pasting into string literals
+- **Paste as JSX** — Convert HTML clipboard content to ReScript JSX syntax
 
 ### Code Analysis & Inspections
 
@@ -75,6 +85,7 @@
 - **Missing rescript.json** — Warn when configuration file is absent
 - **Highlight usages** — Highlight related keywords (switch/if/try and matching control flow keywords)
 - **Problem filter** — Suppress highlighting in `node_modules/`, `lib/bs/`, `lib/ocaml/`
+- **Inspection suppressor** — Suppress inspections with `// noinspection` comments
 
 ### Build, Run & Test
 
@@ -102,6 +113,16 @@
 - **TODO indexing** — Track TODO/FIXME comments in ReScript files
 - **Editor notification** — Guidance banner when LSP server is not detected
 - **File nesting** — Compiled `.res.js` files nested under `.res` in Project view with subdued gray color
+- **Color preview** — Inline color swatches in gutter for hex/rgb/hsl color values
+- **VCS Code Vision** — Author and last-change annotations on declarations
+- **Project View decoration** — "has interface" suffix and rescript.json version display
+- **Reader mode** — Auto-enable reader mode for `.res`/`.resi` files in `node_modules`
+- **Package dependencies** — Tool window showing rescript.json dependency tree
+- **Auto import options** — Configurable auto-import settings in `Settings > Editor > Auto Import`
+- **Open statement index** — Fast module lookup via file-based indexing of `open` statements
+- **Predefined code style** — "ReScript Standard" preset code style
+- **Element descriptions** — Enhanced element descriptions in refactoring dialogs
+- **Lookup char filter** — Smart character filtering for completion item selection
 
 ## Requirements
 

@@ -371,3 +371,10 @@ Typing `makeUser(` triggers the signature help popup, which displays:
 ```
 
 As you type each argument and enter a comma, the popup highlights the current parameter position so you always know which argument you are filling in. This works for all functions whose signatures are known to the language server, including standard library functions and your own definitions.
+
+## Lookup Character Filter
+
+The plugin intelligently filters completion behavior based on typed characters:
+- Typing `.` accepts the current completion and inserts the dot (for module access patterns)
+- Typing `(` accepts the current completion and inserts parentheses (for function calls)
+- Other special characters behave appropriately for ReScript syntax
