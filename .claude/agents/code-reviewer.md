@@ -60,6 +60,29 @@ Present results as a markdown table:
 | 5 | Package Structure | PASS/FAIL | Files with incorrect packages |
 ```
 
+### 6. Test Integrity (Anti-tampering)
+
+Verify that test assertions have not been weakened to match incorrect implementation. Common signs:
+- Assertions changed from strict equality to loose matching (e.g., `assertEquals` → `assertTrue(contains)`)
+- Expected values modified to match buggy output instead of spec
+- Test cases removed or commented out without documented reason
+- `@Disabled` / `@Ignore` annotations added without explanation
+
+### 7. Dead Code Detection
+
+After refactoring or feature addition, check for orphaned code:
+- Old functions/classes that were replaced but not deleted
+- Unused imports left after refactoring
+- Variables assigned but never read
+
+### 8. Edge Case Coverage (80/20 Pattern)
+
+AI-generated code is often 80% correct but misses critical 20%. Specifically check:
+- Null/empty input handling in public methods
+- Error paths and exception handling (not just happy path)
+- Boundary conditions (empty lists, single elements, max values)
+- Thread safety for project-level services (`@Service(Service.Level.PROJECT)`)
+
 After the table, provide a **Summary** section with:
 - Total issues found
 - Priority recommendations (FAIL items first, then WARN)
