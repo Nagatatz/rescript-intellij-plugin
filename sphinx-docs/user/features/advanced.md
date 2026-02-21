@@ -514,6 +514,17 @@ During rename refactoring, the plugin suggests names based on:
 
 Files in `node_modules/` directories are automatically displayed in Reader Mode, providing a cleaner read-only view for library source files.
 
+## TODO Indexing
+
+The plugin integrates with IntelliJ's TODO tool window (`Alt+6` > **TODO** tab) to detect and list TODO, FIXME, and other task comments in ReScript files.
+
+Recognized patterns include:
+- `// TODO: ...`
+- `// FIXME: ...`
+- `/* TODO: ... */`
+
+TODO items appear in the IDE's **TODO** panel alongside items from other file types in your project. You can customize TODO patterns and filters in **Settings** > **Editor** > **TODO**.
+
 ## Open Statement Index
 
 The plugin indexes all `open` statements across your project for fast module resolution. This powers features like auto-import suggestions and module dependency analysis.
@@ -528,6 +539,41 @@ The plugin indexes all `open` statements across your project for fast module res
 Configure auto-import behavior in **Settings** > **Editor** > **General** > **Auto Import**:
 - Toggle automatic `open` statement insertion
 - Exclude specific modules from auto-import
+
+## Expression Type
+
+Press `Ctrl+Shift+P` (`Cmd+Shift+P` on macOS) to display the inferred type of the expression at the cursor position.
+
+```rescript
+let add = (a, b) => a + b
+// Place caret on "add", press Ctrl+Shift+P
+// Shows: (int, int) => int
+```
+
+The type information is fetched from the Language Server via an LSP `textDocument/hover` request. If the LSP is not connected, a message indicates that no type information is available.
+
+:::{tip}
+This is useful when you want to quickly check the type of a sub-expression without adding an explicit type annotation. Unlike inlay hints (which show types persistently), Expression Type is on-demand and works on any expression, not just declarations.
+:::
+
+## LSP Auto-Install
+
+When you open a ReScript project without `@rescript/language-server` installed, the plugin displays a notification with a one-click install button.
+
+### Notification Actions
+
+| Action | Description |
+|--------|-------------|
+| **Install with npm/yarn/pnpm** | Installs `@rescript/language-server` as a dev dependency using the detected package manager |
+| **Configure...** | Opens the ReScript settings page to set a custom LSP path |
+| **Don't show again** | Dismisses the notification for the current session |
+
+The installation runs in the background with a progress indicator. On success, the Language Server starts automatically --- no IDE restart required.
+
+The notification only appears when:
+- The project contains `rescript.json` or `bsconfig.json`
+- No custom LSP path is configured in settings
+- The Language Server is not found in `node_modules`
 
 ## Inspection Suppressor
 

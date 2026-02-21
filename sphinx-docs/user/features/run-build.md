@@ -184,3 +184,42 @@ The console filter uses a regular expression that matches paths in the format `<
 :::{note}
 Console output filtering is applied to all console outputs in the project, not just ReScript run configurations. This means file paths in test output, script output, and other console panels are also linkified.
 :::
+
+## Run Anything
+
+Press `Ctrl+Ctrl` (double-tap Ctrl) to open the **Run Anything** dialog, then type a ReScript CLI command to execute it immediately without creating a run configuration.
+
+### Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `rescript build` | Compile the project |
+| `rescript build -w` | Compile in watch mode |
+| `rescript clean` | Clean build artifacts |
+| `rescript format` | Format the project |
+
+Start typing `rescript` in the Run Anything dialog to see matching commands with auto-completion.
+
+:::{note}
+Run Anything for ReScript is only available in projects that contain a `rescript.json` (or `bsconfig.json`) at the project root. The ReScript CLI must be installed in the project's `node_modules`.
+:::
+
+## Debug Compiled JavaScript
+
+Press `Alt+Shift+D` to debug the compiled JavaScript output of the current `.res` file.
+
+### How It Works
+
+1. The plugin resolves the current `.res` file to its compiled `.js` output in `lib/js/`
+2. A debug session is launched using `node --inspect-brk` on the compiled file
+3. The IDE's debugger connects to the Node.js inspector, allowing you to set breakpoints and step through the code
+
+### Requirements
+
+- The project must be compiled first --- if the compiled `.js` file is not found, a message prompts you to build the project
+- Node.js must be available on the system
+- The **JavaScript Debugger** plugin must be installed (bundled with IntelliJ IDEA Ultimate and WebStorm)
+
+:::{tip}
+Use this in combination with the **Compiled JS Preview** tool window to understand the compiled output before debugging.
+:::

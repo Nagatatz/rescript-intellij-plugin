@@ -21,8 +21,8 @@ Initial release of the ReScript IntelliJ Plugin.
 - Import optimization
 - Intention actions (Wrap with Some/Ok/Error, Add @genType)
 - Surround with (if/switch/try/block)
-- Postfix completion (.switch, .pipe, .log, etc.)
-- Live templates (15 snippets)
+- Postfix completion (.switch, .pipe, .log, .some, .ok, .error, .ignore, .promise, .await)
+- Live templates (21 snippets including FFI bindings and React component)
 - File templates (Module, Interface, Component)
 - Go to Symbol, Go to Related, File switching (.res/.resi)
 - Create interface file, Open compiled JavaScript
@@ -68,3 +68,19 @@ Initial release of the ReScript IntelliJ Plugin.
 - Predefined code style preset
 - Element descriptions for refactoring dialogs
 - Lookup character filter for completion
+- Unwrap/Remove (Ctrl+Shift+Delete) for Some/Ok/Error/if/switch/try/block
+- JSX closing tag auto-insertion on `>` keystroke
+- Enter handler for doc comment and line comment auto-continuation
+- Smart join lines for pipe/let/arrow patterns (Ctrl+Shift+J)
+- Error Lens inline diagnostics at end of line
+- Highlight related keywords (switch/if/try keyword pairs)
+- Run Anything for ReScript CLI (Ctrl+Ctrl)
+- Expression Type display (Ctrl+Shift+P)
+- Debug compiled JavaScript (Alt+Shift+D)
+- LSP auto-install notification with one-click install
+- Generate doc comment intention action
+- Goto Super for .res ↔ .resi declaration navigation (Ctrl+U)
+- Go to Test / Create Test (Ctrl+Shift+T)
+- Context Info sticky declaration header (Alt+Q)
+- External Documentation for Belt/Js modules (Shift+F1)
+- Word selection handler for strings, brackets, and comments

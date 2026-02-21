@@ -28,6 +28,8 @@ Type an expression followed by `.` and a postfix template name to transform the 
 | `.ok` | `expr.ok` | `Ok(expr)` |
 | `.error` | `expr.error` | `Error(expr)` |
 | `.ignore` | `expr.ignore` | `expr->ignore` |
+| `.promise` | `expr.promise` | `expr->Promise.then(result => { ... })` |
+| `.await` | `expr.await` | `await expr` |
 
 ```{note}
 Postfix templates are not available inside comments or string literals.
@@ -179,6 +181,44 @@ After:
 Js.Promise.then(promise, handler)->ignore
 ```
 
+#### `.promise` -- Async Promise Chain
+
+Use `.promise` to wrap an expression in a `Promise.then` callback, useful when working with asynchronous code.
+
+Before:
+
+```rescript
+fetchData().promise
+```
+
+After:
+
+```rescript
+fetchData()->Promise.then(result => {
+  // cursor here
+})
+```
+
+The cursor is placed inside the callback body so you can immediately write the continuation logic.
+
+#### `.await` -- Await Expression
+
+Use `.await` to prepend `await` to an expression, converting it from a promise to a resolved value inside an `async` function.
+
+Before:
+
+```rescript
+fetchData().await
+```
+
+After:
+
+```rescript
+await fetchData()
+```
+
+This is the quickest way to await a promise expression without manually repositioning the cursor.
+
 ## Live Templates
 
 Type a snippet abbreviation and press `Tab` to expand. The cursor stops at each placeholder (shown in the expansions below); press `Tab` to move to the next placeholder.
@@ -200,6 +240,12 @@ Type a snippet abbreviation and press `Tab` to expand. The cursor stops at each 
 | `ext` | external (FFI) | `external name: type = "jsName"` |
 | `pipe` | pipe operator | `->func(...)` |
 | `log` | Console.log | `Console.log(...)` |
+| `@module` | @module external binding | `@module("name") external fn: 'a = "default"` |
+| `@val` | @val external binding | `@val external name: 'a = "name"` |
+| `@send` | @send external binding | `@send external name: (obj, 'a) => unit = "name"` |
+| `@get` | @get external binding | `@get external name: obj => 'a = "name"` |
+| `@set` | @set external binding | `@set external name: (obj, 'a) => unit = "name"` |
+| `comp` | React component | `@react.component let make = (~children) => { ... }` |
 
 ### Template Details
 
@@ -342,6 +388,56 @@ Console.log()
 ```
 
 The cursor is placed inside the parentheses.
+
+#### FFI Binding Templates
+
+**`@module`** -- Module binding
+
+```rescript
+@module("module-name")
+external name: 'a = "default"
+```
+
+The cursor stops at the module name, then the binding name, type, and JavaScript export name.
+
+**`@val`** -- Global value binding
+
+```rescript
+@val external name: 'a = "name"
+```
+
+**`@send`** -- Method binding
+
+```rescript
+@send external name: (obj, 'a) => unit = "name"
+```
+
+The cursor stops at the binding name, the receiver object type, the parameter type, the return type, and the JavaScript method name.
+
+**`@get`** -- Property getter binding
+
+```rescript
+@get external name: obj => 'a = "name"
+```
+
+**`@set`** -- Property setter binding
+
+```rescript
+@set external name: (obj, 'a) => unit = "name"
+```
+
+#### React
+
+**`comp`** -- React component
+
+```rescript
+@react.component
+let make = (~children) => {
+  // cursor here
+}
+```
+
+The cursor stops at the props parameter, then the component body.
 
 ### Customization
 

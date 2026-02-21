@@ -222,4 +222,4 @@ Inlay hints are useful when exploring unfamiliar code or debugging type inferenc
 
 Go to **Settings** → **Editor** → **Live Templates** → **ReScript** to view, edit, and add custom live templates.
 
-The plugin ships with 15 built-in live templates covering common ReScript patterns. You can customize the expansion text, add new templates, or change the abbreviation keys to match your workflow.
+The plugin ships with 21 built-in live templates covering common ReScript patterns (declarations, control flow, FFI bindings, and React components). You can customize the expansion text, add new templates, or change the abbreviation keys to match your workflow.
