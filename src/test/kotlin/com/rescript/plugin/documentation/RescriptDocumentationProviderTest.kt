@@ -1,6 +1,10 @@
 package com.rescript.plugin.documentation
 
+import com.intellij.lang.ASTNode
 import com.intellij.lang.documentation.AbstractDocumentationProvider
+import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
+import com.rescript.plugin.lang.RescriptTokenTypes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -118,5 +122,142 @@ class RescriptDocumentationProviderTest {
         val provider = RescriptDocumentationProvider()
         val result = provider.getUrlFor(null, null)
         assertNull(result)
+    }
+
+    // -- OPERATOR_INFO tests --
+
+    @Test
+    fun `OPERATOR_INFO is not empty`() {
+        assertTrue(RescriptDocumentationProvider.OPERATOR_INFO.isNotEmpty())
+    }
+
+    @Test
+    fun `OPERATOR_INFO contains pipe forward`() {
+        val info = RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.PIPE_FORWARD]
+        assertNotNull("PIPE_FORWARD should have operator info", info)
+        assertEquals("Pipe forward", info!!.name)
+        assertEquals(1, info.precedence)
+    }
+
+    @Test
+    fun `OPERATOR_INFO contains arrow`() {
+        val info = RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.ARROW]
+        assertNotNull("ARROW should have operator info", info)
+        assertEquals("Pipe", info!!.name)
+    }
+
+    @Test
+    fun `OPERATOR_INFO contains string concat`() {
+        val info = RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.STRING_CONCAT]
+        assertNotNull("STRING_CONCAT should have operator info", info)
+        assertEquals("String concatenation", info!!.name)
+        assertEquals(5, info.precedence)
+    }
+
+    @Test
+    fun `OPERATOR_INFO contains eqeqeq`() {
+        val info = RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.EQEQEQ]
+        assertNotNull("EQEQEQ should have operator info", info)
+        assertEquals("Strict equality", info!!.name)
+        assertEquals(4, info.precedence)
+    }
+
+    @Test
+    fun `OPERATOR_INFO contains plus`() {
+        val info = RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.PLUS]
+        assertNotNull("PLUS should have operator info", info)
+        assertEquals("Addition", info!!.name)
+        assertEquals(6, info.precedence)
+    }
+
+    @Test
+    fun `OPERATOR_INFO contains star`() {
+        val info = RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.STAR]
+        assertNotNull("STAR should have operator info", info)
+        assertEquals("Multiplication", info!!.name)
+        assertEquals(7, info.precedence)
+    }
+
+    @Test
+    fun `OPERATOR_INFO multiplication has higher precedence than addition`() {
+        val plusInfo = RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.PLUS]!!
+        val starInfo = RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.STAR]!!
+        assertTrue(
+            "Multiplication should have higher precedence than addition",
+            starInfo.precedence > plusInfo.precedence,
+        )
+    }
+
+    @Test
+    fun `OPERATOR_INFO contains logical operators`() {
+        assertNotNull(RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.L_AND])
+        assertNotNull(RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.L_OR])
+    }
+
+    @Test
+    fun `OPERATOR_INFO contains bitwise operators`() {
+        assertNotNull(RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.LAND])
+        assertNotNull(RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.LOR])
+        assertNotNull(RescriptDocumentationProvider.OPERATOR_INFO[RescriptTokenTypes.LXOR])
+    }
+
+    @Test
+    fun `generateOperatorDoc returns null for non-operator`() {
+        val element = stubPsiElement(RescriptTokenTypes.LIDENT, "myVar")
+        assertNull(RescriptDocumentationProvider.generateOperatorDoc(element))
+    }
+
+    @Test
+    fun `generateOperatorDoc returns HTML for operator`() {
+        val element = stubPsiElement(RescriptTokenTypes.PLUS, "+")
+        val doc = RescriptDocumentationProvider.generateOperatorDoc(element)
+        assertNotNull("Should generate doc for PLUS operator", doc)
+        assertTrue("Doc should contain operator symbol", doc!!.contains("+"))
+        assertTrue("Doc should contain 'Addition'", doc.contains("Addition"))
+        assertTrue("Doc should contain precedence", doc.contains("Precedence"))
+    }
+
+    @Test
+    fun `generateOperatorDoc returns HTML for pipe forward`() {
+        val element = stubPsiElement(RescriptTokenTypes.PIPE_FORWARD, "|>")
+        val doc = RescriptDocumentationProvider.generateOperatorDoc(element)
+        assertNotNull(doc)
+        assertTrue(doc!!.contains("Pipe forward"))
+    }
+
+    // -- Stub helpers --
+
+    private fun stubPsiElement(
+        type: IElementType,
+        text: String,
+    ): PsiElement {
+        val node =
+            java.lang.reflect.Proxy.newProxyInstance(
+                ASTNode::class.java.classLoader,
+                arrayOf(ASTNode::class.java),
+            ) { _, method, _ ->
+                when (method.name) {
+                    "getElementType" -> type
+                    "toString" -> "StubASTNode($type)"
+                    "hashCode" -> System.identityHashCode(type)
+                    "equals" -> false
+                    else -> null
+                }
+            } as ASTNode
+
+        return java.lang.reflect.Proxy.newProxyInstance(
+            PsiElement::class.java.classLoader,
+            arrayOf(PsiElement::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "getNode" -> node
+                "getText" -> text
+                "getContainingFile" -> null
+                "toString" -> "StubPsiElement($type)"
+                "hashCode" -> System.identityHashCode(node)
+                "equals" -> false
+                else -> null
+            }
+        } as PsiElement
     }
 }
