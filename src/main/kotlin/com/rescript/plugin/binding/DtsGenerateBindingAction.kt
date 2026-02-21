@@ -92,7 +92,7 @@ class DtsGenerateBindingAction : AnAction() {
 
         // Run parsing in background
         ProgressManager.getInstance().run(
-            object : Task.Backgroundable(project, "Generating ReScript Binding...", true) {
+            object : Task.Backgroundable(project, "Generating ReScript binding...", true) {
                 override fun run(indicator: ProgressIndicator) {
                     indicator.isIndeterminate = false
                     indicator.fraction = 0.1

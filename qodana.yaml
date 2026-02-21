@@ -8,3 +8,22 @@ profile:
   name: qodana.recommended
 include:
   - name: CheckDependencyLicenses
+exclude:
+  - name: All
+    paths:
+      # Template files — intentional per-template code that appears similar
+      - src/main/kotlin/com/rescript/plugin/wizard/templates/GoogleCloudRunTemplateFiles.kt
+      - src/main/kotlin/com/rescript/plugin/wizard/templates/ElectronTemplateFiles.kt
+  - name: IncorrectStringCapitalizationInspection
+    paths:
+      # Fixed proper nouns: "Node.js Executable", "ReScript Standard"
+      - src/main/kotlin/com/rescript/plugin/binding
+      - src/main/kotlin/com/rescript/plugin/codestyle
+  - name: DuplicatedCode
+    paths:
+      # Intentional per-concern code that should not be overly abstracted
+      - src/main/kotlin/com/rescript/plugin/debug/RescriptDebugRunConfiguration.kt
+      - src/main/kotlin/com/rescript/plugin/analysis/RescriptReanalyzeAnnotator.kt
+      - src/main/kotlin/com/rescript/plugin/editor/RescriptListSplitJoinContext.kt
+      - src/main/kotlin/com/rescript/plugin/wizard/templates/GoogleCloudRunTemplateFiles.kt
+      - src/main/kotlin/com/rescript/plugin/wizard/templates/ElectronTemplateFiles.kt

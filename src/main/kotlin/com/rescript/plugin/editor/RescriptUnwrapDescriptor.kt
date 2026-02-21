@@ -110,22 +110,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     internal fun findMatchingParen(
         text: String,
         openIndex: Int,
-    ): Int? {
-        if (openIndex >= text.length || text[openIndex] != '(') return null
-        var depth = 0
-        var i = openIndex
-        while (i < text.length) {
-            when (text[i]) {
-                '(' -> depth++
-                ')' -> {
-                    depth--
-                    if (depth == 0) return i
-                }
-            }
-            i++
-        }
-        return null
-    }
+    ): Int? = findMatchingBracket(text, openIndex, '(', ')')
 
     /**
      * Finds `if (...) { body }` around cursor.
@@ -196,8 +181,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
             if (tryBraceIdx < 0) continue
             val tryBraceEnd = findMatchingBrace(text, tryBraceIdx) ?: continue
             // Find the catch block
-            val catchIdx = findNextNonWhitespace(text, tryBraceEnd + 1)
-            if (catchIdx == null) continue
+            val catchIdx = findNextNonWhitespace(text, tryBraceEnd + 1) ?: continue
             val remaining = text.substring(catchIdx)
             if (!remaining.startsWith("catch")) continue
             val catchBraceIdx = text.indexOf('{', catchIdx + 5)
@@ -239,14 +223,30 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     internal fun findMatchingBrace(
         text: String,
         openIndex: Int,
+    ): Int? = findMatchingBracket(text, openIndex, '{', '}')
+
+    /**
+     * Finds the matching closing bracket for an opening bracket at [openIndex].
+     *
+     * @param text the source text to scan
+     * @param openIndex the index of the opening bracket character
+     * @param openChar the opening bracket character (e.g. '(' or '{')
+     * @param closeChar the closing bracket character (e.g. ')' or '}')
+     * @return the index of the matching closing bracket, or null if not found
+     */
+    internal fun findMatchingBracket(
+        text: String,
+        openIndex: Int,
+        openChar: Char,
+        closeChar: Char,
     ): Int? {
-        if (openIndex >= text.length || text[openIndex] != '{') return null
+        if (openIndex >= text.length || text[openIndex] != openChar) return null
         var depth = 0
         var i = openIndex
         while (i < text.length) {
             when (text[i]) {
-                '{' -> depth++
-                '}' -> {
+                openChar -> depth++
+                closeChar -> {
                     depth--
                     if (depth == 0) return i
                 }

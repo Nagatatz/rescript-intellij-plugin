@@ -39,6 +39,49 @@ class RescriptUnwrapDescriptorTest {
         assertNull(descriptor.findMatchingParen("a", 5))
     }
 
+    // ── findMatchingBracket ─────────────────────────────────────
+
+    @Test
+    fun `findMatchingBracket finds matching parens`() {
+        val text = "Some(x)"
+        assertEquals(6, descriptor.findMatchingBracket(text, 4, '(', ')'))
+    }
+
+    @Test
+    fun `findMatchingBracket finds matching braces`() {
+        val text = "{ body }"
+        assertEquals(7, descriptor.findMatchingBracket(text, 0, '{', '}'))
+    }
+
+    @Test
+    fun `findMatchingBracket finds matching square brackets`() {
+        val text = "[a, b]"
+        assertEquals(5, descriptor.findMatchingBracket(text, 0, '[', ']'))
+    }
+
+    @Test
+    fun `findMatchingBracket handles nested brackets`() {
+        val text = "([{}])"
+        assertEquals(5, descriptor.findMatchingBracket(text, 0, '(', ')'))
+        assertEquals(4, descriptor.findMatchingBracket(text, 1, '[', ']'))
+        assertEquals(3, descriptor.findMatchingBracket(text, 2, '{', '}'))
+    }
+
+    @Test
+    fun `findMatchingBracket returns null for wrong open char`() {
+        assertNull(descriptor.findMatchingBracket("abc", 0, '(', ')'))
+    }
+
+    @Test
+    fun `findMatchingBracket returns null for unmatched bracket`() {
+        assertNull(descriptor.findMatchingBracket("(abc", 0, '(', ')'))
+    }
+
+    @Test
+    fun `findMatchingBracket returns null for out of bounds`() {
+        assertNull(descriptor.findMatchingBracket("a", 5, '(', ')'))
+    }
+
     // ── findMatchingBrace ────────────────────────────────────────
 
     @Test

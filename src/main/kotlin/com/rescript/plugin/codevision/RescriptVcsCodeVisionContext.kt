@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent
  *
  * @see RescriptCodeVisionProvider for type annotation Code Vision
  */
+@Suppress("UnstableApiUsage")
 class RescriptVcsCodeVisionContext : VcsCodeVisionLanguageContext {
     override fun isAccepted(element: PsiElement): Boolean {
         val elementType = element.node?.elementType ?: return false

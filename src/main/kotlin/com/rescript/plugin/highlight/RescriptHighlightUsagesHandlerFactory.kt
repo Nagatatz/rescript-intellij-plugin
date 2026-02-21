@@ -101,8 +101,8 @@ internal class RescriptKeywordHighlightHandler(
 
         while (current != null) {
             val type = current.node?.elementType
-            when {
-                type == T.LBRACE -> {
+            when (type) {
+                T.LBRACE -> {
                     if (!foundBrace) {
                         foundBrace = true
                         braceDepth = 0
@@ -110,12 +110,14 @@ internal class RescriptKeywordHighlightHandler(
                         braceDepth++
                     }
                 }
-                type == T.RBRACE -> {
+                T.RBRACE -> {
                     if (foundBrace && braceDepth == 0) break
                     braceDepth--
                 }
-                type == T.PIPE && foundBrace && braceDepth == 0 -> {
-                    ranges.add(current.textRange)
+                T.PIPE -> {
+                    if (foundBrace && braceDepth == 0) {
+                        ranges.add(current.textRange)
+                    }
                 }
             }
             current = current.nextSibling
@@ -134,9 +136,9 @@ internal class RescriptKeywordHighlightHandler(
 
         while (current != null) {
             val type = current.node?.elementType
-            when {
-                type == T.LBRACE -> braceDepth++
-                type == T.RBRACE -> {
+            when (type) {
+                T.LBRACE -> braceDepth++
+                T.RBRACE -> {
                     braceDepth--
                     if (braceDepth <= 0) {
                         // Check if next meaningful token is ELSE
@@ -170,12 +172,14 @@ internal class RescriptKeywordHighlightHandler(
 
         while (current != null) {
             val type = current.node?.elementType
-            when {
-                type == T.LBRACE -> braceDepth++
-                type == T.RBRACE -> braceDepth--
-                type == T.CATCH && braceDepth <= 0 -> {
-                    ranges.add(current.textRange)
-                    break
+            when (type) {
+                T.LBRACE -> braceDepth++
+                T.RBRACE -> braceDepth--
+                T.CATCH -> {
+                    if (braceDepth <= 0) {
+                        ranges.add(current.textRange)
+                        break
+                    }
                 }
             }
             current = current.nextSibling
@@ -192,9 +196,9 @@ internal class RescriptKeywordHighlightHandler(
 
         while (current != null) {
             val type = current.node?.elementType
-            when {
-                type == T.RBRACE -> braceDepth++
-                type == T.LBRACE -> {
+            when (type) {
+                T.RBRACE -> braceDepth++
+                T.LBRACE -> {
                     if (braceDepth == 0) {
                         // Found the opening brace, look for switch before it
                         val beforeBrace = skipWhitespaceBackward(current.prevSibling)
@@ -226,11 +230,13 @@ internal class RescriptKeywordHighlightHandler(
 
         while (current != null) {
             val type = current.node?.elementType
-            when {
-                type == T.RBRACE -> braceDepth++
-                type == T.LBRACE -> braceDepth--
-                type == T.TRY && braceDepth <= 0 -> {
-                    return collectTryRelated(current)
+            when (type) {
+                T.RBRACE -> braceDepth++
+                T.LBRACE -> braceDepth--
+                T.TRY -> {
+                    if (braceDepth <= 0) {
+                        return collectTryRelated(current)
+                    }
                 }
             }
             current = current.prevSibling
@@ -246,11 +252,13 @@ internal class RescriptKeywordHighlightHandler(
 
         while (current != null) {
             val type = current.node?.elementType
-            when {
-                type == T.RBRACE -> braceDepth++
-                type == T.LBRACE -> braceDepth--
-                type == T.IF && braceDepth <= 0 -> {
-                    return collectIfRelated(current)
+            when (type) {
+                T.RBRACE -> braceDepth++
+                T.LBRACE -> braceDepth--
+                T.IF -> {
+                    if (braceDepth <= 0) {
+                        return collectIfRelated(current)
+                    }
                 }
             }
             current = current.prevSibling

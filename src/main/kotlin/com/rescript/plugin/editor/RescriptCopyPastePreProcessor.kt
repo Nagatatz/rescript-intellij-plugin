@@ -73,7 +73,7 @@ class RescriptCopyPastePreProcessor : CopyPastePreProcessor {
             text
                 .replace("\\", "\\\\")
                 .replace("`", "\\`")
-                .replace("\$", "\\\$")
+                .replace("$", "\\$")
                 .replace("\n", "\\n")
                 .replace("\t", "\\t")
     }
