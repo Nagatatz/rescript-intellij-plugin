@@ -25,7 +25,7 @@ class RescriptDocumentationProvider : AbstractDocumentationProvider() {
     }
 
     override fun generateHoverDoc(
-        element: PsiElement?,
+        element: PsiElement,
         originalElement: PsiElement?,
     ): String? = generateDoc(element, originalElement)
 

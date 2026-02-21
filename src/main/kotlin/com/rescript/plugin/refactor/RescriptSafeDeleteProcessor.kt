@@ -1,6 +1,5 @@
 package com.rescript.plugin.refactor
 
-import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.refactoring.safeDelete.NonCodeUsageSearchInfo
@@ -28,8 +27,8 @@ class RescriptSafeDeleteProcessor : SafeDeleteProcessorDelegate {
 
     override fun findUsages(
         element: PsiElement,
-        allElementsDelete: Array<out PsiElement>,
-        usages: MutableList<UsageInfo>,
+        allElementsToDelete: Array<out PsiElement>,
+        usages: MutableList<in UsageInfo>,
     ): NonCodeUsageSearchInfo? {
         // Platform's default usage search will find text references
         // via RescriptFindUsagesProvider + WordsScanner
@@ -38,13 +37,12 @@ class RescriptSafeDeleteProcessor : SafeDeleteProcessorDelegate {
 
     override fun getElementsToSearch(
         element: PsiElement,
-        module: Module?,
-        allElementsToDelete: MutableCollection<PsiElement>,
-    ): MutableCollection<PsiElement>? = mutableListOf(element)
+        allElementsToDelete: MutableCollection<out PsiElement>,
+    ): MutableCollection<out PsiElement>? = mutableListOf(element)
 
     override fun getAdditionalElementsToDelete(
         element: PsiElement,
-        allElementsToDelete: MutableCollection<PsiElement>,
+        allElementsToDelete: MutableCollection<out PsiElement>,
         askUser: Boolean,
     ): MutableCollection<PsiElement>? = null
 
@@ -61,7 +59,7 @@ class RescriptSafeDeleteProcessor : SafeDeleteProcessorDelegate {
         return usages as? Array<UsageInfo>
     }
 
-    override fun prepareForRefactoring() {}
+    override fun prepareForDeletion(element: PsiElement) {}
 
     override fun isToSearchInComments(element: PsiElement): Boolean = false
 
