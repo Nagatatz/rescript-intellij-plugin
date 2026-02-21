@@ -106,6 +106,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 @.claude/rules/git-conventions.md
 @.claude/rules/steering-workflow.md
 @.claude/rules/documentation.md
+@.claude/rules/roadmap-format.md
 
 ## 重要な注意事項
 
