@@ -135,9 +135,30 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Word Selection | 文字列・括弧・コメントの選択拡大/縮小 | `RescriptWordSelectionHandler` (3ハンドラ) |
 | Highlight Usages | switch/if/try 等の対応キーワードハイライト | `RescriptHighlightUsagesHandlerFactory` |
 | Goto Super | .res → .resi 宣言ジャンプ (Ctrl+U) | `RescriptGotoSuperHandler` |
-| External Documentation | Belt/Js モジュールの外部ドキュメント URL (Shift+F1) | `RescriptDocumentationProvider` |
+| External Documentation + Quick Documentation | Belt/Js モジュールの外部ドキュメント URL (Shift+F1) + PSI ベースのフォールバックドキュメント (Ctrl+Q / hover) | `RescriptDocumentationProvider` (generateDoc/generateHoverDoc + getUrlFor) |
 | Run Anything | Ctrl+Ctrl で ReScript CLI コマンド実行 (build/clean/format) | `RescriptRunAnythingProvider` |
 | Expression Type Info | カーソル位置の式の型を LSP hover で表示 (Ctrl+Shift+P) | `RescriptExpressionTypeProvider` |
+| Predefined Code Style | "ReScript Standard" プリセットコードスタイル | `RescriptPredefinedCodeStyle` |
+| Element Description | リファクタリングダイアログ・Find Usages での要素説明 | `RescriptElementDescriptionProvider` |
+| Reader Mode | node_modules 内 .res/.resi のリーダーモード表示 | `RescriptReaderModeMatcher` |
+| Lookup Char Filter | 補完候補選択時の文字フィルタリング | `RescriptLookupCharFilter` |
+| Inspection Suppressor | `// noinspection` コメントによるインスペクション抑制 | `RescriptInspectionSuppressor` |
+| Backspace Handler | JSX タグペアのバックスペース削除 | `RescriptBackspaceHandler` |
+| Color Provider | エディタガターのカラープレビュースウォッチ (#hex, rgb, hsl) | `RescriptColorProvider` |
+| VCS Code Vision | 宣言上の著者・最終変更 VCS アノテーション | `RescriptVcsCodeVisionContext` |
+| Project View Decorator | "has interface" サフィックス、rescript.json バージョン表示 | `RescriptProjectViewNodeDecorator` |
+| Copy/Paste Pre-Processor | 文字列リテラル内ペースト時のエスケープ処理 | `RescriptCopyPastePreProcessor` |
+| Open Statement Index | open 文のファイルベースインデックス（高速モジュール検索） | `RescriptOpenStatementIndex` |
+| Paste as JSX | HTML → ReScript JSX 変換ペースト | `RescriptPasteAsJsxProcessor` |
+| Package Dependencies View | rescript.json 依存パッケージのツールウィンドウ表示 | `RescriptDependenciesToolWindowFactory` + `RescriptDependenciesPanel` |
+| Auto Import Options | Settings > Editor > Auto Import のオプション UI | `RescriptAutoImportOptionsProvider` |
+| Move Element Left/Right | カンマ区切り要素の左右移動 (Alt+Shift+Cmd+Left/Right) | `RescriptMoveElementHandler` |
+| Usage Type Provider | Find Usages グルーピング用の使用タイプ分類 | `RescriptUsageTypeProvider` |
+| Code Block Handler | コードブロック境界検出 (Ctrl+Shift+[ / ]) | `RescriptCodeBlockHandler` |
+| Split/Join List | 1行↔複数行リストの変換 | `RescriptListSplitJoinContext` |
+| Quick Documentation | PSI ベースのフォールバックドキュメント (Ctrl+Q / hover) | `RescriptDocumentationProvider` (generateDoc/generateHoverDoc) |
+| Safe Delete | 使用箇所チェック付き Safe Delete (Refactor > Safe Delete) | `RescriptSafeDeleteProcessor` |
+| Name Suggestion | リネーム時の名前候補提案（型・ファイル名ベース） | `RescriptNameSuggestionProvider` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 

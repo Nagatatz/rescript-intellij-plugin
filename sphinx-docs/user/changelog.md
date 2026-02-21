@@ -47,3 +47,24 @@ Initial release of the ReScript IntelliJ Plugin.
 - Project Wizard with 12 templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm Library, CLI Tool, Monorepo)
 - Code Generation (Switch Arms, Module Type)
 - .d.ts to ReScript binding generation
+- Backspace handler (JSX tag pair deletion)
+- Move element left/right (Alt+Shift+Cmd+Left/Right)
+- Code block boundary detection (Ctrl+Shift+[ / ])
+- Split/Join list (single-line ↔ multi-line toggle)
+- Copy/Paste string escaping (auto-escape in string literals)
+- Paste as JSX (HTML → ReScript JSX conversion)
+- Quick Documentation fallback (Ctrl+Q PSI-based)
+- Usage type classification for Find Usages
+- Safe Delete with usage checking
+- Name suggestions during rename
+- Inspection suppressor (// noinspection comments)
+- Color preview swatches in editor gutter
+- VCS Code Vision (author/last-change annotations)
+- Project View decoration (interface suffix, version display)
+- Reader mode for node_modules files
+- Package dependencies tool window
+- Auto import options configuration
+- Open statement file-based index
+- Predefined code style preset
+- Element descriptions for refactoring dialogs
+- Lookup character filter for completion

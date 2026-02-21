@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 18:14+0900\n"
+"POT-Creation-Date: 2026-02-21 19:39+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -27,17 +27,13 @@ msgstr "機能概要"
 msgid ""
 "The ReScript IntelliJ Plugin provides 60+ features organized into two "
 "layers:"
-msgstr ""
-"ReScript IntelliJ Plugin は、2 つのレイヤーに整理された 60 以上の機能を"
-"提供します:"
+msgstr "ReScript IntelliJ Plugin は、2 つのレイヤーに整理された 60 以上の機能を提供します:"
 
 #: ../../user/features/index.md:5
 msgid ""
 "**Native features** are built into the plugin and work without any "
 "external dependencies. They provide instant, offline functionality."
-msgstr ""
-"**ネイティブ機能** はプラグインに組み込まれており、外部依存なしで動作します。"
-"即座に利用でき、オフラインでも機能します。"
+msgstr "**ネイティブ機能** はプラグインに組み込まれており、外部依存なしで動作します。即座に利用でき、オフラインでも機能します。"
 
 #: ../../user/features/index.md:7
 msgid ""
@@ -45,9 +41,8 @@ msgid ""
 "Server](https://github.com/rescript-lang/rescript-vscode) and provide "
 "semantic understanding of your code."
 msgstr ""
-"**LSP 機能** は [ReScript Language "
-"Server](https://github.com/rescript-lang/rescript-vscode) を必要とし、"
-"コードのセマンティックな理解を提供します。"
+"**LSP 機能** は [ReScript Language Server](https://github.com/rescript-lang"
+"/rescript-vscode) を必要とし、コードのセマンティックな理解を提供します。"
 
 #: ../../user/features/index.md:9
 msgid "Feature Categories"
@@ -114,7 +109,10 @@ msgid "Advanced Features"
 msgstr "高度な機能"
 
 #: ../../user/features/index.md:67
-msgid "Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding Generation, and more."
+#, fuzzy
+msgid ""
+"Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding "
+"Generation, Project Wizard, and more."
 msgstr "Code Lens、コンパイル済み JS プレビュー、モジュール階層、.d.ts バインディング生成などです。"
 
 #: ../../user/features/index.md:71
@@ -155,9 +153,8 @@ msgid ""
 " LSP adds semantic precision for variables, types, namespaces, and "
 "variant constructors."
 msgstr ""
-"ネイティブレキサーがキーワード、文字列、演算子、句読点の色分けを処理します。"
-"LSP は変数、型、名前空間、バリアントコンストラクタに対するセマンティックな"
-"精度を追加します。"
+"ネイティブレキサーがキーワード、文字列、演算子、句読点の色分けを処理します。LSP "
+"は変数、型、名前空間、バリアントコンストラクタに対するセマンティックな精度を追加します。"
 
 #: ../../user/features/index.md:63
 msgid "Code folding"
@@ -167,9 +164,7 @@ msgstr "コード折りたたみ"
 msgid ""
 "Collapses multi-line declarations, block comments, and region markers "
 "using the PSI tree. No semantic analysis needed."
-msgstr ""
-"PSI ツリーを使用して、複数行の宣言、ブロックコメント、リージョンマーカーを"
-"折りたたみます。セマンティック分析は不要です。"
+msgstr "PSI ツリーを使用して、複数行の宣言、ブロックコメント、リージョンマーカーを折りたたみます。セマンティック分析は不要です。"
 
 #: ../../user/features/index.md:63
 msgid "Brace matching"
@@ -180,9 +175,7 @@ msgstr "括弧のマッチング"
 msgid ""
 "Matches `{}`, `[]`, `()`, and JSX tag brackets using token-level "
 "information from the lexer."
-msgstr ""
-"レキサーからのトークンレベルの情報を使用して `{}`, `[]`, `()`, および "
-"JSX タグ括弧をマッチングします。"
+msgstr "レキサーからのトークンレベルの情報を使用して `{}`, `[]`, `()`, および JSX タグ括弧をマッチングします。"
 
 #: ../../user/features/index.md:63
 msgid "Comments toggle"
@@ -192,9 +185,7 @@ msgstr "コメントの切り替え"
 msgid ""
 "Inserts or removes `//` and `/* */` based on cursor position. Purely "
 "textual operation."
-msgstr ""
-"カーソル位置に基づいて `//` と `/* */` を挿入または削除します。"
-"純粋なテキスト操作です。"
+msgstr "カーソル位置に基づいて `//` と `/* */` を挿入または削除します。純粋なテキスト操作です。"
 
 #: ../../user/features/index.md:63
 msgid "Structure view"
@@ -205,8 +196,8 @@ msgid ""
 "Displays top-level declarations (`let`, `type`, `module`, `external`, "
 "`open`, `include`, `exception`) from the lightweight parser."
 msgstr ""
-"軽量パーサーからのトップレベル宣言 (`let`, `type`, `module`, `external`, "
-"`open`, `include`, `exception`) を表示します。"
+"軽量パーサーからのトップレベル宣言 (`let`, `type`, `module`, `external`, `open`, "
+"`include`, `exception`) を表示します。"
 
 #: ../../user/features/index.md:63
 msgid "Live templates"
@@ -217,8 +208,8 @@ msgid ""
 "Expands code snippets (e.g., `let`, `switch`, `@react.component`). "
 "Templates are defined within the plugin and need no external data."
 msgstr ""
-"コードスニペット (例: `let`, `switch`, `@react.component`) を展開します。"
-"テンプレートはプラグイン内で定義されており、外部データは不要です。"
+"コードスニペット (例: `let`, `switch`, `@react.component`) "
+"を展開します。テンプレートはプラグイン内で定義されており、外部データは不要です。"
 
 #: ../../user/features/index.md:63
 msgid "Postfix templates"
@@ -229,9 +220,8 @@ msgid ""
 "Transforms expressions via suffixes (`.switch`, `.pipe`, `.log`, `.some`,"
 " `.ok`, `.error`, `.ignore`). Works by rewriting text around the cursor."
 msgstr ""
-"サフィックス (`.switch`, `.pipe`, `.log`, `.some`,"
-" `.ok`, `.error`, `.ignore`) を使って式を変換します。カーソル周辺のテキストを"
-"書き換えることで動作します。"
+"サフィックス (`.switch`, `.pipe`, `.log`, `.some`, `.ok`, `.error`, `.ignore`) "
+"を使って式を変換します。カーソル周辺のテキストを書き換えることで動作します。"
 
 #: ../../user/features/index.md:63
 msgid "File switching (Alt+O)"
@@ -241,9 +231,7 @@ msgstr "ファイル切り替え (Alt+O)"
 msgid ""
 "Toggles between `.res` and `.resi` by filename. No semantic understanding"
 " required."
-msgstr ""
-"ファイル名に基づいて `.res` と `.resi` を切り替えます。"
-"セマンティックな理解は不要です。"
+msgstr "ファイル名に基づいて `.res` と `.resi` を切り替えます。セマンティックな理解は不要です。"
 
 #: ../../user/features/index.md:63
 msgid "Code completion"
@@ -253,9 +241,7 @@ msgstr "コード補完"
 msgid ""
 "Provides context-aware completions for identifiers, record fields, module"
 " members, and variant constructors using the type system."
-msgstr ""
-"型システムを使用して、識別子、レコードフィールド、モジュールメンバー、"
-"バリアントコンストラクタに対するコンテキスト依存の補完を提供します。"
+msgstr "型システムを使用して、識別子、レコードフィールド、モジュールメンバー、バリアントコンストラクタに対するコンテキスト依存の補完を提供します。"
 
 #: ../../user/features/index.md:63
 msgid "Go to Definition"
@@ -265,9 +251,7 @@ msgstr "定義へのジャンプ"
 msgid ""
 "Resolves the definition site of any symbol. Requires type analysis to "
 "follow module paths and aliases."
-msgstr ""
-"任意のシンボルの定義場所を解決します。モジュールパスとエイリアスを"
-"追跡するために型分析が必要です。"
+msgstr "任意のシンボルの定義場所を解決します。モジュールパスとエイリアスを追跡するために型分析が必要です。"
 
 #: ../../user/features/index.md:63
 msgid "Hover documentation"
@@ -277,9 +261,7 @@ msgstr "ホバードキュメント"
 msgid ""
 "Displays inferred types and doc comments on mouse hover. Relies on the "
 "compiler's type information."
-msgstr ""
-"マウスホバー時に推論された型とドキュメントコメントを表示します。"
-"コンパイラの型情報に依存しています。"
+msgstr "マウスホバー時に推論された型とドキュメントコメントを表示します。コンパイラの型情報に依存しています。"
 
 #: ../../user/features/index.md:63
 msgid "Find references"
@@ -289,9 +271,7 @@ msgstr "参照の検索"
 msgid ""
 "Locates all usages of a symbol across the project. Requires cross-file "
 "semantic analysis."
-msgstr ""
-"プロジェクト全体でシンボルの全使用箇所を検索します。"
-"ファイル横断的なセマンティック分析が必要です。"
+msgstr "プロジェクト全体でシンボルの全使用箇所を検索します。ファイル横断的なセマンティック分析が必要です。"
 
 #: ../../user/features/index.md:63
 msgid "Diagnostics"
@@ -301,9 +281,7 @@ msgstr "診断"
 msgid ""
 "Reports type errors, syntax errors, and warnings inline. Powered by the "
 "ReScript compiler via the language server."
-msgstr ""
-"型エラー、構文エラー、警告をインラインで報告します。"
-"Language Server を経由した ReScript コンパイラによって提供されます。"
+msgstr "型エラー、構文エラー、警告をインラインで報告します。Language Server を経由した ReScript コンパイラによって提供されます。"
 
 #: ../../user/features/index.md:63
 msgid "Inlay hints"
@@ -313,9 +291,7 @@ msgstr "インレイヒント"
 msgid ""
 "Shows inferred types next to `let` bindings and function parameters. "
 "Requires type inference from the compiler."
-msgstr ""
-"`let` バインディングや関数パラメータの横に推論された型を表示します。"
-"コンパイラからの型推論が必要です。"
+msgstr "`let` バインディングや関数パラメータの横に推論された型を表示します。コンパイラからの型推論が必要です。"
 
 #: ../../user/features/index.md:63
 msgid "Rename"
@@ -325,9 +301,7 @@ msgstr "リネーム"
 msgid ""
 "Renames a symbol and updates all references project-wide. Requires "
 "complete semantic understanding."
-msgstr ""
-"シンボルの名前を変更し、プロジェクト全体のすべての参照を更新します。"
-"完全なセマンティック理解が必要です。"
+msgstr "シンボルの名前を変更し、プロジェクト全体のすべての参照を更新します。完全なセマンティック理解が必要です。"
 
 #: ../../user/features/index.md:63
 msgid "Code formatting"
@@ -341,9 +315,7 @@ msgstr "あり (CLI 経由)"
 msgid ""
 "Invokes `rescript format` through the language server to format the "
 "current file."
-msgstr ""
-"Language Server を通じて `rescript format` を呼び出し、"
-"現在のファイルをフォーマットします。"
+msgstr "Language Server を通じて `rescript format` を呼び出し、現在のファイルをフォーマットします。"
 
 #: ../../user/features/index.md:63
 msgid "Signature help"
@@ -353,9 +325,7 @@ msgstr "シグネチャヘルプ"
 msgid ""
 "Displays parameter information when typing function arguments. Requires "
 "type analysis."
-msgstr ""
-"関数の引数を入力する際にパラメータ情報を表示します。"
-"型分析が必要です。"
+msgstr "関数の引数を入力する際にパラメータ情報を表示します。型分析が必要です。"
 
 #: ../../user/features/index.md:63
 msgid "Code Lens"
@@ -365,15 +335,23 @@ msgstr "Code Lens"
 msgid ""
 "Shows type annotations above functions via the CodeVision API. Requires "
 "type inference."
-msgstr ""
-"CodeVision API を通じて関数の上に型注釈を表示します。"
-"型推論が必要です。"
+msgstr "CodeVision API を通じて関数の上に型注釈を表示します。型推論が必要です。"
 
-#: ../../user/features/index.md:94
+#: ../../user/features/index.md:63
+msgid "Project Wizard"
+msgstr ""
+
+#: ../../user/features/index.md:63
+msgid ""
+"Creates new projects from 12 pre-configured templates. Generates all "
+"build files and starter code locally."
+msgstr ""
+
+#: ../../user/features/index.md:95
 msgid "Understanding Native Features"
 msgstr "ネイティブ機能について"
 
-#: ../../user/features/index.md:96
+#: ../../user/features/index.md:97
 msgid ""
 "Native features are powered entirely by the JFlex lexer and lightweight "
 "parser bundled within the plugin. They operate on the **syntactic "
@@ -381,88 +359,75 @@ msgid ""
 "recognizing top-level declarations --- without understanding types or "
 "semantics."
 msgstr ""
-"ネイティブ機能は、プラグインに同梱された JFlex レキサーと軽量パーサーによって"
-"完全に駆動されます。ReScript コードの **構文構造** に基づいて動作し、"
-"キーワードのトークン化、括弧のマッチング、トップレベル宣言の認識を行いますが、"
-"型やセマンティクスは理解しません。"
+"ネイティブ機能は、プラグインに同梱された JFlex レキサーと軽量パーサーによって完全に駆動されます。ReScript コードの "
+"**構文構造** "
+"に基づいて動作し、キーワードのトークン化、括弧のマッチング、トップレベル宣言の認識を行いますが、型やセマンティクスは理解しません。"
 
-#: ../../user/features/index.md:98
+#: ../../user/features/index.md:99
 msgid "This means native features:"
 msgstr "これは、ネイティブ機能が以下の特徴を持つことを意味します:"
 
-#: ../../user/features/index.md:100
+#: ../../user/features/index.md:101
 msgid ""
 "Work instantly with zero startup delay, because there is no external "
 "process to launch."
-msgstr ""
-"外部プロセスを起動する必要がないため、起動遅延なしで即座に動作します。"
-
-#: ../../user/features/index.md:101
-msgid ""
-"Function offline and in projects without `node_modules`, since they "
-"depend only on the plugin itself."
-msgstr ""
-"プラグイン自体にのみ依存するため、オフラインや `node_modules` のない"
-"プロジェクトでも機能します。"
+msgstr "外部プロセスを起動する必要がないため、起動遅延なしで即座に動作します。"
 
 #: ../../user/features/index.md:102
 msgid ""
+"Function offline and in projects without `node_modules`, since they "
+"depend only on the plugin itself."
+msgstr "プラグイン自体にのみ依存するため、オフラインや `node_modules` のないプロジェクトでも機能します。"
+
+#: ../../user/features/index.md:103
+msgid ""
 "Do not require `@rescript/language-server` or even Node.js to be "
 "installed."
-msgstr ""
-"`@rescript/language-server` や Node.js のインストールも必要ありません。"
+msgstr "`@rescript/language-server` や Node.js のインストールも必要ありません。"
 
-#: ../../user/features/index.md:104
+#: ../../user/features/index.md:105
 msgid ""
 "Examples of purely syntactic operations include folding a `module` block "
 "(the parser sees the `module` keyword and matching braces), toggling a "
 "line comment (inserting `//` at the line start), and expanding a live "
 "template (replacing a text abbreviation with a predefined snippet)."
 msgstr ""
-"純粋に構文的な操作の例としては、`module` ブロックの折りたたみ "
-"(パーサーが `module` キーワードと対応する括弧を認識)、行コメントの切り替え "
-"(行頭への `//` の挿入)、ライブテンプレートの展開 "
+"純粋に構文的な操作の例としては、`module` ブロックの折りたたみ (パーサーが `module` "
+"キーワードと対応する括弧を認識)、行コメントの切り替え (行頭への `//` の挿入)、ライブテンプレートの展開 "
 "(テキスト略語を事前定義されたスニペットに置換) などがあります。"
 
-#: ../../user/features/index.md:106
+#: ../../user/features/index.md:107
 msgid "Understanding LSP Features"
 msgstr "LSP 機能について"
 
-#: ../../user/features/index.md:108
+#: ../../user/features/index.md:109
 msgid ""
 "LSP features communicate with `@rescript/language-server` over a stdio "
 "connection. The language server runs the ReScript compiler internally, "
 "giving it access to:"
 msgstr ""
-"LSP 機能は stdio 接続を通じて `@rescript/language-server` と通信します。"
-"Language Server は内部で ReScript コンパイラを実行し、以下へのアクセスを"
-"提供します:"
-
-#: ../../user/features/index.md:110
-msgid ""
-"**Type inference** --- knowing that `x` is an `int` or that `user.name` "
-"is a `string`."
-msgstr ""
-"**型推論** --- `x` が `int` であることや `user.name` が `string` であることを"
-"認識します。"
+"LSP 機能は stdio 接続を通じて `@rescript/language-server` と通信します。Language Server "
+"は内部で ReScript コンパイラを実行し、以下へのアクセスを提供します:"
 
 #: ../../user/features/index.md:111
 msgid ""
-"**Cross-file resolution** --- following `open Belt` to find "
-"`Belt.Array.map`."
-msgstr ""
-"**ファイル横断的な解決** --- `open Belt` をたどって "
-"`Belt.Array.map` を見つけます。"
+"**Type inference** --- knowing that `x` is an `int` or that `user.name` "
+"is a `string`."
+msgstr "**型推論** --- `x` が `int` であることや `user.name` が `string` であることを認識します。"
 
 #: ../../user/features/index.md:112
 msgid ""
+"**Cross-file resolution** --- following `open Belt` to find "
+"`Belt.Array.map`."
+msgstr "**ファイル横断的な解決** --- `open Belt` をたどって `Belt.Array.map` を見つけます。"
+
+#: ../../user/features/index.md:113
+msgid ""
 "**Error detection** --- reporting type mismatches, missing fields, and "
 "exhaustiveness warnings."
-msgstr ""
-"**エラー検出** --- 型の不一致、フィールドの欠落、網羅性の警告を"
-"報告します。"
+msgstr "**エラー検出** --- 型の不一致、フィールドの欠落、網羅性の警告を報告します。"
 
-#: ../../user/features/index.md:114
+#: ../../user/features/index.md:115
 msgid ""
 "Because the language server performs full compilation, LSP features can "
 "provide rich, accurate information that would be impossible with syntax "
@@ -470,16 +435,15 @@ msgid ""
 "imported through multiple module aliases, and code completion can suggest"
 " record fields that match the inferred type context."
 msgstr ""
-"Language Server は完全なコンパイルを実行するため、LSP 機能は構文分析だけでは"
-"不可能な、豊富で正確な情報を提供できます。例えば、Go to Definition は"
-"複数のモジュールエイリアスを介してインポートされた関数を解決でき、"
-"コード補完は推論された型コンテキストに一致するレコードフィールドを提案できます。"
+"Language Server は完全なコンパイルを実行するため、LSP "
+"機能は構文分析だけでは不可能な、豊富で正確な情報を提供できます。例えば、Go to Definition "
+"は複数のモジュールエイリアスを介してインポートされた関数を解決でき、コード補完は推論された型コンテキストに一致するレコードフィールドを提案できます。"
 
-#: ../../user/features/index.md:116
+#: ../../user/features/index.md:117
 msgid "Graceful Degradation When LSP Is Disconnected"
 msgstr "LSP 切断時のグレースフルデグラデーション"
 
-#: ../../user/features/index.md:118
+#: ../../user/features/index.md:119
 msgid ""
 "The plugin is designed so that the absence of the language server never "
 "prevents basic editing. When the LSP connection is unavailable --- for "
@@ -487,116 +451,109 @@ msgid ""
 " missing, or the server process has crashed --- the following behavior "
 "applies:"
 msgstr ""
-"このプラグインは、Language Server がなくても基本的な編集が妨げられないように"
-"設計されています。LSP 接続が利用できない場合 --- 例えば、"
-"`@rescript/language-server` がインストールされていない、Node.js が見つからない、"
-"サーバープロセスがクラッシュした場合など --- 以下の動作が適用されます:"
+"このプラグインは、Language Server がなくても基本的な編集が妨げられないように設計されています。LSP 接続が利用できない場合 "
+"--- 例えば、`@rescript/language-server` がインストールされていない、Node.js "
+"が見つからない、サーバープロセスがクラッシュした場合など --- 以下の動作が適用されます:"
 
-#: ../../user/features/index.md:120
+#: ../../user/features/index.md:121
 msgid "**Features that continue to work normally:**"
 msgstr "**通常どおり動作し続ける機能:**"
 
-#: ../../user/features/index.md:122
+#: ../../user/features/index.md:123
 msgid ""
 "Syntax highlighting (lexer-based coloring for keywords, strings, numbers,"
 " operators, punctuation, module names, JSX tags, and decorators)"
-msgstr ""
-"シンタックスハイライト (レキサーベースのキーワード、文字列、数値、"
-"演算子、句読点、モジュール名、JSX タグ、デコレータの色分け)"
+msgstr "シンタックスハイライト (レキサーベースのキーワード、文字列、数値、演算子、句読点、モジュール名、JSX タグ、デコレータの色分け)"
 
-#: ../../user/features/index.md:123
+#: ../../user/features/index.md:124
 msgid "Code folding for all recognized declarations"
 msgstr "すべての認識された宣言のコード折りたたみ"
 
-#: ../../user/features/index.md:124
+#: ../../user/features/index.md:125
 msgid "Brace matching and auto-closing brackets"
 msgstr "括弧のマッチングと自動閉じ括弧"
 
-#: ../../user/features/index.md:125
+#: ../../user/features/index.md:126
 msgid "Line and block comment toggling"
 msgstr "行コメントとブロックコメントの切り替え"
 
-#: ../../user/features/index.md:126
+#: ../../user/features/index.md:127
 msgid "Structure view with top-level declaration outline"
 msgstr "トップレベル宣言のアウトラインを含むストラクチャービュー"
 
-#: ../../user/features/index.md:127
+#: ../../user/features/index.md:128
 msgid "Live templates and postfix templates"
 msgstr "ライブテンプレートとポストフィックステンプレート"
 
-#: ../../user/features/index.md:128
+#: ../../user/features/index.md:129
 msgid "File switching between `.res` and `.resi`"
 msgstr "`.res` と `.resi` 間のファイル切り替え"
 
-#: ../../user/features/index.md:129
+#: ../../user/features/index.md:130
 msgid "Smart Enter and declaration up/down movement"
 msgstr "Smart Enter と宣言の上下移動"
 
-#: ../../user/features/index.md:130
+#: ../../user/features/index.md:131
 msgid "Surround With templates"
 msgstr "Surround With テンプレート"
 
-#: ../../user/features/index.md:132
+#: ../../user/features/index.md:133
 msgid "**Features that become unavailable:**"
 msgstr "**利用できなくなる機能:**"
 
-#: ../../user/features/index.md:134
+#: ../../user/features/index.md:135
 msgid ""
 "Code completion shows no suggestions (the completion popup does not "
 "appear for ReScript files)."
-msgstr ""
-"コード補完は候補を表示しません (ReScript ファイルに対して補完ポップアップが"
-"表示されません)。"
+msgstr "コード補完は候補を表示しません (ReScript ファイルに対して補完ポップアップが表示されません)。"
 
-#: ../../user/features/index.md:135
+#: ../../user/features/index.md:136
 msgid "Go to Definition, Find Usages, and Hover do nothing when invoked."
 msgstr "Go to Definition、Find Usages、Hover は呼び出しても何も行いません。"
 
-#: ../../user/features/index.md:136
+#: ../../user/features/index.md:137
 msgid ""
 "No diagnostic errors or warnings are displayed in the editor gutter or "
 "Problems panel."
-msgstr ""
-"エディタガターや Problems パネルに診断エラーや警告が表示されません。"
+msgstr "エディタガターや Problems パネルに診断エラーや警告が表示されません。"
 
-#: ../../user/features/index.md:137
+#: ../../user/features/index.md:138
 msgid "Inlay hints and Code Lens annotations are not shown."
 msgstr "インレイヒントと Code Lens アノテーションは表示されません。"
 
-#: ../../user/features/index.md:138
+#: ../../user/features/index.md:139
 msgid "Rename refactoring is not available."
 msgstr "リネームリファクタリングは利用できません。"
 
-#: ../../user/features/index.md:139
+#: ../../user/features/index.md:140
 msgid "Code formatting via `Cmd+Option+L` does not modify the file."
 msgstr "`Cmd+Option+L` によるコードフォーマットはファイルを変更しません。"
 
-#: ../../user/features/index.md:140
+#: ../../user/features/index.md:141
 msgid "Signature help does not appear when typing function arguments."
 msgstr "関数の引数を入力する際にシグネチャヘルプが表示されません。"
 
-#: ../../user/features/index.md:142
+#: ../../user/features/index.md:143
 msgid ""
 "**Visual indicator:** When the language server cannot be found, the "
 "plugin displays an editor notification bar at the top of ReScript files "
 "with a message explaining that LSP features are unavailable and providing"
 " instructions for installing `@rescript/language-server`."
 msgstr ""
-"**視覚的なインジケータ:** Language Server が見つからない場合、プラグインは "
-"ReScript ファイルの上部にエディタ通知バーを表示し、LSP 機能が利用できない旨と "
-"`@rescript/language-server` のインストール手順を説明するメッセージを表示します。"
+"**視覚的なインジケータ:** Language Server が見つからない場合、プラグインは ReScript "
+"ファイルの上部にエディタ通知バーを表示し、LSP 機能が利用できない旨と `@rescript/language-server` "
+"のインストール手順を説明するメッセージを表示します。"
 
-#: ../../user/features/index.md:144
+#: ../../user/features/index.md:145
 msgid ""
 "**Recovery:** Once the language server is installed or its path is "
 "configured in **Settings > Languages & Frameworks > ReScript**, the LSP "
 "connection is established automatically when a `.res` or `.resi` file is "
 "opened. All LSP features become available without restarting the IDE."
 msgstr ""
-"**復旧:** Language Server がインストールされるか、**Settings > Languages & "
-"Frameworks > ReScript** でパスが設定されると、`.res` または `.resi` ファイルを"
-"開いた際に LSP 接続が自動的に確立されます。IDE を再起動せずにすべての "
-"LSP 機能が利用可能になります。"
+"**復旧:** Language Server がインストールされるか、**Settings > Languages & Frameworks >"
+" ReScript** でパスが設定されると、`.res` または `.resi` ファイルを開いた際に LSP "
+"接続が自動的に確立されます。IDE を再起動せずにすべての LSP 機能が利用可能になります。"
 
 #~ msgid "✓"
 #~ msgstr ""
@@ -606,3 +563,4 @@ msgstr ""
 
 #~ msgid "✓ (via CLI)"
 #~ msgstr ""
+

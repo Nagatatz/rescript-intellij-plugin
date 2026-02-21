@@ -493,9 +493,29 @@ flowchart TD
 | `com.intellij.extendWordSelectionHandler` | `RescriptCommentSelectionHandler` | コメント選択拡大 | 実装済み |
 | `com.intellij.highlightUsagesHandlerFactory` | `RescriptHighlightUsagesHandlerFactory` | switch/if/try キーワードハイライト | 実装済み |
 | `com.intellij.codeInsight.gotoSuper` | `RescriptGotoSuperHandler` | .res → .resi 宣言ジャンプ | 実装済み |
-| `com.intellij.lang.documentationProvider` | `RescriptDocumentationProvider` | 外部ドキュメント URL | 実装済み |
+| `com.intellij.lang.documentationProvider` | `RescriptDocumentationProvider` | 外部ドキュメント URL + Quick Documentation フォールバック | 実装済み |
 | `com.intellij.runAnything` | `RescriptRunAnythingProvider` | Run Anything CLI コマンド | 実装済み |
 | `com.intellij.codeInsight.expressionTypeProvider` | `RescriptExpressionTypeProvider` | 式の型表示 (LSP hover) | 実装済み |
+| `com.intellij.predefinedCodeStyle` | `RescriptPredefinedCodeStyle` | "ReScript Standard" コードスタイルプリセット | 実装済み |
+| `com.intellij.elementDescriptionProvider` | `RescriptElementDescriptionProvider` | リファクタリング・Find Usages 要素説明 | 実装済み |
+| `com.intellij.readerModeMatcher` | `RescriptReaderModeMatcher` | node_modules リーダーモード | 実装済み |
+| `com.intellij.lookup.charFilter` | `RescriptLookupCharFilter` | 補完文字フィルタ | 実装済み |
+| `com.intellij.lang.inspectionSuppressor` | `RescriptInspectionSuppressor` | noinspection コメント抑制 | 実装済み |
+| `com.intellij.backspaceHandlerDelegate` | `RescriptBackspaceHandler` | JSX タグペア削除 | 実装済み |
+| `com.intellij.colorProvider` | `RescriptColorProvider` | カラープレビュースウォッチ | 実装済み |
+| `com.intellij.vcs.codeVisionLanguageContext` | `RescriptVcsCodeVisionContext` | VCS Code Vision アノテーション | 実装済み |
+| `com.intellij.projectViewNodeDecorator` | `RescriptProjectViewNodeDecorator` | Project View ノード装飾 | 実装済み |
+| `com.intellij.copyPastePreProcessor` | `RescriptCopyPastePreProcessor` | 文字列ペースト時エスケープ | 実装済み |
+| `com.intellij.fileBasedIndex` | `RescriptOpenStatementIndex` | open 文インデックス | 実装済み |
+| `com.intellij.copyPastePostProcessor` | `RescriptPasteAsJsxProcessor` | HTML → JSX 変換ペースト | 実装済み |
+| `com.intellij.toolWindow` | `RescriptDependenciesToolWindowFactory` | パッケージ依存ツールウィンドウ | 実装済み |
+| `com.intellij.autoImportOptionsProvider` | `RescriptAutoImportOptionsProvider` | Auto Import 設定 UI | 実装済み |
+| `com.intellij.moveLeftRightHandler` | `RescriptMoveElementHandler` | 要素の左右移動 | 実装済み |
+| `com.intellij.usageTypeProvider` | `RescriptUsageTypeProvider` | 使用タイプ分類 | 実装済み |
+| `com.intellij.codeBlockProvider` | `RescriptCodeBlockHandler` | コードブロック境界検出 | 実装済み |
+| `com.intellij.listSplitJoinContext` | `RescriptListSplitJoinContext` | リスト分割/結合 | 実装済み |
+| `com.intellij.refactoring.safeDeleteProcessor` | `RescriptSafeDeleteProcessor` | Safe Delete プロセッサ | 実装済み |
+| `com.intellij.nameSuggestionProvider` | `RescriptNameSuggestionProvider` | リネーム名前候補 | 実装済み |
 
 ## 4. ファイル構成と依存関係
 

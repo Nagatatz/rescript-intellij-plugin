@@ -374,3 +374,30 @@ The plugin supports IntelliJ's built-in spellchecker for:
 - Comments (line and block)
 - String literals
 - Identifiers (camelCase splitting)
+
+## Backspace Handler
+
+When you delete an opening JSX tag with backspace, the matching closing tag is automatically removed.
+
+## Move Element Left/Right
+
+Use `Alt+Shift+Cmd+Left` / `Alt+Shift+Cmd+Right` to swap comma-separated elements. Works with function arguments, array items, record fields, and tuple elements.
+
+## Code Block Selection
+
+Use `Ctrl+Shift+[` and `Ctrl+Shift+]` to navigate to the start and end of the enclosing code block (brace-delimited).
+
+## Split/Join List
+
+Toggle comma-separated lists between single-line and multi-line format. Available via **Edit** > **Split/Join List**.
+
+## Copy/Paste Escaping
+
+When pasting text into a string literal, special characters (backslash, quotes, newlines, tabs) are automatically escaped.
+
+## Paste as JSX
+
+When pasting HTML content into a ReScript file, it is automatically converted to JSX syntax:
+- HTML attributes (`class`, `for`, `onclick`) are renamed to JSX equivalents (`className`, `htmlFor`, `onClick`)
+- Void elements (`<br>`, `<img>`, `<input>`) are self-closed (`<br />`)
+- Inline `style` strings are converted to ReScript style objects
