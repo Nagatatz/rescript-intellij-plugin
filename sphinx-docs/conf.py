@@ -37,7 +37,7 @@ source_suffix = {
 master_doc = "index"
 
 # Exclude patterns
-exclude_patterns = ["_build", ".venv", "Thumbs.db", ".DS_Store"]
+exclude_patterns = ["_build", ".venv", ".pytest_cache", "Thumbs.db", ".DS_Store"]
 
 # -- Internationalization ----------------------------------------------------
 

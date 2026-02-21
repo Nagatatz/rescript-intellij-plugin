@@ -158,7 +158,9 @@ src/main/
 │   │   └── RescriptDependencyAnalyzer.kt             # モジュール依存関係分析
 │   ├── projectview/
 │   │   ├── RescriptFileNestingProvider.kt       # .res.js を .res の子にネスト表示
-│   │   └── RescriptCompiledJsNodeDecorator.kt   # コンパイル済み JS を灰色表示
+│   │   ├── RescriptCompiledJsNodeDecorator.kt   # コンパイル済み JS を灰色表示
+│   │   ├── RescriptTreeStructureProvider.kt     # Project View .resi ネスト表示
+│   │   └── RescriptProjectViewNodeDecorator.kt  # Project View ノード装飾
 │   ├── paste/
 │   │   ├── RescriptPasteAsJsonAction.kt       # Paste as JSON.t
 │   │   └── RescriptPasteAsJsxProcessor.kt     # HTML → JSX 変換ペースト
@@ -241,9 +243,6 @@ src/main/
 │   │   ├── DtsNodeDetector.kt           # Node.js / TypeScript パッケージ検出
 │   │   ├── DtsParserProcess.kt          # Node.js プロセス実行（dts-to-json.js 起動）
 │   │   └── DtsGenerateBindingAction.kt  # .d.ts バインディング生成アクション
-│   ├── projectview/
-│   │   ├── RescriptTreeStructureProvider.kt       # Project View .resi ネスト表示
-│   │   └── RescriptProjectViewNodeDecorator.kt    # Project View ノード装飾
 │   ├── dependencies/
 │   │   ├── RescriptDependenciesToolWindowFactory.kt  # パッケージ依存ツールウィンドウ
 │   │   └── RescriptDependenciesPanel.kt              # 依存パッケージパネル
