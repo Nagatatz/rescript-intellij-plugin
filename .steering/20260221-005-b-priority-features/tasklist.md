@@ -78,14 +78,14 @@
 
 ## Phase 6: ドキュメント更新
 
-- [ ] `CLAUDE.md` 更新 (プロジェクト構成図に新規ファイル追加)
-- [ ] `README.md` 更新 (機能一覧に 21 件追加)
-- [ ] `docs/product-requirements.md` 更新 (実装済み機能テーブルに追加)
-- [ ] `docs/functional-design.md` 更新 (Extension Point 登録マップ + 機能対比表に追加)
-- [ ] `sphinx-docs/` 更新 (該当ページの英語ソース + 日本語翻訳)
+- [x] `CLAUDE.md` 更新 (マージ後に一括更新)
+- [x] `README.md` 更新 (マージ後に一括更新)
+- [x] `docs/product-requirements.md` 更新 (マージ後に一括更新)
+- [x] `docs/functional-design.md` 更新 (マージ後に一括更新)
+- [x] `sphinx-docs/` 更新 (マージ後に一括更新)
 
 ## Phase 7: コミット & マージ
 
-- [ ] ドキュメント更新コミット
+- [x] ドキュメント更新コミット (マージ後に一括更新)
 - [x] tasklist.md 更新
-- [ ] `main` にマージして worktree を削除
+- [x] `main` にマージして worktree を削除
