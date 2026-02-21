@@ -166,3 +166,88 @@ tasklist.md の末尾にある「振り返り」セクションに、以下の�
 - `docs/repository-structure.md` — ディレクトリ構成の変更
 - `docs/development-guidelines.md` — 開発規約の追加・変更
 - `docs/functional-design.md` — 機能設計の変更
+
+---
+
+## git worktree 運用ガイド
+
+ステアリングを伴うコード実装は git worktree で隔離して行う。
+
+### 単一機能実装
+
+```bash
+# 1. メインリポジトリでステアリングドキュメントを作成・承認（main ブランチ上）
+
+# 2. worktree を作成
+git worktree add ../rescript-wt-<機能名> -b feature/<機能名>
+
+# 3. worktree で実装・ビルド確認・コミット
+
+# 4. メインリポジトリで main にマージし worktree を削除
+git merge feature/<機能名>
+git worktree remove ../rescript-wt-<機能名>
+git branch -d feature/<機能名>
+```
+
+### 並列実装（複数機能の同時実装）
+
+バッチブランチを中間ブランチとして使い、全機能のマージ完了後に main へマージする。
+
+```
+main
+ └── feature/<バッチ名>          ← バッチブランチ（計画・マージ用）
+      ├── feature/<機能名1>      ← worktree ブランチ
+      ├── feature/<機能名2>      ← worktree ブランチ
+      └── feature/<機能名3>      ← worktree ブランチ
+```
+
+**手順:**
+
+1. `main` からバッチブランチ `feature/<バッチ名>` を作成
+2. バッチブランチ上でステアリングディレクトリを作成、requirements.md/design.md/tasklist.md/window-instructions.md を作成・承認
+3. バッチブランチから各機能用の worktree を作成:
+   ```bash
+   git checkout feature/<バッチ名>
+   git worktree add ../rescript-wt-<機能名> -b feature/<機能名>
+   ```
+4. 各ウィンドウで実装（共有ドキュメント更新は不要 — マージフェーズで一括更新）
+5. 全機能ブランチをバッチブランチに順次マージ、`./gradlew buildPlugin` で確認
+6. 共有ドキュメント（CLAUDE.md, docs/ 等）を一括更新、コミット: `📝 Update docs for <バッチ名>`
+7. バッチブランチを `main` にマージ、削除
+
+### worktree 命名規則
+
+```
+../rescript-wt-<機能名>/
+```
+
+### 命令文テンプレート（並列実装用）
+
+各ウィンドウへの命令文は `.steering/[YYYYMMDD]-[NNN]-[バッチ名]/window-instructions.md` に記録する。
+
+```
+cd <worktreeの絶対パス>
+
+ブランチ `<ブランチ名>` で <機能名> を実装してください。
+ステアリングワークフローに従い、以下の手順で進めてください。
+各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。
+
+## ステップ 1: ステアリングドキュメント作成
+`.steering/[YYYYMMDD]-[NNN]-[機能名]/` を作成し、requirements.md, design.md, tasklist.md を作成。
+
+## ステップ 2: 実装
+設計に従い実装。
+
+## ステップ 3: ビルド確認
+`./gradlew buildPlugin` を実行し、成功を確認。
+
+## ステップ 4: コミット
+tasklist.md を更新してコミット。
+※ 共有ドキュメントはバッチブランチで一括更新するため更新不要。
+
+## ステップ 5: マージ確認
+ユーザーに「バッチブランチにマージして worktree を削除しますか？」と確認。
+
+## ステップ 6: 元のディレクトリに戻る
+cd <メインリポジトリの絶対パス>
+```
