@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 19:39+0900\n"
+"POT-Creation-Date: 2026-02-21 20:50+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -96,12 +96,14 @@ msgid "Surround with (if/switch/try/block)"
 msgstr "Surround with（if/switch/try/block）"
 
 #: ../../user/changelog.md:24
-msgid "Postfix completion (.switch, .pipe, .log, etc.)"
-msgstr "Postfix 補完（.switch、.pipe、.log など）"
+msgid ""
+"Postfix completion (.switch, .pipe, .log, .some, .ok, .error, .ignore, "
+".promise, .await)"
+msgstr "Postfix 補完（.switch、.pipe、.log、.some、.ok、.error、.ignore、.promise、.await）"
 
 #: ../../user/changelog.md:25
-msgid "Live templates (15 snippets)"
-msgstr "Live Templates（15 スニペット）"
+msgid "Live templates (21 snippets including FFI bindings and React component)"
+msgstr "Live Templates（FFI バインディングと React コンポーネントを含む 21 スニペット）"
 
 #: ../../user/changelog.md:26
 msgid "File templates (Module, Interface, Component)"
@@ -194,9 +196,9 @@ msgid ""
 "Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm"
 " Library, CLI Tool, Monorepo)"
 msgstr ""
-"12 テンプレート対応のプロジェクトウィザード（Basic、Vite+React、Next.js、Electron、"
-"Hono、Cloudflare Workers、AWS Lambda、Google Cloud Run、React Native、npm"
-" Library、CLI Tool、Monorepo）"
+"12 テンプレート対応のプロジェクトウィザード（Basic、Vite+React、Next.js、Electron、Hono、Cloudflare"
+" Workers、AWS Lambda、Google Cloud Run、React Native、npm Library、CLI "
+"Tool、Monorepo）"
 
 #: ../../user/changelog.md:48
 msgid "Code Generation (Switch Arms, Module Type)"
@@ -290,6 +292,73 @@ msgstr "リファクタリングダイアログの要素説明"
 msgid "Lookup character filter for completion"
 msgstr "補完の入力文字フィルター"
 
+#: ../../user/changelog.md:71
+msgid "Unwrap/Remove (Ctrl+Shift+Delete) for Some/Ok/Error/if/switch/try/block"
+msgstr "Some/Ok/Error/if/switch/try/block の Unwrap/Remove（Ctrl+Shift+Delete）"
+
+#: ../../user/changelog.md:72
+msgid "JSX closing tag auto-insertion on `>` keystroke"
+msgstr "`>` キー入力時の JSX 閉じタグ自動挿入"
+
+#: ../../user/changelog.md:73
+msgid "Enter handler for doc comment and line comment auto-continuation"
+msgstr "ドキュメントコメントと行コメントの自動継続 Enter ハンドラー"
+
+#: ../../user/changelog.md:74
+msgid "Smart join lines for pipe/let/arrow patterns (Ctrl+Shift+J)"
+msgstr "pipe/let/arrow パターンのスマート行結合（Ctrl+Shift+J）"
+
+#: ../../user/changelog.md:75
+msgid "Error Lens inline diagnostics at end of line"
+msgstr "行末の Error Lens インライン診断"
+
+#: ../../user/changelog.md:76
+msgid "Highlight related keywords (switch/if/try keyword pairs)"
+msgstr "関連キーワードのハイライト（switch/if/try のキーワードペア）"
+
+#: ../../user/changelog.md:77
+msgid "Run Anything for ReScript CLI (Ctrl+Ctrl)"
+msgstr "ReScript CLI の Run Anything（Ctrl+Ctrl）"
+
+#: ../../user/changelog.md:78
+msgid "Expression Type display (Ctrl+Shift+P)"
+msgstr "式の型表示（Ctrl+Shift+P）"
+
+#: ../../user/changelog.md:79
+msgid "Debug compiled JavaScript (Alt+Shift+D)"
+msgstr "コンパイル済み JavaScript のデバッグ（Alt+Shift+D）"
+
+#: ../../user/changelog.md:80
+msgid "LSP auto-install notification with one-click install"
+msgstr "ワンクリックインストール付き LSP 自動インストール通知"
+
+#: ../../user/changelog.md:81
+msgid "Generate doc comment intention action"
+msgstr "ドキュメントコメント生成のインテンションアクション"
+
+#: ../../user/changelog.md:82
+msgid "Goto Super for .res ↔ .resi declaration navigation (Ctrl+U)"
+msgstr ".res と .resi 間の宣言ナビゲーション用 Goto Super（Ctrl+U）"
+
+#: ../../user/changelog.md:83
+msgid "Go to Test / Create Test (Ctrl+Shift+T)"
+msgstr "Go to Test / Create Test（Ctrl+Shift+T）"
+
+#: ../../user/changelog.md:84
+msgid "Context Info sticky declaration header (Alt+Q)"
+msgstr "Context Info スクロール時の宣言ヘッダー固定（Alt+Q）"
+
+#: ../../user/changelog.md:85
+msgid "External Documentation for Belt/Js modules (Shift+F1)"
+msgstr "Belt/Js モジュールの外部ドキュメント（Shift+F1）"
+
+#: ../../user/changelog.md:86
+msgid "Word selection handler for strings, brackets, and comments"
+msgstr "文字列、括弧、コメントの選択範囲ハンドラー"
+
 #~ msgid "Project Wizard"
 #~ msgstr "プロジェクトウィザード"
+
+#~ msgid "Live templates (15 snippets)"
+#~ msgstr "Live Templates（15 スニペット）"
 
