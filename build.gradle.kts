@@ -27,6 +27,7 @@ dependencies {
         bundledModule("intellij.spellchecker")
         bundledPlugin("com.intellij.modules.json")
         bundledPlugin("org.intellij.plugins.markdown")
+        bundledPlugin("com.intellij.modules.vcs")
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
     }

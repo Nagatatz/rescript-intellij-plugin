@@ -20,6 +20,25 @@ class RescriptDocumentationProviderTest {
         assertTrue(provider is AbstractDocumentationProvider)
     }
 
+    // -- Quick Documentation tests --
+
+    @Test
+    fun `generateDoc returns null for null element`() {
+        val provider = RescriptDocumentationProvider()
+        assertNull(provider.generateDoc(null, null))
+    }
+
+    @Test
+    fun `getDeclarationType returns null for non-declaration elements`() {
+        assertNull(
+            RescriptDocumentationProvider.getDeclarationType(
+                object : com.intellij.psi.impl.FakePsiElement() {
+                    override fun getParent(): com.intellij.psi.PsiElement? = null
+                },
+            ),
+        )
+    }
+
     // -- MODULE_URL_MAP tests --
 
     @Test
