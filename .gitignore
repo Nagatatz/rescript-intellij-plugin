@@ -17,6 +17,7 @@ src/main/java/com/rescript/plugin/lang/RescriptFlexLexer.java
 
 # Claude Code
 .claude/settings.local.json
+.claude/worktrees/
 
 # OS
 .DS_Store

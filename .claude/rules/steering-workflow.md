@@ -31,4 +31,8 @@
 
 ## git worktree 運用
 
-ステアリングを伴うコード実装は git worktree で隔離して行うこと。メインリポジトリではステアリングドキュメントの作成・承認のみ行う。worktree の詳細手順は `/steering` スキルを参照。
+ステアリングを伴うコード実装は **Claude Code のビルトイン worktree 機能**で隔離して行うこと。メインリポジトリではステアリングドキュメントの作成・承認のみ行う。
+
+- **単一機能:** `EnterWorktree` ツール（または `claude --worktree <機能名>`）を使用する。worktree は `.claude/worktrees/<機能名>/` に作成され、ブランチ `worktree-<機能名>` が HEAD から自動生成される。セッション終了時に自動クリーンアップされる（変更ありの場合は確認プロンプト）。
+- **並列実装:** 各ウィンドウで `claude --worktree <機能名>` を使用する。バッチブランチ戦略の詳細手順は `/steering` スキルを参照。
+- **手動 worktree は使わない:** `git worktree add ../rescript-wt-*` による手動作成は非推奨。ビルトイン機能を使うこと。

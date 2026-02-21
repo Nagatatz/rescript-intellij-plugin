@@ -171,23 +171,23 @@ tasklist.md の末尾にある「振り返り」セクションに、以下の�
 
 ## git worktree 運用ガイド
 
-ステアリングを伴うコード実装は git worktree で隔離して行う。
+ステアリングを伴うコード実装は **Claude Code のビルトイン worktree 機能**で隔離して行う。
 
 ### 単一機能実装
 
-```bash
-# 1. メインリポジトリでステアリングドキュメントを作成・承認（main ブランチ上）
-
-# 2. worktree を作成
-git worktree add ../rescript-wt-<機能名> -b feature/<機能名>
-
-# 3. worktree で実装・ビルド確認・コミット
-
-# 4. メインリポジトリで main にマージし worktree を削除
-git merge feature/<機能名>
-git worktree remove ../rescript-wt-<機能名>
-git branch -d feature/<機能名>
-```
+1. メインリポジトリでステアリングドキュメントを作成・承認（main ブランチ上）
+2. `EnterWorktree` ツール（または `claude --worktree <機能名>`）で worktree を作成
+   - worktree は `.claude/worktrees/<機能名>/` に作成される
+   - ブランチ `worktree-<機能名>` が HEAD から自動生成される
+3. worktree 内で実装・ビルド確認・コミット
+4. セッション終了時に Claude Code が自動クリーンアップを提案する
+   - 変更なし: 自動削除
+   - 変更あり: keep/remove の確認プロンプト
+5. メインリポジトリで main にマージ:
+   ```bash
+   git merge worktree-<機能名>
+   git branch -d worktree-<機能名>
+   ```
 
 ### 並列実装（複数機能の同時実装）
 
@@ -195,40 +195,36 @@ git branch -d feature/<機能名>
 
 ```
 main
- └── feature/<バッチ名>          ← バッチブランチ（計画・マージ用）
-      ├── feature/<機能名1>      ← worktree ブランチ
-      ├── feature/<機能名2>      ← worktree ブランチ
-      └── feature/<機能名3>      ← worktree ブランチ
+ └── feature/<バッチ名>               ← バッチブランチ（計画・マージ用）
+      ├── worktree-<機能名1>          ← Claude Code worktree ブランチ
+      ├── worktree-<機能名2>          ← Claude Code worktree ブランチ
+      └── worktree-<機能名3>          ← Claude Code worktree ブランチ
 ```
 
 **手順:**
 
 1. `main` からバッチブランチ `feature/<バッチ名>` を作成
 2. バッチブランチ上でステアリングディレクトリを作成、requirements.md/design.md/tasklist.md/window-instructions.md を作成・承認
-3. バッチブランチから各機能用の worktree を作成:
-   ```bash
-   git checkout feature/<バッチ名>
-   git worktree add ../rescript-wt-<機能名> -b feature/<機能名>
-   ```
+3. 各ウィンドウで `claude --worktree <機能名>` を実行して worktree を作成
 4. 各ウィンドウで実装（共有ドキュメント更新は不要 — マージフェーズで一括更新）
 5. 全機能ブランチをバッチブランチに順次マージ、`./gradlew buildPlugin` で確認
 6. 共有ドキュメント（CLAUDE.md, docs/ 等）を一括更新、コミット: `📝 Update docs for <バッチ名>`
 7. バッチブランチを `main` にマージ、削除
 
-### worktree 命名規則
+### worktree の配置場所
 
 ```
-../rescript-wt-<機能名>/
+.claude/worktrees/<機能名>/
 ```
+
+`.claude/worktrees/` は `.gitignore` に登録済み。
 
 ### 命令文テンプレート（並列実装用）
 
 各ウィンドウへの命令文は `.steering/[YYYYMMDD]-[NNN]-[バッチ名]/window-instructions.md` に記録する。
 
 ```
-cd <worktreeの絶対パス>
-
-ブランチ `<ブランチ名>` で <機能名> を実装してください。
+ブランチ `worktree-<機能名>` で <機能名> を実装してください。
 ステアリングワークフローに従い、以下の手順で進めてください。
 各ステアリングドキュメントの作成後、承認確認は不要です（親ウィンドウで承認済み）。
 
@@ -247,7 +243,4 @@ tasklist.md を更新してコミット。
 
 ## ステップ 5: マージ確認
 ユーザーに「バッチブランチにマージして worktree を削除しますか？」と確認。
-
-## ステップ 6: 元のディレクトリに戻る
-cd <メインリポジトリの絶対パス>
 ```
