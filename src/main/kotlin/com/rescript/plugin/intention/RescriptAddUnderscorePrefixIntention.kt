@@ -1,0 +1,76 @@
+package com.rescript.plugin.intention
+
+import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
+import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.lang.psi.RescriptElementTypes
+import com.rescript.plugin.lang.psi.RescriptFile
+
+/**
+ * Intention action that adds an underscore prefix to an identifier to suppress
+ * unused variable warnings. Available on lowercase identifiers inside `let`
+ * bindings that don't already start with `_`.
+ *
+ * In ReScript, prefixing a binding name with `_` signals to the compiler that
+ * the value is intentionally unused.
+ *
+ * @see RescriptAddIgnoreIntention for discarding expression results
+ */
+class RescriptAddUnderscorePrefixIntention : PsiElementBaseIntentionAction() {
+    override fun getText(): String = "Add _ prefix to suppress unused warning"
+
+    override fun getFamilyName(): String = "Add _ prefix to suppress unused warning"
+
+    override fun isAvailable(
+        project: Project,
+        editor: Editor?,
+        element: PsiElement,
+    ): Boolean {
+        if (element.containingFile !is RescriptFile) return false
+        val tokenType = element.node?.elementType ?: return false
+
+        // Must be a lowercase identifier
+        if (tokenType != RescriptTokenTypes.LIDENT) return false
+
+        // Must not already start with _
+        if (element.text.startsWith("_")) return false
+
+        // Must be inside a let or external declaration
+        return hasParentDeclaration(element)
+    }
+
+    override fun invoke(
+        project: Project,
+        editor: Editor?,
+        element: PsiElement,
+    ) {
+        val document = editor?.document ?: return
+        val offset = element.textRange.startOffset
+        document.insertString(offset, "_")
+    }
+
+    companion object {
+        private val DECLARATION_TYPES =
+            setOf(
+                RescriptElementTypes.LET_DECLARATION,
+                RescriptElementTypes.EXTERNAL_DECLARATION,
+            )
+
+        /**
+         * Checks whether the element is inside a let or external declaration.
+         *
+         * @param element the PSI element to check
+         * @return true if a parent declaration is found
+         */
+        fun hasParentDeclaration(element: PsiElement): Boolean {
+            var current: PsiElement? = element.parent
+            while (current != null) {
+                if (current.node?.elementType in DECLARATION_TYPES) return true
+                current = current.parent
+            }
+            return false
+        }
+    }
+}
