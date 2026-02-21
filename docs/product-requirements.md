@@ -162,56 +162,125 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-rescript-vscode（公式 VS Code 拡張）および他の JetBrains 言語プラグイン（JS/TS, Kotlin, Elm, Dart, CoffeeScript, Svelte, ReasonML 等）との機能比較に基づき、未実装機能を優先度別に整理する。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、S/A/B 優先度の42件は実装済み。残りの67件を Phase 1-4（実装予定）と C/D 優先度（将来検討）に分類する。
 
-#### P1（高優先度） — ユーザー体験に大きく影響
+なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-**他の JetBrains 言語プラグインとのギャップ（低コスト・高インパクト）:**
+#### Phase 1: Quick Wins（8件）
 
-| 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
-|---|---|---|---|---|
-(全 P1 機能が実装済み)
+低コスト・高インパクトの機能。ReScript の日常的な開発で最も頻出する不満を解消する。
 
-#### P2（中優先度） — あると便利
+| # | 機能 | 説明 | 難易度 |
+|---|------|------|--------|
+| 71 | 未使用結果の `->ignore` | 未使用式結果の警告に `->ignore` Quick Fix を提供 | 低 |
+| 91 | 未使用変数の `_` プレフィックス | 未使用変数に `_` プレフィックスを追加する Quick Fix | 低 |
+| 72 | 冗長ブロック削除 | 単一式のみの `{ expr }` を `expr` に簡略化する Inspection | 低 |
+| 90 | デコレータ補完 | `@` 入力時に `@genType`, `@module` 等の補完候補を表示 | 低〜中 |
+| 92 | 演算子優先順位ホバー | 演算子にカーソルを合わせると優先順位と結合性を表示 | 低 |
+| 80 | Long Line Inspection Policy | `@module("...")` や `%raw()` 内の長行警告を抑制 | 低 |
+| 73 | 識別子ケース修正 | 命名規則違反の識別子を検出し修正を提案 | 低〜中 |
+| 79 | MultiLang Commenter | `%raw()` 内で正しい JS コメント構文を使用 | 低〜中 |
 
-**rescript-vscode とのギャップ:**
+#### Phase 2: ReScript らしさ（6件）
 
-| 機能 | 説明 | 実装アプローチ | 難易度 |
-|---|---|---|---|
-(全 P2 rescript-vscode ギャップ機能が実装済み)
+ReScript の言語特性（パイプ、パターンマッチ、型推論）を活かした IDE 支援。
 
-**他の JetBrains 言語プラグインとのギャップ:**
+| # | 機能 | 説明 | 難易度 |
+|---|------|------|--------|
+| 70 | Pipe ⇔ 関数呼び出し変換 | `arr->Array.map(f)` ⇔ `Array.map(arr, f)` の相互変換 | 中 |
+| 93 | 常時型表示パネル | カーソル位置の式の型を常時表示するツールウィンドウ | 中 |
+| 74 | パイプチェーン中間型ヒント | パイプチェーンの各ステップで中間型をインライン表示 | 中 |
+| 78 | Switch ケース統合 | 同じボディの switch ケースを `\| A \| B => body` に統合 | 中 |
+| 95 | ケースの変数分割 | パターンマッチの変数を全コンストラクタに展開 (Case Split) | 中 |
+| 97 | map/filter チェーン変換 | `filter` + `map` チェーンを `filterMap` に変換 | 中 |
 
-| 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
-|---|---|---|---|---|
-(全 P2 JetBrains ギャップ機能が実装済み)
+#### Phase 3: .resi 管理 + コード生成（4件）
 
-#### P3（低優先度） — nice-to-have
+`.resi` インターフェースファイルの管理効率化と、頻出ボイラープレートの自動生成。
 
-**rescript-vscode とのギャップ:**
+| # | 機能 | 説明 | 難易度 |
+|---|------|------|--------|
+| 76 | インターフェース公開/非公開 | `.res` の関数を `.resi` に追加/削除して公開を制御 | 中 |
+| 94 | .resi シグネチャ同期 | `.res` の宣言変更を `.resi` に自動同期 | 中 |
+| 77 | Make 関数生成 | レコード型からコンストラクタ (`let make = (~name, ~age) => ...`) を生成 | 中 |
+| 96 | レコードスタブ生成 | レコード型の全フィールドにデフォルト値を自動挿入 | 中 |
 
-| 機能 | 説明 | 実装アプローチ | 難易度 |
-|---|---|---|---|
-| ~~reanalyze 統合~~ | ~~デッドコード分析、未処理例外分析~~ | ~~実装済み~~ | ~~高~~ |
-| ~~Markdown ReScript ハイライト~~ | ~~` ```rescript ` コードブロックのハイライト~~ | ~~実装済み~~ | ~~低~~ |
-| ~~Paste as JSON.t~~ | ~~クリップボード変換ペースト~~ | ~~実装済み~~ | ~~中~~ |
-| ~~`//#region` 折りたたみ~~ | ~~カスタム折りたたみマーカー~~ | ~~実装済み~~ | ~~低~~ |
-| ~~Incremental Type Checking 設定~~ | ~~LSP の incremental typechecking 設定~~ | ~~実装済み~~ | ~~低〜中~~ |
-| JetBrains Marketplace 公開 | プラグインを Marketplace に公開 | Gradle `publishPlugin` タスク設定 | 中 |
+#### Phase 4: 補完・分析の強化（5件）
 
-**他の JetBrains 言語プラグインとのギャップ:**
+補完品質とエラー診断の改善による開発体験の向上。
 
-| 機能 | 説明 | 実装アプローチ | 難易度 | 参考プラグイン |
-|---|---|---|---|---|
-| ~~Test Runner Integration~~ | ~~IDE 内テスト実行・結果表示（GUI テストランナー）~~ | ~~実装済み~~ | ~~中〜高~~ | ~~Elm, Svelte, Dart, Kotlin~~ |
-| ~~Compiled JS Preview~~ | ~~ReScript ⇔ 生成 JS のツールウィンドウ表示~~ | ~~実装済み~~ | ~~中~~ | ~~CoffeeScript (split view), Kotlin (decompile)~~ |
-| ~~Project Wizard~~ | ~~新規 ReScript プロジェクトテンプレート~~ | ~~実装済み~~ | ~~中~~ | ~~Svelte, Dart, Kotlin~~ |
-| ~~Smart Enter~~ | ~~文の自動補完と改行（括弧閉じ等）~~ | ~~実装済み~~ | ~~中~~ | ~~Kotlin, JS/TS~~ |
-| ~~Statement Up/Down Mover~~ | ~~宣言単位の上下移動~~ | ~~実装済み~~ | ~~低~~ | ~~Kotlin, JS/TS~~ |
-| ~~Unused Code Detection~~ | ~~未使用変数・関数・open の検出（Quick Fix + Global Inspection）~~ | ~~実装済み~~ | ~~中~~ | ~~Elm, Dart, Kotlin~~ |
-| ~~Module Hierarchy~~ | ~~モジュールネスト・依存関係ビュー（open/include）~~ | ~~実装済み（Type/Call Hierarchy の代替）~~ | ~~高~~ | ~~Kotlin, JS/TS, Dart~~ |
-| ~~Qualified Name Copy~~ | ~~完全修飾名（`Module.subModule.name`）のコピー~~ | ~~実装済み~~ | ~~低~~ | ~~Kotlin, JS/TS~~ |
-| ~~Code Generation~~ | ~~variant arms 自動生成、module type 生成等~~ | ~~実装済み~~ | ~~中〜高~~ | ~~Elm (JSON enc/dec), Dart, Kotlin~~ |
+| # | 機能 | 説明 | 難易度 |
+|---|------|------|--------|
+| 98 | 位置引数→ラベル付き引数 | `foo(1, "hello")` → `foo(~id=1, ~name="hello")` の変換 | 中 |
+| 84 | Parameter Info Handler | Ctrl+P でラベル付き引数をネイティブ UI で表示 | 中 |
+| 102 | スタイルリンティング | ReScript イディオムに反するパターンを検出し改善を提案 | 中〜高 |
+| 83 | 型ミスマッチインラインヒント | 型エラー箇所に expected/actual 型をインライン表示 | 中 |
+| 99 | 型ミスマッチ差分表示 | 型エラーの不一致部分のみを色分けして差分表示 | 中〜高 |
+
+#### C 優先度: 将来検討（36件）
+
+低優先度または高難度の機能。必要に応じて個別に実装検討する。
+
+**初回調査（19件）:**
+
+| # | 機能 | カテゴリ | 難易度 |
+|---|------|---------|--------|
+| 43 | Extract Variable | リファクタリング | 高 |
+| 44 | Call Hierarchy | ナビゲーション | 高 |
+| 45 | Go to Implementation | ナビゲーション | 中 |
+| 46 | Search Everywhere | ナビゲーション | 中 |
+| 47 | Navigation Bar Model | ナビゲーション | 低〜中 |
+| 48 | External Annotator (Format Check) | 分析 | 中 |
+| 49 | Unresolved Reference Quick Fix | 分析 | 中〜高 |
+| 50 | Completion Weigher | 補完 | 中 |
+| 51 | Stub Index | インデキシング | 高 |
+| 52 | Code Rearranger | その他 | 中 |
+| 53 | Strip Trailing Spaces | 編集 | 低 |
+| 54 | IntelliLang | インジェクション | 低〜中 |
+| 55 | Formatting for Injected | インジェクション | 低 |
+| 56 | Framework Detector | プロジェクトビュー | 中 |
+| 57 | Scratch File | 実行 | 中〜高 |
+| 58 | REPL | 実行 | 中〜高 |
+| 59 | Grazie Text Extractor | その他 | 低 |
+| 60 | Element Signature Provider | その他 | 低 |
+| 61 | Index Pattern Builder | インデキシング | 低 |
+
+**追加調査・関数型言語調査（17件）:**
+
+| # | 機能 | カテゴリ | 難易度 |
+|---|------|---------|--------|
+| 75 | ラベル付き引数の一括挿入 | Intention | 中 |
+| 81 | JSON エンコーダ/デコーダ生成 | Generate | 中〜高 |
+| 82 | 分割代入の導入/解除 | Intention | 中 |
+| 85 | 型注釈一括追加 | Intention | 中 |
+| 86 | React コンポーネント抽出 | リファクタリング | 高 |
+| 87 | PPX 展開ビュー | ToolWindow | 高 |
+| 88 | モジュールタイプ実装生成 | Generate | 高 |
+| 89 | 使用箇所からの関数生成 | Quick Fix | 中〜高 |
+| 100 | 不要な括弧の削除 | Intention | 中 |
+| 101 | 不要な修飾子の削除 | Intention | 中 |
+| 103 | 変更可能性の診断 | Inspection | 中 |
+| 104 | JS→ReScript 変換 | Paste | 中〜高 |
+| 105 | 型ホール支援 | Quick Fix | 高 |
+| 106 | コメント内コード評価 | Editor | 高 |
+| 107 | Worksheet モード | Editor | 高 |
+| 108 | 型シグネチャ検索 | ナビゲーション | 非常に高 |
+| 109 | Implicit/PPX 可視化 | InlayHints | 中 |
+
+#### D 優先度: 長期検討（8件）
+
+パーサーの大幅拡張が前提となる高難度機能。フル PSI パーサーの構築後に検討する。
+
+| # | 機能 | カテゴリ | 難易度 |
+|---|------|---------|--------|
+| 62 | Extract Function | リファクタリング | 非常に高 |
+| 63 | Inline Variable/Function | リファクタリング | 高 |
+| 64 | Change Signature | リファクタリング | 非常に高 |
+| 65 | Introduce Constant | リファクタリング | 高 |
+| 66 | Suggested Refactoring | リファクタリング | 中〜高 |
+| 67 | Dependency Diagram | その他 | 高 |
+| 68 | File Include Provider | ナビゲーション | 中 |
+| 69 | Editor Floating Toolbar | その他 | 中 |
 
 ## 4. 成功の定義
 
