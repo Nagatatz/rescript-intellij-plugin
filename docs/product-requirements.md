@@ -162,122 +162,76 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、S/A/B 優先度の42件は実装済み。Phase 1 の7件も実装済み（#79 は不要と判断）。残りを Phase 2-4（実装予定）と C/D 優先度（将来検討）に分類する。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、49件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り60件を S/A/B/C の4段階で優先度付けする。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### Phase 1: Quick Wins — 実装済み
+#### 未実装機能一覧（60件）
 
-7件実装済み: #71 (->ignore), #91 (_ プレフィックス), #72 (冗長ブレース削除), #90 (デコレータ補完), #92 (演算子優先順位), #80 (Long Line 抑制), #73 (識別子ケース修正)。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。
+テーブルフォーマットの定義は `.claude/rules/roadmap-format.md` を参照。
 
-#### Phase 2: ReScript らしさ（6件）
-
-ReScript の言語特性（パイプ、パターンマッチ、型推論）を活かした IDE 支援。
-
-| # | 機能 | 説明 | 難易度 |
-|---|------|------|--------|
-| 70 | Pipe ⇔ 関数呼び出し変換 | `arr->Array.map(f)` ⇔ `Array.map(arr, f)` の相互変換 | 中 |
-| 93 | 常時型表示パネル | カーソル位置の式の型を常時表示するツールウィンドウ | 中 |
-| 74 | パイプチェーン中間型ヒント | パイプチェーンの各ステップで中間型をインライン表示 | 中 |
-| 78 | Switch ケース統合 | 同じボディの switch ケースを `\| A \| B => body` に統合 | 中 |
-| 95 | ケースの変数分割 | パターンマッチの変数を全コンストラクタに展開 (Case Split) | 中 |
-| 97 | map/filter チェーン変換 | `filter` + `map` チェーンを `filterMap` に変換 | 中 |
-
-#### Phase 3: .resi 管理 + コード生成（4件）
-
-`.resi` インターフェースファイルの管理効率化と、頻出ボイラープレートの自動生成。
-
-| # | 機能 | 説明 | 難易度 |
-|---|------|------|--------|
-| 76 | インターフェース公開/非公開 | `.res` の関数を `.resi` に追加/削除して公開を制御 | 中 |
-| 94 | .resi シグネチャ同期 | `.res` の宣言変更を `.resi` に自動同期 | 中 |
-| 77 | Make 関数生成 | レコード型からコンストラクタ (`let make = (~name, ~age) => ...`) を生成 | 中 |
-| 96 | レコードスタブ生成 | レコード型の全フィールドにデフォルト値を自動挿入 | 中 |
-
-#### Phase 4: 補完・分析の強化（5件）
-
-補完品質とエラー診断の改善による開発体験の向上。
-
-| # | 機能 | 説明 | 難易度 |
-|---|------|------|--------|
-| 98 | 位置引数→ラベル付き引数 | `foo(1, "hello")` → `foo(~id=1, ~name="hello")` の変換 | 中 |
-| 84 | Parameter Info Handler | Ctrl+P でラベル付き引数をネイティブ UI で表示 | 中 |
-| 102 | スタイルリンティング | ReScript イディオムに反するパターンを検出し改善を提案 | 中〜高 |
-| 83 | 型ミスマッチインラインヒント | 型エラー箇所に expected/actual 型をインライン表示 | 中 |
-| 99 | 型ミスマッチ差分表示 | 型エラーの不一致部分のみを色分けして差分表示 | 中〜高 |
-
-#### インフラ・品質改善
-
-プラグインの品質向上とユーザーサポート効率化のためのインフラ機能。
-
-| # | 機能 | 説明 | 難易度 |
-|---|------|------|--------|
-| 110 | GitHub エラーレポート | `com.intellij.errorHandler` Extension Point による未処理例外の GitHub Issues 自動レポート。ブラウザベース方式でスタックトレース・環境情報を含む Issue URL を生成し、ユーザーのブラウザで開く | 低 |
-
-#### C 優先度: 将来検討（36件）
-
-低優先度または高難度の機能。必要に応じて個別に実装検討する。
-
-**初回調査（19件）:**
-
-| # | 機能 | カテゴリ | 難易度 |
-|---|------|---------|--------|
-| 43 | Extract Variable | リファクタリング | 高 |
-| 44 | Call Hierarchy | ナビゲーション | 高 |
-| 45 | Go to Implementation | ナビゲーション | 中 |
-| 46 | Search Everywhere | ナビゲーション | 中 |
-| 47 | Navigation Bar Model | ナビゲーション | 低〜中 |
-| 48 | External Annotator (Format Check) | 分析 | 中 |
-| 49 | Unresolved Reference Quick Fix | 分析 | 中〜高 |
-| 50 | Completion Weigher | 補完 | 中 |
-| 51 | Stub Index | インデキシング | 高 |
-| 52 | Code Rearranger | その他 | 中 |
-| 53 | Strip Trailing Spaces | 編集 | 低 |
-| 54 | IntelliLang | インジェクション | 低〜中 |
-| 55 | Formatting for Injected | インジェクション | 低 |
-| 56 | Framework Detector | プロジェクトビュー | 中 |
-| 57 | Scratch File | 実行 | 中〜高 |
-| 58 | REPL | 実行 | 中〜高 |
-| 59 | Grazie Text Extractor | その他 | 低 |
-| 60 | Element Signature Provider | その他 | 低 |
-| 61 | Index Pattern Builder | インデキシング | 低 |
-
-**追加調査・関数型言語調査（17件）:**
-
-| # | 機能 | カテゴリ | 難易度 |
-|---|------|---------|--------|
-| 75 | ラベル付き引数の一括挿入 | Intention | 中 |
-| 81 | JSON エンコーダ/デコーダ生成 | Generate | 中〜高 |
-| 82 | 分割代入の導入/解除 | Intention | 中 |
-| 85 | 型注釈一括追加 | Intention | 中 |
-| 86 | React コンポーネント抽出 | リファクタリング | 高 |
-| 87 | PPX 展開ビュー | ToolWindow | 高 |
-| 88 | モジュールタイプ実装生成 | Generate | 高 |
-| 89 | 使用箇所からの関数生成 | Quick Fix | 中〜高 |
-| 100 | 不要な括弧の削除 | Intention | 中 |
-| 101 | 不要な修飾子の削除 | Intention | 中 |
-| 103 | 変更可能性の診断 | Inspection | 中 |
-| 104 | JS→ReScript 変換 | Paste | 中〜高 |
-| 105 | 型ホール支援 | Quick Fix | 高 |
-| 106 | コメント内コード評価 | Editor | 高 |
-| 107 | Worksheet モード | Editor | 高 |
-| 108 | 型シグネチャ検索 | ナビゲーション | 非常に高 |
-| 109 | Implicit/PPX 可視化 | InlayHints | 中 |
-
-#### D 優先度: 長期検討（8件）
-
-パーサーの大幅拡張が前提となる高難度機能。フル PSI パーサーの構築後に検討する。
-
-| # | 機能 | カテゴリ | 難易度 |
-|---|------|---------|--------|
-| 62 | Extract Function | リファクタリング | 非常に高 |
-| 63 | Inline Variable/Function | リファクタリング | 高 |
-| 64 | Change Signature | リファクタリング | 非常に高 |
-| 65 | Introduce Constant | リファクタリング | 高 |
-| 66 | Suggested Refactoring | リファクタリング | 中〜高 |
-| 67 | Dependency Diagram | その他 | 高 |
-| 68 | File Include Provider | ナビゲーション | 中 |
-| 69 | Editor Floating Toolbar | その他 | 中 |
+| # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
+|---|------|---------|------|--------|--------|
+| 45 | Go to Implementation | ナビゲーション | インターフェースから実装へのジャンプ | 中 | S |
+| 70 | Pipe ⇔ 関数呼び出し変換 | Intention | `arr->Array.map(f)` ⇔ `Array.map(arr, f)` の相互変換 | 中 | S |
+| 76 | インターフェース公開/非公開 | Intention | `.res` の関数を `.resi` に追加/削除して公開を制御 | 中 | S |
+| 83 | 型ミスマッチインラインヒント | InlayHints | 型エラー箇所に expected/actual 型をインライン表示 | 中 | S |
+| 84 | Parameter Info Handler | 補完 | Ctrl+P でラベル付き引数をネイティブ UI で表示 | 中 | S |
+| 110 | GitHub エラーレポート | インフラ | 未処理例外の GitHub Issues 自動レポート（ブラウザベース） | 低 | S |
+| 46 | Search Everywhere | ナビゲーション | ファイル・クラス・シンボルの統合検索 | 中 | A |
+| 49 | Unresolved Reference Quick Fix | Quick Fix | 未解決参照に対するクイックフィックス | 中〜高 | A |
+| 50 | Completion Weigher | 補完 | 補完候補の重み付けカスタマイズ | 中 | A |
+| 74 | パイプチェーン中間型ヒント | InlayHints | パイプチェーンの各ステップで中間型をインライン表示 | 中 | A |
+| 75 | ラベル付き引数の一括挿入 | Intention | 関数のラベル付き引数を一括で挿入 | 中 | A |
+| 77 | Make 関数生成 | Generate | レコード型からコンストラクタ関数を自動生成 | 中 | A |
+| 78 | Switch ケース統合 | Intention | 同じボディの switch ケースを `\| A \| B => body` に統合 | 中 | A |
+| 89 | 使用箇所からの関数生成 | Quick Fix | 未定義関数の使用箇所からスタブ関数を生成 | 中〜高 | A |
+| 94 | .resi シグネチャ同期 | Editor | `.res` の宣言変更を `.resi` に自動同期 | 中 | A |
+| 95 | ケースの変数分割 | Intention | パターンマッチの変数を全コンストラクタに展開 (Case Split) | 中 | A |
+| 98 | 位置引数→ラベル付き引数 | Intention | `foo(1, "hello")` → `foo(~id=1, ~name="hello")` の変換 | 中 | A |
+| 100 | 不要な括弧の削除 | Intention | 式を囲む不要な括弧を自動削除 | 中 | A |
+| 101 | 不要な修飾子の削除 | Intention | モジュールパスの冗長な修飾子を削除 | 中 | A |
+| 43 | Extract Variable | リファクタリング | 式を変数に抽出 | 高 | B |
+| 44 | Call Hierarchy | ナビゲーション | 関数の呼び出し階層ツリー表示 | 高 | B |
+| 47 | Navigation Bar Model | ナビゲーション | ナビゲーションバーにファイル構造表示 | 低〜中 | B |
+| 48 | External Annotator (Format Check) | 分析 | フォーマットチェックの外部アノテーター | 中 | B |
+| 51 | Stub Index | インデキシング | PSI スタブベースのインデックス構築 | 高 | B |
+| 52 | Code Rearranger | その他 | コード要素の自動並べ替え | 中 | B |
+| 54 | IntelliLang | インジェクション | IntelliLang 連携による言語インジェクション強化 | 低〜中 | B |
+| 56 | Framework Detector | プロジェクトビュー | ReScript フレームワークの自動検出 | 中 | B |
+| 81 | JSON エンコーダ/デコーダ生成 | Generate | JSON のエンコーダ/デコーダコードを自動生成 | 中〜高 | B |
+| 82 | 分割代入の導入/解除 | Intention | let バインディングの分割代入を導入・解除 | 中 | B |
+| 85 | 型注釈一括追加 | Intention | 推論された型注釈を一括で明示化 | 中 | B |
+| 93 | 常時型表示パネル | ToolWindow | カーソル位置の式の型を常時表示するツールウィンドウ | 中 | B |
+| 96 | レコードスタブ生成 | Generate | レコード型の全フィールドにデフォルト値を自動挿入 | 中 | B |
+| 97 | map/filter チェーン変換 | Intention | `filter` + `map` チェーンを `filterMap` に変換 | 中 | B |
+| 99 | 型ミスマッチ差分表示 | 分析 | 型エラーの不一致部分のみを色分けして差分表示 | 中〜高 | B |
+| 102 | スタイルリンティング | Inspection | ReScript イディオムに反するパターンを検出し改善を提案 | 中〜高 | B |
+| 103 | 変更可能性の診断 | Inspection | `ref` の不要な使用やミュータビリティの問題を検出 | 中 | B |
+| 109 | Implicit/PPX 可視化 | InlayHints | 暗黙的な PPX 変換をインラインで可視化 | 中 | B |
+| 53 | Strip Trailing Spaces | 編集 | 行末の余分な空白を除去 | 低 | C |
+| 55 | Formatting for Injected | インジェクション | インジェクトされた言語のフォーマット | 低 | C |
+| 57 | Scratch File | 実行 | ReScript スクラッチファイルの実行 | 中〜高 | C |
+| 58 | REPL | 実行 | インタラクティブ実行環境 | 中〜高 | C |
+| 59 | Grazie Text Extractor | その他 | Grazie による自然言語テキスト抽出 | 低 | C |
+| 60 | Element Signature Provider | その他 | 要素のシグネチャ情報提供 | 低 | C |
+| 61 | Index Pattern Builder | インデキシング | インデックスパターンの構築 | 低 | C |
+| 62 | Extract Function | リファクタリング | 選択コードを新しい関数に抽出 | 非常に高 | C |
+| 63 | Inline Variable/Function | リファクタリング | 変数・関数をインライン展開 | 高 | C |
+| 64 | Change Signature | リファクタリング | 関数シグネチャの変更と呼び出し側の自動修正 | 非常に高 | C |
+| 65 | Introduce Constant | リファクタリング | リテラル値を定数に抽出 | 高 | C |
+| 66 | Suggested Refactoring | リファクタリング | コード品質改善のリファクタリングを提案 | 中〜高 | C |
+| 67 | Dependency Diagram | その他 | モジュール依存関係のダイアグラム生成 | 高 | C |
+| 68 | File Include Provider | ナビゲーション | ファイルインクルード関係のナビゲーション | 中 | C |
+| 69 | Editor Floating Toolbar | その他 | エディタ上のフローティングツールバー | 中 | C |
+| 86 | React コンポーネント抽出 | リファクタリング | JSX を新しい React コンポーネントに抽出 | 高 | C |
+| 87 | PPX 展開ビュー | ToolWindow | PPX マクロの展開結果をツールウィンドウに表示 | 高 | C |
+| 88 | モジュールタイプ実装生成 | Generate | モジュールタイプのスケルトン実装を生成 | 高 | C |
+| 104 | JS→ReScript 変換 | Paste | JavaScript コードを ReScript に変換してペースト | 中〜高 | C |
+| 105 | 型ホール支援 | Quick Fix | `_` 型ホールに対する候補型の提案 | 高 | C |
+| 106 | コメント内コード評価 | Editor | ドキュメントコメント内のコード例を評価・検証 | 高 | C |
+| 107 | Worksheet モード | Editor | ファイル全体をインタラクティブに評価するモード | 高 | C |
+| 108 | 型シグネチャ検索 | ナビゲーション | 型シグネチャから関数を逆引き検索 | 非常に高 | C |
 
 ## 4. 成功の定義
 
