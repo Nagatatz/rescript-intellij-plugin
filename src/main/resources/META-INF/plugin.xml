@@ -254,6 +254,34 @@
             <className>com.rescript.plugin.intention.RescriptGenerateDocCommentIntention</className>
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptAddIgnoreIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptAddUnderscorePrefixIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptRemoveRedundantBracesIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptFixIdentifierCaseIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Decorator/Attribute Completion -->
+        <completion.contributor language="ReScript"
+                                implementationClass="com.rescript.plugin.completion.RescriptDecoratorCompletionContributor"/>
 
         <!-- Surround With -->
         <lang.surroundDescriptor language="ReScript"

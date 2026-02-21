@@ -451,6 +451,11 @@ flowchart TD
 | `com.intellij.intentionAction` | `RescriptWrapWithOkIntention` | Wrap with Ok(...) | 実装済み |
 | `com.intellij.intentionAction` | `RescriptWrapWithErrorIntention` | Wrap with Error(...) | 実装済み |
 | `com.intellij.intentionAction` | `RescriptAddGenTypeIntention` | Add @genType annotation | 実装済み |
+| `com.intellij.intentionAction` | `RescriptAddIgnoreIntention` | Add ->ignore (未使用結果の破棄) | 実装済み |
+| `com.intellij.intentionAction` | `RescriptAddUnderscorePrefixIntention` | Add _ prefix (未使用変数の警告抑制) | 実装済み |
+| `com.intellij.intentionAction` | `RescriptRemoveRedundantBracesIntention` | Remove redundant braces (冗長ブロック削除) | 実装済み |
+| `com.intellij.intentionAction` | `RescriptFixIdentifierCaseIntention` | Fix identifier case (PascalCase/camelCase 変換) | 実装済み |
+| `com.intellij.completion.contributor` | `RescriptDecoratorCompletionContributor` | デコレータ補完 (@genType, @module 等) | 実装済み |
 | `com.intellij.lang.surroundDescriptor` | `RescriptSurroundDescriptor` | Surround With (if/switch/try/block) | 実装済み |
 | `com.intellij.runLineMarkerContributor` | `RescriptRunLineMarkerContributor` | ガター実行アイコン | 実装済み |
 | `com.intellij.externalAnnotator` | `RescriptReanalyzeAnnotator` | reanalyze デッドコード分析 | 実装済み |
