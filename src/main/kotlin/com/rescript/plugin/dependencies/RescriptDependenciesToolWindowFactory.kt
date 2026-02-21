@@ -18,10 +18,6 @@ import com.intellij.openapi.wm.ToolWindowFactory
 class RescriptDependenciesToolWindowFactory :
     ToolWindowFactory,
     DumbAware {
-    companion object {
-        const val TOOL_WINDOW_ID = "ReScript Dependencies"
-    }
-
     override fun createToolWindowContent(
         project: Project,
         toolWindow: ToolWindow,

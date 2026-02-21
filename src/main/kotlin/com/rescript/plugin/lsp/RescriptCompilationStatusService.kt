@@ -56,20 +56,6 @@ class RescriptCompilationStatusService(
         Disposer.register(disposable) { listeners.remove(listener) }
     }
 
-    /**
-     * Registers a listener that is notified when compilation finishes.
-     *
-     * @param disposable the parent disposable; the listener is removed when disposed
-     * @param listener the callback to invoke when compilation finishes
-     */
-    fun addFinishedListener(
-        disposable: Disposable,
-        listener: CompilationFinishedListener,
-    ) {
-        finishedListeners.add(listener)
-        Disposer.register(disposable) { finishedListeners.remove(listener) }
-    }
-
     fun interface CompilationStatusListener {
         fun statusChanged(status: CompilationStatus)
     }

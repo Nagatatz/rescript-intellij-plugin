@@ -66,7 +66,7 @@ class RescriptRunAnythingProvider : RunAnythingProviderBase<String>() {
 
     override fun getCompletionGroupTitle(): String = "ReScript"
 
-    override fun getHelpIcon(): Icon? = com.rescript.plugin.RescriptIcons.FILE
+    override fun getHelpIcon(): Icon = com.rescript.plugin.RescriptIcons.FILE
 
     companion object {
         private const val HELP_COMMAND = "rescript"

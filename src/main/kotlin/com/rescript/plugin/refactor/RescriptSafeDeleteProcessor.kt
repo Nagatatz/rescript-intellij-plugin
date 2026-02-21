@@ -38,7 +38,7 @@ class RescriptSafeDeleteProcessor : SafeDeleteProcessorDelegate {
     override fun getElementsToSearch(
         element: PsiElement,
         allElementsToDelete: MutableCollection<out PsiElement>,
-    ): MutableCollection<out PsiElement>? = mutableListOf(element)
+    ): MutableCollection<out PsiElement> = mutableListOf(element)
 
     override fun getAdditionalElementsToDelete(
         element: PsiElement,
