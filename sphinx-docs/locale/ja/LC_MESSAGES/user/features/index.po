@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 19:39+0900\n"
+"POT-Creation-Date: 2026-02-21 20:50+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,9 +25,9 @@ msgstr "機能概要"
 
 #: ../../user/features/index.md:3
 msgid ""
-"The ReScript IntelliJ Plugin provides 60+ features organized into two "
+"The ReScript IntelliJ Plugin provides 90+ features organized into two "
 "layers:"
-msgstr "ReScript IntelliJ Plugin は、2 つのレイヤーに整理された 60 以上の機能を提供します:"
+msgstr "ReScript IntelliJ Plugin は、2 つのレイヤーに整理された 90 以上の機能を提供します:"
 
 #: ../../user/features/index.md:5
 msgid ""
@@ -109,11 +109,10 @@ msgid "Advanced Features"
 msgstr "高度な機能"
 
 #: ../../user/features/index.md:67
-#, fuzzy
 msgid ""
 "Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding "
 "Generation, Project Wizard, and more."
-msgstr "Code Lens、コンパイル済み JS プレビュー、モジュール階層、.d.ts バインディング生成などです。"
+msgstr "Code Lens、コンパイル済み JS プレビュー、モジュール階層、.d.ts バインディング生成、プロジェクトウィザードなどです。"
 
 #: ../../user/features/index.md:71
 msgid "Native vs. LSP Features"
@@ -339,13 +338,13 @@ msgstr "CodeVision API を通じて関数の上に型注釈を表示します。
 
 #: ../../user/features/index.md:63
 msgid "Project Wizard"
-msgstr ""
+msgstr "プロジェクトウィザード"
 
 #: ../../user/features/index.md:63
 msgid ""
 "Creates new projects from 12 pre-configured templates. Generates all "
 "build files and starter code locally."
-msgstr ""
+msgstr "事前設定済みの 12 テンプレートから新しいプロジェクトを作成します。すべてのビルドファイルとスターターコードをローカルに生成します。"
 
 #: ../../user/features/index.md:95
 msgid "Understanding Native Features"

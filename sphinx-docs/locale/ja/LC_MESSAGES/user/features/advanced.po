@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 19:39+0900\n"
+"POT-Creation-Date: 2026-02-21 20:50+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -416,7 +416,7 @@ msgstr ""
 msgid "Field"
 msgstr "フィールド"
 
-#: ../../user/features/advanced.md
+#: ../../user/features/advanced.md ../../user/features/advanced.md:555
 msgid "Description"
 msgstr "説明"
 
@@ -710,8 +710,8 @@ msgid ""
 "Create new ReScript projects directly from the IDE with 12 pre-configured"
 " templates covering frontend, backend, serverless, mobile, and more."
 msgstr ""
-"フロントエンド、バックエンド、サーバーレス、モバイルなどをカバーする 12 の事前設定済みテンプレートを使用して、"
-"IDE から直接新しい ReScript プロジェクトを作成します。"
+"フロントエンド、バックエンド、サーバーレス、モバイルなどをカバーする 12 の事前設定済みテンプレートを使用して、IDE から直接新しい "
+"ReScript プロジェクトを作成します。"
 
 #: ../../user/features/advanced.md:283
 msgid "Steps"
@@ -898,8 +898,8 @@ msgid ""
 "Each template generates a ready-to-use project with `rescript.json`, "
 "`package.json`, and template-specific source files."
 msgstr ""
-"各テンプレートは `rescript.json`、`package.json`、およびテンプレート固有のソースファイルを含む、"
-"すぐに使えるプロジェクトを生成します。"
+"各テンプレートは "
+"`rescript.json`、`package.json`、およびテンプレート固有のソースファイルを含む、すぐに使えるプロジェクトを生成します。"
 
 #: ../../user/features/advanced.md:314
 msgid "**Basic template:**"
@@ -931,8 +931,8 @@ msgid ""
 "Cloud Run) share common Hono bindings (`src/Hono.res`) and differ in "
 "their deployment configuration:"
 msgstr ""
-"**Hono ベースのテンプレート**（Hono、Cloudflare Workers、AWS Lambda、Google "
-"Cloud Run）は共通の Hono バインディング（`src/Hono.res`）を共有し、デプロイ設定が異なります:"
+"**Hono ベースのテンプレート**（Hono、Cloudflare Workers、AWS Lambda、Google Cloud "
+"Run）は共通の Hono バインディング（`src/Hono.res`）を共有し、デプロイ設定が異なります:"
 
 #: ../../user/features/advanced.md:362
 msgid "**Hono (Node.js)** --- Uses `@hono/node-server` for local development"
@@ -1286,8 +1286,8 @@ msgid ""
 "**TypeScript** must be installed in the project's `node_modules` (the "
 "plugin searches parent directories for monorepo support)"
 msgstr ""
-"**TypeScript** がプロジェクトの `node_modules` にインストールされている必要があります"
-"（プラグインは Monorepo サポートのため親ディレクトリも検索します）"
+"**TypeScript** がプロジェクトの `node_modules` にインストールされている必要があります（プラグインは "
+"Monorepo サポートのため親ディレクトリも検索します）"
 
 #: ../../user/features/advanced.md:466
 msgid "Limitations"
@@ -1360,9 +1360,9 @@ msgid ""
 " editor. Enable via **Settings** > **Editor** > **Inlay Hints** > **Code "
 "Vision**."
 msgstr ""
-"トップレベル宣言（let、type、module、external）に作成者と最終変更の注釈が表示され、"
-"エディタ内で直接 Git blame 情報を確認できます。**Settings** > **Editor** > **Inlay Hints** > **Code "
-"Vision** で有効化します。"
+"トップレベル宣言（let、type、module、external）に作成者と最終変更の注釈が表示され、エディタ内で直接 Git blame "
+"情報を確認できます。**Settings** > **Editor** > **Inlay Hints** > **Code Vision** "
+"で有効化します。"
 
 #: ../../user/features/advanced.md:490
 msgid "Package Dependencies"
@@ -1382,7 +1382,9 @@ msgstr "**開き方:** **View** > **Tool Windows** > **ReScript Dependencies**"
 msgid ""
 "The tree view organizes packages into \"Dependencies\" and \"Dev "
 "Dependencies\" groups with version numbers."
-msgstr "ツリービューはパッケージを \"Dependencies\" と \"Dev Dependencies\" のグループにバージョン番号付きで整理します。"
+msgstr ""
+"ツリービューはパッケージを \"Dependencies\" と \"Dev Dependencies\" "
+"のグループにバージョン番号付きで整理します。"
 
 #: ../../user/features/advanced.md:498
 msgid "Quick Documentation"
@@ -1395,9 +1397,9 @@ msgid ""
 "server. When LSP is unavailable, a PSI-based fallback shows the "
 "declaration type, name, and source file."
 msgstr ""
-"`Ctrl+Q`（またはホバー）を押して ReScript 要素のドキュメントを表示します。"
-"LSP サーバーが接続されている場合、ドキュメントは Language Server から提供されます。"
-"LSP が利用できない場合は、PSI ベースのフォールバックが宣言の型、名前、ソースファイルを表示します。"
+"`Ctrl+Q`（またはホバー）を押して ReScript 要素のドキュメントを表示します。LSP サーバーが接続されている場合、ドキュメントは "
+"Language Server から提供されます。LSP が利用できない場合は、PSI "
+"ベースのフォールバックが宣言の型、名前、ソースファイルを表示します。"
 
 #: ../../user/features/advanced.md:502
 msgid "Safe Delete"
@@ -1409,8 +1411,8 @@ msgid ""
 "usage checking. If the element is still referenced, a confirmation dialog"
 " shows all usage locations before proceeding."
 msgstr ""
-"**Refactor** > **Safe Delete** を使用して、使用箇所チェック付きで ReScript 宣言を削除します。"
-"要素がまだ参照されている場合、続行前にすべての使用箇所を示す確認ダイアログが表示されます。"
+"**Refactor** > **Safe Delete** を使用して、使用箇所チェック付きで ReScript "
+"宣言を削除します。要素がまだ参照されている場合、続行前にすべての使用箇所を示す確認ダイアログが表示されます。"
 
 #: ../../user/features/advanced.md:506
 msgid "Name Suggestions"
@@ -1441,61 +1443,192 @@ msgid ""
 "Files in `node_modules/` directories are automatically displayed in "
 "Reader Mode, providing a cleaner read-only view for library source files."
 msgstr ""
-"`node_modules/` ディレクトリ内のファイルは自動的に Reader Mode で表示され、"
-"ライブラリソースファイルのクリーンな読み取り専用ビューを提供します。"
+"`node_modules/` ディレクトリ内のファイルは自動的に Reader Mode "
+"で表示され、ライブラリソースファイルのクリーンな読み取り専用ビューを提供します。"
 
 #: ../../user/features/advanced.md:517
+msgid "TODO Indexing"
+msgstr "TODO インデキシング"
+
+#: ../../user/features/advanced.md:519
+msgid ""
+"The plugin integrates with IntelliJ's TODO tool window (`Alt+6` > "
+"**TODO** tab) to detect and list TODO, FIXME, and other task comments in "
+"ReScript files."
+msgstr "プラグインは IntelliJ の TODO ツールウィンドウ（`Alt+6` > **TODO** タブ）と統合し、ReScript ファイル内の TODO、FIXME、およびその他のタスクコメントを検出してリスト表示します。"
+
+#: ../../user/features/advanced.md:521
+msgid "Recognized patterns include:"
+msgstr "認識されるパターン:"
+
+#: ../../user/features/advanced.md:522
+msgid "`// TODO: ...`"
+msgstr "`// TODO: ...`"
+
+#: ../../user/features/advanced.md:523
+msgid "`// FIXME: ...`"
+msgstr "`// FIXME: ...`"
+
+#: ../../user/features/advanced.md:524
+msgid "`/* TODO: ... */`"
+msgstr "`/* TODO: ... */`"
+
+#: ../../user/features/advanced.md:526
+msgid ""
+"TODO items appear in the IDE's **TODO** panel alongside items from other "
+"file types in your project. You can customize TODO patterns and filters "
+"in **Settings** > **Editor** > **TODO**."
+msgstr "TODO 項目は IDE の **TODO** パネルに、プロジェクト内の他のファイルタイプの項目と共に表示されます。TODO パターンとフィルタは **Settings** > **Editor** > **TODO** でカスタマイズできます。"
+
+#: ../../user/features/advanced.md:528
 msgid "Open Statement Index"
 msgstr "Open ステートメントインデックス"
 
-#: ../../user/features/advanced.md:519
+#: ../../user/features/advanced.md:530
 msgid ""
 "The plugin indexes all `open` statements across your project for fast "
 "module resolution. This powers features like auto-import suggestions and "
 "module dependency analysis."
 msgstr ""
-"プラグインはプロジェクト全体のすべての `open` ステートメントをインデックス化し、"
-"高速なモジュール解決を実現します。自動インポート候補やモジュール依存関係分析などの機能を支えています。"
+"プラグインはプロジェクト全体のすべての `open` "
+"ステートメントをインデックス化し、高速なモジュール解決を実現します。自動インポート候補やモジュール依存関係分析などの機能を支えています。"
 
-#: ../../user/features/advanced.md:521
+#: ../../user/features/advanced.md:532
 msgid "Project View Enhancements"
 msgstr "Project View の拡張"
 
-#: ../../user/features/advanced.md:523
+#: ../../user/features/advanced.md:534
 msgid ""
 "**Interface indicator:** `.res` files with a corresponding `.resi` show a"
 " \"(has .resi)\" suffix"
-msgstr "**インターフェースインジケーター:** 対応する `.resi` を持つ `.res` ファイルに \"(has .resi)\" サフィックスを表示"
+msgstr ""
+"**インターフェースインジケーター:** 対応する `.resi` を持つ `.res` ファイルに \"(has .resi)\" "
+"サフィックスを表示"
 
-#: ../../user/features/advanced.md:524
+#: ../../user/features/advanced.md:535
 msgid ""
 "**Version display:** `rescript.json` shows the ReScript version from its "
 "content"
 msgstr "**バージョン表示:** `rescript.json` にその内容から ReScript バージョンを表示"
 
-#: ../../user/features/advanced.md:526
+#: ../../user/features/advanced.md:537
 msgid "Auto Import Options"
 msgstr "自動インポートオプション"
 
-#: ../../user/features/advanced.md:528
+#: ../../user/features/advanced.md:539
 msgid ""
 "Configure auto-import behavior in **Settings** > **Editor** > **General**"
 " > **Auto Import**:"
-msgstr "**Settings** > **Editor** > **General** > **Auto Import** で自動インポートの動作を設定します:"
+msgstr ""
+"**Settings** > **Editor** > **General** > **Auto Import** "
+"で自動インポートの動作を設定します:"
 
-#: ../../user/features/advanced.md:529
+#: ../../user/features/advanced.md:540
 msgid "Toggle automatic `open` statement insertion"
 msgstr "`open` ステートメントの自動挿入の切り替え"
 
-#: ../../user/features/advanced.md:530
+#: ../../user/features/advanced.md:541
 msgid "Exclude specific modules from auto-import"
 msgstr "特定のモジュールを自動インポートから除外"
 
-#: ../../user/features/advanced.md:532
+#: ../../user/features/advanced.md:543
+msgid "Expression Type"
+msgstr "式の型表示"
+
+#: ../../user/features/advanced.md:545
+msgid ""
+"Press `Ctrl+Shift+P` (`Cmd+Shift+P` on macOS) to display the inferred "
+"type of the expression at the cursor position."
+msgstr "`Ctrl+Shift+P`（macOS では `Cmd+Shift+P`）を押すと、カーソル位置の式の推論された型を表示します。"
+
+#: ../../user/features/advanced.md:553
+msgid ""
+"The type information is fetched from the Language Server via an LSP "
+"`textDocument/hover` request. If the LSP is not connected, a message "
+"indicates that no type information is available."
+msgstr "型情報は LSP の `textDocument/hover` リクエストを介して Language Server から取得されます。LSP が接続されていない場合、型情報が利用できない旨のメッセージが表示されます。"
+
+#: ../../user/features/advanced.md:556
+msgid ""
+"This is useful when you want to quickly check the type of a sub-"
+"expression without adding an explicit type annotation. Unlike inlay hints"
+" (which show types persistently), Expression Type is on-demand and works "
+"on any expression, not just declarations."
+msgstr "明示的な型注釈を追加せずにサブ式の型を素早く確認したい場合に便利です。Inlay Hints（型を常時表示する）とは異なり、Expression Type はオンデマンドで動作し、宣言だけでなく任意の式に対して使用できます。"
+
+#: ../../user/features/advanced.md:559
+msgid "LSP Auto-Install"
+msgstr "LSP 自動インストール"
+
+#: ../../user/features/advanced.md:561
+msgid ""
+"When you open a ReScript project without `@rescript/language-server` "
+"installed, the plugin displays a notification with a one-click install "
+"button."
+msgstr "`@rescript/language-server` がインストールされていない ReScript プロジェクトを開くと、プラグインがワンクリックインストールボタン付きの通知を表示します。"
+
+#: ../../user/features/advanced.md:563
+msgid "Notification Actions"
+msgstr "通知アクション"
+
+#: ../../user/features/advanced.md:555
+msgid "Action"
+msgstr "アクション"
+
+#: ../../user/features/advanced.md:555
+msgid "**Install with npm/yarn/pnpm**"
+msgstr "**npm/yarn/pnpm でインストール**"
+
+#: ../../user/features/advanced.md:555
+msgid ""
+"Installs `@rescript/language-server` as a dev dependency using the "
+"detected package manager"
+msgstr "検出されたパッケージマネージャを使用して `@rescript/language-server` を devDependency としてインストールします"
+
+#: ../../user/features/advanced.md:555
+msgid "**Configure...**"
+msgstr "**Configure...**"
+
+#: ../../user/features/advanced.md:555
+msgid "Opens the ReScript settings page to set a custom LSP path"
+msgstr "カスタム LSP パスを設定するための ReScript 設定ページを開きます"
+
+#: ../../user/features/advanced.md:555
+msgid "**Don't show again**"
+msgstr "**Don't show again**"
+
+#: ../../user/features/advanced.md:555
+msgid "Dismisses the notification for the current session"
+msgstr "現在のセッションで通知を非表示にします"
+
+#: ../../user/features/advanced.md:571
+msgid ""
+"The installation runs in the background with a progress indicator. On "
+"success, the Language Server starts automatically --- no IDE restart "
+"required."
+msgstr "インストールはプログレスインジケーター付きでバックグラウンドで実行されます。成功すると Language Server が自動的に起動し、IDE の再起動は不要です。"
+
+#: ../../user/features/advanced.md:573
+msgid "The notification only appears when:"
+msgstr "通知は以下の条件をすべて満たす場合にのみ表示されます:"
+
+#: ../../user/features/advanced.md:574
+msgid "The project contains `rescript.json` or `bsconfig.json`"
+msgstr "プロジェクトに `rescript.json` または `bsconfig.json` が含まれている"
+
+#: ../../user/features/advanced.md:575
+msgid "No custom LSP path is configured in settings"
+msgstr "Settings にカスタム LSP パスが設定されていない"
+
+#: ../../user/features/advanced.md:576
+msgid "The Language Server is not found in `node_modules`"
+msgstr "`node_modules` に Language Server が見つからない"
+
+#: ../../user/features/advanced.md:578
 msgid "Inspection Suppressor"
 msgstr "インスペクション抑制"
 
-#: ../../user/features/advanced.md:534
+#: ../../user/features/advanced.md:580
 msgid "Suppress specific inspections using `// noinspection` comments:"
 msgstr "`// noinspection` コメントを使用して特定のインスペクションを抑制します:"
 
