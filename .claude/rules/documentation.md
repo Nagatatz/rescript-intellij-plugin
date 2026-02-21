@@ -193,22 +193,39 @@ mkdir -p .steering/20250115-001-add-tag-feature
 - システム構成図 → `functional-design.md` または `architecture.md` 内に記載
 
 ### 記述形式
-1. **Mermaid記法（推奨）**
-　 - Markdownに直接埋め込める
-　 - バージョン管理が容易
-　 - ツール不要で編集可能
 
-2. **ASCII アート**
-　 - シンプルな図表に使用
-　 - テキストエディタで編集可能
+**以下は強制的な行動指示であり、例外なく従うこと。**
 
-3. **画像ファイル（必要な場合のみ）**
-　 - 複雑なワイヤフレームやモックアップ
-　 - `docs/images/` フォルダに配置
-　 - PNG または SVG 形式を推奨
+図表・ダイアグラムを作成・更新する場合は、**必ず draw.io MCP ツールを使用すること**。ASCII アートや Mermaid 記法での図表作成は禁止する。
+
+1. **draw.io MCP（必須）**
+   - `mcp__drawio__open_drawio_mermaid` — Mermaid 記法で図を定義し、draw.io で描画する。フローチャート、シーケンス図、状態遷移図、クラス図等に使用
+   - `mcp__drawio__open_drawio_xml` — draw.io XML で直接図を定義する。レイヤー図、カスタムレイアウトなど Mermaid では表現が難しい図に使用
+   - `mcp__drawio__open_drawio_csv` — CSV データから図を生成する。組織図やテーブル構造の可視化に使用
+   - 図はブラウザ上で draw.io エディタとして開かれ、ユーザーが確認・編集できる
+
+2. **図の種類と推奨ツール:**
+
+   | 図の種類 | 推奨ツール | 入力形式 |
+   |---------|-----------|---------|
+   | フローチャート | `open_drawio_mermaid` | `graph TD` / `flowchart TD` |
+   | シーケンス図 | `open_drawio_mermaid` | `sequenceDiagram` |
+   | 状態遷移図 | `open_drawio_mermaid` | `stateDiagram-v2` |
+   | クラス図 | `open_drawio_mermaid` | `classDiagram` |
+   | レイヤー図・積み重ね図 | `open_drawio_xml` | draw.io XML |
+   | カスタムレイアウト | `open_drawio_xml` | draw.io XML |
+   | テーブル構造・組織図 | `open_drawio_csv` | CSV |
+
+3. **禁止事項:**
+   - ASCII アート（罫線文字 `┌─┐│└─┘` 等）での図表作成
+   - Markdown コードブロック内の Mermaid 記法（` ```mermaid ` ブロック）での図表埋め込み
+   - 手書きテキストベースのツリー図（`├──`, `└──` 等）
+
+4. **既存の ASCII / Mermaid 図を発見した場合:**
+   - 新規作成・更新の機会があれば draw.io MCP で描き直すこと
 
 ### 図表の更新
-- 設計変更時は対応する図表も同時に更新
+- 設計変更時は対応する図表も draw.io MCP で同時に更新
 - 図表とコードの乖離を防ぐ
 
 ## 注意事項
