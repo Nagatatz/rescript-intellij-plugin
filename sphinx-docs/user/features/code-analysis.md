@@ -169,6 +169,32 @@ In addition to per-file annotations in the editor, you can analyze the entire pr
 
 The global inspection runs a single invocation of `rescript-tools reanalyze -json` and distributes the results across all affected ReScript files in the project.
 
+## Error Lens
+
+Error Lens displays diagnostic messages (errors, warnings, info) as inline annotations at the end of the affected line, providing immediate visibility without needing to hover or check the Problems panel.
+
+```
+let x = "hello" + 1    ← This expression has type int but expected string
+```
+
+When multiple diagnostics appear on the same line, only the highest-severity message is shown with a "(+N more)" suffix.
+
+### Severity Colors
+
+Inline annotations are colored by severity:
+- **Errors** --- Red
+- **Warnings** --- Yellow/amber
+- **Info/Hints** --- Gray
+
+### Configuration
+
+Error Lens can be configured in **Settings** > **Languages & Frameworks** > **ReScript**:
+
+- **Enable/Disable** --- Toggle Error Lens on or off
+- **Minimum severity** --- Set the minimum severity level to display (e.g., show only errors, or errors and warnings)
+
+Error Lens updates automatically whenever the IDE's code analysis pass completes, so annotations stay in sync with the latest diagnostics.
+
 ## Import Optimization
 
 Press `Ctrl+Alt+O` (or `Cmd+Alt+O` on macOS) to optimize imports in the current file.

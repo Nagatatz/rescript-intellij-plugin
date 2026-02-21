@@ -39,6 +39,16 @@ npm install -g @rescript/language-server
 Local installation (per-project) is recommended. The plugin automatically detects the Language Server in your project's `node_modules/` directory.
 :::
 
+### Automatic Installation
+
+If the Language Server is not found when you open a ReScript project, the plugin displays a notification offering to install it automatically:
+
+- **Install with npm/yarn/pnpm** --- Installs `@rescript/language-server` as a dev dependency using the detected package manager. The installation runs in the background, and the Language Server starts automatically when complete.
+- **Configure...** --- Opens the ReScript settings page to set a custom Language Server path.
+- **Don't show again** --- Dismisses the notification for the current session.
+
+The plugin also shows an editor notification bar at the top of `.res` files when the Language Server is not detected, with a link to install it.
+
 ### Detection Order
 
 The plugin searches for the Language Server in this order:

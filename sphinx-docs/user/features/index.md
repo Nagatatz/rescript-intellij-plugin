@@ -1,6 +1,6 @@
 # Feature Overview
 
-The ReScript IntelliJ Plugin provides 60+ features organized into two layers:
+The ReScript IntelliJ Plugin provides 90+ features organized into two layers:
 
 **Native features** are built into the plugin and work without any external dependencies. They provide instant, offline functionality.
 

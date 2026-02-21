@@ -76,6 +76,7 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Wrap with `Ok(...)` | Wrap expression in `Ok()` |
 | Wrap with `Error(...)` | Wrap expression in `Error()` |
 | Add `@genType` | Add `@genType` annotation to a declaration |
+| Generate doc comment | Insert a `/** */` documentation comment stub above a declaration |
 
 ### Wrap with Some(...)
 
@@ -171,6 +172,29 @@ type user = {
   name: string,
   age: int,
 }
+```
+
+### Generate doc comment
+
+Inserts a `/** ... */` documentation comment stub above the current declaration. For function declarations, `@param` tags are automatically generated for each parameter.
+
+The intention is available on `let`, `type`, `module`, `external`, and `exception` declarations that do not already have a doc comment.
+
+**Before:**
+
+```rescript
+let add = (~a: int, ~b: int) => a + b
+```
+
+**After** (invoke "Generate doc comment"):
+
+```rescript
+/**
+ *
+ * @param a
+ * @param b
+ */
+let add = (~a: int, ~b: int) => a + b
 ```
 
 ## Surround With
@@ -395,9 +419,195 @@ Toggle comma-separated lists between single-line and multi-line format. Availabl
 
 When pasting text into a string literal, special characters (backslash, quotes, newlines, tabs) are automatically escaped.
 
+## Unwrap/Remove
+
+Press `Ctrl+Shift+Delete` (`Cmd+Shift+Delete` on macOS) to remove a surrounding wrapper and extract the inner expression.
+
+A popup lists all applicable unwrap options at the cursor position. Select one to unwrap.
+
+### Supported Wrappers
+
+| Wrapper | Before | After |
+|---------|--------|-------|
+| `Some(...)` | `Some(myValue)` | `myValue` |
+| `Ok(...)` | `Ok(result)` | `result` |
+| `Error(...)` | `Error(msg)` | `msg` |
+| `if (...) { ... }` | `if (cond) { body }` | `body` |
+| `switch ... { ... }` | `switch x { \| _ => body }` | `body` |
+| `try { ... } catch { ... }` | `try { body } catch { \| e => () }` | `body` |
+| `{ ... }` (block) | `{ expr }` | `expr` |
+
+**Example:**
+
+**Before:**
+
+```rescript
+let greeting = Some("Hello, world!")
+```
+
+**After** (Unwrap `Some(...)`):
+
+```rescript
+let greeting = "Hello, world!"
+```
+
+## JSX Auto-Close Tag
+
+When you type `>` to close a JSX opening tag, the corresponding closing tag is automatically inserted and the cursor is positioned between the tags.
+
+**Before** (you type `<div>`):
+
+```rescript
+<div>
+```
+
+**After** (auto-inserted):
+
+```rescript
+<div></div>
+```
+
+This works for:
+- HTML elements: `<div>`, `<span>`, `<input>`
+- React components: `<MyComponent>`
+- Module-qualified components: `<Module.Component>`
+
+The auto-close does not trigger for self-closing tags (e.g., `<br />`), inside comments, or inside string literals.
+
+## Enter Handler (Comment Continuation)
+
+When you press `Enter` inside a comment, the next line is automatically prefixed with the appropriate comment continuation characters.
+
+### Documentation Comments
+
+Inside a `/** ... */` block, pressing Enter inserts ` * ` at the start of the new line:
+
+```rescript
+/** Some documentation|
+```
+
+After pressing Enter:
+
+```rescript
+/** Some documentation
+ * |
+```
+
+### Line Comments
+
+Inside a `//` comment, pressing Enter inserts `// ` at the start of the new line:
+
+```rescript
+// This is a comment|
+```
+
+After pressing Enter:
+
+```rescript
+// This is a comment
+// |
+```
+
+Doc comments (`///`) are also continued:
+
+```rescript
+/// A doc comment|
+```
+
+After pressing Enter:
+
+```rescript
+/// A doc comment
+/// |
+```
+
+## Smart Join Lines
+
+Press `Ctrl+Shift+J` (`Cmd+Shift+J` on macOS) to join the current line with the next line using ReScript-aware logic.
+
+### Pipe Chain Join
+
+When a line ends with `->` or the next line starts with `->`, the lines are joined without adding a space:
+
+**Before:**
+
+```rescript
+value->
+  Array.map(x => x + 1)
+```
+
+**After:**
+
+```rescript
+value->Array.map(x => x + 1)
+```
+
+### Let Binding Join
+
+When a line ends with `=`, the lines are joined with a single space after `=`:
+
+**Before:**
+
+```rescript
+let result =
+  computeValue()
+```
+
+**After:**
+
+```rescript
+let result = computeValue()
+```
+
+### Arrow Function Join
+
+When a line ends with `=>`, the lines are joined with a single space:
+
+**Before:**
+
+```rescript
+let fn = (x) =>
+  x + 1
+```
+
+**After:**
+
+```rescript
+let fn = (x) => x + 1
+```
+
+For patterns not recognized above, the standard IDE join behavior is used.
+
+## Highlight Related Keywords
+
+When the caret is placed on a control-flow keyword, all related keywords in the same construct are highlighted, showing the structure at a glance.
+
+### Supported Keywords
+
+| Caret On | Highlights |
+|----------|-----------|
+| `switch` | `switch` and all `\|` arms at the same depth |
+| `if` | `if`, `else`, and `else if` in the chain |
+| `try` | `try` and `catch` |
+| `\|` (pipe arm) | The enclosing `switch` and all sibling `\|` arms |
+| `catch` | The enclosing `try` and `catch` |
+| `else` | The enclosing `if` chain |
+
+**Example:**
+
+```rescript
+// Place caret on "switch": switch and all | are highlighted
+switch value {
+| Some(x) => handleSome(x)
+| None => handleNone()
+}
+```
+
 ## Paste as JSX
 
 When pasting HTML content into a ReScript file, it is automatically converted to JSX syntax:
 - HTML attributes (`class`, `for`, `onclick`) are renamed to JSX equivalents (`className`, `htmlFor`, `onClick`)
 - Void elements (`<br>`, `<img>`, `<input>`) are self-closed (`<br />`)
 - Inline `style` strings are converted to ReScript style objects
+- Boolean attributes (e.g., `disabled`, `checked`) are preserved as JSX boolean props
+- `data-*` and `aria-*` attributes are preserved as-is

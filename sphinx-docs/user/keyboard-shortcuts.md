@@ -17,6 +17,10 @@ Shortcuts shown are for macOS. On Windows/Linux, replace `Cmd` with `Ctrl` and `
 | `Cmd+Shift+Alt+C` | Copy qualified name |
 | `Alt+F7` | Find Usages |
 | `Cmd+7` | Structure View |
+| `Ctrl+U` | Goto Super (.res ↔ .resi declaration) |
+| `Ctrl+Shift+T` | Go to Test / Create Test |
+| `Alt+Q` | Context Info (sticky declaration header) |
+| `Shift+F1` | External Documentation (Belt/Js API docs) |
 
 ### Tips
 
@@ -34,6 +38,14 @@ The most frequently used navigation shortcut is **Cmd+B** (Go to Definition). Pr
 
 **Structure View** (`Cmd+7`) opens a sidebar showing the outline of the current file: all `let` bindings, `type` definitions, `module` declarations, and `external` bindings. You can click any item to jump to it. This is particularly useful for navigating long files with many declarations.
 
+**Goto Super** (`Ctrl+U`) jumps between a `.res` implementation and the corresponding declaration in the `.resi` interface file. This is the fastest way to verify that your implementation matches the interface signature.
+
+**Go to Test** (`Ctrl+Shift+T`) navigates between an implementation file and its test file. If the test file does not exist, a dialog offers to create one with framework-specific boilerplate (Jest or Vitest).
+
+**Context Info** (`Alt+Q`) shows the enclosing declaration header as a sticky line at the top of the editor when you have scrolled past the beginning of a long function or module body.
+
+**External Documentation** (`Shift+F1`) opens the rescript-lang.org API documentation for `Belt.*` and `Js.*` standard library modules in your browser.
+
 ## Editing
 
 | Shortcut | Action |
@@ -48,6 +60,10 @@ The most frequently used navigation shortcut is **Cmd+B** (Go to Definition). Pr
 | `Ctrl+Alt+T` | Surround with (if/switch/try/block) |
 | `Ctrl+Alt+O` | Optimize imports (remove duplicate opens) |
 | `Shift+F6` | Rename symbol |
+| `Ctrl+Shift+Delete` | Unwrap/Remove (Some/Ok/Error/if/switch/try/block) |
+| `Ctrl+Shift+J` | Smart Join Lines (pipe/let/arrow aware) |
+| `Alt+Shift+Cmd+Left/Right` | Move element left/right |
+| `Ctrl+Shift+[` / `]` | Code block boundary selection |
 
 ### Tips
 
@@ -65,6 +81,10 @@ The most frequently used navigation shortcut is **Cmd+B** (Go to Definition). Pr
 
 **Rename symbol** (`Shift+F6`) renames the identifier at the cursor and updates all references across the project. This works for `let` bindings, type names, module names, and other named entities. Since it relies on semantic analysis, it requires the LSP to be connected.
 
+**Unwrap/Remove** (`Ctrl+Shift+Delete`) removes a surrounding wrapper and extracts the inner expression. Place your cursor inside `Some(expr)`, `Ok(expr)`, `Error(expr)`, `if`, `switch`, `try`, or bare braces, and choose which wrapper to remove. This is the inverse of the "Wrap with" intention actions.
+
+**Smart Join Lines** (`Ctrl+Shift+J`) joins the current line with the next using ReScript-aware logic. When joining pipe chains (`->`), lines are joined without adding a space. When joining let bindings or arrow functions, a single space is inserted after `=` or `=>`.
+
 ## Completion
 
 | Shortcut | Action |
@@ -78,6 +98,8 @@ The most frequently used navigation shortcut is **Cmd+B** (Go to Definition). Pr
 | `.ok` | Postfix: wrap in Ok(...) |
 | `.error` | Postfix: wrap in Error(...) |
 | `.ignore` | Postfix: pipe to ignore |
+| `.promise` | Postfix: wrap in Promise.then chain |
+| `.await` | Postfix: prepend await |
 
 ### Tips
 
@@ -114,11 +136,20 @@ The **Generate** menu (`Cmd+N`) provides code generation actions that create boi
 | Shortcut | Action |
 |----------|--------|
 | `Ctrl+R` / `Shift+F10` | Run current configuration |
+| `Ctrl+Ctrl` | Run Anything (ReScript CLI commands) |
+| `Alt+Shift+D` | Debug compiled JavaScript |
+| `Ctrl+Shift+P` | Expression Type (show inferred type) |
 | `Alt+6` | Open Problems panel |
 
 ### Tips
 
 **Run current configuration** (`Ctrl+R` or `Shift+F10`) executes the currently selected run configuration, which is typically a ReScript build command. The plugin automatically creates run configurations based on the `rescript.json` file in your project. You can also run tests directly from gutter icons next to test functions.
+
+**Run Anything** (`Ctrl+Ctrl`) opens a universal run dialog where you can type `rescript build`, `rescript clean`, or `rescript format` to execute ReScript CLI commands directly without creating a run configuration.
+
+**Debug Compiled JS** (`Alt+Shift+D`) resolves the current `.res` file to its compiled JavaScript output and launches a `node --inspect-brk` debug session. This requires the JavaScript Debugger plugin and a prior ReScript build.
+
+**Expression Type** (`Ctrl+Shift+P`) shows the inferred type of the expression at the cursor position. This is an on-demand alternative to inlay hints --- useful when you need to check a specific type without persistent annotations.
 
 The **Problems panel** (`Alt+6`) displays all diagnostics reported by the language server: type errors, syntax errors, and warnings. Each entry shows the file, line number, and error message. Double-clicking an entry jumps to the exact location in the source file. This panel is the central place for reviewing all issues in your project at a glance.
 
