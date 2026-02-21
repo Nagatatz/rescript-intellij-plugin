@@ -26,6 +26,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/validate-file-edit.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/check-prohibition-language.sh"
           }
         ]
       }
