@@ -49,4 +49,35 @@ class RescriptErrorLensRendererTest {
         val renderer = RescriptErrorLensRenderer(longMessage, HighlightSeverity.ERROR)
         assertTrue(renderer.displayText.contains(longMessage))
     }
+
+    @Test
+    fun `displayText formats type mismatch as structured output`() {
+        val message = "This has type: int  Somewhere wanted: string"
+        val renderer = RescriptErrorLensRenderer(message, HighlightSeverity.ERROR)
+        assertTrue(renderer.displayText.contains("Expected: string"))
+        assertTrue(renderer.displayText.contains("Actual: int"))
+    }
+
+    @Test
+    fun `displayText preserves non-mismatch message as-is`() {
+        val message = "Unbound value foo"
+        val renderer = RescriptErrorLensRenderer(message, HighlightSeverity.ERROR)
+        assertEquals("${RescriptErrorLensRenderer.MESSAGE_PREFIX}$message", renderer.displayText)
+    }
+
+    @Test
+    fun `buildDisplayText formats type mismatch`() {
+        val result =
+            RescriptErrorLensRenderer.buildDisplayText(
+                "This has type: float  But somewhere wanted: int",
+            )
+        assertTrue(result.contains("Expected: int"))
+        assertTrue(result.contains("Actual: float"))
+    }
+
+    @Test
+    fun `buildDisplayText returns plain message for non-mismatch`() {
+        val result = RescriptErrorLensRenderer.buildDisplayText("Some other error")
+        assertEquals("${RescriptErrorLensRenderer.MESSAGE_PREFIX}Some other error", result)
+    }
 }
