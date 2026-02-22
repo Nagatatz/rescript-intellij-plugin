@@ -9,8 +9,8 @@ import com.rescript.plugin.lang.psi.RescriptFile
 /**
  * Action group for the Generate menu (Alt+Insert) in ReScript files.
  *
- * Provides "Switch Arms" and "Module Type" generation actions.
- * Only visible when the active file is a [RescriptFile].
+ * Provides Switch Arms, Module Type, Make Function, and JSON Encoder/Decoder
+ * generation actions. Only visible when the active file is a [RescriptFile].
  */
 class RescriptGenerateGroup : ActionGroup() {
     private val actions: Array<AnAction> =
@@ -18,6 +18,7 @@ class RescriptGenerateGroup : ActionGroup() {
             RescriptGenerateSwitchAction(),
             RescriptGenerateModuleTypeAction(),
             RescriptGenerateMakeAction(),
+            RescriptGenerateJsonCodecAction(),
         )
 
     override fun getChildren(e: AnActionEvent?): Array<AnAction> = actions
