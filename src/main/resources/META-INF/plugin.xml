@@ -319,6 +319,10 @@
         <externalAnnotator language="ReScript"
                            implementationClass="com.rescript.plugin.analysis.RescriptReanalyzeAnnotator"/>
 
+        <!-- Format check (highlights unformatted code) -->
+        <externalAnnotator language="ReScript"
+                           implementationClass="com.rescript.plugin.analysis.RescriptFormatCheckAnnotator"/>
+
         <!-- Custom folding regions (//#region ... //#endregion) -->
         <customFoldingProvider
                 implementation="com.rescript.plugin.folding.RescriptCustomFoldingProvider"/>

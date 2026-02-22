@@ -37,6 +37,7 @@ class RescriptConfigurable(
     private var platformPathField: TextFieldWithBrowseButton? = null
     private var runtimePathField: TextFieldWithBrowseButton? = null
     private var logLevelCombo: ComboBox<String>? = null
+    private var formatCheckCheckbox: JCheckBox? = null
 
     override fun getDisplayName(): String = "ReScript"
 
@@ -123,6 +124,9 @@ class RescriptConfigurable(
             }
         runtimePathField = rtPathField
 
+        val fmtCheckbox = JCheckBox("Enable format check (highlight unformatted code)", false)
+        formatCheckCheckbox = fmtCheckbox
+
         val logCombo = ComboBox(DefaultComboBoxModel(LOG_LEVELS))
         logLevelCombo = logCombo
 
@@ -149,6 +153,9 @@ class RescriptConfigurable(
                 .addComponent(unusedOpensCheckbox)
                 .addTooltip(
                     "When enabled, Optimize Imports also removes unused open statements detected by the LSP server.",
+                ).addComponent(fmtCheckbox)
+                .addTooltip(
+                    "When enabled, highlights files that are not formatted according to rescript format.",
                 ).addSeparator()
                 .addLabeledComponent("ReScript binary path:", binaryPathField)
                 .addTooltip("Leave empty to auto-detect. Path to the ReScript compiler binary.")
@@ -177,7 +184,8 @@ class RescriptConfigurable(
             rescriptBinaryPathField?.text != settings.rescriptBinaryPath ||
             platformPathField?.text != settings.platformPath ||
             runtimePathField?.text != settings.runtimePath ||
-            logLevelCombo?.selectedItem != settings.logLevel
+            logLevelCombo?.selectedItem != settings.logLevel ||
+            formatCheckCheckbox?.isSelected != settings.formatCheckEnabled
     }
 
     @Throws(ConfigurationException::class)
@@ -227,6 +235,7 @@ class RescriptConfigurable(
         settings.platformPath = platPath
         settings.runtimePath = rtPath
         settings.logLevel = logLevelCombo?.selectedItem as? String ?: "info"
+        settings.formatCheckEnabled = formatCheckCheckbox?.isSelected ?: false
 
         com.intellij.platform.lsp.api.LspServerManager
             .getInstance(project)
@@ -246,6 +255,7 @@ class RescriptConfigurable(
         platformPathField?.text = settings.platformPath
         runtimePathField?.text = settings.runtimePath
         logLevelCombo?.selectedItem = settings.logLevel
+        formatCheckCheckbox?.isSelected = settings.formatCheckEnabled
     }
 
     override fun disposeUIResources() {
@@ -261,6 +271,7 @@ class RescriptConfigurable(
         platformPathField = null
         runtimePathField = null
         logLevelCombo = null
+        formatCheckCheckbox = null
     }
 
     companion object {

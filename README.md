@@ -94,6 +94,7 @@
 - **Highlight usages** — Highlight related keywords (switch/if/try and matching control flow keywords)
 - **Problem filter** — Suppress highlighting in `node_modules/`, `lib/bs/`, `lib/ocaml/`
 - **Inspection suppressor** — Suppress inspections with `// noinspection` comments
+- **Format check** — Highlight unformatted files with quick-fix to format (opt-in via Settings)
 
 ### Build, Run & Test
 

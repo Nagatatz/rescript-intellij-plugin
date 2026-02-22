@@ -35,6 +35,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var autoAddOpenStatements: Boolean = true
         var excludedModules: String = ""
         var pipeChainHintsEnabled: Boolean = true
+        var formatCheckEnabled: Boolean = false
     }
 
     override fun getState(): State = state
@@ -131,6 +132,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.pipeChainHintsEnabled
         set(value) {
             state.pipeChainHintsEnabled = value
+        }
+
+    var formatCheckEnabled: Boolean
+        get() = state.formatCheckEnabled
+        set(value) {
+            state.formatCheckEnabled = value
         }
 
     companion object {
