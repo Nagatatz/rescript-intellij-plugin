@@ -1,9 +1,7 @@
 package com.rescript.plugin.editor
 
-import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import com.intellij.psi.TokenType
-import com.intellij.psi.tree.IElementType
+import com.rescript.plugin.RescriptTestUtils
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -14,46 +12,6 @@ import org.junit.Test
 
 class RescriptStatementUpDownMoverTest {
     private val mover = RescriptStatementUpDownMover()
-
-    /**
-     * Creates a PsiElement stub with specified type, parent, prevSibling, and nextSibling.
-     */
-    private fun stubPsiElement(
-        type: IElementType,
-        parent: PsiElement? = null,
-        prevSibling: PsiElement? = null,
-        nextSibling: PsiElement? = null,
-    ): PsiElement {
-        val node =
-            java.lang.reflect.Proxy.newProxyInstance(
-                ASTNode::class.java.classLoader,
-                arrayOf(ASTNode::class.java),
-            ) { _, method, _ ->
-                when (method.name) {
-                    "getElementType" -> type
-                    "toString" -> "StubASTNode($type)"
-                    "hashCode" -> System.identityHashCode(type)
-                    "equals" -> false
-                    else -> null
-                }
-            } as ASTNode
-
-        return java.lang.reflect.Proxy.newProxyInstance(
-            PsiElement::class.java.classLoader,
-            arrayOf(PsiElement::class.java),
-        ) { _, method, _ ->
-            when (method.name) {
-                "getNode" -> node
-                "getParent" -> parent
-                "getPrevSibling" -> prevSibling
-                "getNextSibling" -> nextSibling
-                "toString" -> "StubPsiElement($type)"
-                "hashCode" -> System.identityHashCode(node)
-                "equals" -> false
-                else -> null
-            }
-        } as PsiElement
-    }
 
     @Test
     fun testMoverCanBeInstantiated() {
@@ -132,8 +90,8 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindDeclarationFindsLetDeclarationParent() {
-        val letDecl = stubPsiElement(RescriptElementTypes.LET_DECLARATION)
-        val child = stubPsiElement(RescriptElementTypes.ANNOTATION, parent = letDecl)
+        val letDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION)
+        val child = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, parent = letDecl)
         val result = mover.findDeclaration(child)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.LET_DECLARATION, result!!.node?.elementType)
@@ -141,7 +99,7 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindDeclarationFindsDirectDeclaration() {
-        val moduleDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
+        val moduleDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
         val result = mover.findDeclaration(moduleDecl)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.MODULE_DECLARATION, result!!.node?.elementType)
@@ -149,7 +107,7 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindDeclarationReturnsNullForNonDeclaration() {
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, parent = null)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, parent = null)
         val result = mover.findDeclaration(annotation)
         assertNull(result)
     }
@@ -158,8 +116,8 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindNextDeclarationFindsNextSiblingDeclaration() {
-        val nextDecl = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = nextDecl)
+        val nextDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = nextDecl)
         val result = mover.findNextDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.TYPE_DECLARATION, result!!.node?.elementType)
@@ -167,9 +125,9 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindNextDeclarationSkipsWhitespace() {
-        val nextDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
-        val whitespace = stubPsiElement(TokenType.WHITE_SPACE, nextSibling = nextDecl)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = whitespace)
+        val nextDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
+        val whitespace = RescriptTestUtils.stubPsiElement(TokenType.WHITE_SPACE, nextSibling = nextDecl)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = whitespace)
         val result = mover.findNextDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.MODULE_DECLARATION, result!!.node?.elementType)
@@ -177,15 +135,15 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindNextDeclarationReturnsNullWhenNoNextSibling() {
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = null)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = null)
         val result = mover.findNextDeclaration(current)
         assertNull(result)
     }
 
     @Test
     fun testFindNextDeclarationReturnsNullForNonDeclarationSibling() {
-        val jsxElement = stubPsiElement(RescriptElementTypes.JSX_ELEMENT, nextSibling = null)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = jsxElement)
+        val jsxElement = RescriptTestUtils.stubPsiElement(RescriptElementTypes.JSX_ELEMENT, nextSibling = null)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = jsxElement)
         val result = mover.findNextDeclaration(current)
         assertNull(result)
     }
@@ -194,8 +152,8 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindPreviousDeclarationFindsPrevSiblingDeclaration() {
-        val prevDecl = stubPsiElement(RescriptElementTypes.LET_DECLARATION)
-        val current = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = prevDecl)
+        val prevDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = prevDecl)
         val result = mover.findPreviousDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.LET_DECLARATION, result!!.node?.elementType)
@@ -203,9 +161,9 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindPreviousDeclarationSkipsWhitespace() {
-        val prevDecl = stubPsiElement(RescriptElementTypes.LET_DECLARATION)
-        val whitespace = stubPsiElement(TokenType.WHITE_SPACE, prevSibling = prevDecl)
-        val current = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = whitespace)
+        val prevDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION)
+        val whitespace = RescriptTestUtils.stubPsiElement(TokenType.WHITE_SPACE, prevSibling = prevDecl)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = whitespace)
         val result = mover.findPreviousDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.LET_DECLARATION, result!!.node?.elementType)
@@ -213,24 +171,24 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindPreviousDeclarationReturnsNullWhenNoPrevSibling() {
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = null)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = null)
         val result = mover.findPreviousDeclaration(current)
         assertNull(result)
     }
 
     @Test
     fun testFindPreviousDeclarationReturnsNullForNonDeclarationSibling() {
-        val jsxElement = stubPsiElement(RescriptElementTypes.JSX_ELEMENT, prevSibling = null)
-        val current = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = jsxElement)
+        val jsxElement = RescriptTestUtils.stubPsiElement(RescriptElementTypes.JSX_ELEMENT, prevSibling = null)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = jsxElement)
         val result = mover.findPreviousDeclaration(current)
         assertNull(result)
     }
 
     @Test
     fun testFindPreviousDeclarationSkipsAnnotation() {
-        val prevDecl = stubPsiElement(RescriptElementTypes.LET_DECLARATION)
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = prevDecl)
-        val current = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = annotation)
+        val prevDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = prevDecl)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = annotation)
         val result = mover.findPreviousDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.LET_DECLARATION, result!!.node?.elementType)
@@ -240,41 +198,51 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindLeadingAnnotationReturnsDeclarationWhenNoPrevSibling() {
-        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = null)
+        val declaration = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = null)
         val result = mover.findLeadingAnnotation(declaration)
         assertEquals(RescriptElementTypes.LET_DECLARATION, result.node?.elementType)
     }
 
     @Test
     fun testFindLeadingAnnotationReturnsDeclarationWhenPrevIsNotAnnotation() {
-        val prevDecl = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = null)
-        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = prevDecl)
+        val prevDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = null)
+        val declaration = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = prevDecl)
         val result = mover.findLeadingAnnotation(declaration)
         assertEquals(RescriptElementTypes.LET_DECLARATION, result.node?.elementType)
     }
 
     @Test
     fun testFindLeadingAnnotationFindsAnnotation() {
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
-        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = annotation)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
+        val declaration =
+            RescriptTestUtils.stubPsiElement(
+                RescriptElementTypes.LET_DECLARATION,
+                prevSibling = annotation,
+            )
         val result = mover.findLeadingAnnotation(declaration)
         assertEquals(RescriptElementTypes.ANNOTATION, result.node?.elementType)
     }
 
     @Test
     fun testFindLeadingAnnotationFindsChainedAnnotations() {
-        val firstAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
-        val secondAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = firstAnnotation)
-        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = secondAnnotation)
+        val firstAnnotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
+        val secondAnnotation =
+            RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = firstAnnotation)
+        val declaration =
+            RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = secondAnnotation)
         val result = mover.findLeadingAnnotation(declaration)
         assertEquals(RescriptElementTypes.ANNOTATION, result.node?.elementType)
     }
 
     @Test
     fun testFindLeadingAnnotationSkipsWhitespaceBeforeAnnotation() {
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
-        val whitespace = stubPsiElement(TokenType.WHITE_SPACE, prevSibling = annotation)
-        val declaration = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = whitespace)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = null)
+        val whitespace = RescriptTestUtils.stubPsiElement(TokenType.WHITE_SPACE, prevSibling = annotation)
+        val declaration =
+            RescriptTestUtils.stubPsiElement(
+                RescriptElementTypes.LET_DECLARATION,
+                prevSibling = whitespace,
+            )
         val result = mover.findLeadingAnnotation(declaration)
         assertEquals(RescriptElementTypes.ANNOTATION, result.node?.elementType)
     }
@@ -283,9 +251,9 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindNextDeclarationFindsDeclarationAfterAnnotation() {
-        val nextDecl = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, nextSibling = null)
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = nextDecl)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val nextDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, nextSibling = null)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = nextDecl)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
         val result = mover.findNextDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.TYPE_DECLARATION, result!!.node?.elementType)
@@ -293,27 +261,27 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindNextDeclarationReturnsNullWhenAnnotationFollowedByNonDeclaration() {
-        val jsxElement = stubPsiElement(RescriptElementTypes.JSX_ELEMENT, nextSibling = null)
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = jsxElement)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val jsxElement = RescriptTestUtils.stubPsiElement(RescriptElementTypes.JSX_ELEMENT, nextSibling = null)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = jsxElement)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
         val result = mover.findNextDeclaration(current)
         assertNull(result)
     }
 
     @Test
     fun testFindNextDeclarationReturnsNullWhenAnnotationHasNoNextSibling() {
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = null)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = null)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
         val result = mover.findNextDeclaration(current)
         assertNull(result)
     }
 
     @Test
     fun testFindNextDeclarationSkipsWhitespaceAfterAnnotation() {
-        val nextDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION, nextSibling = null)
-        val whitespace = stubPsiElement(TokenType.WHITE_SPACE, nextSibling = nextDecl)
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = whitespace)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val nextDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.MODULE_DECLARATION, nextSibling = null)
+        val whitespace = RescriptTestUtils.stubPsiElement(TokenType.WHITE_SPACE, nextSibling = nextDecl)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = whitespace)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
         val result = mover.findNextDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.MODULE_DECLARATION, result!!.node?.elementType)
@@ -321,10 +289,12 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindNextDeclarationSkipsMultipleAnnotations() {
-        val nextDecl = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, nextSibling = null)
-        val secondAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = nextDecl)
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = secondAnnotation)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
+        val nextDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, nextSibling = null)
+        val secondAnnotation =
+            RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = nextDecl)
+        val annotation =
+            RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, nextSibling = secondAnnotation)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, nextSibling = annotation)
         val result = mover.findNextDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.TYPE_DECLARATION, result!!.node?.elementType)
@@ -334,10 +304,13 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindPreviousDeclarationSkipsMultipleAnnotations() {
-        val prevDecl = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = null)
-        val firstAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = prevDecl)
-        val secondAnnotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = firstAnnotation)
-        val current = stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = secondAnnotation)
+        val prevDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = null)
+        val firstAnnotation =
+            RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = prevDecl)
+        val secondAnnotation =
+            RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = firstAnnotation)
+        val current =
+            RescriptTestUtils.stubPsiElement(RescriptElementTypes.TYPE_DECLARATION, prevSibling = secondAnnotation)
         val result = mover.findPreviousDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.LET_DECLARATION, result!!.node?.elementType)
@@ -345,10 +318,10 @@ class RescriptStatementUpDownMoverTest {
 
     @Test
     fun testFindPreviousDeclarationSkipsWhitespaceAndAnnotation() {
-        val prevDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION, prevSibling = null)
-        val annotation = stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = prevDecl)
-        val whitespace = stubPsiElement(TokenType.WHITE_SPACE, prevSibling = annotation)
-        val current = stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = whitespace)
+        val prevDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.MODULE_DECLARATION, prevSibling = null)
+        val annotation = RescriptTestUtils.stubPsiElement(RescriptElementTypes.ANNOTATION, prevSibling = prevDecl)
+        val whitespace = RescriptTestUtils.stubPsiElement(TokenType.WHITE_SPACE, prevSibling = annotation)
+        val current = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION, prevSibling = whitespace)
         val result = mover.findPreviousDeclaration(current)
         assertNotNull(result)
         assertEquals(RescriptElementTypes.MODULE_DECLARATION, result!!.node?.elementType)

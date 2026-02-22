@@ -1,6 +1,7 @@
 package com.rescript.plugin
 
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 
@@ -99,6 +100,79 @@ object RescriptTestUtils {
 
         override fun toString(): String = "StubASTNodeLeaf($type, '$text')"
     }
+
+    /**
+     * Creates a PsiElement proxy stub with an associated ASTNode.
+     *
+     * Supports parent, prevSibling, nextSibling, and text for testing
+     * code that traverses PSI trees without the full IntelliJ Platform.
+     *
+     * @param type the element type for the backing ASTNode
+     * @param parent the parent element returned by [PsiElement.getParent]
+     * @param prevSibling the previous sibling returned by [PsiElement.getPrevSibling]
+     * @param nextSibling the next sibling returned by [PsiElement.getNextSibling]
+     * @param text the text content returned by [PsiElement.getText]
+     * @return a proxy-based PsiElement stub
+     */
+    fun stubPsiElement(
+        type: IElementType,
+        parent: PsiElement? = null,
+        prevSibling: PsiElement? = null,
+        nextSibling: PsiElement? = null,
+        text: String = "",
+    ): PsiElement {
+        val node =
+            java.lang.reflect.Proxy.newProxyInstance(
+                ASTNode::class.java.classLoader,
+                arrayOf(ASTNode::class.java),
+            ) { _, method, _ ->
+                when (method.name) {
+                    "getElementType" -> type
+                    "toString" -> "StubASTNode($type)"
+                    "hashCode" -> System.identityHashCode(type)
+                    "equals" -> false
+                    else -> null
+                }
+            } as ASTNode
+
+        return java.lang.reflect.Proxy.newProxyInstance(
+            PsiElement::class.java.classLoader,
+            arrayOf(PsiElement::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "getNode" -> node
+                "getParent" -> parent
+                "getPrevSibling" -> prevSibling
+                "getNextSibling" -> nextSibling
+                "getText" -> text
+                "getContainingFile" -> null
+                "toString" -> "StubPsiElement($type)"
+                "hashCode" -> System.identityHashCode(node)
+                "equals" -> false
+                else -> null
+            }
+        } as PsiElement
+    }
+
+    /**
+     * Creates a minimal Project proxy stub.
+     *
+     * All methods return null except toString, hashCode, and equals.
+     *
+     * @return a proxy-based Project stub
+     */
+    fun stubProject(): Project =
+        java.lang.reflect.Proxy.newProxyInstance(
+            Project::class.java.classLoader,
+            arrayOf(Project::class.java),
+        ) { _, method, _ ->
+            when (method.name) {
+                "toString" -> "StubProject"
+                "hashCode" -> 0
+                "equals" -> false
+                else -> null
+            }
+        } as Project
 
     /**
      * Minimal PsiElement stub that exposes elementType, text, and sibling chain.

@@ -1,8 +1,6 @@
 package com.rescript.plugin.intention
 
-import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.IElementType
+import com.rescript.plugin.RescriptTestUtils
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import org.junit.Assert.assertEquals
@@ -71,21 +69,21 @@ class RescriptFixIdentifierCaseIntentionTest {
 
     @Test
     fun testIsInsideModuleDeclarationReturnsTrue() {
-        val moduleDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
-        val child = stubPsiElement(RescriptTokenTypes.LIDENT, parent = moduleDecl)
+        val moduleDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
+        val child = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.LIDENT, parent = moduleDecl)
         assertTrue(RescriptFixIdentifierCaseIntention.isInsideModuleDeclaration(child))
     }
 
     @Test
     fun testIsInsideModuleDeclarationReturnsFalseForLetDecl() {
-        val letDecl = stubPsiElement(RescriptElementTypes.LET_DECLARATION)
-        val child = stubPsiElement(RescriptTokenTypes.LIDENT, parent = letDecl)
+        val letDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION)
+        val child = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.LIDENT, parent = letDecl)
         assertFalse(RescriptFixIdentifierCaseIntention.isInsideModuleDeclaration(child))
     }
 
     @Test
     fun testIsInsideModuleDeclarationReturnsFalseForNoParent() {
-        val child = stubPsiElement(RescriptTokenTypes.LIDENT, parent = null)
+        val child = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.LIDENT, parent = null)
         assertFalse(RescriptFixIdentifierCaseIntention.isInsideModuleDeclaration(child))
     }
 
@@ -93,80 +91,29 @@ class RescriptFixIdentifierCaseIntentionTest {
 
     @Test
     fun testIsInsideLetDeclarationReturnsTrue() {
-        val letDecl = stubPsiElement(RescriptElementTypes.LET_DECLARATION)
-        val child = stubPsiElement(RescriptTokenTypes.UIDENT, parent = letDecl)
+        val letDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION)
+        val child = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.UIDENT, parent = letDecl)
         assertTrue(RescriptFixIdentifierCaseIntention.isInsideLetDeclaration(child))
     }
 
     @Test
     fun testIsInsideLetDeclarationReturnsFalseForModuleDecl() {
-        val moduleDecl = stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
-        val child = stubPsiElement(RescriptTokenTypes.UIDENT, parent = moduleDecl)
+        val moduleDecl = RescriptTestUtils.stubPsiElement(RescriptElementTypes.MODULE_DECLARATION)
+        val child = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.UIDENT, parent = moduleDecl)
         assertFalse(RescriptFixIdentifierCaseIntention.isInsideLetDeclaration(child))
     }
 
     @Test
     fun testIsInsideLetDeclarationReturnsFalseForNoParent() {
-        val child = stubPsiElement(RescriptTokenTypes.UIDENT, parent = null)
+        val child = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.UIDENT, parent = null)
         assertFalse(RescriptFixIdentifierCaseIntention.isInsideLetDeclaration(child))
     }
 
     @Test
     fun testIsAvailableReturnsFalseForNullEditor() {
         val intention = RescriptFixIdentifierCaseIntention()
-        val element = stubPsiElement(RescriptTokenTypes.LIDENT)
-        val project = stubProject()
+        val element = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.LIDENT)
+        val project = RescriptTestUtils.stubProject()
         assertFalse(intention.isAvailable(project, null, element))
     }
-
-    // -- Stub helpers --
-
-    private fun stubPsiElement(
-        type: IElementType,
-        parent: PsiElement? = null,
-        text: String = "identifier",
-    ): PsiElement {
-        val node =
-            java.lang.reflect.Proxy.newProxyInstance(
-                ASTNode::class.java.classLoader,
-                arrayOf(ASTNode::class.java),
-            ) { _, method, _ ->
-                when (method.name) {
-                    "getElementType" -> type
-                    "toString" -> "StubASTNode($type)"
-                    "hashCode" -> System.identityHashCode(type)
-                    "equals" -> false
-                    else -> null
-                }
-            } as ASTNode
-
-        return java.lang.reflect.Proxy.newProxyInstance(
-            PsiElement::class.java.classLoader,
-            arrayOf(PsiElement::class.java),
-        ) { _, method, _ ->
-            when (method.name) {
-                "getNode" -> node
-                "getParent" -> parent
-                "getText" -> text
-                "getContainingFile" -> null
-                "toString" -> "StubPsiElement($type)"
-                "hashCode" -> System.identityHashCode(node)
-                "equals" -> false
-                else -> null
-            }
-        } as PsiElement
-    }
-
-    private fun stubProject(): com.intellij.openapi.project.Project =
-        java.lang.reflect.Proxy.newProxyInstance(
-            com.intellij.openapi.project.Project::class.java.classLoader,
-            arrayOf(com.intellij.openapi.project.Project::class.java),
-        ) { _, method, _ ->
-            when (method.name) {
-                "toString" -> "StubProject"
-                "hashCode" -> 0
-                "equals" -> false
-                else -> null
-            }
-        } as com.intellij.openapi.project.Project
 }

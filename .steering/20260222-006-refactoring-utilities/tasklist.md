@@ -13,9 +13,9 @@
 - [x] Commit Group B
 
 ## Group C: Test Stubs
-- [ ] Add stubPsiElement() and stubProject() to RescriptTestUtils.kt
-- [ ] Replace duplicates in 5 test files
-- [ ] Commit Group C
+- [x] Add stubPsiElement() and stubProject() to RescriptTestUtils.kt
+- [x] Replace duplicates in 5 test files
+- [x] Commit Group C
 
 ## Group D: Open Statement Regex
 - [ ] Add OPEN_PATTERN and helpers to RescriptImportUtil.kt

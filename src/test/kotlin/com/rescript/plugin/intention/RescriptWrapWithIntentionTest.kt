@@ -1,5 +1,7 @@
 package com.rescript.plugin.intention
 
+import com.rescript.plugin.RescriptTestUtils
+import com.rescript.plugin.lang.psi.RescriptElementTypes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -67,8 +69,8 @@ class RescriptWrapWithIntentionTest {
     @Test
     fun testIsAvailableReturnsFalseForNullEditor() {
         val intention = RescriptWrapWithSomeIntention()
-        val element = stubPsiElement()
-        val project = stubProject()
+        val element = RescriptTestUtils.stubPsiElement(RescriptElementTypes.LET_DECLARATION)
+        val project = RescriptTestUtils.stubProject()
         assertFalse(intention.isAvailable(project, null, element))
     }
 
@@ -91,33 +93,4 @@ class RescriptWrapWithIntentionTest {
         val intention = RescriptWrapWithErrorIntention()
         assertEquals(intention.text, intention.familyName)
     }
-
-    // -- Helper stubs --
-
-    private fun stubPsiElement(): com.intellij.psi.PsiElement =
-        java.lang.reflect.Proxy.newProxyInstance(
-            com.intellij.psi.PsiElement::class.java.classLoader,
-            arrayOf(com.intellij.psi.PsiElement::class.java),
-        ) { _, method, _ ->
-            when (method.name) {
-                "getContainingFile" -> null
-                "toString" -> "StubElement"
-                "hashCode" -> 0
-                "equals" -> false
-                else -> null
-            }
-        } as com.intellij.psi.PsiElement
-
-    private fun stubProject(): com.intellij.openapi.project.Project =
-        java.lang.reflect.Proxy.newProxyInstance(
-            com.intellij.openapi.project.Project::class.java.classLoader,
-            arrayOf(com.intellij.openapi.project.Project::class.java),
-        ) { _, method, _ ->
-            when (method.name) {
-                "toString" -> "StubProject"
-                "hashCode" -> 0
-                "equals" -> false
-                else -> null
-            }
-        } as com.intellij.openapi.project.Project
 }
