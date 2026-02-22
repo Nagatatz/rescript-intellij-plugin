@@ -38,10 +38,10 @@ rescript-intellij-plugin/
 | `lang/` | レクサー、パーサー、トークン定義 | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes` |
 | `lang/psi/` | PSI 要素クラス、ユーティリティ | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils` |
 | `highlight/` | シンタックスハイライト、ブレースマッチング | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher` |
-| `lsp/` | LSP サーバー管理、カスタムプロトコル | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor` |
+| `lsp/` | LSP サーバー管理、カスタムプロトコル、LSP ユーティリティ | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor`, `RescriptLspUtils` |
 | `codestyle/` | コードスタイル、インデント設定 | `RescriptCodeStyleSettingsProvider` |
 | `config/` | rescript.json アイコン、JSON Schema | `RescriptJsonIconProvider`, `RescriptJsonSchemaProviderFactory` |
-| `run/` | 実行構成（ReScript ビルド） | `RescriptRunConfigurationType`, `RescriptRunConfiguration` |
+| `run/` | 実行構成（ReScript ビルド）、実行共通ユーティリティ | `RescriptRunConfigurationType`, `RescriptRunConfiguration`, `RescriptRunUtils` |
 | `test/` | テスト実行構成（jest/vitest） | `RescriptTestRunConfigurationType` |
 | `debug/` | デバッグ実行構成 | `RescriptDebugConfigurationType` |
 | `settings/` | プロジェクト設定 UI・永続化 | `RescriptConfigurable`, `RescriptProjectSettings` |
@@ -63,7 +63,7 @@ rescript-intellij-plugin/
 | `codevision/` | Code Lens（CodeVision） | `RescriptCodeVisionProvider` |
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
-| `imports/` | Import Optimizer（未使用 open 削除） | `RescriptImportOptimizer` |
+| `imports/` | Import Optimizer、open 文ユーティリティ | `RescriptImportOptimizer`, `RescriptImportUtil` |
 | `intention/` | Intention Actions（Wrap with、@genType 追加等） | `RescriptWrapWithIntention` |
 | `surround/` | Surround With | `RescriptSurroundDescriptor` |
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
@@ -73,6 +73,7 @@ rescript-intellij-plugin/
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
 | `refactor/` | リネーム、識別子バリデーション | `RescriptRenameHandler` |
+| `util/` | 共通ユーティリティ（セキュリティ等） | `RescriptSecurityUtils` |
 | `commenter/` | コメントトグル | `RescriptCommenter` |
 
 #### Java ソース (`src/main/java/com/rescript/plugin/lang/`)
