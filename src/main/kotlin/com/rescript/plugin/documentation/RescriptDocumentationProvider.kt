@@ -8,6 +8,7 @@ import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
+import com.rescript.plugin.util.RescriptSecurityUtils
 
 /**
  * Provides Quick Documentation (Ctrl+Q / hover) and external documentation URLs for ReScript elements.
@@ -82,16 +83,20 @@ class RescriptDocumentationProvider : AbstractDocumentationProvider() {
             val tokenType = element.node?.elementType ?: return null
             val info = OPERATOR_INFO[tokenType] ?: return null
 
+            val escapedText = RescriptSecurityUtils.escapeHtml(element.text)
+            val escapedName = RescriptSecurityUtils.escapeHtml(info.name)
+            val escapedDesc = RescriptSecurityUtils.escapeHtml(info.description)
+
             return buildString {
                 append("<div class='definition'><pre>")
-                append("<b>${element.text}</b> — ${info.name}")
+                append("<b>$escapedText</b> — $escapedName")
                 append("</pre></div>")
                 append("<div class='content'>")
                 append("<table>")
                 append("<tr><td><b>Precedence:</b></td><td>${info.precedence}</td></tr>")
                 append("<tr><td><b>Associativity:</b></td><td>${info.associativity}</td></tr>")
                 append("</table>")
-                append("<p>${info.description}</p>")
+                append("<p>$escapedDesc</p>")
                 append("</div>")
             }
         }
@@ -298,8 +303,8 @@ class RescriptDocumentationProvider : AbstractDocumentationProvider() {
          */
         internal fun generateDocumentation(element: PsiElement): String? {
             val declType = getDeclarationType(element) ?: return null
-            val name = RescriptPsiUtils.extractName(element)
-            val fileName = element.containingFile?.name ?: "unknown"
+            val name = RescriptSecurityUtils.escapeHtml(RescriptPsiUtils.extractName(element))
+            val fileName = RescriptSecurityUtils.escapeHtml(element.containingFile?.name ?: "unknown")
 
             return buildString {
                 append("<div class='definition'><pre>")

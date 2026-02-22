@@ -100,7 +100,9 @@ class RescriptErrorReporter : ErrorReportSubmitter() {
             if (event != null) {
                 sb.appendLine("## Stack Trace")
                 sb.appendLine("```")
-                val stacktrace = event.throwableText ?: event.throwable?.stackTraceToString() ?: "N/A"
+                val rawStacktrace = event.throwableText ?: event.throwable?.stackTraceToString() ?: "N/A"
+                // Strip absolute file paths to avoid exposing user directory structure
+                val stacktrace = sanitizeFilePaths(rawStacktrace)
                 sb.appendLine(stacktrace.take(MAX_STACKTRACE_LENGTH))
                 if (stacktrace.length > MAX_STACKTRACE_LENGTH) {
                     sb.appendLine("... (truncated)")
@@ -144,6 +146,28 @@ class RescriptErrorReporter : ErrorReportSubmitter() {
 
             return "$baseUrl$encodedBody"
         }
+
+        // Matches absolute paths like /Users/foo/bar/project/ or C:\Users\foo\project\
+        private val ABSOLUTE_PATH_REGEX = Regex("""(?:/[^\s:]+/|[A-Z]:\\[^\s:]+\\)""")
+
+        /**
+         * Strips absolute file paths from stack trace text, replacing directory prefixes
+         * with a generic placeholder to avoid leaking user filesystem structure.
+         *
+         * @param text the raw stack trace text
+         * @return sanitized text with paths redacted
+         */
+        internal fun sanitizeFilePaths(text: String): String =
+            ABSOLUTE_PATH_REGEX.replace(text) { match ->
+                val path = match.value
+                // Keep just the last two path segments for context
+                val segments = path.replace('\\', '/').trimEnd('/').split('/')
+                if (segments.size > 2) {
+                    "<...>/${segments.takeLast(2).joinToString("/")}/"
+                } else {
+                    path
+                }
+            }
 
         private fun urlEncode(value: String): String = URLEncoder.encode(value, Charsets.UTF_8)
 

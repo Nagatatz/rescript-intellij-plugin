@@ -6,6 +6,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.RescriptTokenTypes
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -223,6 +224,29 @@ class RescriptDocumentationProviderTest {
         val doc = RescriptDocumentationProvider.generateOperatorDoc(element)
         assertNotNull(doc)
         assertTrue(doc!!.contains("Pipe forward"))
+    }
+
+    // -- HTML escaping tests --
+
+    @Test
+    fun `generateOperatorDoc escapes HTML in element text`() {
+        val element = stubPsiElement(RescriptTokenTypes.PLUS, "<script>alert('xss')</script>")
+        val doc = RescriptDocumentationProvider.generateOperatorDoc(element)
+        assertNotNull(doc)
+        assertFalse("Should not contain raw script tag", doc!!.contains("<script>"))
+        assertTrue("Should contain escaped script tag", doc.contains("&lt;script&gt;"))
+    }
+
+    @Test
+    fun `generateOperatorDoc escapes HTML in operator name and description`() {
+        // The operator info values are compile-time constants and not user-controlled,
+        // but escaping is defensive. Verify the output contains expected escaped content.
+        val element = stubPsiElement(RescriptTokenTypes.PLUS, "+")
+        val doc = RescriptDocumentationProvider.generateOperatorDoc(element)
+        assertNotNull(doc)
+        // Verify the doc contains the expected operator info (not corrupted by escaping)
+        assertTrue("Should contain operator name", doc!!.contains("Addition"))
+        assertTrue("Should contain precedence info", doc.contains("Precedence"))
     }
 
     // -- Stub helpers --

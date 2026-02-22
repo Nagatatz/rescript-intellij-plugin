@@ -4,6 +4,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.treeStructure.Tree
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -87,6 +88,8 @@ class RescriptDependenciesPanel(
         val categoryNode = DefaultMutableTreeNode(category)
         for (dep in deps) {
             val pkgName = dep.asString
+            // Validate package name to prevent path traversal via crafted rescript.json
+            if (!RescriptSecurityUtils.isValidPackageName(pkgName)) continue
             val version = resolveVersion(basePath, pkgName)
             val label = if (version != null) "$pkgName ($version)" else pkgName
             categoryNode.add(DefaultMutableTreeNode(label))
