@@ -14,6 +14,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.rescript.plugin.lsp.RescriptLanguageServer
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptSecurityUtils
 
 /**
  * Action to open the compiled JavaScript file for the current ReScript file.
@@ -55,7 +56,14 @@ class RescriptOpenCompiledJsAction : AnAction() {
             val resultUri = result?.uri ?: return null
 
             val vfsUrl = RescriptLspUtils.lspUriToVfsUrl(resultUri)
-            VirtualFileManager.getInstance().refreshAndFindFileByUrl(vfsUrl)
+            val resolved = VirtualFileManager.getInstance().refreshAndFindFileByUrl(vfsUrl)
+
+            // Validate the resolved file is within the project directory
+            if (resolved != null && !RescriptSecurityUtils.isWithinProject(project, resolved)) {
+                LOG.warn("LSP openCompiled returned a file outside the project scope, ignoring")
+                return null
+            }
+            resolved
         } catch (ex: Exception) {
             LOG.info("LSP openCompiled request failed, falling back to file search", ex)
             null

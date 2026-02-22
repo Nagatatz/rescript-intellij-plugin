@@ -11,6 +11,7 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.rescript.plugin.lsp.RescriptLanguageServer
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptSecurityUtils
 import org.eclipse.lsp4j.TextDocumentIdentifier
 
 /**
@@ -55,6 +56,11 @@ class RescriptCreateInterfaceAction : AnAction() {
                 val resultUrl = RescriptLspUtils.lspUriToVfsUrl(response.uri)
                 ApplicationManager.getApplication().invokeLater {
                     VirtualFileManager.getInstance().refreshAndFindFileByUrl(resultUrl)?.let { vf ->
+                        // Validate the resolved file is within the project directory
+                        if (!RescriptSecurityUtils.isWithinProject(project, vf)) {
+                            LOG.warn("LSP createInterface returned a file outside the project scope, ignoring")
+                            return@invokeLater
+                        }
                         FileEditorManager.getInstance(project).openFile(vf, true)
                     }
                 }
