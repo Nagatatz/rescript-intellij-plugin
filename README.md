@@ -33,6 +33,7 @@
 - **Code Vision** — Function type annotations via Code Lens
 - **Quick Documentation** — PSI-based fallback documentation when LSP is unavailable (`Ctrl+Q`)
 - **Usage type classification** — Categorized Find Usages results (open, type, pipe, JSX, etc.)
+- **Extract Variable** — Extract selected expression into a `let` binding (`Ctrl+Alt+V`)
 - **Safe Delete** — Usage-checking safe delete refactoring (`Refactor > Safe Delete`)
 - **Name suggestions** — Type-based and filename-based name suggestions during rename
 - **Completion Weigher** — Context-based prioritization of completion candidates

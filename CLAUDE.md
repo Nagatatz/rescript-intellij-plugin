@@ -60,7 +60,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **Project View** (`projectview/`) — コンパイル済み JS のネスト表示・灰色化
 - **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成
 - **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析、.resi シグネチャ同期
-- **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション
+- **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション、Extract Variable（Ctrl+Alt+V）
 - **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
 - **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正、ラベル付き引数挿入、Switch ケース統合、Case Split、位置→ラベル引数変換、括弧削除、修飾子削除、Pipe⇔関数呼び出し変換、インターフェース公開/非公開
 - **Quick Fix** (`quickfix/`) — 未解決参照の open 追加/修飾子付加、使用箇所からの関数生成
