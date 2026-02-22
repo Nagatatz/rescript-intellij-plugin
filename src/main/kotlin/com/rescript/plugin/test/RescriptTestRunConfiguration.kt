@@ -35,7 +35,7 @@ class RescriptTestRunConfiguration(
         private val WHITESPACE_REGEX = "\\s+".toRegex()
     }
 
-    public override fun getOptions(): RescriptTestRunConfigurationOptions =
+    override fun getOptions(): RescriptTestRunConfigurationOptions =
         super.getOptions() as RescriptTestRunConfigurationOptions
 
     var framework: TestFramework

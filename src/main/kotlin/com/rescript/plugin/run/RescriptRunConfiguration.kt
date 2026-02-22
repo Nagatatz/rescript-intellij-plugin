@@ -31,8 +31,7 @@ class RescriptRunConfiguration(
         private val WHITESPACE_REGEX = "\\s+".toRegex()
     }
 
-    public override fun getOptions(): RescriptRunConfigurationOptions =
-        super.getOptions() as RescriptRunConfigurationOptions
+    override fun getOptions(): RescriptRunConfigurationOptions = super.getOptions() as RescriptRunConfigurationOptions
 
     var command: String
         get() = options.command ?: RescriptCommand.BUILD.id

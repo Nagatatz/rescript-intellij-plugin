@@ -70,8 +70,8 @@ class RescriptLineIndentProvider : LineIndentProvider {
         val lexer = RescriptLexer()
         lexer.start(lineText)
         var lastSignificant: IElementType? = null
-        while (lexer.tokenType != null) {
-            val type = lexer.tokenType!!
+        while (true) {
+            val type = lexer.tokenType ?: break
             if (type !in SKIP_TOKENS) {
                 lastSignificant = type
             }
