@@ -5,6 +5,7 @@ import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.rescript.plugin.imports.RescriptImportUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
@@ -60,7 +61,7 @@ class RescriptQualifyReferenceQuickFix : PsiElementBaseIntentionAction() {
         val identifier = element.text
 
         // Find potential module names from open statements in the file
-        val modules = collectOpenModules(text)
+        val modules = RescriptImportUtil.collectOpenModules(text)
         if (modules.isEmpty()) return
 
         // Use the first available module as the qualifier
@@ -77,18 +78,8 @@ class RescriptQualifyReferenceQuickFix : PsiElementBaseIntentionAction() {
 
     companion object {
         /**
-         * Collects module names from open statements in the document.
-         *
-         * @param text the document text
-         * @return list of module names from open statements
+         * @see RescriptImportUtil.collectOpenModules
          */
-        internal fun collectOpenModules(text: String): List<String> {
-            val modules = mutableListOf<String>()
-            val openPattern = Regex("""(?m)^open\s+(\S+)""")
-            for (match in openPattern.findAll(text)) {
-                modules.add(match.groupValues[1])
-            }
-            return modules
-        }
+        internal fun collectOpenModules(text: String): List<String> = RescriptImportUtil.collectOpenModules(text)
     }
 }

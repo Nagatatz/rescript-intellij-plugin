@@ -5,6 +5,7 @@ import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.rescript.plugin.imports.RescriptImportUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
@@ -44,7 +45,7 @@ class RescriptRemoveQualifierIntention : PsiElementBaseIntentionAction() {
 
         // Check if the module is already opened in this file
         val moduleName = element.text
-        return isModuleOpened(text, moduleName)
+        return RescriptImportUtil.isModuleOpened(text, moduleName)
     }
 
     override fun invoke(
@@ -64,18 +65,11 @@ class RescriptRemoveQualifierIntention : PsiElementBaseIntentionAction() {
 
     companion object {
         /**
-         * Checks if a module is opened in the file.
-         *
-         * @param text the document text
-         * @param moduleName the module name to check
-         * @return true if `open ModuleName` exists in the file
+         * @see RescriptImportUtil.isModuleOpened
          */
         internal fun isModuleOpened(
             text: String,
             moduleName: String,
-        ): Boolean {
-            val pattern = Regex("""(?m)^open\s+$moduleName\s*$""")
-            return pattern.containsMatchIn(text)
-        }
+        ): Boolean = RescriptImportUtil.isModuleOpened(text, moduleName)
     }
 }
