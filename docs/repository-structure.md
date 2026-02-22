@@ -54,7 +54,8 @@ rescript-intellij-plugin/
 | `spellcheck/` | スペルチェック | `RescriptSpellcheckingStrategy` |
 | `completion/` | Postfix Completion | `RescriptPostfixTemplateProvider` |
 | `analysis/` | reanalyze デッドコード分析 | `RescriptReanalyzeAnnotator` |
-| `inspection/` | コードインスペクション（重複 open、空モジュール等） | `RescriptDuplicateOpenInspection` |
+| `inspection/` | コードインスペクション（重複 open、空モジュール、シグネチャ同期等） | `RescriptDuplicateOpenInspection`, `RescriptSignatureSyncInspection` |
+| `quickfix/` | クイックフィックス（未解決参照、関数生成等） | `RescriptAddOpenQuickFix`, `RescriptGenerateFunctionQuickFix` |
 | `preview/` | コンパイル済み JS プレビュー | `RescriptCompiledJsPreviewToolWindowFactory` |
 | `hierarchy/` | モジュール階層ビュー | `RescriptModuleHierarchyProvider` |
 | `paste/` | Paste as JSON.t | `RescriptPasteAsJsonAction` |
