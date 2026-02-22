@@ -95,6 +95,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **Parameter Info Handler** (`completion/`) — Ctrl+P でラベル付き引数をネイティブ UI で表示
 - **GitHub エラーレポート** — 未処理例外の GitHub Issues 自動レポート（`RescriptErrorReporter`）
 - **Problem Highlight Filter** (`analysis/`) — node_modules 等のハイライト抑制
+- **Format Check** (`analysis/`) — 未フォーマットコードの検出と Quick Fix によるフォーマット実行（設定で ON/OFF）
 
 ## 開発規約
 
