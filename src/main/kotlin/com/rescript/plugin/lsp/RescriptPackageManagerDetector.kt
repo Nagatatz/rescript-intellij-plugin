@@ -1,5 +1,6 @@
 package com.rescript.plugin.lsp
 
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -70,9 +71,11 @@ object RescriptPackageManagerDetector {
 
         // Walk up parent directories (monorepo support)
         var dir = basePath.parent
-        while (dir != null) {
+        var depth = 0
+        while (dir != null && depth < RescriptSecurityUtils.MAX_PARENT_TRAVERSAL_DEPTH) {
             detectInDirectory(dir)?.let { return it }
             dir = dir.parent
+            depth++
         }
 
         // Default to NPM with project root

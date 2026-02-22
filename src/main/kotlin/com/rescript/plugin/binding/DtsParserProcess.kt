@@ -6,6 +6,7 @@ import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
+import java.util.concurrent.TimeUnit
 
 /**
  * Spawns the bundled `dts-to-json.js` Node.js script to parse a `.d.ts` file
@@ -71,7 +72,12 @@ object DtsParserProcess {
             }
 
         stderrThread.join(TIMEOUT_MS)
-        val exitCode = proc.waitFor()
+        val completed = proc.waitFor(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+        if (!completed) {
+            proc.destroyForcibly()
+            throw DtsParserException("dts-to-json timed out after ${TIMEOUT_MS}ms")
+        }
+        val exitCode = proc.exitValue()
 
         if (exitCode != 0) {
             val errorMsg = stderr.toString().ifBlank { "dts-to-json failed with exit code $exitCode" }

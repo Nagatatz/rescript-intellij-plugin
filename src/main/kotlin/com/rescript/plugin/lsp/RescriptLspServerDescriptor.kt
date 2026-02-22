@@ -15,6 +15,7 @@ import org.eclipse.lsp4j.services.LanguageServer
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.concurrent.TimeUnit
 
 /**
  * Descriptor for the ReScript Language Server.
@@ -140,9 +141,11 @@ class RescriptLspServerDescriptor(
     /** Walk up directories for monorepo layouts. */
     private fun findInParentNodeModules(): String? {
         var dir = project.basePath?.let { Path.of(it).parent }
-        while (dir != null) {
+        var depth = 0
+        while (dir != null && depth < RescriptSecurityUtils.MAX_PARENT_TRAVERSAL_DEPTH) {
             findInNodeModules(dir)?.let { return it }
             dir = dir.parent
+            depth++
         }
         return null
     }
@@ -177,7 +180,12 @@ class RescriptLspServerDescriptor(
                 proc.inputStream.use { stream ->
                     stream.bufferedReader().readLine()?.trim()
                 }
-            val ok = proc.waitFor() == 0
+            val completed = proc.waitFor(RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            if (!completed) {
+                proc.destroyForcibly()
+                return null
+            }
+            val ok = proc.exitValue() == 0
             if (ok && !output.isNullOrEmpty() && File(output).exists()) output else null
         } catch (e: InterruptedException) {
             Thread.currentThread().interrupt()

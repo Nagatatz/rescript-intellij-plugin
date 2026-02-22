@@ -1,5 +1,6 @@
 package com.rescript.plugin.run
 
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -35,9 +36,11 @@ object RescriptCliDetector {
 
     private fun findInParentDirectories(basePath: String?): String? {
         var dir = basePath?.let { Path.of(it).parent }
-        while (dir != null) {
+        var depth = 0
+        while (dir != null && depth < RescriptSecurityUtils.MAX_PARENT_TRAVERSAL_DEPTH) {
             findInNodeModulesBin(dir)?.let { return it }
             dir = dir.parent
+            depth++
         }
         return null
     }
