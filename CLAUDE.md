@@ -114,6 +114,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 @.claude/rules/steering-workflow.md
 @.claude/rules/documentation.md
 @.claude/rules/roadmap-format.md
+@.claude/rules/definition-of-done.md
 
 ## 重要な注意事項
 
