@@ -222,6 +222,29 @@ let x: string = 42    ← Expected: string, Actual: int
 
 This structured display makes it easier to understand type errors at a glance without needing to open the Problems panel or hover over the error.
 
+## Format Check
+
+The plugin can check whether your ReScript files are formatted according to `rescript format` and highlight unformatted files with a warning.
+
+### How It Works
+
+When enabled, the plugin runs `rescript format --stdin` in the background and compares the output with the current editor content. If they differ, a file-level annotation appears indicating that the code is not formatted.
+
+### Quick Fix
+
+Press `Alt+Enter` on the annotation and select **Format this file** to reformat the code immediately. Alternatively, use the standard format shortcut (`Cmd+Option+L` on macOS or `Ctrl+Alt+L` on Windows/Linux).
+
+### Configuration
+
+The format check is **disabled by default**. To enable it:
+
+1. Go to **Settings** > **Languages & Frameworks** > **ReScript**
+2. Check **Enable format check (highlight unformatted code)**
+
+### Requirements
+
+- The `rescript` CLI must be installed in the project's `node_modules`. The plugin auto-detects it from `node_modules/.bin/rescript`.
+
 ## Import Optimization
 
 Press `Ctrl+Alt+O` (or `Cmd+Alt+O` on macOS) to optimize imports in the current file.
