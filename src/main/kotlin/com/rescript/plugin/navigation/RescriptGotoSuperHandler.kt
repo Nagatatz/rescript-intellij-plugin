@@ -7,7 +7,6 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
-import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
@@ -47,22 +46,20 @@ class RescriptGotoSuperHandler : CodeInsightActionHandler {
         val offset = editor.caretModel.offset
         val element = file.findElementAt(offset)
         val declaration =
-            PsiTreeUtil.findFirstParent(element) { el ->
-                el.node?.elementType in DECLARATION_TYPES
+            element?.let {
+                RescriptPsiUtils.findEnclosingDeclaration(it, RescriptPsiUtils.NAVIGABLE_TYPES)
             }
 
         if (declaration != null) {
             val name = RescriptPsiUtils.extractName(declaration)
             val declType = declaration.node.elementType
 
-            if (name != null) {
-                // Search for matching declaration in target file
-                val targetOffset = findMatchingDeclaration(targetPsiFile, name, declType)
-                if (targetOffset >= 0) {
-                    val descriptor = OpenFileDescriptor(project, targetVirtualFile, targetOffset)
-                    FileEditorManager.getInstance(project).openTextEditor(descriptor, true)
-                    return
-                }
+            // Search for matching declaration in target file
+            val targetOffset = findMatchingDeclaration(targetPsiFile, name, declType)
+            if (targetOffset >= 0) {
+                val descriptor = OpenFileDescriptor(project, targetVirtualFile, targetOffset)
+                FileEditorManager.getInstance(project).openTextEditor(descriptor, true)
+                return
             }
         }
 
@@ -73,15 +70,6 @@ class RescriptGotoSuperHandler : CodeInsightActionHandler {
     override fun startInWriteAction(): Boolean = false
 
     companion object {
-        private val DECLARATION_TYPES =
-            setOf(
-                RescriptElementTypes.LET_DECLARATION,
-                RescriptElementTypes.TYPE_DECLARATION,
-                RescriptElementTypes.MODULE_DECLARATION,
-                RescriptElementTypes.EXTERNAL_DECLARATION,
-                RescriptElementTypes.EXCEPTION_DECLARATION,
-            )
-
         /**
          * Searches a PSI file for a declaration with the given name and type.
          *

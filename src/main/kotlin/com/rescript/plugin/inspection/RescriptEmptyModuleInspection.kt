@@ -11,6 +11,7 @@ import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
  * Local inspection that flags empty module declarations (modules with braces but no declarations).
@@ -20,16 +21,7 @@ import com.rescript.plugin.lang.psi.RescriptFile
  */
 class RescriptEmptyModuleInspection : LocalInspectionTool() {
     companion object {
-        private val DECLARATION_TYPES =
-            setOf(
-                RescriptElementTypes.LET_DECLARATION,
-                RescriptElementTypes.TYPE_DECLARATION,
-                RescriptElementTypes.MODULE_DECLARATION,
-                RescriptElementTypes.EXTERNAL_DECLARATION,
-                RescriptElementTypes.OPEN_STATEMENT,
-                RescriptElementTypes.INCLUDE_STATEMENT,
-                RescriptElementTypes.EXCEPTION_DECLARATION,
-            )
+        private val DECLARATION_TYPES = RescriptPsiUtils.ALL_DECLARATION_TYPES
     }
 
     override fun buildVisitor(

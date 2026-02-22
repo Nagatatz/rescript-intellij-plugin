@@ -3,6 +3,7 @@ package com.rescript.plugin.lang.psi
 import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.RescriptIcons
 import com.rescript.plugin.lang.RescriptTokenTypes
 import javax.swing.Icon
@@ -23,6 +24,62 @@ object RescriptPsiUtils {
             RescriptElementTypes.EXTERNAL_DECLARATION,
             RescriptElementTypes.EXCEPTION_DECLARATION,
         )
+
+    /** Element types for value bindings (let, external). Used by AddIgnore, AddUnderscore. */
+    val BINDING_TYPES: Set<IElementType> =
+        setOf(
+            RescriptElementTypes.LET_DECLARATION,
+            RescriptElementTypes.EXTERNAL_DECLARATION,
+        )
+
+    /** Element types eligible for annotation actions (let, type, module). Used by AddGenType. */
+    val ANNOTATION_ELIGIBLE_TYPES: Set<IElementType> =
+        setOf(
+            RescriptElementTypes.LET_DECLARATION,
+            RescriptElementTypes.TYPE_DECLARATION,
+            RescriptElementTypes.MODULE_DECLARATION,
+        )
+
+    /** All top-level declaration types including open/include. Used by EmptyModule, StatementMover. */
+    val ALL_DECLARATION_TYPES: Set<IElementType> =
+        setOf(
+            RescriptElementTypes.LET_DECLARATION,
+            RescriptElementTypes.TYPE_DECLARATION,
+            RescriptElementTypes.MODULE_DECLARATION,
+            RescriptElementTypes.EXTERNAL_DECLARATION,
+            RescriptElementTypes.OPEN_STATEMENT,
+            RescriptElementTypes.INCLUDE_STATEMENT,
+            RescriptElementTypes.EXCEPTION_DECLARATION,
+        )
+
+    /**
+     * Finds the nearest enclosing declaration for the given element.
+     *
+     * @param element the PSI element to start searching from
+     * @param types the set of declaration element types to match
+     * @param includeElement whether to include the element itself in the search
+     * @return the enclosing declaration, or null if not inside one
+     */
+    fun findEnclosingDeclaration(
+        element: PsiElement,
+        types: Set<IElementType>,
+        includeElement: Boolean = true,
+    ): PsiElement? =
+        PsiTreeUtil.findFirstParent(element, !includeElement) { el ->
+            el.node?.elementType in types
+        }
+
+    /**
+     * Checks whether the element is inside a declaration of the given types.
+     *
+     * @param element the PSI element to check
+     * @param types the set of declaration element types to match
+     * @return true if a parent declaration is found
+     */
+    fun isInsideDeclaration(
+        element: PsiElement,
+        types: Set<IElementType>,
+    ): Boolean = findEnclosingDeclaration(element, types, includeElement = false) != null
 
     private val IDENTIFIER_TYPES: Set<IElementType> =
         setOf(

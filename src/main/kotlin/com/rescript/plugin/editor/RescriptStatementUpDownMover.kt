@@ -6,10 +6,10 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.TokenType
-import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
  * Enables moving top-level declarations up/down with Alt+Shift+Up/Down.
@@ -20,16 +20,7 @@ import com.rescript.plugin.lang.psi.RescriptFile
 class RescriptStatementUpDownMover : StatementUpDownMover() {
     companion object {
         /** All element types that represent movable declarations. */
-        internal val DECLARATION_TYPES =
-            setOf(
-                RescriptElementTypes.LET_DECLARATION,
-                RescriptElementTypes.TYPE_DECLARATION,
-                RescriptElementTypes.MODULE_DECLARATION,
-                RescriptElementTypes.EXTERNAL_DECLARATION,
-                RescriptElementTypes.OPEN_STATEMENT,
-                RescriptElementTypes.INCLUDE_STATEMENT,
-                RescriptElementTypes.EXCEPTION_DECLARATION,
-            )
+        internal val DECLARATION_TYPES = RescriptPsiUtils.ALL_DECLARATION_TYPES
 
         private val WHITESPACE_OR_COMMENT =
             setOf(
@@ -76,9 +67,7 @@ class RescriptStatementUpDownMover : StatementUpDownMover() {
     }
 
     internal fun findDeclaration(element: PsiElement): PsiElement? =
-        PsiTreeUtil.findFirstParent(element, false) { parent ->
-            parent.node?.elementType in DECLARATION_TYPES
-        }
+        RescriptPsiUtils.findEnclosingDeclaration(element, DECLARATION_TYPES)
 
     internal fun findLeadingAnnotation(declaration: PsiElement): PsiElement {
         var current = declaration
