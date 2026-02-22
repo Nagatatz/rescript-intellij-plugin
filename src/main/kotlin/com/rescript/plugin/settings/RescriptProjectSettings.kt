@@ -34,6 +34,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var autoOptimizeImports: Boolean = false
         var autoAddOpenStatements: Boolean = true
         var excludedModules: String = ""
+        var pipeChainHintsEnabled: Boolean = true
     }
 
     override fun getState(): State = state
@@ -124,6 +125,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.excludedModules
         set(value) {
             state.excludedModules = value
+        }
+
+    var pipeChainHintsEnabled: Boolean
+        get() = state.pipeChainHintsEnabled
+        set(value) {
+            state.pipeChainHintsEnabled = value
         }
 
     companion object {
