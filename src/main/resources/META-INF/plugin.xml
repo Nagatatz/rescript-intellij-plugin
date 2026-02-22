@@ -116,6 +116,9 @@
         <breadcrumbsInfoProvider
                 implementation="com.rescript.plugin.breadcrumb.RescriptBreadcrumbsProvider"/>
 
+        <!-- Navigation bar structure -->
+        <navbar implementation="com.rescript.plugin.navbar.RescriptStructureAwareNavbar"/>
+
         <!-- Refactoring support (Introduce Variable: Ctrl+Alt+V) -->
         <lang.refactoringSupport language="ReScript"
                 implementationClass="com.rescript.plugin.refactor.RescriptRefactoringSupportProvider"/>
