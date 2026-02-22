@@ -16,6 +16,8 @@ import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.rescript.plugin.run.RescriptRunUtils
+import java.nio.file.Files
+import java.nio.file.Path
 
 /**
  * Run configuration for executing ReScript tests with Jest, Vitest, or a custom command.
@@ -114,20 +116,32 @@ class RescriptTestRunConfiguration(
 
         when (framework) {
             TestFramework.JEST -> {
-                args.add("npx")
-                args.add("jest")
+                // Prefer local node_modules/.bin/ over npx to avoid arbitrary package execution
+                val localBin = resolveFromNodeModules(workDir, "jest")
+                if (localBin != null) {
+                    args.add(localBin)
+                } else {
+                    args.add("npx")
+                    args.add("jest")
+                }
                 args.add("--reporters=default")
                 args.add("--reporters=jest-teamcity")
             }
             TestFramework.VITEST -> {
-                args.add("npx")
-                args.add("vitest")
+                val localBin = resolveFromNodeModules(workDir, "vitest")
+                if (localBin != null) {
+                    args.add(localBin)
+                } else {
+                    args.add("npx")
+                    args.add("vitest")
+                }
                 args.add("run")
                 args.add("--reporter=default")
                 args.add("--reporter=teamcity")
             }
             TestFramework.CUSTOM -> {
-                // Custom framework: user provides full command via additional arguments
+                // Custom framework: user provides full command via additional arguments.
+                // Validated below after processing additionalArguments.
             }
         }
 
@@ -150,12 +164,33 @@ class RescriptTestRunConfiguration(
         }
 
         if (args.isEmpty()) {
-            throw ExecutionException("No command configured for test execution")
+            throw ExecutionException(
+                if (framework == TestFramework.CUSTOM) {
+                    "Custom test framework requires additional arguments to specify the command"
+                } else {
+                    "No command configured for test execution"
+                },
+            )
         }
 
         return GeneralCommandLine(args)
             .withWorkDirectory(workDir)
             .withCharset(Charsets.UTF_8)
             .withParentEnvironmentType(GeneralCommandLine.ParentEnvironmentType.CONSOLE)
+    }
+
+    /**
+     * Resolves a test runner binary from the working directory's `node_modules/.bin/`.
+     *
+     * @param workDir the effective working directory
+     * @param binName the binary name (e.g., "jest", "vitest")
+     * @return the absolute path to the binary, or null if not found or not executable
+     */
+    private fun resolveFromNodeModules(
+        workDir: String,
+        binName: String,
+    ): String? {
+        val bin = Path.of(workDir).resolve("node_modules/.bin/$binName")
+        return if (Files.isExecutable(bin)) bin.toString() else null
     }
 }
