@@ -59,21 +59,24 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **モジュール階層** (`hierarchy/`) — モジュール依存関係のツリー表示
 - **Project View** (`projectview/`) — コンパイル済み JS のネスト表示・灰色化
 - **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成
-- **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析
+- **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析、.resi シグネチャ同期
 - **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション
 - **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
-- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正
+- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正、ラベル付き引数挿入、Switch ケース統合、Case Split、位置→ラベル引数変換、括弧削除、修飾子削除
+- **Quick Fix** (`quickfix/`) — 未解決参照の open 追加/修飾子付加、使用箇所からの関数生成
 - **Surround With** (`surround/`) — if/switch/try/block で囲む
 - **Postfix Completion** (`completion/`) — .switch, .pipe, .log, .promise, .await 等
+- **Completion Weigher** (`completion/`) — コンテキストベースの補完候補重み付け
 - **Completion Confidence** (`completion/`) — コメント・文字列内の補完ポップアップ抑制
 - **Live Template コンテキスト** (`completion/`) — ReScript 専用コンテキスト + moduleName/componentName マクロ
 - **コード折りたたみ** (`folding/`) — ブロック折りたたみ、//#region カスタム折りたたみ
 - **パンくずリスト** (`breadcrumb/`) — エディタ上部のナビゲーション
-- **Generate アクション** (`generate/`) — Switch Arms / Module Type 生成
+- **Generate アクション** (`generate/`) — Switch Arms / Module Type / Make 関数生成
 - **.d.ts バインディング生成** (`binding/`) — TypeScript 型定義から ReScript バインディングを自動生成
 - **Unwrap/Remove** (`editor/`) — Some/Ok/Error/if/switch/try/ブレースの除去 (Ctrl+Shift+Delete)
 - **JSX 閉じタグ自動挿入** (`editor/`) — `>` 入力時に閉じタグを自動補完
 - **Context Info** (`editor/`) — スクロール時にトップレベル宣言のヘッダーを固定表示
+- **Search Everywhere** (`navigation/`) — Shift+Shift でファイル・シンボルの統合検索
 - **Go to Test** (`navigation/`) — 実装⇔テストファイル間のナビゲーション・新規テスト作成 (Ctrl+Shift+T)
 - **Find Usages** (`lang/`) — WordsScanner によるシンボルインデキシング + 使用箇所検索
 - **バンドル辞書** (`spellcheck/`) — ReScript 固有用語のスペルチェック辞書
@@ -87,6 +90,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **External Documentation** (`documentation/`) — Belt/Js モジュールの外部ドキュメント URL (Shift+F1)
 - **Run Anything** (`run/`) — Ctrl+Ctrl で ReScript CLI コマンド実行
 - **Expression Type** (`lsp/`) — カーソル位置の式の型を LSP hover で表示 (Ctrl+Shift+P)
+- **パイプチェーン型ヒント** (`lsp/`) — `->` パイプチェーンの中間型をインライン表示
 - **Problem Highlight Filter** (`analysis/`) — node_modules 等のハイライト抑制
 
 ## 開発規約
