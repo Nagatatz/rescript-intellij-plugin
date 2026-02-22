@@ -575,6 +575,26 @@ The notification only appears when:
 - No custom LSP path is configured in settings
 - The Language Server is not found in `node_modules`
 
+## GitHub Error Reporter
+
+The plugin includes an automatic error reporting system that sends unhandled exceptions to GitHub Issues, helping the maintainers quickly identify and fix bugs.
+
+### How It Works
+
+When an unexpected exception occurs within the plugin, the IDE's standard error dialog appears with a **Report to Plugin Author** button. Clicking this button opens a pre-filled GitHub issue in your browser with:
+
+- The exception stack trace
+- Plugin version and IDE version
+- Operating system information
+
+### Privacy
+
+The error report is opened in your browser as a draft GitHub issue. You can review and edit the content before submitting. No data is sent automatically --- you have full control over what is shared.
+
+### Requirements
+
+A GitHub account is required to submit error reports. The report opens on the plugin's GitHub repository issue tracker.
+
 ## Inspection Suppressor
 
 Suppress specific inspections using `// noinspection` comments:

@@ -34,6 +34,33 @@ Press `Alt+7` (`Cmd+7` on macOS) to open the Structure panel, which shows an out
 
 Press `Alt+O` to switch between a ReScript source file (`.res`) and its interface file (`.resi`).
 
+## Go to Implementation
+
+Press `Ctrl+Alt+B` (`Cmd+Alt+B` on macOS) to jump from an interface declaration in a `.resi` file to the corresponding implementation in the `.res` file.
+
+This is the reverse of [Goto Super](#goto-super-res--resi): while Goto Super goes from implementation to interface, Go to Implementation goes from interface to implementation.
+
+**Example:**
+
+```rescript
+// In Foo.resi, caret on:
+let greet: string => string
+// Press Ctrl+Alt+B → jumps to:
+// let greet = (name) => `Hello, ${name}!`   (in Foo.res)
+```
+
+The plugin matches declarations by name and type (`let`, `type`, `module`, `external`, `exception`), including one level of nested module declarations.
+
+## Search Everywhere
+
+Press `Shift` twice (double-tap `Shift`) to open the **Search Everywhere** dialog, which provides unified search across:
+
+- **Files** — Find `.res` and `.resi` files by name
+- **Symbols** — Search for functions, types, modules, and other declarations
+- **Actions** — Search for IDE actions and plugin commands
+
+ReScript files and symbols appear alongside results from other languages in the search dialog. Use the tab bar at the top to filter by category.
+
 ## Go to Related
 
 Use **Navigate** → **Related Symbol** to jump between related files:
