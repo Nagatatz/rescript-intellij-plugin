@@ -18,6 +18,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFileManager
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Path
 
 /**
@@ -81,6 +82,12 @@ class RescriptDebugRunConfiguration(
         }
         if (!srcPath.toFile().exists()) {
             throw RuntimeConfigurationWarning("Source file does not exist: $sourceFilePath")
+        }
+
+        // Validate custom node executable if not the default "node"
+        val node = options.nodeExecutable
+        if (!node.isNullOrEmpty() && node != "node" && !RescriptSecurityUtils.isValidExecutable(node)) {
+            throw RuntimeConfigurationWarning("Node.js executable is not valid: $node")
         }
     }
 

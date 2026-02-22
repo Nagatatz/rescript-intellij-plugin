@@ -8,6 +8,7 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.ui.FormBuilder
 import com.rescript.plugin.errorlens.RescriptErrorLensSeverity
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.io.File
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JCheckBox
@@ -187,11 +188,22 @@ class RescriptConfigurable(
         val platPath = platformPathField?.text?.trim() ?: ""
         val rtPath = runtimePathField?.text?.trim() ?: ""
 
-        if (lspPath.isNotEmpty() && !File(lspPath).exists()) {
-            throw ConfigurationException("Language server path does not exist: $lspPath")
+        if (lspPath.isNotEmpty()) {
+            if (!File(lspPath).exists()) {
+                throw ConfigurationException("Language server path does not exist: $lspPath")
+            }
+            // Non-.js server paths must be executable binaries
+            if (!lspPath.endsWith(".js") && !RescriptSecurityUtils.isValidExecutable(lspPath)) {
+                throw ConfigurationException("Language server path is not an executable file: $lspPath")
+            }
         }
-        if (nodePath.isNotEmpty() && !File(nodePath).exists()) {
-            throw ConfigurationException("Node.js interpreter path does not exist: $nodePath")
+        if (nodePath.isNotEmpty()) {
+            if (!File(nodePath).exists()) {
+                throw ConfigurationException("Node.js interpreter path does not exist: $nodePath")
+            }
+            if (!RescriptSecurityUtils.isValidExecutable(nodePath)) {
+                throw ConfigurationException("Node.js interpreter path is not an executable file: $nodePath")
+            }
         }
         if (binaryPath.isNotEmpty() && !File(binaryPath).exists()) {
             throw ConfigurationException("ReScript binary path does not exist: $binaryPath")

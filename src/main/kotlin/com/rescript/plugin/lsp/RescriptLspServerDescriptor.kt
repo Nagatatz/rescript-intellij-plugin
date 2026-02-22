@@ -10,6 +10,7 @@ import com.intellij.platform.lsp.api.LspServerNotificationsHandler
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import com.intellij.platform.lsp.api.customization.LspCustomization
 import com.rescript.plugin.settings.RescriptProjectSettings
+import com.rescript.plugin.util.RescriptSecurityUtils
 import org.eclipse.lsp4j.services.LanguageServer
 import java.io.File
 import java.nio.file.Files
@@ -65,8 +66,20 @@ class RescriptLspServerDescriptor(
         val customPath = settings.lspServerPath.takeIf { it.isNotEmpty() }
         val customNode = settings.nodePath.takeIf { it.isNotEmpty() }
 
+        // Validate custom paths at consumption time, falling back to auto-detection if invalid
+        val validatedCustomPath = customPath?.let { path -> validateServerPath(path) }
+        val validatedCustomNode =
+            customNode?.let { path ->
+                if (RescriptSecurityUtils.isValidExecutable(path)) {
+                    path
+                } else {
+                    LOG.warn("Custom Node.js path is not a valid executable, falling back to 'node'")
+                    null
+                }
+            }
+
         val serverPath =
-            customPath
+            validatedCustomPath
                 ?: findLanguageServer()
                 ?: throw ExecutionException(
                     "Could not find rescript-language-server.\n" +
@@ -77,7 +90,7 @@ class RescriptLspServerDescriptor(
 
         LOG.info("Starting ReScript Language Server from: $serverPath")
 
-        val nodeCmd = customNode ?: "node"
+        val nodeCmd = validatedCustomNode ?: "node"
         val cmd =
             if (serverPath.endsWith(".js")) {
                 GeneralCommandLine(nodeCmd, serverPath, "--stdio")
@@ -87,6 +100,31 @@ class RescriptLspServerDescriptor(
 
         project.basePath?.let { cmd.workDirectory = File(it) }
         return cmd
+    }
+
+    /**
+     * Validates a custom server path: `.js` files must exist; binaries must be executable.
+     *
+     * @param path the user-configured server path to validate
+     * @return the validated path, or null if invalid (with a logged warning)
+     */
+    private fun validateServerPath(path: String): String? {
+        val file = File(path)
+        return if (path.endsWith(".js")) {
+            if (file.isFile) {
+                path
+            } else {
+                LOG.warn("Custom LSP server path is not a valid file, falling back to auto-detection")
+                null
+            }
+        } else {
+            if (RescriptSecurityUtils.isValidExecutable(path)) {
+                path
+            } else {
+                LOG.warn("Custom LSP server path is not a valid executable, falling back to auto-detection")
+                null
+            }
+        }
     }
 
     // ── Server discovery ──────────────────────────────────────────────
