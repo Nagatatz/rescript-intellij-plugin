@@ -71,7 +71,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **Live Template コンテキスト** (`completion/`) — ReScript 専用コンテキスト + moduleName/componentName マクロ
 - **コード折りたたみ** (`folding/`) — ブロック折りたたみ、//#region カスタム折りたたみ
 - **パンくずリスト** (`breadcrumb/`) — エディタ上部のナビゲーション
-- **Generate アクション** (`generate/`) — Switch Arms / Module Type / Make 関数生成
+- **Generate アクション** (`generate/`) — Switch Arms / Module Type / Make 関数 / JSON エンコーダ・デコーダ生成
 - **.d.ts バインディング生成** (`binding/`) — TypeScript 型定義から ReScript バインディングを自動生成
 - **Unwrap/Remove** (`editor/`) — Some/Ok/Error/if/switch/try/ブレースの除去 (Ctrl+Shift+Delete)
 - **JSX 閉じタグ自動挿入** (`editor/`) — `>` 入力時に閉じタグを自動補完

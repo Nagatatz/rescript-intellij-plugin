@@ -457,6 +457,7 @@ Press `Cmd+N` (or `Alt+Insert`) to open the Generate menu:
 - **Generate Switch Arms** — Auto-generate match arms for a variant type
 - **Generate Module Type** — Generate a module type skeleton from a module implementation
 - **Generate Make Function** — Generate a constructor function from a record type
+- **Generate JSON Encoder/Decoder** — Generate JSON encoder and decoder functions from a type
 
 ### Generate Switch Arms
 
@@ -581,6 +582,40 @@ let make = (~name, ~age, ~email) => {
 ```
 
 Optional fields (e.g., `email?: string`) are generated as optional labeled arguments (`~email=?`).
+
+### Generate JSON Encoder/Decoder
+
+When your caret is inside a record or variant type declaration, this action generates JSON encoder and decoder functions using `@rescript/core`'s `JSON` module (no external dependencies required).
+
+Place your caret inside the type declaration and press `Cmd+N` (or `Alt+Insert`), then choose **JSON Encoder/Decoder**.
+
+**Record type example:**
+
+```rescript
+type user = {name: string, age: int, email: option<string>}
+```
+
+Generates an encoder that converts each field to the appropriate `JSON.t` constructor (`String`, `Number`, `Boolean`, `Null`, `Object`, `Array`) and a decoder that pattern-matches the JSON structure back into the record type.
+
+**Variant type example (simple enum):**
+
+```rescript
+type color = Red | Green | Blue
+```
+
+Generates a `String`-based encoder/decoder where each constructor maps to its name as a JSON string.
+
+**Variant type example (tagged union):**
+
+```rescript
+type status = Success(string) | Error(int)
+```
+
+Generates a tagged union encoder/decoder using `Object` with a `"tag"` field and positional payload fields (`"_0"`, `"_1"`, ...).
+
+**Supported types:** `string`, `int`, `float`, `bool`, `option<T>`, `array<T>`, and arbitrary nesting (e.g., `option<array<string>>`). Unrecognized types generate a `/* TODO */` placeholder for you to fill in.
+
+**Naming convention:** Functions are named `encode` + capitalized type name and `decode` + capitalized type name (e.g., `encodeUser` / `decodeUser`). For a type named `t`, the functions are simply `encode` / `decode`.
 
 ## Spellchecking
 
