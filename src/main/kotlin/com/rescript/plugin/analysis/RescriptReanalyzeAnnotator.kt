@@ -9,8 +9,10 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.concurrent.TimeUnit
 
 /**
  * External annotator that runs `rescript-tools reanalyze -json` to detect dead code
@@ -68,7 +70,13 @@ class RescriptReanalyzeAnnotator :
 
             val process = commandLine.createProcess()
             val stdout = process.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-            val exitCode = process.waitFor()
+            val completed = process.waitFor(RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            if (!completed) {
+                process.destroyForcibly()
+                LOG.debug("reanalyze timed out")
+                return null
+            }
+            val exitCode = process.exitValue()
 
             if (exitCode != 0) {
                 LOG.debug("reanalyze exited with code $exitCode")
@@ -121,7 +129,8 @@ class RescriptReanalyzeAnnotator :
 
         fun findReanalyzeTool(projectBasePath: String): String? {
             var dir: Path? = Path.of(projectBasePath)
-            while (dir != null) {
+            var depth = 0
+            while (dir != null && depth < RescriptSecurityUtils.MAX_PARENT_TRAVERSAL_DEPTH) {
                 // Check node_modules/rescript/ for rescript-tools.exe or rescript-tools
                 val toolsExe = dir.resolve("node_modules/rescript/rescript-tools.exe")
                 if (Files.isExecutable(toolsExe)) return toolsExe.toString()
@@ -134,6 +143,7 @@ class RescriptReanalyzeAnnotator :
                 if (Files.isExecutable(bin)) return bin.toString()
 
                 dir = dir.parent
+                depth++
             }
             return null
         }

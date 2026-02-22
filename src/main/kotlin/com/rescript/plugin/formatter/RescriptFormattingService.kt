@@ -9,6 +9,7 @@ import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import com.rescript.plugin.run.RescriptCliDetector
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 /**
  * Integrates the ReScript CLI formatter (`rescript format`) with IntelliJ's
@@ -94,7 +95,13 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
 
                     stdinThread.join(TIMEOUT_MS)
                     stderrThread.join(TIMEOUT_MS)
-                    val exitCode = proc.waitFor()
+                    val completed = proc.waitFor(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+                    if (!completed) {
+                        proc.destroyForcibly()
+                        request.onError("ReScript", "rescript format timed out")
+                        return
+                    }
+                    val exitCode = proc.exitValue()
 
                     if (exitCode == 0 && stdout.isNotEmpty()) {
                         request.onTextReady(stdout)

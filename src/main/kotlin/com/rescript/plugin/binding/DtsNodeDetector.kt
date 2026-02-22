@@ -1,8 +1,10 @@
 package com.rescript.plugin.binding
 
 import com.rescript.plugin.settings.RescriptProjectSettings
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.concurrent.TimeUnit
 
 /**
  * Detects Node.js and the TypeScript package required for `.d.ts` parsing.
@@ -33,9 +35,11 @@ object DtsNodeDetector {
 
         // Walk up parent directories (monorepo support)
         var dir = base.parent
-        while (dir != null) {
+        var depth = 0
+        while (dir != null && depth < RescriptSecurityUtils.MAX_PARENT_TRAVERSAL_DEPTH) {
             findTsInNodeModules(dir)?.let { return it }
             dir = dir.parent
+            depth++
         }
         return null
     }
@@ -68,7 +72,12 @@ object DtsNodeDetector {
                     .bufferedReader()
                     .readLine()
                     ?.trim() ?: ""
-            val exitCode = proc.waitFor()
+            val completed = proc.waitFor(RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            if (!completed) {
+                proc.destroyForcibly()
+                return false
+            }
+            val exitCode = proc.exitValue()
             exitCode == 0 && output.startsWith("v")
         } catch (_: Exception) {
             false

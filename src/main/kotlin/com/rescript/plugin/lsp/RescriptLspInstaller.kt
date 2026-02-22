@@ -29,6 +29,9 @@ import java.io.File
 object RescriptLspInstaller {
     private val LOG = logger<RescriptLspInstaller>()
 
+    // Longer timeout for package installation (network-dependent)
+    private const val INSTALL_TIMEOUT_MS = 300_000L
+
     /**
      * Installs `@rescript/language-server` in the background using the specified package manager.
      *
@@ -75,7 +78,16 @@ object RescriptLspInstaller {
                     )
 
                     handler.startNotify()
-                    handler.waitFor()
+                    val completed = handler.waitFor(INSTALL_TIMEOUT_MS)
+
+                    if (!completed) {
+                        handler.destroyProcess()
+                        val errorMsg = "Installation timed out after ${INSTALL_TIMEOUT_MS / 1000} seconds"
+                        LOG.warn(errorMsg)
+                        onInstallFailure(project, errorMsg)
+                        onFailure?.invoke(errorMsg)
+                        return
+                    }
 
                     val exitCode = handler.exitCode
                     if (exitCode == 0) {
