@@ -540,6 +540,99 @@
         <!-- Error report handler (opens GitHub issue in browser) -->
         <errorHandler
                 implementation="com.rescript.plugin.RescriptErrorReporter"/>
+
+        <!-- Search Everywhere contributor for ReScript symbols (#46) -->
+        <searchEverywhereContributor
+                implementation="com.rescript.plugin.navigation.RescriptSearchEverywhereContributor$Factory"/>
+
+        <!-- Completion Weigher for ReScript (#50) -->
+        <completion.weigher language="ReScript" id="rescriptWeigher"
+                implementationClass="com.rescript.plugin.completion.RescriptCompletionWeigher"/>
+
+        <!-- Pipe chain intermediate type inlay hints (#74) -->
+        <codeInsight.inlayHintsProvider language="ReScript"
+                implementationClass="com.rescript.plugin.lsp.RescriptPipeChainTypeHintsProvider"/>
+
+        <!-- Signature sync inspection (#94) -->
+        <localInspection language="ReScript"
+                         groupName="ReScript"
+                         shortName="RescriptSignatureSync"
+                         displayName="Interface file out of sync"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.rescript.plugin.inspection.RescriptSignatureSyncInspection"/>
+
+        <!-- Intention: Insert labeled arguments (#75) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptInsertLabeledArgsIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Intention: Merge switch cases (#78) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptMergeSwitchCasesIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Intention: Split into constructor cases (#95) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptCaseSplitIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Intention: Convert to labeled arguments (#98) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptConvertToLabeledArgsIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Intention: Remove unnecessary parentheses (#100) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptRemoveParenthesesIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Intention: Remove redundant qualifier (#101) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptRemoveQualifierIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Quick Fix: Add open statement (#49) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.quickfix.RescriptAddOpenQuickFix</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Quick Fix: Qualify with module name (#49) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.quickfix.RescriptQualifyReferenceQuickFix</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Quick Fix: Generate function from usage (#89) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.quickfix.RescriptGenerateFunctionQuickFix</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
     </extensions>
 
     <actions>
