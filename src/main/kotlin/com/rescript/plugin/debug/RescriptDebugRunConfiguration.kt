@@ -40,7 +40,7 @@ class RescriptDebugRunConfiguration(
         private val JS_SUFFIXES = listOf(".bs.js", ".mjs", ".js")
     }
 
-    public override fun getOptions(): RescriptDebugRunConfigurationOptions =
+    override fun getOptions(): RescriptDebugRunConfigurationOptions =
         super.getOptions() as RescriptDebugRunConfigurationOptions
 
     var sourceFilePath: String?
@@ -74,7 +74,7 @@ class RescriptDebugRunConfiguration(
         if (sourceFilePath.isNullOrBlank()) {
             throw RuntimeConfigurationError("Source file path is not specified.")
         }
-        val srcPath = Path.of(sourceFilePath!!)
+        val srcPath = Path.of(sourceFilePath ?: throw RuntimeConfigurationError("Source file path is not specified."))
         val fileName = srcPath.fileName?.toString() ?: ""
         if (!fileName.endsWith(".res") && !fileName.endsWith(".resi")) {
             throw RuntimeConfigurationError("Source file must be a .res or .resi file.")

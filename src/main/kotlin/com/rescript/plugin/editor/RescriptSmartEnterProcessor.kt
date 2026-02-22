@@ -84,8 +84,8 @@ class RescriptSmartEnterProcessor : SmartEnterProcessor() {
         var parenBalance = 0
         var bracketBalance = 0
 
-        while (lexer.tokenType != null) {
-            val type = lexer.tokenType!!
+        while (true) {
+            val type = lexer.tokenType ?: break
 
             when (type) {
                 T.SWITCH -> hasSwitch = true
