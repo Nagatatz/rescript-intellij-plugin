@@ -5,8 +5,8 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
-import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
  * Intention action that adds an underscore prefix to an identifier to suppress
@@ -52,25 +52,13 @@ class RescriptAddUnderscorePrefixIntention : PsiElementBaseIntentionAction() {
     }
 
     companion object {
-        private val DECLARATION_TYPES =
-            setOf(
-                RescriptElementTypes.LET_DECLARATION,
-                RescriptElementTypes.EXTERNAL_DECLARATION,
-            )
-
         /**
          * Checks whether the element is inside a let or external declaration.
          *
          * @param element the PSI element to check
          * @return true if a parent declaration is found
          */
-        fun hasParentDeclaration(element: PsiElement): Boolean {
-            var current: PsiElement? = element.parent
-            while (current != null) {
-                if (current.node?.elementType in DECLARATION_TYPES) return true
-                current = current.parent
-            }
-            return false
-        }
+        fun hasParentDeclaration(element: PsiElement): Boolean =
+            RescriptPsiUtils.isInsideDeclaration(element, RescriptPsiUtils.BINDING_TYPES)
     }
 }

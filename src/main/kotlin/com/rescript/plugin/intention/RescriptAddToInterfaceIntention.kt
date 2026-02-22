@@ -5,7 +5,6 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
-import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
@@ -44,7 +43,9 @@ class RescriptAddToInterfaceIntention : PsiElementBaseIntentionAction() {
         if (!resiFile.exists()) return false
 
         // Check that cursor is on a top-level declaration
-        val declaration = findEnclosingDeclaration(element) ?: return false
+        val declaration =
+            RescriptPsiUtils.findEnclosingDeclaration(element, RescriptPsiUtils.NAVIGABLE_TYPES)
+                ?: return false
         val name = RescriptPsiUtils.extractName(declaration)
         if (name == "(anonymous)" || name == "(unknown)") return false
 
@@ -63,7 +64,9 @@ class RescriptAddToInterfaceIntention : PsiElementBaseIntentionAction() {
             virtualFile.parent?.findChild("${virtualFile.nameWithoutExtension}.resi")
                 ?: return
 
-        val declaration = findEnclosingDeclaration(element) ?: return
+        val declaration =
+            RescriptPsiUtils.findEnclosingDeclaration(element, RescriptPsiUtils.NAVIGABLE_TYPES)
+                ?: return
         val signature = buildSignature(declaration)
 
         val document =
@@ -78,26 +81,6 @@ class RescriptAddToInterfaceIntention : PsiElementBaseIntentionAction() {
     }
 
     companion object {
-        private val DECLARATION_TYPES =
-            setOf(
-                RescriptElementTypes.LET_DECLARATION,
-                RescriptElementTypes.TYPE_DECLARATION,
-                RescriptElementTypes.MODULE_DECLARATION,
-                RescriptElementTypes.EXTERNAL_DECLARATION,
-                RescriptElementTypes.EXCEPTION_DECLARATION,
-            )
-
-        /**
-         * Finds the nearest enclosing top-level declaration for the given element.
-         *
-         * @param element the PSI element at the caret
-         * @return the enclosing declaration, or null if not inside one
-         */
-        internal fun findEnclosingDeclaration(element: PsiElement): PsiElement? =
-            PsiTreeUtil.findFirstParent(element) { el ->
-                el.node?.elementType in DECLARATION_TYPES
-            }
-
         /**
          * Checks whether a declaration with the given name and type exists in the file.
          *

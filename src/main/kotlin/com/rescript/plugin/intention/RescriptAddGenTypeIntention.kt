@@ -6,6 +6,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
  * Intention action that adds a @genType annotation to the current declaration.
@@ -45,21 +46,14 @@ class RescriptAddGenTypeIntention : PsiElementBaseIntentionAction() {
     }
 
     companion object {
-        private val DECLARATION_TYPES =
-            setOf(
-                RescriptElementTypes.LET_DECLARATION,
-                RescriptElementTypes.TYPE_DECLARATION,
-                RescriptElementTypes.MODULE_DECLARATION,
-            )
-
-        fun findParentDeclaration(element: PsiElement): PsiElement? {
-            var current: PsiElement? = element
-            while (current != null) {
-                if (current.node?.elementType in DECLARATION_TYPES) return current
-                current = current.parent
-            }
-            return null
-        }
+        /**
+         * Walks up the PSI tree to find the enclosing annotatable declaration.
+         *
+         * @param element the starting PSI element
+         * @return the enclosing declaration, or null if not inside one
+         */
+        fun findParentDeclaration(element: PsiElement): PsiElement? =
+            RescriptPsiUtils.findEnclosingDeclaration(element, RescriptPsiUtils.ANNOTATION_ELIGIBLE_TYPES)
 
         fun hasGenTypeAnnotation(declaration: PsiElement): Boolean {
             var prev = declaration.prevSibling

@@ -4,8 +4,8 @@ import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
  * Intention action that appends `->ignore` to an expression to discard its result.
@@ -46,26 +46,14 @@ class RescriptAddIgnoreIntention : PsiElementBaseIntentionAction() {
     }
 
     companion object {
-        private val DECLARATION_TYPES =
-            setOf(
-                RescriptElementTypes.LET_DECLARATION,
-                RescriptElementTypes.EXTERNAL_DECLARATION,
-            )
-
         /**
          * Walks up the PSI tree to find the enclosing let or external declaration.
          *
          * @param element the starting PSI element
          * @return the enclosing declaration, or null if not inside one
          */
-        fun findParentDeclaration(element: PsiElement): PsiElement? {
-            var current: PsiElement? = element
-            while (current != null) {
-                if (current.node?.elementType in DECLARATION_TYPES) return current
-                current = current.parent
-            }
-            return null
-        }
+        fun findParentDeclaration(element: PsiElement): PsiElement? =
+            RescriptPsiUtils.findEnclosingDeclaration(element, RescriptPsiUtils.BINDING_TYPES)
 
         /**
          * Checks whether the given text already ends with `->ignore`.
