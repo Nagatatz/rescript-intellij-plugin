@@ -24,9 +24,9 @@
 - [x] Commit Group D
 
 ## Group E: WHITESPACE_REGEX
-- [ ] Create RescriptRunUtils.kt with shared constant
-- [ ] Replace duplicates in 3 run configuration files
-- [ ] Commit Group E
+- [x] Create RescriptRunUtils.kt with shared constant
+- [x] Replace duplicates in 3 run configuration files
+- [x] Commit Group E
 
 ## Finalization
 - [ ] Verify build: ./gradlew clean buildPlugin

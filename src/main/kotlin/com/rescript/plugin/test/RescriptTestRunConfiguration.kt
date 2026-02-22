@@ -15,6 +15,7 @@ import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import com.rescript.plugin.run.RescriptRunUtils
 
 /**
  * Run configuration for executing ReScript tests with Jest, Vitest, or a custom command.
@@ -31,10 +32,6 @@ class RescriptTestRunConfiguration(
     factory: ConfigurationFactory,
     name: String,
 ) : RunConfigurationBase<RescriptTestRunConfigurationOptions>(project, factory, name) {
-    companion object {
-        private val WHITESPACE_REGEX = "\\s+".toRegex()
-    }
-
     override fun getOptions(): RescriptTestRunConfigurationOptions =
         super.getOptions() as RescriptTestRunConfigurationOptions
 
@@ -148,7 +145,7 @@ class RescriptTestRunConfiguration(
         additionalArguments?.let { extra ->
             val trimmed = extra.trim()
             if (trimmed.isNotEmpty()) {
-                args.addAll(trimmed.split(WHITESPACE_REGEX))
+                args.addAll(trimmed.split(RescriptRunUtils.WHITESPACE_REGEX))
             }
         }
 
