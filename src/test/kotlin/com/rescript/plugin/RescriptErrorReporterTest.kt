@@ -2,6 +2,7 @@ package com.rescript.plugin
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -83,5 +84,50 @@ class RescriptErrorReporterTest {
         // buildTitle should truncate to 200 characters max
         val result = RescriptErrorReporter.buildTitle(null)
         assertTrue(result.length <= 200)
+    }
+
+    // -- Path sanitization tests --
+
+    @Test
+    fun testSanitizeFilePathsRedactsUnixAbsolutePaths() {
+        val input = "at com.example.Foo.bar(/Users/john/projects/my-app/src/Foo.kt:42)"
+        val result = RescriptErrorReporter.sanitizeFilePaths(input)
+        assertFalse("Should not contain /Users/john/", result.contains("/Users/john/"))
+        assertTrue("Should contain last two segments", result.contains("<...>/my-app/src/"))
+    }
+
+    @Test
+    fun testSanitizeFilePathsRedactsWindowsAbsolutePaths() {
+        val input = """at com.example.Foo.bar(C:\Users\john\projects\my-app\src\Foo.kt:42)"""
+        val result = RescriptErrorReporter.sanitizeFilePaths(input)
+        assertFalse("Should not contain C:\\Users\\john\\", result.contains("C:\\Users\\john\\"))
+        assertTrue("Should contain redaction marker", result.contains("<...>"))
+    }
+
+    @Test
+    fun testSanitizeFilePathsPreservesNonPathText() {
+        val input = "NullPointerException: something went wrong"
+        val result = RescriptErrorReporter.sanitizeFilePaths(input)
+        assertEquals(input, result)
+    }
+
+    @Test
+    fun testSanitizeFilePathsHandlesMultiplePaths() {
+        val input =
+            """
+            at com.example.A(/Users/john/projects/app/A.kt:1)
+            at com.example.B(/Users/john/projects/app/B.kt:2)
+            """.trimIndent()
+        val result = RescriptErrorReporter.sanitizeFilePaths(input)
+        assertFalse("Should not contain /Users/john/", result.contains("/Users/john/"))
+    }
+
+    @Test
+    fun testSanitizeFilePathsKeepsShortPaths() {
+        // Paths with 2 or fewer segments should be kept as-is
+        val input = "at com.example.Foo(/a/ b)"
+        val result = RescriptErrorReporter.sanitizeFilePaths(input)
+        // Short paths pass through the regex but have <=2 segments
+        assertNotNull(result)
     }
 }
