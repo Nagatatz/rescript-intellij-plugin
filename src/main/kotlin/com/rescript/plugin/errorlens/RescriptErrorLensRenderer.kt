@@ -16,11 +16,15 @@ import java.awt.Rectangle
  * Displays the message text in a color corresponding to the diagnostic
  * severity, with a left-side margin for visual separation from code.
  *
+ * For type mismatch errors, displays a structured format showing
+ * expected and actual types (e.g., "Expected: int | Actual: string").
+ *
  * @property message the diagnostic message to display
  * @property severity the severity level determining the text color
  *
  * @see RescriptErrorLensSeverity for color mapping
  * @see RescriptErrorLensManager for inlay lifecycle management
+ * @see RescriptTypeMismatchParser for type mismatch extraction
  */
 class RescriptErrorLensRenderer(
     val message: String,
@@ -32,10 +36,28 @@ class RescriptErrorLensRenderer(
 
         /** Prefix displayed before the diagnostic message. */
         const val MESSAGE_PREFIX = "  "
+
+        /**
+         * Builds the display text for a diagnostic message.
+         *
+         * If the message contains a type mismatch, returns a structured
+         * format. Otherwise returns the original message with prefix.
+         *
+         * @param message the raw diagnostic message
+         * @return the formatted display text
+         */
+        internal fun buildDisplayText(message: String): String {
+            val mismatch = RescriptTypeMismatchParser.parse(message)
+            return if (mismatch != null) {
+                "$MESSAGE_PREFIX${RescriptTypeMismatchParser.formatMismatch(mismatch)}"
+            } else {
+                "$MESSAGE_PREFIX$message"
+            }
+        }
     }
 
-    /** The full display text including prefix. */
-    val displayText: String = "$MESSAGE_PREFIX$message"
+    /** The full display text including prefix, with type mismatch formatting if applicable. */
+    val displayText: String = buildDisplayText(message)
 
     override fun calcWidthInPixels(inlay: Inlay<*>): Int {
         val editor = inlay.editor
