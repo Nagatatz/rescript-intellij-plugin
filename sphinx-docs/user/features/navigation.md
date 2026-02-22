@@ -157,3 +157,7 @@ External documentation URLs are only available for `Belt.*` and `Js.*` standard 
 ## Breadcrumb Navigation
 
 The editor shows a breadcrumb trail at the top, displaying your current scope path (file → module → function). Click any segment to navigate to that scope.
+
+## Navigation Bar
+
+The navigation bar at the top of the editor displays the structure-aware hierarchy of your current cursor position. It shows top-level declarations (`let`, `type`, `module`, `external`, `exception`) with their icons, leveraging the existing Structure View model for accurate navigation.

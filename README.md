@@ -18,6 +18,7 @@
 - **Line & block comments** — Toggle `//` and `/* */` comments
 - **Spell checking** — Integrated spell checker for comments and strings with bundled ReScript dictionary
 - **Breadcrumb navigation** — Editor breadcrumbs showing current code context
+- **Navigation bar** — Structure-aware navigation bar showing declaration hierarchy
 
 ### Code Intelligence (via LSP)
 

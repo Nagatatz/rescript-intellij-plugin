@@ -179,6 +179,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Parameter Info Handler | Ctrl+P でラベル付き引数をネイティブ UI で表示 | IntelliJ 2025.3+ LSP API で自動サポート |
 | GitHub エラーレポート | 未処理例外の GitHub Issues 自動レポート（ブラウザベース） | `RescriptErrorReporter` |
 | Extract Variable | 式を `let` 束縛に抽出 (Ctrl+Alt+V) | `RescriptRefactoringSupportProvider` + `RescriptExtractVariableHandler` |
+| Navigation Bar Model | ナビゲーションバーにファイル構造表示 | `RescriptStructureAwareNavbar` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
@@ -193,7 +194,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|---------|------|--------|--------|
 | 44 | Call Hierarchy | ナビゲーション | 関数の呼び出し階層ツリー表示 | 高 | B |
-| 47 | Navigation Bar Model | ナビゲーション | ナビゲーションバーにファイル構造表示 | 低〜中 | B |
 | 48 | External Annotator (Format Check) | 分析 | フォーマットチェックの外部アノテーター | 中 | B |
 | 51 | Stub Index | インデキシング | PSI スタブベースのインデックス構築 | 高 | B |
 | 52 | Code Rearranger | その他 | コード要素の自動並べ替え | 中 | B |
