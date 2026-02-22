@@ -169,6 +169,23 @@ In addition to per-file annotations in the editor, you can analyze the entire pr
 
 The global inspection runs a single invocation of `rescript-tools reanalyze -json` and distributes the results across all affected ReScript files in the project.
 
+### Signature Sync Inspection
+
+Detects mismatches between `.res` implementation files and their `.resi` interface files. When a declaration in `.res` is added, removed, or has a different signature than what's declared in `.resi`, the inspection highlights the discrepancy.
+
+**Example** (mismatch detected):
+
+```rescript
+// In Foo.resi:
+let greet: string => string
+
+// In Foo.res:
+let greet = (name: string, greeting: string) => `${greeting}, ${name}!`
+// Warning: signature mismatch with .resi
+```
+
+The inspection helps catch situations where the implementation has diverged from the interface, which would cause compilation errors.
+
 ## Error Lens
 
 Error Lens displays diagnostic messages (errors, warnings, info) as inline annotations at the end of the affected line, providing immediate visibility without needing to hover or check the Problems panel.
@@ -194,6 +211,16 @@ Error Lens can be configured in **Settings** > **Languages & Frameworks** > **Re
 - **Minimum severity** --- Set the minimum severity level to display (e.g., show only errors, or errors and warnings)
 
 Error Lens updates automatically whenever the IDE's code analysis pass completes, so annotations stay in sync with the latest diagnostics.
+
+### Type Mismatch Inline Hints
+
+When a type error involves a mismatch between expected and actual types, Error Lens displays a structured inline hint showing both types side by side:
+
+```
+let x: string = 42    ← Expected: string, Actual: int
+```
+
+This structured display makes it easier to understand type errors at a glance without needing to open the Problems panel or hover over the error.
 
 ## Import Optimization
 
@@ -242,3 +269,45 @@ Available quick fixes include:
 - **Convert deprecated syntax** --- Updates old ReScript syntax to the current version
 
 Quick fixes appear contextually based on the compiler diagnostic at the cursor position. Press `Alt+Enter` to see all available actions, or click the light bulb icon that appears in the editor gutter.
+
+### Unresolved Reference Quick Fix
+
+When an identifier cannot be resolved, the plugin offers quick fixes to resolve it:
+
+- **Add `open` statement** — Insert an `open` statement for the module containing the referenced symbol
+- **Add module qualifier** — Prefix the identifier with its full module path
+
+**Example:**
+
+```rescript
+// "map" is unresolved
+let result = map(arr, fn)
+
+// Quick fix: Add open Belt.Array
+open Belt.Array
+let result = map(arr, fn)
+
+// Or: Add qualifier
+let result = Belt.Array.map(arr, fn)
+```
+
+### Generate Function from Usage
+
+When you call a function that does not exist yet, the plugin can generate a stub function definition. Press `Alt+Enter` on the unresolved function call and choose **Generate function**.
+
+**Before:**
+
+```rescript
+let result = processData(input, config)
+// processData is not defined
+```
+
+**After** (stub function generated):
+
+```rescript
+let processData = (input, config) => {
+  todo
+}
+
+let result = processData(input, config)
+```

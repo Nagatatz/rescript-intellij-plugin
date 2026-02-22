@@ -54,7 +54,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **カラースキーム** (`colorSchemes/`) — Darcula / Default テーマ用の専用配色
 - **rescript.json アイコン** (`config/`) — 設定ファイルへの専用アイコン表示
 - **ビルドステータス** (`statusbar/`) — ステータスバーにコンパイル状態表示
-- **Error Lens** (`errorlens/`) — エディタ行内にインライン診断表示
+- **Error Lens** (`errorlens/`) — エディタ行内にインライン診断表示、型ミスマッチ構造化ヒント（Expected/Actual 型のインライン表示）
 - **JS プレビュー** (`preview/`) — コンパイル済み JS のリアルタイムプレビュー
 - **モジュール階層** (`hierarchy/`) — モジュール依存関係のツリー表示
 - **Project View** (`projectview/`) — コンパイル済み JS のネスト表示・灰色化
@@ -62,7 +62,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析、.resi シグネチャ同期
 - **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション
 - **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
-- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正、ラベル付き引数挿入、Switch ケース統合、Case Split、位置→ラベル引数変換、括弧削除、修飾子削除
+- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正、ラベル付き引数挿入、Switch ケース統合、Case Split、位置→ラベル引数変換、括弧削除、修飾子削除、Pipe⇔関数呼び出し変換、インターフェース公開/非公開
 - **Quick Fix** (`quickfix/`) — 未解決参照の open 追加/修飾子付加、使用箇所からの関数生成
 - **Surround With** (`surround/`) — if/switch/try/block で囲む
 - **Postfix Completion** (`completion/`) — .switch, .pipe, .log, .promise, .await 等
@@ -76,6 +76,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **Unwrap/Remove** (`editor/`) — Some/Ok/Error/if/switch/try/ブレースの除去 (Ctrl+Shift+Delete)
 - **JSX 閉じタグ自動挿入** (`editor/`) — `>` 入力時に閉じタグを自動補完
 - **Context Info** (`editor/`) — スクロール時にトップレベル宣言のヘッダーを固定表示
+- **Go to Implementation** (`navigation/`) — .resi → .res 実装ジャンプ (Ctrl+Alt+B)
 - **Search Everywhere** (`navigation/`) — Shift+Shift でファイル・シンボルの統合検索
 - **Go to Test** (`navigation/`) — 実装⇔テストファイル間のナビゲーション・新規テスト作成 (Ctrl+Shift+T)
 - **Find Usages** (`lang/`) — WordsScanner によるシンボルインデキシング + 使用箇所検索
@@ -91,6 +92,8 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **Run Anything** (`run/`) — Ctrl+Ctrl で ReScript CLI コマンド実行
 - **Expression Type** (`lsp/`) — カーソル位置の式の型を LSP hover で表示 (Ctrl+Shift+P)
 - **パイプチェーン型ヒント** (`lsp/`) — `->` パイプチェーンの中間型をインライン表示
+- **Parameter Info Handler** (`completion/`) — Ctrl+P でラベル付き引数をネイティブ UI で表示
+- **GitHub エラーレポート** — 未処理例外の GitHub Issues 自動レポート（`RescriptErrorReporter`）
 - **Problem Highlight Filter** (`analysis/`) — node_modules 等のハイライト抑制
 
 ## 開発規約

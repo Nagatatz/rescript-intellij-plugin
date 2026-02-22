@@ -77,6 +77,16 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Wrap with `Error(...)` | Wrap expression in `Error()` |
 | Add `@genType` | Add `@genType` annotation to a declaration |
 | Generate doc comment | Insert a `/** */` documentation comment stub above a declaration |
+| Convert pipe to function call | Convert `arr->Array.map(f)` to `Array.map(arr, f)` |
+| Convert function call to pipe | Convert `Array.map(arr, f)` to `arr->Array.map(f)` |
+| Publish to interface | Add a declaration from `.res` to its `.resi` interface file |
+| Unpublish from interface | Remove a declaration from the `.resi` interface file |
+| Insert labeled arguments | Insert all labeled arguments for a function call |
+| Merge switch cases | Merge switch cases with identical bodies into `\| A \| B => body` |
+| Case split | Expand a pattern variable into all constructor cases |
+| Convert to labeled arguments | Convert positional arguments to labeled arguments |
+| Remove unnecessary parentheses | Remove redundant parentheses around expressions |
+| Remove redundant qualifier | Remove unnecessary module path qualifiers |
 
 ### Wrap with Some(...)
 
@@ -197,6 +207,152 @@ let add = (~a: int, ~b: int) => a + b
 let add = (~a: int, ~b: int) => a + b
 ```
 
+### Pipe ⇔ Function Call Conversion
+
+Convert between pipe-first syntax and regular function call syntax. Place the caret on a pipe expression or function call and press `Alt+Enter`.
+
+**Pipe to function call:**
+
+```rescript
+// Before
+arr->Array.map(x => x + 1)
+
+// After
+Array.map(arr, x => x + 1)
+```
+
+**Function call to pipe:**
+
+```rescript
+// Before
+Array.map(arr, x => x + 1)
+
+// After
+arr->Array.map(x => x + 1)
+```
+
+### Publish/Unpublish Interface
+
+Control which declarations are exposed in the `.resi` interface file directly from the `.res` implementation.
+
+**Publish to interface:** Place the caret on a `let`, `type`, `module`, or `external` declaration in a `.res` file and press `Alt+Enter`, then choose **Publish to interface**. The declaration signature is appended to the corresponding `.resi` file.
+
+**Unpublish from interface:** Place the caret on a declaration that exists in the `.resi` file and press `Alt+Enter`, then choose **Unpublish from interface**. The matching declaration is removed from the `.resi` file.
+
+:::{note}
+These intentions require a corresponding `.resi` file to exist. Use **Create Interface File** to generate one first if needed.
+:::
+
+### Insert Labeled Arguments
+
+When calling a function with labeled arguments, place the caret inside the function call parentheses and press `Alt+Enter`, then choose **Insert labeled arguments**. All labeled arguments are inserted as named parameters.
+
+**Before:**
+
+```rescript
+makeUser()
+```
+
+**After:**
+
+```rescript
+makeUser(~name, ~age, ~role)
+```
+
+### Merge Switch Cases
+
+When multiple switch cases have identical bodies, place the caret on one of them and press `Alt+Enter`, then choose **Merge switch cases**. The cases are combined into a single arm with multiple patterns.
+
+**Before:**
+
+```rescript
+switch status {
+| Active => "valid"
+| Pending => "valid"
+| Inactive => "invalid"
+}
+```
+
+**After:**
+
+```rescript
+switch status {
+| Active | Pending => "valid"
+| Inactive => "invalid"
+}
+```
+
+### Case Split
+
+Expand a pattern match variable into all possible constructor cases. Place the caret on a variable pattern in a switch arm and press `Alt+Enter`, then choose **Case split**.
+
+**Before:**
+
+```rescript
+switch option {
+| x => handle(x)
+}
+```
+
+**After:**
+
+```rescript
+switch option {
+| Some(value) => handle(Some(value))
+| None => handle(None)
+}
+```
+
+### Convert to Labeled Arguments
+
+Convert positional function arguments to labeled arguments. Place the caret on a function call and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+makeUser("Alice", 30, "admin")
+```
+
+**After:**
+
+```rescript
+makeUser(~name="Alice", ~age=30, ~role="admin")
+```
+
+### Remove Unnecessary Parentheses
+
+Remove redundant parentheses around expressions. Place the caret on a parenthesized expression and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+let x = (a + b)
+```
+
+**After:**
+
+```rescript
+let x = a + b
+```
+
+### Remove Redundant Qualifier
+
+Remove unnecessary module path qualifiers when the module is already opened. Place the caret on a qualified identifier and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+open Belt.Array
+Belt.Array.map(arr, fn)
+```
+
+**After:**
+
+```rescript
+open Belt.Array
+map(arr, fn)
+```
+
 ## Surround With
 
 Select code and press `Ctrl+Alt+T` to surround it with:
@@ -300,6 +456,7 @@ Press `Cmd+N` (or `Alt+Insert`) to open the Generate menu:
 
 - **Generate Switch Arms** — Auto-generate match arms for a variant type
 - **Generate Module Type** — Generate a module type skeleton from a module implementation
+- **Generate Make Function** — Generate a constructor function from a record type
 
 ### Generate Switch Arms
 
@@ -390,6 +547,40 @@ module StringUtils = {
 ```
 
 The generated type uses `'a` as a placeholder for value types -- replace these with the actual type signatures. Type declarations appear without their definition body so you can specify the exposed type shape. Nested modules are listed with an empty `{}` signature for you to fill in.
+
+### Generate Make Function
+
+When your caret is inside a record type declaration, this action generates a `make` constructor function with labeled arguments for each record field.
+
+Place your caret inside the type declaration and press `Cmd+N` (or `Alt+Insert`), then choose **Make Function**.
+
+**Before:**
+
+```rescript
+type user = {
+  name: string,
+  age: int,
+  email: string,
+}
+```
+
+**After** (make function inserted below the type declaration):
+
+```rescript
+type user = {
+  name: string,
+  age: int,
+  email: string,
+}
+
+let make = (~name, ~age, ~email) => {
+  name,
+  age,
+  email,
+}
+```
+
+Optional fields (e.g., `email?: string`) are generated as optional labeled arguments (`~email=?`).
 
 ## Spellchecking
 

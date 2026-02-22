@@ -18,6 +18,35 @@ paths:
 - `.steering/` のディレクトリ名は `[YYYYMMDD]-[NNN]-[開発タイトル]` で識別する
 - 永続的ドキュメントと作業単位のドキュメントを混同しない
 
+## 機能実装時のドキュメント更新
+
+**以下は強制的な行動指示であり、例外なく従うこと。**
+
+コードの変更を伴う機能実装・バグ修正を行う場合、以下のドキュメントを同時に更新すること:
+
+| ドキュメント | 更新対象 | 必須/任意 |
+|-------------|---------|----------|
+| `CLAUDE.md` | アーキテクチャセクション（レイヤー 3: IDE 統合機能） | 必須 |
+| `README.md` | Features セクション（該当カテゴリ） | 必須 |
+| `sphinx-docs/user/features/` | 該当する機能ページ | 必須 |
+| `docs/product-requirements.md` | 実装済み機能セクション（ロードマップから移動） | 必須（ロードマップ記載機能の場合） |
+
+### 更新タイミング
+
+- ドキュメント更新は **該当機能のコミットに含める**（機能コード + テスト + ドキュメント更新 = 1コミット）
+- または、全機能実装後に **1つのドキュメント更新コミット** としてまとめてもよい
+- tasklist.md にドキュメント更新タスクを必ず含めること
+
+### Sphinx ドキュメントの配置
+
+| 機能カテゴリ | ファイル |
+|-------------|---------|
+| ナビゲーション | `sphinx-docs/user/features/navigation.md` |
+| コード補完・テンプレート・Signature Help | `sphinx-docs/user/features/code-completion.md` |
+| コード編集・Intention・Generate・Surround | `sphinx-docs/user/features/code-editing.md` |
+| コード分析・Inspection・Quick Fix・Error Lens | `sphinx-docs/user/features/code-analysis.md` |
+| その他（ツールウィンドウ、プロジェクト統合等） | `sphinx-docs/user/features/advanced.md` |
+
 ## 図表・ダイアグラム
 
 **図表を作成・更新する場合は draw.io MCP ツールを使用すること。** ASCII アートや Markdown Mermaid コードブロックでの図表作成は禁止。ツール選択の詳細は `.claude/rules/diagram-rules.md` を参照。

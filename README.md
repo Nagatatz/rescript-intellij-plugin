@@ -35,6 +35,11 @@
 - **Usage type classification** — Categorized Find Usages results (open, type, pipe, JSX, etc.)
 - **Safe Delete** — Usage-checking safe delete refactoring (`Refactor > Safe Delete`)
 - **Name suggestions** — Type-based and filename-based name suggestions during rename
+- **Completion Weigher** — Context-based prioritization of completion candidates
+- **Pipe chain type hints** — Inline intermediate type display for `->` pipe chains
+- **Parameter Info** — Native parameter info popup for labeled arguments (`Ctrl+P`)
+- **Unresolved reference Quick Fix** — Add `open` or qualify unresolved references
+- **Generate function from usage** — Create stub functions from call sites
 
 ### Navigation
 
@@ -42,6 +47,8 @@
 - **Structure view** — Navigate module, function, and type declarations
 - **Switch .res/.resi** — Toggle between implementation and interface files (`Alt+O`)
 - **Go to Related** — Jump between `.res`, `.resi`, and compiled `.js` files
+- **Go to Implementation** — Jump from `.resi` interface to `.res` implementation (`Ctrl+Alt+B`)
+- **Search Everywhere** — Unified search for files, symbols, and actions (`Shift+Shift`)
 - **Go to Test** — Navigate between implementation and test files, create test boilerplate (`Ctrl+Shift+T`)
 - **Open Compiled JavaScript** — View compiled JS output (`Alt+Shift+J`)
 - **Create Interface File** — Generate `.resi` from current `.res` file
@@ -55,11 +62,11 @@
 
 - **Live Templates** — 21 code snippets with ReScript-aware context (`let`, `mod`, `sw`, `pipe`, `log`, `@module`, `@val`, `comp`, etc.)
 - **Postfix Completion** — `.switch`, `.pipe`, `.log`, `.promise`, `.await` and more
-- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment
+- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, convert to labeled args, remove unnecessary parentheses, remove redundant qualifier
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
 - **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
-- **Generate actions** — Generate switch arms and module types (`Cmd+N`)
+- **Generate actions** — Generate switch arms, module types, and make functions (`Cmd+N`)
 - **Statement mover** — Move declarations up/down (`Alt+Shift+Up/Down`)
 - **Smart Enter** — Insert new line with correct indentation (`Shift+Enter`)
 - **Comment continuation** — Auto-continue `//` and `/** */` comments on Enter
@@ -77,7 +84,8 @@
 
 ### Code Analysis & Inspections
 
-- **Error Lens** — Inline diagnostic messages at end of editor lines (configurable severity)
+- **Error Lens** — Inline diagnostic messages at end of editor lines (configurable severity) with structured type mismatch hints
+- **Signature sync inspection** — Detect `.res`/`.resi` signature mismatches
 - **Import optimizer** — Auto-detect and remove unused/duplicate `open` statements
 - **Dead code analysis** — Detect unused code via `reanalyze` integration
 - **Duplicate open detection** — Warn on duplicate `open` statements
@@ -123,6 +131,7 @@
 - **Predefined code style** — "ReScript Standard" preset code style
 - **Element descriptions** — Enhanced element descriptions in refactoring dialogs
 - **Lookup char filter** — Smart character filtering for completion item selection
+- **GitHub error reporter** — Automatic error reporting to GitHub Issues for unhandled exceptions
 
 ## Requirements
 

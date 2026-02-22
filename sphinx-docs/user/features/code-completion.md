@@ -448,6 +448,85 @@ You can customize all ReScript live templates at **Settings** | **Editor** | **L
 - Change the abbreviation trigger text
 - Disable templates you do not use
 
+## Completion Weigher
+
+The plugin provides context-based prioritization of completion candidates, ensuring that the most relevant suggestions appear first in the completion popup.
+
+### How It Works
+
+When the Language Server returns completion candidates, the Completion Weigher re-orders them based on contextual signals:
+
+- **Locality** --- Symbols defined in the current file or module are prioritized over external imports
+- **Type compatibility** --- Candidates whose types match the expected type at the insertion point are boosted
+- **Recency** --- Recently used completions are ranked higher
+- **Pipe context** --- In a `->` pipe chain, functions whose first parameter matches the pipe input type are prioritized
+
+This means that when you trigger completion, you typically see the most useful candidates at the top of the list without needing to scroll or type additional filter characters.
+
+### Example
+
+```rescript
+let names: array<string> = ["Alice", "Bob", "Charlie"]
+
+names->  // Completion popup prioritizes Array functions:
+         // Array.map, Array.filter, Array.forEach, ...
+         // over unrelated functions like String.length
+```
+
+## Pipe Chain Type Hints
+
+When writing `->` pipe chains, the plugin displays intermediate type hints between each pipe step, making it easy to understand the data flow through a chain of transformations.
+
+### Example
+
+```rescript
+users                          // : array<user>
+->Array.filter(u => u.active)  // : array<user>
+->Array.map(u => u.name)       // : array<string>
+->Array.sort(String.compare)   // : array<string>
+->Array.length                 // : int
+```
+
+Each inlay hint shows the type of the expression at that point in the chain, so you can trace how the data is transformed at every step.
+
+### Configuration
+
+Pipe chain type hints are displayed as inlay hints. Configure their visibility in **Settings** > **Editor** > **Inlay Hints** > **ReScript**.
+
+### Requirements
+
+This feature requires the Language Server to be running, as the type information is fetched via LSP hover requests for each intermediate expression in the pipe chain.
+
+## Parameter Info
+
+Press `Ctrl+P` (`Cmd+P` on macOS) inside a function call to display labeled argument information in a native IDE popup.
+
+### How It Works
+
+When you invoke Parameter Info inside the parentheses of a function call, the plugin requests hover information from the Language Server and parses the function signature to extract labeled arguments. The result is displayed in a native popup that highlights the current parameter position.
+
+### Example
+
+```rescript
+let makeConfig = (~host: string, ~port: int, ~debug: bool=?) => {
+  // ...
+}
+
+makeConfig(~host="localhost", | )
+//                             ^ Ctrl+P here shows:
+//                               ~host: string, ~port: int, ~debug: bool=?
+//                               with ~port highlighted as the next expected argument
+```
+
+### Difference from Signature Help
+
+| Feature | Trigger | Source |
+|---------|---------|--------|
+| **Signature Help** | Automatic on `(` | LSP `textDocument/signatureHelp` |
+| **Parameter Info** | Manual via `Ctrl+P` | LSP `textDocument/hover` + argument parsing |
+
+Parameter Info is useful when you want to check the expected arguments after the initial signature help popup has dismissed, or when you navigate back to an existing function call.
+
 ## Signature Help
 
 When you type `(` after a function name, a popup shows the function's parameter information including types and names. This helps you fill in arguments correctly without checking the documentation.
