@@ -159,6 +159,19 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Quick Documentation | PSI ベースのフォールバックドキュメント (Ctrl+Q / hover) | `RescriptDocumentationProvider` (generateDoc/generateHoverDoc) |
 | Safe Delete | 使用箇所チェック付き Safe Delete (Refactor > Safe Delete) | `RescriptSafeDeleteProcessor` |
 | Name Suggestion | リネーム時の名前候補提案（型・ファイル名ベース） | `RescriptNameSuggestionProvider` |
+| Search Everywhere | Shift+Shift でファイル・シンボルの統合検索 | `RescriptSearchEverywhereContributor` |
+| Unresolved Reference Quick Fix | 未解決参照に対する open 追加/修飾子付加クイックフィックス (Alt+Enter) | `RescriptAddOpenQuickFix` + `RescriptQualifyReferenceQuickFix` |
+| Completion Weigher | コンテキストベースの補完候補重み付け | `RescriptCompletionWeigher` |
+| パイプチェーン中間型ヒント | `->` パイプチェーンの各ステップで中間型をインライン表示 | `RescriptPipeChainTypeHintsProvider` |
+| ラベル付き引数の一括挿入 | 関数のラベル付き引数を一括で挿入 (Alt+Enter) | `RescriptInsertLabeledArgsIntention` |
+| Make 関数生成 | レコード型からコンストラクタ関数を自動生成 (Cmd+N) | `RescriptGenerateMakeAction` |
+| Switch ケース統合 | 同じボディの switch ケースを `\| A \| B => body` に統合 (Alt+Enter) | `RescriptMergeSwitchCasesIntention` |
+| 使用箇所からの関数生成 | 未定義関数の使用箇所からスタブ関数を生成 (Alt+Enter) | `RescriptGenerateFunctionQuickFix` |
+| .resi シグネチャ同期 | `.res` と `.resi` の宣言シグネチャ不一致を検出 | `RescriptSignatureSyncInspection` |
+| ケースの変数分割 | パターンマッチの変数を全コンストラクタに展開 (Alt+Enter) | `RescriptCaseSplitIntention` |
+| 位置引数→ラベル付き引数変換 | `foo(1, "hello")` → `foo(~id=1, ~name="hello")` の変換 (Alt+Enter) | `RescriptConvertToLabeledArgsIntention` |
+| 不要な括弧の削除 | 式を囲む不要な括弧を自動削除 (Alt+Enter) | `RescriptRemoveParenthesesIntention` |
+| 不要な修飾子の削除 | モジュールパスの冗長な修飾子を削除 (Alt+Enter) | `RescriptRemoveQualifierIntention` |
 | Go to Implementation | .resi → .res の実装宣言ジャンプ (Ctrl+Alt+B) | `RescriptGotoImplementationAction` |
 | Pipe ⇔ 関数呼び出し変換 | `arr->Array.map(f)` ⇔ `Array.map(arr, f)` の相互変換 (Alt+Enter) | `RescriptConvertPipeToFunctionCallIntention` + `RescriptConvertFunctionCallToPipeIntention` |
 | インターフェース公開/非公開 | `.res` の宣言を `.resi` に追加/削除して公開を制御 (Alt+Enter) | `RescriptAddToInterfaceIntention` + `RescriptRemoveFromInterfaceIntention` |
@@ -168,29 +181,16 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、55件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り54件を A/B/C の3段階で優先度付けする。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、68件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り41件を B/C の2段階で優先度付けする。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（54件）
+#### 未実装機能一覧（41件）
 
 テーブルフォーマットの定義は `.claude/rules/roadmap-format.md` を参照。
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|---------|------|--------|--------|
-| 46 | Search Everywhere | ナビゲーション | ファイル・クラス・シンボルの統合検索 | 中 | A |
-| 49 | Unresolved Reference Quick Fix | Quick Fix | 未解決参照に対するクイックフィックス | 中〜高 | A |
-| 50 | Completion Weigher | 補完 | 補完候補の重み付けカスタマイズ | 中 | A |
-| 74 | パイプチェーン中間型ヒント | InlayHints | パイプチェーンの各ステップで中間型をインライン表示 | 中 | A |
-| 75 | ラベル付き引数の一括挿入 | Intention | 関数のラベル付き引数を一括で挿入 | 中 | A |
-| 77 | Make 関数生成 | Generate | レコード型からコンストラクタ関数を自動生成 | 中 | A |
-| 78 | Switch ケース統合 | Intention | 同じボディの switch ケースを `\| A \| B => body` に統合 | 中 | A |
-| 89 | 使用箇所からの関数生成 | Quick Fix | 未定義関数の使用箇所からスタブ関数を生成 | 中〜高 | A |
-| 94 | .resi シグネチャ同期 | Editor | `.res` の宣言変更を `.resi` に自動同期 | 中 | A |
-| 95 | ケースの変数分割 | Intention | パターンマッチの変数を全コンストラクタに展開 (Case Split) | 中 | A |
-| 98 | 位置引数→ラベル付き引数 | Intention | `foo(1, "hello")` → `foo(~id=1, ~name="hello")` の変換 | 中 | A |
-| 100 | 不要な括弧の削除 | Intention | 式を囲む不要な括弧を自動削除 | 中 | A |
-| 101 | 不要な修飾子の削除 | Intention | モジュールパスの冗長な修飾子を削除 | 中 | A |
 | 43 | Extract Variable | リファクタリング | 式を変数に抽出 | 高 | B |
 | 44 | Call Hierarchy | ナビゲーション | 関数の呼び出し階層ツリー表示 | 高 | B |
 | 47 | Navigation Bar Model | ナビゲーション | ナビゲーションバーにファイル構造表示 | 低〜中 | B |

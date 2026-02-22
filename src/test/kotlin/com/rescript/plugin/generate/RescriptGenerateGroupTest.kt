@@ -8,9 +8,9 @@ class RescriptGenerateGroupTest {
     private val group = RescriptGenerateGroup()
 
     @Test
-    fun `getChildren returns two actions`() {
+    fun `getChildren returns three actions`() {
         val children = group.getChildren(null)
-        assertEquals(2, children.size)
+        assertEquals(3, children.size)
     }
 
     @Test
@@ -32,12 +32,22 @@ class RescriptGenerateGroupTest {
     }
 
     @Test
+    fun `getChildren contains RescriptGenerateMakeAction`() {
+        val children = group.getChildren(null)
+        assertTrue(
+            "Third action should be RescriptGenerateMakeAction",
+            children[2] is RescriptGenerateMakeAction,
+        )
+    }
+
+    @Test
     fun `getChildren returns same array on multiple calls`() {
         val first = group.getChildren(null)
         val second = group.getChildren(null)
         // The actions array is a stored field, so the same instances should be returned
         assertTrue(first[0] === second[0])
         assertTrue(first[1] === second[1])
+        assertTrue(first[2] === second[2])
     }
 
     @Test

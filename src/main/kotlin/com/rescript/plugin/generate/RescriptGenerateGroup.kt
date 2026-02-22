@@ -17,6 +17,7 @@ class RescriptGenerateGroup : ActionGroup() {
         arrayOf(
             RescriptGenerateSwitchAction(),
             RescriptGenerateModuleTypeAction(),
+            RescriptGenerateMakeAction(),
         )
 
     override fun getChildren(e: AnActionEvent?): Array<AnAction> = actions
