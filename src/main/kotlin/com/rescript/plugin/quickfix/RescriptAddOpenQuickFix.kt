@@ -5,6 +5,7 @@ import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.rescript.plugin.imports.RescriptImportUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
@@ -55,7 +56,7 @@ class RescriptAddOpenQuickFix : PsiElementBaseIntentionAction() {
         val moduleName = element.text
 
         // Find the last open statement to insert after it
-        val insertOffset = findOpenInsertOffset(text)
+        val insertOffset = RescriptImportUtil.findOpenInsertOffset(text)
 
         // Find the dot after the module name and remove "Module."
         val endOffset = element.textRange.endOffset
@@ -74,36 +75,8 @@ class RescriptAddOpenQuickFix : PsiElementBaseIntentionAction() {
 
     companion object {
         /**
-         * Finds the offset where a new open statement should be inserted.
-         *
-         * Inserts after the last existing open statement, or at the top of the file
-         * after any leading comments.
-         *
-         * @param text the document text
-         * @return the insertion offset
+         * @see RescriptImportUtil.findOpenInsertOffset
          */
-        internal fun findOpenInsertOffset(text: String): Int {
-            // Find the last "open" statement
-            val openPattern = Regex("""(?m)^open\s+\S+""")
-            val matches = openPattern.findAll(text).toList()
-            if (matches.isNotEmpty()) {
-                val lastMatch = matches.last()
-                val lineEnd = text.indexOf('\n', lastMatch.range.last)
-                return if (lineEnd >= 0) lineEnd + 1 else text.length
-            }
-
-            // No open statements found; insert after leading comments/blank lines
-            val lines = text.lines()
-            var offset = 0
-            for (line in lines) {
-                val trimmed = line.trim()
-                if (trimmed.isEmpty() || trimmed.startsWith("//") || trimmed.startsWith("/*")) {
-                    offset += line.length + 1
-                } else {
-                    break
-                }
-            }
-            return offset
-        }
+        internal fun findOpenInsertOffset(text: String): Int = RescriptImportUtil.findOpenInsertOffset(text)
     }
 }

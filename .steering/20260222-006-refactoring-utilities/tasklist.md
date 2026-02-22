@@ -18,10 +18,10 @@
 - [x] Commit Group C
 
 ## Group D: Open Statement Regex
-- [ ] Add OPEN_PATTERN and helpers to RescriptImportUtil.kt
-- [ ] Add tests for new helpers
-- [ ] Replace duplicates in 3 source files
-- [ ] Commit Group D
+- [x] Add OPEN_PATTERN and helpers to RescriptImportUtil.kt
+- [x] Add tests for new helpers
+- [x] Replace duplicates in 3 source files
+- [x] Commit Group D
 
 ## Group E: WHITESPACE_REGEX
 - [ ] Create RescriptRunUtils.kt with shared constant
