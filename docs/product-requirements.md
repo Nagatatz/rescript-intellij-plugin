@@ -159,25 +159,25 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Quick Documentation | PSI ベースのフォールバックドキュメント (Ctrl+Q / hover) | `RescriptDocumentationProvider` (generateDoc/generateHoverDoc) |
 | Safe Delete | 使用箇所チェック付き Safe Delete (Refactor > Safe Delete) | `RescriptSafeDeleteProcessor` |
 | Name Suggestion | リネーム時の名前候補提案（型・ファイル名ベース） | `RescriptNameSuggestionProvider` |
+| Go to Implementation | .resi → .res の実装宣言ジャンプ (Ctrl+Alt+B) | `RescriptGotoImplementationAction` |
+| Pipe ⇔ 関数呼び出し変換 | `arr->Array.map(f)` ⇔ `Array.map(arr, f)` の相互変換 (Alt+Enter) | `RescriptConvertPipeToFunctionCallIntention` + `RescriptConvertFunctionCallToPipeIntention` |
+| インターフェース公開/非公開 | `.res` の宣言を `.resi` に追加/削除して公開を制御 (Alt+Enter) | `RescriptAddToInterfaceIntention` + `RescriptRemoveFromInterfaceIntention` |
+| 型ミスマッチインラインヒント | 型エラー箇所に Expected/Actual 型を構造化してインライン表示 | `RescriptTypeMismatchParser` + `RescriptErrorLensRenderer` 拡張 |
+| Parameter Info Handler | Ctrl+P でラベル付き引数をネイティブ UI で表示 | IntelliJ 2025.3+ LSP API で自動サポート |
+| GitHub エラーレポート | 未処理例外の GitHub Issues 自動レポート（ブラウザベース） | `RescriptErrorReporter` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、49件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り60件を S/A/B/C の4段階で優先度付けする。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、55件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り54件を A/B/C の3段階で優先度付けする。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（60件）
+#### 未実装機能一覧（54件）
 
 テーブルフォーマットの定義は `.claude/rules/roadmap-format.md` を参照。
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|---------|------|--------|--------|
-| 45 | Go to Implementation | ナビゲーション | インターフェースから実装へのジャンプ | 中 | S |
-| 70 | Pipe ⇔ 関数呼び出し変換 | Intention | `arr->Array.map(f)` ⇔ `Array.map(arr, f)` の相互変換 | 中 | S |
-| 76 | インターフェース公開/非公開 | Intention | `.res` の関数を `.resi` に追加/削除して公開を制御 | 中 | S |
-| 83 | 型ミスマッチインラインヒント | InlayHints | 型エラー箇所に expected/actual 型をインライン表示 | 中 | S |
-| 84 | Parameter Info Handler | 補完 | Ctrl+P でラベル付き引数をネイティブ UI で表示 | 中 | S |
-| 110 | GitHub エラーレポート | インフラ | 未処理例外の GitHub Issues 自動レポート（ブラウザベース） | 低 | S |
 | 46 | Search Everywhere | ナビゲーション | ファイル・クラス・シンボルの統合検索 | 中 | A |
 | 49 | Unresolved Reference Quick Fix | Quick Fix | 未解決参照に対するクイックフィックス | 中〜高 | A |
 | 50 | Completion Weigher | 補完 | 補完候補の重み付けカスタマイズ | 中 | A |

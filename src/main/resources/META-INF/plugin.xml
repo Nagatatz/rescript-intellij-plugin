@@ -278,6 +278,30 @@
             <className>com.rescript.plugin.intention.RescriptFixIdentifierCaseIntention</className>
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptConvertPipeToFunctionCallIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptConvertFunctionCallToPipeIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptAddToInterfaceIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptRemoveFromInterfaceIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
 
         <!-- Decorator/Attribute Completion -->
         <completion.contributor language="ReScript"
@@ -512,6 +536,10 @@
         <!-- Name suggestions during rename refactoring -->
         <nameSuggestionProvider
                 implementation="com.rescript.plugin.refactor.RescriptNameSuggestionProvider"/>
+
+        <!-- Error report handler (opens GitHub issue in browser) -->
+        <errorHandler
+                implementation="com.rescript.plugin.RescriptErrorReporter"/>
     </extensions>
 
     <actions>
@@ -526,6 +554,13 @@
                 class="com.rescript.plugin.navigation.RescriptCreateInterfaceAction"
                 text="Create Interface File"
                 description="Generate .resi from current .res file">
+            <add-to-group group-id="GoToMenu" anchor="last"/>
+        </action>
+        <action id="ReScript.GotoImplementation"
+                class="com.rescript.plugin.navigation.RescriptGotoImplementationAction"
+                text="Go to Implementation"
+                description="Navigate from .resi interface to .res implementation">
+            <keyboard-shortcut first-keystroke="control alt B" keymap="$default"/>
             <add-to-group group-id="GoToMenu" anchor="last"/>
         </action>
         <action id="ReScript.NewFile"
