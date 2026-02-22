@@ -27,10 +27,6 @@ class RescriptRunConfiguration(
     factory: ConfigurationFactory,
     name: String,
 ) : RunConfigurationBase<RescriptRunConfigurationOptions>(project, factory, name) {
-    companion object {
-        private val WHITESPACE_REGEX = "\\s+".toRegex()
-    }
-
     override fun getOptions(): RescriptRunConfigurationOptions = super.getOptions() as RescriptRunConfigurationOptions
 
     var command: String
@@ -86,7 +82,7 @@ class RescriptRunConfiguration(
                 additionalArguments?.let { args ->
                     val trimmed = args.trim()
                     if (trimmed.isNotEmpty()) {
-                        cmd.addParameters(trimmed.split(WHITESPACE_REGEX))
+                        cmd.addParameters(trimmed.split(RescriptRunUtils.WHITESPACE_REGEX))
                     }
                 }
 

@@ -18,6 +18,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFileManager
+import com.rescript.plugin.run.RescriptRunUtils
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Path
 
@@ -37,7 +38,6 @@ class RescriptDebugRunConfiguration(
     name: String,
 ) : RunConfigurationBase<RescriptDebugRunConfigurationOptions>(project, factory, name) {
     companion object {
-        private val WHITESPACE_REGEX = "\\s+".toRegex()
         private val JS_SUFFIXES = listOf(".bs.js", ".mjs", ".js")
     }
 
@@ -116,7 +116,7 @@ class RescriptDebugRunConfiguration(
                 nodeArgs?.let { args ->
                     val trimmed = args.trim()
                     if (trimmed.isNotEmpty()) {
-                        cmd.addParameters(trimmed.split(WHITESPACE_REGEX))
+                        cmd.addParameters(trimmed.split(RescriptRunUtils.WHITESPACE_REGEX))
                     }
                 }
 
