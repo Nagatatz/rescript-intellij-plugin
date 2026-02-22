@@ -8,9 +8,9 @@ class RescriptGenerateGroupTest {
     private val group = RescriptGenerateGroup()
 
     @Test
-    fun `getChildren returns three actions`() {
+    fun `getChildren returns four actions`() {
         val children = group.getChildren(null)
-        assertEquals(3, children.size)
+        assertEquals(4, children.size)
     }
 
     @Test
@@ -41,6 +41,15 @@ class RescriptGenerateGroupTest {
     }
 
     @Test
+    fun `getChildren contains RescriptGenerateJsonCodecAction`() {
+        val children = group.getChildren(null)
+        assertTrue(
+            "Fourth action should be RescriptGenerateJsonCodecAction",
+            children[3] is RescriptGenerateJsonCodecAction,
+        )
+    }
+
+    @Test
     fun `getChildren returns same array on multiple calls`() {
         val first = group.getChildren(null)
         val second = group.getChildren(null)
@@ -48,6 +57,7 @@ class RescriptGenerateGroupTest {
         assertTrue(first[0] === second[0])
         assertTrue(first[1] === second[1])
         assertTrue(first[2] === second[2])
+        assertTrue(first[3] === second[3])
     }
 
     @Test

@@ -115,7 +115,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Qualified Name Copy | Cmd+Shift+Alt+C で完全修飾名コピー | `RescriptQualifiedNameProvider` |
 | Smart Enter | Shift+Enter で文を補完して改行（括弧閉じ、switch ブレース補完等） | `RescriptSmartEnterProcessor` |
 | Project Wizard | New Project ダイアログから 12 種類のプロジェクトテンプレート選択・作成（Basic, Vite+React, Next.js, Electron, Hono, CF Workers, Lambda, Cloud Run, React Native, npm Library, CLI Tool, Monorepo） | `RescriptModuleBuilder` + `RescriptProjectWizardStep` + `ProjectTemplate` + `ProjectFileBuilders` + `templates/*` |
-| Code Generation | variant switch arms / module type スケルトン自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` |
+| Code Generation | variant switch arms / module type スケルトン / make 関数 / JSON エンコーダ・デコーダ自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` + `RescriptJsonCodeGenerator` |
 | .d.ts → ReScript Binding 生成 | TypeScript `.d.ts` 定義ファイルから ReScript `external` バインディングコードを自動生成 | `DtsGenerateBindingAction` + `DtsToRescriptConverter` |
 | Bundled Dictionary | ReScript 固有用語（genType, Belt, functor 等）のスペルチェック辞書 | `RescriptBundledDictionaryProvider` + `rescript.dic` |
 | Test Source Filter | `*_test.res`、`*.test.res`、`__tests__/` ディレクトリの自動テストファイル認識 | `RescriptTestSourcesFilter` |
@@ -184,11 +184,11 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、71件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度3件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り38件を B/C の2段階で優先度付けする。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、72件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度4件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り37件を B/C の2段階で優先度付けする。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（38件）
+#### 未実装機能一覧（37件）
 
 テーブルフォーマットの定義は `.claude/rules/roadmap-format.md` を参照。
 
@@ -199,7 +199,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | 52 | Code Rearranger | その他 | コード要素の自動並べ替え | 中 | B |
 | 54 | IntelliLang | インジェクション | IntelliLang 連携による言語インジェクション強化 | 低〜中 | B |
 | 56 | Framework Detector | プロジェクトビュー | ReScript フレームワークの自動検出 | 中 | B |
-| 81 | JSON エンコーダ/デコーダ生成 | Generate | JSON のエンコーダ/デコーダコードを自動生成 | 中〜高 | B |
 | 82 | 分割代入の導入/解除 | Intention | let バインディングの分割代入を導入・解除 | 中 | B |
 | 85 | 型注釈一括追加 | Intention | 推論された型注釈を一括で明示化 | 中 | B |
 | 93 | 常時型表示パネル | ToolWindow | カーソル位置の式の型を常時表示するツールウィンドウ | 中 | B |
