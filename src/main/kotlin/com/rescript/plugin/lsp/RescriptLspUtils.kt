@@ -2,10 +2,12 @@ package com.rescript.plugin.lsp
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerManager
 import org.eclipse.lsp4j.HoverParams
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.TextDocumentIdentifier
+import java.net.URI
 
 /**
  * Shared utility functions for interacting with the ReScript LSP server.
@@ -18,6 +20,46 @@ import org.eclipse.lsp4j.TextDocumentIdentifier
  * @see RescriptExpressionTypeProvider
  */
 object RescriptLspUtils {
+    /**
+     * Returns the first ReScript LSP server for the given project, or null if unavailable.
+     *
+     * @param project the current project
+     * @return the first available LSP server, or null
+     */
+    @Suppress("UnstableApiUsage")
+    fun getServer(project: Project): LspServer? =
+        LspServerManager
+            .getInstance(project)
+            .getServersForProvider(RescriptLspServerSupportProvider::class.java)
+            .firstOrNull()
+
+    /**
+     * Converts a VirtualFile to an LSP-compatible file URI string.
+     *
+     * @param file the virtual file to convert
+     * @return the file URI string (e.g., "file:///path/to/file.res")
+     */
+    fun toLspUri(file: VirtualFile): String =
+        file.url.let { url ->
+            if (url.startsWith("file://")) url else "file://${file.path}"
+        }
+
+    /**
+     * Converts an LSP file URI to an IntelliJ VFS-compatible URL.
+     *
+     * Normalizes URIs like "file:///path" through java.net.URI parsing.
+     *
+     * @param uri the LSP file URI string
+     * @return the VFS-compatible URL string
+     */
+    fun lspUriToVfsUrl(uri: String): String =
+        try {
+            val parsed = URI(uri)
+            "file://${parsed.path}"
+        } catch (_: Exception) {
+            uri
+        }
+
     /**
      * Retrieves the type string for a given position via LSP hover.
      *
@@ -32,13 +74,7 @@ object RescriptLspUtils {
         offset: Int,
     ): String? {
         try {
-            @Suppress("UnstableApiUsage")
-            val servers =
-                LspServerManager
-                    .getInstance(project)
-                    .getServersForProvider(RescriptLspServerSupportProvider::class.java)
-
-            val server = servers.firstOrNull() ?: return null
+            val server = getServer(project) ?: return null
 
             val document =
                 com.intellij.openapi.fileEditor.FileDocumentManager
@@ -48,10 +84,7 @@ object RescriptLspUtils {
             val lineNumber = document.getLineNumber(offset)
             val column = offset - document.getLineStartOffset(lineNumber)
 
-            val uri =
-                file.url.let { url ->
-                    if (url.startsWith("file://")) url else "file://${file.path}"
-                }
+            val uri = toLspUri(file)
 
             val params =
                 HoverParams(

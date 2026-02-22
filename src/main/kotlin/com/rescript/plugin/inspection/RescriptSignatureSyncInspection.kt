@@ -75,16 +75,12 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
 
             // Delegate to the existing CreateInterface action via LSP
             try {
-                @Suppress("UnstableApiUsage")
-                val servers =
-                    com.intellij.platform.lsp.api.LspServerManager
-                        .getInstance(project)
-                        .getServersForProvider(
-                            com.rescript.plugin.lsp.RescriptLspServerSupportProvider::class.java,
-                        )
-
-                val server = servers.firstOrNull() ?: return
-                val uri = if (file.url.startsWith("file://")) file.url else "file://${file.path}"
+                val server =
+                    com.rescript.plugin.lsp.RescriptLspUtils
+                        .getServer(project) ?: return
+                val uri =
+                    com.rescript.plugin.lsp.RescriptLspUtils
+                        .toLspUri(file)
 
                 server.sendRequestSync { languageServer ->
                     @Suppress("UNCHECKED_CAST")

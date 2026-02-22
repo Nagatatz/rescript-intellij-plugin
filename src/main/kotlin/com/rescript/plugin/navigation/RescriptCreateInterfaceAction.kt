@@ -9,9 +9,8 @@ import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
-import com.intellij.platform.lsp.api.LspServerManager
 import com.rescript.plugin.lsp.RescriptLanguageServer
-import com.rescript.plugin.lsp.RescriptLspServerSupportProvider
+import com.rescript.plugin.lsp.RescriptLspUtils
 import org.eclipse.lsp4j.TextDocumentIdentifier
 
 /**
@@ -41,31 +40,19 @@ class RescriptCreateInterfaceAction : AnAction() {
         }
 
         // Get LSP server and send createInterface request
-        @Suppress("UnstableApiUsage")
-        val servers =
-            LspServerManager
-                .getInstance(project)
-                .getServersForProvider(RescriptLspServerSupportProvider::class.java)
-
         val server =
-            servers.firstOrNull() ?: run {
+            RescriptLspUtils.getServer(project) ?: run {
                 LOG.warn("No ReScript LSP server available")
                 return
             }
 
-        val uri =
-            file.url.let { url ->
-                if (url.startsWith("file://")) url else "file://${file.path}"
-            }
+        val uri = RescriptLspUtils.toLspUri(file)
 
         server
             .sendRequestSync { languageServer ->
                 (languageServer as RescriptLanguageServer).createInterface(TextDocumentIdentifier(uri))
             }?.let { response ->
-                val resultUrl =
-                    response.uri.let { u ->
-                        if (u.startsWith("file://")) u else "file://$u"
-                    }
+                val resultUrl = RescriptLspUtils.lspUriToVfsUrl(response.uri)
                 ApplicationManager.getApplication().invokeLater {
                     VirtualFileManager.getInstance().refreshAndFindFileByUrl(resultUrl)?.let { vf ->
                         FileEditorManager.getInstance(project).openFile(vf, true)

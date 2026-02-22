@@ -7,10 +7,9 @@ import com.intellij.codeInsight.codeVision.ui.model.TextCodeVisionEntry
 import com.intellij.codeInsight.hints.codeVision.DaemonBoundCodeVisionProvider
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.util.TextRange
-import com.intellij.platform.lsp.api.LspServerManager
 import com.intellij.platform.lsp.api.LspServerState
 import com.intellij.psi.PsiFile
-import com.rescript.plugin.lsp.RescriptLspServerSupportProvider
+import com.rescript.plugin.lsp.RescriptLspUtils
 import org.eclipse.lsp4j.CodeLensParams
 import org.eclipse.lsp4j.TextDocumentIdentifier
 
@@ -45,12 +44,9 @@ class RescriptCodeVisionProvider : DaemonBoundCodeVisionProvider {
         val project = file.project
         val document = editor.document
 
-        val servers =
-            LspServerManager
-                .getInstance(project)
-                .getServersForProvider(RescriptLspServerSupportProvider::class.java)
-
-        val server = servers.firstOrNull { it.state == LspServerState.Running } ?: return emptyList()
+        val server =
+            RescriptLspUtils.getServer(project)?.takeIf { it.state == LspServerState.Running }
+                ?: return emptyList()
 
         val fileUri = server.descriptor.getFileUri(virtualFile)
         val params = CodeLensParams(TextDocumentIdentifier(fileUri))

@@ -13,23 +13,23 @@
 - [x] Commit Group B
 
 ## Group C: Test Stubs
-- [x] Add stubPsiElement() and stubProject() to RescriptTestUtils.kt
-- [x] Replace duplicates in 5 test files
-- [x] Commit Group C
+- [ ] Add stubPsiElement() and stubProject() to RescriptTestUtils.kt
+- [ ] Replace duplicates in 5 test files
+- [ ] Commit Group C
 
 ## Group D: Open Statement Regex
-- [x] Add OPEN_PATTERN and helpers to RescriptImportUtil.kt
-- [x] Add tests for new helpers
-- [x] Replace duplicates in 3 source files
-- [x] Commit Group D
+- [ ] Add OPEN_PATTERN and helpers to RescriptImportUtil.kt
+- [ ] Add tests for new helpers
+- [ ] Replace duplicates in 3 source files
+- [ ] Commit Group D
 
 ## Group E: WHITESPACE_REGEX
-- [x] Create RescriptRunUtils.kt with shared constant
-- [x] Replace duplicates in 3 run configuration files
-- [x] Commit Group E
+- [ ] Create RescriptRunUtils.kt with shared constant
+- [ ] Replace duplicates in 3 run configuration files
+- [ ] Commit Group E
 
 ## Finalization
-- [x] Verify build: ./gradlew clean buildPlugin
-- [x] Verify tests: ./gradlew test
-- [x] Update documentation (CLAUDE.md, docs/product-requirements.md)
-- [x] Final commit and merge
+- [ ] Verify build: ./gradlew clean buildPlugin
+- [ ] Verify tests: ./gradlew test
+- [ ] Update documentation (CLAUDE.md, docs/product-requirements.md)
+- [ ] Final commit and merge

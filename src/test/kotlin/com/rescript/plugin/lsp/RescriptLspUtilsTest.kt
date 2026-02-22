@@ -8,6 +8,35 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class RescriptLspUtilsTest {
+    // --- lspUriToVfsUrl ---
+
+    @Test
+    fun `lspUriToVfsUrl normalizes file URI with triple slash`() {
+        val result = RescriptLspUtils.lspUriToVfsUrl("file:///Users/test/src/App.res")
+        assertEquals("file:///Users/test/src/App.res", result)
+    }
+
+    @Test
+    fun `lspUriToVfsUrl handles encoded characters in URI`() {
+        val result = RescriptLspUtils.lspUriToVfsUrl("file:///Users/test/my%20project/App.res")
+        assertEquals("file:///Users/test/my project/App.res", result)
+    }
+
+    @Test
+    fun `lspUriToVfsUrl returns original string for invalid URI`() {
+        val result = RescriptLspUtils.lspUriToVfsUrl("not a valid uri :::")
+        assertEquals("not a valid uri :::", result)
+    }
+
+    @Test
+    fun `lspUriToVfsUrl handles bare path`() {
+        // A bare absolute path like "/Users/test/App.res" is a valid URI
+        val result = RescriptLspUtils.lspUriToVfsUrl("/Users/test/App.res")
+        assertEquals("file:///Users/test/App.res", result)
+    }
+
+    // --- parseSignatureLabels ---
+
     @Test
     fun `parseSignatureLabels extracts labeled params`() {
         val sig = "(~name: string, ~age: int, unit) => person"

@@ -1,7 +1,6 @@
 package com.rescript.plugin.lsp
 
 import com.intellij.lang.ExpressionTypeProvider
-import com.intellij.platform.lsp.api.LspServerManager
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.RescriptLanguage
 import org.eclipse.lsp4j.HoverParams
@@ -24,23 +23,14 @@ class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
         val virtualFile = file.virtualFile ?: return NO_TYPE
 
         try {
-            @Suppress("UnstableApiUsage")
-            val servers =
-                LspServerManager
-                    .getInstance(project)
-                    .getServersForProvider(RescriptLspServerSupportProvider::class.java)
-
-            val server = servers.firstOrNull() ?: return NO_TYPE
+            val server = RescriptLspUtils.getServer(project) ?: return NO_TYPE
 
             val document = file.viewProvider.document ?: return NO_TYPE
             val offset = element.textRange.startOffset
             val lineNumber = document.getLineNumber(offset)
             val column = offset - document.getLineStartOffset(lineNumber)
 
-            val uri =
-                virtualFile.url.let { url ->
-                    if (url.startsWith("file://")) url else "file://${virtualFile.path}"
-                }
+            val uri = RescriptLspUtils.toLspUri(virtualFile)
 
             val params =
                 HoverParams(
