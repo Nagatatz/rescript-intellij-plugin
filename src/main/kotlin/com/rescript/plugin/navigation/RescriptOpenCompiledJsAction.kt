@@ -12,11 +12,8 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
-import com.intellij.platform.lsp.api.LspServer
-import com.intellij.platform.lsp.api.LspServerManager
 import com.rescript.plugin.lsp.RescriptLanguageServer
-import com.rescript.plugin.lsp.RescriptLspServerSupportProvider
-import java.net.URI
+import com.rescript.plugin.lsp.RescriptLspUtils
 
 /**
  * Action to open the compiled JavaScript file for the current ReScript file.
@@ -47,7 +44,7 @@ class RescriptOpenCompiledJsAction : AnAction() {
         project: Project,
         file: VirtualFile,
     ): VirtualFile? {
-        val lspServer = findLspServer(project) ?: return null
+        val lspServer = RescriptLspUtils.getServer(project) ?: return null
 
         return try {
             val textDocId = lspServer.getDocumentIdentifier(file)
@@ -57,21 +54,12 @@ class RescriptOpenCompiledJsAction : AnAction() {
                 }
             val resultUri = result?.uri ?: return null
 
-            val vfsUrl = lspUriToVfsUrl(resultUri)
+            val vfsUrl = RescriptLspUtils.lspUriToVfsUrl(resultUri)
             VirtualFileManager.getInstance().refreshAndFindFileByUrl(vfsUrl)
         } catch (ex: Exception) {
             LOG.info("LSP openCompiled request failed, falling back to file search", ex)
             null
         }
-    }
-
-    private fun findLspServer(project: Project): LspServer? {
-        @Suppress("UnstableApiUsage")
-        val servers =
-            LspServerManager
-                .getInstance(project)
-                .getServersForProvider(RescriptLspServerSupportProvider::class.java)
-        return servers.firstOrNull()
     }
 
     override fun update(e: AnActionEvent) {
@@ -81,15 +69,6 @@ class RescriptOpenCompiledJsAction : AnAction() {
     }
 
     override fun getActionUpdateThread() = ActionUpdateThread.BGT
-
-    /** Convert LSP file URI (file:///path) to IntelliJ VFS URL (file:///path). */
-    private fun lspUriToVfsUrl(uri: String): String =
-        try {
-            val parsed = URI(uri)
-            "file://${parsed.path}"
-        } catch (_: Exception) {
-            uri
-        }
 
     companion object {
         private val LOG = logger<RescriptOpenCompiledJsAction>()

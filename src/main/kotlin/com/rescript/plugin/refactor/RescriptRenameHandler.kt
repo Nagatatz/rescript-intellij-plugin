@@ -11,18 +11,17 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.platform.lsp.api.LspServer
-import com.intellij.platform.lsp.api.LspServerManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.refactoring.rename.RenameHandler
 import com.rescript.plugin.lsp.RescriptLspServerSupportProvider
+import com.rescript.plugin.lsp.RescriptLspUtils
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.PrepareRenameParams
 import org.eclipse.lsp4j.RenameParams
 import org.eclipse.lsp4j.TextDocumentIdentifier
 import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.WorkspaceEdit
-import java.net.URI
 
 /**
  * Handles rename refactoring for ReScript files via LSP textDocument/rename.
@@ -58,7 +57,7 @@ class RescriptRenameHandler : RenameHandler {
         if (editor == null || file == null) return
         val virtualFile = file.virtualFile ?: return
 
-        val lspServer = findLspServer(project)
+        val lspServer = RescriptLspUtils.getServer(project)
         if (lspServer == null) {
             Messages.showErrorDialog(
                 project,
@@ -123,17 +122,6 @@ class RescriptRenameHandler : RenameHandler {
         dataContext: DataContext?,
     ) {
         // Not used for LSP-based rename
-    }
-
-    // ── LSP helpers ────────────────────────────────────────────────────
-
-    private fun findLspServer(project: Project): LspServer? {
-        val serverManager = LspServerManager.getInstance(project)
-        val servers =
-            serverManager.getServersForProvider(
-                RescriptLspServerSupportProvider::class.java,
-            )
-        return servers.firstOrNull()
     }
 
     /**
@@ -212,7 +200,7 @@ class RescriptRenameHandler : RenameHandler {
             val modifiedDocuments = mutableSetOf<Document>()
 
             for ((uriString, textEdits) in changes) {
-                val vfsUrl = lspUriToVfsUrl(uriString)
+                val vfsUrl = RescriptLspUtils.lspUriToVfsUrl(uriString)
                 val virtualFile = VirtualFileManager.getInstance().findFileByUrl(vfsUrl)
                 if (virtualFile == null) {
                     LOG.warn("Could not find file for URI: $uriString")
@@ -257,15 +245,6 @@ class RescriptRenameHandler : RenameHandler {
         val lineStart = document.getLineStartOffset(position.line)
         return lineStart + position.character
     }
-
-    /** Convert LSP file URI (file:///path) to IntelliJ VFS URL (file:///path). */
-    private fun lspUriToVfsUrl(uri: String): String =
-        try {
-            val parsed = URI(uri)
-            "file://${parsed.path}"
-        } catch (e: Exception) {
-            uri
-        }
 
     companion object {
         private val LOG = logger<RescriptRenameHandler>()
