@@ -116,6 +116,10 @@
         <breadcrumbsInfoProvider
                 implementation="com.rescript.plugin.breadcrumb.RescriptBreadcrumbsProvider"/>
 
+        <!-- Refactoring support (Introduce Variable: Ctrl+Alt+V) -->
+        <lang.refactoringSupport language="ReScript"
+                implementationClass="com.rescript.plugin.refactor.RescriptRefactoringSupportProvider"/>
+
         <!-- Rename refactoring -->
         <renameHandler
                 implementation="com.rescript.plugin.refactor.RescriptRenameHandler"/>

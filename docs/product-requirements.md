@@ -178,10 +178,11 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | 型ミスマッチインラインヒント | 型エラー箇所に Expected/Actual 型を構造化してインライン表示 | `RescriptTypeMismatchParser` + `RescriptErrorLensRenderer` 拡張 |
 | Parameter Info Handler | Ctrl+P でラベル付き引数をネイティブ UI で表示 | IntelliJ 2025.3+ LSP API で自動サポート |
 | GitHub エラーレポート | 未処理例外の GitHub Issues 自動レポート（ブラウザベース） | `RescriptErrorReporter` |
+| Extract Variable | 式を `let` 束縛に抽出 (Ctrl+Alt+V) | `RescriptRefactoringSupportProvider` + `RescriptExtractVariableHandler` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、68件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り41件を B/C の2段階で優先度付けする。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、69件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度1件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り40件を B/C の2段階で優先度付けする。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
@@ -191,7 +192,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|---------|------|--------|--------|
-| 43 | Extract Variable | リファクタリング | 式を変数に抽出 | 高 | B |
 | 44 | Call Hierarchy | ナビゲーション | 関数の呼び出し階層ツリー表示 | 高 | B |
 | 47 | Navigation Bar Model | ナビゲーション | ナビゲーションバーにファイル構造表示 | 低〜中 | B |
 | 48 | External Annotator (Format Check) | 分析 | フォーマットチェックの外部アノテーター | 中 | B |
