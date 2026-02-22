@@ -18,6 +18,60 @@
 - マージタスクは `[x]` 更新をマージ前の最終コミットに含める
 - ドキュメント更新（CLAUDE.md, README.md, docs/, sphinx-docs/）は該当コードのコミットに含める
 
+## コミット前検証チェックリスト
+
+**以下は強制的な行動指示であり、例外なく従うこと。**
+
+`git commit` を実行する前に、以下の5項目をすべて検証すること。1つでも不合格の場合はコミットせず、先に修正すること。
+
+### 1. KDoc コメント
+
+新規作成・変更したすべての `.kt` ファイルについて:
+
+- [ ] すべての `class` / `object` / `enum class` / `sealed class` / `interface` に英語 KDoc (`/** ... */`) があるか
+- [ ] KDoc がクラスの責務を 1〜3 文で説明しているか
+
+詳細: `.claude/rules/code-comments.md`
+
+### 2. テスト
+
+新規作成したすべての `.kt` ファイルについて:
+
+- [ ] `src/test/` に対応する `<ClassName>Test.kt` が存在するか
+- [ ] 免除対象（UI/LSP結合）の場合、tasklist.md に省略理由を明記したか
+
+詳細: `.claude/rules/testing.md`
+
+### 3. ドキュメント同期
+
+新しい機能・変更が以下のドキュメントに反映されているか:
+
+- [ ] `CLAUDE.md` — アーキテクチャセクション（レイヤー 3）
+- [ ] `README.md` — Features セクション
+- [ ] `sphinx-docs/user/features/` — 該当する機能ページ
+- [ ] `docs/product-requirements.md` — 実装済み機能セクション（ロードマップ記載機能の場合）
+
+詳細: `.claude/rules/documentation.md`
+
+### 4. plugin.xml 登録
+
+Extension Point を実装するクラスを追加した場合:
+
+- [ ] `plugin.xml`（または `META-INF/rescript-*.xml`）に登録されているか
+
+### 5. tasklist.md 進捗
+
+- [ ] 完了したタスクが `[x]` に更新されているか
+
+## tasklist.md の必須セクション
+
+tasklist.md には以下のセクションを必ず含めること:
+
+1. **各機能の実装タスク** — コード + テスト + plugin.xml 登録
+2. **ドキュメント更新タスク** — CLAUDE.md, README.md, sphinx-docs, product-requirements.md
+3. **コミット前検証タスク** — 「コミット前検証チェックリスト」の5項目を確認
+4. **マージタスク** — ビルド確認 + tasklist 完了確認 + main マージ
+
 ## 必ず守ること
 
 - コード変更前にステアリングファイルを作成すること
