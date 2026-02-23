@@ -90,7 +90,9 @@ tasklist.md には以下のセクションを必ず含めること:
 - **単一機能:** `EnterWorktree` ツール（または `claude --worktree <機能名>`）を使用する。worktree は `.claude/worktrees/<機能名>/` に作成され、ブランチ `worktree-<機能名>` が HEAD から自動生成される。セッション終了時に自動クリーンアップされる（変更ありの場合は確認プロンプト）。
 - **並列実装:** 各ウィンドウで `claude --worktree <機能名>` を使用する。バッチブランチ戦略の詳細手順は `/steering` スキルを参照。
 - **手動 worktree は使わない:** `git worktree add ../rescript-wt-*` による手動作成は非推奨。ビルトイン機能を使うこと。
-- **マージ後のクリーンアップ:** ブランチを `main` にマージした後、以下を必ず実行すること:
-  1. `git worktree remove <worktree-path>` で worktree を削除する
-  2. `git branch -d <branch-name>` でマージ済みブランチを削除する（リモート未プッシュの場合は `-D` を使用）
-  3. `git worktree list` で残存 worktree がないことを確認する
+- **マージとセッション終了:** worktree 内での作業が完了し `main` にマージしたら、**そのセッションを終了すること**。worktree のクリーンアップはセッション終了時に自動で行われる（変更ありの場合は確認プロンプト）。同一セッション内で `git worktree remove` を手動実行すると、シェルの CWD が削除済みパスを指し続け、以降の Bash コマンドがすべて失敗する。
+- **残存 worktree の手動クリーンアップ:** メインリポジトリの新しいセッションで以下を実行する:
+  1. `git worktree list` で残存 worktree を確認する
+  2. 残存があれば `git worktree remove <path>` で削除する
+  3. マージ済みブランチを `git branch -d <name>` で削除する
+  4. `.claude/worktrees/` 内の残存ディレクトリを `rm -rf` で削除する
