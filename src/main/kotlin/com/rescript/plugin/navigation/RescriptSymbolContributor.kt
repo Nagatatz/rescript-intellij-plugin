@@ -2,25 +2,19 @@ package com.rescript.plugin.navigation
 
 import com.intellij.navigation.ChooseByNameContributorEx
 import com.intellij.navigation.NavigationItem
-import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.PsiManager
-import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.stubs.StubIndex
 import com.intellij.util.Processor
 import com.intellij.util.indexing.FindSymbolParameters
 import com.intellij.util.indexing.IdFilter
-import com.rescript.plugin.RescriptFileType
-import com.rescript.plugin.RescriptInterfaceFileType
-import com.rescript.plugin.lang.psi.RescriptElementTypes
-import com.rescript.plugin.lang.psi.RescriptFile
-import com.rescript.plugin.lang.psi.RescriptPsiUtils
+import com.rescript.plugin.indexing.RescriptNameIndex
+import com.rescript.plugin.lang.psi.RescriptDeclarationPsiElement
 
 /**
  * Contributes ReScript symbols to the Go to Symbol dialog (Cmd+Option+O).
  *
- * Scans all `.res` and `.resi` files in the project for navigable declarations
- * (let, type, module, external, exception) and makes them searchable by name.
- * Recursively descends into nested module declarations.
+ * Uses [RescriptNameIndex] for fast O(log n) stub-based symbol lookup,
+ * replacing the previous approach of scanning all files and walking PSI trees.
  */
 class RescriptSymbolContributor : ChooseByNameContributorEx {
     override fun processNames(
@@ -28,15 +22,7 @@ class RescriptSymbolContributor : ChooseByNameContributorEx {
         scope: GlobalSearchScope,
         filter: IdFilter?,
     ) {
-        val project = scope.project ?: return
-        val psiManager = PsiManager.getInstance(project)
-
-        for (fileType in listOf(RescriptFileType, RescriptInterfaceFileType)) {
-            for (vf in FileTypeIndex.getFiles(fileType, scope)) {
-                val psiFile = psiManager.findFile(vf) as? RescriptFile ?: continue
-                collectNames(psiFile, processor)
-            }
-        }
+        StubIndex.getInstance().processAllKeys(RescriptNameIndex.KEY, processor, scope, filter)
     }
 
     override fun processElementsWithName(
@@ -44,64 +30,13 @@ class RescriptSymbolContributor : ChooseByNameContributorEx {
         processor: Processor<in NavigationItem>,
         parameters: FindSymbolParameters,
     ) {
-        val project = parameters.project
-        val scope = parameters.searchScope
-        val psiManager = PsiManager.getInstance(project)
-
-        for (fileType in listOf(RescriptFileType, RescriptInterfaceFileType)) {
-            for (vf in FileTypeIndex.getFiles(fileType, scope)) {
-                val psiFile = psiManager.findFile(vf) as? RescriptFile ?: continue
-                collectElements(psiFile, name, processor)
-            }
-        }
-    }
-
-    /**
-     * Recursively collects symbol names from navigable declarations in the PSI tree.
-     *
-     * @param element the root element to collect names from
-     * @param processor the processor to receive each discovered name
-     */
-    private fun collectNames(
-        element: com.intellij.psi.PsiElement,
-        processor: Processor<in String>,
-    ) {
-        for (child in element.children) {
-            val type = child.node?.elementType ?: continue
-            if (type in RescriptPsiUtils.NAVIGABLE_TYPES) {
-                val symbolName = RescriptPsiUtils.extractName(child)
-                if (symbolName != "(anonymous)" && symbolName != "(unknown)") {
-                    processor.process(symbolName)
-                }
-                if (type == RescriptElementTypes.MODULE_DECLARATION) {
-                    collectNames(child, processor)
-                }
-            }
-        }
-    }
-
-    /**
-     * Recursively collects navigation items matching the given name from the PSI tree.
-     *
-     * @param element the root element to search in
-     * @param name the symbol name to match
-     * @param processor the processor to receive each matching navigation item
-     */
-    private fun collectElements(
-        element: com.intellij.psi.PsiElement,
-        name: String,
-        processor: Processor<in NavigationItem>,
-    ) {
-        for (child in element.children) {
-            val type = child.node?.elementType ?: continue
-            if (type in RescriptPsiUtils.NAVIGABLE_TYPES) {
-                if (RescriptPsiUtils.extractName(child) == name && child is NavigatablePsiElement) {
-                    processor.process(child)
-                }
-                if (type == RescriptElementTypes.MODULE_DECLARATION) {
-                    collectElements(child, name, processor)
-                }
-            }
-        }
+        StubIndex.getInstance().processElements(
+            RescriptNameIndex.KEY,
+            name,
+            parameters.project,
+            parameters.searchScope,
+            RescriptDeclarationPsiElement::class.java,
+            processor,
+        )
     }
 }

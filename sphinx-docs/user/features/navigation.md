@@ -20,6 +20,8 @@ Right-click on a symbol and select **Find Usages** (or press `Alt+F7`) to see al
 
 Press `Ctrl+Alt+O` (`Cmd+Option+O` on macOS) to search for any symbol across your project by name.
 
+Symbol lookup is powered by PSI Stub Index, which pre-indexes declaration names at project load time for fast, O(log n) retrieval instead of scanning every file.
+
 ## Structure View
 
 Press `Alt+7` (`Cmd+7` on macOS) to open the Structure panel, which shows an outline of the current file:
@@ -56,7 +58,7 @@ The plugin matches declarations by name and type (`let`, `type`, `module`, `exte
 Press `Shift` twice (double-tap `Shift`) to open the **Search Everywhere** dialog, which provides unified search across:
 
 - **Files** — Find `.res` and `.resi` files by name
-- **Symbols** — Search for functions, types, modules, and other declarations
+- **Symbols** — Search for functions, types, modules, and other declarations (stub-indexed for fast lookup)
 - **Actions** — Search for IDE actions and plugin commands
 
 ReScript files and symbols appear alongside results from other languages in the search dialog. Use the tab bar at the top to filter by category.

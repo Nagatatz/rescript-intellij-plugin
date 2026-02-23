@@ -34,6 +34,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **JFlex レクサー** (`Rescript.flex`) — トークン分解、シンタックスハイライト
 - **軽量パーサー** (`RescriptParser.kt`) — トップレベル宣言 (`let`, `type`, `module`, `external`, `open`, `include`, `exception`) と JSX 構造 (`JSX_ELEMENT`, `JSX_SELF_CLOSING_ELEMENT`, `JSX_FRAGMENT`) を認識
 - **PSI ツリー** — コード折りたたみ、ストラクチャービュー、JSX 構造認識向け
+- **PSI Stub Index** (`indexing/`) — 5種の宣言型（let, type, module, external, exception）のスタブベースインデックスによる高速シンボル検索
 - **ストラクチャービュー** (`structure/`) — モジュール・関数・型宣言のツリー表示
 
 ### レイヤー 2: LSP 統合

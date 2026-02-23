@@ -9,28 +9,37 @@ import com.rescript.plugin.RescriptLanguage
 /**
  * Custom [IElementType] subclass for ReScript composite PSI elements.
  *
- * Used to define element types for declarations, statements, and JSX structures
- * recognized by the lightweight parser.
+ * Used to define element types for non-stub declarations, statements, and JSX structures
+ * recognized by the lightweight parser. Stub-backed declarations use
+ * [RescriptDeclarationElementType] instead.
  */
 class RescriptElementType(
     debugName: String,
 ) : IElementType(debugName, RescriptLanguage)
 
-/** Composite element types used by the lightweight parser. */
+/**
+ * Composite element types used by the lightweight parser.
+ *
+ * Declaration types (LET, TYPE, MODULE, EXTERNAL, EXCEPTION) delegate to
+ * [RescriptStubElementTypes] for stub-aware indexing. Non-declaration types
+ * remain plain [RescriptElementType] instances.
+ */
 object RescriptElementTypes {
-    @JvmField val LET_DECLARATION = RescriptElementType("LET_DECLARATION")
+    // ── Stub-backed declaration types (delegated to RescriptStubElementTypes) ──
+    @JvmField val LET_DECLARATION = RescriptStubElementTypes.LET_DECLARATION
 
-    @JvmField val TYPE_DECLARATION = RescriptElementType("TYPE_DECLARATION")
+    @JvmField val TYPE_DECLARATION = RescriptStubElementTypes.TYPE_DECLARATION
 
-    @JvmField val MODULE_DECLARATION = RescriptElementType("MODULE_DECLARATION")
+    @JvmField val MODULE_DECLARATION = RescriptStubElementTypes.MODULE_DECLARATION
 
-    @JvmField val EXTERNAL_DECLARATION = RescriptElementType("EXTERNAL_DECLARATION")
+    @JvmField val EXTERNAL_DECLARATION = RescriptStubElementTypes.EXTERNAL_DECLARATION
 
+    @JvmField val EXCEPTION_DECLARATION = RescriptStubElementTypes.EXCEPTION_DECLARATION
+
+    // ── Non-stub element types ────────────────────────────────────
     @JvmField val OPEN_STATEMENT = RescriptElementType("OPEN_STATEMENT")
 
     @JvmField val INCLUDE_STATEMENT = RescriptElementType("INCLUDE_STATEMENT")
-
-    @JvmField val EXCEPTION_DECLARATION = RescriptElementType("EXCEPTION_DECLARATION")
 
     @JvmField val ANNOTATION = RescriptElementType("ANNOTATION")
 
