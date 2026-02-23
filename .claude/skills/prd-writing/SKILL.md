@@ -4,9 +4,6 @@ description: プロダクト要求定義書(PRD)を作成するための詳細�
 allowed-tools: Read, Glob, Grep, Write, Edit
 ---
 
-## 作成手順
+プロダクト要求定義書(PRD)をテンプレートから作成する。
 
-1. `docs/ideas/initial-requirements.md`を読み込む
-2. `./template.md`を読み込む
-3. テンプレートのプレースホルダー([○○]の部分)を、アイデアメモの内容に基づいて具体化する
-4. `docs/product-requirements.md`として保存する
+まず `INSTRUCTIONS.md` を Read ツールで読み込み、その手順に従うこと。

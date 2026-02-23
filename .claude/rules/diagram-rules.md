@@ -24,3 +24,12 @@ globs: ["docs/**/*.md", ".steering/**/*.md"]
 - 手書きテキストベースのツリー図（`├──`, `└──` 等）
 
 既存の ASCII / Mermaid 図を発見した場合、更新の機会があれば draw.io MCP で描き直すこと。
+
+## MCP サーバー確認
+
+作図が必要な場合、`mcp__drawio__open_drawio_mermaid` 等の drawio ツールが
+利用可能か確認すること。利用不可の場合は、ユーザーに以下を案内する:
+
+「drawio MCP サーバーが無効です。`/mcp` で drawio を有効化してください。」
+
+作図完了後、トークン節約のため `/mcp` で drawio を無効化することを提案する。
