@@ -37,4 +37,4 @@
 - [x] `./gradlew clean buildPlugin` 成功
 - [x] `./gradlew test` 成功
 - [x] tasklist.md 全タスク完了
-- [ ] main にマージ
+- [x] main にマージ

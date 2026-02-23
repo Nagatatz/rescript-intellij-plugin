@@ -55,6 +55,7 @@
 - **Open Compiled JavaScript** — View compiled JS output (`Alt+Shift+J`)
 - **Create Interface File** — Generate `.resi` from current `.res` file
 - **Module hierarchy** — Visualize module dependency tree
+- **Call Hierarchy** — View caller/callee relationships for functions (`Ctrl+Alt+H`)
 - **Copy qualified name** — Copy fully-qualified module path (`Cmd+Shift+Alt+C`)
 - **Context Info** — Sticky declaration header when scrolling through long files
 - **Goto Super** — Jump from `.res` declaration to matching `.resi` declaration (`Ctrl+U`)

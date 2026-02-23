@@ -158,6 +158,37 @@ External documentation URLs are only available for `Belt.*` and `Js.*` standard 
 
 The editor shows a breadcrumb trail at the top, displaying your current scope path (file → module → function). Click any segment to navigate to that scope.
 
+## Call Hierarchy
+
+Press `Ctrl+Alt+H` (`Cmd+Alt+H` on macOS) to open the **Call Hierarchy** window for the function at the caret.
+
+The Call Hierarchy view shows two perspectives:
+
+- **Callers** — Functions that call the selected function (who calls me?)
+- **Callees** — Functions called within the selected function body (who do I call?)
+
+Use the toolbar buttons in the Call Hierarchy tool window to switch between Callers and Callees views. The tree can be expanded to explore deeper call chains.
+
+**Example:**
+
+```rescript
+let helper = (x) => x + 1
+
+let process = (data) => {
+  let result = helper(data)
+  result
+}
+
+// Place caret on `helper`, press Ctrl+Alt+H:
+// Callers view shows: process → helper
+// Place caret on `process`, press Ctrl+Alt+H:
+// Callees view shows: process → helper
+```
+
+:::{note}
+Call Hierarchy uses PSI-based text search to discover call relationships. It works within the project scope and matches identifiers by name. For best results, use it on `let` and `external` declarations.
+:::
+
 ## Navigation Bar
 
 The navigation bar at the top of the editor displays the structure-aware hierarchy of your current cursor position. It shows top-level declarations (`let`, `type`, `module`, `external`, `exception`) with their icons, leveraging the existing Structure View model for accurate navigation.
