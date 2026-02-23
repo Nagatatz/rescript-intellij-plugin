@@ -52,5 +52,5 @@
 
 - [x] `./gradlew clean buildPlugin` 成功
 - [x] `./gradlew test` 全テスト通過
-- [ ] コミット
-- [ ] main マージ
+- [x] コミット
+- [x] main マージ
