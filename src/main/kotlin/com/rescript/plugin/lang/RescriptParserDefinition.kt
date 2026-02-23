@@ -10,24 +10,29 @@ import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
+import com.intellij.psi.tree.IStubFileElementType
 import com.intellij.psi.tree.TokenSet
 import com.rescript.plugin.RescriptLanguage
+import com.rescript.plugin.lang.psi.RescriptDeclarationElementType
+import com.rescript.plugin.lang.psi.RescriptDeclarationPsiElement
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.lang.psi.RescriptFileStub
 
 /**
  * Parser definition that wires together the ReScript lexer, parser, and PSI element factory.
  *
  * Provides the IntelliJ Platform with the components needed to tokenize and parse
- * ReScript files into PSI trees. The actual parsing is lightweight — only top-level
- * declarations and JSX structures are recognized; deeper semantic analysis is
- * delegated to the LSP server.
+ * ReScript files into PSI trees. Uses [IStubFileElementType] to enable PSI stub
+ * indexing for top-level declarations. The actual parsing is lightweight — only
+ * top-level declarations and JSX structures are recognized; deeper semantic
+ * analysis is delegated to the LSP server.
  *
  * @see RescriptLexer
  * @see RescriptParser
  */
 class RescriptParserDefinition : ParserDefinition {
     companion object {
-        val FILE = IFileElementType(RescriptLanguage)
+        val FILE: IFileElementType = IStubFileElementType<RescriptFileStub>(RescriptLanguage)
     }
 
     override fun createLexer(project: Project?): Lexer = RescriptLexer()
@@ -40,7 +45,11 @@ class RescriptParserDefinition : ParserDefinition {
 
     override fun getStringLiteralElements(): TokenSet = RescriptTokenTypes.STRINGS
 
-    override fun createElement(node: ASTNode): PsiElement = ASTWrapperPsiElement(node)
+    override fun createElement(node: ASTNode): PsiElement =
+        when (node.elementType) {
+            is RescriptDeclarationElementType -> RescriptDeclarationPsiElement(node)
+            else -> ASTWrapperPsiElement(node)
+        }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = RescriptFile(viewProvider)
 }

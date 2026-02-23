@@ -182,20 +182,20 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Navigation Bar Model | ナビゲーションバーにファイル構造表示 | `RescriptStructureAwareNavbar` |
 | Format Check | 未フォーマットコードの検出と Quick Fix によるフォーマット実行（設定で ON/OFF） | `RescriptFormatCheckAnnotator` + `RescriptFormatQuickFix` |
 | Call Hierarchy | 関数の呼び出し階層（Callers/Callees）ツリー表示 (Ctrl+Alt+H) | `RescriptCallHierarchyProvider` + `RescriptCallHierarchyBrowser` + `RescriptCallAnalyzer` |
+| Stub Index | PSI スタブベースのインデックスによる高速シンボル検索 | `RescriptStubElementTypes` + `RescriptDeclarationElementType` + `RescriptNameIndex` + `RescriptModuleIndex` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、73件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度5件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り36件を B/C の2段階で優先度付けする。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、74件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度6件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り35件を B/C の2段階で優先度付けする。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（36件）
+#### 未実装機能一覧（35件）
 
 テーブルフォーマットの定義は `.claude/rules/roadmap-format.md` を参照。
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|---------|------|--------|--------|
-| 51 | Stub Index | インデキシング | PSI スタブベースのインデックス構築 | 高 | B |
 | 52 | Code Rearranger | その他 | コード要素の自動並べ替え | 中 | B |
 | 54 | IntelliLang | インジェクション | IntelliLang 連携による言語インジェクション強化 | 低〜中 | B |
 | 56 | Framework Detector | プロジェクトビュー | ReScript フレームワークの自動検出 | 中 | B |

@@ -45,12 +45,12 @@
 
 ### Navigation
 
-- **Go to Symbol** — Quick symbol search (`Cmd+Option+O`)
+- **Go to Symbol** — Stub-indexed quick symbol search (`Cmd+Option+O`)
 - **Structure view** — Navigate module, function, and type declarations
 - **Switch .res/.resi** — Toggle between implementation and interface files (`Alt+O`)
 - **Go to Related** — Jump between `.res`, `.resi`, and compiled `.js` files
 - **Go to Implementation** — Jump from `.resi` interface to `.res` implementation (`Ctrl+Alt+B`)
-- **Search Everywhere** — Unified search for files, symbols, and actions (`Shift+Shift`)
+- **Search Everywhere** — Stub-indexed unified search for files, symbols, and actions (`Shift+Shift`)
 - **Go to Test** — Navigate between implementation and test files, create test boilerplate (`Ctrl+Shift+T`)
 - **Open Compiled JavaScript** — View compiled JS output (`Alt+Shift+J`)
 - **Create Interface File** — Generate `.resi` from current `.res` file

@@ -150,6 +150,13 @@
         <statusBarWidgetFactory id="RescriptCompilerStatus"
                 implementation="com.rescript.plugin.statusbar.RescriptCompilerStatusWidgetFactory"/>
 
+        <!-- Stub element type holder for PSI stub indexing -->
+        <stubElementTypeHolder class="com.rescript.plugin.lang.psi.RescriptStubElementTypes"/>
+
+        <!-- Stub indexes for fast symbol lookup -->
+        <stubIndex implementation="com.rescript.plugin.indexing.RescriptNameIndex"/>
+        <stubIndex implementation="com.rescript.plugin.indexing.RescriptModuleIndex"/>
+
         <!-- TODO indexer -->
         <todoIndexer filetype="ReScript"
                      implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
