@@ -3,95 +3,11 @@ description: チーム全体で統一された開発プロセスとコーディ�
 allowed-tools: Read, Glob, Grep, Write, Edit
 ---
 
-# 開発ガイドラインスキル
-
-チーム開発に必要な2つの要素をカバーします:
-1. 実装時のコーディング規約 (guides/implementation.md)
-2. 開発プロセスの標準化 (guides/process.md)
-
-## 既存ドキュメントの優先順位
-
-**重要**: `docs/development-guidelines.md` に既存の開発ガイドラインがある場合、
-以下の優先順位に従ってください:
-
-1. **既存の開発ガイドライン (`docs/development-guidelines.md`)** - 最優先
-   - プロジェクト固有の規約とプロセスが記載されている
-   - このスキルのガイドより優先する
-
-2. **このスキルのガイド** - 参考資料
-   - ./guides/implementation.md: 汎用的なコーディング規約
-   - ./guides/process.md: 汎用的な開発プロセス
-   - 既存ガイドラインがない場合、または補足として使用
-
-**新規作成時**: このスキルのガイドとテンプレートを参照
-**更新時**: 既存ガイドラインの構造と内容を維持しながら更新
+チーム開発に必要な実装規約と開発プロセスの標準化を支援する。
 
 ## 使い方
+- `/development-guidelines` — ガイドラインの確認・適用
+- `/development-guidelines create` — 新規作成
+- `/development-guidelines check` — 準拠チェック
 
-- `/development-guidelines` — 開発ガイドラインの確認・適用
-- `/development-guidelines create` — `docs/development-guidelines.md` を新規作成
-- `/development-guidelines check` — 現在のコードがガイドラインに準拠しているか確認
-
-## 実行手順
-
-### ステップ1: 既存ガイドラインの確認
-
-`docs/development-guidelines.md` が存在するか確認する。
-
-- **存在する場合**: 既存ガイドラインを読み込み、最優先で適用する
-- **存在しない場合**: このスキルのガイド（guides/）を参照して新規作成を提案する
-
-### ステップ2: プロジェクトコンテキストの把握
-
-CLAUDE.md を読み、以下を確認する:
-
-- プロジェクトの概要と技術スタック
-- 既存のコーディング規約
-- コメント規約
-- Gitコミット規約
-- 開発プロセス
-
-### ステップ3: ガイドラインの適用
-
-引数に応じた処理を行う:
-
-#### `create` の場合
-
-1. guides/implementation.md と guides/process.md を読み込む
-2. CLAUDE.md の既存規約と整合するように `docs/development-guidelines.md` を生成する
-3. CLAUDE.md との重複は避け、CLAUDE.md への参照リンクで繋ぐ
-
-#### `check` の場合
-
-1. 既存ガイドラインを読み込む
-2. 直近の変更ファイルを `git diff` で特定する
-3. 各ファイルをガイドラインに照らしてチェックする
-4. 準拠状況をレポートする
-
-#### 引数なしの場合
-
-1. 既存ガイドラインの有無を確認する
-2. ガイドラインの概要を表示する
-3. 推奨アクションを提示する
-
-### ステップ4: レポート出力
-
-以下の形式で結果を出力する:
-
-```
-## 開発ガイドライン状況
-
-### コーディング規約
-- [x] 規約項目1
-- [x] 規約項目2
-- [ ] 規約項目3
-
-### 開発プロセス
-- [x] ドキュメント管理
-- [x] テスト実行
-- [ ] .steering/ ディレクトリの作成
-
-### 推奨アクション
-1. ...
-2. ...
-```
+まず `INSTRUCTIONS.md` を Read ツールで読み込み、その手順に従うこと。

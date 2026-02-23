@@ -15,7 +15,8 @@
         "-y",
         "@drawio/mcp"
       ],
-      "env": {}
+      "env": {},
+      "disabled": true
     }
   }
 }
