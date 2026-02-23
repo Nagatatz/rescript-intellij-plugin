@@ -10,58 +10,15 @@
 4. `tasklist.md` を作成し、ユーザーの承認を得る
 5. 承認された `tasklist.md` に従って実装を進める
 6. 実装完了後、ビルドが通ることを確認し、適切な粒度でコミットする
+7. `.claude/rules/definition-of-done.md` の全フェーズを確認する
+8. ユーザーにマージ可否を確認し、承認後にマージ・クリーンアップを一括実行する
 
 ## tasklist.md 更新ルール
 
-- タスク着手時に即座に `[ ]` → `[x]` に更新する
-- コミットタスクは `[x]` 更新後にコミットする（更新がコミットに含まれるように）
+tasklist.md の更新タイミングと方法は `definition-of-done.md` Phase 2「tasklist.md リアルタイム更新」に従うこと。追加ルール:
+
 - マージタスクは `[x]` 更新をマージ前の最終コミットに含める
 - ドキュメント更新（CLAUDE.md, README.md, docs/, sphinx-docs/）は該当コードのコミットに含める
-
-## コミット前検証チェックリスト
-
-**以下は強制的な行動指示であり、例外なく従うこと。**
-
-`git commit` を実行する前に、以下の5項目をすべて検証すること。1つでも不合格の場合はコミットせず、先に修正すること。
-
-### 1. KDoc コメント
-
-新規作成・変更したすべての `.kt` ファイルについて:
-
-- [ ] すべての `class` / `object` / `enum class` / `sealed class` / `interface` に英語 KDoc (`/** ... */`) があるか
-- [ ] KDoc がクラスの責務を 1〜3 文で説明しているか
-
-詳細: `.claude/rules/code-comments.md`
-
-### 2. テスト
-
-新規作成したすべての `.kt` ファイルについて:
-
-- [ ] `src/test/` に対応する `<ClassName>Test.kt` が存在するか
-- [ ] 免除対象（UI/LSP結合）の場合、tasklist.md に省略理由を明記したか
-
-詳細: `.claude/rules/testing.md`
-
-### 3. ドキュメント同期
-
-新しい機能・変更が以下のドキュメントに反映されているか:
-
-- [ ] `CLAUDE.md` — アーキテクチャセクション（レイヤー 3）
-- [ ] `README.md` — Features セクション
-- [ ] `sphinx-docs/user/features/` — 該当する機能ページ
-- [ ] `docs/product-requirements.md` — 実装済み機能セクション（ロードマップ記載機能の場合）
-
-詳細: `.claude/rules/documentation.md`
-
-### 4. plugin.xml 登録
-
-Extension Point を実装するクラスを追加した場合:
-
-- [ ] `plugin.xml`（または `META-INF/rescript-*.xml`）に登録されているか
-
-### 5. tasklist.md 進捗
-
-- [ ] 完了したタスクが `[x]` に更新されているか
 
 ## tasklist.md の必須セクション
 
@@ -69,8 +26,28 @@ tasklist.md には以下のセクションを必ず含めること:
 
 1. **各機能の実装タスク** — コード + テスト + plugin.xml 登録
 2. **ドキュメント更新タスク** — CLAUDE.md, README.md, sphinx-docs, product-requirements.md
-3. **コミット前検証タスク** — 「コミット前検証チェックリスト」の5項目を確認
+3. **コミット前検証タスク** — `definition-of-done.md` Phase 3 の全項目を確認
 4. **マージタスク** — ビルド確認 + tasklist 完了確認 + main マージ
+
+## 実装完了後のマージ確認
+
+すべてのタスクが `[x]` になり、ビルドが成功したら、以下の手順でマージを進める:
+
+### 1. ユーザーへの確認
+
+`AskUserQuestion` ツールを使用し、マージ可否を確認する:
+
+- 実装の概要と変更ファイル数を提示する
+- セキュリティに影響する変更がある場合、その旨を明示する
+- ユーザーの承認を待つ（承認なしにマージしない）
+
+### 2. マージ実行
+
+承認後、「worktree マージ・クリーンアップ手順」に従ってマージする。
+
+### 3. セッション終了
+
+マージ完了後、セッションを終了する（worktree の自動クリーンアップを発動させる）。
 
 ## 必ず守ること
 
@@ -90,9 +67,37 @@ tasklist.md には以下のセクションを必ず含めること:
 - **単一機能:** `EnterWorktree` ツール（または `claude --worktree <機能名>`）を使用する。worktree は `.claude/worktrees/<機能名>/` に作成され、ブランチ `worktree-<機能名>` が HEAD から自動生成される。セッション終了時に自動クリーンアップされる（変更ありの場合は確認プロンプト）。
 - **並列実装:** 各ウィンドウで `claude --worktree <機能名>` を使用する。バッチブランチ戦略の詳細手順は `/steering` スキルを参照。
 - **手動 worktree は使わない:** `git worktree add ../rescript-wt-*` による手動作成は非推奨。ビルトイン機能を使うこと。
-- **マージとセッション終了:** worktree 内での作業が完了し `main` にマージしたら、**そのセッションを終了すること**。worktree のクリーンアップはセッション終了時に自動で行われる（変更ありの場合は確認プロンプト）。同一セッション内で `git worktree remove` を手動実行すると、シェルの CWD が削除済みパスを指し続け、以降の Bash コマンドがすべて失敗する。
-- **残存 worktree の手動クリーンアップ:** メインリポジトリの新しいセッションで以下を実行する:
-  1. `git worktree list` で残存 worktree を確認する
-  2. 残存があれば `git worktree remove <path>` で削除する
-  3. マージ済みブランチを `git branch -d <name>` で削除する
-  4. `.claude/worktrees/` 内の残存ディレクトリを `rm -rf` で削除する
+
+## worktree マージ・クリーンアップ手順
+
+worktree 内での実装が完了し、`main` にマージする際は以下の順序で実行する。**順序が重要** — マージ前に worktree を削除すると変更が失われる。
+
+```bash
+# 1. worktree 内で main にマージ
+git checkout main
+git merge <作業ブランチ>
+
+# 2. 作業ブランチを削除
+git branch -d <作業ブランチ>
+```
+
+マージ後は **セッションを終了する**。worktree のクリーンアップはセッション終了時に自動で行われる。
+
+**重要:** 同一セッション内で `git worktree remove` を手動実行してはならない。シェルの CWD が削除済みパスを指し続け、以降の Bash コマンドがすべて失敗する。
+
+## CWD が壊れた場合の復旧
+
+worktree 削除や `git worktree remove` により CWD が無効になった場合:
+
+1. **現在のセッション内では Bash コマンドが使えない**（CWD が存在しないため）
+2. `Task` ツール（サブエージェント）を使用して、メインリポジトリのパスを CWD に指定して操作する
+3. または、現在のセッションを終了し、新しいセッションをメインリポジトリで開始する
+
+## 残存 worktree の手動クリーンアップ
+
+メインリポジトリの新しいセッションで以下を実行する:
+
+1. `git worktree list` で残存 worktree を確認する
+2. 残存があれば `git worktree remove <path>` で削除する
+3. マージ済みブランチを `git branch -d <name>` で削除する
+4. `.claude/worktrees/` 内の残存ディレクトリを `rm -rf` で削除する
