@@ -57,6 +57,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **Error Lens** (`errorlens/`) — エディタ行内にインライン診断表示、型ミスマッチ構造化ヒント（Expected/Actual 型のインライン表示）
 - **JS プレビュー** (`preview/`) — コンパイル済み JS のリアルタイムプレビュー
 - **モジュール階層** (`hierarchy/`) — モジュール依存関係のツリー表示
+- **Call Hierarchy** (`hierarchy/call/`) — 関数の呼び出し階層（Callers/Callees）ツリー表示（Ctrl+Alt+H）
 - **Project View** (`projectview/`) — コンパイル済み JS のネスト表示・灰色化
 - **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成
 - **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析、.resi シグネチャ同期

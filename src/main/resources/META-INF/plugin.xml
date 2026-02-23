@@ -365,6 +365,10 @@
         <hierarchyProvider language="ReScript"
                            implementationClass="com.rescript.plugin.hierarchy.RescriptModuleHierarchyProvider"/>
 
+        <!-- Call Hierarchy -->
+        <callHierarchyProvider language="ReScript"
+                               implementationClass="com.rescript.plugin.hierarchy.call.RescriptCallHierarchyProvider"/>
+
         <!-- Project Wizard -->
         <moduleBuilder builderClass="com.rescript.plugin.wizard.RescriptModuleBuilder"
                        id="RESCRIPT_MODULE"
