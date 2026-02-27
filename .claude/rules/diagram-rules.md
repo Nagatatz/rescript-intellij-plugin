@@ -4,32 +4,40 @@ globs: ["docs/**/*.md", ".steering/**/*.md"]
 
 # 図表・ダイアグラムルール
 
-図表を作成・更新する場合は **draw.io MCP ツールを使用すること**。
+図表を作成・更新する場合は **[beautiful-mermaid](https://github.com/lukilabs/beautiful-mermaid)** を使用すること。
 
-## ツール選択
+## 作図手順
 
-| 図の種類 | 推奨ツール | 入力形式 |
-|---------|-----------|---------|
-| フローチャート | `mcp__drawio__open_drawio_mermaid` | `graph TD` / `flowchart TD` |
-| シーケンス図 | `mcp__drawio__open_drawio_mermaid` | `sequenceDiagram` |
-| 状態遷移図 | `mcp__drawio__open_drawio_mermaid` | `stateDiagram-v2` |
-| クラス図 | `mcp__drawio__open_drawio_mermaid` | `classDiagram` |
-| レイヤー図・カスタムレイアウト | `mcp__drawio__open_drawio_xml` | draw.io XML |
-| テーブル構造・組織図 | `mcp__drawio__open_drawio_csv` | CSV |
+1. Mermaid 記法で図を定義する
+2. `npx beautiful-mermaid` で SVG にレンダリングする
+3. 生成された SVG ファイルをドキュメントから参照する
+
+```bash
+# SVG レンダリング
+npx beautiful-mermaid render <input.mmd> -o <output.svg>
+
+# テーマ指定
+npx beautiful-mermaid render <input.mmd> -o <output.svg> --theme tokyo-night
+```
+
+## 対応図の種類
+
+| 図の種類 | Mermaid 記法 |
+|---------|-------------|
+| フローチャート | `graph TD` / `flowchart TD` |
+| シーケンス図 | `sequenceDiagram` |
+| 状態遷移図 | `stateDiagram-v2` |
+| クラス図 | `classDiagram` |
+| ER 図 | `erDiagram` |
+| XY チャート | `xychart-beta` |
 
 ## 禁止事項
 
 - ASCII アート（罫線文字 `┌─┐│└─┘` 等）での図表作成
-- Markdown コードブロック内の Mermaid 記法（` ```mermaid ` ブロック）での図表埋め込み
 - 手書きテキストベースのツリー図（`├──`, `└──` 等）
 
-既存の ASCII / Mermaid 図を発見した場合、更新の機会があれば draw.io MCP で描き直すこと。
+## ファイル配置
 
-## MCP サーバー確認
-
-作図が必要な場合、`mcp__drawio__open_drawio_mermaid` 等の drawio ツールが
-利用可能か確認すること。利用不可の場合は、ユーザーに以下を案内する:
-
-「drawio MCP サーバーが無効です。`/mcp` で drawio を有効化してください。」
-
-作図完了後、トークン節約のため `/mcp` で drawio を無効化することを提案する。
+- Mermaid ソース: `docs/diagrams/<名前>.mmd`
+- レンダリング済み SVG: `docs/diagrams/<名前>.svg`
+- ドキュメントからは SVG を参照する（`![図の説明](diagrams/<名前>.svg)`）
