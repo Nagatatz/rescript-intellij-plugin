@@ -24,6 +24,29 @@ ReScript 言語サポートを JetBrains IDE に提供する IntelliJ プラグ�
 
 JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タスクで自動生成される（`compileJava` / `compileKotlin` の依存タスク）。生成ファイルは `.gitignore` に含まれており、手動生成は不要。
 
+## CI/CD
+
+GitHub Actions で 4 つのワークフローを運用:
+
+| ワークフロー | ファイル | トリガー | 内容 |
+|-------------|---------|---------|------|
+| CI | `ci.yml` | Push/PR to `main` | ビルド、テスト、ktlint、カバレッジ、プラグイン検証 |
+| Release | `release.yml` | Tag `v*.*.*` | GitHub Release 作成 |
+| Docs | `docs.yml` | Push/PR to `main` (`sphinx-docs/` 変更時) | Sphinx ドキュメントのビルド・デプロイ |
+| Qodana | `qodana_code_quality.yml` | Push/PR to `main` | 静的コード分析 |
+
+```bash
+# ローカルで CI を再現
+./gradlew ktlintCheck buildPlugin test koverHtmlReport verifyPluginStructure
+
+# テスト + カバレッジ
+./gradlew test koverHtmlReport
+# レポート: build/reports/kover/html/index.html
+
+# ドキュメント（sphinx-docs/ 内で実行）
+cd sphinx-docs && uv sync && make build-all && make serve
+```
+
 ## プロジェクト構成
 
 @docs/repository-structure.md
@@ -64,7 +87,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析、.resi シグネチャ同期
 - **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション、Extract Variable（Ctrl+Alt+V）
 - **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
-- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正、ラベル付き引数挿入、Switch ケース統合、Case Split、位置→ラベル引数変換、括弧削除、修飾子削除、Pipe⇔関数呼び出し変換、インターフェース公開/非公開
+- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正、ラベル付き引数挿入、Switch ケース統合、Case Split、位置→ラベル引数変換、括弧削除、修飾子削除、Pipe⇔関数呼び出し変換、インターフェース公開/非公開、分割代入の展開
 - **Quick Fix** (`quickfix/`) — 未解決参照の open 追加/修飾子付加、使用箇所からの関数生成
 - **Surround With** (`surround/`) — if/switch/try/block で囲む
 - **Postfix Completion** (`completion/`) — .switch, .pipe, .log, .promise, .await 等
@@ -74,7 +97,7 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **コード折りたたみ** (`folding/`) — ブロック折りたたみ、//#region カスタム折りたたみ
 - **パンくずリスト** (`breadcrumb/`) — エディタ上部のナビゲーション
 - **ナビゲーションバー** (`navbar/`) — Structure View ベースのナビゲーションバー表示
-- **Generate アクション** (`generate/`) — Switch Arms / Module Type / Make 関数 / JSON エンコーダ・デコーダ生成
+- **Generate アクション** (`generate/`) — Switch Arms / Module Type / Make 関数 / Record Value / JSON エンコーダ・デコーダ生成
 - **.d.ts バインディング生成** (`binding/`) — TypeScript 型定義から ReScript バインディングを自動生成
 - **Unwrap/Remove** (`editor/`) — Some/Ok/Error/if/switch/try/ブレースの除去 (Ctrl+Shift+Delete)
 - **JSX 閉じタグ自動挿入** (`editor/`) — `>` 入力時に閉じタグを自動補完
@@ -99,6 +122,8 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 - **GitHub エラーレポート** — 未処理例外の GitHub Issues 自動レポート（`RescriptErrorReporter`）
 - **Problem Highlight Filter** (`analysis/`) — node_modules 等のハイライト抑制
 - **Format Check** (`analysis/`) — 未フォーマットコードの検出と Quick Fix によるフォーマット実行（設定で ON/OFF）
+- **Type Info ToolWindow** (`typeinfo/`) — カーソル位置の式の型を常時表示するツールウィンドウ（LSP hover + debounce）
+- **`%re()` RegExp インジェクション** (`injection/`) — `%re("/pattern/flags")` 内の正規表現にRegExp言語インジェクション
 
 ## 開発規約
 

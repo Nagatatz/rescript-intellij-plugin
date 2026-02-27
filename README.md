@@ -65,11 +65,11 @@
 
 - **Live Templates** — 21 code snippets with ReScript-aware context (`let`, `mod`, `sw`, `pipe`, `log`, `@module`, `@val`, `comp`, etc.)
 - **Postfix Completion** — `.switch`, `.pipe`, `.log`, `.promise`, `.await` and more
-- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, convert to labeled args, remove unnecessary parentheses, remove redundant qualifier
+- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, convert to labeled args, remove unnecessary parentheses, remove redundant qualifier, expand destructuring
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
 - **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
-- **Generate actions** — Generate switch arms, module types, make functions, and JSON encoder/decoder (`Cmd+N`)
+- **Generate actions** — Generate switch arms, module types, make functions, record values, and JSON encoder/decoder (`Cmd+N`)
 - **Statement mover** — Move declarations up/down (`Alt+Shift+Up/Down`)
 - **Smart Enter** — Insert new line with correct indentation (`Shift+Enter`)
 - **Comment continuation** — Auto-continue `//` and `/** */` comments on Enter
@@ -119,6 +119,8 @@
 - **Project View nesting** — `.resi` interface files nested under corresponding `.res` files
 - **rescript.json support** — Custom icon and JSON Schema for configuration files
 - **`%raw()` JS injection** — JavaScript syntax highlighting inside `%raw()` blocks
+- **`%re()` RegExp injection** — Regular expression highlighting and validation inside `%re()` blocks
+- **Type Info tool window** — Always-visible panel showing inferred type at caret position
 - **Markdown code fence** — ReScript syntax highlighting in Markdown code blocks
 - **Color settings** — Customizable highlighting colors (Settings > Editor > Color Scheme > ReScript)
 - **Code style settings** — Indentation configuration for ReScript files

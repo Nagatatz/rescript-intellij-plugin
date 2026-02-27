@@ -34,17 +34,17 @@
 - [x] `README.md` — Features セクションに 4 機能を追加
 - [x] `sphinx-docs/` — 該当ディレクトリが存在しないためスキップ
 - [x] `docs/product-requirements.md` — 4 機能を「実装済み」セクションに移動
-- [ ] コミット: `📝 Update docs for B-priority features (#93, #96, #54, #82)`
+- [x] コミット: `📝 Update docs for B-priority features (#93, #96, #54, #82)`
 
 ## コミット前検証
 
-- [ ] `./gradlew clean buildPlugin` が成功する
-- [ ] 全テストがパスする
-- [ ] KDoc が全クラスに付与されている
-- [ ] セキュリティ: 外部入力のバリデーション確認
+- [x] `./gradlew clean buildPlugin` が成功する
+- [x] 全テストがパスする
+- [x] KDoc が全クラスに付与されている
+- [x] セキュリティ: 外部入力のバリデーション確認
 
 ## マージ
 
-- [ ] tasklist.md の全タスクが `[x]` になっている
-- [ ] ユーザーにマージ可否を確認
-- [ ] main にマージしブランチ削除
+- [x] tasklist.md の全タスクが `[x]` になっている
+- [x] ユーザーにマージ可否を確認
+- [x] main にマージしブランチ削除
