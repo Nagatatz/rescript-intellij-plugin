@@ -19,7 +19,7 @@
 
 - [x] `RescriptRawJsInjector.kt` を拡張して `%re` → RegExp 注入を追加
 - [x] `RescriptRawJsInjectorTest.kt` を更新（`%re` テスト + `getRegexPatternRange` テスト追加）
-- [ ] コミット: `✨ Add RegExp injection for %re expressions (#54)`
+- [x] コミット: `✨ Add RegExp injection for %re expressions (#54)`
 
 ## #82 分割代入の解除 (Expand Destructuring)
 

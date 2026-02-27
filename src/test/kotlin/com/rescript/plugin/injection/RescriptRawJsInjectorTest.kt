@@ -8,7 +8,6 @@ import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptStringLiteral
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -16,88 +15,46 @@ import org.junit.Test
 class RescriptRawJsInjectorTest {
     private val injector = RescriptRawJsInjector()
 
-    // ── getInjectionRange tests (via reflection) ──────────────────────
+    // ── detectDirective tests ───────────────────────────────────────
 
     @Test
-    fun `getInjectionRange returns trimmed range for regular string`() {
-        // "content" -> TextRange(1, 8)
-        val range = callGetInjectionRange("\"content\"")
-        assertEquals(TextRange(1, 8), range)
-    }
-
-    @Test
-    fun `getInjectionRange returns null for empty quoted string`() {
-        // "" -> null (length == 2, empty content)
-        assertNull(callGetInjectionRange("\"\""))
-    }
-
-    @Test
-    fun `getInjectionRange returns null for empty text`() {
-        assertNull(callGetInjectionRange(""))
-    }
-
-    @Test
-    fun `getInjectionRange returns full range for template string content`() {
-        // Template string content (no quotes, backtick is separate token)
-        val range = callGetInjectionRange("console.log(42)")
-        assertEquals(TextRange(0, 15), range)
-    }
-
-    @Test
-    fun `getInjectionRange returns range for single-char string`() {
-        // "x" -> TextRange(1, 2)
-        val range = callGetInjectionRange("\"x\"")
-        assertEquals(TextRange(1, 2), range)
-    }
-
-    // ── isInsideRawBlock tests (via reflection) ───────────────────────
-
-    @Test
-    fun `isInsideRawBlock returns true for percent-raw-lparen pattern`() {
+    fun `detectDirective returns raw for percent-raw-lparen pattern`() {
         val percent = stubElement(RescriptTokenTypes.PERCENT)
         val raw = stubElement(RescriptTokenTypes.RAW, prevSibling = percent)
         val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = raw)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
 
-        assertTrue(callIsInsideRawBlock(stringEl))
+        assertEquals("raw", injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock returns false when no prevSibling`() {
+    fun `detectDirective returns null when no prevSibling`() {
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE)
-        assertFalse(callIsInsideRawBlock(stringEl))
+        assertNull(injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock returns false when pattern is incomplete`() {
+    fun `detectDirective returns null when pattern is incomplete`() {
         // Only LPAREN (missing RAW and PERCENT)
         val lparen = stubElement(RescriptTokenTypes.LPAREN)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
 
-        assertFalse(callIsInsideRawBlock(stringEl))
+        assertNull(injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock skips whitespace`() {
+    fun `detectDirective skips whitespace`() {
         val percent = stubElement(RescriptTokenTypes.PERCENT)
         val raw = stubElement(RescriptTokenTypes.RAW, prevSibling = percent)
         val ws = stubElement(TokenType.WHITE_SPACE, prevSibling = raw)
         val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = ws)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
 
-        // skipWhitespace should skip the WS between LPAREN and RAW
-        // But wait — the chain is: stringEl -> lparen -> ws -> raw -> percent
-        // skipWhitespace(lparen) returns lparen (LPAREN is not whitespace)
-        // Then checks lparen == LPAREN: yes
-        // skipWhitespace(ws) -> skips ws, returns raw
-        // Then checks raw == RAW: yes
-        // skipWhitespace(percent) returns percent
-        // Then checks percent == PERCENT: yes => true
-        assertTrue(callIsInsideRawBlock(stringEl))
+        assertEquals("raw", injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock skips JS_STRING_OPEN for template strings`() {
+    fun `detectDirective skips JS_STRING_OPEN for template strings`() {
         val percent = stubElement(RescriptTokenTypes.PERCENT)
         val percent2 = stubElement(RescriptTokenTypes.PERCENT, prevSibling = percent)
         val raw = stubElement(RescriptTokenTypes.RAW, prevSibling = percent2)
@@ -105,52 +62,51 @@ class RescriptRawJsInjectorTest {
         val jsOpen = stubElement(RescriptTokenTypes.JS_STRING_OPEN, prevSibling = lparen)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = jsOpen)
 
-        assertTrue(callIsInsideRawBlock(stringEl))
+        assertEquals("raw", injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock returns false when missing PERCENT`() {
+    fun `detectDirective returns null when missing PERCENT`() {
         val raw = stubElement(RescriptTokenTypes.RAW)
         val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = raw)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
 
-        assertFalse(callIsInsideRawBlock(stringEl))
+        assertNull(injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock returns false when LPAREN is missing`() {
-        // RAW directly before string (no LPAREN)
+    fun `detectDirective returns null when LPAREN is missing`() {
         val raw = stubElement(RescriptTokenTypes.RAW)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = raw)
 
-        assertFalse(callIsInsideRawBlock(stringEl))
+        assertNull(injector.detectDirective(stringEl))
     }
 
     // ── FFI pattern tests ─────────────────────────────────────────────
 
     @Test
-    fun `isInsideRawBlock returns true for percent-ffi-lparen pattern`() {
+    fun `detectDirective returns ffi for percent-ffi-lparen pattern`() {
         val percent = stubElement(RescriptTokenTypes.PERCENT)
         val ffi = stubElement(RescriptTokenTypes.FFI, prevSibling = percent)
         val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = ffi)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
 
-        assertTrue(callIsInsideRawBlock(stringEl))
+        assertEquals("ffi", injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock returns true for double-percent-ffi pattern`() {
+    fun `detectDirective returns ffi for double-percent-ffi pattern`() {
         val percent = stubElement(RescriptTokenTypes.PERCENT)
         val percent2 = stubElement(RescriptTokenTypes.PERCENT, prevSibling = percent)
         val ffi = stubElement(RescriptTokenTypes.FFI, prevSibling = percent2)
         val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = ffi)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
 
-        assertTrue(callIsInsideRawBlock(stringEl))
+        assertEquals("ffi", injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock returns true for ffi with JS_STRING_OPEN`() {
+    fun `detectDirective returns ffi for ffi with JS_STRING_OPEN`() {
         val percent = stubElement(RescriptTokenTypes.PERCENT)
         val percent2 = stubElement(RescriptTokenTypes.PERCENT, prevSibling = percent)
         val ffi = stubElement(RescriptTokenTypes.FFI, prevSibling = percent2)
@@ -158,16 +114,107 @@ class RescriptRawJsInjectorTest {
         val jsOpen = stubElement(RescriptTokenTypes.JS_STRING_OPEN, prevSibling = lparen)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = jsOpen)
 
-        assertTrue(callIsInsideRawBlock(stringEl))
+        assertEquals("ffi", injector.detectDirective(stringEl))
     }
 
     @Test
-    fun `isInsideRawBlock returns false for ffi without PERCENT`() {
+    fun `detectDirective returns null for ffi without PERCENT`() {
         val ffi = stubElement(RescriptTokenTypes.FFI)
         val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = ffi)
         val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
 
-        assertFalse(callIsInsideRawBlock(stringEl))
+        assertNull(injector.detectDirective(stringEl))
+    }
+
+    // ── %re pattern tests ─────────────────────────────────────────────
+
+    @Test
+    fun `detectDirective returns re for percent-re-lparen pattern`() {
+        val percent = stubElement(RescriptTokenTypes.PERCENT)
+        val re = stubElement(RescriptTokenTypes.LIDENT, prevSibling = percent, text = "re")
+        val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = re)
+        val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
+
+        assertEquals("re", injector.detectDirective(stringEl))
+    }
+
+    @Test
+    fun `detectDirective returns null for percent-lident-not-re pattern`() {
+        val percent = stubElement(RescriptTokenTypes.PERCENT)
+        val other = stubElement(RescriptTokenTypes.LIDENT, prevSibling = percent, text = "something")
+        val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = other)
+        val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
+
+        assertNull(injector.detectDirective(stringEl))
+    }
+
+    @Test
+    fun `detectDirective returns null for re without PERCENT`() {
+        val re = stubElement(RescriptTokenTypes.LIDENT, text = "re")
+        val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = re)
+        val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = lparen)
+
+        assertNull(injector.detectDirective(stringEl))
+    }
+
+    @Test
+    fun `detectDirective returns re for re with JS_STRING_OPEN`() {
+        val percent = stubElement(RescriptTokenTypes.PERCENT)
+        val re = stubElement(RescriptTokenTypes.LIDENT, prevSibling = percent, text = "re")
+        val lparen = stubElement(RescriptTokenTypes.LPAREN, prevSibling = re)
+        val jsOpen = stubElement(RescriptTokenTypes.JS_STRING_OPEN, prevSibling = lparen)
+        val stringEl = stubElement(RescriptTokenTypes.STRING_VALUE, prevSibling = jsOpen)
+
+        assertEquals("re", injector.detectDirective(stringEl))
+    }
+
+    // ── getRegexPatternRange tests ──────────────────────────────────
+
+    @Test
+    fun `getRegexPatternRange extracts pattern from slash-delimited regex`() {
+        // /abc/g -> pattern range covers "abc"
+        val range = injector.getRegexPatternRange("/abc/g", 0)
+        assertEquals(TextRange(1, 4), range)
+    }
+
+    @Test
+    fun `getRegexPatternRange with base offset`() {
+        // Inside a quoted string: "/abc/g" -> offset 1 for the opening quote
+        val range = injector.getRegexPatternRange("/abc/g", 1)
+        assertEquals(TextRange(2, 5), range)
+    }
+
+    @Test
+    fun `getRegexPatternRange returns null for non-slash string`() {
+        assertNull(injector.getRegexPatternRange("abc", 0))
+    }
+
+    @Test
+    fun `getRegexPatternRange returns null for single slash`() {
+        assertNull(injector.getRegexPatternRange("/", 0))
+    }
+
+    @Test
+    fun `getRegexPatternRange returns null for empty pattern`() {
+        // //g -> lastSlash=1, patternStart=1, patternEnd=1, start >= end
+        assertNull(injector.getRegexPatternRange("//g", 0))
+    }
+
+    @Test
+    fun `getRegexPatternRange handles complex pattern`() {
+        // /[a-z]+\d{2,}/gi
+        val content = "/[a-z]+\\d{2,}/gi"
+        val range = injector.getRegexPatternRange(content, 0)
+        // Pattern is between first / (index 0) and last / (index 13)
+        val lastSlash = content.lastIndexOf('/')
+        assertEquals(TextRange(1, lastSlash), range)
+    }
+
+    @Test
+    fun `getRegexPatternRange with no flags`() {
+        // /pattern/ -> pattern range covers "pattern"
+        val range = injector.getRegexPatternRange("/pattern/", 0)
+        assertEquals(TextRange(1, 8), range)
     }
 
     // ── elementsToInjectIn test ───────────────────────────────────────
@@ -181,30 +228,10 @@ class RescriptRawJsInjectorTest {
 
     // ── Helper methods ────────────────────────────────────────────────
 
-    private fun callGetInjectionRange(text: String): TextRange? {
-        val element = RescriptStringLiteral(RescriptTokenTypes.STRING_VALUE, text)
-        val method =
-            RescriptRawJsInjector::class.java.getDeclaredMethod(
-                "getInjectionRange",
-                RescriptStringLiteral::class.java,
-            )
-        method.isAccessible = true
-        return method.invoke(injector, element) as? TextRange
-    }
-
-    private fun callIsInsideRawBlock(element: PsiElement): Boolean {
-        val method =
-            RescriptRawJsInjector::class.java.getDeclaredMethod(
-                "isInsideRawBlock",
-                PsiElement::class.java,
-            )
-        method.isAccessible = true
-        return method.invoke(injector, element) as Boolean
-    }
-
     private fun stubElement(
         type: IElementType,
         prevSibling: PsiElement? = null,
+        text: String? = null,
     ): PsiElement {
         val astNode = stubAstNode(type)
         return java.lang.reflect.Proxy.newProxyInstance(
@@ -214,6 +241,7 @@ class RescriptRawJsInjectorTest {
             when (method.name) {
                 "getNode" -> astNode
                 "getPrevSibling" -> prevSibling
+                "getText" -> text
                 "toString" -> "StubElement($type)"
                 "hashCode" -> type.hashCode()
                 "equals" -> false
