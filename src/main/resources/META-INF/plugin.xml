@@ -363,6 +363,11 @@
         <toolWindow id="ReScript JS" anchor="right" icon="AllIcons.FileTypes.JavaScript"
                     factoryClass="com.rescript.plugin.preview.RescriptCompiledJsPreviewToolWindowFactory"/>
 
+        <!-- Type Info Tool Window (always-visible type display at caret) -->
+        <toolWindow id="ReScript Type" anchor="bottom" secondary="true"
+                    factoryClass="com.rescript.plugin.typeinfo.RescriptTypeInfoToolWindowFactory"
+                    icon="/icons/rescript-file.svg"/>
+
         <!-- Unused Code Detection (via reanalyze) -->
         <globalInspection language="ReScript" groupName="ReScript" shortName="RescriptUnusedCode"
                           displayName="Unused code (via reanalyze)" enabledByDefault="true" level="WARNING"
@@ -629,6 +634,14 @@
             <language>ReScript</language>
             <category>ReScript</category>
             <className>com.rescript.plugin.intention.RescriptRemoveQualifierIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Intention: Expand destructuring (#82) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptExpandDestructuringIntention</className>
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
 
