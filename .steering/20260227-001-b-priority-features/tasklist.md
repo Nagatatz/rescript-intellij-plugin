@@ -13,7 +13,7 @@
 - [x] `RescriptGenerateRecordValueAction.kt` を作成
 - [x] `RescriptGenerateGroup` に追加
 - [x] `RescriptGenerateRecordValueActionTest.kt` を作成
-- [ ] コミット: `✨ Add Record Value generation action (#96)`
+- [x] コミット: `✨ Add Record Value generation action (#96)`
 
 ## #54 IntelliLang 連携強化 (`%re` 正規表現インジェクション)
 

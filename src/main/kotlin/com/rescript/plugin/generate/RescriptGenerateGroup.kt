@@ -18,6 +18,7 @@ class RescriptGenerateGroup : ActionGroup() {
             RescriptGenerateSwitchAction(),
             RescriptGenerateModuleTypeAction(),
             RescriptGenerateMakeAction(),
+            RescriptGenerateRecordValueAction(),
             RescriptGenerateJsonCodecAction(),
         )
 
