@@ -26,7 +26,7 @@
 - [x] `RescriptExpandDestructuringIntention.kt` を作成
 - [x] `plugin.xml` に intentionAction を登録
 - [x] `RescriptExpandDestructuringIntentionTest.kt` を作成
-- [ ] コミット: `✨ Add expand destructuring intention (#82)`
+- [x] コミット: `✨ Add expand destructuring intention (#82)`
 
 ## ドキュメント更新
 
