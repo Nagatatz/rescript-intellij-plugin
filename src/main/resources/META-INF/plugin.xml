@@ -28,6 +28,16 @@
         </ul>
     ]]></description>
 
+    <change-notes><![CDATA[
+        <h3>0.1.0</h3>
+        <ul>
+            <li>Initial release</li>
+            <li>Syntax highlighting with JFlex lexer</li>
+            <li>Full LSP integration (completion, diagnostics, navigation)</li>
+            <li>140+ IDE integration features</li>
+        </ul>
+    ]]></change-notes>
+
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.spellchecker</depends>
     <depends optional="true" config-file="rescript-json.xml">com.intellij.modules.json</depends>
