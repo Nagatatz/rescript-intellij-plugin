@@ -58,6 +58,7 @@
 - **Call Hierarchy** — View caller/callee relationships for functions (`Ctrl+Alt+H`)
 - **Copy qualified name** — Copy fully-qualified module path (`Cmd+Shift+Alt+C`)
 - **Context Info** — Sticky declaration header when scrolling through long files
+- **File include navigation** — Navigate from `open` statements to their module files
 - **Goto Super** — Jump from `.res` declaration to matching `.resi` declaration (`Ctrl+U`)
 - **External documentation** — Open ReScript documentation for Belt/Js modules (`Shift+F1`)
 
@@ -84,6 +85,7 @@
 - **Split/Join list** — Toggle between single-line and multi-line comma-separated lists
 - **Copy/Paste escaping** — Auto-escape special characters when pasting into string literals
 - **Paste as JSX** — Convert HTML clipboard content to ReScript JSX syntax
+- **Strip trailing spaces** — Protect whitespace inside string literals during trailing-space removal
 
 ### Code Analysis & Inspections
 
@@ -143,6 +145,11 @@
 - **Element descriptions** — Enhanced element descriptions in refactoring dialogs
 - **Lookup char filter** — Smart character filtering for completion item selection
 - **GitHub error reporter** — Automatic error reporting to GitHub Issues for unhandled exceptions
+- **Editor floating toolbar** — Quick access to Format, Open Compiled JS, and Create Interface actions
+- **Element signature provider** — Persistent fold states across IDE restarts
+- **Index pattern builder** — Enhanced TODO/FIXME pattern search in ReScript comments
+- **Grazie integration** — Grammar and spell checking in comments and strings via Grazie plugin
+- **Injected language formatting** — Code formatting support for injected language fragments
 
 ## Requirements
 
