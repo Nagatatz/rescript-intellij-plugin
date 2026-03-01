@@ -21,10 +21,10 @@
 - [x] コミット
 
 ### #102 スタイルリンティング
-- [ ] `RescriptStyleLintInspection.kt` 実装
-- [ ] `RescriptStyleLintInspectionTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptStyleLintInspection.kt` 実装
+- [x] `RescriptStyleLintInspectionTest.kt` テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #97 filter+map チェーン変換
 - [ ] `RescriptFilterMapChainIntention.kt` 実装
