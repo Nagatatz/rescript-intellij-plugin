@@ -39,10 +39,10 @@
 - [x] コミット
 
 ### #109 PPX 可視化
-- [ ] `RescriptPpxVisualizationProvider.kt` 実装
-- [ ] `RescriptPpxVisualizationProviderTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptPpxVisualizationProvider.kt` 実装
+- [x] `RescriptPpxVisualizationProviderTest.kt` テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #99 型ミスマッチ差分表示
 - [ ] `RescriptTypeDiffComputer.kt` 実装
