@@ -45,11 +45,11 @@
 - [x] コミット
 
 ### #99 型ミスマッチ差分表示
-- [ ] `RescriptTypeDiffComputer.kt` 実装
-- [ ] `RescriptTypeDiffComputerTest.kt` テスト作成
-- [ ] `RescriptErrorLensRenderer.kt` 修正
-- [ ] `RescriptTypeMismatchParser.kt` 修正
-- [ ] コミット
+- [x] `RescriptTypeDiffComputer.kt` 実装
+- [x] `RescriptTypeDiffComputerTest.kt` テスト作成
+- [x] `RescriptErrorLensRenderer.kt` 修正
+- [x] `RescriptTypeMismatchParser.kt` 修正不要（既存 API で十分）
+- [x] コミット
 
 ## ドキュメント更新
 - [ ] CLAUDE.md — レイヤー 3 に 8 機能追加
