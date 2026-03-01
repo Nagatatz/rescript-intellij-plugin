@@ -178,6 +178,27 @@ Navigate to **Settings** > **Editor** > **Inlay Hints** > **ReScript** to config
 
 Both features rely on the Language Server, but they display information in different locations and at different granularities.
 
+### PPX Annotation Hints
+
+PPX annotation hints display inline descriptions of what each `@`-attribute generates or binds to, helping developers understand PPX behavior without consulting documentation.
+
+```rescript
+@react.component           // generates React.createElement
+let make = (~name: string) => {
+  <div> {React.string(name)} </div>
+}
+
+@module("fs")              // binds to JS module "fs"
+external readFile: string => promise<string> = "readFile"
+
+@genType                   // generates .gen.tsx
+let format = (s: string) => s->String.trim
+```
+
+Supported annotations include `@react.component`, `@genType`, `@module`, `@val`, `@send`, `@get`, `@set`, `@new`, `@deriving(json)`, `@deriving(accessors)`, `@unboxed`, `@scope`, `@string`, `@int`, `@unwrap`, `@return`, `@obj`, `@variadic`, `@as`, `@live`, `@dead`, and `@inline`.
+
+Configure via **Settings** > **Editor** > **Inlay Hints** > **ReScript** > **PPX annotations**.
+
 ## JSON Schema for rescript.json
 
 The plugin provides JSON Schema validation and auto-completion for `rescript.json` and `bsconfig.json` configuration files. The schema covers the full ReScript build configuration specification.
@@ -275,6 +296,39 @@ Inside injected `%raw()` blocks, you have access to:
 ### Requirements
 
 This feature requires the **JavaScript** plugin (or JavaScript and TypeScript support) to be available in your JetBrains IDE. IntelliJ IDEA Ultimate and WebStorm include this by default. For IntelliJ IDEA Community, you may need to install the JavaScript plugin separately.
+
+## RegExp Injection in %re()
+
+Regular expressions inside `%re()` blocks receive full RegExp language support, including syntax highlighting, validation, and bracket matching.
+
+```rescript
+let emailPattern = %re("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
+
+let phonePattern = %re("/^\+?[1-9]\d{1,14}$/")
+
+let urlPattern = %re("/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/i")
+```
+
+### Language Injection Mechanism
+
+The plugin uses IntelliJ's `MultiHostInjector` API to inject the RegExp language into string literals inside `%re()` blocks:
+
+1. **Pattern detection** --- The injector checks whether a string literal is preceded by the token pattern `% re (`
+2. **Range calculation** --- The regex delimiters (`/` ... `/`) are detected and the injection range is set to the content between delimiters
+3. **Flags handling** --- Regex flags after the closing delimiter (e.g., `i`, `g`, `m`) are passed to the RegExp language
+
+### What You Get
+
+Inside injected `%re()` blocks:
+
+- RegExp syntax highlighting (character classes, quantifiers, groups, anchors)
+- Error highlighting for invalid regex patterns
+- Bracket matching for groups `(` ... `)`
+- Hover documentation for regex constructs (when the RegExp plugin provides it)
+
+### Requirements
+
+This feature uses IntelliJ's built-in RegExp language support, which is available in all JetBrains IDEs.
 
 ## Project Wizard
 
@@ -533,6 +587,8 @@ The plugin indexes all `open` statements across your project for fast module res
 
 - **Interface indicator:** `.res` files with a corresponding `.resi` show a "(has .resi)" suffix
 - **Version display:** `rescript.json` shows the ReScript version from its content
+- **Compiled JS nesting:** Compiled `.res.js` / `.res.mjs` files are nested under their corresponding `.res` source file in the Project panel, reducing visual clutter
+- **Compiled JS graying:** Nested compiled JS files are displayed in gray text to visually distinguish generated output from source files
 
 ## Auto Import Options
 
@@ -555,6 +611,28 @@ The type information is fetched from the Language Server via an LSP `textDocumen
 :::{tip}
 This is useful when you want to quickly check the type of a sub-expression without adding an explicit type annotation. Unlike inlay hints (which show types persistently), Expression Type is on-demand and works on any expression, not just declarations.
 :::
+
+## Type Info Tool Window
+
+A persistent tool window that continuously displays the inferred type of the expression at the current caret position. Unlike Expression Type (`Ctrl+Shift+P`) which shows types on demand, the Type Info Tool Window updates automatically as you navigate through code.
+
+**Open:** **View** > **Tool Windows** > **ReScript Type**
+
+### How It Works
+
+1. As you move the caret in a ReScript file, the tool window sends an LSP `textDocument/hover` request for the current position
+2. The response is debounced to avoid excessive requests during rapid navigation
+3. The inferred type is displayed in the tool window panel, updating in real time
+
+### Use Cases
+
+- **Exploring unfamiliar code** --- See types continuously without pressing any shortcut
+- **Debugging type errors** --- Move through expressions to understand where types diverge
+- **Learning ReScript** --- Observe how the type system infers types for different expressions
+
+### Requirements
+
+The Type Info Tool Window requires the Language Server to be running. If LSP is not connected, the panel shows a "No type information available" message.
 
 ## LSP Auto-Install
 
@@ -604,3 +682,24 @@ Suppress specific inspections using `// noinspection` comments:
 open Belt
 open Belt  // This duplicate open won't be flagged
 ```
+
+## Framework Detector
+
+The plugin automatically detects ReScript projects by looking for `rescript.json` files. When a project containing `rescript.json` is opened, the IDE recognizes it as a ReScript project and suggests configuring the framework accordingly.
+
+This enables framework-aware features like project-specific settings and tool integrations.
+
+## Code Rearranger
+
+Rearrange top-level declarations in your ReScript files into a canonical ordering via **Code** > **Rearrange Code**.
+
+The default order is:
+
+1. `open` / `include` statements
+2. `type` declarations
+3. `exception` declarations
+4. `module` declarations
+5. `external` declarations
+6. `let` declarations
+
+This helps maintain a consistent file structure across your project.

@@ -107,6 +107,16 @@ class RescriptFoldingBuilder : CustomFoldingBuilder() {
 - Tests mirror the source package structure
 - See the [Testing Guide](testing.md) for details
 
+## AI-Assisted Development
+
+This project uses structured workflows for AI-assisted development with Claude Code. The following configuration files define the development process:
+
+- **`.claude/rules/steering-workflow.md`** — Steering workflow requiring `requirements.md`, `design.md`, and `tasklist.md` before implementation
+- **`.claude/rules/definition-of-done.md`** — 5-phase Definition of Done (Planning → Implementation → Pre-commit → Pre-merge → Post-merge)
+- **`.claude/rules/git-conventions.md`** — Git worktree isolation for feature branches, emoji commit prefixes, and branch naming conventions
+
+Steering documents are stored in `.steering/[YYYYMMDD]-[NNN]-[title]/` directories and committed alongside code changes.
+
 ## Submitting Changes
 
 1. Ensure all tests pass:

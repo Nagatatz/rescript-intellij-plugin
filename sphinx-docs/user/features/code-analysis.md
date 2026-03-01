@@ -186,6 +186,60 @@ let greet = (name: string, greeting: string) => `${greeting}, ${name}!`
 
 The inspection helps catch situations where the implementation has diverged from the interface, which would cause compilation errors.
 
+### Mutability Diagnostics
+
+Detects `ref` bindings that are never reassigned with `:=`. If a mutable reference is created but never mutated, it can be simplified to a plain `let` binding.
+
+**Before** (warning detected):
+
+```rescript
+let counter = ref(0)
+// counter is never reassigned with :=
+let value = counter.contents
+```
+
+**After** (quick fix applied):
+
+```rescript
+let counter = 0
+let value = counter
+```
+
+Press `Alt+Enter` on the warning and select **Remove unnecessary ref** to apply the fix.
+
+### Style Linting
+
+Detects common style issues and suggests idiomatic alternatives:
+
+**1. Redundant boolean expression:**
+
+```rescript
+// Before: redundant
+let isValid = if condition { true } else { false }
+// After: simplified
+let isValid = condition
+```
+
+**2. Deprecated Belt.* usage:**
+
+```rescript
+// Before: legacy Belt API
+Belt.Array.map(arr, fn)
+// After: modern API
+Array.map(arr, fn)
+```
+
+**3. Boolean switch:**
+
+```rescript
+// Before: verbose
+switch flag { | true => a | false => b }
+// After: idiomatic
+if flag { a } else { b }
+```
+
+Each rule provides a quick fix via `Alt+Enter`.
+
 ## Error Lens
 
 Error Lens displays diagnostic messages (errors, warnings, info) as inline annotations at the end of the affected line, providing immediate visibility without needing to hover or check the Problems panel.
@@ -222,6 +276,17 @@ let x: string = 42    ← Expected: string, Actual: int
 
 This structured display makes it easier to understand type errors at a glance without needing to open the Problems panel or hover over the error.
 
+### Type Mismatch Diff Highlighting
+
+For type mismatch errors, Error Lens visually highlights the parts that differ between the expected and actual types. Segments that match are shown in the standard color, while differing segments are highlighted in a contrasting color, making it easy to pinpoint exactly where the types diverge.
+
+```
+let x: option<string> = Some(42)
+← Expected: option<[string]> | Actual: option<[int]>
+```
+
+In this example, only `string` vs `int` would be highlighted, since `option<...>` matches in both types.
+
 ## Format Check
 
 The plugin can check whether your ReScript files are formatted according to `rescript format` and highlight unformatted files with a warning.
@@ -244,6 +309,21 @@ The format check is **disabled by default**. To enable it:
 ### Requirements
 
 - The `rescript` CLI must be installed in the project's `node_modules`. The plugin auto-detects it from `node_modules/.bin/rescript`.
+
+## Problem Highlight Filter
+
+The plugin suppresses code analysis highlights in directories where they are not useful, such as `node_modules/` and other dependency directories. This prevents noise from third-party library files appearing in the Problems panel and editor gutter.
+
+### Filtered Directories
+
+- `node_modules/` --- npm/yarn/pnpm package directories
+- Other generated or vendored directories that are not part of your source code
+
+### How It Works
+
+The plugin implements IntelliJ's `ProblemHighlightFilter` extension point, which checks whether a file should receive code analysis highlights. Files inside filtered directories are excluded from highlighting, reducing false positives and improving IDE performance.
+
+This filter applies to all highlight types (errors, warnings, info) from both local inspections and the Language Server.
 
 ## Import Optimization
 

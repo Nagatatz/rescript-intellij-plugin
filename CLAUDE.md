@@ -109,6 +109,9 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **バンドル辞書** (`spellcheck/`) — ReScript 固有用語のスペルチェック辞書
 - **テストファイル認識** (`test/`) — `*_test.res`、`*.test.res`、`__tests__/` の自動認識
 - **Project View ネスト** (`projectview/`) — `.resi` を対応する `.res` の下にネスト表示
+- **コメンター** (`commenter/`) — 行コメント (`//`) / ブロックコメント (`/* */`) の Commenter 実装
+- **パッケージ依存関係** (`dependencies/`) — rescript.json の npm 依存関係ツリー表示
+- **Code Vision** (`codevision/`) — CodeVision API 経由で関数の型注釈表示
 - **Enter Handler** (`editor/`) — ドキュメントコメント・行コメントの自動継続
 - **Join Lines** (`editor/`) — let/pipe/arrow のスマート行結合
 - **Word Selection** (`editor/`) — 文字列・括弧・コメントの選択拡大/縮小
@@ -124,6 +127,14 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **Format Check** (`analysis/`) — 未フォーマットコードの検出と Quick Fix によるフォーマット実行（設定で ON/OFF）
 - **Type Info ToolWindow** (`typeinfo/`) — カーソル位置の式の型を常時表示するツールウィンドウ（LSP hover + debounce）
 - **`%re()` RegExp インジェクション** (`injection/`) — `%re("/pattern/flags")` 内の正規表現にRegExp言語インジェクション
+- **Framework Detector** (`config/`) — `rescript.json` によるReScript フレームワークの自動検出
+- **Code Rearranger** (`codestyle/`) — トップレベル宣言の自動並べ替え（open/include → type → exception → module → external → let）
+- **変更可能性の診断** (`inspection/`) — 不要な `ref` 使用の検出と Quick Fix による除去
+- **スタイルリンティング** (`inspection/`) — 冗長ブール式・Belt API・ブール switch パターンの検出と改善提案
+- **filter+map チェーン変換** (`intention/`) — `filter+map` チェーンを `filterMap` に変換 (Alt+Enter)
+- **型注釈追加** (`intention/`) — LSP hover 情報を用いた let 束縛への型注釈挿入 (Alt+Enter)
+- **PPX 可視化** (`lsp/`) — PPX アノテーションの効果をインレイヒントで表示
+- **型ミスマッチ差分表示** (`errorlens/`) — 型エラーの不一致部分を色分けして差分表示
 
 ## 開発規約
 
