@@ -9,10 +9,10 @@
 - [x] コミット
 
 ### #55 Formatting for Injected
-- [ ] `RescriptInjectedFormattingModelBuilder.kt` 実装
-- [ ] `RescriptInjectedFormattingModelBuilderTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptInjectedFormattingModelBuilder.kt` 実装
+- [x] `RescriptInjectedFormattingModelBuilderTest.kt` テスト作成
+- [x] `plugin.xml` に登録（#53 コミットに含む）
+- [x] コミット
 
 ### #59 Grazie Text Extractor
 - [ ] `RescriptGrazieTextExtractor.kt` 実装
