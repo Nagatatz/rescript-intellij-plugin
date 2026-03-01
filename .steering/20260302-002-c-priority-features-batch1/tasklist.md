@@ -34,10 +34,10 @@
 - [x] コミット
 
 ### #68 File Include Provider
-- [ ] `RescriptFileIncludeProvider.kt` 実装
-- [ ] `RescriptFileIncludeProviderTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptFileIncludeProvider.kt` 実装
+- [x] `RescriptFileIncludeProviderTest.kt` テスト作成
+- [x] `plugin.xml` に登録（#53 コミットに含む）
+- [x] コミット
 
 ### #69 Editor Floating Toolbar
 - [ ] `RescriptFloatingToolbarProvider.kt` 実装
