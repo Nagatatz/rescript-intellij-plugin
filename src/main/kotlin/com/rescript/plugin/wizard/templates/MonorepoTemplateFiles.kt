@@ -13,12 +13,14 @@ internal object MonorepoTemplateFiles {
                     isPrivate = true,
                     scripts =
                         linkedMapOf(
-                            "dev:server" to "cd packages/server && npm run start",
+                            "dev" to "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+                            "dev:server" to "cd packages/server && npm run dev",
                             "dev:client" to "cd packages/client && npm run dev",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
                         ),
+                    devDependencies = linkedMapOf("concurrently" to "^9.0.0"),
                 ),
             )
             put("packages/shared/rescript.json", ProjectFileBuilders.rescriptJson(name = "@$projectName/shared"))
@@ -53,6 +55,7 @@ internal object MonorepoTemplateFiles {
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
+                            "dev" to "node --watch src/Server.res.mjs",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -64,7 +67,7 @@ internal object MonorepoTemplateFiles {
             put("packages/server/src/HonoNodeServer.res", ProjectFileBuilders.honoNodeServerBindings())
             put(
                 "packages/server/src/Server.res",
-                "let app = Hono.createApp()\n\napp->Hono.get(\"/\", ctx => {\n  ctx->Hono.json({\"message\": \"Hello from server!\"})\n})\n\nHonoNodeServer.serve(app, {port: 3000})\nConsole.log(\"Server running on http://localhost:3000\")",
+                "let app = Hono.createApp()\n\napp->Hono.get(\"/api/hello\", ctx => {\n  ctx->Hono.json({\"message\": \"Hello from server!\"})\n})\n\nHonoNodeServer.serve(app, {port: 3000})\nConsole.log(\"Server running on http://localhost:3000\")",
             )
             put(
                 "packages/client/rescript.json",
@@ -105,7 +108,7 @@ internal object MonorepoTemplateFiles {
             )
             put(
                 "packages/client/vite.config.mjs",
-                "import { defineConfig } from \"vite\";\nimport react from \"@vitejs/plugin-react\";\n\nexport default defineConfig({\n  plugins: [react()],\n});",
+                ProjectFileBuilders.viteConfigWithProxy(),
             )
             put(
                 "packages/client/src/App.res",

@@ -160,6 +160,44 @@ object ProjectFileBuilders {
         }
 
     /**
+     * Generates a Vite config with a reverse-proxy for API calls during development.
+     *
+     * Used by the Monorepo template so the Vite dev server proxies `/api` requests
+     * to the Hono backend, eliminating the need for CORS configuration.
+     *
+     * @param plugins list of Vite plugin expressions (default: `react()`)
+     * @param imports list of ES import statements for the config file
+     * @param proxyTarget the backend URL to proxy to (default: `http://localhost:3000`)
+     * @param proxyPath the URL path prefix to proxy (default: `/api`)
+     * @return the vite.config.mjs content as a string
+     */
+    fun viteConfigWithProxy(
+        plugins: List<String> = listOf("react()"),
+        imports: List<String> =
+            listOf(
+                """import { defineConfig } from "vite";""",
+                """import react from "@vitejs/plugin-react";""",
+            ),
+        proxyTarget: String = "http://localhost:3000",
+        proxyPath: String = "/api",
+    ): String =
+        buildString {
+            imports.forEach { appendLine(it) }
+            appendLine("")
+            appendLine("export default defineConfig({")
+            appendLine("  plugins: [${plugins.joinToString(", ")}],")
+            appendLine("  server: {")
+            appendLine("    proxy: {")
+            appendLine("      \"$proxyPath\": {")
+            appendLine("        target: \"$proxyTarget\",")
+            appendLine("        changeOrigin: true,")
+            appendLine("      },")
+            appendLine("    },")
+            appendLine("  },")
+            append("});")
+        }
+
+    /**
      * Generates shared Hono framework bindings for ReScript.
      *
      * Used by Hono, Cloudflare Workers, AWS Lambda, and Google Cloud Run templates.

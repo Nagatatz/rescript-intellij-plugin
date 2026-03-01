@@ -171,6 +171,29 @@ class ProjectTemplateTest {
     }
 
     @Test
+    fun `MONOREPO root package json has dev script with concurrently`() {
+        val files = ProjectTemplate.MONOREPO.generateFiles("test-project")
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("concurrently"))
+        assertTrue(pkg.contains("\"dev\""))
+    }
+
+    @Test
+    fun `MONOREPO client vite config has api proxy`() {
+        val files = ProjectTemplate.MONOREPO.generateFiles("test-project")
+        val viteConfig = files["packages/client/vite.config.mjs"]!!
+        assertTrue(viteConfig.contains("proxy"))
+        assertTrue(viteConfig.contains("/api"))
+    }
+
+    @Test
+    fun `MONOREPO server has dev script with node watch`() {
+        val files = ProjectTemplate.MONOREPO.generateFiles("test-project")
+        val pkg = files["packages/server/package.json"]!!
+        assertTrue(pkg.contains("node --watch"))
+    }
+
+    @Test
     fun `HONO shared bindings are consistent across hono-based templates`() {
         val honoFiles = ProjectTemplate.HONO.generateFiles("test")
         val cfFiles = ProjectTemplate.CLOUDFLARE_WORKERS.generateFiles("test")
