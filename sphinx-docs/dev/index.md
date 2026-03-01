@@ -18,6 +18,10 @@ This section covers everything you need to contribute to the ReScript IntelliJ P
 - [Testing Guide](testing.md) — Writing and running tests
 - [Contributing Guide](contributing.md) — Workflow, conventions, and PR process
 
+## Infrastructure
+
+- [CI/CD Pipeline](ci-cd.md) — GitHub Actions workflows, local CI reproduction, and troubleshooting
+
 ## Tools
 
 - [Claude Code Workflow](claude-code.md) — Rules, skills, hooks, and steering workflow for AI-assisted development
@@ -33,5 +37,6 @@ project-structure
 extending
 testing
 contributing
+ci-cd
 claude-code
 ```
