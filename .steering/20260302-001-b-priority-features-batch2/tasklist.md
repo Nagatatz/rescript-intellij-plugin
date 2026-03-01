@@ -1,0 +1,67 @@
+# B 優先度機能一括実装 (バッチ2) — タスクリスト
+
+## 機能実装
+
+### #56 Framework Detector
+- [x] `RescriptFrameworkDetector.kt` 実装
+- [x] `RescriptFrameworkDetectorTest.kt` テスト作成
+- [x] `rescript-json.xml` に登録
+- [x] コミット
+
+### #52 Code Rearranger
+- [ ] `RescriptRearranger.kt` 実装
+- [ ] `RescriptRearrangerTest.kt` テスト作成
+- [ ] `plugin.xml` に登録
+- [ ] コミット
+
+### #103 変更可能性の診断
+- [ ] `RescriptMutabilityInspection.kt` 実装
+- [ ] `RescriptMutabilityInspectionTest.kt` テスト作成
+- [ ] `plugin.xml` に登録
+- [ ] コミット
+
+### #102 スタイルリンティング
+- [ ] `RescriptStyleLintInspection.kt` 実装
+- [ ] `RescriptStyleLintInspectionTest.kt` テスト作成
+- [ ] `plugin.xml` に登録
+- [ ] コミット
+
+### #97 filter+map チェーン変換
+- [ ] `RescriptFilterMapChainIntention.kt` 実装
+- [ ] `RescriptFilterMapChainIntentionTest.kt` テスト作成
+- [ ] `plugin.xml` に登録
+- [ ] コミット
+
+### #85 型注釈追加
+- [ ] `RescriptAddTypeAnnotationIntention.kt` 実装
+- [ ] `RescriptAddTypeAnnotationIntentionTest.kt` テスト作成 (LSP 部分は免除)
+- [ ] `plugin.xml` に登録
+- [ ] コミット
+
+### #109 PPX 可視化
+- [ ] `RescriptPpxVisualizationProvider.kt` 実装
+- [ ] `RescriptPpxVisualizationProviderTest.kt` テスト作成
+- [ ] `plugin.xml` に登録
+- [ ] コミット
+
+### #99 型ミスマッチ差分表示
+- [ ] `RescriptTypeDiffComputer.kt` 実装
+- [ ] `RescriptTypeDiffComputerTest.kt` テスト作成
+- [ ] `RescriptErrorLensRenderer.kt` 修正
+- [ ] `RescriptTypeMismatchParser.kt` 修正
+- [ ] コミット
+
+## ドキュメント更新
+- [ ] CLAUDE.md — レイヤー 3 に 8 機能追加
+- [ ] README.md — Features セクションに 8 機能追加
+- [ ] docs/product-requirements.md — 8 件を「実装済み」に移動
+- [ ] コミット
+
+## 検証
+- [ ] `./gradlew clean buildPlugin` 成功
+- [ ] 全テストパス
+- [ ] KDoc 全クラスに付与確認
+
+## マージ
+- [ ] ユーザーにマージ可否確認
+- [ ] main にマージ・ブランチ削除

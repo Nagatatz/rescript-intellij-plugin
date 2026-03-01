@@ -2,5 +2,9 @@
     <extensions defaultExtensionNs="com.intellij">
         <json.schemaProviderFactory
                 implementation="com.rescript.plugin.config.RescriptJsonSchemaProviderFactory"/>
+
+        <!-- Framework detector for rescript.json -->
+        <framework.detector
+                implementation="com.rescript.plugin.config.RescriptFrameworkDetector"/>
     </extensions>
 </idea-plugin>
