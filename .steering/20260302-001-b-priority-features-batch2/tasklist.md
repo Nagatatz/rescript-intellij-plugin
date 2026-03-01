@@ -9,10 +9,10 @@
 - [x] コミット
 
 ### #52 Code Rearranger
-- [ ] `RescriptRearranger.kt` 実装
-- [ ] `RescriptRearrangerTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptRearranger.kt` 実装
+- [x] `RescriptRearrangerTest.kt` テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #103 変更可能性の診断
 - [ ] `RescriptMutabilityInspection.kt` 実装

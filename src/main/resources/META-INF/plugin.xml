@@ -118,6 +118,10 @@
         <lang.quoteHandler language="ReScript"
                            implementationClass="com.rescript.plugin.editor.RescriptQuoteHandler"/>
 
+        <!-- Code rearranger (#52) -->
+        <lang.rearranger language="ReScript"
+                         implementationClass="com.rescript.plugin.codestyle.RescriptRearranger"/>
+
         <!-- Smart indentation on Enter -->
         <lineIndentProvider
                 implementation="com.rescript.plugin.codestyle.RescriptLineIndentProvider"/>
@@ -590,6 +594,28 @@
         <codeInsight.inlayHintsProvider language="ReScript"
                 implementationClass="com.rescript.plugin.lsp.RescriptPipeChainTypeHintsProvider"/>
 
+        <!-- Mutability diagnostics (#103) -->
+        <localInspection language="ReScript"
+                         groupName="ReScript"
+                         shortName="RescriptMutability"
+                         displayName="Unnecessary mutable ref"
+                         enabledByDefault="true"
+                         level="WEAK WARNING"
+                         implementationClass="com.rescript.plugin.inspection.RescriptMutabilityInspection"/>
+
+        <!-- Style linting (#102) -->
+        <localInspection language="ReScript"
+                         groupName="ReScript"
+                         shortName="RescriptStyleLint"
+                         displayName="ReScript style improvements"
+                         enabledByDefault="true"
+                         level="WEAK WARNING"
+                         implementationClass="com.rescript.plugin.inspection.RescriptStyleLintInspection"/>
+
+        <!-- PPX annotation visualization (#109) -->
+        <codeInsight.inlayHintsProvider language="ReScript"
+                implementationClass="com.rescript.plugin.lsp.RescriptPpxVisualizationProvider"/>
+
         <!-- Signature sync inspection (#94) -->
         <localInspection language="ReScript"
                          groupName="ReScript"
@@ -652,6 +678,22 @@
             <language>ReScript</language>
             <category>ReScript</category>
             <className>com.rescript.plugin.intention.RescriptExpandDestructuringIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Intention: Convert filter+map to filterMap (#97) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptFilterMapChainIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
+        <!-- Intention: Add type annotation (#85) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptAddTypeAnnotationIntention</className>
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
 
