@@ -45,6 +45,7 @@
     <depends optional="true" config-file="rescript-markdown.xml">org.intellij.plugins.markdown</depends>
     <depends optional="true" config-file="rescript-debug.xml">JavaScriptDebugger</depends>
     <depends optional="true" config-file="rescript-nodejs.xml">NodeJS</depends>
+    <depends optional="true" config-file="rescript-grazie.xml">tanvd.grazi</depends>
 
     <extensions defaultExtensionNs="com.intellij">
 
@@ -177,6 +178,10 @@
         <todoIndexer filetype="ReScript Interface"
                      implementationClass="com.rescript.plugin.indexing.RescriptTodoIndexer"/>
 
+        <!-- Index Pattern Builder (TODO/FIXME in comments) (#61) -->
+        <indexPatternBuilder
+                implementation="com.rescript.plugin.indexing.RescriptIndexPatternBuilder"/>
+
         <!-- Go to Symbol -->
         <gotoSymbolContributor
                 implementation="com.rescript.plugin.navigation.RescriptSymbolContributor"/>
@@ -188,6 +193,10 @@
         <!-- Code formatting (rescript format CLI) -->
         <formattingService
                 implementation="com.rescript.plugin.formatter.RescriptFormattingService"/>
+
+        <!-- Formatting model for injected language support (#55) -->
+        <lang.formatter language="ReScript"
+                        implementationClass="com.rescript.plugin.formatter.RescriptInjectedFormattingModelBuilder"/>
 
         <!-- Live Templates -->
         <defaultLiveTemplates>/liveTemplates/ReScript</defaultLiveTemplates>
@@ -362,6 +371,10 @@
         <!-- Qualified Name Copy (Cmd+Shift+Alt+C) -->
         <qualifiedNameProvider
                 implementation="com.rescript.plugin.navigation.RescriptQualifiedNameProvider"/>
+
+        <!-- Element Signature Provider (fold state persistence) (#60) -->
+        <elementSignatureProvider
+                implementation="com.rescript.plugin.navigation.RescriptElementSignatureProvider"/>
 
         <!-- Smart Enter (Shift+Enter) -->
         <lang.smartEnterProcessor language="ReScript"
@@ -538,6 +551,10 @@
         <copyPastePreProcessor
                 implementation="com.rescript.plugin.editor.RescriptCopyPastePreProcessor"/>
 
+        <!-- File Include Provider (open statement → file navigation) (#68) -->
+        <include.provider
+                implementation="com.rescript.plugin.navigation.RescriptFileIncludeProvider"/>
+
         <!-- Index of open statements for fast module lookup -->
         <fileBasedIndex
                 implementation="com.rescript.plugin.indexing.RescriptOpenStatementIndex"/>
@@ -569,6 +586,14 @@
         <!-- Split/Join List (1-line ↔ multi-line) -->
         <listSplitJoinContext
                 implementation="com.rescript.plugin.editor.RescriptListSplitJoinContext"/>
+
+        <!-- Strip trailing spaces filter (protect strings) (#53) -->
+        <stripTrailingSpacesFilterFactory
+                implementation="com.rescript.plugin.editor.RescriptStripTrailingSpacesFilterFactory"/>
+
+        <!-- Editor floating toolbar for ReScript files (#69) -->
+        <editorFloatingToolbarProvider
+                implementation="com.rescript.plugin.editor.RescriptFloatingToolbarProvider"/>
 
         <!-- Safe Delete with usage check (Refactor > Safe Delete) -->
         <refactoring.safeDeleteProcessor
