@@ -65,7 +65,7 @@
 
 - **Live Templates** — 21 code snippets with ReScript-aware context (`let`, `mod`, `sw`, `pipe`, `log`, `@module`, `@val`, `comp`, etc.)
 - **Postfix Completion** — `.switch`, `.pipe`, `.log`, `.promise`, `.await` and more
-- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, convert to labeled args, remove unnecessary parentheses, remove redundant qualifier, expand destructuring
+- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, convert to labeled args, remove unnecessary parentheses, remove redundant qualifier, expand destructuring, filter+map to filterMap, add type annotation
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
 - **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
@@ -87,7 +87,7 @@
 
 ### Code Analysis & Inspections
 
-- **Error Lens** — Inline diagnostic messages at end of editor lines (configurable severity) with structured type mismatch hints
+- **Error Lens** — Inline diagnostic messages at end of editor lines (configurable severity) with structured type mismatch hints and diff highlighting
 - **Signature sync inspection** — Detect `.res`/`.resi` signature mismatches
 - **Import optimizer** — Auto-detect and remove unused/duplicate `open` statements
 - **Dead code analysis** — Detect unused code via `reanalyze` integration
@@ -98,6 +98,8 @@
 - **Problem filter** — Suppress highlighting in `node_modules/`, `lib/bs/`, `lib/ocaml/`
 - **Inspection suppressor** — Suppress inspections with `// noinspection` comments
 - **Format check** — Highlight unformatted files with quick-fix to format (opt-in via Settings)
+- **Mutability diagnostics** — Detect unnecessary `ref` bindings that are never reassigned
+- **Style linting** — Detect redundant booleans, deprecated Belt.* usage, and boolean switch patterns
 
 ### Build, Run & Test
 
@@ -124,6 +126,9 @@
 - **Markdown code fence** — ReScript syntax highlighting in Markdown code blocks
 - **Color settings** — Customizable highlighting colors (Settings > Editor > Color Scheme > ReScript)
 - **Code style settings** — Indentation configuration for ReScript files
+- **Code rearranger** — Automatic declaration ordering (open → type → exception → module → external → let)
+- **Framework detector** — Automatic ReScript project detection via `rescript.json`
+- **PPX annotation hints** — Inline descriptions of PPX attribute effects
 - **TODO indexing** — Track TODO/FIXME comments in ReScript files
 - **Editor notification** — Guidance banner when LSP server is not detected
 - **File nesting** — Compiled `.res.js` files nested under `.res` in Project view with subdued gray color

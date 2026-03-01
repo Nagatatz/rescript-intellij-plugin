@@ -187,27 +187,27 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Record Value Generation | レコード型の全フィールドにデフォルト値を自動挿入 (Cmd+N) | `RescriptGenerateRecordValueAction` |
 | %re RegExp Injection | `%re("/pattern/flags")` 内の正規表現に RegExp 言語インジェクション | `RescriptRawJsInjector` 拡張 |
 | Expand Destructuring | `let {name, age} = user` を個別 let 束縛に展開 (Alt+Enter) | `RescriptExpandDestructuringIntention` |
+| Framework Detector | rescript.json によるフレームワーク自動検出 | `RescriptFrameworkDetector` + `RescriptFrameworkType` |
+| Code Rearranger | トップレベル宣言の自動並べ替え（open → type → exception → module → external → let） | `RescriptRearranger` |
+| 変更可能性の診断 | 不要な `ref` 使用の検出と Quick Fix による除去 | `RescriptMutabilityInspection` |
+| スタイルリンティング | 冗長ブール式・Belt API・ブール switch パターンの検出と改善提案 | `RescriptStyleLintInspection` |
+| filter+map チェーン変換 | `filter+map` チェーンを `filterMap` に変換 (Alt+Enter) | `RescriptFilterMapChainIntention` |
+| 型注釈追加 | LSP hover 情報を用いた let 束縛への型注釈挿入 (Alt+Enter) | `RescriptAddTypeAnnotationIntention` |
+| PPX 可視化 | PPX アノテーションの効果をインレイヒントで表示 | `RescriptPpxVisualizationProvider` |
+| 型ミスマッチ差分表示 | 型エラーの不一致部分を色分けして差分表示 | `RescriptTypeDiffComputer` + `RescriptErrorLensRenderer` 拡張 |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、78件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度10件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り31件を B/C の2段階で優先度付けする。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、86件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り23件を B/C の2段階で優先度付けする。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（31件）
+#### 未実装機能一覧（23件）
 
 テーブルフォーマットの定義は `.claude/rules/roadmap-format.md` を参照。
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|---------|------|--------|--------|
-| 52 | Code Rearranger | その他 | コード要素の自動並べ替え | 中 | B |
-| 56 | Framework Detector | プロジェクトビュー | ReScript フレームワークの自動検出 | 中 | B |
-| 85 | 型注釈一括追加 | Intention | 推論された型注釈を一括で明示化 | 中 | B |
-| 97 | map/filter チェーン変換 | Intention | `filter` + `map` チェーンを `filterMap` に変換 | 中 | B |
-| 99 | 型ミスマッチ差分表示 | 分析 | 型エラーの不一致部分のみを色分けして差分表示 | 中〜高 | B |
-| 102 | スタイルリンティング | Inspection | ReScript イディオムに反するパターンを検出し改善を提案 | 中〜高 | B |
-| 103 | 変更可能性の診断 | Inspection | `ref` の不要な使用やミュータビリティの問題を検出 | 中 | B |
-| 109 | Implicit/PPX 可視化 | InlayHints | 暗黙的な PPX 変換をインラインで可視化 | 中 | B |
 | 53 | Strip Trailing Spaces | 編集 | 行末の余分な空白を除去 | 低 | C |
 | 55 | Formatting for Injected | インジェクション | インジェクトされた言語のフォーマット | 低 | C |
 | 57 | Scratch File | 実行 | ReScript スクラッチファイルの実行 | 中〜高 | C |
