@@ -28,6 +28,7 @@ dependencies {
         bundledPlugin("com.intellij.modules.json")
         bundledPlugin("org.intellij.plugins.markdown")
         bundledPlugin("com.intellij.modules.vcs")
+        bundledPlugin("tanvd.grazi")
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
     }
