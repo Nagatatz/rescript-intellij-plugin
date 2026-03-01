@@ -22,10 +22,10 @@
 - [x] コミット
 
 ### #60 Element Signature Provider
-- [ ] `RescriptElementSignatureProvider.kt` 実装
-- [ ] `RescriptElementSignatureProviderTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptElementSignatureProvider.kt` 実装
+- [x] `RescriptElementSignatureProviderTest.kt` テスト作成
+- [x] `plugin.xml` に登録（#53 コミットに含む）
+- [x] コミット
 
 ### #61 Index Pattern Builder
 - [ ] `RescriptIndexPatternBuilder.kt` 実装
