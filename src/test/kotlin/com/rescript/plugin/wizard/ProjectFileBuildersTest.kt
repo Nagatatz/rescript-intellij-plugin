@@ -152,4 +152,27 @@ class ProjectFileBuildersTest {
         assertTrue(code.contains("serve"))
         assertTrue(code.contains("port: int"))
     }
+
+    @Test
+    fun `viteConfigWithProxy includes proxy configuration`() {
+        val config = ProjectFileBuilders.viteConfigWithProxy()
+        assertTrue(config.contains("proxy"))
+        assertTrue(config.contains("/api"))
+        assertTrue(config.contains("localhost:3000"))
+        assertTrue(config.contains("changeOrigin"))
+    }
+
+    @Test
+    fun `viteConfigWithProxy with custom target and path`() {
+        val config = ProjectFileBuilders.viteConfigWithProxy(proxyTarget = "http://localhost:8080", proxyPath = "/backend")
+        assertTrue(config.contains("localhost:8080"))
+        assertTrue(config.contains("/backend"))
+    }
+
+    @Test
+    fun `viteConfigWithProxy includes defineConfig import`() {
+        val config = ProjectFileBuilders.viteConfigWithProxy()
+        assertTrue(config.contains("defineConfig"))
+        assertTrue(config.contains("import react"))
+    }
 }

@@ -109,6 +109,8 @@ class TemplateDependencyVersionsTest {
     @Test
     fun `Monorepo has secure dependency versions`() {
         val files = ProjectTemplate.MONOREPO.generateFiles("test")
+        val rootPkg = files["package.json"]!!
+        assertMinVersion("concurrently", extractVersion(rootPkg, "concurrently"), 9, 0, 0)
         val clientPkg = files["packages/client/package.json"]!!
         assertMinVersion("react", extractVersion(clientPkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(clientPkg, "react-dom"), 19, 0, 4)
