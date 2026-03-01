@@ -39,5 +39,11 @@ sphinx-docs/tests/__pycache__/
 # pytest
 .pytest_cache/
 
+# Secrets / Signing
+*.pem
+*.key
+.env
+.env.*
+
 # Backup files
 *~

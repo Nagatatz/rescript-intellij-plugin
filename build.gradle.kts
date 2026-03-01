@@ -52,6 +52,26 @@ intellijPlatform {
             recommended()
         }
     }
+    publishing {
+        token =
+            providers
+                .environmentVariable("JETBRAINS_MARKETPLACE_TOKEN")
+                .orElse(providers.gradleProperty("jetbrainsMarketplaceToken"))
+    }
+    signing {
+        certificateChain =
+            providers
+                .environmentVariable("CERTIFICATE_CHAIN")
+                .orElse(providers.gradleProperty("certificateChain"))
+        privateKey =
+            providers
+                .environmentVariable("PRIVATE_KEY")
+                .orElse(providers.gradleProperty("privateKey"))
+        password =
+            providers
+                .environmentVariable("PRIVATE_KEY_PASSWORD")
+                .orElse(providers.gradleProperty("privateKeyPassword"))
+    }
 }
 
 ktlint {
