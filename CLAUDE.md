@@ -135,6 +135,13 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **型注釈追加** (`intention/`) — LSP hover 情報を用いた let 束縛への型注釈挿入 (Alt+Enter)
 - **PPX 可視化** (`lsp/`) — PPX アノテーションの効果をインレイヒントで表示
 - **型ミスマッチ差分表示** (`errorlens/`) — 型エラーの不一致部分を色分けして差分表示
+- **Strip Trailing Spaces Filter** (`editor/`) — 文字列リテラル内の空白を保護しつつ行末空白を除去
+- **Injected Language Formatting** (`formatter/`) — インジェクトされた言語フラグメントのフォーマット対応
+- **Grazie Text Extractor** (`grazie/`) — コメント・文字列からの自然言語テキスト抽出（Grazie 連携）
+- **Element Signature Provider** (`navigation/`) — 折りたたみ状態の永続化のための要素シグネチャ
+- **Index Pattern Builder** (`indexing/`) — コメント内 TODO/FIXME パターンのインデックス構築
+- **File Include Provider** (`navigation/`) — open 文からのファイルインクルードナビゲーション
+- **Floating Toolbar** (`editor/`) — ReScript ファイル用フローティングツールバー（Format/Open JS/Create Interface）
 
 ## 開発規約
 

@@ -71,6 +71,19 @@ Use **Navigate** → **Related Symbol** to jump between related files:
 - `.res` → `.js` (compiled output)
 - `.resi` → `.res` (implementation)
 
+## File Include Navigation
+
+The plugin resolves `open` statements to their corresponding module files, enabling navigation from `open` declarations to the referenced file.
+
+**Example:**
+
+```rescript
+open Belt.Array  // Ctrl+click to navigate to Belt_Array.res
+open MyModule    // Ctrl+click to navigate to MyModule.res
+```
+
+Module names are converted to filenames by replacing `.` with `_` (e.g., `Belt.Array` → `Belt_Array.res`).
+
 ## Create Interface File
 
 With a `.res` file open, use **Navigate** → **Create Interface File** to auto-generate a `.resi` interface file from the Language Server.

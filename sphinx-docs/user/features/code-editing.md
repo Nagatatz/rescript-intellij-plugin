@@ -619,6 +619,26 @@ Generates a tagged union encoder/decoder using `Object` with a `"tag"` field and
 
 **Naming convention:** Functions are named `encode` + capitalized type name and `decode` + capitalized type name (e.g., `encodeUser` / `decodeUser`). For a type named `t`, the functions are simply `encode` / `decode`.
 
+## Strip Trailing Spaces
+
+The plugin protects whitespace inside string literals when IntelliJ removes trailing spaces on save. Without this, intentional whitespace at the end of a string line would be stripped.
+
+**Protected token types:**
+- `STRING_VALUE` — regular string content
+- `JS_STRING_OPEN` / `JS_STRING_CLOSE` — JavaScript template string boundaries
+
+Configure trailing space behavior in **Settings** > **Editor** > **General** > **On Save**.
+
+## Editor Floating Toolbar
+
+A floating toolbar appears when editing ReScript files, providing quick access to commonly used actions:
+
+- **Format** — Format the current file (`Cmd+Option+L`)
+- **Open Compiled JS** — Open the compiled JavaScript output
+- **Create Interface** — Generate a `.resi` interface file
+
+The toolbar auto-shows when you start editing a ReScript file and auto-hides when not in use.
+
 ## Spellchecking
 
 The plugin supports IntelliJ's built-in spellchecker for:

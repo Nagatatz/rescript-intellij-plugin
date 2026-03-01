@@ -330,6 +330,32 @@ Inside injected `%re()` blocks:
 
 This feature uses IntelliJ's built-in RegExp language support, which is available in all JetBrains IDEs.
 
+## Injected Language Formatting
+
+When you format a ReScript file (`Cmd+Option+L`), any injected language fragments (e.g., JavaScript inside `%raw()`) are also formatted according to their own language's formatting rules.
+
+This feature provides a `FormattingModelBuilder` that delegates formatting to the injected language's formatter, so injected code stays properly formatted alongside your ReScript code.
+
+## Grazie Integration
+
+When the **Grazie** plugin is installed, the ReScript plugin extracts natural language text from comments and string literals for grammar and spell checking.
+
+**Supported text domains:**
+- **Comments** — Line comments (`//`), block comments (`/* */`), and documentation comments (`/** */`) are extracted as `COMMENTS` domain text
+- **Strings** — String literals, template strings, and character literals are extracted as `LITERALS` domain text
+
+This is an optional integration --- if Grazie is not installed, the feature is simply not available.
+
+## Index Pattern Builder
+
+Enhances the IDE's TODO/FIXME detection by providing a lexer-based index pattern builder for ReScript files. This enables more accurate pattern matching within comments compared to the basic text-based approach.
+
+The index pattern builder uses the ReScript JFlex lexer to correctly classify comment tokens (line comments, block comments, and doc comments), ensuring that TODO/FIXME patterns are only matched inside actual comments and not in string literals or code.
+
+## Element Signature Provider
+
+Provides stable element signatures that persist editor fold states across IDE restarts. When you collapse code blocks in the editor, their folded state is remembered using a signature format (`TYPE#name#offset`) that survives file modifications.
+
 ## Project Wizard
 
 Create new ReScript projects directly from the IDE with 12 pre-configured templates covering frontend, backend, serverless, mobile, and more.

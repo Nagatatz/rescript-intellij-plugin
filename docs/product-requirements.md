@@ -195,34 +195,34 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | 型注釈追加 | LSP hover 情報を用いた let 束縛への型注釈挿入 (Alt+Enter) | `RescriptAddTypeAnnotationIntention` |
 | PPX 可視化 | PPX アノテーションの効果をインレイヒントで表示 | `RescriptPpxVisualizationProvider` |
 | 型ミスマッチ差分表示 | 型エラーの不一致部分を色分けして差分表示 | `RescriptTypeDiffComputer` + `RescriptErrorLensRenderer` 拡張 |
+| Strip Trailing Spaces | 文字列リテラル内の空白を保護しつつ行末空白を除去 | `RescriptStripTrailingSpacesFilterFactory` + `RescriptStripTrailingSpacesFilter` |
+| Formatting for Injected | インジェクトされた言語フラグメントのフォーマット対応 | `RescriptInjectedFormattingModelBuilder` |
+| Grazie Text Extractor | コメント・文字列からの自然言語テキスト抽出（Grazie 連携） | `RescriptGrazieTextExtractor` + `rescript-grazie.xml` |
+| Element Signature Provider | 折りたたみ状態永続化のための要素シグネチャ | `RescriptElementSignatureProvider` |
+| Index Pattern Builder | コメント内 TODO/FIXME パターンのインデックス構築 | `RescriptIndexPatternBuilder` |
+| File Include Provider | open 文からのファイルインクルードナビゲーション | `RescriptFileIncludeProvider` |
+| Editor Floating Toolbar | ReScript ファイル用フローティングツールバー（Format/Open JS/Create Interface） | `RescriptFloatingToolbarProvider` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、86件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り23件を B/C の2段階で優先度付けする。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、93件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件 + C 優先度7件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り16件を以下に示す。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（23件）
+#### 未実装機能一覧（16件）
 
 テーブルフォーマットの定義は `.claude/rules/roadmap-format.md` を参照。
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|---------|------|--------|--------|
-| 53 | Strip Trailing Spaces | 編集 | 行末の余分な空白を除去 | 低 | C |
-| 55 | Formatting for Injected | インジェクション | インジェクトされた言語のフォーマット | 低 | C |
 | 57 | Scratch File | 実行 | ReScript スクラッチファイルの実行 | 中〜高 | C |
 | 58 | REPL | 実行 | インタラクティブ実行環境 | 中〜高 | C |
-| 59 | Grazie Text Extractor | その他 | Grazie による自然言語テキスト抽出 | 低 | C |
-| 60 | Element Signature Provider | その他 | 要素のシグネチャ情報提供 | 低 | C |
-| 61 | Index Pattern Builder | インデキシング | インデックスパターンの構築 | 低 | C |
 | 62 | Extract Function | リファクタリング | 選択コードを新しい関数に抽出 | 非常に高 | C |
 | 63 | Inline Variable/Function | リファクタリング | 変数・関数をインライン展開 | 高 | C |
 | 64 | Change Signature | リファクタリング | 関数シグネチャの変更と呼び出し側の自動修正 | 非常に高 | C |
 | 65 | Introduce Constant | リファクタリング | リテラル値を定数に抽出 | 高 | C |
 | 66 | Suggested Refactoring | リファクタリング | コード品質改善のリファクタリングを提案 | 中〜高 | C |
 | 67 | Dependency Diagram | その他 | モジュール依存関係のダイアグラム生成 | 高 | C |
-| 68 | File Include Provider | ナビゲーション | ファイルインクルード関係のナビゲーション | 中 | C |
-| 69 | Editor Floating Toolbar | その他 | エディタ上のフローティングツールバー | 中 | C |
 | 86 | React コンポーネント抽出 | リファクタリング | JSX を新しい React コンポーネントに抽出 | 高 | C |
 | 87 | PPX 展開ビュー | ToolWindow | PPX マクロの展開結果をツールウィンドウに表示 | 高 | C |
 | 88 | モジュールタイプ実装生成 | Generate | モジュールタイプのスケルトン実装を生成 | 高 | C |
