@@ -27,10 +27,10 @@
 - [x] コミット
 
 ### #97 filter+map チェーン変換
-- [ ] `RescriptFilterMapChainIntention.kt` 実装
-- [ ] `RescriptFilterMapChainIntentionTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptFilterMapChainIntention.kt` 実装
+- [x] `RescriptFilterMapChainIntentionTest.kt` テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #85 型注釈追加
 - [ ] `RescriptAddTypeAnnotationIntention.kt` 実装
