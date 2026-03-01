@@ -15,10 +15,10 @@
 - [x] コミット
 
 ### #103 変更可能性の診断
-- [ ] `RescriptMutabilityInspection.kt` 実装
-- [ ] `RescriptMutabilityInspectionTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptMutabilityInspection.kt` 実装
+- [x] `RescriptMutabilityInspectionTest.kt` テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #102 スタイルリンティング
 - [ ] `RescriptStyleLintInspection.kt` 実装
