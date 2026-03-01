@@ -128,6 +128,210 @@ class MyPostfixTemplate(provider: PostfixTemplateProvider) :
 }
 ```
 
+### Adding a Code Vision Provider
+
+Code Vision providers display inline annotations (e.g., type signatures) above code elements.
+
+```kotlin
+package com.rescript.plugin.codevision
+
+import com.intellij.codeInsight.hints.codeVision.DaemonBoundCodeVisionProvider
+import com.intellij.codeInsight.hints.codeVision.CodeVisionAnchorKind
+import com.intellij.openapi.editor.Editor
+import com.intellij.psi.PsiFile
+
+class RescriptMyCodeVisionProvider : DaemonBoundCodeVisionProvider {
+    override val id: String = "rescript.myVision"
+    override val name: String = "My Vision"
+    override val defaultAnchor: CodeVisionAnchorKind = CodeVisionAnchorKind.Top
+
+    override fun computeForEditor(
+        editor: Editor,
+        file: PsiFile,
+    ): List<Pair<TextRange, CodeVisionEntry>> {
+        // Compute entries to display above code elements
+        return listOf(
+            Pair(range, TextCodeVisionEntry("display text", id))
+        )
+    }
+}
+```
+
+Register in `plugin.xml`:
+
+```xml
+<codeInsight.daemonBoundCodeVisionProvider
+    implementation="com.rescript.plugin.codevision.RescriptMyCodeVisionProvider"/>
+```
+
+### Adding a Tool Window
+
+Tool windows provide persistent UI panels in the IDE sidebar or bottom bar.
+
+```kotlin
+package com.rescript.plugin.typeinfo
+
+import com.intellij.openapi.project.DumbAware
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.wm.ToolWindow
+import com.intellij.openapi.wm.ToolWindowFactory
+
+class RescriptMyToolWindowFactory : ToolWindowFactory, DumbAware {
+    override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
+        val panel = MyPanel(project)
+        val content = toolWindow.contentManager.factory
+            .createContent(panel, null, false)
+        toolWindow.contentManager.addContent(content)
+    }
+
+    override fun shouldBeAvailable(project: Project): Boolean = true
+}
+```
+
+Register in `plugin.xml`:
+
+```xml
+<toolWindow id="My Tool Window"
+            anchor="bottom"
+            secondary="true"
+            factoryClass="com.rescript.plugin.typeinfo.RescriptMyToolWindowFactory"
+            icon="/icons/rescript-file.svg"/>
+```
+
+### Adding a PSI Stub Index
+
+Stub indexes enable fast symbol lookup without parsing entire files. The plugin uses `StringStubIndexExtension` for name-based indexes and `FileBasedIndexExtension` for content-based indexes.
+
+**Name index** (lookup symbols by name):
+
+```kotlin
+package com.rescript.plugin.indexing
+
+import com.intellij.psi.stubs.StringStubIndexExtension
+import com.intellij.psi.stubs.StubIndexKey
+
+class RescriptMyIndex : StringStubIndexExtension<RescriptDeclarationPsiElement>() {
+    companion object {
+        val KEY: StubIndexKey<String, RescriptDeclarationPsiElement> =
+            StubIndexKey.createIndexKey("rescript.my.index")
+    }
+
+    override fun getKey() = KEY
+    override fun getVersion(): Int = 1
+}
+```
+
+Register in `plugin.xml`:
+
+```xml
+<stubIndex implementation="com.rescript.plugin.indexing.RescriptMyIndex"/>
+```
+
+**File-based index** (index file content for queries):
+
+```kotlin
+class RescriptMyFileIndex : FileBasedIndexExtension<String, Void>() {
+    companion object {
+        val NAME: ID<String, Void> = ID.create("rescript.my.file.index")
+    }
+
+    override fun getName() = NAME
+    override fun getIndexer(): DataIndexer<String, Void, FileContent> {
+        return DataIndexer { inputData ->
+            // Scan file content and return key-value map
+            mapOf("key" to null)
+        }
+    }
+    override fun getKeyDescriptor() = EnumeratorStringDescriptor()
+    override fun getValueExternalizer() = VoidDataExternalizer()
+    override fun getVersion(): Int = 1
+    override fun getInputFilter() = FileBasedIndex.InputFilter { file ->
+        file.fileType == RescriptFileType.INSTANCE
+    }
+    override fun dependsOnFileContent(): Boolean = true
+}
+```
+
+Register in `plugin.xml`:
+
+```xml
+<fileBasedIndex implementation="com.rescript.plugin.indexing.RescriptMyFileIndex"/>
+```
+
+### Adding LSP Custom Requests
+
+Extend the LSP server interface with custom request methods using `@JsonRequest` annotations.
+
+```kotlin
+package com.rescript.plugin.lsp
+
+import org.eclipse.lsp4j.TextDocumentIdentifier
+import org.eclipse.lsp4j.jsonrpc.services.JsonRequest
+import org.eclipse.lsp4j.services.LanguageServer
+import java.util.concurrent.CompletableFuture
+
+interface RescriptLanguageServer : LanguageServer {
+    @JsonRequest("textDocument/createInterface")
+    fun createInterface(params: TextDocumentIdentifier): CompletableFuture<TextDocumentIdentifier>
+
+    @JsonRequest("textDocument/openCompiled")
+    fun openCompiled(params: TextDocumentIdentifier): CompletableFuture<TextDocumentIdentifier>
+}
+```
+
+Custom requests are defined as interface methods, not registered in `plugin.xml`. The interface is used when obtaining the LSP server proxy via `LspServerDescriptor`:
+
+```kotlin
+val server = lspServerDescriptor.getServer() as? RescriptLanguageServer
+val result = server?.createInterface(params)?.get()
+```
+
+### Adding a Paste Processor
+
+Paste processors transform clipboard content when pasting into the editor.
+
+```kotlin
+package com.rescript.plugin.paste
+
+import com.intellij.codeInsight.editorActions.CopyPastePostProcessor
+import com.intellij.codeInsight.editorActions.TextBlockTransferableData
+import com.intellij.openapi.editor.Editor
+import com.intellij.psi.PsiFile
+import java.awt.datatransfer.Transferable
+
+class RescriptMyPasteProcessor : CopyPastePostProcessor<TextBlockTransferableData>() {
+    override fun collectTransferableData(
+        file: PsiFile, editor: Editor,
+        startOffsets: IntArray, endOffsets: IntArray,
+    ): List<TextBlockTransferableData> = emptyList()
+
+    override fun extractTransferableData(
+        content: Transferable,
+    ): List<TextBlockTransferableData> {
+        // Check clipboard content and return data if applicable
+    }
+
+    override fun processTransferableData(
+        project: Project, editor: Editor,
+        bounds: RangeMarker, caretOffset: Int,
+        indented: Ref<in Boolean>,
+        values: MutableList<out TextBlockTransferableData>,
+    ) {
+        // Transform the pasted content
+        WriteCommandAction.runWriteCommandAction(project) {
+            editor.document.replaceString(bounds.startOffset, bounds.endOffset, transformed)
+        }
+    }
+}
+```
+
+Register in `plugin.xml`:
+
+```xml
+<copyPastePostProcessor
+    implementation="com.rescript.plugin.paste.RescriptMyPasteProcessor"/>
+```
+
 ## File Naming Conventions
 
 - Classes: `Rescript<Feature><Type>.kt` (e.g., `RescriptFoldingBuilder.kt`)

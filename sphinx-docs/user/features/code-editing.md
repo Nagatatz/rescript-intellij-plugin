@@ -87,6 +87,8 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Convert to labeled arguments | Convert positional arguments to labeled arguments |
 | Remove unnecessary parentheses | Remove redundant parentheses around expressions |
 | Remove redundant qualifier | Remove unnecessary module path qualifiers |
+| Convert filter+map to filterMap | Convert `->Array.filter(f)->Array.map(g)` to `->Array.filterMap(...)` |
+| Add type annotation | Add explicit type annotation to a `let` binding using LSP hover info |
 
 ### Wrap with Some(...)
 
@@ -828,6 +830,23 @@ switch value {
 | None => handleNone()
 }
 ```
+
+## Word Selection (Extend/Shrink)
+
+Use `Ctrl+W` (`Alt+Up` on macOS) to extend the selection and `Ctrl+Shift+W` (`Alt+Down` on macOS) to shrink it, with ReScript-aware boundaries.
+
+### Selection Boundaries
+
+The word selector recognizes the following ReScript-specific boundaries for extend/shrink selection:
+
+| Context | Selection Expands To |
+|---------|---------------------|
+| Inside a string literal | String content (without quotes) → Entire string (with quotes) |
+| Inside parentheses `(...)` | Content inside parens → Including parentheses |
+| Inside block comment `/* ... */` | Comment content → Entire comment including delimiters |
+| Inside line comment `// ...` | Comment text → Entire comment line |
+
+This provides more natural selection behavior than the default word selector when working with ReScript code structures.
 
 ## Paste as JSX
 
