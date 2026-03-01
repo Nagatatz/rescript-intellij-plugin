@@ -52,16 +52,17 @@
 - [x] コミット
 
 ## ドキュメント更新
-- [ ] CLAUDE.md — レイヤー 3 に 8 機能追加
-- [ ] README.md — Features セクションに 8 機能追加
-- [ ] docs/product-requirements.md — 8 件を「実装済み」に移動
-- [ ] コミット
+- [x] CLAUDE.md — レイヤー 3 に 8 機能追加（main の 8857968 コミットで反映済み）
+- [x] README.md — Features セクションに 8 機能追加
+- [x] sphinx-docs — code-analysis.md, code-editing.md, advanced.md 反映済み（main の 8857968 コミット）
+- [x] docs/product-requirements.md — 8 件を「実装済み」に移動
+- [x] コミット
 
 ## 検証
-- [ ] `./gradlew clean buildPlugin` 成功
-- [ ] 全テストパス
-- [ ] KDoc 全クラスに付与確認
+- [x] `./gradlew clean buildPlugin` 成功
+- [x] 全テストパス
+- [x] KDoc 全クラスに付与確認
 
 ## マージ
-- [ ] ユーザーにマージ可否確認
-- [ ] main にマージ・ブランチ削除
+- [x] ユーザーにマージ可否確認
+- [x] main にマージ・ブランチ削除
