@@ -33,10 +33,10 @@
 - [x] コミット
 
 ### #85 型注釈追加
-- [ ] `RescriptAddTypeAnnotationIntention.kt` 実装
-- [ ] `RescriptAddTypeAnnotationIntentionTest.kt` テスト作成 (LSP 部分は免除)
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptAddTypeAnnotationIntention.kt` 実装
+- [x] `RescriptAddTypeAnnotationIntentionTest.kt` テスト作成 (LSP 部分は免除)
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #109 PPX 可視化
 - [ ] `RescriptPpxVisualizationProvider.kt` 実装
