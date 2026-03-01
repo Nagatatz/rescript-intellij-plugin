@@ -164,7 +164,11 @@ class ProjectFileBuildersTest {
 
     @Test
     fun `viteConfigWithProxy with custom target and path`() {
-        val config = ProjectFileBuilders.viteConfigWithProxy(proxyTarget = "http://localhost:8080", proxyPath = "/backend")
+        val config =
+            ProjectFileBuilders.viteConfigWithProxy(
+                proxyTarget = "http://localhost:8080",
+                proxyPath = "/backend",
+            )
         assertTrue(config.contains("localhost:8080"))
         assertTrue(config.contains("/backend"))
     }
