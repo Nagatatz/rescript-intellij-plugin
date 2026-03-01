@@ -40,10 +40,10 @@
 - [x] コミット
 
 ### #69 Editor Floating Toolbar
-- [ ] `RescriptFloatingToolbarProvider.kt` 実装
-- [ ] `RescriptFloatingToolbarProviderTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptFloatingToolbarProvider.kt` 実装
+- [x] `RescriptFloatingToolbarProviderTest.kt` テスト作成
+- [x] `plugin.xml` に登録（#53 コミットに含む）
+- [x] コミット
 
 ## ドキュメント更新
 - [ ] CLAUDE.md — レイヤー 3 に 7 機能追加
