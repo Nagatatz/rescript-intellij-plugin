@@ -28,10 +28,10 @@
 - [x] コミット
 
 ### #61 Index Pattern Builder
-- [ ] `RescriptIndexPatternBuilder.kt` 実装
-- [ ] `RescriptIndexPatternBuilderTest.kt` テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptIndexPatternBuilder.kt` 実装
+- [x] `RescriptIndexPatternBuilderTest.kt` テスト作成
+- [x] `plugin.xml` に登録（#53 コミットに含む）
+- [x] コミット
 
 ### #68 File Include Provider
 - [ ] `RescriptFileIncludeProvider.kt` 実装
