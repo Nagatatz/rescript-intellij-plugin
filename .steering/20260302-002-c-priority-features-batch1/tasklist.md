@@ -15,11 +15,11 @@
 - [x] コミット
 
 ### #59 Grazie Text Extractor
-- [ ] `RescriptGrazieTextExtractor.kt` 実装
-- [ ] `rescript-grazie.xml` 作成
-- [ ] `plugin.xml` に `<depends>` 追加
-- [ ] `RescriptGrazieTextExtractorTest.kt` テスト作成
-- [ ] コミット
+- [x] `RescriptGrazieTextExtractor.kt` 実装
+- [x] `rescript-grazie.xml` 作成
+- [x] `plugin.xml` に `<depends>` 追加（#53 コミットに含む）
+- [x] `RescriptGrazieTextExtractorTest.kt` テスト作成
+- [x] コミット
 
 ### #60 Element Signature Provider
 - [ ] `RescriptElementSignatureProvider.kt` 実装
