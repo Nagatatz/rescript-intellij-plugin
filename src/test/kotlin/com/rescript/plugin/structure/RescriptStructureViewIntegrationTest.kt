@@ -15,7 +15,7 @@ class RescriptStructureViewIntegrationTest : BasePlatformTestCase() {
     fun testStructureViewContainsTopLevelDeclarations() {
         myFixture.configureByFile("ModuleStructure.res")
         myFixture.testStructureView { view ->
-            val root = view.treeModel.root as StructureViewTreeElement
+            val root = view.treeModel.root
             val children = root.children
             // Top-level declarations: let, type, module, external, exception
             assertTrue("Expected at least 5 top-level declarations, got ${children.size}", children.size >= 5)
@@ -25,11 +25,10 @@ class RescriptStructureViewIntegrationTest : BasePlatformTestCase() {
     fun testStructureViewShowsModuleChildren() {
         myFixture.configureByFile("ModuleStructure.res")
         myFixture.testStructureView { view ->
-            val root = view.treeModel.root as StructureViewTreeElement
+            val root = view.treeModel.root
             val moduleElement =
                 root.children.find { child ->
-                    val element = child as? StructureViewTreeElement
-                    element?.presentation?.presentableText == "Utils"
+                    (child as? StructureViewTreeElement)?.presentation?.presentableText == "Utils"
                 } as? StructureViewTreeElement
 
             assertNotNull("Expected to find 'Utils' module in structure view", moduleElement)
@@ -54,7 +53,7 @@ class RescriptStructureViewIntegrationTest : BasePlatformTestCase() {
             """.trimIndent(),
         )
         myFixture.testStructureView { view ->
-            val root = view.treeModel.root as StructureViewTreeElement
+            val root = view.treeModel.root
             val names =
                 root.children.mapNotNull { child ->
                     (child as? StructureViewTreeElement)?.presentation?.presentableText
