@@ -114,6 +114,9 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
             return names
         }
 
+        /** Pattern matching top-level declaration keywords followed by an identifier. */
+        private val DECLARATION_PATTERN = Regex("""(?m)^(?:let|type|module|external)\s+(\w+)""")
+
         /**
          * Parses declaration names from raw text.
          *
@@ -122,8 +125,7 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
          */
         internal fun parseDeclarationNames(text: String): Set<String> {
             val names = mutableSetOf<String>()
-            val pattern = Regex("""(?m)^(?:let|type|module|external)\s+(\w+)""")
-            for (match in pattern.findAll(text)) {
+            for (match in DECLARATION_PATTERN.findAll(text)) {
                 names.add(match.groupValues[1])
             }
             return names

@@ -77,6 +77,9 @@ class RescriptMergeSwitchCasesIntention : PsiElementBaseIntentionAction() {
     )
 
     companion object {
+        /** Pattern matching `|` at the start of a line (case separator in switch blocks). */
+        private val CASE_SEPARATOR_PATTERN = Regex("""(?m)^\s*\|""")
+
         /**
          * Finds the switch block text containing the given offset.
          *
@@ -155,7 +158,7 @@ class RescriptMergeSwitchCasesIntention : PsiElementBaseIntentionAction() {
             // Split by | at the start of lines
             val caseTexts =
                 body
-                    .split(Regex("""(?m)^\s*\|"""))
+                    .split(CASE_SEPARATOR_PATTERN)
                     .map { it.trim() }
                     .filter { it.isNotEmpty() }
 

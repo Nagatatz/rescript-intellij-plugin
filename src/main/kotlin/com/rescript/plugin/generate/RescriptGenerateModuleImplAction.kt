@@ -74,6 +74,9 @@ class RescriptGenerateModuleImplAction :
         private val TYPE_DECL_PATTERN = Regex("""^\s*type\s+(\w+)(.*)$""")
         private val MODULE_DECL_PATTERN = Regex("""^\s*module\s+(\w+)\s*:""")
 
+        // Pattern for labeled arguments (~name: type)
+        private val LABEL_PATTERN = Regex("""~(\w+)\s*:""")
+
         /**
          * Finds the module type declaration surrounding the given caret offset.
          *
@@ -232,8 +235,7 @@ class RescriptGenerateModuleImplAction :
          */
         internal fun generateParamNames(paramsPart: String): String {
             // Handle labeled arguments (~name: type)
-            val labelPattern = Regex("""~(\w+)\s*:""")
-            val labels = labelPattern.findAll(paramsPart).map { it.groupValues[1] }.toList()
+            val labels = LABEL_PATTERN.findAll(paramsPart).map { it.groupValues[1] }.toList()
 
             if (labels.isNotEmpty()) {
                 return labels.joinToString(", ") { "~$it" }

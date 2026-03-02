@@ -80,6 +80,10 @@ class RescriptAddTypeAnnotationIntention : PsiElementBaseIntentionAction() {
         internal val LET_WITH_TYPE_PATTERN =
             Regex("""let\s+\w+\s*:""")
 
+        // Matches: let name: type (in LSP hover response)
+        private val HOVER_LET_TYPE_PATTERN =
+            Regex("""let\s+\w+\s*:\s*(.+)""")
+
         /**
          * Inserts a type annotation into a let binding line.
          *
@@ -117,7 +121,7 @@ class RescriptAddTypeAnnotationIntention : PsiElementBaseIntentionAction() {
          */
         internal fun extractTypeFromHover(hoverText: String): String? {
             // Try to extract from "let name: type" pattern
-            val letMatch = Regex("""let\s+\w+\s*:\s*(.+)""").find(hoverText.trim())
+            val letMatch = HOVER_LET_TYPE_PATTERN.find(hoverText.trim())
             if (letMatch != null) {
                 return letMatch.groupValues[1].trim()
             }

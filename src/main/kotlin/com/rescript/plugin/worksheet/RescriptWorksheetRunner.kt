@@ -57,6 +57,9 @@ class RescriptWorksheetRunner(
         // Pattern for top-level let bindings
         private val LET_PATTERN = Regex("""^let\s+\w+""")
 
+        /** Pattern matching a let binding with a name for logging: `let name = ...` */
+        private val LET_BINDING_NAME_PATTERN = Regex("""^let\s+(\w+)\s*=""")
+
         // Pattern for type declarations (not evaluated)
         private val TYPE_PATTERN = Regex("""^type\s+""")
         private val MODULE_PATTERN = Regex("""^module\s+""")
@@ -121,7 +124,7 @@ class RescriptWorksheetRunner(
                 val trimmed = code.trim()
                 if (!trimmed.contains("Js.log") && !trimmed.contains("Console.log")) {
                     // If it's a let binding, log the bound value
-                    val letMatch = Regex("""^let\s+(\w+)\s*=""").find(trimmed)
+                    val letMatch = LET_BINDING_NAME_PATTERN.find(trimmed)
                     if (letMatch != null) {
                         appendLine("Js.log(${letMatch.groupValues[1]})")
                     }

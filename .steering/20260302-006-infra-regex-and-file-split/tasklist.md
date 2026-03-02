@@ -10,20 +10,20 @@
 - [x] `RescriptRegexPatternsTest.kt` を作成
 - [x] 重複パターンの参照元を `RescriptRegexPatterns` に書き換え（RescriptNamesValidator, RescriptExtractVariableUtil, RescriptTypeMismatchParser, RescriptRunUtils）
 - [x] ビルド確認 + テスト実行
-- [ ] コミット: `♻️ Unify duplicated regex patterns into RescriptRegexPatterns`
+- [x] コミット: `♻️ Unify duplicated regex patterns into RescriptRegexPatterns`
 
 ## Phase 3: #115 Regex インスタンスキャッシュ
 
-- [ ] RescriptCommentEvalProvider.kt — 15箇所のインライン Regex を companion object 定数に移動
-- [ ] RescriptPasteAsRescriptProcessor.kt — 6箇所
-- [ ] RescriptTypeDeclarationParser.kt — 3箇所
-- [ ] RescriptUnwrapDescriptor.kt — 3箇所
-- [ ] RescriptExpressionTypeProvider.kt — 2箇所
-- [ ] RescriptPasteAsJsxProcessor.kt — 2箇所
-- [ ] RescriptSignatureSyncInspection.kt — 1箇所（動的1箇所は除外）
-- [ ] RescriptAddTypeAnnotationIntention.kt — 1箇所（動的1箇所は除外）
-- [ ] 残り9ファイル — 各1箇所（RescriptExtractComponentHandler, RescriptExtractFunctionHandler, RescriptMergeSwitchCasesIntention, RescriptTypeSignatureSearchContributor, RescriptPpxViewPanel, RescriptWorksheetRunner, RescriptSearchEverywhereContributor, RescriptMutabilityInspection, RescriptTypeMismatchParser）
-- [ ] ビルド確認 + テスト実行
+- [x] RescriptCommentEvalProvider.kt — 調査の結果、全パターンが既に companion object 定数。変更不要
+- [x] RescriptPasteAsRescriptProcessor.kt — 4箇所のインライン Regex を companion object 定数に移動
+- [x] RescriptTypeDeclarationParser.kt — 3箇所
+- [x] RescriptUnwrapDescriptor.kt — 3箇所
+- [x] RescriptExpressionTypeProvider.kt — 2箇所
+- [x] RescriptPasteAsJsxProcessor.kt — 2箇所
+- [x] RescriptSignatureSyncInspection.kt — 1箇所（動的1箇所は除外）
+- [x] RescriptAddTypeAnnotationIntention.kt — 1箇所（動的1箇所は除外）
+- [x] 残り8ファイル — 各1箇所（RescriptExtractComponentHandler, RescriptExtractFunctionHandler, RescriptMergeSwitchCasesIntention, RescriptTypeSignatureSearchContributor, RescriptPpxViewPanel, RescriptWorksheetRunner, RescriptSearchEverywhereContributor, RescriptMutabilityInspection）+ RescriptGenerateModuleImplAction 1箇所
+- [x] ビルド確認 + テスト実行（BUILD SUCCESSFUL, 2517/2517 tests pass）
 - [ ] コミット: `♻️ Move inline Regex instantiations to companion object constants`
 
 ## Phase 4: #117 長大ファイル分割

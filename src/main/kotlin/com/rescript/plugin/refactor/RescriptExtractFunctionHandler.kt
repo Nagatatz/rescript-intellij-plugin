@@ -89,6 +89,9 @@ class RescriptExtractFunctionHandler : RefactoringActionHandler {
         // Pattern matching identifiers (variable references)
         private val IDENTIFIER_PATTERN = Regex("""\b([a-z_]\w*)\b""")
 
+        /** Pattern matching let bindings for detecting locally-defined variables. */
+        private val LET_BINDING_PATTERN = Regex("""let\s+(\w+)""")
+
         // ReScript keywords that should not be treated as free variables
         private val KEYWORDS =
             setOf(
@@ -188,8 +191,7 @@ class RescriptExtractFunctionHandler : RefactoringActionHandler {
 
             // Check which ones are defined within the selection itself
             val locallyDefined = mutableSetOf<String>()
-            val letPattern = Regex("""let\s+(\w+)""")
-            for (match in letPattern.findAll(selectedText)) {
+            for (match in LET_BINDING_PATTERN.findAll(selectedText)) {
                 locallyDefined.add(match.groupValues[1])
             }
 
