@@ -46,6 +46,7 @@ class RescriptConfigurable(
     private var inlayHintsCheckbox: JCheckBox? = null
     private var inlayHintsMaxLengthSpinner: JSpinner? = null
     private var compileStatusCheckbox: JCheckBox? = null
+    private var reanalyzeServerCheckbox: JCheckBox? = null
 
     override fun getDisplayName(): String = "ReScript"
 
@@ -153,6 +154,9 @@ class RescriptConfigurable(
         val compileStatusCb = JCheckBox("Enable compile status notifications", true)
         compileStatusCheckbox = compileStatusCb
 
+        val reanalyzeCheckbox = JCheckBox("Enable reanalyze server mode (requires ReScript \u2265 12.1.0)", true)
+        reanalyzeServerCheckbox = reanalyzeCheckbox
+
         val logCombo = ComboBox(DefaultComboBoxModel(LOG_LEVELS))
         logLevelCombo = logCombo
 
@@ -195,6 +199,8 @@ class RescriptConfigurable(
                 .addTooltip("Maximum character length for inlay hint labels (0 = unlimited).")
                 .addComponent(compileStatusCb)
                 .addTooltip("Receive compile status notifications from the LSP server.")
+                .addComponent(reanalyzeCheckbox)
+                .addTooltip("Start a reanalyze server daemon for faster dead code analysis. Requires ReScript 12.1.0+.")
                 .addSeparator()
                 .addLabeledComponent("ReScript binary path:", binaryPathField)
                 .addTooltip("Leave empty to auto-detect. Path to the ReScript compiler binary.")
@@ -230,7 +236,8 @@ class RescriptConfigurable(
             cacheProjectConfigCheckbox?.isSelected != settings.cacheProjectConfigEnabled ||
             inlayHintsCheckbox?.isSelected != settings.inlayHintsEnabled ||
             inlayHintsMaxLengthSpinner?.value != settings.inlayHintsMaxLength ||
-            compileStatusCheckbox?.isSelected != settings.compileStatusEnabled
+            compileStatusCheckbox?.isSelected != settings.compileStatusEnabled ||
+            reanalyzeServerCheckbox?.isSelected != settings.reanalyzeServerEnabled
     }
 
     @Throws(ConfigurationException::class)
@@ -288,6 +295,20 @@ class RescriptConfigurable(
         settings.inlayHintsMaxLength = inlayHintsMaxLengthSpinner?.value as? Int ?: 25
         settings.compileStatusEnabled = compileStatusCheckbox?.isSelected ?: true
 
+        // Toggle reanalyze server based on setting change
+        val newReanalyzeEnabled = reanalyzeServerCheckbox?.isSelected ?: true
+        val oldReanalyzeEnabled = settings.reanalyzeServerEnabled
+        settings.reanalyzeServerEnabled = newReanalyzeEnabled
+        if (newReanalyzeEnabled != oldReanalyzeEnabled) {
+            val serverService =
+                project.getService(com.rescript.plugin.analysis.RescriptReanalyzeServerService::class.java)
+            if (newReanalyzeEnabled) {
+                serverService?.startServer()
+            } else {
+                serverService?.stopServer()
+            }
+        }
+
         com.intellij.platform.lsp.api.LspServerManager
             .getInstance(project)
             .stopAndRestartIfNeeded(com.rescript.plugin.lsp.RescriptLspServerSupportProvider::class.java)
@@ -313,6 +334,7 @@ class RescriptConfigurable(
         inlayHintsCheckbox?.isSelected = settings.inlayHintsEnabled
         inlayHintsMaxLengthSpinner?.value = settings.inlayHintsMaxLength
         compileStatusCheckbox?.isSelected = settings.compileStatusEnabled
+        reanalyzeServerCheckbox?.isSelected = settings.reanalyzeServerEnabled
     }
 
     override fun disposeUIResources() {
@@ -335,6 +357,7 @@ class RescriptConfigurable(
         inlayHintsCheckbox = null
         inlayHintsMaxLengthSpinner = null
         compileStatusCheckbox = null
+        reanalyzeServerCheckbox = null
     }
 
     companion object {
