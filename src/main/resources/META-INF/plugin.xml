@@ -790,6 +790,13 @@
         <!-- Comment code evaluation inlay hints (#106) -->
         <codeInsight.inlayHintsProvider language="ReScript"
                 implementationClass="com.rescript.plugin.editor.RescriptCommentEvalProvider"/>
+
+        <!-- Worksheet file type (.resw) (#107) -->
+        <fileType name="ReScript Worksheet"
+                  extensions="resw"
+                  fieldName="INSTANCE"
+                  language="ReScript"
+                  implementationClass="com.rescript.plugin.worksheet.RescriptWorksheetFileType"/>
     </extensions>
 
     <actions>

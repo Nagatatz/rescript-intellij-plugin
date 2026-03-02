@@ -77,10 +77,10 @@
 - [x] コミット
 
 ### #107 Worksheet モード
-- [ ] `RescriptWorksheetFileType.kt` + `RescriptWorksheetRunner.kt` を実装
-- [ ] テスト作成（`RescriptWorksheetRunner` の companion object）
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptWorksheetFileType.kt` + `RescriptWorksheetRunner.kt` を実装
+- [x] テスト作成（`RescriptWorksheetRunner` の companion object）
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ## Batch 4: 非常に高難易度
 
