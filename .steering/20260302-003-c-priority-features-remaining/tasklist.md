@@ -85,10 +85,10 @@
 ## Batch 4: 非常に高難易度
 
 ### #62 Extract Function
-- [ ] `RescriptExtractFunctionHandler.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptExtractFunctionHandler.kt` を実装
+- [x] テスト作成
+- [x] `RefactoringSupportProvider` に登録
+- [x] コミット
 
 ### #64 Change Signature
 - [ ] `RescriptChangeSignatureHandler.kt` + `RescriptChangeSignatureDialog.kt` を実装
