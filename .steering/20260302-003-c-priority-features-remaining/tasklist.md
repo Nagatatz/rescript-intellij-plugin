@@ -35,10 +35,10 @@
 - [x] コミット
 
 ### #65 Introduce Constant
-- [ ] `RescriptIntroduceConstantHandler.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptIntroduceConstantHandler.kt` を実装
+- [x] テスト作成
+- [x] `RefactoringSupportProvider` に登録
+- [x] コミット
 
 ### #67 Dependency Diagram
 - [ ] `RescriptDependencyDiagramProvider.kt` + `RescriptDependencyDiagramModel.kt` を実装
