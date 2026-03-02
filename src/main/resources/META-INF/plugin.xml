@@ -926,5 +926,11 @@
                 description="Generate module implementation from module type">
             <add-to-group group-id="ReScript.GenerateGroup" anchor="last"/>
         </action>
+        <action id="ReScript.RestartLsp"
+                class="com.rescript.plugin.lsp.RescriptRestartLspAction"
+                text="Restart ReScript Language Server"
+                description="Restart the ReScript LSP server">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
     </actions>
 </idea-plugin>
