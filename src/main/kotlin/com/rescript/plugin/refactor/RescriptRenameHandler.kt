@@ -16,6 +16,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.refactoring.rename.RenameHandler
 import com.rescript.plugin.lsp.RescriptLspServerSupportProvider
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptOffsetUtils
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.PrepareRenameParams
 import org.eclipse.lsp4j.RenameParams
@@ -68,7 +69,7 @@ class RescriptRenameHandler : RenameHandler {
         }
 
         val offset = editor.caretModel.offset
-        val position = offsetToPosition(editor, offset)
+        val position = RescriptOffsetUtils.offsetToPosition(editor.document, offset)
         val textDocId = lspServer.getDocumentIdentifier(virtualFile)
 
         // Try prepareRename first to check feasibility and get current name
@@ -177,16 +178,6 @@ class RescriptRenameHandler : RenameHandler {
 
     private fun isIdentifierChar(ch: Char): Boolean = ch.isLetterOrDigit() || ch == '_' || ch == '\''
 
-    private fun offsetToPosition(
-        editor: Editor,
-        offset: Int,
-    ): Position {
-        val line = editor.document.getLineNumber(offset)
-        val lineStart = editor.document.getLineStartOffset(line)
-        val character = offset - lineStart
-        return Position(line, character)
-    }
-
     // ── WorkspaceEdit application ──────────────────────────────────────
 
     private fun applyWorkspaceEdit(
@@ -221,8 +212,8 @@ class RescriptRenameHandler : RenameHandler {
                     )
 
                 for (textEdit in sortedEdits) {
-                    val startOffset = positionToOffset(document, textEdit.range.start)
-                    val endOffset = positionToOffset(document, textEdit.range.end)
+                    val startOffset = RescriptOffsetUtils.positionToOffset(document, textEdit.range.start)
+                    val endOffset = RescriptOffsetUtils.positionToOffset(document, textEdit.range.end)
                     if (startOffset >= 0 && endOffset >= 0 && endOffset <= document.textLength) {
                         document.replaceString(startOffset, endOffset, textEdit.newText)
                     }
@@ -235,15 +226,6 @@ class RescriptRenameHandler : RenameHandler {
                 fileDocManager.saveDocument(doc)
             }
         })
-    }
-
-    private fun positionToOffset(
-        document: Document,
-        position: Position,
-    ): Int {
-        if (position.line >= document.lineCount) return -1
-        val lineStart = document.getLineStartOffset(position.line)
-        return lineStart + position.character
     }
 
     companion object {

@@ -3,8 +3,8 @@ package com.rescript.plugin.lsp
 import com.intellij.lang.ExpressionTypeProvider
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.RescriptLanguage
+import com.rescript.plugin.util.RescriptOffsetUtils
 import org.eclipse.lsp4j.HoverParams
-import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.TextDocumentIdentifier
 
 /**
@@ -27,15 +27,14 @@ class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
 
             val document = file.viewProvider.document ?: return NO_TYPE
             val offset = element.textRange.startOffset
-            val lineNumber = document.getLineNumber(offset)
-            val column = offset - document.getLineStartOffset(lineNumber)
+            val position = RescriptOffsetUtils.offsetToPosition(document, offset)
 
             val uri = RescriptLspUtils.toLspUri(virtualFile)
 
             val params =
                 HoverParams(
                     TextDocumentIdentifier(uri),
-                    Position(lineNumber, column),
+                    position,
                 )
 
             val hoverResult =

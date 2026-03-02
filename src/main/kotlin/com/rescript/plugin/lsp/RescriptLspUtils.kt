@@ -4,8 +4,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerManager
+import com.rescript.plugin.util.RescriptOffsetUtils
 import org.eclipse.lsp4j.HoverParams
-import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.TextDocumentIdentifier
 import java.net.URI
 
@@ -81,15 +81,14 @@ object RescriptLspUtils {
                     .getInstance()
                     .getDocument(file) ?: return null
 
-            val lineNumber = document.getLineNumber(offset)
-            val column = offset - document.getLineStartOffset(lineNumber)
+            val position = RescriptOffsetUtils.offsetToPosition(document, offset)
 
             val uri = toLspUri(file)
 
             val params =
                 HoverParams(
                     TextDocumentIdentifier(uri),
-                    Position(lineNumber, column),
+                    position,
                 )
 
             val hoverResult =
