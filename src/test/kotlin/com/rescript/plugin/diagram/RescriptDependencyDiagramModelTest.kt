@@ -121,4 +121,22 @@ class RescriptDependencyDiagramModelTest {
         assertEquals("App", edge.from)
         assertEquals("Utils", edge.to)
     }
+
+    @Test
+    fun `toDot escapes double quotes in module names`() {
+        val model = RescriptDependencyDiagramModel()
+        model.addModule("App\"Inject", listOf("Utils"))
+        val dot = model.toDot()
+        // Double quotes should be escaped to prevent DOT format injection
+        assertTrue(dot.contains("\"App\\\"Inject\""))
+        assertTrue(!dot.contains("\"App\"Inject\""))
+    }
+
+    @Test
+    fun `toDot escapes backslashes in module names`() {
+        val model = RescriptDependencyDiagramModel()
+        model.addModule("App\\Path", listOf("Utils"))
+        val dot = model.toDot()
+        assertTrue(dot.contains("App\\\\Path"))
+    }
 }
