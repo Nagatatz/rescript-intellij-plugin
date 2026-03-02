@@ -41,10 +41,10 @@
 - [x] コミット
 
 ### #67 Dependency Diagram
-- [ ] `RescriptDependencyDiagramProvider.kt` + `RescriptDependencyDiagramModel.kt` を実装
-- [ ] テスト作成
-- [ ] `rescript-diagram.xml` を作成、`plugin.xml` に optional dependency 追加
-- [ ] コミット
+- [x] `RescriptDependencyDiagramProvider.kt` + `RescriptDependencyDiagramModel.kt` を実装
+- [x] テスト作成
+- [x] 登録不要（ダイアグラムプラグイン非依存の自立実装）
+- [x] コミット
 
 ### #86 React コンポーネント抽出
 - [ ] `RescriptExtractComponentHandler.kt` を実装
