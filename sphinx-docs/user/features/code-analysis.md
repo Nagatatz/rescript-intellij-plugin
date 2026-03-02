@@ -240,6 +240,44 @@ if flag { a } else { b }
 
 Each rule provides a quick fix via `Alt+Enter`.
 
+### Suggested Refactoring
+
+Automatically detects code patterns that can be improved and proposes refactoring suggestions. This inspection identifies opportunities for cleaner code without changing behavior.
+
+**Detected patterns:**
+
+**1. Extractable repeated expressions:**
+
+```rescript
+// Before: same expression used multiple times
+let area = width * height
+let perimeter = 2 * (width * height)
+// Suggestion: Extract common expression into a variable
+```
+
+**2. Simplifiable conditional assignments:**
+
+```rescript
+// Before: verbose conditional
+let result = if condition {
+  value
+} else {
+  value
+}
+// Suggestion: Remove redundant conditional
+```
+
+**3. Inlineable single-use variables:**
+
+```rescript
+// Before: variable used only once
+let temp = compute(x)
+process(temp)
+// Suggestion: Inline variable
+```
+
+Each suggestion appears as a weak warning with a quick fix via `Alt+Enter`.
+
 ## Error Lens
 
 Error Lens displays diagnostic messages (errors, warnings, info) as inline annotations at the end of the affected line, providing immediate visibility without needing to hover or check the Problems panel.
@@ -414,3 +452,25 @@ let processData = (input, config) => {
 
 let result = processData(input, config)
 ```
+
+### Type Hole Quick Fix
+
+When the compiler reports a type hole (`_` used as a type placeholder), the plugin suggests candidate types to fill in. Press `Alt+Enter` on the type hole diagnostic to see matching type suggestions.
+
+**Before:**
+
+```rescript
+let parse: string => _ = jsonStr => {
+  // compiler error: type hole found
+}
+```
+
+**After** (applying suggested type):
+
+```rescript
+let parse: string => JSON.t = jsonStr => {
+  // type hole filled with suggested type
+}
+```
+
+The quick fix parses the compiler diagnostic to extract candidate types and offers them as replacement options.

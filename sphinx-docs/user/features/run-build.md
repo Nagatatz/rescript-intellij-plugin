@@ -204,6 +204,74 @@ Start typing `rescript` in the Run Anything dialog to see matching commands with
 Run Anything for ReScript is only available in projects that contain a `rescript.json` (or `bsconfig.json`) at the project root. The ReScript CLI must be installed in the project's `node_modules`.
 :::
 
+## Scratch File
+
+Create temporary ReScript files for quick experimentation without affecting your project.
+
+### How to Use
+
+1. **File** > **New** > **Scratch File** (or `Ctrl+Alt+Shift+Insert`)
+2. Select **ReScript** from the language list
+3. Write and experiment with code in the scratch file
+
+Scratch files are stored in the IDE's scratch directory (outside your project) and persist across IDE restarts. They support full syntax highlighting and code folding, making them ideal for testing small code snippets.
+
+### Use Cases
+
+- **Quick prototyping** — Try out an idea without creating a file in your project
+- **Learning** — Experiment with ReScript syntax and features
+- **Debugging** — Isolate and test a specific piece of logic
+
+## REPL
+
+An interactive ReScript execution environment available as a tool window.
+
+**Open:** **View** > **Tool Windows** > **ReScript REPL**
+
+### How It Works
+
+The REPL compiles and executes ReScript expressions using the project's ReScript compiler and Node.js runtime. Each expression is wrapped in a temporary file, compiled to JavaScript, and executed, with the result displayed in the output panel.
+
+### Features
+
+- **Expression evaluation** — Type ReScript expressions and see results immediately
+- **History navigation** — Use Up/Down arrow keys to recall previous expressions
+- **Project context** — The REPL uses your project's `rescript.json` configuration and dependencies
+- **Clear output** — Clear the output panel with the toolbar button
+
+### Requirements
+
+- ReScript compiler installed in the project's `node_modules`
+- Node.js available on the system
+
+## Worksheet Mode
+
+Interactively evaluate entire `.resw` (ReScript Worksheet) files with inline results displayed next to each expression.
+
+### How to Use
+
+1. Create a file with the `.resw` extension
+2. Write ReScript expressions, one per line
+3. Results appear as inline annotations next to each expression after evaluation
+
+```rescript
+let x = 1 + 2          // => 3
+let name = "ReScript"   // => "ReScript"
+String.length(name)     // => 8
+```
+
+### Features
+
+- **Automatic evaluation** — Expressions are evaluated when the file is saved or on demand
+- **Inline results** — Results appear as grayed-out annotations at the end of each line
+- **Error display** — Compilation errors are shown inline next to the offending expression
+- **Full language support** — Worksheets support the full ReScript syntax with access to project dependencies
+
+### Difference from REPL
+
+- **REPL** evaluates one expression at a time in an interactive session
+- **Worksheet** evaluates an entire file at once, showing all results side by side with the source code
+
 ## Debug Compiled JavaScript
 
 Press `Alt+Shift+D` to debug the compiled JavaScript output of the current `.res` file.

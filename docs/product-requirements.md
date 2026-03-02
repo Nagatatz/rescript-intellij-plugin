@@ -202,35 +202,32 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Index Pattern Builder | コメント内 TODO/FIXME パターンのインデックス構築 | `RescriptIndexPatternBuilder` |
 | File Include Provider | open 文からのファイルインクルードナビゲーション | `RescriptFileIncludeProvider` |
 | Editor Floating Toolbar | ReScript ファイル用フローティングツールバー（Format/Open JS/Create Interface） | `RescriptFloatingToolbarProvider` |
+| Scratch File | ReScript スクラッチファイルの作成・実行 | `RescriptScratchRootType` + `RescriptScratchCreationHelper` |
+| REPL | インタラクティブ実行環境ツールウィンドウ | `RescriptReplToolWindowFactory` + `RescriptReplPanel` + `RescriptReplExecutor` |
+| Suggested Refactoring | コード品質改善のリファクタリングを提案 | `RescriptSuggestedRefactoringInspection` |
+| JS→ReScript 変換 | JavaScript コードを ReScript に変換してペースト | `RescriptPasteAsRescriptProcessor` |
+| Inline Variable/Function | 変数・関数をインライン展開 (Ctrl+Alt+N) | `RescriptInlineHandler` |
+| Introduce Constant | リテラル値を定数に抽出 | `RescriptIntroduceConstantHandler` |
+| Dependency Diagram | モジュール依存関係のダイアグラム生成 | `RescriptDependencyDiagramProvider` + `RescriptDependencyDiagramModel` |
+| React コンポーネント抽出 | JSX を新しい React コンポーネントに抽出 | `RescriptExtractComponentHandler` |
+| PPX 展開ビュー | PPX マクロの展開結果をツールウィンドウに表示 | `RescriptPpxViewToolWindowFactory` + `RescriptPpxViewPanel` |
+| モジュールタイプ実装生成 | モジュールタイプのスケルトン実装を生成 (Cmd+N) | `RescriptGenerateModuleImplAction` |
+| 型ホール支援 | `_` 型ホールに対する候補型の提案 (Alt+Enter) | `RescriptTypeHoleQuickFix` |
+| コメント内コード評価 | ドキュメントコメント内のコード例を評価・検証 | `RescriptCommentEvalProvider` |
+| Worksheet モード | `.resw` ファイル全体をインタラクティブに評価 | `RescriptWorksheetFileType` + `RescriptWorksheetRunner` |
+| Extract Function | 選択コードを新しい関数に抽出 (Ctrl+Alt+M) | `RescriptExtractFunctionHandler` |
+| Change Signature | 関数シグネチャの変更と呼び出し側の自動修正 (Ctrl+F6) | `RescriptChangeSignatureHandler` + `RescriptChangeSignatureAction` |
+| 型シグネチャ検索 | 型シグネチャから関数を逆引き検索 (Shift+Shift) | `RescriptTypeSignatureSearchContributor` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、93件は実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件 + C 優先度7件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。残り16件を以下に示す。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、全109件を実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件 + C 優先度23件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（16件）
+#### 未実装機能一覧（0件）
 
-テーブルフォーマットの定義は `.claude/rules/roadmap-format.md` を参照。
-
-| # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
-|---|------|---------|------|--------|--------|
-| 57 | Scratch File | 実行 | ReScript スクラッチファイルの実行 | 中〜高 | C |
-| 58 | REPL | 実行 | インタラクティブ実行環境 | 中〜高 | C |
-| 62 | Extract Function | リファクタリング | 選択コードを新しい関数に抽出 | 非常に高 | C |
-| 63 | Inline Variable/Function | リファクタリング | 変数・関数をインライン展開 | 高 | C |
-| 64 | Change Signature | リファクタリング | 関数シグネチャの変更と呼び出し側の自動修正 | 非常に高 | C |
-| 65 | Introduce Constant | リファクタリング | リテラル値を定数に抽出 | 高 | C |
-| 66 | Suggested Refactoring | リファクタリング | コード品質改善のリファクタリングを提案 | 中〜高 | C |
-| 67 | Dependency Diagram | その他 | モジュール依存関係のダイアグラム生成 | 高 | C |
-| 86 | React コンポーネント抽出 | リファクタリング | JSX を新しい React コンポーネントに抽出 | 高 | C |
-| 87 | PPX 展開ビュー | ToolWindow | PPX マクロの展開結果をツールウィンドウに表示 | 高 | C |
-| 88 | モジュールタイプ実装生成 | Generate | モジュールタイプのスケルトン実装を生成 | 高 | C |
-| 104 | JS→ReScript 変換 | Paste | JavaScript コードを ReScript に変換してペースト | 中〜高 | C |
-| 105 | 型ホール支援 | Quick Fix | `_` 型ホールに対する候補型の提案 | 高 | C |
-| 106 | コメント内コード評価 | Editor | ドキュメントコメント内のコード例を評価・検証 | 高 | C |
-| 107 | Worksheet モード | Editor | ファイル全体をインタラクティブに評価するモード | 高 | C |
-| 108 | 型シグネチャ検索 | ナビゲーション | 型シグネチャから関数を逆引き検索 | 非常に高 | C |
+すべての機能が実装済みです。
 
 ## 4. 成功の定義
 

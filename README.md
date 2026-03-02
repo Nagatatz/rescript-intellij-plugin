@@ -35,6 +35,11 @@
 - **Quick Documentation** — PSI-based fallback documentation when LSP is unavailable (`Ctrl+Q`)
 - **Usage type classification** — Categorized Find Usages results (open, type, pipe, JSX, etc.)
 - **Extract Variable** — Extract selected expression into a `let` binding (`Ctrl+Alt+V`)
+- **Extract Function** — Extract selected code into a new function (`Ctrl+Alt+M`)
+- **Inline Variable/Function** — Inline expand variables and functions (`Ctrl+Alt+N`)
+- **Introduce Constant** — Extract literal values into module-level constants
+- **Change Signature** — Modify function parameters and update call sites (`Ctrl+F6`)
+- **React component extraction** — Extract JSX into a new React component
 - **Safe Delete** — Usage-checking safe delete refactoring (`Refactor > Safe Delete`)
 - **Name suggestions** — Type-based and filename-based name suggestions during rename
 - **Completion Weigher** — Context-based prioritization of completion candidates
@@ -42,6 +47,8 @@
 - **Parameter Info** — Native parameter info popup for labeled arguments (`Ctrl+P`)
 - **Unresolved reference Quick Fix** — Add `open` or qualify unresolved references
 - **Generate function from usage** — Create stub functions from call sites
+- **Type hole Quick Fix** — Suggest candidate types for `_` type holes
+- **Suggested refactoring** — Automatic detection and proposal of code quality improvements
 
 ### Navigation
 
@@ -61,6 +68,8 @@
 - **File include navigation** — Navigate from `open` statements to their module files
 - **Goto Super** — Jump from `.res` declaration to matching `.resi` declaration (`Ctrl+U`)
 - **External documentation** — Open ReScript documentation for Belt/Js modules (`Shift+F1`)
+- **Type signature search** — Search functions by type signature in Search Everywhere (`Shift+Shift`)
+- **Dependency diagram** — Visualize module dependency graph
 
 ### Editing Assistance
 
@@ -70,7 +79,7 @@
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
 - **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
-- **Generate actions** — Generate switch arms, module types, make functions, record values, and JSON encoder/decoder (`Cmd+N`)
+- **Generate actions** — Generate switch arms, module types, make functions, record values, JSON encoder/decoder, and module type implementation (`Cmd+N`)
 - **Statement mover** — Move declarations up/down (`Alt+Shift+Up/Down`)
 - **Smart Enter** — Insert new line with correct indentation (`Shift+Enter`)
 - **Comment continuation** — Auto-continue `//` and `/** */` comments on Enter
@@ -85,6 +94,7 @@
 - **Split/Join list** — Toggle between single-line and multi-line comma-separated lists
 - **Copy/Paste escaping** — Auto-escape special characters when pasting into string literals
 - **Paste as JSX** — Convert HTML clipboard content to ReScript JSX syntax
+- **Paste as ReScript** — Convert JavaScript clipboard content to ReScript syntax
 - **Strip trailing spaces** — Protect whitespace inside string literals during trailing-space removal
 
 ### Code Analysis & Inspections
@@ -114,6 +124,9 @@
 - **Compiler status** — Real-time build status in the status bar
 - **Console links** — Clickable `file:line` links in compiler output
 - **Code formatting** — Format via `rescript format` CLI (`Cmd+Option+L`)
+- **Scratch file** — Run ReScript scratch files for quick experimentation
+- **REPL** — Interactive ReScript execution environment in a tool window
+- **Worksheet mode** — Interactively evaluate entire `.resw` files with inline results
 
 ### Project & IDE Integration
 
@@ -131,6 +144,8 @@
 - **Code rearranger** — Automatic declaration ordering (open → type → exception → module → external → let)
 - **Framework detector** — Automatic ReScript project detection via `rescript.json`
 - **PPX annotation hints** — Inline descriptions of PPX attribute effects
+- **PPX expansion view** — View PPX macro expansion results in a tool window
+- **Comment code evaluation** — Evaluate code examples in documentation comments
 - **TODO indexing** — Track TODO/FIXME comments in ReScript files
 - **Editor notification** — Guidance banner when LSP server is not detected
 - **File nesting** — Compiled `.res.js` files nested under `.res` in Project view with subdued gray color
