@@ -13,6 +13,7 @@ import com.rescript.plugin.RescriptLanguage
  *
  * @see RescriptCodeStyleSettingsProvider for the default code style configuration
  */
+@Suppress("DialogTitleCapitalization") // "ReScript Standard" is a proper name
 class RescriptPredefinedCodeStyle : PredefinedCodeStyle("ReScript Standard", RescriptLanguage) {
     override fun apply(
         settings: CodeStyleSettings,

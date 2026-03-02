@@ -54,17 +54,14 @@ object RescriptJsonTypeClassifier {
      * @param typeAnnotation the raw type annotation (e.g., `"string"`, `"option<array<int>>"`)
      * @return the classified type
      */
-    fun classify(typeAnnotation: String): RescriptJsonType {
-        val trimmed = typeAnnotation.trim()
-
-        return when (trimmed) {
+    fun classify(typeAnnotation: String): RescriptJsonType =
+        when (val trimmed = typeAnnotation.trim()) {
             "string" -> RescriptJsonType.StringType
             "int" -> RescriptJsonType.IntType
             "float" -> RescriptJsonType.FloatType
             "bool" -> RescriptJsonType.BoolType
             else -> classifyGeneric(trimmed)
         }
-    }
 
     /**
      * Attempts to classify a generic type (e.g., `option<T>`, `array<T>`).
