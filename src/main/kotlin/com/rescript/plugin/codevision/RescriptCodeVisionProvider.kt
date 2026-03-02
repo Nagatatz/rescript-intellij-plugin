@@ -2,6 +2,7 @@ package com.rescript.plugin.codevision
 
 import com.intellij.codeInsight.codeVision.CodeVisionAnchorKind
 import com.intellij.codeInsight.codeVision.CodeVisionEntry
+import com.intellij.codeInsight.codeVision.CodeVisionPlaceholderCollector
 import com.intellij.codeInsight.codeVision.CodeVisionRelativeOrdering
 import com.intellij.codeInsight.codeVision.ui.model.TextCodeVisionEntry
 import com.intellij.codeInsight.hints.codeVision.DaemonBoundCodeVisionProvider
@@ -33,6 +34,13 @@ class RescriptCodeVisionProvider : DaemonBoundCodeVisionProvider {
     override val name: String = "ReScript Type Annotations"
     override val defaultAnchor: CodeVisionAnchorKind = CodeVisionAnchorKind.Top
     override val relativeOrderings: List<CodeVisionRelativeOrdering> = emptyList()
+
+    // Explicit override to avoid Kotlin bridge method invoking DefaultImpls,
+    // which triggers a Marketplace verification warning for internal API usage.
+    override fun getPlaceholderCollector(
+        editor: Editor,
+        psiFile: PsiFile?,
+    ): CodeVisionPlaceholderCollector? = null
 
     override fun computeForEditor(
         editor: Editor,

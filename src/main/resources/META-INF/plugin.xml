@@ -593,7 +593,8 @@
 
         <!-- Editor floating toolbar for ReScript files (#69) -->
         <editorFloatingToolbarProvider
-                implementation="com.rescript.plugin.editor.RescriptFloatingToolbarProvider"/>
+                implementation="com.rescript.plugin.editor.RescriptFloatingToolbarProvider"
+                order="last"/>
 
         <!-- Safe Delete with usage check (Refactor > Safe Delete) -->
         <refactoring.safeDeleteProcessor
