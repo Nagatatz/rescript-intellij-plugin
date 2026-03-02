@@ -127,6 +127,7 @@
 - **Scratch file** — Run ReScript scratch files for quick experimentation
 - **REPL** — Interactive ReScript execution environment in a tool window
 - **Worksheet mode** — Interactively evaluate entire `.resw` files with inline results
+- **Build watch prompt** — Suggestion balloon at project open to start `rescript build -w`
 
 ### Project & IDE Integration
 
@@ -166,6 +167,7 @@
 - **Grazie integration** — Grammar and spell checking in comments and strings via Grazie plugin
 - **Injected language formatting** — Code formatting support for injected language fragments
 - **Restart LSP action** — Restart the ReScript Language Server from the Tools menu
+- **Dump LSP State** — Export Language Server diagnostic state via Tools menu
 - **LSP initialization options** — Send signatureHelp, cache, inlayHints, and compileStatus settings to the LSP server
 
 ## Requirements

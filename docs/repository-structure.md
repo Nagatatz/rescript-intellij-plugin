@@ -73,7 +73,7 @@ rescript-intellij-plugin/
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
 | `refactor/` | リネーム、識別子バリデーション | `RescriptRenameHandler` |
-| `util/` | 共通ユーティリティ（セキュリティ等） | `RescriptSecurityUtils` |
+| `util/` | 共通ユーティリティ（セキュリティ、offset↔Position 変換等） | `RescriptSecurityUtils`, `RescriptOffsetUtils` |
 | `commenter/` | コメントトグル | `RescriptCommenter` |
 
 #### Java ソース (`src/main/java/com/rescript/plugin/lang/`)

@@ -151,7 +151,10 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **Worksheet モード** (`worksheet/`) — `.resw` ファイル全体をインタラクティブに評価
 - **型シグネチャ検索** (`navigation/`) — 型シグネチャから関数を逆引き検索（Search Everywhere 統合）
 - **Restart LSP アクション** (`lsp/`) — Tools メニューから LSP サーバーを明示的に再起動
+- **Dump LSP State** (`lsp/`) — LSP サーバーの内部状態をデバッグ出力するアクション（Tools メニュー）
 - **LSP 初期化オプション** (`settings/`, `lsp/`) — signatureHelp/cache/inlayHints/compileStatus の6設定を LSP に送信
+- **ビルド自動開始プロンプト** (`run/`) — プロジェクト起動時に `rescript build -w` の開始をバルーン通知で提案
+- **offset↔position 変換ユーティリティ** (`util/`) — LSP Position とエディタ offset の相互変換共通化
 
 ## 開発規約
 
