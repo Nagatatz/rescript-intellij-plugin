@@ -216,3 +216,12 @@ The JFlex lexer is automatically generated from `Rescript.flex` during the build
 ## License
 
 MIT
+
+### Third-Party Licenses
+
+This plugin depends on the following external components:
+
+- **[@rescript/language-server](https://github.com/rescript-lang/rescript-vscode)** — Licensed under [LGPL-3.0-or-later](https://github.com/rescript-lang/rescript-compiler/blob/master/LICENSE). Not bundled; users install it separately via npm.
+- **rescript.json Schema** — Derived from the [rescript-compiler](https://github.com/rescript-lang/rescript-compiler) `build-schema.json`, licensed under LGPL-3.0-or-later.
+- **IntelliJ Platform SDK** — Licensed under [Apache License 2.0](https://github.com/JetBrains/intellij-community/blob/master/LICENSE.txt). Used at compile time only; not bundled.
+- **JFlex** — Licensed under [BSD-3-Clause](https://github.com/jflex-de/jflex/blob/master/LICENSE). Used as a build tool only; generated code inherits this project's MIT license.
