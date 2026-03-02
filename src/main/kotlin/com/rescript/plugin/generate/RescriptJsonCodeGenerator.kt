@@ -411,18 +411,22 @@ object RescriptJsonCodeGenerator {
         var current = StringBuilder()
 
         for (ch in payload) {
-            when {
-                ch == '<' -> {
+            when (ch) {
+                '<' -> {
                     depth++
                     current.append(ch)
                 }
-                ch == '>' -> {
+                '>' -> {
                     depth--
                     current.append(ch)
                 }
-                ch == ',' && depth == 0 -> {
-                    result.add(current.toString().trim())
-                    current = StringBuilder()
+                ',' -> {
+                    if (depth == 0) {
+                        result.add(current.toString().trim())
+                        current = StringBuilder()
+                    } else {
+                        current.append(ch)
+                    }
                 }
                 else -> current.append(ch)
             }

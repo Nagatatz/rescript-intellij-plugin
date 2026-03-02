@@ -27,3 +27,8 @@ exclude:
       - src/main/kotlin/com/rescript/plugin/editor/RescriptListSplitJoinContext.kt
       - src/main/kotlin/com/rescript/plugin/wizard/templates/GoogleCloudRunTemplateFiles.kt
       - src/main/kotlin/com/rescript/plugin/wizard/templates/ElectronTemplateFiles.kt
+      - src/main/kotlin/com/rescript/plugin/intention
+      - src/main/kotlin/com/rescript/plugin/generate
+      - src/main/kotlin/com/rescript/plugin/quickfix
+      - src/main/kotlin/com/rescript/plugin/hierarchy
+      - src/main/kotlin/com/rescript/plugin/refactor

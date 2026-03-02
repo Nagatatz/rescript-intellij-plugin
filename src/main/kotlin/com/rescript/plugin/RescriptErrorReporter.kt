@@ -148,7 +148,7 @@ class RescriptErrorReporter : ErrorReportSubmitter() {
         }
 
         // Matches absolute paths like /Users/foo/bar/project/ or C:\Users\foo\project\
-        private val ABSOLUTE_PATH_REGEX = Regex("""(?:/[^\s:]+/|[A-Z]:\\[^\s:]+\\)""")
+        private val ABSOLUTE_PATH_REGEX = Regex("""/[^\s:]+/|[A-Z]:\\[^\s:]+\\""")
 
         /**
          * Strips absolute file paths from stack trace text, replacing directory prefixes

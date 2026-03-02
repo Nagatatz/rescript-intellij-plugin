@@ -35,17 +35,23 @@ class RescriptFixIdentifierCaseIntention : PsiElementBaseIntentionAction() {
         val text = element.text
         if (text.isEmpty()) return false
 
-        return when {
+        return when (tokenType) {
             // Lowercase identifier in a module declaration -> should be PascalCase
-            tokenType == RescriptTokenTypes.LIDENT && isInsideModuleDeclaration(element) -> {
-                actionText = "Convert to PascalCase"
-                true
-            }
+            RescriptTokenTypes.LIDENT ->
+                if (isInsideModuleDeclaration(element)) {
+                    actionText = "Convert to PascalCase"
+                    true
+                } else {
+                    false
+                }
             // Uppercase identifier in a let declaration -> should be camelCase
-            tokenType == RescriptTokenTypes.UIDENT && isInsideLetDeclaration(element) -> {
-                actionText = "Convert to camelCase"
-                true
-            }
+            RescriptTokenTypes.UIDENT ->
+                if (isInsideLetDeclaration(element)) {
+                    actionText = "Convert to camelCase"
+                    true
+                } else {
+                    false
+                }
             else -> false
         }
     }
@@ -61,11 +67,9 @@ class RescriptFixIdentifierCaseIntention : PsiElementBaseIntentionAction() {
 
         val tokenType = element.node?.elementType ?: return
         val newText =
-            when {
-                tokenType == RescriptTokenTypes.LIDENT && isInsideModuleDeclaration(element) ->
-                    toPascalCase(text)
-                tokenType == RescriptTokenTypes.UIDENT && isInsideLetDeclaration(element) ->
-                    toCamelCase(text)
+            when (tokenType) {
+                RescriptTokenTypes.LIDENT -> if (isInsideModuleDeclaration(element)) toPascalCase(text) else return
+                RescriptTokenTypes.UIDENT -> if (isInsideLetDeclaration(element)) toCamelCase(text) else return
                 else -> return
             }
 

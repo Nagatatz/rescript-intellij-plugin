@@ -146,7 +146,7 @@ class RescriptStyleLintInspection : LocalInspectionTool() {
     companion object {
         // Matches: if cond { true } else { false }
         internal val REDUNDANT_BOOL_PATTERN =
-            Regex("""if\s+(.+?)\s*\{\s*true\s*\}\s*else\s*\{\s*false\s*\}""")
+            Regex("""if\s+(.+?)\s*\{\s*true\s*}\s*else\s*\{\s*false\s*}""")
 
         // Matches: Belt.Array.map, Belt.List.filter, etc.
         internal val BELT_USAGE_PATTERN =
@@ -154,7 +154,7 @@ class RescriptStyleLintInspection : LocalInspectionTool() {
 
         // Matches: switch expr { | true => a | false => b }
         internal val BOOLEAN_SWITCH_PATTERN =
-            Regex("""switch\s+(\w+)\s*\{\s*\|\s*true\s*=>\s*(.+?)\s*\|\s*false\s*=>\s*(.+?)\s*\}""")
+            Regex("""switch\s+(\w+)\s*\{\s*\|\s*true\s*=>\s*(.+?)\s*\|\s*false\s*=>\s*(.+?)\s*}""")
 
         /**
          * Simplifies a redundant boolean `if` to just the condition.

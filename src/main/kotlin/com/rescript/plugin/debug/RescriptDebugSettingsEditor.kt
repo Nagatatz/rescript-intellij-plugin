@@ -28,6 +28,7 @@ class RescriptDebugSettingsEditor(
             )
         }
 
+    @Suppress("DialogTitleCapitalization") // "Node.js" is a proper noun
     private val nodeExecutableField =
         TextFieldWithBrowseButton().apply {
             addBrowseFolderListener(
