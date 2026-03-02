@@ -1,5 +1,6 @@
 package com.rescript.plugin.repl
 
+import com.intellij.openapi.util.io.FileUtil
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -25,9 +26,15 @@ object RescriptReplExecutor {
         code: String,
         projectPath: String,
     ): String {
+        // Validate projectPath before any file operations
+        val projectDir = File(projectPath).canonicalFile
+        if (!projectDir.isDirectory) {
+            return "Error: invalid project path"
+        }
+
         val wrappedCode = wrapCode(code)
         return try {
-            runWithNode(wrappedCode, projectPath)
+            runWithNode(wrappedCode, projectDir)
         } catch (e: Exception) {
             "Error: ${e.message}"
         }
@@ -88,48 +95,57 @@ object RescriptReplExecutor {
 
     private fun runWithNode(
         code: String,
-        projectPath: String,
+        projectDir: File,
     ): String {
-        // Write temporary .res file
-        val tmpDir = File(projectPath, "lib")
-        tmpDir.mkdirs()
-        val tmpFile = File.createTempFile("repl_", ".res", tmpDir)
+        // Use system temp directory instead of project lib/ to avoid artifact leakage
+        val tmpDir = FileUtil.createTempDirectory("rescript-repl", null, true)
+        val tmpFile = File(tmpDir, "repl_eval.res")
+        var jsFile: File? = null
         try {
             tmpFile.writeText(code)
 
             // Compile with rescript
             val compileProcess =
                 ProcessBuilder("npx", "rescript", "build", "-e", tmpFile.nameWithoutExtension)
-                    .directory(File(projectPath))
+                    .directory(projectDir)
                     .redirectErrorStream(true)
                     .start()
-            compileProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            val compileOutput = compileProcess.inputStream.bufferedReader().readText()
+            val compileCompleted = compileProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            if (!compileCompleted) {
+                compileProcess.destroyForcibly()
+                return "Error: compilation timed out"
+            }
+            val compileOutput = compileProcess.inputStream.use { it.bufferedReader().readText() }
 
             if (compileProcess.exitValue() != 0) {
                 return "Compile error:\n$compileOutput"
             }
 
             // Try to find compiled JS output
-            val jsFile = File(tmpFile.parentFile, tmpFile.nameWithoutExtension + ".js")
+            jsFile = File(tmpFile.parentFile, tmpFile.nameWithoutExtension + ".js")
             if (!jsFile.exists()) {
-                // Fallback: use node -e with simple JS translation
                 return "Compiled but output file not found. Compile output:\n$compileOutput"
             }
 
             // Execute compiled JS
             val runProcess =
                 ProcessBuilder("node", jsFile.absolutePath)
-                    .directory(File(projectPath))
+                    .directory(projectDir)
                     .start()
-            runProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            val runCompleted = runProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            if (!runCompleted) {
+                runProcess.destroyForcibly()
+                return "Error: execution timed out"
+            }
 
-            val stdout = runProcess.inputStream.bufferedReader().readText()
-            val stderr = runProcess.errorStream.bufferedReader().readText()
+            val stdout = runProcess.inputStream.use { it.bufferedReader().readText() }
+            val stderr = runProcess.errorStream.use { it.bufferedReader().readText() }
 
             return parseOutput(stdout, stderr)
         } finally {
             tmpFile.delete()
+            jsFile?.delete()
+            FileUtil.delete(tmpDir)
         }
     }
 }

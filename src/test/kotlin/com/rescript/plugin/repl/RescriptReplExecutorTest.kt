@@ -66,4 +66,21 @@ class RescriptReplExecutorTest {
         val result = RescriptReplExecutor.parseOutput("", "")
         assertEquals("(no output)", result)
     }
+
+    @Test
+    fun `execute rejects invalid project path`() {
+        val result = RescriptReplExecutor.execute("1 + 2", "/nonexistent/path")
+        assertEquals("Error: invalid project path", result)
+    }
+
+    @Test
+    fun `execute rejects file path instead of directory`() {
+        val tmpFile = java.io.File.createTempFile("test", ".txt")
+        try {
+            val result = RescriptReplExecutor.execute("1 + 2", tmpFile.absolutePath)
+            assertEquals("Error: invalid project path", result)
+        } finally {
+            tmpFile.delete()
+        }
+    }
 }
