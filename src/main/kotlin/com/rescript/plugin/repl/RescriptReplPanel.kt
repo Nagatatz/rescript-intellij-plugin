@@ -1,6 +1,7 @@
 package com.rescript.plugin.repl
 
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.components.JBScrollPane
@@ -42,6 +43,8 @@ class RescriptReplPanel(
             border = JBUI.Borders.empty(4)
         }
 
+    private val runButton = JButton("Run")
+
     private val mainPanel: JComponent
 
     val component: JComponent
@@ -52,7 +55,7 @@ class RescriptReplPanel(
             JToolBar().apply {
                 isFloatable = false
                 add(
-                    JButton("Run").apply {
+                    runButton.apply {
                         addActionListener { executeInput() }
                     },
                 )
@@ -93,8 +96,17 @@ class RescriptReplPanel(
             return
         }
 
-        val result = RescriptReplExecutor.execute(code, basePath)
-        outputArea.append("$result\n\n")
-        inputArea.text = ""
+        // Disable Run button during execution to prevent concurrent runs
+        runButton.isEnabled = false
+
+        // Execute on background thread to avoid blocking the EDT
+        ApplicationManager.getApplication().executeOnPooledThread {
+            val result = RescriptReplExecutor.execute(code, basePath)
+            ApplicationManager.getApplication().invokeLater {
+                outputArea.append("$result\n\n")
+                inputArea.text = ""
+                runButton.isEnabled = true
+            }
+        }
     }
 }
