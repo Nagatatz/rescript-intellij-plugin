@@ -225,9 +225,19 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（0件）
+#### 未実装機能一覧（9件）
 
-すべての機能が実装済みです。
+| # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
+|---|------|---------|------|--------|--------|
+| 110 | Restart LSP アクション | インフラ | メニュー/アクションから LSP サーバーを明示的に再起動 | 低 | S |
+| 111 | LSP 初期化オプション補完 | インフラ | signatureHelp/cache/inlayHints/compileStatus の6設定を LSP に送信 | 低 | S |
+| 112 | ビルド自動開始プロンプト | 実行 | プロジェクト起動時に `rescript build -w` の開始を提案 | 中 | A |
+| 113 | Dump LSP State | インフラ | LSP サーバーの内部状態をデバッグ出力するアクション | 低 | A |
+| 114 | offset↔position 変換共通化 | インフラ | 18+ ファイルに重複する変換ロジックをユーティリティに集約 | 低 | A |
+| 115 | Regex インスタンスキャッシュ | インフラ | 121箇所の `Regex(...)` を companion object 定数に置換 | 低 | A |
+| 116 | 重複 Regex パターン統一 | インフラ | LABELED_PARAM_PATTERN 等の重複定義を一元管理 | 低 | B |
+| 117 | 長大ファイル分割 | インフラ | 300行超ファイル（TokenTypes, JsonCodeGenerator 等）の責務分離 | 中 | B |
+| 118 | Reanalyze サーバーモード | 分析 | reanalyze をデーモンモードで常駐させ差分分析を実行 | 中〜高 | C |
 
 ## 4. 成功の定義
 
