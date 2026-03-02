@@ -769,6 +769,10 @@
         <!-- JS→ReScript paste conversion (#104) -->
         <copyPastePostProcessor
                 implementation="com.rescript.plugin.paste.RescriptPasteAsRescriptProcessor"/>
+
+        <!-- Inline Variable/Function (Ctrl+Alt+N) (#63) -->
+        <inlineActionHandler
+                implementation="com.rescript.plugin.refactor.RescriptInlineHandler"/>
     </extensions>
 
     <actions>

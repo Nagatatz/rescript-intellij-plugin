@@ -29,10 +29,10 @@
 ## Batch 3: 高難易度
 
 ### #63 Inline Variable/Function
-- [ ] `RescriptInlineHandler.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptInlineHandler.kt` を実装
+- [x] テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #65 Introduce Constant
 - [ ] `RescriptIntroduceConstantHandler.kt` を実装
