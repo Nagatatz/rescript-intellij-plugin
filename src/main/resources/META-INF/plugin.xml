@@ -746,6 +746,12 @@
             <className>com.rescript.plugin.quickfix.RescriptGenerateFunctionQuickFix</className>
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
+
+        <!-- Scratch File support (#57) -->
+        <scratch.rootType
+                implementation="com.rescript.plugin.scratch.RescriptScratchRootType"/>
+        <scratch.creationHelper language="ReScript"
+                implementationClass="com.rescript.plugin.scratch.RescriptScratchCreationHelper"/>
     </extensions>
 
     <actions>
