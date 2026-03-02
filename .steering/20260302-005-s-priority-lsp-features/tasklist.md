@@ -18,6 +18,6 @@
 - [x] README.md 更新
 - [x] sphinx-docs 更新
 - [x] product-requirements.md 更新（実装済みに移動）
-- [ ] コミット: `📝 Update docs for S-priority features`
-- [ ] ビルド検証: `./gradlew clean buildPlugin test`
-- [ ] main マージ
+- [x] コミット: `📝 Update docs for S-priority features`
+- [x] ビルド検証: `./gradlew clean buildPlugin test`
+- [x] main マージ
