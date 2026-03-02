@@ -14,6 +14,8 @@ import javax.swing.DefaultComboBoxModel
 import javax.swing.JCheckBox
 import javax.swing.JComponent
 import javax.swing.JPanel
+import javax.swing.JSpinner
+import javax.swing.SpinnerNumberModel
 
 /**
  * Settings UI for the ReScript plugin, accessible via
@@ -38,6 +40,12 @@ class RescriptConfigurable(
     private var runtimePathField: TextFieldWithBrowseButton? = null
     private var logLevelCombo: ComboBox<String>? = null
     private var formatCheckCheckbox: JCheckBox? = null
+    private var signatureHelpCheckbox: JCheckBox? = null
+    private var signatureHelpConstructorCheckbox: JCheckBox? = null
+    private var cacheProjectConfigCheckbox: JCheckBox? = null
+    private var inlayHintsCheckbox: JCheckBox? = null
+    private var inlayHintsMaxLengthSpinner: JSpinner? = null
+    private var compileStatusCheckbox: JCheckBox? = null
 
     override fun getDisplayName(): String = "ReScript"
 
@@ -127,6 +135,24 @@ class RescriptConfigurable(
         val fmtCheckbox = JCheckBox("Enable format check (highlight unformatted code)", false)
         formatCheckCheckbox = fmtCheckbox
 
+        val sigHelpCheckbox = JCheckBox("Enable signature help", true)
+        signatureHelpCheckbox = sigHelpCheckbox
+
+        val sigHelpConstructorCb = JCheckBox("Signature help for constructor payloads", true)
+        signatureHelpConstructorCheckbox = sigHelpConstructorCb
+
+        val cacheProjConfigCb = JCheckBox("Enable project config caching", true)
+        cacheProjectConfigCheckbox = cacheProjConfigCb
+
+        val inlayHintsCb = JCheckBox("Enable inlay hints (experimental)", false)
+        inlayHintsCheckbox = inlayHintsCb
+
+        val inlayHintsMaxLenSpinner = JSpinner(SpinnerNumberModel(25, 0, 200, 1))
+        inlayHintsMaxLengthSpinner = inlayHintsMaxLenSpinner
+
+        val compileStatusCb = JCheckBox("Enable compile status notifications", true)
+        compileStatusCheckbox = compileStatusCb
+
         val logCombo = ComboBox(DefaultComboBoxModel(LOG_LEVELS))
         logLevelCombo = logCombo
 
@@ -157,6 +183,19 @@ class RescriptConfigurable(
                 .addTooltip(
                     "When enabled, highlights files that are not formatted according to rescript format.",
                 ).addSeparator()
+                .addComponent(sigHelpCheckbox)
+                .addTooltip("Enable function call signature assistance from the LSP server.")
+                .addComponent(sigHelpConstructorCb)
+                .addTooltip("Show signature help for variant constructor payloads.")
+                .addComponent(cacheProjConfigCb)
+                .addTooltip("Cache project configuration for faster LSP startup.")
+                .addComponent(inlayHintsCb)
+                .addTooltip("Show LSP-provided inlay hints in the editor. Experimental feature.")
+                .addLabeledComponent("Inlay hints max length:", inlayHintsMaxLenSpinner)
+                .addTooltip("Maximum character length for inlay hint labels (0 = unlimited).")
+                .addComponent(compileStatusCb)
+                .addTooltip("Receive compile status notifications from the LSP server.")
+                .addSeparator()
                 .addLabeledComponent("ReScript binary path:", binaryPathField)
                 .addTooltip("Leave empty to auto-detect. Path to the ReScript compiler binary.")
                 .addLabeledComponent("Platform path:", platPathField)
@@ -185,7 +224,13 @@ class RescriptConfigurable(
             platformPathField?.text != settings.platformPath ||
             runtimePathField?.text != settings.runtimePath ||
             logLevelCombo?.selectedItem != settings.logLevel ||
-            formatCheckCheckbox?.isSelected != settings.formatCheckEnabled
+            formatCheckCheckbox?.isSelected != settings.formatCheckEnabled ||
+            signatureHelpCheckbox?.isSelected != settings.signatureHelpEnabled ||
+            signatureHelpConstructorCheckbox?.isSelected != settings.signatureHelpForConstructorPayloads ||
+            cacheProjectConfigCheckbox?.isSelected != settings.cacheProjectConfigEnabled ||
+            inlayHintsCheckbox?.isSelected != settings.inlayHintsEnabled ||
+            inlayHintsMaxLengthSpinner?.value != settings.inlayHintsMaxLength ||
+            compileStatusCheckbox?.isSelected != settings.compileStatusEnabled
     }
 
     @Throws(ConfigurationException::class)
@@ -236,6 +281,12 @@ class RescriptConfigurable(
         settings.runtimePath = rtPath
         settings.logLevel = logLevelCombo?.selectedItem as? String ?: "info"
         settings.formatCheckEnabled = formatCheckCheckbox?.isSelected ?: false
+        settings.signatureHelpEnabled = signatureHelpCheckbox?.isSelected ?: true
+        settings.signatureHelpForConstructorPayloads = signatureHelpConstructorCheckbox?.isSelected ?: true
+        settings.cacheProjectConfigEnabled = cacheProjectConfigCheckbox?.isSelected ?: true
+        settings.inlayHintsEnabled = inlayHintsCheckbox?.isSelected ?: false
+        settings.inlayHintsMaxLength = inlayHintsMaxLengthSpinner?.value as? Int ?: 25
+        settings.compileStatusEnabled = compileStatusCheckbox?.isSelected ?: true
 
         com.intellij.platform.lsp.api.LspServerManager
             .getInstance(project)
@@ -256,6 +307,12 @@ class RescriptConfigurable(
         runtimePathField?.text = settings.runtimePath
         logLevelCombo?.selectedItem = settings.logLevel
         formatCheckCheckbox?.isSelected = settings.formatCheckEnabled
+        signatureHelpCheckbox?.isSelected = settings.signatureHelpEnabled
+        signatureHelpConstructorCheckbox?.isSelected = settings.signatureHelpForConstructorPayloads
+        cacheProjectConfigCheckbox?.isSelected = settings.cacheProjectConfigEnabled
+        inlayHintsCheckbox?.isSelected = settings.inlayHintsEnabled
+        inlayHintsMaxLengthSpinner?.value = settings.inlayHintsMaxLength
+        compileStatusCheckbox?.isSelected = settings.compileStatusEnabled
     }
 
     override fun disposeUIResources() {
@@ -272,6 +329,12 @@ class RescriptConfigurable(
         runtimePathField = null
         logLevelCombo = null
         formatCheckCheckbox = null
+        signatureHelpCheckbox = null
+        signatureHelpConstructorCheckbox = null
+        cacheProjectConfigCheckbox = null
+        inlayHintsCheckbox = null
+        inlayHintsMaxLengthSpinner = null
+        compileStatusCheckbox = null
     }
 
     companion object {

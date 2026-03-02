@@ -165,6 +165,8 @@
 - **Index pattern builder** — Enhanced TODO/FIXME pattern search in ReScript comments
 - **Grazie integration** — Grammar and spell checking in comments and strings via Grazie plugin
 - **Injected language formatting** — Code formatting support for injected language fragments
+- **Restart LSP action** — Restart the ReScript Language Server from the Tools menu
+- **LSP initialization options** — Send signatureHelp, cache, inlayHints, and compileStatus settings to the LSP server
 
 ## Requirements
 

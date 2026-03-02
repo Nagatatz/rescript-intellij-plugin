@@ -824,3 +824,32 @@ Type signature queries use standard ReScript type syntax:
 | `option<'a> => 'a` | Functions unwrapping option values |
 
 The search matches against function type signatures from the project's stub index, providing fast lookup without requiring the LSP server.
+
+## Restart LSP Action
+
+If the Language Server becomes unresponsive or you need to pick up configuration changes, you can restart it via **Tools > Restart ReScript Language Server**.
+
+### When to Use
+
+- After manually updating `@rescript/language-server`
+- When the LSP server stops responding
+- After changing LSP-related settings that require a server restart
+
+The action is only available when a project is open. It stops the current LSP server instance and starts a fresh one.
+
+## LSP Initialization Options
+
+The plugin sends several initialization options to the ReScript Language Server, matching the settings available in the VSCode extension. Configure these in **Settings > Languages & Frameworks > ReScript**.
+
+### Available Options
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| **Enable signature help** | On | Show function parameter information on `(` input |
+| **Signature help for constructor payloads** | On | Show signature help for variant constructor payloads |
+| **Enable project config caching** | On | Cache project configuration for faster LSP startup |
+| **Enable inlay hints** | Off | Show LSP-provided inlay hints in the editor (experimental) |
+| **Inlay hints max length** | 25 | Maximum character length for inlay hint labels (0 = unlimited) |
+| **Enable compile status** | On | Receive compile status notifications from the LSP server |
+
+Changes to these settings take effect after the LSP server restarts (which happens automatically when you click **Apply** in the settings dialog).

@@ -36,6 +36,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var excludedModules: String = ""
         var pipeChainHintsEnabled: Boolean = true
         var formatCheckEnabled: Boolean = false
+        var signatureHelpEnabled: Boolean = true
+        var signatureHelpForConstructorPayloads: Boolean = true
+        var cacheProjectConfigEnabled: Boolean = true
+        var inlayHintsEnabled: Boolean = false
+        var inlayHintsMaxLength: Int = 25
+        var compileStatusEnabled: Boolean = true
     }
 
     override fun getState(): State = state
@@ -138,6 +144,42 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.formatCheckEnabled
         set(value) {
             state.formatCheckEnabled = value
+        }
+
+    var signatureHelpEnabled: Boolean
+        get() = state.signatureHelpEnabled
+        set(value) {
+            state.signatureHelpEnabled = value
+        }
+
+    var signatureHelpForConstructorPayloads: Boolean
+        get() = state.signatureHelpForConstructorPayloads
+        set(value) {
+            state.signatureHelpForConstructorPayloads = value
+        }
+
+    var cacheProjectConfigEnabled: Boolean
+        get() = state.cacheProjectConfigEnabled
+        set(value) {
+            state.cacheProjectConfigEnabled = value
+        }
+
+    var inlayHintsEnabled: Boolean
+        get() = state.inlayHintsEnabled
+        set(value) {
+            state.inlayHintsEnabled = value
+        }
+
+    var inlayHintsMaxLength: Int
+        get() = state.inlayHintsMaxLength
+        set(value) {
+            state.inlayHintsMaxLength = value
+        }
+
+    var compileStatusEnabled: Boolean
+        get() = state.compileStatusEnabled
+        set(value) {
+            state.compileStatusEnabled = value
         }
 
     companion object {
