@@ -1,5 +1,7 @@
 package com.rescript.plugin.errorlens
 
+import com.rescript.plugin.util.RescriptRegexPatterns
+
 /**
  * Parses ReScript compiler type mismatch error messages into structured data.
  *
@@ -55,7 +57,7 @@ object RescriptTypeMismatchParser {
      */
     fun parse(message: String): TypeMismatch? {
         // Normalize whitespace (newlines, multiple spaces → single space)
-        val normalized = message.replace(Regex("""\s+"""), " ").trim()
+        val normalized = message.replace(RescriptRegexPatterns.WHITESPACE, " ").trim()
 
         // Try each pattern in order
         EXPECTED_TO_HAVE_PATTERN.find(normalized)?.let { match ->

@@ -2,6 +2,7 @@ package com.rescript.plugin.refactor
 
 import com.intellij.lang.refactoring.NamesValidator
 import com.intellij.openapi.project.Project
+import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
  * Validates identifiers and keywords for the ReScript language.
@@ -16,7 +17,7 @@ class RescriptNamesValidator : NamesValidator {
         project: Project?,
     ): Boolean {
         if (name.isEmpty()) return false
-        return LIDENT_REGEX.matches(name) || UIDENT_REGEX.matches(name)
+        return RescriptRegexPatterns.LIDENT.matches(name) || RescriptRegexPatterns.UIDENT.matches(name)
     }
 
     override fun isKeyword(
@@ -25,9 +26,6 @@ class RescriptNamesValidator : NamesValidator {
     ): Boolean = name in KEYWORDS
 
     companion object {
-        private val LIDENT_REGEX = Regex("^[a-z_][a-zA-Z0-9_']*$")
-        private val UIDENT_REGEX = Regex("^[A-Z][a-zA-Z0-9_']*$")
-
         private val KEYWORDS =
             setOf(
                 "and",
