@@ -1,0 +1,4 @@
+// CodeVisionPlaceholderCollector is listed as an exception on the JetBrains Internal API Migration page:
+// "Made public in 2024.2" — https://plugins.jetbrains.com/docs/intellij/api-internal.html
+// The @Internal annotation remains in source but JetBrains officially permits third-party usage.
+com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*

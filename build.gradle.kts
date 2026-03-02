@@ -52,6 +52,14 @@ intellijPlatform {
         ides {
             recommended()
         }
+        // CodeVisionPlaceholderCollector is listed as an exception ("Made public in 2024.2")
+        // on https://plugins.jetbrains.com/docs/intellij/api-internal.html
+        freeArgs.addAll(
+            "-ignored-problems",
+            layout.projectDirectory
+                .file("plugin-verifier-ignored-problems.txt")
+                .asFile.absolutePath,
+        )
     }
     publishing {
         token =
