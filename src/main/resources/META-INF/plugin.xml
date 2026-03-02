@@ -840,5 +840,12 @@
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
+        <!-- Generate Module Implementation from module type (#88) -->
+        <action id="ReScript.GenerateModuleImpl"
+                class="com.rescript.plugin.generate.RescriptGenerateModuleImplAction"
+                text="Module Implementation"
+                description="Generate module implementation from module type">
+            <add-to-group group-id="ReScript.GenerateGroup" anchor="last"/>
+        </action>
     </actions>
 </idea-plugin>

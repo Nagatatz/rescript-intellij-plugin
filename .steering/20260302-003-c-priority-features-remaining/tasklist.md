@@ -59,10 +59,10 @@
 - [x] コミット
 
 ### #88 モジュールタイプ実装生成
-- [ ] `RescriptGenerateModuleImplAction.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptGenerateModuleImplAction.kt` を実装
+- [x] テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #105 型ホール支援
 - [ ] `RescriptTypeHoleQuickFix.kt` を実装
