@@ -853,3 +853,44 @@ The plugin sends several initialization options to the ReScript Language Server,
 | **Enable compile status** | On | Receive compile status notifications from the LSP server |
 
 Changes to these settings take effect after the LSP server restarts (which happens automatically when you click **Apply** in the settings dialog).
+
+## Dump LSP State
+
+The **Dump LSP State** action displays diagnostic information about the ReScript Language Server for troubleshooting.
+
+**Access:** **Tools** > **Dump ReScript LSP State**
+
+### What It Shows
+
+The action collects and displays:
+
+- LSP server status and count
+- ReScript project detection information
+- Relevant plugin settings
+
+### Use Cases
+
+- **Troubleshooting LSP issues** — Verify the LSP server is running and configured correctly
+- **Bug reports** — Include LSP state when reporting issues to plugin maintainers
+- **Debugging** — Check what configuration the LSP server has loaded
+
+## Build Watch Auto-Start Prompt
+
+When you open a ReScript project, the plugin shows a one-time balloon notification offering to start the ReScript watch build (`rescript build -w`).
+
+### When It Appears
+
+The prompt appears at project startup if:
+
+- The project contains `rescript.json`
+- The ReScript CLI (`rescript`) is found in `node_modules/.bin/`
+- The prompt hasn't been dismissed for the current IDE session
+
+### Notification Actions
+
+| Action | Description |
+|--------|-------------|
+| **Start Build Watch** | Launches `rescript build -w` via a Run Configuration |
+| **Don't ask again** | Dismisses the prompt for this IDE session |
+
+Clicking **Start Build Watch** opens the Run tool window with a live-recompiling build process.
