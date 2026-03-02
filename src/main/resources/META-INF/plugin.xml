@@ -29,6 +29,14 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.1</h3>
+        <ul>
+            <li>Fix Marketplace verification warnings (internal API and scheduled-for-removal API)</li>
+            <li>Fix security issues: REPL resource leaks, EDT blocking, path validation</li>
+            <li>Fix DOT format injection in dependency diagram</li>
+            <li>Fix Qodana static analysis warnings across 25+ files</li>
+            <li>Add third-party license attribution</li>
+        </ul>
         <h3>0.1.0</h3>
         <ul>
             <li>Initial release</li>
