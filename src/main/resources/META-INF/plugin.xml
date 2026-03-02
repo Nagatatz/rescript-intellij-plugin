@@ -756,6 +756,15 @@
         <!-- REPL Tool Window (#58) -->
         <toolWindow id="ReScript REPL" anchor="bottom" icon="AllIcons.Debugger.Console"
                 factoryClass="com.rescript.plugin.repl.RescriptReplToolWindowFactory"/>
+
+        <!-- Suggested Refactoring inspection (#66) -->
+        <localInspection language="ReScript"
+                         groupName="ReScript"
+                         shortName="RescriptSuggestedRefactoring"
+                         displayName="Suggested refactoring opportunities"
+                         enabledByDefault="true"
+                         level="INFORMATION"
+                         implementationClass="com.rescript.plugin.inspection.RescriptSuggestedRefactoringInspection"/>
     </extensions>
 
     <actions>
