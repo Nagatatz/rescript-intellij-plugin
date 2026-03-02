@@ -65,10 +65,10 @@
 - [x] コミット
 
 ### #105 型ホール支援
-- [ ] `RescriptTypeHoleQuickFix.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptTypeHoleQuickFix.kt` を実装
+- [x] テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #106 コメント内コード評価
 - [ ] `RescriptCommentEvalProvider.kt` を実装

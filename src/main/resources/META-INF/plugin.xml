@@ -777,6 +777,15 @@
         <!-- PPX Expansion View Tool Window (#87) -->
         <toolWindow id="ReScript PPX" anchor="right" icon="AllIcons.Nodes.Plugin"
                 factoryClass="com.rescript.plugin.ppx.RescriptPpxViewToolWindowFactory"/>
+
+        <!-- Type Hole Quick Fix inspection (#105) -->
+        <localInspection language="ReScript"
+                         groupName="ReScript"
+                         shortName="RescriptTypeHole"
+                         displayName="Type hole placeholder"
+                         enabledByDefault="true"
+                         level="WEAK WARNING"
+                         implementationClass="com.rescript.plugin.quickfix.RescriptTypeHoleQuickFix"/>
     </extensions>
 
     <actions>
