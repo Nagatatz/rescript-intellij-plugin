@@ -109,6 +109,9 @@ class RescriptTypeSignatureSearchContributor(
         // Pattern to extract type annotations from declarations
         private val TYPE_ANNOTATION_PATTERN = Regex(""":\s*(.+?)\s*(?:=|$)""")
 
+        /** Pattern for splitting type signatures at arrows, parens, brackets, and whitespace. */
+        private val SIGNATURE_DELIMITER_PATTERN = Regex("""\s*(?:->|=>|[(),<>\[\]\s])\s*""")
+
         /**
          * Checks if the search pattern looks like a type query.
          *
@@ -135,7 +138,7 @@ class RescriptTypeSignatureSearchContributor(
             // Split on arrows and delimiters
             val parts =
                 remaining
-                    .split(Regex("""\s*(?:->|=>|[(),<>\[\]\s])\s*"""))
+                    .split(SIGNATURE_DELIMITER_PATTERN)
                     .filter { it.isNotBlank() }
                     .map { it.lowercase().trim() }
 

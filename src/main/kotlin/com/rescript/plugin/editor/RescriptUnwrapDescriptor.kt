@@ -18,6 +18,17 @@ import com.rescript.plugin.lang.psi.RescriptFile
  * @see com.rescript.plugin.surround.RescriptSurroundDescriptor for the inverse operation
  */
 class RescriptUnwrapDescriptor : UnwrapDescriptor {
+    companion object {
+        /** Pattern matching `if` keyword followed by `(`, avoiding partial identifier matches. */
+        private val IF_PATTERN = Regex("""(?<![a-zA-Z0-9_])if\s*\(""")
+
+        /** Pattern matching `switch` keyword, avoiding partial identifier matches. */
+        private val SWITCH_PATTERN = Regex("""(?<![a-zA-Z0-9_])switch\s""")
+
+        /** Pattern matching `try` keyword followed by `{`, avoiding partial identifier matches. */
+        private val TRY_PATTERN = Regex("""(?<![a-zA-Z0-9_])try\s*\{""")
+    }
+
     override fun collectUnwrappers(
         project: com.intellij.openapi.project.Project,
         editor: Editor,
@@ -124,8 +135,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
         // Search backward for 'if' keyword
         val searchStart = maxOf(0, offset - 200)
         val region = text.substring(searchStart, minOf(text.length, offset + 200))
-        val ifPattern = Regex("""(?<![a-zA-Z0-9_])if\s*\(""")
-        for (match in ifPattern.findAll(region)) {
+        for (match in IF_PATTERN.findAll(region)) {
             val absIfStart = searchStart + match.range.first
             // Find the condition's closing paren
             val condOpenIdx = text.indexOf('(', absIfStart + 2)
@@ -151,8 +161,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     ): Quadruple? {
         val searchStart = maxOf(0, offset - 300)
         val region = text.substring(searchStart, minOf(text.length, offset + 300))
-        val switchPattern = Regex("""(?<![a-zA-Z0-9_])switch\s""")
-        for (match in switchPattern.findAll(region)) {
+        for (match in SWITCH_PATTERN.findAll(region)) {
             val absSwitchStart = searchStart + match.range.first
             // Find the body opening brace
             val braceIdx = text.indexOf('{', absSwitchStart + 6)
@@ -174,8 +183,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     ): Quadruple? {
         val searchStart = maxOf(0, offset - 300)
         val region = text.substring(searchStart, minOf(text.length, offset + 300))
-        val tryPattern = Regex("""(?<![a-zA-Z0-9_])try\s*\{""")
-        for (match in tryPattern.findAll(region)) {
+        for (match in TRY_PATTERN.findAll(region)) {
             val absTryStart = searchStart + match.range.first
             val tryBraceIdx = text.indexOf('{', absTryStart + 3)
             if (tryBraceIdx < 0) continue

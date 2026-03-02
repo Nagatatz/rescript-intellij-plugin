@@ -118,6 +118,12 @@ class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferable
         // Pattern to detect void elements that aren't self-closing
         private val VOID_TAG_PATTERN = Regex("""<(${VOID_ELEMENTS.joinToString("|")})(\s[^>]*)?>""")
 
+        // Pattern matching an HTML-like opening tag
+        private val HTML_TAG_PATTERN = Regex("<[a-zA-Z][a-zA-Z0-9]*[\\s>/]")
+
+        // Pattern matching inline style attribute: style="..."
+        private val STYLE_ATTR_PATTERN = Regex("""style="([^"]*)"""")
+
         /**
          * Checks whether the given text appears to contain HTML markup.
          *
@@ -128,7 +134,7 @@ class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferable
             val trimmed = text.trim()
             return trimmed.contains("<") &&
                 trimmed.contains(">") &&
-                Regex("<[a-zA-Z][a-zA-Z0-9]*[\\s>/]").containsMatchIn(trimmed)
+                HTML_TAG_PATTERN.containsMatchIn(trimmed)
         }
 
         /**
@@ -175,8 +181,7 @@ class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferable
          * @return the string with style attributes converted
          */
         private fun convertStyleAttributes(html: String): String {
-            val stylePattern = Regex("""style="([^"]*)"""")
-            return stylePattern.replace(html) { match ->
+            return STYLE_ATTR_PATTERN.replace(html) { match ->
                 val cssText = match.groupValues[1]
                 val props =
                     cssText

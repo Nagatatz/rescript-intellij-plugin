@@ -130,8 +130,8 @@ class RescriptPasteAsRescriptProcessor : CopyPastePostProcessor<TextBlockTransfe
             }
 
             // const/var/let → let (ReScript uses let for all bindings)
-            result = result.replace(Regex("""(?<=^|\s)const\s+"""), "let ")
-            result = result.replace(Regex("""(?<=^|\s)var\s+"""), "let ")
+            result = result.replace(CONST_PATTERN, "let ")
+            result = result.replace(VAR_PATTERN, "let ")
 
             // function name(args) { → let name = (args) => {
             result =
@@ -159,8 +159,8 @@ class RescriptPasteAsRescriptProcessor : CopyPastePostProcessor<TextBlockTransfe
             result = result.replace("console.log(", "Js.log(")
 
             // null/undefined → None (only standalone tokens)
-            result = result.replace(Regex("""\bnull\b"""), "None")
-            result = result.replace(Regex("""\bundefined\b"""), "None")
+            result = result.replace(NULL_PATTERN, "None")
+            result = result.replace(UNDEFINED_PATTERN, "None")
 
             // Remove semicolons at end of line
             if (result.trimEnd().endsWith(";")) {
@@ -169,6 +169,18 @@ class RescriptPasteAsRescriptProcessor : CopyPastePostProcessor<TextBlockTransfe
 
             return result
         }
+
+        // Pattern for `const` keyword at line start or after whitespace
+        private val CONST_PATTERN = Regex("""(?<=^|\s)const\s+""")
+
+        // Pattern for `var` keyword at line start or after whitespace
+        private val VAR_PATTERN = Regex("""(?<=^|\s)var\s+""")
+
+        // Pattern for standalone `null` token
+        private val NULL_PATTERN = Regex("""\bnull\b""")
+
+        // Pattern for standalone `undefined` token
+        private val UNDEFINED_PATTERN = Regex("""\bundefined\b""")
 
         // Pattern for `function name(args) {`
         private val FUNCTION_PATTERN =
