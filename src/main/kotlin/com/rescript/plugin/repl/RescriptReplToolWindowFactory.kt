@@ -19,6 +19,7 @@ class RescriptReplToolWindowFactory :
     ToolWindowFactory,
     DumbAware {
     companion object {
+        @Suppress("unused") // Public API constant for programmatic tool window access
         const val TOOL_WINDOW_ID = "ReScript REPL"
     }
 

@@ -23,6 +23,7 @@ class RescriptDeclarationPsiElement : StubBasedPsiElementBase<RescriptDeclaratio
      *
      * @return the name from the stub, or extracted from the AST if no stub is present
      */
+    @Suppress("unused") // Public API for stub-based name resolution
     fun getDeclarationName(): String = greenStub?.name ?: RescriptPsiUtils.extractName(this)
 
     @Suppress("DEPRECATION")

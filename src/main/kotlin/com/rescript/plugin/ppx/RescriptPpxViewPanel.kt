@@ -39,6 +39,7 @@ class RescriptPpxViewPanel(
             border = JBUI.Borders.empty(8)
         }
 
+    @Suppress("DialogTitleCapitalization") // "PPX" is an acronym
     private val headerLabel =
         JBLabel("PPX Annotations").apply {
             border = JBUI.Borders.empty(4, 8)

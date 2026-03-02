@@ -110,7 +110,7 @@ class RescriptExtractComponentHandler : RefactoringActionHandler {
             val props = mutableSetOf<String>()
 
             // Find {expression} patterns in JSX
-            val pattern = Regex("""\{(\w+)\}""")
+            val pattern = Regex("""\{(\w+)}""")
             for (match in pattern.findAll(jsx)) {
                 val name = match.groupValues[1]
                 // Exclude known globals and common non-prop values

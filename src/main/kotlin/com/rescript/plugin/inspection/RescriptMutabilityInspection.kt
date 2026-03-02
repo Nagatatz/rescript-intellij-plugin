@@ -39,7 +39,7 @@ class RescriptMutabilityInspection : LocalInspectionTool() {
                             holder.registerProblem(
                                 element,
                                 "Mutable ref '${ref.name}' is never reassigned — consider using a plain let binding",
-                                RemoveRefQuickFix(ref.name, ref.value),
+                                RemoveRefQuickFix(ref.value),
                             )
                         }
                     }
@@ -49,7 +49,6 @@ class RescriptMutabilityInspection : LocalInspectionTool() {
 
     /** Quick fix that replaces `let name = ref(value)` with `let name = value`. */
     private class RemoveRefQuickFix(
-        private val name: String,
         private val value: String,
     ) : LocalQuickFix {
         override fun getFamilyName(): String = "Remove unnecessary ref"

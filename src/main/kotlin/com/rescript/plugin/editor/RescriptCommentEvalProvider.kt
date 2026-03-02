@@ -175,8 +175,7 @@ class RescriptCommentEvalProvider : InlayHintsProvider<NoSettings> {
         internal fun cleanExampleCode(code: String): String =
             code
                 .lines()
-                .map { it.trimStart().removePrefix("* ").removePrefix("*") }
-                .joinToString("\n")
+                .joinToString("\n") { it.trimStart().removePrefix("* ").removePrefix("*") }
                 .trim()
 
         private fun hasBalancedDelimiters(code: String): Boolean {

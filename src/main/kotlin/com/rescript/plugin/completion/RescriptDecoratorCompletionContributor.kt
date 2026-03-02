@@ -57,7 +57,6 @@ class RescriptDecoratorCompletionContributor : CompletionContributor() {
                         // Just insert the decorator name
                         val editor = context.editor
                         val doc = editor.document
-                        val startOffset = context.startOffset
                         val tailOffset = context.tailOffset
 
                         // For ARROBASE: replace from after '@'; for ANNOTATION_NAME: replace the whole token

@@ -37,6 +37,7 @@ class RescriptCodeVisionProvider : DaemonBoundCodeVisionProvider {
 
     // Explicit override to avoid Kotlin bridge method invoking DefaultImpls,
     // which triggers a Marketplace verification warning for internal API usage.
+    @Suppress("UnstableApiUsage")
     override fun getPlaceholderCollector(
         editor: Editor,
         psiFile: PsiFile?,

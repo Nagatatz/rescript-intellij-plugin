@@ -18,7 +18,7 @@ class RescriptScratchRootType : RootType("rescript", "ReScript") {
     override fun substituteLanguage(
         project: Project,
         file: com.intellij.openapi.vfs.VirtualFile,
-    ): com.intellij.lang.Language? = RescriptLanguage
+    ): com.intellij.lang.Language = RescriptLanguage
 }
 
 /**

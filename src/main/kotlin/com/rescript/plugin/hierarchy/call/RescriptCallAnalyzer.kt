@@ -66,7 +66,7 @@ object RescriptCallAnalyzer {
             },
             scope,
             name,
-            UsageSearchContext.IN_CODE.toShort(),
+            UsageSearchContext.IN_CODE,
             true, // case sensitive
         )
 

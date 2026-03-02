@@ -20,18 +20,9 @@ class RescriptGenerateModuleImplAction :
     AnAction("Module Implementation", "Generate module implementation from module type", null) {
     override fun actionPerformed(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
-        val file = e.getData(CommonDataKeys.PSI_FILE) ?: return
+        e.getData(CommonDataKeys.PSI_FILE) ?: return
         val document = editor.document
         val offset = editor.caretModel.offset
-        val lineNumber = document.getLineNumber(offset)
-        val lineText =
-            document
-                .getText(
-                    com.intellij.openapi.util.TextRange(
-                        document.getLineStartOffset(lineNumber),
-                        document.getLineEndOffset(lineNumber),
-                    ),
-                ).trim()
 
         // Find module type declaration in file text
         val text = document.text
