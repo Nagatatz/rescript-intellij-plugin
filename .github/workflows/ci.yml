@@ -73,14 +73,16 @@ jobs:
               TOTAL=$((LINE_COVERED + LINE_MISSED))
               if [ "$TOTAL" -gt 0 ]; then
                 PERCENTAGE=$((LINE_COVERED * 100 / TOTAL))
-                echo "## 📊 Code Coverage" >> $GITHUB_STEP_SUMMARY
-                echo "" >> $GITHUB_STEP_SUMMARY
-                echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
-                echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
-                echo "| Line Coverage | **${PERCENTAGE}%** |" >> $GITHUB_STEP_SUMMARY
-                echo "| Lines Covered | ${LINE_COVERED} / ${TOTAL} |" >> $GITHUB_STEP_SUMMARY
-                echo "" >> $GITHUB_STEP_SUMMARY
-                echo "📄 Full HTML report available in the **coverage-report** artifact." >> $GITHUB_STEP_SUMMARY
+                {
+                  echo "## 📊 Code Coverage"
+                  echo ""
+                  echo "| Metric | Value |"
+                  echo "|--------|-------|"
+                  echo "| Line Coverage | **${PERCENTAGE}%** |"
+                  echo "| Lines Covered | ${LINE_COVERED} / ${TOTAL} |"
+                  echo ""
+                  echo "📄 Full HTML report available in the **coverage-report** artifact."
+                } >> "$GITHUB_STEP_SUMMARY"
               fi
             fi
           fi
@@ -93,7 +95,7 @@ jobs:
 
       - name: Upload build artifacts
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: plugin-zip
           path: build/distributions/*.zip
@@ -101,7 +103,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: build/reports/tests/
@@ -109,7 +111,7 @@ jobs:
 
       - name: Upload coverage report
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: build/reports/kover/html/
