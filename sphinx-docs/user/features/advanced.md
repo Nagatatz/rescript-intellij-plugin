@@ -729,3 +729,98 @@ The default order is:
 6. `let` declarations
 
 This helps maintain a consistent file structure across your project.
+
+## Dependency Diagram
+
+Visualize module dependency relationships as an interactive graph diagram.
+
+**Open:** **View** > **Tool Windows** > **Dependency Diagram**, or use **Analyze** > **Module Dependency Diagram**
+
+### How It Works
+
+The diagram provider scans all `.res` files in the project and builds a dependency graph based on `open` and `include` statements. Each module is represented as a node, and dependencies are shown as directed edges.
+
+### Features
+
+- **Interactive layout** — Drag nodes to rearrange the graph
+- **Zoom and pan** — Navigate large dependency graphs
+- **Click navigation** — Double-click a node to open the corresponding `.res` file
+- **Cycle detection** — Circular dependencies are highlighted visually
+
+### Use Cases
+
+- **Understanding project structure** — See how modules relate to each other at a glance
+- **Identifying tight coupling** — Spot modules with too many dependencies
+- **Refactoring planning** — Understand the impact of moving or splitting modules
+
+## PPX Expansion View
+
+A tool window that displays the expanded output of PPX macros applied to the current file.
+
+**Open:** **View** > **Tool Windows** > **PPX Expansion**
+
+### How It Works
+
+The PPX Expansion View runs the ReScript compiler's PPX preprocessor on the current file and displays the transformed AST output. This helps you understand what code the PPX generates behind the scenes.
+
+### Supported PPX Attributes
+
+- `@react.component` — Shows the generated `React.createElement` calls and component wrapper
+- `@deriving(json)` — Shows the generated `toJson` and `fromJson` functions
+- `@deriving(accessors)` — Shows the generated field accessor functions
+- `@genType` — Shows the generated TypeScript type definitions
+
+### Use Cases
+
+- **Debugging PPX behavior** — Understand why generated code doesn't work as expected
+- **Learning** — See how PPX attributes transform your source code
+- **Optimization** — Review the generated output for performance considerations
+
+## Comment Code Evaluation
+
+Evaluate ReScript code examples embedded in documentation comments directly from the editor.
+
+When a `/** ... */` documentation comment contains a code block, the plugin can evaluate the code and display the result inline. This helps verify that code examples in documentation are correct and up to date.
+
+### How to Use
+
+1. Write a code example inside a documentation comment
+2. Place the caret inside the code block
+3. Use **Code** > **Evaluate Comment Code** (or the gutter action)
+
+```rescript
+/**
+ * Adds two numbers.
+ *
+ * ```
+ * add(1, 2)  // => 3
+ * ```
+ */
+let add = (a, b) => a + b
+```
+
+The plugin extracts the code block, compiles and runs it, and displays the result as an inline annotation.
+
+## Type Signature Search
+
+Search for functions by their type signature in the **Search Everywhere** dialog (`Shift+Shift`).
+
+### How to Use
+
+1. Open Search Everywhere with `Shift+Shift`
+2. Switch to the **Types** tab
+3. Enter a type signature query (e.g., `string => int`, `array<'a> => int`, `(int, int) => int`)
+4. Matching functions from the project and dependencies are listed
+
+### Query Syntax
+
+Type signature queries use standard ReScript type syntax:
+
+| Query | Matches |
+|-------|---------|
+| `string => int` | Functions taking a string and returning an int |
+| `array<'a> => int` | Functions taking any array and returning an int |
+| `(int, int) => int` | Functions taking two ints and returning an int |
+| `option<'a> => 'a` | Functions unwrapping option values |
+
+The search matches against function type signatures from the project's stub index, providing fast lookup without requiring the LSP server.

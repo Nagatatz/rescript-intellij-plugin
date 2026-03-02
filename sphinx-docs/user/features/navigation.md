@@ -206,4 +206,10 @@ Call Hierarchy uses PSI-based text search to discover call relationships. It wor
 
 ## Navigation Bar
 
+## Type Signature Search
+
+Search for functions by their type signature in the Search Everywhere dialog. See [Advanced Features — Type Signature Search](advanced.md#type-signature-search) for details.
+
+## Navigation Bar
+
 The navigation bar at the top of the editor displays the structure-aware hierarchy of your current cursor position. It shows top-level declarations (`let`, `type`, `module`, `external`, `exception`) with their icons, leveraging the existing Structure View model for accurate navigation.

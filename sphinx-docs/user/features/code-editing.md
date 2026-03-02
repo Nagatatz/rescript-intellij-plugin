@@ -448,6 +448,133 @@ Press `Ctrl+Alt+O` to remove duplicate `open` statements from the current file.
 
 Press `Shift+F6` to rename a symbol across the project. The Language Server handles finding all references and updating them.
 
+## Extract Function
+
+Press `Ctrl+Alt+M` (`Cmd+Alt+M` on macOS) to extract the selected code into a new function.
+
+The handler detects the selected expression or statement range in a `let` declaration body, extracts it into a new `let` function above the current declaration, and replaces the original code with a call to the new function. Free variables in the selection become parameters of the extracted function.
+
+**Before** (with `a + b` selected):
+
+```rescript
+let calculate = (a, b) => {
+  let result = a + b
+  result * 2
+}
+```
+
+**After:**
+
+```rescript
+let extracted = (a, b) => a + b
+
+let calculate = (a, b) => {
+  let result = extracted(a, b)
+  result * 2
+}
+```
+
+## Inline Variable/Function
+
+Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or function at the caret, replacing all references with the definition body.
+
+The handler finds the `let` declaration at the caret, locates all references to it within the file, replaces each reference with the definition body, and removes the original declaration.
+
+**Before:**
+
+```rescript
+let prefix = "Hello"
+let greet = (name) => `${prefix}, ${name}!`
+```
+
+**After** (inline `prefix`):
+
+```rescript
+let greet = (name) => `${"Hello"}, ${name}!`
+```
+
+## Introduce Constant
+
+Extract a literal value into a module-level constant. Select a string, number, or other literal and use **Refactor** > **Introduce Constant**.
+
+The handler extracts the selected literal into a new `let` binding at the top of the file (after any `open` statements) and replaces the original literal with a reference to the new constant.
+
+**Before:**
+
+```rescript
+let greeting = "Hello, World!"
+let farewell = "Goodbye, World!"
+```
+
+**After** (introduce constant for `"Hello, World!"`):
+
+```rescript
+let helloWorld = "Hello, World!"
+let greeting = helloWorld
+let farewell = "Goodbye, World!"
+```
+
+## Change Signature
+
+Press `Ctrl+F6` to modify a function's parameters — reorder, rename, add, or remove — and update call sites within the file.
+
+The handler parses the function declaration at the caret, supports both labeled (`~name: type`) and positional parameters, and applies changes to the declaration and all matching call sites.
+
+**Before:**
+
+```rescript
+let make = (~name: string, ~age: int) => { name, age }
+
+let user = make(~name="Alice", ~age=30)
+```
+
+**After** (reorder parameters):
+
+```rescript
+let make = (~age: int, ~name: string) => { name, age }
+
+let user = make(~age=30, ~name="Alice")
+```
+
+## React Component Extraction
+
+Extract selected JSX into a new React component. Select a JSX expression, then use **Refactor** > **Extract React Component**.
+
+The handler creates a new `@react.component` module with the selected JSX as its body. Props used within the selection are detected and added as labeled parameters to the new component's `make` function.
+
+**Before** (with `<div className="card">...</div>` selected):
+
+```rescript
+@react.component
+let make = (~items) => {
+  <div className="container">
+    <div className="card">
+      {items->Array.map(item => <span key={item}> {React.string(item)} </span>)->React.array}
+    </div>
+  </div>
+}
+```
+
+**After:**
+
+```rescript
+module Card = {
+  @react.component
+  let make = (~items) => {
+    <div className="card">
+      {items->Array.map(item => <span key={item}> {React.string(item)} </span>)->React.array}
+    </div>
+  }
+}
+
+@react.component
+let make = (~items) => {
+  <div className="container">
+    <Card items />
+  </div>
+}
+```
+
 ## Paste as JSON.t
 
 Use **Edit** > **Paste as JSON.t** to convert JSON from your clipboard into a ReScript `JSON.t` value.
@@ -618,6 +745,40 @@ Generates a tagged union encoder/decoder using `Object` with a `"tag"` field and
 **Supported types:** `string`, `int`, `float`, `bool`, `option<T>`, `array<T>`, and arbitrary nesting (e.g., `option<array<string>>`). Unrecognized types generate a `/* TODO */` placeholder for you to fill in.
 
 **Naming convention:** Functions are named `encode` + capitalized type name and `decode` + capitalized type name (e.g., `encodeUser` / `decodeUser`). For a type named `t`, the functions are simply `encode` / `decode`.
+
+### Generate Module Type Implementation
+
+When your caret is inside a `module type` declaration, this action generates a module that implements the module type with stub functions for each signature entry.
+
+Place your caret inside the module type declaration and press `Cmd+N` (or `Alt+Insert`), then choose **Module Type Implementation**.
+
+**Before:**
+
+```rescript
+module type Printable = {
+  type t
+  let toString: t => string
+  let print: t => unit
+}
+```
+
+**After** (implementation module generated below):
+
+```rescript
+module type Printable = {
+  type t
+  let toString: t => string
+  let print: t => unit
+}
+
+module PrintableImpl: Printable = {
+  type t
+  let toString = (_) => todo
+  let print = (_) => todo
+}
+```
+
+Replace `todo` placeholders with actual implementations. The generated module is constrained to the module type, so the compiler will catch any missing or incorrect signatures.
 
 ## Strip Trailing Spaces
 
@@ -876,3 +1037,33 @@ When pasting HTML content into a ReScript file, it is automatically converted to
 - Inline `style` strings are converted to ReScript style objects
 - Boolean attributes (e.g., `disabled`, `checked`) are preserved as JSX boolean props
 - `data-*` and `aria-*` attributes are preserved as-is
+
+## Paste as ReScript
+
+When pasting JavaScript code into a ReScript file, it is automatically converted to ReScript syntax:
+
+- `const`/`let`/`var` declarations are converted to `let` bindings
+- Arrow functions `(x) => { return x }` are simplified to `(x) => x`
+- `===` / `!==` are converted to `==` / `!=`
+- `console.log(x)` is converted to `Js.log(x)`
+- `null` / `undefined` are converted to `None`
+- Template literals remain as-is (ReScript uses the same syntax)
+- Array methods (`.map()`, `.filter()`, `.forEach()`) are converted to pipe-first style
+
+**Before** (JavaScript in clipboard):
+
+```javascript
+const greeting = (name) => {
+  console.log("Hello, " + name);
+  return name.toUpperCase();
+}
+```
+
+**After** (pasted into `.res` file):
+
+```rescript
+let greeting = (name) => {
+  Js.log("Hello, " ++ name)
+  name->String.toUpperCase
+}
+```

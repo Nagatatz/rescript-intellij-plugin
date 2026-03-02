@@ -84,11 +84,11 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **Call Hierarchy** (`hierarchy/call/`) — 関数の呼び出し階層（Callers/Callees）ツリー表示（Ctrl+Alt+H）
 - **Project View** (`projectview/`) — コンパイル済み JS のネスト表示・灰色化
 - **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成
-- **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析、.resi シグネチャ同期
-- **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション、Extract Variable（Ctrl+Alt+V）
+- **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析、.resi シグネチャ同期、Suggested Refactoring 提案
+- **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション、Extract Variable（Ctrl+Alt+V）、Extract Function（Ctrl+Alt+M）、Inline Variable/Function（Ctrl+Alt+N）、Introduce Constant、Change Signature（Ctrl+F6）、React コンポーネント抽出
 - **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
 - **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正、ラベル付き引数挿入、Switch ケース統合、Case Split、位置→ラベル引数変換、括弧削除、修飾子削除、Pipe⇔関数呼び出し変換、インターフェース公開/非公開、分割代入の展開
-- **Quick Fix** (`quickfix/`) — 未解決参照の open 追加/修飾子付加、使用箇所からの関数生成
+- **Quick Fix** (`quickfix/`) — 未解決参照の open 追加/修飾子付加、使用箇所からの関数生成、型ホール (`_`) 候補型提案
 - **Surround With** (`surround/`) — if/switch/try/block で囲む
 - **Postfix Completion** (`completion/`) — .switch, .pipe, .log, .promise, .await 等
 - **Completion Weigher** (`completion/`) — コンテキストベースの補完候補重み付け
@@ -97,7 +97,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **コード折りたたみ** (`folding/`) — ブロック折りたたみ、//#region カスタム折りたたみ
 - **パンくずリスト** (`breadcrumb/`) — エディタ上部のナビゲーション
 - **ナビゲーションバー** (`navbar/`) — Structure View ベースのナビゲーションバー表示
-- **Generate アクション** (`generate/`) — Switch Arms / Module Type / Make 関数 / Record Value / JSON エンコーダ・デコーダ生成
+- **Generate アクション** (`generate/`) — Switch Arms / Module Type / Make 関数 / Record Value / JSON エンコーダ・デコーダ / モジュールタイプ実装生成
 - **.d.ts バインディング生成** (`binding/`) — TypeScript 型定義から ReScript バインディングを自動生成
 - **Unwrap/Remove** (`editor/`) — Some/Ok/Error/if/switch/try/ブレースの除去 (Ctrl+Shift+Delete)
 - **JSX 閉じタグ自動挿入** (`editor/`) — `>` 入力時に閉じタグを自動補完
@@ -142,6 +142,14 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **Index Pattern Builder** (`indexing/`) — コメント内 TODO/FIXME パターンのインデックス構築
 - **File Include Provider** (`navigation/`) — open 文からのファイルインクルードナビゲーション
 - **Floating Toolbar** (`editor/`) — ReScript ファイル用フローティングツールバー（Format/Open JS/Create Interface）
+- **Scratch File** (`scratch/`) — ReScript スクラッチファイルの作成・実行
+- **REPL** (`repl/`) — ReScript インタラクティブ実行環境ツールウィンドウ
+- **JS→ReScript 変換** (`paste/`) — JavaScript コードを ReScript に変換してペースト
+- **依存関係ダイアグラム** (`diagram/`) — モジュール依存関係のグラフ可視化
+- **PPX 展開ビュー** (`ppx/`) — PPX マクロの展開結果をツールウィンドウに表示
+- **コメント内コード評価** (`editor/`) — ドキュメントコメント内のコード例を評価・検証
+- **Worksheet モード** (`worksheet/`) — `.resw` ファイル全体をインタラクティブに評価
+- **型シグネチャ検索** (`navigation/`) — 型シグネチャから関数を逆引き検索（Search Everywhere 統合）
 
 ## 開発規約
 
