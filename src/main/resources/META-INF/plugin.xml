@@ -936,5 +936,11 @@
                 description="Restart the ReScript LSP server">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
+        <action id="ReScript.DumpLspState"
+                class="com.rescript.plugin.lsp.RescriptDumpLspStateAction"
+                text="Dump ReScript LSP State"
+                description="Show diagnostic information about the ReScript LSP server">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
     </actions>
 </idea-plugin>
