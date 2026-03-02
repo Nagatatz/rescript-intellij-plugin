@@ -71,10 +71,10 @@
 - [x] コミット
 
 ### #106 コメント内コード評価
-- [ ] `RescriptCommentEvalProvider.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptCommentEvalProvider.kt` を実装
+- [x] テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #107 Worksheet モード
 - [ ] `RescriptWorksheetFileType.kt` + `RescriptWorksheetRunner.kt` を実装

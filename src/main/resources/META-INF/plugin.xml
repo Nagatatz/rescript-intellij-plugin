@@ -786,6 +786,10 @@
                          enabledByDefault="true"
                          level="WEAK WARNING"
                          implementationClass="com.rescript.plugin.quickfix.RescriptTypeHoleQuickFix"/>
+
+        <!-- Comment code evaluation inlay hints (#106) -->
+        <codeInsight.inlayHintsProvider language="ReScript"
+                implementationClass="com.rescript.plugin.editor.RescriptCommentEvalProvider"/>
     </extensions>
 
     <actions>
