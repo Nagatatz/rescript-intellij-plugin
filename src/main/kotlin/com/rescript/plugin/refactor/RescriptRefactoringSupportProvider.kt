@@ -7,16 +7,20 @@ import com.intellij.refactoring.RefactoringActionHandler
 /**
  * Registers refactoring support for the ReScript language.
  *
- * Provides the Introduce Variable handler (`Ctrl+Alt+V`), Introduce Constant
- * handler, and enables Safe Delete for ReScript elements. Registered via
- * `lang.refactoringSupport` extension point in `plugin.xml`.
+ * Provides the Introduce Variable handler (`Ctrl+Alt+V`), Extract Function
+ * handler (`Ctrl+Alt+M`), Introduce Constant handler, and enables
+ * Safe Delete for ReScript elements. Registered via `lang.refactoringSupport`
+ * extension point in `plugin.xml`.
  *
  * @see RescriptExtractVariableHandler for the Introduce Variable implementation
+ * @see RescriptExtractFunctionHandler for the Extract Function implementation
  * @see RescriptIntroduceConstantHandler for the Introduce Constant implementation
  * @see RescriptSafeDeleteProcessor for Safe Delete support
  */
 class RescriptRefactoringSupportProvider : RefactoringSupportProvider() {
     override fun getIntroduceVariableHandler() = RescriptExtractVariableHandler()
+
+    override fun getExtractMethodHandler(): RefactoringActionHandler = RescriptExtractFunctionHandler()
 
     override fun getIntroduceConstantHandler(): RefactoringActionHandler = RescriptIntroduceConstantHandler()
 
