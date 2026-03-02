@@ -108,10 +108,10 @@
 - [x] `README.md` — Features セクションに 16 機能追加
 - [x] `sphinx-docs/user/features/` — 該当ページに説明・使用例を追加
 - [x] `docs/product-requirements.md` — 16 件を「実装済み」に移動、残り 0 件に更新
-- [ ] ドキュメントコミット
+- [x] ドキュメントコミット
 
 ## 検証・マージ
 
-- [ ] `./gradlew clean buildPlugin` 成功
-- [ ] 全テストパス
-- [ ] `main` にマージ
+- [x] `./gradlew clean buildPlugin` 成功
+- [x] 全テストパス
+- [x] `main` にマージ
