@@ -1,4 +1,5 @@
 {
+  "$comment": "Derived from rescript-compiler build-schema.json (https://github.com/rescript-lang/rescript-compiler). The rescript-compiler is licensed under LGPL-3.0-or-later.",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "module-format": {
