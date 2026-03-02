@@ -91,10 +91,10 @@
 - [x] コミット
 
 ### #64 Change Signature
-- [ ] `RescriptChangeSignatureHandler.kt` + `RescriptChangeSignatureDialog.kt` を実装
-- [ ] テスト作成（`RescriptChangeSignatureHandler` の companion object）
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptChangeSignatureHandler.kt` + `RescriptChangeSignatureAction.kt` を実装
+- [x] テスト作成（`RescriptChangeSignatureHandler` の companion object）
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #108 型シグネチャ検索
 - [ ] `RescriptTypeSignatureSearchContributor.kt` を実装
