@@ -797,6 +797,10 @@
                   fieldName="INSTANCE"
                   language="ReScript"
                   implementationClass="com.rescript.plugin.worksheet.RescriptWorksheetFileType"/>
+
+        <!-- Type Signature Search Everywhere (#108) -->
+        <searchEverywhereContributor
+                implementation="com.rescript.plugin.navigation.RescriptTypeSignatureSearchContributor$Factory"/>
     </extensions>
 
     <actions>

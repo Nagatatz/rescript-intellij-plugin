@@ -97,10 +97,10 @@
 - [x] コミット
 
 ### #108 型シグネチャ検索
-- [ ] `RescriptTypeSignatureSearchContributor.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptTypeSignatureSearchContributor.kt` を実装
+- [x] テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ## ドキュメント更新
 
