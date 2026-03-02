@@ -42,6 +42,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var inlayHintsEnabled: Boolean = false
         var inlayHintsMaxLength: Int = 25
         var compileStatusEnabled: Boolean = true
+        var reanalyzeServerEnabled: Boolean = true
     }
 
     override fun getState(): State = state
@@ -180,6 +181,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.compileStatusEnabled
         set(value) {
             state.compileStatusEnabled = value
+        }
+
+    var reanalyzeServerEnabled: Boolean
+        get() = state.reanalyzeServerEnabled
+        set(value) {
+            state.reanalyzeServerEnabled = value
         }
 
     companion object {

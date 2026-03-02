@@ -182,6 +182,23 @@ class RescriptProjectSettingsTest {
         assertEquals("error", settings.state.logLevel)
     }
 
+    // --- Reanalyze server mode ---
+
+    @Test
+    fun `default state has reanalyzeServerEnabled enabled`() {
+        val state = RescriptProjectSettings.State()
+        assertTrue(state.reanalyzeServerEnabled)
+    }
+
+    @Test
+    fun `reanalyzeServerEnabled property delegates to state`() {
+        val settings = RescriptProjectSettings()
+        assertTrue(settings.reanalyzeServerEnabled)
+        settings.reanalyzeServerEnabled = false
+        assertFalse(settings.reanalyzeServerEnabled)
+        assertFalse(settings.state.reanalyzeServerEnabled)
+    }
+
     @Test
     fun `loadState restores all new fields`() {
         val settings = RescriptProjectSettings()
