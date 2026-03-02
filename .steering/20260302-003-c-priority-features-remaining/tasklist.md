@@ -47,10 +47,10 @@
 - [x] コミット
 
 ### #86 React コンポーネント抽出
-- [ ] `RescriptExtractComponentHandler.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptExtractComponentHandler.kt` を実装
+- [x] テスト作成
+- [x] 登録不要（リファクタリングメニューから直接呼び出し）
+- [x] コミット
 
 ### #87 PPX 展開ビュー
 - [ ] `RescriptPpxViewToolWindowFactory.kt` + `RescriptPpxViewPanel.kt` を実装
