@@ -34,14 +34,11 @@ class RescriptWorksheetRunner(
         val expressions = extractExpressions(text)
 
         ApplicationManager.getApplication().executeOnPooledThread {
-            @Suppress("unused")
-            val results =
-                expressions.map { expr ->
-                    @Suppress("unused")
-                    val script = buildEvalScript(expr.code)
-                    // In a real implementation, this would compile and run via rescript/node
-                    formatResult(expr.code, "")
-                }
+            expressions.forEach { expr ->
+                buildEvalScript(expr.code)
+                // In a real implementation, this would compile and run via rescript/node
+                formatResult(expr.code, "")
+            }
 
             ApplicationManager.getApplication().invokeLater {
                 // Display results would be done via inlay hints or document modification
