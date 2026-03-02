@@ -53,10 +53,10 @@
 - [x] コミット
 
 ### #87 PPX 展開ビュー
-- [ ] `RescriptPpxViewToolWindowFactory.kt` + `RescriptPpxViewPanel.kt` を実装
-- [ ] テスト作成（`RescriptPpxViewPanel` の companion object）
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptPpxViewToolWindowFactory.kt` + `RescriptPpxViewPanel.kt` を実装
+- [x] テスト作成（`RescriptPpxViewPanel` の companion object）
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #88 モジュールタイプ実装生成
 - [ ] `RescriptGenerateModuleImplAction.kt` を実装

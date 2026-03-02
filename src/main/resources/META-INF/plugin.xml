@@ -773,6 +773,10 @@
         <!-- Inline Variable/Function (Ctrl+Alt+N) (#63) -->
         <inlineActionHandler
                 implementation="com.rescript.plugin.refactor.RescriptInlineHandler"/>
+
+        <!-- PPX Expansion View Tool Window (#87) -->
+        <toolWindow id="ReScript PPX" anchor="right" icon="AllIcons.Nodes.Plugin"
+                factoryClass="com.rescript.plugin.ppx.RescriptPpxViewToolWindowFactory"/>
     </extensions>
 
     <actions>
