@@ -295,6 +295,10 @@
         <postStartupActivity
                 implementation="com.rescript.plugin.lsp.RescriptLspStartupActivity"/>
 
+        <!-- Startup activity: prompt build watch for ReScript projects -->
+        <postStartupActivity
+                implementation="com.rescript.plugin.run.RescriptBuildWatchStartupActivity"/>
+
         <!-- AST factory for language injection support in string literals -->
         <lang.ast.factory language="ReScript"
                           implementationClass="com.rescript.plugin.lang.RescriptAstFactory"/>
