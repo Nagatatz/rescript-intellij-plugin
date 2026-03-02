@@ -4,13 +4,13 @@
 - [x] `RescriptRestartLspAction.kt` 作成
 - [x] `plugin.xml` にアクション登録
 - [x] `RescriptRestartLspActionTest.kt` 作成
-- [ ] コミット: `✨ Add Restart LSP action`
+- [x] コミット: `✨ Add Restart LSP action`
 
 ## #111 LSP Initialization Options
 - [x] `RescriptProjectSettings.kt` に6設定追加
 - [x] `RescriptLspServerDescriptor.kt` の `createInitializationOptions()` 更新
 - [x] `RescriptConfigurable.kt` に6 UI コントロール追加
-- [x] `RescriptProjectSettingsTest.kt` 作成
+- [x] `RescriptProjectSettingsTest.kt` 作成（テスト免除: Configurable は Swing UI コンポーネント、LspServerDescriptor は LSP 結合必須）
 - [ ] コミット: `✨ Add missing LSP initialization options`
 
 ## ドキュメント・仕上げ

@@ -55,6 +55,27 @@ class RescriptLspServerDescriptor(
                             "enabled" to settings.incrementalTypecheckingEnabled,
                             "acrossFiles" to settings.incrementalTypecheckingAcrossFiles,
                         ),
+                    "signatureHelp" to
+                        mapOf(
+                            "enabled" to settings.signatureHelpEnabled,
+                            "forConstructorPayloads" to settings.signatureHelpForConstructorPayloads,
+                        ),
+                    "cache" to
+                        mapOf(
+                            "projectConfig" to
+                                mapOf(
+                                    "enable" to settings.cacheProjectConfigEnabled,
+                                ),
+                        ),
+                    "inlayHints" to
+                        mapOf(
+                            "enable" to settings.inlayHintsEnabled,
+                            "maxLength" to settings.inlayHintsMaxLength,
+                        ),
+                    "compileStatus" to
+                        mapOf(
+                            "enable" to settings.compileStatusEnabled,
+                        ),
                 ),
         )
     }
