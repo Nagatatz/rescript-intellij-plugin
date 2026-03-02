@@ -9,10 +9,10 @@
 - [x] コミット
 
 ### #58 REPL
-- [ ] `RescriptReplToolWindowFactory.kt` + `RescriptReplPanel.kt` + `RescriptReplExecutor.kt` を実装
-- [ ] テスト作成（`RescriptReplExecutor` の companion object）
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptReplToolWindowFactory.kt` + `RescriptReplPanel.kt` + `RescriptReplExecutor.kt` を実装
+- [x] テスト作成（`RescriptReplExecutor` の companion object）
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ### #66 Suggested Refactoring
 - [ ] `RescriptSuggestedRefactoringInspection.kt` を実装

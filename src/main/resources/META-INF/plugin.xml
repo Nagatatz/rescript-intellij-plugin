@@ -752,6 +752,10 @@
                 implementation="com.rescript.plugin.scratch.RescriptScratchRootType"/>
         <scratch.creationHelper language="ReScript"
                 implementationClass="com.rescript.plugin.scratch.RescriptScratchCreationHelper"/>
+
+        <!-- REPL Tool Window (#58) -->
+        <toolWindow id="ReScript REPL" anchor="bottom" icon="AllIcons.Debugger.Console"
+                factoryClass="com.rescript.plugin.repl.RescriptReplToolWindowFactory"/>
     </extensions>
 
     <actions>
