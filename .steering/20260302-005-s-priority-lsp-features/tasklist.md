@@ -11,13 +11,13 @@
 - [x] `RescriptLspServerDescriptor.kt` の `createInitializationOptions()` 更新
 - [x] `RescriptConfigurable.kt` に6 UI コントロール追加
 - [x] `RescriptProjectSettingsTest.kt` 作成（テスト免除: Configurable は Swing UI コンポーネント、LspServerDescriptor は LSP 結合必須）
-- [ ] コミット: `✨ Add missing LSP initialization options`
+- [x] コミット: `✨ Add missing LSP initialization options`
 
 ## ドキュメント・仕上げ
-- [ ] CLAUDE.md 更新
-- [ ] README.md 更新
-- [ ] sphinx-docs 更新
-- [ ] product-requirements.md 更新（実装済みに移動）
+- [x] CLAUDE.md 更新
+- [x] README.md 更新
+- [x] sphinx-docs 更新
+- [x] product-requirements.md 更新（実装済みに移動）
 - [ ] コミット: `📝 Update docs for S-priority features`
 - [ ] ビルド検証: `./gradlew clean buildPlugin test`
 - [ ] main マージ

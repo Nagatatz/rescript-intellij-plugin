@@ -150,6 +150,8 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **コメント内コード評価** (`editor/`) — ドキュメントコメント内のコード例を評価・検証
 - **Worksheet モード** (`worksheet/`) — `.resw` ファイル全体をインタラクティブに評価
 - **型シグネチャ検索** (`navigation/`) — 型シグネチャから関数を逆引き検索（Search Everywhere 統合）
+- **Restart LSP アクション** (`lsp/`) — Tools メニューから LSP サーバーを明示的に再起動
+- **LSP 初期化オプション** (`settings/`, `lsp/`) — signatureHelp/cache/inlayHints/compileStatus の6設定を LSP に送信
 
 ## 開発規約
 
