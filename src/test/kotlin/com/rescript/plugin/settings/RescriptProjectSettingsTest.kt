@@ -200,4 +200,117 @@ class RescriptProjectSettingsTest {
         assertEquals("/runtime", settings.runtimePath)
         assertEquals("log", settings.logLevel)
     }
+
+    // --- LSP initialization options settings ---
+
+    @Test
+    fun `default state has signatureHelpEnabled true`() {
+        val state = RescriptProjectSettings.State()
+        assertTrue(state.signatureHelpEnabled)
+    }
+
+    @Test
+    fun `default state has signatureHelpForConstructorPayloads true`() {
+        val state = RescriptProjectSettings.State()
+        assertTrue(state.signatureHelpForConstructorPayloads)
+    }
+
+    @Test
+    fun `default state has cacheProjectConfigEnabled true`() {
+        val state = RescriptProjectSettings.State()
+        assertTrue(state.cacheProjectConfigEnabled)
+    }
+
+    @Test
+    fun `default state has inlayHintsEnabled false`() {
+        val state = RescriptProjectSettings.State()
+        assertFalse(state.inlayHintsEnabled)
+    }
+
+    @Test
+    fun `default state has inlayHintsMaxLength 25`() {
+        val state = RescriptProjectSettings.State()
+        assertEquals(25, state.inlayHintsMaxLength)
+    }
+
+    @Test
+    fun `default state has compileStatusEnabled true`() {
+        val state = RescriptProjectSettings.State()
+        assertTrue(state.compileStatusEnabled)
+    }
+
+    @Test
+    fun `signatureHelpEnabled property delegates to state`() {
+        val settings = RescriptProjectSettings()
+        assertTrue(settings.signatureHelpEnabled)
+        settings.signatureHelpEnabled = false
+        assertFalse(settings.signatureHelpEnabled)
+        assertFalse(settings.state.signatureHelpEnabled)
+    }
+
+    @Test
+    fun `signatureHelpForConstructorPayloads property delegates to state`() {
+        val settings = RescriptProjectSettings()
+        assertTrue(settings.signatureHelpForConstructorPayloads)
+        settings.signatureHelpForConstructorPayloads = false
+        assertFalse(settings.signatureHelpForConstructorPayloads)
+        assertFalse(settings.state.signatureHelpForConstructorPayloads)
+    }
+
+    @Test
+    fun `cacheProjectConfigEnabled property delegates to state`() {
+        val settings = RescriptProjectSettings()
+        assertTrue(settings.cacheProjectConfigEnabled)
+        settings.cacheProjectConfigEnabled = false
+        assertFalse(settings.cacheProjectConfigEnabled)
+        assertFalse(settings.state.cacheProjectConfigEnabled)
+    }
+
+    @Test
+    fun `inlayHintsEnabled property delegates to state`() {
+        val settings = RescriptProjectSettings()
+        assertFalse(settings.inlayHintsEnabled)
+        settings.inlayHintsEnabled = true
+        assertTrue(settings.inlayHintsEnabled)
+        assertTrue(settings.state.inlayHintsEnabled)
+    }
+
+    @Test
+    fun `inlayHintsMaxLength property delegates to state`() {
+        val settings = RescriptProjectSettings()
+        assertEquals(25, settings.inlayHintsMaxLength)
+        settings.inlayHintsMaxLength = 50
+        assertEquals(50, settings.inlayHintsMaxLength)
+        assertEquals(50, settings.state.inlayHintsMaxLength)
+    }
+
+    @Test
+    fun `compileStatusEnabled property delegates to state`() {
+        val settings = RescriptProjectSettings()
+        assertTrue(settings.compileStatusEnabled)
+        settings.compileStatusEnabled = false
+        assertFalse(settings.compileStatusEnabled)
+        assertFalse(settings.state.compileStatusEnabled)
+    }
+
+    @Test
+    fun `loadState restores LSP init option fields`() {
+        val settings = RescriptProjectSettings()
+        val newState = RescriptProjectSettings.State()
+        newState.signatureHelpEnabled = false
+        newState.signatureHelpForConstructorPayloads = false
+        newState.cacheProjectConfigEnabled = false
+        newState.inlayHintsEnabled = true
+        newState.inlayHintsMaxLength = 100
+        newState.compileStatusEnabled = false
+
+        settings.loadState(newState)
+
+        assertFalse(settings.signatureHelpEnabled)
+        assertFalse(settings.signatureHelpForConstructorPayloads)
+        assertFalse(settings.cacheProjectConfigEnabled)
+        assertTrue(settings.inlayHintsEnabled)
+        assertEquals(100, settings.inlayHintsMaxLength)
+        assertFalse(settings.compileStatusEnabled)
+    }
 }
