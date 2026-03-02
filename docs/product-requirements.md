@@ -218,14 +218,15 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Extract Function | 選択コードを新しい関数に抽出 (Ctrl+Alt+M) | `RescriptExtractFunctionHandler` |
 | Change Signature | 関数シグネチャの変更と呼び出し側の自動修正 (Ctrl+F6) | `RescriptChangeSignatureHandler` + `RescriptChangeSignatureAction` |
 | 型シグネチャ検索 | 型シグネチャから関数を逆引き検索 (Shift+Shift) | `RescriptTypeSignatureSearchContributor` |
+| Reanalyze サーバーモード | `reanalyze-server` デーモンによるデッドコード分析高速化（ReScript >= 12.1.0） | `RescriptReanalyzeServerService` + `RescriptReanalyzeVersionDetector` + `RescriptReanalyzeServerStartupActivity` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、全109件を実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件 + C 優先度23件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。
+3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、全109件を実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件 + C 優先度23件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。#110, #111 は S 優先度として実装済み。#112, #113, #114 は A 優先度として実装済み。#118 は C 優先度として実装済み。
 
 なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
 
-#### 未実装機能一覧（9件）
+#### 未実装機能一覧（8件）
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|---------|------|--------|--------|
@@ -237,7 +238,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | 115 | Regex インスタンスキャッシュ | インフラ | 121箇所の `Regex(...)` を companion object 定数に置換 | 低 | A |
 | 116 | 重複 Regex パターン統一 | インフラ | LABELED_PARAM_PATTERN 等の重複定義を一元管理 | 低 | B |
 | 117 | 長大ファイル分割 | インフラ | 300行超ファイル（TokenTypes, JsonCodeGenerator 等）の責務分離 | 中 | B |
-| 118 | Reanalyze サーバーモード | 分析 | reanalyze をデーモンモードで常駐させ差分分析を実行 | 中〜高 | C |
 
 ## 4. 成功の定義
 

@@ -169,6 +169,27 @@ In addition to per-file annotations in the editor, you can analyze the entire pr
 
 The global inspection runs a single invocation of `rescript-tools reanalyze -json` and distributes the results across all affected ReScript files in the project.
 
+### Server Mode (ReScript >= 12.1.0)
+
+When ReScript 12.1.0 or later is installed, the plugin can start a **reanalyze server daemon** that transparently accelerates dead code analysis. Instead of running a fresh `reanalyze -json` process for every file, the server keeps analysis state in memory and communicates via a Unix socket (`.rescript-reanalyze.sock`), resulting in significantly faster results on large projects.
+
+**Enabling server mode:**
+
+Server mode is enabled by default in **Settings** > **Languages & Frameworks** > **ReScript** > **Enable reanalyze server mode**. The server starts automatically when a ReScript project is opened, provided:
+
+1. The setting is enabled
+2. The project contains `rescript.json` (or `bsconfig.json`)
+3. ReScript >= 12.1.0 is installed in `node_modules`
+
+**Features:**
+
+- **Automatic startup** --- The server starts when the project opens and stops when the project closes
+- **External server detection** --- If a reanalyze server is already running (e.g., started by another tool), the plugin detects it via the socket file and does not start a second instance
+- **Health monitoring** --- The plugin checks the server every 5 seconds and automatically restarts it (up to 3 times) if it crashes
+- **Transparent acceleration** --- No changes to your workflow; the existing annotator and inspection automatically benefit from the server
+
+**Note:** Existing behavior is fully preserved when server mode is disabled or ReScript < 12.1.0 is installed. The plugin falls back to the standard per-invocation `reanalyze -json` mode.
+
 ### Signature Sync Inspection
 
 Detects mismatches between `.res` implementation files and their `.resi` interface files. When a declaration in `.res` is added, removed, or has a different signature than what's declared in `.resi`, the inspection highlights the discrepancy.

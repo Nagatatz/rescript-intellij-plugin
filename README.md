@@ -102,7 +102,7 @@
 - **Error Lens** — Inline diagnostic messages at end of editor lines (configurable severity) with structured type mismatch hints and diff highlighting
 - **Signature sync inspection** — Detect `.res`/`.resi` signature mismatches
 - **Import optimizer** — Auto-detect and remove unused/duplicate `open` statements
-- **Dead code analysis** — Detect unused code via `reanalyze` integration
+- **Dead code analysis** — Detect unused code via `reanalyze` integration with server mode acceleration (ReScript >= 12.1.0)
 - **Duplicate open detection** — Warn on duplicate `open` statements
 - **Empty module detection** — Warn on empty module declarations
 - **Missing rescript.json** — Warn when configuration file is absent
