@@ -38,6 +38,8 @@ class RescriptTypeInfoPanel(
 ) {
     private val mainPanel = JPanel(BorderLayout())
     private val typeLabel = JBLabel(NO_RESCRIPT_FILE, SwingConstants.LEFT)
+
+    @Suppress("UnstableApiUsage")
     private val alarm = Alarm(Alarm.ThreadToUse.POOLED_THREAD, parentDisposable)
 
     val component: JComponent

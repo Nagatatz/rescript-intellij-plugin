@@ -34,7 +34,7 @@ class RescriptTypeHoleQuickFix : LocalInspectionTool() {
                     val fixes =
                         COMMON_TYPES
                             .map { type ->
-                                ReplaceTypeHoleFix(type, hole.fullMatch)
+                                ReplaceTypeHoleFix(type)
                             }.toTypedArray()
 
                     holder.registerProblem(
@@ -49,7 +49,6 @@ class RescriptTypeHoleQuickFix : LocalInspectionTool() {
     /** Quick fix that replaces a type hole `_` with a specified concrete type. */
     private class ReplaceTypeHoleFix(
         private val replacement: String,
-        private val fullMatch: String,
     ) : LocalQuickFix {
         override fun getFamilyName(): String = "Replace type hole"
 

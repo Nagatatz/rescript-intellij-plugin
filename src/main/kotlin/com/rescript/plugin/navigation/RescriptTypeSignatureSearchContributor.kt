@@ -109,9 +109,6 @@ class RescriptTypeSignatureSearchContributor(
         // Pattern to extract type annotations from declarations
         private val TYPE_ANNOTATION_PATTERN = Regex(""":\s*(.+?)\s*(?:=|$)""")
 
-        // Token separator pattern for type signatures
-        private val TOKEN_SEPARATOR = Regex("""\s*[(),<>\s]+\s*|->|=>""")
-
         /**
          * Checks if the search pattern looks like a type query.
          *
@@ -133,7 +130,7 @@ class RescriptTypeSignatureSearchContributor(
             val tokens = mutableListOf<String>()
 
             // First extract arrow operators as tokens
-            var remaining = signature.trim()
+            val remaining = signature.trim()
 
             // Split on arrows and delimiters
             val parts =

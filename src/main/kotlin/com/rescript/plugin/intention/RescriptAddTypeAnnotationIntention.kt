@@ -123,7 +123,7 @@ class RescriptAddTypeAnnotationIntention : PsiElementBaseIntentionAction() {
             }
             // Fall back to using the whole text as a type
             val trimmed = hoverText.trim()
-            return if (trimmed.isNotEmpty()) trimmed else null
+            return trimmed.ifEmpty { null }
         }
     }
 }

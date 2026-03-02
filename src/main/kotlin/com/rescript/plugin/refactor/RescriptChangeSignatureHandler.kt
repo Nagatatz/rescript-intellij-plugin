@@ -32,16 +32,8 @@ class RescriptChangeSignatureHandler : RefactoringActionHandler {
         val document = editor.document
         val offset = editor.caretModel.offset
         val text = document.text
-        val lineNumber = document.getLineNumber(offset)
-        val lineText =
-            document.getText(
-                com.intellij.openapi.util.TextRange(
-                    document.getLineStartOffset(lineNumber),
-                    document.getLineEndOffset(lineNumber),
-                ),
-            )
 
-        val funcInfo = parseFunctionAtCaret(text, offset) ?: return
+        parseFunctionAtCaret(text, offset) ?: return
 
         // For now, the handler performs simple parameter reordering
         // A full dialog-based approach would use RescriptChangeSignatureDialog

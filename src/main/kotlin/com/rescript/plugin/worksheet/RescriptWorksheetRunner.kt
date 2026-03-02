@@ -16,7 +16,7 @@ import com.intellij.psi.PsiFile
  * @see RescriptWorksheetFileType for the file type definition
  */
 class RescriptWorksheetRunner(
-    private val project: Project,
+    @Suppress("unused") private val project: Project,
 ) {
     /**
      * Evaluates all expressions in the worksheet file and displays results
@@ -25,6 +25,7 @@ class RescriptWorksheetRunner(
      * @param editor the editor displaying the worksheet file
      * @param file the worksheet PSI file
      */
+    @Suppress("unused") // Placeholder for future worksheet execution
     fun evaluate(
         editor: Editor,
         file: PsiFile,
@@ -33,8 +34,10 @@ class RescriptWorksheetRunner(
         val expressions = extractExpressions(text)
 
         ApplicationManager.getApplication().executeOnPooledThread {
+            @Suppress("unused")
             val results =
                 expressions.map { expr ->
+                    @Suppress("unused")
                     val script = buildEvalScript(expr.code)
                     // In a real implementation, this would compile and run via rescript/node
                     formatResult(expr.code, "")
@@ -56,9 +59,6 @@ class RescriptWorksheetRunner(
 
         // Pattern for top-level let bindings
         private val LET_PATTERN = Regex("""^let\s+\w+""")
-
-        // Pattern for top-level expressions (e.g., Js.log(...))
-        private val EXPR_PATTERN = Regex("""^\w+[\w.]*\(""")
 
         // Pattern for type declarations (not evaluated)
         private val TYPE_PATTERN = Regex("""^type\s+""")

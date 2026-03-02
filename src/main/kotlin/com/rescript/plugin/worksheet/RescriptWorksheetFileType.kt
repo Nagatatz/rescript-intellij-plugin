@@ -21,9 +21,10 @@ class RescriptWorksheetFileType private constructor() : LanguageFileType(Rescrip
 
     override fun getDefaultExtension(): String = "resw"
 
-    override fun getIcon(): Icon? = com.rescript.plugin.RescriptIcons.FILE
+    override fun getIcon(): Icon = com.rescript.plugin.RescriptIcons.FILE
 
     companion object {
+        @Suppress("unused") // Standard FileType singleton pattern
         @JvmStatic
         val INSTANCE = RescriptWorksheetFileType()
     }

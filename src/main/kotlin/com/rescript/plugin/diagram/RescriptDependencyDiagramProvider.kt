@@ -21,6 +21,7 @@ object RescriptDependencyDiagramProvider {
      * @param project the IntelliJ project
      * @return the dependency diagram model
      */
+    @Suppress("unused") // Public API for diagram tool window consumers
     fun buildDiagram(project: Project): RescriptDependencyDiagramModel {
         val model = RescriptDependencyDiagramModel()
         val psiManager = PsiManager.getInstance(project)
