@@ -30,9 +30,48 @@
 
     <change-notes><![CDATA[
         <h3>0.1.1</h3>
+        <h4>New Features (22)</h4>
+        <ul>
+            <li>Strip trailing spaces filter for ReScript strings (#53)</li>
+            <li>Injected language formatting support (#55)</li>
+            <li>Framework detector for ReScript projects (#56)</li>
+            <li>ReScript scratch file support (#57)</li>
+            <li>ReScript REPL tool window (#58)</li>
+            <li>Grazie text extractor for natural language checks (#59)</li>
+            <li>Element signature provider for fold state persistence (#60)</li>
+            <li>Index pattern builder for TODO/FIXME in comments (#61)</li>
+            <li>Extract function refactoring (#62)</li>
+            <li>Inline variable/function refactoring (#63)</li>
+            <li>Change signature refactoring (#64)</li>
+            <li>Introduce constant refactoring (#65)</li>
+            <li>Suggested refactoring inspection (#66)</li>
+            <li>Module dependency diagram (#67)</li>
+            <li>File include provider for open statement navigation (#68)</li>
+            <li>Editor floating toolbar (#69)</li>
+            <li>Type annotation intention action (#85)</li>
+            <li>filter+map to filterMap conversion intention (#97)</li>
+            <li>Type mismatch diff highlighting in Error Lens (#99)</li>
+            <li>Mutability diagnostics inspection (#102, #103)</li>
+            <li>Style linting inspection (redundant booleans, Belt API, boolean switch)</li>
+            <li>Code rearranger for declaration ordering (#52)</li>
+        </ul>
+        <h4>C-Priority Features (16)</h4>
+        <ul>
+            <li>React component extraction (#86)</li>
+            <li>PPX expansion view tool window (#87)</li>
+            <li>Generate module implementation (#88)</li>
+            <li>PPX annotation visualization inlay hints (#109)</li>
+            <li>JS to ReScript paste conversion (#104)</li>
+            <li>Type hole quick fix (#105)</li>
+            <li>Comment code evaluation inlay hints (#106)</li>
+            <li>ReScript worksheet mode (#107)</li>
+            <li>Type signature search (#108)</li>
+            <li>Monorepo template DX improvements</li>
+        </ul>
+        <h4>Bug Fixes &amp; Quality</h4>
         <ul>
             <li>Fix Marketplace verification warnings (internal API and scheduled-for-removal API)</li>
-            <li>Fix security issues: REPL resource leaks, EDT blocking, path validation</li>
+            <li>Fix REPL security issues: resource leaks, EDT blocking, path validation</li>
             <li>Fix DOT format injection in dependency diagram</li>
             <li>Fix Qodana static analysis warnings across 25+ files</li>
             <li>Add third-party license attribution</li>
