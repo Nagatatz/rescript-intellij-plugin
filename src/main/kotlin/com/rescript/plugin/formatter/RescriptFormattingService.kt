@@ -98,6 +98,7 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
                     val completed = proc.waitFor(TIMEOUT_MS, TimeUnit.MILLISECONDS)
                     if (!completed) {
                         proc.destroyForcibly()
+                        @Suppress("DialogTitleCapitalization") // "rescript format" is a CLI command name
                         request.onError("ReScript", "rescript format timed out")
                         return
                     }

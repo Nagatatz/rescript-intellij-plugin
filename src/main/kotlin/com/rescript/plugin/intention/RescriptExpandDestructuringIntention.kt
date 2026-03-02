@@ -85,7 +85,7 @@ class RescriptExpandDestructuringIntention : PsiElementBaseIntentionAction() {
     companion object {
         // Matches: let {field1, field2, ...} = expr
         internal val DESTRUCTURING_PATTERN =
-            Regex("""(\s*)let\s+\{([^}]+)\}\s*=\s*(.+)""")
+            Regex("""(\s*)let\s+\{([^}]+)}\s*=\s*(.+)""")
 
         /**
          * Expands a destructuring let binding into individual let bindings.

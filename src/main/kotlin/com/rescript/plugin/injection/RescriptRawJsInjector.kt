@@ -85,10 +85,10 @@ class RescriptRawJsInjector : MultiHostInjector {
         if (current == null) return null
         val keywordType = current.node.elementType
         val directiveName =
-            when {
-                keywordType == RescriptTokenTypes.RAW -> "raw"
-                keywordType == RescriptTokenTypes.FFI -> "ffi"
-                keywordType == RescriptTokenTypes.LIDENT && current.text == "re" -> "re"
+            when (keywordType) {
+                RescriptTokenTypes.RAW -> "raw"
+                RescriptTokenTypes.FFI -> "ffi"
+                RescriptTokenTypes.LIDENT -> if (current.text == "re") "re" else return null
                 else -> return null
             }
         current = skipWhitespace(current.prevSibling)

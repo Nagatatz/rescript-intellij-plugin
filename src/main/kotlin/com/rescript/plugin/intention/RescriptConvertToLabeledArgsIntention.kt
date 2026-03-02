@@ -93,7 +93,7 @@ class RescriptConvertToLabeledArgsIntention : PsiElementBaseIntentionAction() {
                 }
                 // Append any remaining positional args without labels
                 for (i in minCount until args.size) {
-                    if (i > 0 || minCount > 0) append(", ")
+                    if (i > 0) append(", ")
                     append(args[i].trim())
                 }
                 append(")")

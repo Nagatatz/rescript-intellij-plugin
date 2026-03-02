@@ -34,7 +34,7 @@ private class RescriptStripTrailingSpacesFilter(
 ) : PsiBasedStripTrailingSpacesFilter(document) {
     companion object {
         /** Token types representing string content that should be protected. */
-        internal val STRING_TOKEN_TYPES =
+        val STRING_TOKEN_TYPES =
             setOf(
                 RescriptTokenTypes.STRING_VALUE,
                 RescriptTokenTypes.JS_STRING_OPEN,

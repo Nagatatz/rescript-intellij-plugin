@@ -30,8 +30,7 @@ class RescriptMergeSwitchCasesIntention : PsiElementBaseIntentionAction() {
         editor ?: return false
 
         // Check if we're inside a switch expression
-        val switchBlock = findSwitchBlock(editor.document.text, editor.caretModel.offset)
-        if (switchBlock == null) return false
+        val switchBlock = findSwitchBlock(editor.document.text, editor.caretModel.offset) ?: return false
 
         // Check if there are cases with duplicate bodies
         val cases = parseSwitchCases(switchBlock)
