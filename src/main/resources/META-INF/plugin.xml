@@ -765,6 +765,10 @@
                          enabledByDefault="true"
                          level="INFORMATION"
                          implementationClass="com.rescript.plugin.inspection.RescriptSuggestedRefactoringInspection"/>
+
+        <!-- JS→ReScript paste conversion (#104) -->
+        <copyPastePostProcessor
+                implementation="com.rescript.plugin.paste.RescriptPasteAsRescriptProcessor"/>
     </extensions>
 
     <actions>

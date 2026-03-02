@@ -21,10 +21,10 @@
 - [x] コミット
 
 ### #104 JS→ReScript 変換
-- [ ] `RescriptPasteAsRescriptProcessor.kt` を実装
-- [ ] テスト作成
-- [ ] `plugin.xml` に登録
-- [ ] コミット
+- [x] `RescriptPasteAsRescriptProcessor.kt` を実装
+- [x] テスト作成
+- [x] `plugin.xml` に登録
+- [x] コミット
 
 ## Batch 3: 高難易度
 
