@@ -42,6 +42,7 @@ sphinx-docs/tests/__pycache__/
 # Secrets / Signing
 *.pem
 *.key
+*.crt
 .env
 .env.*
 
