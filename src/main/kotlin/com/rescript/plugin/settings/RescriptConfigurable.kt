@@ -38,6 +38,7 @@ class RescriptConfigurable(
     private var runtimePathField: TextFieldWithBrowseButton? = null
     private var logLevelCombo: ComboBox<String>? = null
     private var formatCheckCheckbox: JCheckBox? = null
+    private var reanalyzeServerCheckbox: JCheckBox? = null
 
     override fun getDisplayName(): String = "ReScript"
 
@@ -127,6 +128,9 @@ class RescriptConfigurable(
         val fmtCheckbox = JCheckBox("Enable format check (highlight unformatted code)", false)
         formatCheckCheckbox = fmtCheckbox
 
+        val reanalyzeCheckbox = JCheckBox("Enable reanalyze server mode (requires ReScript \u2265 12.1.0)", true)
+        reanalyzeServerCheckbox = reanalyzeCheckbox
+
         val logCombo = ComboBox(DefaultComboBoxModel(LOG_LEVELS))
         logLevelCombo = logCombo
 
@@ -156,6 +160,9 @@ class RescriptConfigurable(
                 ).addComponent(fmtCheckbox)
                 .addTooltip(
                     "When enabled, highlights files that are not formatted according to rescript format.",
+                ).addComponent(reanalyzeCheckbox)
+                .addTooltip(
+                    "When enabled, starts a reanalyze server daemon for faster dead code analysis. Requires ReScript >= 12.1.0.",
                 ).addSeparator()
                 .addLabeledComponent("ReScript binary path:", binaryPathField)
                 .addTooltip("Leave empty to auto-detect. Path to the ReScript compiler binary.")
@@ -185,7 +192,8 @@ class RescriptConfigurable(
             platformPathField?.text != settings.platformPath ||
             runtimePathField?.text != settings.runtimePath ||
             logLevelCombo?.selectedItem != settings.logLevel ||
-            formatCheckCheckbox?.isSelected != settings.formatCheckEnabled
+            formatCheckCheckbox?.isSelected != settings.formatCheckEnabled ||
+            reanalyzeServerCheckbox?.isSelected != settings.reanalyzeServerEnabled
     }
 
     @Throws(ConfigurationException::class)
@@ -237,6 +245,22 @@ class RescriptConfigurable(
         settings.logLevel = logLevelCombo?.selectedItem as? String ?: "info"
         settings.formatCheckEnabled = formatCheckCheckbox?.isSelected ?: false
 
+        val reanalyzeEnabled = reanalyzeServerCheckbox?.isSelected ?: true
+        val reanalyzeWasEnabled = settings.reanalyzeServerEnabled
+        settings.reanalyzeServerEnabled = reanalyzeEnabled
+
+        // Toggle reanalyze server based on setting change
+        if (reanalyzeEnabled != reanalyzeWasEnabled) {
+            val serverService =
+                com.rescript.plugin.analysis.RescriptReanalyzeServerService
+                    .getInstance(project)
+            if (reanalyzeEnabled) {
+                serverService.startServer()
+            } else {
+                serverService.stopServer()
+            }
+        }
+
         com.intellij.platform.lsp.api.LspServerManager
             .getInstance(project)
             .stopAndRestartIfNeeded(com.rescript.plugin.lsp.RescriptLspServerSupportProvider::class.java)
@@ -256,6 +280,7 @@ class RescriptConfigurable(
         runtimePathField?.text = settings.runtimePath
         logLevelCombo?.selectedItem = settings.logLevel
         formatCheckCheckbox?.isSelected = settings.formatCheckEnabled
+        reanalyzeServerCheckbox?.isSelected = settings.reanalyzeServerEnabled
     }
 
     override fun disposeUIResources() {
@@ -272,6 +297,7 @@ class RescriptConfigurable(
         runtimePathField = null
         logLevelCombo = null
         formatCheckCheckbox = null
+        reanalyzeServerCheckbox = null
     }
 
     companion object {

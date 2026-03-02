@@ -208,6 +208,10 @@
         <projectService
                 serviceImplementation="com.rescript.plugin.lsp.RescriptCompilationStatusService"/>
 
+        <!-- Reanalyze server service (daemon mode for faster dead code analysis) -->
+        <projectService
+                serviceImplementation="com.rescript.plugin.analysis.RescriptReanalyzeServerService"/>
+
         <!-- Build status widget in status bar -->
         <statusBarWidgetFactory id="RescriptCompilerStatus"
                 implementation="com.rescript.plugin.statusbar.RescriptCompilerStatusWidgetFactory"/>
@@ -294,6 +298,10 @@
         <!-- Startup activity: prompt LSP installation for ReScript projects -->
         <postStartupActivity
                 implementation="com.rescript.plugin.lsp.RescriptLspStartupActivity"/>
+
+        <!-- Startup activity: start reanalyze server for ReScript >= 12.1.0 projects -->
+        <postStartupActivity
+                implementation="com.rescript.plugin.analysis.RescriptReanalyzeServerStartupActivity"/>
 
         <!-- AST factory for language injection support in string literals -->
         <lang.ast.factory language="ReScript"
