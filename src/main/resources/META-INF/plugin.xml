@@ -861,6 +861,14 @@
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
         <!-- Generate Module Implementation from module type (#88) -->
+        <!-- Change Signature refactoring (#64) -->
+        <action id="ReScript.ChangeSignature"
+                class="com.rescript.plugin.refactor.RescriptChangeSignatureAction"
+                text="Change Signature"
+                description="Change function signature (parameters)">
+            <add-to-group group-id="RefactoringMenu" anchor="last"/>
+            <keyboard-shortcut first-keystroke="control F6" keymap="$default"/>
+        </action>
         <action id="ReScript.GenerateModuleImpl"
                 class="com.rescript.plugin.generate.RescriptGenerateModuleImplAction"
                 text="Module Implementation"
