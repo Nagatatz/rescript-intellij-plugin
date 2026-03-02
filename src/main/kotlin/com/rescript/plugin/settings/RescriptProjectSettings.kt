@@ -36,6 +36,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var excludedModules: String = ""
         var pipeChainHintsEnabled: Boolean = true
         var formatCheckEnabled: Boolean = false
+        var reanalyzeServerEnabled: Boolean = true
     }
 
     override fun getState(): State = state
@@ -138,6 +139,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.formatCheckEnabled
         set(value) {
             state.formatCheckEnabled = value
+        }
+
+    var reanalyzeServerEnabled: Boolean
+        get() = state.reanalyzeServerEnabled
+        set(value) {
+            state.reanalyzeServerEnabled = value
         }
 
     companion object {
