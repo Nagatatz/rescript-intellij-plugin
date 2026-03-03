@@ -29,6 +29,8 @@ object RescriptLspUtils {
      * Returns the first ReScript LSP server for the given project, or null if unavailable.
      *
      * @param project the current project
+     * Uses unstable `LspServerManager` API — review on platform upgrade.
+     *
      * @return the first available LSP server, or null
      */
     @Suppress("UnstableApiUsage")

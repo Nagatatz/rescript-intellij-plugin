@@ -25,6 +25,8 @@ import com.rescript.plugin.lang.RescriptTokenTypes
  *
  * Can be toggled via Settings > Editor > Inlay Hints > ReScript > PPX annotations.
  *
+ * Uses unstable `InlayHintsProvider` API — review on platform upgrade.
+ *
  * @see InlayHintsProvider
  */
 @Suppress("UnstableApiUsage")

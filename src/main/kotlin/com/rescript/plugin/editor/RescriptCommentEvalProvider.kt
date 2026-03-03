@@ -21,6 +21,8 @@ import com.rescript.plugin.RescriptLanguage
  * basic syntax validation using keyword matching. Displays a green checkmark
  * for valid syntax or a warning marker for potentially invalid code.
  *
+ * Uses unstable `InlayHintsProvider` API — review on platform upgrade.
+ *
  * @see InlayHintsProvider
  */
 @Suppress("UnstableApiUsage")

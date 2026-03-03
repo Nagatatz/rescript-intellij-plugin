@@ -44,6 +44,8 @@ class RescriptDumpLspStateAction : AnAction() {
      * Collects diagnostic information about the LSP server and project configuration.
      *
      * @param project the current project
+     * Uses unstable `LspServerManager` API — review on platform upgrade.
+     *
      * @return formatted diagnostic string
      */
     @Suppress("UnstableApiUsage")

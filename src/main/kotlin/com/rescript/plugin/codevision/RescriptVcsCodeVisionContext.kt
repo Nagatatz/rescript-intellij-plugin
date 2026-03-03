@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent
  * Displays "Last changed by X, N days ago" annotations above `let`, `type`,
  * `module`, `external`, and `exception` declarations when VCS integration is active.
  *
+ * Uses unstable `VcsCodeVisionLanguageContext` API — review on platform upgrade.
+ *
  * @see RescriptCodeVisionProvider for type annotation Code Vision
  */
 @Suppress("UnstableApiUsage")

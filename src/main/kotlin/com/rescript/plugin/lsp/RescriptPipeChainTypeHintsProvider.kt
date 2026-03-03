@@ -26,6 +26,8 @@ import com.rescript.plugin.settings.RescriptProjectSettings
  * Can be toggled via Settings > Editor > Inlay Hints > ReScript > Pipe chain types.
  *
  * @see InlayHintsProvider
+ * Uses unstable `InlayHintsProvider` API — review on platform upgrade.
+ *
  * @see RescriptLspUtils
  */
 @Suppress("UnstableApiUsage")
