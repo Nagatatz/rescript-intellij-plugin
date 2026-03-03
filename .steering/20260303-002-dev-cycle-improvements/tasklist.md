@@ -31,7 +31,7 @@
 ## Phase 6: 完了
 
 - [x] `./gradlew clean buildPlugin` 成功確認
-- [ ] tasklist.md 全タスク `[x]` 確認
+- [x] tasklist.md 全タスク `[x]` 確認
 - [ ] ユーザーにマージ確認
 - [ ] main にマージ + ブランチ削除
 
