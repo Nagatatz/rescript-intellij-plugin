@@ -29,6 +29,29 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.2</h3>
+        <h4>New Features</h4>
+        <ul>
+            <li>Reanalyze server mode with health monitoring and UI toggle (#118)</li>
+            <li>Restart LSP action in Tools menu (#110)</li>
+            <li>Dump LSP State debug action (#112)</li>
+            <li>LSP initialization options: signatureHelp, cache, inlayHints, compileStatus (#111)</li>
+            <li>Build watch auto-start prompt at project open (#113)</li>
+            <li>ReScript version detector for reanalyze server support</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Extract shared regex patterns to RescriptRegexPatterns (#116)</li>
+            <li>Extract file utility functions to RescriptFileUtil (#117)</li>
+            <li>Extract offset-position conversion to RescriptOffsetUtils (#114)</li>
+            <li>Split large files into focused modules (#115)</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Add kover minimum coverage threshold (50%)</li>
+            <li>Add verifyPlugin and koverVerify to CI pipeline</li>
+            <li>Fix Qodana static analysis warnings</li>
+        </ul>
         <h3>0.1.1</h3>
         <h4>New Features (22)</h4>
         <ul>
