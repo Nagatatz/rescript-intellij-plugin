@@ -137,21 +137,6 @@ class RescriptReanalyzeServerService(
         LOG.info("Reanalyze server stopped")
     }
 
-    /**
-     * Restarts the reanalyze server by stopping and starting it.
-     */
-    fun restartServer() {
-        stopServer()
-        startServer()
-    }
-
-    /**
-     * Checks whether the server is available (running or external).
-     *
-     * @return true if the server is in RUNNING or EXTERNAL state
-     */
-    fun isServerAvailable(): Boolean = serverState == ServerState.RUNNING || serverState == ServerState.EXTERNAL
-
     override fun dispose() {
         stopServer()
     }

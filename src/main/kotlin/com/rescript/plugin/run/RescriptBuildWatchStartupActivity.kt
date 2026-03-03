@@ -39,13 +39,13 @@ class RescriptBuildWatchStartupActivity : ProjectActivity {
                 .getInstance()
                 .getNotificationGroup("ReScript")
                 .createNotification(
-                    "ReScript Build Watch",
+                    "ReScript build watch",
                     "Start watching for file changes and rebuilding automatically?",
                     NotificationType.INFORMATION,
                 )
 
         notification.addAction(
-            NotificationAction.createSimpleExpiring("Start Build Watch") {
+            NotificationAction.createSimpleExpiring("Start build watch") {
                 startBuildWatch(project)
             },
         )
