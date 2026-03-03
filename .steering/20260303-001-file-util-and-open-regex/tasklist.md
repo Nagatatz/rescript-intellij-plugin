@@ -22,13 +22,13 @@
 
 ## Phase 4: ドキュメント更新
 
-- [ ] CLAUDE.md 更新
-- [ ] コミット: `📝 Update docs for file util and regex pattern refactoring`
+- [x] CLAUDE.md 更新
+- [x] コミット: `📝 Update docs for file util and regex pattern refactoring`
 
 ## Phase 5: 完了
 
-- [ ] `./gradlew clean buildPlugin` 成功確認
-- [ ] 全テストパス確認
-- [ ] tasklist.md 全タスク `[x]` 確認
-- [ ] ユーザーにマージ確認
-- [ ] main にマージ + ブランチ削除
+- [x] `./gradlew clean buildPlugin` 成功確認
+- [x] 全テストパス確認
+- [x] tasklist.md 全タスク `[x]` 確認
+- [x] ユーザーにマージ確認
+- [x] main にマージ + ブランチ削除
