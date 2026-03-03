@@ -9,6 +9,7 @@ import com.intellij.util.indexing.FileContent
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import com.rescript.plugin.util.RescriptFileUtil
+import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
  * Recognizes file include relationships from `open` statements in ReScript files.
@@ -19,9 +20,6 @@ import com.rescript.plugin.util.RescriptFileUtil
  */
 class RescriptFileIncludeProvider : FileIncludeProvider() {
     companion object {
-        // Matches: open ModuleName or open Module.Sub.Path
-        private val OPEN_PATTERN = Regex("""^\s*open\s+([A-Z][\w.]*)\s*$""", RegexOption.MULTILINE)
-
         /**
          * Extracts module names from `open` statements in the given text.
          *
@@ -29,7 +27,10 @@ class RescriptFileIncludeProvider : FileIncludeProvider() {
          * @return list of module names found in `open` statements
          */
         internal fun extractModuleNames(text: String): List<String> =
-            OPEN_PATTERN.findAll(text).map { it.groupValues[1] }.toList()
+            RescriptRegexPatterns.OPEN_MODULE_STRICT
+                .findAll(text)
+                .map { it.groupValues[1] }
+                .toList()
 
         /**
          * Converts a module name to the corresponding file name.

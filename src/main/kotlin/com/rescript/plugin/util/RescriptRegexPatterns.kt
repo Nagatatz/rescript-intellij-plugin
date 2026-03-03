@@ -22,4 +22,22 @@ object RescriptRegexPatterns {
     /** Splits text by one or more whitespace characters. */
     @JvmField
     val WHITESPACE = Regex("""\s+""")
+
+    // ── open statement patterns ──────────────────────────────────
+
+    /** Matches top-level `open ModuleName` statements without a capture group. */
+    @JvmField
+    val OPEN_STATEMENT = Regex("""(?m)^open\s+\S+""")
+
+    /** Captures the module name from `open ModuleName` statements. */
+    @JvmField
+    val OPEN_MODULE_CAPTURE = Regex("""(?m)^open\s+(\S+)""")
+
+    /** Strict line-level match for `open ModuleName` with capture group (allows leading whitespace). */
+    @JvmField
+    val OPEN_MODULE_STRICT = Regex("""^\s*open\s+([A-Z][\w.]*)\s*$""", RegexOption.MULTILINE)
+
+    /** Tests whether a line starts with an `open` statement (allows leading whitespace). */
+    @JvmField
+    val OPEN_LINE_TEST = Regex("""^\s*open\s""", RegexOption.MULTILINE)
 }

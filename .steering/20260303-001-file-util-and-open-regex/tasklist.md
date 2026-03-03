@@ -14,11 +14,11 @@
 
 ## Phase 3: open Regex パターン統一
 
-- [ ] `RescriptRegexPatterns.kt` に 4 パターン追加
-- [ ] `RescriptRegexPatternsTest.kt` に 4 パターン分のテスト追加
-- [ ] 5 ファイルの重複パターンを置換
-- [ ] ビルド確認 + テスト実行
-- [ ] コミット: `♻️ Extract open statement regex patterns to RescriptRegexPatterns`
+- [x] `RescriptRegexPatterns.kt` に 4 パターン追加
+- [x] `RescriptRegexPatternsTest.kt` に 4 パターン分のテスト追加
+- [x] 5 ファイルの重複パターンを置換
+- [x] ビルド確認 + テスト実行
+- [x] コミット: `♻️ Extract open statement regex patterns to RescriptRegexPatterns`
 
 ## Phase 4: ドキュメント更新
 

@@ -2,6 +2,7 @@ package com.rescript.plugin.imports
 
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
  * Utility for extracting and analyzing `open` statements in ReScript files.
@@ -17,12 +18,6 @@ import com.rescript.plugin.lang.RescriptTokenTypes
  * @see com.rescript.plugin.intention.RescriptRemoveQualifierIntention
  */
 object RescriptImportUtil {
-    // Matches top-level "open ModuleName" lines
-    private val OPEN_PATTERN = Regex("""(?m)^open\s+\S+""")
-
-    // Same pattern with a capture group for the module name
-    private val OPEN_CAPTURE_PATTERN = Regex("""(?m)^open\s+(\S+)""")
-
     /**
      * Extracts the module path from an OPEN_STATEMENT PsiElement.
      * e.g., "open Belt.Array" -> "Belt.Array"
@@ -55,7 +50,7 @@ object RescriptImportUtil {
      * @return the insertion offset
      */
     fun findOpenInsertOffset(text: String): Int {
-        val matches = OPEN_PATTERN.findAll(text).toList()
+        val matches = RescriptRegexPatterns.OPEN_STATEMENT.findAll(text).toList()
         if (matches.isNotEmpty()) {
             val lastMatch = matches.last()
             val lineEnd = text.indexOf('\n', lastMatch.range.last)
@@ -83,7 +78,10 @@ object RescriptImportUtil {
      * @return list of module names from open statements
      */
     fun collectOpenModules(text: String): List<String> =
-        OPEN_CAPTURE_PATTERN.findAll(text).map { it.groupValues[1] }.toList()
+        RescriptRegexPatterns.OPEN_MODULE_CAPTURE
+            .findAll(text)
+            .map { it.groupValues[1] }
+            .toList()
 
     /**
      * Checks if a module is opened at the top level in the file.
