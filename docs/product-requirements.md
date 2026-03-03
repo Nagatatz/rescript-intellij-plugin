@@ -226,7 +226,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Reanalyze サーバーモード | reanalyze をデーモンモードで常駐させ差分分析を高速化（ReScript >= 12.1.0） | `RescriptReanalyzeServerService` + `RescriptReanalyzeServerStartupActivity` + `RescriptReanalyzeVersionDetector` |
 | Regex インスタンスキャッシュ | 121箇所の `Regex(...)` を companion object 定数に置換 | 各ファイルの companion object 定数 |
 | 重複 Regex パターン統一 | LIDENT/UIDENT/WHITESPACE の重複 Regex 定義を一元管理 | `RescriptRegexPatterns` |
-| 長大ファイル分割 | 300行超ファイル5つをファサードパターンで責務分離（10ファイル抽出） | `RescriptJsonEncoderGenerator` + `RescriptJsonDecoderGenerator` + `RescriptDeclarationParser` + `RescriptJsxParser` + `RescriptOperatorDocumentation` + `RescriptExternalDocUrls` + `RescriptUnwrappers` + `RescriptUnwrapUtils` + `RescriptLspSignatureParser` + `RescriptLspDiagnosticParser` |
+| 長大ファイル分割 | 300行超ファイル5つをファサードパターンで責務分離（9ファイル抽出） | `RescriptJsonEncoderGenerator` + `RescriptJsonDecoderGenerator` + `RescriptDeclarationParser` + `RescriptJsxParser` + `RescriptOperatorDocumentation` + `RescriptExternalDocUrls` + `RescriptUnwrappers` + `RescriptLspSignatureParser` + `RescriptLspDiagnosticParser` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
