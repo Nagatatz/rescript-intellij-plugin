@@ -16,6 +16,7 @@ import com.intellij.platform.lsp.api.LspServerManager
 class RescriptRestartLspAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
+        // UnstableApiUsage: LspServerManager — review on platform upgrade
         @Suppress("UnstableApiUsage")
         LspServerManager
             .getInstance(project)

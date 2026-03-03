@@ -124,6 +124,7 @@ object RescriptLspInstaller {
 
     private fun onInstallSuccess(project: Project) {
         // Restart LSP server so it picks up the newly installed language server
+        // UnstableApiUsage: LspServerManager — review on platform upgrade
         @Suppress("UnstableApiUsage")
         LspServerManager.getInstance(project).stopAndRestartIfNeeded(RescriptLspServerSupportProvider::class.java)
 

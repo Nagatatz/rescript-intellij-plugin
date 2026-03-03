@@ -39,6 +39,7 @@ class RescriptTypeInfoPanel(
     private val mainPanel = JPanel(BorderLayout())
     private val typeLabel = JBLabel(NO_RESCRIPT_FILE, SwingConstants.LEFT)
 
+    // UnstableApiUsage: Alarm(ThreadToUse.POOLED_THREAD) — review on platform upgrade
     @Suppress("UnstableApiUsage")
     private val alarm = Alarm(Alarm.ThreadToUse.POOLED_THREAD, parentDisposable)
 
