@@ -36,6 +36,15 @@ sealed class TypeShape {
  * @see RescriptGenerateSwitchAction
  */
 object RescriptTypeDeclarationParser {
+    /** Pattern matching `type <name>` at the start of a declaration. */
+    private val TYPE_NAME_PATTERN = Regex("""^\s*type\s+(\w+)""")
+
+    /** Pattern matching a variant constructor: `Name` or `Name(payload)`. */
+    private val CONSTRUCTOR_PATTERN = Regex("""^([A-Z]\w*)(?:\((.+)\))?\s*$""")
+
+    /** Pattern matching a record field: `mutable? name: type`. */
+    private val RECORD_FIELD_PATTERN = Regex("""^(mutable\s+)?(\w+)\s*:\s*(.+)$""")
+
     /**
      * Parses a ReScript type declaration text into a [TypeShape].
      *
@@ -68,7 +77,7 @@ object RescriptTypeDeclarationParser {
      * @return the type name (e.g., `"color"`), or null if not found
      */
     fun extractTypeName(declarationText: String): String? {
-        val match = Regex("""^\s*type\s+(\w+)""").find(declarationText)
+        val match = TYPE_NAME_PATTERN.find(declarationText)
         return match?.groupValues?.get(1)
     }
 
@@ -104,7 +113,7 @@ object RescriptTypeDeclarationParser {
         if (trimmed.isEmpty()) return null
 
         // Match: ConstructorName or ConstructorName(payload)
-        val match = Regex("""^([A-Z]\w*)(?:\((.+)\))?\s*$""").find(trimmed)
+        val match = CONSTRUCTOR_PATTERN.find(trimmed)
         return if (match != null) {
             VariantConstructor(
                 name = match.groupValues[1],
@@ -141,7 +150,7 @@ object RescriptTypeDeclarationParser {
         if (trimmed.isEmpty()) return null
 
         // Match: mutable? fieldName: type
-        val match = Regex("""^(mutable\s+)?(\w+)\s*:\s*(.+)$""").find(trimmed)
+        val match = RECORD_FIELD_PATTERN.find(trimmed)
         return if (match != null) {
             RecordField(
                 name = match.groupValues[2],
