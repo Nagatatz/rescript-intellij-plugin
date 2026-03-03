@@ -85,6 +85,9 @@ class RescriptMutabilityInspection : LocalInspectionTool() {
         internal val REASSIGNMENT_PATTERN =
             Regex("""(\w+)\s*:=""")
 
+        /** Pattern matching `ref(...)` for removal during quick fix. */
+        private val REF_REMOVAL_PATTERN = Regex("""ref\(.+?\)""")
+
         /**
          * Represents a ref binding found in source text.
          *
@@ -133,7 +136,7 @@ class RescriptMutabilityInspection : LocalInspectionTool() {
         internal fun removeRef(line: String): String? {
             val match = REF_BINDING_PATTERN.find(line) ?: return null
             val value = match.groupValues[2]
-            return line.replaceFirst(Regex("""ref\(.+?\)"""), value)
+            return line.replaceFirst(REF_REMOVAL_PATTERN, value)
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.rescript.plugin.refactor
 
+import com.rescript.plugin.util.RescriptRegexPatterns
+
 /**
  * Pure utility functions for the Extract Variable refactoring.
  *
@@ -24,7 +26,7 @@ object RescriptExtractVariableUtil {
     private val PIPE_FUNC_REGEX = Regex("""^([A-Z][a-zA-Z0-9_']*\.)*([a-z_][a-zA-Z0-9_']*)""")
 
     /** Pattern for a valid ReScript lident (lowercase identifier). */
-    private val LIDENT_REGEX = Regex("""^[a-z_][a-zA-Z0-9_']*$""")
+    private val LIDENT_REGEX = RescriptRegexPatterns.LIDENT
 
     /** ReScript keywords that cannot be used as variable names. */
     private val KEYWORDS =
@@ -127,7 +129,7 @@ object RescriptExtractVariableUtil {
             val lineIndent = getIndentation(line).length
 
             // Check if this line starts with a statement keyword at the same or lower indent
-            val firstWord = trimmed.split(Regex("""\s+"""), limit = 2).firstOrNull() ?: ""
+            val firstWord = trimmed.split(RescriptRegexPatterns.WHITESPACE, limit = 2).firstOrNull() ?: ""
             if (firstWord in STATEMENT_KEYWORDS && lineIndent <= currentIndent) {
                 return i
             }

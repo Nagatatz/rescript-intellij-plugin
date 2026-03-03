@@ -18,6 +18,17 @@ import com.rescript.plugin.lang.psi.RescriptFile
  * @see com.rescript.plugin.surround.RescriptSurroundDescriptor for the inverse operation
  */
 class RescriptUnwrapDescriptor : UnwrapDescriptor {
+    companion object {
+        /** Pattern matching `if` keyword followed by `(`, avoiding partial identifier matches. */
+        private val IF_PATTERN = Regex("""(?<![a-zA-Z0-9_])if\s*\(""")
+
+        /** Pattern matching `switch` keyword, avoiding partial identifier matches. */
+        private val SWITCH_PATTERN = Regex("""(?<![a-zA-Z0-9_])switch\s""")
+
+        /** Pattern matching `try` keyword followed by `{`, avoiding partial identifier matches. */
+        private val TRY_PATTERN = Regex("""(?<![a-zA-Z0-9_])try\s*\{""")
+    }
+
     override fun collectUnwrappers(
         project: com.intellij.openapi.project.Project,
         editor: Editor,
@@ -124,8 +135,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
         // Search backward for 'if' keyword
         val searchStart = maxOf(0, offset - 200)
         val region = text.substring(searchStart, minOf(text.length, offset + 200))
-        val ifPattern = Regex("""(?<![a-zA-Z0-9_])if\s*\(""")
-        for (match in ifPattern.findAll(region)) {
+        for (match in IF_PATTERN.findAll(region)) {
             val absIfStart = searchStart + match.range.first
             // Find the condition's closing paren
             val condOpenIdx = text.indexOf('(', absIfStart + 2)
@@ -151,8 +161,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     ): Quadruple? {
         val searchStart = maxOf(0, offset - 300)
         val region = text.substring(searchStart, minOf(text.length, offset + 300))
-        val switchPattern = Regex("""(?<![a-zA-Z0-9_])switch\s""")
-        for (match in switchPattern.findAll(region)) {
+        for (match in SWITCH_PATTERN.findAll(region)) {
             val absSwitchStart = searchStart + match.range.first
             // Find the body opening brace
             val braceIdx = text.indexOf('{', absSwitchStart + 6)
@@ -174,8 +183,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     ): Quadruple? {
         val searchStart = maxOf(0, offset - 300)
         val region = text.substring(searchStart, minOf(text.length, offset + 300))
-        val tryPattern = Regex("""(?<![a-zA-Z0-9_])try\s*\{""")
-        for (match in tryPattern.findAll(region)) {
+        for (match in TRY_PATTERN.findAll(region)) {
             val absTryStart = searchStart + match.range.first
             val tryBraceIdx = text.indexOf('{', absTryStart + 3)
             if (tryBraceIdx < 0) continue
@@ -275,96 +283,4 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
         val bodyEnd: Int,
         val outerEnd: Int,
     )
-}
-
-/**
- * Base unwrapper for ReScript that operates on text ranges rather than PSI structure.
- *
- * Since the ReScript parser is lightweight (top-level declarations only),
- * unwrap operations use document text offsets instead of PSI manipulation.
- */
-abstract class RescriptBaseUnwrapper(
-    private val description: String,
-) : Unwrapper {
-    override fun isApplicableTo(e: PsiElement): Boolean = true
-
-    override fun getDescription(e: PsiElement): String = description
-
-    override fun collectElementsToIgnore(
-        element: PsiElement,
-        toIgnore: MutableSet<PsiElement>,
-    ) {}
-
-    override fun collectAffectedElements(
-        element: PsiElement,
-        toExtract: MutableList<in PsiElement>,
-    ): PsiElement {
-        toExtract.add(element)
-        return element
-    }
-}
-
-/**
- * Unwraps a function call pattern like `Some(expr)` → `expr`.
- */
-class RescriptFunctionUnwrapper(
-    private val wrapper: String,
-    private val rangeStart: Int,
-    private val rangeEnd: Int,
-) : RescriptBaseUnwrapper("Remove $wrapper(...)") {
-    override fun unwrap(
-        editor: Editor,
-        element: PsiElement,
-    ): MutableList<PsiElement> {
-        val document = editor.document
-        val text = document.text
-        val innerStart = rangeStart + wrapper.length + 1
-        val innerEnd = rangeEnd - 1
-        if (innerStart < innerEnd) {
-            val inner = text.substring(innerStart, innerEnd)
-            document.replaceString(rangeStart, rangeEnd, inner)
-        }
-        return mutableListOf()
-    }
-}
-
-/**
- * Unwraps a block construct like `if (...) { body }` → `body`.
- */
-class RescriptBlockUnwrapper(
-    description: String,
-    private val outerStart: Int,
-    private val bodyStart: Int,
-    private val bodyEnd: Int,
-    private val outerEnd: Int,
-) : RescriptBaseUnwrapper(description) {
-    override fun unwrap(
-        editor: Editor,
-        element: PsiElement,
-    ): MutableList<PsiElement> {
-        val document = editor.document
-        val text = document.text
-        val body = text.substring(bodyStart, bodyEnd).trim()
-        document.replaceString(outerStart, outerEnd, body)
-        return mutableListOf()
-    }
-}
-
-/**
- * Unwraps a bare brace block `{ body }` → `body`.
- */
-class RescriptBraceUnwrapper(
-    private val braceStart: Int,
-    private val braceEnd: Int,
-) : RescriptBaseUnwrapper("Remove { }") {
-    override fun unwrap(
-        editor: Editor,
-        element: PsiElement,
-    ): MutableList<PsiElement> {
-        val document = editor.document
-        val text = document.text
-        val body = text.substring(braceStart + 1, braceEnd - 1).trim()
-        document.replaceString(braceStart, braceEnd, body)
-        return mutableListOf()
-    }
 }
