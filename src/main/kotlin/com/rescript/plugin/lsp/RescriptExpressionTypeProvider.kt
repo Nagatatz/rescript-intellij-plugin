@@ -73,6 +73,13 @@ class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
     companion object {
         private const val NO_TYPE = "No type information available"
 
+        /** Pattern matching a Markdown code fence block (with optional `rescript` language tag). */
+        private val CODE_FENCE_PATTERN =
+            Regex("```(?:rescript)?\\s*\\n(.+?)\\n```", RegexOption.DOT_MATCHES_ALL)
+
+        /** Pattern matching an inline code span in Markdown. */
+        private val INLINE_CODE_PATTERN = Regex("`(.+?)`")
+
         /**
          * Extracts type information from LSP hover markdown content.
          *
@@ -84,12 +91,10 @@ class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
          */
         internal fun extractTypeFromMarkdown(markdown: String): String {
             // Try to extract from code fence
-            val codeFencePattern = Regex("```(?:rescript)?\\s*\\n(.+?)\\n```", RegexOption.DOT_MATCHES_ALL)
-            codeFencePattern.find(markdown)?.let { return it.groupValues[1].trim() }
+            CODE_FENCE_PATTERN.find(markdown)?.let { return it.groupValues[1].trim() }
 
             // Try inline code
-            val inlineCodePattern = Regex("`(.+?)`")
-            inlineCodePattern.find(markdown)?.let { return it.groupValues[1].trim() }
+            INLINE_CODE_PATTERN.find(markdown)?.let { return it.groupValues[1].trim() }
 
             return markdown.trim()
         }

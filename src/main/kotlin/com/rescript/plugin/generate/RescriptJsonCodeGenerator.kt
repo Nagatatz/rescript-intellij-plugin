@@ -7,8 +7,13 @@ package com.rescript.plugin.generate
  * (`String`, `Number`, `Boolean`, `Null`, `Object`, `Array`). Supports record types
  * and variant types (both simple enums and tagged unions with payloads).
  *
+ * Encoder generation is delegated to [RescriptJsonEncoderGenerator] and
+ * decoder generation to [RescriptJsonDecoderGenerator].
+ *
  * @see RescriptJsonTypeClassifier
  * @see RescriptGenerateJsonCodecAction
+ * @see RescriptJsonEncoderGenerator
+ * @see RescriptJsonDecoderGenerator
  */
 object RescriptJsonCodeGenerator {
     /**
@@ -37,12 +42,7 @@ object RescriptJsonCodeGenerator {
     fun generateEncoder(
         typeName: String,
         shape: TypeShape,
-    ): String? =
-        when (shape) {
-            is TypeShape.Record -> generateRecordEncoder(typeName, shape.fields)
-            is TypeShape.Variant -> generateVariantEncoder(typeName, shape.constructors)
-            is TypeShape.Unknown -> null
-        }
+    ): String? = RescriptJsonEncoderGenerator.generateEncoder(typeName, shape)
 
     /**
      * Generates a JSON decoder function for the given type.
@@ -54,12 +54,7 @@ object RescriptJsonCodeGenerator {
     fun generateDecoder(
         typeName: String,
         shape: TypeShape,
-    ): String? =
-        when (shape) {
-            is TypeShape.Record -> generateRecordDecoder(typeName, shape.fields)
-            is TypeShape.Variant -> generateVariantDecoder(typeName, shape.constructors)
-            is TypeShape.Unknown -> null
-        }
+    ): String? = RescriptJsonDecoderGenerator.generateDecoder(typeName, shape)
 
     /**
      * Builds the encoder function name from the type name.
@@ -77,228 +72,6 @@ object RescriptJsonCodeGenerator {
 
     private fun capitalize(s: String): String = s.replaceFirstChar { it.uppercase() }
 
-    // --- Record encoder ---
-
-    private fun generateRecordEncoder(
-        typeName: String,
-        fields: List<RecordField>,
-    ): String? {
-        if (fields.isEmpty()) return null
-
-        val funcName = encoderName(typeName)
-        val entries =
-            fields.joinToString(",\n      ") { field ->
-                val jsonType = RescriptJsonTypeClassifier.classify(field.typeAnnotation)
-                val encodeExpr = encodeExpression(jsonType, "v.${field.name}")
-                "(\"${field.name}\", $encodeExpr)"
-            }
-
-        return buildString {
-            append("let $funcName = (v: $typeName): JSON.t =>\n")
-            append("  Object(\n")
-            append("    Dict.fromArray([\n")
-            append("      $entries,\n")
-            append("    ]),\n")
-            append("  )")
-        }
-    }
-
-    // --- Record decoder ---
-
-    private fun generateRecordDecoder(
-        typeName: String,
-        fields: List<RecordField>,
-    ): String? {
-        if (fields.isEmpty()) return null
-
-        val funcName = decoderName(typeName)
-
-        // Build let bindings for each field
-        val letBindings =
-            fields.joinToString("\n") { field ->
-                val jsonType = RescriptJsonTypeClassifier.classify(field.typeAnnotation)
-                val decodeExpr = decodeFieldExpression(jsonType, field.name)
-                "      $decodeExpr"
-            }
-
-        // Build tuple pattern for the switch
-        val tuplePattern = fields.joinToString(", ") { field -> field.name }
-        val somePattern = fields.joinToString(", ") { field -> "Some(${field.name})" }
-        val recordBody = fields.joinToString(", ") { field -> "${field.name}: ${field.name}" }
-
-        return buildString {
-            append("let $funcName = (json: JSON.t): option<$typeName> =>\n")
-            append("  switch json {\n")
-            append("  | Object(dict) => {\n")
-            append(letBindings)
-            append("\n")
-            append("      switch ($tuplePattern) {\n")
-            append("      | ($somePattern) => Some({$recordBody})\n")
-            append("      | _ => None\n")
-            append("      }\n")
-            append("    }\n")
-            append("  | _ => None\n")
-            append("  }")
-        }
-    }
-
-    // --- Variant encoder ---
-
-    private fun generateVariantEncoder(
-        typeName: String,
-        constructors: List<VariantConstructor>,
-    ): String? {
-        if (constructors.isEmpty()) return null
-
-        val funcName = encoderName(typeName)
-        val isSimpleEnum = constructors.all { it.payload == null }
-
-        return if (isSimpleEnum) {
-            generateSimpleEnumEncoder(funcName, typeName, constructors)
-        } else {
-            generateTaggedUnionEncoder(funcName, typeName, constructors)
-        }
-    }
-
-    private fun generateSimpleEnumEncoder(
-        funcName: String,
-        typeName: String,
-        constructors: List<VariantConstructor>,
-    ): String {
-        val arms =
-            constructors.joinToString("\n") { ctor ->
-                "  | ${ctor.name} => String(\"${ctor.name}\")"
-            }
-
-        return buildString {
-            append("let $funcName = (v: $typeName): JSON.t =>\n")
-            append("  switch v {\n")
-            append(arms)
-            append("\n")
-            append("  }")
-        }
-    }
-
-    private fun generateTaggedUnionEncoder(
-        funcName: String,
-        typeName: String,
-        constructors: List<VariantConstructor>,
-    ): String {
-        val arms =
-            constructors.joinToString("\n") { ctor ->
-                if (ctor.payload == null) {
-                    "  | ${ctor.name} => Object(Dict.fromArray([(\"tag\", String(\"${ctor.name}\"))]))"
-                } else {
-                    val payloadTypes = splitPayloadTypes(ctor.payload)
-                    val payloadBindings = payloadTypes.indices.joinToString(", ") { i -> "v$i" }
-                    val payloadEntries =
-                        payloadTypes
-                            .mapIndexed { i, typeStr ->
-                                val jsonType = RescriptJsonTypeClassifier.classify(typeStr)
-                                "(\"_$i\", ${encodeExpression(jsonType, "v$i")})"
-                            }.joinToString(", ")
-
-                    "  | ${ctor.name}($payloadBindings) =>\n" +
-                        "    Object(Dict.fromArray([(\"tag\", String(\"${ctor.name}\")), $payloadEntries]))"
-                }
-            }
-
-        return buildString {
-            append("let $funcName = (v: $typeName): JSON.t =>\n")
-            append("  switch v {\n")
-            append(arms)
-            append("\n")
-            append("  }")
-        }
-    }
-
-    // --- Variant decoder ---
-
-    private fun generateVariantDecoder(
-        typeName: String,
-        constructors: List<VariantConstructor>,
-    ): String? {
-        if (constructors.isEmpty()) return null
-
-        val funcName = decoderName(typeName)
-        val isSimpleEnum = constructors.all { it.payload == null }
-
-        return if (isSimpleEnum) {
-            generateSimpleEnumDecoder(funcName, typeName, constructors)
-        } else {
-            generateTaggedUnionDecoder(funcName, typeName, constructors)
-        }
-    }
-
-    private fun generateSimpleEnumDecoder(
-        funcName: String,
-        typeName: String,
-        constructors: List<VariantConstructor>,
-    ): String {
-        val arms =
-            constructors.joinToString("\n") { ctor ->
-                "  | String(\"${ctor.name}\") => Some(${ctor.name})"
-            }
-
-        return buildString {
-            append("let $funcName = (json: JSON.t): option<$typeName> =>\n")
-            append("  switch json {\n")
-            append(arms)
-            append("\n")
-            append("  | _ => None\n")
-            append("  }")
-        }
-    }
-
-    private fun generateTaggedUnionDecoder(
-        funcName: String,
-        typeName: String,
-        constructors: List<VariantConstructor>,
-    ): String {
-        val arms =
-            constructors.joinToString("\n") { ctor ->
-                if (ctor.payload == null) {
-                    "    | Some(String(\"${ctor.name}\")) => Some(${ctor.name})"
-                } else {
-                    val payloadTypes = splitPayloadTypes(ctor.payload)
-                    val letBindings =
-                        payloadTypes
-                            .mapIndexed { i, typeStr ->
-                                val jsonType = RescriptJsonTypeClassifier.classify(typeStr)
-                                "        let v$i = dict->Dict.get(\"_$i\")->Option.flatMap(v =>\n" +
-                                    "          ${decodeInlineExpression(jsonType)}\n" +
-                                    "        )"
-                            }.joinToString("\n")
-
-                    val somePattern = payloadTypes.indices.joinToString(", ") { i -> "Some(v$i)" }
-                    val ctorArgs = payloadTypes.indices.joinToString(", ") { i -> "v$i" }
-
-                    "    | Some(String(\"${ctor.name}\")) => {\n" +
-                        "$letBindings\n" +
-                        "        switch (${payloadTypes.indices.joinToString(", ") { i -> "v$i" }}) {\n" +
-                        "        | ($somePattern) => Some(${ctor.name}($ctorArgs))\n" +
-                        "        | _ => None\n" +
-                        "        }\n" +
-                        "      }"
-                }
-            }
-
-        return buildString {
-            append("let $funcName = (json: JSON.t): option<$typeName> =>\n")
-            append("  switch json {\n")
-            append("  | Object(dict) =>\n")
-            append("    switch dict->Dict.get(\"tag\") {\n")
-            append(arms)
-            append("\n")
-            append("    | _ => None\n")
-            append("    }\n")
-            append("  | _ => None\n")
-            append("  }")
-        }
-    }
-
-    // --- Encode expressions ---
-
     /**
      * Generates an encode expression for a given JSON type and source expression.
      *
@@ -309,24 +82,7 @@ object RescriptJsonCodeGenerator {
     internal fun encodeExpression(
         jsonType: RescriptJsonType,
         expr: String,
-    ): String =
-        when (jsonType) {
-            is RescriptJsonType.StringType -> "String($expr)"
-            is RescriptJsonType.IntType -> "Number($expr->Int.toFloat)"
-            is RescriptJsonType.FloatType -> "Number($expr)"
-            is RescriptJsonType.BoolType -> "Boolean($expr)"
-            is RescriptJsonType.OptionType -> {
-                val innerEncode = encodeExpression(jsonType.inner, "v")
-                "$expr->Option.mapOr(Null, v => $innerEncode)"
-            }
-            is RescriptJsonType.ArrayType -> {
-                val innerEncode = encodeExpression(jsonType.inner, "v")
-                "Array($expr->Array.map(v => $innerEncode))"
-            }
-            is RescriptJsonType.UnknownType -> "/* TODO: encode ${jsonType.raw} */ Null"
-        }
-
-    // --- Decode expressions ---
+    ): String = RescriptJsonEncoderGenerator.encodeExpression(jsonType, expr)
 
     /**
      * Generates a decode let-binding for a record field.
@@ -338,24 +94,7 @@ object RescriptJsonCodeGenerator {
     internal fun decodeFieldExpression(
         jsonType: RescriptJsonType,
         fieldName: String,
-    ): String {
-        val baseExpr = "dict->Dict.get(\"$fieldName\")"
-
-        return when (jsonType) {
-            is RescriptJsonType.OptionType -> {
-                val innerDecode = decodeInlineExpression(jsonType.inner)
-                "let $fieldName = $baseExpr->Option.flatMap(v =>\n" +
-                    "        switch v { | Null => Some(None) | _ => $innerDecode->Option.map(v => Some(v)) }\n" +
-                    "      )"
-            }
-            else -> {
-                val decode = decodeInlineExpression(jsonType)
-                "let $fieldName = $baseExpr->Option.flatMap(v =>\n" +
-                    "        $decode\n" +
-                    "      )"
-            }
-        }
-    }
+    ): String = RescriptJsonDecoderGenerator.decodeFieldExpression(jsonType, fieldName)
 
     /**
      * Generates an inline decode expression (switch on a JSON value `v`).
@@ -364,37 +103,7 @@ object RescriptJsonCodeGenerator {
      * @return the inline decode switch expression
      */
     internal fun decodeInlineExpression(jsonType: RescriptJsonType): String =
-        when (jsonType) {
-            is RescriptJsonType.StringType ->
-                "switch v { | String(v) => Some(v) | _ => None }"
-            is RescriptJsonType.IntType ->
-                "switch v { | Number(v) => Some(v->Int.fromFloat) | _ => None }"
-            is RescriptJsonType.FloatType ->
-                "switch v { | Number(v) => Some(v) | _ => None }"
-            is RescriptJsonType.BoolType ->
-                "switch v { | Boolean(v) => Some(v) | _ => None }"
-            is RescriptJsonType.OptionType -> {
-                val innerDecode = decodeInlineExpression(jsonType.inner)
-                "switch v { | Null => Some(None) | _ => ($innerDecode)->Option.map(v => Some(v)) }"
-            }
-            is RescriptJsonType.ArrayType -> {
-                val innerDecode = decodeInlineExpression(jsonType.inner)
-                "switch v {\n" +
-                    "          | Array(arr) =>\n" +
-                    "            arr->Array.reduce(Some([]), (acc, v) =>\n" +
-                    "              switch (acc, $innerDecode) {\n" +
-                    "              | (Some(arr), Some(v)) => Some(Array.concat(arr, [v]))\n" +
-                    "              | _ => None\n" +
-                    "              }\n" +
-                    "            )\n" +
-                    "          | _ => None\n" +
-                    "        }"
-            }
-            is RescriptJsonType.UnknownType ->
-                "/* TODO: decode ${jsonType.raw} */ None"
-        }
-
-    // --- Utility ---
+        RescriptJsonDecoderGenerator.decodeInlineExpression(jsonType)
 
     /**
      * Splits a variant constructor payload into individual type strings.

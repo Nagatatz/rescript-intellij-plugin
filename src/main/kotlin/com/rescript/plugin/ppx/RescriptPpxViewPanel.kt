@@ -94,6 +94,9 @@ class RescriptPpxViewPanel(
         // Pattern matching @annotation or @annotation(...)
         private val ANNOTATION_PATTERN = Regex("""@(\w+(?:\.\w+)*)(?:\([^)]*\))?""")
 
+        /** Pattern extracting the PPX name from an annotation string (e.g., `@react.component`). */
+        private val PPX_NAME_PATTERN = Regex("""@(\w+(?:\.\w+)*)""")
+
         /**
          * Finds all PPX annotations in the source text.
          *
@@ -122,7 +125,7 @@ class RescriptPpxViewPanel(
          */
         internal fun getPpxExpansionInfo(annotation: String): String {
             // Extract the base name (without arguments)
-            val nameMatch = Regex("""@(\w+(?:\.\w+)*)""").find(annotation)
+            val nameMatch = PPX_NAME_PATTERN.find(annotation)
             val name = nameMatch?.groupValues?.get(1) ?: return "Unknown annotation"
 
             return PPX_DESCRIPTIONS[name] ?: "Custom PPX annotation"

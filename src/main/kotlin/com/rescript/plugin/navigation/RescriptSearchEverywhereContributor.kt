@@ -129,6 +129,9 @@ class RescriptSearchEverywhereContributor(
     }
 
     companion object {
+        /** Pattern for splitting identifiers at camelCase boundaries (before uppercase letters). */
+        private val CAMEL_CASE_SPLIT_PATTERN = Regex("(?=[A-Z])")
+
         /**
          * Checks if a symbol name matches a search pattern.
          *
@@ -160,7 +163,7 @@ class RescriptSearchEverywhereContributor(
             if (humps.isNotEmpty() && humps.lowercase().contains(lowerPattern.lowercase())) return true
 
             // CamelCase hump matching: match initials of camelCase segments
-            val segments = name.split(Regex("(?=[A-Z])")).filter { it.isNotEmpty() }
+            val segments = name.split(CAMEL_CASE_SPLIT_PATTERN).filter { it.isNotEmpty() }
             if (segments.size >= pattern.length) {
                 val initials = segments.joinToString("") { it.take(1) }
                 if (initials.lowercase().startsWith(lowerPattern)) return true

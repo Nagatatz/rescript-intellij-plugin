@@ -86,6 +86,9 @@ class RescriptExtractComponentHandler : RefactoringActionHandler {
     }
 
     companion object {
+        /** Pattern matching `{variable}` expressions in JSX. */
+        private val JSX_EXPRESSION_PATTERN = Regex("""\{(\w+)}""")
+
         /**
          * Checks whether the selected text appears to contain JSX.
          *
@@ -110,8 +113,7 @@ class RescriptExtractComponentHandler : RefactoringActionHandler {
             val props = mutableSetOf<String>()
 
             // Find {expression} patterns in JSX
-            val pattern = Regex("""\{(\w+)}""")
-            for (match in pattern.findAll(jsx)) {
+            for (match in JSX_EXPRESSION_PATTERN.findAll(jsx)) {
                 val name = match.groupValues[1]
                 // Exclude known globals and common non-prop values
                 if (name !in EXCLUDED_NAMES && name.first().isLowerCase()) {
