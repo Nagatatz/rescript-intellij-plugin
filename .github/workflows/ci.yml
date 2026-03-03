@@ -51,7 +51,7 @@ jobs:
         run: ./gradlew buildPlugin
 
       - name: Run tests with coverage
-        run: ./gradlew test koverXmlReport koverHtmlReport
+        run: ./gradlew test koverXmlReport koverHtmlReport koverVerify
 
       - name: Add coverage report to PR
         if: github.event_name == 'pull_request'
@@ -118,7 +118,6 @@ jobs:
           if-no-files-found: ignore
 
   verify:
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
