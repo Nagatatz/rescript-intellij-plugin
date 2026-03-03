@@ -56,11 +56,6 @@
             "type": "command",
             "command": ".claude/hooks/format-kotlin.sh",
             "timeout": 60
-          },
-          {
-            "type": "command",
-            "command": ".claude/hooks/check-kotlin-build.sh",
-            "timeout": 120
           }
         ]
       }
