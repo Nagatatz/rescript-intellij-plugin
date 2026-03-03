@@ -5,6 +5,7 @@ import com.intellij.codeInsight.actions.ReaderModeProvider
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Matches ReScript files inside `node_modules/` for reader mode display.
@@ -21,8 +22,7 @@ class RescriptReaderModeMatcher : ReaderModeMatcher {
         editor: Editor?,
         mode: ReaderModeProvider.ReaderMode,
     ): Boolean {
-        val ext = file.extension
-        if (ext != "res" && ext != "resi") return false
+        if (!RescriptFileUtil.isRescriptFile(file)) return false
         // Detect files located inside any node_modules directory
         return file.path.contains("/node_modules/")
     }

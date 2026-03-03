@@ -5,6 +5,7 @@ import com.intellij.execution.actions.LazyRunConfigurationProducer
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Automatically creates [RescriptTestRunConfiguration] from context (e.g., right-clicking a test file).
@@ -22,8 +23,7 @@ class RescriptTestConfigurationProducer : LazyRunConfigurationProducer<RescriptT
         sourceElement: Ref<PsiElement>,
     ): Boolean {
         val file = context.location?.virtualFile ?: return false
-        val ext = file.extension ?: return false
-        if (ext != "res" && ext != "resi") return false
+        if (!RescriptFileUtil.isRescriptFile(file)) return false
 
         // Only produce for files that look like tests
         val name = file.nameWithoutExtension

@@ -13,6 +13,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFile
 import com.rescript.plugin.navigation.RescriptOpenCompiledJsAction
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Action to debug the compiled JavaScript for the current ReScript file.
@@ -30,8 +31,7 @@ class RescriptDebugCompiledJsAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
-        val ext = file.extension ?: return
-        if (ext != "res" && ext != "resi") return
+        if (!RescriptFileUtil.isRescriptFile(file)) return
 
         val jsFile = RescriptOpenCompiledJsAction.findCompiledJsFile(project, file)
         if (jsFile == null) {
@@ -94,8 +94,7 @@ class RescriptDebugCompiledJsAction : AnAction() {
 
     override fun update(e: AnActionEvent) {
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE)
-        val ext = file?.extension
-        e.presentation.isEnabledAndVisible = ext == "res" || ext == "resi"
+        e.presentation.isEnabledAndVisible = file != null && RescriptFileUtil.isRescriptFile(file)
     }
 
     override fun getActionUpdateThread() = ActionUpdateThread.BGT

@@ -19,6 +19,7 @@ import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.rescript.plugin.run.RescriptRunUtils
+import com.rescript.plugin.util.RescriptFileUtil
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Path
 
@@ -77,7 +78,7 @@ class RescriptDebugRunConfiguration(
         }
         val srcPath = Path.of(sourceFilePath ?: throw RuntimeConfigurationError("Source file path is not specified."))
         val fileName = srcPath.fileName?.toString() ?: ""
-        if (!fileName.endsWith(".res") && !fileName.endsWith(".resi")) {
+        if (!RescriptFileUtil.isRescriptFileName(fileName)) {
             throw RuntimeConfigurationError("Source file must be a .res or .resi file.")
         }
         if (!srcPath.toFile().exists()) {

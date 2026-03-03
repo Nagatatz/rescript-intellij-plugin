@@ -8,6 +8,7 @@ import com.intellij.util.Consumer
 import com.intellij.util.indexing.FileContent
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Recognizes file include relationships from `open` statements in ReScript files.
@@ -46,10 +47,7 @@ class RescriptFileIncludeProvider : FileIncludeProvider() {
 
     override fun getId(): String = "rescript"
 
-    override fun acceptFile(file: VirtualFile): Boolean {
-        val ext = file.extension
-        return ext == "res" || ext == "resi"
-    }
+    override fun acceptFile(file: VirtualFile): Boolean = RescriptFileUtil.isRescriptFile(file)
 
     override fun registerFileTypesUsedForIndexing(fileTypeSink: Consumer<in FileType>) {
         fileTypeSink.consume(RescriptFileType)

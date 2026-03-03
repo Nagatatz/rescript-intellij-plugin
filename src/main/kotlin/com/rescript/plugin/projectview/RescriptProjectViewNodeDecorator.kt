@@ -3,6 +3,7 @@ package com.rescript.plugin.projectview
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ide.projectView.ProjectViewNode
 import com.intellij.ide.projectView.ProjectViewNodeDecorator
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Decorates ReScript file nodes in the Project View with additional information.
@@ -21,11 +22,9 @@ class RescriptProjectViewNodeDecorator : ProjectViewNodeDecorator {
         val file = node.virtualFile ?: return
 
         when {
-            file.extension == "res" -> {
+            RescriptFileUtil.isResFile(file) -> {
                 // Show "(has interface)" suffix when a .resi file exists
-                val parent = file.parent ?: return
-                val baseName = file.nameWithoutExtension
-                val resiFile = parent.findChild("$baseName.resi")
+                val resiFile = RescriptFileUtil.findInterfaceFile(file)
                 if (resiFile != null) {
                     data.locationString = "has interface"
                 }

@@ -12,6 +12,7 @@ import com.intellij.ui.EditorNotifications
 import com.rescript.plugin.lsp.RescriptLspDetector
 import com.rescript.plugin.lsp.RescriptLspInstaller
 import com.rescript.plugin.lsp.RescriptPackageManagerDetector
+import com.rescript.plugin.util.RescriptFileUtil
 import java.util.function.Function
 import javax.swing.JComponent
 
@@ -33,7 +34,7 @@ class RescriptEditorNotificationProvider :
         file: VirtualFile,
     ): Function<in FileEditor, out JComponent?> {
         return Function { _ ->
-            if (!isRescriptFile(file)) return@Function null
+            if (!RescriptFileUtil.isRescriptFile(file)) return@Function null
             if (isDismissed(project)) return@Function null
             if (RescriptLspDetector.isLspConfigured(project)) return@Function null
             if (RescriptLspDetector.isLspAvailable(project.basePath)) return@Function null
@@ -41,8 +42,6 @@ class RescriptEditorNotificationProvider :
             createPanel(project)
         }
     }
-
-    private fun isRescriptFile(file: VirtualFile): Boolean = file.extension == "res" || file.extension == "resi"
 
     private fun isDismissed(project: Project): Boolean =
         PropertiesComponent.getInstance(project).getBoolean(DISMISSED_KEY, false)

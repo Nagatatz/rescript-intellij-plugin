@@ -18,6 +18,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.lsp.RescriptCompilationStatusService
 import com.rescript.plugin.navigation.RescriptOpenCompiledJsAction
+import com.rescript.plugin.util.RescriptFileUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -70,7 +71,7 @@ class RescriptCompiledJsPreviewPanel(
                 object : FileEditorManagerListener {
                     override fun selectionChanged(event: FileEditorManagerEvent) {
                         val file = event.newFile
-                        if (file != null && isRescriptFile(file)) {
+                        if (file != null && RescriptFileUtil.isRescriptFile(file)) {
                             updatePreview(file)
                         }
                     }
@@ -89,7 +90,7 @@ class RescriptCompiledJsPreviewPanel(
 
         // Show preview for currently active file
         val selectedFile = FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
-        if (selectedFile != null && isRescriptFile(selectedFile)) {
+        if (selectedFile != null && RescriptFileUtil.isRescriptFile(selectedFile)) {
             updatePreview(selectedFile)
         }
     }
@@ -107,7 +108,7 @@ class RescriptCompiledJsPreviewPanel(
 
     private fun refreshCurrentPreview() {
         val selectedFile = FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
-        if (selectedFile != null && isRescriptFile(selectedFile)) {
+        if (selectedFile != null && RescriptFileUtil.isRescriptFile(selectedFile)) {
             updatePreview(selectedFile)
         }
     }
@@ -182,13 +183,6 @@ class RescriptCompiledJsPreviewPanel(
 
         override fun update(e: AnActionEvent) {
             e.presentation.isEnabled = currentJsFile != null
-        }
-    }
-
-    companion object {
-        fun isRescriptFile(file: VirtualFile): Boolean {
-            val ext = file.extension ?: return false
-            return ext == "res" || ext == "resi"
         }
     }
 }

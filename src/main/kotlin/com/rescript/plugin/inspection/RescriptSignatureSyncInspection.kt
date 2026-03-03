@@ -10,6 +10,7 @@ import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptFileUtil
 import org.eclipse.lsp4j.TextDocumentIdentifier
 
 /**
@@ -34,10 +35,8 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
                 val virtualFile = file.virtualFile ?: return
 
                 // Only inspect .res files that have a corresponding .resi
-                if (virtualFile.extension != "res") return
-                val resiFile =
-                    virtualFile.parent?.findChild(virtualFile.nameWithoutExtension + ".resi")
-                        ?: return
+                if (!RescriptFileUtil.isResFile(virtualFile)) return
+                val resiFile = RescriptFileUtil.findInterfaceFile(virtualFile) ?: return
 
                 val resDeclarations = collectDeclarationNames(file)
                 val resiText =
