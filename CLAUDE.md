@@ -178,6 +178,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 @.claude/rules/documentation.md
 @.claude/rules/roadmap-format.md
 @.claude/rules/definition-of-done.md
+@.claude/rules/release.md
 
 ## 重要な注意事項
 
