@@ -75,6 +75,17 @@ rescript-intellij-plugin/
 | `refactor/` | リネーム、識別子バリデーション | `RescriptRenameHandler` |
 | `util/` | 共通ユーティリティ（セキュリティ、offset↔Position 変換等） | `RescriptSecurityUtils`, `RescriptOffsetUtils` |
 | `commenter/` | コメントトグル | `RescriptCommenter` |
+| `dependencies/` | パッケージ依存関係ツリー表示 | `RescriptDependenciesToolWindowFactory`, `RescriptDependenciesPanel` |
+| `diagram/` | モジュール依存関係ダイアグラム | `RescriptDependencyDiagramProvider`, `RescriptDependencyDiagramModel` |
+| `documentation/` | ドキュメントプロバイダ（Quick Doc、External Doc） | `RescriptDocumentationProvider` |
+| `grazie/` | Grazie テキスト抽出連携 | `RescriptGrazieTextExtractor` |
+| `navbar/` | ナビゲーションバー | `RescriptStructureAwareNavbar` |
+| `ppx/` | PPX 展開ビューツールウィンドウ | `RescriptPpxViewToolWindowFactory`, `RescriptPpxViewPanel` |
+| `projectview/` | Project View ネスト表示・装飾 | `RescriptTreeStructureProvider`, `RescriptProjectViewNodeDecorator` |
+| `repl/` | REPL ツールウィンドウ | `RescriptReplToolWindowFactory`, `RescriptReplPanel` |
+| `scratch/` | スクラッチファイル | `RescriptScratchRootType`, `RescriptScratchCreationHelper` |
+| `typeinfo/` | 型情報ツールウィンドウ | `RescriptTypeInfoToolWindowFactory`, `RescriptTypeInfoPanel` |
+| `worksheet/` | Worksheet モード（.resw） | `RescriptWorksheetFileType`, `RescriptWorksheetRunner` |
 
 #### Java ソース (`src/main/java/com/rescript/plugin/lang/`)
 
