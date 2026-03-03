@@ -232,7 +232,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、全109件を実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件 + C 優先度23件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。#110, #111 は S 優先度として実装済み。#112, #113, #114 は A 優先度として実装済み。#118 は C 優先度として実装済み。#115, #116, #117 はインフラ改善として実装済み。
 
-なお、JetBrains Marketplace 公開（Gradle `publishPlugin` タスク設定）は別途対応予定。
+JetBrains Marketplace には v0.1.2 で申請済み（審査中）。
 
 全機能実装済み。未実装機能なし。
 
@@ -242,7 +242,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 | 指標 | 目標値 |
 |---|---|
-| JetBrains Marketplace 公開 | v1.0 リリース |
+| JetBrains Marketplace 公開 | v0.1.2 で申請済み（審査中） |
 | シンタックスハイライトの正確性 | ReScript の全トークンタイプを正しくカラーリング |
 | LSP 機能の動作率 | VSCode 拡張と同等の機能カバレッジ |
 | エディタ入力時のレスポンス | ハイライト更新が体感上即座（< 16ms） |
