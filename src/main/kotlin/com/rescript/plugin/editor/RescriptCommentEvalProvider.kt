@@ -12,6 +12,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptLanguage
+import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
  * Inlay hints provider that validates code examples found in ReScript
@@ -204,7 +205,7 @@ class RescriptCommentEvalProvider : InlayHintsProvider<NoSettings> {
                 Regex("""^\s*let\s""", RegexOption.MULTILINE),
                 Regex("""^\s*type\s""", RegexOption.MULTILINE),
                 Regex("""^\s*module\s""", RegexOption.MULTILINE),
-                Regex("""^\s*open\s""", RegexOption.MULTILINE),
+                RescriptRegexPatterns.OPEN_LINE_TEST,
                 Regex("""^\s*switch\s""", RegexOption.MULTILINE),
                 Regex("""^\s*if\s""", RegexOption.MULTILINE),
                 Regex("""=>"""),

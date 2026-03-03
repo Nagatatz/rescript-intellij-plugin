@@ -4,6 +4,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiManager
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
  * Provides dependency diagram data for ReScript module relationships.
@@ -52,7 +53,7 @@ object RescriptDependencyDiagramProvider {
 
         for (line in sourceText.lines()) {
             val trimmed = line.trim()
-            val openMatch = OPEN_PATTERN.find(trimmed)
+            val openMatch = RescriptRegexPatterns.OPEN_MODULE_CAPTURE.find(trimmed)
             if (openMatch != null) {
                 deps.add(openMatch.groupValues[1])
                 continue
@@ -65,9 +66,6 @@ object RescriptDependencyDiagramProvider {
 
         return deps.distinct()
     }
-
-    // Pattern for `open ModuleName` or `open ModuleName.SubModule`
-    private val OPEN_PATTERN = Regex("""^open\s+([A-Z][\w.]*)""")
 
     // Pattern for `include ModuleName`
     private val INCLUDE_PATTERN = Regex("""^include\s+([A-Z][\w.]*)""")

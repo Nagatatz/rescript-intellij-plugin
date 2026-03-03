@@ -4,6 +4,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
+import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
  * Executes ReScript worksheet files by evaluating each top-level expression
@@ -63,7 +64,6 @@ class RescriptWorksheetRunner(
         // Pattern for type declarations (not evaluated)
         private val TYPE_PATTERN = Regex("""^type\s+""")
         private val MODULE_PATTERN = Regex("""^module\s+""")
-        private val OPEN_PATTERN = Regex("""^open\s+""")
 
         /**
          * Extracts top-level expressions from worksheet source text.
@@ -92,7 +92,7 @@ class RescriptWorksheetRunner(
                 // Skip type and module declarations
                 if (TYPE_PATTERN.containsMatchIn(line) ||
                     MODULE_PATTERN.containsMatchIn(line) ||
-                    OPEN_PATTERN.containsMatchIn(line)
+                    RescriptRegexPatterns.OPEN_LINE_TEST.containsMatchIn(line)
                 ) {
                     // Find end of declaration (track braces)
                     val endLine = findBlockEnd(lines, i)

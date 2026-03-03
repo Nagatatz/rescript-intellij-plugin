@@ -1,6 +1,8 @@
 package com.rescript.plugin.util
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -92,5 +94,124 @@ class RescriptRegexPatternsTest {
     fun `WHITESPACE splits by multiple spaces`() {
         val result = "a   b".split(RescriptRegexPatterns.WHITESPACE)
         assertTrue(result == listOf("a", "b"))
+    }
+
+    // ── OPEN_STATEMENT ───────────────────────────────────────────
+
+    @Test
+    fun `OPEN_STATEMENT matches simple open`() {
+        val match = RescriptRegexPatterns.OPEN_STATEMENT.find("open Belt")
+        assertEquals("open Belt", match?.value)
+    }
+
+    @Test
+    fun `OPEN_STATEMENT matches dotted module`() {
+        val match = RescriptRegexPatterns.OPEN_STATEMENT.find("open Belt.Array")
+        assertEquals("open Belt.Array", match?.value)
+    }
+
+    @Test
+    fun `OPEN_STATEMENT matches in multiline text`() {
+        val text = "let x = 1\nopen Belt\nlet y = 2"
+        val match = RescriptRegexPatterns.OPEN_STATEMENT.find(text)
+        assertEquals("open Belt", match?.value)
+    }
+
+    @Test
+    fun `OPEN_STATEMENT does not match mid-line open`() {
+        val match = RescriptRegexPatterns.OPEN_STATEMENT.find("let x = open Belt")
+        assertNull(match)
+    }
+
+    // ── OPEN_MODULE_CAPTURE ──────────────────────────────────────
+
+    @Test
+    fun `OPEN_MODULE_CAPTURE captures module name`() {
+        val match = RescriptRegexPatterns.OPEN_MODULE_CAPTURE.find("open Belt")
+        assertEquals("Belt", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `OPEN_MODULE_CAPTURE captures dotted module name`() {
+        val match = RescriptRegexPatterns.OPEN_MODULE_CAPTURE.find("open Belt.Array")
+        assertEquals("Belt.Array", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `OPEN_MODULE_CAPTURE finds all modules in multiline text`() {
+        val text = "open Belt\nopen Js.Array2"
+        val modules =
+            RescriptRegexPatterns.OPEN_MODULE_CAPTURE
+                .findAll(text)
+                .map { it.groupValues[1] }
+                .toList()
+        assertEquals(listOf("Belt", "Js.Array2"), modules)
+    }
+
+    @Test
+    fun `OPEN_MODULE_CAPTURE does not match mid-line open`() {
+        assertNull(RescriptRegexPatterns.OPEN_MODULE_CAPTURE.find("let x = open Belt"))
+    }
+
+    // ── OPEN_MODULE_STRICT ───────────────────────────────────────
+
+    @Test
+    fun `OPEN_MODULE_STRICT captures module with leading whitespace`() {
+        val match = RescriptRegexPatterns.OPEN_MODULE_STRICT.find("  open Belt")
+        assertEquals("Belt", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `OPEN_MODULE_STRICT captures dotted module`() {
+        val match = RescriptRegexPatterns.OPEN_MODULE_STRICT.find("open Belt.Array")
+        assertEquals("Belt.Array", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `OPEN_MODULE_STRICT rejects lowercase module`() {
+        assertNull(RescriptRegexPatterns.OPEN_MODULE_STRICT.find("open belt"))
+    }
+
+    @Test
+    fun `OPEN_MODULE_STRICT rejects trailing content`() {
+        assertNull(RescriptRegexPatterns.OPEN_MODULE_STRICT.find("open Belt // comment"))
+    }
+
+    @Test
+    fun `OPEN_MODULE_STRICT finds all in multiline text`() {
+        val text = "  open Belt\nlet x = 1\nopen Js.Array2"
+        val modules =
+            RescriptRegexPatterns.OPEN_MODULE_STRICT
+                .findAll(text)
+                .map { it.groupValues[1] }
+                .toList()
+        assertEquals(listOf("Belt", "Js.Array2"), modules)
+    }
+
+    // ── OPEN_LINE_TEST ───────────────────────────────────────────
+
+    @Test
+    fun `OPEN_LINE_TEST matches open line`() {
+        assertTrue(RescriptRegexPatterns.OPEN_LINE_TEST.containsMatchIn("open Belt"))
+    }
+
+    @Test
+    fun `OPEN_LINE_TEST matches open line with leading whitespace`() {
+        assertTrue(RescriptRegexPatterns.OPEN_LINE_TEST.containsMatchIn("  open Belt"))
+    }
+
+    @Test
+    fun `OPEN_LINE_TEST matches in multiline text`() {
+        assertTrue(RescriptRegexPatterns.OPEN_LINE_TEST.containsMatchIn("let x = 1\nopen Belt"))
+    }
+
+    @Test
+    fun `OPEN_LINE_TEST does not match mid-line open`() {
+        assertFalse(RescriptRegexPatterns.OPEN_LINE_TEST.containsMatchIn("let open = 1"))
+    }
+
+    @Test
+    fun `OPEN_LINE_TEST does not match openBar`() {
+        assertFalse(RescriptRegexPatterns.OPEN_LINE_TEST.containsMatchIn("openBar"))
     }
 }
