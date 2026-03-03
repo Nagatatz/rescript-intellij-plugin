@@ -10,6 +10,7 @@ import com.intellij.platform.lsp.api.LspServerNotificationsHandler
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import com.intellij.platform.lsp.api.customization.LspCustomization
 import com.rescript.plugin.settings.RescriptProjectSettings
+import com.rescript.plugin.util.RescriptFileUtil
 import com.rescript.plugin.util.RescriptSecurityUtils
 import org.eclipse.lsp4j.services.LanguageServer
 import java.io.File
@@ -80,8 +81,7 @@ class RescriptLspServerDescriptor(
         )
     }
 
-    override fun isSupportedFile(file: VirtualFile): Boolean =
-        file.extension in RescriptLspServerSupportProvider.RESCRIPT_EXTENSIONS
+    override fun isSupportedFile(file: VirtualFile): Boolean = RescriptFileUtil.isRescriptFile(file)
 
     override fun createCommandLine(): GeneralCommandLine {
         val settings = RescriptProjectSettings.getInstance(project)

@@ -8,6 +8,7 @@ import com.intellij.psi.PsiManager
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Intention action that publishes a declaration to the interface file.
@@ -34,12 +35,10 @@ class RescriptAddToInterfaceIntention : PsiElementBaseIntentionAction() {
     ): Boolean {
         if (element.containingFile !is RescriptFile) return false
         val virtualFile = element.containingFile.virtualFile ?: return false
-        if (virtualFile.extension != "res") return false
+        if (!RescriptFileUtil.isResFile(virtualFile)) return false
 
         // Check that a .resi file exists
-        val resiFile =
-            virtualFile.parent?.findChild("${virtualFile.nameWithoutExtension}.resi")
-                ?: return false
+        val resiFile = RescriptFileUtil.findInterfaceFile(virtualFile) ?: return false
         if (!resiFile.exists()) return false
 
         // Check that cursor is on a top-level declaration
@@ -60,9 +59,7 @@ class RescriptAddToInterfaceIntention : PsiElementBaseIntentionAction() {
         element: PsiElement,
     ) {
         val virtualFile = element.containingFile.virtualFile ?: return
-        val resiVirtualFile =
-            virtualFile.parent?.findChild("${virtualFile.nameWithoutExtension}.resi")
-                ?: return
+        val resiVirtualFile = RescriptFileUtil.findInterfaceFile(virtualFile) ?: return
 
         val declaration =
             RescriptPsiUtils.findEnclosingDeclaration(element, RescriptPsiUtils.NAVIGABLE_TYPES)

@@ -9,6 +9,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
+import com.rescript.plugin.util.RescriptFileUtil
 import java.awt.BorderLayout
 import java.awt.Font
 import javax.swing.JComponent
@@ -62,7 +63,7 @@ class RescriptPpxViewPanel(
                     val editor = event.editor
                     val document = editor.document
                     val file = FileDocumentManager.getInstance().getFile(document) ?: return
-                    if (!file.name.endsWith(".res") && !file.name.endsWith(".resi")) return
+                    if (!RescriptFileUtil.isRescriptFileName(file.name)) return
 
                     updatePpxInfo(document.text)
                 }

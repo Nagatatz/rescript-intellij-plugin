@@ -5,6 +5,7 @@ import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.NestingTreeNode
 import com.intellij.ide.projectView.impl.nodes.PsiFileNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Nests `.resi` interface files under their corresponding `.res` implementation
@@ -29,11 +30,11 @@ class RescriptTreeStructureProvider : TreeStructureProvider {
             val file = child.virtualFile ?: continue
             val name = file.name
             when {
-                name.endsWith(".res") -> {
+                RescriptFileUtil.isResFileName(name) -> {
                     val baseName = name.removeSuffix(".res")
                     resNodes[baseName] = child
                 }
-                name.endsWith(".resi") -> {
+                RescriptFileUtil.isResiFileName(name) -> {
                     val baseName = name.removeSuffix(".resi")
                     resiNodes[baseName] = child
                 }
@@ -59,7 +60,7 @@ class RescriptTreeStructureProvider : TreeStructureProvider {
             }
             val name = file.name
 
-            if (name.endsWith(".resi")) {
+            if (RescriptFileUtil.isResiFileName(name)) {
                 val baseName = name.removeSuffix(".resi")
                 if (resNodes.containsKey(baseName)) {
                     // This .resi has a matching .res — skip it (will be nested)
@@ -68,7 +69,7 @@ class RescriptTreeStructureProvider : TreeStructureProvider {
                 }
             }
 
-            if (name.endsWith(".res")) {
+            if (RescriptFileUtil.isResFileName(name)) {
                 val baseName = name.removeSuffix(".res")
                 val matchingResi = resiNodes[baseName]
                 if (matchingResi != null) {

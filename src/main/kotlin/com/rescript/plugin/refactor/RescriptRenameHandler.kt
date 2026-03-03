@@ -14,8 +14,8 @@ import com.intellij.platform.lsp.api.LspServer
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.refactoring.rename.RenameHandler
-import com.rescript.plugin.lsp.RescriptLspServerSupportProvider
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptFileUtil
 import com.rescript.plugin.util.RescriptOffsetUtils
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.PrepareRenameParams
@@ -35,7 +35,7 @@ class RescriptRenameHandler : RenameHandler {
         val file = CommonDataKeys.PSI_FILE.getData(dataContext) ?: return false
         val editor = CommonDataKeys.EDITOR.getData(dataContext) ?: return false
         val extension = file.virtualFile?.extension ?: return false
-        if (extension !in RescriptLspServerSupportProvider.RESCRIPT_EXTENSIONS) return false
+        if (extension !in RescriptFileUtil.RESCRIPT_EXTENSIONS) return false
 
         // Check that cursor is on an identifier-like character
         val offset = editor.caretModel.offset

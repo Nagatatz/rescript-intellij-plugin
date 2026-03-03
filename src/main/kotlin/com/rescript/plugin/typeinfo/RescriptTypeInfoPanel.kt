@@ -16,6 +16,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.util.Alarm
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptFileUtil
 import java.awt.BorderLayout
 import java.awt.Font
 import javax.swing.JComponent
@@ -109,7 +110,7 @@ class RescriptTypeInfoPanel(
      */
     private fun updateTypeInfo(editor: Editor) {
         val file = FileDocumentManager.getInstance().getFile(editor.document)
-        if (file == null || !isRescriptFile(file)) {
+        if (file == null || !RescriptFileUtil.isRescriptFile(file)) {
             showMessage(NO_RESCRIPT_FILE)
             return
         }
@@ -134,10 +135,5 @@ class RescriptTypeInfoPanel(
         private const val DEBOUNCE_MS = 300
         private const val NO_RESCRIPT_FILE = "No ReScript file selected"
         private const val NO_TYPE = "No type information"
-
-        private fun isRescriptFile(file: com.intellij.openapi.vfs.VirtualFile): Boolean {
-            val ext = file.extension ?: return false
-            return ext == "res" || ext == "resi"
-        }
     }
 }

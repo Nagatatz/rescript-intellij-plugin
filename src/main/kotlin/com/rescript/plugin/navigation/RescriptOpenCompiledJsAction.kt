@@ -14,6 +14,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.rescript.plugin.lsp.RescriptLanguageServer
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptFileUtil
 import com.rescript.plugin.util.RescriptSecurityUtils
 
 /**
@@ -26,8 +27,7 @@ class RescriptOpenCompiledJsAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
-        val ext = file.extension ?: return
-        if (ext != "res" && ext != "resi") return
+        if (!RescriptFileUtil.isRescriptFile(file)) return
 
         val jsFile = tryOpenViaLsp(project, file) ?: findCompiledJsFile(project, file)
         if (jsFile != null) {
@@ -72,8 +72,7 @@ class RescriptOpenCompiledJsAction : AnAction() {
 
     override fun update(e: AnActionEvent) {
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE)
-        val ext = file?.extension
-        e.presentation.isEnabledAndVisible = ext == "res" || ext == "resi"
+        e.presentation.isEnabledAndVisible = file != null && RescriptFileUtil.isRescriptFile(file)
     }
 
     override fun getActionUpdateThread() = ActionUpdateThread.BGT

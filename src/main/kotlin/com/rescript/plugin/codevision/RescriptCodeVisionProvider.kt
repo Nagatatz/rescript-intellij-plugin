@@ -11,6 +11,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.platform.lsp.api.LspServerState
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptFileUtil
 import org.eclipse.lsp4j.CodeLensParams
 import org.eclipse.lsp4j.TextDocumentIdentifier
 
@@ -49,7 +50,7 @@ class RescriptCodeVisionProvider : DaemonBoundCodeVisionProvider {
         file: PsiFile,
     ): List<Pair<TextRange, CodeVisionEntry>> {
         val virtualFile = file.virtualFile ?: return emptyList()
-        if (virtualFile.extension == "resi") return emptyList()
+        if (RescriptFileUtil.isResiFile(virtualFile)) return emptyList()
 
         val project = file.project
         val document = editor.document

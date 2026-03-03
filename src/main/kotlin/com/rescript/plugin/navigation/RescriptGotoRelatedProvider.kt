@@ -7,6 +7,7 @@ import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.psi.PsiManager
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Provides "Go to Related" items for ReScript files.
@@ -21,18 +22,15 @@ class RescriptGotoRelatedProvider : GotoRelatedProvider() {
     override fun getItems(context: DataContext): List<GotoRelatedItem> {
         val project = CommonDataKeys.PROJECT.getData(context) ?: return emptyList()
         val file = CommonDataKeys.VIRTUAL_FILE.getData(context) ?: return emptyList()
-        val ext = file.extension ?: return emptyList()
-        if (ext != "res" && ext != "resi") return emptyList()
+        if (!RescriptFileUtil.isRescriptFile(file)) return emptyList()
 
         val psiManager = PsiManager.getInstance(project)
         val items = mutableListOf<GotoRelatedItem>()
-        val parent = file.parent ?: return emptyList()
-        val nameWithoutExt = file.nameWithoutExtension
 
-        when (ext) {
-            "res" -> {
+        when {
+            RescriptFileUtil.isResFile(file) -> {
                 // Find corresponding .resi file
-                parent.findChild("$nameWithoutExt.resi")?.let { resiFile ->
+                RescriptFileUtil.findInterfaceFile(file)?.let { resiFile ->
                     psiManager.findFile(resiFile)?.let { psiFile ->
                         items.add(GotoRelatedItem(psiFile, "ReScript"))
                     }
@@ -56,9 +54,9 @@ class RescriptGotoRelatedProvider : GotoRelatedProvider() {
                     }
                 }
             }
-            "resi" -> {
+            RescriptFileUtil.isResiFile(file) -> {
                 // Find corresponding .res file
-                parent.findChild("$nameWithoutExt.res")?.let { resFile ->
+                RescriptFileUtil.findCounterpartFile(file)?.let { resFile ->
                     psiManager.findFile(resFile)?.let { psiFile ->
                         items.add(GotoRelatedItem(psiFile, "ReScript"))
                     }

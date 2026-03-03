@@ -9,6 +9,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Goto Super handler for ReScript that navigates from a declaration
@@ -27,18 +28,7 @@ class RescriptGotoSuperHandler : CodeInsightActionHandler {
         file: PsiFile,
     ) {
         val virtualFile = file.virtualFile ?: return
-        val ext = virtualFile.extension ?: return
-
-        val targetExt =
-            when (ext) {
-                "res" -> "resi"
-                "resi" -> "res"
-                else -> return
-            }
-
-        val targetVirtualFile =
-            virtualFile.parent?.findChild("${virtualFile.nameWithoutExtension}.$targetExt")
-                ?: return
+        val targetVirtualFile = RescriptFileUtil.findCounterpartFile(virtualFile) ?: return
 
         val targetPsiFile = PsiManager.getInstance(project).findFile(targetVirtualFile) ?: return
 

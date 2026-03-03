@@ -11,6 +11,7 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.rescript.plugin.lsp.RescriptLanguageServer
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptFileUtil
 import com.rescript.plugin.util.RescriptSecurityUtils
 import org.eclipse.lsp4j.TextDocumentIdentifier
 
@@ -25,10 +26,10 @@ class RescriptCreateInterfaceAction : AnAction() {
         val project = e.project ?: return
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
 
-        if (file.extension != "res") return
+        if (!RescriptFileUtil.isResFile(file)) return
 
         // Check if .resi already exists
-        val resiFile = file.parent?.findChild("${file.nameWithoutExtension}.resi")
+        val resiFile = RescriptFileUtil.findInterfaceFile(file)
         if (resiFile != null) {
             val result =
                 Messages.showYesNoDialog(
@@ -69,7 +70,7 @@ class RescriptCreateInterfaceAction : AnAction() {
 
     override fun update(e: AnActionEvent) {
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE)
-        e.presentation.isEnabledAndVisible = file?.extension == "res"
+        e.presentation.isEnabledAndVisible = file != null && RescriptFileUtil.isResFile(file)
     }
 
     override fun getActionUpdateThread() = ActionUpdateThread.BGT

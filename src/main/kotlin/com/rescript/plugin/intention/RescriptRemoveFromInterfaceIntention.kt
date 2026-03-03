@@ -6,6 +6,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
+import com.rescript.plugin.util.RescriptFileUtil
 
 /**
  * Intention action that removes a declaration from the interface file.
@@ -28,7 +29,7 @@ class RescriptRemoveFromInterfaceIntention : PsiElementBaseIntentionAction() {
     ): Boolean {
         if (element.containingFile !is RescriptFile) return false
         val virtualFile = element.containingFile.virtualFile ?: return false
-        if (virtualFile.extension != "resi") return false
+        if (!RescriptFileUtil.isResiFile(virtualFile)) return false
 
         // Check that cursor is on a top-level declaration
         val declaration =
