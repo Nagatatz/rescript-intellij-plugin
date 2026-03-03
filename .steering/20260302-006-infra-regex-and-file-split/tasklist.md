@@ -38,11 +38,11 @@
 
 ## Phase 5: ドキュメント更新
 
-- [ ] CLAUDE.md 更新（アーキテクチャセクション — util/ パッケージに RescriptRegexPatterns 追記）
-- [ ] README.md 更新（該当する場合）
-- [ ] sphinx-docs 更新（該当する場合）
-- [ ] docs/product-requirements.md 更新（#115, #116, #117 を実装済みセクションに移動）
-- [ ] コミット: `📝 Update docs for infrastructure refactoring (#115, #116, #117)`
+- [x] CLAUDE.md 更新（アーキテクチャセクション — util/ パッケージに RescriptRegexPatterns 追記）
+- [x] README.md 更新（該当する場合）— インフラ改善のため更新不要
+- [x] sphinx-docs 更新（該当する場合）— インフラ改善のため更新不要
+- [x] docs/product-requirements.md 更新（#115, #116, #117 を実装済みセクションに移動）
+- [x] コミット: `📝 Update docs for infrastructure refactoring (#115, #116, #117)`
 
 ## Phase 6: 完了
 
