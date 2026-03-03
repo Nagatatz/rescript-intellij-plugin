@@ -24,17 +24,17 @@
 - [x] RescriptAddTypeAnnotationIntention.kt — 1箇所（動的1箇所は除外）
 - [x] 残り8ファイル — 各1箇所（RescriptExtractComponentHandler, RescriptExtractFunctionHandler, RescriptMergeSwitchCasesIntention, RescriptTypeSignatureSearchContributor, RescriptPpxViewPanel, RescriptWorksheetRunner, RescriptSearchEverywhereContributor, RescriptMutabilityInspection）+ RescriptGenerateModuleImplAction 1箇所
 - [x] ビルド確認 + テスト実行（BUILD SUCCESSFUL, 2517/2517 tests pass）
-- [ ] コミット: `♻️ Move inline Regex instantiations to companion object constants`
+- [x] コミット: `♻️ Move inline Regex instantiations to companion object constants` (70898ac)
 
 ## Phase 4: #117 長大ファイル分割
 
-- [ ] RescriptJsonCodeGenerator.kt → RescriptJsonEncoderGenerator.kt + RescriptJsonDecoderGenerator.kt を抽出
-- [ ] RescriptParser.kt → RescriptDeclarationParser.kt + RescriptJsxParser.kt を抽出
-- [ ] RescriptDocumentationProvider.kt → RescriptOperatorDocumentation.kt + RescriptExternalDocUrls.kt を抽出
-- [ ] RescriptUnwrapDescriptor.kt → RescriptUnwrappers.kt + RescriptUnwrapUtils.kt を抽出
-- [ ] RescriptLspUtils.kt → RescriptLspSignatureParser.kt + RescriptLspDiagnosticParser.kt を抽出
-- [ ] ビルド確認 + テスト実行
-- [ ] コミット: `♻️ Split large files into focused modules`
+- [x] RescriptJsonCodeGenerator.kt → RescriptJsonEncoderGenerator.kt + RescriptJsonDecoderGenerator.kt を抽出
+- [x] RescriptParser.kt → RescriptDeclarationParser.kt + RescriptJsxParser.kt を抽出
+- [x] RescriptDocumentationProvider.kt → RescriptOperatorDocumentation.kt + RescriptExternalDocUrls.kt を抽出
+- [x] RescriptUnwrapDescriptor.kt → RescriptUnwrappers.kt + RescriptUnwrapUtils.kt を抽出
+- [x] RescriptLspUtils.kt → RescriptLspSignatureParser.kt + RescriptLspDiagnosticParser.kt を抽出
+- [x] ビルド確認 + テスト実行（BUILD SUCCESSFUL, all tests pass）
+- [x] コミット: `♻️ Split large files into focused modules`
 
 ## Phase 5: ドキュメント更新
 
