@@ -108,6 +108,11 @@ kover {
                 classes("com.rescript.plugin.lang.RescriptFlexLexer")
             }
         }
+        verify {
+            rule {
+                minBound(50)
+            }
+        }
     }
 }
 
