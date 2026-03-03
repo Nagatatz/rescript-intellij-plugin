@@ -155,6 +155,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **LSP 初期化オプション** (`settings/`, `lsp/`) — signatureHelp/cache/inlayHints/compileStatus の6設定を LSP に送信
 - **ビルド自動開始プロンプト** (`run/`) — プロジェクト起動時に `rescript build -w` の開始をバルーン通知で提案
 - **offset↔position 変換ユーティリティ** (`util/`) — LSP Position とエディタ offset の相互変換共通化
+- **共通 Regex パターン** (`util/`) — LIDENT/UIDENT/WHITESPACE 等の重複 Regex パターンを `RescriptRegexPatterns` に集約
 
 ## 開発規約
 
