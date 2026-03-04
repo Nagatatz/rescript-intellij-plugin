@@ -5,6 +5,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.refactoring.safeDelete.NonCodeUsageSearchInfo
 import com.intellij.refactoring.safeDelete.SafeDeleteProcessorDelegate
 import com.intellij.usageView.UsageInfo
+import com.intellij.util.containers.MultiMap
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
@@ -49,7 +50,11 @@ class RescriptSafeDeleteProcessor : SafeDeleteProcessorDelegate {
     override fun findConflicts(
         element: PsiElement,
         allElementsToDelete: Array<out PsiElement>,
-    ): MutableCollection<String>? = null
+        usages: Array<out UsageInfo>,
+        conflicts: MultiMap<PsiElement, String>,
+    ) {
+        // No ReScript-specific conflicts to report
+    }
 
     override fun preprocessUsages(
         project: Project,
