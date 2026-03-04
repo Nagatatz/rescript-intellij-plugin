@@ -1,15 +1,15 @@
 package com.rescript.plugin.imports
 
-import com.intellij.codeInsight.daemon.impl.DaemonCodeAnalyzerEx
 import com.intellij.codeInsight.daemon.impl.HighlightInfo
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.editor.impl.DocumentMarkupModel
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 
 /**
  * Detects unused `open` statements by querying LSP diagnostic warnings
- * from the daemon code analyzer.
+ * from the document markup model.
  *
  * The ReScript language server reports unused opens as warnings with
  * specific message patterns (e.g., "unused open Belt"). This detector
@@ -17,7 +17,7 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
  * by [RescriptImportOptimizer].
  *
  * @see RescriptImportOptimizer
- * @see DaemonCodeAnalyzerEx
+ * @see DocumentMarkupModel
  */
 object RescriptUnusedOpenDetector {
     // Pattern to match LSP warning messages for unused open statements.
@@ -27,7 +27,7 @@ object RescriptUnusedOpenDetector {
     /**
      * Finds unused open statements in the given file by checking LSP diagnostics.
      *
-     * Queries [DaemonCodeAnalyzerEx] for WARNING-severity highlights whose
+     * Scans the [DocumentMarkupModel] for WARNING-severity highlights whose
      * description matches the "unused open" pattern, then maps those highlight
      * ranges back to OPEN_STATEMENT PSI elements.
      *
@@ -40,17 +40,15 @@ object RescriptUnusedOpenDetector {
         val document = file.viewProvider.document ?: return emptyList()
 
         val unusedOpens = mutableListOf<PsiElement>()
-        val fileTextLength = document.textLength
 
-        // Collect all WARNING-severity highlights from the daemon analyzer
+        // Scan the document markup model for diagnostic highlighters
         try {
-            DaemonCodeAnalyzerEx.processHighlights(
-                document,
-                project,
-                HighlightSeverity.WARNING,
-                0,
-                fileTextLength,
-            ) { info ->
+            val markupModel =
+                DocumentMarkupModel.forDocument(document, project, false)
+                    ?: return emptyList()
+
+            for (highlighter in markupModel.allHighlighters) {
+                val info = HighlightInfo.fromRangeHighlighter(highlighter) ?: continue
                 if (isUnusedOpenWarning(info)) {
                     // Find the OPEN_STATEMENT PSI element at the highlight range
                     val element = findOpenStatementAt(file, info.startOffset, info.endOffset)
@@ -58,11 +56,9 @@ object RescriptUnusedOpenDetector {
                         unusedOpens.add(element)
                     }
                 }
-                // Continue processing all highlights
-                true
             }
         } catch (_: Exception) {
-            // DaemonCodeAnalyzerEx may not be available (e.g., in test or headless mode).
+            // DocumentMarkupModel may not be available (e.g., in test or headless mode).
             // Return empty list gracefully.
             return emptyList()
         }

@@ -2,3 +2,45 @@
 // "Made public in 2024.2" — https://plugins.jetbrains.com/docs/intellij/api-internal.html
 // The @Internal annotation remains in source but JetBrains officially permits third-party usage.
 com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*
+
+// ── Kotlin bridge methods ──────────────────────────────────────────────
+// Kotlin compiler generates synthetic bridge methods for Java interface
+// default methods. These are not explicitly overridden in source code.
+
+// ToolWindowFactory.isDoNotActivateOnStart() / isApplicable(Project)
+// 5 ToolWindowFactory subclasses only override shouldBeAvailable() but
+// Kotlin bytecode includes bridges for these deprecated default methods.
+com\.rescript\.plugin:.*:.*ToolWindowFactory.*isDoNotActivateOnStart.*
+com\.rescript\.plugin:.*:.*ToolWindowFactory.*isApplicable.*
+
+// ProjectViewNodeDecorator.decorate(PackageDependenciesNode, ColoredTreeCellRenderer)
+// Our decorators only override decorate(ProjectViewNode, PresentationData)
+// but Kotlin generates a bridge for the deprecated overload.
+com\.rescript\.plugin:.*:.*ProjectViewNodeDecorator.*decorate.*PackageDependenciesNode.*
+
+// StatusBarWidget.getPresentation(PlatformType)
+// Our widget overrides the parameterless getPresentation() but Kotlin
+// generates a bridge for the deprecated PlatformType overload.
+com\.rescript\.plugin:.*:.*StatusBarWidget.*getPresentation.*PlatformType.*
+com\.rescript\.plugin:.*:.*StatusBarWidget\$PlatformType.*
+
+// ── Deprecated overrides with no replacement API ───────────────────────
+// These methods are explicitly overridden in source with @Suppress annotations.
+// The verifier operates on bytecode and still reports them.
+
+// FloatingToolbarProvider.getPriority() — scheduled for removal,
+// but no replacement API exists yet.
+com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*getPriority.*
+com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*isApplicable.*
+
+// CompletionConfidence.shouldSkipAutopopup() — deprecated with no replacement.
+com\.rescript\.plugin:.*:.*CompletionConfidence.*shouldSkipAutopopup.*
+
+// StubBasedPsiElementBase.getElementType() — used in toString() for debugging.
+com\.rescript\.plugin:.*:.*StubBasedPsiElementBase.*getElementType.*
+
+// ── Transitive deprecation from LSP4J ──────────────────────────────────
+// MarkedString is referenced only via LSP4J's Hover response type
+// (Either<List<Either<String, MarkedString>>, MarkupContent>).
+// Not directly used in plugin source; cannot be fixed without LSP4J update.
+com\.rescript\.plugin:.*:.*MarkedString.*
