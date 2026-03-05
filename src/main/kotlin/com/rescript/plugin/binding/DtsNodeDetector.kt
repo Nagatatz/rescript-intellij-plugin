@@ -2,10 +2,10 @@ package com.rescript.plugin.binding
 
 import com.intellij.openapi.diagnostic.logger
 import com.rescript.plugin.settings.RescriptProjectSettings
+import com.rescript.plugin.util.RescriptProcessUtils
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.concurrent.TimeUnit
 
 /**
  * Detects Node.js and the TypeScript package required for `.d.ts` parsing.
@@ -67,25 +67,10 @@ object DtsNodeDetector {
      * @param nodePath the Node.js executable path
      * @return true if Node.js responds successfully
      */
-    fun isNodeAvailable(nodePath: String): Boolean =
-        try {
-            val proc = ProcessBuilder(nodePath, "--version").redirectErrorStream(true).start()
-            val output =
-                proc.inputStream
-                    .bufferedReader()
-                    .readLine()
-                    ?.trim() ?: ""
-            val completed = proc.waitFor(RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            if (!completed) {
-                proc.destroyForcibly()
-                return false
-            }
-            val exitCode = proc.exitValue()
-            exitCode == 0 && output.startsWith("v")
-        } catch (e: Exception) {
-            LOG.debug("Node.js availability check failed for '$nodePath'", e)
-            false
-        }
+    fun isNodeAvailable(nodePath: String): Boolean {
+        val result = RescriptProcessUtils.runSimpleCommand(nodePath, "--version")
+        return !result.timedOut && result.exitCode == 0 && result.firstLine.startsWith("v")
+    }
 
     /**
      * Checks whether TypeScript is available at the given path.

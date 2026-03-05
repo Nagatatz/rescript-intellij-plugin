@@ -157,6 +157,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **ビルド自動開始プロンプト** (`run/`) — プロジェクト起動時に `rescript build -w` の開始をバルーン通知で提案
 - **offset↔position 変換ユーティリティ** (`util/`) — LSP Position とエディタ offset の相互変換共通化
 - **共通 Regex パターン** (`util/`) — LIDENT/UIDENT/WHITESPACE/open 文パターン等の重複 Regex を `RescriptRegexPatterns` に集約
+- **プロセス実行ユーティリティ** (`util/`) — 外部コマンド実行の共通パターン（タイムアウト、stdout キャプチャ）を `RescriptProcessUtils` に集約
 - **ファイルユーティリティ** (`util/`) — `.res`/`.resi` 拡張子判定・対応ファイル検索を `RescriptFileUtil` に集約
 
 ## 開発規約
