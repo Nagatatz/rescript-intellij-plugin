@@ -5,6 +5,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.command.WriteCommandAction
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.ide.CopyPasteManager
 import com.rescript.plugin.lang.psi.RescriptFile
 import java.awt.datatransfer.DataFlavor
@@ -43,7 +44,8 @@ class RescriptPasteAsJsonAction : AnAction() {
                     com.google.gson.JsonParser
                         .parseString(jsonText),
                 )
-            } catch (_: Exception) {
+            } catch (e: Exception) {
+                LOG.debug("Failed to parse clipboard content as JSON", e)
                 return
             }
 
@@ -62,6 +64,8 @@ class RescriptPasteAsJsonAction : AnAction() {
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
 
     companion object {
+        private val LOG = logger<RescriptPasteAsJsonAction>()
+
         fun isLikelyJson(text: String): Boolean {
             val trimmed = text.trimStart()
             return trimmed.startsWith("{") || trimmed.startsWith("[")

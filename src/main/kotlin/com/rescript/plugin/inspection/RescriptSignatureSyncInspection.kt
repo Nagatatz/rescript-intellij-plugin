@@ -4,6 +4,7 @@ import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
@@ -42,7 +43,8 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
                 val resiText =
                     try {
                         String(resiFile.contentsToByteArray())
-                    } catch (_: Exception) {
+                    } catch (e: Exception) {
+                        LOG.debug("Failed to read interface file: ${resiFile.name}", e)
                         return
                     }
                 val resiDeclarations = parseDeclarationNames(resiText)
@@ -86,13 +88,15 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
                     (languageServer as com.rescript.plugin.lsp.RescriptLanguageServer)
                         .createInterface(TextDocumentIdentifier(uri))
                 }
-            } catch (_: Exception) {
-                // LSP not available; silently fail
+            } catch (e: Exception) {
+                LOG.debug("Failed to regenerate interface via LSP", e)
             }
         }
     }
 
     companion object {
+        private val LOG = logger<RescriptSignatureSyncInspection>()
+
         /**
          * Collects top-level declaration names from a PSI file.
          *
