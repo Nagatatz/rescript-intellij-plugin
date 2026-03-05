@@ -44,7 +44,7 @@ git log <前タグ>..HEAD --oneline
 
 ```bash
 git add gradle.properties
-git commit -m "🔧 Bump version to <新バージョン>"
+git commit -m "⬆ Bump version to <新バージョン>"
 ```
 
 ### 5. アノテーション付きタグの作成
