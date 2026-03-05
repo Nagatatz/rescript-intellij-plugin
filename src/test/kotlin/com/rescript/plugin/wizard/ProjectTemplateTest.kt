@@ -1,9 +1,9 @@
 package com.rescript.plugin.wizard
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class ProjectTemplateTest {
     @Test
@@ -14,14 +14,14 @@ class ProjectTemplateTest {
     @Test
     fun `each template has a non-empty displayName`() {
         ProjectTemplate.entries.forEach {
-            assertTrue("${it.name} should have non-empty displayName", it.displayName.isNotBlank())
+            assertTrue(it.displayName.isNotBlank(), "${it.name} should have non-empty displayName")
         }
     }
 
     @Test
     fun `each template has a non-empty description`() {
         ProjectTemplate.entries.forEach {
-            assertTrue("${it.name} should have non-empty description", it.description.isNotBlank())
+            assertTrue(it.description.isNotBlank(), "${it.name} should have non-empty description")
         }
     }
 
@@ -42,7 +42,7 @@ class ProjectTemplateTest {
     fun `all templates generate non-empty file maps`() {
         ProjectTemplate.entries.forEach {
             val files = it.generateFiles("test-project")
-            assertTrue("${it.name} should generate at least one file", files.isNotEmpty())
+            assertTrue(files.isNotEmpty(), "${it.name} should generate at least one file")
         }
     }
 
@@ -51,8 +51,8 @@ class ProjectTemplateTest {
         ProjectTemplate.entries.forEach {
             val files = it.generateFiles("test-project")
             assertTrue(
-                "${it.name} should have rescript.json",
                 files.keys.any { k -> k.contains("rescript.json") },
+                "${it.name} should have rescript.json",
             )
         }
     }
@@ -62,8 +62,8 @@ class ProjectTemplateTest {
         ProjectTemplate.entries.forEach {
             val files = it.generateFiles("test-project")
             assertTrue(
-                "${it.name} should generate package.json",
                 files.keys.any { k -> k.endsWith("package.json") },
+                "${it.name} should generate package.json",
             )
         }
     }
@@ -73,8 +73,8 @@ class ProjectTemplateTest {
         ProjectTemplate.entries.forEach {
             val files = it.generateFiles("test-project")
             assertTrue(
-                "${it.name} should generate at least one .res file",
                 files.keys.any { k -> k.endsWith(".res") },
+                "${it.name} should generate at least one .res file",
             )
         }
     }
@@ -215,7 +215,7 @@ class ProjectTemplateTest {
             )
         reactTemplates.forEach {
             val rj = it.generateFiles("test")["rescript.json"]!!
-            assertTrue("${it.name} should include jsx config", rj.contains("\"jsx\""))
+            assertTrue(rj.contains("\"jsx\""), "${it.name} should include jsx config")
         }
     }
 
@@ -233,7 +233,7 @@ class ProjectTemplateTest {
             )
         nonReactTemplates.forEach {
             val rj = it.generateFiles("test")["rescript.json"] ?: return@forEach
-            assertFalse("${it.name} should not include jsx config", rj.contains("\"jsx\""))
+            assertFalse(rj.contains("\"jsx\""), "${it.name} should not include jsx config")
         }
     }
 }

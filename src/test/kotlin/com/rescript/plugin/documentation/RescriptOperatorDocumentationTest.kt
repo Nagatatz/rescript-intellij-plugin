@@ -2,18 +2,18 @@ package com.rescript.plugin.documentation
 
 import com.rescript.plugin.RescriptTestUtils
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptOperatorDocumentationTest {
     @Test
     fun operatorInfoMapIsNotEmpty() {
         assertTrue(
-            "OPERATOR_INFO should contain operator entries",
             RescriptOperatorDocumentation.OPERATOR_INFO.isNotEmpty(),
+            "OPERATOR_INFO should contain operator entries",
         )
     }
 
@@ -21,8 +21,8 @@ class RescriptOperatorDocumentationTest {
     fun allOperatorsHaveValidPrecedence() {
         for ((tokenType, info) in RescriptOperatorDocumentation.OPERATOR_INFO) {
             assertTrue(
-                "Operator $tokenType (${info.name}) should have non-negative precedence",
                 info.precedence >= 0,
+                "Operator $tokenType (${info.name}) should have non-negative precedence",
             )
         }
     }
@@ -30,16 +30,16 @@ class RescriptOperatorDocumentationTest {
     @Test
     fun allOperatorsHaveNonBlankFields() {
         for ((tokenType, info) in RescriptOperatorDocumentation.OPERATOR_INFO) {
-            assertTrue("Operator $tokenType should have a non-blank name", info.name.isNotBlank())
-            assertTrue("Operator $tokenType should have a non-blank associativity", info.associativity.isNotBlank())
-            assertTrue("Operator $tokenType should have a non-blank description", info.description.isNotBlank())
+            assertTrue(info.name.isNotBlank(), "Operator $tokenType should have a non-blank name")
+            assertTrue(info.associativity.isNotBlank(), "Operator $tokenType should have a non-blank associativity")
+            assertTrue(info.description.isNotBlank(), "Operator $tokenType should have a non-blank description")
         }
     }
 
     @Test
     fun pipeForwardOperatorInfo() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.PIPE_FORWARD]
-        assertNotNull("PIPE_FORWARD should be in OPERATOR_INFO", info)
+        assertNotNull(info, "PIPE_FORWARD should be in OPERATOR_INFO")
         assertEquals("Pipe forward", info!!.name)
         assertEquals(1, info.precedence)
         assertEquals("Left", info.associativity)
@@ -48,7 +48,7 @@ class RescriptOperatorDocumentationTest {
     @Test
     fun arrowOperatorInfo() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.ARROW]
-        assertNotNull("ARROW should be in OPERATOR_INFO", info)
+        assertNotNull(info, "ARROW should be in OPERATOR_INFO")
         assertEquals("Pipe", info!!.name)
         assertEquals(1, info.precedence)
     }
@@ -85,11 +85,11 @@ class RescriptOperatorDocumentationTest {
     fun generateOperatorDocForKnownOperator() {
         val element = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.PLUS, text = "+")
         val doc = RescriptOperatorDocumentation.generateOperatorDoc(element)
-        assertNotNull("Should generate doc for PLUS operator", doc)
-        assertTrue("Doc should contain operator symbol", doc!!.contains("+"))
-        assertTrue("Doc should contain operator name", doc.contains("Addition"))
-        assertTrue("Doc should contain precedence", doc.contains("Precedence"))
-        assertTrue("Doc should contain associativity", doc.contains("Associativity"))
+        assertNotNull(doc, "Should generate doc for PLUS operator")
+        assertTrue(doc!!.contains("+"), "Doc should contain operator symbol")
+        assertTrue(doc.contains("Addition"), "Doc should contain operator name")
+        assertTrue(doc.contains("Precedence"), "Doc should contain precedence")
+        assertTrue(doc.contains("Associativity"), "Doc should contain associativity")
     }
 
     @Test
@@ -104,7 +104,7 @@ class RescriptOperatorDocumentationTest {
     fun generateOperatorDocReturnsNullForNonOperator() {
         val element = RescriptTestUtils.stubPsiElement(RescriptTokenTypes.LET, text = "let")
         val doc = RescriptOperatorDocumentation.generateOperatorDoc(element)
-        assertNull("Should return null for non-operator token", doc)
+        assertNull(doc, "Should return null for non-operator token")
     }
 
     @Test
@@ -125,7 +125,7 @@ class RescriptOperatorDocumentationTest {
             } as com.intellij.psi.PsiElement
 
         val doc = RescriptOperatorDocumentation.generateOperatorDoc(element)
-        assertNull("Should return null when node is null", doc)
+        assertNull(doc, "Should return null when node is null")
     }
 
     @Test
@@ -135,14 +135,14 @@ class RescriptOperatorDocumentationTest {
         val doc = RescriptOperatorDocumentation.generateOperatorDoc(element)
         assertNotNull(doc)
         // The "<" should be escaped as "&lt;"
-        assertTrue("Should HTML-escape operator symbol", doc!!.contains("&lt;"))
+        assertTrue(doc!!.contains("&lt;"), "Should HTML-escape operator symbol")
     }
 
     @Test
     fun functionArrowHasZeroPrecedence() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.RIGHT_ARROW]
         assertNotNull(info)
-        assertEquals("Function arrow should have precedence 0", 0, info!!.precedence)
+        assertEquals(0, info!!.precedence, "Function arrow should have precedence 0")
         assertEquals("Right", info.associativity)
     }
 }

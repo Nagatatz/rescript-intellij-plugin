@@ -1,9 +1,9 @@
 package com.rescript.plugin.projectview
 
 import com.intellij.ide.projectView.ProjectViewNestingRulesProvider
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptFileNestingProviderTest {
     private val provider = RescriptFileNestingProvider()
@@ -11,22 +11,22 @@ class RescriptFileNestingProviderTest {
     @Test
     fun `registers res to res js nesting rule`() {
         val rules = collectRules()
-        assertTrue("Should contain .res -> .res.js rule", rules.any { it.first == ".res" && it.second == ".res.js" })
+        assertTrue(rules.any { it.first == ".res" && it.second == ".res.js" }, "Should contain .res -> .res.js rule")
     }
 
     @Test
     fun `registers resi to resi js nesting rule`() {
         val rules = collectRules()
         assertTrue(
-            "Should contain .resi -> .resi.js rule",
             rules.any { it.first == ".resi" && it.second == ".resi.js" },
+            "Should contain .resi -> .resi.js rule",
         )
     }
 
     @Test
     fun `registers exactly two rules`() {
         val rules = collectRules()
-        assertEquals("Should register exactly 2 nesting rules", 2, rules.size)
+        assertEquals(2, rules.size, "Should register exactly 2 nesting rules")
     }
 
     private fun collectRules(): List<Pair<String, String>> {

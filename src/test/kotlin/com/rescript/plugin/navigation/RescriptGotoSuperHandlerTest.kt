@@ -1,10 +1,10 @@
 package com.rescript.plugin.navigation
 
 import com.intellij.codeInsight.CodeInsightActionHandler
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptGotoSuperHandlerTest {
     @Test

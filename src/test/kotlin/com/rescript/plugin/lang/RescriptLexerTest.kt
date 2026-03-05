@@ -2,9 +2,9 @@ package com.rescript.plugin.lang
 
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptLexerTest {
     private fun tokenize(input: String): List<Pair<IElementType, String>> {
@@ -570,9 +570,9 @@ class RescriptLexerTest {
         val input = "`hello ${'$'}{name}`"
         val tokens = tokenizeNoWs(input)
         assertEquals(RescriptTokenTypes.JS_STRING_OPEN, tokens[0].first)
-        assertTrue("Should contain DOLLAR", tokens.any { it.first == RescriptTokenTypes.DOLLAR })
-        assertTrue("Should contain LBRACE", tokens.any { it.first == RescriptTokenTypes.LBRACE })
-        assertTrue("Should contain RBRACE", tokens.any { it.first == RescriptTokenTypes.RBRACE })
+        assertTrue(tokens.any { it.first == RescriptTokenTypes.DOLLAR }, "Should contain DOLLAR")
+        assertTrue(tokens.any { it.first == RescriptTokenTypes.LBRACE }, "Should contain LBRACE")
+        assertTrue(tokens.any { it.first == RescriptTokenTypes.RBRACE }, "Should contain RBRACE")
         assertEquals(RescriptTokenTypes.JS_STRING_CLOSE, tokens.last().first)
     }
 
@@ -1034,13 +1034,13 @@ class RescriptLexerTest {
     @Test
     fun `edge - unclosed template literal`() {
         val tokens = tokenizeNoWs("`unclosed")
-        assertTrue("Should contain JS_STRING_OPEN", tokens.any { it.first == RescriptTokenTypes.JS_STRING_OPEN })
+        assertTrue(tokens.any { it.first == RescriptTokenTypes.JS_STRING_OPEN }, "Should contain JS_STRING_OPEN")
     }
 
     @Test
     fun `edge - template dollar without brace`() {
         val tokens = tokenizeNoWs("`\${'$'} alone`")
-        assertTrue("Should contain DOLLAR", tokens.any { it.first == RescriptTokenTypes.DOLLAR })
+        assertTrue(tokens.any { it.first == RescriptTokenTypes.DOLLAR }, "Should contain DOLLAR")
     }
 
     @Test
@@ -1085,8 +1085,8 @@ class RescriptLexerTest {
         // "1." may parse as INT + DOT or as FLOAT
         val tokens = tokenizeNoWs("1.")
         assertTrue(
-            "Should be INT_VALUE or FLOAT_VALUE",
             tokens[0].first == RescriptTokenTypes.INT_VALUE || tokens[0].first == RescriptTokenTypes.FLOAT_VALUE,
+            "Should be INT_VALUE or FLOAT_VALUE",
         )
     }
 
@@ -1126,8 +1126,8 @@ class RescriptLexerTest {
         val tokens = tokenize(input)
         val badTokens = tokens.filter { it.first == TokenType.BAD_CHARACTER }
         assertTrue(
-            "Should have no BAD_CHARACTER, found: ${badTokens.take(3)}",
             badTokens.isEmpty(),
+            "Should have no BAD_CHARACTER, found: ${badTokens.take(3)}",
         )
     }
 }

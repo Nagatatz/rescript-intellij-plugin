@@ -5,9 +5,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.Test
 
 class RescriptSpellcheckingStrategyTest {
     private val strategy = RescriptSpellcheckingStrategy()

@@ -1,8 +1,8 @@
 package com.rescript.plugin.generate
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptGenerateGroupTest {
     private val group = RescriptGenerateGroup()
@@ -17,8 +17,8 @@ class RescriptGenerateGroupTest {
     fun `getChildren contains RescriptGenerateSwitchAction`() {
         val children = group.getChildren(null)
         assertTrue(
-            "First action should be RescriptGenerateSwitchAction",
             children[0] is RescriptGenerateSwitchAction,
+            "First action should be RescriptGenerateSwitchAction",
         )
     }
 
@@ -26,8 +26,8 @@ class RescriptGenerateGroupTest {
     fun `getChildren contains RescriptGenerateModuleTypeAction`() {
         val children = group.getChildren(null)
         assertTrue(
-            "Second action should be RescriptGenerateModuleTypeAction",
             children[1] is RescriptGenerateModuleTypeAction,
+            "Second action should be RescriptGenerateModuleTypeAction",
         )
     }
 
@@ -35,8 +35,8 @@ class RescriptGenerateGroupTest {
     fun `getChildren contains RescriptGenerateMakeAction`() {
         val children = group.getChildren(null)
         assertTrue(
-            "Third action should be RescriptGenerateMakeAction",
             children[2] is RescriptGenerateMakeAction,
+            "Third action should be RescriptGenerateMakeAction",
         )
     }
 
@@ -44,8 +44,8 @@ class RescriptGenerateGroupTest {
     fun `getChildren contains RescriptGenerateRecordValueAction`() {
         val children = group.getChildren(null)
         assertTrue(
-            "Fourth action should be RescriptGenerateRecordValueAction",
             children[3] is RescriptGenerateRecordValueAction,
+            "Fourth action should be RescriptGenerateRecordValueAction",
         )
     }
 
@@ -53,8 +53,8 @@ class RescriptGenerateGroupTest {
     fun `getChildren contains RescriptGenerateJsonCodecAction`() {
         val children = group.getChildren(null)
         assertTrue(
-            "Fifth action should be RescriptGenerateJsonCodecAction",
             children[4] is RescriptGenerateJsonCodecAction,
+            "Fifth action should be RescriptGenerateJsonCodecAction",
         )
     }
 

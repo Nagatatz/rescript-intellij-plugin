@@ -1,10 +1,10 @@
 package com.rescript.plugin.generate
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptJsonEncoderGeneratorTest {
     // ── generateEncoder ──
@@ -20,10 +20,10 @@ class RescriptJsonEncoderGeneratorTest {
             )
         val result = RescriptJsonEncoderGenerator.generateEncoder("user", shape)
         assertNotNull(result)
-        assertTrue("Should contain encoder function name", result!!.contains("encodeUser"))
-        assertTrue("Should encode name field", result.contains("\"name\""))
-        assertTrue("Should encode age field", result.contains("\"age\""))
-        assertTrue("Should accept user type parameter", result.contains("v: user"))
+        assertTrue(result!!.contains("encodeUser"), "Should contain encoder function name")
+        assertTrue(result.contains("\"name\""), "Should encode name field")
+        assertTrue(result.contains("\"age\""), "Should encode age field")
+        assertTrue(result.contains("v: user"), "Should accept user type parameter")
     }
 
     @Test
@@ -38,10 +38,10 @@ class RescriptJsonEncoderGeneratorTest {
             )
         val result = RescriptJsonEncoderGenerator.generateEncoder("color", shape)
         assertNotNull(result)
-        assertTrue("Should contain encoder function name", result!!.contains("encodeColor"))
-        assertTrue("Should encode Red as String", result.contains("| Red => String(\"Red\")"))
-        assertTrue("Should encode Green as String", result.contains("| Green => String(\"Green\")"))
-        assertTrue("Should encode Blue as String", result.contains("| Blue => String(\"Blue\")"))
+        assertTrue(result!!.contains("encodeColor"), "Should contain encoder function name")
+        assertTrue(result.contains("| Red => String(\"Red\")"), "Should encode Red as String")
+        assertTrue(result.contains("| Green => String(\"Green\")"), "Should encode Green as String")
+        assertTrue(result.contains("| Blue => String(\"Blue\")"), "Should encode Blue as String")
     }
 
     @Test
@@ -55,29 +55,29 @@ class RescriptJsonEncoderGeneratorTest {
             )
         val result = RescriptJsonEncoderGenerator.generateEncoder("shape", shape)
         assertNotNull(result)
-        assertTrue("Should use tag-based encoding", result!!.contains("\"tag\""))
-        assertTrue("Should encode Circle with payload", result.contains("Circle(v0)"))
-        assertTrue("Should encode Square without payload", result.contains("| Square =>"))
+        assertTrue(result!!.contains("\"tag\""), "Should use tag-based encoding")
+        assertTrue(result.contains("Circle(v0)"), "Should encode Circle with payload")
+        assertTrue(result.contains("| Square =>"), "Should encode Square without payload")
     }
 
     @Test
     fun generateEncoderForUnknownTypeReturnsNull() {
         val result = RescriptJsonEncoderGenerator.generateEncoder("foo", TypeShape.Unknown)
-        assertNull("Unknown type shape should return null", result)
+        assertNull(result, "Unknown type shape should return null")
     }
 
     @Test
     fun generateEncoderForEmptyRecordReturnsNull() {
         val shape = TypeShape.Record(emptyList())
         val result = RescriptJsonEncoderGenerator.generateEncoder("empty", shape)
-        assertNull("Empty record should return null", result)
+        assertNull(result, "Empty record should return null")
     }
 
     @Test
     fun generateEncoderForEmptyVariantReturnsNull() {
         val shape = TypeShape.Variant(emptyList())
         val result = RescriptJsonEncoderGenerator.generateEncoder("empty", shape)
-        assertNull("Empty variant should return null", result)
+        assertNull(result, "Empty variant should return null")
     }
 
     @Test
@@ -88,7 +88,7 @@ class RescriptJsonEncoderGeneratorTest {
             )
         val result = RescriptJsonEncoderGenerator.generateEncoder("t", shape)
         assertNotNull(result)
-        assertTrue("Type t should produce 'encode' function name", result!!.contains("let encode ="))
+        assertTrue(result!!.contains("let encode ="), "Type t should produce 'encode' function name")
     }
 
     // ── encodeExpression ──
@@ -121,34 +121,34 @@ class RescriptJsonEncoderGeneratorTest {
     fun encodeExpressionForOptionType() {
         val optionType = RescriptJsonType.OptionType(RescriptJsonType.StringType)
         val expr = RescriptJsonEncoderGenerator.encodeExpression(optionType, "v.nickname")
-        assertTrue("Should use Option.mapOr", expr.contains("Option.mapOr"))
-        assertTrue("Should use Null for None", expr.contains("Null"))
-        assertTrue("Should encode inner as String", expr.contains("String(v)"))
+        assertTrue(expr.contains("Option.mapOr"), "Should use Option.mapOr")
+        assertTrue(expr.contains("Null"), "Should use Null for None")
+        assertTrue(expr.contains("String(v)"), "Should encode inner as String")
     }
 
     @Test
     fun encodeExpressionForArrayType() {
         val arrayType = RescriptJsonType.ArrayType(RescriptJsonType.IntType)
         val expr = RescriptJsonEncoderGenerator.encodeExpression(arrayType, "v.ids")
-        assertTrue("Should wrap in Array", expr.startsWith("Array("))
-        assertTrue("Should map over elements", expr.contains("Array.map"))
-        assertTrue("Should convert inner to Number", expr.contains("Number(v->Int.toFloat)"))
+        assertTrue(expr.startsWith("Array("), "Should wrap in Array")
+        assertTrue(expr.contains("Array.map"), "Should map over elements")
+        assertTrue(expr.contains("Number(v->Int.toFloat)"), "Should convert inner to Number")
     }
 
     @Test
     fun encodeExpressionForUnknownType() {
         val unknownType = RescriptJsonType.UnknownType("customType")
         val expr = RescriptJsonEncoderGenerator.encodeExpression(unknownType, "v.data")
-        assertTrue("Should contain TODO comment", expr.contains("TODO"))
-        assertTrue("Should reference the raw type", expr.contains("customType"))
-        assertTrue("Should fallback to Null", expr.contains("Null"))
+        assertTrue(expr.contains("TODO"), "Should contain TODO comment")
+        assertTrue(expr.contains("customType"), "Should reference the raw type")
+        assertTrue(expr.contains("Null"), "Should fallback to Null")
     }
 
     @Test
     fun encodeExpressionForNestedOptionArray() {
         val nestedType = RescriptJsonType.OptionType(RescriptJsonType.ArrayType(RescriptJsonType.StringType))
         val expr = RescriptJsonEncoderGenerator.encodeExpression(nestedType, "v.tags")
-        assertTrue("Should handle option wrapping", expr.contains("Option.mapOr"))
-        assertTrue("Should handle array encoding", expr.contains("Array("))
+        assertTrue(expr.contains("Option.mapOr"), "Should handle option wrapping")
+        assertTrue(expr.contains("Array("), "Should handle array encoding")
     }
 }

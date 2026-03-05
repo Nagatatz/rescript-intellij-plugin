@@ -1,15 +1,15 @@
 package com.rescript.plugin.util
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Rule
-import org.junit.Test
-import org.junit.rules.TemporaryFolder
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
+import java.io.File
 
 class RescriptSecurityUtilsTest {
-    @get:Rule
-    val tempDir = TemporaryFolder()
+    @TempDir
+    lateinit var tempDir: File
 
     // ── isValidExecutable ─────────────────────────────────────────
 
@@ -30,20 +30,20 @@ class RescriptSecurityUtilsTest {
 
     @Test
     fun `isValidExecutable returns false for directory`() {
-        val dir = tempDir.newFolder("mydir")
+        val dir = File(tempDir, "mydir").apply { mkdir() }
         assertFalse(RescriptSecurityUtils.isValidExecutable(dir.absolutePath))
     }
 
     @Test
     fun `isValidExecutable returns false for non-executable file`() {
-        val file = tempDir.newFile("script.sh")
+        val file = File(tempDir, "script.sh").apply { createNewFile() }
         file.setExecutable(false)
         assertFalse(RescriptSecurityUtils.isValidExecutable(file.absolutePath))
     }
 
     @Test
     fun `isValidExecutable returns true for executable file`() {
-        val file = tempDir.newFile("script.sh")
+        val file = File(tempDir, "script.sh").apply { createNewFile() }
         file.setExecutable(true)
         assertTrue(RescriptSecurityUtils.isValidExecutable(file.absolutePath))
     }

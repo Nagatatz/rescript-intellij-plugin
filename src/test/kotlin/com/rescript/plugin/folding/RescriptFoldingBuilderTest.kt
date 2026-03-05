@@ -5,10 +5,10 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 /**
  * Subclass that exposes protected methods for unit testing.

@@ -1,7 +1,7 @@
 package com.rescript.plugin.generate
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /** Tests for [RescriptGenerateRecordValueAction] static generation logic. */
 class RescriptGenerateRecordValueActionTest {

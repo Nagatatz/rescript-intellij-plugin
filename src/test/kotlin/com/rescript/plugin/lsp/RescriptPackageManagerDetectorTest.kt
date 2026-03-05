@@ -1,21 +1,21 @@
 package com.rescript.plugin.lsp
 
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.nio.file.Files
 import java.nio.file.Path
 
 class RescriptPackageManagerDetectorTest {
     private lateinit var tempDir: Path
 
-    @Before
+    @BeforeEach
     fun setUp() {
         tempDir = Files.createTempDirectory("rescript-pm-detector-test")
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         tempDir.toFile().deleteRecursively()
     }

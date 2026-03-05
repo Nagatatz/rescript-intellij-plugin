@@ -3,10 +3,10 @@ package com.rescript.plugin.config
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptIcons
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Test
 
 class RescriptJsonIconProviderTest {
     private val provider = RescriptJsonIconProvider()

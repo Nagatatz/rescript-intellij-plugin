@@ -1,9 +1,9 @@
 package com.rescript.plugin.highlight
 
 import com.intellij.codeInsight.highlighting.HighlightUsagesHandlerFactory
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptHighlightUsagesHandlerFactoryTest {
     @Test
@@ -38,6 +38,7 @@ class RescriptHighlightUsagesHandlerFactoryTest {
         expected: Int,
         actual: Int,
     ) {
-        org.junit.Assert.assertEquals(expected, actual)
+        org.junit.jupiter.api.Assertions
+            .assertEquals(expected, actual)
     }
 }

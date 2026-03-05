@@ -6,9 +6,9 @@ import com.rescript.plugin.RescriptTestUtils.SimpleStubElement
 import com.rescript.plugin.RescriptTestUtils.stubProxy
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Test
 
 class RescriptImportOptimizerTest {
     private val optimizer = RescriptImportOptimizer()

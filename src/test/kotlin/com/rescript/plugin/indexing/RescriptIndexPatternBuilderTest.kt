@@ -1,9 +1,9 @@
 package com.rescript.plugin.indexing
 
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
 
 class RescriptIndexPatternBuilderTest {
     private val builder = RescriptIndexPatternBuilder()

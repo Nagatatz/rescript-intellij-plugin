@@ -7,10 +7,10 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptWordSelectionHandlerTest {
     // -- RescriptStringSelectionHandler --

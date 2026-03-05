@@ -1,9 +1,9 @@
 package com.rescript.plugin.highlight
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptColorSettingsPageTest {
     private val page = RescriptColorSettingsPage()
@@ -31,16 +31,16 @@ class RescriptColorSettingsPageTest {
     @Test
     fun testAttributeDescriptorsContainLexerAndSemanticEntries() {
         val names = page.attributeDescriptors.map { it.displayName }
-        assertTrue("Should contain Keyword", names.contains("Keyword"))
-        assertTrue("Should contain String", names.contains("String"))
-        assertTrue("Should contain Operator", names.contains("Operator"))
-        assertTrue("Should contain Semantic//Variable", names.contains("Semantic//Variable"))
+        assertTrue(names.contains("Keyword"), "Should contain Keyword")
+        assertTrue(names.contains("String"), "Should contain String")
+        assertTrue(names.contains("Operator"), "Should contain Operator")
+        assertTrue(names.contains("Semantic//Variable"), "Should contain Semantic//Variable")
     }
 
     @Test
     fun testAllDescriptorsHaveNonNullKey() {
         for (desc in page.attributeDescriptors) {
-            assertNotNull("Descriptor '${desc.displayName}' should have non-null key", desc.key)
+            assertNotNull(desc.key, "Descriptor '${desc.displayName}' should have non-null key")
         }
     }
 

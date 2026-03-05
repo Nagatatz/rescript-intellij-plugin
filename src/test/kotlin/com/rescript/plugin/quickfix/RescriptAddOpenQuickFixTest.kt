@@ -1,7 +1,7 @@
 package com.rescript.plugin.quickfix
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /** Tests for [RescriptAddOpenQuickFix] static helper methods. */
 class RescriptAddOpenQuickFixTest {

@@ -2,9 +2,9 @@ package com.rescript.plugin.imports
 
 import com.intellij.codeInsight.daemon.impl.HighlightInfo
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptUnusedOpenDetectorTest {
     // ── isUnusedOpenWarning() tests ─────────────────────────────────────

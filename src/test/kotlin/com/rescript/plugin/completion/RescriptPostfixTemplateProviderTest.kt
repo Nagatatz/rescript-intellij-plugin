@@ -6,11 +6,11 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptPostfixTemplateProviderTest {
     private val provider = RescriptPostfixTemplateProvider()
@@ -89,7 +89,7 @@ class RescriptPostfixTemplateProviderTest {
     fun testTemplatesAreNotEmpty() {
         for (template in provider.templates) {
             assertNotNull(template.key)
-            assertTrue("Template key '${template.key}' should not be blank", template.key.isNotBlank())
+            assertTrue(template.key.isNotBlank(), "Template key '${template.key}' should not be blank")
         }
     }
 

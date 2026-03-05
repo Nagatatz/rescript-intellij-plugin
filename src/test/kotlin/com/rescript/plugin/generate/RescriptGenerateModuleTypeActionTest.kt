@@ -4,9 +4,9 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.psi.RescriptElementTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptGenerateModuleTypeActionTest {
     @Test
@@ -204,7 +204,8 @@ class RescriptGenerateModuleTypeActionTest {
     // -- stub helpers --
 
     private fun assertFalse(condition: Boolean) {
-        org.junit.Assert.assertFalse(condition)
+        org.junit.jupiter.api.Assertions
+            .assertFalse(condition)
     }
 
     private fun stubModuleWithChildren(children: List<Pair<IElementType, String>>): PsiElement {
