@@ -11,12 +11,12 @@ import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import com.intellij.platform.lsp.api.customization.LspCustomization
 import com.rescript.plugin.settings.RescriptProjectSettings
 import com.rescript.plugin.util.RescriptFileUtil
+import com.rescript.plugin.util.RescriptProcessUtils
 import com.rescript.plugin.util.RescriptSecurityUtils
 import org.eclipse.lsp4j.services.LanguageServer
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.concurrent.TimeUnit
 
 /**
  * Descriptor for the ReScript Language Server.
@@ -194,26 +194,12 @@ class RescriptLspServerDescriptor(
         return null
     }
 
-    private fun tryExec(vararg args: String): String? =
-        try {
-            val proc = ProcessBuilder(*args).redirectErrorStream(true).start()
-            val output =
-                proc.inputStream.use { stream ->
-                    stream.bufferedReader().readLine()?.trim()
-                }
-            val completed = proc.waitFor(RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            if (!completed) {
-                proc.destroyForcibly()
-                return null
-            }
-            val ok = proc.exitValue() == 0
-            if (ok && !output.isNullOrEmpty() && File(output).exists()) output else null
-        } catch (e: InterruptedException) {
-            Thread.currentThread().interrupt()
-            null
-        } catch (_: Exception) {
-            null
-        }
+    private fun tryExec(vararg args: String): String? {
+        val result = RescriptProcessUtils.runSimpleCommand(*args)
+        if (result.timedOut || result.exitCode != 0) return null
+        val output = result.firstLine
+        return if (output.isNotEmpty() && File(output).exists()) output else null
+    }
 
     companion object {
         private val LOG = logger<RescriptLspServerDescriptor>()
