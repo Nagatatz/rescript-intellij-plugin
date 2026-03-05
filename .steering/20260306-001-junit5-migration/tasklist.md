@@ -10,4 +10,4 @@
 - [x] Verify all tests pass: `./gradlew test`
 - [x] Verify build: `./gradlew clean buildPlugin`
 - [x] Commit changes
-- [ ] Merge to main
+- [x] Merge to main
