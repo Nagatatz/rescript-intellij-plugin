@@ -1,5 +1,6 @@
 package com.rescript.plugin.repl
 
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.util.io.FileUtil
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -12,6 +13,8 @@ import java.util.concurrent.TimeUnit
  * experience without requiring a persistent REPL subprocess.
  */
 object RescriptReplExecutor {
+    private val LOG = logger<RescriptReplExecutor>()
+
     /** Timeout in seconds for compile and execution steps. */
     private const val TIMEOUT_SECONDS = 30L
 
@@ -110,7 +113,14 @@ object RescriptReplExecutor {
                     .directory(projectDir)
                     .redirectErrorStream(true)
                     .start()
-            val compileCompleted = compileProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            val compileCompleted =
+                try {
+                    compileProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                } catch (e: InterruptedException) {
+                    compileProcess.destroyForcibly()
+                    Thread.currentThread().interrupt()
+                    return "Error: interrupted"
+                }
             if (!compileCompleted) {
                 compileProcess.destroyForcibly()
                 return "Error: compilation timed out"
@@ -132,7 +142,14 @@ object RescriptReplExecutor {
                 ProcessBuilder("node", jsFile.absolutePath)
                     .directory(projectDir)
                     .start()
-            val runCompleted = runProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            val runCompleted =
+                try {
+                    runProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                } catch (e: InterruptedException) {
+                    runProcess.destroyForcibly()
+                    Thread.currentThread().interrupt()
+                    return "Error: interrupted"
+                }
             if (!runCompleted) {
                 runProcess.destroyForcibly()
                 return "Error: execution timed out"

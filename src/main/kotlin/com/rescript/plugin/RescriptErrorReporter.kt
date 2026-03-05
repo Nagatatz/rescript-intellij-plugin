@@ -4,6 +4,7 @@ import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.diagnostic.ErrorReportSubmitter
 import com.intellij.openapi.diagnostic.IdeaLoggingEvent
 import com.intellij.openapi.diagnostic.SubmittedReportInfo
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.util.Consumer
 import java.awt.Component
 import java.net.URLEncoder
@@ -46,6 +47,7 @@ class RescriptErrorReporter : ErrorReportSubmitter() {
     }
 
     companion object {
+        private val LOG = logger<RescriptErrorReporter>()
         private const val GITHUB_REPO = "ngtz/rescript-intellij-plugin"
 
         // Maximum URL length to avoid browser/server limits
@@ -179,7 +181,8 @@ class RescriptErrorReporter : ErrorReportSubmitter() {
                             .getId("com.rescript.plugin"),
                     )
                 pluginManager?.version ?: "unknown"
-            } catch (_: Exception) {
+            } catch (e: Exception) {
+                LOG.trace(e)
                 "unknown"
             }
 
@@ -189,7 +192,8 @@ class RescriptErrorReporter : ErrorReportSubmitter() {
                     com.intellij.openapi.application.ApplicationInfo
                         .getInstance()
                 "${appInfo.fullApplicationName} (${appInfo.build.asString()})"
-            } catch (_: Exception) {
+            } catch (e: Exception) {
+                LOG.trace(e)
                 "unknown"
             }
     }
