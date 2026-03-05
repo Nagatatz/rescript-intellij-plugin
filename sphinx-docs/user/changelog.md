@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.4
+
+### Bug Fixes
+
+- Rewrite CodeVisionProvider in Java to avoid internal API reference
+- Add exception logging and fix InterruptedException handling
+
+### Refactoring
+
+- Extract RescriptProcessUtils for shared process execution
+
+### Infrastructure
+
+- Optimize CI by merging verify job and reordering Kover tasks
+- Add Kover exclusions and unit tests for coverage improvement
+- Add medium-difficulty tests for StringLiteral, DtsParserProcess, and GenerateActionUtil
+- Expand plugin description and fix changelog versioning
+
 ## 0.1.3
 
 ### Improvements

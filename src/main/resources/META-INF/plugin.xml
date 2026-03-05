@@ -69,6 +69,24 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.4</h3>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Rewrite CodeVisionProvider in Java to avoid internal API reference</li>
+            <li>Add exception logging and fix InterruptedException handling</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Extract RescriptProcessUtils for shared process execution</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Optimize CI by merging verify job and reordering Kover tasks</li>
+            <li>Add Kover exclusions and unit tests for coverage improvement</li>
+            <li>Add medium-difficulty tests for StringLiteral, DtsParserProcess, and GenerateActionUtil</li>
+            <li>Expand plugin description and fix changelog versioning</li>
+        </ul>
+
         <h3>0.1.3</h3>
         <h4>New Features</h4>
         <ul>
