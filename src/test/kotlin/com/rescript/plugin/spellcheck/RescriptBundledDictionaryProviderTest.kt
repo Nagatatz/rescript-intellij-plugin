@@ -1,8 +1,8 @@
 package com.rescript.plugin.spellcheck
 
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptBundledDictionaryProviderTest {
     private val provider = RescriptBundledDictionaryProvider()
@@ -23,7 +23,7 @@ class RescriptBundledDictionaryProviderTest {
     fun `dictionary resource file exists on classpath`() {
         val path = provider.bundledDictionaries.first()
         val resource = javaClass.getResource(path)
-        assertNotNull("Dictionary resource file should exist at $path", resource)
+        assertNotNull(resource, "Dictionary resource file should exist at $path")
     }
 
     @Test
@@ -35,8 +35,8 @@ class RescriptBundledDictionaryProviderTest {
         val expectedTerms = listOf("rescript", "genType", "Belt", "Js", "functor", "polyvariant")
         for (term in expectedTerms) {
             assertTrue(
-                "Dictionary should contain '$term'",
                 words.any { it.equals(term, ignoreCase = false) },
+                "Dictionary should contain '$term'",
             )
         }
     }

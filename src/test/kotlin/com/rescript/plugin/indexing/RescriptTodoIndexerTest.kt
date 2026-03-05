@@ -1,8 +1,8 @@
 package com.rescript.plugin.indexing
 
 import com.intellij.psi.impl.cache.impl.OccurrenceConsumer
-import org.junit.Assert.assertNotNull
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
 
 class RescriptTodoIndexerTest {
     private val indexer = RescriptTodoIndexer()
@@ -20,7 +20,7 @@ class RescriptTodoIndexerTest {
         val lexer = indexer.createLexer(consumer)
         // The returned lexer is a RescriptFilterLexer (BaseFilterLexer subclass)
         // which wraps a RescriptLexer as its delegate
-        assertNotNull("Lexer should not be null", lexer)
+        assertNotNull(lexer, "Lexer should not be null")
     }
 
     @Test

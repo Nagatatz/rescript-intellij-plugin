@@ -1,10 +1,10 @@
 package com.rescript.plugin.completion
 
 import com.intellij.codeInsight.template.TemplateContextType
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptTemplateContextTypeTest {
     @Test

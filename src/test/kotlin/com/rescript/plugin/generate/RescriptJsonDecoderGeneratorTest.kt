@@ -1,10 +1,10 @@
 package com.rescript.plugin.generate
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptJsonDecoderGeneratorTest {
     // ── generateDecoder ──
@@ -20,10 +20,10 @@ class RescriptJsonDecoderGeneratorTest {
             )
         val result = RescriptJsonDecoderGenerator.generateDecoder("user", shape)
         assertNotNull(result)
-        assertTrue("Should contain decoder function name", result!!.contains("decodeUser"))
-        assertTrue("Should decode name field", result.contains("\"name\""))
-        assertTrue("Should decode age field", result.contains("\"age\""))
-        assertTrue("Should return option type", result.contains("option<user>"))
+        assertTrue(result!!.contains("decodeUser"), "Should contain decoder function name")
+        assertTrue(result.contains("\"name\""), "Should decode name field")
+        assertTrue(result.contains("\"age\""), "Should decode age field")
+        assertTrue(result.contains("option<user>"), "Should return option type")
     }
 
     @Test
@@ -38,10 +38,10 @@ class RescriptJsonDecoderGeneratorTest {
             )
         val result = RescriptJsonDecoderGenerator.generateDecoder("color", shape)
         assertNotNull(result)
-        assertTrue("Should contain decoder function name", result!!.contains("decodeColor"))
-        assertTrue("Should match Red string", result.contains("String(\"Red\")"))
-        assertTrue("Should match Green string", result.contains("String(\"Green\")"))
-        assertTrue("Should match Blue string", result.contains("String(\"Blue\")"))
+        assertTrue(result!!.contains("decodeColor"), "Should contain decoder function name")
+        assertTrue(result.contains("String(\"Red\")"), "Should match Red string")
+        assertTrue(result.contains("String(\"Green\")"), "Should match Green string")
+        assertTrue(result.contains("String(\"Blue\")"), "Should match Blue string")
     }
 
     @Test
@@ -55,29 +55,29 @@ class RescriptJsonDecoderGeneratorTest {
             )
         val result = RescriptJsonDecoderGenerator.generateDecoder("shape", shape)
         assertNotNull(result)
-        assertTrue("Should use tag-based decoding", result!!.contains("\"tag\""))
-        assertTrue("Should decode Circle", result.contains("\"Circle\""))
-        assertTrue("Should decode Rect", result.contains("\"Rect\""))
+        assertTrue(result!!.contains("\"tag\""), "Should use tag-based decoding")
+        assertTrue(result.contains("\"Circle\""), "Should decode Circle")
+        assertTrue(result.contains("\"Rect\""), "Should decode Rect")
     }
 
     @Test
     fun generateDecoderForUnknownTypeReturnsNull() {
         val result = RescriptJsonDecoderGenerator.generateDecoder("foo", TypeShape.Unknown)
-        assertNull("Unknown type shape should return null", result)
+        assertNull(result, "Unknown type shape should return null")
     }
 
     @Test
     fun generateDecoderForEmptyRecordReturnsNull() {
         val shape = TypeShape.Record(emptyList())
         val result = RescriptJsonDecoderGenerator.generateDecoder("empty", shape)
-        assertNull("Empty record should return null", result)
+        assertNull(result, "Empty record should return null")
     }
 
     @Test
     fun generateDecoderForEmptyVariantReturnsNull() {
         val shape = TypeShape.Variant(emptyList())
         val result = RescriptJsonDecoderGenerator.generateDecoder("empty", shape)
-        assertNull("Empty variant should return null", result)
+        assertNull(result, "Empty variant should return null")
     }
 
     @Test
@@ -89,7 +89,7 @@ class RescriptJsonDecoderGeneratorTest {
         val result = RescriptJsonDecoderGenerator.generateDecoder("t", shape)
         assertNotNull(result)
         // Type "t" should produce "decode" (not "decodeT")
-        assertTrue("Type t should produce 'decode' function name", result!!.contains("let decode ="))
+        assertTrue(result!!.contains("let decode ="), "Type t should produce 'decode' function name")
     }
 
     // ── decodeFieldExpression ──
@@ -97,23 +97,23 @@ class RescriptJsonDecoderGeneratorTest {
     @Test
     fun decodeFieldExpressionForStringType() {
         val expr = RescriptJsonDecoderGenerator.decodeFieldExpression(RescriptJsonType.StringType, "name")
-        assertTrue("Should access dict field", expr.contains("dict->Dict.get(\"name\")"))
-        assertTrue("Should decode string", expr.contains("String(v)"))
+        assertTrue(expr.contains("dict->Dict.get(\"name\")"), "Should access dict field")
+        assertTrue(expr.contains("String(v)"), "Should decode string")
     }
 
     @Test
     fun decodeFieldExpressionForIntType() {
         val expr = RescriptJsonDecoderGenerator.decodeFieldExpression(RescriptJsonType.IntType, "age")
-        assertTrue("Should decode int via Number", expr.contains("Number(v)"))
-        assertTrue("Should convert to int", expr.contains("Int.fromFloat"))
+        assertTrue(expr.contains("Number(v)"), "Should decode int via Number")
+        assertTrue(expr.contains("Int.fromFloat"), "Should convert to int")
     }
 
     @Test
     fun decodeFieldExpressionForOptionType() {
         val optionType = RescriptJsonType.OptionType(RescriptJsonType.StringType)
         val expr = RescriptJsonDecoderGenerator.decodeFieldExpression(optionType, "nickname")
-        assertTrue("Should handle Null for option", expr.contains("Null"))
-        assertTrue("Should handle Some wrapping", expr.contains("Some"))
+        assertTrue(expr.contains("Null"), "Should handle Null for option")
+        assertTrue(expr.contains("Some"), "Should handle Some wrapping")
     }
 
     // ── decodeInlineExpression ──
@@ -146,24 +146,24 @@ class RescriptJsonDecoderGeneratorTest {
     fun decodeInlineExpressionForArray() {
         val arrayType = RescriptJsonType.ArrayType(RescriptJsonType.StringType)
         val expr = RescriptJsonDecoderGenerator.decodeInlineExpression(arrayType)
-        assertTrue("Should match Array pattern", expr.contains("| Array(arr)"))
-        assertTrue("Should reduce array", expr.contains("Array.reduce"))
+        assertTrue(expr.contains("| Array(arr)"), "Should match Array pattern")
+        assertTrue(expr.contains("Array.reduce"), "Should reduce array")
     }
 
     @Test
     fun decodeInlineExpressionForUnknownType() {
         val unknownType = RescriptJsonType.UnknownType("customType")
         val expr = RescriptJsonDecoderGenerator.decodeInlineExpression(unknownType)
-        assertTrue("Should contain TODO comment", expr.contains("TODO"))
-        assertTrue("Should reference the raw type", expr.contains("customType"))
-        assertTrue("Should return None", expr.contains("None"))
+        assertTrue(expr.contains("TODO"), "Should contain TODO comment")
+        assertTrue(expr.contains("customType"), "Should reference the raw type")
+        assertTrue(expr.contains("None"), "Should return None")
     }
 
     @Test
     fun decodeInlineExpressionForNestedOption() {
         val nestedOption = RescriptJsonType.OptionType(RescriptJsonType.IntType)
         val expr = RescriptJsonDecoderGenerator.decodeInlineExpression(nestedOption)
-        assertTrue("Should handle Null case", expr.contains("Null"))
-        assertTrue("Should handle inner decode", expr.contains("Number(v)"))
+        assertTrue(expr.contains("Null"), "Should handle Null case")
+        assertTrue(expr.contains("Number(v)"), "Should handle inner decode")
     }
 }

@@ -1,7 +1,7 @@
 package com.rescript.plugin.completion
 
-import org.junit.Assert.assertNotNull
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
 
 class RescriptLookupCharFilterTest {
     @Test

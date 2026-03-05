@@ -1,9 +1,9 @@
 package com.rescript.plugin.util
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 /**
  * Tests for [RescriptProcessUtils] — shared process execution utility.
@@ -22,7 +22,7 @@ class RescriptProcessUtilsTest {
     @Test
     fun testRunSimpleCommandCapturesExitCode() {
         val result = RescriptProcessUtils.runSimpleCommand("false")
-        assertTrue("Exit code should be non-zero", result.exitCode != 0)
+        assertTrue(result.exitCode != 0, "Exit code should be non-zero")
         assertFalse(result.timedOut)
     }
 
@@ -30,7 +30,7 @@ class RescriptProcessUtilsTest {
     fun testRunSimpleCommandHandlesNonExistentCommand() {
         val result = RescriptProcessUtils.runSimpleCommand("__nonexistent_command_12345__")
         // Should not throw, returns error result
-        assertTrue("Exit code should be -1 for failed process", result.exitCode == -1)
+        assertTrue(result.exitCode == -1, "Exit code should be -1 for failed process")
         assertFalse(result.timedOut)
     }
 }

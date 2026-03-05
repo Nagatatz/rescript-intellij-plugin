@@ -5,9 +5,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptCallAnalyzerTest {
     // ── CallReference data class tests ───────────────────────────────

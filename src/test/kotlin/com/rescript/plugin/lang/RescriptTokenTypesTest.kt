@@ -1,9 +1,9 @@
 package com.rescript.plugin.lang
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptTokenTypesTest {
     // ── KEYWORDS TokenSet ──
@@ -78,7 +78,7 @@ class RescriptTokenTypesTest {
                 RescriptTokenTypes.BOOL_VALUE,
             )
         for (token in expected) {
-            assertTrue("KEYWORDS should contain $token", RescriptTokenTypes.KEYWORDS.contains(token))
+            assertTrue(RescriptTokenTypes.KEYWORDS.contains(token), "KEYWORDS should contain $token")
         }
         assertEquals(expected.size, RescriptTokenTypes.KEYWORDS.types.size)
     }

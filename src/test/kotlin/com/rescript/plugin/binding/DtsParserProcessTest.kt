@@ -1,11 +1,11 @@
 package com.rescript.plugin.binding
 
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.lang.reflect.Field
 import java.nio.file.Files
 
@@ -16,7 +16,7 @@ import java.nio.file.Files
 class DtsParserProcessTest {
     private lateinit var cachedField: Field
 
-    @Before
+    @BeforeEach
     fun setUp() {
         // Reset cachedScriptPath to null before each test via reflection
         cachedField = DtsParserProcess::class.java.getDeclaredField("cachedScriptPath")
@@ -24,7 +24,7 @@ class DtsParserProcessTest {
         cachedField.set(DtsParserProcess, null)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         // Clean up: reset cache
         cachedField.set(DtsParserProcess, null)
@@ -33,21 +33,21 @@ class DtsParserProcessTest {
     @Test
     fun testExtractScriptReturnsTempFile() {
         val path = DtsParserProcess.extractScript()
-        assertNotNull("extractScript should return a non-null Path", path)
-        assertTrue("Extracted file should exist", Files.isRegularFile(path))
+        assertNotNull(path, "extractScript should return a non-null Path")
+        assertTrue(Files.isRegularFile(path), "Extracted file should exist")
     }
 
     @Test
     fun testExtractScriptFileContainsContent() {
         val path = DtsParserProcess.extractScript()
         val size = Files.size(path)
-        assertTrue("Extracted file should have non-empty content (size=$size)", size > 0)
+        assertTrue(size > 0, "Extracted file should have non-empty content (size=$size)")
     }
 
     @Test
     fun testExtractScriptCachesResult() {
         val first = DtsParserProcess.extractScript()
         val second = DtsParserProcess.extractScript()
-        assertEquals("Second call should return the same cached Path", first, second)
+        assertEquals(first, second, "Second call should return the same cached Path")
     }
 }

@@ -3,9 +3,9 @@ package com.rescript.plugin.editor
 import com.intellij.openapi.editor.highlighter.HighlighterIterator
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptQuoteHandlerTest {
     private val handler = RescriptQuoteHandler()

@@ -1,9 +1,9 @@
 package com.rescript.plugin.wizard
 
 import com.rescript.plugin.RescriptIcons
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
 
 class RescriptModuleBuilderTest {
     private val builder = RescriptModuleBuilder()

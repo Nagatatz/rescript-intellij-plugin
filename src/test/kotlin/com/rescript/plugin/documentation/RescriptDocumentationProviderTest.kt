@@ -5,12 +5,12 @@ import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.RescriptTokenTypes
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptDocumentationProviderTest {
     @Test
@@ -109,13 +109,13 @@ class RescriptDocumentationProviderTest {
     @Test
     fun `MODULE_URL_MAP contains Belt submodules`() {
         val beltKeys = RescriptExternalDocUrls.MODULE_URL_MAP.keys.filter { it.startsWith("Belt") }
-        assertTrue("Expected multiple Belt entries", beltKeys.size > 10)
+        assertTrue(beltKeys.size > 10, "Expected multiple Belt entries")
     }
 
     @Test
     fun `MODULE_URL_MAP contains Js submodules`() {
         val jsKeys = RescriptExternalDocUrls.MODULE_URL_MAP.keys.filter { it.startsWith("Js") }
-        assertTrue("Expected multiple Js entries", jsKeys.size > 10)
+        assertTrue(jsKeys.size > 10, "Expected multiple Js entries")
     }
 
     @Test
@@ -135,7 +135,7 @@ class RescriptDocumentationProviderTest {
     @Test
     fun `OPERATOR_INFO contains pipe forward`() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.PIPE_FORWARD]
-        assertNotNull("PIPE_FORWARD should have operator info", info)
+        assertNotNull(info, "PIPE_FORWARD should have operator info")
         assertEquals("Pipe forward", info!!.name)
         assertEquals(1, info.precedence)
     }
@@ -143,14 +143,14 @@ class RescriptDocumentationProviderTest {
     @Test
     fun `OPERATOR_INFO contains arrow`() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.ARROW]
-        assertNotNull("ARROW should have operator info", info)
+        assertNotNull(info, "ARROW should have operator info")
         assertEquals("Pipe", info!!.name)
     }
 
     @Test
     fun `OPERATOR_INFO contains string concat`() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.STRING_CONCAT]
-        assertNotNull("STRING_CONCAT should have operator info", info)
+        assertNotNull(info, "STRING_CONCAT should have operator info")
         assertEquals("String concatenation", info!!.name)
         assertEquals(5, info.precedence)
     }
@@ -158,7 +158,7 @@ class RescriptDocumentationProviderTest {
     @Test
     fun `OPERATOR_INFO contains eqeqeq`() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.EQEQEQ]
-        assertNotNull("EQEQEQ should have operator info", info)
+        assertNotNull(info, "EQEQEQ should have operator info")
         assertEquals("Strict equality", info!!.name)
         assertEquals(4, info.precedence)
     }
@@ -166,7 +166,7 @@ class RescriptDocumentationProviderTest {
     @Test
     fun `OPERATOR_INFO contains plus`() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.PLUS]
-        assertNotNull("PLUS should have operator info", info)
+        assertNotNull(info, "PLUS should have operator info")
         assertEquals("Addition", info!!.name)
         assertEquals(6, info.precedence)
     }
@@ -174,7 +174,7 @@ class RescriptDocumentationProviderTest {
     @Test
     fun `OPERATOR_INFO contains star`() {
         val info = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.STAR]
-        assertNotNull("STAR should have operator info", info)
+        assertNotNull(info, "STAR should have operator info")
         assertEquals("Multiplication", info!!.name)
         assertEquals(7, info.precedence)
     }
@@ -184,8 +184,8 @@ class RescriptDocumentationProviderTest {
         val plusInfo = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.PLUS]!!
         val starInfo = RescriptOperatorDocumentation.OPERATOR_INFO[RescriptTokenTypes.STAR]!!
         assertTrue(
-            "Multiplication should have higher precedence than addition",
             starInfo.precedence > plusInfo.precedence,
+            "Multiplication should have higher precedence than addition",
         )
     }
 
@@ -212,10 +212,10 @@ class RescriptDocumentationProviderTest {
     fun `generateOperatorDoc returns HTML for operator`() {
         val element = stubPsiElement(RescriptTokenTypes.PLUS, "+")
         val doc = RescriptOperatorDocumentation.generateOperatorDoc(element)
-        assertNotNull("Should generate doc for PLUS operator", doc)
-        assertTrue("Doc should contain operator symbol", doc!!.contains("+"))
-        assertTrue("Doc should contain 'Addition'", doc.contains("Addition"))
-        assertTrue("Doc should contain precedence", doc.contains("Precedence"))
+        assertNotNull(doc, "Should generate doc for PLUS operator")
+        assertTrue(doc!!.contains("+"), "Doc should contain operator symbol")
+        assertTrue(doc.contains("Addition"), "Doc should contain 'Addition'")
+        assertTrue(doc.contains("Precedence"), "Doc should contain precedence")
     }
 
     @Test
@@ -233,8 +233,8 @@ class RescriptDocumentationProviderTest {
         val element = stubPsiElement(RescriptTokenTypes.PLUS, "<script>alert('xss')</script>")
         val doc = RescriptOperatorDocumentation.generateOperatorDoc(element)
         assertNotNull(doc)
-        assertFalse("Should not contain raw script tag", doc!!.contains("<script>"))
-        assertTrue("Should contain escaped script tag", doc.contains("&lt;script&gt;"))
+        assertFalse(doc!!.contains("<script>"), "Should not contain raw script tag")
+        assertTrue(doc.contains("&lt;script&gt;"), "Should contain escaped script tag")
     }
 
     @Test
@@ -245,8 +245,8 @@ class RescriptDocumentationProviderTest {
         val doc = RescriptOperatorDocumentation.generateOperatorDoc(element)
         assertNotNull(doc)
         // Verify the doc contains the expected operator info (not corrupted by escaping)
-        assertTrue("Should contain operator name", doc!!.contains("Addition"))
-        assertTrue("Should contain precedence info", doc.contains("Precedence"))
+        assertTrue(doc!!.contains("Addition"), "Should contain operator name")
+        assertTrue(doc.contains("Precedence"), "Should contain precedence info")
     }
 
     // -- Stub helpers --

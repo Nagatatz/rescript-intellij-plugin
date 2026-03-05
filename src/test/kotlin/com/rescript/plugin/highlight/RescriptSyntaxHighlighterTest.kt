@@ -4,9 +4,9 @@ import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.RescriptLexer
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertArrayEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import com.rescript.plugin.lang.RescriptTokenTypes as T
 
 class RescriptSyntaxHighlighterTest {
@@ -19,8 +19,8 @@ class RescriptSyntaxHighlighterTest {
         for (token in T.KEYWORDS.types) {
             val attrs = highlighter.getTokenHighlights(token)
             assertTrue(
-                "Keyword token $token should map to KEYWORD attribute",
                 attrs.any { it == RescriptSyntaxHighlighter.KEYWORD },
+                "Keyword token $token should map to KEYWORD attribute",
             )
         }
     }
@@ -32,8 +32,8 @@ class RescriptSyntaxHighlighterTest {
         for (token in T.OPERATORS.types) {
             val attrs = highlighter.getTokenHighlights(token)
             assertTrue(
-                "Operator token $token should map to OPERATOR attribute",
                 attrs.any { it == RescriptSyntaxHighlighter.OPERATOR },
+                "Operator token $token should map to OPERATOR attribute",
             )
         }
     }

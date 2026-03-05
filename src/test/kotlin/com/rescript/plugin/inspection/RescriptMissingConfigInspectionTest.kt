@@ -1,9 +1,9 @@
 package com.rescript.plugin.inspection
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptMissingConfigInspectionTest {
     private val inspection = RescriptMissingConfigInspection()
@@ -32,6 +32,6 @@ class RescriptMissingConfigInspectionTest {
         // - bsconfig.json
         // This test verifies the class exists and can be introspected
         val methods = inspection.javaClass.declaredMethods.map { it.name }
-        assertTrue("buildVisitor should exist", methods.contains("buildVisitor"))
+        assertTrue(methods.contains("buildVisitor"), "buildVisitor should exist")
     }
 }

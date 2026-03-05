@@ -1,8 +1,8 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectTemplate
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class TemplateDependencyVersionsTest {
     /**
@@ -39,7 +39,7 @@ class TemplateDependencyVersionsTest {
         minMinor: Int,
         minPatch: Int,
     ) {
-        assertTrue("$packageName should be present", versionRange != null)
+        assertTrue(versionRange != null, "$packageName should be present")
         val cleaned = versionRange!!.removePrefix("^").removePrefix("~")
         val parts = cleaned.split(".").map { it.toInt() }
         val major = parts[0]
@@ -48,8 +48,8 @@ class TemplateDependencyVersionsTest {
         val actual = major * 1_000_000 + minor * 1_000 + patch
         val expected = minMajor * 1_000_000 + minMinor * 1_000 + minPatch
         assertTrue(
-            "$packageName version $versionRange should be >= $minMajor.$minMinor.$minPatch",
             actual >= expected,
+            "$packageName version $versionRange should be >= $minMajor.$minMinor.$minPatch",
         )
     }
 

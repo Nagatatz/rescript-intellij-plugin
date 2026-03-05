@@ -1,10 +1,10 @@
 package com.rescript.plugin
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptErrorReporterTest {
     @Test
@@ -92,16 +92,16 @@ class RescriptErrorReporterTest {
     fun testSanitizeFilePathsRedactsUnixAbsolutePaths() {
         val input = "at com.example.Foo.bar(/Users/john/projects/my-app/src/Foo.kt:42)"
         val result = RescriptErrorReporter.sanitizeFilePaths(input)
-        assertFalse("Should not contain /Users/john/", result.contains("/Users/john/"))
-        assertTrue("Should contain last two segments", result.contains("<...>/my-app/src/"))
+        assertFalse(result.contains("/Users/john/"), "Should not contain /Users/john/")
+        assertTrue(result.contains("<...>/my-app/src/"), "Should contain last two segments")
     }
 
     @Test
     fun testSanitizeFilePathsRedactsWindowsAbsolutePaths() {
         val input = """at com.example.Foo.bar(C:\Users\john\projects\my-app\src\Foo.kt:42)"""
         val result = RescriptErrorReporter.sanitizeFilePaths(input)
-        assertFalse("Should not contain C:\\Users\\john\\", result.contains("C:\\Users\\john\\"))
-        assertTrue("Should contain redaction marker", result.contains("<...>"))
+        assertFalse(result.contains("C:\\Users\\john\\"), "Should not contain C:\\Users\\john\\")
+        assertTrue(result.contains("<...>"), "Should contain redaction marker")
     }
 
     @Test
@@ -119,7 +119,7 @@ class RescriptErrorReporterTest {
             at com.example.B(/Users/john/projects/app/B.kt:2)
             """.trimIndent()
         val result = RescriptErrorReporter.sanitizeFilePaths(input)
-        assertFalse("Should not contain /Users/john/", result.contains("/Users/john/"))
+        assertFalse(result.contains("/Users/john/"), "Should not contain /Users/john/")
     }
 
     @Test

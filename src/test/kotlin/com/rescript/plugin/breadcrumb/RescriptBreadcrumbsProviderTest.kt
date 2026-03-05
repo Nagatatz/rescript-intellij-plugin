@@ -6,10 +6,10 @@ import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptBreadcrumbsProviderTest {
     private val provider = RescriptBreadcrumbsProvider()
@@ -96,7 +96,7 @@ class RescriptBreadcrumbsProviderTest {
     @Test
     fun testAcceptElementCoversAllNavigableTypes() {
         for (type in RescriptPsiUtils.NAVIGABLE_TYPES) {
-            assertTrue("$type should be accepted", provider.acceptElement(stubElement(type)))
+            assertTrue(provider.acceptElement(stubElement(type)), "$type should be accepted")
         }
     }
 

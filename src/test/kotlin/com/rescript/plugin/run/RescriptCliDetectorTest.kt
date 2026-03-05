@@ -1,23 +1,23 @@
 package com.rescript.plugin.run
 
-import org.junit.After
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.nio.file.Files
 import java.nio.file.Path
 
 class RescriptCliDetectorTest {
     private lateinit var tempDir: Path
 
-    @Before
+    @BeforeEach
     fun setUp() {
         tempDir = Files.createTempDirectory("rescript-cli-test")
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         tempDir.toFile().deleteRecursively()
     }
