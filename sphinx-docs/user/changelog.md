@@ -1,10 +1,18 @@
 # Changelog
 
-## Unreleased
+## 0.1.3
 
-Initial release of the ReScript IntelliJ Plugin.
+### Improvements
+
+- Add plugin icon for JetBrains Marketplace display
+- Fix plugin verifier deprecated API warnings
+- Update docs to reflect current implementation state
+
+## 0.1.2
 
 ### Features
+
+Initial release submitted to JetBrains Marketplace with 109 features:
 
 - Full syntax highlighting via JFlex lexer
 - LSP integration with `@rescript/language-server`
@@ -16,148 +24,34 @@ Initial release of the ReScript IntelliJ Plugin.
 - Code formatting via `rescript format` CLI
 - Run configurations (Build, Build Watch, Clean)
 - Test runner integration (Jest/Vitest)
-- Code inspections (duplicate open, empty module, missing config)
-- Dead code analysis via reanalyze
+- Code inspections (duplicate open, empty module, missing config, signature sync, style linting)
+- Dead code analysis via reanalyze with server mode
 - Import optimization
-- Intention actions (Wrap with Some/Ok/Error, Add @genType)
+- 20+ Intention actions (Wrap with, unwrap, pipe conversion, case split, labeled args, etc.)
 - Surround with (if/switch/try/block)
-- Postfix completion (.switch, .pipe, .log, .some, .ok, .error, .ignore, .promise, .await)
+- Postfix completion (.switch, .pipe, .log, .promise, .await, etc.)
 - Live templates (21 snippets including FFI bindings and React component)
 - File templates (Module, Interface, Component)
 - Go to Symbol, Go to Related, File switching (.res/.resi)
+- Search Everywhere with stub-indexed symbols
 - Create interface file, Open compiled JavaScript
-- Code Lens (type annotations)
+- Code Lens (type annotations), Inlay hints
 - Compiled JS Preview tool window
-- Module Hierarchy view
-- Build status in status bar
-- Signature Help
-- Statement up/down mover
-- Smart Enter
-- Qualified name copy
-- Console output file path links
-- Editor notification bar (LSP not found)
-- JSON Schema for rescript.json
-- JavaScript injection in %raw()
-- Markdown code fence highlighting
-- Paste as JSON.t
-- Breadcrumb navigation
-- Rename refactoring
-- TODO indexing
-- Spellchecking
-- Project Wizard with 12 templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm Library, CLI Tool, Monorepo)
-- Code Generation (Switch Arms, Module Type)
+- Module Hierarchy and Call Hierarchy views
+- Build status in status bar, Error Lens inline diagnostics
+- Signature Help, Parameter Info
+- Statement up/down mover, Smart Enter
+- Extract Variable/Function, Inline, Introduce Constant, Change Signature
+- React component extraction, Safe Delete
+- Unresolved reference Quick Fix (add open/qualifier)
+- Generate function from usage, Type hole Quick Fix
+- Generate actions (switch arms, module type, make, record value, JSON encoder/decoder)
 - .d.ts to ReScript binding generation
-- Backspace handler (JSX tag pair deletion)
-- Move element left/right (Alt+Shift+Cmd+Left/Right)
-- Code block boundary detection (Ctrl+Shift+[ / ])
-- Split/Join list (single-line ↔ multi-line toggle)
-- Copy/Paste string escaping (auto-escape in string literals)
-- Paste as JSX (HTML → ReScript JSX conversion)
-- Quick Documentation fallback (Ctrl+Q PSI-based)
-- Usage type classification for Find Usages
-- Safe Delete with usage checking
-- Name suggestions during rename
-- Inspection suppressor (// noinspection comments)
-- Color preview swatches in editor gutter
-- VCS Code Vision (author/last-change annotations)
-- Project View decoration (interface suffix, version display)
-- Reader mode for node_modules files
-- Package dependencies tool window
-- Auto import options configuration
-- Open statement file-based index
-- Predefined code style preset
-- Element descriptions for refactoring dialogs
-- Lookup character filter for completion
-- Unwrap/Remove (Ctrl+Shift+Delete) for Some/Ok/Error/if/switch/try/block
-- JSX closing tag auto-insertion on `>` keystroke
-- Enter handler for doc comment and line comment auto-continuation
-- Smart join lines for pipe/let/arrow patterns (Ctrl+Shift+J)
-- Error Lens inline diagnostics at end of line
-- Highlight related keywords (switch/if/try keyword pairs)
-- Run Anything for ReScript CLI (Ctrl+Ctrl)
-- Expression Type display (Ctrl+Shift+P)
-- Debug compiled JavaScript (Alt+Shift+D)
-- LSP auto-install notification with one-click install
-- Generate doc comment intention action
-- Goto Super for .res ↔ .resi declaration navigation (Ctrl+U)
-- Go to Test / Create Test (Ctrl+Shift+T)
-- Context Info sticky declaration header (Alt+Q)
-- External Documentation for Belt/Js modules (Shift+F1)
-- Word selection handler for strings, brackets, and comments
-- Color scheme settings UI (per-token color customization)
-- Code style settings (indentation, tabs)
-- Project settings UI (Languages & Frameworks > ReScript)
-- .res/.resi file switching (Alt+O)
-- Completion confidence (suppress popups in comments/strings)
-- Live template context (ReScript-specific context + moduleName/componentName macros)
-- Additional snippets (@module, @val, @send, @get, @set, comp templates)
-- Problem highlight filter (suppress highlights in node_modules/lib/bs/lib/ocaml)
-- Completion weigher (context-based completion ranking)
-- Search Everywhere (Shift+Shift file/symbol unified search)
-- Navigation Bar model (file structure display)
-- Go to Implementation (.resi → .res jump, Ctrl+Alt+B)
-- File Include Provider (open statement file navigation)
-- Extract Variable (Ctrl+Alt+V)
-- Extract Function (Ctrl+Alt+M)
-- Inline Variable/Function (Ctrl+Alt+N)
-- Introduce Constant (literal to constant extraction)
-- Change Signature (Ctrl+F6 with call site auto-fix)
-- React component extraction (JSX → new component)
-- Unresolved Reference Quick Fix (add open/qualifier, Alt+Enter)
-- Generate Function from Usage (Alt+Enter on undefined function)
-- Type Hole Quick Fix (`_` type placeholder candidate suggestions)
-- Labeled args bulk insertion (Alt+Enter)
-- Make function generation (record constructor, Cmd+N)
-- Record Value generation (default field values, Cmd+N)
-- Module type implementation generation (Cmd+N)
-- Switch cases merge (same body unification, Alt+Enter)
-- Case split (pattern variable expansion, Alt+Enter)
-- Positional → labeled args conversion (Alt+Enter)
-- Remove unnecessary parentheses (Alt+Enter)
-- Remove unnecessary qualifier (Alt+Enter)
-- Pipe ⇔ function call conversion (Alt+Enter)
-- Interface visibility control (add/remove from .resi, Alt+Enter)
-- Expand destructuring (let {...} → individual bindings, Alt+Enter)
-- filter+map → filterMap chain conversion (Alt+Enter)
-- Add type annotation (LSP-based, Alt+Enter)
-- Signature sync inspection (.res ↔ .resi mismatch detection)
-- Mutability diagnostics (unnecessary ref detection with Quick Fix)
-- Style linting (redundant booleans, Belt API, boolean switch)
-- Suggested Refactoring inspection (extractable expressions, simplifiable conditionals)
-- Format check (unformatted code detection with Quick Fix, configurable)
-- Call Hierarchy (Callers/Callees tree, Ctrl+Alt+H)
-- Stub Index (PSI stub-based fast symbol search)
-- Type Info Tool Window (continuous type display)
-- Pipe chain intermediate type hints (inline type display at each `->` step)
-- Type mismatch inline hints (Expected/Actual structured display)
-- Type mismatch diff highlighting (divergent parts color-coded)
-- PPX annotation visualization (inlay hints for @-attributes)
-- PPX Expansion View tool window
-- RegExp injection in %re()
-- Injected language formatting
-- Grazie integration (comment/string text extraction)
-- Framework Detector (rescript.json auto-detection)
-- Code Rearranger (declaration auto-ordering: open → type → exception → module → external → let)
-- Dependency Diagram (module dependency graph visualization)
-- Scratch File (ReScript scratch file creation/execution)
-- REPL (interactive execution environment tool window)
-- Worksheet mode (.resw interactive evaluation)
-- JS → ReScript paste conversion
-- Comment code evaluation (doc comment code example verification)
-- Type signature search (Shift+Shift reverse function lookup)
-- Editor floating toolbar (Format/Open JS/Create Interface)
-- Element Signature Provider (folding state persistence)
-- Index Pattern Builder (TODO/FIXME comment indexing)
-- Strip trailing spaces (preserve string literal whitespace)
-- GitHub error reporter (auto-report to GitHub Issues)
-- Parameter Info Handler (Ctrl+P labeled args display)
-- Restart LSP action (Tools menu)
-- Dump LSP State action (Tools menu)
-- LSP initialization options (signatureHelp/cache/inlayHints/compileStatus)
-- Build watch auto-start prompt (balloon notification at project open)
-- Reanalyze server mode (daemon process for fast analysis, ReScript >= 12.1.0)
-- Bundled dictionary (ReScript-specific spellcheck terms)
-- Test source filter (*_test.res, *.test.res, __tests__/ recognition)
-- Offset ↔ position conversion utility
-- Regex pattern consolidation (RescriptRegexPatterns)
-- File utility consolidation (RescriptFileUtil)
+- Project Wizard with 12 templates
+- LSP auto-install with package manager detection
+- REPL, Worksheet mode (.resw), Scratch files
+- Dependency diagram, PPX expansion view
+- Type signature search, Type Info tool window
+- Editor floating toolbar, framework detector
+- GitHub error reporter
+- And many more IDE integrations

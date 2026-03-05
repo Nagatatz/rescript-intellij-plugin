@@ -4,21 +4,61 @@
     <vendor url="https://github.com/ngtz/rescript-intellij-plugin">Nagatatz</vendor>
 
     <description><![CDATA[
-        <h2>ReScript Language Support for IntelliJ IDEA</h2>
-        <p>Full language support for <a href="https://rescript-lang.org">ReScript</a> (.res, .resi files).</p>
+        <h2>ReScript Language Support for JetBrains IDEs</h2>
+        <p>Comprehensive language support for <a href="https://rescript-lang.org">ReScript</a> (.res, .resi files),
+           powered by a hybrid architecture: a built-in JFlex lexer for fast syntax highlighting and the
+           <code>@rescript/language-server</code> (LSP) for semantic analysis.</p>
 
-        <h3>Features</h3>
+        <h3>Language Support</h3>
         <ul>
-            <li>Syntax highlighting</li>
-            <li>Code completion (via LSP)</li>
-            <li>Go to definition (via LSP)</li>
-            <li>Hover documentation (via LSP)</li>
-            <li>Find references (via LSP)</li>
-            <li>Diagnostics / error highlighting (via LSP)</li>
-            <li>Inlay hints (via LSP)</li>
-            <li>Code folding</li>
-            <li>Brace matching</li>
-            <li>Line and block comments</li>
+            <li>Syntax highlighting with JFlex lexer + LSP semantic tokens</li>
+            <li>Code folding (blocks, comments, custom <code>//#region</code> markers)</li>
+            <li>Brace matching, smart quotes, breadcrumb navigation</li>
+            <li>Structure view and navigation bar</li>
+            <li>Spell checking with bundled ReScript dictionary</li>
+        </ul>
+
+        <h3>Code Intelligence</h3>
+        <ul>
+            <li>Code completion with context-based ranking</li>
+            <li>Go to Definition, Find Usages, Find References</li>
+            <li>Hover documentation, Signature Help, Parameter Info</li>
+            <li>Inlay hints and Code Lens (inferred type annotations)</li>
+            <li>Rename, Extract Variable/Function, Inline, Change Signature</li>
+            <li>Search Everywhere with stub-indexed symbols (Shift+Shift)</li>
+            <li>Type signature search (reverse function lookup)</li>
+        </ul>
+
+        <h3>Code Analysis</h3>
+        <ul>
+            <li>Error Lens — inline diagnostics with type mismatch diff highlighting</li>
+            <li>Inspections: duplicate open, empty module, signature sync, style linting</li>
+            <li>Dead code analysis via reanalyze (with server-mode acceleration)</li>
+            <li>Format check with quick-fix auto-formatting</li>
+        </ul>
+
+        <h3>Editing</h3>
+        <ul>
+            <li>20+ Intention Actions (wrap, unwrap, pipe conversion, case split, etc.)</li>
+            <li>Surround With (if/switch/try/block), Postfix Completion (.switch, .pipe, .log)</li>
+            <li>21 Live Templates, Generate actions (switch arms, JSON encoder/decoder, etc.)</li>
+            <li>JSX auto-close, smart Enter/Join, statement mover</li>
+        </ul>
+
+        <h3>Build &amp; Run</h3>
+        <ul>
+            <li>Run configuration with gutter icons, test runner (Jest/Vitest)</li>
+            <li>JavaScript debugger integration, compiled JS preview</li>
+            <li>REPL, Worksheet mode (.resw), Scratch files</li>
+        </ul>
+
+        <h3>Project Integration</h3>
+        <ul>
+            <li>Project Wizard with 12 templates (Basic, Vite+React, Next.js, Electron, etc.)</li>
+            <li>One-click LSP auto-install with package manager detection</li>
+            <li>Project View nesting (.resi under .res, compiled JS nested and grayed)</li>
+            <li>.d.ts → ReScript binding generation, dependency diagram</li>
+            <li>rescript.json JSON Schema with auto-completion and validation</li>
         </ul>
 
         <h3>Requirements</h3>
