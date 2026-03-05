@@ -59,7 +59,8 @@ object DtsParserProcess {
                         proc.errorStream.reader(Charsets.UTF_8).use {
                             stderr.append(it.readText())
                         }
-                    } catch (_: IOException) {
+                    } catch (e: IOException) {
+                        LOG.debug("Failed to read stderr from dts-to-json process", e)
                     }
                 },
                 "dts-to-json-stderr",

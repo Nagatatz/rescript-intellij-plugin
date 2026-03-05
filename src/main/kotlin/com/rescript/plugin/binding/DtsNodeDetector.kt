@@ -1,5 +1,6 @@
 package com.rescript.plugin.binding
 
+import com.intellij.openapi.diagnostic.logger
 import com.rescript.plugin.settings.RescriptProjectSettings
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Files
@@ -17,6 +18,8 @@ import java.util.concurrent.TimeUnit
  * @see com.rescript.plugin.lsp.RescriptLspDetector for similar detection pattern
  */
 object DtsNodeDetector {
+    private val LOG = logger<DtsNodeDetector>()
+
     /**
      * Finds the path to the TypeScript package directory.
      *
@@ -79,7 +82,8 @@ object DtsNodeDetector {
             }
             val exitCode = proc.exitValue()
             exitCode == 0 && output.startsWith("v")
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            LOG.debug("Node.js availability check failed for '$nodePath'", e)
             false
         }
 
