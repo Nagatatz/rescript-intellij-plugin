@@ -5,6 +5,7 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
  * Local inspection that suggests refactoring opportunities for common code patterns.
@@ -85,7 +86,7 @@ class RescriptSuggestedRefactoringInspection : LocalInspectionTool() {
         )
 
         // Pattern matching "let name = ..." at the start of a line
-        private val LET_PATTERN = Regex("""^\s*let\s+\w+\s*=""")
+        private val LET_PATTERN = RescriptRegexPatterns.LET_BINDING_LINE
 
         // Pattern matching a pipe chain segment
         private val PIPE_CHAIN_PATTERN = Regex("""->\s*\w+\.\w+\([^)]*\)""")

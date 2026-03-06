@@ -56,7 +56,7 @@ class RescriptWorksheetRunner(
         )
 
         // Pattern for top-level let bindings
-        private val LET_PATTERN = Regex("""^let\s+\w+""")
+        private val LET_PATTERN = RescriptRegexPatterns.LET_LINE_START
 
         /** Pattern matching a let binding with a name for logging: `let name = ...` */
         private val LET_BINDING_NAME_PATTERN = Regex("""^let\s+(\w+)\s*=""")

@@ -60,4 +60,14 @@ object RescriptRegexPatterns {
     /** Extracts the name from a labeled parameter: `~name`. */
     @JvmField
     val LABELED_PARAM_NAME = Regex("""~(\w+)""")
+
+    // ── let binding patterns ──────────────────────────────────────
+
+    /** Matches a `let` binding at the start of a line: `let name` (no leading whitespace). */
+    @JvmField
+    val LET_LINE_START = Regex("""^let\s+\w+""")
+
+    /** Matches a `let` binding with optional indentation and `=`: `  let name =`. */
+    @JvmField
+    val LET_BINDING_LINE = Regex("""^\s*let\s+\w+\s*=""")
 }
