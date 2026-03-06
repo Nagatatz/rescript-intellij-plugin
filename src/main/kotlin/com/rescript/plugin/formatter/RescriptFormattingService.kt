@@ -67,6 +67,7 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
                                         it.write(documentText)
                                     }
                                 } catch (_: IOException) {
+                                    // Expected when the process exits before stdin is fully written (broken pipe)
                                 }
                             },
                             "rescript-format-stdin",
@@ -82,6 +83,7 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
                                         stderr.append(it.readText())
                                     }
                                 } catch (_: IOException) {
+                                    // Expected when the process exits before stderr is fully read (stream closed)
                                 }
                             },
                             "rescript-format-stderr",

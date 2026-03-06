@@ -1,5 +1,7 @@
 package com.rescript.plugin.generate
 
+import com.rescript.plugin.util.RescriptRegexPatterns
+
 /** A single constructor arm in a variant type declaration. */
 data class VariantConstructor(
     val name: String,
@@ -40,7 +42,7 @@ object RescriptTypeDeclarationParser {
     private val TYPE_NAME_PATTERN = Regex("""^\s*type\s+(\w+)""")
 
     /** Pattern matching a variant constructor: `Name` or `Name(payload)`. */
-    private val CONSTRUCTOR_PATTERN = Regex("""^([A-Z]\w*)(?:\((.+)\))?\s*$""")
+    private val CONSTRUCTOR_PATTERN = RescriptRegexPatterns.CONSTRUCTOR_WITH_PAYLOAD
 
     /** Pattern matching a record field: `mutable? name: type`. */
     private val RECORD_FIELD_PATTERN = Regex("""^(mutable\s+)?(\w+)\s*:\s*(.+)$""")
