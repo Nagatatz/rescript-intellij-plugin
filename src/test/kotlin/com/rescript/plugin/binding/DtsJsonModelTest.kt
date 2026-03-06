@@ -343,7 +343,7 @@ class DtsJsonModelTest {
 
     @Test
     fun `createGson returns configured instance`() {
-        val gson = DtsJsonModel.createGson()
+        val gson = DtsJsonParser.createGson()
         // Smoke test: can deserialize a simple file
         val json = """{"fileName": "a.d.ts", "moduleName": "a", "declarations": [], "errors": []}"""
         val file = gson.fromJson<DtsJsonModel.DtsFile>(json, DtsJsonModel.DtsFile::class.java)

@@ -1,19 +1,12 @@
 package com.rescript.plugin.binding
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
-
 /**
  * Data model for the JSON intermediate representation produced by dts-to-json.js.
  *
  * Represents the structure of a parsed `.d.ts` file as a hierarchy of data classes
- * and sealed classes, deserialized from JSON using Gson with custom type adapters.
+ * and sealed classes. Deserialization logic is in [DtsJsonParser].
  *
+ * @see DtsJsonParser for Gson deserialization
  * @see DtsToRescriptConverter for code generation from this model
  * @see DtsParserProcess for invoking the Node.js parser
  */
@@ -174,77 +167,12 @@ object DtsJsonModel {
         val text: String = "",
     ) : DtsType()
 
-    // ── Gson setup ────────────────────────────────────────────────────
-
-    /**
-     * Deserializer for [DtsType] that dispatches on the `"kind"` field.
-     */
-    class DtsTypeDeserializer : JsonDeserializer<DtsType> {
-        override fun deserialize(
-            json: JsonElement,
-            typeOfT: Type,
-            context: JsonDeserializationContext,
-        ): DtsType {
-            val obj = json.asJsonObject
-            return when (obj.get("kind")?.asString) {
-                "primitive" -> context.deserialize(json, PrimitiveType::class.java)
-                "reference" -> context.deserialize(json, ReferenceType::class.java)
-                "array" -> context.deserialize(json, ArrayType::class.java)
-                "tuple" -> context.deserialize(json, TupleType::class.java)
-                "function" -> context.deserialize(json, FunctionType::class.java)
-                "union" -> context.deserialize(json, UnionType::class.java)
-                "intersection" -> context.deserialize(json, IntersectionType::class.java)
-                "objectLiteral" -> context.deserialize(json, ObjectLiteralType::class.java)
-                "stringLiteral" -> context.deserialize(json, StringLiteralType::class.java)
-                "numericLiteral" -> context.deserialize(json, NumericLiteralType::class.java)
-                "indexSignature" -> context.deserialize(json, IndexSignatureType::class.java)
-                else -> {
-                    val text = obj.get("text")?.asString ?: ""
-                    UnknownType(text)
-                }
-            }
-        }
-    }
-
-    /**
-     * Deserializer for [DtsDeclaration] that dispatches on the `"kind"` field.
-     */
-    class DtsDeclarationDeserializer : JsonDeserializer<DtsDeclaration> {
-        override fun deserialize(
-            json: JsonElement,
-            typeOfT: Type,
-            context: JsonDeserializationContext,
-        ): DtsDeclaration {
-            val obj = json.asJsonObject
-            return when (obj.get("kind")?.asString) {
-                "function" -> context.deserialize(json, FunctionDeclaration::class.java)
-                "interface" -> context.deserialize(json, InterfaceDeclaration::class.java)
-                "typeAlias" -> context.deserialize(json, TypeAliasDeclaration::class.java)
-                "variable" -> context.deserialize(json, VariableDeclaration::class.java)
-                "enum" -> context.deserialize(json, EnumDeclaration::class.java)
-                "class" -> context.deserialize(json, ClassDeclaration::class.java)
-                else -> VariableDeclaration(name = "unknown", type = UnknownType())
-            }
-        }
-    }
-
-    /**
-     * Creates a Gson instance configured with custom type adapters for this model.
-     */
-    fun createGson(): Gson =
-        GsonBuilder()
-            .registerTypeAdapter(DtsType::class.java, DtsTypeDeserializer())
-            .registerTypeAdapter(DtsDeclaration::class.java, DtsDeclarationDeserializer())
-            .create()
-
     /**
      * Parses a JSON string into a [DtsFile].
+     * Delegates to [DtsJsonParser] for Gson deserialization.
      *
      * @param json the JSON string from dts-to-json.js
      * @return the parsed file model
      */
-    fun parse(json: String): DtsFile {
-        val gson = createGson()
-        return gson.fromJson(json, object : TypeToken<DtsFile>() {}.type)
-    }
+    fun parse(json: String): DtsFile = DtsJsonParser.parse(json)
 }
