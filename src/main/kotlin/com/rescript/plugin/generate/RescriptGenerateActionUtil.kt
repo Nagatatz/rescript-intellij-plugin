@@ -4,8 +4,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
-import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
  * Shared utility methods for ReScript Generate actions.
@@ -33,9 +33,7 @@ object RescriptGenerateActionUtil {
         val offset = editor.caretModel.offset
         val element = psiFile.findElementAt(offset) ?: return null
 
-        return PsiTreeUtil.findFirstParent(element) {
-            it.node?.elementType == elementType
-        }
+        return RescriptPsiUtils.findEnclosingDeclaration(element, setOf(elementType))
     }
 
     /**
@@ -59,14 +57,8 @@ object RescriptGenerateActionUtil {
         }
 
         val offset = editor.caretModel.offset
-        val element = psiFile.findElementAt(offset)
-        val declaration =
-            element?.let { el ->
-                PsiTreeUtil.findFirstParent(el) {
-                    it.node?.elementType == elementType
-                }
-            }
+        val element = psiFile.findElementAt(offset) ?: return false
 
-        return declaration != null
+        return RescriptPsiUtils.isInsideDeclaration(element, setOf(elementType))
     }
 }
