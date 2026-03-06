@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.Consumer
 import com.rescript.plugin.RescriptLanguage
+import com.rescript.plugin.util.RescriptBraceBalanceUtil
 import com.rescript.plugin.lang.RescriptTokenTypes as T
 
 /**
@@ -142,11 +143,11 @@ internal class RescriptKeywordHighlightHandler(
                     braceDepth--
                     if (braceDepth <= 0) {
                         // Check if next meaningful token is ELSE
-                        val next = skipWhitespace(current.nextSibling)
+                        val next = RescriptBraceBalanceUtil.skipWhitespace(current.nextSibling)
                         if (next?.node?.elementType == T.ELSE) {
                             ranges.add(next.textRange)
                             // Check for else if
-                            val afterElse = skipWhitespace(next.nextSibling)
+                            val afterElse = RescriptBraceBalanceUtil.skipWhitespace(next.nextSibling)
                             if (afterElse?.node?.elementType == T.IF) {
                                 ranges.add(afterElse.textRange)
                                 current = afterElse.nextSibling
@@ -201,7 +202,7 @@ internal class RescriptKeywordHighlightHandler(
                 T.LBRACE -> {
                     if (braceDepth == 0) {
                         // Found the opening brace, look for switch before it
-                        val beforeBrace = skipWhitespaceBackward(current.prevSibling)
+                        val beforeBrace = RescriptBraceBalanceUtil.skipWhitespaceBackward(current.prevSibling)
                         if (beforeBrace != null) {
                             // Walk back to find the switch keyword
                             var scan: PsiElement? = beforeBrace
@@ -265,23 +266,5 @@ internal class RescriptKeywordHighlightHandler(
         }
 
         return listOf(elseElement.textRange)
-    }
-
-    companion object {
-        private fun skipWhitespace(element: PsiElement?): PsiElement? {
-            var e = element
-            while (e != null && e.node?.elementType == com.intellij.psi.TokenType.WHITE_SPACE) {
-                e = e.nextSibling
-            }
-            return e
-        }
-
-        private fun skipWhitespaceBackward(element: PsiElement?): PsiElement? {
-            var e = element
-            while (e != null && e.node?.elementType == com.intellij.psi.TokenType.WHITE_SPACE) {
-                e = e.prevSibling
-            }
-            return e
-        }
     }
 }

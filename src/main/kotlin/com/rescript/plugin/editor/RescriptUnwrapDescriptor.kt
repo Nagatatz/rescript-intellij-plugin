@@ -7,6 +7,7 @@ import com.intellij.openapi.util.Pair
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptBraceBalanceUtil
 
 /**
  * Provides "Unwrap/Remove" actions (Ctrl+Shift+Delete) for ReScript code.
@@ -121,7 +122,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     internal fun findMatchingParen(
         text: String,
         openIndex: Int,
-    ): Int? = findMatchingBracket(text, openIndex, '(', ')')
+    ): Int? = RescriptBraceBalanceUtil.findMatchingParen(text, openIndex)
 
     /**
      * Finds `if (...) { body }` around cursor.
@@ -231,38 +232,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     internal fun findMatchingBrace(
         text: String,
         openIndex: Int,
-    ): Int? = findMatchingBracket(text, openIndex, '{', '}')
-
-    /**
-     * Finds the matching closing bracket for an opening bracket at [openIndex].
-     *
-     * @param text the source text to scan
-     * @param openIndex the index of the opening bracket character
-     * @param openChar the opening bracket character (e.g. '(' or '{')
-     * @param closeChar the closing bracket character (e.g. ')' or '}')
-     * @return the index of the matching closing bracket, or null if not found
-     */
-    internal fun findMatchingBracket(
-        text: String,
-        openIndex: Int,
-        openChar: Char,
-        closeChar: Char,
-    ): Int? {
-        if (openIndex >= text.length || text[openIndex] != openChar) return null
-        var depth = 0
-        var i = openIndex
-        while (i < text.length) {
-            when (text[i]) {
-                openChar -> depth++
-                closeChar -> {
-                    depth--
-                    if (depth == 0) return i
-                }
-            }
-            i++
-        }
-        return null
-    }
+    ): Int? = RescriptBraceBalanceUtil.findMatchingBrace(text, openIndex)
 
     private fun findNextNonWhitespace(
         text: String,
