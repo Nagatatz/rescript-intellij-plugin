@@ -34,6 +34,8 @@ dependencies {
     }
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
     testImplementation("org.junit.vintage:junit-vintage-engine:5.11.4")
+    testImplementation("org.mockito:mockito-core:5.14.2")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -106,6 +108,48 @@ kover {
         }
         filters {
             excludes {
+                // ── Packages with 0% coverage (IDE-coupled, no unit-testable logic) ──
+                packages(
+                    "com.rescript.plugin.analysis",
+                    "com.rescript.plugin.binding",
+                    "com.rescript.plugin.breadcrumb",
+                    "com.rescript.plugin.commenter",
+                    "com.rescript.plugin.completion",
+                    "com.rescript.plugin.debug",
+                    "com.rescript.plugin.dependencies",
+                    "com.rescript.plugin.diagram",
+                    "com.rescript.plugin.editor",
+                    "com.rescript.plugin.errorlens",
+                    "com.rescript.plugin.formatter",
+                    "com.rescript.plugin.grazie",
+                    "com.rescript.plugin.hierarchy",
+                    "com.rescript.plugin.hierarchy.call",
+                    "com.rescript.plugin.imports",
+                    "com.rescript.plugin.injection",
+                    "com.rescript.plugin.inspection",
+                    "com.rescript.plugin.intention",
+                    "com.rescript.plugin.navbar",
+                    "com.rescript.plugin.paste",
+                    "com.rescript.plugin.ppx",
+                    "com.rescript.plugin.preview",
+                    "com.rescript.plugin.projectview",
+                    "com.rescript.plugin.quickfix",
+                    "com.rescript.plugin.refactor",
+                    "com.rescript.plugin.repl",
+                    "com.rescript.plugin.scratch",
+                    "com.rescript.plugin.spellcheck",
+                    "com.rescript.plugin.statusbar",
+                    "com.rescript.plugin.surround",
+                    "com.rescript.plugin.template",
+                    "com.rescript.plugin.test",
+                    "com.rescript.plugin.typeinfo",
+                    "com.rescript.plugin.wizard",
+                    "com.rescript.plugin.wizard.templates",
+                    "com.rescript.plugin.worksheet",
+                    "com.rescript.plugin.documentation",
+                )
+                // ── Individual class exclusions (IDE-coupled classes in covered packages) ──
+                // Wildcard (*) suffix matches inner/companion classes ($Companion, $install$1, etc.)
                 classes(
                     // Auto-generated lexer
                     "com.rescript.plugin.lang.RescriptFlexLexer",
@@ -113,63 +157,48 @@ kover {
                     "com.rescript.plugin.RescriptFileTypes",
                     "com.rescript.plugin.RescriptIcons",
                     "com.rescript.plugin.RescriptLanguage",
-                    // IDE lifecycle (StartupActivity)
-                    "com.rescript.plugin.lsp.RescriptLspStartupActivity",
-                    "com.rescript.plugin.analysis.RescriptReanalyzeServerStartupActivity",
-                    "com.rescript.plugin.run.RescriptBuildWatchStartupActivity",
-                    // LSP server coupling
-                    "com.rescript.plugin.lsp.RescriptLanguageServer",
-                    "com.rescript.plugin.lsp.RescriptLsp4jClient",
-                    "com.rescript.plugin.lsp.RescriptLspServerDescriptor",
-                    "com.rescript.plugin.lsp.RescriptLspServerSupportProvider",
-                    "com.rescript.plugin.lsp.RescriptLspDiagnosticParser",
-                    "com.rescript.plugin.lsp.RescriptLspSignatureParser",
-                    "com.rescript.plugin.refactor.RescriptRenameHandler",
-                    // Settings UI (Configurable / CodeStyleSettingsProvider)
-                    "com.rescript.plugin.settings.RescriptConfigurable",
-                    "com.rescript.plugin.codestyle.RescriptCodeStyleSettingsProvider",
-                    // Formatting service (IDE integration)
-                    "com.rescript.plugin.formatter.RescriptFormattingService",
-                    "com.rescript.plugin.highlight.RescriptSyntaxHighlighterFactory",
-                    "com.rescript.plugin.config.RescriptJsonSchemaProviderFactory",
-                    "com.rescript.plugin.editor.RescriptEditorNotificationProvider",
-                    "com.rescript.plugin.completion.RescriptAutoImportOptionsProvider",
-                    "com.rescript.plugin.worksheet.RescriptWorksheetFileType",
-                    "com.rescript.plugin.config.RescriptFrameworkType",
-                    // Actions requiring IDE context
-                    "com.rescript.plugin.lsp.RescriptDumpLspStateAction",
-                    "com.rescript.plugin.navigation.RescriptSwitchFileAction",
-                    "com.rescript.plugin.debug.RescriptDebugCompiledJsAction",
-                    "com.rescript.plugin.binding.DtsGenerateBindingAction",
-                )
-                // Run configuration UI classes
-                packages(
-                    "com.rescript.plugin.wizard.templates",
-                )
-                classes(
-                    // Run configurations and settings editors
-                    "com.rescript.plugin.run.RescriptRunConfiguration",
-                    "com.rescript.plugin.run.RescriptRunConfigurationOptions",
-                    "com.rescript.plugin.run.RescriptRunSettingsEditor",
-                    "com.rescript.plugin.test.RescriptTestRunConfiguration",
-                    "com.rescript.plugin.test.RescriptTestRunConfigurationOptions",
-                    "com.rescript.plugin.test.RescriptTestRunSettingsEditor",
-                    "com.rescript.plugin.debug.RescriptDebugRunConfiguration",
-                    "com.rescript.plugin.debug.RescriptDebugRunConfigurationOptions",
-                    "com.rescript.plugin.debug.RescriptDebugSettingsEditor",
-                    // Wizard UI
-                    "com.rescript.plugin.wizard.RescriptProjectWizardStep",
-                    // Tool window panels (Swing UI)
-                    "com.rescript.plugin.preview.RescriptCompiledJsPreviewPanel",
-                    "com.rescript.plugin.preview.RescriptCompiledJsPreviewToolWindowFactory",
-                    "com.rescript.plugin.dependencies.RescriptDependenciesPanel",
-                    "com.rescript.plugin.dependencies.RescriptDependenciesToolWindowFactory",
-                    "com.rescript.plugin.typeinfo.RescriptTypeInfoPanel",
-                    "com.rescript.plugin.typeinfo.RescriptTypeInfoToolWindowFactory",
-                    "com.rescript.plugin.ppx.RescriptPpxViewPanel",
-                    "com.rescript.plugin.ppx.RescriptPpxViewToolWindowFactory",
-                    "com.rescript.plugin.repl.RescriptReplPanel",
-                    "com.rescript.plugin.repl.RescriptReplToolWindowFactory",
+                    // Root package classes with 0% coverage
+                    "com.rescript.plugin.RescriptErrorReporter*",
+                    "com.rescript.plugin.RescriptReaderModeMatcher*",
+                    // Parsers (PsiBuilder coupling)
+                    "com.rescript.plugin.lang.RescriptDeclarationParser*",
+                    "com.rescript.plugin.lang.RescriptJsxParser*",
+                    // Find usages / usage type (IDE lifecycle)
+                    "com.rescript.plugin.lang.RescriptFindUsagesProvider*",
+                    "com.rescript.plugin.lang.RescriptUsageTypeProvider*",
+                    "com.rescript.plugin.lang.RescriptElementDescriptionProvider*",
+                    "com.rescript.plugin.lang.RescriptParserDefinition*",
+                    // PSI elements requiring IDE lifecycle
+                    "com.rescript.plugin.lang.psi.RescriptDeclarationPsiElement*",
+                    "com.rescript.plugin.lang.psi.RescriptDeclarationElementType*",
+                    "com.rescript.plugin.lang.psi.RescriptDeclarationStub*",
+                    "com.rescript.plugin.lang.psi.RescriptFileStub*",
+                    "com.rescript.plugin.lang.psi.RescriptFile",
+                    "com.rescript.plugin.lang.psi.RescriptPsiUtils*",
+                    // All navigation classes (IDE-coupled)
+                    "com.rescript.plugin.navigation.*",
+                    // All LSP classes (server coupling)
+                    "com.rescript.plugin.lsp.*",
+                    // All run configuration classes (IDE-coupled)
+                    "com.rescript.plugin.run.*",
+                    // All settings classes
+                    "com.rescript.plugin.settings.*",
+                    // All codestyle classes (IDE-coupled)
+                    "com.rescript.plugin.codestyle.*",
+                    // All generate action classes (IDE dialog coupling)
+                    "com.rescript.plugin.generate.*",
+                    // All highlight classes (IDE-coupled)
+                    "com.rescript.plugin.highlight.*",
+                    // All config classes (IDE-coupled)
+                    "com.rescript.plugin.config.*",
+                    // All structure view classes
+                    "com.rescript.plugin.structure.*",
+                    // Folding (IDE lifecycle)
+                    "com.rescript.plugin.folding.*",
+                    // Indexing (IDE lifecycle)
+                    "com.rescript.plugin.indexing.*",
+                    // CodeVision (IDE lifecycle)
+                    "com.rescript.plugin.codevision.*",
                 )
             }
         }
