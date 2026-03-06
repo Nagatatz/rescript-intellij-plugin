@@ -4,6 +4,7 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptLanguage
@@ -25,17 +26,10 @@ import com.rescript.plugin.lang.RescriptTokenTypes
  */
 class RescriptPostfixTemplateProvider : PostfixTemplateProvider {
     private val templates: Set<PostfixTemplate> =
-        setOf(
-            SwitchPostfixTemplate(this),
-            PipePostfixTemplate(this),
-            LogPostfixTemplate(this),
-            SomePostfixTemplate(this),
-            OkPostfixTemplate(this),
-            ErrorPostfixTemplate(this),
-            IgnorePostfixTemplate(this),
-            PromisePostfixTemplate(this),
-            AwaitPostfixTemplate(this),
-        )
+        TEMPLATE_DEFINITIONS
+            .map { def ->
+                RescriptSimplePostfixTemplate(def.name, def.example, def.expand, this)
+            }.toSet()
 
     override fun getTemplates(): Set<PostfixTemplate> = templates
 
@@ -75,10 +69,73 @@ class RescriptPostfixTemplateProvider : PostfixTemplateProvider {
     }
 }
 
-/** Base class for ReScript postfix templates with shared applicability check. */
-private abstract class RescriptPostfixTemplateBase(
+/**
+ * Result of expanding a postfix template expression.
+ *
+ * @param text the replacement text
+ * @param caretOffset the caret position relative to the replacement start
+ */
+data class ExpandResult(
+    val text: String,
+    val caretOffset: Int = text.length,
+)
+
+/**
+ * Definition of a postfix template expansion.
+ *
+ * @param name the template trigger name (e.g., "switch")
+ * @param example the example shown in the completion popup
+ * @param expand function that transforms the original expression text into an [ExpandResult]
+ */
+data class TemplateDefinition(
+    val name: String,
+    val example: String,
+    val expand: (expr: String) -> ExpandResult,
+)
+
+/** All postfix template definitions in a data-driven list. */
+private val TEMPLATE_DEFINITIONS =
+    listOf(
+        TemplateDefinition("switch", "switch expr { | _ => }") { expr ->
+            val text = "switch $expr { | _ => }"
+            ExpandResult(text, text.length - 1)
+        },
+        TemplateDefinition("pipe", "expr->") { expr ->
+            ExpandResult("$expr->")
+        },
+        TemplateDefinition("log", "Console.log(expr)") { expr ->
+            ExpandResult("Console.log($expr)")
+        },
+        TemplateDefinition("some", "Some(expr)") { expr ->
+            ExpandResult("Some($expr)")
+        },
+        TemplateDefinition("ok", "Ok(expr)") { expr ->
+            ExpandResult("Ok($expr)")
+        },
+        TemplateDefinition("error", "Error(expr)") { expr ->
+            ExpandResult("Error($expr)")
+        },
+        TemplateDefinition("ignore", "expr->ignore") { expr ->
+            ExpandResult("$expr->ignore")
+        },
+        TemplateDefinition("promise", "expr->Promise.then(result => { ... })") { expr ->
+            val text = "$expr->Promise.then(result => {\n  \n})"
+            ExpandResult(text, expr.length + "->Promise.then(result => {\n  ".length)
+        },
+        TemplateDefinition("await", "await expr") { expr ->
+            ExpandResult("await $expr")
+        },
+    )
+
+/**
+ * Data-driven postfix template that delegates expansion to a [TemplateDefinition].
+ *
+ * Replaces the expression before the dot with the result of [expand] and positions the caret.
+ */
+private class RescriptSimplePostfixTemplate(
     name: String,
     example: String,
+    private val expand: (expr: String) -> ExpandResult,
     provider: PostfixTemplateProvider,
 ) : PostfixTemplate(null, name, ".$name", example, provider) {
     override fun isApplicable(
@@ -86,12 +143,7 @@ private abstract class RescriptPostfixTemplateBase(
         copyDocument: Document,
         newOffset: Int,
     ): Boolean = RescriptPostfixTemplateProvider.isRescriptApplicable(context)
-}
 
-/** Postfix template: `expr.switch` -> `switch expr { | _ => }`. */
-private class SwitchPostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("switch", "switch expr { | _ => }", provider) {
     override fun expand(
         context: PsiElement,
         editor: Editor,
@@ -99,181 +151,11 @@ private class SwitchPostfixTemplate(
         val document = editor.document
         val endOffset = context.textRange.endOffset
         val dotOffset = findDotBefore(document, endOffset) ?: return
-        val exprText =
-            document.getText(
-                com.intellij.openapi.util
-                    .TextRange(context.textRange.startOffset, dotOffset),
-            )
-        val replacement = "switch $exprText { | _ => }"
-        document.replaceString(context.textRange.startOffset, endOffset, replacement)
-        editor.caretModel.moveToOffset(context.textRange.startOffset + replacement.length - 1)
+        val exprText = document.getText(TextRange(context.textRange.startOffset, dotOffset))
+        val result = expand(exprText)
+        document.replaceString(context.textRange.startOffset, endOffset, result.text)
+        editor.caretModel.moveToOffset(context.textRange.startOffset + result.caretOffset)
     }
-}
-
-/** Postfix template: `expr.pipe` -> `expr->`. */
-private class PipePostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("pipe", "expr->", provider) {
-    override fun expand(
-        context: PsiElement,
-        editor: Editor,
-    ) {
-        val document = editor.document
-        val endOffset = context.textRange.endOffset
-        val dotOffset = findDotBefore(document, endOffset) ?: return
-        val exprText =
-            document.getText(
-                com.intellij.openapi.util
-                    .TextRange(context.textRange.startOffset, dotOffset),
-            )
-        val replacement = "$exprText->"
-        document.replaceString(context.textRange.startOffset, endOffset, replacement)
-        editor.caretModel.moveToOffset(context.textRange.startOffset + replacement.length)
-    }
-}
-
-/** Postfix template: `expr.log` -> `Console.log(expr)`. */
-private class LogPostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("log", "Console.log(expr)", provider) {
-    override fun expand(
-        context: PsiElement,
-        editor: Editor,
-    ) {
-        val document = editor.document
-        val endOffset = context.textRange.endOffset
-        val dotOffset = findDotBefore(document, endOffset) ?: return
-        val exprText =
-            document.getText(
-                com.intellij.openapi.util
-                    .TextRange(context.textRange.startOffset, dotOffset),
-            )
-        val replacement = "Console.log($exprText)"
-        document.replaceString(context.textRange.startOffset, endOffset, replacement)
-        editor.caretModel.moveToOffset(context.textRange.startOffset + replacement.length)
-    }
-}
-
-/** Postfix template: `expr.some` -> `Some(expr)`. */
-private class SomePostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("some", "Some(expr)", provider) {
-    override fun expand(
-        context: PsiElement,
-        editor: Editor,
-    ) {
-        wrapExpression(context, editor, "Some")
-    }
-}
-
-/** Postfix template: `expr.ok` -> `Ok(expr)`. */
-private class OkPostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("ok", "Ok(expr)", provider) {
-    override fun expand(
-        context: PsiElement,
-        editor: Editor,
-    ) {
-        wrapExpression(context, editor, "Ok")
-    }
-}
-
-/** Postfix template: `expr.error` -> `Error(expr)`. */
-private class ErrorPostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("error", "Error(expr)", provider) {
-    override fun expand(
-        context: PsiElement,
-        editor: Editor,
-    ) {
-        wrapExpression(context, editor, "Error")
-    }
-}
-
-/** Postfix template: `expr.ignore` -> `expr->ignore`. */
-private class IgnorePostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("ignore", "expr->ignore", provider) {
-    override fun expand(
-        context: PsiElement,
-        editor: Editor,
-    ) {
-        val document = editor.document
-        val endOffset = context.textRange.endOffset
-        val dotOffset = findDotBefore(document, endOffset) ?: return
-        val exprText =
-            document.getText(
-                com.intellij.openapi.util
-                    .TextRange(context.textRange.startOffset, dotOffset),
-            )
-        val replacement = "$exprText->ignore"
-        document.replaceString(context.textRange.startOffset, endOffset, replacement)
-        editor.caretModel.moveToOffset(context.textRange.startOffset + replacement.length)
-    }
-}
-
-/** Postfix template: `expr.promise` -> `expr->Promise.then(result => { ... })`. */
-private class PromisePostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("promise", "expr->Promise.then(result => { ... })", provider) {
-    override fun expand(
-        context: PsiElement,
-        editor: Editor,
-    ) {
-        val document = editor.document
-        val endOffset = context.textRange.endOffset
-        val dotOffset = findDotBefore(document, endOffset) ?: return
-        val exprText =
-            document.getText(
-                com.intellij.openapi.util
-                    .TextRange(context.textRange.startOffset, dotOffset),
-            )
-        val replacement = "$exprText->Promise.then(result => {\n  \n})"
-        document.replaceString(context.textRange.startOffset, endOffset, replacement)
-        // Place caret inside the callback body
-        val caretPos = context.textRange.startOffset + exprText.length + "->Promise.then(result => {\n  ".length
-        editor.caretModel.moveToOffset(caretPos)
-    }
-}
-
-/** Postfix template: `expr.await` -> `await expr`. */
-private class AwaitPostfixTemplate(
-    provider: PostfixTemplateProvider,
-) : RescriptPostfixTemplateBase("await", "await expr", provider) {
-    override fun expand(
-        context: PsiElement,
-        editor: Editor,
-    ) {
-        val document = editor.document
-        val endOffset = context.textRange.endOffset
-        val dotOffset = findDotBefore(document, endOffset) ?: return
-        val exprText =
-            document.getText(
-                com.intellij.openapi.util
-                    .TextRange(context.textRange.startOffset, dotOffset),
-            )
-        val replacement = "await $exprText"
-        document.replaceString(context.textRange.startOffset, endOffset, replacement)
-        editor.caretModel.moveToOffset(context.textRange.startOffset + replacement.length)
-    }
-}
-
-private fun wrapExpression(
-    context: PsiElement,
-    editor: Editor,
-    wrapper: String,
-) {
-    val document = editor.document
-    val endOffset = context.textRange.endOffset
-    val dotOffset = findDotBefore(document, endOffset) ?: return
-    val exprText =
-        document.getText(
-            com.intellij.openapi.util
-                .TextRange(context.textRange.startOffset, dotOffset),
-        )
-    val replacement = "$wrapper($exprText)"
-    document.replaceString(context.textRange.startOffset, endOffset, replacement)
-    editor.caretModel.moveToOffset(context.textRange.startOffset + replacement.length)
 }
 
 private fun findDotBefore(
