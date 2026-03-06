@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptBraceBalanceUtil
 
 /**
  * Intention action to convert positional arguments to labeled arguments.
@@ -74,8 +75,7 @@ class RescriptConvertToLabeledArgsIntention : PsiElementBaseIntentionAction() {
         val parenStart = text.indexOf('(', endOffset)
         if (parenStart < 0) return
 
-        val parenEnd = findMatchingParen(text, parenStart)
-        if (parenEnd < 0) return
+        val parenEnd = RescriptBraceBalanceUtil.findMatchingParen(text, parenStart) ?: return
 
         val argsText = text.substring(parenStart + 1, parenEnd)
         val args = RescriptLspUtils.splitByComma(argsText)
@@ -102,23 +102,5 @@ class RescriptConvertToLabeledArgsIntention : PsiElementBaseIntentionAction() {
         WriteCommandAction.runWriteCommandAction(project) {
             document.replaceString(parenStart, parenEnd + 1, labeledArgs)
         }
-    }
-
-    private fun findMatchingParen(
-        text: String,
-        openIndex: Int,
-    ): Int {
-        if (openIndex < 0) return -1
-        var depth = 0
-        for (i in openIndex until text.length) {
-            when (text[i]) {
-                '(' -> depth++
-                ')' -> {
-                    depth--
-                    if (depth == 0) return i
-                }
-            }
-        }
-        return -1
     }
 }
