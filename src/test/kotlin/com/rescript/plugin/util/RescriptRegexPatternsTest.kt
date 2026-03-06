@@ -214,4 +214,84 @@ class RescriptRegexPatternsTest {
     fun `OPEN_LINE_TEST does not match openBar`() {
         assertFalse(RescriptRegexPatterns.OPEN_LINE_TEST.containsMatchIn("openBar"))
     }
+
+    // ── INCLUDE_MODULE_CAPTURE ─────────────────────────────────
+
+    @Test
+    fun `INCLUDE_MODULE_CAPTURE captures module name`() {
+        val match = RescriptRegexPatterns.INCLUDE_MODULE_CAPTURE.find("include Belt")
+        assertEquals("Belt", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `INCLUDE_MODULE_CAPTURE captures dotted module name`() {
+        val match = RescriptRegexPatterns.INCLUDE_MODULE_CAPTURE.find("include Belt.Array")
+        assertEquals("Belt.Array", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `INCLUDE_MODULE_CAPTURE rejects lowercase module`() {
+        assertNull(RescriptRegexPatterns.INCLUDE_MODULE_CAPTURE.find("include belt"))
+    }
+
+    @Test
+    fun `INCLUDE_MODULE_CAPTURE does not match mid-line include`() {
+        assertNull(RescriptRegexPatterns.INCLUDE_MODULE_CAPTURE.find("let x = include Belt"))
+    }
+
+    // ── CONSTRUCTOR_WITH_PAYLOAD ───────────────────────────────
+
+    @Test
+    fun `CONSTRUCTOR_WITH_PAYLOAD matches simple constructor`() {
+        val match = RescriptRegexPatterns.CONSTRUCTOR_WITH_PAYLOAD.find("Some")
+        assertEquals("Some", match?.groupValues?.get(1))
+        assertEquals("", match?.groupValues?.get(2))
+    }
+
+    @Test
+    fun `CONSTRUCTOR_WITH_PAYLOAD matches constructor with payload`() {
+        val match = RescriptRegexPatterns.CONSTRUCTOR_WITH_PAYLOAD.find("Ok(string)")
+        assertEquals("Ok", match?.groupValues?.get(1))
+        assertEquals("string", match?.groupValues?.get(2))
+    }
+
+    @Test
+    fun `CONSTRUCTOR_WITH_PAYLOAD matches with trailing whitespace`() {
+        val match = RescriptRegexPatterns.CONSTRUCTOR_WITH_PAYLOAD.find("None  ")
+        assertEquals("None", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `CONSTRUCTOR_WITH_PAYLOAD rejects lowercase`() {
+        assertNull(RescriptRegexPatterns.CONSTRUCTOR_WITH_PAYLOAD.find("some"))
+    }
+
+    // ── LABELED_PARAM_NAME ─────────────────────────────────────
+
+    @Test
+    fun `LABELED_PARAM_NAME matches simple labeled param`() {
+        val match = RescriptRegexPatterns.LABELED_PARAM_NAME.find("~name")
+        assertEquals("name", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `LABELED_PARAM_NAME matches labeled param with type`() {
+        val match = RescriptRegexPatterns.LABELED_PARAM_NAME.find("~age: int")
+        assertEquals("age", match?.groupValues?.get(1))
+    }
+
+    @Test
+    fun `LABELED_PARAM_NAME finds all in signature`() {
+        val params =
+            RescriptRegexPatterns.LABELED_PARAM_NAME
+                .findAll("(~name: string, ~age: int) => person")
+                .map { it.groupValues[1] }
+                .toList()
+        assertEquals(listOf("name", "age"), params)
+    }
+
+    @Test
+    fun `LABELED_PARAM_NAME does not match without tilde`() {
+        assertNull(RescriptRegexPatterns.LABELED_PARAM_NAME.find("name: string"))
+    }
 }

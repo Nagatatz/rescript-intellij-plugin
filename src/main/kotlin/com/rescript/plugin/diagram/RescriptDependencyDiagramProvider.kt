@@ -68,5 +68,5 @@ object RescriptDependencyDiagramProvider {
     }
 
     // Pattern for `include ModuleName`
-    private val INCLUDE_PATTERN = Regex("""^include\s+([A-Z][\w.]*)""")
+    private val INCLUDE_PATTERN = RescriptRegexPatterns.INCLUDE_MODULE_CAPTURE
 }
