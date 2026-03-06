@@ -7,6 +7,7 @@ import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptBraceBalanceUtil
 
 /**
  * Intention action that inserts labeled argument placeholders for a function call.
@@ -69,8 +70,8 @@ class RescriptInsertLabeledArgsIntention : PsiElementBaseIntentionAction() {
         val replacement =
             if (afterIdent.startsWith("(")) {
                 // Replace existing parens content
-                val parenEnd = findMatchingParen(text, text.indexOf('(', insertOffset))
-                if (parenEnd > 0) {
+                val parenEnd = RescriptBraceBalanceUtil.findMatchingParen(text, text.indexOf('(', insertOffset))
+                if (parenEnd != null) {
                     document.replaceString(insertOffset, parenEnd + 1, "($argsText)")
                     return
                 }
@@ -86,23 +87,5 @@ class RescriptInsertLabeledArgsIntention : PsiElementBaseIntentionAction() {
         if (firstPlaceholder > insertOffset) {
             editor.caretModel.moveToOffset(firstPlaceholder)
         }
-    }
-
-    private fun findMatchingParen(
-        text: String,
-        openIndex: Int,
-    ): Int {
-        if (openIndex < 0) return -1
-        var depth = 0
-        for (i in openIndex until text.length) {
-            when (text[i]) {
-                '(' -> depth++
-                ')' -> {
-                    depth--
-                    if (depth == 0) return i
-                }
-            }
-        }
-        return -1
     }
 }
