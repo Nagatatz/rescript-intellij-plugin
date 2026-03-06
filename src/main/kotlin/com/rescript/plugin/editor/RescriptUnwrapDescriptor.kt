@@ -125,6 +125,36 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     ): Int? = RescriptBraceBalanceUtil.findMatchingParen(text, openIndex)
 
     /**
+     * Searches a region around [offset] for [pattern] matches and applies [extract]
+     * to each match to produce a [Quadruple] range. Returns the first result that
+     * contains [offset], or null.
+     *
+     * @param text the full document text
+     * @param offset the cursor position
+     * @param pattern the regex to search for in the region
+     * @param radius the number of characters to search before/after offset
+     * @param extract function that converts an absolute match start into a Quadruple, or null to skip
+     */
+    private fun findRegionMatch(
+        text: String,
+        offset: Int,
+        pattern: Regex,
+        radius: Int,
+        extract: (absMatchStart: Int) -> Quadruple?,
+    ): Quadruple? {
+        val searchStart = maxOf(0, offset - radius)
+        val region = text.substring(searchStart, minOf(text.length, offset + radius))
+        for (match in pattern.findAll(region)) {
+            val absStart = searchStart + match.range.first
+            val result = extract(absStart) ?: continue
+            if (result.outerStart <= offset && offset <= result.outerEnd) {
+                return result
+            }
+        }
+        return null
+    }
+
+    /**
      * Finds `if (...) { body }` around cursor.
      *
      * @return (ifStart, bodyStart, bodyEnd, totalEnd) or null
@@ -132,26 +162,21 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     internal fun findIfRange(
         text: String,
         offset: Int,
-    ): Quadruple? {
-        // Search backward for 'if' keyword
-        val searchStart = maxOf(0, offset - 200)
-        val region = text.substring(searchStart, minOf(text.length, offset + 200))
-        for (match in IF_PATTERN.findAll(region)) {
-            val absIfStart = searchStart + match.range.first
-            // Find the condition's closing paren
+    ): Quadruple? =
+        findRegionMatch(text, offset, IF_PATTERN, radius = 200) { absIfStart ->
             val condOpenIdx = text.indexOf('(', absIfStart + 2)
-            if (condOpenIdx < 0) continue
-            val condCloseIdx = findMatchingParen(text, condOpenIdx) ?: continue
-            // Find the body opening brace
+            if (condOpenIdx < 0) return@findRegionMatch null
+            val condCloseIdx = findMatchingParen(text, condOpenIdx) ?: return@findRegionMatch null
             val bodyOpenIdx = findNextNonWhitespace(text, condCloseIdx + 1)
-            if (bodyOpenIdx == null || bodyOpenIdx >= text.length || text[bodyOpenIdx] != '{') continue
-            val bodyCloseIdx = findMatchingBrace(text, bodyOpenIdx) ?: continue
-            if (absIfStart <= offset && offset <= bodyCloseIdx + 1) {
-                return Quadruple(absIfStart, bodyOpenIdx + 1, bodyCloseIdx, bodyCloseIdx + 1)
+            if (bodyOpenIdx == null ||
+                bodyOpenIdx >= text.length ||
+                text[bodyOpenIdx] != '{'
+            ) {
+                return@findRegionMatch null
             }
+            val bodyCloseIdx = findMatchingBrace(text, bodyOpenIdx) ?: return@findRegionMatch null
+            Quadruple(absIfStart, bodyOpenIdx + 1, bodyCloseIdx, bodyCloseIdx + 1)
         }
-        return null
-    }
 
     /**
      * Finds `switch expr { ... | _ => body }` around cursor and extracts the last arm's body.
@@ -159,21 +184,13 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     internal fun findSwitchBodyRange(
         text: String,
         offset: Int,
-    ): Quadruple? {
-        val searchStart = maxOf(0, offset - 300)
-        val region = text.substring(searchStart, minOf(text.length, offset + 300))
-        for (match in SWITCH_PATTERN.findAll(region)) {
-            val absSwitchStart = searchStart + match.range.first
-            // Find the body opening brace
+    ): Quadruple? =
+        findRegionMatch(text, offset, SWITCH_PATTERN, radius = 300) { absSwitchStart ->
             val braceIdx = text.indexOf('{', absSwitchStart + 6)
-            if (braceIdx < 0) continue
-            val braceEndIdx = findMatchingBrace(text, braceIdx) ?: continue
-            if (absSwitchStart <= offset && offset <= braceEndIdx + 1) {
-                return Quadruple(absSwitchStart, braceIdx + 1, braceEndIdx, braceEndIdx + 1)
-            }
+            if (braceIdx < 0) return@findRegionMatch null
+            val braceEndIdx = findMatchingBrace(text, braceIdx) ?: return@findRegionMatch null
+            Quadruple(absSwitchStart, braceIdx + 1, braceEndIdx, braceEndIdx + 1)
         }
-        return null
-    }
 
     /**
      * Finds `try { body } catch { ... }` around cursor.
@@ -181,27 +198,19 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
     internal fun findTryRange(
         text: String,
         offset: Int,
-    ): Quadruple? {
-        val searchStart = maxOf(0, offset - 300)
-        val region = text.substring(searchStart, minOf(text.length, offset + 300))
-        for (match in TRY_PATTERN.findAll(region)) {
-            val absTryStart = searchStart + match.range.first
+    ): Quadruple? =
+        findRegionMatch(text, offset, TRY_PATTERN, radius = 300) { absTryStart ->
             val tryBraceIdx = text.indexOf('{', absTryStart + 3)
-            if (tryBraceIdx < 0) continue
-            val tryBraceEnd = findMatchingBrace(text, tryBraceIdx) ?: continue
-            // Find the catch block
-            val catchIdx = findNextNonWhitespace(text, tryBraceEnd + 1) ?: continue
+            if (tryBraceIdx < 0) return@findRegionMatch null
+            val tryBraceEnd = findMatchingBrace(text, tryBraceIdx) ?: return@findRegionMatch null
+            val catchIdx = findNextNonWhitespace(text, tryBraceEnd + 1) ?: return@findRegionMatch null
             val remaining = text.substring(catchIdx)
-            if (!remaining.startsWith("catch")) continue
+            if (!remaining.startsWith("catch")) return@findRegionMatch null
             val catchBraceIdx = text.indexOf('{', catchIdx + 5)
-            if (catchBraceIdx < 0) continue
-            val catchBraceEnd = findMatchingBrace(text, catchBraceIdx) ?: continue
-            if (absTryStart <= offset && offset <= catchBraceEnd + 1) {
-                return Quadruple(absTryStart, tryBraceIdx + 1, tryBraceEnd, catchBraceEnd + 1)
-            }
+            if (catchBraceIdx < 0) return@findRegionMatch null
+            val catchBraceEnd = findMatchingBrace(text, catchBraceIdx) ?: return@findRegionMatch null
+            Quadruple(absTryStart, tryBraceIdx + 1, tryBraceEnd, catchBraceEnd + 1)
         }
-        return null
-    }
 
     /**
      * Finds the nearest enclosing `{ ... }` block around cursor.
