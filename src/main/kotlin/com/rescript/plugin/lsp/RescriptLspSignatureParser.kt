@@ -1,5 +1,7 @@
 package com.rescript.plugin.lsp
 
+import com.rescript.plugin.util.RescriptRegexPatterns
+
 /**
  * Parses ReScript function signature strings and variant type definitions
  * from LSP hover responses.
@@ -28,7 +30,7 @@ object RescriptLspSignatureParser {
     private val LABELED_PARAM_PATTERN = Regex("""~(\w+)\s*:\s*(.+?)\s*(=\?)?\s*$""")
 
     // Match variant constructors like Name or Name(payload)
-    private val CONSTRUCTOR_PATTERN = Regex("""^([A-Z]\w*)(?:\((.+)\))?$""")
+    private val CONSTRUCTOR_PATTERN = RescriptRegexPatterns.CONSTRUCTOR_WITH_PAYLOAD
 
     /**
      * Parses labeled parameters from a ReScript function signature string.
