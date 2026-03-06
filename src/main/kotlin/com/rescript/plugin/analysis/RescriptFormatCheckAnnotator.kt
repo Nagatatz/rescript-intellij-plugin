@@ -157,6 +157,7 @@ class RescriptFormatCheckAnnotator :
                                 it.write(documentText)
                             }
                         } catch (_: IOException) {
+                            // Expected when the process exits before stdin is fully written (broken pipe)
                         }
                     },
                     "rescript-format-check-stdin",
@@ -170,6 +171,7 @@ class RescriptFormatCheckAnnotator :
                         try {
                             process.errorStream.reader(Charsets.UTF_8).use { it.readText() }
                         } catch (_: IOException) {
+                            // Expected when the process exits before stderr is fully read (stream closed)
                         }
                     },
                     "rescript-format-check-stderr",

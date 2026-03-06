@@ -6,6 +6,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
  * Intention action that generates a doc comment stub (`/** ... */`) above
@@ -55,7 +56,7 @@ class RescriptGenerateDocCommentIntention : PsiElementBaseIntentionAction() {
         private val PARAM_LIST_REGEX = Regex("""\(([^)]*)\)\s*=>""")
 
         // Regex to match a single labeled parameter: ~name or ~name: type or ~name=?
-        private val LABELED_PARAM_REGEX = Regex("""~(\w+)""")
+        private val LABELED_PARAM_REGEX = RescriptRegexPatterns.LABELED_PARAM_NAME
 
         // Regex to match a single unlabeled parameter: name or name: type (excluding _ and ())
         private val UNLABELED_PARAM_REGEX = Regex("""^([a-z]\w*)""")
