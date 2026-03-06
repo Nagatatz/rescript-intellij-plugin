@@ -94,8 +94,15 @@ object RescriptImportUtil {
         text: String,
         moduleName: String,
     ): Boolean {
-        // Build a specific pattern for this module name to avoid partial matches
-        val pattern = Regex("""(?m)^open\s+$moduleName\s*$""")
-        return pattern.containsMatchIn(text)
+        // Check each line for an exact `open ModuleName` match at the start (no indent)
+        // to preserve the same behavior as the previous regex: (?m)^open\s+ModuleName\s*$
+        for (line in text.lineSequence()) {
+            val trimmedEnd = line.trimEnd()
+            if (trimmedEnd.startsWith("open ") || trimmedEnd.startsWith("open\t")) {
+                val afterOpen = trimmedEnd.substring(4).trim()
+                if (afterOpen == moduleName) return true
+            }
+        }
+        return false
     }
 }
