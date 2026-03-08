@@ -120,18 +120,8 @@ object RescriptLspUtils {
         }
     }
 
-    /**
-     * Represents a labeled parameter parsed from a function signature.
-     *
-     * @param name the parameter label name (without ~)
-     * @param type the parameter type annotation
-     * @param isOptional true if the parameter has a default value (=?)
-     */
-    data class LabeledParam(
-        val name: String,
-        val type: String,
-        val isOptional: Boolean,
-    )
+    /** Type alias for [RescriptLspSignatureParser.LabeledParam]. */
+    typealias LabeledParam = RescriptLspSignatureParser.LabeledParam
 
     /**
      * Parses labeled parameters from a ReScript function signature string.
@@ -142,15 +132,10 @@ object RescriptLspUtils {
      * @return list of labeled parameters found in the signature
      */
     fun parseSignatureLabels(signature: String): List<LabeledParam> =
-        RescriptLspSignatureParser.parseSignatureLabels(signature).map {
-            LabeledParam(name = it.name, type = it.type, isOptional = it.isOptional)
-        }
+        RescriptLspSignatureParser.parseSignatureLabels(signature)
 
-    /** Information about a variant constructor. */
-    data class VariantInfo(
-        val name: String,
-        val hasPayload: Boolean,
-    )
+    /** Type alias for [RescriptLspSignatureParser.VariantInfo]. */
+    typealias VariantInfo = RescriptLspSignatureParser.VariantInfo
 
     /**
      * Parses variant constructors from a type hover result.
@@ -161,9 +146,7 @@ object RescriptLspUtils {
      * @return list of constructor names with optional payload indicator, or empty if not a variant
      */
     fun parseVariantConstructors(typeText: String): List<VariantInfo> =
-        RescriptLspSignatureParser.parseVariantConstructors(typeText).map {
-            VariantInfo(name = it.name, hasPayload = it.hasPayload)
-        }
+        RescriptLspSignatureParser.parseVariantConstructors(typeText)
 
     /**
      * Parses a diagnostic message to extract diagnostic details.
@@ -171,27 +154,14 @@ object RescriptLspUtils {
      * @param message the diagnostic message text
      * @return parsed diagnostic info, or null if the message format is not recognized
      */
-    fun parseDiagnosticMessage(message: String): DiagnosticInfo? {
-        val result = RescriptLspDiagnosticParser.parseDiagnosticMessage(message) ?: return null
-        val kind =
-            when (result.kind) {
-                RescriptLspDiagnosticParser.DiagnosticKind.UNRESOLVED_VALUE -> DiagnosticKind.UNRESOLVED_VALUE
-                RescriptLspDiagnosticParser.DiagnosticKind.UNRESOLVED_MODULE -> DiagnosticKind.UNRESOLVED_MODULE
-            }
-        return DiagnosticInfo(kind = kind, identifier = result.identifier)
-    }
+    fun parseDiagnosticMessage(message: String): DiagnosticInfo? =
+        RescriptLspDiagnosticParser.parseDiagnosticMessage(message)
 
-    /** The kind of diagnostic identified from a message. */
-    enum class DiagnosticKind {
-        UNRESOLVED_VALUE,
-        UNRESOLVED_MODULE,
-    }
+    /** Type alias for [RescriptLspDiagnosticParser.DiagnosticKind]. */
+    typealias DiagnosticKind = RescriptLspDiagnosticParser.DiagnosticKind
 
-    /** Parsed diagnostic information. */
-    data class DiagnosticInfo(
-        val kind: DiagnosticKind,
-        val identifier: String,
-    )
+    /** Type alias for [RescriptLspDiagnosticParser.DiagnosticInfo]. */
+    typealias DiagnosticInfo = RescriptLspDiagnosticParser.DiagnosticInfo
 
     /** Extracts content between the first ( and its matching ). */
     internal fun extractParenContent(text: String): String? = RescriptLspSignatureParser.extractParenContent(text)
