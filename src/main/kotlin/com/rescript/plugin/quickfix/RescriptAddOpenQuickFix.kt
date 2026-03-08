@@ -72,11 +72,4 @@ class RescriptAddOpenQuickFix : PsiElementBaseIntentionAction() {
             document.insertString(insertOffset, openStatement)
         }
     }
-
-    companion object {
-        /**
-         * @see RescriptImportUtil.findOpenInsertOffset
-         */
-        internal fun findOpenInsertOffset(text: String): Int = RescriptImportUtil.findOpenInsertOffset(text)
-    }
 }
