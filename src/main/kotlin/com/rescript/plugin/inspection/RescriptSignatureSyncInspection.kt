@@ -139,8 +139,14 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
             keyword: String,
         ): String? {
             val text = element.text.trim()
-            val match = Regex("""^$keyword\s+(\w+)""").find(text)
-            return match?.groupValues?.get(1)
+            if (!text.startsWith(keyword)) return null
+            val afterKeyword = text.substring(keyword.length)
+            if (afterKeyword.isEmpty() || !afterKeyword[0].isWhitespace()) return null
+            val trimmed = afterKeyword.trimStart()
+            if (trimmed.isEmpty()) return null
+            // Extract identifier: word characters (letters, digits, underscore)
+            val name = trimmed.takeWhile { it.isLetterOrDigit() || it == '_' }
+            return name.ifEmpty { null }
         }
     }
 }
