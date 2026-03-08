@@ -92,14 +92,9 @@ class RescriptStyleLintInspection : LocalInspectionTool() {
             project: Project,
             descriptor: ProblemDescriptor,
         ) {
-            val file = descriptor.psiElement?.containingFile ?: return
-            val document = file.viewProvider.document ?: return
-            val offset = descriptor.psiElement?.textRange?.startOffset ?: return
-            val text = document.text
-            val match = REDUNDANT_BOOL_PATTERN.find(text, offset) ?: return
-            if (match.range.first != offset) return
-            val condition = match.groupValues[1].trim()
-            document.replaceString(match.range.first, match.range.last + 1, condition)
+            applyPatternFix(descriptor, REDUNDANT_BOOL_PATTERN) { match ->
+                match.groupValues[1].trim()
+            }
         }
     }
 
@@ -111,14 +106,9 @@ class RescriptStyleLintInspection : LocalInspectionTool() {
             project: Project,
             descriptor: ProblemDescriptor,
         ) {
-            val file = descriptor.psiElement?.containingFile ?: return
-            val document = file.viewProvider.document ?: return
-            val offset = descriptor.psiElement?.textRange?.startOffset ?: return
-            val text = document.text
-            val match = BELT_USAGE_PATTERN.find(text, offset) ?: return
-            if (match.range.first != offset) return
-            val replacement = match.groupValues[1]
-            document.replaceString(match.range.first, match.range.last + 1, replacement)
+            applyPatternFix(descriptor, BELT_USAGE_PATTERN) { match ->
+                match.groupValues[1]
+            }
         }
     }
 
@@ -130,20 +120,35 @@ class RescriptStyleLintInspection : LocalInspectionTool() {
             project: Project,
             descriptor: ProblemDescriptor,
         ) {
-            val file = descriptor.psiElement?.containingFile ?: return
-            val document = file.viewProvider.document ?: return
-            val offset = descriptor.psiElement?.textRange?.startOffset ?: return
-            val text = document.text
-            val match = BOOLEAN_SWITCH_PATTERN.find(text, offset) ?: return
-            if (match.range.first != offset) return
-            val converted = convertBooleanSwitch(match.value)
-            if (converted != null) {
-                document.replaceString(match.range.first, match.range.last + 1, converted)
+            applyPatternFix(descriptor, BOOLEAN_SWITCH_PATTERN) { match ->
+                convertBooleanSwitch(match.value)
             }
         }
     }
 
     companion object {
+        /**
+         * Applies a regex-based quick fix at the descriptor's element offset.
+         *
+         * @param descriptor the problem descriptor identifying the element
+         * @param pattern the regex pattern to match at the element's offset
+         * @param transform function that produces the replacement string from the match, or null to skip
+         */
+        private fun applyPatternFix(
+            descriptor: ProblemDescriptor,
+            pattern: Regex,
+            transform: (MatchResult) -> String?,
+        ) {
+            val file = descriptor.psiElement?.containingFile ?: return
+            val document = file.viewProvider.document ?: return
+            val offset = descriptor.psiElement?.textRange?.startOffset ?: return
+            val text = document.text
+            val match = pattern.find(text, offset) ?: return
+            if (match.range.first != offset) return
+            val replacement = transform(match) ?: return
+            document.replaceString(match.range.first, match.range.last + 1, replacement)
+        }
+
         // Matches: if cond { true } else { false }
         internal val REDUNDANT_BOOL_PATTERN =
             Regex("""if\s+(.+?)\s*\{\s*true\s*}\s*else\s*\{\s*false\s*}""")
