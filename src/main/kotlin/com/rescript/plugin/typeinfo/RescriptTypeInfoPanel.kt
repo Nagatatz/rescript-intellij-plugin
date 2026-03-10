@@ -2,6 +2,7 @@ package com.rescript.plugin.typeinfo
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.colors.EditorColorsManager
@@ -115,7 +116,8 @@ class RescriptTypeInfoPanel(
             return
         }
 
-        val offset = editor.caretModel.offset
+        // Caret model access requires EDT or read action
+        val offset = ReadAction.compute<Int, RuntimeException> { editor.caretModel.offset }
         val typeText = RescriptLspUtils.getHoverType(project, file, offset)
 
         if (typeText != null) {

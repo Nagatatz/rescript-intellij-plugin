@@ -102,7 +102,7 @@ class RescriptErrorReporter : ErrorReportSubmitter() {
             if (event != null) {
                 sb.appendLine("## Stack Trace")
                 sb.appendLine("```")
-                val rawStacktrace = event.throwableText ?: event.throwable?.stackTraceToString() ?: "N/A"
+                val rawStacktrace = event.throwableText
                 // Strip absolute file paths to avoid exposing user directory structure
                 val stacktrace = sanitizeFilePaths(rawStacktrace)
                 sb.appendLine(stacktrace.take(MAX_STACKTRACE_LENGTH))
