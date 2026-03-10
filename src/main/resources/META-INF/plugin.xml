@@ -615,7 +615,7 @@
 
         <!-- Go to Test / Create Test (Ctrl+Shift+T) -->
         <testCreator language="ReScript"
-                implementation="com.rescript.plugin.navigation.RescriptTestCreator"/>
+                implementationClass="com.rescript.plugin.navigation.RescriptTestCreator"/>
 
         <!-- Project View: nest .resi under .res -->
         <treeStructureProvider

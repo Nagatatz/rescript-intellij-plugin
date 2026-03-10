@@ -95,36 +95,28 @@ class RescriptTypeInfoPanel(
     /**
      * Schedules a debounced type info update for the given editor.
      *
+     * Captures the caret offset and file on the current thread (expected to be EDT)
+     * before scheduling the LSP query on a pooled thread to avoid threading violations.
+     *
      * @param editor the editor whose caret position changed
      */
     private fun scheduleUpdate(editor: Editor) {
         alarm.cancelAllRequests()
-        alarm.addRequest({
-            updateTypeInfo(editor)
-        }, DEBOUNCE_MS)
-    }
 
-    /**
-     * Queries LSP hover for the type at the current caret position and updates the label.
-     *
-     * @param editor the editor to query
-     */
-    private fun updateTypeInfo(editor: Editor) {
+        // Capture offset and file on EDT before scheduling background work.
+        // Caret model access requires EDT or read action — capturing here avoids
+        // the threading violation that occurs when accessed from the pooled thread.
+        val offset = ReadAction.compute<Int, RuntimeException> { editor.caretModel.offset }
         val file = FileDocumentManager.getInstance().getFile(editor.document)
         if (file == null || !RescriptFileUtil.isRescriptFile(file)) {
             showMessage(NO_RESCRIPT_FILE)
             return
         }
 
-        // Caret model access requires EDT or read action
-        val offset = ReadAction.compute<Int, RuntimeException> { editor.caretModel.offset }
-        val typeText = RescriptLspUtils.getHoverType(project, file, offset)
-
-        if (typeText != null) {
-            showMessage(typeText)
-        } else {
-            showMessage(NO_TYPE)
-        }
+        alarm.addRequest({
+            val typeText = RescriptLspUtils.getHoverType(project, file, offset)
+            showMessage(typeText ?: NO_TYPE)
+        }, DEBOUNCE_MS)
     }
 
     private fun showMessage(text: String) {
