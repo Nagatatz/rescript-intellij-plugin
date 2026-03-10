@@ -1,6 +1,5 @@
 package com.rescript.plugin.repl
 
-import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.util.io.FileUtil
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -13,8 +12,6 @@ import java.util.concurrent.TimeUnit
  * experience without requiring a persistent REPL subprocess.
  */
 object RescriptReplExecutor {
-    private val LOG = logger<RescriptReplExecutor>()
-
     /** Timeout in seconds for compile and execution steps. */
     private const val TIMEOUT_SECONDS = 30L
 

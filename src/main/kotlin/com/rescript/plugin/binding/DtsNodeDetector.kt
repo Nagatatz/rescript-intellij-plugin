@@ -1,6 +1,5 @@
 package com.rescript.plugin.binding
 
-import com.intellij.openapi.diagnostic.logger
 import com.rescript.plugin.settings.RescriptProjectSettings
 import com.rescript.plugin.util.RescriptProcessUtils
 import com.rescript.plugin.util.RescriptSecurityUtils
@@ -18,8 +17,6 @@ import java.nio.file.Path
  * @see com.rescript.plugin.lsp.RescriptLspDetector for similar detection pattern
  */
 object DtsNodeDetector {
-    private val LOG = logger<DtsNodeDetector>()
-
     /**
      * Finds the path to the TypeScript package directory.
      *
