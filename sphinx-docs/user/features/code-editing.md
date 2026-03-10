@@ -448,6 +448,31 @@ Press `Ctrl+Alt+O` to remove duplicate `open` statements from the current file.
 
 Press `Shift+F6` to rename a symbol across the project. The Language Server handles finding all references and updating them.
 
+## Extract Variable
+
+Press `Ctrl+Alt+V` (`Cmd+Alt+V` on macOS) to extract the selected expression into a `let` binding.
+
+The handler detects the selected expression within a `let` declaration body, creates a new `let` binding above the current statement, and replaces the original expression with a reference to the new variable.
+
+**Before** (with `a + b` selected):
+
+```rescript
+let calculate = (a, b) => {
+  let result = a + b * 2
+  result
+}
+```
+
+**After:**
+
+```rescript
+let calculate = (a, b) => {
+  let sum = a + b
+  let result = sum * 2
+  result
+}
+```
+
 ## Extract Function
 
 Press `Ctrl+Alt+M` (`Cmd+Alt+M` on macOS) to extract the selected code into a new function.

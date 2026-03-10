@@ -204,11 +204,20 @@ let process = (data) => {
 Call Hierarchy uses PSI-based text search to discover call relationships. It works within the project scope and matches identifiers by name. For best results, use it on `let` and `external` declarations.
 :::
 
-## Navigation Bar
-
 ## Type Signature Search
 
 Search for functions by their type signature in the Search Everywhere dialog. See [Advanced Features — Type Signature Search](advanced.md#type-signature-search) for details.
+
+## Usage Type Classification
+
+The plugin classifies how ReScript symbols are used in Find Usages results, grouping them by usage context:
+
+- **Read access** — Reading a variable or field value
+- **Write access** — Assigning to a mutable reference
+- **Import / Open** — Referenced in an `open` statement
+- **Type reference** — Used as a type annotation
+
+This helps you quickly filter and understand usage patterns when reviewing references to a symbol.
 
 ## Navigation Bar
 

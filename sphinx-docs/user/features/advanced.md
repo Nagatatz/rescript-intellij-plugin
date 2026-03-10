@@ -874,6 +874,22 @@ The action collects and displays:
 - **Bug reports** — Include LSP state when reporting issues to plugin maintainers
 - **Debugging** — Check what configuration the LSP server has loaded
 
+## Predefined Code Style
+
+The plugin registers a "ReScript Standard" predefined code style that can be applied via **Settings** > **Editor** > **Code Style** > **ReScript** > **Set from...** > **Predefined Style** > **ReScript Standard**.
+
+This provides a one-click way to configure indentation and formatting settings to match the standard ReScript conventions (2-space indentation, no tabs).
+
+## Element Descriptions
+
+The plugin provides human-readable descriptions of ReScript elements for use in IDE dialogs such as **Find Usages**, **Safe Delete**, and refactoring confirmations.
+
+For example, when using Safe Delete on a function, the confirmation dialog shows:
+
+> Delete function 'greet'?
+
+rather than a generic "Delete element" message. This applies to `let` bindings, `type` declarations, `module` declarations, `external` declarations, and `exception` declarations.
+
 ## Build Watch Auto-Start Prompt
 
 When you open a ReScript project, the plugin shows a one-time balloon notification offering to start the ReScript watch build (`rescript build -w`).
