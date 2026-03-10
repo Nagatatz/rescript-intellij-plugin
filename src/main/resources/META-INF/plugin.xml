@@ -69,6 +69,14 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.6</h3>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Fix EDT threading violation in TypeInfoPanel when accessing caret offset from pooled thread</li>
+            <li>Fix GenerateGroup to extend DefaultActionGroup for proper child action support</li>
+            <li>Fix testCreator extension point attribute name (implementation → implementationClass)</li>
+        </ul>
+
         <h3>0.1.5</h3>
         <h4>Refactoring</h4>
         <ul>
