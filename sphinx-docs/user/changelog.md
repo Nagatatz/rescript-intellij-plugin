@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.1.6
+
+### Bug Fixes
+
+- Fix EDT threading violation in TypeInfoPanel when accessing caret offset from pooled thread
+- Fix GenerateGroup to extend DefaultActionGroup for proper child action support
+- Fix testCreator extension point attribute name (`implementation` → `implementationClass`)
+
+## 0.1.5
+
+### Refactoring
+
+- Migrate test suite from JUnit 4 to JUnit 5 (Jupiter)
+- Centralize regex patterns into RescriptRegexPatterns
+- Extract brace balance utilities into RescriptBraceBalanceUtil
+- Extract common patterns: quick fix in StyleLintInspection, Gson deserialization, region search in UnwrapDescriptor
+- Reduce postfix template boilerplate with data-driven approach
+- Remove redundant Elvis operator, duplicate type wrappers, unnecessary companion object shims
+- Replace inline regex with string matching in SignatureSyncInspection and isModuleOpened
+
+### Infrastructure
+
+- Remove unused LOG fields in DtsNodeDetector and RescriptReplExecutor
+- Restore Kover coverage verification above 54% threshold
+
 ## 0.1.4
 
 ### Bug Fixes
