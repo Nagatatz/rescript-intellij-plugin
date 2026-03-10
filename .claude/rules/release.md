@@ -30,24 +30,40 @@ git log <前タグ>..HEAD --oneline
 | Performance | ⚡ |
 | Infrastructure | 🔧 |
 
-### 2. バージョン番号の更新
+### 2. `plugin.xml` の `<change-notes>` 更新
+
+`src/main/resources/META-INF/plugin.xml` の `<change-notes>` セクション先頭に新バージョンのエントリを追加する。このセクションが **Marketplace のプラグインページに表示される変更履歴** となる。
+
+```xml
+<h3>X.Y.Z</h3>
+<h4>カテゴリ名</h4>
+<ul>
+    <li>変更内容</li>
+</ul>
+```
+
+**重要:** `<change-notes>` は `publishPlugin` 実行時のアーティファクトに焼き込まれるため、**タグ作成前に必ず更新・コミットすること**。リリース後に追加しても既にパブリッシュ済みのバージョンには反映されない。
+
+### 3. バージョン番号の更新
 
 `gradle.properties` の `pluginVersion` を新バージョンに更新する。
 
-### 3. ビルド検証
+### 4. ビルド検証
 
 ```bash
 ./gradlew clean buildPlugin
 ```
 
-### 4. バージョン更新のコミット
+### 5. リリースコミット
+
+`plugin.xml` とバージョン更新を1つのコミットにまとめる。
 
 ```bash
-git add gradle.properties
+git add gradle.properties src/main/resources/META-INF/plugin.xml
 git commit -m "⬆ Bump version to <新バージョン>"
 ```
 
-### 5. アノテーション付きタグの作成
+### 6. アノテーション付きタグの作成
 
 リリースノートをタグメッセージとして含める。
 
@@ -55,7 +71,7 @@ git commit -m "⬆ Bump version to <新バージョン>"
 git tag -a v<新バージョン> -m "<リリースノート>"
 ```
 
-### 6. プッシュ
+### 7. プッシュ
 
 コミットとタグを一括でプッシュする。
 
@@ -63,15 +79,22 @@ git tag -a v<新バージョン> -m "<リリースノート>"
 git push origin main v<新バージョン>
 ```
 
-### 7. リリース確認
+### 8. GitHub Release のリリースノート確認
 
 GitHub Actions の Release ワークフロー (`release.yml`) が起動し、以下が完了することを確認する:
 
 - GitHub Release が作成される
 - JetBrains Marketplace へのパブリッシュが成功する
 
+`release.yml` は `generate_release_notes: true` で GitHub の自動生成ノートを使用するため、タグメッセージは GitHub Release には反映されない。必要に応じて `gh release edit` でリリースノートを手動で更新する。
+
+```bash
+gh release edit v<新バージョン> --notes "<リリースノート>"
+```
+
 ## 禁止事項
 
+- **`plugin.xml` の `<change-notes>` を更新せずにタグを作成すること** — Marketplace に変更履歴が反映されない（リリース後の修正不可）
 - **`gradle.properties` を更新せずにタグを作成すること** — Marketplace パブリッシュが失敗する
 - **軽量タグ (`git tag v<version>`) の使用** — 必ずアノテーション付きタグを使うこと
 - **タグのみプッシュしてコミットをプッシュしないこと** — 一括プッシュすること
