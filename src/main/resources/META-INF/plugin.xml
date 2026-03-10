@@ -69,6 +69,24 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.5</h3>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Extract Gson deserialization into DtsJsonParser</li>
+            <li>Extract brace balance utilities into RescriptBraceBalanceUtil</li>
+            <li>Reduce postfix template boilerplate with data-driven approach</li>
+            <li>Extract common region-search pattern in UnwrapDescriptor</li>
+            <li>Extract common quick fix pattern in StyleLintInspection</li>
+            <li>Consolidate regex patterns and replace dynamic regex with string matching</li>
+            <li>Remove redundant Elvis operator and fix thread-safety in TypeInfoPanel</li>
+            <li>Remove unused LOG fields in DtsNodeDetector and RescriptReplExecutor</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Migrate test suite from JUnit 4 to JUnit 5 (Jupiter)</li>
+            <li>Restore Kover coverage verification above 54% threshold</li>
+        </ul>
+
         <h3>0.1.4</h3>
         <h4>Bug Fixes</h4>
         <ul>
