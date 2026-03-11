@@ -547,6 +547,15 @@ Typing `makeUser(` triggers the signature help popup, which displays:
 
 As you type each argument and enter a comma, the popup highlights the current parameter position so you always know which argument you are filling in. This works for all functions whose signatures are known to the language server, including standard library functions and your own definitions.
 
+## Completion Confidence
+
+The plugin suppresses the automatic completion popup in contexts where it would be unhelpful or disruptive:
+
+- **Inside comments** — Line comments (`//`), block comments (`/* */`), and doc comments (`/** */`)
+- **Inside string literals** — Regular strings, template strings, and character literals
+
+In these contexts, you can still trigger completion manually with `Ctrl+Space`, but the popup will not appear automatically as you type. This prevents irrelevant suggestions from interrupting documentation or string authoring.
+
 ## Lookup Character Filter
 
 The plugin intelligently filters completion behavior based on typed characters:
