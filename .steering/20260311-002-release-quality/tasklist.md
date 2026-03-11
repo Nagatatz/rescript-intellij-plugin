@@ -25,5 +25,5 @@
 
 - [x] `./gradlew clean buildPlugin` 成功確認
 - [x] 新規 Gradle タスクの動作確認
-- [ ] 機能単位でコミット
-- [ ] `main` にマージ
+- [x] 機能単位でコミット
+- [x] `main` にマージ
