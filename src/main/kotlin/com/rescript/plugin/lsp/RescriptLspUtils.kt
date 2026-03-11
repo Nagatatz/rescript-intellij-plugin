@@ -1,11 +1,14 @@
 package com.rescript.plugin.lsp
 
+import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerManager
 import com.rescript.plugin.util.RescriptOffsetUtils
 import org.eclipse.lsp4j.HoverParams
+import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.TextDocumentIdentifier
 import java.net.URI
 
@@ -83,12 +86,13 @@ object RescriptLspUtils {
         try {
             val server = getServer(project) ?: return null
 
-            val document =
-                com.intellij.openapi.fileEditor.FileDocumentManager
-                    .getInstance()
-                    .getDocument(file) ?: return null
-
-            val position = RescriptOffsetUtils.offsetToPosition(document, offset)
+            val position =
+                ReadAction.compute<Position?, RuntimeException> {
+                    val document =
+                        FileDocumentManager.getInstance().getDocument(file)
+                            ?: return@compute null
+                    RescriptOffsetUtils.offsetToPosition(document, offset)
+                } ?: return null
 
             val uri = toLspUri(file)
 
