@@ -69,6 +69,14 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.7</h3>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Fix plugin update not detected by Marketplace due to non-standard version format</li>
+            <li>Fix read-action threading violation in getHoverType</li>
+            <li>Add icon attribute to fileType registration for .res/.resi</li>
+        </ul>
+
         <h3>0.1.6</h3>
         <h4>Bug Fixes</h4>
         <ul>
