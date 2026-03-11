@@ -22,16 +22,16 @@
 
 ## コミット 3: ModalityState 明示
 
-- [ ] `RescriptTypeInfoPanel.kt` の `invokeLater` に `ModalityState.any()` 追加
-- [ ] `RescriptErrorLensManager.kt` の `invokeLater` に `ModalityState.any()` 追加
-- [ ] テスト免除理由: Swing UI コンポーネント
-- [ ] コミット
+- [x] `RescriptTypeInfoPanel.kt` の `invokeLater` に `ModalityState.any()` 追加
+- [x] `RescriptErrorLensManager.kt` の `invokeLater` に `ModalityState.any()` 追加
+- [x] テスト免除理由: Swing UI コンポーネント
+- [x] コミット
 
 ## 検証
 
-- [ ] `./gradlew clean buildPlugin test` 成功
-- [ ] tasklist 全タスク完了確認
+- [x] `./gradlew clean buildPlugin test` 成功
+- [x] tasklist 全タスク完了確認
 
 ## マージ
 
-- [ ] main にマージ
+- [x] main にマージ

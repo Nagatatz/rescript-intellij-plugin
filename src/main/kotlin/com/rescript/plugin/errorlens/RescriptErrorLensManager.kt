@@ -3,6 +3,7 @@ package com.rescript.plugin.errorlens
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.Inlay
 import com.intellij.openapi.editor.impl.DocumentMarkupModel
@@ -50,11 +51,11 @@ class RescriptErrorLensManager(
                 DaemonCodeAnalyzer.DAEMON_EVENT_TOPIC,
                 object : DaemonCodeAnalyzer.DaemonListener {
                     override fun daemonFinished() {
-                        ApplicationManager.getApplication().invokeLater {
+                        ApplicationManager.getApplication().invokeLater({
                             if (!editor.isDisposed) {
                                 refreshAllInlays()
                             }
-                        }
+                        }, ModalityState.any())
                     }
                 },
             )

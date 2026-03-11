@@ -2,6 +2,7 @@ package com.rescript.plugin.typeinfo
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
@@ -120,9 +121,9 @@ class RescriptTypeInfoPanel(
     }
 
     private fun showMessage(text: String) {
-        ApplicationManager.getApplication().invokeLater {
+        ApplicationManager.getApplication().invokeLater({
             typeLabel.text = text
-        }
+        }, ModalityState.any())
     }
 
     companion object {
