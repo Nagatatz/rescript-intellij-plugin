@@ -65,6 +65,7 @@ class RescriptCompilationStatusService(
         fun compilationFinished(params: RescriptLsp4jClient.CompilationFinishedParams)
     }
 
+    /** Snapshot of the current compilation state (status string, error/warning counts). */
     data class CompilationStatus(
         val status: String,
         val errorCount: Int,

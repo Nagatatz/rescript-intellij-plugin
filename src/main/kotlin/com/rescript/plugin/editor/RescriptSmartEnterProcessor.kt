@@ -65,6 +65,7 @@ class RescriptSmartEnterProcessor : SmartEnterProcessor() {
         }
     }
 
+    /** Result of lexical analysis for a single line, used to decide the Smart Enter action. */
     internal data class LineAnalysis(
         val hasSwitchWithoutBrace: Boolean = false,
         val hasPipeWithoutArrow: Boolean = false,

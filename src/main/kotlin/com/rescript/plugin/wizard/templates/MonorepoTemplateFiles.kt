@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
+/** Generates project files for the Monorepo (multi-package) ReScript template. */
 internal object MonorepoTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         buildMap {

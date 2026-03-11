@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
+/** Generates project files for the Vite + React ReScript template. */
 internal object ViteReactTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(

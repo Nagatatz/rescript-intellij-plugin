@@ -31,11 +31,13 @@ import java.util.concurrent.TimeUnit
  */
 class RescriptReanalyzeAnnotator :
     ExternalAnnotator<RescriptReanalyzeAnnotator.CollectedInfo, RescriptReanalyzeAnnotator.AnnotationResult>() {
+    /** Information collected on the EDT for the background annotation pass. */
     data class CollectedInfo(
         val filePath: String,
         val projectBasePath: String,
     )
 
+    /** A single diagnostic entry parsed from the reanalyze JSON output. */
     data class ReanalyzeDiagnostic(
         val name: String,
         val message: String,
@@ -45,6 +47,7 @@ class RescriptReanalyzeAnnotator :
         val endChar: Int,
     )
 
+    /** The result of background annotation, containing diagnostics to apply to the editor. */
     data class AnnotationResult(
         val diagnostics: List<ReanalyzeDiagnostic>,
     )
