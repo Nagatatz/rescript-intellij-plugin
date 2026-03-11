@@ -222,11 +222,13 @@
                   extensions="res"
                   fieldName="INSTANCE"
                   language="ReScript"
+                  icon="/icons/rescript-file.svg"
                   implementationClass="com.rescript.plugin.RescriptFileType"/>
         <fileType name="ReScript Interface"
                   extensions="resi"
                   fieldName="INSTANCE"
                   language="ReScript"
+                  icon="/icons/rescript-interface.svg"
                   implementationClass="com.rescript.plugin.RescriptInterfaceFileType"/>
 
         <!-- Parser -->
