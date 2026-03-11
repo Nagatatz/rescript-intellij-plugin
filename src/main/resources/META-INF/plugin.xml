@@ -69,6 +69,33 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.8</h3>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Add Qodana fail threshold and remove Dependabot bypass</li>
+            <li>Add release workflow version consistency check and Marketplace publish approval gate</li>
+            <li>Add KDoc, test file, and Extension Point registration verification Gradle tasks</li>
+            <li>Raise Kover code coverage threshold from 54% to 85%</li>
+            <li>Add Trivy dependency vulnerability scanning to CI</li>
+        </ul>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Add explicit ModalityState to invokeLater calls</li>
+            <li>Use CopyOnWriteArrayList for thread-safe listener lists</li>
+            <li>Add getActionUpdateThread() to AnAction subclasses</li>
+        </ul>
+        <h4>Tests</h4>
+        <ul>
+            <li>Expand test fixtures from 4 to 22 files</li>
+            <li>Add lexer performance benchmark test</li>
+            <li>Add headless IDE smoke test</li>
+        </ul>
+        <h4>Documentation</h4>
+        <ul>
+            <li>Add missing KDoc comments to 43+ class/object declarations</li>
+            <li>Improve Sphinx docs and update product requirements</li>
+        </ul>
+
         <h3>0.1.7</h3>
         <h4>Bug Fixes</h4>
         <ul>
