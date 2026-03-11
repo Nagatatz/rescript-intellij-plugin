@@ -39,13 +39,11 @@ dependencies {
 }
 
 group = providers.gradleProperty("pluginGroup").get()
-version = providers.gradleProperty("pluginVersion").get() +
-    "-" + providers.gradleProperty("platformVersion").get()
+version = providers.gradleProperty("pluginVersion").get()
 
 intellijPlatform {
     pluginConfiguration {
-        version = providers.gradleProperty("pluginVersion").get() +
-            "-" + providers.gradleProperty("platformVersion").get()
+        version = providers.gradleProperty("pluginVersion").get()
         ideaVersion {
             sinceBuild = providers.gradleProperty("pluginSinceBuild")
         }
