@@ -1,5 +1,6 @@
 package com.rescript.plugin.generate
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -7,6 +8,11 @@ import org.junit.jupiter.api.Test
 
 /** Tests for [RescriptGenerateMakeAction] static generation logic. */
 class RescriptGenerateMakeActionTest {
+    @Test
+    fun `getActionUpdateThread returns BGT`() {
+        assertEquals(ActionUpdateThread.BGT, RescriptGenerateMakeAction().getActionUpdateThread())
+    }
+
     @Test
     fun `generateMakeFunction with simple fields`() {
         val fields =

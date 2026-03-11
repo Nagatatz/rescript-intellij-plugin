@@ -2,6 +2,7 @@ package com.rescript.plugin.preview
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionManager
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
@@ -180,6 +181,8 @@ class RescriptCompiledJsPreviewPanel(
             val jsFile = currentJsFile ?: return
             FileEditorManager.getInstance(project).openFile(jsFile, true)
         }
+
+        override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
         override fun update(e: AnActionEvent) {
             e.presentation.isEnabled = currentJsFile != null

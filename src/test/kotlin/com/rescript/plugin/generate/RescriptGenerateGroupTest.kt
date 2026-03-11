@@ -1,11 +1,17 @@
 package com.rescript.plugin.generate
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class RescriptGenerateGroupTest {
     private val group = RescriptGenerateGroup()
+
+    @Test
+    fun `getActionUpdateThread returns BGT`() {
+        assertEquals(ActionUpdateThread.BGT, group.getActionUpdateThread())
+    }
 
     @Test
     fun `getChildren returns five actions`() {

@@ -1,5 +1,6 @@
 package com.rescript.plugin.refactor
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -237,6 +238,8 @@ class RescriptChangeSignatureAction : AnAction() {
         val project = e.project ?: return
         handler.invoke(project, editor, file, e.dataContext)
     }
+
+    override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
     override fun update(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR)

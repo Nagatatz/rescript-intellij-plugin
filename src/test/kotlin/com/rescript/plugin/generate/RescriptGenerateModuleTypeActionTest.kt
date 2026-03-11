@@ -1,6 +1,7 @@
 package com.rescript.plugin.generate
 
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.lang.psi.RescriptElementTypes
@@ -9,6 +10,11 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class RescriptGenerateModuleTypeActionTest {
+    @Test
+    fun `getActionUpdateThread returns BGT`() {
+        assertEquals(ActionUpdateThread.BGT, RescriptGenerateModuleTypeAction().getActionUpdateThread())
+    }
+
     @Test
     fun `generates module type with let declarations`() {
         val declarations =

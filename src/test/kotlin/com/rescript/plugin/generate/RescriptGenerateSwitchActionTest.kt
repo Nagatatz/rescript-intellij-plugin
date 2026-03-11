@@ -1,10 +1,16 @@
 package com.rescript.plugin.generate
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class RescriptGenerateSwitchActionTest {
+    @Test
+    fun `getActionUpdateThread returns BGT`() {
+        assertEquals(ActionUpdateThread.BGT, RescriptGenerateSwitchAction().getActionUpdateThread())
+    }
+
     @Test
     fun `generates switch for simple variant`() {
         val constructors =

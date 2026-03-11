@@ -1,5 +1,6 @@
 package com.rescript.plugin.generate
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -25,6 +26,8 @@ class RescriptGenerateGroup : DefaultActionGroup() {
         )
 
     override fun getChildren(e: AnActionEvent?): Array<AnAction> = actions
+
+    override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
     override fun update(e: AnActionEvent) {
         val psiFile = e.getData(CommonDataKeys.PSI_FILE)

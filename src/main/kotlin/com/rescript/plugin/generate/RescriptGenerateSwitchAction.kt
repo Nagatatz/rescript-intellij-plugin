@@ -1,5 +1,6 @@
 package com.rescript.plugin.generate
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -37,6 +38,8 @@ class RescriptGenerateSwitchAction : AnAction("Switch Arms", "Generate switch ar
             editor.caretModel.moveToOffset(insertOffset + 2)
         }
     }
+
+    override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
     override fun update(e: AnActionEvent) {
         if (!RescriptGenerateActionUtil.isInsideDeclaration(e, RescriptElementTypes.TYPE_DECLARATION)) {

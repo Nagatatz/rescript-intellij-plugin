@@ -1,10 +1,17 @@
 package com.rescript.plugin.generate
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class RescriptGenerateJsonCodecActionTest {
+    @Test
+    fun `getActionUpdateThread returns BGT`() {
+        assertEquals(ActionUpdateThread.BGT, RescriptGenerateJsonCodecAction().getActionUpdateThread())
+    }
+
     // --- isValidShape ---
 
     @Test

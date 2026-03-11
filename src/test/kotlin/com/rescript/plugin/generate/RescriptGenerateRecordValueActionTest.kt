@@ -1,10 +1,16 @@
 package com.rescript.plugin.generate
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /** Tests for [RescriptGenerateRecordValueAction] static generation logic. */
 class RescriptGenerateRecordValueActionTest {
+    @Test
+    fun `getActionUpdateThread returns BGT`() {
+        assertEquals(ActionUpdateThread.BGT, RescriptGenerateRecordValueAction().getActionUpdateThread())
+    }
+
     @Test
     fun `generateRecordValue with simple fields`() {
         val fields =

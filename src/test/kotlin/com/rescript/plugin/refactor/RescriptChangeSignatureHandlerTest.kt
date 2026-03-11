@@ -1,5 +1,6 @@
 package com.rescript.plugin.refactor
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
@@ -7,6 +8,11 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class RescriptChangeSignatureHandlerTest {
+    @Test
+    fun `RescriptChangeSignatureAction getActionUpdateThread returns BGT`() {
+        assertEquals(ActionUpdateThread.BGT, RescriptChangeSignatureAction().getActionUpdateThread())
+    }
+
     @Test
     fun `parseParameters parses positional params`() {
         val params = RescriptChangeSignatureHandler.parseParameters("a, b, c")
