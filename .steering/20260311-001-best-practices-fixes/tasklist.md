@@ -16,9 +16,9 @@
 
 ## コミット 2: CopyOnWriteArrayList 使用
 
-- [ ] `RescriptCompilationStatusService.kt` のリスナーリスト変更
-- [ ] テスト免除理由: IDE ライフサイクル依存の `@Service` クラス
-- [ ] コミット
+- [x] `RescriptCompilationStatusService.kt` のリスナーリスト変更
+- [x] テスト免除理由: IDE ライフサイクル依存の `@Service` クラス
+- [x] コミット
 
 ## コミット 3: ModalityState 明示
 

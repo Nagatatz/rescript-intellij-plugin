@@ -5,6 +5,7 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
+import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * Project-level service that holds the current ReScript compilation status
@@ -20,8 +21,8 @@ class RescriptCompilationStatusService(
     var currentStatus: CompilationStatus = CompilationStatus.UNKNOWN
         private set
 
-    private val listeners = mutableListOf<CompilationStatusListener>()
-    private val finishedListeners = mutableListOf<CompilationFinishedListener>()
+    private val listeners = CopyOnWriteArrayList<CompilationStatusListener>()
+    private val finishedListeners = CopyOnWriteArrayList<CompilationFinishedListener>()
 
     /**
      * Updates the current compilation status and notifies all registered listeners.
