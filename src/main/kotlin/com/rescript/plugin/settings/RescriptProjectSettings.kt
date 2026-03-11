@@ -19,6 +19,7 @@ import com.intellij.openapi.project.Project
 class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings.State> {
     private var state = State()
 
+    /** Serializable state holder for all ReScript plugin project-level settings. */
     class State {
         var lspServerPath: String = ""
         var nodePath: String = ""

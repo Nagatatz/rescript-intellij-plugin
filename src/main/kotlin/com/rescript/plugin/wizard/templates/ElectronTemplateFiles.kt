@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
+/** Generates project template files for an Electron ReScript project. */
 internal object ElectronTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(

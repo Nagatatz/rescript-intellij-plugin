@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
+/** Generates project template files for an AWS Lambda ReScript project. */
 internal object AwsLambdaTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(

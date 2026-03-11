@@ -17,14 +17,17 @@ data class RecordField(
 
 /** Sealed hierarchy representing the parsed shape of a ReScript type declaration. */
 sealed class TypeShape {
+    /** A variant type with one or more constructors. */
     data class Variant(
         val constructors: List<VariantConstructor>,
     ) : TypeShape()
 
+    /** A record type with named fields. */
     data class Record(
         val fields: List<RecordField>,
     ) : TypeShape()
 
+    /** Fallback for type declarations that could not be parsed as variant or record. */
     data object Unknown : TypeShape()
 }
 

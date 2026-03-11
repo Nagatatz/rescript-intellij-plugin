@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
+/** Generates project template files for a Hono web framework ReScript project. */
 internal object HonoTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(
