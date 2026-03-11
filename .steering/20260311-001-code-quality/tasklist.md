@@ -24,4 +24,4 @@
 - [x] `./gradlew clean buildPlugin` 成功確認
 - [x] KDoc コメント補完コミット
 - [x] ドキュメント改善コミット
-- [ ] `main` にマージ
+- [x] `main` にマージ

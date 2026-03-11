@@ -6,6 +6,8 @@ The ReScript IntelliJ Plugin provides 90+ features organized into two layers:
 
 **LSP features** require the [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode) and provide semantic understanding of your code.
 
+Features are grouped into eight categories: Syntax Highlighting, Code Completion, Navigation, Code Editing, Run & Build, Testing, Code Analysis, and Advanced Features. See the cards below for details on each category, or refer to the Native vs. LSP table for a summary of which features require the language server.
+
 ## Feature Categories
 
 ::::{grid} 1 1 2 2

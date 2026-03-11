@@ -563,6 +563,14 @@ Inline color swatches are displayed in the editor gutter for color values in you
 
 Click the swatch to open the color picker.
 
+```rescript
+let primaryColor = "#3498db"
+let errorColor = "rgb(231, 76, 60)"
+let successColor = "hsl(120, 39%, 49%)"
+```
+
+Color values inside string literals are detected and a small color swatch appears in the editor gutter next to the corresponding line.
+
 ## VCS Code Vision
 
 Author and last-change annotations appear on top-level declarations (let, type, module, external), providing Git blame information directly in the editor. Enable via **Settings** > **Editor** > **Inlay Hints** > **Code Vision**.
@@ -879,6 +887,8 @@ The action collects and displays:
 The plugin registers a "ReScript Standard" predefined code style that can be applied via **Settings** > **Editor** > **Code Style** > **ReScript** > **Set from...** > **Predefined Style** > **ReScript Standard**.
 
 This provides a one-click way to configure indentation and formatting settings to match the standard ReScript conventions (2-space indentation, no tabs).
+
+For manual indentation and tab/space configuration, go to **Settings** > **Editor** > **Code Style** > **ReScript**.
 
 ## Element Descriptions
 

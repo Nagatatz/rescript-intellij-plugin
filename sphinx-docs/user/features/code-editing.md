@@ -1065,6 +1065,8 @@ When pasting HTML content into a ReScript file, it is automatically converted to
 
 ## Paste as ReScript
 
+This conversion is triggered automatically when you paste JavaScript code into a `.res` file using the standard paste shortcut ({kbd}`Cmd+V` / {kbd}`Ctrl+V`). No separate menu action is needed — the plugin detects JavaScript patterns in the clipboard and converts them on the fly.
+
 When pasting JavaScript code into a ReScript file, it is automatically converted to ReScript syntax:
 
 - `const`/`let`/`var` declarations are converted to `let` bindings
