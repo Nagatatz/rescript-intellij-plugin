@@ -2,7 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
-/** Generates project files for the React Native + ReScript template. */
+/** Generates project template files for a React Native ReScript project. */
 internal object ReactNativeTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(

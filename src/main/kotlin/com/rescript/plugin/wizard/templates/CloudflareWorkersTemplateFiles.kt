@@ -2,7 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
-/** Generates project files for the Cloudflare Workers ReScript template. */
+/** Generates project template files for a Cloudflare Workers ReScript project. */
 internal object CloudflareWorkersTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(

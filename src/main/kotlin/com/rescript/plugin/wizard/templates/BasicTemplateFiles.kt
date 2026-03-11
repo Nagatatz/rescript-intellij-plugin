@@ -2,7 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
-/** Generates project files for the Basic (minimal) ReScript template. */
+/** Generates project template files for a minimal ReScript project. */
 internal object BasicTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(

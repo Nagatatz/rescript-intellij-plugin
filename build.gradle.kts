@@ -202,11 +202,194 @@ kover {
         }
         verify {
             rule {
-                minBound(54)
+                minBound(85)
             }
         }
     }
 }
+
+// ── Quality check tasks ──
+
+val checkKdoc =
+    tasks.register("checkKdoc") {
+        description = "Verify all class/object/interface declarations have KDoc comments"
+        group = "verification"
+        // Resolve file collection at configuration time for configuration cache compatibility
+        val sourceFiles = fileTree("src/main/kotlin") { include("**/*.kt") }.files.toList()
+        val baseDir = projectDir
+        doLast {
+            val declarationPattern =
+                Regex(
+                    """^(\s*)((?:public|internal|private|protected|open|abstract|sealed|data|inner|value|enum)\s+)*(class|object|interface)\s+\w+""",
+                )
+            val kdocEndPattern = Regex("""\*/\s*$""")
+            val annotationPattern = Regex("""^\s*@""")
+            val violations = mutableListOf<String>()
+
+            sourceFiles.forEach { file ->
+                val lines = file.readLines()
+                lines.forEachIndexed { index, line ->
+                    if (declarationPattern.containsMatchIn(line)) {
+                        var checkIndex = index - 1
+                        while (checkIndex >= 0 && annotationPattern.containsMatchIn(lines[checkIndex])) {
+                            checkIndex--
+                        }
+                        val hasKdoc = checkIndex >= 0 && kdocEndPattern.containsMatchIn(lines[checkIndex])
+                        if (!hasKdoc) {
+                            val relativePath = file.relativeTo(baseDir)
+                            violations.add("  $relativePath:${index + 1}: ${line.trim()}")
+                        }
+                    }
+                }
+            }
+
+            if (violations.isNotEmpty()) {
+                throw GradleException(
+                    "KDoc missing on ${violations.size} declaration(s):\n${violations.joinToString("\n")}",
+                )
+            }
+            logger.lifecycle("checkKdoc: All declarations have KDoc comments")
+        }
+    }
+
+val checkTestFiles =
+    tasks.register("checkTestFiles") {
+        description = "Verify production classes have corresponding test files"
+        group = "verification"
+        // Resolve file collections at configuration time for configuration cache compatibility
+        val productionFileList = fileTree("src/main/kotlin/com/rescript/plugin") { include("**/*.kt") }.files.toList()
+        val productionBaseDir = file("src/main/kotlin/com/rescript/plugin")
+        val testFileNames =
+            fileTree("src/test/kotlin/com/rescript/plugin") {
+                include("**/*Test.kt")
+            }.files.map { it.name }.toSet()
+        doLast {
+            val exemptPatterns =
+                listOf(
+                    "Configurable",
+                    "SettingsEditor",
+                    "ToolWindowPanel",
+                    "WizardStep",
+                    "Panel",
+                    "LspServerDescriptor",
+                    "LspServerSupportProvider",
+                    "Lsp4jClient",
+                    "StartupActivity",
+                    "ProjectManagerListener",
+                    "RunConfiguration",
+                    "ConfigurationOptions",
+                    "RescriptIcons",
+                    "RescriptFileTypes",
+                    "RescriptLanguage",
+                )
+            val exemptPackages =
+                listOf(
+                    "wizard/templates",
+                    "settings",
+                    "codestyle",
+                    "config",
+                    "statusbar",
+                    "navbar",
+                    "projectview",
+                    "typeinfo",
+                    "preview",
+                    "repl",
+                    "scratch",
+                    "worksheet",
+                    "ppx",
+                    "diagram",
+                    "dependencies",
+                )
+
+            val missing = mutableListOf<String>()
+            productionFileList.forEach { file ->
+                val relativePath = file.relativeTo(productionBaseDir).path
+                val className = file.nameWithoutExtension
+                val expectedTest = "${className}Test.kt"
+
+                if (exemptPackages.any { relativePath.startsWith(it) }) return@forEach
+                if (exemptPatterns.any { className.contains(it) }) return@forEach
+
+                if (expectedTest !in testFileNames) {
+                    missing.add("  $relativePath -> $expectedTest")
+                }
+            }
+
+            if (missing.isNotEmpty()) {
+                logger.warn(
+                    "checkTestFiles: ${missing.size} production file(s) without tests:\n${missing.joinToString("\n")}",
+                )
+            }
+            logger.lifecycle(
+                "checkTestFiles: ${productionFileList.size - missing.size}/${productionFileList.size} files have tests",
+            )
+        }
+    }
+
+val checkExtensionPointRegistration =
+    tasks.register("checkExtensionPointRegistration") {
+        description = "Verify plugin.xml EP registrations match existing classes"
+        group = "verification"
+        // Resolve file references at configuration time for configuration cache compatibility
+        val pluginXmlFiles =
+            (
+                listOf(file("src/main/resources/META-INF/plugin.xml")) +
+                    fileTree("src/main/resources/META-INF") { include("rescript-*.xml") }.files
+            ).toList()
+        val kotlinSrcDir = file("src/main/kotlin")
+        val javaSrcDir = file("src/main/java")
+        val kotlinSrcFiles = fileTree("src/main/kotlin") { include("**/*.kt") }.files.toList()
+        doLast {
+            val classAttrPattern =
+                Regex("""(?:implementation|implementationClass|className|serviceImplementation|instance)="([^"]+)"""")
+            val registeredClasses = mutableSetOf<String>()
+            pluginXmlFiles.forEach { xmlFile ->
+                if (xmlFile.exists()) {
+                    xmlFile.readLines().forEach { line ->
+                        classAttrPattern.findAll(line).forEach { match ->
+                            registeredClasses.add(match.groupValues[1])
+                        }
+                    }
+                }
+            }
+
+            // Build index of all class/object declarations in source files
+            val declaredClasses = mutableSetOf<String>()
+            kotlinSrcFiles.forEach { file ->
+                file.readLines().forEach { line ->
+                    // Match class, object, interface, enum declarations
+                    val match = Regex("""(?:class|object|interface)\s+(\w+)""").find(line)
+                    if (match != null) {
+                        declaredClasses.add(match.groupValues[1])
+                    }
+                }
+            }
+
+            val missingClasses = mutableListOf<String>()
+            registeredClasses.forEach { fqn ->
+                // For inner classes (Foo$Bar), check the outer class file first
+                val outerFqn = if ('$' in fqn) fqn.substringBefore('$') else fqn
+                val basePath = outerFqn.replace('.', '/')
+                val ktFile = File(kotlinSrcDir, "$basePath.kt")
+                val javaFile = File(javaSrcDir, "$basePath.java")
+                if (!ktFile.exists() && !javaFile.exists()) {
+                    // Fallback: check if the class name is declared anywhere in source
+                    val simpleName = fqn.substringAfterLast('.').substringAfterLast('$')
+                    if (simpleName !in declaredClasses) {
+                        missingClasses.add("  $fqn -> $basePath.kt (or .java)")
+                    }
+                }
+            }
+
+            if (missingClasses.isNotEmpty()) {
+                val detail = missingClasses.joinToString("\n")
+                throw GradleException(
+                    "EP registration references ${missingClasses.size} missing class(es):\n$detail",
+                )
+            }
+            logger.lifecycle("checkExtensionPointRegistration: All ${registeredClasses.size} registered classes exist")
+        }
+    }
 
 val generateRescriptLexer =
     tasks.register<GenerateLexerTask>("generateRescriptLexer") {

@@ -34,3 +34,4 @@ exclude:
       - src/main/kotlin/com/rescript/plugin/refactor
       # Standard IntelliJ Configurable pattern: disposeUIResources nulls all fields
       - src/main/kotlin/com/rescript/plugin/settings/RescriptConfigurable.kt
+failThreshold: 0

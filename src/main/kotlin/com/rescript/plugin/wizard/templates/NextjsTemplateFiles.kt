@@ -2,7 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
-/** Generates project files for the Next.js + ReScript template. */
+/** Generates project template files for a Next.js ReScript project. */
 internal object NextjsTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(

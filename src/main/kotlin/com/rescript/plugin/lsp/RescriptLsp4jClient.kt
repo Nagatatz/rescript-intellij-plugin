@@ -38,7 +38,7 @@ class RescriptLsp4jClient(
         service.notifyCompilationFinished(params)
     }
 
-    /** JSON parameters for the `rescript/compilationStatus` notification. */
+    /** Parameters for the `rescript/compilationStatus` LSP notification. */
     data class CompilationStatusParams(
         val project: String = "",
         val projectRootPath: String = "",
@@ -47,7 +47,7 @@ class RescriptLsp4jClient(
         val warningCount: Int = 0,
     )
 
-    /** JSON parameters for the `rescript/compilationFinished` notification. */
+    /** Parameters for the `rescript/compilationFinished` LSP notification. */
     data class CompilationFinishedParams(
         val project: String = "",
         val projectRootPath: String = "",

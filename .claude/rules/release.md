@@ -99,6 +99,15 @@ gh release edit v<新バージョン> --notes "<リリースノート>"
 - **軽量タグ (`git tag v<version>`) の使用** — 必ずアノテーション付きタグを使うこと
 - **タグのみプッシュしてコミットをプッシュしないこと** — 一括プッシュすること
 
+## カバレッジラチェットポリシー
+
+`build.gradle.kts` の `kover.reports.verify.rule.minBound` は、リリースごとに以下のルールで更新する:
+
+1. リリース前に `./gradlew test koverHtmlReport` を実行し、実測カバレッジを確認する
+2. `minBound` を **実測値 - 3%** に設定する（例: 実測 88% → minBound 85）
+3. `minBound` を前バージョンより下げてはならない（ラチェット: 一方向のみ）
+4. カバレッジが低下した場合はテストを追加して回復させること
+
 ## バージョニング規則
 
 セマンティックバージョニング (`MAJOR.MINOR.PATCH`) に従う:

@@ -23,6 +23,21 @@ jobs:
           reporter: github-pr-review
           fail_level: error
 
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          exit-code: 1
+
   build:
     runs-on: ubuntu-latest
 
@@ -46,6 +61,12 @@ jobs:
 
       - name: Run ktlint
         run: ./gradlew ktlintCheck
+
+      - name: Check KDoc comments
+        run: ./gradlew checkKdoc
+
+      - name: Check Extension Point registrations
+        run: ./gradlew checkExtensionPointRegistration
 
       - name: Build plugin
         run: ./gradlew buildPlugin

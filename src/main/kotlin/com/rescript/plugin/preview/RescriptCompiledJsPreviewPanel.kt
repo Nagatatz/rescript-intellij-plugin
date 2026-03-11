@@ -164,7 +164,7 @@ class RescriptCompiledJsPreviewPanel(
         }
     }
 
-    /** Toolbar action that refreshes the compiled JS preview for the active ReScript file. */
+    /** Toolbar action that reloads the compiled JS preview for the current file. */
     private inner class RefreshAction :
         AnAction("Refresh", "Refresh compiled JS preview", com.intellij.icons.AllIcons.Actions.Refresh) {
         override fun actionPerformed(e: AnActionEvent) {

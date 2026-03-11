@@ -2,7 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
-/** Generates project files for the Google Cloud Run ReScript template. */
+/** Generates project template files for a Google Cloud Run ReScript project. */
 internal object GoogleCloudRunTemplateFiles {
     fun generate(projectName: String): Map<String, String> =
         mapOf(
