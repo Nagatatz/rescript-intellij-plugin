@@ -91,7 +91,7 @@ internal object MonorepoTemplateFiles {
                             "react" to "^19.0.4",
                             "react-dom" to "^19.0.4",
                         ),
-                    devDependencies = linkedMapOf("@vitejs/plugin-react" to "^5.0.0", "vite" to "^7.0.0"),
+                    devDependencies = linkedMapOf("@vitejs/plugin-react" to "^6.0.0", "vite" to "^8.0.0"),
                     scripts =
                         linkedMapOf(
                             "dev" to "vite",

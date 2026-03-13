@@ -59,8 +59,8 @@ class TemplateDependencyVersionsTest {
         val pkg = files["package.json"]!!
         assertMinVersion("react", extractVersion(pkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(pkg, "react-dom"), 19, 0, 4)
-        assertMinVersion("vite", extractVersion(pkg, "vite"), 7, 0, 0)
-        assertMinVersion("@vitejs/plugin-react", extractVersion(pkg, "@vitejs/plugin-react"), 5, 0, 0)
+        assertMinVersion("vite", extractVersion(pkg, "vite"), 8, 0, 0)
+        assertMinVersion("@vitejs/plugin-react", extractVersion(pkg, "@vitejs/plugin-react"), 6, 0, 0)
     }
 
     @Test
@@ -69,7 +69,7 @@ class TemplateDependencyVersionsTest {
         val pkg = files["package.json"]!!
         assertMinVersion("react", extractVersion(pkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(pkg, "react-dom"), 19, 0, 4)
-        assertMinVersion("next", extractVersion(pkg, "next"), 15, 0, 7)
+        assertMinVersion("next", extractVersion(pkg, "next"), 16, 0, 0)
     }
 
     @Test
@@ -78,9 +78,9 @@ class TemplateDependencyVersionsTest {
         val pkg = files["package.json"]!!
         assertMinVersion("react", extractVersion(pkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(pkg, "react-dom"), 19, 0, 4)
-        assertMinVersion("vite", extractVersion(pkg, "vite"), 7, 0, 0)
-        assertMinVersion("@vitejs/plugin-react", extractVersion(pkg, "@vitejs/plugin-react"), 5, 0, 0)
-        assertMinVersion("electron", extractVersion(pkg, "electron"), 35, 0, 0)
+        assertMinVersion("vite", extractVersion(pkg, "vite"), 8, 0, 0)
+        assertMinVersion("@vitejs/plugin-react", extractVersion(pkg, "@vitejs/plugin-react"), 6, 0, 0)
+        assertMinVersion("electron", extractVersion(pkg, "electron"), 40, 0, 0)
     }
 
     @Test
@@ -88,8 +88,8 @@ class TemplateDependencyVersionsTest {
         val files = ProjectTemplate.REACT_NATIVE.generateFiles("test")
         val pkg = files["package.json"]!!
         assertMinVersion("react", extractVersion(pkg, "react"), 19, 0, 4)
-        assertMinVersion("react-native", extractVersion(pkg, "react-native"), 0, 78, 0)
-        assertMinVersion("expo", extractVersion(pkg, "expo"), 53, 0, 0)
+        assertMinVersion("react-native", extractVersion(pkg, "react-native"), 0, 84, 0)
+        assertMinVersion("expo", extractVersion(pkg, "expo"), 55, 0, 0)
     }
 
     @Test
@@ -103,7 +103,7 @@ class TemplateDependencyVersionsTest {
     fun `AwsLambda has secure dependency versions`() {
         val files = ProjectTemplate.AWS_LAMBDA.generateFiles("test")
         val pkg = files["package.json"]!!
-        assertMinVersion("esbuild", extractVersion(pkg, "esbuild"), 0, 25, 0)
+        assertMinVersion("esbuild", extractVersion(pkg, "esbuild"), 0, 27, 0)
     }
 
     @Test
@@ -114,7 +114,7 @@ class TemplateDependencyVersionsTest {
         val clientPkg = files["packages/client/package.json"]!!
         assertMinVersion("react", extractVersion(clientPkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(clientPkg, "react-dom"), 19, 0, 4)
-        assertMinVersion("vite", extractVersion(clientPkg, "vite"), 7, 0, 0)
-        assertMinVersion("@vitejs/plugin-react", extractVersion(clientPkg, "@vitejs/plugin-react"), 5, 0, 0)
+        assertMinVersion("vite", extractVersion(clientPkg, "vite"), 8, 0, 0)
+        assertMinVersion("@vitejs/plugin-react", extractVersion(clientPkg, "@vitejs/plugin-react"), 6, 0, 0)
     }
 }

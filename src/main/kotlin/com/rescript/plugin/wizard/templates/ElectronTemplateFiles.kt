@@ -25,9 +25,9 @@ internal object ElectronTemplateFiles {
                         ),
                     devDependencies =
                         linkedMapOf(
-                            "electron" to "^35.0.0",
-                            "@vitejs/plugin-react" to "^5.0.0",
-                            "vite" to "^7.0.0",
+                            "electron" to "^40.0.0",
+                            "@vitejs/plugin-react" to "^6.0.0",
+                            "vite" to "^8.0.0",
                         ),
                     scripts =
                         linkedMapOf(

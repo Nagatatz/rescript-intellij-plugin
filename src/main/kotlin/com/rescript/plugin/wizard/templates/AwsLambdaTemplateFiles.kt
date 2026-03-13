@@ -16,7 +16,7 @@ internal object AwsLambdaTemplateFiles {
                             "@rescript/core" to "^1.0.0",
                             "hono" to "^4.0.0",
                         ),
-                    devDependencies = linkedMapOf("esbuild" to "^0.25.0"),
+                    devDependencies = linkedMapOf("esbuild" to "^0.27.0"),
                     scripts =
                         linkedMapOf(
                             "bundle" to

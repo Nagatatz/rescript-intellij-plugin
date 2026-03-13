@@ -23,7 +23,7 @@ internal object NextjsTemplateFiles {
                             "@rescript/react" to "^0.14.0",
                             "react" to "^19.0.4",
                             "react-dom" to "^19.0.4",
-                            "next" to "^15.0.7",
+                            "next" to "^16.0.0",
                         ),
                     scripts =
                         linkedMapOf(
