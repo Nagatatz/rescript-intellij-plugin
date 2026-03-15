@@ -18,8 +18,8 @@ class RescriptLsp4jClient(
 ) : Lsp4jClient(handler) {
     @Suppress("unused") // Called by LSP4J via @JsonNotification reflection
     @JsonNotification("rescript/compilationStatus")
-    fun compilationStatus(params: CompilationStatusParams) {
-        if (project.isDisposed) return
+    fun compilationStatus(params: CompilationStatusParams?) {
+        if (project.isDisposed || params == null) return
         val service = RescriptCompilationStatusService.getInstance(project)
         service.updateStatus(
             RescriptCompilationStatusService.CompilationStatus(
@@ -32,8 +32,8 @@ class RescriptLsp4jClient(
 
     @Suppress("unused") // Called by LSP4J via @JsonNotification reflection
     @JsonNotification("rescript/compilationFinished")
-    fun compilationFinished(params: CompilationFinishedParams) {
-        if (project.isDisposed) return
+    fun compilationFinished(params: CompilationFinishedParams?) {
+        if (project.isDisposed || params == null) return
         val service = RescriptCompilationStatusService.getInstance(project)
         service.notifyCompilationFinished(params)
     }
