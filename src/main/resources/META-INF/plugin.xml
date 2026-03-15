@@ -69,6 +69,23 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.9</h3>
+        <h4>New Features</h4>
+        <ul>
+            <li>Add file type recovery startup activity for .res/.resi</li>
+        </ul>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Fix empty string crash in completion weigher</li>
+            <li>Add null safety for LSP notification params</li>
+            <li>Add missing getDisplayName override to WorksheetFileType</li>
+            <li>Fix plugin descriptor registration for liveTemplate context and Grazie</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Bump project template dependency versions</li>
+        </ul>
+
         <h3>0.1.8</h3>
         <h4>Infrastructure</h4>
         <ul>
