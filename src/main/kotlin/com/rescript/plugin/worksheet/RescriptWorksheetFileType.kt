@@ -17,6 +17,8 @@ import javax.swing.Icon
 class RescriptWorksheetFileType private constructor() : LanguageFileType(RescriptLanguage) {
     override fun getName(): String = "ReScript Worksheet"
 
+    override fun getDisplayName(): String = "ReScript Worksheet"
+
     override fun getDescription(): String = "ReScript worksheet file"
 
     override fun getDefaultExtension(): String = "resw"
