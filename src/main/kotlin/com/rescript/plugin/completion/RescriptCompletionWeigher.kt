@@ -48,7 +48,7 @@ class RescriptCompletionWeigher : CompletionWeigher() {
 
         // Prefer lowercase-starting (values) over uppercase (modules/types)
         // when in expression context
-        val caseBonus = if (lookupString.first().isLowerCase()) 1 else 0
+        val caseBonus = if (lookupString.isNotEmpty() && lookupString.first().isLowerCase()) 1 else 0
 
         return lengthBonus + caseBonus
     }

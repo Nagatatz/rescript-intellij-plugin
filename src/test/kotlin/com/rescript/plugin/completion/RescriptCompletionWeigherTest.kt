@@ -53,4 +53,10 @@ class RescriptCompletionWeigherTest {
         val upperWeight = RescriptCompletionWeigher.computeWeight("MyModule", null, false)
         assertTrue(lowerWeight > upperWeight)
     }
+
+    @Test
+    fun `computeWeight handles empty string without crashing`() {
+        val weight = RescriptCompletionWeigher.computeWeight("", null, false)
+        assertEquals(3, weight) // length <= 5 bonus only, no case bonus
+    }
 }
