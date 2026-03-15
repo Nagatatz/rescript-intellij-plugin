@@ -684,6 +684,7 @@
 
         <!-- Live Template Context -->
         <liveTemplateContext
+                contextId="RESCRIPT"
                 implementation="com.rescript.plugin.completion.RescriptTemplateContextType"/>
 
         <!-- Live Template Macros -->

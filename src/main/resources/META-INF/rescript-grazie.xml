@@ -1,6 +1,7 @@
 <idea-plugin>
-    <extensions defaultExtensionNs="com.intellij">
-        <grazie.textExtractor
-                implementation="com.rescript.plugin.grazie.RescriptGrazieTextExtractor"/>
+    <extensions defaultExtensionNs="com.intellij.grazie">
+        <textExtractor
+                language="ReScript"
+                implementationClass="com.rescript.plugin.grazie.RescriptGrazieTextExtractor"/>
     </extensions>
 </idea-plugin>
