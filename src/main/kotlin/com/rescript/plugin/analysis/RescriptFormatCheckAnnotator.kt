@@ -161,7 +161,7 @@ class RescriptFormatCheckAnnotator :
                         }
                     },
                     "rescript-format-check-stdin",
-                )
+                ).apply { isDaemon = true }
             stdinThread.start()
 
             // Capture stderr in a separate thread
@@ -175,32 +175,44 @@ class RescriptFormatCheckAnnotator :
                         }
                     },
                     "rescript-format-check-stderr",
-                )
+                ).apply { isDaemon = true }
             stderrThread.start()
 
-            val stdout = process.inputStream.reader(Charsets.UTF_8).use { it.readText() }
+            try {
+                val stdout = process.inputStream.reader(Charsets.UTF_8).use { it.readText() }
 
-            stdinThread.join(TIMEOUT_MS)
-            stderrThread.join(TIMEOUT_MS)
-            val completed =
-                process.waitFor(
-                    RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS,
-                    TimeUnit.SECONDS,
-                )
-            if (!completed) {
-                process.destroyForcibly()
-                LOG.debug("rescript format check timed out")
-                return null
+                stdinThread.join(TIMEOUT_MS)
+                stderrThread.join(TIMEOUT_MS)
+
+                // Interrupt threads that are still alive after timeout
+                if (stdinThread.isAlive) stdinThread.interrupt()
+                if (stderrThread.isAlive) stderrThread.interrupt()
+
+                val completed =
+                    process.waitFor(
+                        RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS,
+                        TimeUnit.SECONDS,
+                    )
+                if (!completed) {
+                    process.destroyForcibly()
+                    LOG.debug("rescript format check timed out")
+                    return null
+                }
+
+                val exitCode = process.exitValue()
+                if (exitCode != 0) {
+                    // Syntax error or other formatting failure — silently skip
+                    LOG.debug("rescript format exited with code $exitCode")
+                    return null
+                }
+
+                return stdout
+            } finally {
+                // Ensure process and threads are cleaned up even on unexpected exceptions
+                if (process.isAlive) process.destroyForcibly()
+                if (stdinThread.isAlive) stdinThread.interrupt()
+                if (stderrThread.isAlive) stderrThread.interrupt()
             }
-
-            val exitCode = process.exitValue()
-            if (exitCode != 0) {
-                // Syntax error or other formatting failure — silently skip
-                LOG.debug("rescript format exited with code $exitCode")
-                return null
-            }
-
-            return stdout
         }
     }
 }
