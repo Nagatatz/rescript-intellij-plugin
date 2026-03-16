@@ -1,12 +1,16 @@
 package com.rescript.plugin.analysis
 
+import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.GeneralCommandLine
+import com.intellij.notification.NotificationGroupManager
+import com.intellij.notification.NotificationType
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.project.Project
 import com.intellij.util.concurrency.AppExecutorUtil
+import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.concurrent.ScheduledFuture
@@ -113,9 +117,14 @@ class RescriptReanalyzeServerService(
             restartCount = 0
             LOG.info("Reanalyze server started successfully")
             startHealthCheck()
-        } catch (e: Exception) {
-            LOG.warn("Failed to start reanalyze server", e)
+        } catch (e: ExecutionException) {
+            LOG.warn("Failed to create reanalyze server process (command: $toolPath reanalyze-server)", e)
             serverState = ServerState.STOPPED
+            notifyServerStartFailure(e.message ?: "Process creation failed")
+        } catch (e: IOException) {
+            LOG.warn("I/O error while starting reanalyze server (command: $toolPath reanalyze-server)", e)
+            serverState = ServerState.STOPPED
+            notifyServerStartFailure(e.message ?: "I/O error")
         }
     }
 
@@ -161,9 +170,25 @@ class RescriptReanalyzeServerService(
         val socketPath = getSocketPath(basePath)
         try {
             Files.deleteIfExists(socketPath)
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             LOG.debug("Failed to delete socket file: $socketPath", e)
         }
+    }
+
+    /**
+     * Sends a balloon notification to the user when the reanalyze server fails to start.
+     *
+     * @param reason a human-readable description of the failure cause
+     */
+    private fun notifyServerStartFailure(reason: String) {
+        NotificationGroupManager
+            .getInstance()
+            .getNotificationGroup("ReScript")
+            .createNotification(
+                "Reanalyze server failed to start",
+                reason,
+                NotificationType.WARNING,
+            ).notify(project)
     }
 
     private fun startHealthCheck() {

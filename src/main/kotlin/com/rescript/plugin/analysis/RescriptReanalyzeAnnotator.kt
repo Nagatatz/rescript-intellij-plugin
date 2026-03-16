@@ -1,5 +1,7 @@
 package com.rescript.plugin.analysis
 
+import com.google.gson.JsonParseException
+import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
@@ -10,6 +12,7 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.util.RescriptSecurityUtils
+import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.concurrent.TimeUnit
@@ -88,8 +91,17 @@ class RescriptReanalyzeAnnotator :
 
             val diagnostics = parseJsonOutput(stdout, info.filePath)
             AnnotationResult(diagnostics)
-        } catch (e: Exception) {
-            LOG.debug("Failed to run reanalyze", e)
+        } catch (e: ExecutionException) {
+            LOG.warn(
+                "Failed to create reanalyze process (command: $toolPath reanalyze -json, workDir: ${info.projectBasePath})",
+                e,
+            )
+            null
+        } catch (e: IOException) {
+            LOG.warn(
+                "I/O error while running reanalyze (command: $toolPath reanalyze -json, workDir: ${info.projectBasePath})",
+                e,
+            )
             null
         }
     }
@@ -206,8 +218,12 @@ class RescriptReanalyzeAnnotator :
                     }
                     diagnostic
                 }
-            } catch (e: Exception) {
-                LOG.debug("Failed to parse reanalyze JSON output", e)
+            } catch (e: JsonParseException) {
+                LOG.warn("Failed to parse reanalyze JSON output", e)
+                emptyList()
+            } catch (e: IllegalStateException) {
+                // Thrown by asJsonArray/asJsonObject when the JSON structure is unexpected
+                LOG.warn("Unexpected JSON structure in reanalyze output", e)
                 emptyList()
             }
         }
@@ -230,8 +246,12 @@ class RescriptReanalyzeAnnotator :
                 array.mapNotNull { element ->
                     parseDiagnosticEntry(element.asJsonObject)
                 }
-            } catch (e: Exception) {
-                LOG.debug("Failed to parse reanalyze JSON output", e)
+            } catch (e: JsonParseException) {
+                LOG.warn("Failed to parse reanalyze JSON output", e)
+                emptyList()
+            } catch (e: IllegalStateException) {
+                // Thrown by asJsonArray/asJsonObject when the JSON structure is unexpected
+                LOG.warn("Unexpected JSON structure in reanalyze output", e)
                 emptyList()
             }
         }

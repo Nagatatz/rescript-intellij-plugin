@@ -1,15 +1,16 @@
 package com.rescript.plugin.analysis
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.io.TempDir
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Rule
+import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import java.io.File
 
 class RescriptReanalyzeServerServiceTest {
-    @TempDir
-    lateinit var tempFolder: File
+    @get:Rule
+    val tempFolder = TemporaryFolder()
 
     // --- ServerState enum tests ---
 
@@ -103,13 +104,13 @@ class RescriptReanalyzeServerServiceTest {
 
     @Test
     fun `isSocketPresent returns false when socket does not exist`() {
-        val root = File(tempFolder, "project-no-socket").apply { mkdir() }
+        val root = tempFolder.newFolder("project-no-socket")
         assertFalse(RescriptReanalyzeServerService.isSocketPresent(root.absolutePath))
     }
 
     @Test
     fun `isSocketPresent returns true when socket file exists`() {
-        val root = File(tempFolder, "project-with-socket").apply { mkdir() }
+        val root = tempFolder.newFolder("project-with-socket")
         File(root, ".rescript-reanalyze.sock").createNewFile()
         assertTrue(RescriptReanalyzeServerService.isSocketPresent(root.absolutePath))
     }
