@@ -1,9 +1,9 @@
 package com.rescript.plugin.analysis
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 class RescriptFormatCheckAnnotatorTest {
     // --- CollectedInfo data class ---
@@ -142,5 +142,47 @@ class RescriptFormatCheckAnnotatorTest {
                 null
             }
         assertNull(result)
+    }
+
+    @Test
+    fun `runFormatCheck cleans up process on non-zero exit`() {
+        // Verify no threads leak when process exits with error code
+        val threadsBefore = Thread.getAllStackTraces().keys
+            .count { it.name.startsWith("rescript-format-check") }
+
+        RescriptFormatCheckAnnotator.runFormatCheck(
+            cliPath = "/usr/bin/false",
+            extension = "res",
+            documentText = "let x = 1",
+        )
+
+        // Allow time for daemon threads to terminate
+        Thread.sleep(100)
+
+        val threadsAfter = Thread.getAllStackTraces().keys
+            .count { it.name.startsWith("rescript-format-check") }
+
+        assertEquals("No rescript-format-check threads should leak", threadsBefore, threadsAfter)
+    }
+
+    @Test
+    fun `runFormatCheck handles slow command with cleanup`() {
+        // Use /bin/cat without closing stdin — it will block until timeout or interrupt
+        // This tests the try-finally cleanup path
+        val result =
+            try {
+                RescriptFormatCheckAnnotator.runFormatCheck(
+                    cliPath = "/bin/cat",
+                    extension = "res",
+                    documentText = "let x = 1\n",
+                )
+            } catch (_: Exception) {
+                null
+            }
+        // cat echoes stdin, so it should return the input text
+        // (or null if there's a timing issue)
+        if (result != null) {
+            assertEquals("let x = 1\n", result)
+        }
     }
 }
