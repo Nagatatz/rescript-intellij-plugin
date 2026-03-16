@@ -920,3 +920,141 @@ The prompt appears at project startup if:
 | **Don't ask again** | Dismisses the prompt for this IDE session |
 
 Clicking **Start Build Watch** opens the Run tool window with a live-recompiling build process.
+
+## REPL
+
+An interactive read-eval-print loop for executing ReScript code snippets directly within the IDE.
+
+**Open:** **View** > **Tool Windows** > **ReScript REPL**
+
+### How to Use
+
+1. Open the REPL tool window
+2. Type ReScript code in the input area at the bottom
+3. Click **Run** to execute
+4. Output appears in the output area above
+5. Click **Clear** to reset the output
+
+### Expression Handling
+
+The REPL automatically wraps simple expressions for output:
+
+- `let` bindings, `type`/`module` declarations, and `open` statements are used as-is
+- Code already containing `Js.log` or `Console.log` is used as-is
+- Simple expressions are automatically wrapped: `1 + 2` becomes `Js.log(1 + 2)`
+
+```rescript
+// Input: simple expression
+1 + 2
+// Output: 3
+
+// Input: let binding
+let greeting = "Hello"
+Js.log(greeting)
+// Output: Hello
+```
+
+### How It Works
+
+Each execution is isolated:
+
+1. Creates a temporary `.res` file with the user code
+2. Compiles with `npx rescript build`
+3. Executes the compiled JavaScript with `node`
+4. Displays stdout/stderr in the output area
+
+### Requirements
+
+- ReScript CLI (`rescript`) must be installed in the project
+- Node.js must be available in PATH
+
+### Limitations
+
+- No persistent state between executions (each run is isolated)
+- 30-second timeout for compilation and execution
+
+## Worksheet Mode
+
+Worksheet files (`.resw`) allow you to write ReScript code and have each top-level expression evaluated with results displayed inline.
+
+### How to Use
+
+1. Create a new file with the `.resw` extension
+2. Write ReScript code with top-level expressions
+3. Each expression is evaluated and the result is displayed as an inline comment
+
+```rescript
+let x = 1 + 2
+// => 3
+
+let greeting = "Hello, " ++ "World!"
+// => Hello, World!
+
+type color = Red | Green | Blue
+// (type declarations are skipped)
+```
+
+### Expression Grouping
+
+The worksheet understands multi-line expressions by tracking brace and parenthesis depth. Empty lines, comments, type declarations, module declarations, and `open` statements are skipped during evaluation.
+
+### Requirements
+
+- ReScript CLI (`rescript`) must be installed in the project
+- Node.js must be available in PATH
+
+## Scratch Files
+
+Create temporary ReScript files in the IDE's Scratches panel for quick experiments without adding files to your project.
+
+### How to Use
+
+1. Open **File** > **New** > **Scratch File** (or `Cmd+Shift+N` on macOS)
+2. Select **ReScript** from the language list
+3. A new scratch file opens with a default template:
+
+```rescript
+// ReScript Scratch File
+let result = "Hello"
+Js.log(result)
+```
+
+### Features
+
+- Full ReScript syntax highlighting and language support
+- Standalone files stored outside your project directory
+- Can be compiled and run like normal `.res` files
+- Useful for prototyping, testing library functions, or learning ReScript syntax
+
+## Call Hierarchy
+
+View the call graph around a function, showing both what calls it (Callers) and what it calls (Callees).
+
+**Open:** Place the cursor on a function name and press `Ctrl+Alt+H` (`Cmd+Alt+H` on macOS)
+
+### View Modes
+
+The hierarchy browser provides two tabs:
+
+**Callers** (default) --- Shows all functions in the project that call the selected function. Discovery uses text-based search across the entire project.
+
+**Callees** --- Shows all functions that the selected function calls. Discovery scans the function body within the same file.
+
+### Navigation
+
+- Double-click a node to navigate to the function source
+- Use Previous/Next buttons to navigate between functions
+- Nodes are sorted alphabetically
+
+### How It Works
+
+The call hierarchy uses PSI-based text search rather than LSP:
+
+- **Callers:** Searches for text occurrences of the function name across all project files
+- **Callees:** Scans the function body for identifier tokens and cross-references them against declarations in the same file
+
+### Limitations
+
+- Text-based matching --- aliased or module-qualified calls may not be found
+- Callees are detected within the same file only (no cross-file callee detection)
+- Works on `let` and `external` declarations in `.res` files
