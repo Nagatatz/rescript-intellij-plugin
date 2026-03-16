@@ -1,8 +1,10 @@
 package com.rescript.plugin.analysis
 
+import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import com.intellij.openapi.diagnostic.logger
 import com.rescript.plugin.util.RescriptSecurityUtils
+import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -112,8 +114,15 @@ object RescriptReanalyzeVersionDetector {
             val content = Files.readString(packageJsonPath, Charsets.UTF_8)
             val jsonObj = JsonParser.parseString(content).asJsonObject
             jsonObj.get("version")?.asString
-        } catch (e: Exception) {
-            LOG.debug("Failed to read version from $packageJsonPath", e)
+        } catch (e: IOException) {
+            LOG.warn("Failed to read package.json at $packageJsonPath", e)
+            null
+        } catch (e: JsonParseException) {
+            LOG.warn("Malformed JSON in package.json at $packageJsonPath", e)
+            null
+        } catch (e: IllegalStateException) {
+            // Thrown by asJsonObject when the parsed element is not a JSON object
+            LOG.warn("Unexpected JSON structure in package.json at $packageJsonPath", e)
             null
         }
 }

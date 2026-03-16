@@ -4,6 +4,7 @@ import com.intellij.codeInspection.GlobalInspectionContext
 import com.intellij.codeInspection.GlobalInspectionTool
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.util.TextRange
@@ -11,6 +12,7 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.GlobalSearchScope
 import com.rescript.plugin.lang.psi.RescriptFile
+import java.io.IOException
 
 /**
  * Global inspection that runs `rescript-tools reanalyze -json` to find unused code
@@ -50,8 +52,19 @@ class RescriptUnusedCodeInspection : GlobalInspectionTool() {
                     return
                 }
                 stdout
-            } catch (e: Exception) {
-                LOG.debug("Failed to run reanalyze", e)
+            } catch (e: ExecutionException) {
+                LOG.warn(
+                    "Failed to create reanalyze process" +
+                        " (command: $toolPath reanalyze -json, workDir: $basePath)",
+                    e,
+                )
+                return
+            } catch (e: IOException) {
+                LOG.warn(
+                    "I/O error while running reanalyze" +
+                        " (command: $toolPath reanalyze -json, workDir: $basePath)",
+                    e,
+                )
                 return
             }
 

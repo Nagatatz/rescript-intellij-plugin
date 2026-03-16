@@ -2,6 +2,7 @@ package com.rescript.plugin.analysis
 
 import com.intellij.codeInsight.actions.ReformatCodeProcessor
 import com.intellij.codeInsight.intention.IntentionAction
+import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
@@ -100,8 +101,11 @@ class RescriptFormatCheckAnnotator :
                 val shortcut = if (SystemInfo.isMac) "Cmd+Option+L" else "Ctrl+Alt+L"
                 AnnotationResult("Code is not formatted. Use $shortcut to format.")
             }
-        } catch (e: Exception) {
-            LOG.debug("Failed to run format check", e)
+        } catch (e: ExecutionException) {
+            LOG.warn("Failed to create format check process (file: ${info.filePath})", e)
+            null
+        } catch (e: IOException) {
+            LOG.warn("I/O error during format check (file: ${info.filePath})", e)
             null
         }
     }

@@ -147,8 +147,11 @@ class RescriptFormatCheckAnnotatorTest {
     @Test
     fun `runFormatCheck cleans up process on non-zero exit`() {
         // Verify no threads leak when process exits with error code
-        val threadsBefore = Thread.getAllStackTraces().keys
-            .count { it.name.startsWith("rescript-format-check") }
+        val threadsBefore =
+            Thread
+                .getAllStackTraces()
+                .keys
+                .count { it.name.startsWith("rescript-format-check") }
 
         RescriptFormatCheckAnnotator.runFormatCheck(
             cliPath = "/usr/bin/false",
@@ -159,8 +162,11 @@ class RescriptFormatCheckAnnotatorTest {
         // Allow time for daemon threads to terminate
         Thread.sleep(100)
 
-        val threadsAfter = Thread.getAllStackTraces().keys
-            .count { it.name.startsWith("rescript-format-check") }
+        val threadsAfter =
+            Thread
+                .getAllStackTraces()
+                .keys
+                .count { it.name.startsWith("rescript-format-check") }
 
         assertEquals("No rescript-format-check threads should leak", threadsBefore, threadsAfter)
     }
