@@ -989,6 +989,180 @@ msgstr "Boolean 属性（例: `disabled`、`checked`）が JSX の boolean props
 msgid "`data-*` and `aria-*` attributes are preserved as-is"
 msgstr "`data-*` および `aria-*` 属性はそのまま保持されます"
 
+#: ../../user/features/code-editing.md
+msgid "Add `->ignore`"
+msgstr "`->ignore` を追加"
+
+#: ../../user/features/code-editing.md
+msgid "Append `->ignore` to discard the expression's return value"
+msgstr "式の戻り値を破棄するために `->ignore` を末尾に追加"
+
+#: ../../user/features/code-editing.md
+msgid "Add `_` prefix"
+msgstr "`_` プレフィックスを追加"
+
+#: ../../user/features/code-editing.md
+msgid "Add underscore prefix to suppress unused variable warnings"
+msgstr "未使用変数の警告を抑制するためにアンダースコアプレフィックスを追加"
+
+#: ../../user/features/code-editing.md
+msgid "Remove redundant braces"
+msgstr "冗長なブレースを削除"
+
+#: ../../user/features/code-editing.md
+msgid "Remove unnecessary `{ }` around single expressions"
+msgstr "単一式を囲む不要な `{ }` を削除"
+
+#: ../../user/features/code-editing.md
+msgid "Fix identifier case"
+msgstr "識別子のケースを修正"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Correct identifier casing (e.g., lowercase for values, uppercase for "
+"modules)"
+msgstr "識別子のケースを修正（例: 値は小文字開始、モジュールは大文字開始）"
+
+#: ../../user/features/code-editing.md
+msgid "Expand destructuring"
+msgstr "分割代入の展開"
+
+#: ../../user/features/code-editing.md
+msgid "Expand `let {a, b} = x` into individual `let` bindings"
+msgstr "`let {a, b} = x` を個別の `let` バインディングに展開"
+
+#: ../../user/features/code-editing.md
+msgid "Convert filter+map to filterMap"
+msgstr "filter+map を filterMap に変換"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Convert a `->Array.filter(f)->Array.map(g)` chain into a single "
+"`->Array.filterMap(...)` call. Place the caret on the filter or map call "
+"and press `Alt+Enter`."
+msgstr ""
+"`->Array.filter(f)->Array.map(g)` チェーンを単一の `->Array.filterMap(...)` "
+"呼び出しに変換します。filter または map の呼び出しにキャレットを置いて `Alt+Enter` を押します。"
+
+#: ../../user/features/code-editing.md
+msgid "Add Type Annotation"
+msgstr "型注釈の追加"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Add an explicit type annotation to a `let` binding using type information "
+"from the LSP hover. Place the caret on a `let` binding and press "
+"`Alt+Enter`."
+msgstr ""
+"LSP hover の型情報を使用して `let` バインディングに明示的な型注釈を追加します。`let` "
+"バインディングにキャレットを置いて `Alt+Enter` を押します。"
+
+#: ../../user/features/code-editing.md
+msgid "Add ->ignore"
+msgstr "->ignore を追加"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Append `->ignore` to an expression whose return value is unused, "
+"suppressing the compiler warning about discarded values. Place the caret "
+"on the expression and press `Alt+Enter`."
+msgstr ""
+"戻り値が使用されていない式に `->ignore` を追加し、破棄された値に関するコンパイラ警告を抑制します。"
+"式にキャレットを置いて `Alt+Enter` を押します。"
+
+#: ../../user/features/code-editing.md
+msgid "Add _ Prefix"
+msgstr "_ プレフィックスを追加"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Add an underscore prefix to a variable name to indicate it is "
+"intentionally unused. This suppresses the compiler's unused variable "
+"warning. Place the caret on an unused variable and press `Alt+Enter`."
+msgstr ""
+"変数名にアンダースコアプレフィックスを追加して、意図的に未使用であることを示します。"
+"これによりコンパイラの未使用変数警告が抑制されます。"
+"未使用の変数にキャレットを置いて `Alt+Enter` を押します。"
+
+#: ../../user/features/code-editing.md
+msgid "Remove Redundant Braces"
+msgstr "冗長なブレースの削除"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Remove unnecessary `{ }` around a single expression. Place the caret on "
+"the braces and press `Alt+Enter`."
+msgstr ""
+"単一の式を囲む不要な `{ }` を削除します。ブレースにキャレットを置いて `Alt+Enter` を押します。"
+
+#: ../../user/features/code-editing.md
+msgid "Fix Identifier Case"
+msgstr "識別子ケースの修正"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Correct identifier casing to follow ReScript conventions: values and "
+"functions should start with a lowercase letter, modules and variant "
+"constructors should start with an uppercase letter. Place the caret on a "
+"misnamed identifier and press `Alt+Enter`."
+msgstr ""
+"ReScript の規約に従って識別子のケースを修正します: 値と関数は小文字で始まり、"
+"モジュールとバリアントコンストラクターは大文字で始まる必要があります。"
+"命名が不適切な識別子にキャレットを置いて `Alt+Enter` を押します。"
+
+#: ../../user/features/code-editing.md
+msgid "Expand Destructuring"
+msgstr "分割代入の展開"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Expand a destructured `let` binding into individual `let` bindings for "
+"each field. Place the caret on a destructuring pattern and press "
+"`Alt+Enter`."
+msgstr ""
+"分割代入された `let` バインディングを各フィールドごとの個別の `let` バインディングに展開します。"
+"分割代入パターンにキャレットを置いて `Alt+Enter` を押します。"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"**Generate Record Value** — Generate a record value with default values "
+"for all fields"
+msgstr "**Generate Record Value** — 全フィールドにデフォルト値を設定したレコード値を生成"
+
+#: ../../user/features/code-editing.md
+msgid "Generate Record Value"
+msgstr "レコード値の生成"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"When your caret is inside a record type declaration, this action generates "
+"a record value with default values for all fields. This is useful for "
+"quickly creating an initial value or test fixture."
+msgstr ""
+"キャレットがレコード型宣言の中にある場合、このアクションは全フィールドにデフォルト値を設定したレコード値を生成します。"
+"初期値やテストフィクスチャの素早い作成に便利です。"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Place your caret inside the type declaration and press `Cmd+N` (or "
+"`Alt+Insert`), then choose **Record Value**."
+msgstr ""
+"型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Record Value** を選択します。"
+
+#: ../../user/features/code-editing.md
+msgid "**After** (record value inserted below the type declaration):"
+msgstr "**変更後**（レコード値が型宣言の下に挿入）:"
+
+#: ../../user/features/code-editing.md
+msgid ""
+"Default values are inferred from field types: `\"\"` for `string`, `0` for "
+"`int`, `0.0` for `float`, `false` for `bool`, `None` for `option<T>`, and "
+"`[]` for `array<T>`."
+msgstr ""
+"デフォルト値はフィールドの型から推論されます: `string` には `\"\"`、`int` には `0`、"
+"`float` には `0.0`、`bool` には `false`、`option<T>` には `None`、"
+"`array<T>` には `[]`。"
+
 #~ msgid ""
 #~ "Use **Edit** → **Paste as JSON.t** "
 #~ "to convert JSON from your clipboard "

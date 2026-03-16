@@ -89,6 +89,11 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Remove redundant qualifier | Remove unnecessary module path qualifiers |
 | Convert filter+map to filterMap | Convert `->Array.filter(f)->Array.map(g)` to `->Array.filterMap(...)` |
 | Add type annotation | Add explicit type annotation to a `let` binding using LSP hover info |
+| Add `->ignore` | Append `->ignore` to discard the expression's return value |
+| Add `_` prefix | Add underscore prefix to suppress unused variable warnings |
+| Remove redundant braces | Remove unnecessary `{ }` around single expressions |
+| Fix identifier case | Correct identifier casing (e.g., lowercase for values, uppercase for modules) |
+| Expand destructuring | Expand `let {a, b} = x` into individual `let` bindings |
 
 ### Wrap with Some(...)
 
@@ -355,6 +360,132 @@ open Belt.Array
 map(arr, fn)
 ```
 
+### Convert filter+map to filterMap
+
+Convert a `->Array.filter(f)->Array.map(g)` chain into a single `->Array.filterMap(...)` call. Place the caret on the filter or map call and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+items
+->Array.filter(x => x > 0)
+->Array.map(x => x * 2)
+```
+
+**After:**
+
+```rescript
+items->Array.filterMap(x => {
+  if x > 0 {
+    Some(x * 2)
+  } else {
+    None
+  }
+})
+```
+
+### Add Type Annotation
+
+Add an explicit type annotation to a `let` binding using type information from the LSP hover. Place the caret on a `let` binding and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+let name = "Alice"
+```
+
+**After:**
+
+```rescript
+let name: string = "Alice"
+```
+
+### Add ->ignore
+
+Append `->ignore` to an expression whose return value is unused, suppressing the compiler warning about discarded values. Place the caret on the expression and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+Js.log("debug message")
+Array.push(items, newItem)
+```
+
+**After:**
+
+```rescript
+Js.log("debug message")->ignore
+Array.push(items, newItem)->ignore
+```
+
+### Add _ Prefix
+
+Add an underscore prefix to a variable name to indicate it is intentionally unused. This suppresses the compiler's unused variable warning. Place the caret on an unused variable and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+let result = someComputation()
+```
+
+**After:**
+
+```rescript
+let _result = someComputation()
+```
+
+### Remove Redundant Braces
+
+Remove unnecessary `{ }` around a single expression. Place the caret on the braces and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+let greet = (name) => {
+  "Hello, " ++ name
+}
+```
+
+**After:**
+
+```rescript
+let greet = (name) => "Hello, " ++ name
+```
+
+### Fix Identifier Case
+
+Correct identifier casing to follow ReScript conventions: values and functions should start with a lowercase letter, modules and variant constructors should start with an uppercase letter. Place the caret on a misnamed identifier and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+let MyValue = 42
+```
+
+**After:**
+
+```rescript
+let myValue = 42
+```
+
+### Expand Destructuring
+
+Expand a destructured `let` binding into individual `let` bindings for each field. Place the caret on a destructuring pattern and press `Alt+Enter`.
+
+**Before:**
+
+```rescript
+let {name, age, email} = user
+```
+
+**After:**
+
+```rescript
+let name = user.name
+let age = user.age
+let email = user.email
+```
+
 ## Surround With
 
 Select code and press `Ctrl+Alt+T` to surround it with:
@@ -612,6 +743,7 @@ Press `Cmd+N` (or `Alt+Insert`) to open the Generate menu:
 - **Generate Module Type** — Generate a module type skeleton from a module implementation
 - **Generate Make Function** — Generate a constructor function from a record type
 - **Generate JSON Encoder/Decoder** — Generate JSON encoder and decoder functions from a type
+- **Generate Record Value** — Generate a record value with default values for all fields
 
 ### Generate Switch Arms
 
@@ -770,6 +902,43 @@ Generates a tagged union encoder/decoder using `Object` with a `"tag"` field and
 **Supported types:** `string`, `int`, `float`, `bool`, `option<T>`, `array<T>`, and arbitrary nesting (e.g., `option<array<string>>`). Unrecognized types generate a `/* TODO */` placeholder for you to fill in.
 
 **Naming convention:** Functions are named `encode` + capitalized type name and `decode` + capitalized type name (e.g., `encodeUser` / `decodeUser`). For a type named `t`, the functions are simply `encode` / `decode`.
+
+### Generate Record Value
+
+When your caret is inside a record type declaration, this action generates a record value with default values for all fields. This is useful for quickly creating an initial value or test fixture.
+
+Place your caret inside the type declaration and press `Cmd+N` (or `Alt+Insert`), then choose **Record Value**.
+
+**Before:**
+
+```rescript
+type user = {
+  name: string,
+  age: int,
+  active: bool,
+  email: option<string>,
+}
+```
+
+**After** (record value inserted below the type declaration):
+
+```rescript
+type user = {
+  name: string,
+  age: int,
+  active: bool,
+  email: option<string>,
+}
+
+let value: user = {
+  name: "",
+  age: 0,
+  active: false,
+  email: None,
+}
+```
+
+Default values are inferred from field types: `""` for `string`, `0` for `int`, `0.0` for `float`, `false` for `bool`, `None` for `option<T>`, and `[]` for `array<T>`.
 
 ### Generate Module Type Implementation
 
