@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 20:50+0900\n"
+"POT-Creation-Date: 2026-03-17 18:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -46,11 +46,11 @@ msgstr ""
 "**Run** → **Edit Configurations** → **+** → **ReScript** から ReScript "
 "ビルド構成を作成・管理できます。"
 
-#: ../../user/features/run-build.md:9 ../../user/features/run-build.md:192
+#: ../../user/features/run-build.md:9 ../../user/features/run-build.md:200
 msgid "Available Commands"
 msgstr "利用可能なコマンド"
 
-#: ../../user/features/run-build.md ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md ../../user/features/run-build.md:190
 msgid "Command"
 msgstr "コマンド"
 
@@ -58,7 +58,7 @@ msgstr "コマンド"
 msgid "CLI Arguments"
 msgstr "CLI 引数"
 
-#: ../../user/features/run-build.md ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md ../../user/features/run-build.md:190
 msgid "Description"
 msgstr "説明"
 
@@ -66,7 +66,7 @@ msgstr "説明"
 msgid "**Build**"
 msgstr "**Build**"
 
-#: ../../user/features/run-build.md ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md ../../user/features/run-build.md:190
 msgid "`rescript build`"
 msgstr "`rescript build`"
 
@@ -78,7 +78,7 @@ msgstr "プロジェクト全体のワンショットコンパイル"
 msgid "**Build (Watch)**"
 msgstr "**Build (Watch)**"
 
-#: ../../user/features/run-build.md ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md ../../user/features/run-build.md:190
 msgid "`rescript build -w`"
 msgstr "`rescript build -w`"
 
@@ -90,7 +90,7 @@ msgstr "ファイル監視による継続的コンパイル"
 msgid "**Clean**"
 msgstr "**Clean**"
 
-#: ../../user/features/run-build.md ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md ../../user/features/run-build.md:190
 msgid "`rescript clean`"
 msgstr "`rescript clean`"
 
@@ -282,10 +282,19 @@ msgstr ""
 "is installed via npm in the project.\"*"
 
 #: ../../user/features/run-build.md:79
+msgid ""
+"Run configurations let you build, watch, and clean your ReScript project "
+"without leaving the IDE, keeping your terminal free and your build "
+"workflow integrated with the editor."
+msgstr ""
+"Run 構成により、IDE を離れることなく ReScript プロジェクトのビルド、ウォッチ、クリーンが可能になり、"
+"ターミナルを空けてビルドワークフローをエディタに統合できます。"
+
+#: ../../user/features/run-build.md:81
 msgid "Gutter Run Icons"
 msgstr "ガター実行アイコン"
 
-#: ../../user/features/run-build.md:81
+#: ../../user/features/run-build.md:83
 msgid ""
 "A green **Run** icon appears in the gutter (left margin) of `.res` files,"
 " providing a quick way to start a build without creating a run "
@@ -294,11 +303,11 @@ msgstr ""
 "`.res` ファイルのガター（左余白）に緑色の **Run** "
 "アイコンが表示され、実行構成を手動で作成せずにビルドを素早く開始する方法を提供します。"
 
-#: ../../user/features/run-build.md:83
+#: ../../user/features/run-build.md:85
 msgid "Where Icons Appear"
 msgstr "アイコンの表示位置"
 
-#: ../../user/features/run-build.md:85
+#: ../../user/features/run-build.md:87
 msgid ""
 "The run icon is placed at the **first top-level declaration** in the "
 "file. Only `let`, `type`, and `module` declarations at the top level are "
@@ -308,15 +317,15 @@ msgstr ""
 "実行アイコンはファイル内の**最初のトップレベル宣言**に配置されます。トップレベルの `let`、`type`、`module` "
 "宣言のみが対象です。アイコンは最初の該当宣言のキーワードトークン（`let`、`type`、または `module`）に表示されます。"
 
-#: ../../user/features/run-build.md:87
+#: ../../user/features/run-build.md:89
 msgid "For example, in this file the icon appears on line 1 next to `let`:"
 msgstr "例えば、このファイルでは 1 行目の `let` の横にアイコンが表示されます:"
 
-#: ../../user/features/run-build.md:97
+#: ../../user/features/run-build.md:99
 msgid "Prerequisites"
 msgstr "前提条件"
 
-#: ../../user/features/run-build.md:99
+#: ../../user/features/run-build.md:101
 msgid ""
 "The gutter icon only appears when the project contains a `rescript.json` "
 "file in the project root. This ensures the icon is not shown for non-"
@@ -326,33 +335,33 @@ msgstr ""
 "ガターアイコンは、プロジェクトルートに `rescript.json` ファイルが含まれている場合にのみ表示されます。これにより、ReScript"
 " 以外のプロジェクトや、有効な ReScript プロジェクト外のスタンドアロンの `.res` ファイルではアイコンが表示されません。"
 
-#: ../../user/features/run-build.md:101
+#: ../../user/features/run-build.md:103
 msgid "Click Behavior"
 msgstr "クリック時の動作"
 
-#: ../../user/features/run-build.md:103
+#: ../../user/features/run-build.md:105
 msgid ""
 "Clicking the gutter icon opens the standard IntelliJ run menu, allowing "
 "you to:"
 msgstr "ガターアイコンをクリックすると、標準の IntelliJ 実行メニューが開き、以下の操作ができます:"
 
-#: ../../user/features/run-build.md:105
+#: ../../user/features/run-build.md:107
 msgid "**Run** -- Execute the default ReScript build configuration"
 msgstr "**Run** -- デフォルトの ReScript ビルド構成を実行します"
 
-#: ../../user/features/run-build.md:106
+#: ../../user/features/run-build.md:108
 msgid ""
 "**Debug** -- Not applicable for ReScript builds (the option may appear "
 "but is not functional)"
 msgstr "**Debug** -- ReScript ビルドには適用されません（オプションは表示されますが機能しません）"
 
-#: ../../user/features/run-build.md:107
+#: ../../user/features/run-build.md:109
 msgid ""
 "**Edit Configurations** -- Open the run configuration editor to customize"
 " the build command"
 msgstr "**Edit Configurations** -- 実行構成エディタを開いてビルドコマンドをカスタマイズします"
 
-#: ../../user/features/run-build.md:109
+#: ../../user/features/run-build.md:111
 msgid ""
 "If no ReScript run configuration exists yet, clicking the icon creates a "
 "new one with default settings (Build command, project root as working "
@@ -361,11 +370,20 @@ msgstr ""
 "ReScript の実行構成がまだ存在しない場合、アイコンをクリックするとデフォルト設定（Build "
 "コマンド、プロジェクトルートを作業ディレクトリとする）で新しい実行構成が作成されます。"
 
-#: ../../user/features/run-build.md:111
+#: ../../user/features/run-build.md:113
+msgid ""
+"Gutter run icons provide a zero-configuration way to trigger a build — "
+"new users can start compiling immediately without understanding run "
+"configurations or terminal commands."
+msgstr ""
+"ガターの実行アイコンは設定不要でビルドを開始する方法を提供します — 新しいユーザーは Run "
+"構成やターミナルコマンドを理解しなくても、すぐにコンパイルを開始できます。"
+
+#: ../../user/features/run-build.md:115
 msgid "Build Status Indicator"
 msgstr "ビルドステータスインジケーター"
 
-#: ../../user/features/run-build.md:113
+#: ../../user/features/run-build.md:117
 msgid ""
 "The status bar at the bottom of the IDE shows the current ReScript "
 "compilation status. This widget is only visible in projects that contain "
@@ -374,7 +392,7 @@ msgstr ""
 "IDE 下部のステータスバーに、現在の ReScript コンパイルステータスが表示されます。このウィジェットは `rescript.json` "
 "ファイルを含むプロジェクトでのみ表示されます。"
 
-#: ../../user/features/run-build.md:115
+#: ../../user/features/run-build.md:119
 msgid "Status States"
 msgstr "ステータスの状態"
 
@@ -450,37 +468,38 @@ msgstr "`ReScript`"
 msgid "No compilation status received yet"
 msgstr "コンパイルステータスがまだ受信されていません"
 
-#: ../../user/features/run-build.md:125 ../../user/features/run-build.md:211
+#: ../../user/features/run-build.md:129 ../../user/features/run-build.md:243
+#: ../../user/features/run-build.md:295
 msgid "How It Works"
 msgstr "仕組み"
 
-#: ../../user/features/run-build.md:127
+#: ../../user/features/run-build.md:131
 msgid ""
 "The build status indicator receives updates via the LSP protocol, not "
 "from the Run panel. Here is the flow:"
 msgstr "ビルドステータスインジケーターは、Run パネルからではなく LSP プロトコル経由で更新を受信します。以下がその流れです:"
 
-#: ../../user/features/run-build.md:129
+#: ../../user/features/run-build.md:133
 msgid "The ReScript Language Server monitors the compiler process"
 msgstr "ReScript Language Server がコンパイラプロセスを監視します"
 
-#: ../../user/features/run-build.md:130
+#: ../../user/features/run-build.md:134
 msgid ""
 "When compilation state changes, the server sends a "
 "`rescript/compilationStatus` notification"
 msgstr "コンパイル状態が変化すると、サーバーが `rescript/compilationStatus` 通知を送信します"
 
-#: ../../user/features/run-build.md:131
+#: ../../user/features/run-build.md:135
 msgid ""
 "The plugin's LSP client receives this notification and updates the "
 "`RescriptCompilationStatusService`"
 msgstr "プラグインの LSP クライアントがこの通知を受信し、`RescriptCompilationStatusService` を更新します"
 
-#: ../../user/features/run-build.md:132
+#: ../../user/features/run-build.md:136
 msgid "The status bar widget listens for changes and refreshes its display"
 msgstr "ステータスバーウィジェットが変更を監視し、表示を更新します"
 
-#: ../../user/features/run-build.md:134
+#: ../../user/features/run-build.md:138
 msgid ""
 "This means the status bar updates even if you run the compiler outside "
 "the IDE (e.g., from a terminal), as long as the Language Server is "
@@ -489,48 +508,57 @@ msgstr ""
 "つまり、Language Server が接続されている限り、IDE "
 "の外部（例えばターミナル）でコンパイラを実行した場合でもステータスバーが更新されます。"
 
-#: ../../user/features/run-build.md:136
+#: ../../user/features/run-build.md:140
 msgid "Tooltip Information"
 msgstr "ツールチップ情報"
 
-#: ../../user/features/run-build.md:138
+#: ../../user/features/run-build.md:142
 msgid "Hovering over the status bar widget shows a detailed tooltip:"
 msgstr "ステータスバーウィジェットにカーソルを合わせると、詳細なツールチップが表示されます:"
 
-#: ../../user/features/run-build.md:140
+#: ../../user/features/run-build.md:144
 msgid "*\"ReScript compiler is running...\"* during compilation"
 msgstr "コンパイル中: *\"ReScript compiler is running...\"*"
 
-#: ../../user/features/run-build.md:141
+#: ../../user/features/run-build.md:145
 msgid "*\"ReScript compilation succeeded\"* on success"
 msgstr "成功時: *\"ReScript compilation succeeded\"*"
 
-#: ../../user/features/run-build.md:142
+#: ../../user/features/run-build.md:146
 msgid ""
 "*\"ReScript compilation failed: 3 errors, 2 warnings\"* on error (with "
 "counts)"
 msgstr "エラー時（件数付き）: *\"ReScript compilation failed: 3 errors, 2 warnings\"*"
 
-#: ../../user/features/run-build.md:143
+#: ../../user/features/run-build.md:147
 msgid "*\"ReScript compilation completed with 2 warnings\"* for warnings only"
 msgstr "警告のみの場合: *\"ReScript compilation completed with 2 warnings\"*"
 
-#: ../../user/features/run-build.md:145
+#: ../../user/features/run-build.md:149
+msgid ""
+"The status bar gives you at-a-glance visibility into the compiler state, "
+"so you always know whether your code is clean, broken, or still compiling"
+" — even when the Run panel is closed."
+msgstr ""
+"ステータスバーによりコンパイラの状態を一目で確認でき、Run パネルが閉じていても、"
+"コードがクリーンか、壊れているか、まだコンパイル中かを常に把握できます。"
+
+#: ../../user/features/run-build.md:151
 msgid "Console Output"
 msgstr "コンソール出力"
 
-#: ../../user/features/run-build.md:147
+#: ../../user/features/run-build.md:153
 msgid ""
 "Build output appears in the **Run** panel at the bottom of the IDE. The "
 "plugin enhances the raw console output with automatic file path "
 "linkification."
 msgstr "ビルド出力は IDE 下部の **Run** パネルに表示されます。プラグインはファイルパスの自動リンク化により、生のコンソール出力を拡張します。"
 
-#: ../../user/features/run-build.md:149
+#: ../../user/features/run-build.md:155
 msgid "File Path Linkification"
 msgstr "ファイルパスのリンク化"
 
-#: ../../user/features/run-build.md:151
+#: ../../user/features/run-build.md:157
 msgid ""
 "When the ReScript compiler outputs error or warning messages containing "
 "file paths, the plugin automatically converts them into clickable "
@@ -539,11 +567,11 @@ msgstr ""
 "ReScript "
 "コンパイラがファイルパスを含むエラーまたは警告メッセージを出力すると、プラグインはそれらを自動的にクリック可能なハイパーリンクに変換します。認識されるパターンは以下の通りです:"
 
-#: ../../user/features/run-build.md:157
+#: ../../user/features/run-build.md:163
 msgid "For example, the compiler might output:"
 msgstr "例えば、コンパイラは以下のように出力します:"
 
-#: ../../user/features/run-build.md:169
+#: ../../user/features/run-build.md:175
 msgid ""
 "The path `src/App.res:10:5` becomes a clickable link. Clicking it opens "
 "`src/App.res` in the editor with the cursor positioned at line 10, column"
@@ -552,35 +580,35 @@ msgstr ""
 "パス `src/App.res:10:5` がクリック可能なリンクになります。クリックするとエディタで `src/App.res` "
 "が開き、カーソルが 10 行目、5 列目に配置されます。"
 
-#: ../../user/features/run-build.md:171
+#: ../../user/features/run-build.md:177
 msgid "Path Resolution"
 msgstr "パスの解決"
 
-#: ../../user/features/run-build.md:173
+#: ../../user/features/run-build.md:179
 msgid "The plugin resolves file paths in two ways:"
 msgstr "プラグインは 2 つの方法でファイルパスを解決します:"
 
-#: ../../user/features/run-build.md:175
+#: ../../user/features/run-build.md:181
 msgid ""
 "**Absolute paths** -- If the path is absolute and the file exists, it is "
 "used directly"
 msgstr "**絶対パス** -- パスが絶対パスでファイルが存在する場合、そのまま使用されます"
 
-#: ../../user/features/run-build.md:176
+#: ../../user/features/run-build.md:182
 msgid ""
 "**Relative paths** -- The path is resolved relative to the project root "
 "(the project's base path)"
 msgstr "**相対パス** -- パスはプロジェクトルート（プロジェクトのベースパス）からの相対パスとして解決されます"
 
-#: ../../user/features/run-build.md:178
+#: ../../user/features/run-build.md:184
 msgid "Both `.res` and `.resi` file extensions are recognized by the link filter."
 msgstr "リンクフィルターは `.res` と `.resi` の両方のファイル拡張子を認識します。"
 
-#: ../../user/features/run-build.md:180
+#: ../../user/features/run-build.md:186
 msgid "Supported Output Patterns"
 msgstr "サポートされる出力パターン"
 
-#: ../../user/features/run-build.md:182
+#: ../../user/features/run-build.md:188
 msgid ""
 "The console filter uses a regular expression that matches paths in the "
 "format `<path>.res:<line>:<column>` or `<path>.resi:<line>:<column>`. The"
@@ -592,7 +620,7 @@ msgstr ""
 "`<path>.resi:<line>:<column>` 形式のパスにマッチする正規表現を使用します。コンパイラ出力の行番号と列番号は 1 "
 "ベースですが、プラグインは IntelliJ エディタが使用する 0 ベースのオフセットに自動変換します。"
 
-#: ../../user/features/run-build.md:185
+#: ../../user/features/run-build.md:191
 msgid ""
 "Console output filtering is applied to all console outputs in the "
 "project, not just ReScript run configurations. This means file paths in "
@@ -601,103 +629,336 @@ msgstr ""
 "コンソール出力のフィルタリングは、ReScript "
 "の実行構成だけでなく、プロジェクト内のすべてのコンソール出力に適用されます。つまり、テスト出力、スクリプト出力、その他のコンソールパネルのファイルパスもリンク化されます。"
 
-#: ../../user/features/run-build.md:188
+#: ../../user/features/run-build.md:194
+msgid ""
+"Clickable file paths in compiler output turn error messages into direct "
+"navigation links, so you jump straight to the problem line instead of "
+"manually opening the file and scrolling to the right position."
+msgstr ""
+"コンパイラ出力のクリック可能なファイルパスにより、エラーメッセージが直接ナビゲーションリンクに変わり、"
+"ファイルを手動で開いてスクロールする代わりに、問題の行に直接ジャンプできます。"
+
+#: ../../user/features/run-build.md:196
 msgid "Run Anything"
 msgstr "Run Anything"
 
-#: ../../user/features/run-build.md:190
+#: ../../user/features/run-build.md:198
 msgid ""
 "Press `Ctrl+Ctrl` (double-tap Ctrl) to open the **Run Anything** dialog, "
 "then type a ReScript CLI command to execute it immediately without "
 "creating a run configuration."
-msgstr "`Ctrl+Ctrl`（Ctrl キーのダブルタップ）を押して **Run Anything** ダイアログを開き、ReScript CLI コマンドを入力すると、実行構成を作成せずに即座に実行できます。"
+msgstr ""
+"`Ctrl+Ctrl`（Ctrl キーのダブルタップ）を押して **Run Anything** ダイアログを開き、ReScript CLI "
+"コマンドを入力すると、実行構成を作成せずに即座に実行できます。"
 
-#: ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md:190
 msgid "Compile the project"
 msgstr "プロジェクトをコンパイル"
 
-#: ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md:190
 msgid "Compile in watch mode"
 msgstr "ウォッチモードでコンパイル"
 
-#: ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md:190
 msgid "Clean build artifacts"
 msgstr "ビルド成果物のクリーン"
 
-#: ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md:190
 msgid "`rescript format`"
 msgstr "`rescript format`"
 
-#: ../../user/features/run-build.md:184
+#: ../../user/features/run-build.md:190
 msgid "Format the project"
 msgstr "プロジェクトをフォーマット"
 
-#: ../../user/features/run-build.md:201
+#: ../../user/features/run-build.md:209
 msgid ""
 "Start typing `rescript` in the Run Anything dialog to see matching "
 "commands with auto-completion."
 msgstr "Run Anything ダイアログで `rescript` と入力し始めると、自動補完付きで一致するコマンドが表示されます。"
 
-#: ../../user/features/run-build.md:204
+#: ../../user/features/run-build.md:212
 msgid ""
 "Run Anything for ReScript is only available in projects that contain a "
 "`rescript.json` (or `bsconfig.json`) at the project root. The ReScript "
 "CLI must be installed in the project's `node_modules`."
-msgstr "ReScript の Run Anything は、プロジェクトルートに `rescript.json`（または `bsconfig.json`）を含むプロジェクトでのみ利用可能です。ReScript CLI がプロジェクトの `node_modules` にインストールされている必要があります。"
+msgstr ""
+"ReScript の Run Anything は、プロジェクトルートに `rescript.json`（または "
+"`bsconfig.json`）を含むプロジェクトでのみ利用可能です。ReScript CLI がプロジェクトの `node_modules` "
+"にインストールされている必要があります。"
 
-#: ../../user/features/run-build.md:207
+#: ../../user/features/run-build.md:215
+msgid ""
+"Run Anything lets you execute any ReScript CLI command with a quick "
+"keyboard shortcut, bypassing the overhead of creating a run configuration"
+" for one-off build or format operations."
+msgstr ""
+"Run Anything を使えば、キーボードショートカットで任意の ReScript CLI コマンドを実行でき、"
+"単発のビルドやフォーマット操作のために Run 構成を作成するオーバーヘッドを回避できます。"
+
+#: ../../user/features/run-build.md:217
+msgid "Scratch File"
+msgstr ""
+
+#: ../../user/features/run-build.md:219
+msgid ""
+"Create temporary ReScript files for quick experimentation without "
+"affecting your project."
+msgstr ""
+
+#: ../../user/features/run-build.md:221 ../../user/features/run-build.md:265
+#, fuzzy
+msgid "How to Use"
+msgstr "仕組み"
+
+#: ../../user/features/run-build.md:223
+msgid "**File** > **New** > **Scratch File** (or `Ctrl+Alt+Shift+Insert`)"
+msgstr ""
+
+#: ../../user/features/run-build.md:224
+msgid "Select **ReScript** from the language list"
+msgstr ""
+
+#: ../../user/features/run-build.md:225
+msgid "Write and experiment with code in the scratch file"
+msgstr ""
+
+#: ../../user/features/run-build.md:227
+msgid ""
+"Scratch files are stored in the IDE's scratch directory (outside your "
+"project) and persist across IDE restarts. They support full syntax "
+"highlighting and code folding, making them ideal for testing small code "
+"snippets."
+msgstr ""
+
+#: ../../user/features/run-build.md:229
+msgid "Use Cases"
+msgstr ""
+
+#: ../../user/features/run-build.md:231
+msgid ""
+"**Quick prototyping** — Try out an idea without creating a file in your "
+"project"
+msgstr ""
+
+#: ../../user/features/run-build.md:232
+msgid "**Learning** — Experiment with ReScript syntax and features"
+msgstr ""
+
+#: ../../user/features/run-build.md:233
+msgid "**Debugging** — Isolate and test a specific piece of logic"
+msgstr ""
+
+#: ../../user/features/run-build.md:235
+msgid ""
+"Scratch files give you a disposable workspace for quick experiments, so "
+"you can try out ideas without creating files in your project or polluting"
+" your source tree."
+msgstr ""
+"スクラッチファイルは素早い実験のための使い捨てワークスペースを提供し、"
+"プロジェクトにファイルを作成したりソースツリーを汚すことなくアイデアを試せます。"
+
+#: ../../user/features/run-build.md:237
+msgid "REPL"
+msgstr ""
+
+#: ../../user/features/run-build.md:239
+msgid "An interactive ReScript execution environment available as a tool window."
+msgstr ""
+
+#: ../../user/features/run-build.md:241
+msgid "**Open:** **View** > **Tool Windows** > **ReScript REPL**"
+msgstr ""
+
+#: ../../user/features/run-build.md:245
+msgid ""
+"The REPL compiles and executes ReScript expressions using the project's "
+"ReScript compiler and Node.js runtime. Each expression is wrapped in a "
+"temporary file, compiled to JavaScript, and executed, with the result "
+"displayed in the output panel."
+msgstr ""
+
+#: ../../user/features/run-build.md:247 ../../user/features/run-build.md:277
+msgid "Features"
+msgstr ""
+
+#: ../../user/features/run-build.md:249
+msgid ""
+"**Expression evaluation** — Type ReScript expressions and see results "
+"immediately"
+msgstr ""
+
+#: ../../user/features/run-build.md:250
+msgid ""
+"**History navigation** — Use Up/Down arrow keys to recall previous "
+"expressions"
+msgstr ""
+
+#: ../../user/features/run-build.md:251
+msgid ""
+"**Project context** — The REPL uses your project's `rescript.json` "
+"configuration and dependencies"
+msgstr ""
+
+#: ../../user/features/run-build.md:252
+msgid "**Clear output** — Clear the output panel with the toolbar button"
+msgstr ""
+
+#: ../../user/features/run-build.md:254 ../../user/features/run-build.md:301
+msgid "Requirements"
+msgstr "要件"
+
+#: ../../user/features/run-build.md:256
+msgid "ReScript compiler installed in the project's `node_modules`"
+msgstr ""
+
+#: ../../user/features/run-build.md:257
+#, fuzzy
+msgid "Node.js available on the system"
+msgstr "システムに Node.js が利用可能である必要があります"
+
+#: ../../user/features/run-build.md:259
+msgid ""
+"The REPL provides an interactive feedback loop for testing expressions "
+"and exploring APIs without the overhead of creating files, compiling, and"
+" running — ideal for learning ReScript or verifying quick assumptions."
+msgstr ""
+"REPL はファイルの作成、コンパイル、実行のオーバーヘッドなしに式のテストや API "
+"の探索ができるインタラクティブなフィードバックループを提供します — ReScript の学習や素早い仮定の検証に最適です。"
+
+#: ../../user/features/run-build.md:261
+msgid "Worksheet Mode"
+msgstr ""
+
+#: ../../user/features/run-build.md:263
+msgid ""
+"Interactively evaluate entire `.resw` (ReScript Worksheet) files with "
+"inline results displayed next to each expression."
+msgstr ""
+
+#: ../../user/features/run-build.md:267
+msgid "Create a file with the `.resw` extension"
+msgstr ""
+
+#: ../../user/features/run-build.md:268
+msgid "Write ReScript expressions, one per line"
+msgstr ""
+
+#: ../../user/features/run-build.md:269
+msgid ""
+"Results appear as inline annotations next to each expression after "
+"evaluation"
+msgstr ""
+
+#: ../../user/features/run-build.md:279
+msgid ""
+"**Automatic evaluation** — Expressions are evaluated when the file is "
+"saved or on demand"
+msgstr ""
+
+#: ../../user/features/run-build.md:280
+msgid ""
+"**Inline results** — Results appear as grayed-out annotations at the end "
+"of each line"
+msgstr ""
+
+#: ../../user/features/run-build.md:281
+msgid ""
+"**Error display** — Compilation errors are shown inline next to the "
+"offending expression"
+msgstr ""
+
+#: ../../user/features/run-build.md:282
+msgid ""
+"**Full language support** — Worksheets support the full ReScript syntax "
+"with access to project dependencies"
+msgstr ""
+
+#: ../../user/features/run-build.md:284
+msgid "Difference from REPL"
+msgstr ""
+
+#: ../../user/features/run-build.md:286
+msgid "**REPL** evaluates one expression at a time in an interactive session"
+msgstr ""
+
+#: ../../user/features/run-build.md:287
+msgid ""
+"**Worksheet** evaluates an entire file at once, showing all results side "
+"by side with the source code"
+msgstr ""
+
+#: ../../user/features/run-build.md:289
+msgid ""
+"Worksheets turn ReScript into a notebook-like experience where you see "
+"every expression's result alongside the code, making them perfect for "
+"exploratory programming and documentation examples."
+msgstr ""
+"Worksheet は ReScript をノートブックのような体験に変え、コードの横にすべての式の結果が表示されるため、"
+"探索的プログラミングやドキュメントの例に最適です。"
+
+#: ../../user/features/run-build.md:291
 msgid "Debug Compiled JavaScript"
 msgstr "コンパイル済み JavaScript のデバッグ"
 
-#: ../../user/features/run-build.md:209
+#: ../../user/features/run-build.md:293
 msgid ""
 "Press `Alt+Shift+D` to debug the compiled JavaScript output of the "
 "current `.res` file."
 msgstr "`Alt+Shift+D` を押して、現在の `.res` ファイルのコンパイル済み JavaScript 出力をデバッグします。"
 
-#: ../../user/features/run-build.md:213
+#: ../../user/features/run-build.md:297
 msgid ""
 "The plugin resolves the current `.res` file to its compiled `.js` output "
 "in `lib/js/`"
 msgstr "プラグインは現在の `.res` ファイルを `lib/js/` 内のコンパイル済み `.js` 出力に解決します"
 
-#: ../../user/features/run-build.md:214
+#: ../../user/features/run-build.md:298
 msgid ""
 "A debug session is launched using `node --inspect-brk` on the compiled "
 "file"
 msgstr "コンパイル済みファイルに対して `node --inspect-brk` を使用してデバッグセッションが起動されます"
 
-#: ../../user/features/run-build.md:215
+#: ../../user/features/run-build.md:299
 msgid ""
 "The IDE's debugger connects to the Node.js inspector, allowing you to set"
 " breakpoints and step through the code"
 msgstr "IDE のデバッガーが Node.js インスペクタに接続し、ブレークポイントの設定やコードのステップ実行が可能になります"
 
-#: ../../user/features/run-build.md:217
-msgid "Requirements"
-msgstr "要件"
-
-#: ../../user/features/run-build.md:219
+#: ../../user/features/run-build.md:303
 msgid ""
 "The project must be compiled first --- if the compiled `.js` file is not "
 "found, a message prompts you to build the project"
-msgstr "プロジェクトを先にコンパイルする必要があります --- コンパイル済み `.js` ファイルが見つからない場合、プロジェクトのビルドを促すメッセージが表示されます"
+msgstr ""
+"プロジェクトを先にコンパイルする必要があります --- コンパイル済み `.js` "
+"ファイルが見つからない場合、プロジェクトのビルドを促すメッセージが表示されます"
 
-#: ../../user/features/run-build.md:220
+#: ../../user/features/run-build.md:304
 msgid "Node.js must be available on the system"
 msgstr "システムに Node.js が利用可能である必要があります"
 
-#: ../../user/features/run-build.md:221
+#: ../../user/features/run-build.md:305
 msgid ""
 "The **JavaScript Debugger** plugin must be installed (bundled with "
 "IntelliJ IDEA Ultimate and WebStorm)"
-msgstr "**JavaScript Debugger** プラグインがインストールされている必要があります（IntelliJ IDEA Ultimate および WebStorm にバンドル済み）"
+msgstr ""
+"**JavaScript Debugger** プラグインがインストールされている必要があります（IntelliJ IDEA Ultimate "
+"および WebStorm にバンドル済み）"
 
-#: ../../user/features/run-build.md:224
+#: ../../user/features/run-build.md:308
 msgid ""
 "Use this in combination with the **Compiled JS Preview** tool window to "
 "understand the compiled output before debugging."
 msgstr "デバッグ前にコンパイル出力を理解するために、**Compiled JS Preview** ツールウィンドウと組み合わせて使用してください。"
+
+#: ../../user/features/run-build.md:311
+msgid ""
+"When you need to debug runtime behavior, this lets you step through the "
+"compiled JavaScript with the IDE's full debugger, connecting ReScript "
+"source logic to its actual JavaScript execution."
+msgstr ""
+"ランタイムの動作をデバッグする必要がある場合、IDE のフルデバッガで "
+"コンパイル済み JavaScript をステップ実行でき、ReScript のソースロジックと実際の JavaScript 実行を結び付けられます。"
 
 #~ msgid ""
 #~ "The plugin integrates with the ReScript"

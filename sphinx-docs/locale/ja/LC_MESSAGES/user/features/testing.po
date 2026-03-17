@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 18:14+0900\n"
+"POT-Creation-Date: 2026-03-17 18:33+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -30,10 +30,9 @@ msgid ""
 " with results displayed in IntelliJ's standard test runner UI and file "
 "paths mapped back to the original `.res` source files."
 msgstr ""
-"本プラグインは、Jest または Vitest を使用する ReScript プロジェクト向けに"
-"統合テスト実行機能を提供します。テストはコンパイル済みの JavaScript 出力に"
-"対して実行され、結果は IntelliJ の標準テストランナー UI に表示されます。"
-"ファイルパスは元の `.res` ソースファイルにマッピングされます。"
+"本プラグインは、Jest または Vitest を使用する ReScript "
+"プロジェクト向けに統合テスト実行機能を提供します。テストはコンパイル済みの JavaScript 出力に対して実行され、結果は IntelliJ "
+"の標準テストランナー UI に表示されます。ファイルパスは元の `.res` ソースファイルにマッピングされます。"
 
 #: ../../user/features/testing.md:5
 msgid "Supported Test Frameworks"
@@ -91,84 +90,82 @@ msgstr "ユーザー定義"
 msgid ""
 "The plugin automatically detects which framework your project uses. If "
 "both are present, Vitest takes priority."
-msgstr ""
-"プラグインはプロジェクトが使用しているフレームワークを自動的に検出します。"
-"両方が存在する場合は、Vitest が優先されます。"
+msgstr "プラグインはプロジェクトが使用しているフレームワークを自動的に検出します。両方が存在する場合は、Vitest が優先されます。"
 
 #: ../../user/features/testing.md:15
+msgid ""
+"Built-in framework detection means you can start running tests "
+"immediately without any manual plugin configuration — just install your "
+"preferred test framework and the plugin handles the rest."
+msgstr ""
+"組み込みのフレームワーク検出により、プラグインの手動設定なしですぐにテストを実行できます — "
+"お好みのテストフレームワークをインストールするだけで、残りはプラグインが処理します。"
+
+#: ../../user/features/testing.md:17
 msgid "Jest Configuration"
 msgstr "Jest の設定"
 
-#: ../../user/features/testing.md:17
+#: ../../user/features/testing.md:19
 msgid "To use Jest with ReScript, you need the following setup:"
 msgstr "ReScript で Jest を使用するには、以下のセットアップが必要です:"
 
-#: ../../user/features/testing.md:19 ../../user/features/testing.md:63
+#: ../../user/features/testing.md:21 ../../user/features/testing.md:65
 msgid "**1. Install dependencies:**"
 msgstr "**1. 依存関係のインストール:**"
 
-#: ../../user/features/testing.md:31
+#: ../../user/features/testing.md:33
 msgid ""
 "The `jest-teamcity` reporter is required for the plugin to parse test "
 "results and display them in the test tree UI. Without it, test output "
 "appears as plain console text without structured results."
 msgstr ""
-"`jest-teamcity` レポーターは、プラグインがテスト結果を解析してテストツリー "
-"UI に表示するために必要です。これがない場合、テスト出力は構造化されない"
-"プレーンなコンソールテキストとして表示されます。"
+"`jest-teamcity` レポーターは、プラグインがテスト結果を解析してテストツリー UI "
+"に表示するために必要です。これがない場合、テスト出力は構造化されないプレーンなコンソールテキストとして表示されます。"
 
-#: ../../user/features/testing.md:33
+#: ../../user/features/testing.md:35
 msgid "**2. Configure Jest for ReScript:**"
 msgstr "**2. ReScript 向けの Jest 設定:**"
 
-#: ../../user/features/testing.md:35
+#: ../../user/features/testing.md:37
 msgid ""
 "Create a `jest.config.js` (or `jest.config.ts`) that points to the "
 "compiled JavaScript output:"
-msgstr ""
-"コンパイル済み JavaScript 出力を参照する `jest.config.js`（または "
-"`jest.config.ts`）を作成します:"
+msgstr "コンパイル済み JavaScript 出力を参照する `jest.config.js`（または `jest.config.ts`）を作成します:"
 
-#: ../../user/features/testing.md:45
+#: ../../user/features/testing.md:47
 msgid "Key points for the Jest configuration:"
 msgstr "Jest 設定のポイント:"
 
-#: ../../user/features/testing.md:47
+#: ../../user/features/testing.md:49
 msgid ""
 "**testMatch** -- Point to the compiled `.bs.js` files in the `lib/js/` "
 "directory, not the `.res` source files. Jest runs JavaScript, so it needs"
 " the compiled output."
 msgstr ""
-"**testMatch** -- `.res` ソースファイルではなく、`lib/js/` ディレクトリ内の"
-"コンパイル済み `.bs.js` ファイルを指定します。Jest は JavaScript を実行する"
-"ため、コンパイル済みの出力が必要です。"
+"**testMatch** -- `.res` ソースファイルではなく、`lib/js/` ディレクトリ内のコンパイル済み `.bs.js` "
+"ファイルを指定します。Jest は JavaScript を実行するため、コンパイル済みの出力が必要です。"
 
-#: ../../user/features/testing.md:48
+#: ../../user/features/testing.md:50
 #, python-brace-format
 msgid ""
 "**transform** -- Set to `{}` (empty object) to disable all transforms. "
 "ReScript already compiles to JavaScript, so no additional transpilation "
 "is needed."
 msgstr ""
-"**transform** -- `{}` (空のオブジェクト) に設定して、すべてのトランスフォームを"
-"無効にします。ReScript はすでに JavaScript にコンパイルされているため、"
-"追加のトランスパイルは不要です。"
-
-#: ../../user/features/testing.md:49
-msgid ""
-"**moduleDirectories** -- Ensure `node_modules` is included for dependency"
-" resolution."
-msgstr ""
-"**moduleDirectories** -- 依存関係の解決のために `node_modules` が含まれている"
-"ことを確認してください。"
+"**transform** -- `{}` (空のオブジェクト) に設定して、すべてのトランスフォームを無効にします。ReScript はすでに "
+"JavaScript にコンパイルされているため、追加のトランスパイルは不要です。"
 
 #: ../../user/features/testing.md:51
 msgid ""
+"**moduleDirectories** -- Ensure `node_modules` is included for dependency"
+" resolution."
+msgstr "**moduleDirectories** -- 依存関係の解決のために `node_modules` が含まれていることを確認してください。"
+
+#: ../../user/features/testing.md:53
+msgid ""
 "The exact path under `lib/` depends on your `rescript.json` "
 "configuration. Common patterns include:"
-msgstr ""
-"`lib/` 配下の正確なパスは `rescript.json` の設定に依存します。"
-"一般的なパターンは以下の通りです:"
+msgstr "`lib/` 配下の正確なパスは `rescript.json` の設定に依存します。一般的なパターンは以下の通りです:"
 
 #: ../../user/features/testing.md
 msgid "`rescript.json` suffix setting"
@@ -202,103 +199,95 @@ msgstr "`\".js\"`"
 msgid "`lib/js/src/MyModule.js`"
 msgstr "`lib/js/src/MyModule.js`"
 
-#: ../../user/features/testing.md:59
+#: ../../user/features/testing.md:61
 msgid "Vitest Configuration"
 msgstr "Vitest の設定"
 
-#: ../../user/features/testing.md:61
+#: ../../user/features/testing.md:63
 msgid "To use Vitest with ReScript, you need the following setup:"
 msgstr "ReScript で Vitest を使用するには、以下のセットアップが必要です:"
 
-#: ../../user/features/testing.md:73
+#: ../../user/features/testing.md:75
 msgid ""
 "Vitest has built-in TeamCity reporter support, so no additional reporter "
 "package is needed."
-msgstr ""
-"Vitest には TeamCity レポーターが組み込まれているため、追加のレポーター"
-"パッケージは不要です。"
+msgstr "Vitest には TeamCity レポーターが組み込まれているため、追加のレポーターパッケージは不要です。"
 
-#: ../../user/features/testing.md:75
+#: ../../user/features/testing.md:77
 msgid "**2. Configure Vitest for ReScript:**"
 msgstr "**2. ReScript 向けの Vitest 設定:**"
 
-#: ../../user/features/testing.md:77
+#: ../../user/features/testing.md:79
 msgid "Create a `vitest.config.ts` (or `vitest.config.js`):"
 msgstr "`vitest.config.ts`（または `vitest.config.js`）を作成します:"
 
-#: ../../user/features/testing.md:88
+#: ../../user/features/testing.md:90
 msgid "Key points for the Vitest configuration:"
 msgstr "Vitest 設定のポイント:"
 
-#: ../../user/features/testing.md:90
+#: ../../user/features/testing.md:92
 msgid ""
 "**include** -- Similar to Jest, point to the compiled JavaScript files in"
 " `lib/js/`."
-msgstr ""
-"**include** -- Jest と同様に、`lib/js/` 内のコンパイル済み JavaScript "
-"ファイルを指定します。"
+msgstr "**include** -- Jest と同様に、`lib/js/` 内のコンパイル済み JavaScript ファイルを指定します。"
 
-#: ../../user/features/testing.md:91
+#: ../../user/features/testing.md:93
 msgid ""
 "**passWithNoTests** -- Recommended to avoid failures when no tests match "
 "(e.g., during initial setup)."
-msgstr ""
-"**passWithNoTests** -- テストが一致しない場合（例: 初期セットアップ時）に"
-"失敗を回避するために推奨されます。"
+msgstr "**passWithNoTests** -- テストが一致しない場合（例: 初期セットアップ時）に失敗を回避するために推奨されます。"
 
-#: ../../user/features/testing.md:92
+#: ../../user/features/testing.md:94
 msgid ""
 "Vitest is invoked with the `run` flag (`npx vitest run`) to execute tests"
 " once and exit, rather than entering watch mode."
-msgstr ""
-"Vitest は `run` フラグ付き（`npx vitest run`）で実行され、ウォッチモードに"
-"入らずにテストを一度実行して終了します。"
+msgstr "Vitest は `run` フラグ付き（`npx vitest run`）で実行され、ウォッチモードに入らずにテストを一度実行して終了します。"
 
-#: ../../user/features/testing.md:94
+#: ../../user/features/testing.md:96
 msgid "Running Tests"
 msgstr "テストの実行"
 
-#: ../../user/features/testing.md:96
+#: ../../user/features/testing.md:98
 msgid "From the Editor"
 msgstr "エディタからの実行"
 
-#: ../../user/features/testing.md:98
+#: ../../user/features/testing.md:100
 msgid "Open a ReScript test file (`.res`)"
 msgstr "ReScript テストファイル（`.res`）を開きます"
 
-#: ../../user/features/testing.md:99
+#: ../../user/features/testing.md:101
 msgid "Right-click on a test function"
 msgstr "テスト関数を右クリックします"
 
-#: ../../user/features/testing.md:100
+#: ../../user/features/testing.md:102
 msgid "Select **Run** to execute the test"
 msgstr "**Run** を選択してテストを実行します"
 
-#: ../../user/features/testing.md:102
+#: ../../user/features/testing.md:104
 msgid "From Run Configurations"
 msgstr "実行構成からの実行"
 
-#: ../../user/features/testing.md:104
+#: ../../user/features/testing.md:106
 msgid "**Run** → **Edit Configurations** → **+** → **ReScript Test**"
 msgstr "**Run** → **Edit Configurations** → **+** → **ReScript Test**"
 
-#: ../../user/features/testing.md:105
+#: ../../user/features/testing.md:107
 msgid "Select the test framework (Jest, Vitest, or Custom)"
 msgstr "テストフレームワーク（Jest、Vitest、または Custom）を選択します"
 
-#: ../../user/features/testing.md:106
+#: ../../user/features/testing.md:108
 msgid "Optionally set a test file path and test name filter"
 msgstr "必要に応じてテストファイルパスとテスト名フィルターを設定します"
 
-#: ../../user/features/testing.md:107
+#: ../../user/features/testing.md:109
 msgid "Set the working directory (defaults to the project root)"
 msgstr "作業ディレクトリを設定します（デフォルトはプロジェクトルート）"
 
-#: ../../user/features/testing.md:108
+#: ../../user/features/testing.md:110
 msgid "Click **Run**"
 msgstr "**Run** をクリックします"
 
-#: ../../user/features/testing.md:110
+#: ../../user/features/testing.md:112
 msgid "Configuration Options"
 msgstr "設定オプション"
 
@@ -350,56 +339,60 @@ msgstr "**Additional arguments**"
 msgid "Extra CLI flags passed to the test runner"
 msgstr "テストランナーに渡す追加の CLI フラグ"
 
-#: ../../user/features/testing.md:120
+#: ../../user/features/testing.md:122
 msgid "From Context Menu"
 msgstr "コンテキストメニューからの実行"
 
-#: ../../user/features/testing.md:122
+#: ../../user/features/testing.md:124
 msgid ""
 "Right-click on a test file in the Project panel and select **Run**. This "
 "creates a run configuration automatically if the file name matches the "
 "test naming convention."
 msgstr ""
-"Project パネルでテストファイルを右クリックし、**Run** を選択します。"
-"ファイル名がテスト命名規則に一致する場合、実行構成が自動的に作成されます。"
+"Project パネルでテストファイルを右クリックし、**Run** "
+"を選択します。ファイル名がテスト命名規則に一致する場合、実行構成が自動的に作成されます。"
 
-#: ../../user/features/testing.md:124
+#: ../../user/features/testing.md:126
+msgid ""
+"Multiple ways to run tests — from the editor, Project panel, or run "
+"configurations — let you choose the approach that fits your workflow, "
+"whether you are running a single test or the entire suite."
+msgstr ""
+"テストを実行する複数の方法 — エディタ、Project パネル、Run 構成から — により、"
+"単一テストでもスイート全体でも、ワークフローに合ったアプローチを選択できます。"
+
+#: ../../user/features/testing.md:128
 msgid "Test Auto-Detection"
 msgstr "テストの自動検出"
 
-#: ../../user/features/testing.md:126
+#: ../../user/features/testing.md:130
 msgid "The plugin uses two mechanisms to detect test files and frameworks:"
 msgstr "プラグインはテストファイルとフレームワークの検出に 2 つのメカニズムを使用します:"
 
-#: ../../user/features/testing.md:128
+#: ../../user/features/testing.md:132
 msgid "Framework Detection"
 msgstr "フレームワークの検出"
 
-#: ../../user/features/testing.md:130
+#: ../../user/features/testing.md:134
 msgid ""
 "The `RescriptTestFrameworkDetector` identifies which test framework your "
 "project uses by examining:"
-msgstr ""
-"`RescriptTestFrameworkDetector` は以下を調べることで、プロジェクトが使用して"
-"いるテストフレームワークを特定します:"
+msgstr "`RescriptTestFrameworkDetector` は以下を調べることで、プロジェクトが使用しているテストフレームワークを特定します:"
 
-#: ../../user/features/testing.md:132
+#: ../../user/features/testing.md:136
 msgid ""
 "**`package.json` dependencies** -- Checks both `dependencies` and "
 "`devDependencies` for `vitest` or `jest`. If `vitest` is found, it takes "
 "priority over `jest`."
 msgstr ""
-"**`package.json` の dependencies** -- `dependencies` と `devDependencies` の"
-"両方で `vitest` または `jest` を確認します。`vitest` が見つかった場合、"
-"`jest` より優先されます。"
+"**`package.json` の dependencies** -- `dependencies` と `devDependencies` "
+"の両方で `vitest` または `jest` を確認します。`vitest` が見つかった場合、`jest` より優先されます。"
 
-#: ../../user/features/testing.md:133
+#: ../../user/features/testing.md:137
 msgid ""
 "**Configuration files** -- If `package.json` detection fails, the "
 "detector looks for framework-specific config files in the project root:"
-msgstr ""
-"**設定ファイル** -- `package.json` での検出に失敗した場合、プロジェクトルート"
-"でフレームワーク固有の設定ファイルを探します:"
+msgstr "**設定ファイル** -- `package.json` での検出に失敗した場合、プロジェクトルートでフレームワーク固有の設定ファイルを探します:"
 
 #: ../../user/features/testing.md
 msgid "Config file"
@@ -437,414 +430,415 @@ msgstr "`jest.config.ts`"
 msgid "`jest.config.mjs`"
 msgstr "`jest.config.mjs`"
 
-#: ../../user/features/testing.md:144
+#: ../../user/features/testing.md:148
 msgid "Test File Detection"
 msgstr "テストファイルの検出"
 
-#: ../../user/features/testing.md:146
+#: ../../user/features/testing.md:150
 msgid ""
 "The plugin automatically recognizes files as test files based on their "
 "naming convention. A `.res` or `.resi` file is treated as a test file if "
 "its name (without extension) ends with any of these suffixes:"
 msgstr ""
-"プラグインは命名規則に基づいてファイルをテストファイルとして自動的に認識します。"
-"`.res` または `.resi` ファイルは、ファイル名（拡張子を除く）が以下の"
-"いずれかのサフィックスで終わる場合にテストファイルとして扱われます:"
+"プラグインは命名規則に基づいてファイルをテストファイルとして自動的に認識します。`.res` または `.resi` "
+"ファイルは、ファイル名（拡張子を除く）が以下のいずれかのサフィックスで終わる場合にテストファイルとして扱われます:"
 
-#: ../../user/features/testing.md:148
+#: ../../user/features/testing.md:152
 msgid "`_test` (e.g., `Math_test.res`)"
 msgstr "`_test` (例: `Math_test.res`)"
 
-#: ../../user/features/testing.md:149
+#: ../../user/features/testing.md:153
 msgid "`Test` (e.g., `MathTest.res`)"
 msgstr "`Test` (例: `MathTest.res`)"
 
-#: ../../user/features/testing.md:150
+#: ../../user/features/testing.md:154
 msgid "`_spec` (e.g., `Math_spec.res`)"
 msgstr "`_spec` (例: `Math_spec.res`)"
 
-#: ../../user/features/testing.md:151
+#: ../../user/features/testing.md:155
 msgid "`Spec` (e.g., `MathSpec.res`)"
 msgstr "`Spec` (例: `MathSpec.res`)"
 
-#: ../../user/features/testing.md:153
+#: ../../user/features/testing.md:157
 msgid ""
 "When you right-click on a file matching this pattern, the plugin offers "
 "to create a **ReScript Test** run configuration automatically, pre-filled"
 " with the detected framework and file path."
 msgstr ""
-"このパターンに一致するファイルを右クリックすると、プラグインは検出された"
-"フレームワークとファイルパスが事前入力された **ReScript Test** 実行構成を"
-"自動的に作成することを提案します。"
+"このパターンに一致するファイルを右クリックすると、プラグインは検出されたフレームワークとファイルパスが事前入力された **ReScript "
+"Test** 実行構成を自動的に作成することを提案します。"
 
-#: ../../user/features/testing.md:155
+#: ../../user/features/testing.md:159
+msgid ""
+"Automatic detection of test frameworks and test files eliminates manual "
+"configuration — the plugin recognizes your testing setup and offers the "
+"right run options out of the box."
+msgstr ""
+"テストフレームワークとテストファイルの自動検出により手動設定が不要になります — "
+"プラグインはテストセットアップを認識し、すぐに適切な実行オプションを提供します。"
+
+#: ../../user/features/testing.md:161
 msgid "Test Results"
 msgstr "テスト結果"
 
-#: ../../user/features/testing.md:157
+#: ../../user/features/testing.md:163
 msgid ""
 "Test results are displayed in the standard IntelliJ test runner UI "
 "(SMTestRunner)."
-msgstr ""
-"テスト結果は IntelliJ の標準テストランナー UI（SMTestRunner）に表示されます。"
+msgstr "テスト結果は IntelliJ の標準テストランナー UI（SMTestRunner）に表示されます。"
 
-#: ../../user/features/testing.md:159
+#: ../../user/features/testing.md:165
 msgid "Test Tree Structure"
 msgstr "テストツリー構造"
 
-#: ../../user/features/testing.md:161
+#: ../../user/features/testing.md:167
 msgid "The test results panel displays a hierarchical tree:"
 msgstr "テスト結果パネルには階層的なツリーが表示されます:"
 
-#: ../../user/features/testing.md:163
+#: ../../user/features/testing.md:169
 msgid "**Root** -- The test run"
 msgstr "**Root** -- テスト実行全体"
 
-#: ../../user/features/testing.md:164
+#: ../../user/features/testing.md:170
 msgid "**Test Suite** -- Corresponds to a `describe` block (or a test file)"
 msgstr "**Test Suite** -- `describe` ブロック（またはテストファイル）に対応"
 
-#: ../../user/features/testing.md:165
+#: ../../user/features/testing.md:171
 msgid "**Test Case** -- Individual test (`test` or `it` block)"
 msgstr "**Test Case** -- 個別のテスト（`test` または `it` ブロック）"
 
-#: ../../user/features/testing.md:167
+#: ../../user/features/testing.md:173
 msgid "Each node shows:"
 msgstr "各ノードには以下が表示されます:"
 
-#: ../../user/features/testing.md:169
+#: ../../user/features/testing.md:175
 msgid ""
 "**Pass/fail indicator** -- Green checkmark for passing tests, red cross "
 "for failures"
-msgstr ""
-"**合否インジケーター** -- 成功したテストには緑のチェックマーク、失敗には"
-"赤のバツ印"
+msgstr "**合否インジケーター** -- 成功したテストには緑のチェックマーク、失敗には赤のバツ印"
 
-#: ../../user/features/testing.md:170
+#: ../../user/features/testing.md:176
 msgid "**Test name** -- The name string from your `test()` or `it()` call"
 msgstr "**テスト名** -- `test()` または `it()` の呼び出しで指定した名前文字列"
 
-#: ../../user/features/testing.md:171
+#: ../../user/features/testing.md:177
 msgid "**Duration** -- Execution time for each test"
 msgstr "**実行時間** -- 各テストの実行時間"
 
-#: ../../user/features/testing.md:172
+#: ../../user/features/testing.md:178
 msgid "**Output** -- Stdout/stderr captured during the test"
 msgstr "**出力** -- テスト中にキャプチャされた標準出力/標準エラー出力"
 
-#: ../../user/features/testing.md:174
+#: ../../user/features/testing.md:180
 msgid "TeamCity Reporter Integration"
 msgstr "TeamCity レポーターの統合"
 
-#: ../../user/features/testing.md:176
+#: ../../user/features/testing.md:182
 msgid ""
 "The plugin relies on TeamCity-format reporters to parse test results into"
 " the structured tree UI:"
-msgstr ""
-"プラグインは TeamCity 形式のレポーターを使用してテスト結果を構造化された"
-"ツリー UI に解析します:"
+msgstr "プラグインは TeamCity 形式のレポーターを使用してテスト結果を構造化されたツリー UI に解析します:"
 
-#: ../../user/features/testing.md:178
+#: ../../user/features/testing.md:184
 msgid ""
 "**Jest**: Uses the `jest-teamcity` reporter. The plugin automatically "
 "adds `--reporters=default --reporters=jest-teamcity` to the Jest command "
 "line."
 msgstr ""
-"**Jest**: `jest-teamcity` レポーターを使用します。プラグインは Jest の"
-"コマンドラインに `--reporters=default --reporters=jest-teamcity` を"
-"自動的に追加します。"
+"**Jest**: `jest-teamcity` レポーターを使用します。プラグインは Jest のコマンドラインに "
+"`--reporters=default --reporters=jest-teamcity` を自動的に追加します。"
 
-#: ../../user/features/testing.md:179
+#: ../../user/features/testing.md:185
 msgid ""
 "**Vitest**: Uses the built-in `teamcity` reporter. The plugin "
 "automatically adds `--reporter=default --reporter=teamcity` to the Vitest"
 " command line."
 msgstr ""
-"**Vitest**: 組み込みの `teamcity` レポーターを使用します。プラグインは "
-"Vitest のコマンドラインに `--reporter=default --reporter=teamcity` を"
-"自動的に追加します。"
+"**Vitest**: 組み込みの `teamcity` レポーターを使用します。プラグインは Vitest のコマンドラインに "
+"`--reporter=default --reporter=teamcity` を自動的に追加します。"
 
-#: ../../user/features/testing.md:181
+#: ../../user/features/testing.md:187
 msgid ""
 "The `default` reporter is included alongside the TeamCity reporter so "
 "that human-readable output still appears in the console."
 msgstr ""
-"`default` レポーターは TeamCity レポーターと併せて含まれており、"
-"人間が読みやすい出力がコンソールに引き続き表示されるようにしています。"
+"`default` レポーターは TeamCity "
+"レポーターと併せて含まれており、人間が読みやすい出力がコンソールに引き続き表示されるようにしています。"
 
-#: ../../user/features/testing.md:183
+#: ../../user/features/testing.md:189
 msgid "Source File Navigation"
 msgstr "ソースファイルへのナビゲーション"
 
-#: ../../user/features/testing.md:185
+#: ../../user/features/testing.md:191
 msgid ""
 "When you click on a test in the results tree, the plugin navigates to the"
 " corresponding source file. The `RescriptTestLocator` resolves test file "
 "locations using three strategies:"
 msgstr ""
-"結果ツリーでテストをクリックすると、プラグインは対応するソースファイルに"
-"ナビゲートします。`RescriptTestLocator` は以下の 3 つの戦略を使用して"
-"テストファイルの場所を解決します:"
+"結果ツリーでテストをクリックすると、プラグインは対応するソースファイルにナビゲートします。`RescriptTestLocator` は以下の 3"
+" つの戦略を使用してテストファイルの場所を解決します:"
 
-#: ../../user/features/testing.md:187
+#: ../../user/features/testing.md:193
 msgid ""
 "**Direct relative path** -- Looks for the file relative to the project "
 "root"
-msgstr ""
-"**直接相対パス** -- プロジェクトルートからの相対パスでファイルを検索します"
+msgstr "**直接相対パス** -- プロジェクトルートからの相対パスでファイルを検索します"
 
-#: ../../user/features/testing.md:188
+#: ../../user/features/testing.md:194
 msgid ""
 "**Compiled JS path conversion** -- Converts paths like "
 "`lib/js/src/MyTest.bs.js` back to `src/MyTest.res` by stripping the "
 "`lib/js/` (or `lib/es6/`, `lib/bs/`) prefix and replacing the `.bs.js` "
 "extension with `.res`"
 msgstr ""
-"**コンパイル済み JS パス変換** -- `lib/js/src/MyTest.bs.js` のようなパスを "
-"`lib/js/`（または `lib/es6/`、`lib/bs/`）プレフィックスを除去し、`.bs.js` "
-"拡張子を `.res` に置換することで `src/MyTest.res` に変換します"
+"**コンパイル済み JS パス変換** -- `lib/js/src/MyTest.bs.js` のようなパスを `lib/js/`（または "
+"`lib/es6/`、`lib/bs/`）プレフィックスを除去し、`.bs.js` 拡張子を `.res` に置換することで "
+"`src/MyTest.res` に変換します"
 
-#: ../../user/features/testing.md:189
+#: ../../user/features/testing.md:195
 msgid "**Absolute path** -- Resolves absolute file system paths directly"
 msgstr "**絶対パス** -- ファイルシステムの絶対パスを直接解決します"
 
-#: ../../user/features/testing.md:191
+#: ../../user/features/testing.md:197
 msgid ""
 "This path mapping ensures that clicking a test result opens the original "
 "`.res` source file, not the compiled JavaScript file."
 msgstr ""
-"このパスマッピングにより、テスト結果をクリックするとコンパイル済みの "
-"JavaScript ファイルではなく、元の `.res` ソースファイルが開かれます。"
-
-#: ../../user/features/testing.md:193
-msgid "How It Works"
-msgstr "動作の仕組み"
-
-#: ../../user/features/testing.md:195
-msgid ""
-"You write tests in `.res` files using your test framework's bindings "
-"(e.g., `@glennsl/rescript-jest`)"
-msgstr ""
-"テストフレームワークのバインディング（例: `@glennsl/rescript-jest`）を"
-"使用して `.res` ファイルにテストを記述します"
-
-#: ../../user/features/testing.md:196
-msgid ""
-"The ReScript compiler compiles your test `.res` files to JavaScript in "
-"the `lib/` folder"
-msgstr ""
-"ReScript コンパイラがテスト `.res` ファイルを `lib/` フォルダ内の "
-"JavaScript にコンパイルします"
-
-#: ../../user/features/testing.md:197
-msgid ""
-"The plugin runs the compiled `.js` files with Jest or Vitest, including "
-"TeamCity reporters"
-msgstr ""
-"プラグインが TeamCity レポーターを含めて、コンパイル済みの `.js` ファイルを "
-"Jest または Vitest で実行します"
-
-#: ../../user/features/testing.md:198
-msgid ""
-"Test output is parsed by IntelliJ's SMTestRunner into a structured test "
-"tree"
-msgstr ""
-"テスト出力が IntelliJ の SMTestRunner によって構造化されたテストツリーに"
-"解析されます"
+"このパスマッピングにより、テスト結果をクリックするとコンパイル済みの JavaScript ファイルではなく、元の `.res` "
+"ソースファイルが開かれます。"
 
 #: ../../user/features/testing.md:199
 msgid ""
+"The structured test tree with pass/fail indicators and source file "
+"navigation gives you the same rich testing experience as native JetBrains"
+" language plugins, even though ReScript tests run through compiled "
+"JavaScript."
+msgstr ""
+"パス/フェイルインジケーターとソースファイルナビゲーションを備えた構造化テストツリーにより、"
+"ReScript テストがコンパイル済み JavaScript を通じて実行されても、"
+"ネイティブ JetBrains 言語プラグインと同じリッチなテスト体験を得られます。"
+
+#: ../../user/features/testing.md:201
+msgid "How It Works"
+msgstr "動作の仕組み"
+
+#: ../../user/features/testing.md:203
+msgid ""
+"You write tests in `.res` files using your test framework's bindings "
+"(e.g., `@glennsl/rescript-jest`)"
+msgstr "テストフレームワークのバインディング（例: `@glennsl/rescript-jest`）を使用して `.res` ファイルにテストを記述します"
+
+#: ../../user/features/testing.md:204
+msgid ""
+"The ReScript compiler compiles your test `.res` files to JavaScript in "
+"the `lib/` folder"
+msgstr "ReScript コンパイラがテスト `.res` ファイルを `lib/` フォルダ内の JavaScript にコンパイルします"
+
+#: ../../user/features/testing.md:205
+msgid ""
+"The plugin runs the compiled `.js` files with Jest or Vitest, including "
+"TeamCity reporters"
+msgstr "プラグインが TeamCity レポーターを含めて、コンパイル済みの `.js` ファイルを Jest または Vitest で実行します"
+
+#: ../../user/features/testing.md:206
+msgid ""
+"Test output is parsed by IntelliJ's SMTestRunner into a structured test "
+"tree"
+msgstr "テスト出力が IntelliJ の SMTestRunner によって構造化されたテストツリーに解析されます"
+
+#: ../../user/features/testing.md:207
+msgid ""
 "File paths in test results are mapped back to the original `.res` source "
 "files"
-msgstr ""
-"テスト結果のファイルパスが元の `.res` ソースファイルにマッピングされます"
+msgstr "テスト結果のファイルパスが元の `.res` ソースファイルにマッピングされます"
 
-#: ../../user/features/testing.md:216
+#: ../../user/features/testing.md:224
+msgid ""
+"The plugin bridges the gap between ReScript source files and compiled "
+"JavaScript test execution, so you work entirely in `.res` files while the"
+" testing infrastructure handles the compilation and path mapping "
+"transparently."
+msgstr ""
+"プラグインは ReScript ソースファイルとコンパイル済み JavaScript テスト実行のギャップを埋め、"
+"テストインフラがコンパイルとパスマッピングを透過的に処理する間、完全に `.res` ファイルで作業できます。"
+
+#: ../../user/features/testing.md:226
 msgid "Troubleshooting"
 msgstr "トラブルシューティング"
 
-#: ../../user/features/testing.md:218
+#: ../../user/features/testing.md:228
 msgid "Tests Fail with \"Module not found\""
 msgstr "\"Module not found\" でテストが失敗する"
 
-#: ../../user/features/testing.md:220
+#: ../../user/features/testing.md:230
 msgid ""
 "**Cause**: The ReScript compiler has not compiled the test files before "
 "the test runner executes."
-msgstr ""
-"**原因**: テストランナーの実行前に ReScript コンパイラがテストファイルを"
-"コンパイルしていません。"
+msgstr "**原因**: テストランナーの実行前に ReScript コンパイラがテストファイルをコンパイルしていません。"
 
-#: ../../user/features/testing.md:222
+#: ../../user/features/testing.md:232
 msgid ""
 "**Solution**: Run a ReScript **Build** (or ensure **Build (Watch)** is "
 "running) before executing tests. The test runner executes the compiled "
 "JavaScript, so the `.bs.js` files must exist in the `lib/` directory."
 msgstr ""
-"**解決方法**: テスト実行前に ReScript の **Build** を実行するか、"
-"**Build (Watch)** が実行中であることを確認してください。テストランナーは"
-"コンパイル済みの JavaScript を実行するため、`.bs.js` ファイルが `lib/` "
-"ディレクトリに存在する必要があります。"
+"**解決方法**: テスト実行前に ReScript の **Build** を実行するか、**Build (Watch)** "
+"が実行中であることを確認してください。テストランナーはコンパイル済みの JavaScript を実行するため、`.bs.js` ファイルが "
+"`lib/` ディレクトリに存在する必要があります。"
 
-#: ../../user/features/testing.md:231
+#: ../../user/features/testing.md:241
 msgid ""
 "Keep a **Build (Watch)** run configuration running during development. "
 "This ensures compiled output is always up to date when you run tests."
 msgstr ""
-"開発中は **Build (Watch)** 実行構成を常に実行しておきましょう。"
-"これにより、テスト実行時にコンパイル出力が常に最新の状態に保たれます。"
+"開発中は **Build (Watch)** "
+"実行構成を常に実行しておきましょう。これにより、テスト実行時にコンパイル出力が常に最新の状態に保たれます。"
 
-#: ../../user/features/testing.md:234
+#: ../../user/features/testing.md:244
 msgid "Test Tree Shows Plain Text Instead of Structured Results"
 msgstr "テストツリーに構造化された結果ではなくプレーンテキストが表示される"
 
-#: ../../user/features/testing.md:236
+#: ../../user/features/testing.md:246
 msgid "**Cause**: The TeamCity reporter is not installed or not configured."
 msgstr "**原因**: TeamCity レポーターがインストールされていないか、設定されていません。"
 
-#: ../../user/features/testing.md:238
+#: ../../user/features/testing.md:248
 msgid "**Solution**:"
 msgstr "**解決方法**:"
 
-#: ../../user/features/testing.md:239
+#: ../../user/features/testing.md:249
 msgid ""
 "For Jest: Install `jest-teamcity` as a dev dependency (`npm install "
 "--save-dev jest-teamcity`)"
 msgstr ""
-"Jest の場合: `jest-teamcity` を開発依存としてインストールします"
-"（`npm install --save-dev jest-teamcity`）"
+"Jest の場合: `jest-teamcity` を開発依存としてインストールします（`npm install --save-dev jest-"
+"teamcity`）"
 
-#: ../../user/features/testing.md:240
+#: ../../user/features/testing.md:250
 msgid ""
 "For Vitest: Ensure you are using Vitest 1.0 or later, which includes the "
 "built-in TeamCity reporter"
-msgstr ""
-"Vitest の場合: 組み込みの TeamCity レポーターを含む Vitest 1.0 以降を"
-"使用していることを確認してください"
+msgstr "Vitest の場合: 組み込みの TeamCity レポーターを含む Vitest 1.0 以降を使用していることを確認してください"
 
-#: ../../user/features/testing.md:242
+#: ../../user/features/testing.md:252
 msgid ""
 "The plugin adds the reporter flags automatically, but the reporter "
 "package must be installed in your project."
-msgstr ""
-"プラグインはレポーターフラグを自動的に追加しますが、レポーターパッケージが"
-"プロジェクトにインストールされている必要があります。"
+msgstr "プラグインはレポーターフラグを自動的に追加しますが、レポーターパッケージがプロジェクトにインストールされている必要があります。"
 
-#: ../../user/features/testing.md:244
+#: ../../user/features/testing.md:254
 msgid "Path Mapping Failures (Cannot Navigate to Source)"
 msgstr "パスマッピングの失敗（ソースにナビゲートできない）"
 
-#: ../../user/features/testing.md:246
+#: ../../user/features/testing.md:256
 msgid ""
 "**Cause**: The test locator cannot find the `.res` file corresponding to "
 "a compiled `.js` file."
-msgstr ""
-"**原因**: テストロケーターがコンパイル済みの `.js` ファイルに対応する "
-"`.res` ファイルを見つけることができません。"
+msgstr "**原因**: テストロケーターがコンパイル済みの `.js` ファイルに対応する `.res` ファイルを見つけることができません。"
 
-#: ../../user/features/testing.md:248
+#: ../../user/features/testing.md:258
 msgid ""
 "**Solution**: Ensure your project structure follows the standard ReScript"
 " convention where the `lib/js/` output mirrors the `src/` directory "
 "structure. The path converter expects patterns like:"
 msgstr ""
-"**解決方法**: プロジェクト構造が標準的な ReScript の規約に従っており、"
-"`lib/js/` の出力が `src/` ディレクトリ構造をミラーしていることを確認して"
-"ください。パスコンバーターは以下のようなパターンを想定しています:"
+"**解決方法**: プロジェクト構造が標準的な ReScript の規約に従っており、`lib/js/` の出力が `src/` "
+"ディレクトリ構造をミラーしていることを確認してください。パスコンバーターは以下のようなパターンを想定しています:"
 
-#: ../../user/features/testing.md:230
+#: ../../user/features/testing.md:240
 msgid "Compiled JS path"
 msgstr "コンパイル済み JS パス"
 
-#: ../../user/features/testing.md:230
+#: ../../user/features/testing.md:240
 msgid "Resolved `.res` path"
 msgstr "解決された `.res` パス"
 
-#: ../../user/features/testing.md:230
+#: ../../user/features/testing.md:240
 msgid "`lib/js/src/MyTest.bs.js`"
 msgstr "`lib/js/src/MyTest.bs.js`"
 
-#: ../../user/features/testing.md:230
+#: ../../user/features/testing.md:240
 msgid "`src/MyTest.res`"
 msgstr "`src/MyTest.res`"
 
-#: ../../user/features/testing.md:230
+#: ../../user/features/testing.md:240
 msgid "`lib/es6/src/MyTest.mjs`"
 msgstr "`lib/es6/src/MyTest.mjs`"
 
-#: ../../user/features/testing.md:230
+#: ../../user/features/testing.md:240
 msgid "`lib/js/test/Math_test.bs.js`"
 msgstr "`lib/js/test/Math_test.bs.js`"
 
-#: ../../user/features/testing.md:230
+#: ../../user/features/testing.md:240
 msgid "`test/Math_test.res`"
 msgstr "`test/Math_test.res`"
 
-#: ../../user/features/testing.md:256
+#: ../../user/features/testing.md:266
 msgid ""
 "If your `rescript.json` uses a non-standard output directory, the path "
 "mapping may not work correctly."
-msgstr ""
-"`rescript.json` が非標準の出力ディレクトリを使用している場合、パスマッピングが"
-"正しく機能しない可能性があります。"
+msgstr "`rescript.json` が非標準の出力ディレクトリを使用している場合、パスマッピングが正しく機能しない可能性があります。"
 
-#: ../../user/features/testing.md:258
+#: ../../user/features/testing.md:268
 msgid "\"package.json not found\" Error"
 msgstr "\"package.json not found\" エラー"
 
-#: ../../user/features/testing.md:260
+#: ../../user/features/testing.md:270
 msgid ""
 "**Cause**: The working directory in the run configuration does not "
 "contain a `package.json` file."
-msgstr ""
-"**原因**: 実行構成の作業ディレクトリに `package.json` ファイルが"
-"含まれていません。"
+msgstr "**原因**: 実行構成の作業ディレクトリに `package.json` ファイルが含まれていません。"
 
-#: ../../user/features/testing.md:262
+#: ../../user/features/testing.md:272
 msgid ""
 "**Solution**: Set the **Working directory** in the run configuration to "
 "your project root (the directory containing `package.json` and "
 "`rescript.json`). This is typically auto-detected, but may need manual "
 "adjustment in monorepo setups."
 msgstr ""
-"**解決方法**: 実行構成の **Working directory** をプロジェクトルート"
-"（`package.json` と `rescript.json` を含むディレクトリ）に設定してください。"
-"通常は自動検出されますが、モノレポ構成では手動調整が必要な場合があります。"
+"**解決方法**: 実行構成の **Working directory** をプロジェクトルート（`package.json` と "
+"`rescript.json` を含むディレクトリ）に設定してください。通常は自動検出されますが、モノレポ構成では手動調整が必要な場合があります。"
 
-#: ../../user/features/testing.md:264
+#: ../../user/features/testing.md:274
 msgid "Framework Not Detected"
 msgstr "フレームワークが検出されない"
 
-#: ../../user/features/testing.md:266
+#: ../../user/features/testing.md:276
 msgid ""
 "**Cause**: The test framework is not listed in `package.json` "
 "dependencies."
-msgstr ""
-"**原因**: テストフレームワークが `package.json` の dependencies に"
-"記載されていません。"
+msgstr "**原因**: テストフレームワークが `package.json` の dependencies に記載されていません。"
 
-#: ../../user/features/testing.md:268
+#: ../../user/features/testing.md:278
 msgid ""
 "**Solution**: Ensure `jest` or `vitest` appears in either `dependencies` "
 "or `devDependencies` in your `package.json`. Alternatively, select the "
 "framework manually in the run configuration, or use the **Custom** "
 "framework option with a user-defined command."
 msgstr ""
-"**解決方法**: `package.json` の `dependencies` または `devDependencies` に "
-"`jest` または `vitest` が記載されていることを確認してください。"
-"または、実行構成でフレームワークを手動で選択するか、ユーザー定義コマンドで "
+"**解決方法**: `package.json` の `dependencies` または `devDependencies` に `jest` "
+"または `vitest` が記載されていることを確認してください。または、実行構成でフレームワークを手動で選択するか、ユーザー定義コマンドで "
 "**Custom** フレームワークオプションを使用してください。"
 
-#: ../../user/features/testing.md:271
+#: ../../user/features/testing.md:281
 msgid ""
 "Test running requires that your ReScript project is properly configured "
 "with a test framework and that the ReScript compiler has already compiled"
 " the test files. The plugin does not automatically trigger a ReScript "
 "build before running tests."
 msgstr ""
-"テスト実行には、ReScript プロジェクトがテストフレームワークで適切に設定され、"
-"ReScript コンパイラがテストファイルをすでにコンパイルしている必要があります。"
-"プラグインはテスト実行前に ReScript ビルドを自動的にトリガーしません。"
+"テスト実行には、ReScript プロジェクトがテストフレームワークで適切に設定され、ReScript "
+"コンパイラがテストファイルをすでにコンパイルしている必要があります。プラグインはテスト実行前に ReScript "
+"ビルドを自動的にトリガーしません。"
+
+#: ../../user/features/testing.md:284
+msgid ""
+"These troubleshooting tips address the most common test setup issues, "
+"saving you from debugging the build pipeline when the fix is usually a "
+"missing dependency or a stale compilation."
+msgstr ""
+"これらのトラブルシューティングのヒントは最も一般的なテストセットアップの問題に対処し、"
+"修正が通常は依存関係の欠如や古いコンパイル結果である場合にビルドパイプラインのデバッグを省けます。"
 
 #~ msgid ""
 #~ "The plugin provides integrated test "
@@ -901,3 +895,4 @@ msgstr ""
 #~ "ReScript compiler has already compiled "
 #~ "the test files."
 #~ msgstr ""
+

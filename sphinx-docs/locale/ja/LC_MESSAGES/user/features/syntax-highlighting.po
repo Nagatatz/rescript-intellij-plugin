@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 18:14+0900\n"
+"POT-Creation-Date: 2026-03-17 18:33+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -31,11 +31,8 @@ msgid ""
 "(semantic) overlays type-aware coloring when the Language Server is "
 "connected, giving you the best of both worlds."
 msgstr ""
-"このプラグインは、正確でリッチな色分けを実現するために、2つのレイヤーの"
-"シンタックスハイライトを提供します。レイヤー1（レクサーベース）は、ファイル"
-"を開いた瞬間に外部依存なしで即座にハイライトを行います。レイヤー2（セマン"
-"ティック）は、Language Server が接続されている場合に型情報に基づいた色分けを"
-"オーバーレイし、両方の利点を活かします。"
+"このプラグインは、正確でリッチな色分けを実現するために、2つのレイヤーのシンタックスハイライトを提供します。レイヤー1（レクサーベース）は、ファイルを開いた瞬間に外部依存なしで即座にハイライトを行います。レイヤー2（セマンティック）は、Language"
+" Server が接続されている場合に型情報に基づいた色分けをオーバーレイし、両方の利点を活かします。"
 
 #: ../../user/features/syntax-highlighting.md:5
 msgid "Layer 1: Lexer-Based Highlighting"
@@ -49,11 +46,10 @@ msgid ""
 "initial project setup or in files outside a ReScript project), lexer-"
 "based highlighting ensures your code remains fully colored."
 msgstr ""
-"組み込みの JFlex レクサーが ReScript ソースコードをトークンに分解し、"
-"トークンの種類に基づいて色を適用します。これは外部依存なしで即座に動作し"
-"ます。Language Server が利用できない場合（例：プロジェクトの初期セットアッ"
-"プ中や ReScript プロジェクト外のファイル）でも、レクサーベースのハイライト"
-"によりコードは完全に色分けされます。"
+"組み込みの JFlex レクサーが ReScript "
+"ソースコードをトークンに分解し、トークンの種類に基づいて色を適用します。これは外部依存なしで即座に動作します。Language Server "
+"が利用できない場合（例：プロジェクトの初期セットアップ中や ReScript "
+"プロジェクト外のファイル）でも、レクサーベースのハイライトによりコードは完全に色分けされます。"
 
 #: ../../user/features/syntax-highlighting.md:9
 msgid "Highlighted Elements"
@@ -114,7 +110,7 @@ msgstr "`// line comment`, `/* block comment */`"
 
 #: ../../user/features/syntax-highlighting.md
 #: ../../user/features/syntax-highlighting.md:209
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Operators"
 msgstr "演算子"
 
@@ -148,7 +144,7 @@ msgid "`#Red`, `#Blue`"
 msgstr "`#Red`, `#Blue`"
 
 #: ../../user/features/syntax-highlighting.md
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Module names"
 msgstr "モジュール名"
 
@@ -160,8 +156,7 @@ msgstr "`Belt`, `Array`, `React`"
 msgid ""
 "The following sections describe each element category in detail with code"
 " examples."
-msgstr ""
-"以下のセクションでは、各要素カテゴリをコード例とともに詳しく説明します。"
+msgstr "以下のセクションでは、各要素カテゴリをコード例とともに詳しく説明します。"
 
 #: ../../user/features/syntax-highlighting.md:28
 msgid ""
@@ -169,9 +164,8 @@ msgid ""
 "structures. They are displayed in the **Keyword** color (typically bold "
 "or a distinct hue)."
 msgstr ""
-"ReScript のキーワードは、プログラムフローの制御、バインディングの宣言、"
-"構造の定義を行います。これらは **Keyword** カラー（通常は太字または"
-"目立つ色合い）で表示されます。"
+"ReScript のキーワードは、プログラムフローの制御、バインディングの宣言、構造の定義を行います。これらは **Keyword** "
+"カラー（通常は太字または目立つ色合い）で表示されます。"
 
 #: ../../user/features/syntax-highlighting.md:30
 msgid "**Declaration keywords** introduce new names:"
@@ -225,18 +219,17 @@ msgid ""
 "This is because they are alphabetic identifiers reserved as operators, "
 "similar to how other ML-family languages handle them."
 msgstr ""
-"キーワード演算子 `mod`, `land`, `lor`, `lxor`, `lsl`, `lsr`, `asr` は"
-"整数算術演算およびビット演算であり、通常の演算子カラーではなく "
-"**キーワードスタイルの色** で表示されます。これは、他の ML 系言語と同様に、"
-"演算子として予約されたアルファベット識別子であるためです。"
+"キーワード演算子 `mod`, `land`, `lor`, `lxor`, `lsl`, `lsr`, `asr` "
+"は整数算術演算およびビット演算であり、通常の演算子カラーではなく **キーワードスタイルの色** で表示されます。これは、他の ML "
+"系言語と同様に、演算子として予約されたアルファベット識別子であるためです。"
 
 #: ../../user/features/syntax-highlighting.md
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Operator"
 msgstr "演算子"
 
 #: ../../user/features/syntax-highlighting.md
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Meaning"
 msgstr "意味"
 
@@ -300,9 +293,7 @@ msgstr "算術右シフト（符号保持）"
 msgid ""
 "The lexer recognizes three types of string literals, all displayed in the"
 " **String** color:"
-msgstr ""
-"レクサーは3種類の文字列リテラルを認識し、すべて **String** カラーで"
-"表示します:"
+msgstr "レクサーは3種類の文字列リテラルを認識し、すべて **String** カラーで表示します:"
 
 #: ../../user/features/syntax-highlighting.md:121
 msgid "**Double-quoted strings** are the most common form:"
@@ -315,24 +306,20 @@ msgid ""
 " string content is highlighted as a string, while the interpolated "
 "expressions inside `${}` receive their own syntax highlighting:"
 msgstr ""
-"**テンプレートリテラル** （バッククォート文字列）は `${}` による補間を"
-"サポートします。文字列の内容は文字列として色分けされ、`${}` 内の補間式は"
-"それぞれ独自のシンタックスハイライトが適用されます:"
+"**テンプレートリテラル** （バッククォート文字列）は `${}` による補間をサポートします。文字列の内容は文字列として色分けされ、`${}`"
+" 内の補間式はそれぞれ独自のシンタックスハイライトが適用されます:"
 
 #: ../../user/features/syntax-highlighting.md:141
 msgid ""
 "**Character literals** use single quotes and contain exactly one "
 "character:"
-msgstr ""
-"**文字リテラル** はシングルクォートを使用し、正確に1文字を含みます:"
+msgstr "**文字リテラル** はシングルクォートを使用し、正確に1文字を含みます:"
 
 #: ../../user/features/syntax-highlighting.md:151
 msgid ""
 "All numeric literals are displayed in the **Number** color. ReScript "
 "supports several numeric formats:"
-msgstr ""
-"すべての数値リテラルは **Number** カラーで表示されます。ReScript は"
-"いくつかの数値形式をサポートしています:"
+msgstr "すべての数値リテラルは **Number** カラーで表示されます。ReScript はいくつかの数値形式をサポートしています:"
 
 #: ../../user/features/syntax-highlighting.md:153
 msgid "**Integer literals** in various bases:"
@@ -344,25 +331,19 @@ msgstr "小数点または科学的記法による **浮動小数点リテラル
 
 #: ../../user/features/syntax-highlighting.md:175
 msgid "ReScript supports two comment styles, each with its own color attribute:"
-msgstr ""
-"ReScript は2種類のコメントスタイルをサポートしており、それぞれ独自の"
-"カラー属性を持ちます:"
+msgstr "ReScript は2種類のコメントスタイルをサポートしており、それぞれ独自のカラー属性を持ちます:"
 
 #: ../../user/features/syntax-highlighting.md:177
 msgid ""
 "**Line comments** start with `//` and extend to the end of the line. They"
 " use the **Line comment** color:"
-msgstr ""
-"**行コメント** は `//` で始まり、行末まで続きます。**Line comment** "
-"カラーが使用されます:"
+msgstr "**行コメント** は `//` で始まり、行末まで続きます。**Line comment** カラーが使用されます:"
 
 #: ../../user/features/syntax-highlighting.md:184
 msgid ""
 "**Block comments** are delimited by `/*` and `*/`. They use the **Block "
 "comment** color:"
-msgstr ""
-"**ブロックコメント** は `/*` と `*/` で囲みます。**Block comment** "
-"カラーが使用されます:"
+msgstr "**ブロックコメント** は `/*` と `*/` で囲みます。**Block comment** カラーが使用されます:"
 
 #: ../../user/features/syntax-highlighting.md:196
 msgid "Nested Comments"
@@ -374,25 +355,20 @@ msgid ""
 " correctly tracks nesting depth, so you can comment out code that already"
 " contains block comments:"
 msgstr ""
-"多くの言語とは異なり、ReScript はネストされたブロックコメントをサポート"
-"しています。レクサーはネストの深さを正しく追跡するため、すでにブロック"
-"コメントを含むコードをコメントアウトすることができます:"
+"多くの言語とは異なり、ReScript "
+"はネストされたブロックコメントをサポートしています。レクサーはネストの深さを正しく追跡するため、すでにブロックコメントを含むコードをコメントアウトすることができます:"
 
 #: ../../user/features/syntax-highlighting.md:207
 msgid ""
 "This is particularly useful when temporarily commenting out large "
 "sections of code during development."
-msgstr ""
-"これは、開発中にコードの大きなセクションを一時的にコメントアウトする際に"
-"特に便利です。"
+msgstr "これは、開発中にコードの大きなセクションを一時的にコメントアウトする際に特に便利です。"
 
 #: ../../user/features/syntax-highlighting.md:211
 msgid ""
 "Operators are displayed in the **Operator** color. The lexer recognizes a"
 " wide range of operators:"
-msgstr ""
-"演算子は **Operator** カラーで表示されます。レクサーは幅広い演算子を"
-"認識します:"
+msgstr "演算子は **Operator** カラーで表示されます。レクサーは幅広い演算子を認識します:"
 
 #: ../../user/features/syntax-highlighting.md:213
 msgid "**Arithmetic operators:**"
@@ -410,8 +386,7 @@ msgstr "**論理演算子:**"
 msgid ""
 "**Pipe and arrow operators** are among the most distinctive ReScript "
 "operators:"
-msgstr ""
-"**パイプ演算子とアロー演算子** は ReScript の最も特徴的な演算子です:"
+msgstr "**パイプ演算子とアロー演算子** は ReScript の最も特徴的な演算子です:"
 
 #: ../../user/features/syntax-highlighting.md:263
 msgid "**Other operators:**"
@@ -423,9 +398,8 @@ msgid ""
 "**Annotation** color. They are heavily used in ReScript for FFI (Foreign "
 "Function Interface) bindings and compiler directives:"
 msgstr ""
-"デコレーター（アノテーション）は `@` で始まり、**Annotation** カラーで"
-"表示されます。ReScript では FFI（Foreign Function Interface）バインディング"
-"やコンパイラディレクティブに多用されます:"
+"デコレーター（アノテーション）は `@` で始まり、**Annotation** カラーで表示されます。ReScript では "
+"FFI（Foreign Function Interface）バインディングやコンパイラディレクティブに多用されます:"
 
 #: ../../user/features/syntax-highlighting.md:274
 msgid "**FFI decorators** for JavaScript interop:"
@@ -446,10 +420,8 @@ msgid ""
 "metadata/annotation style. They represent parametric polymorphism, "
 "allowing types and functions to work with any type:"
 msgstr ""
-"型パラメーター（ジェネリクス）である `'a`, `'b`, `'key`, `'value` は "
-"**Type argument** カラーで表示され、通常はメタデータ/アノテーションスタイル"
-"が使用されます。これらはパラメトリック多相性を表し、型や関数が任意の型で"
-"動作することを可能にします:"
+"型パラメーター（ジェネリクス）である `'a`, `'b`, `'key`, `'value` は **Type argument** "
+"カラーで表示され、通常はメタデータ/アノテーションスタイルが使用されます。これらはパラメトリック多相性を表し、型や関数が任意の型で動作することを可能にします:"
 
 #: ../../user/features/syntax-highlighting.md:337
 msgid "Polymorphic Variants"
@@ -462,81 +434,83 @@ msgid ""
 "regular variants which must be defined in a `type` declaration, "
 "polymorphic variants can be used ad-hoc:"
 msgstr ""
-"ポリモーフィックバリアントは `#` で始まり、**Polymorphic variant** カラー"
-"（通常は定数に近いスタイル）で表示されます。`type` 宣言で定義する必要が"
-"ある通常のバリアントとは異なり、ポリモーフィックバリアントはアドホックに"
-"使用できます:"
+"ポリモーフィックバリアントは `#` で始まり、**Polymorphic variant** "
+"カラー（通常は定数に近いスタイル）で表示されます。`type` "
+"宣言で定義する必要がある通常のバリアントとは異なり、ポリモーフィックバリアントはアドホックに使用できます:"
 
 #: ../../user/features/syntax-highlighting.md:361
 msgid ""
 "The key difference from regular variants is that polymorphic variants do "
 "not require a prior type declaration and can be shared across unrelated "
 "types and modules."
-msgstr ""
-"通常のバリアントとの主な違いは、ポリモーフィックバリアントは事前の型宣言を"
-"必要とせず、関連のない型やモジュール間で共有できることです。"
+msgstr "通常のバリアントとの主な違いは、ポリモーフィックバリアントは事前の型宣言を必要とせず、関連のない型やモジュール間で共有できることです。"
 
 #: ../../user/features/syntax-highlighting.md:363
+msgid ""
+"Lexer-based highlighting works instantly and offline — even before the "
+"Language Server starts or in files outside a ReScript project, your code "
+"is fully colored with accurate keyword, string, comment, and operator "
+"recognition."
+msgstr ""
+"レクサーベースのハイライトは即座にオフラインで動作します — Language Server "
+"が起動する前や ReScript プロジェクト外のファイルでも、キーワード、文字列、コメント、"
+"演算子を正確に認識してコードが完全にカラーリングされます。"
+
+#: ../../user/features/syntax-highlighting.md:365
 msgid "Module Names"
 msgstr "モジュール名"
 
-#: ../../user/features/syntax-highlighting.md:365
+#: ../../user/features/syntax-highlighting.md:367
 msgid ""
 "Uppercase identifiers are colored as **Module name** (typically using the"
 " class name color). In ReScript, uppercase identifiers conventionally "
 "denote modules, variant constructors, and functors:"
 msgstr ""
-"大文字で始まる識別子は **Module name**（通常はクラス名カラー）で色分けされ"
-"ます。ReScript では、大文字の識別子は慣例的にモジュール、バリアント"
-"コンストラクター、ファンクターを表します:"
+"大文字で始まる識別子は **Module name**（通常はクラス名カラー）で色分けされます。ReScript "
+"では、大文字の識別子は慣例的にモジュール、バリアントコンストラクター、ファンクターを表します:"
 
-#: ../../user/features/syntax-highlighting.md:378
+#: ../../user/features/syntax-highlighting.md:380
 msgid ""
 "At the lexer level, all uppercase identifiers receive the module name "
 "color. When the Language Server is connected, semantic highlighting can "
 "refine this by distinguishing actual modules (`namespace` token type) "
 "from variant constructors (`enumMember` token type)."
 msgstr ""
-"レクサーレベルでは、すべての大文字識別子にモジュール名カラーが適用されます。"
-"Language Server が接続されている場合、セマンティックハイライトにより、"
-"実際のモジュール（`namespace` トークンタイプ）とバリアントコンストラクター"
-"（`enumMember` トークンタイプ）を区別して、より精密な色分けが行われます。"
+"レクサーレベルでは、すべての大文字識別子にモジュール名カラーが適用されます。Language Server "
+"が接続されている場合、セマンティックハイライトにより、実際のモジュール（`namespace` "
+"トークンタイプ）とバリアントコンストラクター（`enumMember` トークンタイプ）を区別して、より精密な色分けが行われます。"
 
-#: ../../user/features/syntax-highlighting.md:381
+#: ../../user/features/syntax-highlighting.md:383
 msgid "JSX / React Component Highlighting"
 msgstr "JSX / React コンポーネントのハイライト"
 
-#: ../../user/features/syntax-highlighting.md:383
+#: ../../user/features/syntax-highlighting.md:385
 msgid ""
 "ReScript has first-class JSX support, and the lexer provides dedicated "
 "token types and coloring for JSX elements. The plugin recognizes JSX "
 "structure within ReScript files and applies specialized highlighting."
 msgstr ""
 "ReScript はファーストクラスの JSX サポートを備えており、レクサーは JSX "
-"要素に専用のトークンタイプと色分けを提供します。プラグインは ReScript "
-"ファイル内の JSX 構造を認識し、専門的なハイライトを適用します。"
+"要素に専用のトークンタイプと色分けを提供します。プラグインは ReScript ファイル内の JSX "
+"構造を認識し、専門的なハイライトを適用します。"
 
-#: ../../user/features/syntax-highlighting.md:385
+#: ../../user/features/syntax-highlighting.md:387
 msgid "JSX Tag Highlighting"
 msgstr "JSX タグのハイライト"
 
-#: ../../user/features/syntax-highlighting.md:387
+#: ../../user/features/syntax-highlighting.md:389
 msgid ""
 "JSX tags are colored differently from regular ReScript code. The plugin "
 "distinguishes between:"
-msgstr ""
-"JSX タグは通常の ReScript コードとは異なる色で表示されます。プラグインは"
-"以下を区別します:"
+msgstr "JSX タグは通常の ReScript コードとは異なる色で表示されます。プラグインは以下を区別します:"
 
-#: ../../user/features/syntax-highlighting.md:389
+#: ../../user/features/syntax-highlighting.md:391
 msgid ""
 "**HTML elements** (lowercase tags like `<div>`, `<span>`) -- displayed in"
 " the **JSX tag** color"
-msgstr ""
-"**HTML 要素** （`<div>`, `<span>` のような小文字タグ）-- **JSX tag** "
-"カラーで表示"
+msgstr "**HTML 要素** （`<div>`, `<span>` のような小文字タグ）-- **JSX tag** カラーで表示"
 
-#: ../../user/features/syntax-highlighting.md:390
+#: ../../user/features/syntax-highlighting.md:392
 msgid ""
 "**React components** (uppercase tags like `<App>`, `<Header>`) -- "
 "displayed in the **Module name** color, matching their role as component "
@@ -545,210 +519,216 @@ msgstr ""
 "**React コンポーネント** （`<App>`, `<Header>` のような大文字タグ）-- "
 "コンポーネントモジュールとしての役割に合わせて **Module name** カラーで表示"
 
-#: ../../user/features/syntax-highlighting.md:409
+#: ../../user/features/syntax-highlighting.md:411
 msgid "JSX Bracket Coloring"
 msgstr "JSX ブラケットの色分け"
 
-#: ../../user/features/syntax-highlighting.md:411
+#: ../../user/features/syntax-highlighting.md:413
 msgid ""
 "JSX brackets (`<`, `>`, `</`, `/>`) are displayed in the **JSX tag "
 "bracket** color, visually distinguishing them from comparison operators "
 "and other angle bracket usages:"
 msgstr ""
-"JSX ブラケット（`<`, `>`, `</`, `/>`）は **JSX tag bracket** カラーで"
-"表示され、比較演算子やその他の山括弧の使用と視覚的に区別されます:"
+"JSX ブラケット（`<`, `>`, `</`, `/>`）は **JSX tag bracket** "
+"カラーで表示され、比較演算子やその他の山括弧の使用と視覚的に区別されます:"
 
-#: ../../user/features/syntax-highlighting.md:424
+#: ../../user/features/syntax-highlighting.md:426
 msgid "Props Highlighting"
 msgstr "Props のハイライト"
 
-#: ../../user/features/syntax-highlighting.md:426
+#: ../../user/features/syntax-highlighting.md:428
 msgid ""
 "JSX props are highlighted as regular ReScript identifiers and "
 "expressions. Named props, punned props, and optional props all receive "
 "appropriate coloring:"
 msgstr ""
-"JSX の props は通常の ReScript 識別子および式としてハイライトされます。"
-"名前付き props、省略記法の props、オプショナル props にはすべて適切な"
-"色分けが適用されます:"
+"JSX の props は通常の ReScript 識別子および式としてハイライトされます。名前付き props、省略記法の "
+"props、オプショナル props にはすべて適切な色分けが適用されます:"
 
-#: ../../user/features/syntax-highlighting.md:438
+#: ../../user/features/syntax-highlighting.md:440
 msgid "Expression Interpolation"
 msgstr "式の補間"
 
-#: ../../user/features/syntax-highlighting.md:440
+#: ../../user/features/syntax-highlighting.md:442
 #, python-brace-format
 msgid ""
 "Expressions within JSX children are enclosed in `{}` and receive normal "
 "ReScript syntax highlighting inside the braces:"
-msgstr ""
-"JSX の子要素内の式は `{}` で囲まれ、中括弧内では通常の ReScript シンタック"
-"スハイライトが適用されます:"
+msgstr "JSX の子要素内の式は `{}` で囲まれ、中括弧内では通常の ReScript シンタックスハイライトが適用されます:"
 
-#: ../../user/features/syntax-highlighting.md:452
+#: ../../user/features/syntax-highlighting.md:454
 msgid "Full React Component Example"
 msgstr "React コンポーネントの完全な例"
 
-#: ../../user/features/syntax-highlighting.md:454
+#: ../../user/features/syntax-highlighting.md:456
 msgid ""
 "Here is a complete React component demonstrating the full range of JSX "
 "highlighting:"
-msgstr ""
-"以下は、JSX ハイライトの全範囲を示す完全な React コンポーネントの例です:"
+msgstr "以下は、JSX ハイライトの全範囲を示す完全な React コンポーネントの例です:"
 
-#: ../../user/features/syntax-highlighting.md:491
+#: ../../user/features/syntax-highlighting.md:493
 msgid "In this example:"
 msgstr "この例では:"
 
-#: ../../user/features/syntax-highlighting.md:492
+#: ../../user/features/syntax-highlighting.md:494
 msgid ""
 "`<div>`, `<h2>`, `<ul>`, `<li>`, `<span>`, `<p>` are colored as **JSX "
 "tags** (HTML elements)"
 msgstr ""
-"`<div>`, `<h2>`, `<ul>`, `<li>`, `<span>`, `<p>` は **JSX タグ**"
-"（HTML 要素）として色分け"
+"`<div>`, `<h2>`, `<ul>`, `<li>`, `<span>`, `<p>` は **JSX タグ**（HTML "
+"要素）として色分け"
 
-#: ../../user/features/syntax-highlighting.md:493
+#: ../../user/features/syntax-highlighting.md:495
 msgid "`<` `>` `</` `/>` brackets are colored as **JSX tag brackets**"
 msgstr "`<` `>` `</` `/>` ブラケットは **JSX タグブラケット** として色分け"
 
-#: ../../user/features/syntax-highlighting.md:494
+#: ../../user/features/syntax-highlighting.md:496
 msgid "`className`, `key`, `onClick` are highlighted as regular identifiers"
 msgstr "`className`, `key`, `onClick` は通常の識別子としてハイライト"
 
-#: ../../user/features/syntax-highlighting.md:495
+#: ../../user/features/syntax-highlighting.md:497
 #, python-brace-format
 msgid "Expressions inside `{}` receive full ReScript syntax highlighting"
 msgstr "`{}` 内の式には完全な ReScript シンタックスハイライトが適用"
 
-#: ../../user/features/syntax-highlighting.md:496
+#: ../../user/features/syntax-highlighting.md:498
 msgid ""
 "`React.string`, `React.float`, `React.array` use **module name** coloring"
 " for `React`"
 msgstr ""
-"`React.string`, `React.float`, `React.array` では `React` に **モジュール"
-"名** の色分けを使用"
+"`React.string`, `React.float`, `React.array` では `React` に **モジュール名** "
+"の色分けを使用"
 
-#: ../../user/features/syntax-highlighting.md:498
+#: ../../user/features/syntax-highlighting.md:500
+msgid ""
+"Dedicated JSX highlighting visually separates markup structure from "
+"logic, making React component code easier to scan by distinguishing HTML "
+"elements, component references, and expression interpolations at a "
+"glance."
+msgstr ""
+"専用の JSX ハイライトによりマークアップ構造とロジックが視覚的に分離され、HTML "
+"要素、コンポーネント参照、式の補間を一目で区別できるため、React コンポーネントコード"
+"がスキャンしやすくなります。"
+
+#: ../../user/features/syntax-highlighting.md:502
 msgid "Layer 2: Semantic Highlighting"
 msgstr "レイヤー2: セマンティックハイライト"
 
-#: ../../user/features/syntax-highlighting.md:500
+#: ../../user/features/syntax-highlighting.md:504
 msgid ""
 "When the Language Server is connected, semantic tokens provide an "
 "additional layer of highlighting based on actual type information from "
 "the compiler. This gives you precise, context-aware coloring that "
 "understands the meaning of each identifier."
 msgstr ""
-"Language Server が接続されている場合、セマンティックトークンはコンパイラから"
-"の実際の型情報に基づいて追加のハイライトレイヤーを提供します。これにより、"
-"各識別子の意味を理解した正確でコンテキストを考慮した色分けが実現されます。"
+"Language Server "
+"が接続されている場合、セマンティックトークンはコンパイラからの実際の型情報に基づいて追加のハイライトレイヤーを提供します。これにより、各識別子の意味を理解した正確でコンテキストを考慮した色分けが実現されます。"
 
-#: ../../user/features/syntax-highlighting.md:502
+#: ../../user/features/syntax-highlighting.md:506
 msgid "Semantic Token Types"
 msgstr "セマンティックトークンの種類"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Token Type"
 msgstr "トークンタイプ"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Example"
 msgstr "例"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`variable`"
 msgstr "`variable`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Variables and parameters"
 msgstr "変数とパラメーター"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`let x = 1` -- `x` colored as variable"
 msgstr "`let x = 1` -- `x` が variable として色分け"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`type`"
 msgstr "`type`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Type names"
 msgstr "型名"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`type t = int` -- `t` colored as type"
 msgstr "`type t = int` -- `t` が type として色分け"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`namespace`"
 msgstr "`namespace`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`Belt.Array` -- `Belt` colored as namespace"
 msgstr "`Belt.Array` -- `Belt` が namespace として色分け"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`enumMember`"
 msgstr "`enumMember`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Variant constructors"
 msgstr "バリアントコンストラクター"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`Some(x)` -- `Some` colored as enum member"
 msgstr "`Some(x)` -- `Some` が enum member として色分け"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`property`"
 msgstr "`property`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Record fields"
 msgstr "レコードフィールド"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`user.name` -- `name` colored as property"
 msgstr "`user.name` -- `name` が property として色分け"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`interface`"
 msgstr "`interface`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "JSX HTML elements"
 msgstr "JSX の HTML 要素"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`<div>` -- `div` colored as interface"
 msgstr "`<div>` -- `div` が interface として色分け"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`operator`"
 msgstr "`operator`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`+`, `|>` colored as operator"
 msgstr "`+`, `|>` が operator として色分け"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`modifier`"
 msgstr "`modifier`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "JSX brackets"
 msgstr "JSX ブラケット"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`<`, `/>` colored as modifier"
 msgstr "`<`, `/>` が modifier として色分け"
 
-#: ../../user/features/syntax-highlighting.md:515
+#: ../../user/features/syntax-highlighting.md:519
 msgid "How Semantic Tokens Work"
 msgstr "セマンティックトークンの仕組み"
 
-#: ../../user/features/syntax-highlighting.md:517
+#: ../../user/features/syntax-highlighting.md:521
 msgid ""
 "When you open a ReScript file and the Language Server is running, the "
 "plugin requests semantic tokens for the entire document. The server "
@@ -756,616 +736,600 @@ msgid ""
 "types. The plugin then overlays these semantic colors on top of the "
 "lexer-based highlighting."
 msgstr ""
-"ReScript ファイルを開き Language Server が実行中の場合、プラグインは"
-"ドキュメント全体のセマンティックトークンをリクエストします。サーバーは"
-"コンパイル済みプログラムを分析し、トークンとその型のリストを返します。"
-"プラグインはこれらのセマンティックカラーをレクサーベースのハイライトの上に"
-"オーバーレイします。"
+"ReScript ファイルを開き Language Server "
+"が実行中の場合、プラグインはドキュメント全体のセマンティックトークンをリクエストします。サーバーはコンパイル済みプログラムを分析し、トークンとその型のリストを返します。プラグインはこれらのセマンティックカラーをレクサーベースのハイライトの上にオーバーレイします。"
 
-#: ../../user/features/syntax-highlighting.md:519
+#: ../../user/features/syntax-highlighting.md:523
 msgid ""
 "This process happens automatically in the background and updates as you "
 "edit the file."
-msgstr ""
-"このプロセスはバックグラウンドで自動的に行われ、ファイルを編集するたびに"
-"更新されます。"
+msgstr "このプロセスはバックグラウンドで自動的に行われ、ファイルを編集するたびに更新されます。"
 
-#: ../../user/features/syntax-highlighting.md:521
+#: ../../user/features/syntax-highlighting.md:525
 msgid "Detailed Token Type Descriptions"
 msgstr "トークンタイプの詳細説明"
 
-#: ../../user/features/syntax-highlighting.md:523
+#: ../../user/features/syntax-highlighting.md:527
 msgid "Variables (`variable`)"
 msgstr "変数 (`variable`)"
 
-#: ../../user/features/syntax-highlighting.md:525
+#: ../../user/features/syntax-highlighting.md:529
 msgid ""
 "The `variable` token type is applied to local bindings, function "
 "parameters, and other value-level identifiers. This helps distinguish "
 "value names from type names, module names, and keywords:"
 msgstr ""
-"`variable` トークンタイプは、ローカルバインディング、関数パラメーター、"
-"その他の値レベルの識別子に適用されます。これにより、値の名前を型名、"
-"モジュール名、キーワードと区別できます:"
+"`variable` "
+"トークンタイプは、ローカルバインディング、関数パラメーター、その他の値レベルの識別子に適用されます。これにより、値の名前を型名、モジュール名、キーワードと区別できます:"
 
-#: ../../user/features/syntax-highlighting.md:533
+#: ../../user/features/syntax-highlighting.md:537
 msgid ""
 "Without semantic highlighting, these identifiers would receive no special"
 " color from the lexer (they are lowercase identifiers, which are unstyled"
 " by default). With semantic tokens, they gain a distinct **Variable** "
 "color."
 msgstr ""
-"セマンティックハイライトがない場合、これらの識別子はレクサーから特別な色を"
-"受けません（小文字の識別子はデフォルトではスタイルなし）。セマンティック"
-"トークンにより、明確な **Variable** カラーが付与されます。"
+"セマンティックハイライトがない場合、これらの識別子はレクサーから特別な色を受けません（小文字の識別子はデフォルトではスタイルなし）。セマンティックトークンにより、明確な"
+" **Variable** カラーが付与されます。"
 
-#: ../../user/features/syntax-highlighting.md:535
+#: ../../user/features/syntax-highlighting.md:539
 msgid "Types (`type`)"
 msgstr "型 (`type`)"
 
-#: ../../user/features/syntax-highlighting.md:537
+#: ../../user/features/syntax-highlighting.md:541
 msgid ""
 "The `type` token applies to type names wherever they appear -- in "
 "definitions, annotations, and type expressions:"
-msgstr ""
-"`type` トークンは、定義、アノテーション、型式など、型名が出現する"
-"すべての場所に適用されます:"
+msgstr "`type` トークンは、定義、アノテーション、型式など、型名が出現するすべての場所に適用されます:"
 
-#: ../../user/features/syntax-highlighting.md:545
+#: ../../user/features/syntax-highlighting.md:549
 msgid ""
 "This makes type-level code visually distinct from value-level code, "
 "improving readability in complex type definitions."
-msgstr ""
-"これにより、型レベルのコードが値レベルのコードと視覚的に区別され、"
-"複雑な型定義の可読性が向上します。"
+msgstr "これにより、型レベルのコードが値レベルのコードと視覚的に区別され、複雑な型定義の可読性が向上します。"
 
-#: ../../user/features/syntax-highlighting.md:547
+#: ../../user/features/syntax-highlighting.md:551
 msgid "Namespaces (`namespace`)"
 msgstr "名前空間 (`namespace`)"
 
-#: ../../user/features/syntax-highlighting.md:549
+#: ../../user/features/syntax-highlighting.md:553
 msgid ""
 "The `namespace` token applies to module names when they are used as "
 "qualifiers. This refines the lexer's broad \"uppercase identifier\" "
 "coloring by specifically marking known modules:"
 msgstr ""
-"`namespace` トークンは、モジュール名が修飾子として使用される場合に適用"
-"されます。これにより、レクサーの広範な「大文字識別子」の色分けが、既知の"
-"モジュールを特定的にマークすることで精緻化されます:"
+"`namespace` "
+"トークンは、モジュール名が修飾子として使用される場合に適用されます。これにより、レクサーの広範な「大文字識別子」の色分けが、既知のモジュールを特定的にマークすることで精緻化されます:"
 
-#: ../../user/features/syntax-highlighting.md:557
+#: ../../user/features/syntax-highlighting.md:561
 msgid "Enum Members (`enumMember`)"
 msgstr "列挙型メンバー (`enumMember`)"
 
-#: ../../user/features/syntax-highlighting.md:559
+#: ../../user/features/syntax-highlighting.md:563
 msgid ""
 "Variant constructors and exception names receive the `enumMember` token, "
 "distinguishing them from module names even though both use uppercase "
 "identifiers:"
 msgstr ""
-"バリアントコンストラクターと例外名は `enumMember` トークンを受け取り、"
-"どちらも大文字識別子を使用するにもかかわらず、モジュール名と区別されます:"
+"バリアントコンストラクターと例外名は `enumMember` "
+"トークンを受け取り、どちらも大文字識別子を使用するにもかかわらず、モジュール名と区別されます:"
 
-#: ../../user/features/syntax-highlighting.md:568
+#: ../../user/features/syntax-highlighting.md:572
 msgid ""
 "This is one of the most valuable semantic refinements: without the "
 "Language Server, `Some`, `None`, `Red`, and module names like `Belt` all "
 "share the same module name color from the lexer. Semantic tokens allow "
 "them to be visually separated."
 msgstr ""
-"これはセマンティックハイライトの最も価値ある改善の一つです。Language Server"
-" がない場合、`Some`, `None`, `Red` と `Belt` のようなモジュール名はすべて"
-"レクサーの同じモジュール名カラーを共有します。セマンティックトークンにより、"
-"これらを視覚的に区別できるようになります。"
+"これはセマンティックハイライトの最も価値ある改善の一つです。Language Server がない場合、`Some`, `None`, `Red`"
+" と `Belt` "
+"のようなモジュール名はすべてレクサーの同じモジュール名カラーを共有します。セマンティックトークンにより、これらを視覚的に区別できるようになります。"
 
-#: ../../user/features/syntax-highlighting.md:570
+#: ../../user/features/syntax-highlighting.md:574
 msgid "Properties (`property`)"
 msgstr "プロパティ (`property`)"
 
-#: ../../user/features/syntax-highlighting.md:572
+#: ../../user/features/syntax-highlighting.md:576
 msgid "Record field names receive the `property` token when accessed or defined:"
-msgstr ""
-"レコードフィールド名は、アクセスまたは定義される際に `property` トークンを"
-"受け取ります:"
+msgstr "レコードフィールド名は、アクセスまたは定義される際に `property` トークンを受け取ります:"
 
-#: ../../user/features/syntax-highlighting.md:584
+#: ../../user/features/syntax-highlighting.md:588
 msgid "Interface (`interface`)"
 msgstr "インターフェース (`interface`)"
 
-#: ../../user/features/syntax-highlighting.md:586
+#: ../../user/features/syntax-highlighting.md:590
 msgid ""
 "HTML element names in JSX receive the `interface` token. This gives them "
 "a color distinct from React component names (which receive the "
 "`namespace` token):"
 msgstr ""
-"JSX 内の HTML 要素名は `interface` トークンを受け取ります。これにより、"
-"React コンポーネント名（`namespace` トークンを受け取る）とは異なる色が"
-"付与されます:"
+"JSX 内の HTML 要素名は `interface` トークンを受け取ります。これにより、React コンポーネント名（`namespace`"
+" トークンを受け取る）とは異なる色が付与されます:"
 
-#: ../../user/features/syntax-highlighting.md:595
+#: ../../user/features/syntax-highlighting.md:599
 msgid "Operators (`operator`)"
 msgstr "演算子 (`operator`)"
 
-#: ../../user/features/syntax-highlighting.md:597
+#: ../../user/features/syntax-highlighting.md:601
 msgid ""
 "The semantic `operator` token provides type-aware operator highlighting "
 "that can distinguish operators by their resolved meaning, complementing "
 "the lexer's syntactic operator coloring:"
 msgstr ""
-"セマンティック `operator` トークンは、型を考慮した演算子ハイライトを提供し、"
-"解決された意味に基づいて演算子を区別できます。これはレクサーの構文的な"
-"演算子の色分けを補完します:"
+"セマンティック `operator` "
+"トークンは、型を考慮した演算子ハイライトを提供し、解決された意味に基づいて演算子を区別できます。これはレクサーの構文的な演算子の色分けを補完します:"
 
-#: ../../user/features/syntax-highlighting.md:605
+#: ../../user/features/syntax-highlighting.md:609
 msgid "Modifiers (`modifier`)"
 msgstr "修飾子 (`modifier`)"
 
-#: ../../user/features/syntax-highlighting.md:607
+#: ../../user/features/syntax-highlighting.md:611
 msgid ""
 "JSX bracket tokens (`<`, `>`, `</`, `/>`) receive the `modifier` token "
 "from the Language Server, allowing them to have a distinct semantic "
 "color:"
 msgstr ""
-"JSX ブラケットトークン（`<`, `>`, `</`, `/>`）は Language Server から "
-"`modifier` トークンを受け取り、明確なセマンティックカラーを持つことが"
-"できます:"
+"JSX ブラケットトークン（`<`, `>`, `</`, `/>`）は Language Server から `modifier` "
+"トークンを受け取り、明確なセマンティックカラーを持つことができます:"
 
-#: ../../user/features/syntax-highlighting.md:615
+#: ../../user/features/syntax-highlighting.md:619
 msgid "Semantic Override Behavior"
 msgstr "セマンティックオーバーライドの動作"
 
-#: ../../user/features/syntax-highlighting.md:617
+#: ../../user/features/syntax-highlighting.md:621
 msgid ""
 "Semantic highlighting overlays on top of lexer highlighting. When both "
 "layers assign a color to the same token, the semantic color takes "
 "precedence. Here are the key refinements that semantic tokens provide:"
-msgstr ""
-"セマンティックハイライトはレクサーハイライトの上にオーバーレイされます。"
-"両方のレイヤーが同じトークンに色を割り当てた場合、セマンティックカラーが"
-"優先されます。セマンティックトークンが提供する主な改善点は以下のとおりです:"
+msgstr "セマンティックハイライトはレクサーハイライトの上にオーバーレイされます。両方のレイヤーが同じトークンに色を割り当てた場合、セマンティックカラーが優先されます。セマンティックトークンが提供する主な改善点は以下のとおりです:"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Identifier"
 msgstr "識別子"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Lexer Color"
 msgstr "レクサーカラー"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Semantic Color"
 msgstr "セマンティックカラー"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Benefit"
 msgstr "利点"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`Belt` (module)"
 msgstr "`Belt`（モジュール）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Module name"
 msgstr "モジュール名"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Namespace"
 msgstr "名前空間"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Confirms module usage"
 msgstr "モジュールの使用を確認"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`Some` (constructor)"
 msgstr "`Some`（コンストラクター）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Enum member"
 msgstr "列挙型メンバー"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Distinguishes from modules"
 msgstr "モジュールとの区別"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`name` (field)"
 msgstr "`name`（フィールド）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "No color"
 msgstr "色なし"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Property"
 msgstr "プロパティ"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Highlights record access"
 msgstr "レコードアクセスのハイライト"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`count` (variable)"
 msgstr "`count`（変数）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Variable"
 msgstr "変数"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Highlights value bindings"
 msgstr "値バインディングのハイライト"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`int` (type)"
 msgstr "`int`（型）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Type"
 msgstr "型"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Highlights type annotations"
 msgstr "型アノテーションのハイライト"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`div` (JSX)"
 msgstr "`div`（JSX）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "JSX tag"
 msgstr "JSX タグ"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Interface"
 msgstr "インターフェース"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Semantic confirmation"
 msgstr "セマンティック確認"
 
-#: ../../user/features/syntax-highlighting.md:628
+#: ../../user/features/syntax-highlighting.md:632
 msgid "Fallback Behavior"
 msgstr "フォールバック動作"
 
-#: ../../user/features/syntax-highlighting.md:630
+#: ../../user/features/syntax-highlighting.md:634
 msgid ""
 "When the Language Server is disconnected or unavailable, the plugin "
 "gracefully falls back to lexer-only highlighting:"
-msgstr ""
-"Language Server が切断されているか利用できない場合、プラグインはレクサー"
-"のみのハイライトにグレースフルにフォールバックします:"
+msgstr "Language Server が切断されているか利用できない場合、プラグインはレクサーのみのハイライトにグレースフルにフォールバックします:"
 
-#: ../../user/features/syntax-highlighting.md:632
+#: ../../user/features/syntax-highlighting.md:636
 msgid ""
 "All keyword, string, number, comment, and operator highlighting continues"
 " to work normally"
-msgstr ""
-"すべてのキーワード、文字列、数値、コメント、演算子のハイライトは"
-"引き続き正常に動作します"
+msgstr "すべてのキーワード、文字列、数値、コメント、演算子のハイライトは引き続き正常に動作します"
 
-#: ../../user/features/syntax-highlighting.md:633
+#: ../../user/features/syntax-highlighting.md:637
 msgid ""
 "Module names, type parameters, polymorphic variants, and decorators "
 "retain their lexer-based colors"
-msgstr ""
-"モジュール名、型パラメーター、ポリモーフィックバリアント、デコレーターは"
-"レクサーベースの色を保持します"
+msgstr "モジュール名、型パラメーター、ポリモーフィックバリアント、デコレーターはレクサーベースの色を保持します"
 
-#: ../../user/features/syntax-highlighting.md:634
+#: ../../user/features/syntax-highlighting.md:638
 msgid ""
 "Lowercase identifiers (variables, function names, record fields) lose "
 "their semantic coloring and appear in the default text color"
-msgstr ""
-"小文字識別子（変数、関数名、レコードフィールド）はセマンティックカラーを"
-"失い、デフォルトのテキストカラーで表示されます"
+msgstr "小文字識別子（変数、関数名、レコードフィールド）はセマンティックカラーを失い、デフォルトのテキストカラーで表示されます"
 
-#: ../../user/features/syntax-highlighting.md:635
+#: ../../user/features/syntax-highlighting.md:639
 msgid "JSX elements retain their lexer-based tag coloring"
 msgstr "JSX 要素はレクサーベースのタグの色分けを保持します"
 
-#: ../../user/features/syntax-highlighting.md:637
+#: ../../user/features/syntax-highlighting.md:641
 msgid ""
 "The transition between connected and disconnected states is seamless. As "
 "soon as the Language Server reconnects, semantic tokens are re-requested "
 "and coloring is restored."
 msgstr ""
-"接続状態と切断状態の間の遷移はシームレスです。Language Server が再接続"
-"されるとすぐに、セマンティックトークンが再リクエストされ、色分けが"
-"復元されます。"
+"接続状態と切断状態の間の遷移はシームレスです。Language Server "
+"が再接続されるとすぐに、セマンティックトークンが再リクエストされ、色分けが復元されます。"
 
-#: ../../user/features/syntax-highlighting.md:639
+#: ../../user/features/syntax-highlighting.md:643
+msgid ""
+"Semantic highlighting resolves ambiguities that lexer-based highlighting "
+"cannot — for example, visually distinguishing variant constructors like "
+"`Some` from module names like `Belt`, even though both are uppercase "
+"identifiers, making code significantly easier to read."
+msgstr ""
+"セマンティックハイライトはレクサーベースのハイライトでは解決できない曖昧さを解消します"
+" — 例えば、`Some` のようなバリアントコンストラクタと `Belt` のようなモジュール名を、"
+"どちらも大文字識別子であるにもかかわらず視覚的に区別し、コードの可読性を大幅に向上させます。"
+
+#: ../../user/features/syntax-highlighting.md:645
 msgid "Customizing Colors"
 msgstr "色のカスタマイズ"
 
-#: ../../user/features/syntax-highlighting.md:641
+#: ../../user/features/syntax-highlighting.md:647
 msgid ""
 "Go to **Settings** → **Editor** → **Color Scheme** → **ReScript** to "
 "customize colors for each token type."
 msgstr ""
-"**Settings** → **Editor** → **Color Scheme** → **ReScript** で各トークン"
-"タイプの色をカスタマイズできます。"
+"**Settings** → **Editor** → **Color Scheme** → **ReScript** "
+"で各トークンタイプの色をカスタマイズできます。"
 
-#: ../../user/features/syntax-highlighting.md:643
+#: ../../user/features/syntax-highlighting.md:649
 msgid ""
 "The plugin ships with optimized color schemes for both **Darcula** (dark)"
 " and **Default** (light) themes."
-msgstr ""
-"プラグインには **Darcula**（ダーク）と **Default**（ライト）の両テーマ用に"
-"最適化されたカラースキームが同梱されています。"
+msgstr "プラグインには **Darcula**（ダーク）と **Default**（ライト）の両テーマ用に最適化されたカラースキームが同梱されています。"
 
-#: ../../user/features/syntax-highlighting.md:645
+#: ../../user/features/syntax-highlighting.md:651
 msgid "Available Color Attributes"
 msgstr "利用可能なカラー属性"
 
-#: ../../user/features/syntax-highlighting.md:647
+#: ../../user/features/syntax-highlighting.md:653
 msgid "The settings page is organized into the following groups:"
 msgstr "設定ページは以下のグループに整理されています:"
 
-#: ../../user/features/syntax-highlighting.md:649
+#: ../../user/features/syntax-highlighting.md:655
 msgid "**Basic elements:**"
 msgstr "**基本要素:**"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Attribute"
 msgstr "属性"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Description"
 msgstr "説明"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Keyword"
 msgstr "Keyword"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`let`, `type`, `switch`, and all other keywords"
 msgstr "`let`, `type`, `switch` およびその他すべてのキーワード"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "String"
 msgstr "String"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "String literals, template strings, and char literals"
 msgstr "文字列リテラル、テンプレート文字列、文字リテラル"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Number"
 msgstr "Number"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Integer and float literals"
 msgstr "整数リテラルと浮動小数点リテラル"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Arithmetic, comparison, pipe, and arrow operators"
 msgstr "算術演算子、比較演算子、パイプ演算子、アロー演算子"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Annotation"
 msgstr "Annotation"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Decorator attributes (`@module`, `@genType`, etc.)"
 msgstr "デコレーター属性（`@module`, `@genType` など）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Type argument"
 msgstr "Type argument"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Type parameters (`'a`, `'b`)"
 msgstr "型パラメーター（`'a`, `'b`）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Polymorphic variant"
 msgstr "Polymorphic variant"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Polymorphic variant tags (`#Red`, `#ok`)"
 msgstr "ポリモーフィックバリアントタグ（`#Red`, `#ok`）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Uppercase identifiers (modules, functors)"
 msgstr "大文字識別子（モジュール、ファンクター）"
 
-#: ../../user/features/syntax-highlighting.md:662
+#: ../../user/features/syntax-highlighting.md:668
 msgid "**Comments:**"
 msgstr "**コメント:**"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Line comment"
 msgstr "Line comment"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Single-line comments (`//`)"
 msgstr "単一行コメント（`//`）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Block comment"
 msgstr "Block comment"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Multi-line comments (`/* */`)"
 msgstr "複数行コメント（`/* */`）"
 
-#: ../../user/features/syntax-highlighting.md:669
+#: ../../user/features/syntax-highlighting.md:675
 msgid "**Braces and Operators:**"
 msgstr "**括弧と演算子:**"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Braces"
 msgstr "Braces"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 #, python-brace-format
 msgid "`{` and `}`"
 msgstr "`{` と `}`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Brackets"
 msgstr "Brackets"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`[` and `]`"
 msgstr "`[` と `]`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Parentheses"
 msgstr "Parentheses"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`(` and `)`"
 msgstr "`(` と `)`"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Dot"
 msgstr "Dot"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`.` accessor"
 msgstr "`.` アクセサー"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Comma"
 msgstr "Comma"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`,` separator"
 msgstr "`,` セパレーター"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Semicolon"
 msgstr "Semicolon"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "`;` terminator"
 msgstr "`;` ターミネーター"
 
-#: ../../user/features/syntax-highlighting.md:680
+#: ../../user/features/syntax-highlighting.md:686
 msgid "**Pattern matching:**"
 msgstr "**パターンマッチング:**"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Pipe (`|`)"
 msgstr "Pipe (`|`)"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Pattern match arm separator"
 msgstr "パターンマッチのアーム区切り"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Wildcard (`_`)"
 msgstr "Wildcard (`_`)"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Catch-all pattern"
 msgstr "キャッチオールパターン"
 
-#: ../../user/features/syntax-highlighting.md:687
+#: ../../user/features/syntax-highlighting.md:693
 msgid "**JSX:**"
 msgstr "**JSX:**"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "HTML element names (`div`, `span`)"
 msgstr "HTML 要素名（`div`, `span`）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "JSX tag bracket"
 msgstr "JSX tag bracket"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Tag delimiters (`<`, `>`, `</`, `/>`)"
 msgstr "タグ区切り文字（`<`, `>`, `</`, `/>`）"
 
-#: ../../user/features/syntax-highlighting.md:694
+#: ../../user/features/syntax-highlighting.md:700
 msgid "**Semantic (LSP):**"
 msgstr "**セマンティック（LSP）:**"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Variables and function parameters"
 msgstr "変数と関数パラメーター"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Type names in definitions and annotations"
 msgstr "定義とアノテーション内の型名"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Namespace (module)"
 msgstr "Namespace（モジュール）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Module names used as qualifiers"
 msgstr "修飾子として使用されるモジュール名"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Enum member (variant)"
 msgstr "Enum member（バリアント）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Variant constructors (`Some`, `None`, `Red`)"
 msgstr "バリアントコンストラクター（`Some`, `None`, `Red`）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Property (record field)"
 msgstr "Property（レコードフィールド）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Record field names"
 msgstr "レコードフィールド名"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Interface (JSX tag)"
 msgstr "Interface（JSX タグ）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "HTML element names in JSX (semantic)"
 msgstr "JSX 内の HTML 要素名（セマンティック）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Operators (semantic)"
 msgstr "演算子（セマンティック）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "Modifier (JSX bracket)"
 msgstr "Modifier（JSX ブラケット）"
 
-#: ../../user/features/syntax-highlighting.md:377
+#: ../../user/features/syntax-highlighting.md:379
 msgid "JSX brackets (semantic)"
 msgstr "JSX ブラケット（セマンティック）"
 
-#: ../../user/features/syntax-highlighting.md:707
+#: ../../user/features/syntax-highlighting.md:713
 msgid "Tips"
 msgstr "ヒント"
 
-#: ../../user/features/syntax-highlighting.md:709
+#: ../../user/features/syntax-highlighting.md:715
 msgid ""
 "The **Preview** pane in the color settings page shows a live ReScript "
 "code sample with both lexer and semantic highlighting applied, so you can"
 " see the effect of your changes immediately."
 msgstr ""
-"カラー設定ページの **Preview** ペインには、レクサーとセマンティックの両方の"
-"ハイライトが適用された ReScript コードサンプルがライブ表示されるため、変更の"
-"効果をすぐに確認できます。"
+"カラー設定ページの **Preview** ペインには、レクサーとセマンティックの両方のハイライトが適用された ReScript "
+"コードサンプルがライブ表示されるため、変更の効果をすぐに確認できます。"
 
-#: ../../user/features/syntax-highlighting.md:710
+#: ../../user/features/syntax-highlighting.md:716
 msgid ""
 "If you use a custom color scheme, the plugin's defaults for Darcula and "
 "Default serve as a good starting point."
-msgstr ""
-"カスタムカラースキームを使用する場合、プラグインの Darcula および Default "
-"用デフォルト設定が良い出発点になります。"
+msgstr "カスタムカラースキームを使用する場合、プラグインの Darcula および Default 用デフォルト設定が良い出発点になります。"
 
-#: ../../user/features/syntax-highlighting.md:711
+#: ../../user/features/syntax-highlighting.md:717
 msgid ""
 "Semantic color attributes only take effect when the Language Server is "
 "connected. You can customize them independently from their lexer-based "
 "counterparts."
 msgstr ""
-"セマンティックカラー属性は Language Server が接続されている場合にのみ"
-"有効になります。レクサーベースの対応する属性とは独立してカスタマイズ"
-"できます。"
+"セマンティックカラー属性は Language Server "
+"が接続されている場合にのみ有効になります。レクサーベースの対応する属性とは独立してカスタマイズできます。"
+
+#: ../../user/features/syntax-highlighting.md:719
+msgid ""
+"Full color customization lets you tailor the ReScript highlighting to "
+"match your personal preferences or team conventions, with a live preview "
+"so you can see changes immediately."
+msgstr ""
+"完全なカラーカスタマイズにより、ReScript のハイライトを個人の好みやチームの規約に"
+"合わせて調整でき、ライブプレビューで変更をすぐに確認できます。"
 
 #~ msgid ""
 #~ "The plugin provides two layers of "
@@ -1423,3 +1387,4 @@ msgstr ""
 #~ "Server is unavailable, the lexer "
 #~ "highlighting still provides accurate coloring."
 #~ msgstr ""
+

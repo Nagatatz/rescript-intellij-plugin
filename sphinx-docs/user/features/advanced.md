@@ -37,6 +37,8 @@ Code Lens annotations are **display-only** --- they show the inferred type but d
 
 Code Lens requires the Language Server to be running. If the LSP server is not connected, no annotations are displayed. The project must also be built at least once so the language server has type information available.
 
+Code Lens shows inferred type signatures directly above function definitions, so you can see the types without adding explicit annotations or hovering over each identifier.
+
 ## Compiled JavaScript Preview
 
 A dedicated tool window that shows the compiled JavaScript output for the currently active ReScript file, providing a side-by-side view of your ReScript source and its JavaScript compilation result.
@@ -74,6 +76,8 @@ The preview panel includes two toolbar buttons:
 - **Learning** --- Understand how ReScript features map to JavaScript idioms
 
 If the compiled JS file is not found (e.g., the project has not been built), the panel displays a message prompting you to build the project first.
+
+The Compiled JS Preview gives you a live side-by-side view of ReScript and its JavaScript output, helping you understand the compilation result, debug runtime issues, and verify performance characteristics without leaving the IDE.
 
 ## Module Hierarchy
 
@@ -148,6 +152,8 @@ The hierarchy view supports:
 - Alphabetical sorting of modules by name
 - Navigation to the source module by double-clicking a node
 
+The Module Hierarchy view reveals both the internal structure of a file and its external dependencies, making it easy to understand how modules are organized and interconnected without reading through `open` and `include` statements manually.
+
 ## Inlay Hints
 
 The Language Server displays inferred types as inline hints next to variables and parameters, making it easier to understand code without explicit type annotations.
@@ -199,6 +205,8 @@ Supported annotations include `@react.component`, `@genType`, `@module`, `@val`,
 
 Configure via **Settings** > **Editor** > **Inlay Hints** > **ReScript** > **PPX annotations**.
 
+Inlay hints make the type system visible without cluttering your source code — inferred types appear as subtle annotations next to each binding, giving you the benefit of explicit types with the conciseness of type inference.
+
 ## JSON Schema for rescript.json
 
 The plugin provides JSON Schema validation and auto-completion for `rescript.json` and `bsconfig.json` configuration files. The schema covers the full ReScript build configuration specification.
@@ -232,6 +240,8 @@ When editing `rescript.json`, you get auto-completion and validation for all top
 
 The schema file is bundled with the plugin and applied automatically when you open any file named `rescript.json` or `bsconfig.json`.
 
+JSON Schema support turns `rescript.json` editing from guesswork into a guided experience — auto-completion suggests valid configuration keys, and validation catches mistakes before you run the compiler.
+
 ## Markdown Code Fence Highlighting
 
 ReScript code blocks in Markdown files receive full syntax highlighting:
@@ -257,6 +267,8 @@ When the Markdown plugin encounters a code fence with one of these identifiers, 
 ### Requirements
 
 This feature requires the **Markdown** plugin to be installed, which is bundled with most JetBrains IDEs. If the Markdown plugin is not present, code fences render as plain text.
+
+ReScript code fences in Markdown files get the same syntax highlighting as `.res` files, making documentation, READMEs, and code examples visually consistent and easier to read.
 
 ## JavaScript Injection in %raw()
 
@@ -297,6 +309,8 @@ Inside injected `%raw()` blocks, you have access to:
 
 This feature requires the **JavaScript** plugin (or JavaScript and TypeScript support) to be available in your JetBrains IDE. IntelliJ IDEA Ultimate and WebStorm include this by default. For IntelliJ IDEA Community, you may need to install the JavaScript plugin separately.
 
+JavaScript injection inside `%raw()` means you get proper JS syntax highlighting and error detection when writing FFI code, rather than working with a plain uncolored string.
+
 ## RegExp Injection in %re()
 
 Regular expressions inside `%re()` blocks receive full RegExp language support, including syntax highlighting, validation, and bracket matching.
@@ -330,11 +344,15 @@ Inside injected `%re()` blocks:
 
 This feature uses IntelliJ's built-in RegExp language support, which is available in all JetBrains IDEs.
 
+RegExp injection gives you syntax highlighting and validation inside `%re()` patterns, helping you catch regex errors at edit time rather than discovering them at runtime.
+
 ## Injected Language Formatting
 
 When you format a ReScript file (`Cmd+Option+L`), any injected language fragments (e.g., JavaScript inside `%raw()`) are also formatted according to their own language's formatting rules.
 
 This feature provides a `FormattingModelBuilder` that delegates formatting to the injected language's formatter, so injected code stays properly formatted alongside your ReScript code.
+
+When you format a ReScript file, injected JavaScript inside `%raw()` is also formatted according to its own rules, so a single format command keeps both languages clean.
 
 ## Grazie Integration
 
@@ -346,15 +364,21 @@ When the **Grazie** plugin is installed, the ReScript plugin extracts natural la
 
 This is an optional integration --- if Grazie is not installed, the feature is simply not available.
 
+With Grazie integration, your ReScript comments and strings get the same grammar and spell checking as natural language text, improving documentation quality without switching tools.
+
 ## Index Pattern Builder
 
 Enhances the IDE's TODO/FIXME detection by providing a lexer-based index pattern builder for ReScript files. This enables more accurate pattern matching within comments compared to the basic text-based approach.
 
 The index pattern builder uses the ReScript JFlex lexer to correctly classify comment tokens (line comments, block comments, and doc comments), ensuring that TODO/FIXME patterns are only matched inside actual comments and not in string literals or code.
 
+Lexer-aware TODO detection prevents false positives — only TODOs inside actual comments are indexed, not string literals containing the word "TODO".
+
 ## Element Signature Provider
 
 Provides stable element signatures that persist editor fold states across IDE restarts. When you collapse code blocks in the editor, their folded state is remembered using a signature format (`TYPE#name#offset`) that survives file modifications.
+
+This ensures your code folding preferences persist across IDE sessions — blocks you collapsed stay collapsed, even after editing and restarting.
 
 ## Project Wizard
 
@@ -456,6 +480,8 @@ After the wizard creates the project:
 2. Run `rescript build` (or use the ReScript run configuration) to compile the project
 3. The Language Server will start automatically once `@rescript/language-server` is available in `node_modules`
 
+The Project Wizard lets you create a fully configured ReScript project in seconds — select a template, choose your package manager, and get a ready-to-build project without manually writing configuration files.
+
 ## File Templates
 
 Create new ReScript files with pre-filled boilerplate code via the context menu.
@@ -495,6 +521,8 @@ In all templates, the file name you enter is automatically substituted into the 
 ### Customizing Templates
 
 File templates can be customized in **Settings** > **Editor** > **File and Code Templates**. Look for the templates under the **Internal** tab with names starting with "ReScript". You can modify the template content using IntelliJ's template variable syntax (e.g., `${NAME}` for the file name).
+
+File templates give you a consistent starting point for new modules, interfaces, and React components, so every new file follows the same pattern without copying boilerplate from an existing file.
 
 ## .d.ts Binding Generation
 
@@ -554,6 +582,8 @@ The following TypeScript constructs are not yet supported and will generate `/* 
 - Overloaded function signatures (uses first signature)
 - Declaration merging
 
+Writing ReScript FFI bindings for TypeScript libraries is one of the most tedious tasks in ReScript development — this generator automates the conversion, producing correct `external` declarations that you can refine rather than write from scratch.
+
 ## Color Preview
 
 Inline color swatches are displayed in the editor gutter for color values in your ReScript code:
@@ -571,9 +601,13 @@ let successColor = "hsl(120, 39%, 49%)"
 
 Color values inside string literals are detected and a small color swatch appears in the editor gutter next to the corresponding line.
 
+Inline color swatches let you visually verify color values without running the application — see the actual color next to the hex, RGB, or HSL code and click to open the color picker for adjustments.
+
 ## VCS Code Vision
 
 Author and last-change annotations appear on top-level declarations (let, type, module, external), providing Git blame information directly in the editor. Enable via **Settings** > **Editor** > **Inlay Hints** > **Code Vision**.
+
+VCS annotations on declarations show who last changed each function or type, so you know who to ask about unfamiliar code without running `git blame` separately.
 
 ## Package Dependencies
 
@@ -583,13 +617,19 @@ A dedicated tool window shows the dependencies and devDependencies from your `re
 
 The tree view organizes packages into "Dependencies" and "Dev Dependencies" groups with version numbers.
 
+The Package Dependencies view gives you a quick overview of your project's ReScript dependencies and their versions without opening `rescript.json` or running `npm list`.
+
 ## Quick Documentation
 
 Press `Ctrl+Q` (or hover) to see documentation for ReScript elements. When the LSP server is connected, documentation comes from the language server. When LSP is unavailable, a PSI-based fallback shows the declaration type, name, and source file.
 
+Quick Documentation surfaces type information and doc comments without navigating away from your current position, letting you understand APIs inline while coding.
+
 ## Safe Delete
 
 Use **Refactor** > **Safe Delete** to delete ReScript declarations with usage checking. If the element is still referenced, a confirmation dialog shows all usage locations before proceeding.
+
+Safe Delete prevents accidental breakage by checking for references before removing a declaration, so you can confidently clean up code without worrying about hidden dependencies.
 
 ## Name Suggestions
 
@@ -598,9 +638,13 @@ During rename refactoring, the plugin suggests names based on:
 - The containing file name
 - camelCase conversion from snake_case
 
+Intelligent name suggestions speed up rename refactoring by proposing contextually appropriate names, so you can pick a good name from a list rather than inventing one from scratch.
+
 ## Reader Mode
 
 Files in `node_modules/` directories are automatically displayed in Reader Mode, providing a cleaner read-only view for library source files.
+
+Reader Mode gives library source files a clean, distraction-free presentation, making it easier to read third-party code when exploring how a dependency works.
 
 ## TODO Indexing
 
@@ -612,6 +656,8 @@ Recognized patterns include:
 - `/* TODO: ... */`
 
 TODO items appear in the IDE's **TODO** panel alongside items from other file types in your project. You can customize TODO patterns and filters in **Settings** > **Editor** > **TODO**.
+
+TODO indexing brings your ReScript task comments into the IDE's unified TODO panel, so you can track outstanding work across all languages in one place.
 
 ## Open Statement Index
 
