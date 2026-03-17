@@ -1,22 +1,32 @@
 package com.rescript.plugin.lsp
 
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import com.intellij.openapi.project.Project
+import com.rescript.plugin.settings.RescriptProjectSettings
+import org.junit.After
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import java.nio.file.Files
 import java.nio.file.Path
 
+/**
+ * Unit tests for [RescriptLspDetector], covering LSP availability checks,
+ * ReScript project detection, and custom LSP configuration detection.
+ *
+ * @see RescriptLspDetector
+ */
 class RescriptLspDetectorTest {
     private lateinit var tempDir: Path
 
-    @BeforeEach
+    @Before
     fun setUp() {
         tempDir = Files.createTempDirectory("rescript-lsp-detector-test")
     }
 
-    @AfterEach
+    @After
     fun tearDown() {
         tempDir.toFile().deleteRecursively()
     }
@@ -108,5 +118,36 @@ class RescriptLspDetectorTest {
         Files.createDirectories(tempDir.resolve("rescript.json"))
 
         assertFalse(RescriptLspDetector.isRescriptProject(tempDir.toString()))
+    }
+
+    // ── isLspConfigured ──────────────────────────────────────────────
+
+    @Test
+    fun `isLspConfigured returns true when lspServerPath is set`() {
+        val project = mock(Project::class.java)
+        val settings = RescriptProjectSettings()
+        settings.lspServerPath = "/usr/local/bin/rescript-lsp"
+        `when`(project.getService(RescriptProjectSettings::class.java)).thenReturn(settings)
+
+        assertTrue(RescriptLspDetector.isLspConfigured(project))
+    }
+
+    @Test
+    fun `isLspConfigured returns false when lspServerPath is empty`() {
+        val project = mock(Project::class.java)
+        val settings = RescriptProjectSettings()
+        `when`(project.getService(RescriptProjectSettings::class.java)).thenReturn(settings)
+
+        assertFalse(RescriptLspDetector.isLspConfigured(project))
+    }
+
+    @Test
+    fun `isLspConfigured returns false with default settings`() {
+        val project = mock(Project::class.java)
+        val settings = RescriptProjectSettings()
+        `when`(project.getService(RescriptProjectSettings::class.java)).thenReturn(settings)
+
+        // Default lspServerPath is empty string
+        assertFalse(RescriptLspDetector.isLspConfigured(project))
     }
 }
