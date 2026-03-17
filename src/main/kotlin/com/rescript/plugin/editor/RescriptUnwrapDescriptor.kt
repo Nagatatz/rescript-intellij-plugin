@@ -28,6 +28,12 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
 
         /** Pattern matching `try` keyword followed by `{`, avoiding partial identifier matches. */
         private val TRY_PATTERN = Regex("""(?<![a-zA-Z0-9_])try\s*\{""")
+
+        /** Search radius (in characters) for `if` pattern around the cursor position. */
+        private const val IF_SEARCH_RADIUS = 200
+
+        /** Search radius (in characters) for `switch` and `try` patterns around the cursor position. */
+        private const val BLOCK_SEARCH_RADIUS = 300
     }
 
     override fun collectUnwrappers(
@@ -163,7 +169,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
         text: String,
         offset: Int,
     ): Quadruple? =
-        findRegionMatch(text, offset, IF_PATTERN, radius = 200) { absIfStart ->
+        findRegionMatch(text, offset, IF_PATTERN, radius = IF_SEARCH_RADIUS) { absIfStart ->
             val condOpenIdx = text.indexOf('(', absIfStart + 2)
             if (condOpenIdx < 0) return@findRegionMatch null
             val condCloseIdx = findMatchingParen(text, condOpenIdx) ?: return@findRegionMatch null
@@ -185,7 +191,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
         text: String,
         offset: Int,
     ): Quadruple? =
-        findRegionMatch(text, offset, SWITCH_PATTERN, radius = 300) { absSwitchStart ->
+        findRegionMatch(text, offset, SWITCH_PATTERN, radius = BLOCK_SEARCH_RADIUS) { absSwitchStart ->
             val braceIdx = text.indexOf('{', absSwitchStart + 6)
             if (braceIdx < 0) return@findRegionMatch null
             val braceEndIdx = findMatchingBrace(text, braceIdx) ?: return@findRegionMatch null
@@ -199,7 +205,7 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
         text: String,
         offset: Int,
     ): Quadruple? =
-        findRegionMatch(text, offset, TRY_PATTERN, radius = 300) { absTryStart ->
+        findRegionMatch(text, offset, TRY_PATTERN, radius = BLOCK_SEARCH_RADIUS) { absTryStart ->
             val tryBraceIdx = text.indexOf('{', absTryStart + 3)
             if (tryBraceIdx < 0) return@findRegionMatch null
             val tryBraceEnd = findMatchingBrace(text, tryBraceIdx) ?: return@findRegionMatch null
