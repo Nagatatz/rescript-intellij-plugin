@@ -16,9 +16,61 @@ When a custom path is specified, the plugin validates that the file exists befor
 
 Configure a custom path to the Node.js interpreter. Leave this field empty to use `node` from the system PATH. This setting is only relevant when the language server is launched via a `.js` entry point (e.g., `node_modules/@rescript/language-server/out/cli.js`).
 
+### ReScript Binary Path
+
+Configure a custom path to the ReScript compiler binary (`rescript`). Leave this field empty to let the plugin auto-detect the binary from `node_modules/.bin/` or the system PATH.
+
+When a custom path is specified, the plugin validates that the file exists before applying the setting.
+
+### Platform Path
+
+Configure a custom path to the ReScript platform directory. Leave this field empty to let the plugin auto-detect the platform location.
+
+This setting is passed to the language server as an initialization option. It is typically only needed when using a non-standard ReScript installation layout.
+
+### Runtime Path
+
+Configure a custom path to the ReScript runtime directory. Leave this field empty to let the plugin auto-detect the runtime location.
+
+This setting is passed to the language server as an initialization option. Like Platform Path, it is only needed for non-standard installations.
+
+### Log Level
+
+Control the verbosity of the LSP server log output. Available levels:
+
+| Level | Description |
+|-------|-------------|
+| `error` | Only log errors |
+| `warn` | Log errors and warnings |
+| `info` | Log errors, warnings, and informational messages (default) |
+| `log` | Log everything, including debug-level messages |
+
+The log level is sent to the language server as an initialization option and takes effect after an LSP server restart.
+
 ### Incremental Type Checking
 
-Enable or disable incremental type checking in the Language Server. When enabled, the Language Server only re-checks files that have changed, improving performance on large projects. This setting is sent to the language server as an initialization option and takes effect after an LSP server restart.
+Enable or disable cross-file incremental type checking in the Language Server (experimental). When enabled, the Language Server only re-checks files that have changed, improving performance on large projects. This setting is sent to the language server as an initialization option and takes effect after an LSP server restart.
+
+Default: **Disabled**
+
+### Inlay Hints Max Length
+
+Set the maximum character length for inlay hint labels displayed in the editor. When an inferred type annotation exceeds this length, it is truncated.
+
+- **Default:** 25 characters
+- **Range:** 0–200
+- **Special value:** 0 means unlimited (no truncation)
+
+This setting is sent to the language server as an initialization option and takes effect after an LSP server restart.
+
+### Reanalyze Server Mode
+
+Enable or disable the reanalyze server daemon for faster dead code analysis. When enabled, the plugin starts a long-running `reanalyze` process that keeps its analysis state in memory, making subsequent dead code checks significantly faster.
+
+- **Default:** Enabled
+- **Requires:** ReScript 12.1.0 or later
+
+When toggled, the server starts or stops immediately without requiring a full LSP restart.
 
 :::{note}
 Changing any plugin setting triggers an automatic LSP server restart. The server shuts down and re-launches with the updated configuration.
