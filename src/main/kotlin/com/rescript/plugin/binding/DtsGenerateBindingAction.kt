@@ -70,11 +70,7 @@ class DtsGenerateBindingAction : AnAction() {
 
         // Determine output file path
         val dtsPath = file.path
-        val outputName =
-            file.nameWithoutExtension.let { name ->
-                // Remove .d suffix: "lodash.d" → "lodash"
-                if (name.endsWith(".d")) name.dropLast(2) else name
-            }
+        val outputName = computeOutputName(file.nameWithoutExtension)
         val outputPath = file.parent.path + File.separator + outputName + ".res"
         val outputFile = File(outputPath)
 
@@ -154,5 +150,17 @@ class DtsGenerateBindingAction : AnAction() {
 
     companion object {
         private val LOG = logger<DtsGenerateBindingAction>()
+
+        /**
+         * Computes the output module name from a `.d.ts` file name without extension.
+         *
+         * Strips the `.d` suffix if present (e.g., "lodash.d" becomes "lodash"),
+         * otherwise returns the name as-is.
+         *
+         * @param nameWithoutExtension the file name without its `.ts` extension
+         * @return the base name suitable for the generated `.res` file
+         */
+        fun computeOutputName(nameWithoutExtension: String): String =
+            if (nameWithoutExtension.endsWith(".d")) nameWithoutExtension.dropLast(2) else nameWithoutExtension
     }
 }

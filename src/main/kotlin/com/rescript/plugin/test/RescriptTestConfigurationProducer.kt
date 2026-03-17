@@ -27,7 +27,7 @@ class RescriptTestConfigurationProducer : LazyRunConfigurationProducer<RescriptT
 
         // Only produce for files that look like tests
         val name = file.nameWithoutExtension
-        if (!name.endsWith("_test") && !name.endsWith("Test") && !name.endsWith("_spec") && !name.endsWith("Spec")) {
+        if (!isTestFileName(name)) {
             return false
         }
 
@@ -47,5 +47,21 @@ class RescriptTestConfigurationProducer : LazyRunConfigurationProducer<RescriptT
     ): Boolean {
         val file = context.location?.virtualFile ?: return false
         return configuration.name == "Test: ${file.nameWithoutExtension}"
+    }
+
+    companion object {
+        /**
+         * Checks whether a file name (without extension) matches a test file naming convention.
+         *
+         * Recognized suffixes: `_test`, `Test`, `_spec`, `Spec`.
+         *
+         * @param nameWithoutExtension the file name without its extension
+         * @return true if the name matches a known test file pattern
+         */
+        fun isTestFileName(nameWithoutExtension: String): Boolean =
+            nameWithoutExtension.endsWith("_test") ||
+                nameWithoutExtension.endsWith("Test") ||
+                nameWithoutExtension.endsWith("_spec") ||
+                nameWithoutExtension.endsWith("Spec")
     }
 }

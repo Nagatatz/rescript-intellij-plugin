@@ -27,15 +27,7 @@ class RescriptModuleHierarchyProvider : HierarchyProvider {
         val element = file.findElementAt(offset) ?: return file
 
         // Walk up to find the nearest MODULE_DECLARATION
-        var current: PsiElement? = element
-        while (current != null && current !is RescriptFile) {
-            if (current.node?.elementType == RescriptElementTypes.MODULE_DECLARATION) {
-                return current
-            }
-            current = current.parent
-        }
-
-        return file
+        return findNearestModuleDeclaration(element) ?: file
     }
 
     override fun createHierarchyBrowser(target: PsiElement): HierarchyBrowser = RescriptModuleHierarchyBrowser(target)
@@ -43,5 +35,27 @@ class RescriptModuleHierarchyProvider : HierarchyProvider {
     override fun browserActivated(hierarchyBrowser: HierarchyBrowser) {
         (hierarchyBrowser as? RescriptModuleHierarchyBrowser)
             ?.changeView(RescriptModuleHierarchyBrowser.MODULE_NESTING_TYPE)
+    }
+
+    companion object {
+        /**
+         * Walks up the PSI tree from the given element to find the nearest MODULE_DECLARATION.
+         *
+         * Stops at the file boundary (RescriptFile). Returns null if no module declaration
+         * is found in the ancestor chain.
+         *
+         * @param element the starting PSI element
+         * @return the nearest MODULE_DECLARATION element, or null if not found
+         */
+        fun findNearestModuleDeclaration(element: PsiElement): PsiElement? {
+            var current: PsiElement? = element
+            while (current != null && current !is RescriptFile) {
+                if (current.node?.elementType == RescriptElementTypes.MODULE_DECLARATION) {
+                    return current
+                }
+                current = current.parent
+            }
+            return null
+        }
     }
 }
