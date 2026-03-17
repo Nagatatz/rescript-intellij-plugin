@@ -30,21 +30,8 @@ object RescriptLspDetector {
      * @param projectBasePath the project's base path, or null
      * @return true if the language server directory exists
      */
-    fun isLspAvailable(projectBasePath: String?): Boolean {
-        if (projectBasePath == null) return false
-        val basePath = Path.of(projectBasePath)
-
-        // Check project root
-        if (hasLspInNodeModules(basePath)) return true
-
-        // Walk up parent directories (monorepo support)
-        var dir = basePath.parent
-        while (dir != null) {
-            if (hasLspInNodeModules(dir)) return true
-            dir = dir.parent
-        }
-        return false
-    }
+    fun isLspAvailable(projectBasePath: String?): Boolean =
+        findInAncestors(projectBasePath, ::hasLspInNodeModules)
 
     /**
      * Checks whether the given path is a ReScript project by looking for
@@ -56,17 +43,18 @@ object RescriptLspDetector {
      * @param projectBasePath the project's base path, or null
      * @return true if a ReScript config file is found
      */
-    fun isRescriptProject(projectBasePath: String?): Boolean {
+    fun isRescriptProject(projectBasePath: String?): Boolean =
+        findInAncestors(projectBasePath, ::hasRescriptConfig)
+
+    /**
+     * Walks from [projectBasePath] up through parent directories, returning true
+     * as soon as [predicate] matches any directory.
+     */
+    private fun findInAncestors(projectBasePath: String?, predicate: (Path) -> Boolean): Boolean {
         if (projectBasePath == null) return false
-        val basePath = Path.of(projectBasePath)
-
-        // Check project root
-        if (hasRescriptConfig(basePath)) return true
-
-        // Walk up parent directories (monorepo support)
-        var dir = basePath.parent
+        var dir: Path? = Path.of(projectBasePath)
         while (dir != null) {
-            if (hasRescriptConfig(dir)) return true
+            if (predicate(dir)) return true
             dir = dir.parent
         }
         return false
