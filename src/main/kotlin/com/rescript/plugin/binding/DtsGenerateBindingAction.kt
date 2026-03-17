@@ -132,7 +132,10 @@ class DtsGenerateBindingAction : AnAction() {
                         ApplicationManager.getApplication().invokeLater {
                             Messages.showErrorDialog(
                                 project,
-                                "Unexpected error: ${e.message}",
+                                "Unexpected error: ${e.message}. " +
+                                    "Verify that Node.js and TypeScript are installed correctly, " +
+                                    "and that the .d.ts file is valid. " +
+                                    "Check the IDE log (Help > Show Log) for details.",
                                 "Generate ReScript Binding",
                             )
                         }
