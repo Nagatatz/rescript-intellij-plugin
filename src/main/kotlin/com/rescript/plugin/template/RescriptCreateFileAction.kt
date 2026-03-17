@@ -33,14 +33,32 @@ class RescriptCreateFileAction :
         directory: PsiDirectory,
         newName: String,
         templateName: String,
-    ): String = "Create ReScript File: $newName"
+    ): String = formatActionName(newName)
 
     override fun createFileFromTemplate(
         name: String,
         template: com.intellij.ide.fileTemplates.FileTemplate,
         dir: PsiDirectory,
     ): PsiFile? {
-        val capitalizedName = name.replaceFirstChar { it.uppercaseChar() }
+        val capitalizedName = capitalizeFileName(name)
         return super.createFileFromTemplate(capitalizedName, template, dir)
+    }
+
+    companion object {
+        /**
+         * Capitalizes the first character of a file name to follow ReScript module naming conventions.
+         *
+         * @param name the raw file name entered by the user
+         * @return the file name with its first character uppercased
+         */
+        internal fun capitalizeFileName(name: String): String = name.replaceFirstChar { it.uppercaseChar() }
+
+        /**
+         * Formats the action name shown in the undo/redo history.
+         *
+         * @param newName the file name entered by the user
+         * @return the formatted action description
+         */
+        internal fun formatActionName(newName: String): String = "Create ReScript File: $newName"
     }
 }
