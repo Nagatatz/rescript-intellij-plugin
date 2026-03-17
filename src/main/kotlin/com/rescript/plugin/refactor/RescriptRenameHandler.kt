@@ -168,23 +168,46 @@ class RescriptRenameHandler : RenameHandler {
     private fun extractWordAt(
         editor: Editor,
         offset: Int,
-    ): String? {
-        val text = editor.document.text
-        if (offset >= text.length && offset == 0) return null
+    ): String? = extractWordFromText(editor.document.text, offset)
 
-        var start = offset
-        var end = offset
+    companion object {
+        private val LOG = logger<RescriptRenameHandler>()
+        private const val TIMEOUT_MS = 10_000
 
-        // Expand left
-        while (start > 0 && isIdentifierChar(text[start - 1])) start--
-        // Expand right
-        while (end < text.length && isIdentifierChar(text[end])) end++
+        /**
+         * Checks whether a character is valid within a ReScript identifier.
+         *
+         * @param ch the character to test
+         * @return true if the character is alphanumeric, underscore, or prime (')
+         */
+        internal fun isIdentifierChar(ch: Char): Boolean = ch.isLetterOrDigit() || ch == '_' || ch == '\''
 
-        if (start == end) return null
-        return text.substring(start, end)
+        /**
+         * Extracts the identifier word surrounding the given offset in a text string.
+         * Expands left and right from the offset while characters match [isIdentifierChar].
+         *
+         * @param text the source text to search within
+         * @param offset the cursor position (0-based)
+         * @return the extracted identifier, or null if no identifier is found at the offset
+         */
+        internal fun extractWordFromText(
+            text: String,
+            offset: Int,
+        ): String? {
+            if (offset >= text.length && offset == 0) return null
+
+            var start = offset
+            var end = offset
+
+            // Expand left
+            while (start > 0 && isIdentifierChar(text[start - 1])) start--
+            // Expand right
+            while (end < text.length && isIdentifierChar(text[end])) end++
+
+            if (start == end) return null
+            return text.substring(start, end)
+        }
     }
-
-    private fun isIdentifierChar(ch: Char): Boolean = ch.isLetterOrDigit() || ch == '_' || ch == '\''
 
     // ── WorkspaceEdit application ──────────────────────────────────────
 
@@ -234,10 +257,5 @@ class RescriptRenameHandler : RenameHandler {
                 fileDocManager.saveDocument(doc)
             }
         })
-    }
-
-    companion object {
-        private val LOG = logger<RescriptRenameHandler>()
-        private const val TIMEOUT_MS = 10_000
     }
 }
