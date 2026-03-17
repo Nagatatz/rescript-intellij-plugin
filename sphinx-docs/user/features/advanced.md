@@ -617,6 +617,8 @@ TODO items appear in the IDE's **TODO** panel alongside items from other file ty
 
 The plugin indexes all `open` statements across your project for fast module resolution. This powers features like auto-import suggestions and module dependency analysis.
 
+The open statement index enables instant module lookups across the entire project, powering auto-import and dependency analysis without scanning files on every request.
+
 ## Project View Enhancements
 
 - **Interface indicator:** `.res` files with a corresponding `.resi` show a "(has .resi)" suffix
@@ -624,11 +626,15 @@ The plugin indexes all `open` statements across your project for fast module res
 - **Compiled JS nesting:** Compiled `.res.js` / `.res.mjs` files are nested under their corresponding `.res` source file in the Project panel, reducing visual clutter
 - **Compiled JS graying:** Nested compiled JS files are displayed in gray text to visually distinguish generated output from source files
 
+Project View enhancements reduce visual clutter by nesting generated files under their sources and surfacing useful metadata like interface presence and ReScript version, so the file tree stays focused on your source code.
+
 ## Auto Import Options
 
 Configure auto-import behavior in **Settings** > **Editor** > **General** > **Auto Import**:
 - Toggle automatic `open` statement insertion
 - Exclude specific modules from auto-import
+
+Fine-grained auto-import settings let you control which modules are automatically opened, preventing unwanted imports from cluttering your files.
 
 ## Expression Type
 
@@ -645,6 +651,8 @@ The type information is fetched from the Language Server via an LSP `textDocumen
 :::{tip}
 This is useful when you want to quickly check the type of a sub-expression without adding an explicit type annotation. Unlike inlay hints (which show types persistently), Expression Type is on-demand and works on any expression, not just declarations.
 :::
+
+Expression Type gives you on-demand type inspection for any expression — unlike persistent inlay hints, you invoke it only when needed, keeping the editor clean while still having instant access to type information.
 
 ## Type Info Tool Window
 
@@ -668,6 +676,8 @@ A persistent tool window that continuously displays the inferred type of the exp
 
 The Type Info Tool Window requires the Language Server to be running. If LSP is not connected, the panel shows a "No type information available" message.
 
+The Type Info Tool Window provides always-on type visibility as you navigate code — unlike Expression Type which requires a shortcut, this panel updates automatically, making it ideal for exploring unfamiliar codebases.
+
 ## LSP Auto-Install
 
 When you open a ReScript project without `@rescript/language-server` installed, the plugin displays a notification with a one-click install button.
@@ -686,6 +696,8 @@ The notification only appears when:
 - The project contains `rescript.json` or `bsconfig.json`
 - No custom LSP path is configured in settings
 - The Language Server is not found in `node_modules`
+
+LSP Auto-Install removes the most common setup hurdle — instead of manually running npm commands and configuring paths, one click installs the Language Server and starts it automatically.
 
 ## GitHub Error Reporter
 
@@ -707,6 +719,8 @@ The error report is opened in your browser as a draft GitHub issue. You can revi
 
 A GitHub account is required to submit error reports. The report opens on the plugin's GitHub repository issue tracker.
 
+The error reporter makes it easy to help improve the plugin — when something goes wrong, a pre-filled GitHub issue lets you report the problem with minimal effort while maintaining full control over what is shared.
+
 ## Inspection Suppressor
 
 Suppress specific inspections using `// noinspection` comments:
@@ -717,11 +731,15 @@ open Belt
 open Belt  // This duplicate open won't be flagged
 ```
 
+When an inspection produces false positives in specific locations, you can suppress it with a comment rather than disabling it globally, keeping the inspection active elsewhere.
+
 ## Framework Detector
 
 The plugin automatically detects ReScript projects by looking for `rescript.json` files. When a project containing `rescript.json` is opened, the IDE recognizes it as a ReScript project and suggests configuring the framework accordingly.
 
 This enables framework-aware features like project-specific settings and tool integrations.
+
+Automatic framework detection means the plugin activates its full feature set as soon as you open a ReScript project, with no manual configuration required.
 
 ## Code Rearranger
 
@@ -737,6 +755,8 @@ The default order is:
 6. `let` declarations
 
 This helps maintain a consistent file structure across your project.
+
+Automatic rearrangement enforces a consistent declaration ordering across all files, so readers always know where to find types, modules, and functions without relying on individual developer habits.
 
 ## Dependency Diagram
 
@@ -761,6 +781,8 @@ The diagram provider scans all `.res` files in the project and builds a dependen
 - **Identifying tight coupling** — Spot modules with too many dependencies
 - **Refactoring planning** — Understand the impact of moving or splitting modules
 
+The dependency diagram reveals your project's module structure visually, making it easy to spot circular dependencies, tightly coupled modules, and refactoring opportunities that are hard to see in code alone.
+
 ## PPX Expansion View
 
 A tool window that displays the expanded output of PPX macros applied to the current file.
@@ -783,6 +805,8 @@ The PPX Expansion View runs the ReScript compiler's PPX preprocessor on the curr
 - **Debugging PPX behavior** — Understand why generated code doesn't work as expected
 - **Learning** — See how PPX attributes transform your source code
 - **Optimization** — Review the generated output for performance considerations
+
+PPX macros generate code that you never see in your source files — this view makes the generated code visible, helping you debug PPX-related issues and understand what the compiler actually produces.
 
 ## Comment Code Evaluation
 
@@ -809,6 +833,8 @@ let add = (a, b) => a + b
 
 The plugin extracts the code block, compiles and runs it, and displays the result as an inline annotation.
 
+Comment code evaluation verifies that documentation examples are correct and up to date, catching stale or broken code samples before they mislead users.
+
 ## Type Signature Search
 
 Search for functions by their type signature in the **Search Everywhere** dialog (`Shift+Shift`).
@@ -833,6 +859,8 @@ Type signature queries use standard ReScript type syntax:
 
 The search matches against function type signatures from the project's stub index, providing fast lookup without requiring the LSP server.
 
+When you know what type of function you need but not its name, type signature search lets you discover the right function by its shape — a natural fit for a type-inferred language like ReScript.
+
 ## Restart LSP Action
 
 If the Language Server becomes unresponsive or you need to pick up configuration changes, you can restart it via **Tools > Restart ReScript Language Server**.
@@ -844,6 +872,8 @@ If the Language Server becomes unresponsive or you need to pick up configuration
 - After changing LSP-related settings that require a server restart
 
 The action is only available when a project is open. It stops the current LSP server instance and starts a fresh one.
+
+A quick manual restart is the simplest fix when the Language Server gets into a bad state, avoiding the need to restart the entire IDE.
 
 ## LSP Initialization Options
 
@@ -861,6 +891,8 @@ The plugin sends several initialization options to the ReScript Language Server,
 | **Enable compile status** | On | Receive compile status notifications from the LSP server |
 
 Changes to these settings take effect after the LSP server restarts (which happens automatically when you click **Apply** in the settings dialog).
+
+These initialization options give you the same configuration flexibility as the VSCode extension, so you can fine-tune LSP behavior like signature help, caching, and inlay hints to match your preferences.
 
 ## Dump LSP State
 
@@ -882,6 +914,8 @@ The action collects and displays:
 - **Bug reports** — Include LSP state when reporting issues to plugin maintainers
 - **Debugging** — Check what configuration the LSP server has loaded
 
+Dump LSP State provides the diagnostic information needed to troubleshoot Language Server issues or include in bug reports, without manually inspecting configuration files or log output.
+
 ## Predefined Code Style
 
 The plugin registers a "ReScript Standard" predefined code style that can be applied via **Settings** > **Editor** > **Code Style** > **ReScript** > **Set from...** > **Predefined Style** > **ReScript Standard**.
@@ -889,6 +923,8 @@ The plugin registers a "ReScript Standard" predefined code style that can be app
 This provides a one-click way to configure indentation and formatting settings to match the standard ReScript conventions (2-space indentation, no tabs).
 
 For manual indentation and tab/space configuration, go to **Settings** > **Editor** > **Code Style** > **ReScript**.
+
+The predefined code style gives you correct ReScript formatting conventions in one click, so you do not need to configure indentation settings manually.
 
 ## Element Descriptions
 
@@ -899,6 +935,8 @@ For example, when using Safe Delete on a function, the confirmation dialog shows
 > Delete function 'greet'?
 
 rather than a generic "Delete element" message. This applies to `let` bindings, `type` declarations, `module` declarations, `external` declarations, and `exception` declarations.
+
+Descriptive element names in IDE dialogs make refactoring confirmations clearer — you see "Delete function 'greet'" instead of a generic message, reducing the risk of accidental deletions.
 
 ## Build Watch Auto-Start Prompt
 
@@ -920,6 +958,8 @@ The prompt appears at project startup if:
 | **Don't ask again** | Dismisses the prompt for this IDE session |
 
 Clicking **Start Build Watch** opens the Run tool window with a live-recompiling build process.
+
+The build watch prompt ensures you start getting live compilation feedback from the moment you open your project, without needing to remember to run the build command manually.
 
 ## REPL
 
@@ -973,6 +1013,8 @@ Each execution is isolated:
 - No persistent state between executions (each run is isolated)
 - 30-second timeout for compilation and execution
 
+The REPL provides an interactive feedback loop for testing expressions and exploring APIs without creating files, compiling, and running — ideal for learning ReScript or verifying quick assumptions.
+
 ## Worksheet Mode
 
 Worksheet files (`.resw`) allow you to write ReScript code and have each top-level expression evaluated with results displayed inline.
@@ -1003,6 +1045,8 @@ The worksheet understands multi-line expressions by tracking brace and parenthes
 - ReScript CLI (`rescript`) must be installed in the project
 - Node.js must be available in PATH
 
+Worksheets provide a notebook-like experience where you see every expression's result inline, making them ideal for prototyping algorithms, testing transformations, and verifying documentation examples.
+
 ## Scratch Files
 
 Create temporary ReScript files in the IDE's Scratches panel for quick experiments without adding files to your project.
@@ -1025,6 +1069,8 @@ Js.log(result)
 - Standalone files stored outside your project directory
 - Can be compiled and run like normal `.res` files
 - Useful for prototyping, testing library functions, or learning ReScript syntax
+
+Scratch files give you a disposable workspace for quick experiments without adding files to your project or polluting your source tree.
 
 ## Call Hierarchy
 
@@ -1058,3 +1104,5 @@ The call hierarchy uses PSI-based text search rather than LSP:
 - Text-based matching --- aliased or module-qualified calls may not be found
 - Callees are detected within the same file only (no cross-file callee detection)
 - Works on `let` and `external` declarations in `.res` files
+
+Understanding the call chain of a function is essential when refactoring or debugging — this view reveals who calls a function and what it calls without manually tracing through the code.
