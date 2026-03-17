@@ -18,7 +18,9 @@ Shortcuts shown are for macOS. On Windows/Linux, replace `Cmd` with `Ctrl` and `
 | `Alt+F7` | Find Usages |
 | `Cmd+7` | Structure View |
 | `Ctrl+U` | Goto Super (.res ↔ .resi declaration) |
+| `Ctrl+Alt+B` | Go to Implementation (.resi → .res) |
 | `Ctrl+Shift+T` | Go to Test / Create Test |
+| `Ctrl+Alt+H` | Call Hierarchy |
 | `Alt+Q` | Context Info (sticky declaration header) |
 | `Shift+F1` | External Documentation (Belt/Js API docs) |
 
@@ -42,6 +44,10 @@ The most frequently used navigation shortcut is **Cmd+B** (Go to Definition). Pr
 
 **Go to Test** (`Ctrl+Shift+T`) navigates between an implementation file and its test file. If the test file does not exist, a dialog offers to create one with framework-specific boilerplate (Jest or Vitest).
 
+**Go to Implementation** (`Ctrl+Alt+B`) jumps from a declaration in a `.resi` interface file to its corresponding implementation in the `.res` file. This is the inverse of **Goto Super** (`Ctrl+U`), which goes from `.res` to `.resi`.
+
+**Call Hierarchy** (`Ctrl+Alt+H`) opens a tool window showing the call hierarchy for the function at the cursor. You can explore both callers (who calls this function) and callees (what this function calls) as a navigable tree. This is invaluable for understanding how a function fits into the larger codebase before refactoring it.
+
 **Context Info** (`Alt+Q`) shows the enclosing declaration header as a sticky line at the top of the editor when you have scrolled past the beginning of a long function or module body.
 
 **External Documentation** (`Shift+F1`) opens the rescript-lang.org API documentation for `Belt.*` and `Js.*` standard library modules in your browser.
@@ -59,7 +65,6 @@ The most frequently used navigation shortcut is **Cmd+B** (Go to Definition). Pr
 | `Alt+Enter` | Show intentions (Wrap with Some/Ok/Error, etc.) |
 | `Ctrl+Alt+T` | Surround with (if/switch/try/block) |
 | `Ctrl+Alt+O` | Optimize imports (remove duplicate opens) |
-| `Shift+F6` | Rename symbol |
 | `Ctrl+Shift+Delete` | Unwrap/Remove (Some/Ok/Error/if/switch/try/block) |
 | `Ctrl+Shift+J` | Smart Join Lines (pipe/let/arrow aware) |
 | `Alt+Shift+Cmd+Left/Right` | Move element left/right |
@@ -79,11 +84,34 @@ The most frequently used navigation shortcut is **Cmd+B** (Go to Definition). Pr
 
 **Optimize imports** (`Ctrl+Alt+O`) removes duplicate `open` statements from the file. If you have accidentally opened the same module multiple times, this shortcut cleans them up in one action.
 
-**Rename symbol** (`Shift+F6`) renames the identifier at the cursor and updates all references across the project. This works for `let` bindings, type names, module names, and other named entities. Since it relies on semantic analysis, it requires the LSP to be connected.
-
 **Unwrap/Remove** (`Ctrl+Shift+Delete`) removes a surrounding wrapper and extracts the inner expression. Place your cursor inside `Some(expr)`, `Ok(expr)`, `Error(expr)`, `if`, `switch`, `try`, or bare braces, and choose which wrapper to remove. This is the inverse of the "Wrap with" intention actions.
 
 **Smart Join Lines** (`Ctrl+Shift+J`) joins the current line with the next using ReScript-aware logic. When joining pipe chains (`->`), lines are joined without adding a space. When joining let bindings or arrow functions, a single space is inserted after `=` or `=>`.
+
+## Refactoring
+
+| Shortcut | Action |
+|----------|--------|
+| `Shift+F6` | Rename symbol |
+| `Ctrl+Alt+V` | Extract Variable |
+| `Ctrl+Alt+M` | Extract Function |
+| `Ctrl+Alt+N` | Inline Variable/Function |
+| `Ctrl+F6` | Change Signature |
+| `Alt+Delete` | Safe Delete |
+
+### Tips
+
+**Rename symbol** (`Shift+F6`) renames the identifier at the cursor and updates all references across the project. This works for `let` bindings, type names, module names, and other named entities. Since it relies on semantic analysis, it requires the LSP to be connected.
+
+**Extract Variable** (`Ctrl+Alt+V`) extracts the selected expression into a new `let` binding placed above the current statement. The original expression is replaced with a reference to the new binding. This is useful for breaking up complex expressions into named intermediate values that improve readability.
+
+**Extract Function** (`Ctrl+Alt+M`) extracts the selected code into a new function. The plugin analyzes which variables from the surrounding scope are used in the selection and generates the appropriate parameters. The original code is replaced with a call to the new function.
+
+**Inline Variable/Function** (`Ctrl+Alt+N`) is the inverse of extraction: it replaces a variable or function reference with its definition and removes the original binding. Use this to simplify code when an intermediate variable or wrapper function adds no clarity.
+
+**Change Signature** (`Ctrl+F6`) opens a dialog to modify a function's parameters --- add, remove, reorder, or rename them. All call sites are updated automatically to match the new signature. This is especially useful for adding labeled arguments to an existing function.
+
+**Safe Delete** (`Alt+Delete`) deletes a symbol only after verifying that it has no remaining usages in the project. If usages are found, a dialog shows them so you can review and decide whether to proceed. This prevents accidental breakage from removing a function or type that is still referenced elsewhere.
 
 ## Completion
 
