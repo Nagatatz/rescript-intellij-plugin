@@ -62,7 +62,9 @@ class RescriptRenameHandler : RenameHandler {
         if (lspServer == null) {
             Messages.showErrorDialog(
                 project,
-                "ReScript Language Server is not running.\nMake sure @rescript/language-server is installed.",
+                "ReScript Language Server is not running. " +
+                    "Ensure @rescript/language-server is installed (npm install @rescript/language-server) " +
+                    "and check Settings > Languages & Frameworks > ReScript for server configuration.",
                 "Rename Unavailable",
             )
             return
@@ -77,7 +79,8 @@ class RescriptRenameHandler : RenameHandler {
         if (currentName == null) {
             Messages.showInfoMessage(
                 project,
-                "Cannot rename the element at the current cursor position.",
+                "Cannot rename the element at the current cursor position. " +
+                    "Place the cursor on an identifier (variable, function, type, or module name) and try again.",
                 "Rename",
             )
             return
@@ -104,7 +107,12 @@ class RescriptRenameHandler : RenameHandler {
                 }
             } catch (e: Exception) {
                 LOG.warn("LSP rename request failed", e)
-                Messages.showErrorDialog(project, "Rename failed: ${e.message}", "Rename Error")
+                Messages.showErrorDialog(
+                    project,
+                    "Rename failed: ${e.message}. " +
+                        "Check that the ReScript project builds successfully and the language server is responding.",
+                    "Rename Error",
+                )
                 return
             }
 
