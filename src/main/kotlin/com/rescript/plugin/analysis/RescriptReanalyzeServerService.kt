@@ -208,34 +208,45 @@ class RescriptReanalyzeServerService(
     }
 
     private fun performHealthCheck() {
-        when (serverState) {
-            ServerState.RUNNING -> {
-                val process = serverProcess
-                if (process == null || !process.isAlive) {
-                    LOG.warn("Reanalyze server process died unexpectedly")
-                    cleanupSocket()
-                    serverState = ServerState.STOPPED
+        val basePath = project.basePath
+        val isProcessAlive = serverProcess?.isAlive == true
+        val socketPresent = basePath != null && isSocketPresent(basePath)
 
-                    if (restartCount < MAX_RESTART_COUNT) {
-                        restartCount++
-                        LOG.info("Attempting restart ($restartCount/$MAX_RESTART_COUNT)")
-                        startServer()
-                    } else {
-                        LOG.warn("Max restart attempts reached, giving up")
-                        stopHealthCheck()
-                    }
-                }
+        val action =
+            RescriptReanalyzeHealthChecker.determineAction(
+                state = serverState,
+                isProcessAlive = isProcessAlive,
+                isSocketPresent = socketPresent,
+                restartCount = restartCount,
+                maxRestartCount = MAX_RESTART_COUNT,
+            )
+
+        when (action) {
+            RescriptReanalyzeHealthChecker.HealthCheckAction.HEALTHY,
+            RescriptReanalyzeHealthChecker.HealthCheckAction.NO_CHECK_NEEDED,
+            -> { /* no action */ }
+
+            RescriptReanalyzeHealthChecker.HealthCheckAction.RESTART -> {
+                LOG.warn("Reanalyze server process died unexpectedly")
+                cleanupSocket()
+                serverState = ServerState.STOPPED
+                restartCount++
+                LOG.info("Attempting restart ($restartCount/$MAX_RESTART_COUNT)")
+                startServer()
             }
-            ServerState.EXTERNAL -> {
-                val basePath = project.basePath
-                if (basePath == null || !isSocketPresent(basePath)) {
-                    LOG.info("External reanalyze server no longer available")
-                    serverState = ServerState.STOPPED
-                    stopHealthCheck()
-                }
+
+            RescriptReanalyzeHealthChecker.HealthCheckAction.MAX_RESTARTS_REACHED -> {
+                LOG.warn("Reanalyze server process died unexpectedly")
+                cleanupSocket()
+                serverState = ServerState.STOPPED
+                LOG.warn("Max restart attempts reached, giving up")
+                stopHealthCheck()
             }
-            else -> {
-                // No health check needed for STOPPED or STARTING
+
+            RescriptReanalyzeHealthChecker.HealthCheckAction.EXTERNAL_LOST -> {
+                LOG.info("External reanalyze server no longer available")
+                serverState = ServerState.STOPPED
+                stopHealthCheck()
             }
         }
     }
