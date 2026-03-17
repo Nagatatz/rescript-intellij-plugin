@@ -2,6 +2,7 @@ package com.rescript.plugin.lsp
 
 import com.intellij.openapi.project.Project
 import com.rescript.plugin.settings.RescriptProjectSettings
+import com.rescript.plugin.util.RescriptPaths
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -18,7 +19,7 @@ import java.nio.file.Path
  */
 object RescriptLspDetector {
     // Config file names that identify a ReScript project
-    private val RESCRIPT_CONFIG_FILES = listOf("rescript.json", "bsconfig.json")
+    private val RESCRIPT_CONFIG_FILES = RescriptPaths.CONFIG_FILE_NAMES
 
     /**
      * Checks whether `@rescript/language-server` is available in node_modules.
@@ -83,7 +84,7 @@ object RescriptLspDetector {
     }
 
     private fun hasLspInNodeModules(base: Path): Boolean {
-        val lspDir = base.resolve("node_modules/@rescript/language-server")
+        val lspDir = base.resolve(RescriptPaths.LSP_PACKAGE_DIR)
         return Files.isDirectory(lspDir)
     }
 

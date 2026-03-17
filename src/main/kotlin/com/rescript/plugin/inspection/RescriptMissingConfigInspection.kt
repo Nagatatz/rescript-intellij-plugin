@@ -6,6 +6,7 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptPaths
 
 /**
  * Local inspection that warns when neither `rescript.json` nor `bsconfig.json`
@@ -27,8 +28,8 @@ class RescriptMissingConfigInspection : LocalInspectionTool() {
                 val basePath = project.basePath ?: return
                 val baseDir = LocalFileSystem.getInstance().findFileByPath(basePath) ?: return
 
-                val hasRescriptJson = baseDir.findChild("rescript.json") != null
-                val hasBsConfig = baseDir.findChild("bsconfig.json") != null
+                val hasRescriptJson = baseDir.findChild(RescriptPaths.RESCRIPT_JSON) != null
+                val hasBsConfig = baseDir.findChild(RescriptPaths.BSCONFIG_JSON) != null
 
                 if (!hasRescriptJson && !hasBsConfig) {
                     @Suppress("DialogTitleCapitalization")

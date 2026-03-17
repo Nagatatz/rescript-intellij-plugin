@@ -4,6 +4,7 @@ import com.intellij.ide.IconProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptIcons
+import com.rescript.plugin.util.RescriptPaths
 import javax.swing.Icon
 
 /**
@@ -22,6 +23,6 @@ class RescriptJsonIconProvider : IconProvider() {
     }
 
     companion object {
-        private val CONFIG_FILE_NAMES = setOf("rescript.json", "bsconfig.json")
+        private val CONFIG_FILE_NAMES = RescriptPaths.CONFIG_FILE_NAMES
     }
 }

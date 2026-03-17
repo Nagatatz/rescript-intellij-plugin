@@ -1,5 +1,6 @@
 package com.rescript.plugin.run
 
+import com.rescript.plugin.util.RescriptPaths
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Files
 import java.nio.file.Path
@@ -46,7 +47,7 @@ object RescriptCliDetector {
     }
 
     private fun findInNodeModulesBin(base: Path): String? {
-        val bin = base.resolve("node_modules/.bin/$BIN_NAME")
+        val bin = base.resolve("${RescriptPaths.NODE_MODULES_BIN}/$BIN_NAME")
         if (Files.isExecutable(bin)) return bin.toString()
         return null
     }

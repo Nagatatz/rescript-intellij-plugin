@@ -4,6 +4,7 @@ import com.intellij.ide.projectView.PresentationData
 import com.intellij.ide.projectView.ProjectViewNode
 import com.intellij.ide.projectView.ProjectViewNodeDecorator
 import com.rescript.plugin.util.RescriptFileUtil
+import com.rescript.plugin.util.RescriptPaths
 
 /**
  * Decorates ReScript file nodes in the Project View with additional information.
@@ -29,7 +30,7 @@ class RescriptProjectViewNodeDecorator : ProjectViewNodeDecorator {
                     data.locationString = "has interface"
                 }
             }
-            file.name == "rescript.json" -> {
+            file.name == RescriptPaths.RESCRIPT_JSON -> {
                 // Show ReScript version from rescript.json
                 try {
                     val content = String(file.contentsToByteArray(), Charsets.UTF_8)

@@ -6,6 +6,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.rescript.plugin.util.RescriptFileUtil
+import com.rescript.plugin.util.RescriptPaths
 
 /**
  * Matches ReScript files inside `node_modules/` for reader mode display.
@@ -24,6 +25,6 @@ class RescriptReaderModeMatcher : ReaderModeMatcher {
     ): Boolean {
         if (!RescriptFileUtil.isRescriptFile(file)) return false
         // Detect files located inside any node_modules directory
-        return file.path.contains("/node_modules/")
+        return file.path.contains(RescriptPaths.NODE_MODULES_SEGMENT)
     }
 }

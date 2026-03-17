@@ -5,6 +5,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
+import com.rescript.plugin.util.RescriptPaths
 
 /**
  * Suppresses error highlighting for ReScript files in non-project directories.
@@ -24,12 +25,7 @@ class RescriptProblemHighlightFilter : ProblemHighlightFilter() {
     }
 
     companion object {
-        private val EXCLUDED_PATH_SEGMENTS =
-            listOf(
-                "/node_modules/",
-                "/lib/bs/",
-                "/lib/ocaml/",
-            )
+        private val EXCLUDED_PATH_SEGMENTS = RescriptPaths.EXCLUDED_PATH_SEGMENTS
 
         /**
          * Checks if a file resides in an excluded directory.

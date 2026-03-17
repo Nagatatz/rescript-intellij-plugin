@@ -3,6 +3,7 @@ package com.rescript.plugin.analysis
 import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import com.intellij.openapi.diagnostic.logger
+import com.rescript.plugin.util.RescriptPaths
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.io.IOException
 import java.nio.file.Files
@@ -80,7 +81,7 @@ object RescriptReanalyzeVersionDetector {
         var dir: Path? = Path.of(projectBasePath)
         var depth = 0
         while (dir != null && depth < RescriptSecurityUtils.MAX_PARENT_TRAVERSAL_DEPTH) {
-            val packageJson = dir.resolve("node_modules/rescript/package.json")
+            val packageJson = dir.resolve(RescriptPaths.RESCRIPT_PACKAGE_JSON)
             if (Files.isRegularFile(packageJson)) {
                 return parseVersionFromPackageJson(packageJson)
             }

@@ -4,6 +4,7 @@ import com.intellij.ide.actions.runAnything.activity.RunAnythingProviderBase
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.project.Project
+import com.rescript.plugin.util.RescriptPaths
 import javax.swing.Icon
 
 /**
@@ -87,8 +88,8 @@ class RescriptRunAnythingProvider : RunAnythingProviderBase<String>() {
          */
         private fun isRescriptProject(project: Project): Boolean {
             val basePath = project.basePath ?: return false
-            return java.io.File(basePath, "rescript.json").exists() ||
-                java.io.File(basePath, "bsconfig.json").exists()
+            return java.io.File(basePath, RescriptPaths.RESCRIPT_JSON).exists() ||
+                java.io.File(basePath, RescriptPaths.BSCONFIG_JSON).exists()
         }
     }
 }
