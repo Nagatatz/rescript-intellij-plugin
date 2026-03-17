@@ -47,5 +47,11 @@ sphinx-docs/tests/__pycache__/
 .env
 .env.*
 
+# Ralph
+.ralph/
+
+# Prompt
+PROMPT.md
+
 # Backup files
 *~
