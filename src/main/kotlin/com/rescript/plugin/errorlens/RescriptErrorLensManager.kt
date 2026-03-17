@@ -1,6 +1,7 @@
 package com.rescript.plugin.errorlens
 
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
+import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ModalityState
@@ -110,18 +111,9 @@ class RescriptErrorLensManager(
         line: Int,
         diagnostics: List<RescriptErrorLensHighlighterInfo>,
     ) {
-        val sorted = diagnostics.sortedByDescending { it.severity }
-        val primary = sorted.first()
-        val extraCount = sorted.size - 1
+        val (displayMessage, primarySeverity) = buildDisplayData(diagnostics)
 
-        val displayMessage =
-            if (extraCount > 0) {
-                "${primary.message} (+$extraCount more)"
-            } else {
-                primary.message
-            }
-
-        val renderer = RescriptErrorLensRenderer(displayMessage, primary.severity)
+        val renderer = RescriptErrorLensRenderer(displayMessage, primarySeverity)
 
         val document = editor.document
         if (line >= document.lineCount) return
@@ -145,5 +137,35 @@ class RescriptErrorLensManager(
     fun dispose() {
         lineInlayMap.values.forEach { it.dispose() }
         lineInlayMap.clear()
+    }
+
+    companion object {
+        /**
+         * Builds the display data for a set of diagnostics on the same line.
+         *
+         * Selects the highest severity diagnostic as the primary message and
+         * appends a "(+N more)" suffix when multiple diagnostics are present.
+         *
+         * @param diagnostics all diagnostics on a single line (must not be empty)
+         * @return a pair of (displayMessage, primarySeverity)
+         */
+        internal fun buildDisplayData(
+            diagnostics: List<RescriptErrorLensHighlighterInfo>,
+        ): Pair<String, HighlightSeverity> {
+            require(diagnostics.isNotEmpty()) { "diagnostics must not be empty" }
+
+            val sorted = diagnostics.sortedByDescending { it.severity }
+            val primary = sorted.first()
+            val extraCount = sorted.size - 1
+
+            val displayMessage =
+                if (extraCount > 0) {
+                    "${primary.message} (+$extraCount more)"
+                } else {
+                    primary.message
+                }
+
+            return Pair(displayMessage, primary.severity)
+        }
     }
 }
