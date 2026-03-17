@@ -53,8 +53,8 @@ intellijPlatform {
         ides {
             recommended()
         }
-        // CodeVisionPlaceholderCollector is listed as an exception ("Made public in 2024.2")
-        // on https://plugins.jetbrains.com/docs/intellij/api-internal.html
+        // Suppresses known false-positive verifier warnings. See the file for
+        // per-entry rationale and review dates.
         freeArgs.addAll(
             "-ignored-problems",
             layout.projectDirectory
