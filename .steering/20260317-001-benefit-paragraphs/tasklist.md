@@ -8,6 +8,6 @@
 - [x] Add benefit paragraphs to syntax-highlighting.md
 - [x] Add benefit paragraphs to code-editing.md
 - [x] Add benefit paragraphs to advanced.md
-- [ ] Update .po files with Japanese translations
-- [ ] Verify build with `make build-all`
+- [x] Update .po files with Japanese translations
+- [x] Verify build with `make build-all`
 - [ ] Merge to main
