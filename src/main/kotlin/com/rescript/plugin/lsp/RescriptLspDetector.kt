@@ -30,8 +30,7 @@ object RescriptLspDetector {
      * @param projectBasePath the project's base path, or null
      * @return true if the language server directory exists
      */
-    fun isLspAvailable(projectBasePath: String?): Boolean =
-        findInAncestors(projectBasePath, ::hasLspInNodeModules)
+    fun isLspAvailable(projectBasePath: String?): Boolean = findInAncestors(projectBasePath, ::hasLspInNodeModules)
 
     /**
      * Checks whether the given path is a ReScript project by looking for
@@ -43,14 +42,16 @@ object RescriptLspDetector {
      * @param projectBasePath the project's base path, or null
      * @return true if a ReScript config file is found
      */
-    fun isRescriptProject(projectBasePath: String?): Boolean =
-        findInAncestors(projectBasePath, ::hasRescriptConfig)
+    fun isRescriptProject(projectBasePath: String?): Boolean = findInAncestors(projectBasePath, ::hasRescriptConfig)
 
     /**
      * Walks from [projectBasePath] up through parent directories, returning true
      * as soon as [predicate] matches any directory.
      */
-    private fun findInAncestors(projectBasePath: String?, predicate: (Path) -> Boolean): Boolean {
+    private fun findInAncestors(
+        projectBasePath: String?,
+        predicate: (Path) -> Boolean,
+    ): Boolean {
         if (projectBasePath == null) return false
         var dir: Path? = Path.of(projectBasePath)
         while (dir != null) {

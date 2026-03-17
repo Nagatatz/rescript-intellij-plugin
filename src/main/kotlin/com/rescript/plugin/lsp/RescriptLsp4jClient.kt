@@ -94,21 +94,41 @@ private class FilteringNotificationsHandler(
     }
 
     // Delegate all other methods unchanged
+
     override fun applyEdit(params: org.eclipse.lsp4j.ApplyWorkspaceEditParams) = delegate.applyEdit(params)
+
     override fun registerCapability(params: RegistrationParams) = delegate.registerCapability(params)
+
     override fun unregisterCapability(params: UnregistrationParams) = delegate.unregisterCapability(params)
+
     override fun telemetryEvent(obj: Any) = delegate.telemetryEvent(obj)
+
     override fun publishDiagnostics(params: PublishDiagnosticsParams) = delegate.publishDiagnostics(params)
-    override fun showDocument(params: ShowDocumentParams): CompletableFuture<ShowDocumentResult> = delegate.showDocument(params)
+
+    override fun showDocument(params: ShowDocumentParams): CompletableFuture<ShowDocumentResult> =
+        delegate.showDocument(params)
+
     override fun logMessage(params: MessageParams) = delegate.logMessage(params)
+
     override fun workspaceFolders(): CompletableFuture<List<WorkspaceFolder>> = delegate.workspaceFolders()
-    override fun configuration(params: ConfigurationParams): CompletableFuture<List<Any?>> = delegate.configuration(params)
-    override fun createProgress(params: WorkDoneProgressCreateParams): CompletableFuture<Void> = delegate.createProgress(params)
+
+    override fun configuration(params: ConfigurationParams): CompletableFuture<List<Any?>> =
+        delegate.configuration(params)
+
+    override fun createProgress(params: WorkDoneProgressCreateParams): CompletableFuture<Void> =
+        delegate.createProgress(params)
+
     override fun notifyProgress(params: ProgressParams) = delegate.notifyProgress(params)
+
     override fun logTrace(params: LogTraceParams) = delegate.logTrace(params)
+
     override fun refreshSemanticTokens(): CompletableFuture<Void> = delegate.refreshSemanticTokens()
+
     override fun refreshCodeLenses(): CompletableFuture<Void> = delegate.refreshCodeLenses()
+
     override fun refreshInlayHints(): CompletableFuture<Void> = delegate.refreshInlayHints()
+
     override fun refreshInlineValues(): CompletableFuture<Void> = delegate.refreshInlineValues()
+
     override fun refreshDiagnostics(): CompletableFuture<Void> = delegate.refreshDiagnostics()
 }
