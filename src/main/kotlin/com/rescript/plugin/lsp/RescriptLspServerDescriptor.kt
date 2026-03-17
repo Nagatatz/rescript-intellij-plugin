@@ -11,6 +11,7 @@ import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import com.intellij.platform.lsp.api.customization.LspCustomization
 import com.rescript.plugin.settings.RescriptProjectSettings
 import com.rescript.plugin.util.RescriptFileUtil
+import com.rescript.plugin.util.RescriptPaths
 import com.rescript.plugin.util.RescriptProcessUtils
 import com.rescript.plugin.util.RescriptSecurityUtils
 import org.eclipse.lsp4j.services.LanguageServer
@@ -173,11 +174,11 @@ class RescriptLspServerDescriptor(
 
     private fun findInNodeModules(base: Path): String? {
         // .bin executable (npm/pnpm/yarn)
-        val bin = base.resolve("node_modules/.bin/rescript-language-server")
+        val bin = base.resolve("${RescriptPaths.NODE_MODULES_BIN}/${RescriptPaths.LSP_BIN_NAME}")
         if (Files.isExecutable(bin)) return bin.toString()
 
         // Direct JS entry-point
-        val js = base.resolve("node_modules/@rescript/language-server/out/cli.js")
+        val js = base.resolve(RescriptPaths.LSP_CLI_JS)
         if (Files.isRegularFile(js)) return js.toString()
 
         return null

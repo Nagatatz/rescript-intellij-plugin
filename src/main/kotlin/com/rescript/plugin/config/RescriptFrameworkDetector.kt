@@ -10,6 +10,7 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.patterns.ElementPattern
 import com.intellij.util.indexing.FileContent
+import com.rescript.plugin.util.RescriptPaths
 
 /**
  * Detects ReScript projects by looking for `rescript.json` files.
@@ -25,7 +26,7 @@ class RescriptFrameworkDetector : FrameworkDetector("rescript") {
     override fun getFileType(): FileType = JsonFileType.INSTANCE
 
     override fun createSuitableFilePattern(): ElementPattern<FileContent> =
-        FileContentPattern.fileContent().withName("rescript.json")
+        FileContentPattern.fileContent().withName(RescriptPaths.RESCRIPT_JSON)
 
     override fun getFrameworkType(): FrameworkType = RescriptFrameworkType.INSTANCE
 

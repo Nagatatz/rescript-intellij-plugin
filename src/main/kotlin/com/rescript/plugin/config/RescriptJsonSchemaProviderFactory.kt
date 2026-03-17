@@ -6,6 +6,7 @@ import com.jetbrains.jsonSchema.extension.JsonSchemaFileProvider
 import com.jetbrains.jsonSchema.extension.JsonSchemaProviderFactory
 import com.jetbrains.jsonSchema.extension.SchemaType
 import com.jetbrains.jsonSchema.impl.JsonSchemaVersion
+import com.rescript.plugin.util.RescriptPaths
 
 /**
  * Factory that registers a JSON Schema provider for ReScript configuration files.
@@ -35,6 +36,6 @@ private class RescriptJsonSchemaFileProvider : JsonSchemaFileProvider {
 
     companion object {
         private const val SCHEMA_PATH = "/schemas/rescript.schema.json"
-        private val CONFIG_FILE_NAMES = setOf("rescript.json", "bsconfig.json")
+        private val CONFIG_FILE_NAMES = RescriptPaths.CONFIG_FILE_NAMES
     }
 }

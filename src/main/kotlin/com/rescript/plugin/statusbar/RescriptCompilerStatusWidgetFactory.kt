@@ -7,6 +7,7 @@ import com.intellij.openapi.wm.StatusBarWidget
 import com.intellij.openapi.wm.StatusBarWidgetFactory
 import com.rescript.plugin.lsp.RescriptCompilationStatusService
 import com.rescript.plugin.lsp.RescriptCompilationStatusService.CompilationStatus
+import com.rescript.plugin.util.RescriptPaths
 
 /**
  * Factory for the status bar widget that displays the ReScript compiler status.
@@ -27,7 +28,7 @@ class RescriptCompilerStatusWidgetFactory : StatusBarWidgetFactory {
     override fun isAvailable(project: Project): Boolean {
         val basePath = project.basePath ?: return false
         val vfm = VirtualFileManager.getInstance()
-        return vfm.findFileByUrl("file://$basePath/rescript.json") != null
+        return vfm.findFileByUrl("file://$basePath/${RescriptPaths.RESCRIPT_JSON}") != null
     }
 
     override fun createWidget(project: Project): StatusBarWidget = RescriptCompilerStatusWidget(project)

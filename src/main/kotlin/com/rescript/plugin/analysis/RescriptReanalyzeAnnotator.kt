@@ -11,6 +11,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptPaths
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.io.IOException
 import java.nio.file.Files
@@ -147,14 +148,14 @@ class RescriptReanalyzeAnnotator :
             var depth = 0
             while (dir != null && depth < RescriptSecurityUtils.MAX_PARENT_TRAVERSAL_DEPTH) {
                 // Check node_modules/rescript/ for rescript-tools.exe or rescript-tools
-                val toolsExe = dir.resolve("node_modules/rescript/rescript-tools.exe")
+                val toolsExe = dir.resolve(RescriptPaths.RESCRIPT_TOOLS_EXE)
                 if (Files.isExecutable(toolsExe)) return toolsExe.toString()
 
-                val tools = dir.resolve("node_modules/rescript/rescript-tools")
+                val tools = dir.resolve(RescriptPaths.RESCRIPT_TOOLS)
                 if (Files.isExecutable(tools)) return tools.toString()
 
                 // Check node_modules/.bin/
-                val bin = dir.resolve("node_modules/.bin/rescript-tools")
+                val bin = dir.resolve("${RescriptPaths.NODE_MODULES_BIN}/${RescriptPaths.RESCRIPT_TOOLS_BIN_NAME}")
                 if (Files.isExecutable(bin)) return bin.toString()
 
                 dir = dir.parent

@@ -16,6 +16,7 @@ import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.rescript.plugin.run.RescriptRunUtils
+import com.rescript.plugin.util.RescriptPaths
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -190,7 +191,7 @@ class RescriptTestRunConfiguration(
         workDir: String,
         binName: String,
     ): String? {
-        val bin = Path.of(workDir).resolve("node_modules/.bin/$binName")
+        val bin = Path.of(workDir).resolve("${RescriptPaths.NODE_MODULES_BIN}/$binName")
         return if (Files.isExecutable(bin)) bin.toString() else null
     }
 }

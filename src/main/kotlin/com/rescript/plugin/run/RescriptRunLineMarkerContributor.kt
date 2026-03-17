@@ -7,6 +7,7 @@ import com.intellij.psi.PsiElement
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
+import com.rescript.plugin.util.RescriptPaths
 
 /**
  * Adds a run gutter icon to the first top-level declaration in ReScript files.
@@ -56,7 +57,7 @@ class RescriptRunLineMarkerContributor : RunLineMarkerContributor() {
                 java.nio.file.Path
                     .of(basePath)
             return java.nio.file.Files
-                .exists(baseDir.resolve("rescript.json"))
+                .exists(baseDir.resolve(RescriptPaths.RESCRIPT_JSON))
         }
 
         private fun isFirstTopLevelDeclaration(declaration: PsiElement): Boolean {
