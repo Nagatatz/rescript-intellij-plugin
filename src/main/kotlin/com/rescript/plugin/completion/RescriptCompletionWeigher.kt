@@ -24,33 +24,9 @@ class RescriptCompletionWeigher : CompletionWeigher() {
         val psiFile = location.completionParameters.originalFile
         if (psiFile.language != RescriptLanguage) return 0
 
-        val lookupString = element.lookupString
-
-        // Keywords get lowest priority
-        if (lookupString in RESCRIPT_KEYWORDS) {
-            return -10
-        }
-
-        // Check if this is a local variable (LSP typically marks these)
         val detail = element.getUserData(DETAIL_KEY)
-        if (detail != null && detail.contains("local", ignoreCase = true)) {
-            return 10
-        }
-
-        // Prefer shorter names (likely more relevant)
-        val lengthBonus =
-            when {
-                lookupString.length <= 5 -> 3
-                lookupString.length <= 10 -> 2
-                lookupString.length <= 20 -> 1
-                else -> 0
-            }
-
-        // Prefer lowercase-starting (values) over uppercase (modules/types)
-        // when in expression context
-        val caseBonus = if (lookupString.isNotEmpty() && lookupString.first().isLowerCase()) 1 else 0
-
-        return lengthBonus + caseBonus
+        val isLocal = detail != null && detail.contains("local", ignoreCase = true)
+        return computeWeight(element.lookupString, detail, isLocal)
     }
 
     companion object {
