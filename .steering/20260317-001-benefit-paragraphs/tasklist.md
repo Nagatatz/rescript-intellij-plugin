@@ -10,4 +10,4 @@
 - [x] Add benefit paragraphs to advanced.md
 - [x] Update .po files with Japanese translations
 - [x] Verify build with `make build-all`
-- [ ] Merge to main
+- [x] Merge to main
