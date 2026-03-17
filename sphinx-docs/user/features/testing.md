@@ -12,6 +12,8 @@ The plugin provides integrated test running for ReScript projects that use Jest 
 
 The plugin automatically detects which framework your project uses. If both are present, Vitest takes priority.
 
+Built-in framework detection means you can start running tests immediately without any manual plugin configuration — just install your preferred test framework and the plugin handles the rest.
+
 ### Jest Configuration
 
 To use Jest with ReScript, you need the following setup:
@@ -121,6 +123,8 @@ Key points for the Vitest configuration:
 
 Right-click on a test file in the Project panel and select **Run**. This creates a run configuration automatically if the file name matches the test naming convention.
 
+Multiple ways to run tests — from the editor, Project panel, or run configurations — let you choose the approach that fits your workflow, whether you are running a single test or the entire suite.
+
 ## Test Auto-Detection
 
 The plugin uses two mechanisms to detect test files and frameworks:
@@ -151,6 +155,8 @@ The plugin automatically recognizes files as test files based on their naming co
 - `Spec` (e.g., `MathSpec.res`)
 
 When you right-click on a file matching this pattern, the plugin offers to create a **ReScript Test** run configuration automatically, pre-filled with the detected framework and file path.
+
+Automatic detection of test frameworks and test files eliminates manual configuration — the plugin recognizes your testing setup and offers the right run options out of the box.
 
 ## Test Results
 
@@ -190,6 +196,8 @@ When you click on a test in the results tree, the plugin navigates to the corres
 
 This path mapping ensures that clicking a test result opens the original `.res` source file, not the compiled JavaScript file.
 
+The structured test tree with pass/fail indicators and source file navigation gives you the same rich testing experience as native JetBrains language plugins, even though ReScript tests run through compiled JavaScript.
+
 ## How It Works
 
 1. You write tests in `.res` files using your test framework's bindings (e.g., `@glennsl/rescript-jest`)
@@ -212,6 +220,8 @@ describe("Math utilities", () => {
   })
 })
 ```
+
+The plugin bridges the gap between ReScript source files and compiled JavaScript test execution, so you work entirely in `.res` files while the testing infrastructure handles the compilation and path mapping transparently.
 
 ## Troubleshooting
 
@@ -270,3 +280,5 @@ If your `rescript.json` uses a non-standard output directory, the path mapping m
 :::{note}
 Test running requires that your ReScript project is properly configured with a test framework and that the ReScript compiler has already compiled the test files. The plugin does not automatically trigger a ReScript build before running tests.
 :::
+
+These troubleshooting tips address the most common test setup issues, saving you from debugging the build pipeline when the fix is usually a missing dependency or a stale compilation.

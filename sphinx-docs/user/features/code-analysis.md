@@ -12,6 +12,8 @@ The Language Server provides real-time error and warning diagnostics as you type
 
 View all diagnostics in the **Problems** panel (`Alt+6`).
 
+Instead of waiting for a full build cycle to discover issues, you get immediate feedback on errors and warnings as you type, catching problems before they compound.
+
 ## Code Inspections
 
 The plugin includes built-in inspections that run locally without requiring the Language Server.
@@ -190,6 +192,8 @@ Server mode is enabled by default in **Settings** > **Languages & Frameworks** >
 
 **Note:** Existing behavior is fully preserved when server mode is disabled or ReScript < 12.1.0 is installed. The plugin falls back to the standard per-invocation `reanalyze -json` mode.
 
+Without dead code analysis, unused functions and types silently accumulate, increasing build times and cognitive load. Reanalyze integration surfaces this dead code automatically so you can keep your codebase lean and maintainable.
+
 ### Signature Sync Inspection
 
 Detects mismatches between `.res` implementation files and their `.resi` interface files. When a declaration in `.res` is added, removed, or has a different signature than what's declared in `.resi`, the inspection highlights the discrepancy.
@@ -206,6 +210,8 @@ let greet = (name: string, greeting: string) => `${greeting}, ${name}!`
 ```
 
 The inspection helps catch situations where the implementation has diverged from the interface, which would cause compilation errors.
+
+These local inspections run instantly without the Language Server, catching common code quality issues like redundant imports, empty scaffolding, and missing configuration before they become problems in code review.
 
 ### Mutability Diagnostics
 
@@ -325,6 +331,8 @@ Error Lens can be configured in **Settings** > **Languages & Frameworks** > **Re
 
 Error Lens updates automatically whenever the IDE's code analysis pass completes, so annotations stay in sync with the latest diagnostics.
 
+By showing diagnostics directly on the affected line, Error Lens eliminates the need to hover over underlines or check the Problems panel, letting you spot and fix issues without breaking your editing flow.
+
 ### Type Mismatch Inline Hints
 
 When a type error involves a mismatch between expected and actual types, Error Lens displays a structured inline hint showing both types side by side:
@@ -369,6 +377,8 @@ The format check is **disabled by default**. To enable it:
 
 - The `rescript` CLI must be installed in the project's `node_modules`. The plugin auto-detects it from `node_modules/.bin/rescript`.
 
+Format Check helps enforce a consistent code style across your team without manual review — unformatted files are flagged automatically and can be fixed with a single shortcut.
+
 ## Problem Highlight Filter
 
 The plugin suppresses code analysis highlights in directories where they are not useful, such as `node_modules/` and other dependency directories. This prevents noise from third-party library files appearing in the Problems panel and editor gutter.
@@ -383,6 +393,8 @@ The plugin suppresses code analysis highlights in directories where they are not
 The plugin implements IntelliJ's `ProblemHighlightFilter` extension point, which checks whether a file should receive code analysis highlights. Files inside filtered directories are excluded from highlighting, reducing false positives and improving IDE performance.
 
 This filter applies to all highlight types (errors, warnings, info) from both local inspections and the Language Server.
+
+This keeps the Problems panel focused on issues in your own code, filtering out noise from third-party libraries that would otherwise clutter your diagnostics and slow down the editor.
 
 ## Import Optimization
 
@@ -417,6 +429,8 @@ let x = [1, 2, 3]->Array.map(v => Some(v))
 ```
 
 After running the optimizer, a notification displays the result (e.g., "Removed 2 duplicate open statement(s)" or "No duplicate open statements found").
+
+Instead of manually scanning for and removing redundant `open` statements, a single shortcut cleans up all duplicates at once, keeping your imports tidy with zero effort.
 
 ## Quick Fixes (LSP)
 
@@ -495,3 +509,5 @@ let parse: string => JSON.t = jsonStr => {
 ```
 
 The quick fix parses the compiler diagnostic to extract candidate types and offers them as replacement options.
+
+LSP quick fixes turn compiler errors into one-click corrections, letting you resolve type mismatches, missing imports, and incomplete patterns directly from the error location instead of manually editing the code.

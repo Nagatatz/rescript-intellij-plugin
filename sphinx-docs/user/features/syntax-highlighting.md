@@ -360,6 +360,8 @@ let handleResponse = (status) =>
 
 The key difference from regular variants is that polymorphic variants do not require a prior type declaration and can be shared across unrelated types and modules.
 
+Lexer-based highlighting works instantly and offline — even before the Language Server starts or in files outside a ReScript project, your code is fully colored with accurate keyword, string, comment, and operator recognition.
+
 ### Module Names
 
 Uppercase identifiers are colored as **Module name** (typically using the class name color). In ReScript, uppercase identifiers conventionally denote modules, variant constructors, and functors:
@@ -494,6 +496,8 @@ In this example:
 - `className`, `key`, `onClick` are highlighted as regular identifiers
 - Expressions inside `{}` receive full ReScript syntax highlighting
 - `React.string`, `React.float`, `React.array` use **module name** coloring for `React`
+
+Dedicated JSX highlighting visually separates markup structure from logic, making React component code easier to scan by distinguishing HTML elements, component references, and expression interpolations at a glance.
 
 ## Layer 2: Semantic Highlighting
 
@@ -636,6 +640,8 @@ When the Language Server is disconnected or unavailable, the plugin gracefully f
 
 The transition between connected and disconnected states is seamless. As soon as the Language Server reconnects, semantic tokens are re-requested and coloring is restored.
 
+Semantic highlighting resolves ambiguities that lexer-based highlighting cannot — for example, visually distinguishing variant constructors like `Some` from module names like `Belt`, even though both are uppercase identifiers, making code significantly easier to read.
+
 ## Customizing Colors
 
 Go to **Settings** → **Editor** → **Color Scheme** → **ReScript** to customize colors for each token type.
@@ -709,3 +715,5 @@ The settings page is organized into the following groups:
 - The **Preview** pane in the color settings page shows a live ReScript code sample with both lexer and semantic highlighting applied, so you can see the effect of your changes immediately.
 - If you use a custom color scheme, the plugin's defaults for Darcula and Default serve as a good starting point.
 - Semantic color attributes only take effect when the Language Server is connected. You can customize them independently from their lexer-based counterparts.
+
+Full color customization lets you tailor the ReScript highlighting to match your personal preferences or team conventions, with a live preview so you can see changes immediately.

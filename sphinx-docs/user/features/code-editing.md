@@ -25,6 +25,8 @@ let multiply = (a, b) => a * b
 //#endregion
 ```
 
+Code folding lets you hide implementation details and focus on the declarations that matter, making large files navigable without splitting them into smaller ones.
+
 ## Code Formatting
 
 Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file using the `rescript format` CLI.
@@ -33,6 +35,8 @@ Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file using th
 Formatting requires the ReScript compiler (`rescript`) to be installed in your project.
 :::
 
+One shortcut formats your entire file to match the official ReScript style, eliminating manual whitespace adjustments and ensuring consistent code style across your team.
+
 ## Brace Matching
 
 The editor highlights matching brace pairs:
@@ -40,9 +44,13 @@ The editor highlights matching brace pairs:
 - `[` and `]`
 - `(` and `)`
 
+Brace matching helps you instantly see where a block opens and closes, preventing mismatched delimiters in deeply nested code.
+
 ## Smart Quotes
 
 When you type `"`, `'`, or `` ` ``, the closing quote is automatically inserted.
+
+Auto-paired quotes save keystrokes and prevent common syntax errors from unmatched string delimiters.
 
 ## Smart Enter
 
@@ -52,10 +60,14 @@ Press `Shift+Enter` to intelligently complete the current statement and start a 
 - Adds missing `switch` body braces
 - Moves the cursor to the right position
 
+Smart Enter intelligently closes open constructs and positions your cursor, so you can keep typing the next statement without manually balancing delimiters.
+
 ## Comment Toggle
 
 - `Ctrl+/` — Toggle line comment (`//`)
 - `Ctrl+Shift+/` — Toggle block comment (`/* */`)
+
+Quickly toggle comments on and off for debugging or temporarily disabling code, without manually typing or removing comment delimiters.
 
 ## Statement Mover
 
@@ -65,6 +77,8 @@ Move top-level declarations up or down:
 - `Alt+Shift+Down` — Move declaration down
 
 This moves the entire declaration (including decorators) as a unit.
+
+Reorder declarations without cut-and-paste — the mover handles the entire declaration block including decorators, so you never accidentally leave behind an annotation or break a multi-line definition.
 
 ## Intention Actions
 
@@ -94,6 +108,8 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Remove redundant braces | Remove unnecessary `{ }` around single expressions |
 | Fix identifier case | Correct identifier casing (e.g., lowercase for values, uppercase for modules) |
 | Expand destructuring | Expand `let {a, b} = x` into individual `let` bindings |
+
+Intention actions turn common code transformations into one-click operations — instead of manually restructuring code, press `Alt+Enter` and let the IDE handle the mechanical changes while you focus on the logic.
 
 ### Wrap with Some(...)
 
@@ -571,13 +587,19 @@ process(temp)
 }
 ```
 
+Surround With wraps selected code in a control structure with one shortcut, saving you from manually typing the surrounding syntax and re-indenting the enclosed code.
+
 ## Import Optimization
 
 Press `Ctrl+Alt+O` to remove duplicate `open` statements from the current file.
 
+A single shortcut cleans up all redundant `open` statements, keeping your imports tidy without manually scanning the file.
+
 ## Rename
 
 Press `Shift+F6` to rename a symbol across the project. The Language Server handles finding all references and updating them.
+
+Rename refactoring updates every reference across the entire project in one operation, eliminating the risk of missed or inconsistent renames that manual find-and-replace would leave behind.
 
 ## Extract Variable
 
@@ -603,6 +625,8 @@ let calculate = (a, b) => {
   result
 }
 ```
+
+Extract Variable lets you name intermediate expressions for clarity, making complex expressions self-documenting without manually restructuring the surrounding code.
 
 ## Extract Function
 
@@ -630,6 +654,8 @@ let calculate = (a, b) => {
 }
 ```
 
+Extract Function automatically detects free variables and turns them into parameters, so you can decompose large functions into smaller, reusable pieces without manually threading values through.
+
 ## Inline Variable/Function
 
 Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or function at the caret, replacing all references with the definition body.
@@ -648,6 +674,8 @@ let greet = (name) => `${prefix}, ${name}!`
 ```rescript
 let greet = (name) => `${"Hello"}, ${name}!`
 ```
+
+Inline refactoring is the reverse of extraction — it replaces an unnecessary intermediate variable with its definition, simplifying code when a named binding adds no clarity.
 
 ## Introduce Constant
 
@@ -670,6 +698,8 @@ let greeting = helloWorld
 let farewell = "Goodbye, World!"
 ```
 
+Introduce Constant extracts magic values into named bindings at the module level, making their intent explicit and enabling reuse across the file.
+
 ## Change Signature
 
 Press `Ctrl+F6` to modify a function's parameters — reorder, rename, add, or remove — and update call sites within the file.
@@ -691,6 +721,8 @@ let make = (~age: int, ~name: string) => { name, age }
 
 let user = make(~age=30, ~name="Alice")
 ```
+
+Change Signature lets you restructure a function's parameter list and automatically updates all call sites, making API evolution safe and mechanical rather than error-prone manual editing.
 
 ## React Component Extraction
 
@@ -731,9 +763,13 @@ let make = (~items) => {
 }
 ```
 
+Extracting a React component from JSX is a common refactoring in React development — this automation detects the required props and creates a properly structured module, saving you from manually copying code and threading props.
+
 ## Paste as JSON.t
 
 Use **Edit** > **Paste as JSON.t** to convert JSON from your clipboard into a ReScript `JSON.t` value.
+
+Instead of manually wrapping each JSON value in ReScript constructors, paste the raw JSON and get a correctly typed `JSON.t` expression instantly.
 
 ## Code Generation
 
@@ -974,6 +1010,8 @@ module PrintableImpl: Printable = {
 
 Replace `todo` placeholders with actual implementations. The generated module is constrained to the module type, so the compiler will catch any missing or incorrect signatures.
 
+Code generation turns type definitions into working code — switch arms, constructors, JSON codecs, and module skeletons are created automatically from your types, eliminating tedious and error-prone boilerplate writing.
+
 ## Strip Trailing Spaces
 
 The plugin protects whitespace inside string literals when IntelliJ removes trailing spaces on save. Without this, intentional whitespace at the end of a string line would be stripped.
@@ -983,6 +1021,8 @@ The plugin protects whitespace inside string literals when IntelliJ removes trai
 - `JS_STRING_OPEN` / `JS_STRING_CLOSE` — JavaScript template string boundaries
 
 Configure trailing space behavior in **Settings** > **Editor** > **General** > **On Save**.
+
+This protection ensures that intentional whitespace inside string literals is never silently removed by the editor's trailing space cleanup, preventing subtle bugs in string-heavy code.
 
 ## Editor Floating Toolbar
 
@@ -994,6 +1034,8 @@ A floating toolbar appears when editing ReScript files, providing quick access t
 
 The toolbar auto-shows when you start editing a ReScript file and auto-hides when not in use.
 
+The floating toolbar puts the most common ReScript-specific actions — format, view compiled JS, create interface — one click away, without memorizing keyboard shortcuts.
+
 ## Spellchecking
 
 The plugin supports IntelliJ's built-in spellchecker for:
@@ -1002,25 +1044,37 @@ The plugin supports IntelliJ's built-in spellchecker for:
 - String literals
 - Identifiers (camelCase splitting)
 
+Built-in spellchecking catches typos in comments, strings, and identifiers as you type, helping you maintain professional code quality without a separate review step.
+
 ## Backspace Handler
 
 When you delete an opening JSX tag with backspace, the matching closing tag is automatically removed.
+
+Paired tag deletion prevents orphaned closing tags — when you backspace through an opening JSX tag, the closing tag disappears automatically, keeping your markup balanced.
 
 ## Move Element Left/Right
 
 Use `Alt+Shift+Cmd+Left` / `Alt+Shift+Cmd+Right` to swap comma-separated elements. Works with function arguments, array items, record fields, and tuple elements.
 
+Reorder arguments, array items, or record fields with a keyboard shortcut instead of manually cutting and pasting, keeping commas and formatting correct automatically.
+
 ## Code Block Selection
 
 Use `Ctrl+Shift+[` and `Ctrl+Shift+]` to navigate to the start and end of the enclosing code block (brace-delimited).
+
+Quickly jump to block boundaries when working inside large function bodies or deeply nested structures, without scrolling or searching for the matching brace.
 
 ## Split/Join List
 
 Toggle comma-separated lists between single-line and multi-line format. Available via **Edit** > **Split/Join List**.
 
+Switching between compact and expanded list formats is a single action, so you can adjust code density for readability without manually adding or removing line breaks and trailing commas.
+
 ## Copy/Paste Escaping
 
 When pasting text into a string literal, special characters (backslash, quotes, newlines, tabs) are automatically escaped.
+
+Automatic escaping means you can paste raw text into a string literal and trust that special characters are handled correctly, avoiding hard-to-spot syntax errors from unescaped quotes or backslashes.
 
 ## Unwrap/Remove
 
@@ -1054,6 +1108,8 @@ let greeting = Some("Hello, world!")
 let greeting = "Hello, world!"
 ```
 
+Unwrap/Remove is the inverse of Surround With — it strips away a wrapper like `Some()`, `if`, or `try` in one action, simplifying expressions without manually deleting delimiters and re-indenting.
+
 ## JSX Auto-Close Tag
 
 When you type `>` to close a JSX opening tag, the corresponding closing tag is automatically inserted and the cursor is positioned between the tags.
@@ -1076,6 +1132,8 @@ This works for:
 - Module-qualified components: `<Module.Component>`
 
 The auto-close does not trigger for self-closing tags (e.g., `<br />`), inside comments, or inside string literals.
+
+Auto-closing tags saves keystrokes and prevents mismatched JSX tags — type the opening tag and the closing tag appears automatically, keeping your markup balanced as you write.
 
 ## Enter Handler (Comment Continuation)
 
@@ -1123,6 +1181,8 @@ After pressing Enter:
 /// A doc comment
 /// |
 ```
+
+Comment continuation keeps your multi-line comments properly formatted without manually typing prefixes on each new line, maintaining a clean comment style effortlessly.
 
 ## Smart Join Lines
 
@@ -1181,6 +1241,8 @@ let fn = (x) => x + 1
 
 For patterns not recognized above, the standard IDE join behavior is used.
 
+Smart join understands ReScript syntax — pipe chains join without spaces, let bindings preserve their `=`, and arrow functions stay readable, producing cleaner results than generic line joining.
+
 ## Highlight Related Keywords
 
 When the caret is placed on a control-flow keyword, all related keywords in the same construct are highlighted, showing the structure at a glance.
@@ -1206,6 +1268,8 @@ switch value {
 }
 ```
 
+Keyword highlighting reveals the full structure of a control-flow construct at a glance — place your caret on `switch` and see all its arms, or on `if` and see the entire `if`/`else` chain.
+
 ## Word Selection (Extend/Shrink)
 
 Use `Ctrl+W` (`Alt+Up` on macOS) to extend the selection and `Ctrl+Shift+W` (`Alt+Down` on macOS) to shrink it, with ReScript-aware boundaries.
@@ -1223,6 +1287,8 @@ The word selector recognizes the following ReScript-specific boundaries for exte
 
 This provides more natural selection behavior than the default word selector when working with ReScript code structures.
 
+ReScript-aware selection boundaries make it easy to select exactly the content you need — string contents without quotes, block comment text without delimiters — using the standard extend/shrink shortcuts.
+
 ## Paste as JSX
 
 When pasting HTML content into a ReScript file, it is automatically converted to JSX syntax:
@@ -1231,6 +1297,8 @@ When pasting HTML content into a ReScript file, it is automatically converted to
 - Inline `style` strings are converted to ReScript style objects
 - Boolean attributes (e.g., `disabled`, `checked`) are preserved as JSX boolean props
 - `data-*` and `aria-*` attributes are preserved as-is
+
+Paste as JSX converts HTML to ReScript JSX automatically — instead of manually renaming `class` to `className` and self-closing void elements, the conversion happens on paste.
 
 ## Paste as ReScript
 
@@ -1263,3 +1331,5 @@ let greeting = (name) => {
   name->String.toUpperCase
 }
 ```
+
+Paste as ReScript bridges the gap between JavaScript and ReScript — copy code from documentation, Stack Overflow, or existing JS files and paste it directly into a `.res` file with automatic syntax conversion.

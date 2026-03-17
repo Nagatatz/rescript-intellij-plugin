@@ -15,6 +15,8 @@ The Language Server provides intelligent, type-aware completions. Trigger comple
 - Type names
 - Pipe (`->`) chain suggestions
 
+Type-aware completions mean you spend less time memorizing API surfaces — the IDE suggests the right functions, fields, and constructors based on the types in your code.
+
 ## Postfix Completion
 
 Type an expression followed by `.` and a postfix template name to transform the expression.
@@ -218,6 +220,8 @@ await fetchData()
 ```
 
 This is the quickest way to await a promise expression without manually repositioning the cursor.
+
+Postfix templates let you transform expressions without moving the cursor back to the beginning — type the expression first, then apply the transformation, keeping your natural left-to-right typing flow.
 
 ## Live Templates
 
@@ -448,6 +452,8 @@ You can customize all ReScript live templates at **Settings** | **Editor** | **L
 - Change the abbreviation trigger text
 - Disable templates you do not use
 
+Live templates eliminate repetitive boilerplate — instead of typing out common patterns like `switch`, `if-else`, `@module` bindings, or React components from scratch, a short abbreviation expands into the full structure with placeholder navigation.
+
 ## Completion Weigher
 
 The plugin provides context-based prioritization of completion candidates, ensuring that the most relevant suggestions appear first in the completion popup.
@@ -473,6 +479,8 @@ names->  // Completion popup prioritizes Array functions:
          // over unrelated functions like String.length
 ```
 
+Smart ranking means the completion you want is usually at the top of the list, reducing the number of keystrokes needed to select the right candidate.
+
 ## Pipe Chain Type Hints
 
 When writing `->` pipe chains, the plugin displays intermediate type hints between each pipe step, making it easy to understand the data flow through a chain of transformations.
@@ -496,6 +504,8 @@ Pipe chain type hints are displayed as inlay hints. Configure their visibility i
 ### Requirements
 
 This feature requires the Language Server to be running, as the type information is fetched via LSP hover requests for each intermediate expression in the pipe chain.
+
+When building data transformation pipelines, intermediate type hints let you verify that each step produces the expected type, catching transformation errors mid-chain rather than at the end.
 
 ## Parameter Info
 
@@ -527,6 +537,8 @@ makeConfig(~host="localhost", | )
 
 Parameter Info is useful when you want to check the expected arguments after the initial signature help popup has dismissed, or when you navigate back to an existing function call.
 
+Parameter Info gives you on-demand access to a function's labeled arguments without leaving your current editing position, so you can fill in parameters correctly without checking the function definition.
+
 ## Signature Help
 
 When you type `(` after a function name, a popup shows the function's parameter information including types and names. This helps you fill in arguments correctly without checking the documentation.
@@ -547,6 +559,8 @@ Typing `makeUser(` triggers the signature help popup, which displays:
 
 As you type each argument and enter a comma, the popup highlights the current parameter position so you always know which argument you are filling in. This works for all functions whose signatures are known to the language server, including standard library functions and your own definitions.
 
+Signature Help removes the guesswork from function calls — you see the expected parameter types and names inline as you type, reducing errors from mismatched argument order or types.
+
 ## Completion Confidence
 
 The plugin suppresses the automatic completion popup in contexts where it would be unhelpful or disruptive:
@@ -556,9 +570,13 @@ The plugin suppresses the automatic completion popup in contexts where it would 
 
 In these contexts, you can still trigger completion manually with `Ctrl+Space`, but the popup will not appear automatically as you type. This prevents irrelevant suggestions from interrupting documentation or string authoring.
 
+This ensures the completion popup only appears when it is genuinely useful, so writing comments and strings is never interrupted by irrelevant code suggestions.
+
 ## Lookup Character Filter
 
 The plugin intelligently filters completion behavior based on typed characters:
 - Typing `.` accepts the current completion and inserts the dot (for module access patterns)
 - Typing `(` accepts the current completion and inserts parentheses (for function calls)
 - Other special characters behave appropriately for ReScript syntax
+
+Smart character handling lets you flow naturally from completion into the next editing action — accepting a module with `.` or a function with `(` — without extra keystrokes to dismiss the popup first.

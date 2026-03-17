@@ -76,6 +76,8 @@ The plugin automatically locates the `rescript` CLI binary by searching in the f
 
 If the CLI is not found, the run configuration displays an error: *"Cannot find 'rescript' CLI. Ensure it is installed via npm in the project."*
 
+Run configurations let you build, watch, and clean your ReScript project without leaving the IDE, keeping your terminal free and your build workflow integrated with the editor.
+
 ## Gutter Run Icons
 
 A green **Run** icon appears in the gutter (left margin) of `.res` files, providing a quick way to start a build without creating a run configuration manually.
@@ -107,6 +109,8 @@ Clicking the gutter icon opens the standard IntelliJ run menu, allowing you to:
 - **Edit Configurations** -- Open the run configuration editor to customize the build command
 
 If no ReScript run configuration exists yet, clicking the icon creates a new one with default settings (Build command, project root as working directory).
+
+Gutter run icons provide a zero-configuration way to trigger a build — new users can start compiling immediately without understanding run configurations or terminal commands.
 
 ## Build Status Indicator
 
@@ -141,6 +145,8 @@ Hovering over the status bar widget shows a detailed tooltip:
 - *"ReScript compilation succeeded"* on success
 - *"ReScript compilation failed: 3 errors, 2 warnings"* on error (with counts)
 - *"ReScript compilation completed with 2 warnings"* for warnings only
+
+The status bar gives you at-a-glance visibility into the compiler state, so you always know whether your code is clean, broken, or still compiling — even when the Run panel is closed.
 
 ## Console Output
 
@@ -185,6 +191,8 @@ The console filter uses a regular expression that matches paths in the format `<
 Console output filtering is applied to all console outputs in the project, not just ReScript run configurations. This means file paths in test output, script output, and other console panels are also linkified.
 :::
 
+Clickable file paths in compiler output turn error messages into direct navigation links, so you jump straight to the problem line instead of manually opening the file and scrolling to the right position.
+
 ## Run Anything
 
 Press `Ctrl+Ctrl` (double-tap Ctrl) to open the **Run Anything** dialog, then type a ReScript CLI command to execute it immediately without creating a run configuration.
@@ -204,6 +212,8 @@ Start typing `rescript` in the Run Anything dialog to see matching commands with
 Run Anything for ReScript is only available in projects that contain a `rescript.json` (or `bsconfig.json`) at the project root. The ReScript CLI must be installed in the project's `node_modules`.
 :::
 
+Run Anything lets you execute any ReScript CLI command with a quick keyboard shortcut, bypassing the overhead of creating a run configuration for one-off build or format operations.
+
 ## Scratch File
 
 Create temporary ReScript files for quick experimentation without affecting your project.
@@ -221,6 +231,8 @@ Scratch files are stored in the IDE's scratch directory (outside your project) a
 - **Quick prototyping** — Try out an idea without creating a file in your project
 - **Learning** — Experiment with ReScript syntax and features
 - **Debugging** — Isolate and test a specific piece of logic
+
+Scratch files give you a disposable workspace for quick experiments, so you can try out ideas without creating files in your project or polluting your source tree.
 
 ## REPL
 
@@ -243,6 +255,8 @@ The REPL compiles and executes ReScript expressions using the project's ReScript
 
 - ReScript compiler installed in the project's `node_modules`
 - Node.js available on the system
+
+The REPL provides an interactive feedback loop for testing expressions and exploring APIs without the overhead of creating files, compiling, and running — ideal for learning ReScript or verifying quick assumptions.
 
 ## Worksheet Mode
 
@@ -272,6 +286,8 @@ String.length(name)     // => 8
 - **REPL** evaluates one expression at a time in an interactive session
 - **Worksheet** evaluates an entire file at once, showing all results side by side with the source code
 
+Worksheets turn ReScript into a notebook-like experience where you see every expression's result alongside the code, making them perfect for exploratory programming and documentation examples.
+
 ## Debug Compiled JavaScript
 
 Press `Alt+Shift+D` to debug the compiled JavaScript output of the current `.res` file.
@@ -291,3 +307,5 @@ Press `Alt+Shift+D` to debug the compiled JavaScript output of the current `.res
 :::{tip}
 Use this in combination with the **Compiled JS Preview** tool window to understand the compiled output before debugging.
 :::
+
+When you need to debug runtime behavior, this lets you step through the compiled JavaScript with the IDE's full debugger, connecting ReScript source logic to its actual JavaScript execution.
