@@ -53,7 +53,9 @@
 
 ### 自己検証
 
+- [ ] `./gradlew ktlintCheck` が成功する
 - [ ] `./gradlew clean buildPlugin` が成功する
+- [ ] `./gradlew test` が成功する
 - [ ] ビルド警告が新たに増加していない（既存警告は許容）
 
 ### ドキュメント同期
