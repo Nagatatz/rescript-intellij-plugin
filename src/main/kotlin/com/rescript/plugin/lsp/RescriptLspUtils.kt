@@ -58,6 +58,9 @@ object RescriptLspUtils {
      * Converts an LSP file URI to an IntelliJ VFS-compatible URL.
      *
      * Normalizes URIs like "file:///path" through java.net.URI parsing.
+     * **Important:** Callers must validate the result with
+     * [com.rescript.plugin.util.RescriptSecurityUtils.isWithinProject] before
+     * performing file operations, as the URI originates from an external LSP server.
      *
      * @param uri the LSP file URI string
      * @return the VFS-compatible URL string

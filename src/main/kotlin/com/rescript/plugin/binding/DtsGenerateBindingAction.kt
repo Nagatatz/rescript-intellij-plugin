@@ -13,7 +13,8 @@ import com.intellij.openapi.progress.Task
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.rescript.plugin.settings.RescriptProjectSettings
-import java.io.File
+import com.rescript.plugin.util.RescriptSecurityUtils
+import java.nio.file.Paths
 
 /**
  * Action that generates ReScript binding code from a TypeScript `.d.ts` file.
@@ -31,6 +32,7 @@ class DtsGenerateBindingAction : AnAction() {
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
 
         if (!file.name.endsWith(".d.ts")) return
+        if (!RescriptSecurityUtils.isWithinProject(project, file)) return
 
         val settings = RescriptProjectSettings.getInstance(project)
         val nodePath = DtsNodeDetector.resolveNodePath(settings)
@@ -71,8 +73,8 @@ class DtsGenerateBindingAction : AnAction() {
         // Determine output file path
         val dtsPath = file.path
         val outputName = computeOutputName(file.nameWithoutExtension)
-        val outputPath = file.parent.path + File.separator + outputName + ".res"
-        val outputFile = File(outputPath)
+        val outputPath = Paths.get(file.parent.path).resolve("$outputName.res")
+        val outputFile = outputPath.toFile()
 
         // Check if output file already exists
         if (outputFile.exists()) {
@@ -108,9 +110,13 @@ class DtsGenerateBindingAction : AnAction() {
 
                         // Open the generated file in the editor
                         ApplicationManager.getApplication().invokeLater {
-                            VirtualFileManager.getInstance().refreshAndFindFileByUrl("file://$outputPath")?.let { vf ->
-                                FileEditorManager.getInstance(project).openFile(vf, true)
-                            }
+                            VirtualFileManager
+                                .getInstance()
+                                .refreshAndFindFileByUrl(
+                                    outputPath.toUri().toString(),
+                                )?.let { vf ->
+                                    FileEditorManager.getInstance(project).openFile(vf, true)
+                                }
                         }
 
                         indicator.fraction = 1.0
