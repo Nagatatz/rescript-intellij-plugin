@@ -1,25 +1,35 @@
 package com.rescript.plugin.codestyle
 
 import com.intellij.psi.codeStyle.CodeStyleSettings
-import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.rescript.plugin.IntelliJPlatformExtension
 import com.rescript.plugin.RescriptLanguage
-import junit.framework.TestCase
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
-class RescriptPredefinedCodeStyleTest : BasePlatformTestCase() {
+@ExtendWith(IntelliJPlatformExtension::class)
+class RescriptPredefinedCodeStyleTest {
+    @Suppress("unused")
+    private lateinit var myFixture: CodeInsightTestFixture
+
+    @Test
     fun testNameIsReScriptStandard() {
         val style = RescriptPredefinedCodeStyle()
-        TestCase.assertEquals("ReScript Standard", style.name)
+        assertEquals("ReScript Standard", style.name)
     }
 
+    @Test
     fun testApplySets2SpaceIndentWithNoTabs() {
         val style = RescriptPredefinedCodeStyle()
         val settings = CodeStyleSettings.getDefaults()
         style.apply(settings, RescriptLanguage)
 
         val indentOptions = settings.getCommonSettings(RescriptLanguage).indentOptions!!
-        TestCase.assertEquals(2, indentOptions.INDENT_SIZE)
-        TestCase.assertEquals(2, indentOptions.CONTINUATION_INDENT_SIZE)
-        TestCase.assertEquals(2, indentOptions.TAB_SIZE)
-        TestCase.assertFalse(indentOptions.USE_TAB_CHARACTER)
+        assertEquals(2, indentOptions.INDENT_SIZE)
+        assertEquals(2, indentOptions.CONTINUATION_INDENT_SIZE)
+        assertEquals(2, indentOptions.TAB_SIZE)
+        assertFalse(indentOptions.USE_TAB_CHARACTER)
     }
 }

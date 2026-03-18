@@ -2,8 +2,8 @@ package com.rescript.plugin.analysis
 
 import com.rescript.plugin.analysis.RescriptReanalyzeHealthChecker.HealthCheckAction
 import com.rescript.plugin.analysis.RescriptReanalyzeServerService.ServerState
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 class RescriptReanalyzeHealthCheckerTest {
     // --- RUNNING state tests ---

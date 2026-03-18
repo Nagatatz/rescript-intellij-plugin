@@ -1,7 +1,7 @@
 package com.rescript.plugin.binding
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /**
  * Unit tests for [DtsGenerateBindingAction]'s companion utility functions.

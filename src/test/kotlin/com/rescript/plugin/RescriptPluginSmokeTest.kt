@@ -2,7 +2,12 @@ package com.rescript.plugin
 
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.FileTypeManager
-import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 /**
  * Headless IDE smoke test that verifies the plugin loads correctly
@@ -11,37 +16,47 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase
  * Tests fundamental registration: language, file types, and basic file recognition.
  * Catches issues like EP registration errors and service initialization failures.
  */
-class RescriptPluginSmokeTest : BasePlatformTestCase() {
+@ExtendWith(IntelliJPlatformExtension::class)
+class RescriptPluginSmokeTest {
+    @Suppress("unused")
+    private lateinit var myFixture: CodeInsightTestFixture
+
+    @Test
     fun testLanguageRegistered() {
         val language = Language.findLanguageByID("ReScript")
-        assertNotNull("ReScript language should be registered", language)
+        assertNotNull(language, "ReScript language should be registered")
         assertEquals(RescriptLanguage, language)
     }
 
+    @Test
     fun testResFileTypeRegistered() {
         val fileType = FileTypeManager.getInstance().getFileTypeByExtension("res")
-        assertNotNull("File type for .res should be registered", fileType)
+        assertNotNull(fileType, "File type for .res should be registered")
         assertEquals("ReScript", fileType.name)
     }
 
+    @Test
     fun testResiFileTypeRegistered() {
         val fileType = FileTypeManager.getInstance().getFileTypeByExtension("resi")
-        assertNotNull("File type for .resi should be registered", fileType)
+        assertNotNull(fileType, "File type for .resi should be registered")
         assertEquals("ReScript Interface", fileType.name)
     }
 
+    @Test
     fun testResFileRecognized() {
         val file = myFixture.configureByText("test.res", "let x = 1")
-        assertNotNull("PsiFile should be created for .res file", file)
+        assertNotNull(file, "PsiFile should be created for .res file")
         assertEquals(RescriptLanguage, file.language)
     }
 
+    @Test
     fun testResiFileRecognized() {
         val file = myFixture.configureByText("test.resi", "let x: int")
-        assertNotNull("PsiFile should be created for .resi file", file)
+        assertNotNull(file, "PsiFile should be created for .resi file")
         assertEquals(RescriptLanguage, file.language)
     }
 
+    @Test
     fun testLexerProducesTokens() {
         val file =
             myFixture.configureByText(
@@ -58,9 +73,10 @@ class RescriptPluginSmokeTest : BasePlatformTestCase() {
             tokens.add(node.elementType)
             node = node.treeNext
         }
-        assertTrue("Should produce PSI nodes", tokens.isNotEmpty())
+        assertTrue(tokens.isNotEmpty(), "Should produce PSI nodes")
     }
 
+    @Test
     fun testBasicHighlighting() {
         // Verify that configuring a ReScript file doesn't throw exceptions
         val file =
@@ -73,6 +89,6 @@ class RescriptPluginSmokeTest : BasePlatformTestCase() {
                 """.trimIndent(),
             )
         // If we get here without exceptions, the highlighting infrastructure works
-        assertNotNull("File should be configured without exceptions", file)
+        assertNotNull(file, "File should be configured without exceptions")
     }
 }

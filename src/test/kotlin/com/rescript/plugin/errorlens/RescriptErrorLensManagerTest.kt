@@ -1,8 +1,9 @@
 package com.rescript.plugin.errorlens
 
 import com.intellij.lang.annotation.HighlightSeverity
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
 
 /**
  * Unit tests for [RescriptErrorLensManager]'s display logic.
@@ -74,9 +75,11 @@ class RescriptErrorLensManagerTest {
         assertEquals("Warning A (+1 more)", message)
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun testEmptyDiagnosticsListThrowsException() {
-        RescriptErrorLensManager.buildDisplayData(emptyList())
+        assertThrows(IllegalArgumentException::class.java) {
+            RescriptErrorLensManager.buildDisplayData(emptyList())
+        }
     }
 
     @Test

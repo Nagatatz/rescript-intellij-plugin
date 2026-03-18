@@ -1,7 +1,12 @@
 package com.rescript.plugin.highlight
 
-import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.rescript.plugin.IntelliJPlatformExtension
 import com.rescript.plugin.lang.RescriptTokenTypes
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 /**
  * Integration test for ReScript syntax highlighting using the full IDE platform.
@@ -9,21 +14,27 @@ import com.rescript.plugin.lang.RescriptTokenTypes
  * Verifies that the lexer and syntax highlighter work correctly end-to-end
  * when processing real ReScript files through the IntelliJ infrastructure.
  */
-class RescriptHighlightingIntegrationTest : BasePlatformTestCase() {
-    override fun getTestDataPath(): String = "src/test/testData/highlighting"
+@ExtendWith(IntelliJPlatformExtension::class)
+class RescriptHighlightingIntegrationTest {
+    private lateinit var myFixture: CodeInsightTestFixture
 
+    @Suppress("unused")
+    private val testDataPath: String = "src/test/testData/highlighting"
+
+    @Test
     fun testFileParsesPsiTreeSuccessfully() {
         val file =
             myFixture.configureByText(
                 "BasicHL.res",
                 "let x = 1\ntype t = int\nmodule M = {}\n",
             )
-        assertNotNull("Expected non-null PSI file", file)
-        assertNotNull("Expected non-null AST node", file.node)
+        assertNotNull(file, "Expected non-null PSI file")
+        assertNotNull(file.node, "Expected non-null AST node")
         val tokens = collectTokenTypes(file)
-        assertTrue("Expected at least one token", tokens.isNotEmpty())
+        assertTrue(tokens.isNotEmpty(), "Expected at least one token")
     }
 
+    @Test
     fun testKeywordsAreTokenized() {
         val file =
             myFixture.configureByText(
@@ -31,25 +42,28 @@ class RescriptHighlightingIntegrationTest : BasePlatformTestCase() {
                 "let x = 1\ntype t = int\nmodule M = {}\nopen Belt",
             )
         val tokens = collectTokenTypes(file)
-        assertTrue("Expected LET token", tokens.contains(RescriptTokenTypes.LET))
-        assertTrue("Expected TYPE token", tokens.contains(RescriptTokenTypes.TYPE))
-        assertTrue("Expected MODULE token", tokens.contains(RescriptTokenTypes.MODULE))
-        assertTrue("Expected OPEN token", tokens.contains(RescriptTokenTypes.OPEN))
+        assertTrue(tokens.contains(RescriptTokenTypes.LET), "Expected LET token")
+        assertTrue(tokens.contains(RescriptTokenTypes.TYPE), "Expected TYPE token")
+        assertTrue(tokens.contains(RescriptTokenTypes.MODULE), "Expected MODULE token")
+        assertTrue(tokens.contains(RescriptTokenTypes.OPEN), "Expected OPEN token")
     }
 
+    @Test
     fun testStringLiteralsAreTokenized() {
         val file = myFixture.configureByText("Strings.res", "let s = \"hello world\"")
         val tokens = collectTokenTypes(file)
-        assertTrue("Expected STRING_VALUE token", tokens.contains(RescriptTokenTypes.STRING_VALUE))
+        assertTrue(tokens.contains(RescriptTokenTypes.STRING_VALUE), "Expected STRING_VALUE token")
     }
 
+    @Test
     fun testNumericLiteralsAreTokenized() {
         val file = myFixture.configureByText("Numbers.res", "let n = 42\nlet f = 3.14")
         val tokens = collectTokenTypes(file)
-        assertTrue("Expected INT_VALUE token", tokens.contains(RescriptTokenTypes.INT_VALUE))
-        assertTrue("Expected FLOAT_VALUE token", tokens.contains(RescriptTokenTypes.FLOAT_VALUE))
+        assertTrue(tokens.contains(RescriptTokenTypes.INT_VALUE), "Expected INT_VALUE token")
+        assertTrue(tokens.contains(RescriptTokenTypes.FLOAT_VALUE), "Expected FLOAT_VALUE token")
     }
 
+    @Test
     fun testCommentsAreTokenized() {
         val file =
             myFixture.configureByText(
@@ -57,10 +71,11 @@ class RescriptHighlightingIntegrationTest : BasePlatformTestCase() {
                 "// single line\n/* block comment */\nlet x = 1",
             )
         val tokens = collectTokenTypes(file)
-        assertTrue("Expected SINGLE_COMMENT token", tokens.contains(RescriptTokenTypes.SINGLE_COMMENT))
-        assertTrue("Expected MULTI_COMMENT token", tokens.contains(RescriptTokenTypes.MULTI_COMMENT))
+        assertTrue(tokens.contains(RescriptTokenTypes.SINGLE_COMMENT), "Expected SINGLE_COMMENT token")
+        assertTrue(tokens.contains(RescriptTokenTypes.MULTI_COMMENT), "Expected MULTI_COMMENT token")
     }
 
+    @Test
     fun testJsxTokensArePresent() {
         val file =
             myFixture.configureByText(
@@ -68,8 +83,8 @@ class RescriptHighlightingIntegrationTest : BasePlatformTestCase() {
                 "let make = () => <div> {React.string(\"hi\")} </div>",
             )
         val tokens = collectTokenTypes(file)
-        assertTrue("Expected JSX_TAG_NAME token", tokens.contains(RescriptTokenTypes.JSX_TAG_NAME))
-        assertTrue("Expected TAG_LT token", tokens.contains(RescriptTokenTypes.TAG_LT))
+        assertTrue(tokens.contains(RescriptTokenTypes.JSX_TAG_NAME), "Expected JSX_TAG_NAME token")
+        assertTrue(tokens.contains(RescriptTokenTypes.TAG_LT), "Expected TAG_LT token")
     }
 
     private fun collectTokenTypes(file: com.intellij.psi.PsiFile): Set<com.intellij.psi.tree.IElementType> {

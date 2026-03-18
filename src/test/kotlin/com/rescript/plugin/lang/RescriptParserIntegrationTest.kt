@@ -1,7 +1,11 @@
 package com.rescript.plugin.lang
 
-import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.rescript.plugin.IntelliJPlatformExtension
 import com.rescript.plugin.lang.psi.RescriptElementTypes
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 /**
  * Integration test for the ReScript parser using the full IDE platform.
@@ -9,7 +13,10 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
  * Verifies that the parser correctly builds PSI trees for various ReScript
  * constructs when processed through the IntelliJ infrastructure.
  */
-class RescriptParserIntegrationTest : BasePlatformTestCase() {
+@ExtendWith(IntelliJPlatformExtension::class)
+class RescriptParserIntegrationTest {
+    private lateinit var myFixture: CodeInsightTestFixture
+
     private fun collectElements(
         file: com.intellij.psi.PsiFile,
         type: com.intellij.psi.tree.IElementType,
@@ -28,6 +35,7 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
         return result
     }
 
+    @Test
     fun testLetDeclarationsParsed() {
         val file =
             myFixture.configureByText(
@@ -35,9 +43,10 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
                 "let x = 1\nlet y = 2\n",
             )
         val lets = collectElements(file, RescriptElementTypes.LET_DECLARATION)
-        assertEquals("Expected 2 let declarations", 2, lets.size)
+        assertEquals(2, lets.size, "Expected 2 let declarations")
     }
 
+    @Test
     fun testTypeDeclarationParsed() {
         val file =
             myFixture.configureByText(
@@ -45,9 +54,10 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
                 "type color = Red | Green | Blue\n",
             )
         val types = collectElements(file, RescriptElementTypes.TYPE_DECLARATION)
-        assertEquals("Expected 1 type declaration", 1, types.size)
+        assertEquals(1, types.size, "Expected 1 type declaration")
     }
 
+    @Test
     fun testModuleDeclarationParsed() {
         val file =
             myFixture.configureByText(
@@ -55,9 +65,10 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
                 "module M = {\n  let x = 1\n}\n",
             )
         val modules = collectElements(file, RescriptElementTypes.MODULE_DECLARATION)
-        assertEquals("Expected 1 module declaration", 1, modules.size)
+        assertEquals(1, modules.size, "Expected 1 module declaration")
     }
 
+    @Test
     fun testExternalDeclarationParsed() {
         val file =
             myFixture.configureByText(
@@ -65,9 +76,10 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
                 "external log: string => unit = \"console.log\"\n",
             )
         val externals = collectElements(file, RescriptElementTypes.EXTERNAL_DECLARATION)
-        assertEquals("Expected 1 external declaration", 1, externals.size)
+        assertEquals(1, externals.size, "Expected 1 external declaration")
     }
 
+    @Test
     fun testExceptionDeclarationParsed() {
         val file =
             myFixture.configureByText(
@@ -75,9 +87,10 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
                 "exception NotFound\n",
             )
         val exceptions = collectElements(file, RescriptElementTypes.EXCEPTION_DECLARATION)
-        assertEquals("Expected 1 exception declaration", 1, exceptions.size)
+        assertEquals(1, exceptions.size, "Expected 1 exception declaration")
     }
 
+    @Test
     fun testOpenStatementParsed() {
         val file =
             myFixture.configureByText(
@@ -85,9 +98,10 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
                 "open Belt\n",
             )
         val opens = collectElements(file, RescriptElementTypes.OPEN_STATEMENT)
-        assertEquals("Expected 1 open statement", 1, opens.size)
+        assertEquals(1, opens.size, "Expected 1 open statement")
     }
 
+    @Test
     fun testJsxElementParsed() {
         val file =
             myFixture.configureByText(
@@ -95,9 +109,10 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
                 "let make = () => <div> hello </div>\n",
             )
         val jsxElements = collectElements(file, RescriptElementTypes.JSX_ELEMENT)
-        assertEquals("Expected 1 JSX element", 1, jsxElements.size)
+        assertEquals(1, jsxElements.size, "Expected 1 JSX element")
     }
 
+    @Test
     fun testJsxSelfClosingParsed() {
         val file =
             myFixture.configureByText(
@@ -105,9 +120,10 @@ class RescriptParserIntegrationTest : BasePlatformTestCase() {
                 "let make = () => <br />\n",
             )
         val jsxSelfClosing = collectElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT)
-        assertEquals("Expected 1 JSX self-closing element", 1, jsxSelfClosing.size)
+        assertEquals(1, jsxSelfClosing.size, "Expected 1 JSX self-closing element")
     }
 
+    @Test
     fun testMixedDeclarationsParsed() {
         val file =
             myFixture.configureByText(

@@ -1,9 +1,9 @@
 package com.rescript.plugin.analysis
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class RescriptFormatCheckAnnotatorTest {
     // --- CollectedInfo data class ---
@@ -168,7 +168,7 @@ class RescriptFormatCheckAnnotatorTest {
                 .keys
                 .count { it.name.startsWith("rescript-format-check") }
 
-        assertEquals("No rescript-format-check threads should leak", threadsBefore, threadsAfter)
+        assertEquals(threadsBefore, threadsAfter, "No rescript-format-check threads should leak")
     }
 
     @Test

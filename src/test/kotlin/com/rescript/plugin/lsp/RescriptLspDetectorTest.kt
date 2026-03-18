@@ -2,11 +2,11 @@ package com.rescript.plugin.lsp
 
 import com.intellij.openapi.project.Project
 import com.rescript.plugin.settings.RescriptProjectSettings
-import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.nio.file.Files
@@ -21,12 +21,12 @@ import java.nio.file.Path
 class RescriptLspDetectorTest {
     private lateinit var tempDir: Path
 
-    @Before
+    @BeforeEach
     fun setUp() {
         tempDir = Files.createTempDirectory("rescript-lsp-detector-test")
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         tempDir.toFile().deleteRecursively()
     }

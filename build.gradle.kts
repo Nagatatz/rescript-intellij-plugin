@@ -32,8 +32,11 @@ dependencies {
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
     }
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
-    testImplementation("org.junit.vintage:junit-vintage-engine:5.11.4")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:2.0.3")
+    // JUnit 3 TestCase is needed at runtime by IntelliJ's JUnit5TestSessionListener
+    // (via UsefulTestCase.IS_UNDER_TEAMCITY field reference)
+    testRuntimeOnly("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.14.2")
     testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
 }
@@ -406,6 +409,9 @@ tasks {
     }
     named("runKtlintCheckOverMainSourceSet") {
         mustRunAfter(generateRescriptLexer)
+    }
+    test {
+        useJUnitPlatform()
     }
     runIde {
         systemProperty("idea.is.internal", true)

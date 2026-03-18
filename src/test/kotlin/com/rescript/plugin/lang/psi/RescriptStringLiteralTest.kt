@@ -1,17 +1,25 @@
 package com.rescript.plugin.lang.psi
 
 import com.intellij.openapi.util.TextRange
-import com.intellij.psi.PsiLanguageInjectionHost
-import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.rescript.plugin.IntelliJPlatformExtension
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 /**
  * Tests for [RescriptStringLiteral] — the PSI element that supports language injection
  * into ReScript string literals.
  *
- * Verifies the [PsiLanguageInjectionHost] contract: valid host status,
+ * Verifies the [com.intellij.psi.PsiLanguageInjectionHost] contract: valid host status,
  * text escaper decode/offset/isOneLine behaviour.
  */
-class RescriptStringLiteralTest : BasePlatformTestCase() {
+@ExtendWith(IntelliJPlatformExtension::class)
+class RescriptStringLiteralTest {
+    private lateinit var myFixture: CodeInsightTestFixture
+
     private fun findStringLiteral(code: String): RescriptStringLiteral {
         val file = myFixture.configureByText("Test.res", code)
         var found: RescriptStringLiteral? = null
@@ -30,14 +38,16 @@ class RescriptStringLiteralTest : BasePlatformTestCase() {
             }
         }
         file.node?.let { walk(it) }
-        return found ?: fail("No RescriptStringLiteral found in PSI tree") as RescriptStringLiteral
+        return found ?: throw AssertionError("No RescriptStringLiteral found in PSI tree")
     }
 
+    @Test
     fun testIsValidHost() {
         val literal = findStringLiteral("let s = \"hello\"")
-        assertTrue("isValidHost should always return true", literal.isValidHost)
+        assertTrue(literal.isValidHost, "isValidHost should always return true")
     }
 
+    @Test
     fun testLiteralTextEscaperDecode() {
         val literal = findStringLiteral("let s = \"hello world\"")
         val escaper = literal.createLiteralTextEscaper()
@@ -46,10 +56,11 @@ class RescriptStringLiteralTest : BasePlatformTestCase() {
         val rangeInsideHost = TextRange(1, text.length - 1)
         val decoded = StringBuilder()
         val result = escaper.decode(rangeInsideHost, decoded)
-        assertTrue("decode should return true", result)
+        assertTrue(result, "decode should return true")
         assertEquals("hello world", decoded.toString())
     }
 
+    @Test
     fun testLiteralTextEscaperOffsetInHost() {
         val literal = findStringLiteral("let s = \"abcd\"")
         val escaper = literal.createLiteralTextEscaper()
@@ -61,9 +72,10 @@ class RescriptStringLiteralTest : BasePlatformTestCase() {
         assertEquals(3, escaper.getOffsetInHost(2, rangeInsideHost))
     }
 
+    @Test
     fun testLiteralTextEscaperIsOneLine() {
         val literal = findStringLiteral("let s = \"test\"")
         val escaper = literal.createLiteralTextEscaper()
-        assertFalse("isOneLine should return false", escaper.isOneLine)
+        assertFalse(escaper.isOneLine, "isOneLine should return false")
     }
 }

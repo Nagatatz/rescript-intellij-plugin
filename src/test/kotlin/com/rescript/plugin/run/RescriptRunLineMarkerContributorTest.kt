@@ -4,11 +4,22 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.util.PsiTreeUtil
-import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.rescript.plugin.IntelliJPlatformExtension
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
-class RescriptRunLineMarkerContributorTest : BasePlatformTestCase() {
+@ExtendWith(IntelliJPlatformExtension::class)
+class RescriptRunLineMarkerContributorTest {
+    private lateinit var myFixture: CodeInsightTestFixture
+
+    @Test
     fun testNonResFileReturnsNull() {
         val file = myFixture.configureByText("test.txt", "let x = 1")
         val firstChild = file.firstChild
@@ -16,74 +27,80 @@ class RescriptRunLineMarkerContributorTest : BasePlatformTestCase() {
         assertFalse(RescriptRunLineMarkerContributor.shouldShowMarker(firstChild))
     }
 
+    @Test
     fun testResFileFirstLetDeclaration() {
         val file = myFixture.configureByText("Test.res", "let x = 1\nlet y = 2")
 
         val letElement = findFirstLeafOfType(file, RescriptTokenTypes.LET)
-        assertNotNull("Should find LET token", letElement)
+        assertNotNull(letElement, "Should find LET token")
 
         val parent = letElement!!.parent
         assertNotNull(parent)
         assertEquals(RescriptElementTypes.LET_DECLARATION, parent.node?.elementType)
     }
 
+    @Test
     fun testResFileFirstTypeDeclaration() {
         val file = myFixture.configureByText("Test2.res", "type color = Red | Blue")
 
         val typeElement = findFirstLeafOfType(file, RescriptTokenTypes.TYPE)
-        assertNotNull("Should find TYPE token", typeElement)
+        assertNotNull(typeElement, "Should find TYPE token")
 
         val parent = typeElement!!.parent
         assertNotNull(parent)
         assertEquals(RescriptElementTypes.TYPE_DECLARATION, parent.node?.elementType)
     }
 
+    @Test
     fun testResFileFirstModuleDeclaration() {
         val file = myFixture.configureByText("Test3.res", "module Foo = {\n  let x = 1\n}")
 
         val moduleElement = findFirstLeafOfType(file, RescriptTokenTypes.MODULE)
-        assertNotNull("Should find MODULE token", moduleElement)
+        assertNotNull(moduleElement, "Should find MODULE token")
 
         val parent = moduleElement!!.parent
         assertNotNull(parent)
         assertEquals(RescriptElementTypes.MODULE_DECLARATION, parent.node?.elementType)
     }
 
+    @Test
     fun testSecondDeclarationIsNotFirst() {
         val file = myFixture.configureByText("Test4.res", "let x = 1\nlet y = 2")
 
         val letElements = findAllLeavesOfType(file, RescriptTokenTypes.LET)
-        assertEquals("Should find 2 LET tokens", 2, letElements.size)
+        assertEquals(2, letElements.size, "Should find 2 LET tokens")
 
         val firstParent = letElements[0].parent
         val secondParent = letElements[1].parent
 
         assertTrue(
-            "First LET parent should be first declaration",
             isFirstTopLevelDeclaration(firstParent),
+            "First LET parent should be first declaration",
         )
         assertFalse(
-            "Second LET parent should not be first declaration",
             isFirstTopLevelDeclaration(secondParent),
+            "Second LET parent should not be first declaration",
         )
     }
 
+    @Test
     fun testNonKeywordTokenDoesNotMatch() {
         val file = myFixture.configureByText("Test5.res", "let x = 1")
 
         val identElement = findFirstLeafOfType(file, RescriptTokenTypes.LIDENT)
-        assertNotNull("Should find LIDENT token", identElement)
+        assertNotNull(identElement, "Should find LIDENT token")
         assertFalse(
-            "LIDENT should not trigger marker",
             RescriptRunLineMarkerContributor.shouldShowMarker(identElement!!),
+            "LIDENT should not trigger marker",
         )
     }
 
+    @Test
     fun testDeclarationKeywordConstants() {
         val keywords = setOf(RescriptTokenTypes.LET, RescriptTokenTypes.TYPE, RescriptTokenTypes.MODULE)
-        assertTrue("LET should be in keywords", RescriptTokenTypes.LET in keywords)
-        assertTrue("TYPE should be in keywords", RescriptTokenTypes.TYPE in keywords)
-        assertTrue("MODULE should be in keywords", RescriptTokenTypes.MODULE in keywords)
+        assertTrue(RescriptTokenTypes.LET in keywords, "LET should be in keywords")
+        assertTrue(RescriptTokenTypes.TYPE in keywords, "TYPE should be in keywords")
+        assertTrue(RescriptTokenTypes.MODULE in keywords, "MODULE should be in keywords")
     }
 
     private fun findFirstLeafOfType(

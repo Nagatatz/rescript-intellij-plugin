@@ -1,232 +1,190 @@
 package com.rescript.plugin.lang
 
-import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiFile
-import com.intellij.psi.TokenType
-import com.intellij.psi.tree.IElementType
-import com.intellij.testFramework.ParsingTestCase
+import com.rescript.plugin.ParsingTestHelper
+import com.rescript.plugin.RescriptParsingTestExtension
 import com.rescript.plugin.lang.psi.RescriptElementTypes
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 /**
  * Tests for [RescriptJsxParser] focusing on JSX-specific edge cases:
  * attributes, dotted component paths, nested structures, fragments,
  * expression containers, and error tolerance.
  *
- * Uses [ParsingTestCase] to exercise the real lexer+parser pipeline.
+ * Uses [RescriptParsingTestExtension] to exercise the real lexer+parser pipeline.
  * General JSX coverage is in [RescriptParserTest]; this class targets
  * the internal methods of [RescriptJsxParser].
  *
  * @see RescriptJsxParser
  * @see RescriptParserTest for general JSX coverage
  */
-class RescriptJsxParserTest :
-    ParsingTestCase(
-        "",
-        "res",
-        RescriptParserDefinition(),
-    ) {
-    override fun getTestDataPath(): String = "src/test/testData/parser"
-
-    override fun skipSpaces(): Boolean = true
-
-    override fun includeRanges(): Boolean = false
-
-    // ── helpers ─────────────────────────────────────────────────────
-
-    private fun parseCode(code: String): PsiFile {
-        val file = createPsiFile("test", code)
-        ensureParsed(file)
-        return file
-    }
-
-    private fun findElements(
-        file: PsiFile,
-        type: IElementType,
-    ): List<ASTNode> {
-        val result = mutableListOf<ASTNode>()
-
-        fun walk(node: ASTNode) {
-            if (node.elementType == type) result.add(node)
-            var child = node.firstChildNode
-            while (child != null) {
-                walk(child)
-                child = child.treeNext
-            }
-        }
-        walk(file.node)
-        return result
-    }
-
-    private fun findErrors(file: PsiFile): List<ASTNode> {
-        val result = mutableListOf<ASTNode>()
-
-        fun walk(node: ASTNode) {
-            if (node.elementType == TokenType.ERROR_ELEMENT) result.add(node)
-            var child = node.firstChildNode
-            while (child != null) {
-                walk(child)
-                child = child.treeNext
-            }
-        }
-        walk(file.node)
-        return result
-    }
-
-    private fun assertHasElements(
-        code: String,
-        type: IElementType,
-        expectedCount: Int,
-    ) {
-        val file = parseCode(code)
-        val elements = findElements(file, type)
-        assertEquals(
-            "Expected $expectedCount $type in: $code",
-            expectedCount,
-            elements.size,
-        )
-    }
+@ExtendWith(RescriptParsingTestExtension::class)
+class RescriptJsxParserTest {
+    private lateinit var parsingHelper: ParsingTestHelper
 
     // ════════════════════════════════════════════════════════════════
     // tryParseJsx: self-closing elements with attributes
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testSelfClosingWithStringAttribute() {
-        assertHasElements(
+        parsingHelper.assertHasElements(
             "let x = <input type=\"text\" />",
             RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT,
             1,
         )
     }
 
+    @Test
     fun testSelfClosingWithMultipleAttributes() {
-        assertHasElements(
+        parsingHelper.assertHasElements(
             "let x = <input type=\"text\" value=\"hello\" disabled=true />",
             RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT,
             1,
         )
     }
 
+    @Test
     fun testSelfClosingWithExpressionAttribute() {
         // Attribute value with braces: className={styles.container}
-        assertHasElements(
+        parsingHelper.assertHasElements(
             "let x = <div className={styles.container} />",
             RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT,
             1,
         )
     }
 
+    @Test
     fun testSelfClosingWithSpreadAttribute() {
         // Spread props: {...props}
-        assertHasElements(
+        parsingHelper.assertHasElements(
             "let x = <MyComponent {...props} />",
             RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT,
             1,
         )
     }
 
+    @Test
     fun testSelfClosingWithPunnedAttribute() {
         // ReScript-style punned label: <Comp ~label />
-        val file = parseCode("let x = <MyComponent name />")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <MyComponent name />")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
     }
 
     // ════════════════════════════════════════════════════════════════
     // tryParseJsx: dotted component paths
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testDottedComponentSelfClosing() {
-        assertHasElements(
+        parsingHelper.assertHasElements(
             "let x = <Module.Component />",
             RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT,
             1,
         )
     }
 
+    @Test
     fun testDeepDottedComponentPath() {
-        assertHasElements(
+        parsingHelper.assertHasElements(
             "let x = <A.B.C.D />",
             RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT,
             1,
         )
     }
 
+    @Test
     fun testDottedComponentOpenClose() {
-        val file = parseCode("let x = <Module.Comp> child </Module.Comp>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <Module.Comp> child </Module.Comp>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
+    @Test
     fun testDottedComponentWithAttributes() {
-        val file = parseCode("let x = <Ui.Button size=\"large\" onClick={handler} />")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <Ui.Button size=\"large\" onClick={handler} />")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
     }
 
     // ════════════════════════════════════════════════════════════════
     // tryParseJsx: open/close elements with children
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testEmptyElement() {
         // Element with no children: <div></div>
-        val file = parseCode("let x = <div></div>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <div></div>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
+    @Test
     fun testElementWithTextChild() {
-        val file = parseCode("let x = <span> hello world </span>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <span> hello world </span>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
+    @Test
     fun testElementWithMultipleExpressionChildren() {
-        val file = parseCode("let x = <div>{a}{b}{c}</div>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <div>{a}{b}{c}</div>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
+    @Test
     fun testElementWithMixedChildren() {
         // Text + expression + nested element
-        val file = parseCode("let x = <div> text {expr} <span /> </div>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <div> text {expr} <span /> </div>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
     }
 
+    @Test
     fun testElementWithNestedBracesInExpression() {
         // Expression container with nested braces: {switch x { | A => 1 }}
-        val file = parseCode("let x = <div>{switch x { | A => 1 | B => 2 }}</div>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <div>{switch x { | A => 1 | B => 2 }}</div>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
     // ════════════════════════════════════════════════════════════════
     // tryParseJsxFragment: fragment edge cases
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testEmptyFragment() {
-        assertHasElements("let x = <> </>", RescriptElementTypes.JSX_FRAGMENT, 1)
+        parsingHelper.assertHasElements("let x = <> </>", RescriptElementTypes.JSX_FRAGMENT, 1)
     }
 
+    @Test
     fun testFragmentWithMultipleChildren() {
-        val file = parseCode("let x = <> <div /> <span /> <br /> </>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
-        assertEquals(3, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <> <div /> <span /> <br /> </>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
+        assertEquals(3, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
     }
 
+    @Test
     fun testFragmentWithNestedElement() {
-        val file = parseCode("let x = <> <div> inner </div> </>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <> <div> inner </div> </>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
+    @Test
     fun testFragmentWithExpression() {
-        val file = parseCode("let x = <> {name} </>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
+        val file = parsingHelper.parseCode("let x = <> {name} </>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
     }
 
+    @Test
     fun testNestedFragments() {
-        val file = parseCode("let x = <> <> inner </> </>")
-        assertEquals(2, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
+        val file = parsingHelper.parseCode("let x = <> <> inner </> </>")
+        assertEquals(2, parsingHelper.findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
     }
 
     // ════════════════════════════════════════════════════════════════
     // parseJsxChildren: deeply nested structures
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testThreeLevelNesting() {
         val code =
             """
@@ -236,11 +194,12 @@ class RescriptJsxParserTest :
               </section>
             </div>
             """.trimIndent()
-        val file = parseCode(code)
+        val file = parsingHelper.parseCode(code)
         // div, section, p = 3 JSX_ELEMENT
-        assertEquals(3, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        assertEquals(3, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
+    @Test
     fun testSiblingElements() {
         val code =
             """
@@ -250,11 +209,12 @@ class RescriptJsxParserTest :
               <span> c </span>
             </div>
             """.trimIndent()
-        val file = parseCode(code)
+        val file = parsingHelper.parseCode(code)
         // div + 3 spans = 4 JSX_ELEMENT
-        assertEquals(4, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        assertEquals(4, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
+    @Test
     fun testMixedElementTypes() {
         // Self-closing + open/close + fragment as siblings
         val code =
@@ -265,25 +225,27 @@ class RescriptJsxParserTest :
               <> fragment child </>
             </div>
             """.trimIndent()
-        val file = parseCode(code)
-        assertEquals(2, findElements(file, RescriptElementTypes.JSX_ELEMENT).size) // div + span
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size) // br
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size) // fragment
+        val file = parsingHelper.parseCode(code)
+        assertEquals(2, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size) // div + span
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size) // br
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_FRAGMENT).size) // fragment
     }
 
     // ════════════════════════════════════════════════════════════════
     // consumeClosingTag: closing tag edge cases
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testClosingTagWithDottedPath() {
-        val file = parseCode("let x = <A.B.C> child </A.B.C>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode("let x = <A.B.C> child </A.B.C>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
     // ════════════════════════════════════════════════════════════════
     // JSX inside declaration bodies
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testJsxInsideLetBody() {
         val code =
             """
@@ -291,12 +253,13 @@ class RescriptJsxParserTest :
               <div> <span /> </div>
             }
             """.trimIndent()
-        val file = parseCode(code)
-        assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+        val file = parsingHelper.parseCode(code)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.LET_DECLARATION).size)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
     }
 
+    @Test
     fun testJsxInsideModuleBody() {
         val code =
             """
@@ -304,11 +267,12 @@ class RescriptJsxParserTest :
               let make = () => <div />
             }
             """.trimIndent()
-        val file = parseCode(code)
-        assertEquals(1, findElements(file, RescriptElementTypes.MODULE_DECLARATION).size)
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+        val file = parsingHelper.parseCode(code)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.MODULE_DECLARATION).size)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
     }
 
+    @Test
     fun testMultipleJsxInSameDeclaration() {
         val code =
             """
@@ -320,15 +284,16 @@ class RescriptJsxParserTest :
               }
             }
             """.trimIndent()
-        val file = parseCode(code)
-        assertEquals(1, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
-        assertEquals(2, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode(code)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.LET_DECLARATION).size)
+        assertEquals(2, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
     // ════════════════════════════════════════════════════════════════
     // error tolerance: no errors for valid JSX
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testComplexJsxNoErrors() {
         val code =
             """
@@ -342,12 +307,13 @@ class RescriptJsxParserTest :
                 </footer>
               </div>
             """.trimIndent()
-        val file = parseCode(code)
-        val errors = findErrors(file)
-        assertTrue("Complex JSX should have no errors", errors.isEmpty())
-        assertTrue(findElements(file, RescriptElementTypes.JSX_ELEMENT).size >= 4)
+        val file = parsingHelper.parseCode(code)
+        val errors = parsingHelper.findErrors(file)
+        assertTrue(errors.isEmpty(), "Complex JSX should have no errors")
+        assertTrue(parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size >= 4)
     }
 
+    @Test
     fun testFragmentWithComponentsNoErrors() {
         val code =
             """
@@ -361,35 +327,39 @@ class RescriptJsxParserTest :
                 <Footer />
               </>
             """.trimIndent()
-        val file = parseCode(code)
-        val errors = findErrors(file)
-        assertTrue("Fragment with components should have no errors", errors.isEmpty())
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
+        val file = parsingHelper.parseCode(code)
+        val errors = parsingHelper.findErrors(file)
+        assertTrue(errors.isEmpty(), "Fragment with components should have no errors")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
     }
 
     // ════════════════════════════════════════════════════════════════
     // JSX at top level (outside declarations)
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testTopLevelSelfClosing() {
-        val file = parseCode("<br />")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+        val file = parsingHelper.parseCode("<br />")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
     }
 
+    @Test
     fun testTopLevelOpenClose() {
-        val file = parseCode("<div> content </div>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
+        val file = parsingHelper.parseCode("<div> content </div>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size)
     }
 
+    @Test
     fun testTopLevelFragment() {
-        val file = parseCode("<> <div /> </>")
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
+        val file = parsingHelper.parseCode("<> <div /> </>")
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_FRAGMENT).size)
     }
 
     // ════════════════════════════════════════════════════════════════
     // multiple JSX elements across declarations
     // ════════════════════════════════════════════════════════════════
 
+    @Test
     fun testMultipleDeclarationsWithJsx() {
         val code =
             """
@@ -397,11 +367,11 @@ class RescriptJsxParserTest :
             let content = <div> body </div>
             let footer = <> <span /> </>
             """.trimIndent()
-        val file = parseCode(code)
-        assertEquals(3, findElements(file, RescriptElementTypes.LET_DECLARATION).size)
+        val file = parsingHelper.parseCode(code)
+        assertEquals(3, parsingHelper.findElements(file, RescriptElementTypes.LET_DECLARATION).size)
         // Header + span inside fragment = 2 self-closing elements
-        assertEquals(2, findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_ELEMENT).size) // div
-        assertEquals(1, findElements(file, RescriptElementTypes.JSX_FRAGMENT).size) // fragment
+        assertEquals(2, parsingHelper.findElements(file, RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT).size)
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_ELEMENT).size) // div
+        assertEquals(1, parsingHelper.findElements(file, RescriptElementTypes.JSX_FRAGMENT).size) // fragment
     }
 }

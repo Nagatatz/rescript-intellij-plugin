@@ -4,8 +4,15 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.actionSystem.Presentation
-import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.intellij.openapi.project.Project
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.rescript.plugin.IntelliJPlatformExtension
 import com.rescript.plugin.lang.psi.RescriptElementTypes
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 /**
  * Tests for [RescriptGenerateActionUtil] — utility methods used by Generate actions
@@ -13,7 +20,11 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
  *
  * Uses IDE fixtures to create real PSI trees and verifies caret-based declaration lookup.
  */
-class RescriptGenerateActionUtilTest : BasePlatformTestCase() {
+@ExtendWith(IntelliJPlatformExtension::class)
+class RescriptGenerateActionUtilTest {
+    private lateinit var myFixture: CodeInsightTestFixture
+    private lateinit var project: Project
+
     private fun createActionEvent(): AnActionEvent {
         val editor = myFixture.editor
         val psiFile = myFixture.file
@@ -29,6 +40,7 @@ class RescriptGenerateActionUtilTest : BasePlatformTestCase() {
         return AnActionEvent.createFromDataContext("test", Presentation(), dataContext)
     }
 
+    @Test
     fun testFindEnclosingLetDeclaration() {
         myFixture.configureByText("Test.res", "let x<caret> = 1")
         val event = createActionEvent()
@@ -37,9 +49,10 @@ class RescriptGenerateActionUtilTest : BasePlatformTestCase() {
                 event,
                 RescriptElementTypes.LET_DECLARATION,
             )
-        assertNotNull("Should find enclosing LET_DECLARATION", result)
+        assertNotNull(result, "Should find enclosing LET_DECLARATION")
     }
 
+    @Test
     fun testFindEnclosingTypeDeclaration() {
         myFixture.configureByText("Test.res", "type t<caret> = int")
         val event = createActionEvent()
@@ -48,9 +61,10 @@ class RescriptGenerateActionUtilTest : BasePlatformTestCase() {
                 event,
                 RescriptElementTypes.TYPE_DECLARATION,
             )
-        assertNotNull("Should find enclosing TYPE_DECLARATION", result)
+        assertNotNull(result, "Should find enclosing TYPE_DECLARATION")
     }
 
+    @Test
     fun testFindEnclosingReturnsNullForNonRescriptFile() {
         myFixture.configureByText("Test.txt", "let x<caret> = 1")
         val event = createActionEvent()
@@ -59,9 +73,10 @@ class RescriptGenerateActionUtilTest : BasePlatformTestCase() {
                 event,
                 RescriptElementTypes.LET_DECLARATION,
             )
-        assertNull("Should return null for non-ReScript file", result)
+        assertNull(result, "Should return null for non-ReScript file")
     }
 
+    @Test
     fun testIsInsideDeclarationReturnsFalseForNonRescriptFile() {
         myFixture.configureByText("Test.txt", "some text<caret> here")
         val event = createActionEvent()
@@ -70,6 +85,6 @@ class RescriptGenerateActionUtilTest : BasePlatformTestCase() {
                 event,
                 RescriptElementTypes.LET_DECLARATION,
             )
-        assertFalse("Should return false for non-ReScript file", result)
+        assertFalse(result, "Should return false for non-ReScript file")
     }
 }
