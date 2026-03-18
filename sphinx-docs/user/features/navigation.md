@@ -12,15 +12,21 @@ Works for:
 - Modules
 - External bindings
 
+Instead of manually searching files and scrolling through code, you can instantly jump to any symbol's definition, dramatically speeding up code reading and exploration.
+
 ## Find References
 
 Right-click on a symbol and select **Find Usages** (or press `Alt+F7`) to see all locations where the symbol is used.
+
+Before making changes to a function or type, you can instantly see every place it's referenced, making it easy to assess the impact of a refactoring.
 
 ## Go to Symbol
 
 Press `Ctrl+Alt+O` (`Cmd+Option+O` on macOS) to search for any symbol across your project by name.
 
 Symbol lookup is powered by PSI Stub Index, which pre-indexes declaration names at project load time for fast, O(log n) retrieval instead of scanning every file.
+
+When you know a symbol's name but not which file it lives in, this saves you from manually browsing the project tree or using text search across the entire codebase.
 
 ## Structure View
 
@@ -32,9 +38,13 @@ Press `Alt+7` (`Cmd+7` on macOS) to open the Structure panel, which shows an out
 - External declarations
 - Exception declarations
 
+This gives you a bird's-eye view of a file's structure at a glance, so you can quickly locate a specific declaration without scrolling through hundreds of lines.
+
 ## File Switching (.res ↔ .resi)
 
 Press `Alt+O` to switch between a ReScript source file (`.res`) and its interface file (`.resi`).
+
+When working with module interfaces, you frequently need to switch between the implementation and its public API. This one-keystroke shortcut eliminates the need to find the counterpart file in the project tree.
 
 ## Go to Implementation
 
@@ -53,6 +63,8 @@ let greet: string => string
 
 The plugin matches declarations by name and type (`let`, `type`, `module`, `external`, `exception`), including one level of nested module declarations.
 
+When reviewing a `.resi` interface and you want to see how a function is actually implemented, this takes you directly to the implementation body instead of opening the file and searching for it manually.
+
 ## Search Everywhere
 
 Press `Shift` twice (double-tap `Shift`) to open the **Search Everywhere** dialog, which provides unified search across:
@@ -63,6 +75,8 @@ Press `Shift` twice (double-tap `Shift`) to open the **Search Everywhere** dialo
 
 ReScript files and symbols appear alongside results from other languages in the search dialog. Use the tab bar at the top to filter by category.
 
+This is the fastest way to find anything in your project — instead of remembering which menu or shortcut to use, a single double-tap of `Shift` lets you search files, symbols, and actions all at once.
+
 ## Go to Related
 
 Use **Navigate** → **Related Symbol** to jump between related files:
@@ -70,6 +84,8 @@ Use **Navigate** → **Related Symbol** to jump between related files:
 - `.res` → `.resi` (interface)
 - `.res` → `.js` (compiled output)
 - `.resi` → `.res` (implementation)
+
+This provides a unified view of all files associated with a module — its interface, implementation, and compiled output — letting you quickly switch between different representations of the same code.
 
 ## File Include Navigation
 
@@ -84,17 +100,25 @@ open MyModule    // Ctrl+click to navigate to MyModule.res
 
 Module names are converted to filenames by replacing `.` with `_` (e.g., `Belt.Array` → `Belt_Array.res`).
 
+Instead of guessing which file an `open` statement refers to, you can `Ctrl+click` directly on it to navigate to the module source, making dependency tracing effortless.
+
 ## Create Interface File
 
 With a `.res` file open, use **Navigate** → **Create Interface File** to auto-generate a `.resi` interface file from the Language Server.
+
+Writing a `.resi` file by hand requires copying every public declaration and removing the bodies. This command generates an accurate interface automatically, saving significant time and avoiding copy-paste errors.
 
 ## Open Compiled JavaScript
 
 Press `Alt+Shift+J` to open the compiled JavaScript output for the current `.res` file. The plugin asks the Language Server for the compiled file path and opens it in the editor.
 
+When debugging runtime behavior or checking what code ReScript actually generates, this lets you instantly view the compiled output without manually navigating to the build directory.
+
 ## Qualified Name Copy
 
 Press `Cmd+Shift+Alt+C` to copy the fully qualified name of the symbol at the cursor (e.g., `Module.SubModule.functionName`).
+
+This is useful when referencing a symbol in documentation, issue trackers, or code reviews — you get the exact qualified path without manually constructing it from the module hierarchy.
 
 ## Goto Super (.res ↔ .resi)
 
@@ -110,6 +134,8 @@ let greet = (name) => `Hello, ${name}!`
 // Press Ctrl+U → jumps to:
 // let greet: string => string   (in Foo.resi)
 ```
+
+When editing a function, you can instantly check its public API signature in the interface file, helping you verify that the implementation matches the exposed contract.
 
 ## Go to Test
 
@@ -135,6 +161,8 @@ If no test file exists, the plugin offers to create one with framework-specific 
 
 The test framework is auto-detected from your `package.json` dependencies.
 
+This eliminates the friction of switching between implementation and tests. You can jump to the test file with one shortcut, and if it doesn't exist yet, the plugin creates it with the right boilerplate for your test framework.
+
 ## Context Info
 
 When you scroll inside a long declaration body, the IDE displays the declaration header as a sticky line at the top of the editor, so you always know which function or module you are inside.
@@ -151,6 +179,8 @@ When you scroll inside a long declaration body, the IDE displays the declaration
 ```
 
 Works for top-level declarations: `let`, `type`, `module`, `external`, `open`, `include`, and `exception`.
+
+In large files with long function bodies, it's easy to lose track of which declaration you're editing. The sticky header keeps you oriented without needing to scroll back up to check.
 
 ## External Documentation
 
@@ -169,9 +199,13 @@ Supported modules include all `Belt.*` submodules (Belt.Array, Belt.Map, Belt.Op
 External documentation URLs are only available for `Belt.*` and `Js.*` standard library modules. For other modules, Shift+F1 has no effect.
 :::
 
+When you need detailed API documentation beyond what the hover tooltip provides, this takes you directly to the official docs page without having to search the website yourself.
+
 ## Breadcrumb Navigation
 
 The editor shows a breadcrumb trail at the top, displaying your current scope path (file → module → function). Click any segment to navigate to that scope.
+
+When working inside deeply nested modules, the breadcrumb trail shows exactly where you are in the hierarchy and lets you jump to any parent scope with a single click.
 
 ## Call Hierarchy
 
@@ -204,9 +238,13 @@ let process = (data) => {
 Call Hierarchy uses PSI-based text search to discover call relationships. It works within the project scope and matches identifiers by name. For best results, use it on `let` and `external` declarations.
 :::
 
+Understanding the call chain of a function — who calls it and what it calls — is essential when refactoring or debugging. This view reveals the full call graph without manually tracing through the code.
+
 ## Type Signature Search
 
 Search for functions by their type signature in the Search Everywhere dialog. See [Advanced Features — Type Signature Search](advanced.md#type-signature-search) for details.
+
+When you know what type of function you need (e.g., `string => int`) but not its name, this lets you discover the right function by searching its shape — a natural fit for a type-inferred language like ReScript.
 
 ## Usage Type Classification
 
@@ -217,8 +255,10 @@ The plugin classifies how ReScript symbols are used in Find Usages results, grou
 - **Import / Open** — Referenced in an `open` statement
 - **Type reference** — Used as a type annotation
 
-This helps you quickly filter and understand usage patterns when reviewing references to a symbol.
+This helps you quickly filter and understand usage patterns when reviewing references to a symbol. Without this classification, all usages appear in a flat list, making it harder to distinguish between reads, writes, imports, and type references.
 
 ## Navigation Bar
 
 The navigation bar at the top of the editor displays the structure-aware hierarchy of your current cursor position. It shows top-level declarations (`let`, `type`, `module`, `external`, `exception`) with their icons, leveraging the existing Structure View model for accurate navigation.
+
+This provides a compact, always-visible alternative to the Structure View panel, letting you see and navigate the file's declaration hierarchy without opening a separate tool window.
