@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 20:50+0900\n"
+"POT-Creation-Date: 2026-03-17 16:42+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -24,341 +24,499 @@ msgid "Changelog"
 msgstr "変更履歴"
 
 #: ../../user/changelog.md:3
-msgid "Unreleased"
-msgstr "未リリース"
+msgid "0.1.6"
+msgstr "0.1.6"
 
-#: ../../user/changelog.md:5
-msgid "Initial release of the ReScript IntelliJ Plugin."
-msgstr "ReScript IntelliJ Plugin の初回リリースです。"
+#: ../../user/changelog.md:5 ../../user/changelog.md:30
+msgid "Bug Fixes"
+msgstr "バグ修正"
 
 #: ../../user/changelog.md:7
+msgid ""
+"Fix EDT threading violation in TypeInfoPanel when accessing caret offset "
+"from pooled thread"
+msgstr ""
+"TypeInfoPanel でプールスレッドからキャレットオフセットにアクセスする際の EDT スレッド違反を修正"
+
+#: ../../user/changelog.md:8
+msgid ""
+"Fix GenerateGroup to extend DefaultActionGroup for proper child action "
+"support"
+msgstr ""
+"GenerateGroup が DefaultActionGroup を継承するよう修正し、子アクションを正しくサポート"
+
+#: ../../user/changelog.md:9
+msgid ""
+"Fix testCreator extension point attribute name (`implementation` → "
+"`implementationClass`)"
+msgstr ""
+"testCreator Extension Point の属性名を修正（`implementation` → `implementationClass`）"
+
+#: ../../user/changelog.md:11
+msgid "0.1.5"
+msgstr "0.1.5"
+
+#: ../../user/changelog.md:13 ../../user/changelog.md:35
+msgid "Refactoring"
+msgstr "リファクタリング"
+
+#: ../../user/changelog.md:15
+msgid "Migrate test suite from JUnit 4 to JUnit 5 (Jupiter)"
+msgstr "テストスイートを JUnit 4 から JUnit 5 (Jupiter) に移行"
+
+#: ../../user/changelog.md:16
+msgid "Centralize regex patterns into RescriptRegexPatterns"
+msgstr "正規表現パターンを RescriptRegexPatterns に集約"
+
+#: ../../user/changelog.md:17
+msgid "Extract brace balance utilities into RescriptBraceBalanceUtil"
+msgstr "括弧バランスユーティリティを RescriptBraceBalanceUtil に抽出"
+
+#: ../../user/changelog.md:18
+msgid ""
+"Extract common patterns: quick fix in StyleLintInspection, Gson "
+"deserialization, region search in UnwrapDescriptor"
+msgstr ""
+"共通パターンの抽出: StyleLintInspection の Quick Fix、Gson デシリアライゼーション、UnwrapDescriptor のリージョン検索"
+
+#: ../../user/changelog.md:19
+msgid "Reduce postfix template boilerplate with data-driven approach"
+msgstr "データ駆動アプローチにより Postfix テンプレートのボイラープレートを削減"
+
+#: ../../user/changelog.md:20
+msgid ""
+"Remove redundant Elvis operator, duplicate type wrappers, unnecessary "
+"companion object shims"
+msgstr ""
+"冗長な Elvis 演算子、重複する型ラッパー、不要な companion object シムを削除"
+
+#: ../../user/changelog.md:21
+msgid ""
+"Replace inline regex with string matching in SignatureSyncInspection and "
+"isModuleOpened"
+msgstr ""
+"SignatureSyncInspection と isModuleOpened でインライン正規表現を文字列マッチングに置換"
+
+#: ../../user/changelog.md:23 ../../user/changelog.md:39
+msgid "Infrastructure"
+msgstr "インフラ"
+
+#: ../../user/changelog.md:25
+msgid "Remove unused LOG fields in DtsNodeDetector and RescriptReplExecutor"
+msgstr "DtsNodeDetector と RescriptReplExecutor の未使用 LOG フィールドを削除"
+
+#: ../../user/changelog.md:26
+msgid "Restore Kover coverage verification above 54% threshold"
+msgstr "Kover カバレッジ検証の 54% 閾値を復元"
+
+#: ../../user/changelog.md:28
+msgid "0.1.4"
+msgstr "0.1.4"
+
+#: ../../user/changelog.md:32
+msgid "Rewrite CodeVisionProvider in Java to avoid internal API reference"
+msgstr "内部 API 参照を回避するため CodeVisionProvider を Java で書き直し"
+
+#: ../../user/changelog.md:33
+msgid "Add exception logging and fix InterruptedException handling"
+msgstr "例外ログの追加と InterruptedException 処理の修正"
+
+#: ../../user/changelog.md:37
+msgid "Extract RescriptProcessUtils for shared process execution"
+msgstr "共通プロセス実行のため RescriptProcessUtils を抽出"
+
+#: ../../user/changelog.md:41
+msgid "Optimize CI by merging verify job and reordering Kover tasks"
+msgstr "verify ジョブの統合と Kover タスクの並べ替えにより CI を最適化"
+
+#: ../../user/changelog.md:42
+msgid "Add Kover exclusions and unit tests for coverage improvement"
+msgstr "カバレッジ向上のため Kover 除外設定とユニットテストを追加"
+
+#: ../../user/changelog.md:43
+msgid ""
+"Add medium-difficulty tests for StringLiteral, DtsParserProcess, and "
+"GenerateActionUtil"
+msgstr ""
+"StringLiteral、DtsParserProcess、GenerateActionUtil の中難度テストを追加"
+
+#: ../../user/changelog.md:44
+msgid "Expand plugin description and fix changelog versioning"
+msgstr "プラグインの説明を拡充し、変更履歴のバージョニングを修正"
+
+#: ../../user/changelog.md:46
+msgid "0.1.3"
+msgstr "0.1.3"
+
+#: ../../user/changelog.md:48
+msgid "Improvements"
+msgstr "改善"
+
+#: ../../user/changelog.md:50
+msgid "Add plugin icon for JetBrains Marketplace display"
+msgstr "JetBrains Marketplace 表示用のプラグインアイコンを追加"
+
+#: ../../user/changelog.md:51
+msgid "Fix plugin verifier deprecated API warnings"
+msgstr "Plugin Verifier の非推奨 API 警告を修正"
+
+#: ../../user/changelog.md:52
+msgid "Update docs to reflect current implementation state"
+msgstr "現在の実装状態を反映するようドキュメントを更新"
+
+#: ../../user/changelog.md:54
+msgid "0.1.2"
+msgstr "0.1.2"
+
+#: ../../user/changelog.md:56
 msgid "Features"
 msgstr "機能"
 
-#: ../../user/changelog.md:9
+#: ../../user/changelog.md:58
+msgid "Initial release submitted to JetBrains Marketplace with 109 features:"
+msgstr "109 機能を搭載し JetBrains Marketplace に初回リリースを申請:"
+
+#: ../../user/changelog.md:60
 msgid "Full syntax highlighting via JFlex lexer"
 msgstr "JFlex レクサーによる完全なシンタックスハイライト"
 
-#: ../../user/changelog.md:10
+#: ../../user/changelog.md:61
 msgid "LSP integration with `@rescript/language-server`"
 msgstr "`@rescript/language-server` との LSP 統合"
 
-#: ../../user/changelog.md:11
+#: ../../user/changelog.md:62
 msgid "Semantic highlighting via LSP semantic tokens"
 msgstr "LSP セマンティックトークンによるセマンティックハイライト"
 
-#: ../../user/changelog.md:12
+#: ../../user/changelog.md:63
 msgid "Code completion, Go to Definition, Hover, Find Usages"
 msgstr "コード補完、定義へ移動、ホバー、使用箇所の検索"
 
-#: ../../user/changelog.md:13
+#: ../../user/changelog.md:64
 msgid "Code folding (modules, declarations, comments, custom regions)"
 msgstr "コード折りたたみ（モジュール、宣言、コメント、カスタムリージョン）"
 
-#: ../../user/changelog.md:14
+#: ../../user/changelog.md:65
 msgid "Brace matching and smart quotes"
 msgstr "括弧の対応付けとスマート引用符"
 
-#: ../../user/changelog.md:15
+#: ../../user/changelog.md:66
 msgid "Structure view"
 msgstr "ストラクチャービュー"
 
-#: ../../user/changelog.md:16
+#: ../../user/changelog.md:67
 msgid "Code formatting via `rescript format` CLI"
 msgstr "`rescript format` CLI によるコードフォーマット"
 
-#: ../../user/changelog.md:17
+#: ../../user/changelog.md:68
 msgid "Run configurations (Build, Build Watch, Clean)"
 msgstr "実行構成（Build、Build Watch、Clean）"
 
-#: ../../user/changelog.md:18
+#: ../../user/changelog.md:69
 msgid "Test runner integration (Jest/Vitest)"
 msgstr "テストランナー統合（Jest/Vitest）"
 
-#: ../../user/changelog.md:19
-msgid "Code inspections (duplicate open, empty module, missing config)"
-msgstr "コードインスペクション（重複 open、空モジュール、設定ファイルの欠落）"
+#: ../../user/changelog.md:70
+msgid ""
+"Code inspections (duplicate open, empty module, missing config, signature"
+" sync, style linting)"
+msgstr "コードインスペクション（重複 open、空モジュール、設定ファイルの欠落、シグネチャ同期、スタイルリンティング）"
 
-#: ../../user/changelog.md:20
-msgid "Dead code analysis via reanalyze"
-msgstr "reanalyze によるデッドコード分析"
+#: ../../user/changelog.md:71
+msgid "Dead code analysis via reanalyze with server mode"
+msgstr "reanalyze によるデッドコード分析（サーバーモード対応）"
 
-#: ../../user/changelog.md:21
+#: ../../user/changelog.md:72
 msgid "Import optimization"
 msgstr "インポートの最適化"
 
-#: ../../user/changelog.md:22
-msgid "Intention actions (Wrap with Some/Ok/Error, Add @genType)"
-msgstr "インテンションアクション（Some/Ok/Error でラップ、@genType の追加）"
+#: ../../user/changelog.md:73
+msgid ""
+"20+ Intention actions (Wrap with, unwrap, pipe conversion, case split, "
+"labeled args, etc.)"
+msgstr "20 以上の Intention Actions（Wrap with、Unwrap、パイプ変換、ケース分割、ラベル付き引数など）"
 
-#: ../../user/changelog.md:23
+#: ../../user/changelog.md:74
 msgid "Surround with (if/switch/try/block)"
 msgstr "Surround with（if/switch/try/block）"
 
-#: ../../user/changelog.md:24
-msgid ""
-"Postfix completion (.switch, .pipe, .log, .some, .ok, .error, .ignore, "
-".promise, .await)"
-msgstr "Postfix 補完（.switch、.pipe、.log、.some、.ok、.error、.ignore、.promise、.await）"
+#: ../../user/changelog.md:75
+msgid "Postfix completion (.switch, .pipe, .log, .promise, .await, etc.)"
+msgstr "Postfix 補完（.switch、.pipe、.log、.promise、.await など）"
 
-#: ../../user/changelog.md:25
+#: ../../user/changelog.md:76
 msgid "Live templates (21 snippets including FFI bindings and React component)"
 msgstr "Live Templates（FFI バインディングと React コンポーネントを含む 21 スニペット）"
 
-#: ../../user/changelog.md:26
+#: ../../user/changelog.md:77
 msgid "File templates (Module, Interface, Component)"
 msgstr "ファイルテンプレート（Module、Interface、Component）"
 
-#: ../../user/changelog.md:27
+#: ../../user/changelog.md:78
 msgid "Go to Symbol, Go to Related, File switching (.res/.resi)"
 msgstr "シンボルへ移動、関連ファイルへ移動、ファイル切り替え（.res/.resi）"
 
-#: ../../user/changelog.md:28
+#: ../../user/changelog.md:79
+msgid "Search Everywhere with stub-indexed symbols"
+msgstr "スタブインデックスによるシンボルの Search Everywhere"
+
+#: ../../user/changelog.md:80
 msgid "Create interface file, Open compiled JavaScript"
 msgstr "インターフェースファイルの作成、コンパイル済み JavaScript を開く"
 
-#: ../../user/changelog.md:29
-msgid "Code Lens (type annotations)"
-msgstr "Code Lens（型注釈）"
+#: ../../user/changelog.md:81
+msgid "Code Lens (type annotations), Inlay hints"
+msgstr "Code Lens（型注釈）、Inlay Hints"
 
-#: ../../user/changelog.md:30
+#: ../../user/changelog.md:82
 msgid "Compiled JS Preview tool window"
 msgstr "コンパイル済み JS プレビューツールウィンドウ"
 
-#: ../../user/changelog.md:31
-msgid "Module Hierarchy view"
-msgstr "モジュール階層ビュー"
+#: ../../user/changelog.md:83
+msgid "Module Hierarchy and Call Hierarchy views"
+msgstr "モジュール階層ビューと Call Hierarchy ビュー"
 
-#: ../../user/changelog.md:32
-msgid "Build status in status bar"
-msgstr "ステータスバーのビルドステータス"
+#: ../../user/changelog.md:84
+msgid "Build status in status bar, Error Lens inline diagnostics"
+msgstr "ステータスバーのビルドステータス、Error Lens インライン診断"
 
-#: ../../user/changelog.md:33
-msgid "Signature Help"
-msgstr "Signature Help"
+#: ../../user/changelog.md:85
+msgid "Signature Help, Parameter Info"
+msgstr "Signature Help、Parameter Info"
 
-#: ../../user/changelog.md:34
-msgid "Statement up/down mover"
-msgstr "ステートメントの上下移動"
+#: ../../user/changelog.md:86
+msgid "Statement up/down mover, Smart Enter"
+msgstr "ステートメントの上下移動、Smart Enter"
 
-#: ../../user/changelog.md:35
-msgid "Smart Enter"
-msgstr "Smart Enter"
+#: ../../user/changelog.md:87
+msgid "Extract Variable/Function, Inline, Introduce Constant, Change Signature"
+msgstr "Extract Variable/Function、Inline、Introduce Constant、Change Signature"
 
-#: ../../user/changelog.md:36
-msgid "Qualified name copy"
-msgstr "完全修飾名のコピー"
+#: ../../user/changelog.md:88
+msgid "React component extraction, Safe Delete"
+msgstr "React コンポーネントの抽出、Safe Delete"
 
-#: ../../user/changelog.md:37
-msgid "Console output file path links"
-msgstr "コンソール出力のファイルパスリンク"
+#: ../../user/changelog.md:89
+msgid "Unresolved reference Quick Fix (add open/qualifier)"
+msgstr "未解決参照の Quick Fix（open 追加/修飾子付加）"
 
-#: ../../user/changelog.md:38
-msgid "Editor notification bar (LSP not found)"
-msgstr "エディタ通知バー（LSP 未検出）"
+#: ../../user/changelog.md:90
+msgid "Generate function from usage, Type hole Quick Fix"
+msgstr "使用箇所からの関数生成、型ホールの Quick Fix"
 
-#: ../../user/changelog.md:39
-msgid "JSON Schema for rescript.json"
-msgstr "rescript.json 用の JSON Schema"
-
-#: ../../user/changelog.md:40
-#, python-format
-msgid "JavaScript injection in %raw()"
-msgstr "%raw() 内の JavaScript インジェクション"
-
-#: ../../user/changelog.md:41
-msgid "Markdown code fence highlighting"
-msgstr "Markdown コードフェンスのハイライト"
-
-#: ../../user/changelog.md:42
-msgid "Paste as JSON.t"
-msgstr "JSON.t として貼り付け"
-
-#: ../../user/changelog.md:43
-msgid "Breadcrumb navigation"
-msgstr "パンくずナビゲーション"
-
-#: ../../user/changelog.md:44
-msgid "Rename refactoring"
-msgstr "リネームリファクタリング"
-
-#: ../../user/changelog.md:45
-msgid "TODO indexing"
-msgstr "TODO インデクシング"
-
-#: ../../user/changelog.md:46
-msgid "Spellchecking"
-msgstr "スペルチェック"
-
-#: ../../user/changelog.md:47
+#: ../../user/changelog.md:91
 msgid ""
-"Project Wizard with 12 templates (Basic, Vite+React, Next.js, Electron, "
-"Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm"
-" Library, CLI Tool, Monorepo)"
-msgstr ""
-"12 テンプレート対応のプロジェクトウィザード（Basic、Vite+React、Next.js、Electron、Hono、Cloudflare"
-" Workers、AWS Lambda、Google Cloud Run、React Native、npm Library、CLI "
-"Tool、Monorepo）"
+"Generate actions (switch arms, module type, make, record value, JSON "
+"encoder/decoder)"
+msgstr "Generate アクション（switch arms、module type、make、record value、JSON エンコーダ/デコーダ）"
 
-#: ../../user/changelog.md:48
-msgid "Code Generation (Switch Arms, Module Type)"
-msgstr "コード生成（Switch Arms、Module Type）"
-
-#: ../../user/changelog.md:49
+#: ../../user/changelog.md:92
 msgid ".d.ts to ReScript binding generation"
 msgstr ".d.ts から ReScript バインディングの生成"
 
-#: ../../user/changelog.md:50
-msgid "Backspace handler (JSX tag pair deletion)"
-msgstr "Backspace ハンドラー（JSX タグペアの削除）"
+#: ../../user/changelog.md:93
+msgid "Project Wizard with 12 templates"
+msgstr "12 テンプレート対応の Project Wizard"
 
-#: ../../user/changelog.md:51
-msgid "Move element left/right (Alt+Shift+Cmd+Left/Right)"
-msgstr "要素の左右移動（Alt+Shift+Cmd+Left/Right）"
+#: ../../user/changelog.md:94
+msgid "LSP auto-install with package manager detection"
+msgstr "パッケージマネージャ自動検出による LSP 自動インストール"
 
-#: ../../user/changelog.md:52
-msgid "Code block boundary detection (Ctrl+Shift+[ / ])"
-msgstr "コードブロック境界の検出（Ctrl+Shift+[ / ]）"
+#: ../../user/changelog.md:95
+msgid "REPL, Worksheet mode (.resw), Scratch files"
+msgstr "REPL、Worksheet モード（.resw）、スクラッチファイル"
 
-#: ../../user/changelog.md:53
-msgid "Split/Join list (single-line ↔ multi-line toggle)"
-msgstr "リストの分割/結合（単一行と複数行の切り替え）"
+#: ../../user/changelog.md:96
+msgid "Dependency diagram, PPX expansion view"
+msgstr "依存関係ダイアグラム、PPX 展開ビュー"
 
-#: ../../user/changelog.md:54
-msgid "Copy/Paste string escaping (auto-escape in string literals)"
-msgstr "コピー/ペースト時の文字列エスケープ（文字列リテラル内の自動エスケープ）"
+#: ../../user/changelog.md:97
+msgid "Type signature search, Type Info tool window"
+msgstr "型シグネチャ検索、Type Info ツールウィンドウ"
 
-#: ../../user/changelog.md:55
-msgid "Paste as JSX (HTML → ReScript JSX conversion)"
-msgstr "JSX として貼り付け（HTML から ReScript JSX への変換）"
+#: ../../user/changelog.md:98
+msgid "Editor floating toolbar, framework detector"
+msgstr "エディタフローティングツールバー、フレームワーク検出"
 
-#: ../../user/changelog.md:56
-msgid "Quick Documentation fallback (Ctrl+Q PSI-based)"
-msgstr "Quick Documentation フォールバック（Ctrl+Q PSI ベース）"
+#: ../../user/changelog.md:99
+msgid "GitHub error reporter"
+msgstr "GitHub エラーレポーター"
 
-#: ../../user/changelog.md:57
-msgid "Usage type classification for Find Usages"
-msgstr "Find Usages の使用タイプ分類"
-
-#: ../../user/changelog.md:58
-msgid "Safe Delete with usage checking"
-msgstr "使用箇所チェック付きの Safe Delete"
-
-#: ../../user/changelog.md:59
-msgid "Name suggestions during rename"
-msgstr "リネーム時の名前候補提案"
-
-#: ../../user/changelog.md:60
-msgid "Inspection suppressor (// noinspection comments)"
-msgstr "インスペクション抑制（// noinspection コメント）"
-
-#: ../../user/changelog.md:61
-msgid "Color preview swatches in editor gutter"
-msgstr "エディタガターのカラープレビュースウォッチ"
-
-#: ../../user/changelog.md:62
-msgid "VCS Code Vision (author/last-change annotations)"
-msgstr "VCS Code Vision（作成者/最終変更の注釈）"
-
-#: ../../user/changelog.md:63
-msgid "Project View decoration (interface suffix, version display)"
-msgstr "Project View の装飾（インターフェースサフィックス、バージョン表示）"
-
-#: ../../user/changelog.md:64
-msgid "Reader mode for node_modules files"
-msgstr "node_modules ファイルの Reader Mode"
-
-#: ../../user/changelog.md:65
-msgid "Package dependencies tool window"
-msgstr "パッケージ依存関係ツールウィンドウ"
-
-#: ../../user/changelog.md:66
-msgid "Auto import options configuration"
-msgstr "自動インポートオプションの設定"
-
-#: ../../user/changelog.md:67
-msgid "Open statement file-based index"
-msgstr "open ステートメントのファイルベースインデックス"
-
-#: ../../user/changelog.md:68
-msgid "Predefined code style preset"
-msgstr "定義済みコードスタイルプリセット"
-
-#: ../../user/changelog.md:69
-msgid "Element descriptions for refactoring dialogs"
-msgstr "リファクタリングダイアログの要素説明"
-
-#: ../../user/changelog.md:70
-msgid "Lookup character filter for completion"
-msgstr "補完の入力文字フィルター"
-
-#: ../../user/changelog.md:71
-msgid "Unwrap/Remove (Ctrl+Shift+Delete) for Some/Ok/Error/if/switch/try/block"
-msgstr "Some/Ok/Error/if/switch/try/block の Unwrap/Remove（Ctrl+Shift+Delete）"
-
-#: ../../user/changelog.md:72
-msgid "JSX closing tag auto-insertion on `>` keystroke"
-msgstr "`>` キー入力時の JSX 閉じタグ自動挿入"
-
-#: ../../user/changelog.md:73
-msgid "Enter handler for doc comment and line comment auto-continuation"
-msgstr "ドキュメントコメントと行コメントの自動継続 Enter ハンドラー"
-
-#: ../../user/changelog.md:74
-msgid "Smart join lines for pipe/let/arrow patterns (Ctrl+Shift+J)"
-msgstr "pipe/let/arrow パターンのスマート行結合（Ctrl+Shift+J）"
-
-#: ../../user/changelog.md:75
-msgid "Error Lens inline diagnostics at end of line"
-msgstr "行末の Error Lens インライン診断"
-
-#: ../../user/changelog.md:76
-msgid "Highlight related keywords (switch/if/try keyword pairs)"
-msgstr "関連キーワードのハイライト（switch/if/try のキーワードペア）"
-
-#: ../../user/changelog.md:77
-msgid "Run Anything for ReScript CLI (Ctrl+Ctrl)"
-msgstr "ReScript CLI の Run Anything（Ctrl+Ctrl）"
-
-#: ../../user/changelog.md:78
-msgid "Expression Type display (Ctrl+Shift+P)"
-msgstr "式の型表示（Ctrl+Shift+P）"
-
-#: ../../user/changelog.md:79
-msgid "Debug compiled JavaScript (Alt+Shift+D)"
-msgstr "コンパイル済み JavaScript のデバッグ（Alt+Shift+D）"
-
-#: ../../user/changelog.md:80
-msgid "LSP auto-install notification with one-click install"
-msgstr "ワンクリックインストール付き LSP 自動インストール通知"
-
-#: ../../user/changelog.md:81
-msgid "Generate doc comment intention action"
-msgstr "ドキュメントコメント生成のインテンションアクション"
-
-#: ../../user/changelog.md:82
-msgid "Goto Super for .res ↔ .resi declaration navigation (Ctrl+U)"
-msgstr ".res と .resi 間の宣言ナビゲーション用 Goto Super（Ctrl+U）"
-
-#: ../../user/changelog.md:83
-msgid "Go to Test / Create Test (Ctrl+Shift+T)"
-msgstr "Go to Test / Create Test（Ctrl+Shift+T）"
-
-#: ../../user/changelog.md:84
-msgid "Context Info sticky declaration header (Alt+Q)"
-msgstr "Context Info スクロール時の宣言ヘッダー固定（Alt+Q）"
-
-#: ../../user/changelog.md:85
-msgid "External Documentation for Belt/Js modules (Shift+F1)"
-msgstr "Belt/Js モジュールの外部ドキュメント（Shift+F1）"
-
-#: ../../user/changelog.md:86
-msgid "Word selection handler for strings, brackets, and comments"
-msgstr "文字列、括弧、コメントの選択範囲ハンドラー"
+#: ../../user/changelog.md:100
+msgid "And many more IDE integrations"
+msgstr "その他多数の IDE 統合機能"
 
 #~ msgid "Project Wizard"
 #~ msgstr "プロジェクトウィザード"
 
 #~ msgid "Live templates (15 snippets)"
 #~ msgstr "Live Templates（15 スニペット）"
+
+#~ msgid "Unreleased"
+#~ msgstr "未リリース"
+
+#~ msgid "Initial release of the ReScript IntelliJ Plugin."
+#~ msgstr "ReScript IntelliJ Plugin の初回リリースです。"
+
+#~ msgid "Intention actions (Wrap with Some/Ok/Error, Add @genType)"
+#~ msgstr "インテンションアクション（Some/Ok/Error でラップ、@genType の追加）"
+
+#~ msgid "Smart Enter"
+#~ msgstr "Smart Enter"
+
+#~ msgid "Qualified name copy"
+#~ msgstr "完全修飾名のコピー"
+
+#~ msgid "Console output file path links"
+#~ msgstr "コンソール出力のファイルパスリンク"
+
+#~ msgid "Editor notification bar (LSP not found)"
+#~ msgstr "エディタ通知バー（LSP 未検出）"
+
+#~ msgid "JSON Schema for rescript.json"
+#~ msgstr "rescript.json 用の JSON Schema"
+
+#~ msgid "JavaScript injection in %raw()"
+#~ msgstr "%raw() 内の JavaScript インジェクション"
+
+#~ msgid "Markdown code fence highlighting"
+#~ msgstr "Markdown コードフェンスのハイライト"
+
+#~ msgid "Paste as JSON.t"
+#~ msgstr "JSON.t として貼り付け"
+
+#~ msgid "Breadcrumb navigation"
+#~ msgstr "パンくずナビゲーション"
+
+#~ msgid "TODO indexing"
+#~ msgstr "TODO インデクシング"
+
+#~ msgid "Spellchecking"
+#~ msgstr "スペルチェック"
+
+#~ msgid ""
+#~ "Project Wizard with 12 templates (Basic,"
+#~ " Vite+React, Next.js, Electron, Hono, "
+#~ "Cloudflare Workers, AWS Lambda, Google "
+#~ "Cloud Run, React Native, npm Library,"
+#~ " CLI Tool, Monorepo)"
+#~ msgstr ""
+#~ "12 "
+#~ "テンプレート対応のプロジェクトウィザード（Basic、Vite+React、Next.js、Electron、Hono、Cloudflare"
+#~ " Workers、AWS Lambda、Google Cloud Run、React "
+#~ "Native、npm Library、CLI Tool、Monorepo）"
+
+#~ msgid "Code Generation (Switch Arms, Module Type)"
+#~ msgstr "コード生成（Switch Arms、Module Type）"
+
+#~ msgid "Backspace handler (JSX tag pair deletion)"
+#~ msgstr "Backspace ハンドラー（JSX タグペアの削除）"
+
+#~ msgid "Move element left/right (Alt+Shift+Cmd+Left/Right)"
+#~ msgstr "要素の左右移動（Alt+Shift+Cmd+Left/Right）"
+
+#~ msgid "Code block boundary detection (Ctrl+Shift+[ / ])"
+#~ msgstr "コードブロック境界の検出（Ctrl+Shift+[ / ]）"
+
+#~ msgid "Split/Join list (single-line ↔ multi-line toggle)"
+#~ msgstr "リストの分割/結合（単一行と複数行の切り替え）"
+
+#~ msgid "Copy/Paste string escaping (auto-escape in string literals)"
+#~ msgstr "コピー/ペースト時の文字列エスケープ（文字列リテラル内の自動エスケープ）"
+
+#~ msgid "Paste as JSX (HTML → ReScript JSX conversion)"
+#~ msgstr "JSX として貼り付け（HTML から ReScript JSX への変換）"
+
+#~ msgid "Quick Documentation fallback (Ctrl+Q PSI-based)"
+#~ msgstr "Quick Documentation フォールバック（Ctrl+Q PSI ベース）"
+
+#~ msgid "Usage type classification for Find Usages"
+#~ msgstr "Find Usages の使用タイプ分類"
+
+#~ msgid "Safe Delete with usage checking"
+#~ msgstr "使用箇所チェック付きの Safe Delete"
+
+#~ msgid "Name suggestions during rename"
+#~ msgstr "リネーム時の名前候補提案"
+
+#~ msgid "Inspection suppressor (// noinspection comments)"
+#~ msgstr "インスペクション抑制（// noinspection コメント）"
+
+#~ msgid "Color preview swatches in editor gutter"
+#~ msgstr "エディタガターのカラープレビュースウォッチ"
+
+#~ msgid "VCS Code Vision (author/last-change annotations)"
+#~ msgstr "VCS Code Vision（作成者/最終変更の注釈）"
+
+#~ msgid "Project View decoration (interface suffix, version display)"
+#~ msgstr "Project View の装飾（インターフェースサフィックス、バージョン表示）"
+
+#~ msgid "Reader mode for node_modules files"
+#~ msgstr "node_modules ファイルの Reader Mode"
+
+#~ msgid "Package dependencies tool window"
+#~ msgstr "パッケージ依存関係ツールウィンドウ"
+
+#~ msgid "Auto import options configuration"
+#~ msgstr "自動インポートオプションの設定"
+
+#~ msgid "Open statement file-based index"
+#~ msgstr "open ステートメントのファイルベースインデックス"
+
+#~ msgid "Predefined code style preset"
+#~ msgstr "定義済みコードスタイルプリセット"
+
+#~ msgid "Element descriptions for refactoring dialogs"
+#~ msgstr "リファクタリングダイアログの要素説明"
+
+#~ msgid "Lookup character filter for completion"
+#~ msgstr "補完の入力文字フィルター"
+
+#~ msgid "Unwrap/Remove (Ctrl+Shift+Delete) for Some/Ok/Error/if/switch/try/block"
+#~ msgstr "Some/Ok/Error/if/switch/try/block の Unwrap/Remove（Ctrl+Shift+Delete）"
+
+#~ msgid "JSX closing tag auto-insertion on `>` keystroke"
+#~ msgstr "`>` キー入力時の JSX 閉じタグ自動挿入"
+
+#~ msgid "Enter handler for doc comment and line comment auto-continuation"
+#~ msgstr "ドキュメントコメントと行コメントの自動継続 Enter ハンドラー"
+
+#~ msgid "Smart join lines for pipe/let/arrow patterns (Ctrl+Shift+J)"
+#~ msgstr "pipe/let/arrow パターンのスマート行結合（Ctrl+Shift+J）"
+
+#~ msgid "Error Lens inline diagnostics at end of line"
+#~ msgstr "行末の Error Lens インライン診断"
+
+#~ msgid "Highlight related keywords (switch/if/try keyword pairs)"
+#~ msgstr "関連キーワードのハイライト（switch/if/try のキーワードペア）"
+
+#~ msgid "Run Anything for ReScript CLI (Ctrl+Ctrl)"
+#~ msgstr "ReScript CLI の Run Anything（Ctrl+Ctrl）"
+
+#~ msgid "Expression Type display (Ctrl+Shift+P)"
+#~ msgstr "式の型表示（Ctrl+Shift+P）"
+
+#~ msgid "Debug compiled JavaScript (Alt+Shift+D)"
+#~ msgstr "コンパイル済み JavaScript のデバッグ（Alt+Shift+D）"
+
+#~ msgid "LSP auto-install notification with one-click install"
+#~ msgstr "ワンクリックインストール付き LSP 自動インストール通知"
+
+#~ msgid "Generate doc comment intention action"
+#~ msgstr "ドキュメントコメント生成のインテンションアクション"
+
+#~ msgid "Goto Super for .res ↔ .resi declaration navigation (Ctrl+U)"
+#~ msgstr ".res と .resi 間の宣言ナビゲーション用 Goto Super（Ctrl+U）"
+
+#~ msgid "Go to Test / Create Test (Ctrl+Shift+T)"
+#~ msgstr "Go to Test / Create Test（Ctrl+Shift+T）"
+
+#~ msgid "Context Info sticky declaration header (Alt+Q)"
+#~ msgstr "Context Info スクロール時の宣言ヘッダー固定（Alt+Q）"
+
+#~ msgid "External Documentation for Belt/Js modules (Shift+F1)"
+#~ msgstr "Belt/Js モジュールの外部ドキュメント（Shift+F1）"
+
+#~ msgid "Word selection handler for strings, brackets, and comments"
+#~ msgstr "文字列、括弧、コメントの選択範囲ハンドラー"
 

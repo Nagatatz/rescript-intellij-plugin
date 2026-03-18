@@ -227,6 +227,8 @@ msgid ""
 "Note: `pluginUntilBuild` is intentionally not set, allowing the plugin to"
 " be compatible with all future platform versions."
 msgstr ""
+"注意: `pluginUntilBuild` は意図的に設定されていません。これにより、プラグインは"
+"将来のすべてのプラットフォームバージョンと互換性を持ちます。"
 
 #: ../../dev/building.md:62
 msgid "CI Pipeline"

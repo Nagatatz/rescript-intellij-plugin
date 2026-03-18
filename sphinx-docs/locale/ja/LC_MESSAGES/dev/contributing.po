@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-03-17 16:42+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -27,8 +27,7 @@ msgstr "コントリビューションガイド"
 msgid ""
 "Thank you for your interest in contributing to the ReScript IntelliJ "
 "Plugin!"
-msgstr ""
-"ReScript IntelliJ Plugin への貢献に興味をお持ちいただきありがとうございます！"
+msgstr "ReScript IntelliJ Plugin への貢献に興味をお持ちいただきありがとうございます！"
 
 #: ../../dev/contributing.md:5
 msgid "Getting Started"
@@ -262,9 +261,7 @@ msgstr "KDoc コメント"
 msgid ""
 "All classes and significant methods must have KDoc comments in "
 "**English**:"
-msgstr ""
-"すべてのクラスと主要なメソッドには **英語** で KDoc コメントを記述する"
-"必要があります:"
+msgstr "すべてのクラスと主要なメソッドには **英語** で KDoc コメントを記述する必要があります:"
 
 #: ../../dev/contributing.md:103
 msgid "Testing"
@@ -287,50 +284,95 @@ msgid "See the [Testing Guide](testing.md) for details"
 msgstr "詳細は[テストガイド](testing.md)を参照してください"
 
 #: ../../dev/contributing.md:110
+msgid "AI-Assisted Development"
+msgstr "AI 支援開発"
+
+#: ../../dev/contributing.md:112
+msgid ""
+"This project uses structured workflows for AI-assisted development with "
+"Claude Code. The following configuration files define the development "
+"process:"
+msgstr ""
+"このプロジェクトでは、Claude Code を使用した AI 支援開発のために構造化されたワークフローを"
+"採用しています。以下の設定ファイルが開発プロセスを定義します:"
+
+#: ../../dev/contributing.md:114
+msgid ""
+"**`.claude/rules/steering-workflow.md`** — Steering workflow requiring "
+"`requirements.md`, `design.md`, and `tasklist.md` before implementation"
+msgstr ""
+"**`.claude/rules/steering-workflow.md`** — 実装前に `requirements.md`、"
+"`design.md`、`tasklist.md` を必要とするステアリングワークフロー"
+
+#: ../../dev/contributing.md:115
+msgid ""
+"**`.claude/rules/definition-of-done.md`** — 5-phase Definition of Done "
+"(Planning → Implementation → Pre-commit → Pre-merge → Post-merge)"
+msgstr ""
+"**`.claude/rules/definition-of-done.md`** — 5 フェーズの完了定義 "
+"(計画 → 実装 → コミット前 → マージ前 → マージ後)"
+
+#: ../../dev/contributing.md:116
+msgid ""
+"**`.claude/rules/git-conventions.md`** — Git worktree isolation for "
+"feature branches, emoji commit prefixes, and branch naming conventions"
+msgstr ""
+"**`.claude/rules/git-conventions.md`** — フィーチャーブランチの Git worktree 分離、"
+"絵文字コミットプレフィックス、ブランチ命名規則"
+
+#: ../../dev/contributing.md:118
+msgid ""
+"Steering documents are stored in `.steering/[YYYYMMDD]-[NNN]-[title]/` "
+"directories and committed alongside code changes."
+msgstr ""
+"ステアリングドキュメントは `.steering/[YYYYMMDD]-[NNN]-[title]/` ディレクトリに保存され、"
+"コード変更と一緒にコミットされます。"
+
+#: ../../dev/contributing.md:120
 msgid "Submitting Changes"
 msgstr "変更の提出"
 
-#: ../../dev/contributing.md:112
+#: ../../dev/contributing.md:122
 msgid "Ensure all tests pass:"
 msgstr "すべてのテストが通ることを確認します:"
 
-#: ../../dev/contributing.md:117
+#: ../../dev/contributing.md:127
 msgid "Ensure code style checks pass:"
 msgstr "コードスタイルチェックが通ることを確認します:"
 
-#: ../../dev/contributing.md:122
+#: ../../dev/contributing.md:132
 msgid "Build the plugin:"
 msgstr "プラグインをビルドします:"
 
-#: ../../dev/contributing.md:127
+#: ../../dev/contributing.md:137
 msgid "Push your branch and create a Pull Request"
 msgstr "ブランチをプッシュして Pull Request を作成します"
 
-#: ../../dev/contributing.md:129
+#: ../../dev/contributing.md:139
 msgid "PR Guidelines"
 msgstr "PR ガイドライン"
 
-#: ../../dev/contributing.md:131
+#: ../../dev/contributing.md:141
 msgid "Keep PRs focused on a single feature or fix"
 msgstr "PR は単一の機能またはバグ修正に絞ってください"
 
-#: ../../dev/contributing.md:132
+#: ../../dev/contributing.md:142
 msgid "Write a clear description of what changed and why"
 msgstr "何を変更したか、なぜ変更したかを明確に記述してください"
 
-#: ../../dev/contributing.md:133
+#: ../../dev/contributing.md:143
 msgid "Include screenshots for UI changes"
 msgstr "UI の変更にはスクリーンショットを含めてください"
 
-#: ../../dev/contributing.md:134
+#: ../../dev/contributing.md:144
 msgid "Reference related issues if applicable"
 msgstr "該当する場合は関連する Issue を参照してください"
 
-#: ../../dev/contributing.md:136
+#: ../../dev/contributing.md:146
 msgid "Questions?"
 msgstr "質問がありますか？"
 
-#: ../../dev/contributing.md:138
+#: ../../dev/contributing.md:148
 msgid ""
 "Open an [issue](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/issues) on GitHub"
@@ -338,6 +380,7 @@ msgstr ""
 "GitHub で [Issue](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/issues) を作成してください"
 
-#: ../../dev/contributing.md:139
+#: ../../dev/contributing.md:149
 msgid "Check existing issues and discussions"
 msgstr "既存の Issue やディスカッションを確認してください"
+

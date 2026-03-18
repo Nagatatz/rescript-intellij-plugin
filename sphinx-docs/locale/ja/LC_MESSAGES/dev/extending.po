@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-03-17 16:42+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -27,8 +27,7 @@ msgstr "プラグインの拡張"
 msgid ""
 "This guide explains how to add new features to the plugin, following "
 "established patterns."
-msgstr ""
-"このガイドでは、確立されたパターンに従ってプラグインに新機能を追加する方法を説明します。"
+msgstr "このガイドでは、確立されたパターンに従ってプラグインに新機能を追加する方法を説明します。"
 
 #: ../../dev/extending.md:5
 msgid "General Workflow"
@@ -38,9 +37,7 @@ msgstr "一般的なワークフロー"
 msgid ""
 "**Create a new Kotlin file** in the appropriate package under "
 "`src/main/kotlin/com/rescript/plugin/`"
-msgstr ""
-"`src/main/kotlin/com/rescript/plugin/` 配下の適切なパッケージに"
-"**新しい Kotlin ファイルを作成**"
+msgstr "`src/main/kotlin/com/rescript/plugin/` 配下の適切なパッケージに**新しい Kotlin ファイルを作成**"
 
 #: ../../dev/extending.md:8
 msgid "**Implement the IntelliJ Platform extension point** interface"
@@ -71,7 +68,9 @@ msgid "Inspections analyze code and report problems."
 msgstr "インスペクションはコードを分析し、問題を報告します。"
 
 #: ../../dev/extending.md:33 ../../dev/extending.md:66
-#: ../../dev/extending.md:92
+#: ../../dev/extending.md:92 ../../dev/extending.md:160
+#: ../../dev/extending.md:191 ../../dev/extending.md:224
+#: ../../dev/extending.md:255 ../../dev/extending.md:328
 msgid "Register in `plugin.xml`:"
 msgstr "`plugin.xml` で登録:"
 
@@ -107,17 +106,13 @@ msgstr "**`Rescript.flex` を編集** — トークンルールを追加"
 msgid ""
 "**Edit `RescriptTokenTypes.kt`** — Define the `IElementType` constant and"
 " add it to the appropriate `TokenSet`"
-msgstr ""
-"**`RescriptTokenTypes.kt` を編集** — `IElementType` 定数を定義し、"
-"適切な `TokenSet` に追加"
+msgstr "**`RescriptTokenTypes.kt` を編集** — `IElementType` 定数を定義し、適切な `TokenSet` に追加"
 
 #: ../../dev/extending.md:110
 msgid ""
 "**Edit `RescriptSyntaxHighlighter.kt`** — Map the token to a "
 "`TextAttributesKey`"
-msgstr ""
-"**`RescriptSyntaxHighlighter.kt` を編集** — トークンを "
-"`TextAttributesKey` にマッピング"
+msgstr "**`RescriptSyntaxHighlighter.kt` を編集** — トークンを `TextAttributesKey` にマッピング"
 
 #: ../../dev/extending.md:111
 msgid "**Build** — `./gradlew buildPlugin` to regenerate the lexer"
@@ -128,38 +123,109 @@ msgid "Adding a Postfix Template"
 msgstr "Postfix テンプレートの追加"
 
 #: ../../dev/extending.md:131
+msgid "Adding a Code Vision Provider"
+msgstr "Code Vision プロバイダーの追加"
+
+#: ../../dev/extending.md:133
+msgid ""
+"Code Vision providers display inline annotations (e.g., type signatures) "
+"above code elements."
+msgstr ""
+"Code Vision プロバイダーは、コード要素の上にインラインアノテーション"
+"（例: 型シグネチャ）を表示します。"
+
+#: ../../dev/extending.md:167
+msgid "Adding a Tool Window"
+msgstr "ツールウィンドウの追加"
+
+#: ../../dev/extending.md:169
+msgid ""
+"Tool windows provide persistent UI panels in the IDE sidebar or bottom "
+"bar."
+msgstr ""
+"ツールウィンドウは、IDE のサイドバーまたはボトムバーに永続的な UI パネルを提供します。"
+
+#: ../../dev/extending.md:201
+msgid "Adding a PSI Stub Index"
+msgstr "PSI スタブインデックスの追加"
+
+#: ../../dev/extending.md:203
+msgid ""
+"Stub indexes enable fast symbol lookup without parsing entire files. The "
+"plugin uses `StringStubIndexExtension` for name-based indexes and "
+"`FileBasedIndexExtension` for content-based indexes."
+msgstr ""
+"スタブインデックスは、ファイル全体を解析せずに高速なシンボル検索を可能にします。"
+"プラグインは名前ベースのインデックスに `StringStubIndexExtension` を、"
+"コンテンツベースのインデックスに `FileBasedIndexExtension` を使用します。"
+
+#: ../../dev/extending.md:205
+msgid "**Name index** (lookup symbols by name):"
+msgstr "**名前インデックス**（名前によるシンボル検索）:"
+
+#: ../../dev/extending.md:230
+msgid "**File-based index** (index file content for queries):"
+msgstr "**ファイルベースインデックス**（クエリ用のファイルコンテンツインデックス）:"
+
+#: ../../dev/extending.md:261
+msgid "Adding LSP Custom Requests"
+msgstr "LSP カスタムリクエストの追加"
+
+#: ../../dev/extending.md:263
+msgid ""
+"Extend the LSP server interface with custom request methods using "
+"`@JsonRequest` annotations."
+msgstr ""
+"`@JsonRequest` アノテーションを使用して、LSP サーバーインターフェースに"
+"カスタムリクエストメソッドを追加します。"
+
+#: ../../dev/extending.md:282
+msgid ""
+"Custom requests are defined as interface methods, not registered in "
+"`plugin.xml`. The interface is used when obtaining the LSP server proxy "
+"via `LspServerDescriptor`:"
+msgstr ""
+"カスタムリクエストはインターフェースメソッドとして定義され、`plugin.xml` には登録しません。"
+"このインターフェースは `LspServerDescriptor` 経由で LSP サーバープロキシを取得する際に"
+"使用されます:"
+
+#: ../../dev/extending.md:289
+msgid "Adding a Paste Processor"
+msgstr "ペーストプロセッサの追加"
+
+#: ../../dev/extending.md:291
+msgid "Paste processors transform clipboard content when pasting into the editor."
+msgstr "ペーストプロセッサは、エディタへのペースト時にクリップボードの内容を変換します。"
+
+#: ../../dev/extending.md:335
 msgid "File Naming Conventions"
 msgstr "ファイル命名規則"
 
-#: ../../dev/extending.md:133
+#: ../../dev/extending.md:337
 msgid "Classes: `Rescript<Feature><Type>.kt` (e.g., `RescriptFoldingBuilder.kt`)"
 msgstr "クラス: `Rescript<Feature><Type>.kt` (例: `RescriptFoldingBuilder.kt`)"
 
-#: ../../dev/extending.md:134
+#: ../../dev/extending.md:338
 msgid ""
 "Tests: `Rescript<Feature><Type>Test.kt` (e.g., "
 "`RescriptFoldingBuilderTest.kt`)"
-msgstr ""
-"テスト: `Rescript<Feature><Type>Test.kt` (例: "
-"`RescriptFoldingBuilderTest.kt`)"
+msgstr "テスト: `Rescript<Feature><Type>Test.kt` (例: `RescriptFoldingBuilderTest.kt`)"
 
-#: ../../dev/extending.md:135
+#: ../../dev/extending.md:339
 msgid ""
 "Package: Match the feature category (e.g., `folding/`, `navigation/`, "
 "`analysis/`)"
-msgstr ""
-"パッケージ: 機能カテゴリに合わせる (例: `folding/`, `navigation/`, "
-"`analysis/`)"
+msgstr "パッケージ: 機能カテゴリに合わせる (例: `folding/`, `navigation/`, `analysis/`)"
 
-#: ../../dev/extending.md:137
+#: ../../dev/extending.md:341
 msgid "KDoc Requirements"
 msgstr "KDoc 要件"
 
-#: ../../dev/extending.md:139
+#: ../../dev/extending.md:343
 msgid ""
 "All classes and non-trivial public methods must have KDoc comments in "
 "English. See the [Contributing Guide](contributing.md) for details."
 msgstr ""
-"すべてのクラスと非自明な公開メソッドには英語で KDoc コメントを記述する必要があります。"
-"詳細は [Contributing Guide](contributing.md) を参照してください。"
+"すべてのクラスと非自明な公開メソッドには英語で KDoc コメントを記述する必要があります。詳細は [Contributing "
+"Guide](contributing.md) を参照してください。"
 

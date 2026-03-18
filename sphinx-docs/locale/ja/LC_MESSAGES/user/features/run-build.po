@@ -698,30 +698,29 @@ msgstr ""
 
 #: ../../user/features/run-build.md:217
 msgid "Scratch File"
-msgstr ""
+msgstr "スクラッチファイル"
 
 #: ../../user/features/run-build.md:219
 msgid ""
 "Create temporary ReScript files for quick experimentation without "
 "affecting your project."
-msgstr ""
+msgstr "プロジェクトに影響を与えずに、素早い実験用の一時的な ReScript ファイルを作成できます。"
 
 #: ../../user/features/run-build.md:221 ../../user/features/run-build.md:265
-#, fuzzy
 msgid "How to Use"
-msgstr "仕組み"
+msgstr "使い方"
 
 #: ../../user/features/run-build.md:223
 msgid "**File** > **New** > **Scratch File** (or `Ctrl+Alt+Shift+Insert`)"
-msgstr ""
+msgstr "**File** > **New** > **Scratch File**（または `Ctrl+Alt+Shift+Insert`）を選択します"
 
 #: ../../user/features/run-build.md:224
 msgid "Select **ReScript** from the language list"
-msgstr ""
+msgstr "言語リストから **ReScript** を選択します"
 
 #: ../../user/features/run-build.md:225
 msgid "Write and experiment with code in the scratch file"
-msgstr ""
+msgstr "スクラッチファイルでコードを書いて実験します"
 
 #: ../../user/features/run-build.md:227
 msgid ""
@@ -730,24 +729,27 @@ msgid ""
 "highlighting and code folding, making them ideal for testing small code "
 "snippets."
 msgstr ""
+"スクラッチファイルは IDE のスクラッチディレクトリ（プロジェクト外）に保存され、IDE の再起動後も保持されます。"
+"シンタックスハイライトとコード折りたたみを完全にサポートしており、"
+"小さなコードスニペットのテストに最適です。"
 
 #: ../../user/features/run-build.md:229
 msgid "Use Cases"
-msgstr ""
+msgstr "ユースケース"
 
 #: ../../user/features/run-build.md:231
 msgid ""
 "**Quick prototyping** — Try out an idea without creating a file in your "
 "project"
-msgstr ""
+msgstr "**素早いプロトタイピング** — プロジェクトにファイルを作成せずにアイデアを試せます"
 
 #: ../../user/features/run-build.md:232
 msgid "**Learning** — Experiment with ReScript syntax and features"
-msgstr ""
+msgstr "**学習** — ReScript の構文と機能を実験できます"
 
 #: ../../user/features/run-build.md:233
 msgid "**Debugging** — Isolate and test a specific piece of logic"
-msgstr ""
+msgstr "**デバッグ** — 特定のロジックを分離してテストできます"
 
 #: ../../user/features/run-build.md:235
 msgid ""
@@ -760,15 +762,15 @@ msgstr ""
 
 #: ../../user/features/run-build.md:237
 msgid "REPL"
-msgstr ""
+msgstr "REPL"
 
 #: ../../user/features/run-build.md:239
 msgid "An interactive ReScript execution environment available as a tool window."
-msgstr ""
+msgstr "ツールウィンドウとして利用できるインタラクティブな ReScript 実行環境です。"
 
 #: ../../user/features/run-build.md:241
 msgid "**Open:** **View** > **Tool Windows** > **ReScript REPL**"
-msgstr ""
+msgstr "**起動方法:** **View** > **Tool Windows** > **ReScript REPL**"
 
 #: ../../user/features/run-build.md:245
 msgid ""
@@ -777,32 +779,35 @@ msgid ""
 "temporary file, compiled to JavaScript, and executed, with the result "
 "displayed in the output panel."
 msgstr ""
+"REPL はプロジェクトの ReScript コンパイラと Node.js ランタイムを使用して ReScript 式をコンパイル・実行します。"
+"各式は一時ファイルにラップされ、JavaScript にコンパイルされて実行され、"
+"結果が出力パネルに表示されます。"
 
 #: ../../user/features/run-build.md:247 ../../user/features/run-build.md:277
 msgid "Features"
-msgstr ""
+msgstr "機能"
 
 #: ../../user/features/run-build.md:249
 msgid ""
 "**Expression evaluation** — Type ReScript expressions and see results "
 "immediately"
-msgstr ""
+msgstr "**式の評価** — ReScript の式を入力すると、すぐに結果が表示されます"
 
 #: ../../user/features/run-build.md:250
 msgid ""
 "**History navigation** — Use Up/Down arrow keys to recall previous "
 "expressions"
-msgstr ""
+msgstr "**履歴ナビゲーション** — 上下キーで以前の式を呼び出せます"
 
 #: ../../user/features/run-build.md:251
 msgid ""
 "**Project context** — The REPL uses your project's `rescript.json` "
 "configuration and dependencies"
-msgstr ""
+msgstr "**プロジェクトコンテキスト** — REPL はプロジェクトの `rescript.json` 設定と依存関係を使用します"
 
 #: ../../user/features/run-build.md:252
 msgid "**Clear output** — Clear the output panel with the toolbar button"
-msgstr ""
+msgstr "**出力のクリア** — ツールバーボタンで出力パネルをクリアできます"
 
 #: ../../user/features/run-build.md:254 ../../user/features/run-build.md:301
 msgid "Requirements"
@@ -810,12 +815,11 @@ msgstr "要件"
 
 #: ../../user/features/run-build.md:256
 msgid "ReScript compiler installed in the project's `node_modules`"
-msgstr ""
+msgstr "プロジェクトの `node_modules` に ReScript コンパイラがインストールされていること"
 
 #: ../../user/features/run-build.md:257
-#, fuzzy
 msgid "Node.js available on the system"
-msgstr "システムに Node.js が利用可能である必要があります"
+msgstr "システムに Node.js が利用可能であること"
 
 #: ../../user/features/run-build.md:259
 msgid ""
@@ -828,65 +832,67 @@ msgstr ""
 
 #: ../../user/features/run-build.md:261
 msgid "Worksheet Mode"
-msgstr ""
+msgstr "Worksheet モード"
 
 #: ../../user/features/run-build.md:263
 msgid ""
 "Interactively evaluate entire `.resw` (ReScript Worksheet) files with "
 "inline results displayed next to each expression."
 msgstr ""
+"`.resw`（ReScript Worksheet）ファイル全体をインタラクティブに評価し、"
+"各式の横にインラインで結果を表示します。"
 
 #: ../../user/features/run-build.md:267
 msgid "Create a file with the `.resw` extension"
-msgstr ""
+msgstr "`.resw` 拡張子のファイルを作成します"
 
 #: ../../user/features/run-build.md:268
 msgid "Write ReScript expressions, one per line"
-msgstr ""
+msgstr "ReScript の式を 1 行ずつ記述します"
 
 #: ../../user/features/run-build.md:269
 msgid ""
 "Results appear as inline annotations next to each expression after "
 "evaluation"
-msgstr ""
+msgstr "評価後、各式の横にインラインアノテーションとして結果が表示されます"
 
 #: ../../user/features/run-build.md:279
 msgid ""
 "**Automatic evaluation** — Expressions are evaluated when the file is "
 "saved or on demand"
-msgstr ""
+msgstr "**自動評価** — ファイルの保存時またはオンデマンドで式が評価されます"
 
 #: ../../user/features/run-build.md:280
 msgid ""
 "**Inline results** — Results appear as grayed-out annotations at the end "
 "of each line"
-msgstr ""
+msgstr "**インライン結果** — 各行の末尾にグレーアウトされたアノテーションとして結果が表示されます"
 
 #: ../../user/features/run-build.md:281
 msgid ""
 "**Error display** — Compilation errors are shown inline next to the "
 "offending expression"
-msgstr ""
+msgstr "**エラー表示** — コンパイルエラーが該当する式の横にインラインで表示されます"
 
 #: ../../user/features/run-build.md:282
 msgid ""
 "**Full language support** — Worksheets support the full ReScript syntax "
 "with access to project dependencies"
-msgstr ""
+msgstr "**完全な言語サポート** — Worksheet は ReScript の完全な構文をサポートし、プロジェクトの依存関係にアクセスできます"
 
 #: ../../user/features/run-build.md:284
 msgid "Difference from REPL"
-msgstr ""
+msgstr "REPL との違い"
 
 #: ../../user/features/run-build.md:286
 msgid "**REPL** evaluates one expression at a time in an interactive session"
-msgstr ""
+msgstr "**REPL** はインタラクティブなセッションで一度に 1 つの式を評価します"
 
 #: ../../user/features/run-build.md:287
 msgid ""
 "**Worksheet** evaluates an entire file at once, showing all results side "
 "by side with the source code"
-msgstr ""
+msgstr "**Worksheet** はファイル全体を一度に評価し、ソースコードと並べてすべての結果を表示します"
 
 #: ../../user/features/run-build.md:289
 msgid ""

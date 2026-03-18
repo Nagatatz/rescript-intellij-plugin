@@ -281,87 +281,85 @@ msgstr "宣言の上に `/** */` ドキュメントコメントのスタブを�
 
 #: ../../user/features/code-editing.md:34
 msgid "Convert pipe to function call"
-msgstr ""
+msgstr "パイプを関数呼び出しに変換"
 
 #: ../../user/features/code-editing.md:34
 msgid "Convert `arr->Array.map(f)` to `Array.map(arr, f)`"
-msgstr ""
+msgstr "`arr->Array.map(f)` を `Array.map(arr, f)` に変換"
 
 #: ../../user/features/code-editing.md:34
 msgid "Convert function call to pipe"
-msgstr ""
+msgstr "関数呼び出しをパイプに変換"
 
 #: ../../user/features/code-editing.md:34
 msgid "Convert `Array.map(arr, f)` to `arr->Array.map(f)`"
-msgstr ""
+msgstr "`Array.map(arr, f)` を `arr->Array.map(f)` に変換"
 
 #: ../../user/features/code-editing.md:34
 msgid "Publish to interface"
-msgstr ""
+msgstr "インターフェースに公開"
 
 #: ../../user/features/code-editing.md:34
 msgid "Add a declaration from `.res` to its `.resi` interface file"
-msgstr ""
+msgstr "`.res` の宣言を対応する `.resi` インターフェースファイルに追加"
 
 #: ../../user/features/code-editing.md:34
 msgid "Unpublish from interface"
-msgstr ""
+msgstr "インターフェースから非公開"
 
 #: ../../user/features/code-editing.md:34
 msgid "Remove a declaration from the `.resi` interface file"
-msgstr ""
+msgstr "`.resi` インターフェースファイルから宣言を削除"
 
 #: ../../user/features/code-editing.md:34
 msgid "Insert labeled arguments"
-msgstr ""
+msgstr "ラベル付き引数を挿入"
 
 #: ../../user/features/code-editing.md:34
 msgid "Insert all labeled arguments for a function call"
-msgstr ""
+msgstr "関数呼び出しのすべてのラベル付き引数を挿入"
 
 #: ../../user/features/code-editing.md:34
-#, fuzzy
 msgid "Merge switch cases"
-msgstr "Switch Arms の生成"
+msgstr "Switch ケースの統合"
 
 #: ../../user/features/code-editing.md:34
 msgid "Merge switch cases with identical bodies into `| A | B => body`"
-msgstr ""
+msgstr "同じボディを持つ switch ケースを `| A | B => body` に統合"
 
 #: ../../user/features/code-editing.md:34
 msgid "Case split"
-msgstr ""
+msgstr "ケースの分割"
 
 #: ../../user/features/code-editing.md:34
 msgid "Expand a pattern variable into all constructor cases"
-msgstr ""
+msgstr "パターン変数をすべてのコンストラクターケースに展開"
 
 #: ../../user/features/code-editing.md:34
 msgid "Convert to labeled arguments"
-msgstr ""
+msgstr "ラベル付き引数に変換"
 
 #: ../../user/features/code-editing.md:34
 msgid "Convert positional arguments to labeled arguments"
-msgstr ""
+msgstr "位置引数をラベル付き引数に変換"
 
 #: ../../user/features/code-editing.md:34
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Remove unnecessary parentheses"
-msgstr "単一式を囲む不要な `{ }` を削除"
+msgstr "不要な括弧を削除"
 
 #: ../../user/features/code-editing.md:34
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Remove redundant parentheses around expressions"
-msgstr "単一式を囲む不要な `{ }` を削除"
+msgstr "式を囲む冗長な括弧を削除"
 
 #: ../../user/features/code-editing.md:34
-#, fuzzy
 msgid "Remove redundant qualifier"
-msgstr "冗長なブレースの削除"
+msgstr "冗長な修飾子を削除"
 
 #: ../../user/features/code-editing.md:34
 msgid "Remove unnecessary module path qualifiers"
-msgstr ""
+msgstr "不要なモジュールパスの修飾子を削除"
 
 #: ../../user/features/code-editing.md:34
 #: ../../user/features/code-editing.md:379
@@ -369,23 +367,16 @@ msgid "Convert filter+map to filterMap"
 msgstr "filter+map を filterMap に変換"
 
 #: ../../user/features/code-editing.md:34
-#, fuzzy
 msgid "Convert `->Array.filter(f)->Array.map(g)` to `->Array.filterMap(...)`"
-msgstr ""
-"`->Array.filter(f)->Array.map(g)` チェーンを単一の `->Array.filterMap(...)` "
-"呼び出しに変換します。filter または map の呼び出しにキャレットを置いて `Alt+Enter` を押します。"
+msgstr "`->Array.filter(f)->Array.map(g)` を `->Array.filterMap(...)` に変換"
 
 #: ../../user/features/code-editing.md:34
-#, fuzzy
 msgid "Add type annotation"
-msgstr "型注釈の追加"
+msgstr "型注釈を追加"
 
 #: ../../user/features/code-editing.md:34
-#, fuzzy
 msgid "Add explicit type annotation to a `let` binding using LSP hover info"
-msgstr ""
-"LSP hover の型情報を使用して `let` バインディングに明示的な型注釈を追加します。`let` バインディングにキャレットを置いて "
-"`Alt+Enter` を押します。"
+msgstr "LSP hover の情報を使用して `let` バインディングに明示的な型注釈を追加"
 
 #: ../../user/features/code-editing.md:34
 msgid "Add `->ignore`"
@@ -597,31 +588,31 @@ msgstr "**実行後**（\"Generate doc comment\" を実行）:"
 
 #: ../../user/features/code-editing.md:233
 msgid "Pipe ⇔ Function Call Conversion"
-msgstr ""
+msgstr "パイプ ⇔ 関数呼び出しの変換"
 
 #: ../../user/features/code-editing.md:235
 msgid ""
 "Convert between pipe-first syntax and regular function call syntax. Place"
 " the caret on a pipe expression or function call and press `Alt+Enter`."
-msgstr ""
+msgstr "パイプファースト構文と通常の関数呼び出し構文を相互変換します。パイプ式または関数呼び出しにキャレットを置いて `Alt+Enter` を押します。"
 
 #: ../../user/features/code-editing.md:237
 msgid "**Pipe to function call:**"
-msgstr ""
+msgstr "**パイプから関数呼び出しへ:**"
 
 #: ../../user/features/code-editing.md:247
 msgid "**Function call to pipe:**"
-msgstr ""
+msgstr "**関数呼び出しからパイプへ:**"
 
 #: ../../user/features/code-editing.md:257
 msgid "Publish/Unpublish Interface"
-msgstr ""
+msgstr "インターフェースの公開/非公開"
 
 #: ../../user/features/code-editing.md:259
 msgid ""
 "Control which declarations are exposed in the `.resi` interface file "
 "directly from the `.res` implementation."
-msgstr ""
+msgstr "`.res` 実装から直接、`.resi` インターフェースファイルで公開する宣言を制御します。"
 
 #: ../../user/features/code-editing.md:261
 msgid ""
@@ -630,6 +621,9 @@ msgid ""
 "choose **Publish to interface**. The declaration signature is appended to"
 " the corresponding `.resi` file."
 msgstr ""
+"**Publish to interface:** `.res` ファイルの `let`、`type`、`module`、または "
+"`external` 宣言にキャレットを置いて `Alt+Enter` を押し、**Publish to interface** "
+"を選択します。宣言のシグネチャが対応する `.resi` ファイルに追加されます。"
 
 #: ../../user/features/code-editing.md:263
 msgid ""
@@ -638,16 +632,19 @@ msgid ""
 " from interface**. The matching declaration is removed from the `.resi` "
 "file."
 msgstr ""
+"**Unpublish from interface:** `.resi` ファイルに存在する宣言にキャレットを置いて "
+"`Alt+Enter` を押し、**Unpublish from interface** を選択します。対応する宣言が `.resi` "
+"ファイルから削除されます。"
 
 #: ../../user/features/code-editing.md:266
 msgid ""
 "These intentions require a corresponding `.resi` file to exist. Use "
 "**Create Interface File** to generate one first if needed."
-msgstr ""
+msgstr "これらのインテンションには対応する `.resi` ファイルが必要です。必要に応じて、先に **Create Interface File** で生成してください。"
 
 #: ../../user/features/code-editing.md:269
 msgid "Insert Labeled Arguments"
-msgstr ""
+msgstr "ラベル付き引数の挿入"
 
 #: ../../user/features/code-editing.md:271
 msgid ""
@@ -656,11 +653,12 @@ msgid ""
 " labeled arguments**. All labeled arguments are inserted as named "
 "parameters."
 msgstr ""
+"ラベル付き引数を持つ関数を呼び出す際、関数呼び出しの括弧内にキャレットを置いて `Alt+Enter` を押し、**Insert "
+"labeled arguments** を選択します。すべてのラベル付き引数が名前付きパラメーターとして挿入されます。"
 
 #: ../../user/features/code-editing.md:285
-#, fuzzy
 msgid "Merge Switch Cases"
-msgstr "Switch Arms の生成"
+msgstr "Switch ケースの統合"
 
 #: ../../user/features/code-editing.md:287
 msgid ""
@@ -668,10 +666,12 @@ msgid ""
 "of them and press `Alt+Enter`, then choose **Merge switch cases**. The "
 "cases are combined into a single arm with multiple patterns."
 msgstr ""
+"複数の switch ケースが同じボディを持つ場合、いずれかにキャレットを置いて `Alt+Enter` を押し、**Merge switch "
+"cases** を選択します。ケースが複数のパターンを持つ単一のアームに統合されます。"
 
 #: ../../user/features/code-editing.md:308
 msgid "Case Split"
-msgstr ""
+msgstr "ケースの分割"
 
 #: ../../user/features/code-editing.md:310
 msgid ""
@@ -679,40 +679,41 @@ msgid ""
 "Place the caret on a variable pattern in a switch arm and press "
 "`Alt+Enter`, then choose **Case split**."
 msgstr ""
+"パターンマッチの変数をすべてのコンストラクターケースに展開します。switch アームの変数パターンにキャレットを置いて "
+"`Alt+Enter` を押し、**Case split** を選択します。"
 
 #: ../../user/features/code-editing.md:329
 msgid "Convert to Labeled Arguments"
-msgstr ""
+msgstr "ラベル付き引数への変換"
 
 #: ../../user/features/code-editing.md:331
 msgid ""
 "Convert positional function arguments to labeled arguments. Place the "
 "caret on a function call and press `Alt+Enter`."
-msgstr ""
+msgstr "位置引数をラベル付き引数に変換します。関数呼び出しにキャレットを置いて `Alt+Enter` を押します。"
 
 #: ../../user/features/code-editing.md:345
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Remove Unnecessary Parentheses"
-msgstr "単一式を囲む不要な `{ }` を削除"
+msgstr "不要な括弧の削除"
 
 #: ../../user/features/code-editing.md:347
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Remove redundant parentheses around expressions. Place the caret on a "
 "parenthesized expression and press `Alt+Enter`."
-msgstr "単一の式を囲む不要な `{ }` を削除します。ブレースにキャレットを置いて `Alt+Enter` を押します。"
+msgstr "式を囲む冗長な括弧を削除します。括弧で囲まれた式にキャレットを置いて `Alt+Enter` を押します。"
 
 #: ../../user/features/code-editing.md:361
-#, fuzzy
 msgid "Remove Redundant Qualifier"
-msgstr "冗長なブレースの削除"
+msgstr "冗長な修飾子の削除"
 
 #: ../../user/features/code-editing.md:363
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Remove unnecessary module path qualifiers when the module is already "
 "opened. Place the caret on a qualified identifier and press `Alt+Enter`."
-msgstr "単一の式を囲む不要な `{ }` を削除します。ブレースにキャレットを置いて `Alt+Enter` を押します。"
+msgstr "モジュールが既に open されている場合に不要なモジュールパスの修飾子を削除します。修飾付き識別子にキャレットを置いて `Alt+Enter` を押します。"
 
 #: ../../user/features/code-editing.md:381
 msgid ""
@@ -933,29 +934,25 @@ msgstr "リネームリファクタリングはプロジェクト全体のすべ
 
 #: ../../user/features/code-editing.md:604
 msgid "Extract Variable"
-msgstr ""
+msgstr "変数の抽出"
 
 #: ../../user/features/code-editing.md:606
-#, fuzzy
 msgid ""
 "Press `Ctrl+Alt+V` (`Cmd+Alt+V` on macOS) to extract the selected "
 "expression into a `let` binding."
-msgstr ""
-"`Ctrl+Alt+L`（macOS では `Cmd+Option+L`）を押して、`rescript format` CLI "
-"を使用して現在のファイルをフォーマットします。"
+msgstr "`Ctrl+Alt+V`（macOS では `Cmd+Alt+V`）を押して、選択した式を `let` バインディングに抽出します。"
 
 #: ../../user/features/code-editing.md:608
 msgid ""
 "The handler detects the selected expression within a `let` declaration "
 "body, creates a new `let` binding above the current statement, and "
 "replaces the original expression with a reference to the new variable."
-msgstr ""
+msgstr "ハンドラーは `let` 宣言本体内の選択された式を検出し、現在のステートメントの上に新しい `let` バインディングを作成し、元の式を新しい変数への参照に置き換えます。"
 
 #: ../../user/features/code-editing.md:610
 #: ../../user/features/code-editing.md:637
-#, fuzzy
 msgid "**Before** (with `a + b` selected):"
-msgstr "**変更後**（`name` を選択した場合）:"
+msgstr "**変更前**（`a + b` を選択した場合）:"
 
 #: ../../user/features/code-editing.md:629
 msgid ""
@@ -966,13 +963,13 @@ msgstr "Extract Variable により中間式に名前を付けて明確にでき�
 
 #: ../../user/features/code-editing.md:631
 msgid "Extract Function"
-msgstr ""
+msgstr "関数の抽出"
 
 #: ../../user/features/code-editing.md:633
 msgid ""
 "Press `Ctrl+Alt+M` (`Cmd+Alt+M` on macOS) to extract the selected code "
 "into a new function."
-msgstr ""
+msgstr "`Ctrl+Alt+M`（macOS では `Cmd+Alt+M`）を押して、選択したコードを新しい関数に抽出します。"
 
 #: ../../user/features/code-editing.md:635
 msgid ""
@@ -982,6 +979,8 @@ msgid ""
 "new function. Free variables in the selection become parameters of the "
 "extracted function."
 msgstr ""
+"ハンドラーは `let` 宣言本体内の選択された式またはステートメント範囲を検出し、現在の宣言の上に新しい `let` "
+"関数として抽出し、元のコードを新しい関数の呼び出しに置き換えます。選択範囲内の自由変数は抽出された関数のパラメーターになります。"
 
 #: ../../user/features/code-editing.md:657
 msgid ""
@@ -992,25 +991,24 @@ msgstr "Extract Function は自由変数を自動検出してパラメータに�
 
 #: ../../user/features/code-editing.md:659
 msgid "Inline Variable/Function"
-msgstr ""
+msgstr "変数/関数のインライン化"
 
 #: ../../user/features/code-editing.md:661
 msgid ""
 "Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or "
 "function at the caret, replacing all references with the definition body."
-msgstr ""
+msgstr "`Ctrl+Alt+N`（macOS では `Cmd+Alt+N`）を押して、キャレット位置の変数または関数をインライン化し、すべての参照を定義本体に置き換えます。"
 
 #: ../../user/features/code-editing.md:663
 msgid ""
 "The handler finds the `let` declaration at the caret, locates all "
 "references to it within the file, replaces each reference with the "
 "definition body, and removes the original declaration."
-msgstr ""
+msgstr "ハンドラーはキャレット位置の `let` 宣言を見つけ、ファイル内のすべての参照を検出し、各参照を定義本体に置き換え、元の宣言を削除します。"
 
 #: ../../user/features/code-editing.md:672
-#, fuzzy
 msgid "**After** (inline `prefix`):"
-msgstr "**変更後**（自動挿入）:"
+msgstr "**変更後**（`prefix` をインライン化）:"
 
 #: ../../user/features/code-editing.md:678
 msgid ""
@@ -1021,24 +1019,24 @@ msgstr "インラインリファクタリングは抽出の逆で、不要な中
 
 #: ../../user/features/code-editing.md:680
 msgid "Introduce Constant"
-msgstr ""
+msgstr "定数の導入"
 
 #: ../../user/features/code-editing.md:682
 msgid ""
 "Extract a literal value into a module-level constant. Select a string, "
 "number, or other literal and use **Refactor** > **Introduce Constant**."
-msgstr ""
+msgstr "リテラル値をモジュールレベルの定数に抽出します。文字列、数値、その他のリテラルを選択して **Refactor** > **Introduce Constant** を使用します。"
 
 #: ../../user/features/code-editing.md:684
 msgid ""
 "The handler extracts the selected literal into a new `let` binding at the"
 " top of the file (after any `open` statements) and replaces the original "
 "literal with a reference to the new constant."
-msgstr ""
+msgstr "ハンドラーは選択したリテラルをファイルの先頭（`open` 文の後）に新しい `let` バインディングとして抽出し、元のリテラルを新しい定数への参照に置き換えます。"
 
 #: ../../user/features/code-editing.md:693
 msgid "**After** (introduce constant for `\"Hello, World!\"`):"
-msgstr ""
+msgstr "**変更後**（`\"Hello, World!\"` を定数に抽出）:"
 
 #: ../../user/features/code-editing.md:701
 msgid ""
@@ -1049,25 +1047,24 @@ msgstr "Introduce Constant はマジック値をモジュールレベルの名�
 
 #: ../../user/features/code-editing.md:703
 msgid "Change Signature"
-msgstr ""
+msgstr "シグネチャの変更"
 
 #: ../../user/features/code-editing.md:705
 msgid ""
 "Press `Ctrl+F6` to modify a function's parameters — reorder, rename, add,"
 " or remove — and update call sites within the file."
-msgstr ""
+msgstr "`Ctrl+F6` を押して関数のパラメーターを変更（並べ替え、リネーム、追加、削除）し、ファイル内の呼び出し箇所を更新します。"
 
 #: ../../user/features/code-editing.md:707
 msgid ""
 "The handler parses the function declaration at the caret, supports both "
 "labeled (`~name: type`) and positional parameters, and applies changes to"
 " the declaration and all matching call sites."
-msgstr ""
+msgstr "ハンドラーはキャレット位置の関数宣言を解析し、ラベル付き（`~name: type`）と位置パラメーターの両方をサポートし、宣言とすべての対応する呼び出し箇所に変更を適用します。"
 
 #: ../../user/features/code-editing.md:717
-#, fuzzy
 msgid "**After** (reorder parameters):"
-msgstr "**変更後**（自動挿入）:"
+msgstr "**変更後**（パラメーターを並べ替え）:"
 
 #: ../../user/features/code-editing.md:725
 msgid ""
@@ -1077,27 +1074,25 @@ msgid ""
 msgstr "Change Signature は関数のパラメータリストを再構成し、すべての呼び出し箇所を自動更新するため、API の進化がエラーの起きやすい手動編集ではなく安全で機械的になります。"
 
 #: ../../user/features/code-editing.md:727
-#, fuzzy
 msgid "React Component Extraction"
-msgstr "React コンポーネント: `<MyComponent>`"
+msgstr "React コンポーネントの抽出"
 
 #: ../../user/features/code-editing.md:729
 msgid ""
 "Extract selected JSX into a new React component. Select a JSX expression,"
 " then use **Refactor** > **Extract React Component**."
-msgstr ""
+msgstr "選択した JSX を新しい React コンポーネントに抽出します。JSX 式を選択し、**Refactor** > **Extract React Component** を使用します。"
 
 #: ../../user/features/code-editing.md:731
 msgid ""
 "The handler creates a new `@react.component` module with the selected JSX"
 " as its body. Props used within the selection are detected and added as "
 "labeled parameters to the new component's `make` function."
-msgstr ""
+msgstr "ハンドラーは選択した JSX を本体とする新しい `@react.component` モジュールを作成します。選択範囲内で使用されている props が検出され、新しいコンポーネントの `make` 関数にラベル付きパラメーターとして追加されます。"
 
 #: ../../user/features/code-editing.md:733
-#, fuzzy
 msgid "**Before** (with `<div className=\"card\">...</div>` selected):"
-msgstr "**変更後**（`name` を選択した場合）:"
+msgstr "**変更前**（`<div className=\"card\">...</div>` を選択した場合）:"
 
 #: ../../user/features/code-editing.md:766
 msgid ""
@@ -1148,13 +1143,13 @@ msgstr "**Generate Module Type** — モジュール実装からモジュール�
 msgid ""
 "**Generate Make Function** — Generate a constructor function from a "
 "record type"
-msgstr ""
+msgstr "**Generate Make Function** — レコード型からコンストラクタ関数を生成"
 
 #: ../../user/features/code-editing.md:781
 msgid ""
 "**Generate JSON Encoder/Decoder** — Generate JSON encoder and decoder "
 "functions from a type"
-msgstr ""
+msgstr "**Generate JSON Encoder/Decoder** — 型から JSON エンコーダーとデコーダー関数を生成"
 
 #: ../../user/features/code-editing.md:782
 msgid ""
@@ -1235,57 +1230,52 @@ msgstr ""
 " `{}` シグネチャでリストされるため、内容を記入してください。"
 
 #: ../../user/features/code-editing.md:874
-#, fuzzy
 msgid "Generate Make Function"
-msgstr "Module Type の生成"
+msgstr "Make 関数の生成"
 
 #: ../../user/features/code-editing.md:876
 msgid ""
 "When your caret is inside a record type declaration, this action "
 "generates a `make` constructor function with labeled arguments for each "
 "record field."
-msgstr ""
+msgstr "キャレットがレコード型宣言の中にある場合、このアクションは各レコードフィールドに対応するラベル付き引数を持つ `make` コンストラクタ関数を生成します。"
 
 #: ../../user/features/code-editing.md:878
-#, fuzzy
 msgid ""
 "Place your caret inside the type declaration and press `Cmd+N` (or "
 "`Alt+Insert`), then choose **Make Function**."
-msgstr "型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Record Value** を選択します。"
+msgstr "型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Make Function** を選択します。"
 
 #: ../../user/features/code-editing.md:890
-#, fuzzy
 msgid "**After** (make function inserted below the type declaration):"
-msgstr "**変更後**（型宣言の下に挿入）:"
+msgstr "**変更後**（make 関数が型宣言の下に挿入）:"
 
 #: ../../user/features/code-editing.md:906
 msgid ""
 "Optional fields (e.g., `email?: string`) are generated as optional "
 "labeled arguments (`~email=?`)."
-msgstr ""
+msgstr "オプショナルフィールド（例: `email?: string`）はオプショナルラベル付き引数（`~email=?`）として生成されます。"
 
 #: ../../user/features/code-editing.md:908
 msgid "Generate JSON Encoder/Decoder"
-msgstr ""
+msgstr "JSON エンコーダー/デコーダーの生成"
 
 #: ../../user/features/code-editing.md:910
 msgid ""
 "When your caret is inside a record or variant type declaration, this "
 "action generates JSON encoder and decoder functions using "
 "`@rescript/core`'s `JSON` module (no external dependencies required)."
-msgstr ""
+msgstr "キャレットがレコード型またはバリアント型宣言の中にある場合、このアクションは `@rescript/core` の `JSON` モジュールを使用して JSON エンコーダーとデコーダー関数を生成します（外部依存は不要）。"
 
 #: ../../user/features/code-editing.md:912
-#, fuzzy
 msgid ""
 "Place your caret inside the type declaration and press `Cmd+N` (or "
 "`Alt+Insert`), then choose **JSON Encoder/Decoder**."
-msgstr "型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Record Value** を選択します。"
+msgstr "型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**JSON Encoder/Decoder** を選択します。"
 
 #: ../../user/features/code-editing.md:914
-#, fuzzy
 msgid "**Record type example:**"
-msgstr "**例:**"
+msgstr "**レコード型の例:**"
 
 #: ../../user/features/code-editing.md:920
 msgid ""
@@ -1293,27 +1283,27 @@ msgid ""
 " constructor (`String`, `Number`, `Boolean`, `Null`, `Object`, `Array`) "
 "and a decoder that pattern-matches the JSON structure back into the "
 "record type."
-msgstr ""
+msgstr "各フィールドを適切な `JSON.t` コンストラクター（`String`、`Number`、`Boolean`、`Null`、`Object`、`Array`）に変換するエンコーダーと、JSON 構造をパターンマッチしてレコード型に戻すデコーダーを生成します。"
 
 #: ../../user/features/code-editing.md:922
 msgid "**Variant type example (simple enum):**"
-msgstr ""
+msgstr "**バリアント型の例（単純な enum）:**"
 
 #: ../../user/features/code-editing.md:928
 msgid ""
 "Generates a `String`-based encoder/decoder where each constructor maps to"
 " its name as a JSON string."
-msgstr ""
+msgstr "各コンストラクターがその名前を JSON 文字列としてマッピングする `String` ベースのエンコーダー/デコーダーを生成します。"
 
 #: ../../user/features/code-editing.md:930
 msgid "**Variant type example (tagged union):**"
-msgstr ""
+msgstr "**バリアント型の例（タグ付きユニオン）:**"
 
 #: ../../user/features/code-editing.md:936
 msgid ""
 "Generates a tagged union encoder/decoder using `Object` with a `\"tag\"` "
 "field and positional payload fields (`\"_0\"`, `\"_1\"`, ...)."
-msgstr ""
+msgstr "`\"tag\"` フィールドと位置ペイロードフィールド（`\"_0\"`、`\"_1\"`、...）を持つ `Object` を使用したタグ付きユニオンのエンコーダー/デコーダーを生成します。"
 
 #: ../../user/features/code-editing.md:938
 msgid ""
@@ -1321,7 +1311,7 @@ msgid ""
 "`array<T>`, and arbitrary nesting (e.g., `option<array<string>>`). "
 "Unrecognized types generate a `/* TODO */` placeholder for you to fill "
 "in."
-msgstr ""
+msgstr "**サポートされる型:** `string`、`int`、`float`、`bool`、`option<T>`、`array<T>`、および任意のネスト（例: `option<array<string>>`）。認識されない型には `/* TODO */` プレースホルダーが生成されるので、手動で記入してください。"
 
 #: ../../user/features/code-editing.md:940
 msgid ""
@@ -1329,7 +1319,7 @@ msgid ""
 "name and `decode` + capitalized type name (e.g., `encodeUser` / "
 "`decodeUser`). For a type named `t`, the functions are simply `encode` / "
 "`decode`."
-msgstr ""
+msgstr "**命名規則:** 関数名は `encode` + 型名の先頭大文字 と `decode` + 型名の先頭大文字（例: `encodeUser` / `decodeUser`）です。型名が `t` の場合は、単に `encode` / `decode` となります。"
 
 #: ../../user/features/code-editing.md:942
 msgid "Generate Record Value"
@@ -1362,35 +1352,32 @@ msgstr ""
 "`0.0`、`bool` には `false`、`option<T>` には `None`、`array<T>` には `[]`。"
 
 #: ../../user/features/code-editing.md:979
-#, fuzzy
 msgid "Generate Module Type Implementation"
-msgstr "Module Type の生成"
+msgstr "モジュールタイプ実装の生成"
 
 #: ../../user/features/code-editing.md:981
 msgid ""
 "When your caret is inside a `module type` declaration, this action "
 "generates a module that implements the module type with stub functions "
 "for each signature entry."
-msgstr ""
+msgstr "キャレットが `module type` 宣言の中にある場合、このアクションは各シグネチャエントリに対するスタブ関数を持つモジュールタイプの実装モジュールを生成します。"
 
 #: ../../user/features/code-editing.md:983
-#, fuzzy
 msgid ""
 "Place your caret inside the module type declaration and press `Cmd+N` (or"
 " `Alt+Insert`), then choose **Module Type Implementation**."
-msgstr "モジュール宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Module Type** を選択します。"
+msgstr "モジュールタイプ宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Module Type Implementation** を選択します。"
 
 #: ../../user/features/code-editing.md:995
-#, fuzzy
 msgid "**After** (implementation module generated below):"
-msgstr "**実行後**（\"Generate doc comment\" を実行）:"
+msgstr "**変更後**（実装モジュールが下に生成）:"
 
 #: ../../user/features/code-editing.md:1011
 msgid ""
 "Replace `todo` placeholders with actual implementations. The generated "
 "module is constrained to the module type, so the compiler will catch any "
 "missing or incorrect signatures."
-msgstr ""
+msgstr "`todo` プレースホルダーを実際の実装に置き換えてください。生成されたモジュールはモジュールタイプに制約されているため、シグネチャの不足や不正をコンパイラが検出します。"
 
 #: ../../user/features/code-editing.md:1013
 msgid ""
@@ -1402,34 +1389,34 @@ msgstr "コード生成は型定義を動作するコードに変換します �
 
 #: ../../user/features/code-editing.md:1015
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "末尾スペースの除去"
 
 #: ../../user/features/code-editing.md:1017
 msgid ""
 "The plugin protects whitespace inside string literals when IntelliJ "
 "removes trailing spaces on save. Without this, intentional whitespace at "
 "the end of a string line would be stripped."
-msgstr ""
+msgstr "プラグインは IntelliJ が保存時に末尾スペースを削除する際、文字列リテラル内のスペースを保護します。この保護がないと、文字列行末の意図的なスペースが除去されてしまいます。"
 
 #: ../../user/features/code-editing.md:1019
 msgid "**Protected token types:**"
-msgstr ""
+msgstr "**保護されるトークン型:**"
 
 #: ../../user/features/code-editing.md:1020
 msgid "`STRING_VALUE` — regular string content"
-msgstr ""
+msgstr "`STRING_VALUE` — 通常の文字列コンテンツ"
 
 #: ../../user/features/code-editing.md:1021
 msgid ""
 "`JS_STRING_OPEN` / `JS_STRING_CLOSE` — JavaScript template string "
 "boundaries"
-msgstr ""
+msgstr "`JS_STRING_OPEN` / `JS_STRING_CLOSE` — JavaScript テンプレート文字列の境界"
 
 #: ../../user/features/code-editing.md:1023
 msgid ""
 "Configure trailing space behavior in **Settings** > **Editor** > "
 "**General** > **On Save**."
-msgstr ""
+msgstr "末尾スペースの動作は **Settings** > **Editor** > **General** > **On Save** で設定できます。"
 
 #: ../../user/features/code-editing.md:1025
 msgid ""
@@ -1440,31 +1427,31 @@ msgstr "この保護により、文字列リテラル内の意図的なスペー
 
 #: ../../user/features/code-editing.md:1027
 msgid "Editor Floating Toolbar"
-msgstr ""
+msgstr "エディタフローティングツールバー"
 
 #: ../../user/features/code-editing.md:1029
 msgid ""
 "A floating toolbar appears when editing ReScript files, providing quick "
 "access to commonly used actions:"
-msgstr ""
+msgstr "ReScript ファイルの編集時にフローティングツールバーが表示され、よく使うアクションに素早くアクセスできます:"
 
 #: ../../user/features/code-editing.md:1031
 msgid "**Format** — Format the current file (`Cmd+Option+L`)"
-msgstr ""
+msgstr "**Format** — 現在のファイルをフォーマット（`Cmd+Option+L`）"
 
 #: ../../user/features/code-editing.md:1032
 msgid "**Open Compiled JS** — Open the compiled JavaScript output"
-msgstr ""
+msgstr "**Open Compiled JS** — コンパイル済み JavaScript 出力を開く"
 
 #: ../../user/features/code-editing.md:1033
 msgid "**Create Interface** — Generate a `.resi` interface file"
-msgstr ""
+msgstr "**Create Interface** — `.resi` インターフェースファイルを生成"
 
 #: ../../user/features/code-editing.md:1035
 msgid ""
 "The toolbar auto-shows when you start editing a ReScript file and auto-"
 "hides when not in use."
-msgstr ""
+msgstr "ツールバーは ReScript ファイルの編集開始時に自動表示され、使用していないときは自動的に非表示になります。"
 
 #: ../../user/features/code-editing.md:1037
 msgid ""
@@ -1945,72 +1932,70 @@ msgstr "キーワードハイライトにより制御フロー構造の全体を
 
 #: ../../user/features/code-editing.md:1273
 msgid "Word Selection (Extend/Shrink)"
-msgstr ""
+msgstr "ワード選択（拡大/縮小）"
 
 #: ../../user/features/code-editing.md:1275
 msgid ""
 "Use `Ctrl+W` (`Alt+Up` on macOS) to extend the selection and "
 "`Ctrl+Shift+W` (`Alt+Down` on macOS) to shrink it, with ReScript-aware "
 "boundaries."
-msgstr ""
+msgstr "`Ctrl+W`（macOS では `Alt+Up`）で選択を拡大、`Ctrl+Shift+W`（macOS では `Alt+Down`）で選択を縮小します。ReScript に適した境界を認識します。"
 
 #: ../../user/features/code-editing.md:1277
 msgid "Selection Boundaries"
-msgstr ""
+msgstr "選択境界"
 
 #: ../../user/features/code-editing.md:1279
 msgid ""
 "The word selector recognizes the following ReScript-specific boundaries "
 "for extend/shrink selection:"
-msgstr ""
+msgstr "ワードセレクターは選択の拡大/縮小に対して以下の ReScript 固有の境界を認識します:"
 
 #: ../../user/features/code-editing.md:265
 msgid "Context"
-msgstr ""
+msgstr "コンテキスト"
 
 #: ../../user/features/code-editing.md:265
 msgid "Selection Expands To"
-msgstr ""
+msgstr "選択の拡大先"
 
 #: ../../user/features/code-editing.md:265
-#, fuzzy
 msgid "Inside a string literal"
-msgstr "文字列リテラル"
+msgstr "文字列リテラル内"
 
 #: ../../user/features/code-editing.md:265
 msgid "String content (without quotes) → Entire string (with quotes)"
-msgstr ""
+msgstr "文字列の内容（引用符なし） → 文字列全体（引用符を含む）"
 
 #: ../../user/features/code-editing.md:265
 msgid "Inside parentheses `(...)`"
-msgstr ""
+msgstr "括弧 `(...)` 内"
 
 #: ../../user/features/code-editing.md:265
 msgid "Content inside parens → Including parentheses"
-msgstr ""
+msgstr "括弧内の内容 → 括弧を含む全体"
 
 #: ../../user/features/code-editing.md:265
-#, fuzzy
 msgid "Inside block comment `/* ... */`"
-msgstr "**ブロックコメント** — `/* ... */`"
+msgstr "ブロックコメント `/* ... */` 内"
 
 #: ../../user/features/code-editing.md:265
 msgid "Comment content → Entire comment including delimiters"
-msgstr ""
+msgstr "コメント内容 → デリミタを含むコメント全体"
 
 #: ../../user/features/code-editing.md:265
 msgid "Inside line comment `// ...`"
-msgstr ""
+msgstr "行コメント `// ...` 内"
 
 #: ../../user/features/code-editing.md:265
 msgid "Comment text → Entire comment line"
-msgstr ""
+msgstr "コメントテキスト → コメント行全体"
 
 #: ../../user/features/code-editing.md:1288
 msgid ""
 "This provides more natural selection behavior than the default word "
 "selector when working with ReScript code structures."
-msgstr ""
+msgstr "ReScript のコード構造を扱う際に、デフォルトのワードセレクターよりも自然な選択動作を提供します。"
 
 #: ../../user/features/code-editing.md:1290
 msgid ""
@@ -2063,9 +2048,8 @@ msgid ""
 msgstr "Paste as JSX は HTML を ReScript JSX に自動変換します — `class` を `className` に手動でリネームしたり void 要素を自己終了させたりする代わりに、ペースト時に変換が行われます。"
 
 #: ../../user/features/code-editing.md:1303
-#, fuzzy
 msgid "Paste as ReScript"
-msgstr "JSX として貼り付け"
+msgstr "ReScript として貼り付け"
 
 #: ../../user/features/code-editing.md:1305
 #, python-brace-format
@@ -2075,52 +2059,54 @@ msgid ""
 "{kbd}`Ctrl+V`). No separate menu action is needed — the plugin detects "
 "JavaScript patterns in the clipboard and converts them on the fly."
 msgstr ""
+"この変換は、標準のペーストショートカット（{kbd}`Cmd+V` / {kbd}`Ctrl+V`）で JavaScript "
+"コードを `.res` ファイルに貼り付けると自動的にトリガーされます。別途メニューアクションは不要です — "
+"プラグインがクリップボード内の JavaScript パターンを検出し、その場で変換します。"
 
 #: ../../user/features/code-editing.md:1307
-#, fuzzy
 msgid ""
 "When pasting JavaScript code into a ReScript file, it is automatically "
 "converted to ReScript syntax:"
-msgstr "HTML コンテンツを ReScript ファイルに貼り付けると、自動的に JSX 構文に変換されます:"
+msgstr "JavaScript コードを ReScript ファイルに貼り付けると、自動的に ReScript 構文に変換されます:"
 
 #: ../../user/features/code-editing.md:1309
 msgid "`const`/`let`/`var` declarations are converted to `let` bindings"
-msgstr ""
+msgstr "`const`/`let`/`var` 宣言が `let` バインディングに変換されます"
 
 #: ../../user/features/code-editing.md:1310
 #, python-brace-format
 msgid "Arrow functions `(x) => { return x }` are simplified to `(x) => x`"
-msgstr ""
+msgstr "アロー関数 `(x) => { return x }` が `(x) => x` に簡素化されます"
 
 #: ../../user/features/code-editing.md:1311
 msgid "`===` / `!==` are converted to `==` / `!=`"
-msgstr ""
+msgstr "`===` / `!==` が `==` / `!=` に変換されます"
 
 #: ../../user/features/code-editing.md:1312
 msgid "`console.log(x)` is converted to `Js.log(x)`"
-msgstr ""
+msgstr "`console.log(x)` が `Js.log(x)` に変換されます"
 
 #: ../../user/features/code-editing.md:1313
 msgid "`null` / `undefined` are converted to `None`"
-msgstr ""
+msgstr "`null` / `undefined` が `None` に変換されます"
 
 #: ../../user/features/code-editing.md:1314
 msgid "Template literals remain as-is (ReScript uses the same syntax)"
-msgstr ""
+msgstr "テンプレートリテラルはそのまま維持されます（ReScript は同じ構文を使用）"
 
 #: ../../user/features/code-editing.md:1315
 msgid ""
 "Array methods (`.map()`, `.filter()`, `.forEach()`) are converted to "
 "pipe-first style"
-msgstr ""
+msgstr "配列メソッド（`.map()`、`.filter()`、`.forEach()`）がパイプファーストスタイルに変換されます"
 
 #: ../../user/features/code-editing.md:1317
 msgid "**Before** (JavaScript in clipboard):"
-msgstr ""
+msgstr "**変更前**（クリップボード内の JavaScript）:"
 
 #: ../../user/features/code-editing.md:1326
 msgid "**After** (pasted into `.res` file):"
-msgstr ""
+msgstr "**変更後**（`.res` ファイルに貼り付け後）:"
 
 #: ../../user/features/code-editing.md:1335
 msgid ""

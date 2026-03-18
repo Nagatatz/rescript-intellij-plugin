@@ -1,0 +1,896 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-17 16:42+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/claude-code.md:1
+msgid "Claude Code Development Workflow"
+msgstr "Claude Code 開発ワークフロー"
+
+#: ../../dev/claude-code.md:3
+msgid ""
+"This guide explains how to use [Claude "
+"Code](https://docs.anthropic.com/en/docs/claude-code) with projects built"
+" from the [claude-project-template](https://github.com/anthropics/claude-"
+"code). The template provides a structured development workflow with "
+"rules, skills, hooks, and agents that enforce conventions and automate "
+"repetitive tasks."
+msgstr ""
+"このガイドでは、[claude-project-template](https://github.com/anthropics/claude-"
+"code) から構築されたプロジェクトで [Claude "
+"Code](https://docs.anthropic.com/en/docs/claude-code) を使用する方法を説明します。"
+"テンプレートは、規約を強制し定型作業を自動化する Rules、Skills、Hooks、Agents による"
+"構造化された開発ワークフローを提供します。"
+
+#: ../../dev/claude-code.md:5
+msgid "Overview"
+msgstr "概要"
+
+#: ../../dev/claude-code.md:7
+msgid ""
+"Claude Code is Anthropic's CLI tool for AI-assisted software development."
+" The template configures it with:"
+msgstr ""
+"Claude Code は Anthropic の AI 支援ソフトウェア開発用 CLI ツールです。"
+"テンプレートは以下の要素で構成されています："
+
+#: ../../dev/claude-code.md:9
+msgid "**Rules** — Enforce coding standards (testing, comments, git conventions)"
+msgstr "**Rules** — コーディング規約の強制（テスト、コメント、Git 規約）"
+
+#: ../../dev/claude-code.md:10
+msgid "**Skills** — Automate workflows (steering, review, commit)"
+msgstr "**Skills** — ワークフローの自動化（ステアリング、レビュー、コミット）"
+
+#: ../../dev/claude-code.md:11
+msgid "**Hooks** — Guard against mistakes (block force-push, validate edits)"
+msgstr "**Hooks** — ミスの防止（force-push のブロック、編集の検証）"
+
+#: ../../dev/claude-code.md:12
+msgid "**Agents** — Delegate specialized tasks (code review, build resolution)"
+msgstr "**Agents** — 専門タスクの委譲（コードレビュー、ビルドエラー解決）"
+
+#: ../../dev/claude-code.md:13
+msgid "**Commands** — Multi-step project setup workflows"
+msgstr "**Commands** — 複数ステップのプロジェクトセットアップワークフロー"
+
+#: ../../dev/claude-code.md:15
+msgid "All configuration lives in the `.claude/` directory at the project root."
+msgstr "すべての設定はプロジェクトルートの `.claude/` ディレクトリに格納されています。"
+
+#: ../../dev/claude-code.md:17
+msgid "Directory Structure"
+msgstr "ディレクトリ構成"
+
+#: ../../dev/claude-code.md:55
+msgid "Rules"
+msgstr "Rules"
+
+#: ../../dev/claude-code.md:57
+msgid ""
+"Rules are Markdown files in `.claude/rules/` that define mandatory "
+"behavioral constraints. Claude Code reads these on every interaction."
+msgstr ""
+"Rules は `.claude/rules/` 内の Markdown ファイルで、必須の動作制約を定義します。"
+"Claude Code はすべてのやり取りでこれらを読み込みます。"
+
+#: ../../dev/claude-code.md
+msgid "Rule File"
+msgstr "ルールファイル"
+
+#: ../../dev/claude-code.md
+msgid "Purpose"
+msgstr "目的"
+
+#: ../../dev/claude-code.md
+msgid "`testing.md`"
+msgstr "`testing.md`"
+
+#: ../../dev/claude-code.md
+msgid ""
+"Require tests for all code changes. Tests go in `src/test/` mirroring "
+"source structure"
+msgstr ""
+"すべてのコード変更にテストを要求する。テストは `src/test/` にソース構造を反映して配置"
+
+#: ../../dev/claude-code.md
+msgid "`code-comments.md`"
+msgstr "`code-comments.md`"
+
+#: ../../dev/claude-code.md
+msgid "Require KDoc comments on classes and non-trivial methods in English"
+msgstr "クラスおよび非自明なメソッドに英語の KDoc コメントを要求する"
+
+#: ../../dev/claude-code.md
+msgid "`git-conventions.md`"
+msgstr "`git-conventions.md`"
+
+#: ../../dev/claude-code.md
+msgid "Emoji commit prefixes, feature-unit commit granularity, branch naming"
+msgstr "絵文字コミットプレフィックス、機能単位のコミット粒度、ブランチ命名規則"
+
+#: ../../dev/claude-code.md
+msgid "`steering-workflow.md`"
+msgstr "`steering-workflow.md`"
+
+#: ../../dev/claude-code.md
+msgid "Create `.steering/` docs before writing code; use worktrees for isolation"
+msgstr "コードを書く前に `.steering/` ドキュメントを作成する。隔離のために worktree を使用する"
+
+#: ../../dev/claude-code.md
+msgid "`documentation.md`"
+msgstr "`documentation.md`"
+
+#: ../../dev/claude-code.md
+msgid "Separate permanent docs (`docs/`) from work-unit docs (`.steering/`)"
+msgstr "永続的ドキュメント（`docs/`）と作業単位ドキュメント（`.steering/`）を分離する"
+
+#: ../../dev/claude-code.md:67
+msgid ""
+"Rules use imperative language and are treated as non-negotiable "
+"constraints. To add a new rule, create a `.md` file in `.claude/rules/` "
+"and reference it from `CLAUDE.md`."
+msgstr ""
+"Rules は命令形で記述され、交渉の余地のない制約として扱われます。"
+"新しいルールを追加するには、`.claude/rules/` に `.md` ファイルを作成し、"
+"`CLAUDE.md` から参照してください。"
+
+#: ../../dev/claude-code.md:69
+msgid "Skills"
+msgstr "Skills"
+
+#: ../../dev/claude-code.md:71
+msgid ""
+"Skills are slash-command workflows invoked with `/<skill-name>`. Each "
+"skill has a `SKILL.md` file defining its behavior."
+msgstr ""
+"Skills は `/<skill-name>` で呼び出すスラッシュコマンドワークフローです。"
+"各スキルには動作を定義する `SKILL.md` ファイルがあります。"
+
+#: ../../dev/claude-code.md:73
+msgid "Core Workflow Skills"
+msgstr "コアワークフロー Skills"
+
+#: ../../dev/claude-code.md
+msgid "Skill"
+msgstr "スキル"
+
+#: ../../dev/claude-code.md
+msgid "Command"
+msgstr "コマンド"
+
+#: ../../dev/claude-code.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../dev/claude-code.md
+msgid "Steering"
+msgstr "Steering"
+
+#: ../../dev/claude-code.md
+msgid "`/steering plan <feature>`"
+msgstr "`/steering plan <feature>`"
+
+#: ../../dev/claude-code.md
+msgid "Create requirements, design, and tasklist documents"
+msgstr "要件定義書、設計書、タスクリストを作成する"
+
+#: ../../dev/claude-code.md
+msgid "`/steering implement <path>`"
+msgstr "`/steering implement <path>`"
+
+#: ../../dev/claude-code.md
+msgid "Execute tasklist with progress tracking"
+msgstr "進捗を追跡しながらタスクリストを実行する"
+
+#: ../../dev/claude-code.md
+msgid "`/steering review <path>`"
+msgstr "`/steering review <path>`"
+
+#: ../../dev/claude-code.md
+msgid "Post-implementation reflection"
+msgstr "実装後の振り返り"
+
+#: ../../dev/claude-code.md
+msgid "Catchup"
+msgstr "Catchup"
+
+#: ../../dev/claude-code.md
+msgid "`/catchup`"
+msgstr "`/catchup`"
+
+#: ../../dev/claude-code.md
+msgid "Restore session state after `/clear` or context compaction"
+msgstr "`/clear` またはコンテキスト圧縮後にセッション状態を復元する"
+
+#: ../../dev/claude-code.md
+msgid "Review"
+msgstr "Review"
+
+#: ../../dev/claude-code.md
+msgid "`/review`"
+msgstr "`/review`"
+
+#: ../../dev/claude-code.md
+msgid "Run code review on uncommitted changes"
+msgstr "未コミットの変更に対してコードレビューを実行する"
+
+#: ../../dev/claude-code.md
+msgid "Git Workflow"
+msgstr "Git Workflow"
+
+#: ../../dev/claude-code.md
+msgid "`/git-workflow branch`"
+msgstr "`/git-workflow branch`"
+
+#: ../../dev/claude-code.md
+msgid "Create branch following naming conventions"
+msgstr "命名規則に従ってブランチを作成する"
+
+#: ../../dev/claude-code.md
+msgid "`/git-workflow commit`"
+msgstr "`/git-workflow commit`"
+
+#: ../../dev/claude-code.md
+msgid "Auto-detect emoji prefix and generate commit message"
+msgstr "絵文字プレフィックスを自動検出しコミットメッセージを生成する"
+
+#: ../../dev/claude-code.md
+msgid "`/git-workflow pr`"
+msgstr "`/git-workflow pr`"
+
+#: ../../dev/claude-code.md
+msgid "Create PR with title, summary, and test plan"
+msgstr "タイトル、概要、テスト計画付きの PR を作成する"
+
+#: ../../dev/claude-code.md
+msgid "`/git-workflow status`"
+msgstr "`/git-workflow status`"
+
+#: ../../dev/claude-code.md
+msgid "Show branch state and convention reminder"
+msgstr "ブランチの状態と規約のリマインダーを表示する"
+
+#: ../../dev/claude-code.md:87
+msgid "Code Quality Skills"
+msgstr "コード品質 Skills"
+
+#: ../../dev/claude-code.md
+msgid "Review Docs"
+msgstr "Review Docs"
+
+#: ../../dev/claude-code.md
+msgid "`/review-docs`"
+msgstr "`/review-docs`"
+
+#: ../../dev/claude-code.md
+msgid ""
+"Evaluate documents on 5 criteria (completeness, clarity, consistency, "
+"implementability, measurability)"
+msgstr ""
+"5つの基準（完全性、明確性、一貫性、実装可能性、測定可能性）でドキュメントを評価する"
+
+#: ../../dev/claude-code.md
+msgid "Implementation Validator"
+msgstr "Implementation Validator"
+
+#: ../../dev/claude-code.md
+msgid "`/implementation-validator`"
+msgstr "`/implementation-validator`"
+
+#: ../../dev/claude-code.md
+msgid ""
+"Validate code on 5 criteria (spec compliance, code quality, test "
+"coverage, security, performance)"
+msgstr ""
+"5つの基準（仕様準拠、コード品質、テストカバレッジ、セキュリティ、パフォーマンス）で"
+"コードを検証する"
+
+#: ../../dev/claude-code.md
+msgid "Development Guidelines"
+msgstr "Development Guidelines"
+
+#: ../../dev/claude-code.md
+msgid "`/development-guidelines`"
+msgstr "`/development-guidelines`"
+
+#: ../../dev/claude-code.md
+msgid "Check or create coding guidelines"
+msgstr "コーディングガイドラインの確認または作成"
+
+#: ../../dev/claude-code.md:95
+msgid "Project Setup Skills"
+msgstr "プロジェクトセットアップ Skills"
+
+#: ../../dev/claude-code.md
+msgid "PRD Writing"
+msgstr "PRD Writing"
+
+#: ../../dev/claude-code.md
+msgid "`/prd-writing`"
+msgstr "`/prd-writing`"
+
+#: ../../dev/claude-code.md
+msgid "Create product requirements document from template"
+msgstr "テンプレートからプロダクト要求定義書を作成する"
+
+#: ../../dev/claude-code.md
+msgid "Add Feature"
+msgstr "Add Feature"
+
+#: ../../dev/claude-code.md
+msgid "`/add-feature`"
+msgstr "`/add-feature`"
+
+#: ../../dev/claude-code.md
+msgid "Full feature implementation workflow (steering + code + tests + commit)"
+msgstr "機能実装の完全なワークフロー（ステアリング + コード + テスト + コミット）"
+
+#: ../../dev/claude-code.md
+msgid "Add Rule"
+msgstr "Add Rule"
+
+#: ../../dev/claude-code.md
+msgid "`/add-rule`"
+msgstr "`/add-rule`"
+
+#: ../../dev/claude-code.md
+msgid "Add a new rule file to `.claude/rules/`"
+msgstr "`.claude/rules/` に新しいルールファイルを追加する"
+
+#: ../../dev/claude-code.md:103
+msgid "Example: Using the Steering Skill"
+msgstr "例：Steering スキルの使用"
+
+#: ../../dev/claude-code.md:119
+msgid "Commands"
+msgstr "Commands"
+
+#: ../../dev/claude-code.md:121
+msgid ""
+"Commands in `.claude/commands/` define multi-step workflows that combine "
+"multiple skills."
+msgstr ""
+"`.claude/commands/` 内の Commands は、複数のスキルを組み合わせた"
+"マルチステップワークフローを定義します。"
+
+#: ../../dev/claude-code.md
+msgid "File"
+msgstr "ファイル"
+
+#: ../../dev/claude-code.md
+msgid "Steps"
+msgstr "ステップ"
+
+#: ../../dev/claude-code.md
+msgid "`setup-project`"
+msgstr "`setup-project`"
+
+#: ../../dev/claude-code.md
+msgid "`commands/setup-project.md`"
+msgstr "`commands/setup-project.md`"
+
+#: ../../dev/claude-code.md
+msgid "Read ideas → Create PRD → Create functional design"
+msgstr "アイデアを読む → PRD を作成 → 機能設計書を作成"
+
+#: ../../dev/claude-code.md
+msgid "`add-feature`"
+msgstr "`add-feature`"
+
+#: ../../dev/claude-code.md
+msgid "`commands/add-feature.md`"
+msgstr "`commands/add-feature.md`"
+
+#: ../../dev/claude-code.md
+msgid "Create steering docs → Implement → Review → Commit"
+msgstr "ステアリングドキュメントを作成 → 実装 → レビュー → コミット"
+
+#: ../../dev/claude-code.md:128
+msgid ""
+"Commands are invoked the same way as skills: `/setup-project`, `/add-"
+"feature`."
+msgstr ""
+"Commands はスキルと同じ方法で呼び出します：`/setup-project`、`/add-feature`。"
+
+#: ../../dev/claude-code.md:130
+msgid "Agents"
+msgstr "Agents"
+
+#: ../../dev/claude-code.md:132
+msgid ""
+"Agents are subagent definitions that Claude Code spawns as specialized "
+"workers. They run in isolated contexts and return structured reports."
+msgstr ""
+"Agents は Claude Code が専門ワーカーとして起動するサブエージェント定義です。"
+"隔離されたコンテキストで実行され、構造化されたレポートを返します。"
+
+#: ../../dev/claude-code.md:134
+msgid "code-reviewer"
+msgstr "code-reviewer"
+
+#: ../../dev/claude-code.md:136
+msgid "Performs an 8-point automated code review:"
+msgstr "8項目の自動コードレビューを実行します："
+
+#: ../../dev/claude-code.md:138
+msgid "Documentation comments present"
+msgstr "ドキュメントコメントの有無"
+
+#: ../../dev/claude-code.md:139
+msgid "Test files exist for changes"
+msgstr "変更に対するテストファイルの存在"
+
+#: ../../dev/claude-code.md:140
+msgid "Auto-generated files not manually edited"
+msgstr "自動生成ファイルが手動編集されていないこと"
+
+#: ../../dev/claude-code.md:141
+msgid "Package/module structure follows conventions"
+msgstr "パッケージ/モジュール構造が規約に準拠していること"
+
+#: ../../dev/claude-code.md:142
+msgid "Code style adherence"
+msgstr "コードスタイルの準拠"
+
+#: ../../dev/claude-code.md:143
+msgid "Test quality (meaningful assertions, no dead code)"
+msgstr "テスト品質（意味のあるアサーション、デッドコードなし）"
+
+#: ../../dev/claude-code.md:144
+msgid "Dead code detection (unused imports, commented blocks)"
+msgstr "デッドコード検出（未使用インポート、コメントアウトされたブロック）"
+
+#: ../../dev/claude-code.md:145
+msgid "Edge case coverage (null/empty, boundaries, errors)"
+msgstr "エッジケースのカバレッジ（null/空値、境界値、エラー処理）"
+
+#: ../../dev/claude-code.md:147
+msgid "Output: Markdown checklist with PASS/WARN/FAIL per item."
+msgstr "出力：各項目に PASS/WARN/FAIL が付いた Markdown チェックリスト。"
+
+#: ../../dev/claude-code.md:149
+msgid "build-resolver"
+msgstr "build-resolver"
+
+#: ../../dev/claude-code.md:151
+msgid "Diagnoses build failures in 4 steps:"
+msgstr "4つのステップでビルドエラーを診断します："
+
+#: ../../dev/claude-code.md:153
+msgid "Reproduce the error using the build command from `CLAUDE.md`"
+msgstr "`CLAUDE.md` のビルドコマンドを使用してエラーを再現する"
+
+#: ../../dev/claude-code.md:154
+msgid ""
+"Classify: Compile / Build Config / Dependencies / Framework API / Code "
+"Generation"
+msgstr ""
+"分類：コンパイル / ビルド設定 / 依存関係 / フレームワーク API / コード生成"
+
+#: ../../dev/claude-code.md:155
+msgid "Identify root cause (file, line, context)"
+msgstr "根本原因の特定（ファイル、行、コンテキスト）"
+
+#: ../../dev/claude-code.md:156
+msgid "Present fix as concrete code changes"
+msgstr "具体的なコード変更として修正案を提示する"
+
+#: ../../dev/claude-code.md:158
+msgid "Hooks"
+msgstr "Hooks"
+
+#: ../../dev/claude-code.md:160
+msgid ""
+"Hooks are shell scripts that run automatically in response to Claude Code"
+" events. They are configured in `.claude/settings.json`."
+msgstr ""
+"Hooks は Claude Code のイベントに応じて自動実行されるシェルスクリプトです。"
+"`.claude/settings.json` で設定します。"
+
+#: ../../dev/claude-code.md
+msgid "Hook Script"
+msgstr "フックスクリプト"
+
+#: ../../dev/claude-code.md
+msgid "Trigger"
+msgstr "トリガー"
+
+#: ../../dev/claude-code.md
+msgid "Behavior"
+msgstr "動作"
+
+#: ../../dev/claude-code.md
+msgid "`validate-bash.sh`"
+msgstr "`validate-bash.sh`"
+
+#: ../../dev/claude-code.md
+msgid "PreToolUse (Bash)"
+msgstr "PreToolUse (Bash)"
+
+#: ../../dev/claude-code.md
+msgid "**Blocks** `git add .`, `git push --force`, `rm -rf`"
+msgstr "`git add .`、`git push --force`、`rm -rf` を**ブロック**する"
+
+#: ../../dev/claude-code.md
+msgid "`validate-file-edit.sh`"
+msgstr "`validate-file-edit.sh`"
+
+#: ../../dev/claude-code.md
+msgid "PreToolUse (Edit/Write)"
+msgstr "PreToolUse (Edit/Write)"
+
+#: ../../dev/claude-code.md
+msgid "**Blocks** edits to auto-generated files (customizable)"
+msgstr "自動生成ファイルへの編集を**ブロック**する（カスタマイズ可能）"
+
+#: ../../dev/claude-code.md
+msgid "`check-prohibition-language.sh`"
+msgstr "`check-prohibition-language.sh`"
+
+#: ../../dev/claude-code.md
+msgid "PostToolUse (Edit/Write)"
+msgstr "PostToolUse (Edit/Write)"
+
+#: ../../dev/claude-code.md
+msgid "**Blocks** negative phrasing in rule files"
+msgstr "ルールファイル内の否定的な表現を**ブロック**する"
+
+#: ../../dev/claude-code.md
+msgid "`check-tasklist.sh`"
+msgstr "`check-tasklist.sh`"
+
+#: ../../dev/claude-code.md
+msgid "Stop"
+msgstr "Stop"
+
+#: ../../dev/claude-code.md
+msgid "**Warns** if tasklist has incomplete tasks"
+msgstr "タスクリストに未完了のタスクがある場合に**警告**する"
+
+#: ../../dev/claude-code.md
+msgid "`pre-compact-save.sh`"
+msgstr "`pre-compact-save.sh`"
+
+#: ../../dev/claude-code.md
+msgid "PreCompact"
+msgstr "PreCompact"
+
+#: ../../dev/claude-code.md
+msgid "Saves session state to `.claude/session-state.md`"
+msgstr "セッション状態を `.claude/session-state.md` に保存する"
+
+#: ../../dev/claude-code.md
+msgid "`session-info.sh`"
+msgstr "`session-info.sh`"
+
+#: ../../dev/claude-code.md
+msgid "SessionStart"
+msgstr "SessionStart"
+
+#: ../../dev/claude-code.md
+msgid "Displays dev environment info (branch, tool versions)"
+msgstr "開発環境の情報を表示する（ブランチ、ツールバージョン）"
+
+#: ../../dev/claude-code.md:171
+msgid "Hook Exit Codes"
+msgstr "フックの終了コード"
+
+#: ../../dev/claude-code.md
+msgid "Code"
+msgstr "コード"
+
+#: ../../dev/claude-code.md
+msgid "Meaning"
+msgstr "意味"
+
+#: ../../dev/claude-code.md
+msgid "`0`"
+msgstr "`0`"
+
+#: ../../dev/claude-code.md
+msgid "Allow (no message)"
+msgstr "許可（メッセージなし）"
+
+#: ../../dev/claude-code.md
+msgid "`0` + stdout"
+msgstr "`0` + stdout"
+
+#: ../../dev/claude-code.md
+msgid "Allow with informational message"
+msgstr "情報メッセージ付きで許可"
+
+#: ../../dev/claude-code.md
+msgid "`2`"
+msgstr "`2`"
+
+#: ../../dev/claude-code.md
+msgid "Block the action with error message from stderr"
+msgstr "stderr のエラーメッセージと共にアクションをブロック"
+
+#: ../../dev/claude-code.md:179
+msgid "Example: validate-bash.sh"
+msgstr "例：validate-bash.sh"
+
+#: ../../dev/claude-code.md:194
+msgid "Settings"
+msgstr "設定"
+
+#: ../../dev/claude-code.md:196
+msgid "settings.json (Shared)"
+msgstr "settings.json（共有）"
+
+#: ../../dev/claude-code.md:198
+msgid ""
+"The shared settings file configures permissions and hooks for all "
+"developers:"
+msgstr ""
+"共有設定ファイルは、すべての開発者に対する権限とフックを設定します："
+
+#: ../../dev/claude-code.md:223
+msgid "settings.local.json (Local Only)"
+msgstr "settings.local.json（ローカル専用）"
+
+#: ../../dev/claude-code.md:225
+msgid ""
+"Local settings are for developer-specific permissions. This file is not "
+"committed to version control:"
+msgstr ""
+"ローカル設定は開発者固有の権限設定用です。このファイルはバージョン管理にコミットしません："
+
+#: ../../dev/claude-code.md:237
+msgid "Permanent Documentation"
+msgstr "永続的ドキュメント"
+
+#: ../../dev/claude-code.md:239
+msgid ""
+"The `docs/` directory contains permanent project documentation that "
+"evolves with the project:"
+msgstr ""
+"`docs/` ディレクトリには、プロジェクトと共に発展する永続的なプロジェクトドキュメントが格納されています："
+
+#: ../../dev/claude-code.md
+msgid "`product-requirements.md`"
+msgstr "`product-requirements.md`"
+
+#: ../../dev/claude-code.md
+msgid "Product vision, user stories, feature roadmap"
+msgstr "プロダクトビジョン、ユーザーストーリー、機能ロードマップ"
+
+#: ../../dev/claude-code.md
+msgid "`functional-design.md`"
+msgstr "`functional-design.md`"
+
+#: ../../dev/claude-code.md
+msgid "Component design, extension point mapping"
+msgstr "コンポーネント設計、Extension Point マッピング"
+
+#: ../../dev/claude-code.md
+msgid "`architecture.md`"
+msgstr "`architecture.md`"
+
+#: ../../dev/claude-code.md
+msgid "Technology stack, constraints, performance requirements"
+msgstr "技術スタック、制約条件、パフォーマンス要件"
+
+#: ../../dev/claude-code.md
+msgid "`development-guidelines.md`"
+msgstr "`development-guidelines.md`"
+
+#: ../../dev/claude-code.md
+msgid "Coding conventions, test conventions"
+msgstr "コーディング規約、テスト規約"
+
+#: ../../dev/claude-code.md
+msgid "`repository-structure.md`"
+msgstr "`repository-structure.md`"
+
+#: ../../dev/claude-code.md
+msgid "Source code layout, file placement rules"
+msgstr "ソースコードのレイアウト、ファイル配置ルール"
+
+#: ../../dev/claude-code.md
+msgid "`glossary.md`"
+msgstr "`glossary.md`"
+
+#: ../../dev/claude-code.md
+msgid "Domain terminology definitions"
+msgstr "ドメイン用語の定義"
+
+#: ../../dev/claude-code.md:250
+msgid ""
+"These documents are referenced from `CLAUDE.md` using `@docs/filename.md`"
+" syntax, making them available as context in every Claude Code session."
+msgstr ""
+"これらのドキュメントは `CLAUDE.md` から `@docs/filename.md` 構文で参照され、"
+"すべての Claude Code セッションでコンテキストとして利用可能になります。"
+
+#: ../../dev/claude-code.md:252
+msgid "Steering Workflow"
+msgstr "ステアリングワークフロー"
+
+#: ../../dev/claude-code.md:254
+msgid ""
+"The steering workflow is the core development process. Every non-trivial "
+"code change follows this cycle:"
+msgstr ""
+"ステアリングワークフローはコア開発プロセスです。"
+"軽微でないすべてのコード変更は、このサイクルに従います："
+
+#: ../../dev/claude-code.md:256
+msgid "1. Plan"
+msgstr "1. 計画"
+
+#: ../../dev/claude-code.md:258
+msgid "Create a `.steering/` directory with three documents:"
+msgstr "3つのドキュメントを含む `.steering/` ディレクトリを作成します："
+
+#: ../../dev/claude-code.md:267
+msgid ""
+"The directory name format is `[YYYYMMDD]-[NNN]-[title]` where NNN is a "
+"sequential number."
+msgstr ""
+"ディレクトリ名の形式は `[YYYYMMDD]-[NNN]-[title]` で、NNN は連番です。"
+
+#: ../../dev/claude-code.md:269
+msgid "2. Implement"
+msgstr "2. 実装"
+
+#: ../../dev/claude-code.md:271
+msgid "Work through `tasklist.md` one task at a time:"
+msgstr "`tasklist.md` のタスクを1つずつ進めます："
+
+#: ../../dev/claude-code.md:273
+msgid "Mark `[ ]` → `[x]` when starting each task (not when finishing)"
+msgstr "各タスクの開始時（完了時ではなく）に `[ ]` → `[x]` に更新する"
+
+#: ../../dev/claude-code.md:274
+msgid "Implementation happens in a **git worktree** (isolated from main)"
+msgstr "実装は **git worktree** 内で行う（main から隔離）"
+
+#: ../../dev/claude-code.md:275
+msgid ""
+"Commit at feature-unit granularity (implementation + test + config = 1 "
+"commit)"
+msgstr ""
+"機能単位の粒度でコミットする（実装 + テスト + 設定 = 1コミット）"
+
+#: ../../dev/claude-code.md:277
+msgid "3. Review"
+msgstr "3. レビュー"
+
+#: ../../dev/claude-code.md:279
+msgid "After implementation:"
+msgstr "実装後："
+
+#: ../../dev/claude-code.md:281
+msgid "Run `/review` for automated code review"
+msgstr "`/review` で自動コードレビューを実行する"
+
+#: ../../dev/claude-code.md:282
+msgid "Verify build passes: `./gradlew buildPlugin`"
+msgstr "ビルドの成功を確認する：`./gradlew buildPlugin`"
+
+#: ../../dev/claude-code.md:283
+msgid "Verify tests pass: `./gradlew test`"
+msgstr "テストの成功を確認する：`./gradlew test`"
+
+#: ../../dev/claude-code.md:284
+msgid "Mark all tasklist items as `[x]`, including the merge task"
+msgstr "マージタスクを含むすべてのタスクリスト項目を `[x]` にする"
+
+#: ../../dev/claude-code.md:285
+msgid "Merge to main with user approval"
+msgstr "ユーザーの承認を得て main にマージする"
+
+#: ../../dev/claude-code.md:287
+msgid "Session Recovery"
+msgstr "セッションの復元"
+
+#: ../../dev/claude-code.md:289
+msgid "If context is compacted or cleared, use `/catchup` to restore:"
+msgstr "コンテキストが圧縮またはクリアされた場合、`/catchup` で復元します："
+
+#: ../../dev/claude-code.md:291
+msgid "Reads saved state from `.claude/session-state.md`"
+msgstr "`.claude/session-state.md` から保存された状態を読み込む"
+
+#: ../../dev/claude-code.md:292
+msgid "Finds the latest `.steering/*/tasklist.md`"
+msgstr "最新の `.steering/*/tasklist.md` を検索する"
+
+#: ../../dev/claude-code.md:293
+msgid "Reports current branch, modified files, and next task"
+msgstr "現在のブランチ、変更ファイル、次のタスクを報告する"
+
+#: ../../dev/claude-code.md:295
+msgid "Customization"
+msgstr "カスタマイズ"
+
+#: ../../dev/claude-code.md:297
+msgid "Adding a New Rule"
+msgstr "新しいルールの追加"
+
+#: ../../dev/claude-code.md:299
+msgid "Create `.claude/rules/<rule-name>.md` with clear, imperative constraints"
+msgstr "明確で命令形の制約を記述した `.claude/rules/<rule-name>.md` を作成する"
+
+#: ../../dev/claude-code.md:300
+msgid "Add `@.claude/rules/<rule-name>.md` to `CLAUDE.md` in the rules section"
+msgstr "`CLAUDE.md` のルールセクションに `@.claude/rules/<rule-name>.md` を追加する"
+
+#: ../../dev/claude-code.md:301
+msgid "Use the mandatory preamble for enforced rules:"
+msgstr "強制ルールには必須の前文を使用する："
+
+#: ../../dev/claude-code.md:302
+msgid ""
+"**The following are mandatory behavioral instructions to be followed "
+"without exception.**"
+msgstr ""
+"**以下は強制的な行動指示であり、例外なく従うこと。**"
+
+#: ../../dev/claude-code.md:304
+msgid "Adding a New Skill"
+msgstr "新しいスキルの追加"
+
+#: ../../dev/claude-code.md:306
+msgid "Create `.claude/skills/<skill-name>/SKILL.md`"
+msgstr "`.claude/skills/<skill-name>/SKILL.md` を作成する"
+
+#: ../../dev/claude-code.md:307
+msgid "Define the skill's trigger, inputs, steps, and output format"
+msgstr "スキルのトリガー、入力、ステップ、出力形式を定義する"
+
+#: ../../dev/claude-code.md:308
+msgid "The skill becomes available as `/<skill-name>`"
+msgstr "スキルは `/<skill-name>` として利用可能になる"
+
+#: ../../dev/claude-code.md:310
+msgid "Adding a New Hook"
+msgstr "新しいフックの追加"
+
+#: ../../dev/claude-code.md:312
+msgid "Create `.claude/hooks/<hook-name>.sh` (make it executable)"
+msgstr "`.claude/hooks/<hook-name>.sh` を作成する（実行権限を付与すること）"
+
+#: ../../dev/claude-code.md:313
+msgid "Register it in `.claude/settings.json` under the appropriate trigger"
+msgstr "`.claude/settings.json` の適切なトリガーに登録する"
+
+#: ../../dev/claude-code.md:314
+msgid "Use exit code `0` to allow, `2` to block"
+msgstr "終了コード `0` で許可、`2` でブロックする"
+
+#: ../../dev/claude-code.md:316
+msgid "Adding a New Agent"
+msgstr "新しいエージェントの追加"
+
+#: ../../dev/claude-code.md:318
+msgid "Create `.claude/agents/<agent-name>.md`"
+msgstr "`.claude/agents/<agent-name>.md` を作成する"
+
+#: ../../dev/claude-code.md:319
+msgid "Define the agent's checklist, analysis steps, and output format"
+msgstr "エージェントのチェックリスト、分析ステップ、出力形式を定義する"
+
+#: ../../dev/claude-code.md:320
+msgid "Reference it from skills or manual invocations"
+msgstr "スキルまたは手動での呼び出しから参照する"

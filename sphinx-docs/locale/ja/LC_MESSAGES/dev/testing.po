@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
-"PO-Revision-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-03-17 16:42+0900\n"
+"PO-Revision-Date: 2026-03-18 00:00+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -35,9 +35,7 @@ msgstr "テスト構成"
 msgid ""
 "Tests are located in `src/test/kotlin/com/rescript/plugin/` and mirror "
 "the source code package structure:"
-msgstr ""
-"テストは `src/test/kotlin/com/rescript/plugin/` に配置され、"
-"ソースコードのパッケージ構成をミラーしています:"
+msgstr "テストは `src/test/kotlin/com/rescript/plugin/` に配置され、ソースコードのパッケージ構成をミラーしています:"
 
 #: ../../dev/testing.md:33
 msgid "Writing Tests"
@@ -91,11 +89,227 @@ msgstr "パーサーテスト"
 msgid "Test that the parser produces correct PSI structures:"
 msgstr "パーサーが正しい PSI 構造を生成することをテストします:"
 
-#: ../../dev/testing.md:99
+#: ../../dev/testing.md ../../dev/testing.md:99
+msgid "Integration Tests"
+msgstr "統合テスト"
+
+#: ../../dev/testing.md:101
+msgid ""
+"Integration tests use IntelliJ Platform's test infrastructure to verify "
+"features in a realistic IDE environment, including PSI trees, editor "
+"fixtures, and file-based test data."
+msgstr "統合テストは IntelliJ Platform のテストインフラを使用して、PSI ツリー、エディタフィクスチャ、ファイルベースのテストデータを含む実際の IDE 環境で機能を検証します。"
+
+#: ../../dev/testing.md:103
+msgid "Unit Tests vs Integration Tests"
+msgstr "ユニットテストと統合テストの比較"
+
+#: ../../dev/testing.md
+msgid "Aspect"
+msgstr "観点"
+
+#: ../../dev/testing.md
+msgid "Unit Tests"
+msgstr "ユニットテスト"
+
+#: ../../dev/testing.md
+msgid "Base class"
+msgstr "基底クラス"
+
+#: ../../dev/testing.md
+msgid "None or plain JUnit"
+msgstr "なし、または素の JUnit"
+
+#: ../../dev/testing.md
+msgid "`BasePlatformTestCase`"
+msgstr "`BasePlatformTestCase`"
+
+#: ../../dev/testing.md
+msgid "Speed"
+msgstr "速度"
+
+#: ../../dev/testing.md
+msgid "Fast (no IDE bootstrap)"
+msgstr "高速（IDE の起動不要）"
+
+#: ../../dev/testing.md
+msgid "Slower (IDE platform initialized)"
+msgstr "低速（IDE プラットフォームの初期化あり）"
+
+#: ../../dev/testing.md
+msgid "Scope"
+msgstr "スコープ"
+
+#: ../../dev/testing.md
+msgid "Single class / function"
+msgstr "単一のクラス / 関数"
+
+#: ../../dev/testing.md
+msgid "Feature end-to-end in IDE context"
+msgstr "IDE コンテキストでの機能のエンドツーエンド"
+
+#: ../../dev/testing.md
+msgid "Use when"
+msgstr "使用する場面"
+
+#: ../../dev/testing.md
+msgid "Testing pure logic (lexer tokens, utility functions)"
+msgstr "純粋なロジックのテスト（レクサートークン、ユーティリティ関数）"
+
+#: ../../dev/testing.md
+msgid "Testing features that interact with PSI, editor, or fixtures"
+msgstr "PSI、エディタ、またはフィクスチャと連携する機能のテスト"
+
+#: ../../dev/testing.md:112
+msgid "BasePlatformTestCase Pattern"
+msgstr "BasePlatformTestCase パターン"
+
+#: ../../dev/testing.md:114
+msgid ""
+"Integration tests extend `BasePlatformTestCase`, which bootstraps a "
+"lightweight IDE environment with an editor, PSI infrastructure, and "
+"project model:"
+msgstr "統合テストは `BasePlatformTestCase` を継承します。このクラスはエディタ、PSI インフラ、プロジェクトモデルを備えた軽量な IDE 環境を起動します:"
+
+#: ../../dev/testing.md:142
+msgid "Key methods:"
+msgstr "主要なメソッド:"
+
+#: ../../dev/testing.md:144
+msgid ""
+"`myFixture.configureByText(filename, content)` — Create an in-memory file"
+" and open it in the editor"
+msgstr "`myFixture.configureByText(filename, content)` — メモリ上にファイルを作成し、エディタで開く"
+
+#: ../../dev/testing.md:145
+msgid ""
+"`myFixture.configureByFile(filename)` — Load a file from the "
+"`testDataPath` directory"
+msgstr "`myFixture.configureByFile(filename)` — `testDataPath` ディレクトリからファイルを読み込む"
+
+#: ../../dev/testing.md:146
+#, python-brace-format
+msgid ""
+"`myFixture.testStructureView { view -> ... }` — Open the structure view "
+"and assert its contents"
+msgstr "`myFixture.testStructureView { view -> ... }` — ストラクチャービューを開き、その内容を検証する"
+
+#: ../../dev/testing.md:147
+msgid "`myFixture.testHighlighting(...)` — Run highlighting and check annotations"
+msgstr "`myFixture.testHighlighting(...)` — ハイライトを実行し、アノテーションを確認する"
+
+#: ../../dev/testing.md:149
+msgid "Integration Test Classes"
+msgstr "統合テストクラス"
+
+#: ../../dev/testing.md:151
+msgid "The project includes the following integration test categories:"
+msgstr "プロジェクトには以下の統合テストカテゴリが含まれています:"
+
+#: ../../dev/testing.md
+msgid "Test Class"
+msgstr "テストクラス"
+
+#: ../../dev/testing.md
+msgid "Feature"
+msgstr "機能"
+
+#: ../../dev/testing.md
+msgid "Example Assertion"
+msgstr "アサーション例"
+
+#: ../../dev/testing.md
+msgid "`RescriptHighlightingIntegrationTest`"
+msgstr "`RescriptHighlightingIntegrationTest`"
+
+#: ../../dev/testing.md
+msgid "Syntax highlighting"
+msgstr "シンタックスハイライト"
+
+#: ../../dev/testing.md
+msgid "Token colors match expected attributes"
+msgstr "トークンの色が期待される属性と一致する"
+
+#: ../../dev/testing.md
+msgid "`RescriptFoldingBuilderIntegrationTest`"
+msgstr "`RescriptFoldingBuilderIntegrationTest`"
+
+#: ../../dev/testing.md
+msgid "Code folding"
+msgstr "コード折りたたみ"
+
+#: ../../dev/testing.md
+msgid "Fold regions match `<fold>` markers in test data"
+msgstr "折りたたみ領域がテストデータ内の `<fold>` マーカーと一致する"
+
+#: ../../dev/testing.md
+msgid "`RescriptStructureViewIntegrationTest`"
+msgstr "`RescriptStructureViewIntegrationTest`"
+
+#: ../../dev/testing.md
+msgid "Structure view"
+msgstr "ストラクチャービュー"
+
+#: ../../dev/testing.md
+msgid "Tree contains expected declarations"
+msgstr "ツリーに期待される宣言が含まれている"
+
+#: ../../dev/testing.md
+msgid "`RescriptIndentIntegrationTest`"
+msgstr "`RescriptIndentIntegrationTest`"
+
+#: ../../dev/testing.md
+msgid "Auto-indentation"
+msgstr "自動インデント"
+
+#: ../../dev/testing.md
+msgid "Indent levels after Enter key"
+msgstr "Enter キー押下後のインデントレベル"
+
+#: ../../dev/testing.md
+msgid "`RescriptParserIntegrationTest`"
+msgstr "`RescriptParserIntegrationTest`"
+
+#: ../../dev/testing.md
+msgid "Parser + PSI tree"
+msgstr "パーサー + PSI ツリー"
+
+#: ../../dev/testing.md
+msgid "PSI tree matches expected structure"
+msgstr "PSI ツリーが期待される構造と一致する"
+
+#: ../../dev/testing.md
+msgid "`RescriptLexerIntegrationTest`"
+msgstr "`RescriptLexerIntegrationTest`"
+
+#: ../../dev/testing.md
+msgid "Lexer token stream"
+msgstr "レクサートークンストリーム"
+
+#: ../../dev/testing.md
+msgid "Full-file token sequences match expectations"
+msgstr "ファイル全体のトークンシーケンスが期待値と一致する"
+
+#: ../../dev/testing.md:162
+msgid "testData Directory"
+msgstr "testData ディレクトリ"
+
+#: ../../dev/testing.md:164
+msgid "Test data files are organized by feature under `src/test/testData/`:"
+msgstr "テストデータファイルは `src/test/testData/` 配下に機能ごとに整理されています:"
+
+#: ../../dev/testing.md:176
+msgid ""
+"Each test class points to its data directory via `getTestDataPath()`. "
+"Test data files are plain `.res` files, sometimes with special markers "
+"(e.g., `<fold text=\"...\">`) for framework-assisted assertions."
+msgstr "各テストクラスは `getTestDataPath()` でデータディレクトリを指定します。テストデータファイルは通常の `.res` ファイルで、フレームワーク支援のアサーション用に特殊なマーカー（例: `<fold text=\"...\">`）が含まれる場合があります。"
+
+#: ../../dev/testing.md:178
 msgid "Test Coverage"
 msgstr "テストカバレッジ"
 
-#: ../../dev/testing.md:101
+#: ../../dev/testing.md:180
 msgid ""
 "The project uses [Kover](https://github.com/Kotlin/kotlinx-kover) for "
 "code coverage."
@@ -103,46 +317,44 @@ msgstr ""
 "プロジェクトはコードカバレッジに [Kover](https://github.com/Kotlin/kotlinx-kover) "
 "を使用しています。"
 
-#: ../../dev/testing.md:111
+#: ../../dev/testing.md:190
 msgid "Coverage reports are generated at `build/reports/kover/html/`."
 msgstr "カバレッジレポートは `build/reports/kover/html/` に生成されます。"
 
-#: ../../dev/testing.md:113
+#: ../../dev/testing.md:192
 msgid "Coverage Requirements"
 msgstr "カバレッジ要件"
 
-#: ../../dev/testing.md:115
+#: ../../dev/testing.md:194
 msgid "New code should have test coverage"
 msgstr "新しいコードにはテストカバレッジが必要です"
 
-#: ../../dev/testing.md:116
+#: ../../dev/testing.md:195
 msgid "CI reports coverage on pull requests"
 msgstr "CI がプルリクエストでカバレッジを報告します"
 
-#: ../../dev/testing.md:117
+#: ../../dev/testing.md:196
 msgid ""
 "Exceptions: UI components (Swing), LSP integration classes that require a"
 " running server"
-msgstr ""
-"例外: UI コンポーネント (Swing)、実行中のサーバーが必要な LSP 統合クラス"
+msgstr "例外: UI コンポーネント (Swing)、実行中のサーバーが必要な LSP 統合クラス"
 
-#: ../../dev/testing.md:119
+#: ../../dev/testing.md:198
 msgid "CI Testing"
 msgstr "CI テスト"
 
-#: ../../dev/testing.md:121
+#: ../../dev/testing.md:200
 msgid "The CI pipeline runs tests automatically on every push and PR:"
 msgstr "CI パイプラインはすべてのプッシュと PR で自動的にテストを実行します:"
 
-#: ../../dev/testing.md:123
+#: ../../dev/testing.md:202
 msgid "`./gradlew test koverXmlReport koverHtmlReport`"
 msgstr "`./gradlew test koverXmlReport koverHtmlReport`"
 
-#: ../../dev/testing.md:124
+#: ../../dev/testing.md:203
 msgid "Coverage is reported on PRs via the Kover report action"
 msgstr "Kover レポートアクションを通じて PR でカバレッジが報告されます"
 
-#: ../../dev/testing.md:125
+#: ../../dev/testing.md:204
 msgid "Test results are uploaded as artifacts"
 msgstr "テスト結果はアーティファクトとしてアップロードされます"
-

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 20:50+0900\n"
+"POT-Creation-Date: 2026-03-17 16:42+0900\n"
 "PO-Revision-Date: 2026-02-19 18:30+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -81,32 +81,209 @@ msgstr ""
 "/language-server/out/cli.js`）経由で起動される場合にのみ適用されます。"
 
 #: ../../user/configuration.md:19
-msgid "Incremental Type Checking"
-msgstr "インクリメンタル型チェック"
+msgid "ReScript Binary Path"
+msgstr "ReScript バイナリパス"
 
 #: ../../user/configuration.md:21
 msgid ""
-"Enable or disable incremental type checking in the Language Server. When "
-"enabled, the Language Server only re-checks files that have changed, "
-"improving performance on large projects. This setting is sent to the "
-"language server as an initialization option and takes effect after an LSP"
-" server restart."
+"Configure a custom path to the ReScript compiler binary (`rescript`). "
+"Leave this field empty to let the plugin auto-detect the binary from "
+"`node_modules/.bin/` or the system PATH."
 msgstr ""
-"Language Server のインクリメンタル型チェックを有効または無効にします。有効にすると、Language Server "
+"ReScript コンパイラバイナリ（`rescript`）へのカスタムパスを設定します。空欄のままにすると、プラグインが "
+"`node_modules/.bin/` またはシステムの PATH からバイナリを自動検出します。"
+
+#: ../../user/configuration.md:23
+msgid ""
+"When a custom path is specified, the plugin validates that the file "
+"exists before applying the setting."
+msgstr ""
+"カスタムパスが指定された場合、プラグインは設定を適用する前にファイルの存在を検証します。"
+
+#: ../../user/configuration.md:25
+msgid "Platform Path"
+msgstr "Platform パス"
+
+#: ../../user/configuration.md:27
+msgid ""
+"Configure a custom path to the ReScript platform directory. Leave this "
+"field empty to let the plugin auto-detect the platform location."
+msgstr ""
+"ReScript プラットフォームディレクトリへのカスタムパスを設定します。空欄のままにすると、プラグインがプラットフォームの場所を自動検出します。"
+
+#: ../../user/configuration.md:29
+msgid ""
+"This setting is passed to the language server as an initialization "
+"option. It is typically only needed when using a non-standard ReScript "
+"installation layout."
+msgstr ""
+"この設定は初期化オプションとして Language Server に送信されます。通常、非標準の ReScript インストール構成を使用している場合にのみ必要です。"
+
+#: ../../user/configuration.md:31
+msgid "Runtime Path"
+msgstr "Runtime パス"
+
+#: ../../user/configuration.md:33
+msgid ""
+"Configure a custom path to the ReScript runtime directory. Leave this "
+"field empty to let the plugin auto-detect the runtime location."
+msgstr ""
+"ReScript ランタイムディレクトリへのカスタムパスを設定します。空欄のままにすると、プラグインがランタイムの場所を自動検出します。"
+
+#: ../../user/configuration.md:35
+msgid ""
+"This setting is passed to the language server as an initialization "
+"option. Like Platform Path, it is only needed for non-standard "
+"installations."
+msgstr ""
+"この設定は初期化オプションとして Language Server に送信されます。Platform パスと同様に、非標準のインストール構成でのみ必要です。"
+
+#: ../../user/configuration.md:37
+msgid "Log Level"
+msgstr "ログレベル"
+
+#: ../../user/configuration.md:39
+msgid "Control the verbosity of the LSP server log output. Available levels:"
+msgstr "LSP サーバーのログ出力の詳細度を制御します。利用可能なレベル:"
+
+#: ../../user/configuration.md
+msgid "Level"
+msgstr "レベル"
+
+#: ../../user/configuration.md ../../user/configuration.md:75
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/configuration.md
+msgid "`error`"
+msgstr "`error`"
+
+#: ../../user/configuration.md
+msgid "Only log errors"
+msgstr "エラーのみ記録"
+
+#: ../../user/configuration.md
+msgid "`warn`"
+msgstr "`warn`"
+
+#: ../../user/configuration.md
+msgid "Log errors and warnings"
+msgstr "エラーと警告を記録"
+
+#: ../../user/configuration.md
+msgid "`info`"
+msgstr "`info`"
+
+#: ../../user/configuration.md
+msgid "Log errors, warnings, and informational messages (default)"
+msgstr "エラー、警告、情報メッセージを記録（デフォルト）"
+
+#: ../../user/configuration.md
+msgid "`log`"
+msgstr "`log`"
+
+#: ../../user/configuration.md
+msgid "Log everything, including debug-level messages"
+msgstr "デバッグレベルのメッセージを含むすべてを記録"
+
+#: ../../user/configuration.md:48
+msgid ""
+"The log level is sent to the language server as an initialization option "
+"and takes effect after an LSP server restart."
+msgstr ""
+"ログレベルは初期化オプションとして Language Server に送信され、LSP サーバーの再起動後に反映されます。"
+
+#: ../../user/configuration.md:50
+msgid "Incremental Type Checking"
+msgstr "インクリメンタル型チェック"
+
+#: ../../user/configuration.md:52
+msgid ""
+"Enable or disable cross-file incremental type checking in the Language "
+"Server (experimental). When enabled, the Language Server only re-checks "
+"files that have changed, improving performance on large projects. This "
+"setting is sent to the language server as an initialization option and "
+"takes effect after an LSP server restart."
+msgstr ""
+"Language Server のクロスファイルインクリメンタル型チェック（実験的機能）を有効または無効にします。有効にすると、Language Server "
 "は変更されたファイルのみを再チェックし、大規模プロジェクトでのパフォーマンスが向上します。この設定は初期化オプションとして Language "
 "Server に送信され、LSP サーバーの再起動後に反映されます。"
 
-#: ../../user/configuration.md:24
+#: ../../user/configuration.md:54
+msgid "Default: **Disabled**"
+msgstr "デフォルト: **無効**"
+
+#: ../../user/configuration.md:56
+msgid "Inlay Hints Max Length"
+msgstr "インレイヒントの最大長"
+
+#: ../../user/configuration.md:58
+msgid ""
+"Set the maximum character length for inlay hint labels displayed in the "
+"editor. When an inferred type annotation exceeds this length, it is "
+"truncated."
+msgstr ""
+"エディタに表示されるインレイヒントラベルの最大文字数を設定します。推論された型注釈がこの長さを超えると、省略されます。"
+
+#: ../../user/configuration.md:60
+msgid "**Default:** 25 characters"
+msgstr "**デフォルト:** 25 文字"
+
+#: ../../user/configuration.md:61
+msgid "**Range:** 0–200"
+msgstr "**範囲:** 0--200"
+
+#: ../../user/configuration.md:62
+msgid "**Special value:** 0 means unlimited (no truncation)"
+msgstr "**特殊値:** 0 は無制限（省略なし）を意味します"
+
+#: ../../user/configuration.md:64
+msgid ""
+"This setting is sent to the language server as an initialization option "
+"and takes effect after an LSP server restart."
+msgstr ""
+"この設定は初期化オプションとして Language Server に送信され、LSP サーバーの再起動後に反映されます。"
+
+#: ../../user/configuration.md:66
+msgid "Reanalyze Server Mode"
+msgstr "Reanalyze サーバーモード"
+
+#: ../../user/configuration.md:68
+msgid ""
+"Enable or disable the reanalyze server daemon for faster dead code "
+"analysis. When enabled, the plugin starts a long-running `reanalyze` "
+"process that keeps its analysis state in memory, making subsequent dead "
+"code checks significantly faster."
+msgstr ""
+"デッドコード分析を高速化する reanalyze サーバーデーモンを有効または無効にします。有効にすると、プラグインは分析状態をメモリに保持する "
+"常駐 `reanalyze` プロセスを起動し、以降のデッドコードチェックが大幅に高速化されます。"
+
+#: ../../user/configuration.md:70
+msgid "**Default:** Enabled"
+msgstr "**デフォルト:** 有効"
+
+#: ../../user/configuration.md:71
+msgid "**Requires:** ReScript 12.1.0 or later"
+msgstr "**必要条件:** ReScript 12.1.0 以降"
+
+#: ../../user/configuration.md:73
+msgid ""
+"When toggled, the server starts or stops immediately without requiring a "
+"full LSP restart."
+msgstr ""
+"切り替えると、LSP の完全な再起動を必要とせず、サーバーが即座に起動または停止します。"
+
+#: ../../user/configuration.md:76
 msgid ""
 "Changing any plugin setting triggers an automatic LSP server restart. The"
 " server shuts down and re-launches with the updated configuration."
 msgstr "プラグインの設定を変更すると、LSP サーバーが自動的に再起動されます。サーバーはシャットダウンし、更新された設定で再起動します。"
 
-#: ../../user/configuration.md:27
+#: ../../user/configuration.md:79
 msgid "reanalyze Path"
 msgstr "reanalyze パス"
 
-#: ../../user/configuration.md:29
+#: ../../user/configuration.md:81
 msgid ""
 "Configure a custom path to the `reanalyze` binary for dead code analysis."
 " By default, the plugin searches for `reanalyze` in `node_modules/.bin/`."
@@ -114,11 +291,11 @@ msgstr ""
 "デッドコード分析用の `reanalyze` バイナリへのカスタムパスを設定します。デフォルトでは、プラグインは "
 "`node_modules/.bin/` 内の `reanalyze` を検索します。"
 
-#: ../../user/configuration.md:31
+#: ../../user/configuration.md:83
 msgid "Color Scheme"
 msgstr "カラースキーム"
 
-#: ../../user/configuration.md:33
+#: ../../user/configuration.md:85
 msgid ""
 "Go to **Settings** → **Editor** → **Color Scheme** → **ReScript** to "
 "customize syntax highlighting colors."
@@ -126,252 +303,248 @@ msgstr ""
 "**Settings** → **Editor** → **Color Scheme** → **ReScript** "
 "でシンタックスハイライトの色をカスタマイズできます。"
 
-#: ../../user/configuration.md:35
+#: ../../user/configuration.md:87
 msgid "Available Color Keys"
 msgstr "利用可能なカラーキー"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Key"
 msgstr "キー"
 
-#: ../../user/configuration.md:23
-msgid "Description"
-msgstr "説明"
-
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Default Base"
 msgstr "デフォルトベース"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Keyword"
 msgstr "キーワード"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`let`, `type`, `module`, `switch`, etc."
 msgstr "`let`、`type`、`module`、`switch` など"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Keyword"
 msgstr "Language defaults > Keyword"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "String"
 msgstr "文字列"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "String literals and template strings"
 msgstr "文字列リテラルとテンプレート文字列"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > String"
 msgstr "Language defaults > String"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Number"
 msgstr "数値"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Integer and float literals"
 msgstr "整数リテラルと浮動小数点リテラル"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Number"
 msgstr "Language defaults > Number"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Line comment"
 msgstr "行コメント"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`// ...` comments"
 msgstr "`// ...` コメント"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Line comment"
 msgstr "Language defaults > Line comment"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Block comment"
 msgstr "ブロックコメント"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`/* ... */` comments"
 msgstr "`/* ... */` コメント"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Block comment"
 msgstr "Language defaults > Block comment"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Operator"
 msgstr "演算子"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`+`, `-`, `=>`, `|>`, etc."
 msgstr "`+`、`-`、`=>`、`|>` など"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Operation sign"
 msgstr "Language defaults > Operation sign"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Braces"
 msgstr "波括弧"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 #, python-brace-format
 msgid "`{`, `}`"
 msgstr "`{`、`}`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Braces"
 msgstr "Language defaults > Braces"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Brackets"
 msgstr "角括弧"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`[`, `]`"
 msgstr "`[`、`]`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Brackets"
 msgstr "Language defaults > Brackets"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Parentheses"
 msgstr "丸括弧"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`(`, `)`"
 msgstr "`(`、`)`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Parentheses"
 msgstr "Language defaults > Parentheses"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Dot"
 msgstr "ドット"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`.`"
 msgstr "`.`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Dot"
 msgstr "Language defaults > Dot"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Comma"
 msgstr "カンマ"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`,`"
 msgstr "`,`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Comma"
 msgstr "Language defaults > Comma"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Semicolon"
 msgstr "セミコロン"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`;`"
 msgstr "`;`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Semicolon"
 msgstr "Language defaults > Semicolon"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Type argument"
 msgstr "型引数"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`'a`, `'b`"
 msgstr "`'a`、`'b`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Metadata"
 msgstr "Language defaults > Metadata"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Polymorphic variant"
 msgstr "ポリモーフィックバリアント"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`#Tag`"
 msgstr "`#Tag`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Constant"
 msgstr "Language defaults > Constant"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Module name"
 msgstr "モジュール名"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`Belt`, `Array`"
 msgstr "`Belt`、`Array`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Class name"
 msgstr "Language defaults > Class name"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Annotation"
 msgstr "アノテーション"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`@module`, `@send`"
 msgstr "`@module`、`@send`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Pattern pipe"
 msgstr "パターンパイプ"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`|` in pattern matching"
 msgstr "パターンマッチングの `|`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Wildcard"
 msgstr "ワイルドカード"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`_` in patterns"
 msgstr "パターン内の `_`"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "JSX tag"
 msgstr "JSX タグ"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "HTML element names in JSX"
 msgstr "JSX 内の HTML 要素名"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Markup tag"
 msgstr "Language defaults > Markup tag"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "JSX tag bracket"
 msgstr "JSX タグ括弧"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "`<`, `>`, `</`, `/>` in JSX"
 msgstr "JSX 内の `<`、`>`、`</`、`/>`"
 
-#: ../../user/configuration.md:60
+#: ../../user/configuration.md:112
 msgid "Customizing Lexer-Based Colors"
 msgstr "レクサーベースカラーのカスタマイズ"
 
-#: ../../user/configuration.md:62
+#: ../../user/configuration.md:114
 msgid ""
 "Each color key listed above controls a specific category of tokens "
 "recognized by the JFlex lexer. Here is a detailed guide on what each key "
@@ -380,11 +553,11 @@ msgstr ""
 "上記の各カラーキーは、JFlex "
 "レクサーが認識するトークンの特定カテゴリを制御します。各キーが影響する範囲と効果的なカスタマイズ方法の詳細ガイドを以下に示します。"
 
-#: ../../user/configuration.md:64
+#: ../../user/configuration.md:116
 msgid "Keywords"
 msgstr "キーワード"
 
-#: ../../user/configuration.md:66
+#: ../../user/configuration.md:118
 msgid ""
 "The **Keyword** color applies to all reserved words in ReScript: `let`, "
 "`type`, `module`, `switch`, `if`, `else`, `open`, `include`, `external`, "
@@ -397,11 +570,11 @@ msgstr ""
 "`let`、`type`、`module`、`switch`、`if`、`else`、`open`、`include`、`external`、`exception`、`try`、`catch`、`as`、`rec`、`and`、`true`、`false`、`async`、`await`"
 " など。この色を変更すると、表示されるコードの大部分に影響します。キーワードに太字スタイルを適用すると、コード構造が見やすくなります。"
 
-#: ../../user/configuration.md:68
+#: ../../user/configuration.md:120
 msgid "Strings"
 msgstr "文字列"
 
-#: ../../user/configuration.md:70
+#: ../../user/configuration.md:122
 #, python-brace-format
 msgid ""
 "The **String** color applies to double-quoted string literals "
@@ -417,11 +590,11 @@ msgstr ""
 "``）に適用されます。テンプレート文字列の式展開マーカー（`${` と "
 "`}`）も文字列カラーを継承します。テンプレート文字列内の式展開を目立たせたい場合は、やや控えめな文字列カラーを使用すると、式展開される識別子（それぞれのトークンタイプで色付けされる）とのコントラストが生まれます。"
 
-#: ../../user/configuration.md:72
+#: ../../user/configuration.md:124
 msgid "Operators"
 msgstr "演算子"
 
-#: ../../user/configuration.md:74
+#: ../../user/configuration.md:126
 msgid ""
 "The **Operator** color applies to arithmetic operators (`+`, `-`, `*`, "
 "`/`), comparison operators (`==`, `!=`, `<`, `>`), the arrow (`=>`), the "
@@ -436,7 +609,7 @@ msgstr ""
 " ではパイプチェーン（`|>` または "
 "`->`）が非常に一般的なイディオムであるため、演算子カラーは視覚的に大きな影響を与えます。識別しやすい演算子カラーを選ぶと、パイプチェーンが周囲の識別子やキーワードから際立ちます。"
 
-#: ../../user/configuration.md:76
+#: ../../user/configuration.md:128
 msgid ""
 "The **Pattern pipe** key is separate from the general Operator key. It "
 "controls only the `|` character used in pattern matching arms (e.g., `| "
@@ -448,11 +621,11 @@ msgstr ""
 "=> ...`）で使用される `|` 文字のみを制御します。デフォルトでは `switch` と視覚的にグループ化するために Keyword "
 "カラーを使用しますが、パターンアームを異なる見た目にしたい場合は別の色を割り当てることができます。"
 
-#: ../../user/configuration.md:78
+#: ../../user/configuration.md:130
 msgid "Module Names and Namespaces"
 msgstr "モジュール名と名前空間"
 
-#: ../../user/configuration.md:80
+#: ../../user/configuration.md:132
 msgid ""
 "The **Module name** color applies to uppercase identifiers recognized by "
 "the lexer, such as `Belt`, `Array`, `React`, `Option`, and user-defined "
@@ -468,11 +641,11 @@ msgstr ""
 " が接続されている場合、**Namespace** と **Enum member** "
 "のセマンティックキーがこのレクサーレベルのカラーをオーバーライドします）。"
 
-#: ../../user/configuration.md:82
+#: ../../user/configuration.md:134
 msgid "Type Arguments"
 msgstr "型引数"
 
-#: ../../user/configuration.md:84
+#: ../../user/configuration.md:136
 msgid ""
 "The **Type argument** color applies to type variables like `'a`, `'b`, "
 "`'key`. These appear in polymorphic function signatures and type "
@@ -482,11 +655,11 @@ msgstr ""
 "**Type argument** カラーは `'a`、`'b`、`'key` "
 "のような型変数に適用されます。これらはポリモーフィックな関数シグネチャや型定義に出現します。識別しやすい色を割り当てると、型注釈内のジェネリックパラメータをすばやく見つけられます。"
 
-#: ../../user/configuration.md:86
+#: ../../user/configuration.md:138
 msgid "Polymorphic Variants"
 msgstr "ポリモーフィックバリアント"
 
-#: ../../user/configuration.md:88
+#: ../../user/configuration.md:140
 msgid ""
 "The **Polymorphic variant** color applies to `#`-prefixed tags like "
 "`#success`, `#error`, `#loading`. These are structurally typed in "
@@ -497,11 +670,11 @@ msgstr ""
 "プレフィックス付きタグに適用されます。これらは ReScript "
 "で構造的に型付けされており、通常のバリアントコンストラクタとは異なるハイライトにすることで、名義型バリアントと構造型バリアントを区別しやすくなります。"
 
-#: ../../user/configuration.md:90
+#: ../../user/configuration.md:142
 msgid "Annotations (Decorators)"
 msgstr "アノテーション（デコレーター）"
 
-#: ../../user/configuration.md:92
+#: ../../user/configuration.md:144
 msgid ""
 "The **Annotation** color applies to `@`-prefixed decorators such as "
 "`@module`, `@send`, `@get`, `@react.component`, and `@genType`. "
@@ -513,11 +686,11 @@ msgstr ""
 "プレフィックス付きデコレーターに適用されます。アノテーションは FFI "
 "やフレームワークの重要なメタデータを含むことが多いため、視認性がありつつも気が散らない色（控えめなゴールドやグレーなど）が適しています。"
 
-#: ../../user/configuration.md:94
+#: ../../user/configuration.md:146
 msgid "JSX Colors"
 msgstr "JSX カラー"
 
-#: ../../user/configuration.md:96
+#: ../../user/configuration.md:148
 msgid ""
 "The **JSX tag** color applies to lowercase HTML element names inside JSX "
 "(e.g., `div`, `span`, `input`), while uppercase JSX component names "
@@ -533,11 +706,11 @@ msgstr ""
 "`<`、`>`、`</`、`/>` に適用されます。JSX "
 "タグと括弧にそれぞれ異なる色を割り当てることで、コンポーネントコード内のマークアップとロジックを視覚的に分離できます。"
 
-#: ../../user/configuration.md:98
+#: ../../user/configuration.md:150
 msgid "Semantic Highlighting Colors"
 msgstr "セマンティックハイライトカラー"
 
-#: ../../user/configuration.md:100
+#: ../../user/configuration.md:152
 msgid ""
 "When the Language Server is connected, additional semantic token colors "
 "are available. These colors are layered on top of the lexer-based "
@@ -546,110 +719,110 @@ msgstr ""
 "Language Server "
 "が接続されている場合、追加のセマンティックトークンカラーが利用可能になります。これらのカラーはレクサーベースのハイライトの上にレイヤーとして重ねられ、型情報に基づいた正確な色付けを提供します。"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Default Fallback"
 msgstr "デフォルトフォールバック"
 
-#: ../../user/configuration.md:23 ../../user/configuration.md:117
+#: ../../user/configuration.md:75 ../../user/configuration.md:169
 msgid "Variable"
 msgstr "変数"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Variables and parameters"
 msgstr "変数とパラメータ"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Local variable"
 msgstr "Language defaults > Local variable"
 
-#: ../../user/configuration.md:23 ../../user/configuration.md:121
+#: ../../user/configuration.md:75 ../../user/configuration.md:173
 msgid "Type"
 msgstr "型"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Type names"
 msgstr "型名"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Namespace"
 msgstr "名前空間"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Module names (semantically resolved)"
 msgstr "モジュール名（セマンティック解決済み）"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Module name (lexer key)"
 msgstr "Module name（レクサーキー）"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Enum member"
 msgstr "Enum メンバー"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Variant constructors"
 msgstr "バリアントコンストラクタ"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Polymorphic variant (lexer key)"
 msgstr "Polymorphic variant（レクサーキー）"
 
-#: ../../user/configuration.md:23 ../../user/configuration.md:133
+#: ../../user/configuration.md:75 ../../user/configuration.md:185
 msgid "Property"
 msgstr "プロパティ"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Record fields"
 msgstr "レコードフィールド"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Language defaults > Instance field"
 msgstr "Language defaults > Instance field"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Interface"
 msgstr "インターフェース"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "JSX HTML elements"
 msgstr "JSX HTML 要素"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "JSX tag (lexer key)"
 msgstr "JSX tag（レクサーキー）"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Operators (semantically resolved)"
 msgstr "演算子（セマンティック解決済み）"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Operator (lexer key)"
 msgstr "Operator（レクサーキー）"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Modifier"
 msgstr "修飾子"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "JSX tag brackets (semantically resolved)"
 msgstr "JSX タグ括弧（セマンティック解決済み）"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "JSX tag bracket (lexer key)"
 msgstr "JSX tag bracket（レクサーキー）"
 
-#: ../../user/configuration.md:113
+#: ../../user/configuration.md:165
 msgid "Customizing Semantic Colors"
 msgstr "セマンティックカラーのカスタマイズ"
 
-#: ../../user/configuration.md:115
+#: ../../user/configuration.md:167
 msgid ""
 "Semantic colors override lexer colors for the tokens they cover, "
 "providing more accurate highlighting. Here is what each semantic key "
 "controls and how it interacts with the lexer layer."
 msgstr "セマンティックカラーは、対象トークンに対してレクサーカラーをオーバーライドし、より正確なハイライトを提供します。各セマンティックキーの制御範囲と、レクサーレイヤーとの相互作用について説明します。"
 
-#: ../../user/configuration.md:119
+#: ../../user/configuration.md:171
 msgid ""
 "The **Variable** key colors all variables and function parameters "
 "identified by the language server's type analysis. Without the LSP, local"
@@ -662,7 +835,7 @@ msgstr ""
 "**Variable** キーは、Language Server の型解析によって識別されたすべての変数と関数パラメータに色を付けます。LSP "
 "がない場合、ローカル識別子には特定の色が付かず、プレーンテキストとして表示されます。セマンティックハイライトを有効にしてこのキーに色を割り当てると、変数参照がキーワードや型と視覚的に区別できるようになります。控えめな色（デフォルトテキストよりわずかに明るい色）を使用すると、視覚的なノイズを避けられます。"
 
-#: ../../user/configuration.md:123
+#: ../../user/configuration.md:175
 msgid ""
 "The **Type** key colors type names wherever they appear: in type "
 "annotations, type definitions, and type constructor applications. This "
@@ -674,11 +847,11 @@ msgstr ""
 "型注釈、型定義、型コンストラクタの適用箇所です。レクサーでは型名を通常の識別子と区別できないため、これはレクサーよりも正確な色付けを提供します。例えば、`int`、`string`、`option`"
 " はセマンティックハイライトが有効な場合にのみ型として色付けされます。"
 
-#: ../../user/configuration.md:125
+#: ../../user/configuration.md:177
 msgid "Namespace vs. Module Name"
 msgstr "Namespace と Module Name の比較"
 
-#: ../../user/configuration.md:127
+#: ../../user/configuration.md:179
 msgid ""
 "The **Namespace** semantic key and the **Module name** lexer key both "
 "color module names, but they operate at different precision levels. The "
@@ -698,11 +871,11 @@ msgstr ""
 "が接続されている場合、真のモジュール参照には **Namespace** カラーが優先され、バリアントコンストラクタには代わりに **Enum "
 "member** カラーが適用されます。これにより、レクサーレベルに存在する曖昧さが解消されます。"
 
-#: ../../user/configuration.md:129
+#: ../../user/configuration.md:181
 msgid "Enum Member"
 msgstr "Enum メンバー"
 
-#: ../../user/configuration.md:131
+#: ../../user/configuration.md:183
 msgid ""
 "The **Enum member** key colors variant constructors such as `Some`, "
 "`None`, `Ok`, `Error`, `Red`, `Green`, and user-defined variants. At the "
@@ -713,7 +886,7 @@ msgstr ""
 "**Enum member** キーは "
 "`Some`、`None`、`Ok`、`Error`、`Red`、`Green`、およびユーザー定義のバリアントなどのバリアントコンストラクタに色を付けます。レクサーレベルでは、これらはモジュール名と区別できません（どちらも大文字で始まるため）。セマンティックレイヤーはコンパイラの型情報を参照することで、この曖昧さを解消します。"
 
-#: ../../user/configuration.md:135
+#: ../../user/configuration.md:187
 msgid ""
 "The **Property** key colors record field names in both record definitions"
 " and record access expressions. For example, in `user.name` the field "
@@ -724,11 +897,11 @@ msgstr ""
 "ではフィールド `name` に Property カラーが、`user` に Variable "
 "カラーが適用されます。この区別はセマンティック解析によってのみ可能です。"
 
-#: ../../user/configuration.md:137
+#: ../../user/configuration.md:189
 msgid "Interface and Modifier"
 msgstr "Interface と Modifier"
 
-#: ../../user/configuration.md:139
+#: ../../user/configuration.md:191
 msgid ""
 "The **Interface** key colors HTML element names in JSX expressions (e.g.,"
 " `div`, `span`) with semantic precision, and the **Modifier** key colors "
@@ -739,25 +912,25 @@ msgstr ""
 "`div`、`span`）にセマンティック精度で色を付け、**Modifier** キーは対応する JSX の山括弧に色を付けます。LSP "
 "が接続されている場合、これらはレクサーベースの JSX tag カラーと JSX tag bracket カラーをオーバーライドします。"
 
-#: ../../user/configuration.md:141
+#: ../../user/configuration.md:193
 msgid "Color Scheme Files"
 msgstr "カラースキームファイル"
 
-#: ../../user/configuration.md:143
+#: ../../user/configuration.md:195
 msgid "The plugin ships with two built-in color scheme files:"
 msgstr "プラグインには 2 つの組み込みカラースキームファイルが付属しています:"
 
-#: ../../user/configuration.md:145
+#: ../../user/configuration.md:197
 msgid "**RescriptDarcula.xml** --- Colors optimized for the Darcula (dark) theme."
 msgstr "**RescriptDarcula.xml** --- Darcula（ダーク）テーマ用に最適化された配色。"
 
-#: ../../user/configuration.md:146
+#: ../../user/configuration.md:198
 msgid ""
 "**RescriptDefault.xml** --- Colors optimized for the Default (light) "
 "theme."
 msgstr "**RescriptDefault.xml** --- Default（ライト）テーマ用に最適化された配色。"
 
-#: ../../user/configuration.md:148
+#: ../../user/configuration.md:200
 msgid ""
 "These files define the initial colors for both lexer-based and semantic "
 "token keys. Any customizations you make in the Color Scheme settings "
@@ -766,79 +939,79 @@ msgstr ""
 "これらのファイルは、レクサーベースとセマンティックトークンキーの両方の初期カラーを定義します。Color Scheme "
 "設定で行ったカスタマイズはこれらのデフォルトをオーバーライドし、IDE プロファイルに保存されます。"
 
-#: ../../user/configuration.md:150
+#: ../../user/configuration.md:202
 msgid "Code Style"
 msgstr "コードスタイル"
 
-#: ../../user/configuration.md:152
+#: ../../user/configuration.md:204
 msgid ""
 "Go to **Settings** → **Editor** → **Code Style** → **ReScript** to "
 "configure indentation."
 msgstr "**Settings** → **Editor** → **Code Style** → **ReScript** でインデントを設定できます。"
 
-#: ../../user/configuration.md:154
+#: ../../user/configuration.md:206
 msgid "Options"
 msgstr "オプション"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Setting"
 msgstr "設定"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Default"
 msgstr "デフォルト"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Tab size"
 msgstr "タブサイズ"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "2"
 msgstr "2"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "The width of a tab character in spaces."
 msgstr "タブ文字のスペース換算幅。"
 
-#: ../../user/configuration.md:23 ../../user/configuration.md:169
+#: ../../user/configuration.md:75 ../../user/configuration.md:221
 msgid "Indent"
 msgstr "インデント"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "The number of spaces (or tab width) used for each indentation level."
 msgstr "各インデントレベルに使用するスペース数（またはタブ幅）。"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Continuation indent"
 msgstr "継続インデント"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid ""
 "The indentation applied to continuation lines (e.g., when a long "
 "expression wraps to the next line)."
 msgstr "継続行に適用されるインデント（例: 長い式が次の行に折り返す場合）。"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Use tab character"
 msgstr "タブ文字を使用"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "No (spaces)"
 msgstr "いいえ（スペース）"
 
-#: ../../user/configuration.md:23
+#: ../../user/configuration.md:75
 msgid "Whether to insert actual tab characters or spaces for indentation."
 msgstr "インデントに実際のタブ文字を挿入するか、スペースを挿入するか。"
 
-#: ../../user/configuration.md:163
+#: ../../user/configuration.md:215
 msgid "What Each Setting Affects"
 msgstr "各設定の影響範囲"
 
-#: ../../user/configuration.md:165
+#: ../../user/configuration.md:217
 msgid "Tab Size"
 msgstr "タブサイズ"
 
-#: ../../user/configuration.md:167
+#: ../../user/configuration.md:219
 msgid ""
 "The **Tab size** controls how wide a tab character appears in the editor."
 " Since ReScript convention uses 2-space indentation, the default tab size"
@@ -849,7 +1022,7 @@ msgstr ""
 "スペースインデントを使用するため、デフォルトのタブサイズは 2 "
 "です。この設定は、すでにタブ文字を含むファイルがある場合にのみ影響し、タブ文字の視覚的な表示幅を決定します。"
 
-#: ../../user/configuration.md:171
+#: ../../user/configuration.md:223
 msgid ""
 "The **Indent** setting controls the number of spaces inserted when you "
 "press Tab or when the editor auto-indents a new line inside a block. This"
@@ -861,7 +1034,7 @@ msgstr ""
 "キーを押したとき、またはブロック内で新しい行を自動インデントするときに挿入されるスペース数を制御します。これはコードの視覚的な構造を決定する主要な設定です。ReScript"
 " プロジェクトでは慣例的に `rescript format` の出力に合わせて 2 スペースインデントを使用します。"
 
-#: ../../user/configuration.md:174
+#: ../../user/configuration.md:226
 msgid ""
 "Since `rescript format` enforces 2-space indentation, changing this "
 "setting to a different value means your code will look different before "
@@ -871,11 +1044,11 @@ msgstr ""
 "スペースインデントを強制するため、この設定を別の値に変更すると、フォーマット前後でコードの見た目が変わります。一貫性を保つため、2 "
 "のままにしてください。"
 
-#: ../../user/configuration.md:177
+#: ../../user/configuration.md:229
 msgid "Continuation Indent"
 msgstr "継続インデント"
 
-#: ../../user/configuration.md:179
+#: ../../user/configuration.md:231
 msgid ""
 "The **Continuation indent** controls the extra indentation applied when a"
 " statement or expression spans multiple lines. For example, if a function"
@@ -887,11 +1060,11 @@ msgstr ""
 "は、文や式が複数行にまたがる場合に適用される追加のインデントを制御します。例えば、関数呼び出しの引数が次の行に折り返される場合、呼び出しの開始位置を基準にこの量だけインデントされます。デフォルトの"
 " 2 スペースは、ReScript の規約に沿った折り返し行の配置を維持します。"
 
-#: ../../user/configuration.md:181
+#: ../../user/configuration.md:233
 msgid "Use Tab Character"
 msgstr "タブ文字の使用"
 
-#: ../../user/configuration.md:183
+#: ../../user/configuration.md:235
 msgid ""
 "When **Use tab character** is enabled, the editor inserts actual tab "
 "characters (`\\t`) instead of spaces. Most ReScript projects use spaces, "
@@ -902,11 +1075,11 @@ msgstr ""
 "ReScript プロジェクトはスペースを使用し、`rescript format` "
 "もスペースを出力するため、デフォルトでは無効になっています。タブ文字が特に必要な場合にのみ有効にしてください。"
 
-#: ../../user/configuration.md:185
+#: ../../user/configuration.md:237
 msgid "Inlay Hints"
 msgstr "インレイヒント"
 
-#: ../../user/configuration.md:187
+#: ../../user/configuration.md:239
 msgid ""
 "Go to **Settings** → **Editor** → **Inlay Hints** → **ReScript** to "
 "toggle inlay hint visibility."
@@ -914,11 +1087,11 @@ msgstr ""
 "**Settings** → **Editor** → **Inlay Hints** → **ReScript** "
 "でインレイヒントの表示/非表示を切り替えられます。"
 
-#: ../../user/configuration.md:189
+#: ../../user/configuration.md:241
 msgid "What Inlay Hints Show"
 msgstr "インレイヒントの表示内容"
 
-#: ../../user/configuration.md:191
+#: ../../user/configuration.md:243
 msgid ""
 "Inlay hints are small inline annotations displayed in the editor that "
 "show type information inferred by the compiler. They appear next to `let`"
@@ -928,51 +1101,51 @@ msgstr ""
 "インレイヒントは、コンパイラが推論した型情報を表示する、エディタ内の小さなインライン注釈です。型が明示的に記述されていない `let` "
 "バインディングや関数パラメータの横に表示されます。"
 
-#: ../../user/configuration.md:193
+#: ../../user/configuration.md:245
 msgid "For example, given:"
 msgstr "例えば、以下のコードがある場合:"
 
-#: ../../user/configuration.md:199
+#: ../../user/configuration.md:251
 msgid "Inlay hints display the inferred types directly in the editor:"
 msgstr "インレイヒントは推論された型をエディタ内に直接表示します:"
 
-#: ../../user/configuration.md:205
+#: ../../user/configuration.md:257
 msgid "Configuration Options"
 msgstr "設定オプション"
 
-#: ../../user/configuration.md:207
+#: ../../user/configuration.md:259
 msgid "The IntelliJ Platform provides several controls for inlay hints:"
 msgstr "IntelliJ Platform はインレイヒントに対していくつかの制御を提供します:"
 
-#: ../../user/configuration.md:209
+#: ../../user/configuration.md:261
 msgid ""
 "**Enable/Disable:** Toggle all ReScript inlay hints on or off. When "
 "disabled, no type annotations are shown."
 msgstr "**有効/無効:** ReScript のすべてのインレイヒントのオン/オフを切り替えます。無効にすると、型注釈は表示されません。"
 
-#: ../../user/configuration.md:210
+#: ../../user/configuration.md:262
 msgid ""
 "**Show for parameters:** Controls whether parameter type hints appear in "
 "function signatures."
 msgstr "**パラメータに表示:** 関数シグネチャにパラメータの型ヒントを表示するかどうかを制御します。"
 
-#: ../../user/configuration.md:211
+#: ../../user/configuration.md:263
 msgid ""
 "**Show for types:** Controls whether return type hints appear on `let` "
 "bindings."
 msgstr "**型に表示:** `let` バインディングに戻り値の型ヒントを表示するかどうかを制御します。"
 
-#: ../../user/configuration.md:214
+#: ../../user/configuration.md:266
 msgid ""
 "Inlay hints require the Language Server to be connected. When the LSP is "
 "disconnected, no hints are displayed regardless of the setting."
 msgstr "インレイヒントの表示には Language Server への接続が必要です。LSP が切断されている場合、設定に関係なくヒントは表示されません。"
 
-#: ../../user/configuration.md:217
+#: ../../user/configuration.md:269
 msgid "When to Disable Inlay Hints"
 msgstr "インレイヒントを無効にする場合"
 
-#: ../../user/configuration.md:219
+#: ../../user/configuration.md:271
 msgid ""
 "Inlay hints are useful when exploring unfamiliar code or debugging type "
 "inference issues. However, in files where you already know the types well"
@@ -984,11 +1157,11 @@ msgstr ""
 "インレイヒントは、不慣れなコードを調査する場合や型推論の問題をデバッグする場合に便利です。ただし、型を十分に把握しているファイルや、ヒントが視覚的なノイズになりすぎるファイルでは、無効にしたい場合があります。エディタ内のインレイヒントを右クリックしたコンテキストメニューから、Settings"
 " ダイアログを開かずにカテゴリ別にヒントをすばやく切り替えられます。"
 
-#: ../../user/configuration.md:221
+#: ../../user/configuration.md:273
 msgid "Live Templates"
 msgstr "ライブテンプレート"
 
-#: ../../user/configuration.md:223
+#: ../../user/configuration.md:275
 msgid ""
 "Go to **Settings** → **Editor** → **Live Templates** → **ReScript** to "
 "view, edit, and add custom live templates."
@@ -996,13 +1169,15 @@ msgstr ""
 "**Settings** → **Editor** → **Live Templates** → **ReScript** "
 "でライブテンプレートの表示、編集、カスタムテンプレートの追加ができます。"
 
-#: ../../user/configuration.md:225
+#: ../../user/configuration.md:277
 msgid ""
 "The plugin ships with 21 built-in live templates covering common ReScript"
 " patterns (declarations, control flow, FFI bindings, and React "
 "components). You can customize the expansion text, add new templates, or "
 "change the abbreviation keys to match your workflow."
-msgstr "プラグインには一般的な ReScript パターン（宣言、制御フロー、FFI バインディング、React コンポーネント）をカバーする 21 個のビルトイン Live Templates が含まれています。展開テキストのカスタマイズ、新しいテンプレートの追加、省略キーの変更が可能です。"
+msgstr ""
+"プラグインには一般的な ReScript パターン（宣言、制御フロー、FFI バインディング、React コンポーネント）をカバーする 21 "
+"個のビルトイン Live Templates が含まれています。展開テキストのカスタマイズ、新しいテンプレートの追加、省略キーの変更が可能です。"
 
 #~ msgid ""
 #~ "Enable or disable incremental type "
