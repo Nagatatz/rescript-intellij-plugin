@@ -227,7 +227,7 @@ class RescriptReanalyzeServerService(
             -> { /* no action */ }
 
             RescriptReanalyzeHealthChecker.HealthCheckAction.RESTART -> {
-                LOG.warn("Reanalyze server process died unexpectedly")
+                LOG.warn("Reanalyze server process died unexpectedly, will restart")
                 cleanupSocket()
                 serverState = ServerState.STOPPED
                 restartCount++
@@ -236,10 +236,9 @@ class RescriptReanalyzeServerService(
             }
 
             RescriptReanalyzeHealthChecker.HealthCheckAction.MAX_RESTARTS_REACHED -> {
-                LOG.warn("Reanalyze server process died unexpectedly")
+                LOG.warn("Reanalyze server process died, max restart attempts reached")
                 cleanupSocket()
                 serverState = ServerState.STOPPED
-                LOG.warn("Max restart attempts reached, giving up")
                 stopHealthCheck()
             }
 

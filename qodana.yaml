@@ -35,4 +35,8 @@ exclude:
       # Standard IntelliJ notification pattern shared across startup activities
       - src/main/kotlin/com/rescript/plugin/config/RescriptFileTypeRecoveryStartupActivity.kt
       - src/main/kotlin/com/rescript/plugin/run/RescriptBuildWatchStartupActivity.kt
+  - name: UsePropertyAccessSyntax
+    paths:
+      # setOneLineMode() is protected as property — cannot use property access syntax
+      - src/main/kotlin/com/rescript/plugin/repl/RescriptReplPanel.kt
 failThreshold: 0

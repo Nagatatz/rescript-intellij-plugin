@@ -34,9 +34,9 @@ dependencies {
     }
     testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:2.0.3")
-    // JUnit 3 TestCase is needed at runtime by IntelliJ's JUnit5TestSessionListener
-    // (via UsefulTestCase.IS_UNDER_TEAMCITY field reference)
-    testRuntimeOnly("junit:junit:4.13.2")
+    // JUnit 3/4 TestCase is needed at compile time because IntelliJ's
+    // BasePlatformTestCase extends UsefulTestCase which extends TestCase
+    testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.14.2")
     testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
 }
