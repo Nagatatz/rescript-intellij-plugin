@@ -53,5 +53,8 @@ sphinx-docs/tests/__pycache__/
 # Prompt
 PROMPT.md
 
+# Heap dumps
+*.hprof
+
 # Backup files
 *~
