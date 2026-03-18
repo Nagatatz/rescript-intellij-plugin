@@ -69,6 +69,43 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.10</h3>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Fix CI build (compileTestKotlin) and Qodana inspection failures</li>
+            <li>Add project scope validation and safe path construction in DtsGenerateBindingAction</li>
+            <li>Fix REPL tool window keyboard input not working</li>
+            <li>Fix ktlint violations from ktlint 14.1.0 upgrade</li>
+            <li>Replace broad catch(Exception) with specific exception types in analysis/</li>
+            <li>Fix thread leak in RescriptFormatCheckAnnotator</li>
+            <li>Add remediation guidance to user-facing error messages</li>
+            <li>Suppress duplicate "Start a build" prompts from LSP server</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Extract RescriptReanalyzeHealthChecker from RescriptReanalyzeServerService</li>
+            <li>Consolidate hardcoded paths to RescriptPaths utility object</li>
+            <li>Extract magic numbers to named constants in RescriptUnwrapDescriptor</li>
+            <li>Deduplicate weigh logic in RescriptCompletionWeigher</li>
+            <li>Extract common ancestor traversal in RescriptLspDetector</li>
+            <li>Remove junit-vintage-engine and upgrade to JUnit 6.0.3</li>
+        </ul>
+        <h4>Tests</h4>
+        <ul>
+            <li>Add unit tests for 13+ classes including stub elements, parsers, and LSP components</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Update Gradle plugin versions and wrapper</li>
+            <li>Exclude additional directories from Qodana checks</li>
+            <li>Review plugin verifier ignore list with status annotations</li>
+        </ul>
+        <h4>Documentation</h4>
+        <ul>
+            <li>Complete Japanese translations for all Sphinx .po files</li>
+            <li>Add benefit descriptions and missing features to Sphinx docs</li>
+        </ul>
+
         <h3>0.1.9</h3>
         <h4>New Features</h4>
         <ul>
