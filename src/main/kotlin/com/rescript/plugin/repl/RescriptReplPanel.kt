@@ -101,14 +101,16 @@ class RescriptReplPanel(
             }
 
         // Register Ctrl+Enter (Cmd+Enter on macOS) shortcut to execute input
-        val metaMask = if (System.getProperty("os.name").lowercase().contains("mac")) {
-            InputEvent.META_DOWN_MASK
-        } else {
-            InputEvent.CTRL_DOWN_MASK
-        }
-        val executeShortcut = CustomShortcutSet(
-            KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, metaMask),
-        )
+        val metaMask =
+            if (System.getProperty("os.name").lowercase().contains("mac")) {
+                InputEvent.META_DOWN_MASK
+            } else {
+                InputEvent.CTRL_DOWN_MASK
+            }
+        val executeShortcut =
+            CustomShortcutSet(
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, metaMask),
+            )
         object : AnAction() {
             override fun actionPerformed(e: AnActionEvent) {
                 executeInput()

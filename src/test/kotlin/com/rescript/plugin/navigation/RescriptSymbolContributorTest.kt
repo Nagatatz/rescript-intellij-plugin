@@ -63,8 +63,10 @@ class RescriptSymbolContributorTest {
     fun testClassHasNoAdditionalPublicMethods() {
         val declaredMethods =
             RescriptSymbolContributor::class.java.declaredMethods
-                .filter { java.lang.reflect.Modifier.isPublic(it.modifiers) }
-                .map { it.name }
+                .filter {
+                    java.lang.reflect.Modifier
+                        .isPublic(it.modifiers)
+                }.map { it.name }
                 .toSet()
 
         assertTrue("Missing processNames method", declaredMethods.contains("processNames"))
