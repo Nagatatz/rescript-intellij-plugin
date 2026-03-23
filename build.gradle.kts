@@ -37,8 +37,8 @@ dependencies {
     // JUnit 3/4 TestCase is needed at compile time because IntelliJ's
     // BasePlatformTestCase extends UsefulTestCase which extends TestCase
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:5.14.2")
-    testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
+    testImplementation("org.mockito:mockito-core:5.23.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.23.0")
 }
 
 group = providers.gradleProperty("pluginGroup").get()
