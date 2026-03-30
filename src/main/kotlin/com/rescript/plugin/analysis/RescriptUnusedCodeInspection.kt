@@ -12,7 +12,9 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.GlobalSearchScope
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 /**
  * Global inspection that runs `rescript-tools reanalyze -json` to find unused code
@@ -45,7 +47,13 @@ class RescriptUnusedCodeInspection : GlobalInspectionTool() {
 
                 val process = commandLine.createProcess()
                 val stdout = process.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-                val exitCode = process.waitFor()
+                val completed = process.waitFor(RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                if (!completed) {
+                    process.destroyForcibly()
+                    LOG.warn("reanalyze process timed out after ${RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS}s")
+                    return
+                }
+                val exitCode = process.exitValue()
 
                 if (exitCode != 0) {
                     LOG.debug("reanalyze exited with code $exitCode")
