@@ -205,7 +205,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Scratch File | ReScript スクラッチファイルの作成・実行 | `RescriptScratchRootType` + `RescriptScratchCreationHelper` |
 | REPL | インタラクティブ実行環境ツールウィンドウ | `RescriptReplToolWindowFactory` + `RescriptReplPanel` + `RescriptReplExecutor` |
 | Suggested Refactoring | コード品質改善のリファクタリングを提案 | `RescriptSuggestedRefactoringInspection` |
-| JS→ReScript 変換 | JavaScript コードを ReScript に変換してペースト | `RescriptPasteAsRescriptProcessor` |
+| JS/TS→ReScript 変換 | JavaScript/TypeScript コードを ReScript に変換してペースト（型注釈除去、interface/enum コメントアウト、JSX パターン変換） | `RescriptPasteAsRescriptProcessor` |
 | Inline Variable/Function | 変数・関数をインライン展開 (Ctrl+Alt+N) | `RescriptInlineHandler` |
 | Introduce Constant | リテラル値を定数に抽出 | `RescriptIntroduceConstantHandler` |
 | Dependency Diagram | モジュール依存関係のダイアグラム生成 | `RescriptDependencyDiagramProvider` + `RescriptDependencyDiagramModel` |

@@ -145,7 +145,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **Floating Toolbar** (`editor/`) — ReScript ファイル用フローティングツールバー（Format/Open JS/Create Interface）
 - **Scratch File** (`scratch/`) — ReScript スクラッチファイルの作成・実行
 - **REPL** (`repl/`) — ReScript インタラクティブ実行環境ツールウィンドウ
-- **JS→ReScript 変換** (`paste/`) — JavaScript コードを ReScript に変換してペースト
+- **JS/TS→ReScript 変換** (`paste/`) — JavaScript/TypeScript コードを ReScript に変換してペースト（型注釈除去、JSX パターン変換対応）
 - **依存関係ダイアグラム** (`diagram/`) — モジュール依存関係のグラフ可視化
 - **PPX 展開ビュー** (`ppx/`) — PPX マクロの展開結果をツールウィンドウに表示
 - **コメント内コード評価** (`editor/`) — ドキュメントコメント内のコード例を評価・検証

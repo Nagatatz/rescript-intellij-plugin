@@ -94,8 +94,8 @@
 - **Code block selection** — Navigate to code block boundaries (`Ctrl+Shift+[` / `]`)
 - **Split/Join list** — Toggle between single-line and multi-line comma-separated lists
 - **Copy/Paste escaping** — Auto-escape special characters when pasting into string literals
-- **Paste as JSX** — Convert HTML clipboard content to ReScript JSX syntax
-- **Paste as ReScript** — Convert JavaScript clipboard content to ReScript syntax
+- **Paste as JSX** — Convert HTML clipboard content to ReScript JSX syntax (excludes React JSX)
+- **Paste as ReScript** — Convert JavaScript/TypeScript clipboard content to ReScript syntax (type annotations stripped, JSX patterns converted)
 - **Strip trailing spaces** — Protect whitespace inside string literals during trailing-space removal
 
 ### Code Analysis & Inspections

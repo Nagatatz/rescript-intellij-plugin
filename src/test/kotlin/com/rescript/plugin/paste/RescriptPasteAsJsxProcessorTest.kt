@@ -75,4 +75,46 @@ class RescriptPasteAsJsxProcessorTest {
         assertEquals("fontSize", RescriptPasteAsJsxProcessor.cssPropertyToCamelCase("font-size"))
         assertEquals("color", RescriptPasteAsJsxProcessor.cssPropertyToCamelCase("color"))
     }
+
+    // --- JSX exclusion tests ---
+
+    @Test
+    fun `looksLikeHtml rejects JSX with className`() {
+        assertFalse(RescriptPasteAsJsxProcessor.looksLikeHtml("<div className=\"foo\">{bar}</div>"))
+    }
+
+    @Test
+    fun `looksLikeHtml rejects JSX with expression braces`() {
+        assertFalse(RescriptPasteAsJsxProcessor.looksLikeHtml("<div>{someVariable}</div>"))
+    }
+
+    @Test
+    fun `looksLikeHtml rejects JSX with camelCase event handler`() {
+        assertFalse(RescriptPasteAsJsxProcessor.looksLikeHtml("<button onClick={handler}>Click</button>"))
+    }
+
+    @Test
+    fun `looksLikeHtml still detects pure HTML with class attribute`() {
+        assertTrue(RescriptPasteAsJsxProcessor.looksLikeHtml("<div class=\"foo\">bar</div>"))
+    }
+
+    @Test
+    fun `looksLikeJsx detects className`() {
+        assertTrue(RescriptPasteAsJsxProcessor.looksLikeJsx("<div className=\"foo\">bar</div>"))
+    }
+
+    @Test
+    fun `looksLikeJsx detects expression braces`() {
+        assertTrue(RescriptPasteAsJsxProcessor.looksLikeJsx("<span>{count}</span>"))
+    }
+
+    @Test
+    fun `looksLikeJsx detects camelCase handlers`() {
+        assertTrue(RescriptPasteAsJsxProcessor.looksLikeJsx("<button onClick={handler}>Click</button>"))
+    }
+
+    @Test
+    fun `looksLikeJsx rejects pure HTML`() {
+        assertFalse(RescriptPasteAsJsxProcessor.looksLikeJsx("<div class=\"foo\">bar</div>"))
+    }
 }

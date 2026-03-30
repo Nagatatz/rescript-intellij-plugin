@@ -1302,9 +1302,11 @@ Paste as JSX converts HTML to ReScript JSX automatically — instead of manually
 
 ## Paste as ReScript
 
-This conversion is triggered automatically when you paste JavaScript code into a `.res` file using the standard paste shortcut ({kbd}`Cmd+V` / {kbd}`Ctrl+V`). No separate menu action is needed — the plugin detects JavaScript patterns in the clipboard and converts them on the fly.
+This conversion is triggered automatically when you paste JavaScript or TypeScript code into a `.res` file using the standard paste shortcut ({kbd}`Cmd+V` / {kbd}`Ctrl+V`). No separate menu action is needed — the plugin detects JavaScript/TypeScript patterns in the clipboard and converts them on the fly.
 
-When pasting JavaScript code into a ReScript file, it is automatically converted to ReScript syntax:
+When pasting JavaScript or TypeScript code into a ReScript file, it is automatically converted to ReScript syntax:
+
+### JavaScript conversions
 
 - `const`/`let`/`var` declarations are converted to `let` bindings
 - Arrow functions `(x) => { return x }` are simplified to `(x) => x`
@@ -1312,12 +1314,26 @@ When pasting JavaScript code into a ReScript file, it is automatically converted
 - `console.log(x)` is converted to `Js.log(x)`
 - `null` / `undefined` are converted to `None`
 - Template literals remain as-is (ReScript uses the same syntax)
-- Array methods (`.map()`, `.filter()`, `.forEach()`) are converted to pipe-first style
 
-**Before** (JavaScript in clipboard):
+### TypeScript type stripping
 
-```javascript
-const greeting = (name) => {
+- Variable type annotations (`const x: string = ...`) are removed
+- Function parameter type annotations (`(a: number, b: string)`) are removed
+- Return type annotations (`): boolean {`) are removed
+- Type assertions (`value as string`) are removed
+- `interface` and `enum` declarations are commented out
+- `export type` / `export interface` / `export enum` are commented out
+
+### JSX/TSX pattern conversion
+
+- Conditional rendering `{condition && <expr>}` is converted to `{condition ? <expr> : React.null}`
+- Array methods (`.map()`, `.filter()`, `.forEach()`) are converted to pipe-first style (`->Array.map()`)
+- JSX spread `{...props}` gets a warning comment (not supported in ReScript JSX)
+
+**Before** (TypeScript in clipboard):
+
+```typescript
+const greeting = (name: string): string => {
   console.log("Hello, " + name);
   return name.toUpperCase();
 }
@@ -1332,4 +1348,6 @@ let greeting = (name) => {
 }
 ```
 
-Paste as ReScript bridges the gap between JavaScript and ReScript — copy code from documentation, Stack Overflow, or existing JS files and paste it directly into a `.res` file with automatic syntax conversion.
+Paste as ReScript bridges the gap between JavaScript/TypeScript and ReScript — copy code from documentation, Stack Overflow, or existing JS/TS files and paste it directly into a `.res` file with automatic syntax conversion.
+
+Note that React JSX/TSX code (containing `className=`, `{expression}` braces, or camelCase event handlers like `onClick=`) is handled by the JS/TS→ReScript converter rather than the HTML→JSX converter, ensuring correct treatment of JSX patterns.
