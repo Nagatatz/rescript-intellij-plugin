@@ -14,4 +14,6 @@ object RescriptIcons {
     @JvmField val INTERFACE_FILE = IconLoader.getIcon("/icons/rescript-interface.svg", RescriptIcons::class.java)
 
     @JvmField val CONFIG_FILE = IconLoader.getIcon("/icons/rescript-config.svg", RescriptIcons::class.java)
+
+    @JvmField val REPL = IconLoader.getIcon("/icons/rescript-repl.svg", RescriptIcons::class.java)
 }

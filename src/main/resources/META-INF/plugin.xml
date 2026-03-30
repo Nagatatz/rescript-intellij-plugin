@@ -1030,7 +1030,7 @@
                 implementationClass="com.rescript.plugin.scratch.RescriptScratchCreationHelper"/>
 
         <!-- REPL Tool Window (#58) -->
-        <toolWindow id="ReScript REPL" anchor="bottom" icon="AllIcons.Debugger.Console"
+        <toolWindow id="ReScript REPL" anchor="bottom" icon="/icons/rescript-repl.svg"
                 factoryClass="com.rescript.plugin.repl.RescriptReplToolWindowFactory"/>
 
         <!-- Suggested Refactoring inspection (#66) -->
