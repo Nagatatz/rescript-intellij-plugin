@@ -267,8 +267,12 @@ class RescriptLexer(RegexLexer):
             # Regular identifiers
             (r"[a-z_][a-zA-Z0-9_']*", Name),
 
-            # JSX brackets
-            (r"</|/>", Punctuation),
+            # JSX closing tag: </tagName>
+            (r"</", Punctuation, "jsx_close_tag"),
+            # JSX opening tag (HTML element): <div ...>
+            (r"(<)(?=[a-z])", Punctuation, "jsx_open_tag"),
+            # JSX opening tag (Component): <App ...>
+            (r"(<)(?=[A-Z])", Punctuation, "jsx_open_tag"),
 
             # Multi-char operators
             (r"{op_regex}", Operator),
@@ -306,6 +310,27 @@ class RescriptLexer(RegexLexer):
         ],
         "template_interp": [
             (r"\\}}", String.Interpol, "#pop"),
+            include("root"),
+        ],
+        "jsx_open_tag": [
+            (r"/>", Punctuation, "#pop"),
+            (r">", Punctuation, "#pop"),
+            (r"\\s+", Whitespace),
+            (r"[A-Z][a-zA-Z0-9_']*", Name.Class),
+            (r"[a-z_][a-zA-Z0-9_']*", Name),
+            (r"=", Operator),
+            (r'"', String.Double, "string"),
+            (r"\\{{", Punctuation, "jsx_expr"),
+            (r"\\?", Operator),
+        ],
+        "jsx_close_tag": [
+            (r"[A-Z][a-zA-Z0-9_']*", Name.Class),
+            (r"[a-z_][a-zA-Z0-9_']*", Name),
+            (r"\\s+", Whitespace),
+            (r">", Punctuation, "#pop"),
+        ],
+        "jsx_expr": [
+            (r"\\}}", Punctuation, "#pop"),
             include("root"),
         ],
     }}
