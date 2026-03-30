@@ -88,4 +88,165 @@ class RescriptPasteAsRescriptProcessorTest {
     fun `convertLine preserves comments`() {
         assertEquals("// this is a comment", RescriptPasteAsRescriptProcessor.convertLine("// this is a comment"))
     }
+
+    // --- TypeScript type annotation tests ---
+
+    @Test
+    fun `convertLine strips variable type annotation`() {
+        assertEquals(
+            "let x = \"hello\"",
+            RescriptPasteAsRescriptProcessor.convertLine("const x: string = \"hello\";"),
+        )
+    }
+
+    @Test
+    fun `convertLine strips complex variable type annotation`() {
+        assertEquals(
+            "let arr = [1, 2, 3]",
+            RescriptPasteAsRescriptProcessor.convertLine("const arr: Array<number> = [1, 2, 3];"),
+        )
+    }
+
+    @Test
+    fun `convertLine strips function parameter type annotations`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("function foo(a: number, b: string) {")
+        assertEquals("let foo = (a, b) => {", result)
+    }
+
+    @Test
+    fun `convertLine strips return type annotation`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("function foo(): boolean {")
+        assertEquals("let foo = () => {", result)
+    }
+
+    @Test
+    fun `convertLine strips type assertion`() {
+        assertEquals(
+            "let x = value",
+            RescriptPasteAsRescriptProcessor.convertLine("const x = value as string;"),
+        )
+    }
+
+    @Test
+    fun `convertLine strips optional parameter type annotation`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("function foo(x?: number) {")
+        assertEquals("let foo = (x) => {", result)
+    }
+
+    // --- TypeScript declaration tests ---
+
+    @Test
+    fun `convertLine comments out interface declaration`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("interface Props { name: string }")
+        assertEquals("// interface Props { name: string }", result)
+    }
+
+    @Test
+    fun `convertLine comments out enum declaration`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("enum Color { Red, Green, Blue }")
+        assertEquals("// enum Color { Red, Green, Blue }", result)
+    }
+
+    @Test
+    fun `convertLine comments out export interface`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("export interface Props { name: string }")
+        assertEquals("// export interface Props { name: string }", result)
+    }
+
+    @Test
+    fun `convertLine comments out export enum`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("export enum Color { Red }")
+        assertEquals("// export enum Color { Red }", result)
+    }
+
+    @Test
+    fun `convertLine comments out export type`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("export type Props = { name: string }")
+        assertEquals("// export type Props = { name: string }", result)
+    }
+
+    // --- JSX pattern tests ---
+
+    @Test
+    fun `convertLine converts conditional rendering`() {
+        assertEquals(
+            "{visible ? <div /> : React.null}",
+            RescriptPasteAsRescriptProcessor.convertLine("{visible && <div />}"),
+        )
+    }
+
+    @Test
+    fun `convertLine converts dot map to Array map`() {
+        assertEquals(
+            "items->Array.map(x =>",
+            RescriptPasteAsRescriptProcessor.convertLine("items.map(x =>"),
+        )
+    }
+
+    @Test
+    fun `convertLine converts dot filter to Array filter`() {
+        assertEquals(
+            "items->Array.filter(x =>",
+            RescriptPasteAsRescriptProcessor.convertLine("items.filter(x =>"),
+        )
+    }
+
+    @Test
+    fun `convertLine converts dot forEach to Array forEach`() {
+        assertEquals(
+            "items->Array.forEach(x =>",
+            RescriptPasteAsRescriptProcessor.convertLine("items.forEach(x =>"),
+        )
+    }
+
+    @Test
+    fun `convertLine adds spread warning comment`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("<Component {...props} />")
+        assertTrue(result.contains("{...props}"))
+        assertTrue(result.contains("/* spread is not supported in ReScript JSX */"))
+    }
+
+    // --- Detection logic tests ---
+
+    @Test
+    fun `looksLikeJavaScript detects TypeScript type annotation`() {
+        assertTrue(RescriptPasteAsRescriptProcessor.looksLikeJavaScript("const x: string = \"hello\""))
+    }
+
+    @Test
+    fun `looksLikeJavaScript detects interface keyword`() {
+        assertTrue(
+            RescriptPasteAsRescriptProcessor.looksLikeJavaScript(
+                """
+                interface Props {
+                  name: string
+                }
+                """.trimIndent(),
+            ),
+        )
+    }
+
+    @Test
+    fun `looksLikeJavaScript detects React type patterns`() {
+        assertTrue(
+            RescriptPasteAsRescriptProcessor.looksLikeJavaScript(
+                """
+                const App: React.FC<Props> = () => {
+                  return <div />
+                }
+                """.trimIndent(),
+            ),
+        )
+    }
+
+    @Test
+    fun `looksLikeJavaScript detects enum keyword`() {
+        assertTrue(RescriptPasteAsRescriptProcessor.looksLikeJavaScript("enum Color { Red, Green }"))
+    }
+
+    @Test
+    fun `convertLine handles export async function`() {
+        val result = RescriptPasteAsRescriptProcessor.convertLine("export async function fetchData(url: string) {")
+        assertEquals("let fetchData = async (url) => {", result)
+    }
 }

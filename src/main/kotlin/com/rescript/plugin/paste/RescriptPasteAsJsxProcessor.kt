@@ -18,7 +18,9 @@ import java.awt.datatransfer.Transferable
  * - Void elements: `<br>` -> `<br />`, `<img ...>` -> `<img ... />`, etc.
  * - Style attributes: `style="color: red"` -> `style={ReactDOM.Style.make(~color="red", ())}`
  *
- * Only activates when the pasted content appears to contain HTML tags.
+ * Only activates when the pasted content appears to contain HTML tags (not React JSX).
+ * React JSX content (with `className=`, camelCase handlers, or expression braces)
+ * is excluded and handled by [RescriptPasteAsRescriptProcessor] instead.
  */
 class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferableData>() {
     override fun collectTransferableData(
@@ -124,17 +126,50 @@ class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferable
         // Pattern matching inline style attribute: style="..."
         private val STYLE_ATTR_PATTERN = Regex("""style="([^"]*)"""")
 
+        // Pattern detecting camelCase event handlers (e.g., `onClick=`, `onChange=`)
+        private val CAMEL_CASE_HANDLER_PATTERN = Regex("""on[A-Z]\w+=""")
+
+        // Pattern detecting JSX expression braces (e.g., `{variable}`, `{fn()}`)
+        private val JSX_EXPRESSION_PATTERN = Regex("""\{[^}]+\}""")
+
         /**
          * Checks whether the given text appears to contain HTML markup.
          *
+         * Returns false for React JSX content (which already uses `className=`,
+         * camelCase event handlers, or JSX expression braces), so that JSX/TSX
+         * is handled by [RescriptPasteAsRescriptProcessor] instead.
+         *
          * @param text the clipboard text to check
-         * @return true if the text likely contains HTML tags
+         * @return true if the text likely contains HTML tags (not JSX)
          */
         internal fun looksLikeHtml(text: String): Boolean {
             val trimmed = text.trim()
-            return trimmed.contains("<") &&
-                trimmed.contains(">") &&
-                HTML_TAG_PATTERN.containsMatchIn(trimmed)
+            if (!trimmed.contains("<") || !trimmed.contains(">")) return false
+            if (!HTML_TAG_PATTERN.containsMatchIn(trimmed)) return false
+
+            // Exclude React JSX: if text already uses JSX conventions, it's not HTML
+            if (looksLikeJsx(trimmed)) return false
+
+            return true
+        }
+
+        /**
+         * Checks whether the text appears to be React JSX rather than plain HTML.
+         *
+         * Detects JSX-specific patterns: `className=` attribute, camelCase event
+         * handlers (`onClick=`, etc.), and expression braces (`{expr}`).
+         *
+         * @param text the text to check
+         * @return true if the text looks like React JSX
+         */
+        internal fun looksLikeJsx(text: String): Boolean {
+            // className= is already JSX (HTML uses class=)
+            if (text.contains("className=")) return true
+            // Expression braces like {variable} or {fn()} indicate JSX
+            if (JSX_EXPRESSION_PATTERN.containsMatchIn(text)) return true
+            // camelCase event handlers like onClick= indicate JSX
+            if (CAMEL_CASE_HANDLER_PATTERN.containsMatchIn(text)) return true
+            return false
         }
 
         /**
