@@ -669,7 +669,7 @@ The open statement index enables instant module lookups across the entire projec
 
 - **Interface indicator:** `.res` files with a corresponding `.resi` show a "(has .resi)" suffix
 - **Version display:** `rescript.json` shows the ReScript version from its content
-- **Compiled JS nesting:** Compiled `.res.js` / `.res.mjs` files are nested under their corresponding `.res` source file in the Project panel, reducing visual clutter
+- **Compiled JS nesting:** Compiled JS files (`.res.js`/`.mjs`/`.cjs`, `.bs.js`/`.mjs`/`.cjs`) are nested under their corresponding `.res` source file in the Project panel, reducing visual clutter
 - **Compiled JS graying:** Nested compiled JS files are displayed in gray text to visually distinguish generated output from source files
 
 Project View enhancements reduce visual clutter by nesting generated files under their sources and surfacing useful metadata like interface presence and ReScript version, so the file tree stays focused on your source code.

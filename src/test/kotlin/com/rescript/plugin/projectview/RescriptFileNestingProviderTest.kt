@@ -1,7 +1,6 @@
 package com.rescript.plugin.projectview
 
 import com.intellij.ide.projectView.ProjectViewNestingRulesProvider
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -9,24 +8,30 @@ class RescriptFileNestingProviderTest {
     private val provider = RescriptFileNestingProvider()
 
     @Test
-    fun `registers res to res js nesting rule`() {
+    fun `registers res to compiled js nesting rules`() {
         val rules = collectRules()
-        assertTrue(rules.any { it.first == ".res" && it.second == ".res.js" }, "Should contain .res -> .res.js rule")
+        val resRules = rules.filter { it.first == ".res" }.map { it.second }
+        assertTrue(resRules.contains(".res.js"), "Should contain .res -> .res.js rule")
+        assertTrue(resRules.contains(".res.mjs"), "Should contain .res -> .res.mjs rule")
+        assertTrue(resRules.contains(".res.cjs"), "Should contain .res -> .res.cjs rule")
+        assertTrue(resRules.contains(".bs.js"), "Should contain .res -> .bs.js rule")
+        assertTrue(resRules.contains(".bs.mjs"), "Should contain .res -> .bs.mjs rule")
+        assertTrue(resRules.contains(".bs.cjs"), "Should contain .res -> .bs.cjs rule")
     }
 
     @Test
-    fun `registers resi to resi js nesting rule`() {
+    fun `registers resi to compiled js nesting rules`() {
         val rules = collectRules()
-        assertTrue(
-            rules.any { it.first == ".resi" && it.second == ".resi.js" },
-            "Should contain .resi -> .resi.js rule",
-        )
+        val resiRules = rules.filter { it.first == ".resi" }.map { it.second }
+        assertTrue(resiRules.contains(".resi.js"), "Should contain .resi -> .resi.js rule")
+        assertTrue(resiRules.contains(".resi.mjs"), "Should contain .resi -> .resi.mjs rule")
+        assertTrue(resiRules.contains(".resi.cjs"), "Should contain .resi -> .resi.cjs rule")
     }
 
     @Test
-    fun `registers exactly two rules`() {
+    fun `registers nine rules total`() {
         val rules = collectRules()
-        assertEquals(2, rules.size, "Should register exactly 2 nesting rules")
+        assertTrue(rules.size == 9, "Should register exactly 9 nesting rules, got ${rules.size}")
     }
 
     private fun collectRules(): List<Pair<String, String>> {
