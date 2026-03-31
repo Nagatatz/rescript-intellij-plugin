@@ -12,9 +12,9 @@
 - [x] コミット
 
 ## T3: @Suppress DEPRECATION 見直し
-- [ ] 4件の DEPRECATION 抑制を調査
-- [ ] 代替 API 移行または理由コメント追加
-- [ ] コミット
+- [x] 6件の DEPRECATION 抑制を調査 — すべて代替 API なし、正当
+- [x] 理由コメントが欠けていた3箇所に追加
+- [x] コミット
 
 ## T4: パラメータ化テスト導入
 - [ ] RescriptLexerTest の反復テストを @ParameterizedTest に変換

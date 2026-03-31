@@ -26,6 +26,7 @@ class RescriptDeclarationPsiElement : StubBasedPsiElementBase<RescriptDeclaratio
     @Suppress("unused") // Public API for stub-based name resolution
     fun getDeclarationName(): String = greenStub?.name ?: RescriptPsiUtils.extractName(this)
 
+    // StubBasedPsiElementBase.elementType is deprecated but needed for debug display
     @Suppress("DEPRECATION")
     override fun toString(): String {
         val type = elementType
