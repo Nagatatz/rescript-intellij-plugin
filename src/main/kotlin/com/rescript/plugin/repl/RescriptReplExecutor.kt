@@ -1,19 +1,21 @@
 package com.rescript.plugin.repl
 
-import com.intellij.openapi.util.io.FileUtil
 import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
  * Executes ReScript code snippets by compiling to JavaScript and running with Node.js.
  *
- * Uses a temporary `.res` file, invokes `npx rescript` for compilation, then
- * executes the generated JavaScript with `node`. Provides a simplified REPL
- * experience without requiring a persistent REPL subprocess.
+ * Creates a temporary `.res` file inside the project's source directory,
+ * invokes `npx rescript build` for compilation, then executes the generated
+ * JavaScript with `node`. The temporary files are cleaned up after execution.
  */
 object RescriptReplExecutor {
     /** Timeout in seconds for compile and execution steps. */
     private const val TIMEOUT_SECONDS = 30L
+
+    /** Name of the temporary REPL file (without extension). */
+    private const val REPL_FILE_NAME = "RescriptRepl__Eval"
 
     /**
      * Executes a ReScript code snippet and returns the output.
@@ -26,7 +28,6 @@ object RescriptReplExecutor {
         code: String,
         projectPath: String,
     ): String {
-        // Validate projectPath before any file operations
         val projectDir = File(projectPath).canonicalFile
         if (!projectDir.isDirectory) {
             return "Error: invalid project path"
@@ -34,7 +35,7 @@ object RescriptReplExecutor {
 
         val wrappedCode = wrapCode(code)
         return try {
-            runWithNode(wrappedCode, projectDir)
+            compileAndRun(wrappedCode, projectDir)
         } catch (e: Exception) {
             "Error: ${e.message}"
         }
@@ -43,7 +44,7 @@ object RescriptReplExecutor {
     /**
      * Wraps user code so it prints its result via `Js.log`.
      *
-     * If the code already contains `Js.log`, `Console.log`, or an `open` statement,
+     * If the code already contains output statements or declarations,
      * it is used as-is. Otherwise the last expression is wrapped in `Js.log(...)`.
      *
      * @param code the raw user code
@@ -51,7 +52,6 @@ object RescriptReplExecutor {
      */
     internal fun wrapCode(code: String): String {
         val trimmed = code.trim()
-        // If user already has output statements or multi-line code with declarations, use as-is
         if (trimmed.contains("Js.log") ||
             trimmed.contains("Console.log") ||
             trimmed.startsWith("open ") ||
@@ -61,7 +61,6 @@ object RescriptReplExecutor {
         ) {
             return trimmed
         }
-        // Single expression — wrap in Js.log
         return "Js.log($trimmed)"
     }
 
@@ -86,80 +85,111 @@ object RescriptReplExecutor {
     ): String {
         val result = StringBuilder()
         if (stdout.isNotBlank()) result.append(stdout.trim())
-        if (stderr.isNotBlank()) {
+        // Filter out Node.js warnings (e.g. MODULE_TYPELESS_PACKAGE_JSON)
+        val filteredStderr =
+            stderr
+                .lines()
+                .filter { !it.startsWith("(node:") && !it.startsWith("Reparsing as") && !it.startsWith("To eliminate") }
+                .joinToString("\n")
+                .trim()
+        if (filteredStderr.isNotBlank()) {
             if (result.isNotEmpty()) result.append("\n")
-            result.append(stderr.trim())
+            result.append(filteredStderr)
         }
         return if (result.isEmpty()) "(no output)" else result.toString()
     }
 
-    private fun runWithNode(
+    private fun compileAndRun(
         code: String,
         projectDir: File,
     ): String {
-        // Use system temp directory instead of project lib/ to avoid artifact leakage
-        val tmpDir = FileUtil.createTempDirectory("rescript-repl", null, true)
-        val tmpFile = File(tmpDir, "repl_eval.res")
-        var jsFile: File? = null
+        // Find the source directory from rescript.json (default: src/)
+        val srcDir = File(projectDir, "src")
+        if (!srcDir.isDirectory) {
+            return "Error: src/ directory not found in project"
+        }
+
+        val resFile = File(srcDir, "$REPL_FILE_NAME.res")
+        val jsFile = File(srcDir, "$REPL_FILE_NAME.res.js")
         try {
-            tmpFile.writeText(code)
+            resFile.writeText(code)
 
-            // Compile with rescript
-            val compileProcess =
-                ProcessBuilder("npx", "rescript", "build", "-e", tmpFile.nameWithoutExtension)
-                    .directory(projectDir)
-                    .redirectErrorStream(true)
-                    .start()
-            val compileCompleted =
-                try {
-                    compileProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
-                } catch (e: InterruptedException) {
-                    compileProcess.destroyForcibly()
-                    Thread.currentThread().interrupt()
-                    return "Error: interrupted"
-                }
-            if (!compileCompleted) {
-                compileProcess.destroyForcibly()
-                return "Error: compilation timed out"
-            }
-            val compileOutput = compileProcess.inputStream.use { it.bufferedReader().readText() }
+            // Compile with rescript build
+            val compileResult =
+                runProcess(
+                    listOf("npx", "rescript", "build"),
+                    projectDir,
+                )
 
-            if (compileProcess.exitValue() != 0) {
-                return "Compile error:\n$compileOutput"
+            // Check if the REPL file itself has errors (ignore errors in other files)
+            val replErrors =
+                compileResult.output
+                    .lines()
+                    .filter { it.contains(REPL_FILE_NAME) }
+            if (replErrors.isNotEmpty()) {
+                val relevantOutput =
+                    compileResult.output
+                        .lines()
+                        .dropWhile { !it.contains(REPL_FILE_NAME) }
+                        .joinToString("\n")
+                        .trim()
+                return "Compile error:\n$relevantOutput"
             }
 
-            // Try to find compiled JS output
-            jsFile = File(tmpFile.parentFile, tmpFile.nameWithoutExtension + ".js")
             if (!jsFile.exists()) {
-                return "Compiled but output file not found. Compile output:\n$compileOutput"
+                // The REPL file compiled successfully but JS not found — might be
+                // because other files have errors but ours was compiled before failure
+                if (compileResult.exitCode != 0) {
+                    return "Compile error in project (not in your code):\n" +
+                        "The project has compilation errors. Fix them first, or use a simpler expression."
+                }
+                return "Compiled but JS output not found"
             }
 
             // Execute compiled JS
-            val runProcess =
-                ProcessBuilder("node", jsFile.absolutePath)
-                    .directory(projectDir)
-                    .start()
-            val runCompleted =
-                try {
-                    runProcess.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
-                } catch (e: InterruptedException) {
-                    runProcess.destroyForcibly()
-                    Thread.currentThread().interrupt()
-                    return "Error: interrupted"
-                }
-            if (!runCompleted) {
-                runProcess.destroyForcibly()
-                return "Error: execution timed out"
-            }
-
-            val stdout = runProcess.inputStream.use { it.bufferedReader().readText() }
-            val stderr = runProcess.errorStream.use { it.bufferedReader().readText() }
-
-            return parseOutput(stdout, stderr)
+            val runResult =
+                runProcess(
+                    listOf("node", jsFile.absolutePath),
+                    projectDir,
+                )
+            return parseOutput(runResult.stdout, runResult.stderr)
         } finally {
-            tmpFile.delete()
-            jsFile?.delete()
-            FileUtil.delete(tmpDir)
+            resFile.delete()
+            jsFile.delete()
+            // Clean up any generated .res.js.map or similar
+            File(srcDir, "$REPL_FILE_NAME.res.js.map").delete()
         }
+    }
+
+    private data class ProcessResult(
+        val exitCode: Int,
+        val stdout: String,
+        val stderr: String,
+        val output: String,
+    )
+
+    private fun runProcess(
+        command: List<String>,
+        workDir: File,
+    ): ProcessResult {
+        val process =
+            ProcessBuilder(command)
+                .directory(workDir)
+                .start()
+        val completed =
+            try {
+                process.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            } catch (e: InterruptedException) {
+                process.destroyForcibly()
+                Thread.currentThread().interrupt()
+                return ProcessResult(-1, "", "", "Error: interrupted")
+            }
+        if (!completed) {
+            process.destroyForcibly()
+            return ProcessResult(-1, "", "", "Error: timed out")
+        }
+        val stdout = process.inputStream.use { it.bufferedReader().readText() }
+        val stderr = process.errorStream.use { it.bufferedReader().readText() }
+        return ProcessResult(process.exitValue(), stdout, stderr, stdout + stderr)
     }
 }

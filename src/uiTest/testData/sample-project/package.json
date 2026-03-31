@@ -2,6 +2,7 @@
   "name": "rescript-plugin-demo",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@rescript/react": "^0.14.0",
     "rescript": "^12.0.0"
