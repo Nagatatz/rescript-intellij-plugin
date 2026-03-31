@@ -16,6 +16,8 @@ import com.rescript.plugin.lang.RescriptTokenTypes
  * @see RescriptPostfixTemplateProvider for the shared non-applicable token set
  */
 class RescriptCompletionConfidence : CompletionConfidence() {
+    // shouldSkipAutopopup() is deprecated but no replacement API exists;
+    // required to suppress popups inside comments and strings.
     @Suppress("OVERRIDE_DEPRECATION")
     override fun shouldSkipAutopopup(
         contextElement: PsiElement,

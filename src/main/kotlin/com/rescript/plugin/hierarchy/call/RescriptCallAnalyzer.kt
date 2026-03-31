@@ -19,7 +19,7 @@ import com.rescript.plugin.lang.psi.RescriptPsiUtils
  * @see RescriptCallerTreeStructure for caller tree construction
  * @see RescriptCalleeTreeStructure for callee tree construction
  */
-object RescriptCallAnalyzer {
+data object RescriptCallAnalyzer {
     /**
      * Represents a call relationship between two declarations.
      *
