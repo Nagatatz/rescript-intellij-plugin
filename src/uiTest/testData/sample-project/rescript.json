@@ -6,12 +6,12 @@
   },
   "package-specs": [
     {
-      "module": "src",
+      "module": "esmodule",
       "in-source": true
     }
   ],
   "suffix": ".res.js",
-  "bs-dependencies": [],
+  "dependencies": ["@rescript/react"],
   "jsx": {
     "version": 4
   }

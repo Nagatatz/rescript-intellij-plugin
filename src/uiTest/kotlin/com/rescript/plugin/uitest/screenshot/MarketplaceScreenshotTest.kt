@@ -40,7 +40,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(1)
     fun `01 - syntax highlighting`() {
         openFile("Demo.res")
-        dismissEditorNotificationBar()
+        prepareForScreenshot()
         waitForRendering(3000)
 
         val file = takeScreenshot("01-syntax-highlighting")
@@ -52,8 +52,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(2)
     fun `02 - code completion`() {
         openFile("Demo.res")
-        dismissEditorNotificationBar()
-        waitForRendering()
+        prepareForScreenshot()
 
         // Navigate to end of file and type to trigger completion
         remoteRobot.keyboard {
@@ -67,6 +66,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
         IdeFixtureUtils.triggerCompletion(remoteRobot)
         waitForRendering(3000)
 
+        dismissNotifications()
         val file = takeScreenshot("02-code-completion")
         assertTrue(file.exists())
 
@@ -81,7 +81,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(3)
     fun `03 - error lens`() {
         openFile("ErrorDemo.res")
-        dismissEditorNotificationBar()
+        prepareForScreenshot()
         waitForRendering(5000) // Allow time for LSP diagnostics
 
         val file = takeScreenshot("03-error-lens")
@@ -92,8 +92,8 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(4)
     fun `04 - inlay hints`() {
         openFile("Demo.res")
-        dismissEditorNotificationBar()
-        waitForRendering(3000) // Allow time for LSP inlay hints to load
+        prepareForScreenshot()
+        waitForRendering(5000) // Allow time for LSP inlay hints to load
 
         val file = takeScreenshot("04-inlay-hints")
         assertTrue(file.exists())
@@ -103,8 +103,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(5)
     fun `05 - structure view`() {
         openFile("Demo.res")
-        dismissEditorNotificationBar()
-        waitForRendering()
+        prepareForScreenshot()
 
         // Open Structure tool window
         IdeFixtureUtils.openStructureView(remoteRobot)
@@ -121,7 +120,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(6)
     fun `06 - code vision`() {
         openFile("Demo.res")
-        dismissEditorNotificationBar()
+        prepareForScreenshot()
         waitForRendering(5000) // Code Vision needs LSP hover data
 
         val file = takeScreenshot("06-code-vision")
@@ -132,7 +131,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(7)
     fun `07 - jsx support`() {
         openFile("JsxDemo.res")
-        dismissEditorNotificationBar()
+        prepareForScreenshot()
         waitForRendering(3000)
 
         val file = takeScreenshot("07-jsx-support")
@@ -142,9 +141,49 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Test
     @Order(8)
     fun `08 - project view`() {
-        // Ensure project tool window is visible
+        // Open a file first so the project tree shows the src directory context
+        openFile("Demo.res")
+        prepareForScreenshot()
+
+        // Show Project tool window and select the open file in the tree
         remoteRobot.keyboard {
             hotKey(KeyEvent.VK_META, KeyEvent.VK_1)
+        }
+        waitForRendering(1000)
+
+        // Use "Select Opened File" to focus on src/ in project tree
+        try {
+            remoteRobot.runJs(
+                """
+                importClass(com.intellij.openapi.application.ApplicationManager)
+                importClass(com.intellij.openapi.project.ProjectManager)
+                importClass(com.intellij.ide.SelectInContext)
+                importClass(com.intellij.ide.actions.SelectInContextImpl)
+                var project = ProjectManager.getInstance().getOpenProjects()[0]
+                ApplicationManager.getApplication().invokeAndWait(new Runnable({
+                    run: function() {
+                        var action = com.intellij.openapi.actionSystem.ActionManager.getInstance()
+                            .getAction("SelectInProjectView")
+                        if (action != null) {
+                            var event = com.intellij.openapi.actionSystem.AnActionEvent.createFromAnAction(
+                                action,
+                                null,
+                                "MainMenu",
+                                com.intellij.openapi.actionSystem.impl.SimpleDataContext.getProjectContext(project)
+                            )
+                            action.actionPerformed(event)
+                        }
+                    }
+                }))
+                """.trimIndent(),
+            )
+        } catch (_: Exception) {
+            // Fallback: use keyboard shortcut Alt+F1, 1
+            remoteRobot.keyboard {
+                hotKey(KeyEvent.VK_ALT, KeyEvent.VK_F1)
+            }
+            waitForRendering(500)
+            remoteRobot.keyboard { key(KeyEvent.VK_1) }
         }
         waitForRendering(2000)
 
@@ -156,8 +195,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(9)
     fun `09 - quick fix and intention`() {
         openFile("Demo.res")
-        dismissEditorNotificationBar()
-        waitForRendering()
+        prepareForScreenshot()
 
         // Place cursor on a symbol and trigger intentions
         remoteRobot.keyboard {
@@ -190,8 +228,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(10)
     fun `10 - hover documentation`() {
         openFile("Demo.res")
-        dismissEditorNotificationBar()
-        waitForRendering()
+        prepareForScreenshot()
 
         remoteRobot.keyboard {
             hotKey(KeyEvent.VK_META, KeyEvent.VK_HOME)
@@ -242,8 +279,15 @@ class MarketplaceScreenshotTest : UiTestBase() {
             }))
             """.trimIndent(),
         )
-        waitForRendering(3000)
+        waitForRendering(2000)
 
+        // Type a sample expression into the REPL input
+        remoteRobot.keyboard {
+            enterText("let greeting = \"Hello, ReScript!\"")
+        }
+        waitForRendering(1000)
+
+        dismissNotifications()
         val file = takeScreenshot("11-repl")
         assertTrue(file.exists())
     }
@@ -258,6 +302,15 @@ class MarketplaceScreenshotTest : UiTestBase() {
     private fun openFile(fileName: String) {
         IdeFixtureUtils.openFileByName(remoteRobot, fileName)
         waitForRendering()
+    }
+
+    /**
+     * Prepares the IDE for a clean screenshot by dismissing all notifications
+     * and editor notification bars.
+     */
+    private fun prepareForScreenshot() {
+        dismissNotifications()
+        dismissEditorNotificationBar()
     }
 
     /**
