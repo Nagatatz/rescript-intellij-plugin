@@ -27,8 +27,10 @@
 - [x] コミット
 
 ## T6: CONTRIBUTING.md 拡充
-- [ ] 前提条件・CI コマンド・品質チェック情報追加
-- [ ] コミット
+- [x] Prerequisites セクション追加（JDK 21, Node.js, IntelliJ, Gradle）
+- [x] Quality Checks セクション追加（6項目のチェックコマンド一覧）
+- [x] Submitting Changes を全CI再現コマンドに更新
+- [x] コミット
 
 ## T7: 検証・マージ
 - [ ] `./gradlew ktlintCheck clean buildPlugin test koverHtmlReport` 成功

@@ -2,6 +2,15 @@
 
 Thank you for your interest in contributing to the ReScript IntelliJ Plugin!
 
+## Prerequisites
+
+| Requirement | Version | Notes |
+|------------|---------|-------|
+| JDK | 21+ | Required by IntelliJ Platform 2025.3+ |
+| Node.js | 18+ | Required for LSP server and `.d.ts` binding generation |
+| IntelliJ IDEA | 2025.3+ | Community or Ultimate edition |
+| Gradle | 9.4+ | Wrapper included — no manual install needed |
+
 ## Getting Started
 
 1. Fork the repository on GitHub
@@ -117,21 +126,31 @@ This project uses structured workflows for AI-assisted development with Claude C
 
 Steering documents are stored in `.steering/[YYYYMMDD]-[NNN]-[title]/` directories and committed alongside code changes.
 
+## Quality Checks
+
+The project enforces several automated quality gates via CI and custom Gradle tasks:
+
+| Check | Command | Description |
+|-------|---------|-------------|
+| Code style | `./gradlew ktlintCheck` | Kotlin linting (auto-fix: `./gradlew ktlintFormat`) |
+| KDoc comments | `./gradlew checkKdoc` | All classes must have KDoc comments |
+| Test files | `./gradlew checkTestFiles` | Production classes must have corresponding tests |
+| EP registration | `./gradlew checkExtensionPointRegistration` | plugin.xml must reference existing classes |
+| Coverage | `./gradlew koverHtmlReport` | Report at `build/reports/kover/html/index.html` |
+| Coverage threshold | `./gradlew koverVerify` | Minimum 85% line coverage enforced |
+
 ## Submitting Changes
 
-1. Ensure all tests pass:
+1. Run the full CI check locally:
    ```bash
-   ./gradlew test
+   ./gradlew ktlintCheck buildPlugin test koverHtmlReport
    ```
 
-2. Ensure code style checks pass:
-   ```bash
-   ./gradlew ktlintCheck
-   ```
+2. Verify the build and all tests pass
 
-3. Build the plugin:
+3. Check code coverage for new code:
    ```bash
-   ./gradlew buildPlugin
+   open build/reports/kover/html/index.html
    ```
 
 4. Push your branch and create a Pull Request
