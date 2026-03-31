@@ -125,7 +125,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | JSX 閉じタグ自動挿入 | `>` 入力時に対応する閉じタグ `</tag>` を自動補完 | `RescriptTypedHandler` |
 | Go to Test / Create Test | 実装⇔テストファイル間のナビゲーション・新規テスト作成 (Ctrl+Shift+T) | `RescriptTestCreator` |
 | Project View .resi ネスト | `.resi` インターフェースファイルを対応する `.res` の下にネスト表示 | `RescriptTreeStructureProvider` |
-| Project View ファイルネスト | コンパイル済み `.res.js` を `.res` の子としてネスト表示し、灰色で表示 | `RescriptFileNestingProvider` + `RescriptCompiledJsNodeDecorator` |
+| Project View ファイルネスト | コンパイル済み JS（`.res.js`/`.mjs`/`.cjs`、`.bs.js`/`.mjs`/`.cjs`）を `.res` の子としてネスト表示し、灰色で表示 | `RescriptTreeStructureProvider` + `RescriptCompiledJsNodeDecorator` |
 | Completion Confidence | コメント・文字列内での補完ポップアップ抑制 | `RescriptCompletionConfidence` |
 | Live Template コンテキスト | ReScript 専用コンテキスト + moduleName/componentName マクロ | `RescriptTemplateContextType` + `RescriptLiveTemplateMacros` |
 | Additional Snippets | 6 新 Live Templates (`@module`, `@val`, `@send`, `@get`, `@set`, `comp`) + 2 新 Postfix (`.promise`, `.await`) | `ReScript.xml` + `RescriptPostfixTemplateProvider` |

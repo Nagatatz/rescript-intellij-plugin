@@ -150,7 +150,7 @@
 - **Comment code evaluation** — Evaluate code examples in documentation comments
 - **TODO indexing** — Track TODO/FIXME comments in ReScript files
 - **Editor notification** — Guidance banner when LSP server is not detected
-- **File nesting** — Compiled `.res.js` files nested under `.res` in Project view with subdued gray color
+- **File nesting** — Compiled JS files (`.res.js`/`.mjs`/`.cjs`, `.bs.js`/`.mjs`/`.cjs`) nested under `.res` in Project view with subdued gray color
 - **Color preview** — Inline color swatches in gutter for hex/rgb/hsl color values
 - **VCS Code Vision** — Author and last-change annotations on declarations
 - **Project View decoration** — "has interface" suffix and rescript.json version display

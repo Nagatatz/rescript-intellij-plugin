@@ -88,7 +88,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **JS プレビュー** (`preview/`) — コンパイル済み JS のリアルタイムプレビュー
 - **モジュール階層** (`hierarchy/`) — モジュール依存関係のツリー表示
 - **Call Hierarchy** (`hierarchy/call/`) — 関数の呼び出し階層（Callers/Callees）ツリー表示（Ctrl+Alt+H）
-- **Project View** (`projectview/`) — コンパイル済み JS のネスト表示・灰色化
+- **Project View** (`projectview/`) — コンパイル済み JS（`.res.js`/`.mjs`/`.cjs`、`.bs.js`/`.mjs`/`.cjs`）のネスト表示・灰色化
 - **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成
 - **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析（サーバーモード対応）、.resi シグネチャ同期、Suggested Refactoring 提案
 - **Reanalyze サーバーモード** (`analysis/`) — `rescript-tools reanalyze-server` デーモンプロセスによるデッドコード分析高速化（ReScript >= 12.1.0、自動起動・ヘルスチェック・自動再起動）
@@ -115,7 +115,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **Find Usages** (`lang/`) — WordsScanner によるシンボルインデキシング + 使用箇所検索
 - **バンドル辞書** (`spellcheck/`) — ReScript 固有用語のスペルチェック辞書
 - **テストファイル認識** (`test/`) — `*_test.res`、`*.test.res`、`__tests__/` の自動認識
-- **Project View ネスト** (`projectview/`) — `.resi` を対応する `.res` の下にネスト表示
+- **Project View ネスト** (`projectview/`) — `.resi` およびコンパイル済み JS を対応する `.res` の下にネスト表示
 - **コメンター** (`commenter/`) — 行コメント (`//`) / ブロックコメント (`/* */`) の Commenter 実装
 - **パッケージ依存関係** (`dependencies/`) — rescript.json の npm 依存関係ツリー表示
 - **Code Vision** (`codevision/`) — CodeVision API 経由で関数の型注釈表示
