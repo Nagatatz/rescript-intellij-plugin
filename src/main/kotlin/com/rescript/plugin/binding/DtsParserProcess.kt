@@ -96,27 +96,31 @@ object DtsParserProcess {
     /**
      * Extracts the bundled script to a temporary file, caching the result.
      *
+     * Synchronized to prevent multiple threads from creating duplicate temp files
+     * when called concurrently (e.g., parallel binding generation).
+     *
      * @return the path to the extracted script file
      * @throws DtsParserException if the resource cannot be found or extracted
      */
-    fun extractScript(): Path {
-        cachedScriptPath?.let { path ->
-            if (Files.isRegularFile(path)) return path
+    fun extractScript(): Path =
+        synchronized(this) {
+            cachedScriptPath?.let { path ->
+                if (Files.isRegularFile(path)) return path
+            }
+
+            val inputStream =
+                DtsParserProcess::class.java.getResourceAsStream(SCRIPT_RESOURCE)
+                    ?: throw DtsParserException("Bundled script not found: $SCRIPT_RESOURCE")
+
+            val tempFile = Files.createTempFile("dts-to-json-", ".js")
+            inputStream.use { stream ->
+                Files.copy(stream, tempFile, StandardCopyOption.REPLACE_EXISTING)
+            }
+
+            cachedScriptPath = tempFile
+            LOG.info("Extracted dts-to-json.js to: $tempFile")
+            tempFile
         }
-
-        val inputStream =
-            DtsParserProcess::class.java.getResourceAsStream(SCRIPT_RESOURCE)
-                ?: throw DtsParserException("Bundled script not found: $SCRIPT_RESOURCE")
-
-        val tempFile = Files.createTempFile("dts-to-json-", ".js")
-        inputStream.use { stream ->
-            Files.copy(stream, tempFile, StandardCopyOption.REPLACE_EXISTING)
-        }
-
-        cachedScriptPath = tempFile
-        LOG.info("Extracted dts-to-json.js to: $tempFile")
-        return tempFile
-    }
 }
 
 /**

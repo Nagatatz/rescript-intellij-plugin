@@ -20,6 +20,7 @@ import org.eclipse.lsp4j.Command;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.services.LanguageServer;
+import com.intellij.openapi.diagnostic.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ import java.util.List;
  * @see DaemonBoundCodeVisionProvider
  */
 public class RescriptCodeVisionProvider implements DaemonBoundCodeVisionProvider {
+    private static final Logger LOG = Logger.getInstance(RescriptCodeVisionProvider.class);
     public static final String ID = "rescript.codeLens";
 
     @NotNull
@@ -106,6 +108,7 @@ public class RescriptCodeVisionProvider implements DaemonBoundCodeVisionProvider
                             languageServer.getTextDocumentService().codeLens(params);
             codeLenses = server.sendRequestSync(0, request);
         } catch (Exception e) {
+            LOG.debug("Failed to retrieve code lens from LSP server", e);
             return Collections.emptyList();
         }
 
