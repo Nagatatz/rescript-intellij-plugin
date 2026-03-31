@@ -3,10 +3,10 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     id("java") // needed for JFlex-generated Java lexer
-    id("org.jetbrains.kotlin.jvm") version "2.3.10"
-    id("org.jetbrains.intellij.platform") version "2.12.0"
+    id("org.jetbrains.kotlin.jvm") version "2.3.20"
+    id("org.jetbrains.intellij.platform") version "2.13.1"
     id("org.jetbrains.grammarkit") version "2023.3.0.3"
-    id("org.jlleitschuh.gradle.ktlint") version "14.1.0"
+    id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
     id("org.jetbrains.kotlinx.kover") version "0.9.7"
 }
 
@@ -33,12 +33,12 @@ dependencies {
         testFramework(TestFrameworkType.Platform)
     }
     testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:2.0.3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
     // JUnit 3/4 TestCase is needed at compile time because IntelliJ's
     // BasePlatformTestCase extends UsefulTestCase which extends TestCase
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:5.14.2")
-    testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
+    testImplementation("org.mockito:mockito-core:5.23.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.23.0")
 }
 
 group = providers.gradleProperty("pluginGroup").get()
