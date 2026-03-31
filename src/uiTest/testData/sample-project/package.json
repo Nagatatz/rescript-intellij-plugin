@@ -1,0 +1,12 @@
+{
+  "name": "rescript-plugin-demo",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "rescript": "^12.0.0",
+    "@rescript/react": "^0.14.0"
+  },
+  "devDependencies": {
+    "@rescript/language-server": "^1.58.0"
+  }
+}

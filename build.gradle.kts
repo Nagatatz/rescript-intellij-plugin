@@ -12,6 +12,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies") }
     intellijPlatform {
         defaultRepositories()
     }
@@ -39,6 +40,32 @@ dependencies {
     testImplementation(libs.junit4)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.junit.jupiter)
+}
+
+// ── UI Test (Remote-Robot) source set ──
+
+sourceSets {
+    create("uiTest") {
+        kotlin.srcDir("src/uiTest/kotlin")
+        resources.srcDir("src/uiTest/resources")
+        compileClasspath += sourceSets["main"].output
+        runtimeClasspath += sourceSets["main"].output
+    }
+}
+
+val uiTestImplementation: Configuration by configurations.getting {
+    extendsFrom(configurations["implementation"])
+}
+val uiTestRuntimeOnly: Configuration by configurations.getting {
+    extendsFrom(configurations["runtimeOnly"])
+}
+
+dependencies {
+    uiTestImplementation(kotlin("stdlib"))
+    uiTestImplementation("com.intellij.remoterobot:remote-robot:0.11.23")
+    uiTestImplementation("com.intellij.remoterobot:remote-fixtures:0.11.23")
+    uiTestImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
+    uiTestRuntimeOnly("org.junit.platform:junit-platform-launcher:2.0.3")
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -109,6 +136,10 @@ kover {
         }
         filters {
             excludes {
+                // ── UI test classes (Remote-Robot, not unit-testable) ──
+                packages(
+                    "com.rescript.plugin.uitest",
+                )
                 // ── Packages with 0% coverage (IDE-coupled, no unit-testable logic) ──
                 packages(
                     "com.rescript.plugin.analysis",
@@ -208,6 +239,48 @@ kover {
             }
         }
     }
+}
+
+// ── UI Test tasks ──
+
+val runIdeForUiTests by intellijPlatformTesting.runIde.registering {
+    task {
+        jvmArgumentProviders +=
+            CommandLineArgumentProvider {
+                listOf(
+                    "-Drobot-server.port=8082",
+                    "-Dide.mac.message.dialogs.as.sheets=false",
+                    "-Djb.privacy.policy.text=<!--999.999-->",
+                    "-Djb.consents.confirmation.enabled=false",
+                )
+            }
+        jvmArgs("-Xmx2G")
+    }
+    plugins {
+        robotServerPlugin()
+    }
+}
+
+tasks.register<Test>("uiTest") {
+    description = "Run UI tests with Remote-Robot"
+    group = "verification"
+    useJUnitPlatform()
+    testClassesDirs = sourceSets["uiTest"].output.classesDirs
+    classpath = sourceSets["uiTest"].runtimeClasspath
+    systemProperty("robot-server.port", "8082")
+    systemProperty(
+        "screenshot.output.dir",
+        layout.buildDirectory
+            .dir("screenshots")
+            .get()
+            .asFile.absolutePath,
+    )
+    systemProperty(
+        "test.project.path",
+        layout.projectDirectory
+            .dir("src/uiTest/testData/sample-project")
+            .asFile.absolutePath,
+    )
 }
 
 // ── Quality check tasks ──
