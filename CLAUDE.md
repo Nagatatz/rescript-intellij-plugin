@@ -20,6 +20,12 @@ ReScript 言語サポートを JetBrains IDE に提供する IntelliJ プラグ�
 
 # 開発用 IDE インスタンス起動
 ./gradlew runIde
+
+# UI テスト用 IDE 起動（Remote-Robot サーバー付き、ポート 8082）
+./gradlew runIdeForUiTests
+
+# UI テスト実行（別ターミナルで、IDE 起動後に実行）
+./gradlew uiTest
 ```
 
 JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タスクで自動生成される（`compileJava` / `compileKotlin` の依存タスク）。生成ファイルは `.gitignore` に含まれており、手動生成は不要。

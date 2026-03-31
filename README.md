@@ -218,6 +218,22 @@ This plugin uses a **hybrid approach**:
 
 The JFlex lexer is automatically generated from `Rescript.flex` during the build process via the `generateRescriptLexer` Gradle task (dependency of `compileJava` / `compileKotlin`). Manual generation is not required.
 
+### UI Tests (Remote-Robot)
+
+UI tests use [IntelliJ Remote-Robot](https://github.com/JetBrains/intellij-ui-test-robot) to automate IDE interaction and capture Marketplace screenshots.
+
+```bash
+# 1. Start the IDE with Remote-Robot server (port 8082)
+./gradlew runIdeForUiTests
+
+# 2. Open the sample project: src/uiTest/testData/sample-project/
+
+# 3. In a separate terminal, run the UI tests
+./gradlew uiTest
+```
+
+Screenshots are saved to `build/screenshots/`. UI tests are not included in CI (requires a display).
+
 ## License
 
 MIT

@@ -195,6 +195,69 @@ Coverage reports are generated at `build/reports/kover/html/`.
 - CI reports coverage on pull requests
 - Exceptions: UI components (Swing), LSP integration classes that require a running server
 
+## UI Tests (Remote-Robot)
+
+The project includes UI tests powered by [IntelliJ Remote-Robot](https://github.com/JetBrains/intellij-ui-test-robot) for end-to-end IDE testing and automated Marketplace screenshot capture.
+
+### Prerequisites
+
+- macOS: Grant accessibility permissions to Java (System Settings > Privacy & Security > Accessibility)
+- The sample project at `src/uiTest/testData/sample-project/` must have its npm dependencies installed:
+
+```bash
+cd src/uiTest/testData/sample-project
+npm install
+```
+
+### Running UI Tests
+
+UI tests require a two-step process — the IDE must be running before tests can connect:
+
+```bash
+# Terminal 1: Start the IDE with Remote-Robot server (port 8082)
+./gradlew runIdeForUiTests
+
+# Terminal 2: Open the sample project in the IDE, then run the tests
+./gradlew uiTest
+```
+
+### Screenshot Output
+
+The `MarketplaceScreenshotTest` class captures 11 screenshots demonstrating key plugin features. Screenshots are saved to `build/screenshots/`:
+
+| Screenshot | Feature |
+|-----------|---------|
+| `01-syntax-highlighting.png` | ReScript code colorization |
+| `02-code-completion.png` | LSP completion popup |
+| `03-error-lens.png` | Inline error/warning display |
+| `04-inlay-hints.png` | Type inference hints |
+| `05-structure-view.png` | File symbol tree |
+| `06-code-vision.png` | Function type annotations |
+| `07-jsx-support.png` | JSX syntax highlighting |
+| `08-project-view.png` | .resi nesting and compiled JS |
+| `09-quick-fix-intention.png` | Alt+Enter intention menu |
+| `10-hover-documentation.png` | Type info and documentation |
+| `11-repl.png` | Interactive REPL tool window |
+
+### Test Structure
+
+UI tests are in a separate source set (`src/uiTest/`) and do not run with `./gradlew test`:
+
+```
+src/uiTest/kotlin/com/rescript/plugin/uitest/
+├── UiTestBase.kt                          # Base class (connection, screenshots)
+├── fixtures/
+│   └── IdeFixtures.kt                     # IDE component fixtures
+└── screenshot/
+    └── MarketplaceScreenshotTest.kt       # Marketplace screenshot capture
+```
+
+### Notes
+
+- UI tests are **not included in CI** (requires a display)
+- The `uiTest` source set is excluded from Kover coverage
+- Screenshots use Darcula theme for Marketplace appeal
+
 ## CI Testing
 
 The CI pipeline runs tests automatically on every push and PR:
