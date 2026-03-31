@@ -31,8 +31,26 @@ Code folding lets you hide implementation details and focus on the declarations 
 
 Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file using the `rescript format` CLI.
 
-:::{important}
-Formatting requires the ReScript compiler (`rescript`) to be installed in your project.
+### How It Works
+
+The plugin pipes the current document content to `rescript format --stdin .<ext>` via stdin and replaces the document text with the formatted output. Both `.res` and `.resi` files are supported. Formatting runs asynchronously via IntelliJ's `AsyncDocumentFormattingService`, so the editor remains responsive during the operation.
+
+### Requirements
+
+The ReScript compiler (`rescript`) must be installed in your project's `node_modules`. The plugin searches for the CLI starting from the file's directory up to the project root. If the CLI is not found, a notification is displayed.
+
+### Error Handling
+
+- **CLI not found** --- A notification indicates that `rescript` was not found in `node_modules`
+- **Timeout** --- If formatting takes longer than 10 seconds, the process is terminated and an error notification is shown
+- **Formatter errors** --- If the formatter exits with a non-zero code (e.g., syntax errors in the file), the stderr output is displayed as a notification
+
+### Format on Save
+
+To automatically format ReScript files when saving, enable **Reformat code** in **Settings** > **Tools** > **Actions on Save**.
+
+:::{seealso}
+[Code Analysis --- Format Check](code-analysis.md#format-check) can highlight unformatted files and offer a quick-fix to format them.
 :::
 
 One shortcut formats your entire file to match the official ReScript style, eliminating manual whitespace adjustments and ensuring consistent code style across your team.
@@ -636,9 +654,41 @@ Surround With wraps selected code in a control structure with one shortcut, savi
 
 ## Import Optimization
 
-Press `Ctrl+Alt+O` to remove duplicate `open` statements from the current file.
+Press `Ctrl+Alt+O` to optimize imports in the current file.
 
-A single shortcut cleans up all redundant `open` statements, keeping your imports tidy without manually scanning the file.
+### How It Works
+
+Import optimization runs in two phases:
+
+1. **Duplicate detection** --- Scans top-level `open` statements and removes any that share the same module path as an earlier `open`
+2. **Unused open detection** --- Uses LSP diagnostic warnings to identify `open` statements whose exports are never referenced in the file
+
+Both phases run together, and a notification summarizes the result (e.g., "Removed 1 duplicate and 2 unused open statement(s)").
+
+### Configuration
+
+Unused open removal can be toggled in **Settings** > **Languages & Frameworks** > **ReScript** via the **Remove unused opens** checkbox. When disabled, only duplicate opens are removed.
+
+### Example
+
+::::{tab-set}
+:::{tab-item} Before
+```rescript
+open Belt
+open Belt.Array
+open Belt          // duplicate
+open Js.Promise    // unused
+```
+:::
+:::{tab-item} After Ctrl+Alt+O
+```rescript
+open Belt
+open Belt.Array
+```
+:::
+::::
+
+A single shortcut cleans up all redundant and unused `open` statements, keeping your imports tidy without manually scanning the file.
 
 ## Rename
 

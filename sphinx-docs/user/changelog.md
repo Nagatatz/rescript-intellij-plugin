@@ -1,5 +1,47 @@
 # Changelog
 
+## 0.1.11 (Unreleased)
+
+### Features
+
+- Add TypeScript/JSX paste conversion support
+- Add dedicated REPL icon and improve input area
+- Improve REPL UX: resizable split, auto-scroll, history navigation, executor fixes
+- Enable syntax highlighting in REPL input area
+- Add UI test framework with Remote-Robot for automated Marketplace screenshots
+- Add JSX state-based highlighting to Sphinx documentation lexer
+
+### Bug Fixes
+
+- Add missing process timeout to RescriptUnusedCodeInspection
+- Improve error handling across 4 files
+- Fix UI test failures on JDK 24 and improve test lifecycle
+- Fix screenshot quality: IDE-only capture, reliable file open, notification dismissal
+- Fix REPL input area being read-only in tool window
+- Fix compiled JS file nesting in Project View
+
+### Refactoring
+
+- Modernize Kotlin: convert to data object and serviceOrNull
+- Clean up REPL code for Qodana compliance
+
+### Infrastructure
+
+- Introduce Gradle version catalog for dependency management
+- Sync version catalog with latest dependency versions
+- Update Kover, ktlint, Gradle wrapper, and fix Trivy action tag
+- Update dependencies per Dependabot suggestions
+- Introduce parameterized tests for lexer keyword and literal tests
+- Add branch coverage tests for ProcessUtils and FileUtil
+- Add missing KDoc to ProcessResult data class
+
+### Documentation
+
+- Add glossary and FAQ pages to Sphinx docs
+- Add tab-sets and dropdowns to Sphinx feature docs
+- Add cross-references and improve admonitions in Sphinx docs
+- Add Sphinx extensions for SEO, UX, and developer experience
+
 ## 0.1.10 (2026-03-19)
 
 ### Features
