@@ -126,9 +126,9 @@ kover {
                     "com.rescript.plugin.hierarchy",
                     "com.rescript.plugin.hierarchy.call",
                     "com.rescript.plugin.imports",
-                    "com.rescript.plugin.injection",
                     "com.rescript.plugin.inspection",
                     "com.rescript.plugin.intention",
+                    "com.rescript.plugin.injection",
                     "com.rescript.plugin.navbar",
                     "com.rescript.plugin.paste",
                     "com.rescript.plugin.ppx",
@@ -147,7 +147,6 @@ kover {
                     "com.rescript.plugin.wizard",
                     "com.rescript.plugin.wizard.templates",
                     "com.rescript.plugin.worksheet",
-                    "com.rescript.plugin.documentation",
                 )
                 // ── Individual class exclusions (IDE-coupled classes in covered packages) ──
                 // Wildcard (*) suffix matches inner/companion classes ($Companion, $install$1, etc.)

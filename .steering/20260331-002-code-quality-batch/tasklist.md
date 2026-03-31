@@ -21,9 +21,10 @@
 - [x] コミット
 
 ## T5: Kover 除外リスト精緻化
-- [ ] テスト済みパッケージを個別クラス除外に変更
-- [ ] カバレッジ確認
-- [ ] コミット
+- [x] `documentation` パッケージを除外リストから削除（全3クラスにテスト有）
+- [x] `analysis`/`inspection`/`intention` は IDE 結合クラスが多く現状維持
+- [x] カバレッジ確認 — koverVerify パス
+- [x] コミット
 
 ## T6: CONTRIBUTING.md 拡充
 - [ ] 前提条件・CI コマンド・品質チェック情報追加
