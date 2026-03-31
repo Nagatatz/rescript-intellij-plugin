@@ -10,11 +10,12 @@
 
 ## T2: ブランチカバレッジ改善
 
-- [ ] カバレッジレポートで未カバー分岐を特定
-- [ ] `RescriptProcessUtilsTest.kt` — タイムアウト・例外パステスト追加
-- [ ] `RescriptSecurityUtilsTest.kt` — `isWithinProject()` null ケーステスト追加
-- [ ] `RescriptFileUtilTest.kt` — 未カバー分岐のテスト追加
-- [ ] コミット
+- [x] カバレッジレポートで未カバー分岐を特定
+- [x] `RescriptProcessUtilsTest.kt` — タイムアウト・空出力テスト追加（+3テスト）
+- [x] `RescriptSecurityUtilsTest.kt` — `isWithinProject()` は IDE テストインフラ必要のため免除
+- [x] `RescriptFileUtilTest.kt` — parent=null 分岐のテスト追加（+4テスト）
+- [x] コミット
+- 注: 残り未カバー分岐は PSI/IDE 依存（BraceBalanceUtil, StringLiteral, SecurityUtils）で免除対象
 
 ## T3: 検証
 

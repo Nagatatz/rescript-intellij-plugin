@@ -252,6 +252,34 @@ class RescriptFileUtilTest {
         assertNull(RescriptFileUtil.findInterfaceFile(res))
     }
 
+    // ── findCounterpartFile edge cases ─────────────────────────────
+
+    @Test
+    fun `findCounterpartFile returns null when parent is null`() {
+        // File with no parent directory
+        val res = stubFile("res", "Orphan", parent = null)
+        assertNull(RescriptFileUtil.findCounterpartFile(res))
+    }
+
+    @Test
+    fun `findCounterpartFile returns null for resi when parent is null`() {
+        val resi = stubFile("resi", "Orphan", parent = null)
+        assertNull(RescriptFileUtil.findCounterpartFile(resi))
+    }
+
+    // ── findInterfaceFile edge cases ─────────────────────────────
+
+    @Test
+    fun `findInterfaceFile returns null when parent is null`() {
+        val res = stubFile("res", "Orphan", parent = null)
+        assertNull(RescriptFileUtil.findInterfaceFile(res))
+    }
+
+    @Test
+    fun `findInterfaceFile returns null for non-rescript file`() {
+        assertNull(RescriptFileUtil.findInterfaceFile(stubFile("js")))
+    }
+
     // ── Constants ─────────────────────────────────────────────────
 
     @Test
