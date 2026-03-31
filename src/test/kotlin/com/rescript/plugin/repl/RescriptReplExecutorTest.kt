@@ -30,13 +30,6 @@ class RescriptReplExecutorTest {
     }
 
     @Test
-    fun `buildNodeCommand returns node command`() {
-        val cmd = RescriptReplExecutor.buildNodeCommand("/tmp/test.js")
-        assertTrue(cmd.contains("node"))
-        assertTrue(cmd.contains("/tmp/test.js"))
-    }
-
-    @Test
     fun `parseOutput extracts stdout`() {
         val result = RescriptReplExecutor.parseOutput("42\n", "")
         assertEquals("42", result)

@@ -65,14 +65,6 @@ object RescriptReplExecutor {
     }
 
     /**
-     * Builds the command line arguments for running a Node.js eval of compiled JS.
-     *
-     * @param jsCode the JavaScript code to evaluate
-     * @return the command arguments list
-     */
-    internal fun buildNodeCommand(jsCode: String): List<String> = listOf("node", "-e", jsCode)
-
-    /**
      * Parses the combined output of a process execution.
      *
      * @param stdout the standard output text

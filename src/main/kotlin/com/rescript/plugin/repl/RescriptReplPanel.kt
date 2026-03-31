@@ -13,6 +13,7 @@ import com.intellij.openapi.fileTypes.PlainTextFileType
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.util.SystemInfo
 import com.intellij.ui.EditorTextField
 import com.intellij.ui.OnePixelSplitter
 import com.rescript.plugin.RescriptFileType
@@ -23,6 +24,7 @@ import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JToolBar
+import javax.swing.KeyStroke
 
 /**
  * Swing panel for the ReScript REPL tool window.
@@ -144,16 +146,11 @@ class RescriptReplPanel(
             }
 
         // Register Cmd+Enter / Ctrl+Enter shortcut to execute
-        val metaMask =
-            if (System.getProperty("os.name").lowercase().contains("mac")) {
-                InputEvent.META_DOWN_MASK
-            } else {
-                InputEvent.CTRL_DOWN_MASK
-            }
+        val metaMask = if (SystemInfo.isMac) InputEvent.META_DOWN_MASK else InputEvent.CTRL_DOWN_MASK
         object : AnAction() {
             override fun actionPerformed(e: AnActionEvent) = executeInput()
         }.registerCustomShortcutSet(
-            CustomShortcutSet(javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, metaMask)),
+            CustomShortcutSet(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, metaMask)),
             inputArea,
         )
 
@@ -161,13 +158,13 @@ class RescriptReplPanel(
         object : AnAction() {
             override fun actionPerformed(e: AnActionEvent) = navigateHistory(-1)
         }.registerCustomShortcutSet(
-            CustomShortcutSet(javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0)),
+            CustomShortcutSet(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0)),
             inputArea,
         )
         object : AnAction() {
             override fun actionPerformed(e: AnActionEvent) = navigateHistory(1)
         }.registerCustomShortcutSet(
-            CustomShortcutSet(javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0)),
+            CustomShortcutSet(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0)),
             inputArea,
         )
 
