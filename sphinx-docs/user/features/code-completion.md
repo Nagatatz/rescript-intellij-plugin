@@ -223,6 +223,10 @@ This is the quickest way to await a promise expression without manually repositi
 
 Postfix templates let you transform expressions without moving the cursor back to the beginning — type the expression first, then apply the transformation, keeping your natural left-to-right typing flow.
 
+:::{seealso}
+[Code Editing](code-editing.md) offers Intention Actions and Surround With for more code transformation patterns.
+:::
+
 ## Live Templates
 
 Type a snippet abbreviation and press `Tab` to expand. The cursor stops at each placeholder (shown in the expansions below); press `Tab` to move to the next placeholder.

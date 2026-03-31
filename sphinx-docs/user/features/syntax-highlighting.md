@@ -642,6 +642,10 @@ The transition between connected and disconnected states is seamless. As soon as
 
 Semantic highlighting resolves ambiguities that lexer-based highlighting cannot — for example, visually distinguishing variant constructors like `Some` from module names like `Belt`, even though both are uppercase identifiers, making code significantly easier to read.
 
+:::{seealso}
+[Advanced Features](advanced.md) covers Code Lens and inlay hints, which also use LSP semantic information.
+:::
+
 ## Customizing Colors
 
 Go to **Settings** → **Editor** → **Color Scheme** → **ReScript** to customize colors for each token type.

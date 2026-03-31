@@ -158,6 +158,10 @@ When you right-click on a file matching this pattern, the plugin offers to creat
 
 Automatic detection of test frameworks and test files eliminates manual configuration — the plugin recognizes your testing setup and offers the right run options out of the box.
 
+:::{seealso}
+[Run & Build](run-build.md) covers run configurations for building the ReScript project.
+:::
+
 ## Test Results
 
 Test results are displayed in the standard IntelliJ test runner UI (SMTestRunner).

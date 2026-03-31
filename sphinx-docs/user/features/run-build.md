@@ -148,6 +148,10 @@ Hovering over the status bar widget shows a detailed tooltip:
 
 The status bar gives you at-a-glance visibility into the compiler state, so you always know whether your code is clean, broken, or still compiling — even when the Run panel is closed.
 
+:::{seealso}
+[Code Analysis](code-analysis.md) shows detailed diagnostics (errors, warnings) inline in the editor.
+:::
+
 ## Console Output
 
 Build output appears in the **Run** panel at the bottom of the IDE. The plugin enhances the raw console output with automatic file path linkification.

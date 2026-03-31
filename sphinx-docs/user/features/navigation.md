@@ -40,6 +40,10 @@ Press `Alt+7` (`Cmd+7` on macOS) to open the Structure panel, which shows an out
 
 This gives you a bird's-eye view of a file's structure at a glance, so you can quickly locate a specific declaration without scrolling through hundreds of lines.
 
+:::{seealso}
+[Code Editing](code-editing.md) provides code folding to collapse declarations shown in the Structure View.
+:::
+
 ## File Switching (.res ↔ .resi)
 
 Press `Alt+O` to switch between a ReScript source file (`.res`) and its interface file (`.resi`).
@@ -50,7 +54,7 @@ When working with module interfaces, you frequently need to switch between the i
 
 Press `Ctrl+Alt+B` (`Cmd+Alt+B` on macOS) to jump from an interface declaration in a `.resi` file to the corresponding implementation in the `.res` file.
 
-This is the reverse of [Goto Super](#goto-super-res--resi): while Goto Super goes from implementation to interface, Go to Implementation goes from interface to implementation.
+This is the reverse of [Goto Super](#goto-super-res-resi): while Goto Super goes from implementation to interface, Go to Implementation goes from interface to implementation.
 
 **Example:**
 

@@ -39,6 +39,10 @@ Code Lens requires the Language Server to be running. If the LSP server is not c
 
 Code Lens shows inferred type signatures directly above function definitions, so you can see the types without adding explicit annotations or hovering over each identifier.
 
+:::{seealso}
+[Syntax Highlighting](syntax-highlighting.md) covers the semantic token system that powers Code Lens type annotations.
+:::
+
 ## Compiled JavaScript Preview
 
 A dedicated tool window that shows the compiled JavaScript output for the currently active ReScript file, providing a side-by-side view of your ReScript source and its JavaScript compilation result.

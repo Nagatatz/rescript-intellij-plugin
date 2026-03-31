@@ -28,6 +28,9 @@ myst_enable_extensions = [
     "attrs_inline",
 ]
 
+# Auto-generate heading anchors up to level 3 (h1-h3)
+myst_heading_anchors = 3
+
 # Source file suffixes
 source_suffix = {
     ".md": "markdown",
