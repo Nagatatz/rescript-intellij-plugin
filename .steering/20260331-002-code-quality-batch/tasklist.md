@@ -6,10 +6,10 @@
 - [x] コミット
 
 ## T2: バージョンカタログ導入
-- [ ] `gradle/libs.versions.toml` 作成
-- [ ] `build.gradle.kts` のバージョン参照を置換
-- [ ] `settings.gradle.kts` のプラグインバージョンを置換
-- [ ] コミット
+- [x] `gradle/libs.versions.toml` 作成
+- [x] `build.gradle.kts` のバージョン参照を置換
+- [x] `settings.gradle.kts` — foojay プラグインは settings では catalog 不可、維持
+- [x] コミット
 
 ## T3: @Suppress DEPRECATION 見直し
 - [ ] 4件の DEPRECATION 抑制を調査
