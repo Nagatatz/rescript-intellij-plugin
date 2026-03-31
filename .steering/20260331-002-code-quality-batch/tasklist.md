@@ -33,5 +33,5 @@
 - [x] コミット
 
 ## T7: 検証・マージ
-- [ ] `./gradlew ktlintCheck clean buildPlugin test koverHtmlReport` 成功
-- [ ] main にマージ
+- [x] `./gradlew ktlintCheck clean buildPlugin test koverHtmlReport` 成功
+- [x] main にマージ
