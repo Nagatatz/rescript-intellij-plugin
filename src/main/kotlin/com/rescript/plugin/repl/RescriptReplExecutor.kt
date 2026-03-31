@@ -153,6 +153,7 @@ object RescriptReplExecutor {
         }
     }
 
+    /** Holds the result of an external process execution. */
     private data class ProcessResult(
         val exitCode: Int,
         val stdout: String,
