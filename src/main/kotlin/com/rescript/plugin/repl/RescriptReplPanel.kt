@@ -1,6 +1,9 @@
 package com.rescript.plugin.repl
 
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CustomShortcutSet
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.EditorFactory
@@ -10,25 +13,16 @@ import com.intellij.openapi.fileTypes.PlainTextFileType
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.util.Disposer
+import com.intellij.ui.EditorTextField
 import com.intellij.ui.OnePixelSplitter
-import com.intellij.ui.components.JBScrollPane
-import com.intellij.ui.components.JBTextArea
-import com.intellij.util.ui.JBUI
+import com.rescript.plugin.RescriptFileType
 import java.awt.BorderLayout
-import java.awt.Color
-import java.awt.Font
-import java.awt.Graphics
-import java.awt.Graphics2D
-import java.awt.RenderingHints
-import java.awt.event.FocusAdapter
-import java.awt.event.FocusEvent
 import java.awt.event.InputEvent
 import java.awt.event.KeyEvent
 import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JToolBar
-import javax.swing.KeyStroke
 
 /**
  * Swing panel for the ReScript REPL tool window.
@@ -74,15 +68,23 @@ class RescriptReplPanel(
             settings.isCaretRowShown = false
         }
 
-    // ── Input area (editable, with placeholder) ──
+    // ── Input area (editable, syntax-highlighted) ──
 
-    private val inputArea: JBTextArea =
-        PlaceholderTextArea("Enter ReScript code here... (⌘+Enter to run)").apply {
-            font = Font(Font.MONOSPACED, Font.PLAIN, 13)
-            border = JBUI.Borders.empty(4)
-            lineWrap = true
-            wrapStyleWord = true
-            rows = 4
+    private val inputArea: EditorTextField =
+        EditorTextField(
+            EditorFactory.getInstance().createDocument(""),
+            project,
+            RescriptFileType,
+            false, // isViewer
+            false, // oneLineMode
+        ).apply {
+            setPlaceholder("Enter ReScript code here... (⌘+Enter to run)")
+            addSettingsProvider { editor ->
+                editor.settings.isLineNumbersShown = false
+                editor.settings.isFoldingOutlineShown = false
+                editor.settings.isRightMarginShown = false
+                editor.contentComponent.isFocusable = true
+            }
         }
 
     // ── Input history ──
@@ -122,10 +124,10 @@ class RescriptReplPanel(
                 )
             }
 
-        // Input panel: scrollable text area + toolbar below
+        // Input panel: editor + toolbar below
         val inputPanel =
             JPanel(BorderLayout()).apply {
-                add(JBScrollPane(inputArea), BorderLayout.CENTER)
+                add(inputArea, BorderLayout.CENTER)
                 add(toolbar, BorderLayout.SOUTH)
             }
 
@@ -148,28 +150,25 @@ class RescriptReplPanel(
             } else {
                 InputEvent.CTRL_DOWN_MASK
             }
-        inputArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, metaMask), "executeRepl")
-        inputArea.getActionMap().put(
-            "executeRepl",
-            object : javax.swing.AbstractAction() {
-                override fun actionPerformed(e: java.awt.event.ActionEvent?) = executeInput()
-            },
+        object : AnAction() {
+            override fun actionPerformed(e: AnActionEvent) = executeInput()
+        }.registerCustomShortcutSet(
+            CustomShortcutSet(javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, metaMask)),
+            inputArea,
         )
 
         // Register Up/Down arrow for history navigation
-        inputArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "historyUp")
-        inputArea.getActionMap().put(
-            "historyUp",
-            object : javax.swing.AbstractAction() {
-                override fun actionPerformed(e: java.awt.event.ActionEvent?) = navigateHistory(-1)
-            },
+        object : AnAction() {
+            override fun actionPerformed(e: AnActionEvent) = navigateHistory(-1)
+        }.registerCustomShortcutSet(
+            CustomShortcutSet(javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0)),
+            inputArea,
         )
-        inputArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "historyDown")
-        inputArea.getActionMap().put(
-            "historyDown",
-            object : javax.swing.AbstractAction() {
-                override fun actionPerformed(e: java.awt.event.ActionEvent?) = navigateHistory(1)
-            },
+        object : AnAction() {
+            override fun actionPerformed(e: AnActionEvent) = navigateHistory(1)
+        }.registerCustomShortcutSet(
+            CustomShortcutSet(javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0)),
+            inputArea,
         )
 
         mainPanel = panel
@@ -193,7 +192,7 @@ class RescriptReplPanel(
 
         // Disable Run button during execution
         runButton.isEnabled = false
-        inputArea.isEditable = false
+        inputArea.isEnabled = false
 
         // Execute on background thread
         ApplicationManager.getApplication().executeOnPooledThread {
@@ -202,7 +201,7 @@ class RescriptReplPanel(
                 appendOutput("$result\n\n")
                 inputArea.text = ""
                 runButton.isEnabled = true
-                inputArea.isEditable = true
+                inputArea.isEnabled = true
                 inputArea.requestFocusInWindow()
             }
         }
@@ -261,36 +260,6 @@ class RescriptReplPanel(
                 // History entries are stored oldest-first; navigate from newest
                 historyIndex = newIndex
                 inputArea.text = history[history.size - 1 - newIndex]
-            }
-        }
-    }
-
-    /**
-     * A [JBTextArea] that displays placeholder text when empty and unfocused.
-     *
-     * @param placeholder the hint text to display
-     */
-    private class PlaceholderTextArea(
-        private val placeholder: String,
-    ) : JBTextArea() {
-        init {
-            addFocusListener(
-                object : FocusAdapter() {
-                    override fun focusGained(e: FocusEvent?) = repaint()
-
-                    override fun focusLost(e: FocusEvent?) = repaint()
-                },
-            )
-        }
-
-        override fun paintComponent(g: Graphics) {
-            super.paintComponent(g)
-            if (text.isEmpty() && !isFocusOwner) {
-                val g2 = g as Graphics2D
-                g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
-                g2.color = Color.GRAY
-                val insets = insets
-                g2.drawString(placeholder, insets.left + 2, g.getFontMetrics().height + insets.top)
             }
         }
     }
