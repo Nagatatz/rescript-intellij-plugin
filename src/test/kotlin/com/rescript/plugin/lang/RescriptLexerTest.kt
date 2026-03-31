@@ -5,6 +5,9 @@ import com.intellij.psi.tree.IElementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 
 class RescriptLexerTest {
     private fun tokenize(input: String): List<Pair<IElementType, String>> {
@@ -179,97 +182,28 @@ class RescriptLexerTest {
     // Keywords
     // ════════════════════════════════════════════════════════════════
 
-    @Test
-    fun `keyword - let`() {
-        assertEquals(listOf(RescriptTokenTypes.LET), tokenTypesNoWs("let"))
-    }
-
-    @Test
-    fun `keyword - type`() {
-        assertEquals(listOf(RescriptTokenTypes.TYPE), tokenTypesNoWs("type"))
-    }
-
-    @Test
-    fun `keyword - module`() {
-        assertEquals(listOf(RescriptTokenTypes.MODULE), tokenTypesNoWs("module"))
-    }
-
-    @Test
-    fun `keyword - external`() {
-        assertEquals(listOf(RescriptTokenTypes.EXTERNAL), tokenTypesNoWs("external"))
-    }
-
-    @Test
-    fun `keyword - open`() {
-        assertEquals(listOf(RescriptTokenTypes.OPEN), tokenTypesNoWs("open"))
-    }
-
-    @Test
-    fun `keyword - include`() {
-        assertEquals(listOf(RescriptTokenTypes.INCLUDE), tokenTypesNoWs("include"))
-    }
-
-    @Test
-    fun `keyword - exception`() {
-        assertEquals(listOf(RescriptTokenTypes.EXCEPTION), tokenTypesNoWs("exception"))
-    }
-
-    @Test
-    fun `keyword - switch`() {
-        assertEquals(listOf(RescriptTokenTypes.SWITCH), tokenTypesNoWs("switch"))
+    @ParameterizedTest(name = "keyword: {0}")
+    @MethodSource("singleKeywordProvider")
+    fun `keyword tokenization`(
+        input: String,
+        expectedType: IElementType,
+    ) {
+        assertEquals(listOf(expectedType), tokenTypesNoWs(input))
     }
 
     @Test
     fun `keyword - if and else`() {
-        val types = tokenTypesNoWs("if else")
-        assertEquals(listOf(RescriptTokenTypes.IF, RescriptTokenTypes.ELSE), types)
-    }
-
-    @Test
-    fun `keyword - for`() {
-        assertEquals(listOf(RescriptTokenTypes.FOR), tokenTypesNoWs("for"))
-    }
-
-    @Test
-    fun `keyword - while`() {
-        assertEquals(listOf(RescriptTokenTypes.WHILE), tokenTypesNoWs("while"))
+        assertEquals(listOf(RescriptTokenTypes.IF, RescriptTokenTypes.ELSE), tokenTypesNoWs("if else"))
     }
 
     @Test
     fun `keyword - try and catch`() {
-        val types = tokenTypesNoWs("try catch")
-        assertEquals(listOf(RescriptTokenTypes.TRY, RescriptTokenTypes.CATCH), types)
+        assertEquals(listOf(RescriptTokenTypes.TRY, RescriptTokenTypes.CATCH), tokenTypesNoWs("try catch"))
     }
 
     @Test
     fun `keyword - async and await`() {
-        val types = tokenTypesNoWs("async await")
-        assertEquals(listOf(RescriptTokenTypes.ASYNC, RescriptTokenTypes.AWAIT), types)
-    }
-
-    @Test
-    fun `keyword - rec`() {
-        assertEquals(listOf(RescriptTokenTypes.REC), tokenTypesNoWs("rec"))
-    }
-
-    @Test
-    fun `keyword - mutable`() {
-        assertEquals(listOf(RescriptTokenTypes.MUTABLE), tokenTypesNoWs("mutable"))
-    }
-
-    @Test
-    fun `keyword - lazy`() {
-        assertEquals(listOf(RescriptTokenTypes.LAZY), tokenTypesNoWs("lazy"))
-    }
-
-    @Test
-    fun `keyword - ffi`() {
-        assertEquals(listOf(RescriptTokenTypes.FFI), tokenTypesNoWs("ffi"))
-    }
-
-    @Test
-    fun `keyword - dict`() {
-        assertEquals(listOf(RescriptTokenTypes.DICT), tokenTypesNoWs("dict"))
+        assertEquals(listOf(RescriptTokenTypes.ASYNC, RescriptTokenTypes.AWAIT), tokenTypesNoWs("async await"))
     }
 
     @Test
@@ -288,26 +222,6 @@ class RescriptLexerTest {
     // ════════════════════════════════════════════════════════════════
 
     @Test
-    fun `keyword operator - mod`() {
-        assertEquals(listOf(RescriptTokenTypes.MOD), tokenTypesNoWs("mod"))
-    }
-
-    @Test
-    fun `keyword operator - land`() {
-        assertEquals(listOf(RescriptTokenTypes.LAND), tokenTypesNoWs("land"))
-    }
-
-    @Test
-    fun `keyword operator - lor`() {
-        assertEquals(listOf(RescriptTokenTypes.LOR), tokenTypesNoWs("lor"))
-    }
-
-    @Test
-    fun `keyword operator - lxor`() {
-        assertEquals(listOf(RescriptTokenTypes.LXOR), tokenTypesNoWs("lxor"))
-    }
-
-    @Test
     fun `keyword operator - lsl and lsr and asr`() {
         val types = tokenTypesNoWs("lsl lsr asr")
         assertEquals(listOf(RescriptTokenTypes.LSL, RescriptTokenTypes.LSR, RescriptTokenTypes.ASR), types)
@@ -316,26 +230,6 @@ class RescriptLexerTest {
     // ════════════════════════════════════════════════════════════════
     // Built-ins
     // ════════════════════════════════════════════════════════════════
-
-    @Test
-    fun `builtin - unit`() {
-        assertEquals(listOf(RescriptTokenTypes.UNIT), tokenTypesNoWs("unit"))
-    }
-
-    @Test
-    fun `builtin - ref`() {
-        assertEquals(listOf(RescriptTokenTypes.REF), tokenTypesNoWs("ref"))
-    }
-
-    @Test
-    fun `builtin - raise`() {
-        assertEquals(listOf(RescriptTokenTypes.RAISE), tokenTypesNoWs("raise"))
-    }
-
-    @Test
-    fun `builtin - option`() {
-        assertEquals(listOf(RescriptTokenTypes.OPTION), tokenTypesNoWs("option"))
-    }
 
     @Test
     fun `builtin - Some`() {
@@ -352,106 +246,18 @@ class RescriptLexerTest {
     }
 
     // ════════════════════════════════════════════════════════════════
-    // Integer literals
+    // Literals (parameterized)
     // ════════════════════════════════════════════════════════════════
 
-    @Test
-    fun `integer - decimal`() {
-        val tokens = tokenizeNoWs("42")
-        assertEquals(RescriptTokenTypes.INT_VALUE, tokens[0].first)
-        assertEquals("42", tokens[0].second)
-    }
-
-    @Test
-    fun `integer - hex`() {
-        val tokens = tokenizeNoWs("0xFF")
-        assertEquals(RescriptTokenTypes.INT_VALUE, tokens[0].first)
-        assertEquals("0xFF", tokens[0].second)
-    }
-
-    @Test
-    fun `integer - octal`() {
-        val tokens = tokenizeNoWs("0o77")
-        assertEquals(RescriptTokenTypes.INT_VALUE, tokens[0].first)
-        assertEquals("0o77", tokens[0].second)
-    }
-
-    @Test
-    fun `integer - binary`() {
-        val tokens = tokenizeNoWs("0b1010")
-        assertEquals(RescriptTokenTypes.INT_VALUE, tokens[0].first)
-        assertEquals("0b1010", tokens[0].second)
-    }
-
-    @Test
-    fun `integer - underscore separator`() {
-        val tokens = tokenizeNoWs("1_000_000")
-        assertEquals(RescriptTokenTypes.INT_VALUE, tokens[0].first)
-        assertEquals("1_000_000", tokens[0].second)
-    }
-
-    @Test
-    fun `integer - with literal modifier`() {
-        val tokens = tokenizeNoWs("42n")
-        assertEquals(RescriptTokenTypes.INT_VALUE, tokens[0].first)
-        assertEquals("42n", tokens[0].second)
-    }
-
-    // ════════════════════════════════════════════════════════════════
-    // Float literals
-    // ════════════════════════════════════════════════════════════════
-
-    @Test
-    fun `float - simple`() {
-        val tokens = tokenizeNoWs("3.14")
-        assertEquals(RescriptTokenTypes.FLOAT_VALUE, tokens[0].first)
-        assertEquals("3.14", tokens[0].second)
-    }
-
-    @Test
-    fun `float - exponent`() {
-        val tokens = tokenizeNoWs("1e10")
-        assertEquals(RescriptTokenTypes.FLOAT_VALUE, tokens[0].first)
-        assertEquals("1e10", tokens[0].second)
-    }
-
-    @Test
-    fun `float - negative exponent`() {
-        val tokens = tokenizeNoWs("2.5e-3")
-        assertEquals(RescriptTokenTypes.FLOAT_VALUE, tokens[0].first)
-        assertEquals("2.5e-3", tokens[0].second)
-    }
-
-    @Test
-    fun `float - hex float`() {
-        val tokens = tokenizeNoWs("0xAp3")
-        assertEquals(RescriptTokenTypes.FLOAT_VALUE, tokens[0].first)
-        assertEquals("0xAp3", tokens[0].second)
-    }
-
-    // ════════════════════════════════════════════════════════════════
-    // Character literals
-    // ════════════════════════════════════════════════════════════════
-
-    @Test
-    fun `char - simple`() {
-        val tokens = tokenizeNoWs("'a'")
-        assertEquals(RescriptTokenTypes.CHAR_VALUE, tokens[0].first)
-        assertEquals("'a'", tokens[0].second)
-    }
-
-    @Test
-    fun `char - escape newline`() {
-        val tokens = tokenizeNoWs("'\\n'")
-        assertEquals(RescriptTokenTypes.CHAR_VALUE, tokens[0].first)
-        assertEquals("'\\n'", tokens[0].second)
-    }
-
-    @Test
-    fun `char - escape hex`() {
-        val tokens = tokenizeNoWs("'\\x41'")
-        assertEquals(RescriptTokenTypes.CHAR_VALUE, tokens[0].first)
-        assertEquals("'\\x41'", tokens[0].second)
+    @ParameterizedTest(name = "literal: {0}")
+    @MethodSource("literalProvider")
+    fun `literal tokenization`(
+        input: String,
+        expectedType: IElementType,
+    ) {
+        val tokens = tokenizeNoWs(input)
+        assertEquals(expectedType, tokens[0].first)
+        assertEquals(input, tokens[0].second)
     }
 
     // ════════════════════════════════════════════════════════════════
@@ -1129,5 +935,58 @@ class RescriptLexerTest {
             badTokens.isEmpty(),
             "Should have no BAD_CHARACTER, found: ${badTokens.take(3)}",
         )
+    }
+
+    companion object {
+        @JvmStatic
+        fun singleKeywordProvider() =
+            listOf(
+                Arguments.of("let", RescriptTokenTypes.LET),
+                Arguments.of("type", RescriptTokenTypes.TYPE),
+                Arguments.of("module", RescriptTokenTypes.MODULE),
+                Arguments.of("external", RescriptTokenTypes.EXTERNAL),
+                Arguments.of("open", RescriptTokenTypes.OPEN),
+                Arguments.of("include", RescriptTokenTypes.INCLUDE),
+                Arguments.of("exception", RescriptTokenTypes.EXCEPTION),
+                Arguments.of("switch", RescriptTokenTypes.SWITCH),
+                Arguments.of("for", RescriptTokenTypes.FOR),
+                Arguments.of("while", RescriptTokenTypes.WHILE),
+                Arguments.of("rec", RescriptTokenTypes.REC),
+                Arguments.of("mutable", RescriptTokenTypes.MUTABLE),
+                Arguments.of("lazy", RescriptTokenTypes.LAZY),
+                Arguments.of("ffi", RescriptTokenTypes.FFI),
+                Arguments.of("dict", RescriptTokenTypes.DICT),
+                // Keyword operators
+                Arguments.of("mod", RescriptTokenTypes.MOD),
+                Arguments.of("land", RescriptTokenTypes.LAND),
+                Arguments.of("lor", RescriptTokenTypes.LOR),
+                Arguments.of("lxor", RescriptTokenTypes.LXOR),
+                // Built-ins
+                Arguments.of("unit", RescriptTokenTypes.UNIT),
+                Arguments.of("ref", RescriptTokenTypes.REF),
+                Arguments.of("raise", RescriptTokenTypes.RAISE),
+                Arguments.of("option", RescriptTokenTypes.OPTION),
+            )
+
+        @JvmStatic
+        fun literalProvider() =
+            listOf(
+                // Integers
+                Arguments.of("42", RescriptTokenTypes.INT_VALUE),
+                Arguments.of("0xFF", RescriptTokenTypes.INT_VALUE),
+                Arguments.of("0o77", RescriptTokenTypes.INT_VALUE),
+                Arguments.of("0b1010", RescriptTokenTypes.INT_VALUE),
+                Arguments.of("1_000_000", RescriptTokenTypes.INT_VALUE),
+                Arguments.of("42n", RescriptTokenTypes.INT_VALUE),
+                // Floats
+                Arguments.of("3.14", RescriptTokenTypes.FLOAT_VALUE),
+                Arguments.of("1e10", RescriptTokenTypes.FLOAT_VALUE),
+                Arguments.of("2.5e-3", RescriptTokenTypes.FLOAT_VALUE),
+                Arguments.of("0xAp3", RescriptTokenTypes.FLOAT_VALUE),
+                // Characters
+                Arguments.of("'a'", RescriptTokenTypes.CHAR_VALUE),
+                Arguments.of("'\\n'", RescriptTokenTypes.CHAR_VALUE),
+                Arguments.of("'\\x41'", RescriptTokenTypes.CHAR_VALUE),
+            )
     }
 }

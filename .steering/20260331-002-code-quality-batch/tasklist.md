@@ -17,8 +17,8 @@
 - [x] コミット
 
 ## T4: パラメータ化テスト導入
-- [ ] RescriptLexerTest の反復テストを @ParameterizedTest に変換
-- [ ] コミット
+- [x] RescriptLexerTest の反復テストを @ParameterizedTest に変換（37個→2パラメータ化テスト）
+- [x] コミット
 
 ## T5: Kover 除外リスト精緻化
 - [ ] テスト済みパッケージを個別クラス除外に変更
