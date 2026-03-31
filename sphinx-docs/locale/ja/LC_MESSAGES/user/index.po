@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-03-31 12:50+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -27,9 +27,7 @@ msgstr "ユーザーガイド"
 msgid ""
 "Everything you need to get started with the ReScript IntelliJ Plugin and "
 "make the most of its features."
-msgstr ""
-"ReScript IntelliJ Plugin を使い始め、その機能を最大限に活用するために"
-"必要なすべての情報を提供します。"
+msgstr "ReScript IntelliJ Plugin を使い始め、その機能を最大限に活用するために必要なすべての情報を提供します。"
 
 #: ../../user/index.md:5
 msgid "Getting Started"
@@ -39,25 +37,19 @@ msgstr "はじめに"
 msgid ""
 "[Installation](installation.md) — Install the plugin and set up the "
 "Language Server"
-msgstr ""
-"[インストール](installation.md) — プラグインのインストールと Language Server "
-"のセットアップ"
+msgstr "[インストール](installation.md) — プラグインのインストールと Language Server のセットアップ"
 
 #: ../../user/index.md:8
 msgid ""
 "[Quick Start](quickstart.md) — Your first steps with ReScript in a "
 "JetBrains IDE"
-msgstr ""
-"[クイックスタート](quickstart.md) — JetBrains IDE での ReScript の最初の"
-"ステップ"
+msgstr "[クイックスタート](quickstart.md) — JetBrains IDE での ReScript の最初のステップ"
 
 #: ../../user/index.md:9
 msgid ""
 "[ReScript Basics](rescript-basics.md) — Setting up a ReScript project "
 "from scratch"
-msgstr ""
-"[ReScript の基本](rescript-basics.md) — ReScript プロジェクトをゼロから"
-"セットアップ"
+msgstr "[ReScript の基本](rescript-basics.md) — ReScript プロジェクトをゼロからセットアップ"
 
 #: ../../user/index.md:11
 msgid "Features"
@@ -71,32 +63,25 @@ msgstr "[機能概要](features/index.md) — すべての機能を一覧で確�
 msgid ""
 "[Syntax Highlighting](features/syntax-highlighting.md) — Lexer-based and "
 "semantic highlighting"
-msgstr ""
-"[シンタックスハイライト](features/syntax-highlighting.md) — レクサーベースと"
-"セマンティックハイライト"
+msgstr "[シンタックスハイライト](features/syntax-highlighting.md) — レクサーベースとセマンティックハイライト"
 
 #: ../../user/index.md:15
 msgid ""
 "[Code Completion](features/code-completion.md) — Intelligent completions "
 "via LSP"
-msgstr ""
-"[コード補完](features/code-completion.md) — LSP によるインテリジェントな補完"
+msgstr "[コード補完](features/code-completion.md) — LSP によるインテリジェントな補完"
 
 #: ../../user/index.md:16
 msgid ""
 "[Navigation](features/navigation.md) — Go to Definition, Symbol, Related "
 "files"
-msgstr ""
-"[ナビゲーション](features/navigation.md) — 定義へ移動、シンボル検索、"
-"関連ファイル"
+msgstr "[ナビゲーション](features/navigation.md) — 定義へ移動、シンボル検索、関連ファイル"
 
 #: ../../user/index.md:17
 msgid ""
 "[Code Editing](features/code-editing.md) — Folding, formatting, "
 "intentions, surround"
-msgstr ""
-"[コード編集](features/code-editing.md) — 折りたたみ、フォーマット、"
-"インテンション、囲む"
+msgstr "[コード編集](features/code-editing.md) — 折りたたみ、フォーマット、インテンション、囲む"
 
 #: ../../user/index.md:18
 msgid "[Run & Build](features/run-build.md) — Run configurations and build status"
@@ -110,17 +95,13 @@ msgstr "[テスト](features/testing.md) — テストランナー統合（Jest/
 msgid ""
 "[Code Analysis](features/code-analysis.md) — Inspections, dead code "
 "analysis, import optimization"
-msgstr ""
-"[コード分析](features/code-analysis.md) — インスペクション、デッドコード分析、"
-"インポート最適化"
+msgstr "[コード分析](features/code-analysis.md) — インスペクション、デッドコード分析、インポート最適化"
 
 #: ../../user/index.md:21
 msgid ""
 "[Advanced Features](features/advanced.md) — Code Lens, Compiled JS "
 "Preview, Module Hierarchy"
-msgstr ""
-"[高度な機能](features/advanced.md) — Code Lens、コンパイル済み JS プレビュー、"
-"モジュール階層"
+msgstr "[高度な機能](features/advanced.md) — Code Lens、コンパイル済み JS プレビュー、モジュール階層"
 
 #: ../../user/index.md:23
 msgid "Reference"
@@ -135,10 +116,18 @@ msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference"
 msgstr "[キーボードショートカット](keyboard-shortcuts.md) — ショートカットリファレンス"
 
 #: ../../user/index.md:27
+msgid "[FAQ](faq.md) — Frequently asked questions"
+msgstr ""
+
+#: ../../user/index.md:28
 msgid "[Troubleshooting](troubleshooting.md) — Common issues and solutions"
 msgstr "[トラブルシューティング](troubleshooting.md) — よくある問題と解決方法"
 
-#: ../../user/index.md:28
+#: ../../user/index.md:29
+msgid "[Glossary](glossary.md) — Key terms and definitions"
+msgstr ""
+
+#: ../../user/index.md:30
 msgid "[Changelog](changelog.md) — Release notes"
 msgstr "[変更履歴](changelog.md) — リリースノート"
 

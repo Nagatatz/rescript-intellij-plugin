@@ -1,0 +1,217 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-31 12:50+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/faq.md:1
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: ../../user/faq.md:3
+msgid "General"
+msgstr ""
+
+#: ../../user/faq.md:5
+msgid "Which JetBrains IDEs are supported?"
+msgstr ""
+
+#: ../../user/faq.md:6
+msgid ""
+"The plugin works with any JetBrains IDE version 2025.3 or later that "
+"supports LSP, including IntelliJ IDEA (Ultimate and Community), WebStorm,"
+" CLion, PyCharm, GoLand, Rider, and others. All features are available "
+"regardless of which IDE you use."
+msgstr ""
+
+#: ../../user/faq.md:8
+msgid "Is this plugin free?"
+msgstr ""
+
+#: ../../user/faq.md:9
+msgid ""
+"Yes. The plugin is open-source under the MIT license and free to use. "
+"There are no paid tiers or premium features."
+msgstr ""
+
+#: ../../user/faq.md:11
+msgid "Does the plugin work without Node.js?"
+msgstr ""
+
+#: ../../user/faq.md:12
+#, python-brace-format
+msgid ""
+"Partially. {term}`Native features <Native Feature>` like syntax "
+"highlighting, code folding, brace matching, structure view, and file "
+"templates work without Node.js. However, {term}`LSP`-powered features "
+"(code completion, diagnostics, go to definition, hover documentation) "
+"require Node.js because the {term}`Language Server` runs on it."
+msgstr ""
+
+#: ../../user/faq.md:14
+msgid "What is the difference between native and LSP features?"
+msgstr ""
+
+#: ../../user/faq.md:15
+msgid ""
+"**Native features** are built directly into the plugin using a JFlex "
+"lexer and IntelliJ Platform APIs. They are fast, always available, and "
+"don't require external tools. **LSP features** are provided by the "
+"`@rescript/language-server` running as a background process. They offer "
+"deeper semantic understanding (type-aware completion, cross-file "
+"navigation, diagnostics) but require the Language Server to be installed "
+"and running. See [Feature Overview](features/index.md) for a complete "
+"comparison table."
+msgstr ""
+
+#: ../../user/faq.md:17
+msgid "Language Server"
+msgstr ""
+
+#: ../../user/faq.md:19
+msgid "Why did some features stop working?"
+msgstr ""
+
+#: ../../user/faq.md:20
+#, python-brace-format
+msgid ""
+"This usually means the {term}`Language Server` has stopped or cannot be "
+"found. Check the status bar at the bottom of the IDE for the ReScript "
+"build status indicator. Common causes:"
+msgstr ""
+
+#: ../../user/faq.md:21
+msgid "The `@rescript/language-server` package was removed or updated"
+msgstr ""
+
+#: ../../user/faq.md:22
+msgid "Node.js is no longer in your PATH"
+msgstr ""
+
+#: ../../user/faq.md:23
+msgid "The project was moved to a different directory"
+msgstr ""
+
+#: ../../user/faq.md:25
+msgid ""
+"Try restarting the Language Server via **Tools** → **ReScript** → "
+"**Restart LSP Server**. See [Troubleshooting](troubleshooting.md) for "
+"more solutions."
+msgstr ""
+
+#: ../../user/faq.md:27
+msgid "How do I update the Language Server?"
+msgstr ""
+
+#: ../../user/faq.md:28
+msgid "Update the npm package in your project:"
+msgstr ""
+
+#: ../../user/faq.md:32
+msgid ""
+"Then restart the IDE or use **Tools** → **ReScript** → **Restart LSP "
+"Server**. The plugin automatically detects the updated version."
+msgstr ""
+
+#: ../../user/faq.md:34
+msgid "Can I use a globally installed Language Server?"
+msgstr ""
+
+#: ../../user/faq.md:35
+msgid ""
+"Yes. If no project-local installation is found, the plugin falls back to "
+"a global installation detected via `which` (or `where` on Windows). "
+"However, local installation is recommended to ensure version consistency "
+"across team members. See [Installation](installation.md) for the full "
+"detection order."
+msgstr ""
+
+#: ../../user/faq.md:37
+msgid "Workflow"
+msgstr ""
+
+#: ../../user/faq.md:39
+msgid "Does the plugin support monorepos?"
+msgstr ""
+
+#: ../../user/faq.md:40
+msgid ""
+"Yes. The plugin searches parent directories for `node_modules/.bin"
+"/rescript-language-server`, so a Language Server installed at the "
+"monorepo root is automatically detected by projects in subdirectories. "
+"Each project should have its own `rescript.json` configuration file."
+msgstr ""
+
+#: ../../user/faq.md:42
+msgid "Why don't I see any diagnostics (errors/warnings)?"
+msgstr ""
+
+#: ../../user/faq.md:43
+#, python-brace-format
+msgid ""
+"The {term}`Language Server` requires a successful initial build to "
+"generate type information. Run the ReScript compiler at least once:"
+msgstr ""
+
+#: ../../user/faq.md:47
+msgid ""
+"After the build completes, diagnostics should appear. You can also start "
+"the build watcher from within the IDE — the plugin prompts you on project"
+" open. See [Troubleshooting — Build Errors Not "
+"Showing](troubleshooting.md#build-errors-not-showing) for more details."
+msgstr ""
+
+#: ../../user/faq.md:49
+msgid "How do I configure the plugin?"
+msgstr ""
+
+#: ../../user/faq.md:50
+msgid ""
+"Go to **Settings** → **Languages & Frameworks** → **ReScript**. You can "
+"configure the Language Server path, Node.js interpreter, inlay hints, "
+"reanalyze integration, and more. See [Configuration](configuration.md) "
+"for all available options."
+msgstr ""
+
+#: ../../user/faq.md:52
+msgid "Can I use the plugin with older ReScript versions?"
+msgstr ""
+
+#: ../../user/faq.md:53
+msgid ""
+"The plugin works with any ReScript version supported by `@rescript"
+"/language-server`. Some features (like reanalyze server mode) require "
+"ReScript 12.1.0 or later. Check the [Language Server "
+"documentation](https://github.com/rescript-lang/rescript-vscode) for "
+"version compatibility."
+msgstr ""
+
+#: ../../user/faq.md:55
+msgid "How do I report a bug or request a feature?"
+msgstr ""
+
+#: ../../user/faq.md:56
+msgid ""
+"File an issue on [GitHub](https://github.com/Nagatatz/rescript-intellij-"
+"plugin/issues). Include your IDE version, plugin version, ReScript "
+"version, and steps to reproduce. The plugin also has a built-in error "
+"reporter — if an unhandled exception occurs, it offers to open a pre-"
+"filled GitHub issue."
+msgstr ""
+

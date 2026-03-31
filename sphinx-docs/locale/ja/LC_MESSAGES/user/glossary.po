@@ -1,0 +1,391 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-31 12:50+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/glossary.md:1
+msgid "Glossary"
+msgstr ""
+
+#: ../../user/glossary.md:3
+msgid "Key terms used throughout this documentation."
+msgstr ""
+
+#: ../../user/glossary.md:5
+msgid "ReScript Language"
+msgstr ""
+
+#: ../../user/glossary.md
+msgid "Binding"
+msgstr ""
+
+#: ../../user/glossary.md:9
+msgid ""
+"A `let` declaration that associates a name with a value or function. "
+"Similar to variable declaration in other languages, but bindings are "
+"immutable by default."
+msgstr ""
+
+#: ../../user/glossary.md:3
+msgid "Module"
+msgstr ""
+
+#: ../../user/glossary.md:12
+msgid ""
+"A namespace unit in ReScript that groups related types, values, and sub-"
+"modules. Every `.res` file is implicitly a module named after the file."
+msgstr ""
+
+#: ../../user/glossary.md:6
+msgid "Interface"
+msgstr ""
+
+#: ../../user/glossary.md:15
+msgid ""
+"A `.resi` file that declares the public API of a module. Only "
+"declarations listed in the interface file are visible to other modules."
+msgstr ""
+
+#: ../../user/glossary.md:9
+msgid "Variant"
+msgstr ""
+
+#: ../../user/glossary.md:18
+msgid ""
+"An algebraic data type that can hold one of several named constructors, "
+"each optionally carrying data. For example, `type color = Red | Green | "
+"Blue`."
+msgstr ""
+
+#: ../../user/glossary.md:12
+msgid "Record"
+msgstr ""
+
+#: ../../user/glossary.md:21
+msgid ""
+"A structured data type with named fields. Fields are accessed with dot "
+"notation and are immutable by default."
+msgstr ""
+
+#: ../../user/glossary.md:15
+msgid "Pipe Operator"
+msgstr ""
+
+#: ../../user/glossary.md:24
+msgid ""
+"The `->` operator that passes the result of the left expression as the "
+"first argument to the function on the right. Enables readable left-to-"
+"right data transformation chains."
+msgstr ""
+
+#: ../../user/glossary.md:18
+msgid "Decorator"
+msgstr ""
+
+#: ../../user/glossary.md:27
+msgid ""
+"An `@` annotation that modifies the behavior of the following "
+"declaration. Examples include `@module`, `@val`, `@send`, `@genType`, and"
+" `@react.component`."
+msgstr ""
+
+#: ../../user/glossary.md:21
+msgid "External"
+msgstr ""
+
+#: ../../user/glossary.md:30
+msgid ""
+"An `external` declaration that binds a ReScript name to a JavaScript "
+"value or function. Used for FFI (Foreign Function Interface) with "
+"JavaScript."
+msgstr ""
+
+#: ../../user/glossary.md:24
+msgid "JSX"
+msgstr ""
+
+#: ../../user/glossary.md:33
+msgid ""
+"XML-like syntax used in ReScript for building React components. ReScript "
+"JSX compiles to `React.createElement` calls."
+msgstr ""
+
+#: ../../user/glossary.md:27
+msgid "Pattern Matching"
+msgstr ""
+
+#: ../../user/glossary.md:36
+msgid ""
+"A `switch` expression that destructures values and matches them against "
+"patterns. More powerful than traditional switch/case — it checks "
+"exhaustiveness at compile time."
+msgstr ""
+
+#: ../../user/glossary.md:30
+msgid "Type Inference"
+msgstr ""
+
+#: ../../user/glossary.md:39
+msgid ""
+"The compiler's ability to automatically determine the type of an "
+"expression without explicit type annotations. ReScript has complete type "
+"inference powered by the Hindley-Milner type system."
+msgstr ""
+
+#: ../../user/glossary.md:33
+msgid "PPX"
+msgstr ""
+
+#: ../../user/glossary.md:42
+msgid ""
+"A preprocessor extension that transforms the AST (Abstract Syntax Tree) "
+"at compile time. Decorators like `@react.component` and `@deriving` are "
+"implemented as PPX transformations."
+msgstr ""
+
+#: ../../user/glossary.md:36
+msgid "Open Statement"
+msgstr ""
+
+#: ../../user/glossary.md:45
+msgid ""
+"An `open` declaration that brings all exports of a module into the "
+"current scope, allowing you to use them without the module prefix."
+msgstr ""
+
+#: ../../user/glossary.md:48
+msgid "IDE Features"
+msgstr ""
+
+#: ../../user/glossary.md
+msgid "Intention Action"
+msgstr ""
+
+#: ../../user/glossary.md:52
+msgid ""
+"A context-aware code transformation available via `Alt+Enter` (or "
+"`Option+Return` on macOS). Intentions suggest improvements or "
+"refactorings based on the code at the cursor position."
+msgstr ""
+
+#: ../../user/glossary.md:3
+msgid "Live Template"
+msgstr ""
+
+#: ../../user/glossary.md:55
+msgid ""
+"A code snippet that expands from an abbreviation when you press `Tab`. "
+"For example, typing `letfn` and pressing `Tab` expands to a full function"
+" declaration."
+msgstr ""
+
+#: ../../user/glossary.md:6
+msgid "Postfix Completion"
+msgstr ""
+
+#: ../../user/glossary.md:58
+msgid ""
+"A completion triggered by typing a dot suffix after an expression. For "
+"example, `expr.switch` transforms the expression into a `switch` "
+"statement. Unlike live templates, postfix completions wrap existing code."
+msgstr ""
+
+#: ../../user/glossary.md:9
+msgid "Code Folding"
+msgstr ""
+
+#: ../../user/glossary.md:61
+msgid ""
+"The ability to collapse code blocks (modules, functions, comments) to "
+"show only their first line, making it easier to navigate large files."
+msgstr ""
+
+#: ../../user/glossary.md:12
+msgid "Structure View"
+msgstr ""
+
+#: ../../user/glossary.md:64
+msgid ""
+"A tool window (`Alt+7`) that displays a tree outline of declarations in "
+"the current file — modules, functions, types, and externals."
+msgstr ""
+
+#: ../../user/glossary.md:15
+msgid "Code Lens"
+msgstr ""
+
+#: ../../user/glossary.md:67
+msgid ""
+"Inline annotations displayed above function declarations showing their "
+"inferred type signatures. Powered by the CodeVision API."
+msgstr ""
+
+#: ../../user/glossary.md:18
+msgid "Inlay Hint"
+msgstr ""
+
+#: ../../user/glossary.md:70
+msgid ""
+"A small inline label displayed in the editor showing type information for"
+" variables and parameters. Provided by the Language Server."
+msgstr ""
+
+#: ../../user/glossary.md:21
+msgid "Code Inspection"
+msgstr ""
+
+#: ../../user/glossary.md:73
+msgid ""
+"An automated code quality check that runs in the background and "
+"highlights potential issues with warnings or suggestions. Available "
+"inspections can be configured in Settings."
+msgstr ""
+
+#: ../../user/glossary.md:24
+msgid "Quick Fix"
+msgstr ""
+
+#: ../../user/glossary.md:76
+msgid ""
+"An automatic correction for a detected issue, offered in the context menu"
+" or via `Alt+Enter`. Quick fixes are typically paired with inspections or"
+" compiler diagnostics."
+msgstr ""
+
+#: ../../user/glossary.md:27
+msgid "Surround With"
+msgstr ""
+
+#: ../../user/glossary.md:79
+#, python-brace-format
+msgid ""
+"A feature (`Ctrl+Alt+T`) that wraps selected code with a control "
+"structure such as `if`, `switch`, `try`, or a block `{}`."
+msgstr ""
+
+#: ../../user/glossary.md:30
+msgid "Run Configuration"
+msgstr ""
+
+#: ../../user/glossary.md:82
+msgid ""
+"A saved set of parameters for executing a task — such as building a "
+"ReScript project, running tests, or debugging compiled JavaScript."
+msgstr ""
+
+#: ../../user/glossary.md:33
+msgid "Error Lens"
+msgstr ""
+
+#: ../../user/glossary.md:85
+msgid ""
+"Inline diagnostic messages displayed at the end of each line in the "
+"editor, showing errors and warnings without hovering. Color-coded by "
+"severity."
+msgstr ""
+
+#: ../../user/glossary.md:88
+msgid "Plugin Architecture"
+msgstr ""
+
+#: ../../user/glossary.md
+msgid "LSP"
+msgstr ""
+
+#: ../../user/glossary.md:92
+msgid ""
+"Language Server Protocol. A standardized JSON-RPC protocol for "
+"communication between an IDE (client) and a language-specific server that"
+" provides semantic features like completion, diagnostics, and navigation."
+msgstr ""
+
+#: ../../user/glossary.md:3
+msgid "Language Server"
+msgstr ""
+
+#: ../../user/glossary.md:95
+#, python-brace-format
+msgid ""
+"The `@rescript/language-server` process that runs in the background, "
+"analyzing your ReScript project and providing semantic features to the "
+"plugin via {term}`LSP`."
+msgstr ""
+
+#: ../../user/glossary.md:6
+msgid "Native Feature"
+msgstr ""
+
+#: ../../user/glossary.md:98
+#, python-brace-format
+msgid ""
+"A feature implemented directly in the plugin using JFlex lexer and "
+"IntelliJ Platform APIs. Native features work without the {term}`Language "
+"Server` — for example, syntax highlighting, code folding, and brace "
+"matching."
+msgstr ""
+
+#: ../../user/glossary.md:9
+msgid "Semantic Token"
+msgstr ""
+
+#: ../../user/glossary.md:101
+#, python-brace-format
+msgid ""
+"A token classification provided by the {term}`Language Server` that "
+"carries semantic meaning (e.g., \"this identifier is a type\" or \"this "
+"is a namespace\"). Enables more accurate highlighting than lexer-based "
+"tokenization alone."
+msgstr ""
+
+#: ../../user/glossary.md:12
+msgid "Diagnostics"
+msgstr ""
+
+#: ../../user/glossary.md:104
+#, python-brace-format
+msgid ""
+"Errors, warnings, and informational messages reported by the "
+"{term}`Language Server` and displayed inline in the editor. Diagnostics "
+"update as you edit the code."
+msgstr ""
+
+#: ../../user/glossary.md:15
+msgid "PSI"
+msgstr ""
+
+#: ../../user/glossary.md:107
+msgid ""
+"Program Structure Interface. IntelliJ Platform's in-memory representation"
+" of source code as a tree of typed elements. The plugin's lexer and "
+"parser build PSI trees that power navigation, structure view, and "
+"refactoring."
+msgstr ""
+
+#: ../../user/glossary.md:18
+msgid "Stub Index"
+msgstr ""
+
+#: ../../user/glossary.md:110
+msgid ""
+"A persistent, file-based index of declaration signatures (names, types, "
+"modules) extracted from PSI stubs. Enables fast symbol search across the "
+"entire project without parsing every file."
+msgstr ""
+
