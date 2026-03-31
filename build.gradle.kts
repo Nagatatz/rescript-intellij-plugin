@@ -65,7 +65,7 @@ dependencies {
     uiTestImplementation("com.intellij.remoterobot:remote-robot:0.11.23")
     uiTestImplementation("com.intellij.remoterobot:remote-fixtures:0.11.23")
     uiTestImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
-    uiTestRuntimeOnly("org.junit.platform:junit-platform-launcher:2.0.3")
+    uiTestRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
 }
 
 group = providers.gradleProperty("pluginGroup").get()
