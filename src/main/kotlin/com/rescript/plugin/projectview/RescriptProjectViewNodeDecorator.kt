@@ -30,6 +30,7 @@ class RescriptProjectViewNodeDecorator : ProjectViewNodeDecorator {
                     data.locationString = "has interface"
                 }
             }
+
             file.name == RescriptPaths.RESCRIPT_JSON -> {
                 // Show ReScript version from rescript.json
                 try {

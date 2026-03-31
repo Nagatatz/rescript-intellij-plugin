@@ -116,7 +116,10 @@ class RescriptRemoveRedundantBracesIntention : PsiElementBaseIntentionAction() {
             var depth = 0
             for (i in lbraceOffset until text.length) {
                 when (text[i]) {
-                    '{' -> depth++
+                    '{' -> {
+                        depth++
+                    }
+
                     '}' -> {
                         depth--
                         if (depth == 0) return i
@@ -133,7 +136,10 @@ class RescriptRemoveRedundantBracesIntention : PsiElementBaseIntentionAction() {
             var depth = 0
             for (i in rbraceOffset downTo 0) {
                 when (text[i]) {
-                    '}' -> depth++
+                    '}' -> {
+                        depth++
+                    }
+
                     '{' -> {
                         depth--
                         if (depth == 0) return i

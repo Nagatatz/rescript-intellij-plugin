@@ -29,6 +29,7 @@ internal object RescriptJsxParser {
             RescriptTokenTypes.JSX_TAG_NAME, RescriptTokenTypes.JSX_COMPONENT_NAME -> {
                 parseJsxTagOrSelfClosing(b, m)
             }
+
             else -> {
                 m.rollbackTo()
                 false
@@ -92,6 +93,7 @@ internal object RescriptJsxParser {
                 m.done(RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT)
                 true
             }
+
             RescriptTokenTypes.TAG_GT, RescriptTokenTypes.GT -> {
                 b.advanceLexer() // consume '>'
                 parseJsxChildren(b)
@@ -99,6 +101,7 @@ internal object RescriptJsxParser {
                 m.done(RescriptElementTypes.JSX_ELEMENT)
                 true
             }
+
             else -> {
                 m.rollbackTo()
                 false
@@ -113,22 +116,31 @@ internal object RescriptJsxParser {
     private fun parseJsxChildren(b: PsiBuilder) {
         while (!b.eof()) {
             when (b.tokenType) {
-                RescriptTokenTypes.TAG_LT_SLASH -> return // closing tag starts
+                RescriptTokenTypes.TAG_LT_SLASH -> {
+                    return
+                }
+
+                // closing tag starts
                 RescriptTokenTypes.TAG_LT -> {
                     if (!tryParseJsx(b)) {
                         b.advanceLexer() // skip if not valid JSX
                     }
                 }
+
                 RescriptTokenTypes.LT -> {
                     // Nested fragment: <> ... </>
                     if (!tryParseJsxFragment(b)) {
                         b.advanceLexer()
                     }
                 }
+
                 RescriptTokenTypes.LBRACE -> {
                     RescriptParser.skipBalanced(b, RescriptTokenTypes.LBRACE, RescriptTokenTypes.RBRACE)
                 }
-                else -> b.advanceLexer()
+
+                else -> {
+                    b.advanceLexer()
+                }
             }
         }
     }
@@ -137,11 +149,17 @@ internal object RescriptJsxParser {
     private fun skipJsxAttributes(b: PsiBuilder) {
         while (!b.eof()) {
             when (b.tokenType) {
-                RescriptTokenTypes.TAG_GT, RescriptTokenTypes.GT, RescriptTokenTypes.TAG_AUTO_CLOSE -> return
+                RescriptTokenTypes.TAG_GT, RescriptTokenTypes.GT, RescriptTokenTypes.TAG_AUTO_CLOSE -> {
+                    return
+                }
+
                 RescriptTokenTypes.LBRACE -> {
                     RescriptParser.skipBalanced(b, RescriptTokenTypes.LBRACE, RescriptTokenTypes.RBRACE)
                 }
-                else -> b.advanceLexer()
+
+                else -> {
+                    b.advanceLexer()
+                }
             }
         }
     }

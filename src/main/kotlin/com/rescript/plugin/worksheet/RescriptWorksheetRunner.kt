@@ -165,7 +165,10 @@ class RescriptWorksheetRunner(
                             depth++
                             foundOpener = true
                         }
-                        '}', ')' -> depth--
+
+                        '}', ')' -> {
+                            depth--
+                        }
                     }
                 }
 

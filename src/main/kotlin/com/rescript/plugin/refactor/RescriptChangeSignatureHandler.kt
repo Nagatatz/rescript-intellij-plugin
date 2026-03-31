@@ -196,10 +196,12 @@ class RescriptChangeSignatureHandler : RefactoringActionHandler {
                         depth++
                         current.append(ch)
                     }
+
                     ')', '>', '}', ']' -> {
                         depth--
                         current.append(ch)
                     }
+
                     ',' -> {
                         if (depth == 0) {
                             parts.add(current.toString())
@@ -208,7 +210,10 @@ class RescriptChangeSignatureHandler : RefactoringActionHandler {
                             current.append(ch)
                         }
                     }
-                    else -> current.append(ch)
+
+                    else -> {
+                        current.append(ch)
+                    }
                 }
             }
 

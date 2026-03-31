@@ -102,9 +102,18 @@ class RescriptOffsetUtilsTest {
             arrayOf(Document::class.java),
         ) { _, method, args ->
             when (method.name) {
-                "getText" -> text
-                "getTextLength" -> text.length
-                "getLineCount" -> lineCount
+                "getText" -> {
+                    text
+                }
+
+                "getTextLength" -> {
+                    text.length
+                }
+
+                "getLineCount" -> {
+                    lineCount
+                }
+
                 "getLineNumber" -> {
                     val offset = args[0] as Int
                     // Find the line containing this offset
@@ -118,14 +127,27 @@ class RescriptOffsetUtilsTest {
                     }
                     line
                 }
+
                 "getLineStartOffset" -> {
                     val line = args[0] as Int
                     lineStarts[line]
                 }
-                "toString" -> "StubDocument(${text.take(20)}...)"
-                "hashCode" -> text.hashCode()
-                "equals" -> false
-                else -> null
+
+                "toString" -> {
+                    "StubDocument(${text.take(20)}...)"
+                }
+
+                "hashCode" -> {
+                    text.hashCode()
+                }
+
+                "equals" -> {
+                    false
+                }
+
+                else -> {
+                    null
+                }
             }
         } as Document
     }

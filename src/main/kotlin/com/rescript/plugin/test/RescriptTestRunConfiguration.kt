@@ -128,6 +128,7 @@ class RescriptTestRunConfiguration(
                 args.add("--reporters=default")
                 args.add("--reporters=jest-teamcity")
             }
+
             TestFramework.VITEST -> {
                 val localBin = resolveFromNodeModules(workDir, "vitest")
                 if (localBin != null) {
@@ -140,6 +141,7 @@ class RescriptTestRunConfiguration(
                 args.add("--reporter=default")
                 args.add("--reporter=teamcity")
             }
+
             TestFramework.CUSTOM -> {
                 // Custom framework: user provides full command via additional arguments.
                 // Validated below after processing additionalArguments.

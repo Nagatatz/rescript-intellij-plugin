@@ -37,10 +37,12 @@ class RescriptNameSuggestionProvider : NameSuggestionProvider {
                 result.add(currentName)
                 result.add("my$currentName")
             }
+
             RescriptElementTypes.TYPE_DECLARATION -> {
                 result.add(currentName)
                 result.add("${currentName}Type")
             }
+
             RescriptElementTypes.LET_DECLARATION -> {
                 result.add(currentName)
                 // Suggest camelCase variations
@@ -48,12 +50,14 @@ class RescriptNameSuggestionProvider : NameSuggestionProvider {
                     result.add(snakeToCamelCase(currentName))
                 }
             }
+
             RescriptElementTypes.EXCEPTION_DECLARATION -> {
                 result.add(currentName)
                 if (!currentName.endsWith("Error")) {
                     result.add("${currentName}Error")
                 }
             }
+
             else -> {
                 result.add(currentName)
             }

@@ -176,6 +176,7 @@ class RescriptProjectWizardStep(
                     background = list?.background ?: background
                     foreground = list?.foreground ?: foreground
                 }
+
                 is ProjectTemplate -> {
                     text = value.displayName
                     font = font.deriveFont(java.awt.Font.PLAIN)

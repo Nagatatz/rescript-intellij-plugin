@@ -60,6 +60,7 @@ object RescriptReanalyzeHealthChecker {
                     HealthCheckAction.MAX_RESTARTS_REACHED
                 }
             }
+
             RescriptReanalyzeServerService.ServerState.EXTERNAL -> {
                 if (isSocketPresent) {
                     HealthCheckAction.HEALTHY
@@ -67,6 +68,9 @@ object RescriptReanalyzeHealthChecker {
                     HealthCheckAction.EXTERNAL_LOST
                 }
             }
-            else -> HealthCheckAction.NO_CHECK_NEEDED
+
+            else -> {
+                HealthCheckAction.NO_CHECK_NEEDED
+            }
         }
 }

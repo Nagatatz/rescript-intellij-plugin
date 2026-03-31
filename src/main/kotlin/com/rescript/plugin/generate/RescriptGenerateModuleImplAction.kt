@@ -183,6 +183,7 @@ class RescriptGenerateModuleImplAction :
                             val impl = generateLetImpl(decl.typeAnnotation)
                             appendLine("  let ${decl.name}$impl")
                         }
+
                         "type" -> {
                             if (decl.typeAnnotation.isEmpty()) {
                                 appendLine("  type ${decl.name} = unit")
@@ -190,6 +191,7 @@ class RescriptGenerateModuleImplAction :
                                 appendLine("  type ${decl.name}${decl.typeAnnotation}")
                             }
                         }
+
                         "module" -> {
                             appendLine("  module ${decl.name} = {")
                             appendLine("  }")

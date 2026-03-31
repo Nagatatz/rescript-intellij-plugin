@@ -188,6 +188,7 @@ class RescriptCommentSelectionHandler : ExtendWordSelectionHandler {
                 }
                 ranges.add(range)
             }
+
             RescriptTokenTypes.MULTI_COMMENT -> {
                 // Select content inside /* */ (without delimiters)
                 val startLen = if (text.startsWith("/**")) 3 else 2

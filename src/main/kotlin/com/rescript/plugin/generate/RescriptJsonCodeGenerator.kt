@@ -125,10 +125,12 @@ object RescriptJsonCodeGenerator {
                     depth++
                     current.append(ch)
                 }
+
                 '>' -> {
                     depth--
                     current.append(ch)
                 }
+
                 ',' -> {
                     if (depth == 0) {
                         result.add(current.toString().trim())
@@ -137,7 +139,10 @@ object RescriptJsonCodeGenerator {
                         current.append(ch)
                     }
                 }
-                else -> current.append(ch)
+
+                else -> {
+                    current.append(ch)
+                }
             }
         }
 

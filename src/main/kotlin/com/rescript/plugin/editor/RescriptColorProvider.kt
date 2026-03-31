@@ -59,12 +59,14 @@ class RescriptColorProvider : ElementColorProvider {
                 val b = hex[2].digitToInt(16) * 17
                 Color(r, g, b)
             }
+
             6 -> {
                 val r = hex.substring(0, 2).toInt(16)
                 val g = hex.substring(2, 4).toInt(16)
                 val b = hex.substring(4, 6).toInt(16)
                 Color(r, g, b)
             }
+
             8 -> {
                 val r = hex.substring(0, 2).toInt(16)
                 val g = hex.substring(2, 4).toInt(16)
@@ -72,7 +74,10 @@ class RescriptColorProvider : ElementColorProvider {
                 val a = hex.substring(6, 8).toInt(16)
                 Color(r, g, b, a)
             }
-            else -> null
+
+            else -> {
+                null
+            }
         }
     }
 

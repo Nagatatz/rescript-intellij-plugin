@@ -205,35 +205,38 @@ class RescriptTestCreator : TestCreator {
         framework: TestFramework?,
     ): String =
         when (framework) {
-            TestFramework.VITEST ->
+            TestFramework.VITEST -> {
                 """
-                |open Vitest
-                |
-                |describe("$moduleName", () => {
-                |  test("should work", () => {
-                |    expect(true)->toBe(true)
-                |  })
-                |})
-                """.trimMargin()
+open Vitest
 
-            TestFramework.JEST ->
-                """
-                |open Jest
-                |
-                |describe("$moduleName", () => {
-                |  test("should work", () => {
-                |    expect(true)->toBe(true)
-                |  })
-                |})
+describe("$moduleName", () => {
+  test("should work", () => {
+    expect(true)->toBe(true)
+  })
+})
                 """.trimMargin()
+            }
 
-            else ->
+            TestFramework.JEST -> {
                 """
-                |// Test for $moduleName
-                |
-                |let () = {
-                |  Js.log("$moduleName tests")
-                |}
+open Jest
+
+describe("$moduleName", () => {
+  test("should work", () => {
+    expect(true)->toBe(true)
+  })
+})
                 """.trimMargin()
+            }
+
+            else -> {
+                """
+// Test for $moduleName
+
+let () = {
+  Js.log("$moduleName tests")
+}
+                """.trimMargin()
+            }
         }
 }

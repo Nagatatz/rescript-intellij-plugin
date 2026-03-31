@@ -57,12 +57,14 @@ object RescriptDependencyAnalyzer {
                         references.add(ModuleReference(path, ReferenceKind.OPEN, child))
                     }
                 }
+
                 RescriptElementTypes.INCLUDE_STATEMENT -> {
                     val path = extractModulePath(child)
                     if (path.isNotEmpty()) {
                         references.add(ModuleReference(path, ReferenceKind.INCLUDE, child))
                     }
                 }
+
                 RescriptElementTypes.MODULE_DECLARATION -> {
                     // Recurse into nested modules
                     collectReferences(child, references)

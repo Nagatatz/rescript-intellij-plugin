@@ -36,7 +36,10 @@ object RescriptBraceBalanceUtil {
         var i = openIndex
         while (i < text.length) {
             when (text[i]) {
-                openChar -> depth++
+                openChar -> {
+                    depth++
+                }
+
                 closeChar -> {
                     depth--
                     if (depth == 0) return i

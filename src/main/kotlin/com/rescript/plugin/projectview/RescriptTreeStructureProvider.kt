@@ -34,6 +34,7 @@ class RescriptTreeStructureProvider : TreeStructureProvider {
                     val baseName = name.removeSuffix(".res")
                     resNodes[baseName] = child
                 }
+
                 RescriptFileUtil.isResiFileName(name) -> {
                     val baseName = name.removeSuffix(".resi")
                     resiNodes[baseName] = child

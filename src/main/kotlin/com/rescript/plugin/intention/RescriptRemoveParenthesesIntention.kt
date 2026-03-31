@@ -77,7 +77,10 @@ class RescriptRemoveParenthesesIntention : PsiElementBaseIntentionAction() {
             var openParen = -1
             for (i in offset - 1 downTo 0) {
                 when (text[i]) {
-                    ')' -> depth++
+                    ')' -> {
+                        depth++
+                    }
+
                     '(' -> {
                         if (depth == 0) {
                             openParen = i
@@ -93,7 +96,10 @@ class RescriptRemoveParenthesesIntention : PsiElementBaseIntentionAction() {
             depth = 0
             for (i in openParen until text.length) {
                 when (text[i]) {
-                    '(' -> depth++
+                    '(' -> {
+                        depth++
+                    }
+
                     ')' -> {
                         depth--
                         if (depth == 0) {
@@ -163,8 +169,14 @@ class RescriptRemoveParenthesesIntention : PsiElementBaseIntentionAction() {
             var i = 0
             while (i < text.length) {
                 when (text[i]) {
-                    '(', '[', '{' -> depth++
-                    ')', ']', '}' -> depth--
+                    '(', '[', '{' -> {
+                        depth++
+                    }
+
+                    ')', ']', '}' -> {
+                        depth--
+                    }
+
                     '+', '-', '*', '/' -> {
                         if (depth == 0 && i > 0 && i < text.length - 1) {
                             // Check it's a binary operator by looking at the non-whitespace char before
@@ -177,18 +189,21 @@ class RescriptRemoveParenthesesIntention : PsiElementBaseIntentionAction() {
                             }
                         }
                     }
+
                     '=' -> {
                         // Check for == comparison
                         if (depth == 0 && i + 1 < text.length && text[i + 1] == '=') {
                             return true
                         }
                     }
+
                     '|' -> {
                         // Check for || logical or
                         if (depth == 0 && i + 1 < text.length && text[i + 1] == '|') {
                             return true
                         }
                     }
+
                     '&' -> {
                         // Check for && logical and
                         if (depth == 0 && i + 1 < text.length && text[i + 1] == '&') {

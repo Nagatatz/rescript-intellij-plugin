@@ -125,7 +125,10 @@ object RescriptLspSignatureParser {
         var depth = 0
         for (i in start until text.length) {
             when (text[i]) {
-                '(' -> depth++
+                '(' -> {
+                    depth++
+                }
+
                 ')' -> {
                     depth--
                     if (depth == 0) {
@@ -149,10 +152,12 @@ object RescriptLspSignatureParser {
                     depth++
                     current.append(ch)
                 }
+
                 ')', '>', '}', ']' -> {
                     depth--
                     current.append(ch)
                 }
+
                 ',' -> {
                     if (depth == 0) {
                         parts.add(current.toString())
@@ -161,7 +166,10 @@ object RescriptLspSignatureParser {
                         current.append(ch)
                     }
                 }
-                else -> current.append(ch)
+
+                else -> {
+                    current.append(ch)
+                }
             }
         }
 

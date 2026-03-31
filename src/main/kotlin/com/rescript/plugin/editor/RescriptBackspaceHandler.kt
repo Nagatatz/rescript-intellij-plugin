@@ -85,8 +85,14 @@ class RescriptBackspaceHandler : BackspaceHandlerDelegate() {
                         return name
                     }
                 }
-                '{' -> depth++
-                '}' -> depth--
+
+                '{' -> {
+                    depth++
+                }
+
+                '}' -> {
+                    depth--
+                }
             }
             i--
         }

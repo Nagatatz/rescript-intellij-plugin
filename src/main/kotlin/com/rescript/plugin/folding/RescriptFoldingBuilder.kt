@@ -76,14 +76,26 @@ open class RescriptFoldingBuilder : CustomFoldingBuilder() {
         range: TextRange,
     ): String? =
         when (node.elementType) {
-            RescriptTokenTypes.MULTI_COMMENT -> "/* ... */"
-            RescriptElementTypes.MODULE_DECLARATION -> "module ... { ... }"
+            RescriptTokenTypes.MULTI_COMMENT -> {
+                "/* ... */"
+            }
+
+            RescriptElementTypes.MODULE_DECLARATION -> {
+                "module ... { ... }"
+            }
+
             RescriptElementTypes.JSX_ELEMENT -> {
                 val tagName = extractJsxTagName(node)
                 "<$tagName>...</$tagName>"
             }
-            RescriptElementTypes.JSX_FRAGMENT -> "<>...</>"
-            else -> "{...}"
+
+            RescriptElementTypes.JSX_FRAGMENT -> {
+                "<>...</>"
+            }
+
+            else -> {
+                "{...}"
+            }
         }
 
     private fun extractJsxTagName(node: ASTNode): String {
@@ -93,11 +105,16 @@ open class RescriptFoldingBuilder : CustomFoldingBuilder() {
         while (child != null) {
             when (child.elementType) {
                 RescriptTokenTypes.TAG_LT -> { /* skip */ }
+
                 RescriptTokenTypes.JSX_TAG_NAME, RescriptTokenTypes.JSX_COMPONENT_NAME -> {
                     parts.add(child.text)
                 }
+
                 RescriptTokenTypes.DOT -> { /* skip, will be added as separator */ }
-                else -> break
+
+                else -> {
+                    break
+                }
             }
             child = child.treeNext
         }

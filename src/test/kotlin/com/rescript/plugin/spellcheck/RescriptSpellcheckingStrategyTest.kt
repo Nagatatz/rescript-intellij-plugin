@@ -18,7 +18,7 @@ class RescriptSpellcheckingStrategyTest {
             arrayOf(PsiElement::class.java),
         ) { _, method, _ ->
             when (method.name) {
-                "getNode" ->
+                "getNode" -> {
                     java.lang.reflect.Proxy.newProxyInstance(
                         ASTNode::class.java.classLoader,
                         arrayOf(ASTNode::class.java),
@@ -31,11 +31,23 @@ class RescriptSpellcheckingStrategyTest {
                             else -> null
                         }
                     } as ASTNode
+                }
 
-                "toString" -> "StubPsiElement($type)"
-                "hashCode" -> type.hashCode()
-                "equals" -> false
-                else -> null
+                "toString" -> {
+                    "StubPsiElement($type)"
+                }
+
+                "hashCode" -> {
+                    type.hashCode()
+                }
+
+                "equals" -> {
+                    false
+                }
+
+                else -> {
+                    null
+                }
             }
         } as PsiElement
 

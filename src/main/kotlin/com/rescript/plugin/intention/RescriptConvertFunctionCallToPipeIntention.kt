@@ -109,8 +109,14 @@ class RescriptConvertFunctionCallToPipeIntention : PsiElementBaseIntentionAction
 
             for (i in args.indices) {
                 when (args[i]) {
-                    '(' -> depth++
-                    ')' -> depth--
+                    '(' -> {
+                        depth++
+                    }
+
+                    ')' -> {
+                        depth--
+                    }
+
                     ',' -> {
                         if (depth == 0) {
                             result.add(args.substring(start, i))

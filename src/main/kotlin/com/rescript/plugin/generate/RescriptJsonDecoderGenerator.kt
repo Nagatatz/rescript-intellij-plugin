@@ -47,6 +47,7 @@ internal object RescriptJsonDecoderGenerator {
                     "        switch v { | Null => Some(None) | _ => $innerDecode->Option.map(v => Some(v)) }\n" +
                     "      )"
             }
+
             else -> {
                 val decode = decodeInlineExpression(jsonType)
                 "let $fieldName = $baseExpr->Option.flatMap(v =>\n" +
@@ -64,18 +65,27 @@ internal object RescriptJsonDecoderGenerator {
      */
     fun decodeInlineExpression(jsonType: RescriptJsonType): String =
         when (jsonType) {
-            is RescriptJsonType.StringType ->
+            is RescriptJsonType.StringType -> {
                 "switch v { | String(v) => Some(v) | _ => None }"
-            is RescriptJsonType.IntType ->
+            }
+
+            is RescriptJsonType.IntType -> {
                 "switch v { | Number(v) => Some(v->Int.fromFloat) | _ => None }"
-            is RescriptJsonType.FloatType ->
+            }
+
+            is RescriptJsonType.FloatType -> {
                 "switch v { | Number(v) => Some(v) | _ => None }"
-            is RescriptJsonType.BoolType ->
+            }
+
+            is RescriptJsonType.BoolType -> {
                 "switch v { | Boolean(v) => Some(v) | _ => None }"
+            }
+
             is RescriptJsonType.OptionType -> {
                 val innerDecode = decodeInlineExpression(jsonType.inner)
                 "switch v { | Null => Some(None) | _ => ($innerDecode)->Option.map(v => Some(v)) }"
             }
+
             is RescriptJsonType.ArrayType -> {
                 val innerDecode = decodeInlineExpression(jsonType.inner)
                 "switch v {\n" +
@@ -89,8 +99,10 @@ internal object RescriptJsonDecoderGenerator {
                     "          | _ => None\n" +
                     "        }"
             }
-            is RescriptJsonType.UnknownType ->
+
+            is RescriptJsonType.UnknownType -> {
                 "/* TODO: decode ${jsonType.raw} */ None"
+            }
         }
 
     // --- Record decoder ---

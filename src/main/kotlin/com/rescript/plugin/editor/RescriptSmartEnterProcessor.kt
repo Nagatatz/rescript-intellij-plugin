@@ -61,7 +61,9 @@ class RescriptSmartEnterProcessor : SmartEnterProcessor() {
                 return true
             }
 
-            else -> return false
+            else -> {
+                return false
+            }
         }
     }
 
@@ -89,18 +91,42 @@ class RescriptSmartEnterProcessor : SmartEnterProcessor() {
             val type = lexer.tokenType ?: break
 
             when (type) {
-                T.SWITCH -> hasSwitch = true
+                T.SWITCH -> {
+                    hasSwitch = true
+                }
+
                 T.LBRACE -> {
                     hasLBrace = true
                     braceBalance++
                 }
-                T.RBRACE -> braceBalance--
-                T.LPAREN -> parenBalance++
-                T.RPAREN -> parenBalance--
-                T.LBRACKET -> bracketBalance++
-                T.RBRACKET -> bracketBalance--
-                T.PIPE -> hasPipe = true
-                T.ARROW -> hasArrow = true
+
+                T.RBRACE -> {
+                    braceBalance--
+                }
+
+                T.LPAREN -> {
+                    parenBalance++
+                }
+
+                T.RPAREN -> {
+                    parenBalance--
+                }
+
+                T.LBRACKET -> {
+                    bracketBalance++
+                }
+
+                T.RBRACKET -> {
+                    bracketBalance--
+                }
+
+                T.PIPE -> {
+                    hasPipe = true
+                }
+
+                T.ARROW -> {
+                    hasArrow = true
+                }
             }
 
             lexer.advance()

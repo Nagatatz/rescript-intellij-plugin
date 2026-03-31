@@ -39,19 +39,35 @@ internal object RescriptJsonEncoderGenerator {
         expr: String,
     ): String =
         when (jsonType) {
-            is RescriptJsonType.StringType -> "String($expr)"
-            is RescriptJsonType.IntType -> "Number($expr->Int.toFloat)"
-            is RescriptJsonType.FloatType -> "Number($expr)"
-            is RescriptJsonType.BoolType -> "Boolean($expr)"
+            is RescriptJsonType.StringType -> {
+                "String($expr)"
+            }
+
+            is RescriptJsonType.IntType -> {
+                "Number($expr->Int.toFloat)"
+            }
+
+            is RescriptJsonType.FloatType -> {
+                "Number($expr)"
+            }
+
+            is RescriptJsonType.BoolType -> {
+                "Boolean($expr)"
+            }
+
             is RescriptJsonType.OptionType -> {
                 val innerEncode = encodeExpression(jsonType.inner, "v")
                 "$expr->Option.mapOr(Null, v => $innerEncode)"
             }
+
             is RescriptJsonType.ArrayType -> {
                 val innerEncode = encodeExpression(jsonType.inner, "v")
                 "Array($expr->Array.map(v => $innerEncode))"
             }
-            is RescriptJsonType.UnknownType -> "/* TODO: encode ${jsonType.raw} */ Null"
+
+            is RescriptJsonType.UnknownType -> {
+                "/* TODO: encode ${jsonType.raw} */ Null"
+            }
         }
 
     // --- Record encoder ---

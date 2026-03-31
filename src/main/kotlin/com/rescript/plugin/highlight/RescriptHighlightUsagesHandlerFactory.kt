@@ -111,10 +111,12 @@ internal class RescriptKeywordHighlightHandler(
                         braceDepth++
                     }
                 }
+
                 T.RBRACE -> {
                     if (foundBrace && braceDepth == 0) break
                     braceDepth--
                 }
+
                 T.PIPE -> {
                     if (foundBrace && braceDepth == 0) {
                         ranges.add(current.textRange)
@@ -138,7 +140,10 @@ internal class RescriptKeywordHighlightHandler(
         while (current != null) {
             val type = current.node?.elementType
             when (type) {
-                T.LBRACE -> braceDepth++
+                T.LBRACE -> {
+                    braceDepth++
+                }
+
                 T.RBRACE -> {
                     braceDepth--
                     if (braceDepth <= 0) {
@@ -174,8 +179,14 @@ internal class RescriptKeywordHighlightHandler(
         while (current != null) {
             val type = current.node?.elementType
             when (type) {
-                T.LBRACE -> braceDepth++
-                T.RBRACE -> braceDepth--
+                T.LBRACE -> {
+                    braceDepth++
+                }
+
+                T.RBRACE -> {
+                    braceDepth--
+                }
+
                 T.CATCH -> {
                     if (braceDepth <= 0) {
                         ranges.add(current.textRange)
@@ -198,7 +209,10 @@ internal class RescriptKeywordHighlightHandler(
         while (current != null) {
             val type = current.node?.elementType
             when (type) {
-                T.RBRACE -> braceDepth++
+                T.RBRACE -> {
+                    braceDepth++
+                }
+
                 T.LBRACE -> {
                     if (braceDepth == 0) {
                         // Found the opening brace, look for switch before it
@@ -232,8 +246,14 @@ internal class RescriptKeywordHighlightHandler(
         while (current != null) {
             val type = current.node?.elementType
             when (type) {
-                T.RBRACE -> braceDepth++
-                T.LBRACE -> braceDepth--
+                T.RBRACE -> {
+                    braceDepth++
+                }
+
+                T.LBRACE -> {
+                    braceDepth--
+                }
+
                 T.TRY -> {
                     if (braceDepth <= 0) {
                         return collectTryRelated(current)
@@ -254,8 +274,14 @@ internal class RescriptKeywordHighlightHandler(
         while (current != null) {
             val type = current.node?.elementType
             when (type) {
-                T.RBRACE -> braceDepth++
-                T.LBRACE -> braceDepth--
+                T.RBRACE -> {
+                    braceDepth++
+                }
+
+                T.LBRACE -> {
+                    braceDepth--
+                }
+
                 T.IF -> {
                     if (braceDepth <= 0) {
                         return collectIfRelated(current)

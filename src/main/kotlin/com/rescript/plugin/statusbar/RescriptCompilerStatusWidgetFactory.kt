@@ -74,23 +74,39 @@ class RescriptCompilerStatusWidgetFactory : StatusBarWidgetFactory {
         companion object {
             fun formatText(status: CompilationStatus): String =
                 when (status.status) {
-                    "compiling" -> "ReScript: Compiling..."
-                    "success" -> "ReScript: \u2713"
+                    "compiling" -> {
+                        "ReScript: Compiling..."
+                    }
+
+                    "success" -> {
+                        "ReScript: \u2713"
+                    }
+
                     "error" -> {
                         val n = status.errorCount
                         "ReScript: $n error${if (n != 1) "s" else ""}"
                     }
+
                     "warning" -> {
                         val n = status.warningCount
                         "ReScript: $n warning${if (n != 1) "s" else ""}"
                     }
-                    else -> "ReScript"
+
+                    else -> {
+                        "ReScript"
+                    }
                 }
 
             fun formatTooltip(status: CompilationStatus): String =
                 when (status.status) {
-                    "compiling" -> "ReScript compiler is running..."
-                    "success" -> "ReScript compilation succeeded"
+                    "compiling" -> {
+                        "ReScript compiler is running..."
+                    }
+
+                    "success" -> {
+                        "ReScript compilation succeeded"
+                    }
+
                     "error" -> {
                         val parts = mutableListOf<String>()
                         if (status.errorCount >
@@ -105,11 +121,15 @@ class RescriptCompilerStatusWidgetFactory : StatusBarWidgetFactory {
                         }
                         "ReScript compilation failed: ${parts.joinToString(", ")}"
                     }
+
                     "warning" -> {
                         val n = status.warningCount
                         "ReScript compilation completed with $n warning${if (n != 1) "s" else ""}"
                     }
-                    else -> "ReScript compiler status unknown"
+
+                    else -> {
+                        "ReScript compiler status unknown"
+                    }
                 }
         }
     }

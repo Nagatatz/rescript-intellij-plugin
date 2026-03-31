@@ -102,15 +102,24 @@ class RescriptGenerateRecordValueAction :
             val trimmed = typeAnnotation.trim()
             return when {
                 trimmed == "string" -> "\"\""
+
                 trimmed == "int" -> "0"
+
                 trimmed == "float" -> "0.0"
+
                 trimmed == "bool" -> "false"
+
                 trimmed.startsWith("option") -> "None"
+
                 trimmed.startsWith("array") -> "[]"
+
                 trimmed.startsWith("list") -> "list{}"
+
                 trimmed == "unit" -> "()"
+
                 // Function types: (...) => ...
                 trimmed.contains("=>") -> "_ => todo"
+
                 else -> "todo"
             }
         }

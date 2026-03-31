@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.intellij.platform") version "2.13.1"
     id("org.jetbrains.grammarkit") version "2023.3.0.3"
     id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
-    id("org.jetbrains.kotlinx.kover") version "0.9.7"
+    id("org.jetbrains.kotlinx.kover") version "0.9.8"
 }
 
 repositories {
@@ -88,7 +88,7 @@ intellijPlatform {
 }
 
 ktlint {
-    version.set("1.6.0")
+    version.set("1.8.0")
     android.set(false)
     outputToConsole.set(true)
     ignoreFailures.set(false)

@@ -73,11 +73,17 @@ class RescriptPasteAsJsonAction : AnAction() {
 
         fun convertJsonToRescript(element: com.google.gson.JsonElement): String =
             when {
-                element.isJsonNull -> "JSON.Null"
+                element.isJsonNull -> {
+                    "JSON.Null"
+                }
+
                 element.isJsonPrimitive -> {
                     val prim = element.asJsonPrimitive
                     when {
-                        prim.isBoolean -> "JSON.Boolean(${prim.asBoolean})"
+                        prim.isBoolean -> {
+                            "JSON.Boolean(${prim.asBoolean})"
+                        }
+
                         prim.isNumber -> {
                             val num = prim.asDouble
                             val formatted =
@@ -88,14 +94,22 @@ class RescriptPasteAsJsonAction : AnAction() {
                                 }
                             "JSON.Number($formatted)"
                         }
-                        prim.isString -> "JSON.String(\"${escapeString(prim.asString)}\")"
-                        else -> "JSON.Null"
+
+                        prim.isString -> {
+                            "JSON.String(\"${escapeString(prim.asString)}\")"
+                        }
+
+                        else -> {
+                            "JSON.Null"
+                        }
                     }
                 }
+
                 element.isJsonArray -> {
                     val items = element.asJsonArray.joinToString(", ") { convertJsonToRescript(it) }
                     "JSON.Array([$items])"
                 }
+
                 element.isJsonObject -> {
                     val entries =
                         element.asJsonObject.entrySet().joinToString(", ") { (key, value) ->
@@ -103,7 +117,10 @@ class RescriptPasteAsJsonAction : AnAction() {
                         }
                     "JSON.Object(dict{$entries})"
                 }
-                else -> "JSON.Null"
+
+                else -> {
+                    "JSON.Null"
+                }
             }
 
         private fun escapeString(s: String): String =

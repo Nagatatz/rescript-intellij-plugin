@@ -37,22 +37,28 @@ class RescriptFixIdentifierCaseIntention : PsiElementBaseIntentionAction() {
 
         return when (tokenType) {
             // Lowercase identifier in a module declaration -> should be PascalCase
-            RescriptTokenTypes.LIDENT ->
+            RescriptTokenTypes.LIDENT -> {
                 if (isInsideModuleDeclaration(element)) {
                     actionText = "Convert to PascalCase"
                     true
                 } else {
                     false
                 }
+            }
+
             // Uppercase identifier in a let declaration -> should be camelCase
-            RescriptTokenTypes.UIDENT ->
+            RescriptTokenTypes.UIDENT -> {
                 if (isInsideLetDeclaration(element)) {
                     actionText = "Convert to camelCase"
                     true
                 } else {
                     false
                 }
-            else -> false
+            }
+
+            else -> {
+                false
+            }
         }
     }
 

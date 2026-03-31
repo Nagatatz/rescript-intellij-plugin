@@ -103,7 +103,10 @@ object RescriptJsonTypeClassifier {
         var depth = 0
         for (ch in inner) {
             when (ch) {
-                '<' -> depth++
+                '<' -> {
+                    depth++
+                }
+
                 '>' -> {
                     depth--
                     if (depth < 0) return null

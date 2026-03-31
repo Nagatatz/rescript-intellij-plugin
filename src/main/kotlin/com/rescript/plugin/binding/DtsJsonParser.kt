@@ -29,17 +29,50 @@ object DtsJsonParser {
         ): DtsJsonModel.DtsType {
             val obj = json.asJsonObject
             return when (obj.get("kind")?.asString) {
-                "primitive" -> context.deserialize(json, DtsJsonModel.PrimitiveType::class.java)
-                "reference" -> context.deserialize(json, DtsJsonModel.ReferenceType::class.java)
-                "array" -> context.deserialize(json, DtsJsonModel.ArrayType::class.java)
-                "tuple" -> context.deserialize(json, DtsJsonModel.TupleType::class.java)
-                "function" -> context.deserialize(json, DtsJsonModel.FunctionType::class.java)
-                "union" -> context.deserialize(json, DtsJsonModel.UnionType::class.java)
-                "intersection" -> context.deserialize(json, DtsJsonModel.IntersectionType::class.java)
-                "objectLiteral" -> context.deserialize(json, DtsJsonModel.ObjectLiteralType::class.java)
-                "stringLiteral" -> context.deserialize(json, DtsJsonModel.StringLiteralType::class.java)
-                "numericLiteral" -> context.deserialize(json, DtsJsonModel.NumericLiteralType::class.java)
-                "indexSignature" -> context.deserialize(json, DtsJsonModel.IndexSignatureType::class.java)
+                "primitive" -> {
+                    context.deserialize(json, DtsJsonModel.PrimitiveType::class.java)
+                }
+
+                "reference" -> {
+                    context.deserialize(json, DtsJsonModel.ReferenceType::class.java)
+                }
+
+                "array" -> {
+                    context.deserialize(json, DtsJsonModel.ArrayType::class.java)
+                }
+
+                "tuple" -> {
+                    context.deserialize(json, DtsJsonModel.TupleType::class.java)
+                }
+
+                "function" -> {
+                    context.deserialize(json, DtsJsonModel.FunctionType::class.java)
+                }
+
+                "union" -> {
+                    context.deserialize(json, DtsJsonModel.UnionType::class.java)
+                }
+
+                "intersection" -> {
+                    context.deserialize(json, DtsJsonModel.IntersectionType::class.java)
+                }
+
+                "objectLiteral" -> {
+                    context.deserialize(json, DtsJsonModel.ObjectLiteralType::class.java)
+                }
+
+                "stringLiteral" -> {
+                    context.deserialize(json, DtsJsonModel.StringLiteralType::class.java)
+                }
+
+                "numericLiteral" -> {
+                    context.deserialize(json, DtsJsonModel.NumericLiteralType::class.java)
+                }
+
+                "indexSignature" -> {
+                    context.deserialize(json, DtsJsonModel.IndexSignatureType::class.java)
+                }
+
                 else -> {
                     val text = obj.get("text")?.asString ?: ""
                     DtsJsonModel.UnknownType(text)

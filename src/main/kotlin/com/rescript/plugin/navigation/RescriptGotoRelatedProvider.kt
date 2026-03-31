@@ -54,6 +54,7 @@ class RescriptGotoRelatedProvider : GotoRelatedProvider() {
                     }
                 }
             }
+
             RescriptFileUtil.isResiFile(file) -> {
                 // Find corresponding .res file
                 RescriptFileUtil.findCounterpartFile(file)?.let { resFile ->

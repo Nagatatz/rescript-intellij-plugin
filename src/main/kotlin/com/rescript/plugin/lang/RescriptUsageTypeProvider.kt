@@ -24,15 +24,23 @@ class RescriptUsageTypeProvider : UsageTypeProvider {
 
         return when (prevType) {
             RescriptTokenTypes.OPEN -> OPEN_USAGE
+
             RescriptTokenTypes.TYPE -> TYPE_REFERENCE
+
             RescriptTokenTypes.COLON -> TYPE_ANNOTATION
+
             RescriptTokenTypes.PIPE -> PATTERN_MATCH
+
             RescriptTokenTypes.INCLUDE -> INCLUDE_USAGE
+
             RescriptTokenTypes.MODULE -> MODULE_DECLARATION
+
             RescriptTokenTypes.LET -> VALUE_DEFINITION
+
             RescriptTokenTypes.TAG_LT,
             RescriptTokenTypes.TAG_LT_SLASH,
             -> JSX_USAGE
+
             else -> null
         }
     }

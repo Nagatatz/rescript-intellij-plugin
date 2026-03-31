@@ -136,14 +136,33 @@ class RescriptRearranger :
          */
         internal fun classifyElement(elementType: IElementType): DeclarationCategory? =
             when (elementType) {
-                RescriptElementTypes.OPEN_STATEMENT, RescriptElementTypes.INCLUDE_STATEMENT ->
+                RescriptElementTypes.OPEN_STATEMENT, RescriptElementTypes.INCLUDE_STATEMENT -> {
                     DeclarationCategory.OPEN_INCLUDE
-                RescriptElementTypes.TYPE_DECLARATION -> DeclarationCategory.TYPE
-                RescriptElementTypes.EXCEPTION_DECLARATION -> DeclarationCategory.EXCEPTION
-                RescriptElementTypes.MODULE_DECLARATION -> DeclarationCategory.MODULE
-                RescriptElementTypes.EXTERNAL_DECLARATION -> DeclarationCategory.EXTERNAL
-                RescriptElementTypes.LET_DECLARATION -> DeclarationCategory.LET
-                else -> null
+                }
+
+                RescriptElementTypes.TYPE_DECLARATION -> {
+                    DeclarationCategory.TYPE
+                }
+
+                RescriptElementTypes.EXCEPTION_DECLARATION -> {
+                    DeclarationCategory.EXCEPTION
+                }
+
+                RescriptElementTypes.MODULE_DECLARATION -> {
+                    DeclarationCategory.MODULE
+                }
+
+                RescriptElementTypes.EXTERNAL_DECLARATION -> {
+                    DeclarationCategory.EXTERNAL
+                }
+
+                RescriptElementTypes.LET_DECLARATION -> {
+                    DeclarationCategory.LET
+                }
+
+                else -> {
+                    null
+                }
             }
 
         /**

@@ -72,12 +72,15 @@ class RescriptGenerateModuleTypeAction :
                     RescriptElementTypes.LET_DECLARATION -> {
                         declarations.add(Declaration("let", name))
                     }
+
                     RescriptElementTypes.TYPE_DECLARATION -> {
                         declarations.add(Declaration("type", name))
                     }
+
                     RescriptElementTypes.EXTERNAL_DECLARATION -> {
                         declarations.add(Declaration("let", name))
                     }
+
                     RescriptElementTypes.MODULE_DECLARATION -> {
                         declarations.add(Declaration("module", name))
                     }

@@ -52,7 +52,10 @@ class RescriptParser : PsiParser {
             var depth = 0
             while (!b.eof()) {
                 when (b.tokenType) {
-                    open -> depth++
+                    open -> {
+                        depth++
+                    }
+
                     close -> {
                         depth--
                         if (depth == 0) {
@@ -80,59 +83,82 @@ class RescriptParser : PsiParser {
 
     private fun parseTopLevel(b: PsiBuilder) {
         when (b.tokenType) {
-            RescriptTokenTypes.LET ->
+            RescriptTokenTypes.LET -> {
                 RescriptDeclarationParser.parseDeclaration(
                     b,
                     RescriptElementTypes.LET_DECLARATION,
                     consumeRec = true,
                     skipToEnd = ::skipToEndOfDeclaration,
                 )
-            RescriptTokenTypes.TYPE ->
+            }
+
+            RescriptTokenTypes.TYPE -> {
                 RescriptDeclarationParser.parseDeclaration(
                     b,
                     RescriptElementTypes.TYPE_DECLARATION,
                     consumeRec = true,
                     skipToEnd = ::skipToEndOfDeclaration,
                 )
-            RescriptTokenTypes.MODULE -> parseModuleDeclaration(b)
-            RescriptTokenTypes.EXTERNAL ->
+            }
+
+            RescriptTokenTypes.MODULE -> {
+                parseModuleDeclaration(b)
+            }
+
+            RescriptTokenTypes.EXTERNAL -> {
                 RescriptDeclarationParser.parseDeclaration(
                     b,
                     RescriptElementTypes.EXTERNAL_DECLARATION,
                     skipToEnd = ::skipToEndOfDeclaration,
                 )
-            RescriptTokenTypes.OPEN ->
+            }
+
+            RescriptTokenTypes.OPEN -> {
                 RescriptDeclarationParser.parseSimple(
                     b,
                     RescriptElementTypes.OPEN_STATEMENT,
                     ::skipToEndOfDeclaration,
                 )
-            RescriptTokenTypes.INCLUDE ->
+            }
+
+            RescriptTokenTypes.INCLUDE -> {
                 RescriptDeclarationParser.parseSimple(
                     b,
                     RescriptElementTypes.INCLUDE_STATEMENT,
                     ::skipToEndOfDeclaration,
                 )
-            RescriptTokenTypes.EXCEPTION ->
+            }
+
+            RescriptTokenTypes.EXCEPTION -> {
                 RescriptDeclarationParser.parseDeclaration(
                     b,
                     RescriptElementTypes.EXCEPTION_DECLARATION,
                     skipToEnd = ::skipToEndOfDeclaration,
                 )
-            RescriptTokenTypes.ARROBASE -> RescriptDeclarationParser.parseAnnotation(b)
-            RescriptTokenTypes.EOL -> b.advanceLexer()
+            }
+
+            RescriptTokenTypes.ARROBASE -> {
+                RescriptDeclarationParser.parseAnnotation(b)
+            }
+
+            RescriptTokenTypes.EOL -> {
+                b.advanceLexer()
+            }
+
             RescriptTokenTypes.TAG_LT -> {
                 if (!RescriptJsxParser.tryParseJsx(b)) {
                     // Not valid JSX — skip tokens silently
                     skipNonTopLevel(b)
                 }
             }
+
             RescriptTokenTypes.LT -> {
                 // Fragment opening: <> (lexer produces LT + GT, not TAG_LT + TAG_GT)
                 if (!RescriptJsxParser.tryParseJsxFragment(b)) {
                     skipNonTopLevel(b)
                 }
             }
+
             else -> {
                 // Skip non-top-level tokens silently.
                 // This lightweight parser only carves out top-level declarations;
@@ -217,6 +243,7 @@ class RescriptParser : PsiParser {
                     braceDepth++
                     b.advanceLexer()
                 }
+
                 RescriptTokenTypes.RBRACE -> {
                     if (braceDepth > 0) {
                         braceDepth--
@@ -226,20 +253,24 @@ class RescriptParser : PsiParser {
                         return
                     }
                 }
+
                 RescriptTokenTypes.LPAREN -> {
                     parenDepth++
                     b.advanceLexer()
                 }
+
                 RescriptTokenTypes.RPAREN -> {
                     if (parenDepth > 0) parenDepth--
                     b.advanceLexer()
                 }
+
                 RescriptTokenTypes.TAG_LT -> {
                     // Try to parse JSX inside declaration body
                     if (!RescriptJsxParser.tryParseJsx(b)) {
                         b.advanceLexer()
                     }
                 }
+
                 RescriptTokenTypes.LT -> {
                     // Try to parse JSX fragment (<> ... </>)
                     if (!RescriptJsxParser.tryParseJsxFragment(b)) {
@@ -247,6 +278,7 @@ class RescriptParser : PsiParser {
                         b.advanceLexer()
                     }
                 }
+
                 else -> {
                     if (braceDepth == 0 && parenDepth == 0 && isTopLevelStart(b.tokenType)) return
                     b.advanceLexer()

@@ -230,7 +230,10 @@ class RescriptUnwrapDescriptor : UnwrapDescriptor {
         var i = offset - 1
         while (i >= 0) {
             when (text[i]) {
-                '}' -> depth++
+                '}' -> {
+                    depth++
+                }
+
                 '{' -> {
                     if (depth == 0) {
                         val end = findMatchingBrace(text, i) ?: return null

@@ -116,15 +116,20 @@ object RescriptLspUtils {
 
             val content = hoverResult.contents ?: return null
             return when {
-                content.isLeft ->
+                content.isLeft -> {
                     content.left
                         .firstOrNull()
                         ?.let { if (it.isLeft) it.left else it.right.value }
+                }
+
                 content.isRight -> {
                     val markdown = content.right.value
                     RescriptExpressionTypeProvider.extractTypeFromMarkdown(markdown)
                 }
-                else -> null
+
+                else -> {
+                    null
+                }
             }
         } catch (e: Exception) {
             LOG.trace("Failed to get hover type from LSP server: ${e.message}")

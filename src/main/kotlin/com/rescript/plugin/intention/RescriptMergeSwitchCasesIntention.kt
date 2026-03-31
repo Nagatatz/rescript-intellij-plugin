@@ -103,7 +103,10 @@ class RescriptMergeSwitchCasesIntention : PsiElementBaseIntentionAction() {
             var depth = 0
             for (i in braceStart until text.length) {
                 when (text[i]) {
-                    '{' -> depth++
+                    '{' -> {
+                        depth++
+                    }
+
                     '}' -> {
                         depth--
                         if (depth == 0) {
@@ -129,7 +132,10 @@ class RescriptMergeSwitchCasesIntention : PsiElementBaseIntentionAction() {
             var depth = 0
             for (i in braceStart until text.length) {
                 when (text[i]) {
-                    '{' -> depth++
+                    '{' -> {
+                        depth++
+                    }
+
                     '}' -> {
                         depth--
                         if (depth == 0) return Pair(switchIndex, i + 1)

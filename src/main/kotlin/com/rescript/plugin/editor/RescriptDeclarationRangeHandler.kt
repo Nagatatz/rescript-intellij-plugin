@@ -33,9 +33,11 @@ class RescriptDeclarationRangeHandler : DeclarationRangeHandler<PsiElement> {
                     afterKeyword = true
                     lastHeaderOffset = child.startOffset + child.textLength
                 }
+
                 type == RescriptTokenTypes.REC -> {
                     lastHeaderOffset = child.startOffset + child.textLength
                 }
+
                 afterKeyword &&
                     (
                         type == RescriptTokenTypes.LIDENT ||

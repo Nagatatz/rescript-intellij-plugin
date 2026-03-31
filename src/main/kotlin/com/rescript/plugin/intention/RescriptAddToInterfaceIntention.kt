@@ -118,7 +118,9 @@ class RescriptAddToInterfaceIntention : PsiElementBaseIntentionAction() {
                 RescriptElementTypes.TYPE_DECLARATION,
                 RescriptElementTypes.EXTERNAL_DECLARATION,
                 RescriptElementTypes.EXCEPTION_DECLARATION,
-                -> text
+                -> {
+                    text
+                }
 
                 // let: extract name and create a stub signature
                 RescriptElementTypes.LET_DECLARATION -> {
@@ -132,7 +134,9 @@ class RescriptAddToInterfaceIntention : PsiElementBaseIntentionAction() {
                     "module $name: {\n  // TODO: add module signature\n}"
                 }
 
-                else -> text
+                else -> {
+                    text
+                }
             }
         }
     }

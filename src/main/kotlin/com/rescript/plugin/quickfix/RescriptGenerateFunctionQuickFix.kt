@@ -86,16 +86,21 @@ class RescriptGenerateFunctionQuickFix : PsiElementBaseIntentionAction() {
 
             for (i in parenStart until text.length) {
                 when (text[i]) {
-                    '(' -> depth++
+                    '(' -> {
+                        depth++
+                    }
+
                     ')' -> {
                         depth--
                         if (depth == 0) {
                             return if (hasContent) commaCount + 1 else 0
                         }
                     }
+
                     ',' -> {
                         if (depth == 1) commaCount++
                     }
+
                     else -> {
                         if (depth == 1 && !text[i].isWhitespace()) hasContent = true
                     }

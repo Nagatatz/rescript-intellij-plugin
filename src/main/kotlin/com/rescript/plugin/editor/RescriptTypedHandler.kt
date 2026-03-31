@@ -96,8 +96,14 @@ class RescriptTypedHandler : TypedHandlerDelegate() {
                         return tagName
                     }
                 }
-                '{' -> depth++
-                '}' -> depth--
+
+                '{' -> {
+                    depth++
+                }
+
+                '}' -> {
+                    depth--
+                }
             }
             i--
         }

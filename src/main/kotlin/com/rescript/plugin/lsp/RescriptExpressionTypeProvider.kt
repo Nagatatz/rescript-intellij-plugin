@@ -46,15 +46,20 @@ class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
 
             val typeText =
                 when {
-                    content.isLeft ->
+                    content.isLeft -> {
                         content.left
                             .firstOrNull()
                             ?.let { if (it.isLeft) it.left else it.right.value }
+                    }
+
                     content.isRight -> {
                         val markdown = content.right.value
                         extractTypeFromMarkdown(markdown)
                     }
-                    else -> null
+
+                    else -> {
+                        null
+                    }
                 }
 
             return typeText?.let { escapeHtml(it) } ?: NO_TYPE

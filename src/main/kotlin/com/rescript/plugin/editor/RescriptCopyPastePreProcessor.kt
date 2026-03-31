@@ -39,9 +39,11 @@ class RescriptCopyPastePreProcessor : CopyPastePreProcessor {
 
         return when (tokenType) {
             RescriptTokenTypes.STRING_VALUE -> escapeForString(text)
+
             RescriptTokenTypes.JS_STRING_OPEN,
             RescriptTokenTypes.JS_STRING_CLOSE,
             -> escapeForTemplateString(text)
+
             else -> text
         }
     }

@@ -51,11 +51,15 @@ class RescriptRawJsInjector : MultiHostInjector {
                 val jsLanguage = findJsLanguage() ?: return null
                 InjectionInfo(jsLanguage, isRegex = false)
             }
+
             "re" -> {
                 val regexpLanguage = Language.findLanguageByID("RegExp") ?: return null
                 InjectionInfo(regexpLanguage, isRegex = true)
             }
-            else -> null
+
+            else -> {
+                null
+            }
         }
     }
 
