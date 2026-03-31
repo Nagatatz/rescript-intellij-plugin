@@ -10,7 +10,7 @@ import com.rescript.plugin.lang.psi.RescriptPsiUtils
  * Analyzes module dependencies from PSI elements.
  * Pure utility class for extracting module references and building module trees.
  */
-object RescriptDependencyAnalyzer {
+data object RescriptDependencyAnalyzer {
     /**
      * Represents a module node in the hierarchy tree.
      */

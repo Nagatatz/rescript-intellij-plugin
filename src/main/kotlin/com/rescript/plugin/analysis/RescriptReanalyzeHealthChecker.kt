@@ -9,7 +9,7 @@ package com.rescript.plugin.analysis
  *
  * @see RescriptReanalyzeServerService
  */
-object RescriptReanalyzeHealthChecker {
+data object RescriptReanalyzeHealthChecker {
     /**
      * Represents the action to take after a health check evaluation.
      */

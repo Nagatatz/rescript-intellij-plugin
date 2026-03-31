@@ -14,7 +14,7 @@ import com.rescript.plugin.util.RescriptSecurityUtils
  *
  * @see RescriptDocumentationProvider
  */
-object RescriptOperatorDocumentation {
+data object RescriptOperatorDocumentation {
     /**
      * Information about a ReScript operator for documentation purposes.
      *

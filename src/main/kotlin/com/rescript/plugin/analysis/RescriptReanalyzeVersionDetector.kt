@@ -20,7 +20,7 @@ import java.nio.file.Path
  * @see RescriptReanalyzeServerService
  * @see RescriptReanalyzeAnnotator.findReanalyzeTool
  */
-object RescriptReanalyzeVersionDetector {
+data object RescriptReanalyzeVersionDetector {
     private val LOG = logger<RescriptReanalyzeVersionDetector>()
 
     /** Minimum ReScript version that ships `reanalyze-server` subcommand. */

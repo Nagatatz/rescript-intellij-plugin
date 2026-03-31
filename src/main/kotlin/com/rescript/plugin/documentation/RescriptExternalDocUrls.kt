@@ -8,7 +8,7 @@ package com.rescript.plugin.documentation
  *
  * @see RescriptDocumentationProvider
  */
-object RescriptExternalDocUrls {
+data object RescriptExternalDocUrls {
     const val BASE_URL = "https://rescript-lang.org/docs/manual/latest/api"
 
     /**

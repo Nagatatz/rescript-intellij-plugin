@@ -1,5 +1,6 @@
 package com.rescript.plugin.settings
 
+import com.intellij.openapi.components.serviceOrNull
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.ConfigurationException
@@ -323,7 +324,7 @@ class RescriptConfigurable(
         settings.reanalyzeServerEnabled = newReanalyzeEnabled
         if (newReanalyzeEnabled != oldReanalyzeEnabled) {
             val serverService =
-                project.getService(com.rescript.plugin.analysis.RescriptReanalyzeServerService::class.java)
+                project.serviceOrNull<com.rescript.plugin.analysis.RescriptReanalyzeServerService>()
             if (newReanalyzeEnabled) {
                 serverService?.startServer()
             } else {
