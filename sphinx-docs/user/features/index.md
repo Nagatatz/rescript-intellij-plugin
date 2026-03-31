@@ -94,7 +94,8 @@ Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding Generation, Proj
 | Code Lens | | Yes | Shows type annotations above functions via the CodeVision API. Requires type inference. |
 | Project Wizard | Yes | | Creates new projects from 12 pre-configured templates. Generates all build files and starter code locally. |
 
-### Understanding Native Features
+::::{dropdown} Understanding Native Features
+:open:
 
 Native features are powered entirely by the JFlex lexer and lightweight parser bundled within the plugin. They operate on the **syntactic structure** of ReScript code --- tokenizing keywords, matching brackets, recognizing top-level declarations --- without understanding types or semantics.
 
@@ -105,8 +106,10 @@ This means native features:
 - Do not require `@rescript/language-server` or even Node.js to be installed.
 
 Examples of purely syntactic operations include folding a `module` block (the parser sees the `module` keyword and matching braces), toggling a line comment (inserting `//` at the line start), and expanding a live template (replacing a text abbreviation with a predefined snippet).
+::::
 
-### Understanding LSP Features
+::::{dropdown} Understanding LSP Features
+:open:
 
 LSP features communicate with `@rescript/language-server` over a stdio connection. The language server runs the ReScript compiler internally, giving it access to:
 
@@ -115,8 +118,9 @@ LSP features communicate with `@rescript/language-server` over a stdio connectio
 - **Error detection** --- reporting type mismatches, missing fields, and exhaustiveness warnings.
 
 Because the language server performs full compilation, LSP features can provide rich, accurate information that would be impossible with syntax analysis alone. For example, Go to Definition can resolve a function imported through multiple module aliases, and code completion can suggest record fields that match the inferred type context.
+::::
 
-### Graceful Degradation When LSP Is Disconnected
+::::{dropdown} Graceful Degradation When LSP Is Disconnected
 
 The plugin is designed so that the absence of the language server never prevents basic editing. When the LSP connection is unavailable --- for example, because `@rescript/language-server` is not installed, Node.js is missing, or the server process has crashed --- the following behavior applies:
 
@@ -145,6 +149,7 @@ The plugin is designed so that the absence of the language server never prevents
 **Visual indicator:** When the language server cannot be found, the plugin displays an editor notification bar at the top of ReScript files with a message explaining that LSP features are unavailable and providing instructions for installing `@rescript/language-server`.
 
 **Recovery:** Once the language server is installed or its path is configured in **Settings > Languages & Frameworks > ReScript**, the LSP connection is established automatically when a `.res` or `.resi` file is opened. All LSP features become available without restarting the IDE.
+::::
 
 ```{toctree}
 :hidden:

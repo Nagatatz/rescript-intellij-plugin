@@ -27,13 +27,45 @@
 
 The plugin uses the [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode) for semantic features like code completion, diagnostics, and navigation. You need to install it in your project:
 
-```bash
-# Local installation (recommended)
-npm install @rescript/language-server
+### Local Installation (Recommended)
 
-# Or global installation
+::::{tab-set}
+:::{tab-item} npm
+```bash
+npm install @rescript/language-server
+```
+:::
+:::{tab-item} yarn
+```bash
+yarn add @rescript/language-server
+```
+:::
+:::{tab-item} pnpm
+```bash
+pnpm add @rescript/language-server
+```
+:::
+::::
+
+### Global Installation
+
+::::{tab-set}
+:::{tab-item} npm
+```bash
 npm install -g @rescript/language-server
 ```
+:::
+:::{tab-item} yarn
+```bash
+yarn global add @rescript/language-server
+```
+:::
+:::{tab-item} pnpm
+```bash
+pnpm add -g @rescript/language-server
+```
+:::
+::::
 
 :::{tip}
 Local installation (per-project) is recommended. The plugin automatically detects the Language Server in your project's `node_modules/` directory.
@@ -66,7 +98,7 @@ The plugin searches for the Language Server in this order:
    - **No warning banner** — If the Language Server is found, no notification bar appears
    - **Code completion** — Type a few characters and see completion suggestions
 
-:::{note}
+:::{tip}
 If the Language Server is not detected, a notification bar will appear at the top of the editor with instructions to install it. Native features (syntax highlighting, code folding, etc.) will still work without the Language Server.
 :::
 

@@ -22,8 +22,8 @@ The plugin includes built-in inspections that run locally without requiring the 
 
 Detects when the same module is opened multiple times in the same file. Duplicate `open` statements are redundant and add unnecessary noise to the code.
 
-**Before** (duplicate detected):
-
+::::{tab-set}
+:::{tab-item} Before (duplicate detected)
 ```rescript
 open Belt
 open Belt.Array
@@ -32,9 +32,8 @@ open Belt  // Warning: duplicate open statement
 let arr = [1, 2, 3]
 let doubled = arr->Array.map(x => x * 2)
 ```
-
-**After** (optimized):
-
+:::
+:::{tab-item} After (optimized)
 ```rescript
 open Belt
 open Belt.Array
@@ -42,6 +41,8 @@ open Belt.Array
 let arr = [1, 2, 3]
 let doubled = arr->Array.map(x => x * 2)
 ```
+:::
+::::
 
 The inspection highlights the duplicate `open` statement with a warning. You can remove it manually or use **Optimize Imports** (`Ctrl+Alt+O`) to remove all duplicates automatically.
 
@@ -213,24 +214,29 @@ The inspection helps catch situations where the implementation has diverged from
 
 These local inspections run instantly without the Language Server, catching common code quality issues like redundant imports, empty scaffolding, and missing configuration before they become problems in code review.
 
+:::{seealso}
+[Code Editing](code-editing.md) offers Intention Actions (`Alt+Enter`) for manual code transformations that complement automated inspections.
+:::
+
 ### Mutability Diagnostics
 
 Detects `ref` bindings that are never reassigned with `:=`. If a mutable reference is created but never mutated, it can be simplified to a plain `let` binding.
 
-**Before** (warning detected):
-
+::::{tab-set}
+:::{tab-item} Before (warning detected)
 ```rescript
 let counter = ref(0)
 // counter is never reassigned with :=
 let value = counter.contents
 ```
-
-**After** (quick fix applied):
-
+:::
+:::{tab-item} After (quick fix applied)
 ```rescript
 let counter = 0
 let value = counter
 ```
+:::
+::::
 
 Press `Alt+Enter` on the warning and select **Remove unnecessary ref** to apply the fix.
 
@@ -471,15 +477,14 @@ let result = Belt.Array.map(arr, fn)
 
 When you call a function that does not exist yet, the plugin can generate a stub function definition. Press `Alt+Enter` on the unresolved function call and choose **Generate function**.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let result = processData(input, config)
 // processData is not defined
 ```
-
-**After** (stub function generated):
-
+:::
+:::{tab-item} After (stub function generated)
 ```rescript
 let processData = (input, config) => {
   todo
@@ -487,26 +492,29 @@ let processData = (input, config) => {
 
 let result = processData(input, config)
 ```
+:::
+::::
 
 ### Type Hole Quick Fix
 
 When the compiler reports a type hole (`_` used as a type placeholder), the plugin suggests candidate types to fill in. Press `Alt+Enter` on the type hole diagnostic to see matching type suggestions.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let parse: string => _ = jsonStr => {
   // compiler error: type hole found
 }
 ```
-
-**After** (applying suggested type):
-
+:::
+:::{tab-item} After (applying suggested type)
 ```rescript
 let parse: string => JSON.t = jsonStr => {
   // type hole filled with suggested type
 }
 ```
+:::
+::::
 
 The quick fix parses the compiler diagnostic to extract candidate types and offers them as replacement options.
 

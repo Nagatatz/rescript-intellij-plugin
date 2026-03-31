@@ -31,7 +31,7 @@ Code folding lets you hide implementation details and focus on the declarations 
 
 Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file using the `rescript format` CLI.
 
-:::{note}
+:::{important}
 Formatting requires the ReScript compiler (`rescript`) to be installed in your project.
 :::
 
@@ -111,61 +111,74 @@ Press `Alt+Enter` on an expression to see available intentions:
 
 Intention actions turn common code transformations into one-click operations — instead of manually restructuring code, press `Alt+Enter` and let the IDE handle the mechanical changes while you focus on the logic.
 
+:::{seealso}
+[Code Analysis](code-analysis.md) provides inspections that detect issues automatically, with quick fixes for one-click resolution.
+:::
+
 ### Wrap with Some(...)
 
 Wraps a selected expression in `Some()`, useful when you need to convert a plain value into an `option` type.
 
 Select the expression, press `Alt+Enter`, and choose **Wrap with Some(...)**.
 
-**Before:**
+Select `name`, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let name = "Alice"
 let greeting = getGreeting(name)
 ```
-
-**After** (with `name` selected):
-
+:::
+:::{tab-item} After
 ```rescript
 let name = "Alice"
 let greeting = getGreeting(Some(name))
 ```
+:::
+::::
 
 ### Wrap with Ok(...)
 
 Wraps a selected expression in `Ok()`, useful when returning a success value from a function that uses the `result` type.
 
-**Before:**
+Select `value`, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let value = computeResult()
 let response = processResponse(value)
 ```
-
-**After** (with `value` selected):
-
+:::
+:::{tab-item} After
 ```rescript
 let value = computeResult()
 let response = processResponse(Ok(value))
 ```
+:::
+::::
 
 ### Wrap with Error(...)
 
 Wraps a selected expression in `Error()`, useful when returning an error value from a function that uses the `result` type.
 
-**Before:**
+Select `message` on the second line, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let message = "Something went wrong"
 let result = message
 ```
-
-**After** (with `message` on the second line selected):
-
+:::
+:::{tab-item} After
 ```rescript
 let message = "Something went wrong"
 let result = Error(message)
 ```
+:::
+::::
 
 ### Add @genType
 
@@ -173,32 +186,32 @@ Adds the `@genType` annotation above a `let`, `type`, or `module` declaration. T
 
 The intention is only available on declarations that do not already have a `@genType` annotation.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let greet = (name: string) => `Hello, ${name}!`
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 @genType
 let greet = (name: string) => `Hello, ${name}!`
 ```
+:::
+::::
 
 This also works on type and module declarations:
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 type user = {
   name: string,
   age: int,
 }
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 @genType
 type user = {
@@ -206,6 +219,8 @@ type user = {
   age: int,
 }
 ```
+:::
+::::
 
 ### Generate doc comment
 
@@ -213,14 +228,13 @@ Inserts a `/** ... */` documentation comment stub above the current declaration.
 
 The intention is available on `let`, `type`, `module`, `external`, and `exception` declarations that do not already have a doc comment.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let add = (~a: int, ~b: int) => a + b
 ```
-
-**After** (invoke "Generate doc comment"):
-
+:::
+:::{tab-item} After
 ```rescript
 /**
  *
@@ -229,6 +243,8 @@ let add = (~a: int, ~b: int) => a + b
  */
 let add = (~a: int, ~b: int) => a + b
 ```
+:::
+::::
 
 ### Pipe ⇔ Function Call Conversion
 
@@ -270,24 +286,25 @@ These intentions require a corresponding `.resi` file to exist. Use **Create Int
 
 When calling a function with labeled arguments, place the caret inside the function call parentheses and press `Alt+Enter`, then choose **Insert labeled arguments**. All labeled arguments are inserted as named parameters.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 makeUser()
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 makeUser(~name, ~age, ~role)
 ```
+:::
+::::
 
 ### Merge Switch Cases
 
 When multiple switch cases have identical bodies, place the caret on one of them and press `Alt+Enter`, then choose **Merge switch cases**. The cases are combined into a single arm with multiple patterns.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 switch status {
 | Active => "valid"
@@ -295,101 +312,105 @@ switch status {
 | Inactive => "invalid"
 }
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 switch status {
 | Active | Pending => "valid"
 | Inactive => "invalid"
 }
 ```
+:::
+::::
 
 ### Case Split
 
 Expand a pattern match variable into all possible constructor cases. Place the caret on a variable pattern in a switch arm and press `Alt+Enter`, then choose **Case split**.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 switch option {
 | x => handle(x)
 }
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 switch option {
 | Some(value) => handle(Some(value))
 | None => handle(None)
 }
 ```
+:::
+::::
 
 ### Convert to Labeled Arguments
 
 Convert positional function arguments to labeled arguments. Place the caret on a function call and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 makeUser("Alice", 30, "admin")
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 makeUser(~name="Alice", ~age=30, ~role="admin")
 ```
+:::
+::::
 
 ### Remove Unnecessary Parentheses
 
 Remove redundant parentheses around expressions. Place the caret on a parenthesized expression and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let x = (a + b)
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let x = a + b
 ```
+:::
+::::
 
 ### Remove Redundant Qualifier
 
 Remove unnecessary module path qualifiers when the module is already opened. Place the caret on a qualified identifier and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 open Belt.Array
 Belt.Array.map(arr, fn)
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 open Belt.Array
 map(arr, fn)
 ```
+:::
+::::
 
 ### Convert filter+map to filterMap
 
 Convert a `->Array.filter(f)->Array.map(g)` chain into a single `->Array.filterMap(...)` call. Place the caret on the filter or map call and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 items
 ->Array.filter(x => x > 0)
 ->Array.map(x => x * 2)
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 items->Array.filterMap(x => {
   if x > 0 {
@@ -399,108 +420,116 @@ items->Array.filterMap(x => {
   }
 })
 ```
+:::
+::::
 
 ### Add Type Annotation
 
 Add an explicit type annotation to a `let` binding using type information from the LSP hover. Place the caret on a `let` binding and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let name = "Alice"
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let name: string = "Alice"
 ```
+:::
+::::
 
 ### Add ->ignore
 
 Append `->ignore` to an expression whose return value is unused, suppressing the compiler warning about discarded values. Place the caret on the expression and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 Js.log("debug message")
 Array.push(items, newItem)
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 Js.log("debug message")->ignore
 Array.push(items, newItem)->ignore
 ```
+:::
+::::
 
 ### Add _ Prefix
 
 Add an underscore prefix to a variable name to indicate it is intentionally unused. This suppresses the compiler's unused variable warning. Place the caret on an unused variable and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let result = someComputation()
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let _result = someComputation()
 ```
+:::
+::::
 
 ### Remove Redundant Braces
 
 Remove unnecessary `{ }` around a single expression. Place the caret on the braces and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let greet = (name) => {
   "Hello, " ++ name
 }
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let greet = (name) => "Hello, " ++ name
 ```
+:::
+::::
 
 ### Fix Identifier Case
 
 Correct identifier casing to follow ReScript conventions: values and functions should start with a lowercase letter, modules and variant constructors should start with an uppercase letter. Place the caret on a misnamed identifier and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let MyValue = 42
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let myValue = 42
 ```
+:::
+::::
 
 ### Expand Destructuring
 
 Expand a destructured `let` binding into individual `let` bindings for each field. Place the caret on a destructuring pattern and press `Alt+Enter`.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let {name, age, email} = user
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let name = user.name
 let age = user.age
 let email = user.email
 ```
+:::
+::::
 
 ## Surround With
 
@@ -515,50 +544,57 @@ Select code and press `Ctrl+Alt+T` to surround it with:
 
 Wraps the selected code inside an `if` block. The cursor is placed on the `condition` placeholder so you can immediately type the condition.
 
-**Before** (with `Js.log("hello")` selected):
+Select `Js.log("hello")`, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 Js.log("hello")
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 if (condition) {
   Js.log("hello")
 }
 ```
+:::
+::::
 
 ### switch expression
 
 Wraps the selected code inside a `switch` expression with a default `_` arm. The cursor is placed on the `expr` placeholder so you can type the expression to match on.
 
-**Before** (with `defaultHandler()` selected):
+Select `defaultHandler()`, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 defaultHandler()
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 switch expr {
 | _ => defaultHandler()
 }
 ```
+:::
+::::
 
 ### try / catch block
 
 Wraps the selected code in a `try` / `catch` block. The cursor is placed on the `()` placeholder in the catch arm so you can define the error handling logic.
 
-**Before** (with `parseJson(input)` selected):
+Select `parseJson(input)`, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 parseJson(input)
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 try {
   parseJson(input)
@@ -566,28 +602,37 @@ try {
 | exn => ()
 }
 ```
+:::
+::::
 
 ### Block scope { ... }
 
 Wraps the selected code in a block scope. This is useful for limiting variable scope or grouping expressions.
 
-**Before** (with the two lines selected):
+Select the two lines, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let temp = calculate()
 process(temp)
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 {
   let temp = calculate()
   process(temp)
 }
 ```
+:::
+::::
 
 Surround With wraps selected code in a control structure with one shortcut, saving you from manually typing the surrounding syntax and re-indenting the enclosed code.
+
+:::{seealso}
+[Code Completion](code-completion.md) offers postfix templates (`.switch`, `.pipe`) and live templates for similar code generation patterns.
+:::
 
 ## Import Optimization
 
@@ -607,17 +652,18 @@ Press `Ctrl+Alt+V` (`Cmd+Alt+V` on macOS) to extract the selected expression int
 
 The handler detects the selected expression within a `let` declaration body, creates a new `let` binding above the current statement, and replaces the original expression with a reference to the new variable.
 
-**Before** (with `a + b` selected):
+Select `a + b`, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let calculate = (a, b) => {
   let result = a + b * 2
   result
 }
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let calculate = (a, b) => {
   let sum = a + b
@@ -625,6 +671,8 @@ let calculate = (a, b) => {
   result
 }
 ```
+:::
+::::
 
 Extract Variable lets you name intermediate expressions for clarity, making complex expressions self-documenting without manually restructuring the surrounding code.
 
@@ -634,17 +682,18 @@ Press `Ctrl+Alt+M` (`Cmd+Alt+M` on macOS) to extract the selected code into a ne
 
 The handler detects the selected expression or statement range in a `let` declaration body, extracts it into a new `let` function above the current declaration, and replaces the original code with a call to the new function. Free variables in the selection become parameters of the extracted function.
 
-**Before** (with `a + b` selected):
+Select `a + b`, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let calculate = (a, b) => {
   let result = a + b
   result * 2
 }
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let extracted = (a, b) => a + b
 
@@ -653,6 +702,8 @@ let calculate = (a, b) => {
   result * 2
 }
 ```
+:::
+::::
 
 Extract Function automatically detects free variables and turns them into parameters, so you can decompose large functions into smaller, reusable pieces without manually threading values through.
 
@@ -662,18 +713,19 @@ Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or function at th
 
 The handler finds the `let` declaration at the caret, locates all references to it within the file, replaces each reference with the definition body, and removes the original declaration.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let prefix = "Hello"
 let greet = (name) => `${prefix}, ${name}!`
 ```
-
-**After** (inline `prefix`):
-
+:::
+:::{tab-item} After (inline `prefix`)
 ```rescript
 let greet = (name) => `${"Hello"}, ${name}!`
 ```
+:::
+::::
 
 Inline refactoring is the reverse of extraction — it replaces an unnecessary intermediate variable with its definition, simplifying code when a named binding adds no clarity.
 
@@ -683,20 +735,23 @@ Extract a literal value into a module-level constant. Select a string, number, o
 
 The handler extracts the selected literal into a new `let` binding at the top of the file (after any `open` statements) and replaces the original literal with a reference to the new constant.
 
-**Before:**
+Introduce constant for `"Hello, World!"`:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let greeting = "Hello, World!"
 let farewell = "Goodbye, World!"
 ```
-
-**After** (introduce constant for `"Hello, World!"`):
-
+:::
+:::{tab-item} After
 ```rescript
 let helloWorld = "Hello, World!"
 let greeting = helloWorld
 let farewell = "Goodbye, World!"
 ```
+:::
+::::
 
 Introduce Constant extracts magic values into named bindings at the module level, making their intent explicit and enabling reuse across the file.
 
@@ -706,21 +761,24 @@ Press `Ctrl+F6` to modify a function's parameters — reorder, rename, add, or r
 
 The handler parses the function declaration at the caret, supports both labeled (`~name: type`) and positional parameters, and applies changes to the declaration and all matching call sites.
 
-**Before:**
+Reorder parameters:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let make = (~name: string, ~age: int) => { name, age }
 
 let user = make(~name="Alice", ~age=30)
 ```
-
-**After** (reorder parameters):
-
+:::
+:::{tab-item} After
 ```rescript
 let make = (~age: int, ~name: string) => { name, age }
 
 let user = make(~age=30, ~name="Alice")
 ```
+:::
+::::
 
 Change Signature lets you restructure a function's parameter list and automatically updates all call sites, making API evolution safe and mechanical rather than error-prone manual editing.
 
@@ -730,8 +788,10 @@ Extract selected JSX into a new React component. Select a JSX expression, then u
 
 The handler creates a new `@react.component` module with the selected JSX as its body. Props used within the selection are detected and added as labeled parameters to the new component's `make` function.
 
-**Before** (with `<div className="card">...</div>` selected):
+Select `<div className="card">...</div>`, then:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 @react.component
 let make = (~items) => {
@@ -742,9 +802,8 @@ let make = (~items) => {
   </div>
 }
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 module Card = {
   @react.component
@@ -762,6 +821,8 @@ let make = (~items) => {
   </div>
 }
 ```
+:::
+::::
 
 Extracting a React component from JSX is a common refactoring in React development — this automation detects the required props and creates a properly structured module, saving you from manually copying code and threading props.
 
@@ -787,8 +848,8 @@ When your caret is inside a variant type declaration, this action generates a `s
 
 Place your caret inside the type declaration and press `Cmd+N` (or `Alt+Insert`), then choose **Switch Arms**.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 type shape =
   | Circle(float)
@@ -796,9 +857,8 @@ type shape =
   | Triangle(float, float, float)
   | Point
 ```
-
-**After** (inserted below the type declaration):
-
+:::
+:::{tab-item} After (inserted below the type declaration)
 ```rescript
 type shape =
   | Circle(float)
@@ -813,6 +873,8 @@ switch value {
 | Point => todo
 }
 ```
+:::
+::::
 
 Constructors that carry a payload (e.g., `Circle(float)`) get a `_` wildcard in the generated arm, while constructors without a payload (e.g., `Point`) match directly. Replace `todo` with your actual logic for each arm.
 
@@ -822,8 +884,8 @@ When your caret is inside a module declaration, this action generates a `module 
 
 Place your caret inside the module declaration and press `Cmd+N` (or `Alt+Insert`), then choose **Module Type**.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 module StringUtils = {
   type config = {verbose: bool}
@@ -841,9 +903,8 @@ module StringUtils = {
   }
 }
 ```
-
-**After** (module type inserted above the module):
-
+:::
+:::{tab-item} After (module type inserted above)
 ```rescript
 module type StringUtilsType = {
   type config
@@ -868,6 +929,8 @@ module StringUtils = {
   }
 }
 ```
+:::
+::::
 
 The generated type uses `'a` as a placeholder for value types -- replace these with the actual type signatures. Type declarations appear without their definition body so you can specify the exposed type shape. Nested modules are listed with an empty `{}` signature for you to fill in.
 
@@ -877,8 +940,8 @@ When your caret is inside a record type declaration, this action generates a `ma
 
 Place your caret inside the type declaration and press `Cmd+N` (or `Alt+Insert`), then choose **Make Function**.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 type user = {
   name: string,
@@ -886,9 +949,8 @@ type user = {
   email: string,
 }
 ```
-
-**After** (make function inserted below the type declaration):
-
+:::
+:::{tab-item} After (make function inserted below)
 ```rescript
 type user = {
   name: string,
@@ -902,6 +964,8 @@ let make = (~name, ~age, ~email) => {
   email,
 }
 ```
+:::
+::::
 
 Optional fields (e.g., `email?: string`) are generated as optional labeled arguments (`~email=?`).
 
@@ -945,8 +1009,8 @@ When your caret is inside a record type declaration, this action generates a rec
 
 Place your caret inside the type declaration and press `Cmd+N` (or `Alt+Insert`), then choose **Record Value**.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 type user = {
   name: string,
@@ -955,9 +1019,8 @@ type user = {
   email: option<string>,
 }
 ```
-
-**After** (record value inserted below the type declaration):
-
+:::
+:::{tab-item} After (record value inserted below)
 ```rescript
 type user = {
   name: string,
@@ -973,6 +1036,8 @@ let value: user = {
   email: None,
 }
 ```
+:::
+::::
 
 Default values are inferred from field types: `""` for `string`, `0` for `int`, `0.0` for `float`, `false` for `bool`, `None` for `option<T>`, and `[]` for `array<T>`.
 
@@ -982,8 +1047,8 @@ When your caret is inside a `module type` declaration, this action generates a m
 
 Place your caret inside the module type declaration and press `Cmd+N` (or `Alt+Insert`), then choose **Module Type Implementation**.
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 module type Printable = {
   type t
@@ -991,9 +1056,8 @@ module type Printable = {
   let print: t => unit
 }
 ```
-
-**After** (implementation module generated below):
-
+:::
+:::{tab-item} After (implementation generated below)
 ```rescript
 module type Printable = {
   type t
@@ -1007,6 +1071,8 @@ module PrintableImpl: Printable = {
   let print = (_) => todo
 }
 ```
+:::
+::::
 
 Replace `todo` placeholders with actual implementations. The generated module is constrained to the module type, so the compiler will catch any missing or incorrect signatures.
 
@@ -1096,17 +1162,18 @@ A popup lists all applicable unwrap options at the cursor position. Select one t
 
 **Example:**
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let greeting = Some("Hello, world!")
 ```
-
-**After** (Unwrap `Some(...)`):
-
+:::
+:::{tab-item} After (Unwrap `Some(...)`)
 ```rescript
 let greeting = "Hello, world!"
 ```
+:::
+::::
 
 Unwrap/Remove is the inverse of Surround With — it strips away a wrapper like `Some()`, `if`, or `try` in one action, simplifying expressions without manually deleting delimiters and re-indenting.
 
@@ -1114,17 +1181,20 @@ Unwrap/Remove is the inverse of Surround With — it strips away a wrapper like 
 
 When you type `>` to close a JSX opening tag, the corresponding closing tag is automatically inserted and the cursor is positioned between the tags.
 
-**Before** (you type `<div>`):
+Type `<div>`:
 
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 <div>
 ```
-
-**After** (auto-inserted):
-
+:::
+:::{tab-item} After (auto-inserted)
 ```rescript
 <div></div>
 ```
+:::
+::::
 
 This works for:
 - HTML elements: `<div>`, `<span>`, `<input>`
@@ -1192,52 +1262,55 @@ Press `Ctrl+Shift+J` (`Cmd+Shift+J` on macOS) to join the current line with the 
 
 When a line ends with `->` or the next line starts with `->`, the lines are joined without adding a space:
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 value->
   Array.map(x => x + 1)
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 value->Array.map(x => x + 1)
 ```
+:::
+::::
 
 ### Let Binding Join
 
 When a line ends with `=`, the lines are joined with a single space after `=`:
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let result =
   computeValue()
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let result = computeValue()
 ```
+:::
+::::
 
 ### Arrow Function Join
 
 When a line ends with `=>`, the lines are joined with a single space:
 
-**Before:**
-
+::::{tab-set}
+:::{tab-item} Before
 ```rescript
 let fn = (x) =>
   x + 1
 ```
-
-**After:**
-
+:::
+:::{tab-item} After
 ```rescript
 let fn = (x) => x + 1
 ```
+:::
+::::
 
 For patterns not recognized above, the standard IDE join behavior is used.
 
@@ -1330,23 +1403,24 @@ When pasting JavaScript or TypeScript code into a ReScript file, it is automatic
 - Array methods (`.map()`, `.filter()`, `.forEach()`) are converted to pipe-first style (`->Array.map()`)
 - JSX spread `{...props}` gets a warning comment (not supported in ReScript JSX)
 
-**Before** (TypeScript in clipboard):
-
+::::{tab-set}
+:::{tab-item} Before (TypeScript in clipboard)
 ```typescript
 const greeting = (name: string): string => {
   console.log("Hello, " + name);
   return name.toUpperCase();
 }
 ```
-
-**After** (pasted into `.res` file):
-
+:::
+:::{tab-item} After (pasted into `.res` file)
 ```rescript
 let greeting = (name) => {
   Js.log("Hello, " ++ name)
   name->String.toUpperCase
 }
 ```
+:::
+::::
 
 Paste as ReScript bridges the gap between JavaScript/TypeScript and ReScript — copy code from documentation, Stack Overflow, or existing JS/TS files and paste it directly into a `.res` file with automatic syntax conversion.
 
