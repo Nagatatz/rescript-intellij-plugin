@@ -256,13 +256,13 @@ val runIdeForUiTests by intellijPlatformTesting.runIde.registering {
             }
         jvmArgs("-Xmx2G")
         // Open the sample project automatically so UI tests can find IdeFrameImpl
+        val sampleProjectPath =
+            layout.projectDirectory
+                .dir("src/uiTest/testData/sample-project")
+                .asFile.absolutePath
         argumentProviders +=
             CommandLineArgumentProvider {
-                listOf(
-                    layout.projectDirectory
-                        .dir("src/uiTest/testData/sample-project")
-                        .asFile.absolutePath,
-                )
+                listOf(sampleProjectPath)
             }
     }
     plugins {

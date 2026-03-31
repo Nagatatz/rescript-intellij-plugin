@@ -4,6 +4,7 @@ import com.intellij.remoterobot.RemoteRobot
 import com.intellij.remoterobot.fixtures.ComponentFixture
 import com.intellij.remoterobot.fixtures.Fixture
 import com.intellij.remoterobot.search.locators.byXpath
+import com.rescript.plugin.uitest.fixtures.IdeFrameFixture
 import org.junit.jupiter.api.BeforeEach
 import java.awt.image.BufferedImage
 import java.io.File
@@ -20,6 +21,9 @@ import javax.imageio.ImageIO
 abstract class UiTestBase {
     /** Remote-Robot client connected to the IDE under test. */
     protected lateinit var remoteRobot: RemoteRobot
+
+    /** IDE frame fixture for window-scoped screenshots. Set by subclasses. */
+    protected var ideFrame: IdeFrameFixture? = null
 
     /** Directory where screenshots are saved. */
     protected val screenshotDir: String
@@ -64,13 +68,16 @@ abstract class UiTestBase {
     }
 
     /**
-     * Takes a full IDE screenshot and saves it with the given name.
+     * Takes a screenshot of the IDE window and saves it with the given name.
+     *
+     * When [ideFrame] is set, captures only the IDE window (no desktop background).
+     * Otherwise falls back to a full-screen capture.
      *
      * @param name the file name (without extension) for the screenshot
      * @return the saved screenshot file
      */
     protected fun takeScreenshot(name: String): File {
-        val screenshot: BufferedImage = remoteRobot.getScreenshot()
+        val screenshot: BufferedImage = ideFrame?.getScreenshot() ?: remoteRobot.getScreenshot()
         val file = File(screenshotDir, "$name.png")
         ImageIO.write(screenshot, "png", file)
         return file

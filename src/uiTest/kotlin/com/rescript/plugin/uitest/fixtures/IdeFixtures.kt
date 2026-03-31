@@ -72,23 +72,35 @@ object IdeFixtureUtils {
     ): IdeFrameFixture = remoteRobot.find(timeout)
 
     /**
-     * Opens a file by invoking the Go to File action (Cmd+Shift+O).
+     * Opens a file programmatically via FileEditorManager on the EDT.
+     *
+     * More reliable than the keyboard-shortcut approach (Cmd+Shift+O)
+     * because it does not depend on Search Everywhere dialog timing.
      *
      * @param remoteRobot the Remote-Robot client
-     * @param fileName the file name to search for and open
+     * @param fileName the file name relative to the project's `src/` directory
      */
     fun openFileByName(
         remoteRobot: RemoteRobot,
         fileName: String,
     ) {
-        remoteRobot.keyboard {
-            hotKey(KeyEvent.VK_META, KeyEvent.VK_SHIFT, KeyEvent.VK_O)
-        }
-        Thread.sleep(1000)
-        remoteRobot.keyboard { enterText(fileName) }
+        remoteRobot.runJs(
+            """
+            importClass(com.intellij.openapi.application.ApplicationManager)
+            importClass(com.intellij.openapi.project.ProjectManager)
+            importClass(com.intellij.openapi.fileEditor.FileEditorManager)
+            var project = ProjectManager.getInstance().getOpenProjects()[0]
+            var baseDir = project.getBaseDir()
+            var file = baseDir.findFileByRelativePath("src/$fileName")
+            if (file == null) { throw new Error("File not found: src/$fileName") }
+            ApplicationManager.getApplication().invokeAndWait(new Runnable({
+                run: function() {
+                    FileEditorManager.getInstance(project).openFile(file, true)
+                }
+            }))
+            """.trimIndent(),
+        )
         Thread.sleep(500)
-        remoteRobot.keyboard { enter() }
-        Thread.sleep(1000)
     }
 
     /**

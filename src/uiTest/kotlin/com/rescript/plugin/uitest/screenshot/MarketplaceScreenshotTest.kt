@@ -3,7 +3,6 @@ package com.rescript.plugin.uitest.screenshot
 import com.intellij.remoterobot.utils.keyboard
 import com.rescript.plugin.uitest.UiTestBase
 import com.rescript.plugin.uitest.fixtures.IdeFixtureUtils
-import com.rescript.plugin.uitest.fixtures.IdeFrameFixture
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.MethodOrderer
@@ -26,21 +25,22 @@ import java.awt.event.KeyEvent
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class MarketplaceScreenshotTest : UiTestBase() {
-    private lateinit var ideFrame: IdeFrameFixture
-
     /**
-     * Waits for the IDE to be fully loaded before running any screenshot tests.
+     * Waits for the IDE to be fully loaded, dismisses notifications,
+     * and initializes the IDE frame fixture for window-scoped screenshots.
      */
     @BeforeAll
     fun waitForIde() {
         waitForIdeReady()
         ideFrame = IdeFixtureUtils.findIdeFrame(remoteRobot)
+        dismissNotifications()
     }
 
     @Test
     @Order(1)
     fun `01 - syntax highlighting`() {
         openFile("Demo.res")
+        dismissEditorNotificationBar()
         waitForRendering(3000)
 
         val file = takeScreenshot("01-syntax-highlighting")
@@ -52,6 +52,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(2)
     fun `02 - code completion`() {
         openFile("Demo.res")
+        dismissEditorNotificationBar()
         waitForRendering()
 
         // Navigate to end of file and type to trigger completion
@@ -64,12 +65,13 @@ class MarketplaceScreenshotTest : UiTestBase() {
 
         // Trigger completion explicitly
         IdeFixtureUtils.triggerCompletion(remoteRobot)
-        waitForRendering(2000)
+        waitForRendering(3000)
 
         val file = takeScreenshot("02-code-completion")
         assertTrue(file.exists())
 
-        // Undo the typed text to leave the file clean
+        // Dismiss completion popup and undo typed text
+        remoteRobot.keyboard { key(KeyEvent.VK_ESCAPE) }
         repeat(20) {
             remoteRobot.keyboard { hotKey(KeyEvent.VK_META, KeyEvent.VK_Z) }
         }
@@ -79,6 +81,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(3)
     fun `03 - error lens`() {
         openFile("ErrorDemo.res")
+        dismissEditorNotificationBar()
         waitForRendering(5000) // Allow time for LSP diagnostics
 
         val file = takeScreenshot("03-error-lens")
@@ -89,6 +92,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(4)
     fun `04 - inlay hints`() {
         openFile("Demo.res")
+        dismissEditorNotificationBar()
         waitForRendering(3000) // Allow time for LSP inlay hints to load
 
         val file = takeScreenshot("04-inlay-hints")
@@ -99,6 +103,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(5)
     fun `05 - structure view`() {
         openFile("Demo.res")
+        dismissEditorNotificationBar()
         waitForRendering()
 
         // Open Structure tool window
@@ -116,6 +121,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(6)
     fun `06 - code vision`() {
         openFile("Demo.res")
+        dismissEditorNotificationBar()
         waitForRendering(5000) // Code Vision needs LSP hover data
 
         val file = takeScreenshot("06-code-vision")
@@ -126,6 +132,7 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(7)
     fun `07 - jsx support`() {
         openFile("JsxDemo.res")
+        dismissEditorNotificationBar()
         waitForRendering(3000)
 
         val file = takeScreenshot("07-jsx-support")
@@ -141,20 +148,15 @@ class MarketplaceScreenshotTest : UiTestBase() {
         }
         waitForRendering(2000)
 
-        // Try to expand the src directory in the project tree
-        try {
-            val projectTree = ideFrame.projectTree()
-            takeComponentScreenshot(projectTree, "08-project-view")
-        } catch (_: Exception) {
-            // Fallback: take full IDE screenshot if tree not found
-            takeScreenshot("08-project-view")
-        }
+        val file = takeScreenshot("08-project-view")
+        assertTrue(file.exists())
     }
 
     @Test
     @Order(9)
     fun `09 - quick fix and intention`() {
         openFile("Demo.res")
+        dismissEditorNotificationBar()
         waitForRendering()
 
         // Place cursor on a symbol and trigger intentions
@@ -170,8 +172,12 @@ class MarketplaceScreenshotTest : UiTestBase() {
         remoteRobot.keyboard { hotKey(KeyEvent.VK_HOME) }
         waitForRendering(500)
 
-        IdeFixtureUtils.triggerIntentionActions(remoteRobot)
-        waitForRendering(2000)
+        try {
+            IdeFixtureUtils.triggerIntentionActions(remoteRobot)
+            waitForRendering(2000)
+        } catch (_: Exception) {
+            // Intention actions may not be available without LSP
+        }
 
         val file = takeScreenshot("09-quick-fix-intention")
         assertTrue(file.exists())
@@ -184,9 +190,9 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Order(10)
     fun `10 - hover documentation`() {
         openFile("Demo.res")
+        dismissEditorNotificationBar()
         waitForRendering()
 
-        // Use Ctrl+Shift+P (Expression Type) or Ctrl+Q (Quick Documentation)
         remoteRobot.keyboard {
             hotKey(KeyEvent.VK_META, KeyEvent.VK_HOME)
         }
@@ -201,9 +207,13 @@ class MarketplaceScreenshotTest : UiTestBase() {
         }
         waitForRendering(500)
 
-        // Trigger Quick Documentation
-        remoteRobot.keyboard { key(KeyEvent.VK_F1) }
-        waitForRendering(2000)
+        try {
+            // Trigger Quick Documentation
+            remoteRobot.keyboard { key(KeyEvent.VK_F1) }
+            waitForRendering(2000)
+        } catch (_: Exception) {
+            // Documentation may not be available without LSP
+        }
 
         val file = takeScreenshot("10-hover-documentation")
         assertTrue(file.exists())
@@ -215,15 +225,16 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Test
     @Order(11)
     fun `11 - repl`() {
-        // Open REPL tool window via Tools menu or action (must run on EDT)
+        // Open REPL tool window on EDT with blocking call
         remoteRobot.runJs(
             """
             importClass(com.intellij.openapi.application.ApplicationManager)
             importClass(com.intellij.openapi.wm.ToolWindowManager)
-            ApplicationManager.getApplication().invokeLater(new Runnable({
+            importClass(com.intellij.openapi.project.ProjectManager)
+            var project = ProjectManager.getInstance().getOpenProjects()[0]
+            ApplicationManager.getApplication().invokeAndWait(new Runnable({
                 run: function() {
-                    const project = com.intellij.openapi.project.ProjectManager.getInstance().getOpenProjects()[0]
-                    const toolWindow = ToolWindowManager.getInstance(project).getToolWindow("ReScript REPL")
+                    var toolWindow = ToolWindowManager.getInstance(project).getToolWindow("ReScript REPL")
                     if (toolWindow != null) {
                         toolWindow.show()
                     }
@@ -240,12 +251,80 @@ class MarketplaceScreenshotTest : UiTestBase() {
     // ── Helper methods ──
 
     /**
-     * Opens a file from the sample project by name using the Go to File action.
+     * Opens a file from the sample project by name.
      *
      * @param fileName the name of the file to open
      */
     private fun openFile(fileName: String) {
         IdeFixtureUtils.openFileByName(remoteRobot, fileName)
         waitForRendering()
+    }
+
+    /**
+     * Dismisses all IDE notification balloons and error indicators.
+     *
+     * Expires pending notifications (including IDE internal error reports)
+     * so they do not appear in screenshots.
+     */
+    private fun dismissNotifications() {
+        try {
+            remoteRobot.runJs(
+                """
+                importClass(com.intellij.openapi.application.ApplicationManager)
+                importClass(com.intellij.notification.NotificationsManager)
+                ApplicationManager.getApplication().invokeAndWait(new Runnable({
+                    run: function() {
+                        var notifications = NotificationsManager.getNotificationsManager()
+                            .getNotificationsOfType(com.intellij.notification.Notification.class, null)
+                        for (var i = 0; i < notifications.length; i++) {
+                            notifications[i].expire()
+                        }
+                    }
+                }))
+                """.trimIndent(),
+            )
+        } catch (_: Exception) {
+            // Best effort — notification API may vary across IDE versions
+        }
+        waitForRendering(500)
+    }
+
+    /**
+     * Dismisses the editor notification bar (e.g. "Language Server not found").
+     *
+     * Closes any [com.intellij.ui.EditorNotificationPanel] visible at the top
+     * of the current editor by programmatically hiding it.
+     */
+    private fun dismissEditorNotificationBar() {
+        try {
+            remoteRobot.runJs(
+                """
+                importClass(com.intellij.openapi.application.ApplicationManager)
+                importClass(com.intellij.openapi.project.ProjectManager)
+                importClass(com.intellij.openapi.fileEditor.FileEditorManager)
+                importClass(com.intellij.ui.EditorNotificationProvider)
+                ApplicationManager.getApplication().invokeAndWait(new Runnable({
+                    run: function() {
+                        var project = ProjectManager.getInstance().getOpenProjects()[0]
+                        var editor = FileEditorManager.getInstance(project).getSelectedEditor()
+                        if (editor != null) {
+                            com.intellij.ui.EditorNotifications.getInstance(project).updateNotifications(
+                                editor.getFile()
+                            )
+                        }
+                    }
+                }))
+                """.trimIndent(),
+            )
+        } catch (_: Exception) {
+            // Best effort
+        }
+        // Also try closing via keyboard (Escape dismisses some notification bars)
+        try {
+            remoteRobot.keyboard { key(KeyEvent.VK_ESCAPE) }
+        } catch (_: Exception) {
+            // Ignore
+        }
+        waitForRendering(300)
     }
 }
