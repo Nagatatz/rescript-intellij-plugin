@@ -41,12 +41,25 @@ abstract class UiTestBase {
     }
 
     /**
-     * Establishes a connection to the Remote-Robot server before each test.
+     * Ensures the Remote-Robot connection is established and the screenshot directory exists.
+     *
+     * Safe to call multiple times — only initializes on first invocation.
+     * Called automatically before each test via [BeforeEach], and can also be
+     * called from [BeforeAll][org.junit.jupiter.api.BeforeAll] in subclasses.
      */
     @BeforeEach
     fun connectToIde() {
-        val port = System.getProperty("robot-server.port", DEFAULT_PORT)
-        remoteRobot = RemoteRobot("http://127.0.0.1:$port")
+        ensureConnected()
+    }
+
+    /**
+     * Initializes the Remote-Robot connection if not already done.
+     */
+    protected fun ensureConnected() {
+        if (!::remoteRobot.isInitialized) {
+            val port = System.getProperty("robot-server.port", DEFAULT_PORT)
+            remoteRobot = RemoteRobot("http://127.0.0.1:$port")
+        }
         File(screenshotDir).mkdirs()
     }
 
@@ -86,6 +99,7 @@ abstract class UiTestBase {
      * @param timeout maximum time to wait for the IDE to become ready
      */
     protected fun waitForIdeReady(timeout: Duration = Duration.ofSeconds(60)) {
+        ensureConnected()
         remoteRobot.find<ComponentFixture>(
             byXpath("//div[@class='IdeFrameImpl']"),
             timeout,

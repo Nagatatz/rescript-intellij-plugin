@@ -255,6 +255,15 @@ val runIdeForUiTests by intellijPlatformTesting.runIde.registering {
                 )
             }
         jvmArgs("-Xmx2G")
+        // Open the sample project automatically so UI tests can find IdeFrameImpl
+        argumentProviders +=
+            CommandLineArgumentProvider {
+                listOf(
+                    layout.projectDirectory
+                        .dir("src/uiTest/testData/sample-project")
+                        .asFile.absolutePath,
+                )
+            }
     }
     plugins {
         robotServerPlugin()
@@ -267,6 +276,17 @@ tasks.register<Test>("uiTest") {
     useJUnitPlatform()
     testClassesDirs = sourceSets["uiTest"].output.classesDirs
     classpath = sourceSets["uiTest"].runtimeClasspath
+    // Gson in Remote-Robot needs reflective access on JDK 16+
+    jvmArgs(
+        "--add-opens",
+        "java.base/java.lang=ALL-UNNAMED",
+        "--add-opens",
+        "java.base/java.lang.invoke=ALL-UNNAMED",
+        "--add-opens",
+        "java.base/java.lang.reflect=ALL-UNNAMED",
+        "--add-opens",
+        "java.base/java.util=ALL-UNNAMED",
+    )
     systemProperty("robot-server.port", "8082")
     systemProperty(
         "screenshot.output.dir",

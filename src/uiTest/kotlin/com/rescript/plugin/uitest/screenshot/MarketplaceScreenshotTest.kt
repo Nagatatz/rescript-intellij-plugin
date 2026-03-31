@@ -215,15 +215,20 @@ class MarketplaceScreenshotTest : UiTestBase() {
     @Test
     @Order(11)
     fun `11 - repl`() {
-        // Open REPL tool window via Tools menu or action
+        // Open REPL tool window via Tools menu or action (must run on EDT)
         remoteRobot.runJs(
             """
+            importClass(com.intellij.openapi.application.ApplicationManager)
             importClass(com.intellij.openapi.wm.ToolWindowManager)
-            const project = com.intellij.openapi.project.ProjectManager.getInstance().getOpenProjects()[0]
-            const toolWindow = ToolWindowManager.getInstance(project).getToolWindow("ReScript REPL")
-            if (toolWindow != null) {
-                toolWindow.show()
-            }
+            ApplicationManager.getApplication().invokeLater(new Runnable({
+                run: function() {
+                    const project = com.intellij.openapi.project.ProjectManager.getInstance().getOpenProjects()[0]
+                    const toolWindow = ToolWindowManager.getInstance(project).getToolWindow("ReScript REPL")
+                    if (toolWindow != null) {
+                        toolWindow.show()
+                    }
+                }
+            }))
             """.trimIndent(),
         )
         waitForRendering(3000)
