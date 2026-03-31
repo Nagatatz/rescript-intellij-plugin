@@ -1,6 +1,7 @@
 package com.rescript.plugin.lsp
 
 import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
@@ -28,6 +29,8 @@ import java.net.URI
  * @see RescriptLspDiagnosticParser
  */
 object RescriptLspUtils {
+    private val LOG = logger<RescriptLspUtils>()
+
     /**
      * Returns the first ReScript LSP server for the given project, or null if unavailable.
      *
@@ -69,7 +72,8 @@ object RescriptLspUtils {
         try {
             val parsed = URI(uri)
             "file://${parsed.path}"
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            LOG.trace("Failed to parse LSP URI, using raw value: $uri — ${e.message}")
             uri
         }
 
@@ -122,7 +126,8 @@ object RescriptLspUtils {
                 }
                 else -> null
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            LOG.trace("Failed to get hover type from LSP server: ${e.message}")
             return null
         }
     }

@@ -1,5 +1,6 @@
 package com.rescript.plugin.dependencies
 
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.ui.components.JBScrollPane
@@ -23,6 +24,7 @@ import javax.swing.tree.DefaultTreeModel
 class RescriptDependenciesPanel(
     private val project: Project,
 ) {
+    private val log = logger<RescriptDependenciesPanel>()
     private val rootNode = DefaultMutableTreeNode("ReScript Dependencies")
     private val treeModel = DefaultTreeModel(rootNode)
     private val tree = Tree(treeModel)
@@ -62,7 +64,14 @@ class RescriptDependenciesPanel(
             addDependencyCategory(jsonObj, "bs-dependencies", basePath)
             addDependencyCategory(jsonObj, "bs-dev-dependencies", basePath)
             addDependencyCategory(jsonObj, "pinned-dependencies", basePath)
-        } catch (_: Exception) {
+        } catch (e: java.io.IOException) {
+            log.debug("Failed to read rescript.json", e)
+            rootNode.add(DefaultMutableTreeNode("Error reading rescript.json"))
+        } catch (e: com.google.gson.JsonParseException) {
+            log.debug("Invalid rescript.json format", e)
+            rootNode.add(DefaultMutableTreeNode("Error reading rescript.json"))
+        } catch (e: IllegalStateException) {
+            log.debug("Unexpected rescript.json structure", e)
             rootNode.add(DefaultMutableTreeNode("Error reading rescript.json"))
         }
 
