@@ -23,6 +23,9 @@ extensions = [
     "notfound.extension",
     "sphinx_tippy",
     "sphinx_last_updated_by_git",
+    "sphinx_llms_txt",
+    "sphinxcontrib.budoux",
+    "atsphinx.htmx_boost",
 ]
 
 # MyST Parser settings
@@ -138,6 +141,18 @@ tippy_enable_mathjax = False
 # -- Last updated by git -----------------------------------------------------
 
 git_last_updated_timezone = "Asia/Tokyo"
+
+# -- LLM documentation (llms.txt) --------------------------------------------
+
+# URI template uses html_baseurl automatically; no override needed
+
+# -- BudouX (Japanese line breaking) -----------------------------------------
+
+budoux_targets = ["h1", "h2", "h3"]
+
+# -- HTMX Boost (SPA-like page transitions) ----------------------------------
+
+htmx_boost_preload = "mouseover"
 
 # Suppress toctree warnings for locale files
 suppress_warnings = ["toc.excluded"]
