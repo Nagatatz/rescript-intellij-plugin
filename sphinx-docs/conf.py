@@ -18,6 +18,11 @@ extensions = [
     "myst_parser",
     "sphinx_copybutton",
     "sphinx_design",
+    "sphinxext.opengraph",
+    "sphinx_sitemap",
+    "notfound.extension",
+    "sphinx_tippy",
+    "sphinx_last_updated_by_git",
 ]
 
 # MyST Parser settings
@@ -64,13 +69,19 @@ lexer_classes["rescript"] = RescriptLexer
 
 html_theme = "furo"
 
+_github_repo_url = "https://github.com/Nagatatz/rescript-intellij-plugin"
+
 html_theme_options = {
     "sidebar_hide_name": False,
     "navigation_with_keys": True,
+    "top_of_page_button": "edit",
+    "source_repository": _github_repo_url,
+    "source_branch": "main",
+    "source_directory": "sphinx-docs/",
     "footer_icons": [
         {
             "name": "GitHub",
-            "url": "https://github.com/Nagatatz/rescript-intellij-plugin",
+            "url": _github_repo_url,
             "html": '<svg stroke="currentColor" fill="currentColor" stroke-width="0" '
             'viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 '
             "3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37"
@@ -102,6 +113,31 @@ html_context = {
 
 # Pagefind search page (replaces default Sphinx search)
 html_additional_pages = {"search": "search.html"}
+
+# -- Open Graph (social sharing previews) -----------------------------------
+
+html_baseurl = "https://nagatatz.github.io/rescript-intellij-plugin/en/"
+ogp_site_url = html_baseurl
+ogp_site_name = "ReScript IntelliJ Plugin"
+ogp_type = "website"
+
+# -- Sitemap (SEO) -----------------------------------------------------------
+
+sitemap_url_scheme = "{link}"
+sitemap_locales = ["en", "ja"]
+
+# -- 404 page ----------------------------------------------------------------
+
+notfound_urls_prefix = os.environ.get("SPHINX_SITE_PREFIX", "") + "/en/"
+
+# -- Tooltip previews (sphinx-tippy) -----------------------------------------
+
+tippy_anchor_parent_selector = "div.content"
+tippy_enable_mathjax = False
+
+# -- Last updated by git -----------------------------------------------------
+
+git_last_updated_timezone = "Asia/Tokyo"
 
 # Suppress toctree warnings for locale files
 suppress_warnings = ["toc.excluded"]

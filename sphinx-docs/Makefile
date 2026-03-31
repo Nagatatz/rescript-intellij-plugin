@@ -4,7 +4,7 @@ SPHINXINTL    ?= uv run sphinx-intl
 SOURCEDIR     = .
 BUILDDIR      = _build
 
-.PHONY: help install clean html gettext update-po build-ja build-all serve linkcheck generate-lexer pagefind lint typecheck test check
+.PHONY: help install clean html gettext update-po build-ja build-all serve liveserve linkcheck generate-lexer pagefind lint typecheck test check
 
 help:
 	@echo "Usage:"
@@ -16,6 +16,7 @@ help:
 	@echo "  make build-ja        Build Japanese HTML"
 	@echo "  make build-all       Build EN + JA and assemble final site with Pagefind"
 	@echo "  make serve           Serve the built site on localhost:8000"
+	@echo "  make liveserve       Live-reload dev server (auto-rebuilds on save)"
 	@echo "  make clean           Remove build artifacts"
 	@echo "  make linkcheck       Check for broken links"
 	@echo "  make pagefind        Build Pagefind search index"
@@ -61,6 +62,10 @@ build-all: html build-ja
 serve: build-all
 	@echo "Serving at http://localhost:8000"
 	uv run python -m http.server 8000 --directory $(BUILDDIR)/site
+
+liveserve: generate-lexer
+	@echo "Live server at http://127.0.0.1:8000 (auto-rebuilds on changes)"
+	uv run sphinx-autobuild $(SPHINXOPTS) $(SOURCEDIR) $(BUILDDIR)/html --watch _ext
 
 linkcheck: generate-lexer
 	$(SPHINXBUILD) -b linkcheck $(SPHINXOPTS) $(SOURCEDIR) $(BUILDDIR)/linkcheck

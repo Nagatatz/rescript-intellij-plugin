@@ -83,13 +83,12 @@ jobs:
         with:
           path: sphinx-docs/_build/site
 
-      - name: Link check (PR only)
-        if: github.event_name == 'pull_request'
+      - name: Link check
         run: make linkcheck
         continue-on-error: true
 
       - name: Report link check results
-        if: github.event_name == 'pull_request' && always()
+        if: always()
         run: |
           if [ -f _build/linkcheck/output.txt ]; then
             {

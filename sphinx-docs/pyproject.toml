@@ -10,6 +10,11 @@ dependencies = [
     "sphinx-intl>=2.3,<3.0",
     "sphinx-copybutton>=0.5,<1.0",
     "sphinx-design>=0.6,<1.0",
+    "sphinxext-opengraph>=0.9,<1.0",
+    "sphinx-sitemap>=2.6,<3.0",
+    "sphinx-notfound-page>=1.0,<2.0",
+    "sphinx-tippy>=0.4,<1.0",
+    "sphinx-last-updated-by-git>=0.3,<1.0",
 ]
 
 [dependency-groups]
@@ -18,6 +23,7 @@ dev = [
     "mypy>=1.13",
     "pytest>=8.0",
     "pytest-cov>=6.0",
+    "sphinx-autobuild>=2024.0",
 ]
 
 [tool.hatch.build.targets.wheel]
