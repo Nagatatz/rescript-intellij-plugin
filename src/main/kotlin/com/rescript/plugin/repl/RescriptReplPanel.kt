@@ -5,6 +5,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CustomShortcutSet
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.EditorTextField
@@ -46,13 +47,17 @@ class RescriptReplPanel(
             border = JBUI.Borders.empty(4)
         }
 
-    // Use EditorTextField instead of JBTextArea so that IntelliJ's action system
-    // does not intercept keyboard events before they reach the input area.
-    // Uses the 3-param constructor to create a PSI-associated Document for proper
-    // editor initialization, and sets contentComponent focusable for tool window focus.
+    // Use EditorTextField with a plain Document so the input area is editable
+    // inside the tool window. The 3-param constructor (text, project, fileType)
+    // creates a PSI-backed Document that becomes read-only in tool windows.
     private val inputArea =
-        EditorTextField("", project, RescriptFileType).apply {
-            setOneLineMode(false)
+        EditorTextField(
+            EditorFactory.getInstance().createDocument(""),
+            project,
+            RescriptFileType,
+            false,
+            false,
+        ).apply {
             preferredSize = Dimension(Int.MAX_VALUE, JBUI.scale(80)) // ~4 lines height
             addSettingsProvider { editor ->
                 editor.contentComponent.isFocusable = true
