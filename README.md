@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/Nagatatz/rescript-intellij-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/Nagatatz/rescript-intellij-plugin/actions/workflows/ci.yml)
 [![JetBrains Marketplace](https://img.shields.io/jetbrains/plugin/v/com.rescript.plugin.svg?label=Marketplace)](https://plugins.jetbrains.com/plugin/com.rescript.plugin)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink?logo=github)](https://github.com/sponsors/Nagatatz)
 
 [ReScript](https://rescript-lang.org) language support for IntelliJ IDEA and other JetBrains IDEs.
 
