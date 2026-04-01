@@ -29,13 +29,14 @@
 - [x] `RescriptEditorUtils.kt` に行取得拡張関数を追加 (`getLineTextAt`, `getLineRangeAt`)
 - [x] 呼び出し元を拡張関数に置換（6ファイル、10箇所）
 - [x] テスト更新
-- [x] コミット: `♻️ Extract Document line utility functions`
+- [x] コミット: Task 3 にまとめてコミット済み
 
 ## 5. 検証・マージ
 
 - [x] `./gradlew ktlintCheck` パス
 - [x] `./gradlew clean buildPlugin` 成功
 - [x] `./gradlew test` パス
-- [ ] ドキュメント更新（CLAUDE.md, README.md, sphinx-docs, product-requirements.md）
-- [ ] コミット: `📝 Update docs for boilerplate refactoring`
-- [ ] main にマージ
+- [x] ドキュメント更新（CLAUDE.md, docs/repository-structure.md, docs/product-requirements.md）
+  - README.md / sphinx-docs: 内部リファクタリングのためユーザー向け変更なし
+- [x] コミット: `📝 Update docs for boilerplate refactoring`
+- [x] main にマージ

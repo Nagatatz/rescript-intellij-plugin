@@ -165,6 +165,9 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **共通 Regex パターン** (`util/`) — LIDENT/UIDENT/WHITESPACE/open 文パターン等の重複 Regex を `RescriptRegexPatterns` に集約
 - **プロセス実行ユーティリティ** (`util/`) — 外部コマンド実行の共通パターン（タイムアウト、stdout キャプチャ）を `RescriptProcessUtils` に集約
 - **ファイルユーティリティ** (`util/`) — `.res`/`.resi` 拡張子判定・対応ファイル検索を `RescriptFileUtil` に集約
+- **エディタユーティリティ** (`util/`) — `WriteCommandAction` ラッパー（`replaceInWriteAction` 等）と `Document` 行アクセスヘルパー（`getLineTextAt`、`getLineRangeAt`）を `RescriptEditorUtils` に集約
+- **Intention 基底クラス** (`intention/`) — `RescriptBaseIntention` による `getFamilyName()` デフォルト実装と `RescriptFile` ガードの共通化
+- **Generate Action 基底クラス** (`generate/`) — `RescriptBaseGenerateAction` による `ActionUpdateThread.BGT` ポリシーの共通化
 
 ## 開発規約
 
