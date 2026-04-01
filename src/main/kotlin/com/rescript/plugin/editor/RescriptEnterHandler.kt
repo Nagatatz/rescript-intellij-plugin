@@ -6,10 +6,11 @@ import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler
 import com.intellij.openapi.util.Ref
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.util.RescriptEditorUtils.getLineRangeAt
+import com.rescript.plugin.util.RescriptEditorUtils.getLineTextAt
 
 /**
  * Enter key handler for ReScript that auto-continues documentation
@@ -30,10 +31,8 @@ class RescriptEnterHandler : EnterHandlerDelegateAdapter() {
 
         val offset = caretOffset.get()
         val document = editor.document
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val lineText = document.getText(TextRange(lineStart, lineEnd))
+        val (lineStart, _) = document.getLineRangeAt(offset)
+        val lineText = document.getLineTextAt(offset)
         val indent = lineText.takeWhile { it.isWhitespace() }
 
         val element = file.findElementAt(offset)

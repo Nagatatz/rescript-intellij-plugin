@@ -1,13 +1,13 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptEditorUtils.getLineRangeAt
+import com.rescript.plugin.util.RescriptEditorUtils.getLineTextAt
+import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
  * Intention action to split a pattern variable into all variant constructors.
@@ -26,17 +26,14 @@ import com.rescript.plugin.lsp.RescriptLspUtils
  *
  * @see RescriptLspUtils.parseVariantConstructors
  */
-class RescriptCaseSplitIntention : PsiElementBaseIntentionAction() {
+class RescriptCaseSplitIntention : RescriptBaseIntention() {
     override fun getText(): String = "Split into constructor cases"
 
-    override fun getFamilyName(): String = "Split into constructor cases"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val tokenType = element.node?.elementType ?: return false
         // Available on lowercase identifiers (pattern variables)
         if (tokenType != RescriptTokenTypes.LIDENT) return false
@@ -54,7 +51,6 @@ class RescriptCaseSplitIntention : PsiElementBaseIntentionAction() {
         val file = element.containingFile?.virtualFile ?: return
         val offset = element.textRange.startOffset
         val document = editor.document
-        val text = document.text
 
         // Get the type of the variable from LSP
         val typeText = RescriptLspUtils.getHoverType(project, file, offset) ?: return
@@ -62,10 +58,8 @@ class RescriptCaseSplitIntention : PsiElementBaseIntentionAction() {
         if (constructors.isEmpty()) return
 
         // Find the case line containing this variable
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val line = text.substring(lineStart, lineEnd)
+        val (lineStart, lineEnd) = document.getLineRangeAt(offset)
+        val line = document.getLineTextAt(offset)
 
         // Parse the case: | pattern => body
         val arrowIndex = line.indexOf("=>")
@@ -81,9 +75,7 @@ class RescriptCaseSplitIntention : PsiElementBaseIntentionAction() {
                 "$indent| $pattern => $body"
             }
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(lineStart, lineEnd, expandedCases)
-        }
+        document.replaceInWriteAction(project, lineStart, lineEnd, expandedCases)
     }
 
     companion object {

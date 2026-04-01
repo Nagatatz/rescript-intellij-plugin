@@ -1,11 +1,9 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
  * Intention action to merge switch cases that have identical bodies.
@@ -16,17 +14,14 @@ import com.rescript.plugin.lang.psi.RescriptFile
  *
  * Triggered via Alt+Enter > "Merge switch cases with same body".
  */
-class RescriptMergeSwitchCasesIntention : PsiElementBaseIntentionAction() {
+class RescriptMergeSwitchCasesIntention : RescriptBaseIntention() {
     override fun getText(): String = "Merge switch cases with same body"
 
-    override fun getFamilyName(): String = "Merge switch cases with same body"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         editor ?: return false
 
         // Check if we're inside a switch expression
@@ -65,9 +60,7 @@ class RescriptMergeSwitchCasesIntention : PsiElementBaseIntentionAction() {
                 "\n" + newSwitchBody + "\n" +
                 switchBlock.substring(bodyEnd)
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(switchRange.first, switchRange.second, newBlock)
-        }
+        document.replaceInWriteAction(project, switchRange.first, switchRange.second, newBlock)
     }
 
     /** Represents a single case in a switch expression. */

@@ -1,12 +1,12 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.RescriptEditorUtils.getLineRangeAt
+import com.rescript.plugin.util.RescriptEditorUtils.getLineTextAt
+import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
  * Intention action that adds an explicit type annotation to a `let` binding
@@ -17,25 +17,19 @@ import com.rescript.plugin.lsp.RescriptLspUtils
  *
  * Triggered via Alt+Enter > "Add type annotation".
  *
- * Implements [PsiElementBaseIntentionAction] for intention action support.
+ * Implements [RescriptBaseIntention] for intention action support.
  */
-class RescriptAddTypeAnnotationIntention : PsiElementBaseIntentionAction() {
+class RescriptAddTypeAnnotationIntention : RescriptBaseIntention() {
     override fun getText(): String = "Add type annotation"
 
-    override fun getFamilyName(): String = "Add type annotation"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val document = editor?.document ?: return false
         val offset = element.textRange.startOffset
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val line = document.text.substring(lineStart, lineEnd)
+        val line = document.getLineTextAt(offset)
 
         // Check it's a let binding without type annotation
         return LET_WITHOUT_TYPE_PATTERN.containsMatchIn(line)
@@ -58,16 +52,12 @@ class RescriptAddTypeAnnotationIntention : PsiElementBaseIntentionAction() {
         // Extract just the type from the hover response
         val cleanType = extractTypeFromHover(typeText) ?: return
 
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val line = document.text.substring(lineStart, lineEnd)
+        val (lineStart, lineEnd) = document.getLineRangeAt(offset)
+        val line = document.getLineTextAt(offset)
 
         val annotated = insertTypeAnnotation(line, cleanType) ?: return
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(lineStart, lineEnd, annotated)
-        }
+        document.replaceInWriteAction(project, lineStart, lineEnd, annotated)
     }
 
     companion object {

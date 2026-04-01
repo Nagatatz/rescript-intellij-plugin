@@ -1,11 +1,9 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
  * Intention action to remove unnecessary parentheses around expressions.
@@ -17,17 +15,14 @@ import com.rescript.plugin.lang.psi.RescriptFile
  *
  * Triggered via Alt+Enter > "Remove unnecessary parentheses".
  */
-class RescriptRemoveParenthesesIntention : PsiElementBaseIntentionAction() {
+class RescriptRemoveParenthesesIntention : RescriptBaseIntention() {
     override fun getText(): String = "Remove unnecessary parentheses"
 
-    override fun getFamilyName(): String = "Remove unnecessary parentheses"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val text = editor?.document?.text ?: return false
         val offset = editor.caretModel.offset
 
@@ -55,9 +50,7 @@ class RescriptRemoveParenthesesIntention : PsiElementBaseIntentionAction() {
         val parenRange = findEnclosingParens(text, offset) ?: return
         val inner = text.substring(parenRange.first + 1, parenRange.second).trim()
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(parenRange.first, parenRange.second + 1, inner)
-        }
+        document.replaceInWriteAction(project, parenRange.first, parenRange.second + 1, inner)
     }
 
     companion object {

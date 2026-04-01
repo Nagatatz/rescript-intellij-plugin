@@ -1,13 +1,11 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.imports.RescriptImportUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
-import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptEditorUtils.deleteInWriteAction
 
 /**
  * Intention action to remove redundant module qualifiers.
@@ -20,17 +18,14 @@ import com.rescript.plugin.lang.psi.RescriptFile
  *
  * @see com.rescript.plugin.imports.RescriptImportOptimizer
  */
-class RescriptRemoveQualifierIntention : PsiElementBaseIntentionAction() {
+class RescriptRemoveQualifierIntention : RescriptBaseIntention() {
     override fun getText(): String = "Remove redundant qualifier"
 
-    override fun getFamilyName(): String = "Remove redundant qualifier"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val tokenType = element.node?.elementType ?: return false
 
         // Available on uppercase identifiers (module qualifiers)
@@ -58,9 +53,7 @@ class RescriptRemoveQualifierIntention : PsiElementBaseIntentionAction() {
         val endOffset = element.textRange.endOffset
 
         // Remove "Module." (the identifier + the dot)
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.deleteString(element.textRange.startOffset, endOffset + 1)
-        }
+        document.deleteInWriteAction(project, element.textRange.startOffset, endOffset + 1)
     }
 
     companion object {
