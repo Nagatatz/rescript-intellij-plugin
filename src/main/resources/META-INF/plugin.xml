@@ -69,6 +69,45 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.11</h3>
+        <h4>New Features</h4>
+        <ul>
+            <li>Add TypeScript/JSX paste conversion support</li>
+            <li>Add dedicated REPL icon and syntax highlighting in input area</li>
+            <li>Improve REPL UX: resizable split, auto-scroll, history navigation</li>
+            <li>Add UI test framework with Remote-Robot for automated Marketplace screenshots</li>
+            <li>Add JSX state-based highlighting to Sphinx lexer</li>
+        </ul>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Fix compiled JS file nesting in Project View</li>
+            <li>Fix REPL input area being read-only in tool window</li>
+            <li>Fix UI test failures on JDK 24</li>
+            <li>Add missing process timeout to RescriptUnusedCodeInspection</li>
+            <li>Improve error handling across multiple files</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Extract RescriptBaseIntention base class for 20 intentions</li>
+            <li>Extract RescriptBaseGenerateAction base class for 6 generate actions</li>
+            <li>Extract editor utility functions to RescriptEditorUtils</li>
+            <li>Modernize Kotlin: convert to data object and serviceOrNull</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Introduce Gradle version catalog for dependency management</li>
+            <li>Update Kover, ktlint, Gradle wrapper, and dependencies</li>
+            <li>Fix all 23 Qodana issues</li>
+            <li>Introduce parameterized tests for lexer tests</li>
+            <li>Add branch coverage tests for ProcessUtils and FileUtil</li>
+        </ul>
+        <h4>Documentation</h4>
+        <ul>
+            <li>Complete Japanese translations for all Sphinx documentation</li>
+            <li>Add Sphinx extensions for SEO, UX, and developer experience</li>
+            <li>Add glossary, FAQ, and cross-references to Sphinx docs</li>
+        </ul>
+
         <h3>0.1.10</h3>
         <h4>Bug Fixes</h4>
         <ul>
