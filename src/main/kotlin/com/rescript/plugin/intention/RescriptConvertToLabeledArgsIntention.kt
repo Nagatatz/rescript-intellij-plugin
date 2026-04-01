@@ -1,14 +1,12 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lsp.RescriptLspUtils
 import com.rescript.plugin.util.RescriptBraceBalanceUtil
+import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
  * Intention action to convert positional arguments to labeled arguments.
@@ -25,17 +23,14 @@ import com.rescript.plugin.util.RescriptBraceBalanceUtil
  * @see RescriptInsertLabeledArgsIntention
  * @see RescriptLspUtils.parseSignatureLabels
  */
-class RescriptConvertToLabeledArgsIntention : PsiElementBaseIntentionAction() {
+class RescriptConvertToLabeledArgsIntention : RescriptBaseIntention() {
     override fun getText(): String = "Convert to labeled arguments"
 
-    override fun getFamilyName(): String = "Convert to labeled arguments"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val tokenType = element.node?.elementType ?: return false
         if (tokenType != RescriptTokenTypes.LIDENT && tokenType != RescriptTokenTypes.UIDENT) return false
 
@@ -99,8 +94,6 @@ class RescriptConvertToLabeledArgsIntention : PsiElementBaseIntentionAction() {
                 append(")")
             }
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(parenStart, parenEnd + 1, labeledArgs)
-        }
+        document.replaceInWriteAction(project, parenStart, parenEnd + 1, labeledArgs)
     }
 }

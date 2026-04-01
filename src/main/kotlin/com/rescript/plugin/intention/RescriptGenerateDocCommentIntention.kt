@@ -1,11 +1,9 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.util.RescriptRegexPatterns
 
 /**
@@ -15,17 +13,14 @@ import com.rescript.plugin.util.RescriptRegexPatterns
  *
  * @see RescriptAddGenTypeIntention for a similar declaration-targeting intention
  */
-class RescriptGenerateDocCommentIntention : PsiElementBaseIntentionAction() {
+class RescriptGenerateDocCommentIntention : RescriptBaseIntention() {
     override fun getText(): String = "Generate doc comment"
 
-    override fun getFamilyName(): String = "Generate doc comment"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val declaration = RescriptAddGenTypeIntention.findParentDeclaration(element) ?: return false
         return !hasDocComment(declaration)
     }

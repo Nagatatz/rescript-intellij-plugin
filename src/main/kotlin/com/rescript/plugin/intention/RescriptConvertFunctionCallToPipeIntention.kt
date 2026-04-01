@@ -1,10 +1,8 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
 
 /**
  * Intention action that converts a function call to a pipe expression.
@@ -16,17 +14,14 @@ import com.rescript.plugin.lang.psi.RescriptFile
  *
  * @see RescriptConvertPipeToFunctionCallIntention for the reverse conversion
  */
-class RescriptConvertFunctionCallToPipeIntention : PsiElementBaseIntentionAction() {
+class RescriptConvertFunctionCallToPipeIntention : RescriptBaseIntention() {
     override fun getText(): String = "Convert function call to pipe"
 
-    override fun getFamilyName(): String = "Convert function call to pipe"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val document = editor?.document ?: return false
         val offset = editor.caretModel.offset
         val text = document.text

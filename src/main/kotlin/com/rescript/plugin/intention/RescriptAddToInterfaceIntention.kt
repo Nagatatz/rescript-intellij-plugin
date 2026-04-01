@@ -1,12 +1,10 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
 import com.rescript.plugin.lang.psi.RescriptElementTypes
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 import com.rescript.plugin.util.RescriptFileUtil
 
@@ -23,17 +21,14 @@ import com.rescript.plugin.util.RescriptFileUtil
  *
  * @see RescriptRemoveFromInterfaceIntention for the reverse operation
  */
-class RescriptAddToInterfaceIntention : PsiElementBaseIntentionAction() {
+class RescriptAddToInterfaceIntention : RescriptBaseIntention() {
     override fun getText(): String = "Add declaration to interface file"
 
-    override fun getFamilyName(): String = "Add declaration to interface file"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val virtualFile = element.containingFile.virtualFile ?: return false
         if (!RescriptFileUtil.isResFile(virtualFile)) return false
 

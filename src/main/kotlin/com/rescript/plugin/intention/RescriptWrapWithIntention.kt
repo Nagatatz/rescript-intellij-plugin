@@ -1,10 +1,8 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
 
 /**
  * Base intention action that wraps selected text with a wrapper function.
@@ -12,17 +10,14 @@ import com.rescript.plugin.lang.psi.RescriptFile
  */
 abstract class RescriptWrapWithIntention(
     private val wrapper: String,
-) : PsiElementBaseIntentionAction() {
+) : RescriptBaseIntention() {
     override fun getText(): String = "Wrap with $wrapper(...)"
 
-    override fun getFamilyName(): String = "Wrap with $wrapper(...)"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val selectionModel = editor?.selectionModel ?: return false
         return selectionModel.hasSelection()
     }

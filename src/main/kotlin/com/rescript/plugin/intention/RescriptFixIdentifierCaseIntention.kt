@@ -1,12 +1,10 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
-import com.rescript.plugin.lang.psi.RescriptFile
 
 /**
  * Intention action that fixes identifier casing to match ReScript conventions.
@@ -20,17 +18,16 @@ import com.rescript.plugin.lang.psi.RescriptFile
  *
  * @see com.rescript.plugin.refactor.RescriptNamesValidator for identifier validation
  */
-class RescriptFixIdentifierCaseIntention : PsiElementBaseIntentionAction() {
+class RescriptFixIdentifierCaseIntention : RescriptBaseIntention() {
     override fun getText(): String = actionText
 
     override fun getFamilyName(): String = "Fix identifier case"
 
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val tokenType = element.node?.elementType ?: return false
         val text = element.text
         if (text.isEmpty()) return false
