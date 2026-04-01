@@ -1,7 +1,5 @@
 package com.rescript.plugin.generate
 
-import com.intellij.openapi.actionSystem.ActionUpdateThread
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.command.WriteCommandAction
@@ -18,7 +16,10 @@ import com.intellij.openapi.command.WriteCommandAction
  * @see AnAction
  */
 class RescriptGenerateModuleImplAction :
-    AnAction("Module Implementation", "Generate module implementation from module type", null) {
+    RescriptBaseGenerateAction(
+        "Module Implementation",
+        "Generate module implementation from module type",
+    ) {
     override fun actionPerformed(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         e.getData(CommonDataKeys.PSI_FILE) ?: return
@@ -40,8 +41,6 @@ class RescriptGenerateModuleImplAction :
             )
         }
     }
-
-    override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
     override fun update(e: AnActionEvent) {
         val editor =

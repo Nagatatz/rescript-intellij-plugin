@@ -1,7 +1,5 @@
 package com.rescript.plugin.generate
 
-import com.intellij.openapi.actionSystem.ActionUpdateThread
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.command.WriteCommandAction
@@ -19,7 +17,10 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
  * @see RescriptTypeDeclarationParser
  */
 class RescriptGenerateRecordValueAction :
-    AnAction("Record Value", "Generate record value with default fields", null) {
+    RescriptBaseGenerateAction(
+        "Record Value",
+        "Generate record value with default fields",
+    ) {
     override fun actionPerformed(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val typeDecl =
@@ -43,8 +44,6 @@ class RescriptGenerateRecordValueAction :
             editor.caretModel.moveToOffset(insertOffset + 2)
         }
     }
-
-    override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
     override fun update(e: AnActionEvent) {
         if (!RescriptGenerateActionUtil.isInsideDeclaration(e, RescriptElementTypes.TYPE_DECLARATION)) {

@@ -1,7 +1,5 @@
 package com.rescript.plugin.generate
 
-import com.intellij.openapi.actionSystem.ActionUpdateThread
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.command.WriteCommandAction
@@ -19,7 +17,7 @@ import com.rescript.plugin.lang.psi.RescriptPsiUtils
  * @see RescriptGenerateActionUtil for shared editor context logic
  */
 class RescriptGenerateModuleTypeAction :
-    AnAction("Module Type", "Generate module type signature from module", null) {
+    RescriptBaseGenerateAction("Module Type", "Generate module type signature from module") {
     override fun actionPerformed(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val moduleDecl =
@@ -37,8 +35,6 @@ class RescriptGenerateModuleTypeAction :
             editor.document.insertString(insertOffset, "$moduleTypeText\n\n")
         }
     }
-
-    override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
     override fun update(e: AnActionEvent) {
         e.presentation.isEnabled =

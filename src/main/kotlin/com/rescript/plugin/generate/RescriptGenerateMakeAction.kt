@@ -1,7 +1,5 @@
 package com.rescript.plugin.generate
 
-import com.intellij.openapi.actionSystem.ActionUpdateThread
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.command.WriteCommandAction
@@ -18,7 +16,11 @@ import com.rescript.plugin.lang.psi.RescriptElementTypes
  * @see RescriptGenerateGroup
  * @see RescriptTypeDeclarationParser
  */
-class RescriptGenerateMakeAction : AnAction("Make Function", "Generate make function from record type", null) {
+class RescriptGenerateMakeAction :
+    RescriptBaseGenerateAction(
+        "Make Function",
+        "Generate make function from record type",
+    ) {
     override fun actionPerformed(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val typeDecl =
@@ -42,8 +44,6 @@ class RescriptGenerateMakeAction : AnAction("Make Function", "Generate make func
             editor.caretModel.moveToOffset(insertOffset + 2)
         }
     }
-
-    override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
     override fun update(e: AnActionEvent) {
         if (!RescriptGenerateActionUtil.isInsideDeclaration(e, RescriptElementTypes.TYPE_DECLARATION)) {
