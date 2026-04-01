@@ -125,6 +125,12 @@ ktlint {
 }
 
 kover {
+    currentProject {
+        instrumentation {
+            // uiTest requires a running IDE instance (Remote-Robot) and must not run in CI
+            disabledForTestTasks.add("uiTest")
+        }
+    }
     reports {
         total {
             xml {
