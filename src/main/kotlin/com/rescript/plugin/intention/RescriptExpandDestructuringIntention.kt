@@ -1,11 +1,11 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptEditorUtils.getLineRangeAt
+import com.rescript.plugin.util.RescriptEditorUtils.getLineTextAt
+import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
  * Intention action to expand a record destructuring binding into
@@ -23,26 +23,21 @@ import com.rescript.plugin.lang.psi.RescriptFile
  *
  * Triggered via Alt+Enter > "Expand destructuring".
  *
- * Implements [PsiElementBaseIntentionAction] for intention action support.
+ * Implements [RescriptBaseIntention] for intention action support.
  */
-class RescriptExpandDestructuringIntention : PsiElementBaseIntentionAction() {
+class RescriptExpandDestructuringIntention : RescriptBaseIntention() {
     override fun getText(): String = "Expand destructuring"
 
-    override fun getFamilyName(): String = "Expand destructuring"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val document = editor?.document ?: return false
         val offset = element.textRange.startOffset
 
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val line = document.text.substring(lineStart, lineEnd)
+        val (lineStart, _) = document.getLineRangeAt(offset)
+        val line = document.getLineTextAt(offset)
 
         // Check that this line is a destructuring pattern
         val match = DESTRUCTURING_PATTERN.find(line) ?: return false
@@ -70,16 +65,12 @@ class RescriptExpandDestructuringIntention : PsiElementBaseIntentionAction() {
         val document = editor.document
         val offset = element.textRange.startOffset
 
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val line = document.text.substring(lineStart, lineEnd)
+        val (lineStart, lineEnd) = document.getLineRangeAt(offset)
+        val line = document.getLineTextAt(offset)
 
         val expanded = expandDestructuring(line) ?: return
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(lineStart, lineEnd, expanded)
-        }
+        document.replaceInWriteAction(project, lineStart, lineEnd, expanded)
     }
 
     companion object {

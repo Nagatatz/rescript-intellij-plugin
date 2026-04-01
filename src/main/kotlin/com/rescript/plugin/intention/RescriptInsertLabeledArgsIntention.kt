@@ -1,11 +1,9 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lsp.RescriptLspUtils
 import com.rescript.plugin.util.RescriptBraceBalanceUtil
 
@@ -20,17 +18,14 @@ import com.rescript.plugin.util.RescriptBraceBalanceUtil
  *
  * @see RescriptLspUtils.parseSignatureLabels
  */
-class RescriptInsertLabeledArgsIntention : PsiElementBaseIntentionAction() {
+class RescriptInsertLabeledArgsIntention : RescriptBaseIntention() {
     override fun getText(): String = "Insert labeled arguments"
 
-    override fun getFamilyName(): String = "Insert labeled arguments"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val tokenType = element.node?.elementType ?: return false
         // Available on identifiers (function names)
         return tokenType == RescriptTokenTypes.LIDENT || tokenType == RescriptTokenTypes.UIDENT

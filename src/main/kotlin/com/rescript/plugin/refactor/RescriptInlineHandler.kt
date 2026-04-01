@@ -8,6 +8,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.RescriptLanguage
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptEditorUtils.getLineRangeAt
+import com.rescript.plugin.util.RescriptEditorUtils.getLineTextAt
 
 /**
  * Handles inline refactoring for ReScript variables and simple functions.
@@ -38,10 +40,8 @@ class RescriptInlineHandler : InlineActionHandler() {
         val document = editor.document
         val text = document.text
         val offset = editor.caretModel.offset
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val lineText = text.substring(lineStart, lineEnd)
+        val (lineStart, lineEnd) = document.getLineRangeAt(offset)
+        val lineText = document.getLineTextAt(offset)
 
         val match = LET_PATTERN.find(lineText) ?: return
         val varName = match.groupValues[1]

@@ -1,11 +1,11 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptEditorUtils.getLineRangeAt
+import com.rescript.plugin.util.RescriptEditorUtils.getLineTextAt
+import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
  * Intention action that converts a `filter(...)->map(...)` chain into a
@@ -16,25 +16,19 @@ import com.rescript.plugin.lang.psi.RescriptFile
  *
  * Triggered via Alt+Enter > "Convert filter+map to filterMap".
  *
- * Implements [PsiElementBaseIntentionAction] for intention action support.
+ * Implements [RescriptBaseIntention] for intention action support.
  */
-class RescriptFilterMapChainIntention : PsiElementBaseIntentionAction() {
+class RescriptFilterMapChainIntention : RescriptBaseIntention() {
     override fun getText(): String = "Convert filter+map to filterMap"
 
-    override fun getFamilyName(): String = "Convert filter+map to filterMap"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val document = editor?.document ?: return false
         val offset = element.textRange.startOffset
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val line = document.text.substring(lineStart, lineEnd)
+        val line = document.getLineTextAt(offset)
         return FILTER_MAP_CHAIN_PATTERN.containsMatchIn(line)
     }
 
@@ -46,16 +40,12 @@ class RescriptFilterMapChainIntention : PsiElementBaseIntentionAction() {
         editor ?: return
         val document = editor.document
         val offset = element.textRange.startOffset
-        val lineNumber = document.getLineNumber(offset)
-        val lineStart = document.getLineStartOffset(lineNumber)
-        val lineEnd = document.getLineEndOffset(lineNumber)
-        val line = document.text.substring(lineStart, lineEnd)
+        val (lineStart, lineEnd) = document.getLineRangeAt(offset)
+        val line = document.getLineTextAt(offset)
 
         val converted = convertToFilterMap(line) ?: return
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(lineStart, lineEnd, converted)
-        }
+        document.replaceInWriteAction(project, lineStart, lineEnd, converted)
     }
 
     companion object {

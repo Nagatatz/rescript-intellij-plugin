@@ -1,11 +1,9 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
@@ -18,17 +16,14 @@ import com.rescript.plugin.lang.psi.RescriptPsiUtils
  *
  * @see RescriptAddIgnoreIntention for discarding expression results
  */
-class RescriptAddUnderscorePrefixIntention : PsiElementBaseIntentionAction() {
+class RescriptAddUnderscorePrefixIntention : RescriptBaseIntention() {
     override fun getText(): String = "Add _ prefix to suppress unused warning"
 
-    override fun getFamilyName(): String = "Add _ prefix to suppress unused warning"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val tokenType = element.node?.elementType ?: return false
 
         // Must be a lowercase identifier

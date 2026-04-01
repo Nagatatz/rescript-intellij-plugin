@@ -1,11 +1,9 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
-import com.rescript.plugin.lang.psi.RescriptFile
 
 /**
  * Intention action that removes redundant braces around a single expression.
@@ -16,17 +14,14 @@ import com.rescript.plugin.lang.psi.RescriptFile
  *
  * @see RescriptWrapWithIntention for wrapping expressions
  */
-class RescriptRemoveRedundantBracesIntention : PsiElementBaseIntentionAction() {
+class RescriptRemoveRedundantBracesIntention : RescriptBaseIntention() {
     override fun getText(): String = "Remove redundant braces"
 
-    override fun getFamilyName(): String = "Remove redundant braces"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val document = editor?.document ?: return false
         val tokenType = element.node?.elementType ?: return false
 

@@ -1,12 +1,12 @@
 package com.rescript.plugin.quickfix
 
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptEditorUtils.insertInWriteAction
 
 /**
  * Quick fix that generates a stub function from an unresolved function call.
@@ -60,9 +60,7 @@ class RescriptGenerateFunctionQuickFix : PsiElementBaseIntentionAction() {
         // Find the start of the current top-level declaration to insert before it
         val insertOffset = findTopLevelDeclarationStart(text, element.textRange.startOffset)
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.insertString(insertOffset, "$stubFunction\n\n")
-        }
+        document.insertInWriteAction(project, insertOffset, "$stubFunction\n\n")
     }
 
     companion object {

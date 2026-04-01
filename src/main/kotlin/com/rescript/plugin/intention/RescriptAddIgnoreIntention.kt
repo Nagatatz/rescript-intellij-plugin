@@ -1,10 +1,8 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
@@ -16,17 +14,14 @@ import com.rescript.plugin.lang.psi.RescriptPsiUtils
  *
  * @see RescriptWrapWithIntention for a similar expression-wrapping intention
  */
-class RescriptAddIgnoreIntention : PsiElementBaseIntentionAction() {
+class RescriptAddIgnoreIntention : RescriptBaseIntention() {
     override fun getText(): String = "Add ->ignore"
 
-    override fun getFamilyName(): String = "Add ->ignore"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val declaration = findParentDeclaration(element) ?: return false
 
         // Check the declaration text doesn't already end with ->ignore

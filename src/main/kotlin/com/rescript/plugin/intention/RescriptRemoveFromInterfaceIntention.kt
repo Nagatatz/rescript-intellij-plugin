@@ -1,10 +1,8 @@
 package com.rescript.plugin.intention
 
-import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 import com.rescript.plugin.util.RescriptFileUtil
 
@@ -17,17 +15,14 @@ import com.rescript.plugin.util.RescriptFileUtil
  *
  * @see RescriptAddToInterfaceIntention for the reverse operation
  */
-class RescriptRemoveFromInterfaceIntention : PsiElementBaseIntentionAction() {
+class RescriptRemoveFromInterfaceIntention : RescriptBaseIntention() {
     override fun getText(): String = "Remove declaration from interface"
 
-    override fun getFamilyName(): String = "Remove declaration from interface"
-
-    override fun isAvailable(
+    override fun isAvailableInRescript(
         project: Project,
         editor: Editor?,
         element: PsiElement,
     ): Boolean {
-        if (element.containingFile !is RescriptFile) return false
         val virtualFile = element.containingFile.virtualFile ?: return false
         if (!RescriptFileUtil.isResiFile(virtualFile)) return false
 

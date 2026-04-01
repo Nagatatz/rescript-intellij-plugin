@@ -1,13 +1,13 @@
 package com.rescript.plugin.quickfix
 
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.imports.RescriptImportUtil
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
  * Quick fix that qualifies an unresolved reference with a module prefix.
@@ -67,13 +67,12 @@ class RescriptQualifyReferenceQuickFix : PsiElementBaseIntentionAction() {
         // Use the first available module as the qualifier
         val moduleName = modules.firstOrNull() ?: return
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(
-                element.textRange.startOffset,
-                element.textRange.endOffset,
-                "$moduleName.$identifier",
-            )
-        }
+        document.replaceInWriteAction(
+            project,
+            element.textRange.startOffset,
+            element.textRange.endOffset,
+            "$moduleName.$identifier",
+        )
     }
 
     companion object {

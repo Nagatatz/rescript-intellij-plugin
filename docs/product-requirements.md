@@ -227,6 +227,9 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Regex インスタンスキャッシュ | 121箇所の `Regex(...)` を companion object 定数に置換 | 各ファイルの companion object 定数 |
 | 重複 Regex パターン統一 | LIDENT/UIDENT/WHITESPACE の重複 Regex 定義を一元管理 | `RescriptRegexPatterns` |
 | 長大ファイル分割 | 300行超ファイル5つをファサードパターンで責務分離（9ファイル抽出） | `RescriptJsonEncoderGenerator` + `RescriptJsonDecoderGenerator` + `RescriptDeclarationParser` + `RescriptJsxParser` + `RescriptOperatorDocumentation` + `RescriptExternalDocUrls` + `RescriptUnwrappers` + `RescriptLspSignatureParser` + `RescriptLspDiagnosticParser` |
+| Intention 基底クラス抽出 | 20 Intention の `getFamilyName()` / `RescriptFile` ガードを共通基底クラスに集約 | `RescriptBaseIntention` |
+| Generate Action 基底クラス抽出 | 6 Generate Action の `ActionUpdateThread.BGT` ポリシーを共通基底クラスに集約 | `RescriptBaseGenerateAction` |
+| エディタユーティリティ抽出 | `WriteCommandAction` ラッパーと `Document` 行アクセスヘルパーの共通化 | `RescriptEditorUtils` |
 
 ### 将来機能（ロードマップ） — ギャップ分析
 
