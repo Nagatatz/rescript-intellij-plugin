@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-17 16:42+0900\n"
+"POT-Creation-Date: 2026-04-01 03:33+0900\n"
 "PO-Revision-Date: 2026-03-18 00:00+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -27,7 +27,7 @@ msgstr "テストガイド"
 msgid "Running Tests"
 msgstr "テストの実行"
 
-#: ../../dev/testing.md:16
+#: ../../dev/testing.md:16 ../../dev/testing.md:242
 msgid "Test Structure"
 msgstr "テスト構成"
 
@@ -98,7 +98,9 @@ msgid ""
 "Integration tests use IntelliJ Platform's test infrastructure to verify "
 "features in a realistic IDE environment, including PSI trees, editor "
 "fixtures, and file-based test data."
-msgstr "統合テストは IntelliJ Platform のテストインフラを使用して、PSI ツリー、エディタフィクスチャ、ファイルベースのテストデータを含む実際の IDE 環境で機能を検証します。"
+msgstr ""
+"統合テストは IntelliJ Platform のテストインフラを使用して、PSI "
+"ツリー、エディタフィクスチャ、ファイルベースのテストデータを含む実際の IDE 環境で機能を検証します。"
 
 #: ../../dev/testing.md:103
 msgid "Unit Tests vs Integration Tests"
@@ -169,7 +171,9 @@ msgid ""
 "Integration tests extend `BasePlatformTestCase`, which bootstraps a "
 "lightweight IDE environment with an editor, PSI infrastructure, and "
 "project model:"
-msgstr "統合テストは `BasePlatformTestCase` を継承します。このクラスはエディタ、PSI インフラ、プロジェクトモデルを備えた軽量な IDE 環境を起動します:"
+msgstr ""
+"統合テストは `BasePlatformTestCase` を継承します。このクラスはエディタ、PSI インフラ、プロジェクトモデルを備えた軽量な"
+" IDE 環境を起動します:"
 
 #: ../../dev/testing.md:142
 msgid "Key methods:"
@@ -303,7 +307,9 @@ msgid ""
 "Each test class points to its data directory via `getTestDataPath()`. "
 "Test data files are plain `.res` files, sometimes with special markers "
 "(e.g., `<fold text=\"...\">`) for framework-assisted assertions."
-msgstr "各テストクラスは `getTestDataPath()` でデータディレクトリを指定します。テストデータファイルは通常の `.res` ファイルで、フレームワーク支援のアサーション用に特殊なマーカー（例: `<fold text=\"...\">`）が含まれる場合があります。"
+msgstr ""
+"各テストクラスは `getTestDataPath()` でデータディレクトリを指定します。テストデータファイルは通常の `.res` "
+"ファイルで、フレームワーク支援のアサーション用に特殊なマーカー（例: `<fold text=\"...\">`）が含まれる場合があります。"
 
 #: ../../dev/testing.md:178
 msgid "Test Coverage"
@@ -340,21 +346,188 @@ msgid ""
 msgstr "例外: UI コンポーネント (Swing)、実行中のサーバーが必要な LSP 統合クラス"
 
 #: ../../dev/testing.md:198
+msgid "UI Tests (Remote-Robot)"
+msgstr ""
+
+#: ../../dev/testing.md:200
+msgid ""
+"The project includes UI tests powered by [IntelliJ Remote-"
+"Robot](https://github.com/JetBrains/intellij-ui-test-robot) for end-to-"
+"end IDE testing and automated Marketplace screenshot capture."
+msgstr ""
+
+#: ../../dev/testing.md:202
+msgid "Prerequisites"
+msgstr ""
+
+#: ../../dev/testing.md:204
+msgid ""
+"macOS: Grant accessibility permissions to Java (System Settings > Privacy"
+" & Security > Accessibility)"
+msgstr ""
+
+#: ../../dev/testing.md:205
+msgid ""
+"The sample project at `src/uiTest/testData/sample-project/` must have its"
+" npm dependencies installed:"
+msgstr ""
+
+#: ../../dev/testing.md:212
+#, fuzzy
+msgid "Running UI Tests"
+msgstr "テストの実行"
+
+#: ../../dev/testing.md:214
+msgid ""
+"UI tests require a two-step process — the IDE must be running before "
+"tests can connect:"
+msgstr ""
+
+#: ../../dev/testing.md:224
+msgid "Screenshot Output"
+msgstr ""
+
+#: ../../dev/testing.md:226
+msgid ""
+"The `MarketplaceScreenshotTest` class captures 11 screenshots "
+"demonstrating key plugin features. Screenshots are saved to "
+"`build/screenshots/`:"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "Screenshot"
+msgstr ""
+
+#: ../../dev/testing.md
+#, fuzzy
+msgid "`01-syntax-highlighting.png`"
+msgstr "シンタックスハイライト"
+
+#: ../../dev/testing.md
+msgid "ReScript code colorization"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "`02-code-completion.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "LSP completion popup"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "`03-error-lens.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "Inline error/warning display"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "`04-inlay-hints.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "Type inference hints"
+msgstr ""
+
+#: ../../dev/testing.md
+#, fuzzy
+msgid "`05-structure-view.png`"
+msgstr "ストラクチャービュー"
+
+#: ../../dev/testing.md
+msgid "File symbol tree"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "`06-code-vision.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "Function type annotations"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "`07-jsx-support.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+#, fuzzy
+msgid "JSX syntax highlighting"
+msgstr "シンタックスハイライト"
+
+#: ../../dev/testing.md
+msgid "`08-project-view.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid ".resi nesting and compiled JS"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "`09-quick-fix-intention.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "Alt+Enter intention menu"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "`10-hover-documentation.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "Type info and documentation"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "`11-repl.png`"
+msgstr ""
+
+#: ../../dev/testing.md
+msgid "Interactive REPL tool window"
+msgstr ""
+
+#: ../../dev/testing.md:244
+msgid ""
+"UI tests are in a separate source set (`src/uiTest/`) and do not run with"
+" `./gradlew test`:"
+msgstr ""
+
+#: ../../dev/testing.md:255
+msgid "Notes"
+msgstr ""
+
+#: ../../dev/testing.md:257
+msgid "UI tests are **not included in CI** (requires a display)"
+msgstr ""
+
+#: ../../dev/testing.md:258
+msgid "The `uiTest` source set is excluded from Kover coverage"
+msgstr ""
+
+#: ../../dev/testing.md:259
+msgid "Screenshots use Darcula theme for Marketplace appeal"
+msgstr ""
+
+#: ../../dev/testing.md:261
 msgid "CI Testing"
 msgstr "CI テスト"
 
-#: ../../dev/testing.md:200
+#: ../../dev/testing.md:263
 msgid "The CI pipeline runs tests automatically on every push and PR:"
 msgstr "CI パイプラインはすべてのプッシュと PR で自動的にテストを実行します:"
 
-#: ../../dev/testing.md:202
+#: ../../dev/testing.md:265
 msgid "`./gradlew test koverXmlReport koverHtmlReport`"
 msgstr "`./gradlew test koverXmlReport koverHtmlReport`"
 
-#: ../../dev/testing.md:203
+#: ../../dev/testing.md:266
 msgid "Coverage is reported on PRs via the Kover report action"
 msgstr "Kover レポートアクションを通じて PR でカバレッジが報告されます"
 
-#: ../../dev/testing.md:204
+#: ../../dev/testing.md:267
 msgid "Test results are uploaded as artifacts"
 msgstr "テスト結果はアーティファクトとしてアップロードされます"
+
