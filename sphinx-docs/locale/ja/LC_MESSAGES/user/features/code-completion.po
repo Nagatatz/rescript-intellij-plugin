@@ -379,7 +379,7 @@ msgstr ""
 msgid ""
 "[Code Editing](code-editing.md) offers Intention Actions and Surround "
 "With for more code transformation patterns."
-msgstr ""
+msgstr "[Code Editing](code-editing.md) では、さらに多くのコード変換パターンのための Intention アクションと Surround With を提供しています。"
 
 #: ../../user/features/code-completion.md:230
 msgid "Live Templates"
@@ -884,63 +884,61 @@ msgstr ""
 "コンポーネントなどの共通パターンをゼロから入力する代わりに、短い略語がプレースホルダーナビゲーション付きの完全な構造に展開されます。"
 
 #: ../../user/features/code-completion.md:461
-#, fuzzy
 msgid "Completion Weigher"
-msgstr "LSP 補完"
+msgstr "Completion Weigher"
 
 #: ../../user/features/code-completion.md:463
 msgid ""
 "The plugin provides context-based prioritization of completion "
 "candidates, ensuring that the most relevant suggestions appear first in "
 "the completion popup."
-msgstr ""
+msgstr "プラグインはコンテキストに基づいた補完候補の優先順位付けを提供し、最も関連性の高い候補が補完ポップアップの先頭に表示されるようにします。"
 
 #: ../../user/features/code-completion.md:465
 #: ../../user/features/code-completion.md:518
 msgid "How It Works"
-msgstr ""
+msgstr "仕組み"
 
 #: ../../user/features/code-completion.md:467
 msgid ""
 "When the Language Server returns completion candidates, the Completion "
 "Weigher re-orders them based on contextual signals:"
-msgstr ""
+msgstr "Language Server が補完候補を返すと、Completion Weigher がコンテキストの手がかりに基づいて候補を並べ替えます:"
 
 #: ../../user/features/code-completion.md:469
 msgid ""
 "**Locality** --- Symbols defined in the current file or module are "
 "prioritized over external imports"
-msgstr ""
+msgstr "**局所性** --- 現在のファイルまたはモジュールで定義されたシンボルが、外部インポートよりも優先されます"
 
 #: ../../user/features/code-completion.md:470
 msgid ""
 "**Type compatibility** --- Candidates whose types match the expected type"
 " at the insertion point are boosted"
-msgstr ""
+msgstr "**型の互換性** --- 挿入位置で期待される型に一致する候補がブーストされます"
 
 #: ../../user/features/code-completion.md:471
 msgid "**Recency** --- Recently used completions are ranked higher"
-msgstr ""
+msgstr "**直近の使用** --- 最近使用した補完候補がより上位にランクされます"
 
 #: ../../user/features/code-completion.md:472
 msgid ""
 "**Pipe context** --- In a `->` pipe chain, functions whose first "
 "parameter matches the pipe input type are prioritized"
-msgstr ""
+msgstr "**パイプコンテキスト** --- `->` パイプチェーン内では、第一引数がパイプ入力の型に一致する関数が優先されます"
 
 #: ../../user/features/code-completion.md:474
 msgid ""
 "This means that when you trigger completion, you typically see the most "
 "useful candidates at the top of the list without needing to scroll or "
 "type additional filter characters."
-msgstr ""
+msgstr "これにより、補完をトリガーすると、スクロールや追加のフィルター文字を入力することなく、通常はリストの先頭に最も有用な候補が表示されます。"
 
 #: ../../user/features/code-completion.md:476
 #: ../../user/features/code-completion.md:492
 #: ../../user/features/code-completion.md:522
-#, fuzzy
 msgid "Example"
-msgstr "テンプレート"
+msgstr "例"
 
 #: ../../user/features/code-completion.md:486
 msgid ""
@@ -951,41 +949,41 @@ msgstr "スマートランキングにより、必要な補完候補は通常リ
 
 #: ../../user/features/code-completion.md:488
 msgid "Pipe Chain Type Hints"
-msgstr ""
+msgstr "パイプチェーン型ヒント"
 
 #: ../../user/features/code-completion.md:490
 msgid ""
 "When writing `->` pipe chains, the plugin displays intermediate type "
 "hints between each pipe step, making it easy to understand the data flow "
 "through a chain of transformations."
-msgstr ""
+msgstr "`->` パイプチェーンを記述する際、プラグインは各パイプステップ間に中間型ヒントを表示し、変換チェーンを通じたデータフローを容易に理解できるようにします。"
 
 #: ../../user/features/code-completion.md:502
 msgid ""
 "Each inlay hint shows the type of the expression at that point in the "
 "chain, so you can trace how the data is transformed at every step."
-msgstr ""
+msgstr "各インレイヒントはチェーン内のその時点での式の型を表示するため、各ステップでデータがどのように変換されるかを追跡できます。"
 
 #: ../../user/features/code-completion.md:504
 msgid "Configuration"
-msgstr ""
+msgstr "設定"
 
 #: ../../user/features/code-completion.md:506
 msgid ""
 "Pipe chain type hints are displayed as inlay hints. Configure their "
 "visibility in **Settings** > **Editor** > **Inlay Hints** > **ReScript**."
-msgstr ""
+msgstr "パイプチェーン型ヒントはインレイヒントとして表示されます。表示/非表示は **Settings** > **Editor** > **Inlay Hints** > **ReScript** で設定できます。"
 
 #: ../../user/features/code-completion.md:508
 msgid "Requirements"
-msgstr ""
+msgstr "要件"
 
 #: ../../user/features/code-completion.md:510
 msgid ""
 "This feature requires the Language Server to be running, as the type "
 "information is fetched via LSP hover requests for each intermediate "
 "expression in the pipe chain."
-msgstr ""
+msgstr "この機能は Language Server が起動している必要があります。パイプチェーン内の各中間式の型情報は LSP hover リクエストを介して取得されます。"
 
 #: ../../user/features/code-completion.md:512
 msgid ""
@@ -996,13 +994,13 @@ msgstr "データ変換パイプラインを構築する際、中間型ヒント
 
 #: ../../user/features/code-completion.md:514
 msgid "Parameter Info"
-msgstr ""
+msgstr "Parameter Info"
 
 #: ../../user/features/code-completion.md:516
 msgid ""
 "Press `Ctrl+P` (`Cmd+P` on macOS) inside a function call to display "
 "labeled argument information in a native IDE popup."
-msgstr ""
+msgstr "関数呼び出し内で `Ctrl+P`（macOS では `Cmd+P`）を押すと、ネイティブ IDE ポップアップにラベル付き引数の情報が表示されます。"
 
 #: ../../user/features/code-completion.md:520
 msgid ""
@@ -1011,57 +1009,54 @@ msgid ""
 "parses the function signature to extract labeled arguments. The result is"
 " displayed in a native popup that highlights the current parameter "
 "position."
-msgstr ""
+msgstr "関数呼び出しの括弧内で Parameter Info を呼び出すと、プラグインは Language Server から hover 情報をリクエストし、関数シグネチャを解析してラベル付き引数を抽出します。結果は現在のパラメータ位置をハイライトしたネイティブポップアップで表示されます。"
 
 #: ../../user/features/code-completion.md:535
-#, fuzzy
 msgid "Difference from Signature Help"
-msgstr "Signature Help"
+msgstr "Signature Help との違い"
 
 #: ../../user/features/code-completion.md:226
 msgid "Feature"
-msgstr ""
+msgstr "機能"
 
 #: ../../user/features/code-completion.md:226
 msgid "Trigger"
-msgstr ""
+msgstr "トリガー"
 
 #: ../../user/features/code-completion.md:226
 msgid "Source"
-msgstr ""
+msgstr "ソース"
 
 #: ../../user/features/code-completion.md:226
-#, fuzzy
 msgid "**Signature Help**"
-msgstr "Signature Help"
+msgstr "**Signature Help**"
 
 #: ../../user/features/code-completion.md:226
-#, fuzzy
 msgid "Automatic on `(`"
-msgstr "カスタマイズ"
+msgstr "`(` 入力時に自動表示"
 
 #: ../../user/features/code-completion.md:226
 msgid "LSP `textDocument/signatureHelp`"
-msgstr ""
+msgstr "LSP `textDocument/signatureHelp`"
 
 #: ../../user/features/code-completion.md:226
 msgid "**Parameter Info**"
-msgstr ""
+msgstr "**Parameter Info**"
 
 #: ../../user/features/code-completion.md:226
 msgid "Manual via `Ctrl+P`"
-msgstr ""
+msgstr "`Ctrl+P` で手動表示"
 
 #: ../../user/features/code-completion.md:226
 msgid "LSP `textDocument/hover` + argument parsing"
-msgstr ""
+msgstr "LSP `textDocument/hover` + 引数解析"
 
 #: ../../user/features/code-completion.md:542
 msgid ""
 "Parameter Info is useful when you want to check the expected arguments "
 "after the initial signature help popup has dismissed, or when you "
 "navigate back to an existing function call."
-msgstr ""
+msgstr "Parameter Info は、最初の Signature Help ポップアップが閉じた後に期待される引数を確認したい場合や、既存の関数呼び出しに戻って確認する場合に便利です。"
 
 #: ../../user/features/code-completion.md:544
 msgid ""
@@ -1115,25 +1110,25 @@ msgstr ""
 
 #: ../../user/features/code-completion.md:568
 msgid "Completion Confidence"
-msgstr ""
+msgstr "Completion Confidence"
 
 #: ../../user/features/code-completion.md:570
 msgid ""
 "The plugin suppresses the automatic completion popup in contexts where it"
 " would be unhelpful or disruptive:"
-msgstr ""
+msgstr "プラグインは、補完が役に立たないまたは邪魔になるコンテキストでは自動補完ポップアップを抑制します:"
 
 #: ../../user/features/code-completion.md:572
 msgid ""
 "**Inside comments** — Line comments (`//`), block comments (`/* */`), and"
 " doc comments (`/** */`)"
-msgstr ""
+msgstr "**コメント内** — 行コメント（`//`）、ブロックコメント（`/* */`）、ドキュメントコメント（`/** */`）"
 
 #: ../../user/features/code-completion.md:573
 msgid ""
 "**Inside string literals** — Regular strings, template strings, and "
 "character literals"
-msgstr ""
+msgstr "**文字列リテラル内** — 通常の文字列、テンプレート文字列、文字リテラル"
 
 #: ../../user/features/code-completion.md:575
 msgid ""
@@ -1141,7 +1136,7 @@ msgid ""
 "`Ctrl+Space`, but the popup will not appear automatically as you type. "
 "This prevents irrelevant suggestions from interrupting documentation or "
 "string authoring."
-msgstr ""
+msgstr "これらのコンテキストでも `Ctrl+Space` で手動で補完をトリガーできますが、入力中にポップアップが自動的に表示されることはありません。これにより、ドキュメントや文字列の記述が無関係な候補によって中断されるのを防ぎます。"
 
 #: ../../user/features/code-completion.md:577
 msgid ""

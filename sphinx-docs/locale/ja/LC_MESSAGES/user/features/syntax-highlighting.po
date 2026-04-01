@@ -1042,6 +1042,7 @@ msgid ""
 "[Advanced Features](advanced.md) covers Code Lens and inlay hints, which "
 "also use LSP semantic information."
 msgstr ""
+"[高度な機能](advanced.md) では、LSP セマンティック情報を使用する Code Lens やインレイヒントについて説明しています。"
 
 #: ../../user/features/syntax-highlighting.md:649
 msgid "Customizing Colors"

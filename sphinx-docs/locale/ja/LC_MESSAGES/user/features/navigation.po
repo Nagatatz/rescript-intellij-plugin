@@ -153,7 +153,7 @@ msgstr "ファイルの構造を一目で俯瞰でき、何百行もスクロー
 msgid ""
 "[Code Editing](code-editing.md) provides code folding to collapse "
 "declarations shown in the Structure View."
-msgstr ""
+msgstr "[Code Editing](code-editing.md) では、ストラクチャービューに表示される宣言を折りたたむコード折りたたみ機能を提供しています。"
 
 #: ../../user/features/navigation.md:47
 msgid "File Switching (.res ↔ .resi)"
@@ -189,13 +189,12 @@ msgstr ""
 "`.res` ファイルの実装にジャンプします。"
 
 #: ../../user/features/navigation.md:57
-#, fuzzy
 msgid ""
 "This is the reverse of [Goto Super](#goto-super-res-resi): while Goto "
 "Super goes from implementation to interface, Go to Implementation goes "
 "from interface to implementation."
 msgstr ""
-"[Goto Super](#goto-super-res--resi) の逆方向の操作です。Goto Super "
+"[Goto Super](#goto-super-res-resi) の逆方向の操作です。Goto Super "
 "が実装からインターフェースへ移動するのに対し、Go to Implementation はインターフェースから実装へ移動します。"
 
 #: ../../user/features/navigation.md:59 ../../user/features/navigation.md:98

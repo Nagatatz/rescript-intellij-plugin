@@ -115,24 +115,23 @@ msgstr ""
 
 #: ../../user/installation.md:30
 msgid "Local Installation (Recommended)"
-msgstr ""
+msgstr "ローカルインストール（推奨）"
 
 #: ../../user/installation.md
 msgid "npm"
-msgstr ""
+msgstr "npm"
 
 #: ../../user/installation.md
 msgid "yarn"
-msgstr ""
+msgstr "yarn"
 
 #: ../../user/installation.md
 msgid "pnpm"
-msgstr ""
+msgstr "pnpm"
 
 #: ../../user/installation.md:50
-#, fuzzy
 msgid "Global Installation"
-msgstr "インストール"
+msgstr "グローバルインストール"
 
 #: ../../user/installation.md:71
 msgid ""

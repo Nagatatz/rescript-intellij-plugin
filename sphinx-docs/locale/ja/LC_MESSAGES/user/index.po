@@ -117,7 +117,7 @@ msgstr "[キーボードショートカット](keyboard-shortcuts.md) — ショ
 
 #: ../../user/index.md:27
 msgid "[FAQ](faq.md) — Frequently asked questions"
-msgstr ""
+msgstr "[FAQ](faq.md) — よくある質問"
 
 #: ../../user/index.md:28
 msgid "[Troubleshooting](troubleshooting.md) — Common issues and solutions"
@@ -125,7 +125,7 @@ msgstr "[トラブルシューティング](troubleshooting.md) — よくある
 
 #: ../../user/index.md:29
 msgid "[Glossary](glossary.md) — Key terms and definitions"
-msgstr ""
+msgstr "[用語集](glossary.md) — 主要な用語と定義"
 
 #: ../../user/index.md:30
 msgid "[Changelog](changelog.md) — Release notes"

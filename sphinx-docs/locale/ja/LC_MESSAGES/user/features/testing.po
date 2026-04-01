@@ -482,6 +482,7 @@ msgid ""
 "[Run & Build](run-build.md) covers run configurations for building the "
 "ReScript project."
 msgstr ""
+"[実行とビルド](run-build.md) では、ReScript プロジェクトのビルド用実行構成について説明しています。"
 
 #: ../../user/features/testing.md:165
 msgid "Test Results"

@@ -86,14 +86,12 @@ msgstr ""
 "文は冗長であり、コードに不要なノイズを加えます。"
 
 #: ../../user/features/code-analysis.md
-#, fuzzy
 msgid "Before (duplicate detected)"
-msgstr "**Before** (重複検出時):"
+msgstr "Before (重複検出時)"
 
 #: ../../user/features/code-analysis.md
-#, fuzzy
 msgid "After (optimized)"
-msgstr "**After** (最適化後):"
+msgstr "After (最適化後)"
 
 #: ../../user/features/code-analysis.md:47
 msgid ""
@@ -528,7 +526,7 @@ msgstr ""
 msgid ""
 "[Code Editing](code-editing.md) offers Intention Actions (`Alt+Enter`) "
 "for manual code transformations that complement automated inspections."
-msgstr ""
+msgstr "[Code Editing](code-editing.md) では、自動インスペクションを補完する手動コード変換のための Intention アクション (`Alt+Enter`) を提供しています。"
 
 #: ../../user/features/code-analysis.md:221
 msgid "Mutability Diagnostics"
@@ -544,14 +542,12 @@ msgstr ""
 "`let` バインディングに簡略化できます。"
 
 #: ../../user/features/code-analysis.md
-#, fuzzy
 msgid "Before (warning detected)"
-msgstr "**Before** (警告検出時):"
+msgstr "Before (警告検出時)"
 
 #: ../../user/features/code-analysis.md
-#, fuzzy
 msgid "After (quick fix applied)"
-msgstr "**After** (クイックフィックス適用後):"
+msgstr "After (クイックフィックス適用後)"
 
 #: ../../user/features/code-analysis.md:241
 msgid ""
@@ -1006,14 +1002,12 @@ msgstr ""
 "を押し、**Generate function** を選択してください。"
 
 #: ../../user/features/code-analysis.md
-#, fuzzy
 msgid "Before"
-msgstr "**Before:**"
+msgstr "Before"
 
 #: ../../user/features/code-analysis.md
-#, fuzzy
 msgid "After (stub function generated)"
-msgstr "**After** (スタブ関数生成後):"
+msgstr "After (スタブ関数生成後)"
 
 #: ../../user/features/code-analysis.md:498
 msgid "Type Hole Quick Fix"
@@ -1029,9 +1023,8 @@ msgstr ""
 "`Alt+Enter` を押すと、一致する型の提案が表示されます。"
 
 #: ../../user/features/code-analysis.md
-#, fuzzy
 msgid "After (applying suggested type)"
-msgstr "**After** (提案された型の適用後):"
+msgstr "After (提案された型の適用後)"
 
 #: ../../user/features/code-analysis.md:519
 msgid ""

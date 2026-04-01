@@ -150,7 +150,7 @@ msgstr "Sphinx ドキュメントに用語集と FAQ ページを追加"
 
 #: ../../user/changelog.md:41
 msgid "Add tab-sets and dropdowns to Sphinx feature docs"
-msgstr ""
+msgstr "Sphinx 機能ドキュメントにタブセットとドロップダウンを追加"
 
 #: ../../user/changelog.md:42
 msgid "Add cross-references and improve admonitions in Sphinx docs"
@@ -162,127 +162,127 @@ msgstr "SEO、UX、開発者体験のための Sphinx 拡張機能を追加"
 
 #: ../../user/changelog.md:45
 msgid "0.1.10 (2026-03-19)"
-msgstr ""
+msgstr "0.1.10 (2026-03-19)"
 
 #: ../../user/changelog.md:49
 msgid "Add benefit descriptions to all Sphinx feature documentation pages"
-msgstr ""
+msgstr "すべての Sphinx 機能ドキュメントページにメリットの説明を追加"
 
 #: ../../user/changelog.md:50
 msgid "Complete Japanese translations for all Sphinx documentation"
-msgstr ""
+msgstr "すべての Sphinx ドキュメントの日本語翻訳を完了"
 
 #: ../../user/changelog.md:54
 msgid "Add project scope validation and safe path construction"
-msgstr ""
+msgstr "プロジェクトスコープのバリデーションと安全なパス構築を追加"
 
 #: ../../user/changelog.md:55
 msgid "Fix REPL tool window keyboard input not working"
-msgstr ""
+msgstr "REPL ツールウィンドウのキーボード入力が動作しない問題を修正"
 
 #: ../../user/changelog.md:56
 msgid "Fix ktlint violations from ktlint 14.1.0 upgrade"
-msgstr ""
+msgstr "ktlint 14.1.0 アップグレードによる ktlint 違反を修正"
 
 #: ../../user/changelog.md:57
 msgid "Fix CI build and Qodana failures"
-msgstr ""
+msgstr "CI ビルドと Qodana の失敗を修正"
 
 #: ../../user/changelog.md:61
 msgid "Extract RescriptReanalyzeHealthChecker from RescriptReanalyzeServerService"
-msgstr ""
+msgstr "RescriptReanalyzeServerService から RescriptReanalyzeHealthChecker を抽出"
 
 #: ../../user/changelog.md:62
 msgid "Deduplicate weigh logic in RescriptCompletionWeigher"
-msgstr ""
+msgstr "RescriptCompletionWeigher の重み付けロジックを重複排除"
 
 #: ../../user/changelog.md:63
 msgid "Extract common ancestor traversal in RescriptLspDetector"
-msgstr ""
+msgstr "RescriptLspDetector の共通祖先走査を抽出"
 
 #: ../../user/changelog.md:64
 msgid "Consolidate hardcoded paths to RescriptPaths utility object"
-msgstr ""
+msgstr "ハードコードされたパスを RescriptPaths ユーティリティオブジェクトに集約"
 
 #: ../../user/changelog.md:65
 msgid "Extract magic numbers to named constants in RescriptUnwrapDescriptor"
-msgstr ""
+msgstr "RescriptUnwrapDescriptor のマジックナンバーを名前付き定数に抽出"
 
 #: ../../user/changelog.md:66
 msgid "Remove junit-vintage-engine and upgrade to JUnit 6.0.3"
-msgstr ""
+msgstr "junit-vintage-engine を削除し JUnit 6.0.3 にアップグレード"
 
 #: ../../user/changelog.md:70
 msgid "Add unit tests for 13 classes (parsers, handlers, view models, stub types)"
-msgstr ""
+msgstr "13 クラス（パーサー、ハンドラー、ビューモデル、スタブタイプ）のユニットテストを追加"
 
 #: ../../user/changelog.md:71
 msgid "Update Gradle plugin versions and wrapper"
-msgstr ""
+msgstr "Gradle プラグインバージョンとラッパーを更新"
 
 #: ../../user/changelog.md:72
 msgid "Add *.hprof to .gitignore"
-msgstr ""
+msgstr "*.hprof を .gitignore に追加"
 
 #: ../../user/changelog.md:74
 msgid "0.1.9 (2026-03-16)"
-msgstr ""
+msgstr "0.1.9 (2026-03-16)"
 
 #: ../../user/changelog.md:78
 msgid "Add file type recovery startup activity for .res/.resi files"
-msgstr ""
+msgstr ".res/.resi ファイルのファイルタイプ復旧スタートアップアクティビティを追加"
 
 #: ../../user/changelog.md:82
 msgid "Fix plugin descriptor registration for liveTemplate context and Grazie"
-msgstr ""
+msgstr "liveTemplate コンテキストと Grazie のプラグイン記述子登録を修正"
 
 #: ../../user/changelog.md:83
 msgid "Add missing getDisplayName override to WorksheetFileType"
-msgstr ""
+msgstr "WorksheetFileType に不足していた getDisplayName オーバーライドを追加"
 
 #: ../../user/changelog.md:84
 msgid "Add null safety for LSP notification params"
-msgstr ""
+msgstr "LSP 通知パラメータの null 安全性を追加"
 
 #: ../../user/changelog.md:85
 msgid "Fix empty string crash in completion weigher"
-msgstr ""
+msgstr "補完ウェイターでの空文字列によるクラッシュを修正"
 
 #: ../../user/changelog.md:89
 msgid "Bump project template dependency versions"
-msgstr ""
+msgstr "プロジェクトテンプレートの依存関係バージョンを更新"
 
 #: ../../user/changelog.md:91
 msgid "0.1.8 (2026-03-12)"
-msgstr ""
+msgstr "0.1.8 (2026-03-12)"
 
 #: ../../user/changelog.md:95
 msgid "Add explicit ModalityState to invokeLater calls"
-msgstr ""
+msgstr "invokeLater 呼び出しに明示的な ModalityState を追加"
 
 #: ../../user/changelog.md:96
 msgid "Use CopyOnWriteArrayList for thread-safe listener lists"
-msgstr ""
+msgstr "スレッドセーフなリスナーリストに CopyOnWriteArrayList を使用"
 
 #: ../../user/changelog.md:97
 msgid "Add getActionUpdateThread() to AnAction subclasses"
-msgstr ""
+msgstr "AnAction サブクラスに getActionUpdateThread() を追加"
 
 #: ../../user/changelog.md:98
 msgid "Add remediation guidance to user-facing error messages"
-msgstr ""
+msgstr "ユーザー向けエラーメッセージに対処方法のガイダンスを追加"
 
 #: ../../user/changelog.md:99
 msgid "Replace broad catch(Exception) with specific exception types in analysis/"
-msgstr ""
+msgstr "analysis/ の広範な catch(Exception) を具体的な例外型に置換"
 
 #: ../../user/changelog.md:100
 msgid "Fix thread leak in RescriptFormatCheckAnnotator"
-msgstr ""
+msgstr "RescriptFormatCheckAnnotator のスレッドリークを修正"
 
 #: ../../user/changelog.md:101
 msgid "Suppress duplicate \"Start a build\" prompts from LSP server"
-msgstr ""
+msgstr "LSP サーバーからの重複する \"Start a build\" プロンプトを抑制"
 
 #: ../../user/changelog.md:103 ../../user/changelog.md:171
 msgid "Improvements"
@@ -292,59 +292,59 @@ msgstr "改善"
 msgid ""
 "Add missing keyboard shortcuts, settings, and intention actions to "
 "documentation"
-msgstr ""
+msgstr "ドキュメントに不足していたキーボードショートカット、設定、Intention Actions を追加"
 
 #: ../../user/changelog.md:106
 msgid "Add undocumented features to Sphinx advanced docs"
-msgstr ""
+msgstr "未ドキュメントの機能を Sphinx 上級ドキュメントに追加"
 
 #: ../../user/changelog.md:110
 msgid "Add KDoc check, EP registration check, and Trivy vulnerability scan to CI"
-msgstr ""
+msgstr "CI に KDoc チェック、EP 登録チェック、Trivy 脆弱性スキャンを追加"
 
 #: ../../user/changelog.md:111
 msgid "Add quality check Gradle tasks and raise coverage threshold"
-msgstr ""
+msgstr "品質チェック Gradle タスクを追加しカバレッジ閾値を引き上げ"
 
 #: ../../user/changelog.md:112
 msgid "Add version consistency check and publish approval gate"
-msgstr ""
+msgstr "バージョン整合性チェックと公開承認ゲートを追加"
 
 #: ../../user/changelog.md:113
 msgid "Remove Qodana Dependabot bypass and add fail threshold"
-msgstr ""
+msgstr "Qodana Dependabot バイパスを削除し失敗閾値を追加"
 
 #: ../../user/changelog.md:114
 msgid "Add performance benchmark and headless IDE smoke tests"
-msgstr ""
+msgstr "パフォーマンスベンチマークとヘッドレス IDE スモークテストを追加"
 
 #: ../../user/changelog.md:115
 msgid "Expand test fixtures from 4 to 22 files"
-msgstr ""
+msgstr "テストフィクスチャを 4 ファイルから 22 ファイルに拡充"
 
 #: ../../user/changelog.md:116
 msgid "Add missing KDoc comments to 43 class/object declarations"
-msgstr ""
+msgstr "43 のクラス/オブジェクト宣言に不足していた KDoc コメントを追加"
 
 #: ../../user/changelog.md:118
 msgid "0.1.7 (2026-03-11)"
-msgstr ""
+msgstr "0.1.7 (2026-03-11)"
 
 #: ../../user/changelog.md:122
 msgid "Fix read-action threading violation in getHoverType"
-msgstr ""
+msgstr "getHoverType の read-action スレッド違反を修正"
 
 #: ../../user/changelog.md:123
 msgid "Add icon attribute to fileType registration for .res/.resi"
-msgstr ""
+msgstr ".res/.resi の fileType 登録にアイコン属性を追加"
 
 #: ../../user/changelog.md:124
 msgid "Remove platform version suffix from plugin version string"
-msgstr ""
+msgstr "プラグインバージョン文字列からプラットフォームバージョンサフィックスを削除"
 
 #: ../../user/changelog.md:126
 msgid "0.1.6 (2026-03-10)"
-msgstr ""
+msgstr "0.1.6 (2026-03-10)"
 
 #: ../../user/changelog.md:130
 msgid ""
@@ -368,7 +368,7 @@ msgstr ""
 
 #: ../../user/changelog.md:134
 msgid "0.1.5 (2026-03-10)"
-msgstr ""
+msgstr "0.1.5 (2026-03-10)"
 
 #: ../../user/changelog.md:138
 msgid "Migrate test suite from JUnit 4 to JUnit 5 (Jupiter)"
@@ -416,7 +416,7 @@ msgstr "Kover カバレッジ検証の 54% 閾値を復元"
 
 #: ../../user/changelog.md:151
 msgid "0.1.4 (2026-03-06)"
-msgstr ""
+msgstr "0.1.4 (2026-03-06)"
 
 #: ../../user/changelog.md:155
 msgid "Rewrite CodeVisionProvider in Java to avoid internal API reference"
@@ -450,7 +450,7 @@ msgstr "プラグインの説明を拡充し、変更履歴のバージョニン
 
 #: ../../user/changelog.md:169
 msgid "0.1.3 (2026-03-05)"
-msgstr ""
+msgstr "0.1.3 (2026-03-05)"
 
 #: ../../user/changelog.md:173
 msgid "Add plugin icon for JetBrains Marketplace display"
@@ -466,7 +466,7 @@ msgstr "現在の実装状態を反映するようドキュメントを更新"
 
 #: ../../user/changelog.md:177
 msgid "0.1.2 (2026-03-03)"
-msgstr ""
+msgstr "0.1.2 (2026-03-03)"
 
 #: ../../user/changelog.md:181
 msgid "Initial release submitted to JetBrains Marketplace with 109 features:"

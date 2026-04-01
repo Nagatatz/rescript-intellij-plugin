@@ -510,7 +510,7 @@ msgstr ""
 msgid ""
 "[Code Analysis](code-analysis.md) provides inspections that detect issues"
 " automatically, with quick fixes for one-click resolution."
-msgstr ""
+msgstr "[Code Analysis](code-analysis.md) では、問題を自動的に検出するインスペクションと、ワンクリックで解決できるクイックフィックスを提供しています。"
 
 #: ../../user/features/code-editing.md:136
 msgid "Wrap with Some(...)"
@@ -530,7 +530,7 @@ msgstr "式を選択し、`Alt+Enter` を押して、**Wrap with Some(...)** を
 
 #: ../../user/features/code-editing.md:142
 msgid "Select `name`, then:"
-msgstr ""
+msgstr "`name` を選択してから:"
 
 #: ../../user/features/code-editing.md ../../user/features/code-editing.md:1111
 msgid "Before"
@@ -552,7 +552,7 @@ msgstr "選択した式を `Ok()` でラップします。`result` 型を使用�
 
 #: ../../user/features/code-editing.md:163
 msgid "Select `value`, then:"
-msgstr ""
+msgstr "`value` を選択してから:"
 
 #: ../../user/features/code-editing.md:180
 msgid "Wrap with Error(...)"
@@ -565,9 +565,8 @@ msgid ""
 msgstr "選択した式を `Error()` でラップします。`result` 型を使用する関数からエラー値を返す場合に便利です。"
 
 #: ../../user/features/code-editing.md:184
-#, fuzzy
 msgid "Select `message` on the second line, then:"
-msgstr "**変更後**（2行目の `message` を選択した場合）:"
+msgstr "2行目の `message` を選択してから:"
 
 #: ../../user/features/code-editing.md:201
 msgid "Add @genType"
@@ -865,9 +864,8 @@ msgstr ""
 "プレースホルダーに配置されるため、すぐに条件を入力できます。"
 
 #: ../../user/features/code-editing.md:565
-#, fuzzy
 msgid "Select `Js.log(\"hello\")`, then:"
-msgstr "**変更前**（`Js.log(\"hello\")` を選択した場合）:"
+msgstr "`Js.log(\"hello\")` を選択してから:"
 
 #: ../../user/features/code-editing.md:582
 msgid "switch expression"
@@ -883,9 +881,8 @@ msgstr ""
 "プレースホルダーに配置されるため、マッチする式をすぐに入力できます。"
 
 #: ../../user/features/code-editing.md:586
-#, fuzzy
 msgid "Select `defaultHandler()`, then:"
-msgstr "**変更前**（`defaultHandler()` を選択した場合）:"
+msgstr "`defaultHandler()` を選択してから:"
 
 #: ../../user/features/code-editing.md:603
 msgid "try / catch block"
@@ -901,9 +898,8 @@ msgstr ""
 "プレースホルダーに配置されるため、エラー処理ロジックをすぐに定義できます。"
 
 #: ../../user/features/code-editing.md:607
-#, fuzzy
 msgid "Select `parseJson(input)`, then:"
-msgstr "**変更前**（`parseJson(input)` を選択した場合）:"
+msgstr "`parseJson(input)` を選択してから:"
 
 #: ../../user/features/code-editing.md:626
 #, python-brace-format
@@ -918,7 +914,7 @@ msgstr "選択したコードをブロックスコープでラップします。
 
 #: ../../user/features/code-editing.md:630
 msgid "Select the two lines, then:"
-msgstr ""
+msgstr "2行を選択してから:"
 
 #: ../../user/features/code-editing.md:649
 msgid ""
@@ -934,7 +930,7 @@ msgid ""
 "[Code Completion](code-completion.md) offers postfix templates "
 "(`.switch`, `.pipe`) and live templates for similar code generation "
 "patterns."
-msgstr ""
+msgstr "[Code Completion](code-completion.md) では、同様のコード生成パターンのための Postfix テンプレート（`.switch`、`.pipe`）と Live Template を提供しています。"
 
 #: ../../user/features/code-editing.md:655
 msgid "Import Optimization"
@@ -1035,7 +1031,7 @@ msgstr ""
 #: ../../user/features/code-editing.md:705
 #: ../../user/features/code-editing.md:735
 msgid "Select `a + b`, then:"
-msgstr ""
+msgstr "`a + b` を選択してから:"
 
 #: ../../user/features/code-editing.md:727
 msgid ""
@@ -1094,9 +1090,8 @@ msgid ""
 msgstr "ハンドラーはキャレット位置の `let` 宣言を見つけ、ファイル内のすべての参照を検出し、各参照を定義本体に置き換え、元の宣言を削除します。"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (inline `prefix`)"
-msgstr "**変更後**（`prefix` をインライン化）:"
+msgstr "After (`prefix` をインライン化)"
 
 #: ../../user/features/code-editing.md:780
 msgid ""
@@ -1127,9 +1122,8 @@ msgstr ""
 "バインディングとして抽出し、元のリテラルを新しい定数への参照に置き換えます。"
 
 #: ../../user/features/code-editing.md:788
-#, fuzzy
 msgid "Introduce constant for `\"Hello, World!\"`:"
-msgstr "**変更後**（`\"Hello, World!\"` を定数に抽出）:"
+msgstr "`\"Hello, World!\"` の定数導入:"
 
 #: ../../user/features/code-editing.md:806
 msgid ""
@@ -1160,9 +1154,8 @@ msgstr ""
 "type`）と位置パラメーターの両方をサポートし、宣言とすべての対応する呼び出し箇所に変更を適用します。"
 
 #: ../../user/features/code-editing.md:814
-#, fuzzy
 msgid "Reorder parameters:"
-msgstr "**変更後**（パラメーターを並べ替え）:"
+msgstr "パラメーターの並べ替え:"
 
 #: ../../user/features/code-editing.md:833
 msgid ""
@@ -1195,9 +1188,8 @@ msgstr ""
 "props が検出され、新しいコンポーネントの `make` 関数にラベル付きパラメーターとして追加されます。"
 
 #: ../../user/features/code-editing.md:841
-#, fuzzy
 msgid "Select `<div className=\"card\">...</div>`, then:"
-msgstr "**変更前**（`<div className=\"card\">...</div>` を選択した場合）:"
+msgstr "`<div className=\"card\">...</div>` を選択してから:"
 
 #: ../../user/features/code-editing.md:877
 msgid ""
@@ -1287,9 +1279,8 @@ msgid ""
 msgstr "型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Switch Arms** を選択します。"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (inserted below the type declaration)"
-msgstr "**変更後**（型宣言の下に挿入）:"
+msgstr "After (型宣言の下に挿入)"
 
 #: ../../user/features/code-editing.md:929
 msgid ""
@@ -1324,9 +1315,8 @@ msgid ""
 msgstr "モジュール宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Module Type** を選択します。"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (module type inserted above)"
-msgstr "**変更後**（モジュール型がモジュールの上に挿入）:"
+msgstr "After (モジュール型がモジュールの上に挿入)"
 
 #: ../../user/features/code-editing.md:985
 #, python-brace-format
@@ -1360,9 +1350,8 @@ msgid ""
 msgstr "型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Make Function** を選択します。"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (make function inserted below)"
-msgstr "**変更後**（make 関数が型宣言の下に挿入）:"
+msgstr "After (make 関数が下に挿入)"
 
 #: ../../user/features/code-editing.md:1020
 msgid ""
@@ -1468,9 +1457,8 @@ msgid ""
 msgstr "型宣言内にキャレットを置いて `Cmd+N`（または `Alt+Insert`）を押し、**Record Value** を選択します。"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (record value inserted below)"
-msgstr "**変更後**（レコード値が型宣言の下に挿入）:"
+msgstr "変更後（レコード値が下に挿入）"
 
 #: ../../user/features/code-editing.md:1092
 msgid ""
@@ -1503,9 +1491,8 @@ msgstr ""
 "Implementation** を選択します。"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (implementation generated below)"
-msgstr "**変更後**（実装モジュールが下に生成）:"
+msgstr "変更後（実装が下に生成）"
 
 #: ../../user/features/code-editing.md:1127
 msgid ""
@@ -1836,9 +1823,8 @@ msgid "**Example:**"
 msgstr "**例:**"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (Unwrap `Some(...)`)"
-msgstr "**変更後**（`Some(...)` のラップ解除）:"
+msgstr "変更後（`Some(...)` の Unwrap）"
 
 #: ../../user/features/code-editing.md:1228
 msgid ""
@@ -1861,14 +1847,12 @@ msgid ""
 msgstr "JSX 開始タグを閉じるために `>` を入力すると、対応する終了タグが自動的に挿入され、カーソルはタグ間に配置されます。"
 
 #: ../../user/features/code-editing.md:1234
-#, fuzzy
 msgid "Type `<div>`:"
-msgstr "**変更前**（`<div>` を入力）:"
+msgstr "`<div>` を入力:"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (auto-inserted)"
-msgstr "**変更後**（自動挿入）:"
+msgstr "変更後（自動挿入）"
 
 #: ../../user/features/code-editing.md:1249
 msgid "This works for:"
@@ -2206,7 +2190,7 @@ msgid "Paste as ReScript"
 msgstr "ReScript として貼り付け"
 
 #: ../../user/features/code-editing.md:1428
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "This conversion is triggered automatically when you paste JavaScript or "
 "TypeScript code into a `.res` file using the standard paste shortcut "
@@ -2214,20 +2198,19 @@ msgid ""
 "plugin detects JavaScript/TypeScript patterns in the clipboard and "
 "converts them on the fly."
 msgstr ""
-"この変換は、標準のペーストショートカット（{kbd}`Cmd+V` / {kbd}`Ctrl+V`）で JavaScript コードを "
-"`.res` ファイルに貼り付けると自動的にトリガーされます。別途メニューアクションは不要です — プラグインがクリップボード内の "
-"JavaScript パターンを検出し、その場で変換します。"
+"この変換は、標準のペーストショートカット（{kbd}`Cmd+V` / {kbd}`Ctrl+V`）で JavaScript または "
+"TypeScript コードを `.res` ファイルに貼り付けると自動的にトリガーされます。別途メニューアクションは不要です — "
+"プラグインがクリップボード内の JavaScript/TypeScript パターンを検出し、その場で変換します。"
 
 #: ../../user/features/code-editing.md:1430
-#, fuzzy
 msgid ""
 "When pasting JavaScript or TypeScript code into a ReScript file, it is "
 "automatically converted to ReScript syntax:"
-msgstr "JavaScript コードを ReScript ファイルに貼り付けると、自動的に ReScript 構文に変換されます:"
+msgstr "JavaScript または TypeScript コードを ReScript ファイルに貼り付けると、自動的に ReScript 構文に変換されます:"
 
 #: ../../user/features/code-editing.md:1432
 msgid "JavaScript conversions"
-msgstr ""
+msgstr "JavaScript の変換"
 
 #: ../../user/features/code-editing.md:1434
 msgid "`const`/`let`/`var` declarations are converted to `let` bindings"
@@ -2256,35 +2239,35 @@ msgstr "テンプレートリテラルはそのまま維持されます（ReScri
 
 #: ../../user/features/code-editing.md:1441
 msgid "TypeScript type stripping"
-msgstr ""
+msgstr "TypeScript 型の除去"
 
 #: ../../user/features/code-editing.md:1443
 msgid "Variable type annotations (`const x: string = ...`) are removed"
-msgstr ""
+msgstr "変数の型注釈（`const x: string = ...`）が除去されます"
 
 #: ../../user/features/code-editing.md:1444
 msgid "Function parameter type annotations (`(a: number, b: string)`) are removed"
-msgstr ""
+msgstr "関数パラメータの型注釈（`(a: number, b: string)`）が除去されます"
 
 #: ../../user/features/code-editing.md:1445
 msgid "Return type annotations (`): boolean {`) are removed"
-msgstr ""
+msgstr "戻り値の型注釈（`): boolean {`）が除去されます"
 
 #: ../../user/features/code-editing.md:1446
 msgid "Type assertions (`value as string`) are removed"
-msgstr ""
+msgstr "型アサーション（`value as string`）が除去されます"
 
 #: ../../user/features/code-editing.md:1447
 msgid "`interface` and `enum` declarations are commented out"
-msgstr ""
+msgstr "`interface` および `enum` 宣言がコメントアウトされます"
 
 #: ../../user/features/code-editing.md:1448
 msgid "`export type` / `export interface` / `export enum` are commented out"
-msgstr ""
+msgstr "`export type` / `export interface` / `export enum` がコメントアウトされます"
 
 #: ../../user/features/code-editing.md:1450
 msgid "JSX/TSX pattern conversion"
-msgstr ""
+msgstr "JSX/TSX パターンの変換"
 
 #: ../../user/features/code-editing.md:1452
 #, python-brace-format
@@ -2292,13 +2275,14 @@ msgid ""
 "Conditional rendering `{condition && <expr>}` is converted to `{condition"
 " ? <expr> : React.null}`"
 msgstr ""
+"条件付きレンダリング `{condition && <expr>}` が `{condition ? <expr> : React.null}` "
+"に変換されます"
 
 #: ../../user/features/code-editing.md:1453
-#, fuzzy
 msgid ""
 "Array methods (`.map()`, `.filter()`, `.forEach()`) are converted to "
 "pipe-first style (`->Array.map()`)"
-msgstr "配列メソッド（`.map()`、`.filter()`、`.forEach()`）がパイプファーストスタイルに変換されます"
+msgstr "配列メソッド（`.map()`、`.filter()`、`.forEach()`）がパイプファーストスタイル（`->Array.map()`）に変換されます"
 
 #: ../../user/features/code-editing.md:1454
 #, python-brace-format
@@ -2306,27 +2290,26 @@ msgid ""
 "JSX spread `{...props}` gets a warning comment (not supported in ReScript"
 " JSX)"
 msgstr ""
+"JSX スプレッド `{...props}` に警告コメントが追加されます（ReScript JSX ではサポートされていません）"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "Before (TypeScript in clipboard)"
-msgstr "**変更前**（クリップボード内の JavaScript）:"
+msgstr "変更前（クリップボード内の TypeScript）"
 
 #: ../../user/features/code-editing.md
-#, fuzzy
 msgid "After (pasted into `.res` file)"
-msgstr "**変更後**（`.res` ファイルに貼り付け後）:"
+msgstr "変更後（`.res` ファイルに貼り付け後）"
 
 #: ../../user/features/code-editing.md:1475
-#, fuzzy
 msgid ""
 "Paste as ReScript bridges the gap between JavaScript/TypeScript and "
 "ReScript — copy code from documentation, Stack Overflow, or existing "
 "JS/TS files and paste it directly into a `.res` file with automatic "
 "syntax conversion."
 msgstr ""
-"Paste as ReScript は JavaScript と ReScript のギャップを埋めます — ドキュメント、Stack "
-"Overflow、既存の JS ファイルからコードをコピーし、自動構文変換付きで `.res` ファイルに直接ペーストできます。"
+"Paste as ReScript は JavaScript/TypeScript と ReScript のギャップを埋めます — "
+"ドキュメント、Stack Overflow、既存の JS/TS ファイルからコードをコピーし、自動構文変換付きで `.res` "
+"ファイルに直接ペーストできます。"
 
 #: ../../user/features/code-editing.md:1477
 #, python-brace-format
@@ -2336,6 +2319,9 @@ msgid ""
 "JS/TS→ReScript converter rather than the HTML→JSX converter, ensuring "
 "correct treatment of JSX patterns."
 msgstr ""
+"React JSX/TSX コード（`className=`、`{expression}` ブレース、`onClick=` "
+"などの camelCase イベントハンドラを含む）は、HTML→JSX コンバータではなく JS/TS→ReScript "
+"コンバータによって処理され、JSX パターンが正しく扱われます。"
 
 #~ msgid ""
 #~ "Use **Edit** → **Paste as JSON.t** "

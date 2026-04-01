@@ -347,7 +347,7 @@ msgstr "例外: UI コンポーネント (Swing)、実行中のサーバーが�
 
 #: ../../dev/testing.md:198
 msgid "UI Tests (Remote-Robot)"
-msgstr ""
+msgstr "UI テスト (Remote-Robot)"
 
 #: ../../dev/testing.md:200
 msgid ""
@@ -355,37 +355,43 @@ msgid ""
 "Robot](https://github.com/JetBrains/intellij-ui-test-robot) for end-to-"
 "end IDE testing and automated Marketplace screenshot capture."
 msgstr ""
+"プロジェクトには、エンドツーエンドの IDE テストと Marketplace 用スクリーンショットの自動キャプチャのために "
+"[IntelliJ Remote-Robot](https://github.com/JetBrains/intellij-ui-test-robot) "
+"を使用した UI テストが含まれています。"
 
 #: ../../dev/testing.md:202
 msgid "Prerequisites"
-msgstr ""
+msgstr "前提条件"
 
 #: ../../dev/testing.md:204
 msgid ""
 "macOS: Grant accessibility permissions to Java (System Settings > Privacy"
 " & Security > Accessibility)"
 msgstr ""
+"macOS: Java にアクセシビリティ権限を付与してください（システム設定 > プライバシーとセキュリティ > "
+"アクセシビリティ）"
 
 #: ../../dev/testing.md:205
 msgid ""
 "The sample project at `src/uiTest/testData/sample-project/` must have its"
 " npm dependencies installed:"
 msgstr ""
+"`src/uiTest/testData/sample-project/` のサンプルプロジェクトに npm "
+"依存関係をインストールしておく必要があります:"
 
 #: ../../dev/testing.md:212
-#, fuzzy
 msgid "Running UI Tests"
-msgstr "テストの実行"
+msgstr "UI テストの実行"
 
 #: ../../dev/testing.md:214
 msgid ""
 "UI tests require a two-step process — the IDE must be running before "
 "tests can connect:"
-msgstr ""
+msgstr "UI テストは 2 段階のプロセスが必要です — テストが接続する前に IDE が起動している必要があります:"
 
 #: ../../dev/testing.md:224
 msgid "Screenshot Output"
-msgstr ""
+msgstr "スクリーンショット出力"
 
 #: ../../dev/testing.md:226
 msgid ""
@@ -393,123 +399,123 @@ msgid ""
 "demonstrating key plugin features. Screenshots are saved to "
 "`build/screenshots/`:"
 msgstr ""
+"`MarketplaceScreenshotTest` クラスは、プラグインの主要機能を紹介する 11 枚のスクリーンショットをキャプチャします。"
+"スクリーンショットは `build/screenshots/` に保存されます:"
 
 #: ../../dev/testing.md
 msgid "Screenshot"
-msgstr ""
+msgstr "スクリーンショット"
 
 #: ../../dev/testing.md
-#, fuzzy
 msgid "`01-syntax-highlighting.png`"
-msgstr "シンタックスハイライト"
+msgstr "`01-syntax-highlighting.png`"
 
 #: ../../dev/testing.md
 msgid "ReScript code colorization"
-msgstr ""
+msgstr "ReScript コードの色付け"
 
 #: ../../dev/testing.md
 msgid "`02-code-completion.png`"
-msgstr ""
+msgstr "`02-code-completion.png`"
 
 #: ../../dev/testing.md
 msgid "LSP completion popup"
-msgstr ""
+msgstr "LSP 補完ポップアップ"
 
 #: ../../dev/testing.md
 msgid "`03-error-lens.png`"
-msgstr ""
+msgstr "`03-error-lens.png`"
 
 #: ../../dev/testing.md
 msgid "Inline error/warning display"
-msgstr ""
+msgstr "インラインのエラー/警告表示"
 
 #: ../../dev/testing.md
 msgid "`04-inlay-hints.png`"
-msgstr ""
+msgstr "`04-inlay-hints.png`"
 
 #: ../../dev/testing.md
 msgid "Type inference hints"
-msgstr ""
+msgstr "型推論ヒント"
 
 #: ../../dev/testing.md
-#, fuzzy
 msgid "`05-structure-view.png`"
-msgstr "ストラクチャービュー"
+msgstr "`05-structure-view.png`"
 
 #: ../../dev/testing.md
 msgid "File symbol tree"
-msgstr ""
+msgstr "ファイルシンボルツリー"
 
 #: ../../dev/testing.md
 msgid "`06-code-vision.png`"
-msgstr ""
+msgstr "`06-code-vision.png`"
 
 #: ../../dev/testing.md
 msgid "Function type annotations"
-msgstr ""
+msgstr "関数の型注釈"
 
 #: ../../dev/testing.md
 msgid "`07-jsx-support.png`"
-msgstr ""
+msgstr "`07-jsx-support.png`"
 
 #: ../../dev/testing.md
-#, fuzzy
 msgid "JSX syntax highlighting"
-msgstr "シンタックスハイライト"
+msgstr "JSX シンタックスハイライト"
 
 #: ../../dev/testing.md
 msgid "`08-project-view.png`"
-msgstr ""
+msgstr "`08-project-view.png`"
 
 #: ../../dev/testing.md
 msgid ".resi nesting and compiled JS"
-msgstr ""
+msgstr ".resi ネストとコンパイル済み JS"
 
 #: ../../dev/testing.md
 msgid "`09-quick-fix-intention.png`"
-msgstr ""
+msgstr "`09-quick-fix-intention.png`"
 
 #: ../../dev/testing.md
 msgid "Alt+Enter intention menu"
-msgstr ""
+msgstr "Alt+Enter インテンションメニュー"
 
 #: ../../dev/testing.md
 msgid "`10-hover-documentation.png`"
-msgstr ""
+msgstr "`10-hover-documentation.png`"
 
 #: ../../dev/testing.md
 msgid "Type info and documentation"
-msgstr ""
+msgstr "型情報とドキュメント"
 
 #: ../../dev/testing.md
 msgid "`11-repl.png`"
-msgstr ""
+msgstr "`11-repl.png`"
 
 #: ../../dev/testing.md
 msgid "Interactive REPL tool window"
-msgstr ""
+msgstr "インタラクティブ REPL ツールウィンドウ"
 
 #: ../../dev/testing.md:244
 msgid ""
 "UI tests are in a separate source set (`src/uiTest/`) and do not run with"
 " `./gradlew test`:"
 msgstr ""
+"UI テストは別のソースセット（`src/uiTest/`）にあり、`./gradlew test` では実行されません:"
 
 #: ../../dev/testing.md:255
 msgid "Notes"
-msgstr ""
+msgstr "備考"
 
 #: ../../dev/testing.md:257
 msgid "UI tests are **not included in CI** (requires a display)"
-msgstr ""
+msgstr "UI テストは **CI に含まれていません**（ディスプレイが必要なため）"
 
 #: ../../dev/testing.md:258
 msgid "The `uiTest` source set is excluded from Kover coverage"
-msgstr ""
+msgstr "`uiTest` ソースセットは Kover カバレッジから除外されています"
 
 #: ../../dev/testing.md:259
 msgid "Screenshots use Darcula theme for Marketplace appeal"
-msgstr ""
+msgstr "スクリーンショットは Marketplace での見栄えのために Darcula テーマを使用しています"
 
 #: ../../dev/testing.md:261
 msgid "CI Testing"

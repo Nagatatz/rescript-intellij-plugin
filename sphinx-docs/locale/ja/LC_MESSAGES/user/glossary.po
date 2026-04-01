@@ -22,19 +22,19 @@ msgstr ""
 
 #: ../../user/glossary.md:1
 msgid "Glossary"
-msgstr ""
+msgstr "用語集"
 
 #: ../../user/glossary.md:3
 msgid "Key terms used throughout this documentation."
-msgstr ""
+msgstr "このドキュメント全体で使用される主要な用語です。"
 
 #: ../../user/glossary.md:5
 msgid "ReScript Language"
-msgstr ""
+msgstr "ReScript 言語"
 
 #: ../../user/glossary.md
 msgid "Binding"
-msgstr ""
+msgstr "Binding"
 
 #: ../../user/glossary.md:9
 msgid ""
@@ -42,30 +42,36 @@ msgid ""
 "Similar to variable declaration in other languages, but bindings are "
 "immutable by default."
 msgstr ""
+"名前を値や関数に関連付ける `let` 宣言です。他の言語における変数宣言に似ていますが、"
+"Binding はデフォルトで不変（イミュータブル）です。"
 
 #: ../../user/glossary.md:3
 msgid "Module"
-msgstr ""
+msgstr "Module"
 
 #: ../../user/glossary.md:12
 msgid ""
 "A namespace unit in ReScript that groups related types, values, and sub-"
 "modules. Every `.res` file is implicitly a module named after the file."
 msgstr ""
+"関連する型、値、サブモジュールをグループ化する ReScript の名前空間の単位です。"
+"すべての `.res` ファイルは暗黙的にファイル名と同じ名前のモジュールになります。"
 
 #: ../../user/glossary.md:6
 msgid "Interface"
-msgstr ""
+msgstr "Interface"
 
 #: ../../user/glossary.md:15
 msgid ""
 "A `.resi` file that declares the public API of a module. Only "
 "declarations listed in the interface file are visible to other modules."
 msgstr ""
+"モジュールの公開 API を宣言する `.resi` ファイルです。"
+"インターフェースファイルに記載された宣言のみが他のモジュールから参照可能になります。"
 
 #: ../../user/glossary.md:9
 msgid "Variant"
-msgstr ""
+msgstr "Variant"
 
 #: ../../user/glossary.md:18
 msgid ""
@@ -73,20 +79,25 @@ msgid ""
 "each optionally carrying data. For example, `type color = Red | Green | "
 "Blue`."
 msgstr ""
+"複数の名前付きコンストラクタのいずれかを保持できる代数的データ型です。"
+"各コンストラクタはオプションでデータを持つことができます。"
+"例: `type color = Red | Green | Blue`。"
 
 #: ../../user/glossary.md:12
 msgid "Record"
-msgstr ""
+msgstr "Record"
 
 #: ../../user/glossary.md:21
 msgid ""
 "A structured data type with named fields. Fields are accessed with dot "
 "notation and are immutable by default."
 msgstr ""
+"名前付きフィールドを持つ構造化データ型です。フィールドはドット記法でアクセスし、"
+"デフォルトで不変（イミュータブル）です。"
 
 #: ../../user/glossary.md:15
 msgid "Pipe Operator"
-msgstr ""
+msgstr "Pipe Operator"
 
 #: ../../user/glossary.md:24
 msgid ""
@@ -94,10 +105,12 @@ msgid ""
 "first argument to the function on the right. Enables readable left-to-"
 "right data transformation chains."
 msgstr ""
+"左の式の結果を右の関数の第一引数として渡す `->` 演算子です。"
+"読みやすい左から右へのデータ変換チェーンを実現します。"
 
 #: ../../user/glossary.md:18
 msgid "Decorator"
-msgstr ""
+msgstr "Decorator"
 
 #: ../../user/glossary.md:27
 msgid ""
@@ -105,10 +118,12 @@ msgid ""
 "declaration. Examples include `@module`, `@val`, `@send`, `@genType`, and"
 " `@react.component`."
 msgstr ""
+"後続の宣言の振る舞いを変更する `@` アノテーションです。"
+"`@module`、`@val`、`@send`、`@genType`、`@react.component` などがあります。"
 
 #: ../../user/glossary.md:21
 msgid "External"
-msgstr ""
+msgstr "External"
 
 #: ../../user/glossary.md:30
 msgid ""
@@ -116,20 +131,24 @@ msgid ""
 "value or function. Used for FFI (Foreign Function Interface) with "
 "JavaScript."
 msgstr ""
+"ReScript の名前を JavaScript の値や関数にバインドする `external` 宣言です。"
+"JavaScript との FFI（外部関数インターフェース）に使用されます。"
 
 #: ../../user/glossary.md:24
 msgid "JSX"
-msgstr ""
+msgstr "JSX"
 
 #: ../../user/glossary.md:33
 msgid ""
 "XML-like syntax used in ReScript for building React components. ReScript "
 "JSX compiles to `React.createElement` calls."
 msgstr ""
+"React コンポーネントを構築するために ReScript で使用される XML ライクな構文です。"
+"ReScript の JSX は `React.createElement` 呼び出しにコンパイルされます。"
 
 #: ../../user/glossary.md:27
 msgid "Pattern Matching"
-msgstr ""
+msgstr "Pattern Matching"
 
 #: ../../user/glossary.md:36
 msgid ""
@@ -137,10 +156,12 @@ msgid ""
 "patterns. More powerful than traditional switch/case — it checks "
 "exhaustiveness at compile time."
 msgstr ""
+"値を分解してパターンに対してマッチングする `switch` 式です。"
+"従来の switch/case よりも強力で、コンパイル時に網羅性をチェックします。"
 
 #: ../../user/glossary.md:30
 msgid "Type Inference"
-msgstr ""
+msgstr "Type Inference"
 
 #: ../../user/glossary.md:39
 msgid ""
@@ -148,10 +169,12 @@ msgid ""
 "expression without explicit type annotations. ReScript has complete type "
 "inference powered by the Hindley-Milner type system."
 msgstr ""
+"明示的な型注釈なしに式の型を自動的に決定するコンパイラの機能です。"
+"ReScript は Hindley-Milner 型システムによる完全な型推論を備えています。"
 
 #: ../../user/glossary.md:33
 msgid "PPX"
-msgstr ""
+msgstr "PPX"
 
 #: ../../user/glossary.md:42
 msgid ""
@@ -159,24 +182,28 @@ msgid ""
 "at compile time. Decorators like `@react.component` and `@deriving` are "
 "implemented as PPX transformations."
 msgstr ""
+"コンパイル時に AST（抽象構文木）を変換するプリプロセッサ拡張です。"
+"`@react.component` や `@deriving` などの Decorator は PPX 変換として実装されています。"
 
 #: ../../user/glossary.md:36
 msgid "Open Statement"
-msgstr ""
+msgstr "Open Statement"
 
 #: ../../user/glossary.md:45
 msgid ""
 "An `open` declaration that brings all exports of a module into the "
 "current scope, allowing you to use them without the module prefix."
 msgstr ""
+"モジュールのすべてのエクスポートを現在のスコープに取り込む `open` 宣言です。"
+"モジュールプレフィックスなしでそれらを使用できるようになります。"
 
 #: ../../user/glossary.md:48
 msgid "IDE Features"
-msgstr ""
+msgstr "IDE 機能"
 
 #: ../../user/glossary.md
 msgid "Intention Action"
-msgstr ""
+msgstr "Intention Action"
 
 #: ../../user/glossary.md:52
 msgid ""
@@ -184,10 +211,12 @@ msgid ""
 "`Option+Return` on macOS). Intentions suggest improvements or "
 "refactorings based on the code at the cursor position."
 msgstr ""
+"`Alt+Enter`（macOS では `Option+Return`）で利用できるコンテキスト対応のコード変換です。"
+"カーソル位置のコードに基づいて改善やリファクタリングを提案します。"
 
 #: ../../user/glossary.md:3
 msgid "Live Template"
-msgstr ""
+msgstr "Live Template"
 
 #: ../../user/glossary.md:55
 msgid ""
@@ -195,10 +224,12 @@ msgid ""
 "For example, typing `letfn` and pressing `Tab` expands to a full function"
 " declaration."
 msgstr ""
+"`Tab` キーを押すと省略形から展開されるコードスニペットです。"
+"例えば、`letfn` と入力して `Tab` を押すと、完全な関数宣言に展開されます。"
 
 #: ../../user/glossary.md:6
 msgid "Postfix Completion"
-msgstr ""
+msgstr "Postfix Completion"
 
 #: ../../user/glossary.md:58
 msgid ""
@@ -206,50 +237,61 @@ msgid ""
 "example, `expr.switch` transforms the expression into a `switch` "
 "statement. Unlike live templates, postfix completions wrap existing code."
 msgstr ""
+"式の後にドットサフィックスを入力することでトリガーされる補完です。"
+"例えば、`expr.switch` と入力すると式が `switch` 文に変換されます。"
+"Live Template とは異なり、Postfix Completion は既存のコードをラップします。"
 
 #: ../../user/glossary.md:9
 msgid "Code Folding"
-msgstr ""
+msgstr "Code Folding"
 
 #: ../../user/glossary.md:61
 msgid ""
 "The ability to collapse code blocks (modules, functions, comments) to "
 "show only their first line, making it easier to navigate large files."
 msgstr ""
+"コードブロック（モジュール、関数、コメント）を折りたたんで最初の行のみを表示する機能です。"
+"大きなファイルのナビゲーションが容易になります。"
 
 #: ../../user/glossary.md:12
 msgid "Structure View"
-msgstr ""
+msgstr "Structure View"
 
 #: ../../user/glossary.md:64
 msgid ""
 "A tool window (`Alt+7`) that displays a tree outline of declarations in "
 "the current file — modules, functions, types, and externals."
 msgstr ""
+"現在のファイル内の宣言（モジュール、関数、型、external）をツリー形式で表示する"
+"ツールウィンドウ（`Alt+7`）です。"
 
 #: ../../user/glossary.md:15
 msgid "Code Lens"
-msgstr ""
+msgstr "Code Lens"
 
 #: ../../user/glossary.md:67
 msgid ""
 "Inline annotations displayed above function declarations showing their "
 "inferred type signatures. Powered by the CodeVision API."
 msgstr ""
+"関数宣言の上に表示される、推論された型シグネチャを示すインラインアノテーションです。"
+"CodeVision API を利用しています。"
 
 #: ../../user/glossary.md:18
 msgid "Inlay Hint"
-msgstr ""
+msgstr "Inlay Hint"
 
 #: ../../user/glossary.md:70
 msgid ""
 "A small inline label displayed in the editor showing type information for"
 " variables and parameters. Provided by the Language Server."
 msgstr ""
+"変数やパラメータの型情報を示す、エディタに表示される小さなインラインラベルです。"
+"Language Server によって提供されます。"
 
 #: ../../user/glossary.md:21
 msgid "Code Inspection"
-msgstr ""
+msgstr "Code Inspection"
 
 #: ../../user/glossary.md:73
 msgid ""
@@ -257,10 +299,12 @@ msgid ""
 "highlights potential issues with warnings or suggestions. Available "
 "inspections can be configured in Settings."
 msgstr ""
+"バックグラウンドで実行され、潜在的な問題を警告やサジェスチョンでハイライトする"
+"自動コード品質チェックです。利用可能なインスペクションは設定で構成できます。"
 
 #: ../../user/glossary.md:24
 msgid "Quick Fix"
-msgstr ""
+msgstr "Quick Fix"
 
 #: ../../user/glossary.md:76
 msgid ""
@@ -268,10 +312,12 @@ msgid ""
 " or via `Alt+Enter`. Quick fixes are typically paired with inspections or"
 " compiler diagnostics."
 msgstr ""
+"検出された問題に対する自動修正で、コンテキストメニューまたは `Alt+Enter` で提供されます。"
+"Quick Fix は通常、インスペクションやコンパイラ診断と組み合わせて使用されます。"
 
 #: ../../user/glossary.md:27
 msgid "Surround With"
-msgstr ""
+msgstr "Surround With"
 
 #: ../../user/glossary.md:79
 #, python-brace-format
@@ -279,20 +325,24 @@ msgid ""
 "A feature (`Ctrl+Alt+T`) that wraps selected code with a control "
 "structure such as `if`, `switch`, `try`, or a block `{}`."
 msgstr ""
+"選択したコードを `if`、`switch`、`try`、ブロック `{}` などの制御構造で囲む"
+"機能（`Ctrl+Alt+T`）です。"
 
 #: ../../user/glossary.md:30
 msgid "Run Configuration"
-msgstr ""
+msgstr "Run Configuration"
 
 #: ../../user/glossary.md:82
 msgid ""
 "A saved set of parameters for executing a task — such as building a "
 "ReScript project, running tests, or debugging compiled JavaScript."
 msgstr ""
+"タスクを実行するための保存されたパラメータセットです。ReScript プロジェクトのビルド、"
+"テストの実行、コンパイル済み JavaScript のデバッグなどに使用します。"
 
 #: ../../user/glossary.md:33
 msgid "Error Lens"
-msgstr ""
+msgstr "Error Lens"
 
 #: ../../user/glossary.md:85
 msgid ""
@@ -300,14 +350,16 @@ msgid ""
 "editor, showing errors and warnings without hovering. Color-coded by "
 "severity."
 msgstr ""
+"エディタの各行末に表示されるインライン診断メッセージです。"
+"ホバーせずにエラーや警告を確認できます。重大度に応じて色分けされます。"
 
 #: ../../user/glossary.md:88
 msgid "Plugin Architecture"
-msgstr ""
+msgstr "プラグインアーキテクチャ"
 
 #: ../../user/glossary.md
 msgid "LSP"
-msgstr ""
+msgstr "LSP"
 
 #: ../../user/glossary.md:92
 msgid ""
@@ -315,10 +367,12 @@ msgid ""
 "communication between an IDE (client) and a language-specific server that"
 " provides semantic features like completion, diagnostics, and navigation."
 msgstr ""
+"Language Server Protocol の略です。IDE（クライアント）と言語固有のサーバー間の通信のための"
+"標準化された JSON-RPC プロトコルで、補完、診断、ナビゲーションなどのセマンティック機能を提供します。"
 
 #: ../../user/glossary.md:3
 msgid "Language Server"
-msgstr ""
+msgstr "Language Server"
 
 #: ../../user/glossary.md:95
 #, python-brace-format
@@ -327,10 +381,12 @@ msgid ""
 "analyzing your ReScript project and providing semantic features to the "
 "plugin via {term}`LSP`."
 msgstr ""
+"バックグラウンドで動作する `@rescript/language-server` プロセスです。"
+"ReScript プロジェクトを解析し、{term}`LSP` 経由でプラグインにセマンティック機能を提供します。"
 
 #: ../../user/glossary.md:6
 msgid "Native Feature"
-msgstr ""
+msgstr "Native Feature"
 
 #: ../../user/glossary.md:98
 #, python-brace-format
@@ -340,10 +396,13 @@ msgid ""
 "Server` — for example, syntax highlighting, code folding, and brace "
 "matching."
 msgstr ""
+"JFlex レクサーと IntelliJ Platform API を使用してプラグインに直接実装された機能です。"
+"Native Feature は {term}`Language Server` なしで動作します。"
+"例えば、シンタックスハイライト、コード折りたたみ、ブレースマッチングなどがあります。"
 
 #: ../../user/glossary.md:9
 msgid "Semantic Token"
-msgstr ""
+msgstr "Semantic Token"
 
 #: ../../user/glossary.md:101
 #, python-brace-format
@@ -353,10 +412,13 @@ msgid ""
 "is a namespace\"). Enables more accurate highlighting than lexer-based "
 "tokenization alone."
 msgstr ""
+"{term}`Language Server` が提供するセマンティックな意味を持つトークン分類です"
+"（例:「この識別子は型である」「これは名前空間である」）。"
+"レクサーベースのトークン化のみよりも正確なハイライトを実現します。"
 
 #: ../../user/glossary.md:12
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostics"
 
 #: ../../user/glossary.md:104
 #, python-brace-format
@@ -365,10 +427,12 @@ msgid ""
 "{term}`Language Server` and displayed inline in the editor. Diagnostics "
 "update as you edit the code."
 msgstr ""
+"{term}`Language Server` によって報告され、エディタにインラインで表示されるエラー、"
+"警告、情報メッセージです。コードを編集するとリアルタイムに更新されます。"
 
 #: ../../user/glossary.md:15
 msgid "PSI"
-msgstr ""
+msgstr "PSI"
 
 #: ../../user/glossary.md:107
 msgid ""
@@ -377,10 +441,13 @@ msgid ""
 "parser build PSI trees that power navigation, structure view, and "
 "refactoring."
 msgstr ""
+"Program Structure Interface の略です。ソースコードを型付き要素のツリーとして表現する"
+" IntelliJ Platform のインメモリ表現です。プラグインのレクサーとパーサーは PSI ツリーを構築し、"
+"ナビゲーション、Structure View、リファクタリングを実現します。"
 
 #: ../../user/glossary.md:18
 msgid "Stub Index"
-msgstr ""
+msgstr "Stub Index"
 
 #: ../../user/glossary.md:110
 msgid ""
@@ -388,4 +455,5 @@ msgid ""
 "modules) extracted from PSI stubs. Enables fast symbol search across the "
 "entire project without parsing every file."
 msgstr ""
-
+"PSI スタブから抽出された宣言シグネチャ（名前、型、モジュール）の永続的なファイルベースの"
+"インデックスです。すべてのファイルを解析せずに、プロジェクト全体で高速なシンボル検索を実現します。"

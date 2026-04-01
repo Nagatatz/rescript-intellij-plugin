@@ -31,67 +31,67 @@ msgstr "ReScript IntelliJ Plugin への貢献に興味をお持ちいただき�
 
 #: ../../dev/contributing.md:5
 msgid "Prerequisites"
-msgstr ""
+msgstr "前提条件"
 
 #: ../../dev/contributing.md
 msgid "Requirement"
-msgstr ""
+msgstr "要件"
 
 #: ../../dev/contributing.md
 msgid "Version"
-msgstr ""
+msgstr "バージョン"
 
 #: ../../dev/contributing.md
 msgid "Notes"
-msgstr ""
+msgstr "備考"
 
 #: ../../dev/contributing.md
 msgid "JDK"
-msgstr ""
+msgstr "JDK"
 
 #: ../../dev/contributing.md
 msgid "21+"
-msgstr ""
+msgstr "21+"
 
 #: ../../dev/contributing.md
 msgid "Required by IntelliJ Platform 2025.3+"
-msgstr ""
+msgstr "IntelliJ Platform 2025.3+ に必要"
 
 #: ../../dev/contributing.md
 msgid "Node.js"
-msgstr ""
+msgstr "Node.js"
 
 #: ../../dev/contributing.md
 msgid "18+"
-msgstr ""
+msgstr "18+"
 
 #: ../../dev/contributing.md
 msgid "Required for LSP server and `.d.ts` binding generation"
-msgstr ""
+msgstr "LSP サーバーおよび `.d.ts` バインディング生成に必要"
 
 #: ../../dev/contributing.md
 msgid "IntelliJ IDEA"
-msgstr ""
+msgstr "IntelliJ IDEA"
 
 #: ../../dev/contributing.md
 msgid "2025.3+"
-msgstr ""
+msgstr "2025.3+"
 
 #: ../../dev/contributing.md
 msgid "Community or Ultimate edition"
-msgstr ""
+msgstr "Community または Ultimate エディション"
 
 #: ../../dev/contributing.md
 msgid "Gradle"
-msgstr ""
+msgstr "Gradle"
 
 #: ../../dev/contributing.md
 msgid "9.4+"
-msgstr ""
+msgstr "9.4+"
 
 #: ../../dev/contributing.md
 msgid "Wrapper included — no manual install needed"
-msgstr ""
+msgstr "Wrapper 同梱 — 手動インストール不要"
 
 #: ../../dev/contributing.md:14
 msgid "Getting Started"
@@ -394,104 +394,98 @@ msgstr ""
 
 #: ../../dev/contributing.md:129
 msgid "Quality Checks"
-msgstr ""
+msgstr "品質チェック"
 
 #: ../../dev/contributing.md:131
 msgid ""
 "The project enforces several automated quality gates via CI and custom "
 "Gradle tasks:"
-msgstr ""
+msgstr "プロジェクトでは CI とカスタム Gradle タスクによる複数の自動品質ゲートを適用しています:"
 
 #: ../../dev/contributing.md
 msgid "Check"
-msgstr ""
+msgstr "チェック"
 
 #: ../../dev/contributing.md
 msgid "Command"
-msgstr ""
+msgstr "コマンド"
 
 #: ../../dev/contributing.md
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 #: ../../dev/contributing.md
-#, fuzzy
 msgid "Code style"
 msgstr "コードスタイル"
 
 #: ../../dev/contributing.md
-#, fuzzy
 msgid "`./gradlew ktlintCheck`"
-msgstr "自動修正: `./gradlew ktlintFormat`"
+msgstr "`./gradlew ktlintCheck`"
 
 #: ../../dev/contributing.md
-#, fuzzy
 msgid "Kotlin linting (auto-fix: `./gradlew ktlintFormat`)"
-msgstr "自動修正: `./gradlew ktlintFormat`"
+msgstr "Kotlin リンティング（自動修正: `./gradlew ktlintFormat`）"
 
 #: ../../dev/contributing.md
-#, fuzzy
 msgid "KDoc comments"
 msgstr "KDoc コメント"
 
 #: ../../dev/contributing.md
 msgid "`./gradlew checkKdoc`"
-msgstr ""
+msgstr "`./gradlew checkKdoc`"
 
 #: ../../dev/contributing.md
-#, fuzzy
 msgid "All classes must have KDoc comments"
-msgstr "すべてのクラスと主要なメソッドには **英語** で KDoc コメントを記述する必要があります:"
+msgstr "すべてのクラスに KDoc コメントが必要"
 
 #: ../../dev/contributing.md
 msgid "Test files"
-msgstr ""
+msgstr "テストファイル"
 
 #: ../../dev/contributing.md
 msgid "`./gradlew checkTestFiles`"
-msgstr ""
+msgstr "`./gradlew checkTestFiles`"
 
 #: ../../dev/contributing.md
-#, fuzzy
 msgid "Production classes must have corresponding tests"
-msgstr "すべてのコード変更には対応するテストが必要です"
+msgstr "プロダクションクラスには対応するテストが必要"
 
 #: ../../dev/contributing.md
 msgid "EP registration"
-msgstr ""
+msgstr "EP 登録"
 
 #: ../../dev/contributing.md
 msgid "`./gradlew checkExtensionPointRegistration`"
-msgstr ""
+msgstr "`./gradlew checkExtensionPointRegistration`"
 
 #: ../../dev/contributing.md
 msgid "plugin.xml must reference existing classes"
-msgstr ""
+msgstr "plugin.xml が既存のクラスを参照していること"
 
 #: ../../dev/contributing.md
 msgid "Coverage"
-msgstr ""
+msgstr "カバレッジ"
 
 #: ../../dev/contributing.md
 msgid "`./gradlew koverHtmlReport`"
-msgstr ""
+msgstr "`./gradlew koverHtmlReport`"
 
 #: ../../dev/contributing.md
 msgid "Report at `build/reports/kover/html/index.html`"
-msgstr ""
+msgstr "レポートは `build/reports/kover/html/index.html` に出力"
 
 #: ../../dev/contributing.md
 msgid "Coverage threshold"
-msgstr ""
+msgstr "カバレッジしきい値"
 
 #: ../../dev/contributing.md
 msgid "`./gradlew koverVerify`"
-msgstr ""
+msgstr "`./gradlew koverVerify`"
 
 #: ../../dev/contributing.md
 #, python-format
 msgid "Minimum 85% line coverage enforced"
-msgstr ""
+msgstr "最低 85% の行カバレッジを適用"
 
 #: ../../dev/contributing.md:142
 msgid "Submitting Changes"
@@ -499,15 +493,15 @@ msgstr "変更の提出"
 
 #: ../../dev/contributing.md:144
 msgid "Run the full CI check locally:"
-msgstr ""
+msgstr "ローカルで CI チェックをすべて実行します:"
 
 #: ../../dev/contributing.md:149
 msgid "Verify the build and all tests pass"
-msgstr ""
+msgstr "ビルドとすべてのテストが成功することを確認します"
 
 #: ../../dev/contributing.md:151
 msgid "Check code coverage for new code:"
-msgstr ""
+msgstr "新しいコードのカバレッジを確認します:"
 
 #: ../../dev/contributing.md:156
 msgid "Push your branch and create a Pull Request"

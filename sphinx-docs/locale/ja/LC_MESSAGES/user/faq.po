@@ -22,15 +22,15 @@ msgstr ""
 
 #: ../../user/faq.md:1
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "よくある質問"
 
 #: ../../user/faq.md:3
 msgid "General"
-msgstr ""
+msgstr "全般"
 
 #: ../../user/faq.md:5
 msgid "Which JetBrains IDEs are supported?"
-msgstr ""
+msgstr "どの JetBrains IDE に対応していますか？"
 
 #: ../../user/faq.md:6
 msgid ""
@@ -39,20 +39,25 @@ msgid ""
 " CLion, PyCharm, GoLand, Rider, and others. All features are available "
 "regardless of which IDE you use."
 msgstr ""
+"このプラグインは LSP をサポートする JetBrains IDE バージョン 2025.3 以降で動作します。"
+"IntelliJ IDEA（Ultimate および Community）、WebStorm、CLion、PyCharm、GoLand、"
+"Rider などが含まれます。どの IDE を使用しても、すべての機能が利用可能です。"
 
 #: ../../user/faq.md:8
 msgid "Is this plugin free?"
-msgstr ""
+msgstr "このプラグインは無料ですか？"
 
 #: ../../user/faq.md:9
 msgid ""
 "Yes. The plugin is open-source under the MIT license and free to use. "
 "There are no paid tiers or premium features."
 msgstr ""
+"はい。このプラグインは MIT ライセンスのオープンソースで、無料で使用できます。"
+"有料プランやプレミアム機能はありません。"
 
 #: ../../user/faq.md:11
 msgid "Does the plugin work without Node.js?"
-msgstr ""
+msgstr "Node.js なしでプラグインは動作しますか？"
 
 #: ../../user/faq.md:12
 #, python-brace-format
@@ -63,10 +68,15 @@ msgid ""
 "(code completion, diagnostics, go to definition, hover documentation) "
 "require Node.js because the {term}`Language Server` runs on it."
 msgstr ""
+"部分的に動作します。シンタックスハイライト、コード折りたたみ、ブレースマッチング、"
+"Structure View、ファイルテンプレートなどの {term}`Native Feature <Native Feature>` は "
+"Node.js なしで動作します。ただし、{term}`LSP` ベースの機能（コード補完、診断、"
+"定義ジャンプ、ホバードキュメント）は {term}`Language Server` が Node.js 上で動作するため、"
+"Node.js が必要です。"
 
 #: ../../user/faq.md:14
 msgid "What is the difference between native and LSP features?"
-msgstr ""
+msgstr "Native 機能と LSP 機能の違いは何ですか？"
 
 #: ../../user/faq.md:15
 msgid ""
@@ -79,14 +89,20 @@ msgid ""
 "and running. See [Feature Overview](features/index.md) for a complete "
 "comparison table."
 msgstr ""
+"**Native 機能** は JFlex レクサーと IntelliJ Platform API を使用してプラグインに"
+"直接組み込まれています。高速で常に利用可能であり、外部ツールは不要です。"
+"**LSP 機能** はバックグラウンドプロセスとして動作する `@rescript/language-server` に"
+"よって提供されます。より深いセマンティック理解（型対応の補完、ファイル間ナビゲーション、"
+"診断）を提供しますが、Language Server のインストールと起動が必要です。"
+"完全な比較表は [機能概要](features/index.md) を参照してください。"
 
 #: ../../user/faq.md:17
 msgid "Language Server"
-msgstr ""
+msgstr "Language Server"
 
 #: ../../user/faq.md:19
 msgid "Why did some features stop working?"
-msgstr ""
+msgstr "一部の機能が動作しなくなったのはなぜですか？"
 
 #: ../../user/faq.md:20
 #, python-brace-format
@@ -95,18 +111,21 @@ msgid ""
 "found. Check the status bar at the bottom of the IDE for the ReScript "
 "build status indicator. Common causes:"
 msgstr ""
+"通常、{term}`Language Server` が停止したか、見つからないことを意味します。"
+"IDE 下部のステータスバーで ReScript のビルドステータスインジケーターを確認してください。"
+"よくある原因:"
 
 #: ../../user/faq.md:21
 msgid "The `@rescript/language-server` package was removed or updated"
-msgstr ""
+msgstr "`@rescript/language-server` パッケージが削除または更新された"
 
 #: ../../user/faq.md:22
 msgid "Node.js is no longer in your PATH"
-msgstr ""
+msgstr "Node.js が PATH に存在しなくなった"
 
 #: ../../user/faq.md:23
 msgid "The project was moved to a different directory"
-msgstr ""
+msgstr "プロジェクトが別のディレクトリに移動された"
 
 #: ../../user/faq.md:25
 msgid ""
@@ -114,24 +133,29 @@ msgid ""
 "**Restart LSP Server**. See [Troubleshooting](troubleshooting.md) for "
 "more solutions."
 msgstr ""
+"**Tools** → **ReScript** → **Restart LSP Server** から Language Server を"
+"再起動してみてください。詳しい解決方法は [トラブルシューティング](troubleshooting.md) "
+"を参照してください。"
 
 #: ../../user/faq.md:27
 msgid "How do I update the Language Server?"
-msgstr ""
+msgstr "Language Server を更新するにはどうすればよいですか？"
 
 #: ../../user/faq.md:28
 msgid "Update the npm package in your project:"
-msgstr ""
+msgstr "プロジェクト内の npm パッケージを更新してください:"
 
 #: ../../user/faq.md:32
 msgid ""
 "Then restart the IDE or use **Tools** → **ReScript** → **Restart LSP "
 "Server**. The plugin automatically detects the updated version."
 msgstr ""
+"その後、IDE を再起動するか、**Tools** → **ReScript** → **Restart LSP Server** を"
+"使用してください。プラグインは更新されたバージョンを自動的に検出します。"
 
 #: ../../user/faq.md:34
 msgid "Can I use a globally installed Language Server?"
-msgstr ""
+msgstr "グローバルにインストールした Language Server を使用できますか？"
 
 #: ../../user/faq.md:35
 msgid ""
@@ -141,14 +165,18 @@ msgid ""
 "across team members. See [Installation](installation.md) for the full "
 "detection order."
 msgstr ""
+"はい。プロジェクトローカルのインストールが見つからない場合、プラグインは `which`"
+"（Windows では `where`）で検出されたグローバルインストールにフォールバックします。"
+"ただし、チームメンバー間でバージョンの一貫性を確保するため、ローカルインストールを"
+"推奨します。完全な検出順序については [インストール](installation.md) を参照してください。"
 
 #: ../../user/faq.md:37
 msgid "Workflow"
-msgstr ""
+msgstr "ワークフロー"
 
 #: ../../user/faq.md:39
 msgid "Does the plugin support monorepos?"
-msgstr ""
+msgstr "プラグインはモノレポに対応していますか？"
 
 #: ../../user/faq.md:40
 msgid ""
@@ -157,10 +185,14 @@ msgid ""
 "monorepo root is automatically detected by projects in subdirectories. "
 "Each project should have its own `rescript.json` configuration file."
 msgstr ""
+"はい。プラグインは親ディレクトリの `node_modules/.bin/rescript-language-server` を"
+"検索するため、モノレポのルートにインストールされた Language Server はサブディレクトリの"
+"プロジェクトから自動的に検出されます。各プロジェクトにはそれぞれの `rescript.json` "
+"設定ファイルが必要です。"
 
 #: ../../user/faq.md:42
 msgid "Why don't I see any diagnostics (errors/warnings)?"
-msgstr ""
+msgstr "診断（エラー/警告）が表示されないのはなぜですか？"
 
 #: ../../user/faq.md:43
 #, python-brace-format
@@ -168,6 +200,8 @@ msgid ""
 "The {term}`Language Server` requires a successful initial build to "
 "generate type information. Run the ReScript compiler at least once:"
 msgstr ""
+"{term}`Language Server` は型情報を生成するために、初回ビルドが正常に完了する必要があります。"
+"ReScript コンパイラを少なくとも一度実行してください:"
 
 #: ../../user/faq.md:47
 msgid ""
@@ -176,10 +210,14 @@ msgid ""
 " open. See [Troubleshooting — Build Errors Not "
 "Showing](troubleshooting.md#build-errors-not-showing) for more details."
 msgstr ""
+"ビルドが完了すると、診断が表示されるようになります。IDE 内からビルドウォッチャーを"
+"開始することもできます。プロジェクトを開くとプラグインがプロンプトを表示します。"
+"詳細は [トラブルシューティング — ビルドエラーが表示されない]"
+"(troubleshooting.md#build-errors-not-showing) を参照してください。"
 
 #: ../../user/faq.md:49
 msgid "How do I configure the plugin?"
-msgstr ""
+msgstr "プラグインの設定はどうすればよいですか？"
 
 #: ../../user/faq.md:50
 msgid ""
@@ -188,10 +226,14 @@ msgid ""
 "reanalyze integration, and more. See [Configuration](configuration.md) "
 "for all available options."
 msgstr ""
+"**Settings** → **Languages & Frameworks** → **ReScript** にアクセスしてください。"
+"Language Server のパス、Node.js インタープリター、インレイヒント、reanalyze 統合などを"
+"設定できます。利用可能なすべてのオプションについては [設定](configuration.md) を"
+"参照してください。"
 
 #: ../../user/faq.md:52
 msgid "Can I use the plugin with older ReScript versions?"
-msgstr ""
+msgstr "古いバージョンの ReScript でもプラグインを使用できますか？"
 
 #: ../../user/faq.md:53
 msgid ""
@@ -201,10 +243,14 @@ msgid ""
 "documentation](https://github.com/rescript-lang/rescript-vscode) for "
 "version compatibility."
 msgstr ""
+"プラグインは `@rescript/language-server` がサポートする任意の ReScript バージョンで"
+"動作します。一部の機能（reanalyze サーバーモードなど）は ReScript 12.1.0 以降が"
+"必要です。バージョンの互換性については [Language Server のドキュメント]"
+"(https://github.com/rescript-lang/rescript-vscode) を確認してください。"
 
 #: ../../user/faq.md:55
 msgid "How do I report a bug or request a feature?"
-msgstr ""
+msgstr "バグの報告や機能のリクエストはどうすればよいですか？"
 
 #: ../../user/faq.md:56
 msgid ""
@@ -214,4 +260,7 @@ msgid ""
 "reporter — if an unhandled exception occurs, it offers to open a pre-"
 "filled GitHub issue."
 msgstr ""
-
+"[GitHub](https://github.com/Nagatatz/rescript-intellij-plugin/issues) で "
+"Issue を作成してください。IDE のバージョン、プラグインのバージョン、ReScript の"
+"バージョン、再現手順を記載してください。プラグインにはエラーレポーターも組み込まれて"
+"おり、未処理の例外が発生した場合、事前入力済みの GitHub Issue を開くことを提案します。"

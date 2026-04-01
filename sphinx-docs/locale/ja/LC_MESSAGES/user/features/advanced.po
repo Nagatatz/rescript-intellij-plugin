@@ -144,6 +144,8 @@ msgid ""
 "[Syntax Highlighting](syntax-highlighting.md) covers the semantic token "
 "system that powers Code Lens type annotations."
 msgstr ""
+"[シンタックスハイライト](syntax-highlighting.md) では、Code Lens "
+"の型注釈を支えるセマンティックトークンシステムについて説明しています。"
 
 #: ../../user/features/advanced.md:46
 msgid "Compiled JavaScript Preview"
@@ -1963,14 +1965,14 @@ msgid ""
 msgstr "**バージョン表示:** `rescript.json` にその内容から ReScript バージョンを表示"
 
 #: ../../user/features/advanced.md:676
-#, fuzzy
 msgid ""
 "**Compiled JS nesting:** Compiled JS files (`.res.js`/`.mjs`/`.cjs`, "
 "`.bs.js`/`.mjs`/`.cjs`) are nested under their corresponding `.res` "
 "source file in the Project panel, reducing visual clutter"
 msgstr ""
-"**コンパイル済み JS のネスト:** コンパイル済みの `.res.js` / `.res.mjs` ファイルが Project "
-"パネルで対応する `.res` ソースファイルの下にネスト表示され、視覚的な混乱を軽減します"
+"**コンパイル済み JS のネスト:** コンパイル済み JS ファイル（`.res.js`/`.mjs`/`.cjs`、"
+"`.bs.js`/`.mjs`/`.cjs`）が Project パネルで対応する `.res` "
+"ソースファイルの下にネスト表示され、視覚的な混乱を軽減します"
 
 #: ../../user/features/advanced.md:677
 msgid ""

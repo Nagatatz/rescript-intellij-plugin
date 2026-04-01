@@ -548,6 +548,7 @@ msgid ""
 "[Code Analysis](code-analysis.md) shows detailed diagnostics (errors, "
 "warnings) inline in the editor."
 msgstr ""
+"[コード分析](code-analysis.md) では、エディタ内にインラインで表示される詳細な診断（エラー、警告）について説明しています。"
 
 #: ../../user/features/run-build.md:155
 msgid "Console Output"
