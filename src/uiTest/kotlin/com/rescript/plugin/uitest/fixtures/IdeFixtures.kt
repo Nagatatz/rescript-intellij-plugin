@@ -3,10 +3,8 @@ package com.rescript.plugin.uitest.fixtures
 import com.intellij.remoterobot.RemoteRobot
 import com.intellij.remoterobot.data.RemoteComponent
 import com.intellij.remoterobot.fixtures.CommonContainerFixture
-import com.intellij.remoterobot.fixtures.ComponentFixture
 import com.intellij.remoterobot.fixtures.DefaultXpath
 import com.intellij.remoterobot.fixtures.FixtureName
-import com.intellij.remoterobot.search.locators.byXpath
 import com.intellij.remoterobot.utils.keyboard
 import java.awt.event.KeyEvent
 import java.time.Duration
@@ -20,35 +18,6 @@ import java.time.Duration
 @FixtureName("IDE Frame")
 @DefaultXpath("IdeFrameImpl", "//div[@class='IdeFrameImpl']")
 class IdeFrameFixture(
-    remoteRobot: RemoteRobot,
-    remoteComponent: RemoteComponent,
-) : CommonContainerFixture(remoteRobot, remoteComponent) {
-    /**
-     * Finds the editor component within the IDE frame.
-     *
-     * @param timeout maximum wait time for the editor to appear
-     * @return the editor fixture
-     */
-    fun editor(timeout: Duration = Duration.ofSeconds(10)): ComponentFixture =
-        find(byXpath("//div[@class='EditorComponentImpl']"), timeout)
-
-    /**
-     * Finds the project tool window tree.
-     *
-     * @param timeout maximum wait time for the tree to appear
-     * @return the project tree fixture
-     */
-    fun projectTree(timeout: Duration = Duration.ofSeconds(10)): ComponentFixture =
-        find(byXpath("//div[@class='ProjectViewTree']"), timeout)
-}
-
-/**
- * Fixture for a tool window content panel.
- *
- * Used to interact with tool windows like Structure View, REPL, etc.
- */
-@FixtureName("Tool Window")
-class ToolWindowFixture(
     remoteRobot: RemoteRobot,
     remoteComponent: RemoteComponent,
 ) : CommonContainerFixture(remoteRobot, remoteComponent)

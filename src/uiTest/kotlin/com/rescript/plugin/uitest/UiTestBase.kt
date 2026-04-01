@@ -2,7 +2,6 @@ package com.rescript.plugin.uitest
 
 import com.intellij.remoterobot.RemoteRobot
 import com.intellij.remoterobot.fixtures.ComponentFixture
-import com.intellij.remoterobot.fixtures.Fixture
 import com.intellij.remoterobot.search.locators.byXpath
 import com.rescript.plugin.uitest.fixtures.IdeFrameFixture
 import org.junit.jupiter.api.BeforeEach
@@ -29,16 +28,8 @@ abstract class UiTestBase {
     protected val screenshotDir: String
         get() = System.getProperty("screenshot.output.dir", "build/screenshots")
 
-    /** Path to the sample ReScript project used for testing. */
-    protected val testProjectPath: String
-        get() = System.getProperty("test.project.path", "")
-
     companion object {
         private const val DEFAULT_PORT = "8082"
-        private val CONNECTION_TIMEOUT = Duration.ofSeconds(10)
-
-        /** Default timeout for waiting for IDE components to appear. */
-        val COMPONENT_TIMEOUT: Duration = Duration.ofSeconds(30)
 
         /** Short pause to allow UI updates to render. */
         const val UI_RENDER_DELAY_MS = 1500L
@@ -78,23 +69,6 @@ abstract class UiTestBase {
      */
     protected fun takeScreenshot(name: String): File {
         val screenshot: BufferedImage = ideFrame?.getScreenshot() ?: remoteRobot.getScreenshot()
-        val file = File(screenshotDir, "$name.png")
-        ImageIO.write(screenshot, "png", file)
-        return file
-    }
-
-    /**
-     * Takes a screenshot of a specific fixture and saves it.
-     *
-     * @param fixture the fixture to screenshot
-     * @param name the file name (without extension) for the screenshot
-     * @return the saved screenshot file
-     */
-    protected fun takeComponentScreenshot(
-        fixture: Fixture,
-        name: String,
-    ): File {
-        val screenshot: BufferedImage = fixture.getScreenshot()
         val file = File(screenshotDir, "$name.png")
         ImageIO.write(screenshot, "png", file)
         return file

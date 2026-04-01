@@ -130,7 +130,7 @@ class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferable
         private val CAMEL_CASE_HANDLER_PATTERN = Regex("""on[A-Z]\w+=""")
 
         // Pattern detecting JSX expression braces (e.g., `{variable}`, `{fn()}`)
-        private val JSX_EXPRESSION_PATTERN = Regex("""\{[^}]+\}""")
+        private val JSX_EXPRESSION_PATTERN = Regex("""\{[^}]+}""")
 
         /**
          * Checks whether the given text appears to contain HTML markup.

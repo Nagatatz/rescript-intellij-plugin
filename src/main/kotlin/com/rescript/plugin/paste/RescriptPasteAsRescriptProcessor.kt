@@ -301,7 +301,7 @@ class RescriptPasteAsRescriptProcessor : CopyPastePostProcessor<TextBlockTransfe
 
         // JSX conditional rendering: `{condition && <expr>}`
         private val JSX_AND_PATTERN =
-            Regex("""\{([^}]+?)\s*&&\s*([^}]+)\}""")
+            Regex("""\{([^}]+?)\s*&&\s*([^}]+)}""")
 
         // `.map(` array method call
         private val DOT_MAP_PATTERN = Regex("""\.map\(""")
@@ -313,7 +313,7 @@ class RescriptPasteAsRescriptProcessor : CopyPastePostProcessor<TextBlockTransfe
         private val DOT_FOREACH_PATTERN = Regex("""\.forEach\(""")
 
         // JSX spread: `{...identifier}`
-        private val JSX_SPREAD_PATTERN = Regex("""\{\.\.\.\w+\}""")
+        private val JSX_SPREAD_PATTERN = Regex("""\{\.\.\.\w+}""")
     }
 }
 
