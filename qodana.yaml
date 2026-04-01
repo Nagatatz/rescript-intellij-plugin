@@ -39,6 +39,10 @@ exclude:
     paths:
       # JUnit 5 backtick-quoted test names with numbers/spaces for ordering
       - src/uiTest/kotlin/com/rescript/plugin/uitest
+  - name: FunctionName
+    paths:
+      # JUnit 5 backtick-quoted test names with numbers/spaces for ordering
+      - src/uiTest/kotlin/com/rescript/plugin/uitest
   - name: VulnerableLibrariesLocal
     paths:
       # assertj is a transitive test dependency — not shipped in plugin artifact
