@@ -16,9 +16,8 @@ import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.run.RescriptCliDetector
 import com.rescript.plugin.settings.RescriptProjectSettings
-import com.rescript.plugin.util.RescriptSecurityUtils
+import com.rescript.plugin.util.RescriptProcessUtils
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 /**
  * External annotator that checks whether a ReScript file is formatted according to
@@ -130,11 +129,13 @@ class RescriptFormatCheckAnnotator :
 
     companion object {
         private val LOG = logger<RescriptFormatCheckAnnotator>()
-        private const val TIMEOUT_MS = 10_000L
 
         /**
          * Runs `rescript format --stdin .<ext>` and returns the formatted output,
          * or null if the process fails or times out.
+         *
+         * Delegates process execution (stdin writing, stderr capture, timeout handling)
+         * to [RescriptProcessUtils.executeWithStdin].
          *
          * @param cliPath path to the rescript CLI binary
          * @param extension the file extension (without dot)
@@ -150,73 +151,20 @@ class RescriptFormatCheckAnnotator :
                 GeneralCommandLine(cliPath, "format", "--stdin", ".$extension")
                     .withCharset(Charsets.UTF_8)
 
-            val process = commandLine.createProcess()
+            val result = RescriptProcessUtils.executeWithStdin(commandLine, documentText)
 
-            // Write to stdin in a separate thread to avoid deadlock
-            val stdinThread =
-                Thread(
-                    {
-                        try {
-                            process.outputStream.bufferedWriter(Charsets.UTF_8).use {
-                                it.write(documentText)
-                            }
-                        } catch (_: IOException) {
-                            // Expected when the process exits before stdin is fully written (broken pipe)
-                        }
-                    },
-                    "rescript-format-check-stdin",
-                ).apply { isDaemon = true }
-            stdinThread.start()
-
-            // Capture stderr in a separate thread
-            val stderrThread =
-                Thread(
-                    {
-                        try {
-                            process.errorStream.reader(Charsets.UTF_8).use { it.readText() }
-                        } catch (_: IOException) {
-                            // Expected when the process exits before stderr is fully read (stream closed)
-                        }
-                    },
-                    "rescript-format-check-stderr",
-                ).apply { isDaemon = true }
-            stderrThread.start()
-
-            try {
-                val stdout = process.inputStream.reader(Charsets.UTF_8).use { it.readText() }
-
-                stdinThread.join(TIMEOUT_MS)
-                stderrThread.join(TIMEOUT_MS)
-
-                // Interrupt threads that are still alive after timeout
-                if (stdinThread.isAlive) stdinThread.interrupt()
-                if (stderrThread.isAlive) stderrThread.interrupt()
-
-                val completed =
-                    process.waitFor(
-                        RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS,
-                        TimeUnit.SECONDS,
-                    )
-                if (!completed) {
-                    process.destroyForcibly()
-                    LOG.debug("rescript format check timed out")
-                    return null
-                }
-
-                val exitCode = process.exitValue()
-                if (exitCode != 0) {
-                    // Syntax error or other formatting failure — silently skip
-                    LOG.debug("rescript format exited with code $exitCode")
-                    return null
-                }
-
-                return stdout
-            } finally {
-                // Ensure process and threads are cleaned up even on unexpected exceptions
-                if (process.isAlive) process.destroyForcibly()
-                if (stdinThread.isAlive) stdinThread.interrupt()
-                if (stderrThread.isAlive) stderrThread.interrupt()
+            if (result.timedOut) {
+                LOG.debug("rescript format check timed out")
+                return null
             }
+
+            if (result.exitCode != 0) {
+                // Syntax error or other formatting failure — silently skip
+                LOG.debug("rescript format exited with code ${result.exitCode}")
+                return null
+            }
+
+            return result.stdout
         }
     }
 }

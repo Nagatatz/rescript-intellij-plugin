@@ -1,5 +1,6 @@
 package com.rescript.plugin.util
 
+import com.intellij.execution.configurations.GeneralCommandLine
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -58,6 +59,52 @@ class RescriptProcessUtilsTest {
         val result = RescriptProcessUtils.ProcessResult(exitCode = 42, firstLine = "test", timedOut = true)
         assertEquals(42, result.exitCode)
         assertEquals("test", result.firstLine)
+        assertTrue(result.timedOut)
+    }
+
+    // ── executeWithStdin ────────────────────────────────────────
+
+    @Test
+    fun `executeWithStdin passes input to process and captures output`() {
+        val cmd = GeneralCommandLine("cat").withCharset(Charsets.UTF_8)
+        val result = RescriptProcessUtils.executeWithStdin(cmd, "hello world")
+        assertEquals(0, result.exitCode)
+        assertEquals("hello world", result.stdout)
+        assertFalse(result.timedOut)
+    }
+
+    @Test
+    fun `executeWithStdin captures stderr`() {
+        val cmd = GeneralCommandLine("bash", "-c", "echo err >&2").withCharset(Charsets.UTF_8)
+        val result = RescriptProcessUtils.executeWithStdin(cmd, "")
+        assertEquals(0, result.exitCode)
+        assertTrue(result.stderr.contains("err"))
+        assertFalse(result.timedOut)
+    }
+
+    @Test
+    fun `executeWithStdin reports non-zero exit code`() {
+        val cmd = GeneralCommandLine("bash", "-c", "exit 42").withCharset(Charsets.UTF_8)
+        val result = RescriptProcessUtils.executeWithStdin(cmd, "")
+        assertEquals(42, result.exitCode)
+        assertFalse(result.timedOut)
+    }
+
+    @Test
+    fun `executeWithStdin handles timeout`() {
+        // Close stdout immediately but keep the process alive so waitFor times out
+        val cmd = GeneralCommandLine("bash", "-c", "exec 1>&-; sleep 60").withCharset(Charsets.UTF_8)
+        val result = RescriptProcessUtils.executeWithStdin(cmd, "", timeoutMs = 500L)
+        assertTrue(result.timedOut)
+        assertEquals(-1, result.exitCode)
+    }
+
+    @Test
+    fun `StdinProcessResult data class stores all fields`() {
+        val result = RescriptProcessUtils.StdinProcessResult("out", "err", 1, true)
+        assertEquals("out", result.stdout)
+        assertEquals("err", result.stderr)
+        assertEquals(1, result.exitCode)
         assertTrue(result.timedOut)
     }
 }

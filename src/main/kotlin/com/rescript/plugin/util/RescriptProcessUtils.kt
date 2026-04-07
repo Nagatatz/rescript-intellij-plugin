@@ -1,6 +1,9 @@
 package com.rescript.plugin.util
 
+import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.diagnostic.logger
+import java.io.File
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 /**
@@ -64,4 +67,97 @@ object RescriptProcessUtils {
             LOG.debug("Process execution failed for: ${command.joinToString(" ")}", e)
             ProcessResult(exitCode = -1, firstLine = "", timedOut = false)
         }
+
+    /**
+     * Result of a process execution with full stdin/stdout support.
+     *
+     * @param stdout the full stdout output
+     * @param stderr the full stderr output
+     * @param exitCode the process exit code (-1 if timed out)
+     * @param timedOut true if the process exceeded the timeout
+     */
+    data class StdinProcessResult(
+        val stdout: String,
+        val stderr: String,
+        val exitCode: Int,
+        val timedOut: Boolean,
+    )
+
+    /**
+     * Runs a command feeding [stdinContent] to its stdin and capturing full stdout/stderr.
+     *
+     * Uses separate daemon threads for stdin writing and stderr reading to avoid
+     * deadlocks. The process is forcibly destroyed on timeout.
+     *
+     * @param commandLine the command to execute
+     * @param stdinContent the text to write to the process's stdin
+     * @param timeoutMs maximum time to wait in milliseconds
+     * @return the process result with stdout, stderr, exit code, and timeout status
+     */
+    fun executeWithStdin(
+        commandLine: GeneralCommandLine,
+        stdinContent: String,
+        timeoutMs: Long = 10_000L,
+    ): StdinProcessResult {
+        val process = commandLine.createProcess()
+
+        // Write stdin in a separate thread to avoid deadlock
+        val stdinThread =
+            Thread(
+                {
+                    try {
+                        process.outputStream.bufferedWriter(Charsets.UTF_8).use {
+                            it.write(stdinContent)
+                        }
+                    } catch (_: IOException) {
+                        // Expected when the process exits before stdin is fully written (broken pipe)
+                    }
+                },
+                "rescript-process-stdin",
+            ).apply { isDaemon = true }
+        stdinThread.start()
+
+        // Capture stderr in a separate thread
+        var stderr = ""
+        val stderrThread =
+            Thread(
+                {
+                    try {
+                        stderr = process.errorStream.reader(Charsets.UTF_8).use { it.readText() }
+                    } catch (_: IOException) {
+                        // Expected when the process exits before stderr is fully read
+                    }
+                },
+                "rescript-process-stderr",
+            ).apply { isDaemon = true }
+        stderrThread.start()
+
+        try {
+            val stdout = process.inputStream.reader(Charsets.UTF_8).use { it.readText() }
+
+            stdinThread.join(timeoutMs)
+            stderrThread.join(timeoutMs)
+
+            // Interrupt threads that are still alive after timeout
+            if (stdinThread.isAlive) stdinThread.interrupt()
+            if (stderrThread.isAlive) stderrThread.interrupt()
+
+            val completed =
+                process.waitFor(
+                    RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS,
+                    TimeUnit.SECONDS,
+                )
+            if (!completed) {
+                process.destroyForcibly()
+                LOG.debug("Process timed out: ${commandLine.commandLineString}")
+                return StdinProcessResult(stdout, stderr, exitCode = -1, timedOut = true)
+            }
+
+            return StdinProcessResult(stdout, stderr, exitCode = process.exitValue(), timedOut = false)
+        } finally {
+            if (process.isAlive) process.destroyForcibly()
+            if (stdinThread.isAlive) stdinThread.interrupt()
+            if (stderrThread.isAlive) stderrThread.interrupt()
+        }
+    }
 }
