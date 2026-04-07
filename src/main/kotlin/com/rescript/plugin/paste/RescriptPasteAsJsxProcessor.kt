@@ -1,14 +1,7 @@
 package com.rescript.plugin.paste
 
-import com.intellij.codeInsight.editorActions.CopyPastePostProcessor
 import com.intellij.codeInsight.editorActions.TextBlockTransferableData
-import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.editor.RangeMarker
-import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiFile
-import com.rescript.plugin.lang.psi.RescriptFile
 import java.awt.datatransfer.DataFlavor
-import java.awt.datatransfer.Transferable
 
 /**
  * Post-processes paste operations to convert HTML markup to ReScript JSX syntax.
@@ -21,46 +14,20 @@ import java.awt.datatransfer.Transferable
  * Only activates when the pasted content appears to contain HTML tags (not React JSX).
  * React JSX content (with `className=`, camelCase handlers, or expression braces)
  * is excluded and handled by [RescriptPasteAsRescriptProcessor] instead.
+ *
+ * Extends [RescriptBasePasteProcessor] which provides the common clipboard extraction,
+ * RescriptFile guard, and WriteCommandAction replacement workflow.
  */
-class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferableData>() {
-    override fun collectTransferableData(
-        file: PsiFile,
-        editor: Editor,
-        startOffsets: IntArray,
-        endOffsets: IntArray,
-    ): List<TextBlockTransferableData> = emptyList()
+class RescriptPasteAsJsxProcessor : RescriptBasePasteProcessor<HtmlTransferData>() {
+    override fun detectContent(text: String): Boolean = looksLikeHtml(text)
 
-    override fun extractTransferableData(content: Transferable): List<TextBlockTransferableData> {
-        if (!content.isDataFlavorSupported(DataFlavor.stringFlavor)) return emptyList()
-        val text = content.getTransferData(DataFlavor.stringFlavor) as? String ?: return emptyList()
-        if (!looksLikeHtml(text)) return emptyList()
-        return listOf(HtmlTransferData(text))
-    }
+    override fun convertContent(text: String): String = convertHtmlToJsx(text)
 
-    override fun processTransferableData(
-        project: Project,
-        editor: Editor,
-        bounds: RangeMarker,
-        caretOffset: Int,
-        indented: com.intellij.openapi.util.Ref<in Boolean>,
-        values: MutableList<out TextBlockTransferableData>,
-    ) {
-        val file =
-            com.intellij.psi.PsiDocumentManager
-                .getInstance(project)
-                .getPsiFile(editor.document)
-        if (file !is RescriptFile) return
+    override fun createTransferableData(text: String): HtmlTransferData = HtmlTransferData(text)
 
-        val htmlData = values.filterIsInstance<HtmlTransferData>().firstOrNull() ?: return
-        val converted = convertHtmlToJsx(htmlData.originalHtml)
-        if (converted == htmlData.originalHtml) return
+    override fun getOriginalText(data: HtmlTransferData): String = data.originalHtml
 
-        // Replace the pasted range with converted JSX
-        val document = editor.document
-        com.intellij.openapi.command.WriteCommandAction.runWriteCommandAction(project) {
-            document.replaceString(bounds.startOffset, bounds.endOffset, converted)
-        }
-    }
+    override val transferableDataClass: Class<HtmlTransferData> = HtmlTransferData::class.java
 
     companion object {
         // HTML attributes that need renaming for JSX
@@ -258,7 +225,7 @@ class RescriptPasteAsJsxProcessor : CopyPastePostProcessor<TextBlockTransferable
  *
  * @property originalHtml the original HTML text from the clipboard
  */
-private class HtmlTransferData(
+class HtmlTransferData(
     val originalHtml: String,
 ) : TextBlockTransferableData {
     override fun getFlavor(): DataFlavor = DATA_FLAVOR

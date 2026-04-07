@@ -1,17 +1,7 @@
 package com.rescript.plugin.paste
 
-import com.intellij.codeInsight.editorActions.CopyPastePostProcessor
 import com.intellij.codeInsight.editorActions.TextBlockTransferableData
-import com.intellij.openapi.command.WriteCommandAction
-import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.editor.RangeMarker
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.Ref
-import com.intellij.psi.PsiDocumentManager
-import com.intellij.psi.PsiFile
-import com.rescript.plugin.lang.psi.RescriptFile
 import java.awt.datatransfer.DataFlavor
-import java.awt.datatransfer.Transferable
 
 /**
  * Post-processes paste operations to convert JavaScript/TypeScript code to ReScript syntax.
@@ -21,44 +11,21 @@ import java.awt.datatransfer.Transferable
  * transformations to produce valid ReScript code. Also handles JSX/TSX patterns such as
  * conditional rendering and array method calls.
  *
- * Implements [CopyPastePostProcessor] for automatic paste-time conversion.
+ * Extends [RescriptBasePasteProcessor] which provides the common clipboard extraction,
+ * RescriptFile guard, and WriteCommandAction replacement workflow.
  *
  * @see RescriptPasteAsJsxProcessor for the HTML-to-JSX paste processor
  */
-class RescriptPasteAsRescriptProcessor : CopyPastePostProcessor<TextBlockTransferableData>() {
-    override fun collectTransferableData(
-        file: PsiFile,
-        editor: Editor,
-        startOffsets: IntArray,
-        endOffsets: IntArray,
-    ): List<TextBlockTransferableData> = emptyList()
+class RescriptPasteAsRescriptProcessor : RescriptBasePasteProcessor<JsTransferData>() {
+    override fun detectContent(text: String): Boolean = looksLikeJavaScript(text)
 
-    override fun extractTransferableData(content: Transferable): List<TextBlockTransferableData> {
-        if (!content.isDataFlavorSupported(DataFlavor.stringFlavor)) return emptyList()
-        val text = content.getTransferData(DataFlavor.stringFlavor) as? String ?: return emptyList()
-        if (!looksLikeJavaScript(text)) return emptyList()
-        return listOf(JsTransferData(text))
-    }
+    override fun convertContent(text: String): String = convertJsToRescript(text)
 
-    override fun processTransferableData(
-        project: Project,
-        editor: Editor,
-        bounds: RangeMarker,
-        caretOffset: Int,
-        indented: Ref<in Boolean>,
-        values: MutableList<out TextBlockTransferableData>,
-    ) {
-        val file = PsiDocumentManager.getInstance(project).getPsiFile(editor.document)
-        if (file !is RescriptFile) return
+    override fun createTransferableData(text: String): JsTransferData = JsTransferData(text)
 
-        val jsData = values.filterIsInstance<JsTransferData>().firstOrNull() ?: return
-        val converted = convertJsToRescript(jsData.originalJs)
-        if (converted == jsData.originalJs) return
+    override fun getOriginalText(data: JsTransferData): String = data.originalJs
 
-        WriteCommandAction.runWriteCommandAction(project) {
-            editor.document.replaceString(bounds.startOffset, bounds.endOffset, converted)
-        }
-    }
+    override val transferableDataClass: Class<JsTransferData> = JsTransferData::class.java
 
     companion object {
         // JavaScript keyword patterns at line start
@@ -322,7 +289,7 @@ class RescriptPasteAsRescriptProcessor : CopyPastePostProcessor<TextBlockTransfe
  *
  * @property originalJs the original JavaScript text from the clipboard
  */
-private class JsTransferData(
+class JsTransferData(
     val originalJs: String,
 ) : TextBlockTransferableData {
     override fun getFlavor(): DataFlavor = DATA_FLAVOR
