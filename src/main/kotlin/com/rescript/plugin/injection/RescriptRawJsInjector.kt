@@ -5,9 +5,9 @@ import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import com.intellij.psi.TokenType
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptStringLiteral
+import com.rescript.plugin.util.RescriptBraceBalanceUtil
 
 /**
  * Injects languages into ReScript extension expressions:
@@ -74,16 +74,16 @@ class RescriptRawJsInjector : MultiHostInjector {
         var current = element.prevSibling
 
         // Skip whitespace/EOL
-        current = skipWhitespace(current)
+        current = RescriptBraceBalanceUtil.skipWhitespaceAndEolBackward(current)
 
         // For template string content, skip past JS_STRING_OPEN token
         if (current != null && current.node.elementType == RescriptTokenTypes.JS_STRING_OPEN) {
-            current = skipWhitespace(current.prevSibling)
+            current = RescriptBraceBalanceUtil.skipWhitespaceAndEolBackward(current.prevSibling)
         }
 
         // Expect LPAREN
         if (current == null || current.node.elementType != RescriptTokenTypes.LPAREN) return null
-        current = skipWhitespace(current.prevSibling)
+        current = RescriptBraceBalanceUtil.skipWhitespaceAndEolBackward(current.prevSibling)
 
         // Expect RAW, FFI, or LIDENT("re")
         if (current == null) return null
@@ -95,7 +95,7 @@ class RescriptRawJsInjector : MultiHostInjector {
                 RescriptTokenTypes.LIDENT -> if (current.text == "re") "re" else return null
                 else -> return null
             }
-        current = skipWhitespace(current.prevSibling)
+        current = RescriptBraceBalanceUtil.skipWhitespaceAndEolBackward(current.prevSibling)
 
         // Expect at least one PERCENT
         if (current == null || current.node.elementType != RescriptTokenTypes.PERCENT) return null
@@ -168,18 +168,6 @@ class RescriptRawJsInjector : MultiHostInjector {
         if (patternStart >= patternEnd) return null
 
         return TextRange(patternStart, patternEnd)
-    }
-
-    private fun skipWhitespace(start: PsiElement?): PsiElement? {
-        var current = start
-        while (current != null) {
-            val type = current.node.elementType
-            if (type != TokenType.WHITE_SPACE && type != RescriptTokenTypes.EOL) {
-                return current
-            }
-            current = current.prevSibling
-        }
-        return null
     }
 
     /**

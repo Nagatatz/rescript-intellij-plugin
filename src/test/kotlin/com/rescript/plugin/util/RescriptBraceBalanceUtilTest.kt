@@ -91,7 +91,7 @@ class RescriptBraceBalanceUtilTest {
         assertNull(RescriptBraceBalanceUtil.findMatchingBrace("{ abc", 0))
     }
 
-    // ── skipWhitespace / skipWhitespaceBackward ──────────────────
+    // ── skipWhitespace / skipWhitespaceBackward / skipWhitespaceAndEolBackward ──
     // PSI-based methods require IDE test infrastructure (PsiElement mocking).
-    // Tested indirectly via RescriptHighlightUsagesHandlerFactory.
+    // Tested indirectly via RescriptHighlightUsagesHandlerFactory and RescriptRawJsInjector.
 }
