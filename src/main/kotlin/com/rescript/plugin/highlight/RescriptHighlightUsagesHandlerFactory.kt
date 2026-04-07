@@ -28,15 +28,21 @@ class RescriptHighlightUsagesHandlerFactory : HighlightUsagesHandlerFactory {
         val element = file.findElementAt(offset) ?: return null
         val tokenType = element.node?.elementType ?: return null
 
-        return when (tokenType) {
-            T.SWITCH -> RescriptKeywordHighlightHandler(editor, file, element, KeywordKind.SWITCH)
-            T.IF -> RescriptKeywordHighlightHandler(editor, file, element, KeywordKind.IF)
-            T.TRY -> RescriptKeywordHighlightHandler(editor, file, element, KeywordKind.TRY)
-            T.PIPE -> RescriptKeywordHighlightHandler(editor, file, element, KeywordKind.PIPE)
-            T.CATCH -> RescriptKeywordHighlightHandler(editor, file, element, KeywordKind.CATCH)
-            T.ELSE -> RescriptKeywordHighlightHandler(editor, file, element, KeywordKind.ELSE)
-            else -> null
-        }
+        val kind = KEYWORD_MAPPING[tokenType] ?: return null
+        return RescriptKeywordHighlightHandler(editor, file, element, kind)
+    }
+
+    companion object {
+        // Token type → keyword kind mapping for supported control-flow keywords
+        private val KEYWORD_MAPPING =
+            mapOf(
+                T.SWITCH to KeywordKind.SWITCH,
+                T.IF to KeywordKind.IF,
+                T.TRY to KeywordKind.TRY,
+                T.PIPE to KeywordKind.PIPE,
+                T.CATCH to KeywordKind.CATCH,
+                T.ELSE to KeywordKind.ELSE,
+            )
     }
 }
 
