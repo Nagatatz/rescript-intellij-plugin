@@ -117,11 +117,11 @@ internal object RescriptJsonDecoderGenerator {
 
         // Build let bindings for each field
         val letBindings =
-            fields.joinToString("\n") { field ->
-                val jsonType = RescriptJsonTypeClassifier.classify(field.typeAnnotation)
-                val decodeExpr = decodeFieldExpression(jsonType, field.name)
-                "      $decodeExpr"
-            }
+            RescriptJsonCodeGenerator
+                .mapFieldsWithType(fields) { field, jsonType ->
+                    val decodeExpr = decodeFieldExpression(jsonType, field.name)
+                    "      $decodeExpr"
+                }.joinToString("\n")
 
         // Build tuple pattern for the switch
         val tuplePattern = fields.joinToString(", ") { field -> field.name }
@@ -153,9 +153,8 @@ internal object RescriptJsonDecoderGenerator {
         if (constructors.isEmpty()) return null
 
         val funcName = RescriptJsonCodeGenerator.decoderName(typeName)
-        val isSimpleEnum = constructors.all { it.payload == null }
 
-        return if (isSimpleEnum) {
+        return if (RescriptJsonCodeGenerator.isSimpleEnum(constructors)) {
             generateSimpleEnumDecoder(funcName, typeName, constructors)
         } else {
             generateTaggedUnionDecoder(funcName, typeName, constructors)
@@ -192,22 +191,21 @@ internal object RescriptJsonDecoderGenerator {
                 if (ctor.payload == null) {
                     "    | Some(String(\"${ctor.name}\")) => Some(${ctor.name})"
                 } else {
-                    val payloadTypes = RescriptJsonCodeGenerator.splitPayloadTypes(ctor.payload)
+                    val classifiedTypes = RescriptJsonCodeGenerator.classifyPayloadTypes(ctor.payload)
                     val letBindings =
-                        payloadTypes
-                            .mapIndexed { i, typeStr ->
-                                val jsonType = RescriptJsonTypeClassifier.classify(typeStr)
+                        classifiedTypes
+                            .mapIndexed { i, (_, jsonType) ->
                                 "        let v$i = dict->Dict.get(\"_$i\")->Option.flatMap(v =>\n" +
                                     "          ${decodeInlineExpression(jsonType)}\n" +
                                     "        )"
                             }.joinToString("\n")
 
-                    val somePattern = payloadTypes.indices.joinToString(", ") { i -> "Some(v$i)" }
-                    val ctorArgs = payloadTypes.indices.joinToString(", ") { i -> "v$i" }
+                    val somePattern = classifiedTypes.indices.joinToString(", ") { i -> "Some(v$i)" }
+                    val ctorArgs = classifiedTypes.indices.joinToString(", ") { i -> "v$i" }
 
                     "    | Some(String(\"${ctor.name}\")) => {\n" +
                         "$letBindings\n" +
-                        "        switch (${payloadTypes.indices.joinToString(", ") { i -> "v$i" }}) {\n" +
+                        "        switch (${classifiedTypes.indices.joinToString(", ") { i -> "v$i" }}) {\n" +
                         "        | ($somePattern) => Some(${ctor.name}($ctorArgs))\n" +
                         "        | _ => None\n" +
                         "        }\n" +

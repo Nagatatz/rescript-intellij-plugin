@@ -106,6 +106,47 @@ object RescriptJsonCodeGenerator {
         RescriptJsonDecoderGenerator.decodeInlineExpression(jsonType)
 
     /**
+     * Maps record fields with their classified JSON types.
+     *
+     * Centralizes the [RescriptJsonTypeClassifier.classify] call so that
+     * both encoder and decoder generators use a consistent type classification.
+     *
+     * @param fields the record fields to process
+     * @param transform function receiving each field and its classified type
+     * @return list of transformed results
+     */
+    internal fun <R> mapFieldsWithType(
+        fields: List<RecordField>,
+        transform: (field: RecordField, jsonType: RescriptJsonType) -> R,
+    ): List<R> =
+        fields.map { field ->
+            val jsonType = RescriptJsonTypeClassifier.classify(field.typeAnnotation)
+            transform(field, jsonType)
+        }
+
+    /**
+     * Maps variant constructor payload types with their classified JSON types.
+     *
+     * Splits the payload string into individual types (respecting angle bracket
+     * nesting) and classifies each one.
+     *
+     * @param payload the raw payload string (e.g., "string, int")
+     * @return list of pairs of (type string, classified JSON type)
+     */
+    internal fun classifyPayloadTypes(payload: String): List<Pair<String, RescriptJsonType>> =
+        splitPayloadTypes(payload).map { typeStr ->
+            typeStr to RescriptJsonTypeClassifier.classify(typeStr)
+        }
+
+    /**
+     * Checks whether all variant constructors have no payload (simple enum).
+     *
+     * @param constructors the variant constructors
+     * @return true if all constructors are nullary (no payload)
+     */
+    internal fun isSimpleEnum(constructors: List<VariantConstructor>): Boolean = constructors.all { it.payload == null }
+
+    /**
      * Splits a variant constructor payload into individual type strings.
      *
      * Respects angle bracket nesting so that `"string, array<int>"` splits

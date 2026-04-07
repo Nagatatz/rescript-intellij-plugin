@@ -80,11 +80,11 @@ internal object RescriptJsonEncoderGenerator {
 
         val funcName = RescriptJsonCodeGenerator.encoderName(typeName)
         val entries =
-            fields.joinToString(",\n      ") { field ->
-                val jsonType = RescriptJsonTypeClassifier.classify(field.typeAnnotation)
-                val encodeExpr = encodeExpression(jsonType, "v.${field.name}")
-                "(\"${field.name}\", $encodeExpr)"
-            }
+            RescriptJsonCodeGenerator
+                .mapFieldsWithType(fields) { field, jsonType ->
+                    val encodeExpr = encodeExpression(jsonType, "v.${field.name}")
+                    "(\"${field.name}\", $encodeExpr)"
+                }.joinToString(",\n      ")
 
         return buildString {
             append("let $funcName = (v: $typeName): JSON.t =>\n")
@@ -105,9 +105,8 @@ internal object RescriptJsonEncoderGenerator {
         if (constructors.isEmpty()) return null
 
         val funcName = RescriptJsonCodeGenerator.encoderName(typeName)
-        val isSimpleEnum = constructors.all { it.payload == null }
 
-        return if (isSimpleEnum) {
+        return if (RescriptJsonCodeGenerator.isSimpleEnum(constructors)) {
             generateSimpleEnumEncoder(funcName, typeName, constructors)
         } else {
             generateTaggedUnionEncoder(funcName, typeName, constructors)
@@ -143,12 +142,11 @@ internal object RescriptJsonEncoderGenerator {
                 if (ctor.payload == null) {
                     "  | ${ctor.name} => Object(Dict.fromArray([(\"tag\", String(\"${ctor.name}\"))]))"
                 } else {
-                    val payloadTypes = RescriptJsonCodeGenerator.splitPayloadTypes(ctor.payload)
-                    val payloadBindings = payloadTypes.indices.joinToString(", ") { i -> "v$i" }
+                    val classifiedTypes = RescriptJsonCodeGenerator.classifyPayloadTypes(ctor.payload)
+                    val payloadBindings = classifiedTypes.indices.joinToString(", ") { i -> "v$i" }
                     val payloadEntries =
-                        payloadTypes
-                            .mapIndexed { i, typeStr ->
-                                val jsonType = RescriptJsonTypeClassifier.classify(typeStr)
+                        classifiedTypes
+                            .mapIndexed { i, (_, jsonType) ->
                                 "(\"_$i\", ${encodeExpression(jsonType, "v$i")})"
                             }.joinToString(", ")
 
