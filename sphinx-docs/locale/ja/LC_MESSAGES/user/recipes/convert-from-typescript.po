@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/convert-from-typescript.md
+msgid "typescript, conversion, migration, binding generation, d.ts"
+msgstr "TypeScript, 変換, 移行, バインディング生成, d.ts"
+
+#: ../../user/recipes/convert-from-typescript.md:7
+msgid "Convert from TypeScript"
+msgstr "TypeScript からの変換"
+
+#: ../../user/recipes/convert-from-typescript.md:9
+#, python-brace-format
+msgid "{bdg-success}`Native`"
+msgstr "{bdg-success}`Native`"
+
+#: ../../user/recipes/convert-from-typescript.md:11
+msgid "Goal"
+msgstr "目標"
+
+#: ../../user/recipes/convert-from-typescript.md:13
+msgid ""
+"Migrate TypeScript or JavaScript code to ReScript using the plugin's "
+"automatic conversion features, and generate ReScript bindings from "
+"`.d.ts` type definition files."
+msgstr ""
+"プラグインの自動変換機能を使用して TypeScript または JavaScript コードを ReScript に"
+"移行し、`.d.ts` 型定義ファイルから ReScript バインディングを生成します。"
+
+#: ../../user/recipes/convert-from-typescript.md:15
+msgid "Steps"
+msgstr "手順"
+
+#: ../../user/recipes/convert-from-typescript.md:17
+msgid "Method 1: Paste and Convert"
+msgstr "方法 1: ペーストして変換"
+
+#: ../../user/recipes/convert-from-typescript.md:19
+msgid "1. Copy TypeScript/JSX code"
+msgstr "1. TypeScript/JSX コードをコピーする"
+
+#: ../../user/recipes/convert-from-typescript.md:21
+msgid ""
+"Copy any TypeScript, JavaScript, or JSX/TSX code to your clipboard. For "
+"example:"
+msgstr ""
+"任意の TypeScript、JavaScript、または JSX/TSX コードをクリップボードにコピーします。"
+"例:"
+
+#: ../../user/recipes/convert-from-typescript.md:37
+msgid "2. Paste into a `.res` file"
+msgstr "2. `.res` ファイルにペーストする"
+
+#: ../../user/recipes/convert-from-typescript.md:39
+#, python-brace-format
+msgid ""
+"Press {kbd}`Ctrl+V` ({kbd}`Cmd+V` on macOS) to paste into a `.res` file. "
+"The plugin automatically detects TypeScript/JavaScript content and "
+"converts it to ReScript:"
+msgstr ""
+"{kbd}`Ctrl+V`（macOS では {kbd}`Cmd+V`）を押して `.res` ファイルにペーストします。"
+"プラグインが自動的に TypeScript/JavaScript コンテンツを検出し、ReScript に変換します:"
+
+#: ../../user/recipes/convert-from-typescript.md:51
+msgid "The converter handles:"
+msgstr "コンバータは以下を処理します:"
+
+#: ../../user/recipes/convert-from-typescript.md:53
+msgid ""
+"**JSX patterns** --- `className`, `onClick`, etc. are preserved as-is "
+"(ReScript JSX uses the same names)"
+msgstr ""
+"**JSX パターン** --- `className`、`onClick` などはそのまま保持されます"
+"（ReScript JSX は同じ名前を使用します）"
+
+#: ../../user/recipes/convert-from-typescript.md:54
+msgid ""
+"**Type annotations** --- TypeScript types are removed (ReScript infers "
+"types)"
+msgstr ""
+"**型注釈** --- TypeScript の型は削除されます（ReScript は型を推論します）"
+
+#: ../../user/recipes/convert-from-typescript.md:55
+msgid ""
+"**`interface` / `enum` declarations** --- Commented out with a note for "
+"manual conversion"
+msgstr ""
+"**`interface` / `enum` 宣言** --- 手動変換用のコメント付きでコメントアウトされます"
+
+#: ../../user/recipes/convert-from-typescript.md:56
+msgid "**Import statements** --- Removed (ReScript uses `open` instead)"
+msgstr "**import 文** --- 削除されます（ReScript は代わりに `open` を使用します）"
+
+#: ../../user/recipes/convert-from-typescript.md:58
+msgid "3. Review and adjust"
+msgstr "3. 確認して調整する"
+
+#: ../../user/recipes/convert-from-typescript.md:60
+msgid ""
+"The automatic conversion is a starting point. Review the output and "
+"adjust:"
+msgstr ""
+"自動変換は出発点です。出力を確認して調整します:"
+
+#: ../../user/recipes/convert-from-typescript.md:62
+msgid "Replace commented-out `interface` blocks with ReScript `type` declarations"
+msgstr "コメントアウトされた `interface` ブロックを ReScript の `type` 宣言に置き換える"
+
+#: ../../user/recipes/convert-from-typescript.md:63
+msgid "Add `open` statements for modules you need"
+msgstr "必要なモジュールの `open` 文を追加する"
+
+#: ../../user/recipes/convert-from-typescript.md:64
+msgid "Fix any syntax that the converter could not handle automatically"
+msgstr "コンバータが自動的に処理できなかった構文を修正する"
+
+#: ../../user/recipes/convert-from-typescript.md:66
+msgid "Method 2: Generate Bindings from `.d.ts`"
+msgstr "方法 2: `.d.ts` からバインディングを生成する"
+
+#: ../../user/recipes/convert-from-typescript.md:68
+msgid ""
+"For TypeScript libraries you want to call from ReScript, generate "
+"`external` bindings from `.d.ts` files."
+msgstr ""
+"ReScript から呼び出したい TypeScript ライブラリについて、`.d.ts` ファイルから "
+"`external` バインディングを生成します。"
+
+#: ../../user/recipes/convert-from-typescript.md:70
+msgid "1. Open or select a `.d.ts` file"
+msgstr "1. `.d.ts` ファイルを開くか選択する"
+
+#: ../../user/recipes/convert-from-typescript.md:72
+msgid ""
+"In the **Project** panel, right-click on a `.d.ts` file (e.g., "
+"`node_modules/some-lib/index.d.ts`)."
+msgstr ""
+"**Project** パネルで `.d.ts` ファイル（例: `node_modules/some-lib/index.d.ts`）を"
+"右クリックします。"
+
+#: ../../user/recipes/convert-from-typescript.md:74
+msgid "2. Generate ReScript Binding"
+msgstr "2. ReScript バインディングを生成する"
+
+#: ../../user/recipes/convert-from-typescript.md:76
+msgid ""
+"Select **Generate > ReScript Binding** from the context menu. The plugin "
+"parses the TypeScript type definitions and generates corresponding "
+"ReScript `external` declarations:"
+msgstr ""
+"コンテキストメニューから **Generate > ReScript Binding** を選択します。プラグインが "
+"TypeScript の型定義を解析し、対応する ReScript の `external` 宣言を生成します:"
+
+#: ../../user/recipes/convert-from-typescript.md:93
+msgid "3. Save and refine"
+msgstr "3. 保存して調整する"
+
+#: ../../user/recipes/convert-from-typescript.md:95
+msgid ""
+"Save the generated binding to a `.res` file and refine as needed. The "
+"generator handles common patterns but may require adjustments for complex"
+" TypeScript generics or overloads."
+msgstr ""
+"生成されたバインディングを `.res` ファイルに保存し、必要に応じて調整します。"
+"ジェネレータは一般的なパターンを処理しますが、複雑な TypeScript ジェネリクスや"
+"オーバーロードには調整が必要な場合があります。"
+
+#: ../../user/recipes/convert-from-typescript.md:97
+msgid "Expected Result"
+msgstr "期待される結果"
+
+#: ../../user/recipes/convert-from-typescript.md:99
+msgid ""
+"TypeScript/JSX code is converted to valid ReScript with minimal manual "
+"editing"
+msgstr ""
+"TypeScript/JSX コードが最小限の手動編集で有効な ReScript に変換される"
+
+#: ../../user/recipes/convert-from-typescript.md:100
+msgid "`.d.ts` type definitions are transformed into usable `external` bindings"
+msgstr "`.d.ts` 型定義が使用可能な `external` バインディングに変換される"
+
+#: ../../user/recipes/convert-from-typescript.md:102
+msgid "Tips"
+msgstr "ヒント"
+
+#: ../../user/recipes/convert-from-typescript.md:104
+msgid "For large codebases, convert file by file rather than all at once"
+msgstr "大規模なコードベースでは、一括ではなくファイルごとに変換しましょう"
+
+#: ../../user/recipes/convert-from-typescript.md:105
+msgid "The paste converter works best with self-contained code snippets"
+msgstr "ペーストコンバータは自己完結したコードスニペットで最も効果的に動作します"
+
+#: ../../user/recipes/convert-from-typescript.md:106
+#, python-brace-format
+msgid ""
+"Use {kbd}`Ctrl+Z` ({kbd}`Cmd+Z`) immediately after paste to revert if the"
+" conversion is not useful"
+msgstr ""
+"変換が有用でない場合は、ペースト直後に {kbd}`Ctrl+Z`（{kbd}`Cmd+Z`）で元に戻せます"
+
+#: ../../user/recipes/convert-from-typescript.md:108
+msgid "Related Features"
+msgstr "関連機能"
+
+#: ../../user/recipes/convert-from-typescript.md:110
+msgid "[Code Editing](../features/code-editing.md) --- Paste conversion details"
+msgstr "[Code Editing](../features/code-editing.md) --- ペースト変換の詳細"
+
+#: ../../user/recipes/convert-from-typescript.md:111
+msgid ""
+"[Advanced Features](../features/advanced.md) --- `.d.ts` binding "
+"generation"
+msgstr ""
+"[Advanced Features](../features/advanced.md) --- `.d.ts` バインディング生成"

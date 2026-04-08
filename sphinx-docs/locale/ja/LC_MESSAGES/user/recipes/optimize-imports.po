@@ -1,0 +1,214 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/optimize-imports.md
+msgid "imports, optimize, open statements, cleanup"
+msgstr "Import, 最適化, open 文, クリーンアップ"
+
+#: ../../user/recipes/optimize-imports.md:7
+msgid "Optimize Imports"
+msgstr "Import の最適化"
+
+#: ../../user/recipes/optimize-imports.md:9
+#, python-brace-format
+msgid "{bdg-success}`Native`"
+msgstr "{bdg-success}`Native`"
+
+#: ../../user/recipes/optimize-imports.md:11
+msgid "Goal"
+msgstr "目標"
+
+#: ../../user/recipes/optimize-imports.md:13
+msgid ""
+"Clean up redundant and duplicate `open` statements in your ReScript files"
+" to keep imports tidy and reduce noise."
+msgstr ""
+"ReScript ファイル内の冗長・重複した `open` 文を整理して、Import をきれいに保ち"
+"ノイズを減らします。"
+
+#: ../../user/recipes/optimize-imports.md:15
+msgid "Steps"
+msgstr "手順"
+
+#: ../../user/recipes/optimize-imports.md:17
+msgid "1. Run Optimize Imports"
+msgstr "1. Optimize Imports を実行する"
+
+#: ../../user/recipes/optimize-imports.md:19
+#, python-brace-format
+msgid ""
+"With a `.res` file open, press {kbd}`Ctrl+Alt+O` ({kbd}`Cmd+Alt+O` on "
+"macOS), or use **Code > Optimize Imports** from the menu."
+msgstr ""
+"`.res` ファイルを開いた状態で、{kbd}`Ctrl+Alt+O`（macOS では {kbd}`Cmd+Alt+O`）を"
+"押すか、メニューから **Code > Optimize Imports** を使用します。"
+
+#: ../../user/recipes/optimize-imports.md:21
+msgid "The plugin scans the file and automatically removes:"
+msgstr "プラグインがファイルをスキャンし、以下を自動的に削除します:"
+
+#: ../../user/recipes/optimize-imports.md:23
+msgid "**Duplicate opens** --- When the same module is opened more than once"
+msgstr "**重複した open** --- 同じモジュールが複数回 open されている場合"
+
+#: ../../user/recipes/optimize-imports.md
+msgid "Before"
+msgstr "変更前"
+
+#: ../../user/recipes/optimize-imports.md
+msgid "After"
+msgstr "変更後"
+
+#: ../../user/recipes/optimize-imports.md:47
+msgid "2. Review inspection warnings"
+msgstr "2. インスペクション警告を確認する"
+
+#: ../../user/recipes/optimize-imports.md:49
+msgid ""
+"The **Duplicate Open Detection** inspection highlights redundant opens in"
+" real time as you edit. Look for yellow warning underlines on `open` "
+"statements."
+msgstr ""
+"**Duplicate Open Detection** インスペクションは、編集中に冗長な open をリアルタイムで"
+"ハイライトします。`open` 文に黄色い警告の下線が表示されます。"
+
+#: ../../user/recipes/optimize-imports.md:51
+#, python-brace-format
+msgid ""
+"Hover over the warning to see the details, or press {kbd}`Alt+Enter` for "
+"a quick fix to remove the duplicate."
+msgstr ""
+"警告にカーソルを合わせると詳細が表示されます。{kbd}`Alt+Enter` を押すと、重複を削除する"
+" Quick Fix が表示されます。"
+
+#: ../../user/recipes/optimize-imports.md:53
+msgid "3. Configure auto-optimization (optional)"
+msgstr "3. 自動最適化を設定する（任意）"
+
+#: ../../user/recipes/optimize-imports.md:55
+msgid "To run import optimization automatically on save or reformat:"
+msgstr "保存時やリフォーマット時に Import 最適化を自動実行するには:"
+
+#: ../../user/recipes/optimize-imports.md:57
+msgid "Open **Settings > Editor > Auto Import**"
+msgstr "**Settings > Editor > Auto Import** を開く"
+
+#: ../../user/recipes/optimize-imports.md:58
+msgid "Under the **ReScript** section, configure the auto-import behavior"
+msgstr "**ReScript** セクションで Auto Import の動作を設定する"
+
+#: ../../user/recipes/optimize-imports.md:59
+msgid "Click **Apply**"
+msgstr "**Apply** をクリックする"
+
+#: ../../user/recipes/optimize-imports.md:61
+#, python-brace-format
+msgid ""
+"You can also run import optimization as part of **Code > Reformat Code** "
+"({kbd}`Ctrl+Alt+L` / {kbd}`Cmd+Alt+L`) by checking the **Optimize "
+"imports** option in the reformat dialog."
+msgstr ""
+"リフォーマットダイアログで **Optimize imports** オプションにチェックを入れることで、"
+"**Code > Reformat Code**（{kbd}`Ctrl+Alt+L` / {kbd}`Cmd+Alt+L`）の一部として "
+"Import 最適化を実行することもできます。"
+
+#: ../../user/recipes/optimize-imports.md:63
+msgid "4. Project-wide optimization"
+msgstr "4. プロジェクト全体の最適化"
+
+#: ../../user/recipes/optimize-imports.md:65
+msgid "To optimize imports across the entire project:"
+msgstr "プロジェクト全体で Import を最適化するには:"
+
+#: ../../user/recipes/optimize-imports.md:67
+msgid "Select the project root (or a directory) in the **Project** panel"
+msgstr "**Project** パネルでプロジェクトルート（またはディレクトリ）を選択する"
+
+#: ../../user/recipes/optimize-imports.md:68
+#, python-brace-format
+msgid "Use **Code > Optimize Imports** ({kbd}`Ctrl+Alt+O` / {kbd}`Cmd+Alt+O`)"
+msgstr "**Code > Optimize Imports**（{kbd}`Ctrl+Alt+O` / {kbd}`Cmd+Alt+O`）を使用する"
+
+#: ../../user/recipes/optimize-imports.md:69
+msgid "Review the preview of changes and click **Run**"
+msgstr "変更のプレビューを確認し、**Run** をクリックする"
+
+#: ../../user/recipes/optimize-imports.md:71
+msgid "Expected Result"
+msgstr "期待される結果"
+
+#: ../../user/recipes/optimize-imports.md:73
+msgid ""
+"All `.res` files in the selected scope have clean, non-redundant `open` "
+"statements."
+msgstr ""
+"選択されたスコープ内のすべての `.res` ファイルで、冗長でないきれいな `open` 文に"
+"なります。"
+
+#: ../../user/recipes/optimize-imports.md:75
+msgid "Tips"
+msgstr "ヒント"
+
+#: ../../user/recipes/optimize-imports.md:77
+msgid ""
+"Combine import optimization with **Reformat Code** for a one-step cleanup"
+" workflow"
+msgstr ""
+"Import 最適化と **Reformat Code** を組み合わせると、ワンステップでクリーンアップできます"
+
+#: ../../user/recipes/optimize-imports.md:78
+msgid ""
+"The inspection can be configured in **Settings > Editor > Inspections > "
+"ReScript > Duplicate open statement**"
+msgstr ""
+"インスペクションは **Settings > Editor > Inspections > ReScript > Duplicate open "
+"statement** で設定できます"
+
+#: ../../user/recipes/optimize-imports.md:79
+msgid ""
+"Use `// noinspection RescriptDuplicateOpen` to suppress the warning for "
+"intentional duplicates"
+msgstr ""
+"意図的な重複に対して警告を抑制するには `// noinspection RescriptDuplicateOpen` を"
+"使用します"
+
+#: ../../user/recipes/optimize-imports.md:81
+msgid "Related Features"
+msgstr "関連機能"
+
+#: ../../user/recipes/optimize-imports.md:83
+msgid ""
+"[Code Analysis](../features/code-analysis.md) --- Duplicate open "
+"detection and other inspections"
+msgstr ""
+"[Code Analysis](../features/code-analysis.md) --- 重複 open の検出とその他のインスペクション"
+
+#: ../../user/recipes/optimize-imports.md:84
+msgid ""
+"[Find Dead Code](find-dead-code.md) --- Remove unused code alongside "
+"unused imports"
+msgstr ""
+"[Find Dead Code](find-dead-code.md) --- 未使用の Import と合わせて未使用コードを削除"
+
+#: ../../user/recipes/optimize-imports.md:85
+msgid "[Code Editing](../features/code-editing.md) --- Formatting and code style"
+msgstr "[Code Editing](../features/code-editing.md) --- フォーマットとコードスタイル"
