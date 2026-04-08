@@ -18,6 +18,7 @@ dependencies = [
     "sphinx-llms-txt>=0.1",
     "sphinxcontrib-budoux>=0.1",
     "atsphinx-htmx-boost>=0.2",
+    "sphinxcontrib-mermaid>=1.0,<2.0",
 ]
 
 [dependency-groups]

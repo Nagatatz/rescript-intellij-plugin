@@ -1,0 +1,205 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/find-dead-code.md
+msgid "dead code, reanalyze, unused, cleanup"
+msgstr "デッドコード, reanalyze, 未使用, クリーンアップ"
+
+#: ../../user/recipes/find-dead-code.md:7
+msgid "Find Dead Code"
+msgstr "デッドコードの検出"
+
+#: ../../user/recipes/find-dead-code.md:9
+#, python-brace-format
+msgid "{bdg-success}`Native` {bdg-warning}`Configuration Required`"
+msgstr "{bdg-success}`Native` {bdg-warning}`Configuration Required`"
+
+#: ../../user/recipes/find-dead-code.md:11
+msgid "Goal"
+msgstr "目標"
+
+#: ../../user/recipes/find-dead-code.md:13
+msgid ""
+"Detect unused functions, values, types, and modules in your ReScript "
+"project using the integrated reanalyze tool, and remove or suppress them."
+msgstr ""
+"統合された reanalyze ツールを使用して、ReScript プロジェクト内の未使用の関数、値、型、"
+"モジュールを検出し、削除または抑制します。"
+
+#: ../../user/recipes/find-dead-code.md:15
+msgid "Steps"
+msgstr "手順"
+
+#: ../../user/recipes/find-dead-code.md:17
+msgid "1. Enable reanalyze in Settings"
+msgstr "1. 設定で reanalyze を有効にする"
+
+#: ../../user/recipes/find-dead-code.md:19
+msgid ""
+"Open **Settings > Languages & Frameworks > ReScript** and enable the "
+"**Dead Code Analysis** option."
+msgstr ""
+"**Settings > Languages & Frameworks > ReScript** を開き、**Dead Code Analysis** "
+"オプションを有効にします。"
+
+#: ../../user/recipes/find-dead-code.md:21
+msgid ""
+"The plugin uses `reanalyze` (bundled with `rescript-tools`) to perform "
+"the analysis. No additional installation is required if you have ReScript"
+" in your project."
+msgstr ""
+"プラグインは `reanalyze`（`rescript-tools` に同梱）を使用して分析を行います。"
+"プロジェクトに ReScript がインストールされていれば、追加のインストールは不要です。"
+
+#: ../../user/recipes/find-dead-code.md:24
+msgid ""
+"For ReScript >= 12.1.0, the plugin automatically uses **server mode**, "
+"which keeps the reanalyze process running as a daemon for significantly "
+"faster incremental analysis. The server starts automatically when you "
+"open a project and restarts if it becomes unresponsive."
+msgstr ""
+"ReScript >= 12.1.0 では、プラグインは自動的に**サーバーモード**を使用します。"
+"reanalyze プロセスをデーモンとして常駐させることで、差分分析が大幅に高速化されます。"
+"サーバーはプロジェクトを開くと自動的に起動し、応答がなくなった場合は自動的に再起動します。"
+
+#: ../../user/recipes/find-dead-code.md:27
+msgid "2. Open a `.res` file"
+msgstr "2. `.res` ファイルを開く"
+
+#: ../../user/recipes/find-dead-code.md:29
+msgid ""
+"Once reanalyze is enabled, open any `.res` file in your project. The "
+"analysis runs as an external annotator --- results appear after a short "
+"delay."
+msgstr ""
+"reanalyze を有効にしたら、プロジェクト内の任意の `.res` ファイルを開きます。"
+"分析は External Annotator として実行され、少しの遅延の後に結果が表示されます。"
+
+#: ../../user/recipes/find-dead-code.md:31
+msgid "3. Look for dead code annotations"
+msgstr "3. デッドコードのアノテーションを確認する"
+
+#: ../../user/recipes/find-dead-code.md:33
+msgid "Unused items are marked with grey text and a warning annotation:"
+msgstr "未使用の項目はグレーのテキストと警告アノテーションで表示されます:"
+
+#: ../../user/recipes/find-dead-code.md:35
+msgid "**Unused values** --- `let` bindings that are never referenced"
+msgstr "**未使用の値** --- 参照されていない `let` バインディング"
+
+#: ../../user/recipes/find-dead-code.md:36
+msgid "**Unused types** --- Type definitions with no usage"
+msgstr "**未使用の型** --- 使用されていない型定義"
+
+#: ../../user/recipes/find-dead-code.md:37
+msgid "**Unused modules** --- Modules that are never opened or accessed"
+msgstr "**未使用のモジュール** --- open やアクセスがされていないモジュール"
+
+#: ../../user/recipes/find-dead-code.md:38
+msgid ""
+"**Redundant optionals** --- Optional parameters that are always (or "
+"never) provided"
+msgstr ""
+"**冗長なオプショナル** --- 常に（または一度も）提供されないオプショナルパラメータ"
+
+#: ../../user/recipes/find-dead-code.md:40
+msgid "4. Apply quick fixes"
+msgstr "4. Quick Fix を適用する"
+
+#: ../../user/recipes/find-dead-code.md:42
+#, python-brace-format
+msgid ""
+"Place the cursor on a dead code warning and press {kbd}`Alt+Enter` to see"
+" available quick fixes:"
+msgstr ""
+"デッドコードの警告にカーソルを置き、{kbd}`Alt+Enter` を押して利用可能な Quick Fix を"
+"表示します:"
+
+#: ../../user/recipes/find-dead-code.md:44
+msgid "**Remove unused binding** --- Deletes the unused `let` declaration"
+msgstr "**未使用バインディングの削除** --- 未使用の `let` 宣言を削除します"
+
+#: ../../user/recipes/find-dead-code.md:45
+msgid ""
+"**Add underscore prefix** --- Renames the binding with a `_` prefix to "
+"mark it as intentionally unused (e.g., `let _unusedHelper = ...`)"
+msgstr ""
+"**アンダースコアプレフィックスの追加** --- バインディングに `_` プレフィックスを付けて、"
+"意図的に未使用であることを示します（例: `let _unusedHelper = ...`）"
+
+#: ../../user/recipes/find-dead-code.md:47
+msgid "Expected Result"
+msgstr "期待される結果"
+
+#: ../../user/recipes/find-dead-code.md:49
+msgid ""
+"Your project is free of unused code, or intentionally unused items are "
+"explicitly marked with the `_` prefix convention."
+msgstr ""
+"プロジェクトから未使用のコードが除去されるか、意図的に未使用の項目が `_` プレフィックスの"
+"慣習で明示的にマークされた状態になります。"
+
+#: ../../user/recipes/find-dead-code.md:51
+msgid "Tips"
+msgstr "ヒント"
+
+#: ../../user/recipes/find-dead-code.md:53
+msgid "Run dead code analysis periodically, especially after refactoring sessions"
+msgstr "デッドコード分析は定期的に実行しましょう。特にリファクタリング後に有効です"
+
+#: ../../user/recipes/find-dead-code.md:54
+#, python-brace-format
+msgid ""
+"Use the **Problems** panel ({kbd}`Alt+6`) to see all dead code warnings "
+"across the project at once"
+msgstr ""
+"**Problems** パネル（{kbd}`Alt+6`）を使用すると、プロジェクト全体のデッドコード警告を"
+"一覧で確認できます"
+
+#: ../../user/recipes/find-dead-code.md:55
+msgid "The `// noinspection` comment can suppress specific warnings if needed"
+msgstr "必要に応じて `// noinspection` コメントで特定の警告を抑制できます"
+
+#: ../../user/recipes/find-dead-code.md:57
+msgid "Related Features"
+msgstr "関連機能"
+
+#: ../../user/recipes/find-dead-code.md:59
+msgid ""
+"[Dead Code Analysis](../features/code-analysis.md) --- Detailed reanalyze"
+" integration documentation"
+msgstr ""
+"[Dead Code Analysis](../features/code-analysis.md) --- reanalyze 統合の詳細なドキュメント"
+
+#: ../../user/recipes/find-dead-code.md:60
+msgid ""
+"[Code Inspections](../features/code-analysis.md) --- Other built-in "
+"inspections"
+msgstr ""
+"[Code Inspections](../features/code-analysis.md) --- その他の組み込みインスペクション"
+
+#: ../../user/recipes/find-dead-code.md:61
+msgid ""
+"[Optimize Imports](optimize-imports.md) --- Clean up unused `open` "
+"statements"
+msgstr ""
+"[Optimize Imports](optimize-imports.md) --- 未使用の `open` 文のクリーンアップ"

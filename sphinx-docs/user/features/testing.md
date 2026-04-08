@@ -1,8 +1,16 @@
+---
+myst:
+  html_meta:
+    "keywords": "testing, jest, vitest, test runner, test detection"
+---
+
 # Testing
 
 The plugin provides integrated test running for ReScript projects that use Jest or Vitest. Tests are run against the compiled JavaScript output, with results displayed in IntelliJ's standard test runner UI and file paths mapped back to the original `.res` source files.
 
 ## Supported Test Frameworks
+
+{bdg-success}`Native`
 
 | Framework | Detection Method | Default Command |
 |-----------|-----------------|-----------------|
@@ -95,6 +103,8 @@ Key points for the Vitest configuration:
 
 ## Running Tests
 
+{bdg-success}`Native`
+
 ### From the Editor
 
 1. Open a ReScript test file (`.res`)
@@ -126,6 +136,8 @@ Right-click on a test file in the Project panel and select **Run**. This creates
 Multiple ways to run tests — from the editor, Project panel, or run configurations — let you choose the approach that fits your workflow, whether you are running a single test or the entire suite.
 
 ## Test Auto-Detection
+
+{bdg-success}`Native`
 
 The plugin uses two mechanisms to detect test files and frameworks:
 
@@ -163,6 +175,8 @@ Automatic detection of test frameworks and test files eliminates manual configur
 :::
 
 ## Test Results
+
+{bdg-success}`Native`
 
 Test results are displayed in the standard IntelliJ test runner UI (SMTestRunner).
 

@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/create-react-component.md
+msgid "react component, file template, live template, jsx"
+msgstr "React コンポーネント, File Template, Live Template, JSX"
+
+#: ../../user/recipes/create-react-component.md:7
+msgid "Create a React Component"
+msgstr "React コンポーネントの作成"
+
+#: ../../user/recipes/create-react-component.md:9
+#, python-brace-format
+msgid "{bdg-success}`Native`"
+msgstr "{bdg-success}`Native`"
+
+#: ../../user/recipes/create-react-component.md:11
+msgid "Goal"
+msgstr "目標"
+
+#: ../../user/recipes/create-react-component.md:13
+msgid ""
+"Quickly scaffold a new React component file with proper structure, "
+"including the `@react.component` decorator and a `make` function."
+msgstr ""
+"`@react.component` デコレータと `make` 関数を含む、適切な構造の React コンポーネント"
+"ファイルを素早く作成します。"
+
+#: ../../user/recipes/create-react-component.md:15
+msgid "Steps"
+msgstr "手順"
+
+#: ../../user/recipes/create-react-component.md:17
+msgid "1. Create a new component file"
+msgstr "1. 新しいコンポーネントファイルを作成する"
+
+#: ../../user/recipes/create-react-component.md:19
+msgid ""
+"Right-click on the target directory in the **Project** panel and select "
+"**New > ReScript Component**."
+msgstr ""
+"**Project** パネルで対象ディレクトリを右クリックし、**New > ReScript Component** を"
+"選択します。"
+
+#: ../../user/recipes/create-react-component.md:21
+msgid ""
+"Enter the component name (e.g., `UserCard`). The plugin creates a new "
+"`.res` file with the basic component skeleton already in place."
+msgstr ""
+"コンポーネント名（例: `UserCard`）を入力します。プラグインが基本的なコンポーネントの"
+"ひな形を含む新しい `.res` ファイルを作成します。"
+
+#: ../../user/recipes/create-react-component.md:23
+msgid "2. Use the `comp` live template"
+msgstr "2. `comp` Live Template を使用する"
+
+#: ../../user/recipes/create-react-component.md:25
+#, python-brace-format
+msgid ""
+"If you prefer to start from an empty file or add a component to an "
+"existing file, type `comp` and press {kbd}`Tab`:"
+msgstr ""
+"空のファイルから始めたい場合や、既存のファイルにコンポーネントを追加したい場合は、"
+"`comp` と入力して {kbd}`Tab` を押します:"
+
+#: ../../user/recipes/create-react-component.md:35
+msgid "The cursor is placed inside the JSX so you can start editing immediately."
+msgstr "カーソルが JSX 内に配置されるので、すぐに編集を開始できます。"
+
+#: ../../user/recipes/create-react-component.md:37
+msgid "3. Add props"
+msgstr "3. props を追加する"
+
+#: ../../user/recipes/create-react-component.md:39
+msgid ""
+"Define your component's props by adding labeled arguments to the `make` "
+"function:"
+msgstr ""
+"`make` 関数にラベル付き引数を追加して、コンポーネントの props を定義します:"
+
+#: ../../user/recipes/create-react-component.md:50
+#, python-brace-format
+msgid ""
+"Code completion ({kbd}`Ctrl+Space`) provides suggestions for React APIs "
+"and module members as you type."
+msgstr ""
+"コード補完（{kbd}`Ctrl+Space`）により、入力中に React API やモジュールメンバーの"
+"候補が表示されます。"
+
+#: ../../user/recipes/create-react-component.md:52
+msgid "4. Use JSX auto-close"
+msgstr "4. JSX 自動閉じタグを使用する"
+
+#: ../../user/recipes/create-react-component.md:54
+msgid ""
+"When you type `>` to close an opening tag, the plugin automatically "
+"inserts the corresponding closing tag:"
+msgstr ""
+"開始タグを閉じるために `>` を入力すると、プラグインが対応する閉じタグを自動的に"
+"挿入します:"
+
+#: ../../user/recipes/create-react-component.md:61
+msgid "Expected Result"
+msgstr "期待される結果"
+
+#: ../../user/recipes/create-react-component.md:63
+msgid "A working React component file with:"
+msgstr "以下を備えた動作する React コンポーネントファイル:"
+
+#: ../../user/recipes/create-react-component.md:65
+msgid "The `@react.component` decorator"
+msgstr "`@react.component` デコレータ"
+
+#: ../../user/recipes/create-react-component.md:66
+msgid "A `make` function with typed props"
+msgstr "型付き props を持つ `make` 関数"
+
+#: ../../user/recipes/create-react-component.md:67
+msgid "JSX body with proper structure"
+msgstr "適切な構造の JSX ボディ"
+
+#: ../../user/recipes/create-react-component.md:69
+msgid "Related Features"
+msgstr "関連機能"
+
+#: ../../user/recipes/create-react-component.md:71
+msgid ""
+"[File Templates](../features/code-editing.md) --- **New > ReScript "
+"Component** for file creation"
+msgstr ""
+"[File Templates](../features/code-editing.md) --- ファイル作成用の **New > ReScript "
+"Component**"
+
+#: ../../user/recipes/create-react-component.md:72
+msgid ""
+"[Live Templates](../features/code-completion.md) --- `comp` and other "
+"snippets"
+msgstr ""
+"[Live Templates](../features/code-completion.md) --- `comp` などのスニペット"
+
+#: ../../user/recipes/create-react-component.md:73
+msgid ""
+"[Code Completion](../features/code-completion.md) --- LSP-powered "
+"intelligent suggestions"
+msgstr ""
+"[Code Completion](../features/code-completion.md) --- LSP によるインテリジェントな候補表示"
+
+#: ../../user/recipes/create-react-component.md:74
+msgid ""
+"[JSX Auto-Close](../features/code-editing.md) --- Automatic closing tag "
+"insertion"
+msgstr ""
+"[JSX Auto-Close](../features/code-editing.md) --- 閉じタグの自動挿入"

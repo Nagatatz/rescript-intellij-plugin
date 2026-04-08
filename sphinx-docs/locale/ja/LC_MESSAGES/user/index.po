@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-31 12:50+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -47,87 +47,115 @@ msgstr "[クイックスタート](quickstart.md) — JetBrains IDE での ReScr
 
 #: ../../user/index.md:9
 msgid ""
+"[Migrating from VSCode](migration-from-vscode.md) — Shortcut mapping and "
+"feature comparison"
+msgstr ""
+
+#: ../../user/index.md:10
+msgid ""
 "[ReScript Basics](rescript-basics.md) — Setting up a ReScript project "
 "from scratch"
 msgstr "[ReScript の基本](rescript-basics.md) — ReScript プロジェクトをゼロからセットアップ"
 
-#: ../../user/index.md:11
+#: ../../user/index.md:12
 msgid "Features"
 msgstr "機能"
 
-#: ../../user/index.md:13
+#: ../../user/index.md:14
 msgid "[Feature Overview](features/index.md) — All features at a glance"
 msgstr "[機能概要](features/index.md) — すべての機能を一覧で確認"
 
-#: ../../user/index.md:14
+#: ../../user/index.md:15
 msgid ""
 "[Syntax Highlighting](features/syntax-highlighting.md) — Lexer-based and "
 "semantic highlighting"
 msgstr "[シンタックスハイライト](features/syntax-highlighting.md) — レクサーベースとセマンティックハイライト"
 
-#: ../../user/index.md:15
+#: ../../user/index.md:16
 msgid ""
 "[Code Completion](features/code-completion.md) — Intelligent completions "
 "via LSP"
 msgstr "[コード補完](features/code-completion.md) — LSP によるインテリジェントな補完"
 
-#: ../../user/index.md:16
+#: ../../user/index.md:17
 msgid ""
 "[Navigation](features/navigation.md) — Go to Definition, Symbol, Related "
 "files"
 msgstr "[ナビゲーション](features/navigation.md) — 定義へ移動、シンボル検索、関連ファイル"
 
-#: ../../user/index.md:17
+#: ../../user/index.md:18
 msgid ""
 "[Code Editing](features/code-editing.md) — Folding, formatting, "
 "intentions, surround"
 msgstr "[コード編集](features/code-editing.md) — 折りたたみ、フォーマット、インテンション、囲む"
 
-#: ../../user/index.md:18
+#: ../../user/index.md:19
 msgid "[Run & Build](features/run-build.md) — Run configurations and build status"
 msgstr "[実行とビルド](features/run-build.md) — 実行構成とビルドステータス"
 
-#: ../../user/index.md:19
+#: ../../user/index.md:20
 msgid "[Testing](features/testing.md) — Test runner integration (Jest/Vitest)"
 msgstr "[テスト](features/testing.md) — テストランナー統合（Jest/Vitest）"
 
-#: ../../user/index.md:20
+#: ../../user/index.md:21
 msgid ""
 "[Code Analysis](features/code-analysis.md) — Inspections, dead code "
 "analysis, import optimization"
 msgstr "[コード分析](features/code-analysis.md) — インスペクション、デッドコード分析、インポート最適化"
 
-#: ../../user/index.md:21
+#: ../../user/index.md:22
 msgid ""
 "[Advanced Features](features/advanced.md) — Code Lens, Compiled JS "
 "Preview, Module Hierarchy"
 msgstr "[高度な機能](features/advanced.md) — Code Lens、コンパイル済み JS プレビュー、モジュール階層"
 
-#: ../../user/index.md:23
+#: ../../user/index.md:24
+msgid "Recipes"
+msgstr ""
+
+#: ../../user/index.md:26
+msgid ""
+"[Recipe Collection](recipes/index.md) — Task-oriented guides for common "
+"workflows"
+msgstr ""
+
+#: ../../user/index.md:28
 msgid "Reference"
 msgstr "リファレンス"
 
-#: ../../user/index.md:25
+#: ../../user/index.md:30
+msgid ""
+"[Quick Reference Card](cheatsheet.md) — Condensed cheat sheet of "
+"shortcuts and features"
+msgstr ""
+
+#: ../../user/index.md:31
+msgid ""
+"[Version Matrix](version-matrix.md) — Features by version and IDE "
+"compatibility"
+msgstr ""
+
+#: ../../user/index.md:32
 msgid "[Configuration](configuration.md) — Plugin settings"
 msgstr "[設定](configuration.md) — プラグインの設定"
 
-#: ../../user/index.md:26
+#: ../../user/index.md:33
 msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference"
 msgstr "[キーボードショートカット](keyboard-shortcuts.md) — ショートカットリファレンス"
 
-#: ../../user/index.md:27
+#: ../../user/index.md:34
 msgid "[FAQ](faq.md) — Frequently asked questions"
 msgstr "[FAQ](faq.md) — よくある質問"
 
-#: ../../user/index.md:28
+#: ../../user/index.md:35
 msgid "[Troubleshooting](troubleshooting.md) — Common issues and solutions"
 msgstr "[トラブルシューティング](troubleshooting.md) — よくある問題と解決方法"
 
-#: ../../user/index.md:29
+#: ../../user/index.md:36
 msgid "[Glossary](glossary.md) — Key terms and definitions"
 msgstr "[用語集](glossary.md) — 主要な用語と定義"
 
-#: ../../user/index.md:30
+#: ../../user/index.md:37
 msgid "[Changelog](changelog.md) — Release notes"
 msgstr "[変更履歴](changelog.md) — リリースノート"
 

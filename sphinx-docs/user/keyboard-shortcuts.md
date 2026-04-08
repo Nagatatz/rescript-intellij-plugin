@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "keyboard shortcuts, keybindings, hotkeys, shortcut reference"
+---
+
 # Keyboard Shortcuts
 
 This page lists keyboard shortcuts for plugin-specific features. Standard JetBrains shortcuts (copy, paste, find, etc.) are not listed here.

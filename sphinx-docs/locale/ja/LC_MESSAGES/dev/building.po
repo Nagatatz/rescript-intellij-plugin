@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-20 03:32+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -19,11 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../dev/building.md:1
+#: ../../dev/building.md
+msgid "build, gradle, runIde, plugin development"
+msgstr ""
+
+#: ../../dev/building.md:7
 msgid "Building & Running"
 msgstr "ビルドと実行"
 
-#: ../../dev/building.md:3
+#: ../../dev/building.md:9
 msgid "Build Commands"
 msgstr "ビルドコマンド"
 
@@ -115,21 +119,21 @@ msgstr "`./gradlew verifyPlugin`"
 msgid "Verify binary compatibility"
 msgstr "バイナリ互換性を検証"
 
-#: ../../dev/building.md:18
+#: ../../dev/building.md:24
 msgid "JFlex Lexer Generation"
 msgstr "JFlex レクサーの生成"
 
-#: ../../dev/building.md:20
+#: ../../dev/building.md:26
 msgid ""
 "The JFlex lexer (`RescriptFlexLexer.java`) is auto-generated from "
 "`Rescript.flex` during the build:"
 msgstr "JFlex レクサー（`RescriptFlexLexer.java`）はビルド時に `Rescript.flex` から自動生成されます:"
 
-#: ../../dev/building.md:22
+#: ../../dev/building.md:28
 msgid "**Source:** `src/main/java/com/rescript/plugin/lang/Rescript.flex`"
 msgstr "**ソース:** `src/main/java/com/rescript/plugin/lang/Rescript.flex`"
 
-#: ../../dev/building.md:23
+#: ../../dev/building.md:29
 msgid ""
 "**Generated:** "
 "`src/main/java/com/rescript/plugin/lang/RescriptFlexLexer.java`"
@@ -137,11 +141,11 @@ msgstr ""
 "**生成ファイル:** "
 "`src/main/java/com/rescript/plugin/lang/RescriptFlexLexer.java`"
 
-#: ../../dev/building.md:24
+#: ../../dev/building.md:30
 msgid "**Gradle task:** `generateRescriptLexer`"
 msgstr "**Gradle タスク:** `generateRescriptLexer`"
 
-#: ../../dev/building.md:26
+#: ../../dev/building.md:32
 msgid ""
 "The `generateRescriptLexer` task is a dependency of `compileJava` and "
 "`compileKotlin`, so you never need to run it manually. The generated file"
@@ -150,7 +154,7 @@ msgstr ""
 "`generateRescriptLexer` タスクは `compileJava` と `compileKotlin` "
 "の依存タスクであるため、手動で実行する必要はありません。生成ファイルは `.gitignore` に含まれています。"
 
-#: ../../dev/building.md:29
+#: ../../dev/building.md:35
 msgid ""
 "Never edit `RescriptFlexLexer.java` directly. Always modify "
 "`Rescript.flex` and let the build regenerate the Java file."
@@ -158,15 +162,15 @@ msgstr ""
 "`RescriptFlexLexer.java` を直接編集しないでください。常に `Rescript.flex` を編集し、ビルドで Java "
 "ファイルを再生成してください。"
 
-#: ../../dev/building.md:32
+#: ../../dev/building.md:38
 msgid "Plugin Packaging"
 msgstr "プラグインのパッケージング"
 
-#: ../../dev/building.md:34
+#: ../../dev/building.md:40
 msgid "After `./gradlew buildPlugin`, the packaged plugin is at:"
 msgstr "`./gradlew buildPlugin` 実行後、パッケージされたプラグインは以下に出力されます:"
 
-#: ../../dev/building.md:40
+#: ../../dev/building.md:46
 msgid ""
 "This `.zip` can be installed in any compatible JetBrains IDE via "
 "**Settings** → **Plugins** → **Install Plugin from Disk**."
@@ -174,89 +178,89 @@ msgstr ""
 "この `.zip` は、**Settings** → **Plugins** → **Install Plugin from Disk** "
 "から互換性のある JetBrains IDE にインストールできます。"
 
-#: ../../dev/building.md:42
+#: ../../dev/building.md:48
 msgid "Gradle Configuration"
 msgstr "Gradle の設定"
 
-#: ../../dev/building.md:44
+#: ../../dev/building.md:50
 msgid "Key configuration files:"
 msgstr "主要な設定ファイル:"
 
-#: ../../dev/building.md:28
+#: ../../dev/building.md:34
 msgid "File"
 msgstr "ファイル"
 
-#: ../../dev/building.md:28
+#: ../../dev/building.md:34
 msgid "Purpose"
 msgstr "用途"
 
-#: ../../dev/building.md:28
+#: ../../dev/building.md:34
 msgid "`build.gradle.kts`"
 msgstr "`build.gradle.kts`"
 
-#: ../../dev/building.md:28
+#: ../../dev/building.md:34
 msgid "Build script (plugins, dependencies, tasks)"
 msgstr "ビルドスクリプト（プラグイン、依存関係、タスク）"
 
-#: ../../dev/building.md:28
+#: ../../dev/building.md:34
 msgid "`gradle.properties`"
 msgstr "`gradle.properties`"
 
-#: ../../dev/building.md:28
+#: ../../dev/building.md:34
 msgid "Version numbers, platform settings"
 msgstr "バージョン番号、プラットフォーム設定"
 
-#: ../../dev/building.md:28
+#: ../../dev/building.md:34
 msgid "`settings.gradle.kts`"
 msgstr "`settings.gradle.kts`"
 
-#: ../../dev/building.md:28
+#: ../../dev/building.md:34
 msgid "Project name and repository configuration"
 msgstr "プロジェクト名とリポジトリの設定"
 
-#: ../../dev/building.md:52
+#: ../../dev/building.md:58
 msgid "Platform Version"
 msgstr "プラットフォームバージョン"
 
-#: ../../dev/building.md:54
+#: ../../dev/building.md:60
 msgid "The target IntelliJ Platform version is configured in `gradle.properties`:"
 msgstr "対象の IntelliJ Platform バージョンは `gradle.properties` で設定されています:"
 
-#: ../../dev/building.md:60
+#: ../../dev/building.md:66
 msgid ""
 "Note: `pluginUntilBuild` is intentionally not set, allowing the plugin to"
 " be compatible with all future platform versions."
 msgstr ""
-"注意: `pluginUntilBuild` は意図的に設定されていません。これにより、プラグインは"
-"将来のすべてのプラットフォームバージョンと互換性を持ちます。"
+"注意: `pluginUntilBuild` "
+"は意図的に設定されていません。これにより、プラグインは将来のすべてのプラットフォームバージョンと互換性を持ちます。"
 
-#: ../../dev/building.md:62
+#: ../../dev/building.md:68
 msgid "CI Pipeline"
 msgstr "CI パイプライン"
 
-#: ../../dev/building.md:64
+#: ../../dev/building.md:70
 msgid ""
 "The GitHub Actions CI pipeline (`.github/workflows/ci.yml`) runs on every"
 " push and PR:"
 msgstr "GitHub Actions CI パイプライン（`.github/workflows/ci.yml`）はすべてのプッシュと PR で実行されます:"
 
-#: ../../dev/building.md:66
+#: ../../dev/building.md:72
 msgid "actionlint — Validate GitHub Actions workflow files"
 msgstr "actionlint — GitHub Actions ワークフローファイルの検証"
 
-#: ../../dev/building.md:67
+#: ../../dev/building.md:73
 msgid "ktlint — Code style checks"
 msgstr "ktlint — コードスタイルチェック"
 
-#: ../../dev/building.md:68
+#: ../../dev/building.md:74
 msgid "Build — Compile and package"
 msgstr "Build — コンパイルとパッケージング"
 
-#: ../../dev/building.md:69
+#: ../../dev/building.md:75
 msgid "Test — Run tests with coverage (Kover)"
 msgstr "Test — カバレッジ付きテスト実行（Kover）"
 
-#: ../../dev/building.md:70
+#: ../../dev/building.md:76
 msgid "Verify — Plugin structure and binary compatibility (push only)"
 msgstr "Verify — プラグイン構造とバイナリ互換性の検証（プッシュ時のみ）"
 

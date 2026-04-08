@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "ci, cd, github actions, continuous integration, deployment"
+---
+
 # CI/CD Pipeline
 
 This page describes the CI/CD infrastructure for the ReScript IntelliJ Plugin.

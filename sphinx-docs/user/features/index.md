@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "features, overview, native, lsp, capabilities"
+---
+
 # Feature Overview
 
 The ReScript IntelliJ Plugin provides 90+ features organized into two layers:

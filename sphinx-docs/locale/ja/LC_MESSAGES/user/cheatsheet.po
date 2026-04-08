@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/cheatsheet.md
+msgid "cheat sheet, quick reference, shortcuts, overview"
+msgstr "チートシート, クイックリファレンス, ショートカット, 概要"
+
+#: ../../user/cheatsheet.md:7
+msgid "Quick Reference Card"
+msgstr "クイックリファレンスカード"
+
+#: ../../user/cheatsheet.md:9
+msgid ""
+"A condensed overview of the most important shortcuts and features. Print "
+"this page for a handy desk reference."
+msgstr "主要なショートカットと機能の簡潔なまとめです。印刷してデスクリファレンスとしてご利用ください。"
+
+#: ../../user/cheatsheet.md:12
+msgid ""
+"Shortcuts are shown as **macOS / Windows-Linux**. On Windows/Linux, "
+"replace `Cmd` with `Ctrl` and `Option` with `Alt`."
+msgstr "ショートカットは **macOS / Windows-Linux** の順で表記しています。Windows/Linux では `Cmd` を `Ctrl` に、`Option` を `Alt` に読み替えてください。"
+
+#: ../../user/cheatsheet.md:19
+msgid "Navigation"
+msgstr "ナビゲーション"
+
+#: ../../user/cheatsheet.md:36
+msgid "Editing"
+msgstr "編集"
+
+#: ../../user/cheatsheet.md:51
+msgid "Refactoring"
+msgstr "リファクタリング"
+
+#: ../../user/cheatsheet.md:63
+msgid "Completion"
+msgstr "補完"
+
+#: ../../user/cheatsheet.md:78
+msgid "Run & Build"
+msgstr "実行とビルド"
+
+#: ../../user/cheatsheet.md:89
+msgid "Code Generation (Cmd+N)"
+msgstr "コード生成 (Cmd+N)"
+

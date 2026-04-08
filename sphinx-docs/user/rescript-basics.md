@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "rescript project, rescript.json, project setup"
+---
+
 # ReScript Basics
 
 This page helps you get a ReScript project up and running if you're new to ReScript.

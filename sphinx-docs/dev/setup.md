@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "development setup, prerequisites, IDE configuration"
+---
+
 # Development Setup
 
 ## Prerequisites

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-31 12:50+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -19,15 +19,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../user/installation.md:1
+#: ../../user/installation.md
+msgid "installation, setup, language server, npm, plugin"
+msgstr ""
+
+#: ../../user/installation.md:7
 msgid "Installation"
 msgstr "インストール"
 
-#: ../../user/installation.md:3
+#: ../../user/installation.md:9
 msgid "Requirements"
 msgstr "必要条件"
 
-#: ../../user/installation.md:5
+#: ../../user/installation.md:11
 msgid ""
 "**JetBrains IDE** — IntelliJ IDEA 2025.3+ (Ultimate or Community), "
 "WebStorm, or other JetBrains IDE with LSP support"
@@ -35,49 +39,49 @@ msgstr ""
 "**JetBrains IDE** — IntelliJ IDEA 2025.3+（Ultimate または "
 "Community）、WebStorm、またはその他の LSP 対応 JetBrains IDE"
 
-#: ../../user/installation.md:6
+#: ../../user/installation.md:12
 msgid "**JDK** — 21 or later (bundled with JetBrains IDEs)"
 msgstr "**JDK** — 21 以降（JetBrains IDE にバンドル済み）"
 
-#: ../../user/installation.md:7
+#: ../../user/installation.md:13
 msgid ""
 "**Node.js** — Installed and available in PATH (required for the Language "
 "Server)"
 msgstr "**Node.js** — インストール済みで PATH に含まれていること（Language Server に必要）"
 
-#: ../../user/installation.md:9
+#: ../../user/installation.md:15
 msgid "Step 1: Install the Plugin"
 msgstr "ステップ 1: プラグインのインストール"
 
-#: ../../user/installation.md:11
+#: ../../user/installation.md:17
 msgid "From JetBrains Marketplace"
 msgstr "JetBrains Marketplace からインストール"
 
-#: ../../user/installation.md:13
+#: ../../user/installation.md:19
 msgid "Open your JetBrains IDE"
 msgstr "JetBrains IDE を開きます"
 
-#: ../../user/installation.md:14
+#: ../../user/installation.md:20
 msgid "Go to **Settings** → **Plugins** → **Marketplace**"
 msgstr "**Settings** → **Plugins** → **Marketplace** を開きます"
 
-#: ../../user/installation.md:15
+#: ../../user/installation.md:21
 msgid "Search for **\"ReScript\"**"
 msgstr "**\"ReScript\"** を検索します"
 
-#: ../../user/installation.md:16
+#: ../../user/installation.md:22
 msgid "Click **Install**"
 msgstr "**Install** をクリックします"
 
-#: ../../user/installation.md:17 ../../user/installation.md:24
+#: ../../user/installation.md:23 ../../user/installation.md:30
 msgid "Restart the IDE when prompted"
 msgstr "プロンプトが表示されたら IDE を再起動します"
 
-#: ../../user/installation.md:19
+#: ../../user/installation.md:25
 msgid "From Disk (Manual)"
 msgstr "ディスクからインストール（手動）"
 
-#: ../../user/installation.md:21
+#: ../../user/installation.md:27
 msgid ""
 "Download the latest `.zip` from the [GitHub "
 "Releases](https://github.com/Nagatatz/rescript-intellij-plugin/releases) "
@@ -86,7 +90,7 @@ msgstr ""
 "[GitHub Releases](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/releases) ページから最新の `.zip` をダウンロードします"
 
-#: ../../user/installation.md:22
+#: ../../user/installation.md:28
 msgid ""
 "Go to **Settings** → **Plugins** → **⚙️** → **Install Plugin from "
 "Disk...**"
@@ -94,15 +98,15 @@ msgstr ""
 "**Settings** → **Plugins** → **⚙️** → **Install Plugin from Disk...** "
 "を開きます"
 
-#: ../../user/installation.md:23
+#: ../../user/installation.md:29
 msgid "Select the downloaded `.zip` file"
 msgstr "ダウンロードした `.zip` ファイルを選択します"
 
-#: ../../user/installation.md:26
+#: ../../user/installation.md:32
 msgid "Step 2: Install the ReScript Language Server"
 msgstr "ステップ 2: ReScript Language Server のインストール"
 
-#: ../../user/installation.md:28
+#: ../../user/installation.md:34
 msgid ""
 "The plugin uses the [ReScript Language Server](https://github.com"
 "/rescript-lang/rescript-vscode) for semantic features like code "
@@ -113,7 +117,7 @@ msgstr ""
 "Server](https://github.com/rescript-lang/rescript-vscode) "
 "を使用します。プロジェクトにインストールする必要があります:"
 
-#: ../../user/installation.md:30
+#: ../../user/installation.md:36
 msgid "Local Installation (Recommended)"
 msgstr "ローカルインストール（推奨）"
 
@@ -129,11 +133,11 @@ msgstr "yarn"
 msgid "pnpm"
 msgstr "pnpm"
 
-#: ../../user/installation.md:50
+#: ../../user/installation.md:56
 msgid "Global Installation"
 msgstr "グローバルインストール"
 
-#: ../../user/installation.md:71
+#: ../../user/installation.md:77
 msgid ""
 "Local installation (per-project) is recommended. The plugin automatically"
 " detects the Language Server in your project's `node_modules/` directory."
@@ -141,11 +145,11 @@ msgstr ""
 "ローカルインストール（プロジェクト単位）を推奨します。プラグインはプロジェクトの `node_modules/` ディレクトリ内の "
 "Language Server を自動的に検出します。"
 
-#: ../../user/installation.md:74
+#: ../../user/installation.md:80
 msgid "Automatic Installation"
 msgstr "自動インストール"
 
-#: ../../user/installation.md:76
+#: ../../user/installation.md:82
 msgid ""
 "If the Language Server is not found when you open a ReScript project, the"
 " plugin displays a notification offering to install it automatically:"
@@ -153,7 +157,7 @@ msgstr ""
 "ReScript プロジェクトを開いた際に Language Server "
 "が見つからない場合、プラグインは自動インストールを提案する通知を表示します:"
 
-#: ../../user/installation.md:78
+#: ../../user/installation.md:84
 msgid ""
 "**Install with npm/yarn/pnpm** --- Installs `@rescript/language-server` "
 "as a dev dependency using the detected package manager. The installation "
@@ -164,19 +168,19 @@ msgstr ""
 "/language-server` を devDependency としてインストールします。インストールはバックグラウンドで実行され、完了後に "
 "Language Server が自動的に起動します。"
 
-#: ../../user/installation.md:79
+#: ../../user/installation.md:85
 msgid ""
 "**Configure...** --- Opens the ReScript settings page to set a custom "
 "Language Server path."
 msgstr "**Configure...** --- ReScript 設定ページを開き、カスタムの Language Server パスを設定します。"
 
-#: ../../user/installation.md:80
+#: ../../user/installation.md:86
 msgid ""
 "**Don't show again** --- Dismisses the notification for the current "
 "session."
 msgstr "**Don't show again** --- 現在のセッションの通知を非表示にします。"
 
-#: ../../user/installation.md:82
+#: ../../user/installation.md:88
 msgid ""
 "The plugin also shows an editor notification bar at the top of `.res` "
 "files when the Language Server is not detected, with a link to install "
@@ -185,57 +189,57 @@ msgstr ""
 "Language Server が検出されない場合、プラグインは `.res` "
 "ファイルの上部にインストールリンク付きのエディタ通知バーも表示します。"
 
-#: ../../user/installation.md:84
+#: ../../user/installation.md:90
 msgid "Detection Order"
 msgstr "検出順序"
 
-#: ../../user/installation.md:86
+#: ../../user/installation.md:92
 msgid "The plugin searches for the Language Server in this order:"
 msgstr "プラグインは以下の順序で Language Server を検索します:"
 
-#: ../../user/installation.md:88
+#: ../../user/installation.md:94
 msgid "`node_modules/.bin/rescript-language-server` (project-local)"
 msgstr "`node_modules/.bin/rescript-language-server`（プロジェクトローカル）"
 
-#: ../../user/installation.md:89
+#: ../../user/installation.md:95
 msgid "Parent directories' `node_modules/.bin/` (monorepo support)"
 msgstr "親ディレクトリの `node_modules/.bin/`（monorepo 対応）"
 
-#: ../../user/installation.md:90
+#: ../../user/installation.md:96
 msgid "`node_modules/@rescript/language-server/out/cli.js` (fallback)"
 msgstr "`node_modules/@rescript/language-server/out/cli.js`（フォールバック）"
 
-#: ../../user/installation.md:91
+#: ../../user/installation.md:97
 msgid "Global installation (via `which` / `where`)"
 msgstr "グローバルインストール（`which` / `where` 経由）"
 
-#: ../../user/installation.md:93
+#: ../../user/installation.md:99
 msgid "Step 3: Verify"
 msgstr "ステップ 3: 動作確認"
 
-#: ../../user/installation.md:95
+#: ../../user/installation.md:101
 msgid "Open a `.res` file in your project"
 msgstr "プロジェクト内の `.res` ファイルを開きます"
 
-#: ../../user/installation.md:96
+#: ../../user/installation.md:102
 msgid "You should see:"
 msgstr "以下が確認できるはずです:"
 
-#: ../../user/installation.md:97
+#: ../../user/installation.md:103
 msgid "**Syntax highlighting** — Keywords, strings, comments are colored"
 msgstr "**シンタックスハイライト** — キーワード、文字列、コメントが色分け表示される"
 
-#: ../../user/installation.md:98
+#: ../../user/installation.md:104
 msgid ""
 "**No warning banner** — If the Language Server is found, no notification "
 "bar appears"
 msgstr "**警告バナーが表示されない** — Language Server が検出されると、通知バーは表示されません"
 
-#: ../../user/installation.md:99
+#: ../../user/installation.md:105
 msgid "**Code completion** — Type a few characters and see completion suggestions"
 msgstr "**コード補完** — 数文字入力すると補完候補が表示される"
 
-#: ../../user/installation.md:102
+#: ../../user/installation.md:108
 msgid ""
 "If the Language Server is not detected, a notification bar will appear at"
 " the top of the editor with instructions to install it. Native features "
@@ -246,11 +250,11 @@ msgstr ""
 "が検出されない場合、エディタ上部にインストール手順を示す通知バーが表示されます。ネイティブ機能（シンタックスハイライト、コード折りたたみなど）は "
 "Language Server なしでも動作します。"
 
-#: ../../user/installation.md:105
+#: ../../user/installation.md:111
 msgid "Troubleshooting Installation"
 msgstr "インストールのトラブルシューティング"
 
-#: ../../user/installation.md:107
+#: ../../user/installation.md:113
 msgid ""
 "See the [Troubleshooting](troubleshooting.md) page for common "
 "installation issues."

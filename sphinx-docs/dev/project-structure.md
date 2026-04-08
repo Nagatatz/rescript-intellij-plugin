@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "project structure, packages, source layout, files"
+---
+
 # Project Structure
 
 ## Top-Level Layout

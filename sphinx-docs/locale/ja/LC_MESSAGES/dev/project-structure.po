@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -19,19 +19,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../dev/project-structure.md:1
+#: ../../dev/project-structure.md
+msgid "project structure, packages, source layout, files"
+msgstr ""
+
+#: ../../dev/project-structure.md:7
 msgid "Project Structure"
 msgstr "プロジェクト構造"
 
-#: ../../dev/project-structure.md:3
+#: ../../dev/project-structure.md:9
 msgid "Top-Level Layout"
 msgstr "トップレベルレイアウト"
 
-#: ../../dev/project-structure.md:23
+#: ../../dev/project-structure.md:29
 msgid "Source Code Organization"
 msgstr "ソースコードの構成"
 
-#: ../../dev/project-structure.md:25
+#: ../../dev/project-structure.md:31
 msgid "All plugin code is under `src/main/kotlin/com/rescript/plugin/`:"
 msgstr "すべてのプラグインコードは `src/main/kotlin/com/rescript/plugin/` 配下にあります:"
 
@@ -431,53 +435,52 @@ msgstr "コメント切り替え"
 msgid "`RescriptCommenter.kt`"
 msgstr "`RescriptCommenter.kt`"
 
-#: ../../dev/project-structure.md:62
+#: ../../dev/project-structure.md:68
 msgid "Resources"
 msgstr "リソース"
 
-#: ../../dev/project-structure.md:82
+#: ../../dev/project-structure.md:88
 msgid "Key Entry Points"
 msgstr "主要なエントリポイント"
 
-#: ../../dev/project-structure.md:84
+#: ../../dev/project-structure.md:90
 msgid "plugin.xml"
 msgstr "plugin.xml"
 
-#: ../../dev/project-structure.md:86
+#: ../../dev/project-structure.md:92
 msgid ""
 "`src/main/resources/META-INF/plugin.xml` is the central registry for all "
 "plugin features. Every extension point implementation is registered here."
 " When adding a new feature, you'll almost always need to add an entry to "
 "this file."
 msgstr ""
-"`src/main/resources/META-INF/plugin.xml` はすべてのプラグイン機能の中央レジストリです。"
-"すべての Extension Point 実装がここに登録されます。"
-"新しい機能を追加する場合、ほぼ必ずこのファイルにエントリを追加する必要があります。"
+"`src/main/resources/META-INF/plugin.xml` はすべてのプラグイン機能の中央レジストリです。すべての "
+"Extension Point 実装がここに登録されます。新しい機能を追加する場合、ほぼ必ずこのファイルにエントリを追加する必要があります。"
 
-#: ../../dev/project-structure.md:88
+#: ../../dev/project-structure.md:94
 msgid "Rescript.flex"
 msgstr "Rescript.flex"
 
-#: ../../dev/project-structure.md:90
+#: ../../dev/project-structure.md:96
 msgid ""
 "`src/main/java/com/rescript/plugin/lang/Rescript.flex` defines the lexer "
 "rules. Changes here require running `./gradlew buildPlugin` to regenerate"
 " `RescriptFlexLexer.java`."
 msgstr ""
-"`src/main/java/com/rescript/plugin/lang/Rescript.flex` はレキサールールを定義しています。"
-"ここを変更した場合、`./gradlew buildPlugin` を実行して "
+"`src/main/java/com/rescript/plugin/lang/Rescript.flex` "
+"はレキサールールを定義しています。ここを変更した場合、`./gradlew buildPlugin` を実行して "
 "`RescriptFlexLexer.java` を再生成する必要があります。"
 
-#: ../../dev/project-structure.md:92
+#: ../../dev/project-structure.md:98
 msgid "RescriptTokenTypes.kt"
 msgstr "RescriptTokenTypes.kt"
 
-#: ../../dev/project-structure.md:94
+#: ../../dev/project-structure.md:100
 msgid ""
 "`src/main/kotlin/com/rescript/plugin/lang/RescriptTokenTypes.kt` defines "
 "all token types and token sets. When adding new tokens to the lexer, you "
 "must also add them here."
 msgstr ""
-"`src/main/kotlin/com/rescript/plugin/lang/RescriptTokenTypes.kt` はすべての"
-"トークンタイプとトークンセットを定義しています。レキサーに新しいトークンを追加する場合、"
-"ここにも追加する必要があります。"
+"`src/main/kotlin/com/rescript/plugin/lang/RescriptTokenTypes.kt` "
+"はすべてのトークンタイプとトークンセットを定義しています。レキサーに新しいトークンを追加する場合、ここにも追加する必要があります。"
+

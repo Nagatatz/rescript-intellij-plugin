@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-17 16:42+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -19,11 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../user/keyboard-shortcuts.md:1
+#: ../../user/keyboard-shortcuts.md
+msgid "keyboard shortcuts, keybindings, hotkeys, shortcut reference"
+msgstr ""
+
+#: ../../user/keyboard-shortcuts.md:7
 msgid "Keyboard Shortcuts"
 msgstr "キーボードショートカット"
 
-#: ../../user/keyboard-shortcuts.md:3
+#: ../../user/keyboard-shortcuts.md:9
 msgid ""
 "This page lists keyboard shortcuts for plugin-specific features. Standard"
 " JetBrains shortcuts (copy, paste, find, etc.) are not listed here."
@@ -31,7 +35,7 @@ msgstr ""
 "このページでは、プラグイン固有の機能のキーボードショートカットを一覧表示します。標準の JetBrains "
 "ショートカット（コピー、貼り付け、検索など）はここには記載していません。"
 
-#: ../../user/keyboard-shortcuts.md:6
+#: ../../user/keyboard-shortcuts.md:12
 msgid ""
 "Shortcuts shown are for macOS. On Windows/Linux, replace `Cmd` with "
 "`Ctrl` and `Option` with `Alt`."
@@ -39,130 +43,130 @@ msgstr ""
 "表示されているショートカットは macOS 用です。Windows/Linux では、`Cmd` を `Ctrl` に、`Option` を "
 "`Alt` に置き換えてください。"
 
-#: ../../user/keyboard-shortcuts.md:9
+#: ../../user/keyboard-shortcuts.md:15
 msgid "Navigation"
 msgstr "ナビゲーション"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Shortcut"
 msgstr "ショートカット"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Action"
 msgstr "アクション"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+B` / `Ctrl+Click`"
 msgstr "`Cmd+B` / `Ctrl+Click`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Go to Definition"
 msgstr "定義へ移動"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+Option+O`"
 msgstr "`Cmd+Option+O`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Go to Symbol"
 msgstr "シンボルへ移動"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+O`"
 msgstr "`Alt+O`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Switch between `.res` and `.resi`"
 msgstr "`.res` と `.resi` の切り替え"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+Shift+J`"
 msgstr "`Alt+Shift+J`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Open compiled JavaScript"
 msgstr "コンパイル済み JavaScript を開く"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+Shift+Alt+C`"
 msgstr "`Cmd+Shift+Alt+C`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Copy qualified name"
 msgstr "完全修飾名をコピー"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+F7`"
 msgstr "`Alt+F7`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Find Usages"
 msgstr "使用箇所の検索"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+7`"
 msgstr "`Cmd+7`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Structure View"
 msgstr "ストラクチャービュー"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+U`"
 msgstr "`Ctrl+U`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Goto Super (.res ↔ .resi declaration)"
 msgstr "Goto Super（.res ↔ .resi 宣言間ジャンプ）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Alt+B`"
 msgstr "`Ctrl+Alt+B`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Go to Implementation (.resi → .res)"
 msgstr "実装へ移動（.resi → .res）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Shift+T`"
 msgstr "`Ctrl+Shift+T`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Go to Test / Create Test"
 msgstr "テストへ移動 / テスト作成"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Alt+H`"
 msgstr "`Ctrl+Alt+H`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Call Hierarchy"
 msgstr "コール階層"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+Q`"
 msgstr "`Alt+Q`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Context Info (sticky declaration header)"
 msgstr "Context Info（宣言ヘッダーの固定表示）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Shift+F1`"
 msgstr "`Shift+F1`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "External Documentation (Belt/Js API docs)"
 msgstr "外部ドキュメント（Belt/Js API ドキュメント）"
 
-#: ../../user/keyboard-shortcuts.md:27 ../../user/keyboard-shortcuts.md:73
-#: ../../user/keyboard-shortcuts.md:102 ../../user/keyboard-shortcuts.md:132
-#: ../../user/keyboard-shortcuts.md:156 ../../user/keyboard-shortcuts.md:172
-#: ../../user/keyboard-shortcuts.md:193
+#: ../../user/keyboard-shortcuts.md:33 ../../user/keyboard-shortcuts.md:79
+#: ../../user/keyboard-shortcuts.md:108 ../../user/keyboard-shortcuts.md:138
+#: ../../user/keyboard-shortcuts.md:162 ../../user/keyboard-shortcuts.md:178
+#: ../../user/keyboard-shortcuts.md:199
 msgid "Tips"
 msgstr "ヒント"
 
-#: ../../user/keyboard-shortcuts.md:29
+#: ../../user/keyboard-shortcuts.md:35
 msgid ""
 "The most frequently used navigation shortcut is **Cmd+B** (Go to "
 "Definition). Press it on any identifier --- a function name, a module "
@@ -175,7 +179,7 @@ msgstr ""
 " の上で押すと、IDE が定義されている場所にジャンプします。定義が別のファイルにある場合、そのファイルが自動的に開きます。`Cmd` "
 "を押しながらマウスで識別子をクリックしても同じ効果が得られます。"
 
-#: ../../user/keyboard-shortcuts.md:31
+#: ../../user/keyboard-shortcuts.md:37
 msgid ""
 "**Go to Symbol** (`Cmd+Option+O`) is the fastest way to open a file when "
 "you know the name of the function or type you are looking for. Start "
@@ -186,7 +190,7 @@ msgstr ""
 "**Go to "
 "Symbol**（`Cmd+Option+O`）は、探している関数や型の名前がわかっている場合にファイルを開く最速の方法です。部分的な名前を入力し始めると、ダイアログがプロジェクト全体のすべてのシンボルをフィルタリングします。これは、特定の関数がどのモジュールに含まれているか覚えていない大規模なコードベースで特に便利です。"
 
-#: ../../user/keyboard-shortcuts.md:33
+#: ../../user/keyboard-shortcuts.md:39
 msgid ""
 "**Switch between .res and .resi** (`Alt+O`) is invaluable when working "
 "with interfaces. If you are editing `MyModule.res` and want to check or "
@@ -200,7 +204,7 @@ msgstr ""
 "にジャンプします。もう一度押すと戻ります。`.resi` ファイルが存在しない場合は、**Navigate > Go to Related** "
 "メニューの **Create Interface** アクションを使用して生成できます。"
 
-#: ../../user/keyboard-shortcuts.md:35
+#: ../../user/keyboard-shortcuts.md:41
 msgid ""
 "**Open compiled JavaScript** (`Alt+Shift+J`) opens the `.js` file that "
 "the ReScript compiler generated from the current `.res` file. This is "
@@ -212,7 +216,7 @@ msgstr ""
 "コンパイラが生成した `.js` ファイルを開きます。これは、インターオペラビリティの問題のデバッグ、コンパイル出力が期待通りかの確認、または "
 "ReScript が特定のパターンをどのように JavaScript に変換するかを理解するのに便利です。"
 
-#: ../../user/keyboard-shortcuts.md:37
+#: ../../user/keyboard-shortcuts.md:43
 msgid ""
 "**Copy qualified name** (`Cmd+Shift+Alt+C`) copies the fully qualified "
 "module path of the symbol at the cursor (e.g., "
@@ -224,7 +228,7 @@ msgstr ""
 "`MyModule.SubModule.myFunction`）をコピーします。これは `open` "
 "文の記述、ドキュメントでのシンボル参照、または JavaScript インターオペラビリティコードでのインポート構築に便利です。"
 
-#: ../../user/keyboard-shortcuts.md:39
+#: ../../user/keyboard-shortcuts.md:45
 msgid ""
 "**Find Usages** (`Alt+F7`) locates every reference to the symbol at the "
 "cursor across the entire project. The results appear in a tool window "
@@ -232,7 +236,7 @@ msgid ""
 "function or type."
 msgstr "**使用箇所の検索**（`Alt+F7`）は、プロジェクト全体でカーソル位置のシンボルへのすべての参照を見つけます。結果はファイルごとにグループ化されたツールウィンドウに表示され、関数や型を変更した場合の影響を簡単に把握できます。"
 
-#: ../../user/keyboard-shortcuts.md:41
+#: ../../user/keyboard-shortcuts.md:47
 msgid ""
 "**Structure View** (`Cmd+7`) opens a sidebar showing the outline of the "
 "current file: all `let` bindings, `type` definitions, `module` "
@@ -244,7 +248,7 @@ msgstr ""
 "バインディング、`type` 定義、`module` 宣言、`external` "
 "バインディングが表示されます。任意の項目をクリックしてジャンプできます。これは、多数の宣言を含む長いファイルのナビゲーションに特に便利です。"
 
-#: ../../user/keyboard-shortcuts.md:43
+#: ../../user/keyboard-shortcuts.md:49
 msgid ""
 "**Goto Super** (`Ctrl+U`) jumps between a `.res` implementation and the "
 "corresponding declaration in the `.resi` interface file. This is the "
@@ -254,7 +258,7 @@ msgstr ""
 "**Goto Super**（`Ctrl+U`）は、`.res` の実装と `.resi` "
 "インターフェースファイル内の対応する宣言の間をジャンプします。実装がインターフェースシグネチャと一致しているかを確認する最速の方法です。"
 
-#: ../../user/keyboard-shortcuts.md:45
+#: ../../user/keyboard-shortcuts.md:51
 msgid ""
 "**Go to Test** (`Ctrl+Shift+T`) navigates between an implementation file "
 "and its test file. If the test file does not exist, a dialog offers to "
@@ -264,16 +268,18 @@ msgstr ""
 "Test**（`Ctrl+Shift+T`）は、実装ファイルとそのテストファイルの間を移動します。テストファイルが存在しない場合、フレームワーク固有のボイラープレート（Jest"
 " または Vitest）で新規作成するダイアログが表示されます。"
 
-#: ../../user/keyboard-shortcuts.md:47
+#: ../../user/keyboard-shortcuts.md:53
 msgid ""
 "**Go to Implementation** (`Ctrl+Alt+B`) jumps from a declaration in a "
 "`.resi` interface file to its corresponding implementation in the `.res` "
 "file. This is the inverse of **Goto Super** (`Ctrl+U`), which goes from "
 "`.res` to `.resi`."
 msgstr ""
-"**Go to Implementation**（`Ctrl+Alt+B`）は、`.resi` インターフェースファイル内の宣言から、対応する `.res` ファイルの実装にジャンプします。これは `.res` から `.resi` に移動する **Goto Super**（`Ctrl+U`）の逆の操作です。"
+"**Go to Implementation**（`Ctrl+Alt+B`）は、`.resi` インターフェースファイル内の宣言から、対応する "
+"`.res` ファイルの実装にジャンプします。これは `.res` から `.resi` に移動する **Goto "
+"Super**（`Ctrl+U`）の逆の操作です。"
 
-#: ../../user/keyboard-shortcuts.md:49
+#: ../../user/keyboard-shortcuts.md:55
 msgid ""
 "**Call Hierarchy** (`Ctrl+Alt+H`) opens a tool window showing the call "
 "hierarchy for the function at the cursor. You can explore both callers "
@@ -281,9 +287,10 @@ msgid ""
 "navigable tree. This is invaluable for understanding how a function fits "
 "into the larger codebase before refactoring it."
 msgstr ""
-"**Call Hierarchy**（`Ctrl+Alt+H`）は、カーソル位置の関数のコール階層を表示するツールウィンドウを開きます。呼び出し元（この関数を呼び出しているもの）と呼び出し先（この関数が呼び出しているもの）の両方をナビゲーション可能なツリーとして探索できます。リファクタリング前に関数がコードベース全体でどのように使われているかを理解するのに非常に役立ちます。"
+"**Call "
+"Hierarchy**（`Ctrl+Alt+H`）は、カーソル位置の関数のコール階層を表示するツールウィンドウを開きます。呼び出し元（この関数を呼び出しているもの）と呼び出し先（この関数が呼び出しているもの）の両方をナビゲーション可能なツリーとして探索できます。リファクタリング前に関数がコードベース全体でどのように使われているかを理解するのに非常に役立ちます。"
 
-#: ../../user/keyboard-shortcuts.md:51
+#: ../../user/keyboard-shortcuts.md:57
 msgid ""
 "**Context Info** (`Alt+Q`) shows the enclosing declaration header as a "
 "sticky line at the top of the editor when you have scrolled past the "
@@ -292,7 +299,7 @@ msgstr ""
 "**Context "
 "Info**（`Alt+Q`）は、長い関数やモジュール本体の先頭を超えてスクロールした際に、囲んでいる宣言のヘッダーをエディタ上部に固定行として表示します。"
 
-#: ../../user/keyboard-shortcuts.md:53
+#: ../../user/keyboard-shortcuts.md:59
 msgid ""
 "**External Documentation** (`Shift+F1`) opens the rescript-lang.org API "
 "documentation for `Belt.*` and `Js.*` standard library modules in your "
@@ -301,115 +308,115 @@ msgstr ""
 "**External Documentation**（`Shift+F1`）は、`Belt.*` および `Js.*` 標準ライブラリモジュールの"
 " rescript-lang.org API ドキュメントをブラウザで開きます。"
 
-#: ../../user/keyboard-shortcuts.md:55
+#: ../../user/keyboard-shortcuts.md:61
 msgid "Editing"
 msgstr "編集"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+Option+L`"
 msgstr "`Cmd+Option+L`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Format file (rescript format)"
 msgstr "ファイルのフォーマット（rescript format）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+/`"
 msgstr "`Ctrl+/`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Toggle line comment"
 msgstr "行コメントの切り替え"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Shift+/`"
 msgstr "`Ctrl+Shift+/`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Toggle block comment"
 msgstr "ブロックコメントの切り替え"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Shift+Enter`"
 msgstr "`Shift+Enter`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Smart Enter (complete statement + new line)"
 msgstr "Smart Enter（文の補完 + 改行）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+Shift+Up`"
 msgstr "`Alt+Shift+Up`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Move declaration up"
 msgstr "宣言を上に移動"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+Shift+Down`"
 msgstr "`Alt+Shift+Down`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Move declaration down"
 msgstr "宣言を下に移動"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+Enter`"
 msgstr "`Alt+Enter`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Show intentions (Wrap with Some/Ok/Error, etc.)"
 msgstr "インテンションの表示（Wrap with Some/Ok/Error など）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Alt+T`"
 msgstr "`Ctrl+Alt+T`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Surround with (if/switch/try/block)"
 msgstr "囲む（if/switch/try/block）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Alt+O`"
 msgstr "`Ctrl+Alt+O`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Optimize imports (remove duplicate opens)"
 msgstr "インポートの最適化（重複 open の削除）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Shift+Delete`"
 msgstr "`Ctrl+Shift+Delete`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Unwrap/Remove (Some/Ok/Error/if/switch/try/block)"
 msgstr "Unwrap/Remove（Some/Ok/Error/if/switch/try/block の除去）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Shift+J`"
 msgstr "`Ctrl+Shift+J`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Smart Join Lines (pipe/let/arrow aware)"
 msgstr "Smart Join Lines（pipe/let/arrow 対応の行結合）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+Shift+Cmd+Left/Right`"
 msgstr "`Alt+Shift+Cmd+Left/Right`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Move element left/right"
 msgstr "要素を左右に移動"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Shift+[` / `]`"
 msgstr "`Ctrl+Shift+[` / `]`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Code block boundary selection"
 msgstr "コードブロック境界の選択"
 
-#: ../../user/keyboard-shortcuts.md:75
+#: ../../user/keyboard-shortcuts.md:81
 msgid ""
 "**Alt+Enter** is the Swiss Army knife shortcut for quick fixes and "
 "context-aware actions. Place your cursor on an expression and press "
@@ -427,7 +434,7 @@ msgstr ""
 "のコンストラクタで囲むことができます。`@genType` アノテーションのない宣言では、**Add @genType** "
 "を選択してデコレータを追加できます。利用可能なインテンションはカーソルの位置によって変わります。"
 
-#: ../../user/keyboard-shortcuts.md:77
+#: ../../user/keyboard-shortcuts.md:83
 msgid ""
 "**Format file** (`Cmd+Option+L`) runs `rescript format` through the "
 "language server on the current file. This reformats the entire file "
@@ -443,7 +450,7 @@ msgstr ""
 "アロー関数のフォーマットの標準化）も行えます。フォーマットには LSP が必要なため、Language Server "
 "が切断されている場合、このショートカットは効果がありません。"
 
-#: ../../user/keyboard-shortcuts.md:79
+#: ../../user/keyboard-shortcuts.md:85
 msgid ""
 "**Smart Enter** (`Shift+Enter`) is a time-saver when you want to start a "
 "new line below the current one without moving to the end of the line "
@@ -453,7 +460,7 @@ msgstr ""
 "**Smart "
 "Enter**（`Shift+Enter`）は、行末に移動せずに現在の行の下に新しい行を開始したい場合に時間を節約できます。コンテキストに応じて現在の文を補完し、適切なインデントで新しい行にカーソルを配置します。"
 
-#: ../../user/keyboard-shortcuts.md:81
+#: ../../user/keyboard-shortcuts.md:87
 msgid ""
 "**Move declaration up/down** (`Alt+Shift+Up/Down`) moves the entire top-"
 "level declaration at the cursor position up or down. Unlike the standard "
@@ -466,7 +473,7 @@ msgstr ""
 " --- `let` バインディング、`type` 定義、または `module` "
 "ブロック全体がひとつの単位として移動します。これは、カット＆ペーストなしでファイル内の宣言を並べ替えるのに便利です。"
 
-#: ../../user/keyboard-shortcuts.md:83
+#: ../../user/keyboard-shortcuts.md:89
 #, python-brace-format
 msgid ""
 "**Surround with** (`Ctrl+Alt+T`) wraps the selected code in a control "
@@ -480,7 +487,7 @@ msgstr ""
 "... { }`、`switch ... { }`、`try { } catch { }`、または `{ "
 "}`（プレーンブロック）から選択します。選択されたコードは選んだ構造の中に配置され、条件やパターンを入力できる位置にカーソルが配置されます。"
 
-#: ../../user/keyboard-shortcuts.md:85
+#: ../../user/keyboard-shortcuts.md:91
 msgid ""
 "**Optimize imports** (`Ctrl+Alt+O`) removes duplicate `open` statements "
 "from the file. If you have accidentally opened the same module multiple "
@@ -489,7 +496,7 @@ msgstr ""
 "**インポートの最適化**（`Ctrl+Alt+O`）は、ファイルから重複する `open` 文を削除します。誤って同じモジュールを複数回 "
 "open してしまった場合、このショートカットで一度にクリーンアップできます。"
 
-#: ../../user/keyboard-shortcuts.md:87
+#: ../../user/keyboard-shortcuts.md:93
 msgid ""
 "**Unwrap/Remove** (`Ctrl+Shift+Delete`) removes a surrounding wrapper and"
 " extracts the inner expression. Place your cursor inside `Some(expr)`, "
@@ -497,9 +504,11 @@ msgid ""
 "choose which wrapper to remove. This is the inverse of the \"Wrap with\" "
 "intention actions."
 msgstr ""
-"**Unwrap/Remove**（`Ctrl+Shift+Delete`）は、囲んでいるラッパーを除去して内部の式を取り出します。カーソルを `Some(expr)`、`Ok(expr)`、`Error(expr)`、`if`、`switch`、`try`、または素の波括弧の中に置き、どのラッパーを除去するかを選択します。これは \"Wrap with\" インテンションアクションの逆の操作です。"
+"**Unwrap/Remove**（`Ctrl+Shift+Delete`）は、囲んでいるラッパーを除去して内部の式を取り出します。カーソルを "
+"`Some(expr)`、`Ok(expr)`、`Error(expr)`、`if`、`switch`、`try`、または素の波括弧の中に置き、どのラッパーを除去するかを選択します。これは"
+" \"Wrap with\" インテンションアクションの逆の操作です。"
 
-#: ../../user/keyboard-shortcuts.md:89
+#: ../../user/keyboard-shortcuts.md:95
 msgid ""
 "**Smart Join Lines** (`Ctrl+Shift+J`) joins the current line with the "
 "next using ReScript-aware logic. When joining pipe chains (`->`), lines "
@@ -510,59 +519,59 @@ msgstr ""
 "の構文を考慮したロジックで現在の行と次の行を結合します。パイプチェーン（`->`）を結合する場合、スペースを追加せずに結合されます。let "
 "バインディングやアロー関数を結合する場合、`=` または `=>` の後に単一のスペースが挿入されます。"
 
-#: ../../user/keyboard-shortcuts.md:91
+#: ../../user/keyboard-shortcuts.md:97
 msgid "Refactoring"
 msgstr "リファクタリング"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Shift+F6`"
 msgstr "`Shift+F6`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Rename symbol"
 msgstr "シンボルの名前変更"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Alt+V`"
 msgstr "`Ctrl+Alt+V`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Extract Variable"
 msgstr "変数の抽出"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Alt+M`"
 msgstr "`Ctrl+Alt+M`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Extract Function"
 msgstr "関数の抽出"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Alt+N`"
 msgstr "`Ctrl+Alt+N`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Inline Variable/Function"
 msgstr "変数/関数のインライン化"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+F6`"
 msgstr "`Ctrl+F6`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Change Signature"
 msgstr "シグネチャの変更"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+Delete`"
 msgstr "`Alt+Delete`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Safe Delete"
 msgstr "安全な削除"
 
-#: ../../user/keyboard-shortcuts.md:104
+#: ../../user/keyboard-shortcuts.md:110
 msgid ""
 "**Rename symbol** (`Shift+F6`) renames the identifier at the cursor and "
 "updates all references across the project. This works for `let` bindings,"
@@ -573,7 +582,7 @@ msgstr ""
 "バインディング、型名、モジュール名、その他の名前付きエンティティに対して機能します。意味解析に依存するため、LSP "
 "が接続されている必要があります。"
 
-#: ../../user/keyboard-shortcuts.md:106
+#: ../../user/keyboard-shortcuts.md:112
 msgid ""
 "**Extract Variable** (`Ctrl+Alt+V`) extracts the selected expression into"
 " a new `let` binding placed above the current statement. The original "
@@ -581,36 +590,40 @@ msgid ""
 "useful for breaking up complex expressions into named intermediate values"
 " that improve readability."
 msgstr ""
-"**Extract Variable**（`Ctrl+Alt+V`）は、選択した式を現在の文の上に配置される新しい `let` バインディングに抽出します。元の式は新しいバインディングへの参照に置き換えられます。これは、複雑な式を可読性を向上させる名前付きの中間値に分解するのに便利です。"
+"**Extract Variable**（`Ctrl+Alt+V`）は、選択した式を現在の文の上に配置される新しい `let` "
+"バインディングに抽出します。元の式は新しいバインディングへの参照に置き換えられます。これは、複雑な式を可読性を向上させる名前付きの中間値に分解するのに便利です。"
 
-#: ../../user/keyboard-shortcuts.md:108
+#: ../../user/keyboard-shortcuts.md:114
 msgid ""
 "**Extract Function** (`Ctrl+Alt+M`) extracts the selected code into a new"
 " function. The plugin analyzes which variables from the surrounding scope"
 " are used in the selection and generates the appropriate parameters. The "
 "original code is replaced with a call to the new function."
 msgstr ""
-"**Extract Function**（`Ctrl+Alt+M`）は、選択したコードを新しい関数に抽出します。プラグインは、選択範囲で使用されている周囲のスコープの変数を分析し、適切なパラメータを生成します。元のコードは新しい関数の呼び出しに置き換えられます。"
+"**Extract "
+"Function**（`Ctrl+Alt+M`）は、選択したコードを新しい関数に抽出します。プラグインは、選択範囲で使用されている周囲のスコープの変数を分析し、適切なパラメータを生成します。元のコードは新しい関数の呼び出しに置き換えられます。"
 
-#: ../../user/keyboard-shortcuts.md:110
+#: ../../user/keyboard-shortcuts.md:116
 msgid ""
 "**Inline Variable/Function** (`Ctrl+Alt+N`) is the inverse of extraction:"
 " it replaces a variable or function reference with its definition and "
 "removes the original binding. Use this to simplify code when an "
 "intermediate variable or wrapper function adds no clarity."
 msgstr ""
-"**Inline Variable/Function**（`Ctrl+Alt+N`）は抽出の逆の操作です。変数や関数の参照をその定義で置き換え、元のバインディングを削除します。中間変数やラッパー関数が可読性の向上に寄与しない場合にコードを簡潔にするために使用します。"
+"**Inline "
+"Variable/Function**（`Ctrl+Alt+N`）は抽出の逆の操作です。変数や関数の参照をその定義で置き換え、元のバインディングを削除します。中間変数やラッパー関数が可読性の向上に寄与しない場合にコードを簡潔にするために使用します。"
 
-#: ../../user/keyboard-shortcuts.md:112
+#: ../../user/keyboard-shortcuts.md:118
 msgid ""
 "**Change Signature** (`Ctrl+F6`) opens a dialog to modify a function's "
 "parameters --- add, remove, reorder, or rename them. All call sites are "
 "updated automatically to match the new signature. This is especially "
 "useful for adding labeled arguments to an existing function."
 msgstr ""
-"**Change Signature**（`Ctrl+F6`）は、関数のパラメータを変更するダイアログを開きます --- パラメータの追加、削除、並べ替え、名前変更が可能です。すべての呼び出し箇所が新しいシグネチャに合わせて自動的に更新されます。既存の関数にラベル付き引数を追加する場合に特に便利です。"
+"**Change Signature**（`Ctrl+F6`）は、関数のパラメータを変更するダイアログを開きます --- "
+"パラメータの追加、削除、並べ替え、名前変更が可能です。すべての呼び出し箇所が新しいシグネチャに合わせて自動的に更新されます。既存の関数にラベル付き引数を追加する場合に特に便利です。"
 
-#: ../../user/keyboard-shortcuts.md:114
+#: ../../user/keyboard-shortcuts.md:120
 msgid ""
 "**Safe Delete** (`Alt+Delete`) deletes a symbol only after verifying that"
 " it has no remaining usages in the project. If usages are found, a dialog"
@@ -618,101 +631,102 @@ msgid ""
 "prevents accidental breakage from removing a function or type that is "
 "still referenced elsewhere."
 msgstr ""
-"**Safe Delete**（`Alt+Delete`）は、プロジェクト内に残りの使用箇所がないことを確認してからシンボルを削除します。使用箇所が見つかった場合、ダイアログにそれらが表示されるので、確認してから続行するかどうかを決定できます。これにより、他の箇所でまだ参照されている関数や型を誤って削除してしまうのを防ぎます。"
+"**Safe "
+"Delete**（`Alt+Delete`）は、プロジェクト内に残りの使用箇所がないことを確認してからシンボルを削除します。使用箇所が見つかった場合、ダイアログにそれらが表示されるので、確認してから続行するかどうかを決定できます。これにより、他の箇所でまだ参照されている関数や型を誤って削除してしまうのを防ぎます。"
 
-#: ../../user/keyboard-shortcuts.md:116
+#: ../../user/keyboard-shortcuts.md:122
 msgid "Completion"
 msgstr "補完"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+Space`"
 msgstr "`Cmd+Space`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Trigger code completion"
 msgstr "コード補完の起動"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Tab`"
 msgstr "`Tab`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Expand live template"
 msgstr "ライブテンプレートの展開"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.switch`"
 msgstr "`.switch`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: wrap in switch"
 msgstr "Postfix: switch で囲む"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.pipe`"
 msgstr "`.pipe`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: add pipe operator"
 msgstr "Postfix: パイプ演算子を追加"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.log`"
 msgstr "`.log`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: wrap in Console.log"
 msgstr "Postfix: Console.log で囲む"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.some`"
 msgstr "`.some`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: wrap in Some(...)"
 msgstr "Postfix: Some(...) で囲む"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.ok`"
 msgstr "`.ok`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: wrap in Ok(...)"
 msgstr "Postfix: Ok(...) で囲む"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.error`"
 msgstr "`.error`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: wrap in Error(...)"
 msgstr "Postfix: Error(...) で囲む"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.ignore`"
 msgstr "`.ignore`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: pipe to ignore"
 msgstr "Postfix: ignore にパイプ"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.promise`"
 msgstr "`.promise`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: wrap in Promise.then chain"
 msgstr "Postfix: Promise.then チェーンでラップ"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`.await`"
 msgstr "`.await`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Postfix: prepend await"
 msgstr "Postfix: await を前置"
 
-#: ../../user/keyboard-shortcuts.md:134
+#: ../../user/keyboard-shortcuts.md:140
 msgid ""
 "**Code completion** (`Cmd+Space`) triggers the LSP completion popup, "
 "which provides context-aware suggestions based on the current scope and "
@@ -725,7 +739,7 @@ msgstr ""
 "の補完ポップアップを起動し、現在のスコープと期待される型に基づいたコンテキスト対応の候補を提供します。補完候補にはモジュールメンバー、レコードフィールド、バリアントコンストラクタ、関数名が含まれます。各候補の横に型情報が表示されるため、類似した名前の関数を区別できます。候補に対して"
 " `Tab` または `Enter` を押すと挿入されます。"
 
-#: ../../user/keyboard-shortcuts.md:136
+#: ../../user/keyboard-shortcuts.md:142
 msgid ""
 "**Postfix templates** are one of the most productive features for writing"
 " idiomatic ReScript. They work by typing a dot (`.`) after an expression "
@@ -735,7 +749,7 @@ msgstr ""
 "**Postfix テンプレート**は、慣用的な ReScript "
 "を書くための最も生産的な機能のひとつです。式の後にドット（`.`）を入力し、テンプレート名を入力すると、式が自動的に展開された形式に書き換えられます。"
 
-#: ../../user/keyboard-shortcuts.md:138
+#: ../../user/keyboard-shortcuts.md:144
 #, python-brace-format
 msgid ""
 "The **`.switch`** postfix is especially useful when you want to pattern-"
@@ -749,7 +763,7 @@ msgstr ""
 "に書き換えられ、カーソルがアローの後に配置されるので、すぐにケースを入力できます。`switch` "
 "キーワード、括弧、波括弧を手動で入力するよりも高速です。"
 
-#: ../../user/keyboard-shortcuts.md:140
+#: ../../user/keyboard-shortcuts.md:146
 msgid ""
 "The **`.pipe`** postfix converts `expr.pipe` into `expr->`, which is the "
 "standard ReScript pipe-first syntax. This is convenient when chaining "
@@ -760,7 +774,7 @@ msgstr ""
 "標準のパイプファースト構文です。操作をチェーンする際に便利で、最初の式を入力し、`.pipe` "
 "を追加して、すぐに関数名を入力し始めることができます。"
 
-#: ../../user/keyboard-shortcuts.md:142
+#: ../../user/keyboard-shortcuts.md:148
 msgid ""
 "The **`.log`** postfix wraps an expression in `Console.log(...)` for "
 "quick debugging. Type `myValue.log` and it becomes "
@@ -771,7 +785,7 @@ msgstr ""
 "で囲みます。`myValue.log` と入力すると `Console.log(myValue)` になります。デバッグ用の print "
 "文を追加する最速の方法です。"
 
-#: ../../user/keyboard-shortcuts.md:144
+#: ../../user/keyboard-shortcuts.md:150
 msgid ""
 "The **`.some`**, **`.ok`**, and **`.error`** postfix templates wrap the "
 "preceding expression in the corresponding constructor: `Some(...)`, "
@@ -782,7 +796,7 @@ msgstr ""
 "`Some(...)`、`Ok(...)`、または `Error(...)` で囲みます。プレーンな値を `option` 型や `result`"
 " 型に持ち上げる必要があるときに便利です。"
 
-#: ../../user/keyboard-shortcuts.md:146
+#: ../../user/keyboard-shortcuts.md:152
 msgid ""
 "The **`.ignore`** postfix appends `->ignore` to the expression, which "
 "discards the return value. This is a common pattern in ReScript when "
@@ -791,7 +805,7 @@ msgstr ""
 "**`.ignore`** postfix は式に `->ignore` を追加し、戻り値を破棄します。これは ReScript "
 "で副作用のために関数を呼び出すが、戻り値を使用しない場合の一般的なパターンです。"
 
-#: ../../user/keyboard-shortcuts.md:148
+#: ../../user/keyboard-shortcuts.md:154
 msgid ""
 "**Live templates** are expanded with `Tab` after typing the abbreviation."
 " Unlike postfix templates (which transform existing expressions), live "
@@ -803,19 +817,19 @@ msgstr ""
 "テンプレート（既存の式を変換する）とは異なり、ライブテンプレートは新しいコードパターンを挿入します。例えば、`let` と入力して `Tab` "
 "を押すと、名前と値のタブストップを持つ `let` バインディングのスケルトンに展開されます。"
 
-#: ../../user/keyboard-shortcuts.md:150
+#: ../../user/keyboard-shortcuts.md:156
 msgid "Code Generation"
 msgstr "コード生成"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+N` / `Alt+Insert`"
 msgstr "`Cmd+N` / `Alt+Insert`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Generate menu (Switch Arms, Module Type)"
 msgstr "Generate メニュー（Switch Arms、Module Type）"
 
-#: ../../user/keyboard-shortcuts.md:158
+#: ../../user/keyboard-shortcuts.md:164
 msgid ""
 "The **Generate** menu (`Cmd+N`) provides code generation actions that "
 "create boilerplate code from context. Place your cursor inside a `switch`"
@@ -829,7 +843,7 @@ msgstr ""
 "式の中にカーソルを置き、**Generate Switch Arms** "
 "を選択すると、マッチするバリアント型のすべてのコンストラクタに対するパターンマッチアームが自動生成されます。これは、すべてのケースを手動で入力するのが面倒でエラーが発生しやすい大きなバリアント型で特に便利です。"
 
-#: ../../user/keyboard-shortcuts.md:160
+#: ../../user/keyboard-shortcuts.md:166
 msgid ""
 "**Generate Module Type** creates a module type signature from the current"
 " module's contents. This can save time when you need to create a `.resi` "
@@ -838,51 +852,51 @@ msgstr ""
 "**Generate Module Type** は、現在のモジュールの内容からモジュール型シグネチャを作成します。`.resi` "
 "インターフェースファイルを作成したり、ファンクタ引数のモジュール型を定義する必要がある場合に時間を節約できます。"
 
-#: ../../user/keyboard-shortcuts.md:162
+#: ../../user/keyboard-shortcuts.md:168
 msgid "Running"
 msgstr "実行"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+R` / `Shift+F10`"
 msgstr "`Ctrl+R` / `Shift+F10`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Run current configuration"
 msgstr "現在の構成を実行"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Ctrl`"
 msgstr "`Ctrl+Ctrl`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Run Anything (ReScript CLI commands)"
 msgstr "Run Anything（ReScript CLI コマンド）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+Shift+D`"
 msgstr "`Alt+Shift+D`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Debug compiled JavaScript"
 msgstr "コンパイル済み JavaScript のデバッグ"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Ctrl+Shift+P`"
 msgstr "`Ctrl+Shift+P`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Expression Type (show inferred type)"
 msgstr "Expression Type（推論された型の表示）"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Alt+6`"
 msgstr "`Alt+6`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Open Problems panel"
 msgstr "Problems パネルを開く"
 
-#: ../../user/keyboard-shortcuts.md:174
+#: ../../user/keyboard-shortcuts.md:180
 msgid ""
 "**Run current configuration** (`Ctrl+R` or `Shift+F10`) executes the "
 "currently selected run configuration, which is typically a ReScript build"
@@ -894,7 +908,7 @@ msgstr ""
 "ビルドコマンドです。プラグインはプロジェクトの `rescript.json` "
 "ファイルに基づいて実行構成を自動的に作成します。テスト関数の横のガターアイコンから直接テストを実行することもできます。"
 
-#: ../../user/keyboard-shortcuts.md:176
+#: ../../user/keyboard-shortcuts.md:182
 msgid ""
 "**Run Anything** (`Ctrl+Ctrl`) opens a universal run dialog where you can"
 " type `rescript build`, `rescript clean`, or `rescript format` to execute"
@@ -903,7 +917,7 @@ msgstr ""
 "**Run Anything**（`Ctrl+Ctrl`）は汎用の実行ダイアログを開き、`rescript build`、`rescript "
 "clean`、`rescript format` と入力して、実行構成を作成せずに ReScript CLI コマンドを直接実行できます。"
 
-#: ../../user/keyboard-shortcuts.md:178
+#: ../../user/keyboard-shortcuts.md:184
 msgid ""
 "**Debug Compiled JS** (`Alt+Shift+D`) resolves the current `.res` file to"
 " its compiled JavaScript output and launches a `node --inspect-brk` debug"
@@ -914,7 +928,7 @@ msgstr ""
 "JavaScript 出力を解決し、`node --inspect-brk` デバッグセッションを起動します。JavaScript "
 "Debugger プラグインと事前の ReScript ビルドが必要です。"
 
-#: ../../user/keyboard-shortcuts.md:180
+#: ../../user/keyboard-shortcuts.md:186
 msgid ""
 "**Expression Type** (`Ctrl+Shift+P`) shows the inferred type of the "
 "expression at the cursor position. This is an on-demand alternative to "
@@ -924,7 +938,7 @@ msgstr ""
 "**Expression "
 "Type**（`Ctrl+Shift+P`）は、カーソル位置の式の推論された型を表示します。これはインレイヒントのオンデマンドの代替手段であり、常時表示のアノテーションなしで特定の型を確認したい場合に便利です。"
 
-#: ../../user/keyboard-shortcuts.md:182
+#: ../../user/keyboard-shortcuts.md:188
 msgid ""
 "The **Problems panel** (`Alt+6`) displays all diagnostics reported by the"
 " language server: type errors, syntax errors, and warnings. Each entry "
@@ -935,43 +949,43 @@ msgstr ""
 "**Problems パネル**（`Alt+6`）は、Language Server "
 "から報告されたすべての診断情報（型エラー、構文エラー、警告）を表示します。各エントリにはファイル、行番号、エラーメッセージが表示されます。エントリをダブルクリックすると、ソースファイルの該当箇所に正確にジャンプします。このパネルは、プロジェクトのすべての問題を一目で確認するための中心的な場所です。"
 
-#: ../../user/keyboard-shortcuts.md:184
+#: ../../user/keyboard-shortcuts.md:190
 msgid "View"
 msgstr "表示"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+Shift+Plus`"
 msgstr "`Cmd+Shift+Plus`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Expand all folds"
 msgstr "すべての折りたたみを展開"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+Shift+Minus`"
 msgstr "`Cmd+Shift+Minus`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Collapse all folds"
 msgstr "すべての折りたたみを折りたたむ"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+Plus`"
 msgstr "`Cmd+Plus`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Expand fold at cursor"
 msgstr "カーソル位置の折りたたみを展開"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "`Cmd+Minus`"
 msgstr "`Cmd+Minus`"
 
-#: ../../user/keyboard-shortcuts.md:5
+#: ../../user/keyboard-shortcuts.md:11
 msgid "Collapse fold at cursor"
 msgstr "カーソル位置の折りたたみを折りたたむ"
 
-#: ../../user/keyboard-shortcuts.md:195
+#: ../../user/keyboard-shortcuts.md:201
 msgid ""
 "**Code folding** helps manage large files by collapsing regions you are "
 "not currently working on. The plugin supports folding for all top-level "
@@ -981,7 +995,7 @@ msgstr ""
 "**コード折りたたみ**は、現在作業していない領域を折りたたむことで大きなファイルの管理を支援します。プラグインは、すべてのトップレベル宣言（`let`、`type`、`module`、`external`）、ブロックコメント、カスタムリージョンマーカー（`//#region`"
 " ... `//#endregion`）の折りたたみをサポートしています。"
 
-#: ../../user/keyboard-shortcuts.md:197
+#: ../../user/keyboard-shortcuts.md:203
 msgid ""
 "**Collapse all folds** (`Cmd+Shift+Minus`) is particularly useful when "
 "opening a large file for the first time: it gives you a high-level "
@@ -992,7 +1006,7 @@ msgstr ""
 "**すべての折りたたみを折りたたむ**（`Cmd+Shift+Minus`）は、大きなファイルを初めて開くときに特に便利です。ストラクチャービューに似ていますが、インラインですべての宣言の概要を把握できます。その後、`Cmd+Plus`"
 " で個別の宣言を選択的に展開して、必要なものを掘り下げることができます。"
 
-#: ../../user/keyboard-shortcuts.md:199
+#: ../../user/keyboard-shortcuts.md:205
 msgid ""
 "Custom region markers let you define your own foldable sections. Add "
 "`//#region Section Name` and `//#endregion` comments around a group of "

@@ -1,8 +1,16 @@
+---
+myst:
+  html_meta:
+    "keywords": "code editing, formatting, intentions, surround, refactoring, extract, inline"
+---
+
 # Code Editing
 
 The plugin provides a rich set of editing features that make writing ReScript code more productive.
 
 ## Code Folding
+
+{bdg-success}`Native`
 
 Collapse and expand blocks to focus on the code that matters.
 
@@ -28,6 +36,8 @@ let multiply = (a, b) => a * b
 Code folding lets you hide implementation details and focus on the declarations that matter, making large files navigable without splitting them into smaller ones.
 
 ## Code Formatting
+
+{bdg-primary}`LSP Required`
 
 Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file using the `rescript format` CLI.
 
@@ -57,6 +67,8 @@ One shortcut formats your entire file to match the official ReScript style, elim
 
 ## Brace Matching
 
+{bdg-success}`Native`
+
 The editor highlights matching brace pairs:
 - `{` and `}`
 - `[` and `]`
@@ -66,11 +78,15 @@ Brace matching helps you instantly see where a block opens and closes, preventin
 
 ## Smart Quotes
 
+{bdg-success}`Native`
+
 When you type `"`, `'`, or `` ` ``, the closing quote is automatically inserted.
 
 Auto-paired quotes save keystrokes and prevent common syntax errors from unmatched string delimiters.
 
 ## Smart Enter
+
+{bdg-success}`Native`
 
 Press `Shift+Enter` to intelligently complete the current statement and start a new line:
 
@@ -82,12 +98,16 @@ Smart Enter intelligently closes open constructs and positions your cursor, so y
 
 ## Comment Toggle
 
+{bdg-success}`Native`
+
 - `Ctrl+/` — Toggle line comment (`//`)
 - `Ctrl+Shift+/` — Toggle block comment (`/* */`)
 
 Quickly toggle comments on and off for debugging or temporarily disabling code, without manually typing or removing comment delimiters.
 
 ## Statement Mover
+
+{bdg-success}`Native`
 
 Move top-level declarations up or down:
 
@@ -99,6 +119,8 @@ This moves the entire declaration (including decorators) as a unit.
 Reorder declarations without cut-and-paste — the mover handles the entire declaration block including decorators, so you never accidentally leave behind an annotation or break a multi-line definition.
 
 ## Intention Actions
+
+{bdg-success}`Native`
 
 Press `Alt+Enter` on an expression to see available intentions:
 
@@ -551,6 +573,8 @@ let email = user.email
 
 ## Surround With
 
+{bdg-success}`Native`
+
 Select code and press `Ctrl+Alt+T` to surround it with:
 
 - `if` expression
@@ -654,6 +678,8 @@ Surround With wraps selected code in a control structure with one shortcut, savi
 
 ## Import Optimization
 
+{bdg-success}`Native`
+
 Press `Ctrl+Alt+O` to optimize imports in the current file.
 
 ### How It Works
@@ -692,11 +718,15 @@ A single shortcut cleans up all redundant and unused `open` statements, keeping 
 
 ## Rename
 
+{bdg-primary}`LSP Required`
+
 Press `Shift+F6` to rename a symbol across the project. The Language Server handles finding all references and updating them.
 
 Rename refactoring updates every reference across the entire project in one operation, eliminating the risk of missed or inconsistent renames that manual find-and-replace would leave behind.
 
 ## Extract Variable
+
+{bdg-success}`Native`
 
 Press `Ctrl+Alt+V` (`Cmd+Alt+V` on macOS) to extract the selected expression into a `let` binding.
 
@@ -727,6 +757,8 @@ let calculate = (a, b) => {
 Extract Variable lets you name intermediate expressions for clarity, making complex expressions self-documenting without manually restructuring the surrounding code.
 
 ## Extract Function
+
+{bdg-success}`Native`
 
 Press `Ctrl+Alt+M` (`Cmd+Alt+M` on macOS) to extract the selected code into a new function.
 
@@ -759,6 +791,8 @@ Extract Function automatically detects free variables and turns them into parame
 
 ## Inline Variable/Function
 
+{bdg-success}`Native`
+
 Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or function at the caret, replacing all references with the definition body.
 
 The handler finds the `let` declaration at the caret, locates all references to it within the file, replaces each reference with the definition body, and removes the original declaration.
@@ -780,6 +814,8 @@ let greet = (name) => `${"Hello"}, ${name}!`
 Inline refactoring is the reverse of extraction — it replaces an unnecessary intermediate variable with its definition, simplifying code when a named binding adds no clarity.
 
 ## Introduce Constant
+
+{bdg-success}`Native`
 
 Extract a literal value into a module-level constant. Select a string, number, or other literal and use **Refactor** > **Introduce Constant**.
 
@@ -807,6 +843,8 @@ Introduce Constant extracts magic values into named bindings at the module level
 
 ## Change Signature
 
+{bdg-success}`Native`
+
 Press `Ctrl+F6` to modify a function's parameters — reorder, rename, add, or remove — and update call sites within the file.
 
 The handler parses the function declaration at the caret, supports both labeled (`~name: type`) and positional parameters, and applies changes to the declaration and all matching call sites.
@@ -833,6 +871,8 @@ let user = make(~age=30, ~name="Alice")
 Change Signature lets you restructure a function's parameter list and automatically updates all call sites, making API evolution safe and mechanical rather than error-prone manual editing.
 
 ## React Component Extraction
+
+{bdg-success}`Native`
 
 Extract selected JSX into a new React component. Select a JSX expression, then use **Refactor** > **Extract React Component**.
 
@@ -878,11 +918,15 @@ Extracting a React component from JSX is a common refactoring in React developme
 
 ## Paste as JSON.t
 
+{bdg-success}`Native`
+
 Use **Edit** > **Paste as JSON.t** to convert JSON from your clipboard into a ReScript `JSON.t` value.
 
 Instead of manually wrapping each JSON value in ReScript constructors, paste the raw JSON and get a correctly typed `JSON.t` expression instantly.
 
 ## Code Generation
+
+{bdg-success}`Native`
 
 Press `Cmd+N` (or `Alt+Insert`) to open the Generate menu:
 
@@ -1130,6 +1174,8 @@ Code generation turns type definitions into working code — switch arms, constr
 
 ## Strip Trailing Spaces
 
+{bdg-success}`Native`
+
 The plugin protects whitespace inside string literals when IntelliJ removes trailing spaces on save. Without this, intentional whitespace at the end of a string line would be stripped.
 
 **Protected token types:**
@@ -1141,6 +1187,8 @@ Configure trailing space behavior in **Settings** > **Editor** > **General** > *
 This protection ensures that intentional whitespace inside string literals is never silently removed by the editor's trailing space cleanup, preventing subtle bugs in string-heavy code.
 
 ## Editor Floating Toolbar
+
+{bdg-success}`Native`
 
 A floating toolbar appears when editing ReScript files, providing quick access to commonly used actions:
 
@@ -1154,6 +1202,8 @@ The floating toolbar puts the most common ReScript-specific actions — format, 
 
 ## Spellchecking
 
+{bdg-success}`Native`
+
 The plugin supports IntelliJ's built-in spellchecker for:
 
 - Comments (line and block)
@@ -1164,11 +1214,15 @@ Built-in spellchecking catches typos in comments, strings, and identifiers as yo
 
 ## Backspace Handler
 
+{bdg-success}`Native`
+
 When you delete an opening JSX tag with backspace, the matching closing tag is automatically removed.
 
 Paired tag deletion prevents orphaned closing tags — when you backspace through an opening JSX tag, the closing tag disappears automatically, keeping your markup balanced.
 
 ## Move Element Left/Right
+
+{bdg-success}`Native`
 
 Use `Alt+Shift+Cmd+Left` / `Alt+Shift+Cmd+Right` to swap comma-separated elements. Works with function arguments, array items, record fields, and tuple elements.
 
@@ -1176,11 +1230,15 @@ Reorder arguments, array items, or record fields with a keyboard shortcut instea
 
 ## Code Block Selection
 
+{bdg-success}`Native`
+
 Use `Ctrl+Shift+[` and `Ctrl+Shift+]` to navigate to the start and end of the enclosing code block (brace-delimited).
 
 Quickly jump to block boundaries when working inside large function bodies or deeply nested structures, without scrolling or searching for the matching brace.
 
 ## Split/Join List
+
+{bdg-success}`Native`
 
 Toggle comma-separated lists between single-line and multi-line format. Available via **Edit** > **Split/Join List**.
 
@@ -1188,11 +1246,15 @@ Switching between compact and expanded list formats is a single action, so you c
 
 ## Copy/Paste Escaping
 
+{bdg-success}`Native`
+
 When pasting text into a string literal, special characters (backslash, quotes, newlines, tabs) are automatically escaped.
 
 Automatic escaping means you can paste raw text into a string literal and trust that special characters are handled correctly, avoiding hard-to-spot syntax errors from unescaped quotes or backslashes.
 
 ## Unwrap/Remove
+
+{bdg-success}`Native`
 
 Press `Ctrl+Shift+Delete` (`Cmd+Shift+Delete` on macOS) to remove a surrounding wrapper and extract the inner expression.
 
@@ -1229,6 +1291,8 @@ Unwrap/Remove is the inverse of Surround With — it strips away a wrapper like 
 
 ## JSX Auto-Close Tag
 
+{bdg-success}`Native`
+
 When you type `>` to close a JSX opening tag, the corresponding closing tag is automatically inserted and the cursor is positioned between the tags.
 
 Type `<div>`:
@@ -1256,6 +1320,8 @@ The auto-close does not trigger for self-closing tags (e.g., `<br />`), inside c
 Auto-closing tags saves keystrokes and prevents mismatched JSX tags — type the opening tag and the closing tag appears automatically, keeping your markup balanced as you write.
 
 ## Enter Handler (Comment Continuation)
+
+{bdg-success}`Native`
 
 When you press `Enter` inside a comment, the next line is automatically prefixed with the appropriate comment continuation characters.
 
@@ -1305,6 +1371,8 @@ After pressing Enter:
 Comment continuation keeps your multi-line comments properly formatted without manually typing prefixes on each new line, maintaining a clean comment style effortlessly.
 
 ## Smart Join Lines
+
+{bdg-success}`Native`
 
 Press `Ctrl+Shift+J` (`Cmd+Shift+J` on macOS) to join the current line with the next line using ReScript-aware logic.
 
@@ -1368,6 +1436,8 @@ Smart join understands ReScript syntax — pipe chains join without spaces, let 
 
 ## Highlight Related Keywords
 
+{bdg-success}`Native`
+
 When the caret is placed on a control-flow keyword, all related keywords in the same construct are highlighted, showing the structure at a glance.
 
 ### Supported Keywords
@@ -1395,6 +1465,8 @@ Keyword highlighting reveals the full structure of a control-flow construct at a
 
 ## Word Selection (Extend/Shrink)
 
+{bdg-success}`Native`
+
 Use `Ctrl+W` (`Alt+Up` on macOS) to extend the selection and `Ctrl+Shift+W` (`Alt+Down` on macOS) to shrink it, with ReScript-aware boundaries.
 
 ### Selection Boundaries
@@ -1414,6 +1486,8 @@ ReScript-aware selection boundaries make it easy to select exactly the content y
 
 ## Paste as JSX
 
+{bdg-success}`Native`
+
 When pasting HTML content into a ReScript file, it is automatically converted to JSX syntax:
 - HTML attributes (`class`, `for`, `onclick`) are renamed to JSX equivalents (`className`, `htmlFor`, `onClick`)
 - Void elements (`<br>`, `<img>`, `<input>`) are self-closed (`<br />`)
@@ -1424,6 +1498,8 @@ When pasting HTML content into a ReScript file, it is automatically converted to
 Paste as JSX converts HTML to ReScript JSX automatically — instead of manually renaming `class` to `className` and self-closing void elements, the conversion happens on paste.
 
 ## Paste as ReScript
+
+{bdg-success}`Native`
 
 This conversion is triggered automatically when you paste JavaScript or TypeScript code into a `.res` file using the standard paste shortcut ({kbd}`Cmd+V` / {kbd}`Ctrl+V`). No separate menu action is needed — the plugin detects JavaScript/TypeScript patterns in the clipboard and converts them on the fly.
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -19,182 +19,484 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../user/quickstart.md:1
+#: ../../user/quickstart.md
+msgid "quick start, tutorial, getting started, first steps"
+msgstr "クイックスタート, チュートリアル, はじめに, 最初のステップ"
+
+#: ../../user/quickstart.md:7
 msgid "Quick Start"
 msgstr "クイックスタート"
 
-#: ../../user/quickstart.md:3
+#: ../../user/quickstart.md:9
+#, fuzzy
 msgid ""
-"This guide walks you through your first experience with the ReScript "
-"IntelliJ Plugin after installation."
-msgstr ""
-"このガイドでは、ReScript IntelliJ Plugin をインストールした後の基本的な使い方を"
-"説明します。"
+"This hands-on guide walks you through your first experience with the "
+"ReScript IntelliJ Plugin. Follow each step and verify the expected result"
+" before moving on."
+msgstr "このガイドでは、ReScript IntelliJ Plugin をインストールした後の基本的な使い方を説明します。"
 
-#: ../../user/quickstart.md:5
+#: ../../user/quickstart.md:11
 msgid "Prerequisites"
 msgstr "前提条件"
 
-#: ../../user/quickstart.md:7
+#: ../../user/quickstart.md:13
 msgid "Plugin installed ([Installation Guide](installation.md))"
 msgstr "プラグインがインストール済みであること（[インストールガイド](installation.md)）"
 
-#: ../../user/quickstart.md:8
+#: ../../user/quickstart.md:14
 msgid "A ReScript project with `rescript.json` (or `bsconfig.json`)"
 msgstr "`rescript.json`（または `bsconfig.json`）を含む ReScript プロジェクト"
 
-#: ../../user/quickstart.md:9
-msgid "`@rescript/language-server` installed in the project"
+#: ../../user/quickstart.md:15
+#, fuzzy
+msgid ""
+"`@rescript/language-server` installed in the project (`npm install -D "
+"@rescript/language-server`)"
 msgstr "プロジェクトに `@rescript/language-server` がインストール済みであること"
 
-#: ../../user/quickstart.md:11
-msgid "Open Your Project"
+#: ../../user/quickstart.md:19
+#, fuzzy
+msgid "Step 1: Open Your Project"
 msgstr "プロジェクトを開く"
 
-#: ../../user/quickstart.md:13
-msgid "**File** → **Open** → Select your ReScript project folder"
+#: ../../user/quickstart.md:21
+#, fuzzy
+msgid ""
+"**File** → **Open** → Select your ReScript project folder (the directory "
+"containing `rescript.json`)"
 msgstr "**File** → **Open** → ReScript プロジェクトフォルダを選択します"
 
-#: ../../user/quickstart.md:14
-msgid ""
-"The IDE will detect `rescript.json` and configure the project "
-"automatically"
-msgstr ""
-"IDE が `rescript.json` を検出し、プロジェクトを自動的に構成します"
+#: ../../user/quickstart.md:22
+msgid "Wait a few seconds for the IDE to index the project"
+msgstr "IDE がプロジェクトをインデックスするまで数秒待ちます"
 
-#: ../../user/quickstart.md:15
-msgid "Open any `.res` file — you should see syntax highlighting immediately"
-msgstr "任意の `.res` ファイルを開くと、すぐにシンタックスハイライトが表示されます"
-
-#: ../../user/quickstart.md:17
-msgid "Try the Core Features"
-msgstr "主要機能を試す"
-
-#: ../../user/quickstart.md:19
-msgid "Code Completion"
-msgstr "コード補完"
-
-#: ../../user/quickstart.md:21
-msgid ""
-"Start typing in a `.res` file. The Language Server provides intelligent "
-"completions:"
-msgstr ""
-"`.res` ファイルで入力を開始すると、Language Server がインテリジェントな補完を"
-"提供します:"
-
-#: ../../user/quickstart.md:23
-msgid "Variable and function names"
-msgstr "変数名と関数名"
-
-#: ../../user/quickstart.md:24
-msgid "Module names"
-msgstr "モジュール名"
-
-#: ../../user/quickstart.md:25
-msgid "Type-aware suggestions"
-msgstr "型を考慮した候補の提示"
+#: ../../user/quickstart.md
+msgid "Expected Result"
+msgstr "期待される結果"
 
 #: ../../user/quickstart.md:27
+msgid "The Project tree shows your `src/` folder and `rescript.json`"
+msgstr "Project ツリーに `src/` フォルダと `rescript.json` が表示される"
+
+#: ../../user/quickstart.md:28
 msgid ""
-"Press `Ctrl+Space` (or `Cmd+Space` on macOS) to trigger completion "
-"manually."
-msgstr ""
-"手動で補完を呼び出すには、`Ctrl+Space`（macOS では `Cmd+Space`）を押します。"
+"A ReScript icon appears next to `.res` and `.resi` files in the project "
+"tree"
+msgstr "Project ツリーの `.res` と `.resi` ファイルの横に ReScript アイコンが表示される"
 
 #: ../../user/quickstart.md:29
-msgid "Go to Definition"
-msgstr "定義へ移動"
-
-#: ../../user/quickstart.md:31
 msgid ""
-"Hold `Ctrl` (or `Cmd` on macOS) and click on any symbol to jump to its "
-"definition. You can also press `Ctrl+B`."
-msgstr ""
-"`Ctrl`（macOS では `Cmd`）を押しながらシンボルをクリックすると、定義元にジャンプ"
-"できます。`Ctrl+B` を押しても同様です。"
+"The status bar at the bottom may show \"ReScript\" with a build status "
+"indicator"
+msgstr "画面下部のステータスバーに \"ReScript\" とビルドステータスインジケータが表示される場合がある"
 
-#: ../../user/quickstart.md:33
-msgid "Hover Documentation"
-msgstr "ホバードキュメント"
+#: ../../user/quickstart.md
+msgid "Troubleshooting"
+msgstr "トラブルシューティング"
 
 #: ../../user/quickstart.md:35
 msgid ""
-"Hover over any symbol to see its type signature and documentation (if "
-"available)."
-msgstr ""
-"シンボルにマウスカーソルを合わせると、型シグネチャとドキュメント（利用可能な場合）"
-"が表示されます。"
+"**\"Cannot find rescript.json\"**: Make sure you opened the project root "
+"directory, not a subdirectory"
+msgstr "**\"Cannot find rescript.json\"**: サブディレクトリではなく、プロジェクトのルートディレクトリを開いていることを確認してください"
+
+#: ../../user/quickstart.md:36
+msgid ""
+"**No ReScript icons on files**: The plugin may not be installed "
+"correctly. Check **Settings** → **Plugins** → search for \"ReScript\""
+msgstr "**ファイルに ReScript アイコンが表示されない**: プラグインが正しくインストールされていない可能性があります。**Settings** → **Plugins** で \"ReScript\" を検索してください"
 
 #: ../../user/quickstart.md:37
-msgid "Diagnostics"
-msgstr "診断"
-
-#: ../../user/quickstart.md:39
 msgid ""
-"Save your file or wait a moment — the Language Server will show errors "
-"and warnings inline with red/yellow underlines. View all issues in the "
-"**Problems** panel (`Alt+6`)."
-msgstr ""
-"ファイルを保存するか少し待つと、Language Server がエラーや警告を赤色/黄色の下線"
-"でインラインに表示します。すべての問題は **Problems** パネル（`Alt+6`）で確認"
-"できます。"
+"**Monorepo setup**: If `rescript.json` is in a subdirectory, open that "
+"subdirectory as the project root, or ensure the language server is "
+"hoisted to the workspace root"
+msgstr "**モノレポ構成**: `rescript.json` がサブディレクトリにある場合、そのサブディレクトリをプロジェクトルートとして開くか、Language Server がワークスペースルートにホイストされていることを確認してください"
 
-#: ../../user/quickstart.md:41
-msgid "Code Formatting"
-msgstr "コードフォーマット"
+#: ../../user/quickstart.md:42
+msgid "Step 2: Verify Syntax Highlighting"
+msgstr "ステップ 2: シンタックスハイライトの確認"
 
-#: ../../user/quickstart.md:43
-msgid ""
-"Press `Ctrl+Alt+L` (or `Cmd+Option+L` on macOS) to format the current "
-"file using `rescript format`."
-msgstr ""
-"`Ctrl+Alt+L`（macOS では `Cmd+Option+L`）を押すと、`rescript format` を使用して"
-"現在のファイルをフォーマットできます。"
-
-#: ../../user/quickstart.md:45
-msgid "Structure View"
-msgstr "ストラクチャービュー"
-
-#: ../../user/quickstart.md:47
-msgid ""
-"Press `Cmd+7` (or `Alt+7`) to open the Structure panel and see an outline"
-" of your file's modules, functions, and types."
-msgstr ""
-"`Cmd+7`（または `Alt+7`）を押すと Structure パネルが開き、ファイル内のモジュール、"
-"関数、型のアウトラインを確認できます。"
+#: ../../user/quickstart.md:44
+msgid "Open any `.res` file from the project tree."
+msgstr "Project ツリーから任意の `.res` ファイルを開きます。"
 
 #: ../../user/quickstart.md:49
-msgid "Run ReScript Build"
-msgstr "ReScript ビルドの実行"
+msgid "Keywords (`let`, `type`, `module`, `switch`) appear in a distinct color"
+msgstr "キーワード（`let`, `type`, `module`, `switch`）が特定の色で表示される"
+
+#: ../../user/quickstart.md:50
+msgid "Strings are colored differently from code"
+msgstr "文字列がコードとは異なる色で表示される"
 
 #: ../../user/quickstart.md:51
-msgid "Click the green ▶ icon in the gutter next to your file"
-msgstr "ファイル横のガターにある緑色の ▶ アイコンをクリックします"
+msgid "Comments (`//` and `/* */`) appear in a muted color"
+msgstr "コメント（`//` と `/* */`）が控えめな色で表示される"
 
 #: ../../user/quickstart.md:52
 msgid ""
-"Or create a Run Configuration: **Run** → **Edit Configurations** → **+** "
-"→ **ReScript**"
+"If the Language Server is running, you may see additional semantic "
+"coloring (e.g., module names, variant constructors)"
+msgstr "Language Server が動作している場合、追加のセマンティックカラーリング（モジュール名、バリアントコンストラクタなど）が表示される場合があります"
+
+#: ../../user/quickstart.md:58
+msgid ""
+"**All text is plain black/white**: The file may not be recognized as "
+"ReScript. Check the file extension is `.res` or `.resi`"
+msgstr "**テキストがすべてプレーンな黒/白で表示される**: ファイルが ReScript として認識されていない可能性があります。ファイル拡張子が `.res` または `.resi` であることを確認してください"
+
+#: ../../user/quickstart.md:59
+msgid ""
+"**Partial highlighting only**: This is normal during the first few "
+"seconds. Layer 1 (lexer) highlighting is instant; Layer 2 (semantic) "
+"highlighting appears once the Language Server starts"
+msgstr "**一部のハイライトのみ表示される**: 最初の数秒間はこれが正常です。レイヤー 1（レクサー）のハイライトは即座に適用されます。レイヤー 2（セマンティック）のハイライトは Language Server の起動後に表示されます"
+
+#: ../../user/quickstart.md:64
+#, fuzzy
+msgid "Step 3: Try Code Completion"
+msgstr "コード補完"
+
+#: ../../user/quickstart.md:66
+msgid ""
+"Place your cursor inside a function body and start typing. For example, "
+"type `Js.log` or `Console.`."
+msgstr "関数本体にカーソルを置いて入力を開始します。例えば、`Js.log` や `Console.` と入力してください。"
+
+#: ../../user/quickstart.md:68
+#, fuzzy
+msgid "Press `Ctrl+Space` (`Cmd+Space` on macOS) to trigger completion manually."
+msgstr "手動で補完を呼び出すには、`Ctrl+Space`（macOS では `Cmd+Space`）を押します。"
+
+#: ../../user/quickstart.md:73
+msgid ""
+"A popup appears with context-aware suggestions (functions, modules, "
+"variables)"
+msgstr "コンテキストに応じた候補（関数、モジュール、変数）のポップアップが表示される"
+
+#: ../../user/quickstart.md:74
+msgid "Each suggestion shows its type signature"
+msgstr "各候補に型シグネチャが表示される"
+
+#: ../../user/quickstart.md:75
+msgid ""
+"You can also try postfix completion: type a value followed by `.switch` "
+"or `.log` and press `Tab`"
+msgstr "Postfix completion も試してみましょう: 値の後に `.switch` や `.log` と入力して `Tab` を押します"
+
+#: ../../user/quickstart.md:81
+msgid ""
+"**No completions appear**: The Language Server may not be running. Check "
+"the status bar for \"ReScript\" indicator"
+msgstr "**補完候補が表示されない**: Language Server が動作していない可能性があります。ステータスバーの \"ReScript\" インジケータを確認してください"
+
+#: ../../user/quickstart.md:82
+msgid ""
+"**\"Language server not found\" notification**: Install the language "
+"server with `npm install -D @rescript/language-server`, then restart the "
+"IDE"
+msgstr "**\"Language server not found\" 通知が表示される**: `npm install -D @rescript/language-server` で Language Server をインストールし、IDE を再起動してください"
+
+#: ../../user/quickstart.md:83
+msgid ""
+"**Only keywords appear**: LSP-based completion requires a running "
+"Language Server. Native postfix/live templates work without it"
+msgstr "**キーワードのみ表示される**: LSP ベースの補完には Language Server の実行が必要です。ネイティブの Postfix/Live Templates は Language Server なしで動作します"
+
+#: ../../user/quickstart.md:88
+msgid "Step 4: Navigate with Go to Definition"
+msgstr "ステップ 4: Go to Definition でナビゲーション"
+
+#: ../../user/quickstart.md:90
+#, fuzzy
+msgid ""
+"Hold `Ctrl` (`Cmd` on macOS) and click on any symbol — a function name, "
+"module name, or type. You can also press `Ctrl+B` (`Cmd+B`)."
+msgstr "`Ctrl`（macOS では `Cmd`）を押しながらシンボルをクリックすると、定義元にジャンプできます。`Ctrl+B` を押しても同様です。"
+
+#: ../../user/quickstart.md:95
+msgid "The editor jumps to the symbol's definition, even if it's in another file"
+msgstr "エディタがシンボルの定義元にジャンプする（別ファイルでも可）"
+
+#: ../../user/quickstart.md:96
+msgid "You can also try `Alt+F7` to find all usages of a symbol"
+msgstr "`Alt+F7` でシンボルのすべての使用箇所を検索することもできます"
+
+#: ../../user/quickstart.md:97
+msgid "Press `Alt+O` to switch between `.res` and `.resi` files"
+msgstr "`Alt+O` を押すと `.res` と `.resi` ファイルを切り替えられます"
+
+#: ../../user/quickstart.md:103
+msgid ""
+"**Nothing happens on Ctrl+Click**: The Language Server needs to be "
+"running for Go to Definition. Check the status bar"
+msgstr "**Ctrl+Click しても何も起きない**: Go to Definition には Language Server の実行が必要です。ステータスバーを確認してください"
+
+#: ../../user/quickstart.md:104
+msgid ""
+"**\"Cannot find declaration\"**: The symbol may be from an external "
+"library. Ensure dependencies are installed (`npm install`)"
+msgstr "**\"Cannot find declaration\"**: そのシンボルは外部ライブラリのものかもしれません。依存パッケージがインストールされていることを確認してください（`npm install`）"
+
+#: ../../user/quickstart.md:109
+msgid "Step 5: See Diagnostics in Action"
+msgstr "ステップ 5: 診断機能の確認"
+
+#: ../../user/quickstart.md:111
+msgid ""
+"Intentionally introduce a type error — for example, change a `string` "
+"value to an `int` where a `string` is expected. Save the file or wait a "
+"moment."
+msgstr "意図的に型エラーを導入してみましょう。例えば、`string` が期待される箇所で `int` の値に変更します。ファイルを保存するか、少し待ちます。"
+
+#: ../../user/quickstart.md:116
+msgid "Red wavy underlines appear on the erroneous code"
+msgstr "エラーのあるコードに赤い波線が表示される"
+
+#: ../../user/quickstart.md:117
+msgid "Hovering over the underline shows the error message with type details"
+msgstr "波線にマウスを合わせると、型の詳細を含むエラーメッセージが表示される"
+
+#: ../../user/quickstart.md:118
+msgid "The **Problems** panel (`Alt+6`) lists all errors and warnings"
+msgstr "**Problems** パネル（`Alt+6`）にすべてのエラーと警告が一覧表示される"
+
+#: ../../user/quickstart.md:119
+msgid ""
+"If Error Lens is enabled, the error message appears inline at the end of "
+"the line"
+msgstr "Error Lens が有効な場合、エラーメッセージが行末にインラインで表示される"
+
+#: ../../user/quickstart.md:125
+msgid ""
+"**No underlines appear**: The ReScript build watcher may not be running. "
+"Start it with **Run** → **Edit Configurations** → **ReScript** → **Build "
+"Watch**"
+msgstr "**波線が表示されない**: ReScript のビルドウォッチャーが動作していない可能性があります。**Run** → **Edit Configurations** → **ReScript** → **Build Watch** で開始してください"
+
+#: ../../user/quickstart.md:126
+msgid ""
+"**Errors disappear immediately**: This is expected after fixing the code."
+" The Language Server updates diagnostics in real time"
+msgstr "**エラーがすぐに消える**: コードを修正した後は正常な動作です。Language Server はリアルタイムで診断を更新します"
+
+#: ../../user/quickstart.md:131
+msgid "Step 6: Format Your Code"
+msgstr "ステップ 6: コードのフォーマット"
+
+#: ../../user/quickstart.md:133
+#, fuzzy
+msgid "Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file."
 msgstr ""
-"または実行構成を作成します: **Run** → **Edit Configurations** → **+** "
-"→ **ReScript**"
+"`Ctrl+Alt+L`（macOS では `Cmd+Option+L`）を押すと、`rescript format` "
+"を使用して現在のファイルをフォーマットできます。"
 
-#: ../../user/quickstart.md:53
-msgid "Select a command (Build, Build Watch, Clean) and run"
-msgstr "コマンド（Build、Build Watch、Clean）を選択して実行します"
+#: ../../user/quickstart.md:138
+msgid ""
+"The file is reformatted according to ReScript's standard style using "
+"`rescript format`"
+msgstr "`rescript format` を使用して、ReScript の標準スタイルに従ってファイルが再フォーマットされる"
 
-#: ../../user/quickstart.md:55
+#: ../../user/quickstart.md:139
+msgid "Indentation, spacing, and line breaks are adjusted automatically"
+msgstr "インデント、スペース、改行が自動的に調整される"
+
+#: ../../user/quickstart.md:145
+msgid ""
+"**\"Cannot find rescript binary\"**: The `rescript` CLI must be available"
+" in the project's `node_modules/.bin/`. Run `npm install` to install "
+"dependencies"
+msgstr "**\"Cannot find rescript binary\"**: `rescript` CLI がプロジェクトの `node_modules/.bin/` に存在する必要があります。`npm install` を実行して依存パッケージをインストールしてください"
+
+#: ../../user/quickstart.md:146
+msgid "**No visible changes**: Your code may already be correctly formatted"
+msgstr "**変化が見られない**: コードが既に正しくフォーマットされている可能性があります"
+
+#: ../../user/quickstart.md:151
+msgid "Step 7: Run a Build"
+msgstr "ステップ 7: ビルドの実行"
+
+#: ../../user/quickstart.md:153
+msgid "There are several ways to run a ReScript build:"
+msgstr "ReScript ビルドを実行するにはいくつかの方法があります:"
+
+#: ../../user/quickstart.md:155
+#, fuzzy
+msgid "**Gutter icon**: Click the green ▶ icon in the gutter next to your file"
+msgstr "ファイル横のガターにある緑色の ▶ アイコンをクリックします"
+
+#: ../../user/quickstart.md:156
+#, fuzzy
+msgid ""
+"**Run Configuration**: **Run** → **Edit Configurations** → **+** → "
+"**ReScript** → Select \"Build\" or \"Build Watch\""
+msgstr "または実行構成を作成します: **Run** → **Edit Configurations** → **+** → **ReScript**"
+
+#: ../../user/quickstart.md:157
+msgid ""
+"**Run Anything**: Press `Ctrl` twice (double-tap `Ctrl`) and type "
+"`rescript build`"
+msgstr "**Run Anything**: `Ctrl` を 2 回押して（ダブルタップ）`rescript build` と入力"
+
+#: ../../user/quickstart.md:162
+msgid "The Run tool window opens at the bottom showing the build output"
+msgstr "画面下部に Run ツールウィンドウが開き、ビルド出力が表示される"
+
+#: ../../user/quickstart.md:163
+msgid "The status bar shows the compilation result (success/error/warning count)"
+msgstr "ステータスバーにコンパイル結果（成功/エラー数/警告数）が表示される"
+
+#: ../../user/quickstart.md:164
+msgid "Build errors appear as clickable links in the console output"
+msgstr "ビルドエラーがコンソール出力にクリック可能なリンクとして表示される"
+
+#: ../../user/quickstart.md:170
+msgid ""
+"**No ReScript option in Run Configurations**: Make sure `rescript.json` "
+"exists in the project root"
+msgstr "**Run Configurations に ReScript オプションがない**: プロジェクトルートに `rescript.json` が存在することを確認してください"
+
+#: ../../user/quickstart.md:171
+msgid ""
+"**Build fails with \"rescript not found\"**: Run `npm install` to install"
+" the ReScript compiler"
+msgstr "**\"rescript not found\" でビルドが失敗する**: `npm install` を実行して ReScript コンパイラをインストールしてください"
+
+#: ../../user/quickstart.md:176
+msgid "Step 8: Explore Further"
+msgstr "ステップ 8: さらに探索する"
+
+#: ../../user/quickstart.md:178
+msgid "You've covered the core workflow. Here are more features to explore:"
+msgstr "基本的なワークフローを確認しました。さらに探索できる機能を紹介します:"
+
+#: ../../user/quickstart.md:183
+msgid "Structure View"
+msgstr "ストラクチャービュー"
+
+#: ../../user/quickstart.md:184
+#, fuzzy
+msgid ""
+"Press `Cmd+7` / `Alt+7` to see an outline of your file's modules, "
+"functions, and types."
+msgstr "`Cmd+7`（または `Alt+7`）を押すと Structure パネルが開き、ファイル内のモジュール、関数、型のアウトラインを確認できます。"
+
+#: ../../user/quickstart.md:187
+msgid "Live Templates"
+msgstr "Live Templates"
+
+#: ../../user/quickstart.md:188
+msgid ""
+"Type `let` + `Tab`, `sw` + `Tab`, or `comp` + `Tab` to expand code "
+"snippets."
+msgstr "`let` + `Tab`、`sw` + `Tab`、`comp` + `Tab` と入力して、コードスニペットを展開できます。"
+
+#: ../../user/quickstart.md:191
+msgid "Intentions"
+msgstr "Intentions"
+
+#: ../../user/quickstart.md:192
+msgid ""
+"Press `Alt+Enter` on any expression for quick actions: wrap with `Some`, "
+"add `@genType`, and more."
+msgstr "任意の式で `Alt+Enter` を押すとクイックアクションが表示されます: `Some` でラップ、`@genType` の追加など。"
+
+#: ../../user/quickstart.md:195
+msgid "Find Usages"
+msgstr "Find Usages"
+
+#: ../../user/quickstart.md:196
+msgid "Press `Alt+F7` on a symbol to see all places it's used across the project."
+msgstr "シンボル上で `Alt+F7` を押すと、プロジェクト全体でそのシンボルが使用されているすべての箇所を確認できます。"
+
+#: ../../user/quickstart.md:200
 msgid "What's Next?"
 msgstr "次のステップ"
 
-#: ../../user/quickstart.md:57
-msgid "[Feature Overview](features/index.md) — Explore all available features"
+#: ../../user/quickstart.md:202
+#, fuzzy
+msgid ""
+"[Feature Overview](features/index.md) — Explore all 90+ features "
+"organized by category"
 msgstr "[機能一覧](features/index.md) --- 利用可能なすべての機能を確認する"
 
-#: ../../user/quickstart.md:58
-msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Learn the shortcuts"
+#: ../../user/quickstart.md:203
+msgid ""
+"[Quick Reference Card](cheatsheet.md) — A condensed cheat sheet of "
+"shortcuts and features"
+msgstr "[クイックリファレンスカード](cheatsheet.md) --- ショートカットと機能の簡潔なチートシート"
+
+#: ../../user/quickstart.md:204
+#, fuzzy
+msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Complete shortcut reference"
 msgstr "[キーボードショートカット](keyboard-shortcuts.md) --- ショートカットを学ぶ"
 
-#: ../../user/quickstart.md:59
+#: ../../user/quickstart.md:205
 msgid "[Configuration](configuration.md) — Customize the plugin settings"
 msgstr "[設定](configuration.md) --- プラグインの設定をカスタマイズする"
+
+#: ../../user/quickstart.md:206
+msgid "[Recipes](recipes/index.md) — Task-oriented guides for common workflows"
+msgstr "[レシピ](recipes/index.md) --- よくあるワークフローのタスク指向ガイド"
+
+#~ msgid ""
+#~ "The IDE will detect `rescript.json` and"
+#~ " configure the project automatically"
+#~ msgstr "IDE が `rescript.json` を検出し、プロジェクトを自動的に構成します"
+
+#~ msgid "Open any `.res` file — you should see syntax highlighting immediately"
+#~ msgstr "任意の `.res` ファイルを開くと、すぐにシンタックスハイライトが表示されます"
+
+#~ msgid "Try the Core Features"
+#~ msgstr "主要機能を試す"
+
+#~ msgid ""
+#~ "Start typing in a `.res` file. The"
+#~ " Language Server provides intelligent "
+#~ "completions:"
+#~ msgstr "`.res` ファイルで入力を開始すると、Language Server がインテリジェントな補完を提供します:"
+
+#~ msgid "Variable and function names"
+#~ msgstr "変数名と関数名"
+
+#~ msgid "Module names"
+#~ msgstr "モジュール名"
+
+#~ msgid "Type-aware suggestions"
+#~ msgstr "型を考慮した候補の提示"
+
+#~ msgid "Go to Definition"
+#~ msgstr "定義へ移動"
+
+#~ msgid "Hover Documentation"
+#~ msgstr "ホバードキュメント"
+
+#~ msgid ""
+#~ "Hover over any symbol to see its"
+#~ " type signature and documentation (if "
+#~ "available)."
+#~ msgstr "シンボルにマウスカーソルを合わせると、型シグネチャとドキュメント（利用可能な場合）が表示されます。"
+
+#~ msgid "Diagnostics"
+#~ msgstr "診断"
+
+#~ msgid ""
+#~ "Save your file or wait a moment"
+#~ " — the Language Server will show "
+#~ "errors and warnings inline with "
+#~ "red/yellow underlines. View all issues "
+#~ "in the **Problems** panel (`Alt+6`)."
+#~ msgstr ""
+#~ "ファイルを保存するか少し待つと、Language Server "
+#~ "がエラーや警告を赤色/黄色の下線でインラインに表示します。すべての問題は **Problems** "
+#~ "パネル（`Alt+6`）で確認できます。"
+
+#~ msgid "Code Formatting"
+#~ msgstr "コードフォーマット"
+
+#~ msgid "Run ReScript Build"
+#~ msgstr "ReScript ビルドの実行"
+
+#~ msgid "Select a command (Build, Build Watch, Clean) and run"
+#~ msgstr "コマンド（Build、Build Watch、Clean）を選択して実行します"
+

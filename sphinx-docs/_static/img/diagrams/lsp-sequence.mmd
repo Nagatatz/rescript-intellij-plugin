@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant User
+    participant IDE as JetBrains IDE
+    participant Plugin as ReScript Plugin
+    participant LSP as Language Server
+
+    User->>IDE: Open .res file
+    IDE->>Plugin: File opened event
+    Plugin->>Plugin: Check extension (.res/.resi)
+    Plugin->>LSP: ensureServerStarted()
+    Note over Plugin,LSP: stdio connection
+
+    User->>IDE: Type code
+    IDE->>Plugin: Document changed
+    Plugin->>LSP: textDocument/didChange
+    LSP->>Plugin: textDocument/publishDiagnostics
+    Plugin->>IDE: Show errors/warnings
+
+    User->>IDE: Request completion
+    Plugin->>LSP: textDocument/completion
+    LSP->>Plugin: CompletionList
+    Plugin->>IDE: Show completions
+
+    User->>IDE: Ctrl+Click symbol
+    Plugin->>LSP: textDocument/definition
+    LSP->>Plugin: Location
+    Plugin->>IDE: Navigate to definition
+
+    LSP->>Plugin: rescript/compilationStatus
+    Plugin->>IDE: Update status bar

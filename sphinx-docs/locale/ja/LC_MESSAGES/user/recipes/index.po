@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/index.md
+msgid "recipes, how-to, guides, tutorials, workflows"
+msgstr "レシピ, ハウツー, ガイド, チュートリアル, ワークフロー"
+
+#: ../../user/recipes/index.md:7
+msgid "Recipes"
+msgstr "レシピ"
+
+#: ../../user/recipes/index.md:9
+msgid ""
+"Task-oriented guides for common ReScript development workflows. Each "
+"recipe walks you through a specific use case step by step."
+msgstr ""
+"ReScript 開発でよくあるワークフローに対応したタスク指向のガイドです。各レシピでは、"
+"特定のユースケースをステップバイステップで解説します。"
+
+#: ../../user/recipes/index.md:14
+msgid "Create a React Component"
+msgstr "React コンポーネントの作成"
+
+#: ../../user/recipes/index.md:17
+msgid "Scaffold a new React component using file templates and live templates."
+msgstr "File Templates と Live Templates を使って新しい React コンポーネントを素早く作成します。"
+
+#: ../../user/recipes/index.md:19 ../../user/recipes/index.md:43
+#: ../../user/recipes/index.md:51 ../../user/recipes/index.md:59
+#, python-brace-format
+msgid "{bdg-success}`Native`"
+msgstr "{bdg-success}`Native`"
+
+#: ../../user/recipes/index.md:22
+msgid "Find Dead Code"
+msgstr "デッドコードの検出"
+
+#: ../../user/recipes/index.md:25
+msgid "Detect and remove unused exports, values, and types."
+msgstr "未使用のエクスポート、値、型を検出して削除します。"
+
+#: ../../user/recipes/index.md:27
+#, python-brace-format
+msgid "{bdg-success}`Native` {bdg-warning}`Configuration Required`"
+msgstr "{bdg-success}`Native` {bdg-warning}`Configuration Required`"
+
+#: ../../user/recipes/index.md:30
+msgid "Set Up a Monorepo"
+msgstr "Monorepo のセットアップ"
+
+#: ../../user/recipes/index.md:33
+msgid "Configure the plugin to work with monorepo project structures."
+msgstr "Monorepo プロジェクト構造で動作するようにプラグインを設定します。"
+
+#: ../../user/recipes/index.md:35
+#, python-brace-format
+msgid "{bdg-primary}`LSP Required`"
+msgstr "{bdg-primary}`LSP Required`"
+
+#: ../../user/recipes/index.md:38
+msgid "Debug ReScript"
+msgstr "ReScript のデバッグ"
+
+#: ../../user/recipes/index.md:41
+msgid "Debug compiled JavaScript output using the built-in debugger."
+msgstr "ビルトインデバッガを使用してコンパイル済み JavaScript をデバッグします。"
+
+#: ../../user/recipes/index.md:46
+msgid "Convert from TypeScript"
+msgstr "TypeScript からの変換"
+
+#: ../../user/recipes/index.md:49
+msgid "Convert TypeScript/JavaScript code to ReScript and generate bindings."
+msgstr "TypeScript/JavaScript コードを ReScript に変換し、バインディングを生成します。"
+
+#: ../../user/recipes/index.md:54
+msgid "Optimize Imports"
+msgstr "Import の最適化"
+
+#: ../../user/recipes/index.md:57
+msgid "Clean up duplicate and unused open statements."
+msgstr "重複・未使用の open 文を整理します。"

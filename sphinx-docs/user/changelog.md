@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "changelog, release notes, version history"
+---
+
 # Changelog
 
 ## 0.1.11 (Unreleased)

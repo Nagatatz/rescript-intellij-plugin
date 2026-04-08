@@ -1,0 +1,225 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/setup-monorepo.md
+msgid "monorepo, workspace, multi-package, language server"
+msgstr "Monorepo, ワークスペース, マルチパッケージ, Language Server"
+
+#: ../../user/recipes/setup-monorepo.md:7
+msgid "Set Up a Monorepo"
+msgstr "Monorepo のセットアップ"
+
+#: ../../user/recipes/setup-monorepo.md:9
+#, python-brace-format
+msgid "{bdg-primary}`LSP Required`"
+msgstr "{bdg-primary}`LSP Required`"
+
+#: ../../user/recipes/setup-monorepo.md:11
+msgid "Goal"
+msgstr "目標"
+
+#: ../../user/recipes/setup-monorepo.md:13
+msgid ""
+"Configure the ReScript IntelliJ Plugin to work correctly with a monorepo "
+"that contains multiple ReScript packages, each with its own "
+"`rescript.json`."
+msgstr ""
+"複数の ReScript パッケージ（それぞれ独自の `rescript.json` を持つ）を含む Monorepo で、"
+"ReScript IntelliJ Plugin が正しく動作するように設定します。"
+
+#: ../../user/recipes/setup-monorepo.md:15
+msgid "Steps"
+msgstr "手順"
+
+#: ../../user/recipes/setup-monorepo.md:17
+msgid "1. Open the workspace root"
+msgstr "1. ワークスペースのルートを開く"
+
+#: ../../user/recipes/setup-monorepo.md:19
+msgid ""
+"Open the monorepo root directory in your JetBrains IDE using **File > "
+"Open**. A typical monorepo structure looks like:"
+msgstr ""
+"**File > Open** で JetBrains IDE に Monorepo のルートディレクトリを開きます。"
+"一般的な Monorepo の構造は次のようになります:"
+
+#: ../../user/recipes/setup-monorepo.md:35
+msgid "2. Verify Language Server detection"
+msgstr "2. Language Server の検出を確認する"
+
+#: ../../user/recipes/setup-monorepo.md:37
+msgid ""
+"The plugin searches for `@rescript/language-server` starting from the "
+"project root's `node_modules/`. In most monorepo setups, the language "
+"server is hoisted to the root:"
+msgstr ""
+"プラグインはプロジェクトルートの `node_modules/` から `@rescript/language-server` を"
+"検索します。多くの Monorepo 構成では、Language Server はルートに巻き上げ（hoist）"
+"されています:"
+
+#: ../../user/recipes/setup-monorepo.md:48
+msgid ""
+"If the language server is installed, you should see the LSP status in the"
+" bottom status bar."
+msgstr ""
+"Language Server がインストールされていれば、下部のステータスバーに LSP のステータスが"
+"表示されます。"
+
+#: ../../user/recipes/setup-monorepo.md:50
+msgid "3. Configure custom path (if needed)"
+msgstr "3. カスタムパスを設定する（必要な場合）"
+
+#: ../../user/recipes/setup-monorepo.md:52
+msgid ""
+"If the language server is not auto-detected (e.g., it is installed only "
+"in a sub-package), configure the path manually:"
+msgstr ""
+"Language Server が自動検出されない場合（例: サブパッケージにのみインストールされている"
+"場合）は、パスを手動で設定します:"
+
+#: ../../user/recipes/setup-monorepo.md:54
+msgid "Open **Settings > Languages & Frameworks > ReScript**"
+msgstr "**Settings > Languages & Frameworks > ReScript** を開く"
+
+#: ../../user/recipes/setup-monorepo.md:55
+msgid "Set the **Language Server path** to the correct location"
+msgstr "**Language Server path** に正しいパスを設定する"
+
+#: ../../user/recipes/setup-monorepo.md:56
+msgid "Click **Apply**"
+msgstr "**Apply** をクリックする"
+
+#: ../../user/recipes/setup-monorepo.md:58
+msgid "4. Verify rescript.json recognition"
+msgstr "4. rescript.json の認識を確認する"
+
+#: ../../user/recipes/setup-monorepo.md:60
+msgid "Each package's `rescript.json` is recognized automatically by the plugin:"
+msgstr "各パッケージの `rescript.json` はプラグインによって自動的に認識されます:"
+
+#: ../../user/recipes/setup-monorepo.md:62
+msgid "The file gets the ReScript icon in the **Project** panel"
+msgstr "**Project** パネルでファイルに ReScript アイコンが表示される"
+
+#: ../../user/recipes/setup-monorepo.md:63
+msgid "JSON Schema validation and completion work inside `rescript.json`"
+msgstr "`rescript.json` 内で JSON Schema のバリデーションと補完が動作する"
+
+#: ../../user/recipes/setup-monorepo.md:64
+msgid ""
+"The **Framework Detector** may prompt you to configure the ReScript "
+"framework"
+msgstr "**Framework Detector** が ReScript フレームワークの設定を促す場合がある"
+
+#: ../../user/recipes/setup-monorepo.md:66
+msgid "5. Run builds per package"
+msgstr "5. パッケージごとにビルドを実行する"
+
+#: ../../user/recipes/setup-monorepo.md:68
+msgid ""
+"Each package needs its own build process. Use **Run Configurations** to "
+"set up separate build tasks:"
+msgstr ""
+"各パッケージには独自のビルドプロセスが必要です。**Run Configurations** を使用して"
+"個別のビルドタスクを設定します:"
+
+#: ../../user/recipes/setup-monorepo.md:70
+msgid "**Run > Edit Configurations > + > ReScript Build**"
+msgstr "**Run > Edit Configurations > + > ReScript Build**"
+
+#: ../../user/recipes/setup-monorepo.md:71
+msgid "Set the working directory to the specific package (e.g., `packages/app/`)"
+msgstr "作業ディレクトリを対象パッケージに設定する（例: `packages/app/`）"
+
+#: ../../user/recipes/setup-monorepo.md:72
+msgid "Repeat for each package that needs an independent build"
+msgstr "独立したビルドが必要な各パッケージに対して繰り返す"
+
+#: ../../user/recipes/setup-monorepo.md:74
+#, python-brace-format
+msgid ""
+"Alternatively, use the **Run Anything** dialog ({kbd}`Ctrl+Ctrl`) and "
+"type `rescript build` from the desired package directory."
+msgstr ""
+"または、**Run Anything** ダイアログ（{kbd}`Ctrl+Ctrl`）を使用して、目的のパッケージ"
+"ディレクトリから `rescript build` と入力します。"
+
+#: ../../user/recipes/setup-monorepo.md:76
+msgid "Expected Result"
+msgstr "期待される結果"
+
+#: ../../user/recipes/setup-monorepo.md:78
+msgid ""
+"Language Server features (completion, diagnostics, go-to-definition) work"
+" across all packages"
+msgstr ""
+"Language Server の機能（補完、診断、定義ジャンプ）がすべてのパッケージで動作する"
+
+#: ../../user/recipes/setup-monorepo.md:79
+msgid "Each package's `rescript.json` is recognized with proper schema validation"
+msgstr "各パッケージの `rescript.json` が適切な Schema バリデーションで認識される"
+
+#: ../../user/recipes/setup-monorepo.md:80
+msgid "Build configurations are set up for each package independently"
+msgstr "各パッケージに対して個別にビルド構成が設定されている"
+
+#: ../../user/recipes/setup-monorepo.md:82
+msgid "Tips"
+msgstr "ヒント"
+
+#: ../../user/recipes/setup-monorepo.md:84
+msgid ""
+"If diagnostics appear stale after switching between packages, use **Tools"
+" > ReScript > Restart LSP Server** to refresh"
+msgstr ""
+"パッケージ間の切り替え後に診断が古くなっている場合は、**Tools > ReScript > Restart "
+"LSP Server** で更新してください"
+
+#: ../../user/recipes/setup-monorepo.md:85
+msgid ""
+"The **Package Dependencies** tool window shows dependencies for the "
+"currently focused `rescript.json`"
+msgstr ""
+"**Package Dependencies** ツールウィンドウには、現在フォーカスしている `rescript.json` の"
+"依存関係が表示されます"
+
+#: ../../user/recipes/setup-monorepo.md:87
+msgid "Related Features"
+msgstr "関連機能"
+
+#: ../../user/recipes/setup-monorepo.md:89
+msgid ""
+"[Installation](../installation.md) --- Language Server setup and auto-"
+"install"
+msgstr ""
+"[Installation](../installation.md) --- Language Server のセットアップと自動インストール"
+
+#: ../../user/recipes/setup-monorepo.md:90
+msgid "[Configuration](../configuration.md) --- Plugin settings reference"
+msgstr "[Configuration](../configuration.md) --- プラグイン設定のリファレンス"
+
+#: ../../user/recipes/setup-monorepo.md:91
+msgid ""
+"[Run & Build](../features/run-build.md) --- Run configurations for "
+"ReScript builds"
+msgstr ""
+"[Run & Build](../features/run-build.md) --- ReScript ビルドの実行構成"

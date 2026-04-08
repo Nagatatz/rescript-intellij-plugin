@@ -1,0 +1,11 @@
+flowchart LR
+    Source[".res Source File"] --> Lexer["JFlex Lexer<br/>(Rescript.flex)"]
+    Lexer --> Tokens["Token Stream<br/>(RescriptTokenTypes)"]
+    Tokens --> Parser["Lightweight Parser<br/>(RescriptParser)"]
+    Parser --> PSI["PSI Tree"]
+    PSI --> Folding["Code Folding"]
+    PSI --> StructureView["Structure View"]
+    PSI --> Mover["Statement Mover"]
+    PSI --> Breadcrumb["Breadcrumbs"]
+    PSI --> StubIndex["Stub Index"]
+    PSI --> CallHierarchy["Call Hierarchy"]
