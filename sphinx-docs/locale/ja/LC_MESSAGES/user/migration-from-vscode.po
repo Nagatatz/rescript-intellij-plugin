@@ -1,0 +1,749 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/migration-from-vscode.md
+msgid ""
+"migration, vscode, visual studio code, shortcut mapping, feature "
+"comparison"
+msgstr "移行, VSCode, Visual Studio Code, ショートカット対応表, 機能比較"
+
+#: ../../user/migration-from-vscode.md:7
+msgid "Migration from VSCode"
+msgstr "VSCode からの移行"
+
+#: ../../user/migration-from-vscode.md:9
+msgid ""
+"This guide helps ReScript developers transition from the VSCode ReScript "
+"extension to the JetBrains ReScript plugin. It covers keyboard shortcut "
+"mappings, feature comparisons, and setup differences."
+msgstr "このガイドは、VSCode の ReScript 拡張機能から JetBrains ReScript プラグインへの移行を支援します。キーボードショートカットの対応表、機能比較、セットアップの違いについて説明します。"
+
+#: ../../user/migration-from-vscode.md:11
+msgid "Keyboard Shortcut Mapping"
+msgstr "キーボードショートカット対応表"
+
+#: ../../user/migration-from-vscode.md:13
+msgid ""
+"The following table maps common actions between VSCode and JetBrains "
+"IDEs. Most shortcuts differ between the two platforms, but the underlying"
+" functionality is equivalent."
+msgstr "以下の表は、VSCode と JetBrains IDE の主要な操作のショートカット対応表です。ショートカットキーは異なりますが、機能は同等です。"
+
+#: ../../user/migration-from-vscode.md
+msgid "Action"
+msgstr "操作"
+
+#: ../../user/migration-from-vscode.md
+msgid "VSCode"
+msgstr "VSCode"
+
+#: ../../user/migration-from-vscode.md
+msgid "JetBrains (macOS)"
+msgstr "JetBrains (macOS)"
+
+#: ../../user/migration-from-vscode.md
+msgid "JetBrains (Win/Linux)"
+msgstr "JetBrains (Win/Linux)"
+
+#: ../../user/migration-from-vscode.md
+msgid "Go to Definition"
+msgstr "Go to Definition"
+
+#: ../../user/migration-from-vscode.md
+msgid "F12 / Cmd+Click"
+msgstr "F12 / Cmd+Click"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+B / Cmd+Click"
+msgstr "Cmd+B / Cmd+Click"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+B / Ctrl+Click"
+msgstr "Ctrl+B / Ctrl+Click"
+
+#: ../../user/migration-from-vscode.md
+msgid "Find References"
+msgstr "Find References"
+
+#: ../../user/migration-from-vscode.md
+msgid "Shift+F12"
+msgstr "Shift+F12"
+
+#: ../../user/migration-from-vscode.md
+msgid "Alt+F7"
+msgstr "Alt+F7"
+
+#: ../../user/migration-from-vscode.md
+msgid "Rename Symbol"
+msgstr "Rename Symbol"
+
+#: ../../user/migration-from-vscode.md
+msgid "F2"
+msgstr "F2"
+
+#: ../../user/migration-from-vscode.md
+msgid "Shift+F6"
+msgstr "Shift+F6"
+
+#: ../../user/migration-from-vscode.md
+msgid "Format Document"
+msgstr "Format Document"
+
+#: ../../user/migration-from-vscode.md
+msgid "Shift+Alt+F"
+msgstr "Shift+Alt+F"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Opt+L"
+msgstr "Cmd+Opt+L"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+Alt+L"
+msgstr "Ctrl+Alt+L"
+
+#: ../../user/migration-from-vscode.md
+msgid "Quick Fix / Code Action"
+msgstr "Quick Fix / Code Action"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+."
+msgstr "Cmd+."
+
+#: ../../user/migration-from-vscode.md
+msgid "Alt+Enter"
+msgstr "Alt+Enter"
+
+#: ../../user/migration-from-vscode.md
+msgid "Command Palette"
+msgstr "Command Palette"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Shift+P"
+msgstr "Cmd+Shift+P"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Shift+A"
+msgstr "Cmd+Shift+A"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+Shift+A"
+msgstr "Ctrl+Shift+A"
+
+#: ../../user/migration-from-vscode.md
+msgid "Go to Symbol (File)"
+msgstr "Go to Symbol (File)"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Shift+O"
+msgstr "Cmd+Shift+O"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+F12"
+msgstr "Cmd+F12"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+F12"
+msgstr "Ctrl+F12"
+
+#: ../../user/migration-from-vscode.md
+msgid "Go to Symbol (Workspace)"
+msgstr "Go to Symbol (Workspace)"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+T"
+msgstr "Cmd+T"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Opt+O"
+msgstr "Cmd+Opt+O"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+Alt+O"
+msgstr "Ctrl+Alt+O"
+
+#: ../../user/migration-from-vscode.md
+msgid "Toggle Line Comment"
+msgstr "Toggle Line Comment"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+/"
+msgstr "Cmd+/"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+/"
+msgstr "Ctrl+/"
+
+#: ../../user/migration-from-vscode.md
+msgid "Toggle Block Comment"
+msgstr "Toggle Block Comment"
+
+#: ../../user/migration-from-vscode.md
+msgid "Shift+Alt+A"
+msgstr "Shift+Alt+A"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Shift+/"
+msgstr "Cmd+Shift+/"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+Shift+/"
+msgstr "Ctrl+Shift+/"
+
+#: ../../user/migration-from-vscode.md
+msgid "Search Everywhere"
+msgstr "Search Everywhere"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+P (files)"
+msgstr "Cmd+P (files)"
+
+#: ../../user/migration-from-vscode.md
+msgid "Shift Shift"
+msgstr "Shift Shift"
+
+#: ../../user/migration-from-vscode.md
+msgid "Open Terminal"
+msgstr "Open Terminal"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+`"
+msgstr "Ctrl+`"
+
+#: ../../user/migration-from-vscode.md
+msgid "Alt+F12"
+msgstr "Alt+F12"
+
+#: ../../user/migration-from-vscode.md
+msgid "Trigger Completion"
+msgstr "Trigger Completion"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+Space"
+msgstr "Ctrl+Space"
+
+#: ../../user/migration-from-vscode.md
+msgid "Hover Documentation"
+msgstr "Hover Documentation"
+
+#: ../../user/migration-from-vscode.md
+msgid "Hover mouse"
+msgstr "Hover mouse"
+
+#: ../../user/migration-from-vscode.md
+msgid "Hover / Ctrl+Q"
+msgstr "Hover / Ctrl+Q"
+
+#: ../../user/migration-from-vscode.md ../../user/migration-from-vscode.md:35
+msgid "Surround With"
+msgstr "Surround With"
+
+#: ../../user/migration-from-vscode.md ../../user/migration-from-vscode.md:35
+msgid "--"
+msgstr "--"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Alt+T"
+msgstr "Cmd+Alt+T"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+Alt+T"
+msgstr "Ctrl+Alt+T"
+
+#: ../../user/migration-from-vscode.md
+msgid "Extract Variable"
+msgstr "Extract Variable"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Alt+V"
+msgstr "Cmd+Alt+V"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+Alt+V"
+msgstr "Ctrl+Alt+V"
+
+#: ../../user/migration-from-vscode.md
+msgid "Extract Function"
+msgstr "Extract Function"
+
+#: ../../user/migration-from-vscode.md
+msgid "Cmd+Alt+M"
+msgstr "Cmd+Alt+M"
+
+#: ../../user/migration-from-vscode.md
+msgid "Ctrl+Alt+M"
+msgstr "Ctrl+Alt+M"
+
+#: ../../user/migration-from-vscode.md:36
+msgid ""
+"JetBrains IDEs offer a **\"VSCode\" keymap plugin** that remaps most "
+"shortcuts to match VSCode defaults. Install it from **Settings > Plugins "
+"> Marketplace** and search for \"VSCode Keymap\". This can significantly "
+"ease the transition."
+msgstr "JetBrains IDE には **\"VSCode\" keymap プラグイン** があり、ほとんどのショートカットを VSCode のデフォルトに変更できます。**Settings > Plugins > Marketplace** から \"VSCode Keymap\" で検索してインストールしてください。移行を大幅に楽にできます。"
+
+#: ../../user/migration-from-vscode.md:39
+msgid "Feature Comparison"
+msgstr "機能比較"
+
+#: ../../user/migration-from-vscode.md:41
+msgid ""
+"The JetBrains ReScript plugin provides all the LSP-based features "
+"available in the VSCode extension, plus a wide range of native IDE "
+"integrations."
+msgstr "JetBrains ReScript プラグインは、VSCode 拡張機能で利用可能なすべての LSP ベースの機能に加え、多数のネイティブ IDE 統合機能を提供します。"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Feature"
+msgstr "機能"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "VSCode Extension"
+msgstr "VSCode 拡張機能"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "JetBrains Plugin"
+msgstr "JetBrains プラグイン"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Syntax Highlighting"
+msgstr "シンタックスハイライト"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "TextMate grammar"
+msgstr "TextMate grammar"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "JFlex lexer + LSP semantic tokens (dual-layer)"
+msgstr "JFlex レクサー + LSP セマンティックトークン（2層構造）"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Code Completion"
+msgstr "コード補完"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "LSP only"
+msgstr "LSP のみ"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "LSP + postfix templates + live templates"
+msgstr "LSP + Postfix テンプレート + Live Templates"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Diagnostics"
+msgstr "診断"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "LSP"
+msgstr "LSP"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "LSP + Error Lens inline display"
+msgstr "LSP + Error Lens インライン表示"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Code Formatting"
+msgstr "コードフォーマット"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "LSP via `rescript format` CLI"
+msgstr "`rescript format` CLI 経由の LSP"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Refactoring"
+msgstr "リファクタリング"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "LSP rename"
+msgstr "LSP リネーム"
+
+#: ../../user/migration-from-vscode.md:35
+msgid ""
+"Rename + Extract Variable/Function + Inline + Change Signature + React "
+"component extraction"
+msgstr "Rename + Extract Variable/Function + Inline + Change Signature + React コンポーネント抽出"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Dead Code Analysis"
+msgstr "デッドコード分析"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Manual reanalyze CLI"
+msgstr "手動の reanalyze CLI"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Integrated inspection with reanalyze server mode"
+msgstr "reanalyze サーバーモードによる統合インスペクション"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Test Runner"
+msgstr "テストランナー"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "External terminal"
+msgstr "外部ターミナル"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Integrated test tree UI (Jest/Vitest auto-detect)"
+msgstr "統合テストツリー UI（Jest/Vitest 自動検出）"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Code Generation"
+msgstr "コード生成"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Generate switch arms, module type, make function, JSON codecs"
+msgstr "switch アーム、モジュールタイプ、make 関数、JSON コーデックの生成"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "if/switch/try/block"
+msgstr "if/switch/try/block"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Postfix Completion"
+msgstr "Postfix Completion"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "`.switch`, `.pipe`, `.log`, `.promise`, `.await`, etc."
+msgstr "`.switch`, `.pipe`, `.log`, `.promise`, `.await` など"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Live Templates"
+msgstr "Live Templates"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "21 snippets (`let`, `switch`, `@react.component`, FFI bindings)"
+msgstr "21 種のスニペット（`let`, `switch`, `@react.component`, FFI バインディング）"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Code Inspections"
+msgstr "コードインスペクション"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Duplicate open, empty module, signature sync, style lint"
+msgstr "重複 open、空モジュール、シグネチャ同期、スタイルリント"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Project Wizard"
+msgstr "Project Wizard"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "12 project templates"
+msgstr "12 種のプロジェクトテンプレート"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Module Hierarchy"
+msgstr "Module Hierarchy"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Visual module dependency tree"
+msgstr "モジュール依存関係のビジュアルツリー"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Call Hierarchy"
+msgstr "Call Hierarchy"
+
+#: ../../user/migration-from-vscode.md:35
+msgid "Caller/Callee tree"
+msgstr "Caller/Callee ツリー"
+
+#: ../../user/migration-from-vscode.md:61
+msgid "Setup Differences"
+msgstr "セットアップの違い"
+
+#: ../../user/migration-from-vscode.md:63
+msgid "Language Server"
+msgstr "Language Server"
+
+#: ../../user/migration-from-vscode.md:65
+msgid ""
+"**VSCode**: The ReScript extension bundles the language server. No "
+"additional installation is required."
+msgstr "**VSCode**: ReScript 拡張機能に Language Server がバンドルされているため、追加のインストールは不要です。"
+
+#: ../../user/migration-from-vscode.md:66
+msgid ""
+"**JetBrains**: Requires `@rescript/language-server` to be installed in "
+"your project's `node_modules`. When the language server is not detected, "
+"the plugin displays a notification bar with a **one-click install "
+"button** that automatically detects your package manager (npm/yarn/pnpm) "
+"and runs the installation in the background."
+msgstr "**JetBrains**: プロジェクトの `node_modules` に `@rescript/language-server` をインストールする必要があります。Language Server が検出されない場合、プラグインは通知バーに **ワンクリックインストールボタン** を表示し、パッケージマネージャ（npm/yarn/pnpm）を自動検出してバックグラウンドでインストールを実行します。"
+
+#: ../../user/migration-from-vscode.md:68
+msgid "To install manually:"
+msgstr "手動でインストールする場合:"
+
+#: ../../user/migration-from-vscode.md:74
+msgid "Configuration"
+msgstr "設定"
+
+#: ../../user/migration-from-vscode.md:76
+msgid ""
+"**VSCode**: Settings are configured in `settings.json` (user or workspace"
+" level) under the `rescript.*` namespace."
+msgstr "**VSCode**: `settings.json`（ユーザーレベルまたはワークスペースレベル）の `rescript.*` 名前空間で設定します。"
+
+#: ../../user/migration-from-vscode.md:77
+msgid ""
+"**JetBrains**: Settings are configured in **Settings > Languages & "
+"Frameworks > ReScript**. Options include incremental type checking, "
+"signature help, inlay hints, and compilation status display."
+msgstr "**JetBrains**: **Settings > Languages & Frameworks > ReScript** で設定します。インクリメンタル型チェック、Signature Help、Inlay Hints、コンパイルステータス表示などのオプションがあります。"
+
+#: ../../user/migration-from-vscode.md:79
+msgid "Keymap"
+msgstr "キーマップ"
+
+#: ../../user/migration-from-vscode.md:81
+msgid ""
+"If you prefer to keep your VSCode muscle memory, install the **VSCode "
+"Keymap** plugin:"
+msgstr "VSCode のキー操作に慣れている場合は、**VSCode Keymap** プラグインをインストールしてください:"
+
+#: ../../user/migration-from-vscode.md:83
+msgid "Go to **Settings > Plugins > Marketplace**"
+msgstr "**Settings > Plugins > Marketplace** を開く"
+
+#: ../../user/migration-from-vscode.md:84
+msgid "Search for **\"VSCode Keymap\"**"
+msgstr "**\"VSCode Keymap\"** を検索する"
+
+#: ../../user/migration-from-vscode.md:85
+msgid "Click **Install** and restart the IDE"
+msgstr "**Install** をクリックして IDE を再起動する"
+
+#: ../../user/migration-from-vscode.md:87
+msgid "This remaps most common shortcuts to their VSCode equivalents."
+msgstr "これにより、ほとんどの主要なショートカットが VSCode と同じキーに変更されます。"
+
+#: ../../user/migration-from-vscode.md:89
+msgid "Features Only in JetBrains"
+msgstr "JetBrains 限定の機能"
+
+#: ../../user/migration-from-vscode.md:91
+msgid ""
+"The following features are available exclusively in the JetBrains "
+"ReScript plugin and have no equivalent in the VSCode extension:"
+msgstr "以下の機能は JetBrains ReScript プラグインでのみ利用可能で、VSCode 拡張機能には対応する機能がありません:"
+
+#: ../../user/migration-from-vscode.md:93
+msgid "**Code Editing**"
+msgstr "**コード編集**"
+
+#: ../../user/migration-from-vscode.md:94
+msgid ""
+"**Postfix completion** -- `.switch`, `.pipe`, `.log`, `.promise`, "
+"`.await`, and more"
+msgstr "**Postfix completion** -- `.switch`, `.pipe`, `.log`, `.promise`, `.await` など"
+
+#: ../../user/migration-from-vscode.md:95
+msgid ""
+"**Live templates** -- 21 built-in snippets for common patterns (`let`, "
+"`switch`, `@react.component`, FFI bindings)"
+msgstr "**Live Templates** -- よく使うパターン用の 21 種の組み込みスニペット（`let`, `switch`, `@react.component`, FFI バインディング）"
+
+#: ../../user/migration-from-vscode.md:96
+msgid ""
+"**Surround with** -- Wrap selected code in `if`/`switch`/`try`/block "
+"(`Cmd+Alt+T`)"
+msgstr "**Surround with** -- 選択コードを `if`/`switch`/`try`/block で囲む（`Cmd+Alt+T`）"
+
+#: ../../user/migration-from-vscode.md:97
+msgid ""
+"**Smart Enter** -- Automatically completes brackets and braces on "
+"`Shift+Enter`"
+msgstr "**Smart Enter** -- `Shift+Enter` で括弧やブレースを自動補完"
+
+#: ../../user/migration-from-vscode.md:98
+msgid ""
+"**Statement mover** -- Move top-level declarations up/down with "
+"`Alt+Shift+Up/Down`"
+msgstr "**Statement mover** -- `Alt+Shift+Up/Down` でトップレベル宣言を上下に移動"
+
+#: ../../user/migration-from-vscode.md:100
+msgid "**Refactoring**"
+msgstr "**リファクタリング**"
+
+#: ../../user/migration-from-vscode.md:101
+msgid ""
+"**Extract Variable** (`Cmd+Alt+V`) -- Extract an expression into a `let` "
+"binding"
+msgstr "**Extract Variable** (`Cmd+Alt+V`) -- 式を `let` 束縛に抽出"
+
+#: ../../user/migration-from-vscode.md:102
+msgid ""
+"**Extract Function** (`Cmd+Alt+M`) -- Extract selected code into a new "
+"function"
+msgstr "**Extract Function** (`Cmd+Alt+M`) -- 選択コードを新しい関数に抽出"
+
+#: ../../user/migration-from-vscode.md:103
+msgid ""
+"**Inline Variable/Function** (`Cmd+Alt+N`) -- Inline a variable or "
+"function at its usage sites"
+msgstr "**Inline Variable/Function** (`Cmd+Alt+N`) -- 変数や関数を使用箇所にインライン展開"
+
+#: ../../user/migration-from-vscode.md:104
+msgid ""
+"**Change Signature** (`Cmd+F6`) -- Modify function parameters with "
+"automatic call-site updates"
+msgstr "**Change Signature** (`Cmd+F6`) -- 関数パラメータを変更し、呼び出し側を自動更新"
+
+#: ../../user/migration-from-vscode.md:105
+msgid "**React component extraction** -- Extract JSX into a new React component"
+msgstr "**React コンポーネント抽出** -- JSX を新しい React コンポーネントに抽出"
+
+#: ../../user/migration-from-vscode.md:107
+msgid "**Code Generation** (`Cmd+N`)"
+msgstr "**コード生成** (`Cmd+N`)"
+
+#: ../../user/migration-from-vscode.md:108
+msgid "Generate switch arms from variant types"
+msgstr "バリアント型から switch アームを生成"
+
+#: ../../user/migration-from-vscode.md:109
+msgid "Generate module type skeletons and implementations"
+msgstr "モジュールタイプのスケルトンと実装を生成"
+
+#: ../../user/migration-from-vscode.md:110
+msgid "Generate `make` constructor functions from record types"
+msgstr "レコード型から `make` コンストラクタ関数を生成"
+
+#: ../../user/migration-from-vscode.md:111
+msgid "Generate JSON encoder/decoder functions"
+msgstr "JSON エンコーダ/デコーダ関数を生成"
+
+#: ../../user/migration-from-vscode.md:112
+msgid "Generate record values with default fields"
+msgstr "デフォルトフィールドでレコード値を生成"
+
+#: ../../user/migration-from-vscode.md:114
+msgid "**Code Inspections**"
+msgstr "**コードインスペクション**"
+
+#: ../../user/migration-from-vscode.md:115
+msgid "Duplicate `open` detection"
+msgstr "重複 `open` の検出"
+
+#: ../../user/migration-from-vscode.md:116
+msgid "Empty module detection"
+msgstr "空モジュールの検出"
+
+#: ../../user/migration-from-vscode.md:117
+msgid "`.resi` signature sync checking"
+msgstr "`.resi` シグネチャ同期チェック"
+
+#: ../../user/migration-from-vscode.md:118
+msgid "Style linting (redundant booleans, Belt API suggestions)"
+msgstr "スタイルリンティング（冗長ブール式、Belt API の提案）"
+
+#: ../../user/migration-from-vscode.md:119
+msgid "**Reanalyze server mode** -- Persistent daemon for fast dead code analysis"
+msgstr "**Reanalyze サーバーモード** -- 高速デッドコード分析用の常駐デーモン"
+
+#: ../../user/migration-from-vscode.md:121
+msgid "**Test Runner**"
+msgstr "**テストランナー**"
+
+#: ../../user/migration-from-vscode.md:122
+msgid "Integrated test tree UI with Jest and Vitest auto-detection"
+msgstr "Jest と Vitest の自動検出による統合テストツリー UI"
+
+#: ../../user/migration-from-vscode.md:123
+msgid "Run/debug individual tests from gutter icons"
+msgstr "ガターアイコンからの個別テスト実行/デバッグ"
+
+#: ../../user/migration-from-vscode.md:125
+msgid "**Project Wizard**"
+msgstr "**Project Wizard**"
+
+#: ../../user/migration-from-vscode.md:126
+msgid ""
+"Create new ReScript projects from 12 templates (Basic, Vite+React, "
+"Next.js, Electron, Hono, Cloudflare Workers, and more)"
+msgstr "12 種のテンプレート（Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers など）から新規 ReScript プロジェクトを作成"
+
+#: ../../user/migration-from-vscode.md:128
+msgid "**Tool Windows**"
+msgstr "**ツールウィンドウ**"
+
+#: ../../user/migration-from-vscode.md:129
+msgid "**Module hierarchy** -- Visual module dependency tree"
+msgstr "**Module hierarchy** -- モジュール依存関係のビジュアルツリー"
+
+#: ../../user/migration-from-vscode.md:130
+msgid "**Call hierarchy** -- Caller/Callee tree (`Ctrl+Alt+H`)"
+msgstr "**Call hierarchy** -- Caller/Callee ツリー（`Ctrl+Alt+H`）"
+
+#: ../../user/migration-from-vscode.md:131
+msgid "**Dependency diagram** -- Graphical module dependency visualization"
+msgstr "**Dependency diagram** -- モジュール依存関係のグラフ可視化"
+
+#: ../../user/migration-from-vscode.md:132
+msgid "**PPX expansion view** -- Inspect PPX macro output"
+msgstr "**PPX expansion view** -- PPX マクロの出力を確認"
+
+#: ../../user/migration-from-vscode.md:133
+msgid "**Type info panel** -- Always-visible type display for the cursor position"
+msgstr "**Type info panel** -- カーソル位置の型を常時表示するパネル"
+
+#: ../../user/migration-from-vscode.md:134
+msgid "**REPL** -- Interactive ReScript evaluation environment"
+msgstr "**REPL** -- ReScript インタラクティブ実行環境"
+
+#: ../../user/migration-from-vscode.md:135
+msgid "**Package dependencies** -- View `rescript.json` dependency tree"
+msgstr "**Package dependencies** -- `rescript.json` の依存関係ツリーを表示"
+
+#: ../../user/migration-from-vscode.md:137
+msgid "**Additional Features**"
+msgstr "**その他の機能**"
+
+#: ../../user/migration-from-vscode.md:138
+msgid ""
+"**.d.ts binding generation** -- Generate ReScript `external` bindings "
+"from TypeScript definitions"
+msgstr "**.d.ts バインディング生成** -- TypeScript 定義から ReScript `external` バインディングを生成"
+
+#: ../../user/migration-from-vscode.md:139
+msgid "**Worksheet mode** -- Evaluate `.resw` files interactively"
+msgstr "**Worksheet モード** -- `.resw` ファイルをインタラクティブに評価"
+
+#: ../../user/migration-from-vscode.md:140
+msgid "**Scratch files** -- Create and run temporary ReScript snippets"
+msgstr "**スクラッチファイル** -- 一時的な ReScript スニペットの作成と実行"
+
+#: ../../user/migration-from-vscode.md:141
+msgid ""
+"**Type signature search** -- Find functions by their type signature "
+"(`Shift+Shift`)"
+msgstr "**型シグネチャ検索** -- 型シグネチャで関数を検索（`Shift+Shift`）"
+
+#: ../../user/migration-from-vscode.md:142
+msgid "**Error Lens** -- Display diagnostics inline at the end of each line"
+msgstr "**Error Lens** -- 各行の末尾に診断情報をインライン表示"
+
+#: ../../user/migration-from-vscode.md:143
+msgid ""
+"**JS/TS to ReScript paste conversion** -- Paste JavaScript/TypeScript "
+"code and convert it to ReScript automatically"
+msgstr "**JS/TS → ReScript 変換ペースト** -- JavaScript/TypeScript コードをペースト時に ReScript に自動変換"
+
