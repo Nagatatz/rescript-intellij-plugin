@@ -1,8 +1,16 @@
+---
+myst:
+  html_meta:
+    "keywords": "code completion, postfix templates, live templates, signature help, parameter info"
+---
+
 # Code Completion
 
 The plugin provides multiple completion mechanisms to help you write code faster.
 
 ## LSP Completion
+
+{bdg-primary}`LSP Required`
 
 The Language Server provides intelligent, type-aware completions. Trigger completion with `Ctrl+Space` (or `Cmd+Space` on macOS), or just start typing.
 
@@ -18,6 +26,8 @@ The Language Server provides intelligent, type-aware completions. Trigger comple
 Type-aware completions mean you spend less time memorizing API surfaces — the IDE suggests the right functions, fields, and constructors based on the types in your code.
 
 ## Postfix Completion
+
+{bdg-success}`Native`
 
 Type an expression followed by `.` and a postfix template name to transform the expression.
 
@@ -228,6 +238,8 @@ Postfix templates let you transform expressions without moving the cursor back t
 :::
 
 ## Live Templates
+
+{bdg-success}`Native`
 
 Type a snippet abbreviation and press `Tab` to expand. The cursor stops at each placeholder (shown in the expansions below); press `Tab` to move to the next placeholder.
 
@@ -460,6 +472,8 @@ Live templates eliminate repetitive boilerplate — instead of typing out common
 
 ## Completion Weigher
 
+{bdg-primary}`LSP Required`
+
 The plugin provides context-based prioritization of completion candidates, ensuring that the most relevant suggestions appear first in the completion popup.
 
 ### How It Works
@@ -487,6 +501,8 @@ Smart ranking means the completion you want is usually at the top of the list, r
 
 ## Pipe Chain Type Hints
 
+{bdg-primary}`LSP Required`
+
 When writing `->` pipe chains, the plugin displays intermediate type hints between each pipe step, making it easy to understand the data flow through a chain of transformations.
 
 ### Example
@@ -512,6 +528,8 @@ This feature requires the Language Server to be running, as the type information
 When building data transformation pipelines, intermediate type hints let you verify that each step produces the expected type, catching transformation errors mid-chain rather than at the end.
 
 ## Parameter Info
+
+{bdg-primary}`LSP Required`
 
 Press `Ctrl+P` (`Cmd+P` on macOS) inside a function call to display labeled argument information in a native IDE popup.
 
@@ -545,6 +563,8 @@ Parameter Info gives you on-demand access to a function's labeled arguments with
 
 ## Signature Help
 
+{bdg-primary}`LSP Required`
+
 When you type `(` after a function name, a popup shows the function's parameter information including types and names. This helps you fill in arguments correctly without checking the documentation.
 
 For example, given a function:
@@ -567,6 +587,8 @@ Signature Help removes the guesswork from function calls — you see the expecte
 
 ## Completion Confidence
 
+{bdg-success}`Native`
+
 The plugin suppresses the automatic completion popup in contexts where it would be unhelpful or disruptive:
 
 - **Inside comments** — Line comments (`//`), block comments (`/* */`), and doc comments (`/** */`)
@@ -577,6 +599,8 @@ In these contexts, you can still trigger completion manually with `Ctrl+Space`, 
 This ensures the completion popup only appears when it is genuinely useful, so writing comments and strings is never interrupted by irrelevant code suggestions.
 
 ## Lookup Character Filter
+
+{bdg-success}`Native`
 
 The plugin intelligently filters completion behavior based on typed characters:
 - Typing `.` accepts the current completion and inserts the dot (for module access patterns)

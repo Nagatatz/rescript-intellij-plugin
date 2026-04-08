@@ -1,8 +1,16 @@
+---
+myst:
+  html_meta:
+    "keywords": "run, build, build watch, run configuration, gutter icons, debug"
+---
+
 # Run & Build
 
 The plugin integrates with the ReScript compiler to provide build functionality directly within the IDE. It automatically detects the `rescript` CLI from your project's `node_modules/.bin/` directory and supports all standard compiler commands.
 
 ## Run Configurations
+
+{bdg-success}`Native`
 
 Create and manage ReScript build configurations from **Run** → **Edit Configurations** → **+** → **ReScript**.
 
@@ -80,6 +88,8 @@ Run configurations let you build, watch, and clean your ReScript project without
 
 ## Gutter Run Icons
 
+{bdg-success}`Native`
+
 A green **Run** icon appears in the gutter (left margin) of `.res` files, providing a quick way to start a build without creating a run configuration manually.
 
 ### Where Icons Appear
@@ -113,6 +123,8 @@ If no ReScript run configuration exists yet, clicking the icon creates a new one
 Gutter run icons provide a zero-configuration way to trigger a build — new users can start compiling immediately without understanding run configurations or terminal commands.
 
 ## Build Status Indicator
+
+{bdg-primary}`LSP Required`
 
 The status bar at the bottom of the IDE shows the current ReScript compilation status. This widget is only visible in projects that contain a `rescript.json` file.
 
@@ -153,6 +165,8 @@ The status bar gives you at-a-glance visibility into the compiler state, so you 
 :::
 
 ## Console Output
+
+{bdg-success}`Native`
 
 Build output appears in the **Run** panel at the bottom of the IDE. The plugin enhances the raw console output with automatic file path linkification.
 
@@ -199,6 +213,8 @@ Clickable file paths in compiler output turn error messages into direct navigati
 
 ## Run Anything
 
+{bdg-success}`Native`
+
 Press `Ctrl+Ctrl` (double-tap Ctrl) to open the **Run Anything** dialog, then type a ReScript CLI command to execute it immediately without creating a run configuration.
 
 ### Available Commands
@@ -220,6 +236,8 @@ Run Anything lets you execute any ReScript CLI command with a quick keyboard sho
 
 ## Scratch File
 
+{bdg-success}`Native`
+
 Create temporary ReScript files for quick experimentation without affecting your project.
 
 ### How to Use
@@ -239,6 +257,8 @@ Scratch files are stored in the IDE's scratch directory (outside your project) a
 Scratch files give you a disposable workspace for quick experiments, so you can try out ideas without creating files in your project or polluting your source tree.
 
 ## REPL
+
+{bdg-success}`Native`
 
 An interactive ReScript execution environment available as a tool window.
 
@@ -263,6 +283,8 @@ The REPL compiles and executes ReScript expressions using the project's ReScript
 The REPL provides an interactive feedback loop for testing expressions and exploring APIs without the overhead of creating files, compiling, and running — ideal for learning ReScript or verifying quick assumptions.
 
 ## Worksheet Mode
+
+{bdg-success}`Native`
 
 Interactively evaluate entire `.resw` (ReScript Worksheet) files with inline results displayed next to each expression.
 
@@ -293,6 +315,8 @@ String.length(name)     // => 8
 Worksheets turn ReScript into a notebook-like experience where you see every expression's result alongside the code, making them perfect for exploratory programming and documentation examples.
 
 ## Debug Compiled JavaScript
+
+{bdg-success}`Native`
 
 Press `Alt+Shift+D` to debug the compiled JavaScript output of the current `.res` file.
 

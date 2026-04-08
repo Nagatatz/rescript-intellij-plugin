@@ -1,8 +1,16 @@
+---
+myst:
+  html_meta:
+    "keywords": "code analysis, inspections, diagnostics, dead code, reanalyze, error lens"
+---
+
 # Code Analysis
 
 The plugin provides several code analysis features to help you maintain clean, correct code.
 
 ## Real-Time Diagnostics
+
+{bdg-primary}`LSP Required`
 
 The Language Server provides real-time error and warning diagnostics as you type:
 
@@ -15,6 +23,8 @@ View all diagnostics in the **Problems** panel (`Alt+6`).
 Instead of waiting for a full build cycle to discover issues, you get immediate feedback on errors and warnings as you type, catching problems before they compound.
 
 ## Code Inspections
+
+{bdg-success}`Native`
 
 The plugin includes built-in inspections that run locally without requiring the Language Server.
 
@@ -73,6 +83,8 @@ When no `rescript.json` (or legacy `bsconfig.json`) is found in the project root
 If you see this warning, create a `rescript.json` file in your project root. The easiest way is to use the Project Wizard (**File** > **New** > **Project** > **ReScript**) or initialize a project with `npm init rescript-app@latest`.
 
 ## Dead Code Analysis (reanalyze)
+
+{bdg-success}`Native` {bdg-warning}`Configuration Required`
 
 The plugin integrates with [reanalyze](https://github.com/rescript-association/reanalyze), a static analysis tool built into `rescript-tools`, to detect unused and dead code in your project.
 
@@ -313,6 +325,8 @@ Each suggestion appears as a weak warning with a quick fix via `Alt+Enter`.
 
 ## Error Lens
 
+{bdg-primary}`LSP Required`
+
 Error Lens displays diagnostic messages (errors, warnings, info) as inline annotations at the end of the affected line, providing immediate visibility without needing to hover or check the Problems panel.
 
 ```
@@ -362,6 +376,8 @@ In this example, only `string` vs `int` would be highlighted, since `option<...>
 
 ## Format Check
 
+{bdg-success}`Native` {bdg-warning}`Configuration Required`
+
 The plugin can check whether your ReScript files are formatted according to `rescript format` and highlight unformatted files with a warning.
 
 ### How It Works
@@ -387,6 +403,8 @@ Format Check helps enforce a consistent code style across your team without manu
 
 ## Problem Highlight Filter
 
+{bdg-success}`Native`
+
 The plugin suppresses code analysis highlights in directories where they are not useful, such as `node_modules/` and other dependency directories. This prevents noise from third-party library files appearing in the Problems panel and editor gutter.
 
 ### Filtered Directories
@@ -403,6 +421,8 @@ This filter applies to all highlight types (errors, warnings, info) from both lo
 This keeps the Problems panel focused on issues in your own code, filtering out noise from third-party libraries that would otherwise clutter your diagnostics and slow down the editor.
 
 ## Import Optimization
+
+{bdg-success}`Native`
 
 Press `Ctrl+Alt+O` (or `Cmd+Alt+O` on macOS) to optimize imports in the current file.
 
@@ -439,6 +459,8 @@ After running the optimizer, a notification displays the result (e.g., "Removed 
 Instead of manually scanning for and removing redundant `open` statements, a single shortcut cleans up all duplicates at once, keeping your imports tidy with zero effort.
 
 ## Quick Fixes (LSP)
+
+{bdg-primary}`LSP Required`
 
 The Language Server provides automatic code fixes via `Alt+Enter` (or the light bulb icon in the gutter). These LSP-powered quick fixes operate on semantic analysis from the ReScript compiler and can handle situations that local inspections cannot.
 

@@ -1,8 +1,16 @@
+---
+myst:
+  html_meta:
+    "keywords": "syntax highlighting, lexer, semantic tokens, colors, theme"
+---
+
 # Syntax Highlighting
 
 The plugin provides two layers of syntax highlighting that work together for accurate, rich coloring. Layer 1 (lexer-based) provides instant, dependency-free highlighting the moment you open a file. Layer 2 (semantic) overlays type-aware coloring when the Language Server is connected, giving you the best of both worlds.
 
 ## Layer 1: Lexer-Based Highlighting
+
+{bdg-success}`Native`
 
 The built-in JFlex lexer tokenizes ReScript source code and applies colors based on token types. This works instantly, without any external dependencies. Even when the Language Server is unavailable (e.g., during initial project setup or in files outside a ReScript project), lexer-based highlighting ensures your code remains fully colored.
 
@@ -382,6 +390,8 @@ At the lexer level, all uppercase identifiers receive the module name color. Whe
 
 ## JSX / React Component Highlighting
 
+{bdg-success}`Native`
+
 ReScript has first-class JSX support, and the lexer provides dedicated token types and coloring for JSX elements. The plugin recognizes JSX structure within ReScript files and applies specialized highlighting.
 
 ### JSX Tag Highlighting
@@ -500,6 +510,8 @@ In this example:
 Dedicated JSX highlighting visually separates markup structure from logic, making React component code easier to scan by distinguishing HTML elements, component references, and expression interpolations at a glance.
 
 ## Layer 2: Semantic Highlighting
+
+{bdg-primary}`LSP Required`
 
 When the Language Server is connected, semantic tokens provide an additional layer of highlighting based on actual type information from the compiler. This gives you precise, context-aware coloring that understands the meaning of each identifier.
 
@@ -647,6 +659,8 @@ Semantic highlighting resolves ambiguities that lexer-based highlighting cannot 
 :::
 
 ## Customizing Colors
+
+{bdg-success}`Native`
 
 Go to **Settings** → **Editor** → **Color Scheme** → **ReScript** to customize colors for each token type.
 

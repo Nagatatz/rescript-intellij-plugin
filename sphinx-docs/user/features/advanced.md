@@ -1,8 +1,16 @@
+---
+myst:
+  html_meta:
+    "keywords": "advanced features, code lens, inlay hints, project wizard, REPL, worksheet"
+---
+
 # Advanced Features
 
 These features provide additional productivity tools for ReScript development.
 
 ## Code Lens
+
+{bdg-primary}`LSP Required`
 
 Code Lens displays inferred type signatures as inline annotations above function definitions. This gives you immediate visibility into the types the compiler has inferred, without needing to hover over each identifier.
 
@@ -45,6 +53,8 @@ Code Lens shows inferred type signatures directly above function definitions, so
 
 ## Compiled JavaScript Preview
 
+{bdg-success}`Native`
+
 A dedicated tool window that shows the compiled JavaScript output for the currently active ReScript file, providing a side-by-side view of your ReScript source and its JavaScript compilation result.
 
 **Open:** **View** > **Tool Windows** > **Compiled JS Preview**
@@ -84,6 +94,8 @@ If the compiled JS file is not found (e.g., the project has not been built), the
 The Compiled JS Preview gives you a live side-by-side view of ReScript and its JavaScript output, helping you understand the compilation result, debug runtime issues, and verify performance characteristics without leaving the IDE.
 
 ## Module Hierarchy
+
+{bdg-success}`Native`
 
 View the module structure and dependency relationships for any ReScript module.
 
@@ -160,6 +172,8 @@ The Module Hierarchy view reveals both the internal structure of a file and its 
 
 ## Inlay Hints
 
+{bdg-primary}`LSP Required`
+
 The Language Server displays inferred types as inline hints next to variables and parameters, making it easier to understand code without explicit type annotations.
 
 ```rescript
@@ -213,6 +227,8 @@ Inlay hints make the type system visible without cluttering your source code —
 
 ## JSON Schema for rescript.json
 
+{bdg-success}`Native`
+
 The plugin provides JSON Schema validation and auto-completion for `rescript.json` and `bsconfig.json` configuration files. The schema covers the full ReScript build configuration specification.
 
 ### Auto-Completed Fields
@@ -248,6 +264,8 @@ JSON Schema support turns `rescript.json` editing from guesswork into a guided e
 
 ## Markdown Code Fence Highlighting
 
+{bdg-success}`Native`
+
 ReScript code blocks in Markdown files receive full syntax highlighting:
 
 ````markdown
@@ -275,6 +293,8 @@ This feature requires the **Markdown** plugin to be installed, which is bundled 
 ReScript code fences in Markdown files get the same syntax highlighting as `.res` files, making documentation, READMEs, and code examples visually consistent and easier to read.
 
 ## JavaScript Injection in %raw()
+
+{bdg-success}`Native`
 
 JavaScript code inside `%raw()` and `%%raw()` blocks receives full JavaScript syntax highlighting, enabling comfortable FFI (Foreign Function Interface) editing within ReScript files.
 
@@ -317,6 +337,8 @@ JavaScript injection inside `%raw()` means you get proper JS syntax highlighting
 
 ## RegExp Injection in %re()
 
+{bdg-success}`Native`
+
 Regular expressions inside `%re()` blocks receive full RegExp language support, including syntax highlighting, validation, and bracket matching.
 
 ```rescript
@@ -352,6 +374,8 @@ RegExp injection gives you syntax highlighting and validation inside `%re()` pat
 
 ## Injected Language Formatting
 
+{bdg-success}`Native`
+
 When you format a ReScript file (`Cmd+Option+L`), any injected language fragments (e.g., JavaScript inside `%raw()`) are also formatted according to their own language's formatting rules.
 
 This feature provides a `FormattingModelBuilder` that delegates formatting to the injected language's formatter, so injected code stays properly formatted alongside your ReScript code.
@@ -359,6 +383,8 @@ This feature provides a `FormattingModelBuilder` that delegates formatting to th
 When you format a ReScript file, injected JavaScript inside `%raw()` is also formatted according to its own rules, so a single format command keeps both languages clean.
 
 ## Grazie Integration
+
+{bdg-success}`Native`
 
 When the **Grazie** plugin is installed, the ReScript plugin extracts natural language text from comments and string literals for grammar and spell checking.
 
@@ -372,6 +398,8 @@ With Grazie integration, your ReScript comments and strings get the same grammar
 
 ## Index Pattern Builder
 
+{bdg-success}`Native`
+
 Enhances the IDE's TODO/FIXME detection by providing a lexer-based index pattern builder for ReScript files. This enables more accurate pattern matching within comments compared to the basic text-based approach.
 
 The index pattern builder uses the ReScript JFlex lexer to correctly classify comment tokens (line comments, block comments, and doc comments), ensuring that TODO/FIXME patterns are only matched inside actual comments and not in string literals or code.
@@ -380,11 +408,15 @@ Lexer-aware TODO detection prevents false positives — only TODOs inside actual
 
 ## Element Signature Provider
 
+{bdg-success}`Native`
+
 Provides stable element signatures that persist editor fold states across IDE restarts. When you collapse code blocks in the editor, their folded state is remembered using a signature format (`TYPE#name#offset`) that survives file modifications.
 
 This ensures your code folding preferences persist across IDE sessions — blocks you collapsed stay collapsed, even after editing and restarting.
 
 ## Project Wizard
+
+{bdg-success}`Native`
 
 Create new ReScript projects directly from the IDE with 12 pre-configured templates covering frontend, backend, serverless, mobile, and more.
 
@@ -488,6 +520,8 @@ The Project Wizard lets you create a fully configured ReScript project in second
 
 ## File Templates
 
+{bdg-success}`Native`
+
 Create new ReScript files with pre-filled boilerplate code via the context menu.
 
 ### How to Use
@@ -529,6 +563,8 @@ File templates can be customized in **Settings** > **Editor** > **File and Code 
 File templates give you a consistent starting point for new modules, interfaces, and React components, so every new file follows the same pattern without copying boilerplate from an existing file.
 
 ## .d.ts Binding Generation
+
+{bdg-success}`Native`
 
 Generate ReScript `external` binding code from TypeScript `.d.ts` definition files. This automates the tedious process of writing FFI declarations manually.
 
@@ -590,6 +626,8 @@ Writing ReScript FFI bindings for TypeScript libraries is one of the most tediou
 
 ## Color Preview
 
+{bdg-success}`Native`
+
 Inline color swatches are displayed in the editor gutter for color values in your ReScript code:
 - Hex colors: `"#ff0000"`, `"#f00"`
 - RGB: `"rgb(255, 0, 0)"`
@@ -609,11 +647,15 @@ Inline color swatches let you visually verify color values without running the a
 
 ## VCS Code Vision
 
+{bdg-success}`Native`
+
 Author and last-change annotations appear on top-level declarations (let, type, module, external), providing Git blame information directly in the editor. Enable via **Settings** > **Editor** > **Inlay Hints** > **Code Vision**.
 
 VCS annotations on declarations show who last changed each function or type, so you know who to ask about unfamiliar code without running `git blame` separately.
 
 ## Package Dependencies
+
+{bdg-success}`Native`
 
 A dedicated tool window shows the dependencies and devDependencies from your `rescript.json`:
 
@@ -625,17 +667,23 @@ The Package Dependencies view gives you a quick overview of your project's ReScr
 
 ## Quick Documentation
 
+{bdg-primary}`LSP Required`
+
 Press `Ctrl+Q` (or hover) to see documentation for ReScript elements. When the LSP server is connected, documentation comes from the language server. When LSP is unavailable, a PSI-based fallback shows the declaration type, name, and source file.
 
 Quick Documentation surfaces type information and doc comments without navigating away from your current position, letting you understand APIs inline while coding.
 
 ## Safe Delete
 
+{bdg-success}`Native`
+
 Use **Refactor** > **Safe Delete** to delete ReScript declarations with usage checking. If the element is still referenced, a confirmation dialog shows all usage locations before proceeding.
 
 Safe Delete prevents accidental breakage by checking for references before removing a declaration, so you can confidently clean up code without worrying about hidden dependencies.
 
 ## Name Suggestions
+
+{bdg-success}`Native`
 
 During rename refactoring, the plugin suggests names based on:
 - The element's type (e.g., `user` for `User.t`)
@@ -646,11 +694,15 @@ Intelligent name suggestions speed up rename refactoring by proposing contextual
 
 ## Reader Mode
 
+{bdg-success}`Native`
+
 Files in `node_modules/` directories are automatically displayed in Reader Mode, providing a cleaner read-only view for library source files.
 
 Reader Mode gives library source files a clean, distraction-free presentation, making it easier to read third-party code when exploring how a dependency works.
 
 ## TODO Indexing
+
+{bdg-success}`Native`
 
 The plugin integrates with IntelliJ's TODO tool window (`Alt+6` > **TODO** tab) to detect and list TODO, FIXME, and other task comments in ReScript files.
 
@@ -665,11 +717,15 @@ TODO indexing brings your ReScript task comments into the IDE's unified TODO pan
 
 ## Open Statement Index
 
+{bdg-success}`Native`
+
 The plugin indexes all `open` statements across your project for fast module resolution. This powers features like auto-import suggestions and module dependency analysis.
 
 The open statement index enables instant module lookups across the entire project, powering auto-import and dependency analysis without scanning files on every request.
 
 ## Project View Enhancements
+
+{bdg-success}`Native`
 
 - **Interface indicator:** `.res` files with a corresponding `.resi` show a "(has .resi)" suffix
 - **Version display:** `rescript.json` shows the ReScript version from its content
@@ -680,6 +736,8 @@ Project View enhancements reduce visual clutter by nesting generated files under
 
 ## Auto Import Options
 
+{bdg-success}`Native`
+
 Configure auto-import behavior in **Settings** > **Editor** > **General** > **Auto Import**:
 - Toggle automatic `open` statement insertion
 - Exclude specific modules from auto-import
@@ -687,6 +745,8 @@ Configure auto-import behavior in **Settings** > **Editor** > **General** > **Au
 Fine-grained auto-import settings let you control which modules are automatically opened, preventing unwanted imports from cluttering your files.
 
 ## Expression Type
+
+{bdg-primary}`LSP Required`
 
 Press `Ctrl+Shift+P` (`Cmd+Shift+P` on macOS) to display the inferred type of the expression at the cursor position.
 
@@ -705,6 +765,8 @@ This is useful when you want to quickly check the type of a sub-expression witho
 Expression Type gives you on-demand type inspection for any expression — unlike persistent inlay hints, you invoke it only when needed, keeping the editor clean while still having instant access to type information.
 
 ## Type Info Tool Window
+
+{bdg-primary}`LSP Required`
 
 A persistent tool window that continuously displays the inferred type of the expression at the current caret position. Unlike Expression Type (`Ctrl+Shift+P`) which shows types on demand, the Type Info Tool Window updates automatically as you navigate through code.
 
@@ -730,6 +792,8 @@ The Type Info Tool Window provides always-on type visibility as you navigate cod
 
 ## LSP Auto-Install
 
+{bdg-success}`Native`
+
 When you open a ReScript project without `@rescript/language-server` installed, the plugin displays a notification with a one-click install button.
 
 ### Notification Actions
@@ -750,6 +814,8 @@ The notification only appears when:
 LSP Auto-Install removes the most common setup hurdle — instead of manually running npm commands and configuring paths, one click installs the Language Server and starts it automatically.
 
 ## GitHub Error Reporter
+
+{bdg-success}`Native`
 
 The plugin includes an automatic error reporting system that sends unhandled exceptions to GitHub Issues, helping the maintainers quickly identify and fix bugs.
 
@@ -773,6 +839,8 @@ The error reporter makes it easy to help improve the plugin — when something g
 
 ## Inspection Suppressor
 
+{bdg-success}`Native`
+
 Suppress specific inspections using `// noinspection` comments:
 
 ```rescript
@@ -785,6 +853,8 @@ When an inspection produces false positives in specific locations, you can suppr
 
 ## Framework Detector
 
+{bdg-success}`Native`
+
 The plugin automatically detects ReScript projects by looking for `rescript.json` files. When a project containing `rescript.json` is opened, the IDE recognizes it as a ReScript project and suggests configuring the framework accordingly.
 
 This enables framework-aware features like project-specific settings and tool integrations.
@@ -792,6 +862,8 @@ This enables framework-aware features like project-specific settings and tool in
 Automatic framework detection means the plugin activates its full feature set as soon as you open a ReScript project, with no manual configuration required.
 
 ## Code Rearranger
+
+{bdg-success}`Native`
 
 Rearrange top-level declarations in your ReScript files into a canonical ordering via **Code** > **Rearrange Code**.
 
@@ -809,6 +881,8 @@ This helps maintain a consistent file structure across your project.
 Automatic rearrangement enforces a consistent declaration ordering across all files, so readers always know where to find types, modules, and functions without relying on individual developer habits.
 
 ## Dependency Diagram
+
+{bdg-success}`Native`
 
 Visualize module dependency relationships as an interactive graph diagram.
 
@@ -835,6 +909,8 @@ The dependency diagram reveals your project's module structure visually, making 
 
 ## PPX Expansion View
 
+{bdg-primary}`LSP Required`
+
 A tool window that displays the expanded output of PPX macros applied to the current file.
 
 **Open:** **View** > **Tool Windows** > **PPX Expansion**
@@ -859,6 +935,8 @@ The PPX Expansion View runs the ReScript compiler's PPX preprocessor on the curr
 PPX macros generate code that you never see in your source files — this view makes the generated code visible, helping you debug PPX-related issues and understand what the compiler actually produces.
 
 ## Comment Code Evaluation
+
+{bdg-success}`Native`
 
 Evaluate ReScript code examples embedded in documentation comments directly from the editor.
 
@@ -887,6 +965,8 @@ Comment code evaluation verifies that documentation examples are correct and up 
 
 ## Type Signature Search
 
+{bdg-primary}`LSP Required`
+
 Search for functions by their type signature in the **Search Everywhere** dialog (`Shift+Shift`).
 
 ### How to Use
@@ -913,6 +993,8 @@ When you know what type of function you need but not its name, type signature se
 
 ## Restart LSP Action
 
+{bdg-primary}`LSP Required`
+
 If the Language Server becomes unresponsive or you need to pick up configuration changes, you can restart it via **Tools > Restart ReScript Language Server**.
 
 ### When to Use
@@ -926,6 +1008,8 @@ The action is only available when a project is open. It stops the current LSP se
 A quick manual restart is the simplest fix when the Language Server gets into a bad state, avoiding the need to restart the entire IDE.
 
 ## LSP Initialization Options
+
+{bdg-primary}`LSP Required`
 
 The plugin sends several initialization options to the ReScript Language Server, matching the settings available in the VSCode extension. Configure these in **Settings > Languages & Frameworks > ReScript**.
 
@@ -945,6 +1029,8 @@ Changes to these settings take effect after the LSP server restarts (which happe
 These initialization options give you the same configuration flexibility as the VSCode extension, so you can fine-tune LSP behavior like signature help, caching, and inlay hints to match your preferences.
 
 ## Dump LSP State
+
+{bdg-primary}`LSP Required`
 
 The **Dump LSP State** action displays diagnostic information about the ReScript Language Server for troubleshooting.
 
@@ -968,6 +1054,8 @@ Dump LSP State provides the diagnostic information needed to troubleshoot Langua
 
 ## Predefined Code Style
 
+{bdg-success}`Native`
+
 The plugin registers a "ReScript Standard" predefined code style that can be applied via **Settings** > **Editor** > **Code Style** > **ReScript** > **Set from...** > **Predefined Style** > **ReScript Standard**.
 
 This provides a one-click way to configure indentation and formatting settings to match the standard ReScript conventions (2-space indentation, no tabs).
@@ -977,6 +1065,8 @@ For manual indentation and tab/space configuration, go to **Settings** > **Edito
 The predefined code style gives you correct ReScript formatting conventions in one click, so you do not need to configure indentation settings manually.
 
 ## Element Descriptions
+
+{bdg-success}`Native`
 
 The plugin provides human-readable descriptions of ReScript elements for use in IDE dialogs such as **Find Usages**, **Safe Delete**, and refactoring confirmations.
 
@@ -989,6 +1079,8 @@ rather than a generic "Delete element" message. This applies to `let` bindings, 
 Descriptive element names in IDE dialogs make refactoring confirmations clearer — you see "Delete function 'greet'" instead of a generic message, reducing the risk of accidental deletions.
 
 ## Build Watch Auto-Start Prompt
+
+{bdg-success}`Native`
 
 When you open a ReScript project, the plugin shows a one-time balloon notification offering to start the ReScript watch build (`rescript build -w`).
 
@@ -1012,6 +1104,8 @@ Clicking **Start Build Watch** opens the Run tool window with a live-recompiling
 The build watch prompt ensures you start getting live compilation feedback from the moment you open your project, without needing to remember to run the build command manually.
 
 ## REPL
+
+{bdg-success}`Native`
 
 An interactive read-eval-print loop for executing ReScript code snippets directly within the IDE.
 
@@ -1067,6 +1161,8 @@ The REPL provides an interactive feedback loop for testing expressions and explo
 
 ## Worksheet Mode
 
+{bdg-success}`Native`
+
 Worksheet files (`.resw`) allow you to write ReScript code and have each top-level expression evaluated with results displayed inline.
 
 ### How to Use
@@ -1099,6 +1195,8 @@ Worksheets provide a notebook-like experience where you see every expression's r
 
 ## Scratch Files
 
+{bdg-success}`Native`
+
 Create temporary ReScript files in the IDE's Scratches panel for quick experiments without adding files to your project.
 
 ### How to Use
@@ -1123,6 +1221,8 @@ Js.log(result)
 Scratch files give you a disposable workspace for quick experiments without adding files to your project or polluting your source tree.
 
 ## Call Hierarchy
+
+{bdg-success}`Native`
 
 View the call graph around a function, showing both what calls it (Callers) and what it calls (Callees).
 
