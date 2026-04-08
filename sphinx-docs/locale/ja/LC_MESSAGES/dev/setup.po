@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 17:39+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -19,11 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../dev/setup.md:1
+#: ../../dev/setup.md
+msgid "development setup, prerequisites, IDE configuration"
+msgstr ""
+
+#: ../../dev/setup.md:7
 msgid "Development Setup"
 msgstr "開発環境のセットアップ"
 
-#: ../../dev/setup.md:3
+#: ../../dev/setup.md:9
 msgid "Prerequisites"
 msgstr "前提条件"
 
@@ -67,110 +71,109 @@ msgstr "Node.js"
 msgid "For testing LSP features"
 msgstr "LSP 機能のテスト用"
 
-#: ../../dev/setup.md:12
+#: ../../dev/setup.md:18
 msgid "Clone the Repository"
 msgstr "リポジトリのクローン"
 
-#: ../../dev/setup.md:19
+#: ../../dev/setup.md:25
 msgid "Open in IntelliJ IDEA"
 msgstr "IntelliJ IDEA で開く"
 
-#: ../../dev/setup.md:21
+#: ../../dev/setup.md:27
 msgid "Open IntelliJ IDEA"
 msgstr "IntelliJ IDEA を開きます"
 
-#: ../../dev/setup.md:22
+#: ../../dev/setup.md:28
 msgid "**File** → **Open** → Select the cloned repository"
 msgstr "**File** → **Open** → クローンしたリポジトリを選択"
 
-#: ../../dev/setup.md:23
+#: ../../dev/setup.md:29
 msgid "IntelliJ will detect the Gradle project and import it automatically"
 msgstr "IntelliJ が Gradle プロジェクトを検出し、自動的にインポートします"
 
-#: ../../dev/setup.md:24
+#: ../../dev/setup.md:30
 msgid "Wait for the Gradle sync to complete (this downloads dependencies)"
 msgstr "Gradle の同期が完了するまで待ちます（依存関係がダウンロードされます）"
 
-#: ../../dev/setup.md:26
+#: ../../dev/setup.md:32
 msgid "Verify the Setup"
 msgstr "セットアップの確認"
 
-#: ../../dev/setup.md:28
+#: ../../dev/setup.md:34
 msgid "Run the build to ensure everything is configured correctly:"
 msgstr "ビルドを実行して、すべてが正しく設定されていることを確認します:"
 
-#: ../../dev/setup.md:34
+#: ../../dev/setup.md:40
 msgid "This will:"
 msgstr "これにより以下が実行されます:"
 
-#: ../../dev/setup.md:35
+#: ../../dev/setup.md:41
 msgid "Generate the JFlex lexer (`RescriptFlexLexer.java`) from `Rescript.flex`"
 msgstr "`Rescript.flex` から JFlex レクサー (`RescriptFlexLexer.java`) を生成"
 
-#: ../../dev/setup.md:36
+#: ../../dev/setup.md:42
 msgid "Compile all Kotlin source code"
 msgstr "すべての Kotlin ソースコードをコンパイル"
 
-#: ../../dev/setup.md:37
+#: ../../dev/setup.md:43
 msgid "Run ktlint checks"
 msgstr "ktlint チェックを実行"
 
-#: ../../dev/setup.md:38
+#: ../../dev/setup.md:44
 msgid "Package the plugin"
 msgstr "プラグインをパッケージング"
 
-#: ../../dev/setup.md:40
+#: ../../dev/setup.md:46
 msgid "Run a Development IDE Instance"
 msgstr "開発用 IDE インスタンスの起動"
 
-#: ../../dev/setup.md:46
+#: ../../dev/setup.md:52
 msgid ""
 "This launches a fresh IntelliJ IDEA instance with the plugin loaded. You "
 "can open a ReScript project in this instance to test your changes."
 msgstr ""
-"プラグインが読み込まれた新しい IntelliJ IDEA インスタンスが起動します。"
-"このインスタンスで ReScript プロジェクトを開いて変更をテストできます。"
+"プラグインが読み込まれた新しい IntelliJ IDEA インスタンスが起動します。このインスタンスで ReScript "
+"プロジェクトを開いて変更をテストできます。"
 
-#: ../../dev/setup.md:48
+#: ../../dev/setup.md:54
 msgid "Project JDK Configuration"
 msgstr "プロジェクト JDK の設定"
 
-#: ../../dev/setup.md:50
+#: ../../dev/setup.md:56
 msgid "If IntelliJ doesn't automatically detect your JDK:"
 msgstr "IntelliJ が JDK を自動検出しない場合:"
 
-#: ../../dev/setup.md:52
+#: ../../dev/setup.md:58
 msgid "**File** → **Project Structure** → **Project**"
 msgstr "**File** → **Project Structure** → **Project**"
 
-#: ../../dev/setup.md:53
+#: ../../dev/setup.md:59
 msgid "Set **SDK** to JDK 21+"
 msgstr "**SDK** を JDK 21+ に設定"
 
-#: ../../dev/setup.md:54
+#: ../../dev/setup.md:60
 msgid "Set **Language level** to 21"
 msgstr "**Language level** を 21 に設定"
 
-#: ../../dev/setup.md:56
+#: ../../dev/setup.md:62
 msgid "Recommended IDE Plugins"
 msgstr "推奨 IDE プラグイン"
 
-#: ../../dev/setup.md:58
+#: ../../dev/setup.md:64
 msgid ""
 "For development, consider installing these plugins in your development "
 "IDE:"
-msgstr ""
-"開発にあたって、開発用 IDE に以下のプラグインのインストールを検討してください:"
+msgstr "開発にあたって、開発用 IDE に以下のプラグインのインストールを検討してください:"
 
-#: ../../dev/setup.md:60
+#: ../../dev/setup.md:66
 msgid "**Kotlin** — Should be bundled"
 msgstr "**Kotlin** — バンドル済みのはずです"
 
-#: ../../dev/setup.md:61
+#: ../../dev/setup.md:67
 msgid "**Gradle** — Should be bundled"
 msgstr "**Gradle** — バンドル済みのはずです"
 
-#: ../../dev/setup.md:62
+#: ../../dev/setup.md:68
 msgid "**Grammar-Kit** — Helpful for working with JFlex/BNF grammars"
 msgstr "**Grammar-Kit** — JFlex/BNF 文法の作業に役立ちます"
 

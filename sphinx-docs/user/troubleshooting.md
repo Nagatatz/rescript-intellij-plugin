@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "troubleshooting, errors, problems, fixes, language server"
+---
+
 # Troubleshooting
 
 Common issues and their solutions.

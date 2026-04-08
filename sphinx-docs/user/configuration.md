@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "settings, configuration, preferences, language server path"
+---
+
 # Configuration
 
 The plugin provides configuration options through the JetBrains IDE settings.

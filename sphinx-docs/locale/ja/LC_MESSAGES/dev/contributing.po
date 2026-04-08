@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-01 03:33+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -19,17 +19,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../dev/contributing.md:1
+#: ../../dev/contributing.md
+msgid "contributing, pull requests, code review, guidelines"
+msgstr ""
+
+#: ../../dev/contributing.md:7
 msgid "Contributing Guide"
 msgstr "コントリビューションガイド"
 
-#: ../../dev/contributing.md:3
+#: ../../dev/contributing.md:9
 msgid ""
 "Thank you for your interest in contributing to the ReScript IntelliJ "
 "Plugin!"
 msgstr "ReScript IntelliJ Plugin への貢献に興味をお持ちいただきありがとうございます！"
 
-#: ../../dev/contributing.md:5
+#: ../../dev/contributing.md:11
 msgid "Prerequisites"
 msgstr "前提条件"
 
@@ -93,31 +97,31 @@ msgstr "9.4+"
 msgid "Wrapper included — no manual install needed"
 msgstr "Wrapper 同梱 — 手動インストール不要"
 
-#: ../../dev/contributing.md:14
+#: ../../dev/contributing.md:20
 msgid "Getting Started"
 msgstr "はじめに"
 
-#: ../../dev/contributing.md:16
+#: ../../dev/contributing.md:22
 msgid "Fork the repository on GitHub"
 msgstr "GitHub でリポジトリをフォークします"
 
-#: ../../dev/contributing.md:17
+#: ../../dev/contributing.md:23
 msgid "Clone your fork:"
 msgstr "フォークをクローンします:"
 
-#: ../../dev/contributing.md:21
+#: ../../dev/contributing.md:27
 msgid "Set up your [development environment](setup.md)"
 msgstr "[開発環境](setup.md)をセットアップします"
 
-#: ../../dev/contributing.md:22
+#: ../../dev/contributing.md:28
 msgid "Create a feature branch:"
 msgstr "フィーチャーブランチを作成します:"
 
-#: ../../dev/contributing.md:27
+#: ../../dev/contributing.md:33
 msgid "Development Workflow"
 msgstr "開発ワークフロー"
 
-#: ../../dev/contributing.md:29
+#: ../../dev/contributing.md:35
 msgid "Branch Naming"
 msgstr "ブランチ命名規則"
 
@@ -177,11 +181,11 @@ msgstr "`chore/`"
 msgid "Configuration, dependencies"
 msgstr "設定、依存関係"
 
-#: ../../dev/contributing.md:40
+#: ../../dev/contributing.md:46
 msgid "Commit Messages"
 msgstr "コミットメッセージ"
 
-#: ../../dev/contributing.md:42
+#: ../../dev/contributing.md:48
 msgid "Use emoji prefixes for commit messages:"
 msgstr "コミットメッセージには絵文字プレフィックスを使用します:"
 
@@ -257,101 +261,101 @@ msgstr "🗑️"
 msgid "Code deletion"
 msgstr "コードの削除"
 
-#: ../../dev/contributing.md:56
+#: ../../dev/contributing.md:62
 msgid "**Format:** `<emoji> <verb> <concise description>`"
 msgstr "**フォーマット:** `<絵文字> <動詞> <簡潔な説明>`"
 
-#: ../../dev/contributing.md:58
+#: ../../dev/contributing.md:64
 msgid "**Examples:**"
 msgstr "**例:**"
 
-#: ../../dev/contributing.md:59
+#: ../../dev/contributing.md:65
 msgid "`✨ Add JSX token support to lexer`"
 msgstr "`✨ Add JSX token support to lexer`"
 
-#: ../../dev/contributing.md:60
+#: ../../dev/contributing.md:66
 msgid "`🐛 Fix nested comment parsing`"
 msgstr "`🐛 Fix nested comment parsing`"
 
-#: ../../dev/contributing.md:61
+#: ../../dev/contributing.md:67
 msgid "`📝 Update architecture documentation`"
 msgstr "`📝 Update architecture documentation`"
 
-#: ../../dev/contributing.md:63
+#: ../../dev/contributing.md:69
 msgid "Code Conventions"
 msgstr "コーディング規約"
 
-#: ../../dev/contributing.md:65
+#: ../../dev/contributing.md:71
 msgid "Language"
 msgstr "言語"
 
-#: ../../dev/contributing.md:67
+#: ../../dev/contributing.md:73
 msgid "All source code is written in **Kotlin**"
 msgstr "すべてのソースコードは **Kotlin** で記述されています"
 
-#: ../../dev/contributing.md:68
+#: ../../dev/contributing.md:74
 msgid "Lexer definition is in **JFlex** (generates Java)"
 msgstr "レクサー定義は **JFlex** で記述されています（Java を生成）"
 
-#: ../../dev/contributing.md:70
+#: ../../dev/contributing.md:76
 msgid "Package Structure"
 msgstr "パッケージ構成"
 
-#: ../../dev/contributing.md:72
+#: ../../dev/contributing.md:78
 msgid "All classes go under `com.rescript.plugin.*`, organized by feature:"
 msgstr "すべてのクラスは `com.rescript.plugin.*` 配下に、機能ごとに整理されます:"
 
-#: ../../dev/contributing.md:81
+#: ../../dev/contributing.md:87
 msgid "Code Style"
 msgstr "コードスタイル"
 
-#: ../../dev/contributing.md:83
+#: ../../dev/contributing.md:89
 msgid "ktlint is enforced via CI (`./gradlew ktlintCheck`)"
 msgstr "ktlint は CI で適用されます（`./gradlew ktlintCheck`）"
 
-#: ../../dev/contributing.md:84
+#: ../../dev/contributing.md:90
 msgid "Auto-fix: `./gradlew ktlintFormat`"
 msgstr "自動修正: `./gradlew ktlintFormat`"
 
-#: ../../dev/contributing.md:85
+#: ../../dev/contributing.md:91
 msgid "IntelliJ's built-in Kotlin formatter generally matches ktlint"
 msgstr "IntelliJ の組み込み Kotlin フォーマッタは概ね ktlint に準拠しています"
 
-#: ../../dev/contributing.md:87
+#: ../../dev/contributing.md:93
 msgid "KDoc Comments"
 msgstr "KDoc コメント"
 
-#: ../../dev/contributing.md:89
+#: ../../dev/contributing.md:95
 msgid ""
 "All classes and significant methods must have KDoc comments in "
 "**English**:"
 msgstr "すべてのクラスと主要なメソッドには **英語** で KDoc コメントを記述する必要があります:"
 
-#: ../../dev/contributing.md:112
+#: ../../dev/contributing.md:118
 msgid "Testing"
 msgstr "テスト"
 
-#: ../../dev/contributing.md:114
+#: ../../dev/contributing.md:120
 msgid "Every code change must have corresponding tests"
 msgstr "すべてのコード変更には対応するテストが必要です"
 
-#: ../../dev/contributing.md:115
+#: ../../dev/contributing.md:121
 msgid "Test file naming: `<ClassName>Test.kt`"
 msgstr "テストファイルの命名: `<ClassName>Test.kt`"
 
-#: ../../dev/contributing.md:116
+#: ../../dev/contributing.md:122
 msgid "Tests mirror the source package structure"
 msgstr "テストはソースのパッケージ構成を反映します"
 
-#: ../../dev/contributing.md:117
+#: ../../dev/contributing.md:123
 msgid "See the [Testing Guide](testing.md) for details"
 msgstr "詳細は[テストガイド](testing.md)を参照してください"
 
-#: ../../dev/contributing.md:119
+#: ../../dev/contributing.md:125
 msgid "AI-Assisted Development"
 msgstr "AI 支援開発"
 
-#: ../../dev/contributing.md:121
+#: ../../dev/contributing.md:127
 msgid ""
 "This project uses structured workflows for AI-assisted development with "
 "Claude Code. The following configuration files define the development "
@@ -360,7 +364,7 @@ msgstr ""
 "このプロジェクトでは、Claude Code を使用した AI "
 "支援開発のために構造化されたワークフローを採用しています。以下の設定ファイルが開発プロセスを定義します:"
 
-#: ../../dev/contributing.md:123
+#: ../../dev/contributing.md:129
 msgid ""
 "**`.claude/rules/steering-workflow.md`** — Steering workflow requiring "
 "`requirements.md`, `design.md`, and `tasklist.md` before implementation"
@@ -368,7 +372,7 @@ msgstr ""
 "**`.claude/rules/steering-workflow.md`** — 実装前に "
 "`requirements.md`、`design.md`、`tasklist.md` を必要とするステアリングワークフロー"
 
-#: ../../dev/contributing.md:124
+#: ../../dev/contributing.md:130
 msgid ""
 "**`.claude/rules/definition-of-done.md`** — 5-phase Definition of Done "
 "(Planning → Implementation → Pre-commit → Pre-merge → Post-merge)"
@@ -376,7 +380,7 @@ msgstr ""
 "**`.claude/rules/definition-of-done.md`** — 5 フェーズの完了定義 (計画 → 実装 → コミット前 "
 "→ マージ前 → マージ後)"
 
-#: ../../dev/contributing.md:125
+#: ../../dev/contributing.md:131
 msgid ""
 "**`.claude/rules/git-conventions.md`** — Git worktree isolation for "
 "feature branches, emoji commit prefixes, and branch naming conventions"
@@ -384,7 +388,7 @@ msgstr ""
 "**`.claude/rules/git-conventions.md`** — フィーチャーブランチの Git worktree "
 "分離、絵文字コミットプレフィックス、ブランチ命名規則"
 
-#: ../../dev/contributing.md:127
+#: ../../dev/contributing.md:133
 msgid ""
 "Steering documents are stored in `.steering/[YYYYMMDD]-[NNN]-[title]/` "
 "directories and committed alongside code changes."
@@ -392,11 +396,11 @@ msgstr ""
 "ステアリングドキュメントは `.steering/[YYYYMMDD]-[NNN]-[title]/` "
 "ディレクトリに保存され、コード変更と一緒にコミットされます。"
 
-#: ../../dev/contributing.md:129
+#: ../../dev/contributing.md:135
 msgid "Quality Checks"
 msgstr "品質チェック"
 
-#: ../../dev/contributing.md:131
+#: ../../dev/contributing.md:137
 msgid ""
 "The project enforces several automated quality gates via CI and custom "
 "Gradle tasks:"
@@ -487,51 +491,51 @@ msgstr "`./gradlew koverVerify`"
 msgid "Minimum 85% line coverage enforced"
 msgstr "最低 85% の行カバレッジを適用"
 
-#: ../../dev/contributing.md:142
+#: ../../dev/contributing.md:148
 msgid "Submitting Changes"
 msgstr "変更の提出"
 
-#: ../../dev/contributing.md:144
+#: ../../dev/contributing.md:150
 msgid "Run the full CI check locally:"
 msgstr "ローカルで CI チェックをすべて実行します:"
 
-#: ../../dev/contributing.md:149
+#: ../../dev/contributing.md:155
 msgid "Verify the build and all tests pass"
 msgstr "ビルドとすべてのテストが成功することを確認します"
 
-#: ../../dev/contributing.md:151
+#: ../../dev/contributing.md:157
 msgid "Check code coverage for new code:"
 msgstr "新しいコードのカバレッジを確認します:"
 
-#: ../../dev/contributing.md:156
+#: ../../dev/contributing.md:162
 msgid "Push your branch and create a Pull Request"
 msgstr "ブランチをプッシュして Pull Request を作成します"
 
-#: ../../dev/contributing.md:158
+#: ../../dev/contributing.md:164
 msgid "PR Guidelines"
 msgstr "PR ガイドライン"
 
-#: ../../dev/contributing.md:160
+#: ../../dev/contributing.md:166
 msgid "Keep PRs focused on a single feature or fix"
 msgstr "PR は単一の機能またはバグ修正に絞ってください"
 
-#: ../../dev/contributing.md:161
+#: ../../dev/contributing.md:167
 msgid "Write a clear description of what changed and why"
 msgstr "何を変更したか、なぜ変更したかを明確に記述してください"
 
-#: ../../dev/contributing.md:162
+#: ../../dev/contributing.md:168
 msgid "Include screenshots for UI changes"
 msgstr "UI の変更にはスクリーンショットを含めてください"
 
-#: ../../dev/contributing.md:163
+#: ../../dev/contributing.md:169
 msgid "Reference related issues if applicable"
 msgstr "該当する場合は関連する Issue を参照してください"
 
-#: ../../dev/contributing.md:165
+#: ../../dev/contributing.md:171
 msgid "Questions?"
 msgstr "質問がありますか？"
 
-#: ../../dev/contributing.md:167
+#: ../../dev/contributing.md:173
 msgid ""
 "Open an [issue](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/issues) on GitHub"
@@ -539,7 +543,7 @@ msgstr ""
 "GitHub で [Issue](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/issues) を作成してください"
 
-#: ../../dev/contributing.md:168
+#: ../../dev/contributing.md:174
 msgid "Check existing issues and discussions"
 msgstr "既存の Issue やディスカッションを確認してください"
 

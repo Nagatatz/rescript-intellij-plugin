@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "testing, unit tests, test fixtures, coverage"
+---
+
 # Testing Guide
 
 ## Running Tests

@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "contributing, pull requests, code review, guidelines"
+---
+
 # Contributing Guide
 
 Thank you for your interest in contributing to the ReScript IntelliJ Plugin!

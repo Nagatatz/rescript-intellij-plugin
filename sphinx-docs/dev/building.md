@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "build, gradle, runIde, plugin development"
+---
+
 # Building & Running
 
 ## Build Commands

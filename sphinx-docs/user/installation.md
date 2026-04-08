@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "installation, setup, language server, npm, plugin"
+---
+
 # Installation
 
 ## Requirements

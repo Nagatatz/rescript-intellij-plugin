@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "faq, frequently asked questions, help"
+---
+
 # Frequently Asked Questions
 
 ## General

@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "claude code, ai development, rules, steering"
+---
+
 # Claude Code Development Workflow
 
 This guide explains how to use [Claude Code](https://docs.anthropic.com/en/docs/claude-code) with projects built from the [claude-project-template](https://github.com/anthropics/claude-code). The template provides a structured development workflow with rules, skills, hooks, and agents that enforce conventions and automate repetitive tasks.

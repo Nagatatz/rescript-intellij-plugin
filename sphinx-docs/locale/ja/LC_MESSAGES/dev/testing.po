@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-01 03:33+0900\n"
+"POT-Creation-Date: 2026-04-08 12:33+0900\n"
 "PO-Revision-Date: 2026-03-18 00:00+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -19,81 +19,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../dev/testing.md:1
+#: ../../dev/testing.md
+msgid "testing, unit tests, test fixtures, coverage"
+msgstr ""
+
+#: ../../dev/testing.md:7
 msgid "Testing Guide"
 msgstr "テストガイド"
 
-#: ../../dev/testing.md:3
+#: ../../dev/testing.md:9
 msgid "Running Tests"
 msgstr "テストの実行"
 
-#: ../../dev/testing.md:16 ../../dev/testing.md:242
+#: ../../dev/testing.md:22 ../../dev/testing.md:248
 msgid "Test Structure"
 msgstr "テスト構成"
 
-#: ../../dev/testing.md:18
+#: ../../dev/testing.md:24
 msgid ""
 "Tests are located in `src/test/kotlin/com/rescript/plugin/` and mirror "
 "the source code package structure:"
 msgstr "テストは `src/test/kotlin/com/rescript/plugin/` に配置され、ソースコードのパッケージ構成をミラーしています:"
 
-#: ../../dev/testing.md:33
+#: ../../dev/testing.md:39
 msgid "Writing Tests"
 msgstr "テストの作成"
 
-#: ../../dev/testing.md:35
+#: ../../dev/testing.md:41
 msgid "Test Conventions"
 msgstr "テスト規約"
 
-#: ../../dev/testing.md:37
+#: ../../dev/testing.md:43
 msgid "**File naming:** `<TargetClass>Test.kt`"
 msgstr "**ファイル命名:** `<TargetClass>Test.kt`"
 
-#: ../../dev/testing.md:38
+#: ../../dev/testing.md:44
 msgid "**Location:** Same package as the class being tested"
 msgstr "**配置場所:** テスト対象クラスと同じパッケージ"
 
-#: ../../dev/testing.md:39
+#: ../../dev/testing.md:45
 msgid "**Framework:** JUnit 5 with IntelliJ test fixtures"
 msgstr "**フレームワーク:** JUnit 5 と IntelliJ テストフィクスチャ"
 
-#: ../../dev/testing.md:41
+#: ../../dev/testing.md:47
 msgid "IntelliJ Test Fixtures"
 msgstr "IntelliJ テストフィクスチャ"
 
-#: ../../dev/testing.md:43
+#: ../../dev/testing.md:49
 msgid "Most tests extend IntelliJ Platform test base classes:"
 msgstr "ほとんどのテストは IntelliJ Platform のテスト基底クラスを継承しています:"
 
-#: ../../dev/testing.md:58
+#: ../../dev/testing.md:64
 msgid "Test Data Files"
 msgstr "テストデータファイル"
 
-#: ../../dev/testing.md:60
+#: ../../dev/testing.md:66
 msgid "Test data files go in `src/test/testData/<feature>/`:"
 msgstr "テストデータファイルは `src/test/testData/<feature>/` に配置します:"
 
-#: ../../dev/testing.md:72
+#: ../../dev/testing.md:78
 msgid "Lexer Tests"
 msgstr "レクサーテスト"
 
-#: ../../dev/testing.md:74
+#: ../../dev/testing.md:80
 msgid "Test that the lexer produces correct token sequences:"
 msgstr "レクサーが正しいトークンシーケンスを生成することをテストします:"
 
-#: ../../dev/testing.md:86
+#: ../../dev/testing.md:92
 msgid "Parser Tests"
 msgstr "パーサーテスト"
 
-#: ../../dev/testing.md:88
+#: ../../dev/testing.md:94
 msgid "Test that the parser produces correct PSI structures:"
 msgstr "パーサーが正しい PSI 構造を生成することをテストします:"
 
-#: ../../dev/testing.md ../../dev/testing.md:99
+#: ../../dev/testing.md ../../dev/testing.md:105
 msgid "Integration Tests"
 msgstr "統合テスト"
 
-#: ../../dev/testing.md:101
+#: ../../dev/testing.md:107
 msgid ""
 "Integration tests use IntelliJ Platform's test infrastructure to verify "
 "features in a realistic IDE environment, including PSI trees, editor "
@@ -102,7 +106,7 @@ msgstr ""
 "統合テストは IntelliJ Platform のテストインフラを使用して、PSI "
 "ツリー、エディタフィクスチャ、ファイルベースのテストデータを含む実際の IDE 環境で機能を検証します。"
 
-#: ../../dev/testing.md:103
+#: ../../dev/testing.md:109
 msgid "Unit Tests vs Integration Tests"
 msgstr "ユニットテストと統合テストの比較"
 
@@ -162,11 +166,11 @@ msgstr "純粋なロジックのテスト（レクサートークン、ユーテ
 msgid "Testing features that interact with PSI, editor, or fixtures"
 msgstr "PSI、エディタ、またはフィクスチャと連携する機能のテスト"
 
-#: ../../dev/testing.md:112
+#: ../../dev/testing.md:118
 msgid "BasePlatformTestCase Pattern"
 msgstr "BasePlatformTestCase パターン"
 
-#: ../../dev/testing.md:114
+#: ../../dev/testing.md:120
 msgid ""
 "Integration tests extend `BasePlatformTestCase`, which bootstraps a "
 "lightweight IDE environment with an editor, PSI infrastructure, and "
@@ -175,38 +179,38 @@ msgstr ""
 "統合テストは `BasePlatformTestCase` を継承します。このクラスはエディタ、PSI インフラ、プロジェクトモデルを備えた軽量な"
 " IDE 環境を起動します:"
 
-#: ../../dev/testing.md:142
+#: ../../dev/testing.md:148
 msgid "Key methods:"
 msgstr "主要なメソッド:"
 
-#: ../../dev/testing.md:144
+#: ../../dev/testing.md:150
 msgid ""
 "`myFixture.configureByText(filename, content)` — Create an in-memory file"
 " and open it in the editor"
 msgstr "`myFixture.configureByText(filename, content)` — メモリ上にファイルを作成し、エディタで開く"
 
-#: ../../dev/testing.md:145
+#: ../../dev/testing.md:151
 msgid ""
 "`myFixture.configureByFile(filename)` — Load a file from the "
 "`testDataPath` directory"
 msgstr "`myFixture.configureByFile(filename)` — `testDataPath` ディレクトリからファイルを読み込む"
 
-#: ../../dev/testing.md:146
+#: ../../dev/testing.md:152
 #, python-brace-format
 msgid ""
 "`myFixture.testStructureView { view -> ... }` — Open the structure view "
 "and assert its contents"
 msgstr "`myFixture.testStructureView { view -> ... }` — ストラクチャービューを開き、その内容を検証する"
 
-#: ../../dev/testing.md:147
+#: ../../dev/testing.md:153
 msgid "`myFixture.testHighlighting(...)` — Run highlighting and check annotations"
 msgstr "`myFixture.testHighlighting(...)` — ハイライトを実行し、アノテーションを確認する"
 
-#: ../../dev/testing.md:149
+#: ../../dev/testing.md:155
 msgid "Integration Test Classes"
 msgstr "統合テストクラス"
 
-#: ../../dev/testing.md:151
+#: ../../dev/testing.md:157
 msgid "The project includes the following integration test categories:"
 msgstr "プロジェクトには以下の統合テストカテゴリが含まれています:"
 
@@ -294,15 +298,15 @@ msgstr "レクサートークンストリーム"
 msgid "Full-file token sequences match expectations"
 msgstr "ファイル全体のトークンシーケンスが期待値と一致する"
 
-#: ../../dev/testing.md:162
+#: ../../dev/testing.md:168
 msgid "testData Directory"
 msgstr "testData ディレクトリ"
 
-#: ../../dev/testing.md:164
+#: ../../dev/testing.md:170
 msgid "Test data files are organized by feature under `src/test/testData/`:"
 msgstr "テストデータファイルは `src/test/testData/` 配下に機能ごとに整理されています:"
 
-#: ../../dev/testing.md:176
+#: ../../dev/testing.md:182
 msgid ""
 "Each test class points to its data directory via `getTestDataPath()`. "
 "Test data files are plain `.res` files, sometimes with special markers "
@@ -311,11 +315,11 @@ msgstr ""
 "各テストクラスは `getTestDataPath()` でデータディレクトリを指定します。テストデータファイルは通常の `.res` "
 "ファイルで、フレームワーク支援のアサーション用に特殊なマーカー（例: `<fold text=\"...\">`）が含まれる場合があります。"
 
-#: ../../dev/testing.md:178
+#: ../../dev/testing.md:184
 msgid "Test Coverage"
 msgstr "テストカバレッジ"
 
-#: ../../dev/testing.md:180
+#: ../../dev/testing.md:186
 msgid ""
 "The project uses [Kover](https://github.com/Kotlin/kotlinx-kover) for "
 "code coverage."
@@ -323,55 +327,53 @@ msgstr ""
 "プロジェクトはコードカバレッジに [Kover](https://github.com/Kotlin/kotlinx-kover) "
 "を使用しています。"
 
-#: ../../dev/testing.md:190
+#: ../../dev/testing.md:196
 msgid "Coverage reports are generated at `build/reports/kover/html/`."
 msgstr "カバレッジレポートは `build/reports/kover/html/` に生成されます。"
 
-#: ../../dev/testing.md:192
+#: ../../dev/testing.md:198
 msgid "Coverage Requirements"
 msgstr "カバレッジ要件"
 
-#: ../../dev/testing.md:194
+#: ../../dev/testing.md:200
 msgid "New code should have test coverage"
 msgstr "新しいコードにはテストカバレッジが必要です"
 
-#: ../../dev/testing.md:195
+#: ../../dev/testing.md:201
 msgid "CI reports coverage on pull requests"
 msgstr "CI がプルリクエストでカバレッジを報告します"
 
-#: ../../dev/testing.md:196
+#: ../../dev/testing.md:202
 msgid ""
 "Exceptions: UI components (Swing), LSP integration classes that require a"
 " running server"
 msgstr "例外: UI コンポーネント (Swing)、実行中のサーバーが必要な LSP 統合クラス"
 
-#: ../../dev/testing.md:198
+#: ../../dev/testing.md:204
 msgid "UI Tests (Remote-Robot)"
 msgstr "UI テスト (Remote-Robot)"
 
-#: ../../dev/testing.md:200
+#: ../../dev/testing.md:206
 msgid ""
 "The project includes UI tests powered by [IntelliJ Remote-"
 "Robot](https://github.com/JetBrains/intellij-ui-test-robot) for end-to-"
 "end IDE testing and automated Marketplace screenshot capture."
 msgstr ""
-"プロジェクトには、エンドツーエンドの IDE テストと Marketplace 用スクリーンショットの自動キャプチャのために "
-"[IntelliJ Remote-Robot](https://github.com/JetBrains/intellij-ui-test-robot) "
-"を使用した UI テストが含まれています。"
+"プロジェクトには、エンドツーエンドの IDE テストと Marketplace 用スクリーンショットの自動キャプチャのために [IntelliJ "
+"Remote-Robot](https://github.com/JetBrains/intellij-ui-test-robot) を使用した "
+"UI テストが含まれています。"
 
-#: ../../dev/testing.md:202
+#: ../../dev/testing.md:208
 msgid "Prerequisites"
 msgstr "前提条件"
 
-#: ../../dev/testing.md:204
+#: ../../dev/testing.md:210
 msgid ""
 "macOS: Grant accessibility permissions to Java (System Settings > Privacy"
 " & Security > Accessibility)"
-msgstr ""
-"macOS: Java にアクセシビリティ権限を付与してください（システム設定 > プライバシーとセキュリティ > "
-"アクセシビリティ）"
+msgstr "macOS: Java にアクセシビリティ権限を付与してください（システム設定 > プライバシーとセキュリティ > アクセシビリティ）"
 
-#: ../../dev/testing.md:205
+#: ../../dev/testing.md:211
 msgid ""
 "The sample project at `src/uiTest/testData/sample-project/` must have its"
 " npm dependencies installed:"
@@ -379,28 +381,28 @@ msgstr ""
 "`src/uiTest/testData/sample-project/` のサンプルプロジェクトに npm "
 "依存関係をインストールしておく必要があります:"
 
-#: ../../dev/testing.md:212
+#: ../../dev/testing.md:218
 msgid "Running UI Tests"
 msgstr "UI テストの実行"
 
-#: ../../dev/testing.md:214
+#: ../../dev/testing.md:220
 msgid ""
 "UI tests require a two-step process — the IDE must be running before "
 "tests can connect:"
 msgstr "UI テストは 2 段階のプロセスが必要です — テストが接続する前に IDE が起動している必要があります:"
 
-#: ../../dev/testing.md:224
+#: ../../dev/testing.md:230
 msgid "Screenshot Output"
 msgstr "スクリーンショット出力"
 
-#: ../../dev/testing.md:226
+#: ../../dev/testing.md:232
 msgid ""
 "The `MarketplaceScreenshotTest` class captures 11 screenshots "
 "demonstrating key plugin features. Screenshots are saved to "
 "`build/screenshots/`:"
 msgstr ""
-"`MarketplaceScreenshotTest` クラスは、プラグインの主要機能を紹介する 11 枚のスクリーンショットをキャプチャします。"
-"スクリーンショットは `build/screenshots/` に保存されます:"
+"`MarketplaceScreenshotTest` クラスは、プラグインの主要機能を紹介する 11 "
+"枚のスクリーンショットをキャプチャします。スクリーンショットは `build/screenshots/` に保存されます:"
 
 #: ../../dev/testing.md
 msgid "Screenshot"
@@ -494,46 +496,45 @@ msgstr "`11-repl.png`"
 msgid "Interactive REPL tool window"
 msgstr "インタラクティブ REPL ツールウィンドウ"
 
-#: ../../dev/testing.md:244
+#: ../../dev/testing.md:250
 msgid ""
 "UI tests are in a separate source set (`src/uiTest/`) and do not run with"
 " `./gradlew test`:"
-msgstr ""
-"UI テストは別のソースセット（`src/uiTest/`）にあり、`./gradlew test` では実行されません:"
+msgstr "UI テストは別のソースセット（`src/uiTest/`）にあり、`./gradlew test` では実行されません:"
 
-#: ../../dev/testing.md:255
+#: ../../dev/testing.md:261
 msgid "Notes"
 msgstr "備考"
 
-#: ../../dev/testing.md:257
+#: ../../dev/testing.md:263
 msgid "UI tests are **not included in CI** (requires a display)"
 msgstr "UI テストは **CI に含まれていません**（ディスプレイが必要なため）"
 
-#: ../../dev/testing.md:258
+#: ../../dev/testing.md:264
 msgid "The `uiTest` source set is excluded from Kover coverage"
 msgstr "`uiTest` ソースセットは Kover カバレッジから除外されています"
 
-#: ../../dev/testing.md:259
+#: ../../dev/testing.md:265
 msgid "Screenshots use Darcula theme for Marketplace appeal"
 msgstr "スクリーンショットは Marketplace での見栄えのために Darcula テーマを使用しています"
 
-#: ../../dev/testing.md:261
+#: ../../dev/testing.md:267
 msgid "CI Testing"
 msgstr "CI テスト"
 
-#: ../../dev/testing.md:263
+#: ../../dev/testing.md:269
 msgid "The CI pipeline runs tests automatically on every push and PR:"
 msgstr "CI パイプラインはすべてのプッシュと PR で自動的にテストを実行します:"
 
-#: ../../dev/testing.md:265
+#: ../../dev/testing.md:271
 msgid "`./gradlew test koverXmlReport koverHtmlReport`"
 msgstr "`./gradlew test koverXmlReport koverHtmlReport`"
 
-#: ../../dev/testing.md:266
+#: ../../dev/testing.md:272
 msgid "Coverage is reported on PRs via the Kover report action"
 msgstr "Kover レポートアクションを通じて PR でカバレッジが報告されます"
 
-#: ../../dev/testing.md:267
+#: ../../dev/testing.md:273
 msgid "Test results are uploaded as artifacts"
 msgstr "テスト結果はアーティファクトとしてアップロードされます"
 

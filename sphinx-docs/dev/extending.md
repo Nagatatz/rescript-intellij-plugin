@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    "keywords": "extending, adding features, extension points, plugin development"
+---
+
 # Extending the Plugin
 
 This guide explains how to add new features to the plugin, following established patterns.

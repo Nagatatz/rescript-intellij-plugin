@@ -53,4 +53,4 @@
 - [x] `make linkcheck` 成功
 
 ## マージ
-- [ ] main にマージ
+- [x] main にマージ

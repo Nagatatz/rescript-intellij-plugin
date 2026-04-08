@@ -6,6 +6,7 @@ Everything you need to get started with the ReScript IntelliJ Plugin and make th
 
 - [Installation](installation.md) — Install the plugin and set up the Language Server
 - [Quick Start](quickstart.md) — Your first steps with ReScript in a JetBrains IDE
+- [Migrating from VSCode](migration-from-vscode.md) — Shortcut mapping and feature comparison
 - [ReScript Basics](rescript-basics.md) — Setting up a ReScript project from scratch
 
 ## Features
@@ -20,8 +21,14 @@ Everything you need to get started with the ReScript IntelliJ Plugin and make th
 - [Code Analysis](features/code-analysis.md) — Inspections, dead code analysis, import optimization
 - [Advanced Features](features/advanced.md) — Code Lens, Compiled JS Preview, Module Hierarchy
 
+## Recipes
+
+- [Recipe Collection](recipes/index.md) — Task-oriented guides for common workflows
+
 ## Reference
 
+- [Quick Reference Card](cheatsheet.md) — Condensed cheat sheet of shortcuts and features
+- [Version Matrix](version-matrix.md) — Features by version and IDE compatibility
 - [Configuration](configuration.md) — Plugin settings
 - [Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference
 - [FAQ](faq.md) — Frequently asked questions
@@ -35,8 +42,12 @@ Everything you need to get started with the ReScript IntelliJ Plugin and make th
 
 installation
 quickstart
+migration-from-vscode
 rescript-basics
 features/index
+recipes/index
+cheatsheet
+version-matrix
 configuration
 keyboard-shortcuts
 faq
