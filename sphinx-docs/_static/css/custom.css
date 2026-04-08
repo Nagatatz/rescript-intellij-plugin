@@ -27,3 +27,37 @@
     color: var(--color-foreground-border);
     margin: 0 0.25rem;
 }
+
+/* Print-friendly layout for cheat sheet and reference pages */
+@media print {
+    .sidebar-drawer,
+    .toc-drawer,
+    nav,
+    footer,
+    .language-switcher,
+    .header-article-link,
+    .sd-dropdown {
+        display: none !important;
+    }
+
+    .content {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .sd-card {
+        break-inside: avoid;
+        border: 1px solid #ccc !important;
+    }
+
+    .sd-row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+
+    .sd-col {
+        flex: 0 0 33% !important;
+        max-width: 33% !important;
+    }
+}
