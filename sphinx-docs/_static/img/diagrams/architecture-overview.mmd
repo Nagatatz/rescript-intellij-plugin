@@ -1,0 +1,32 @@
+graph TD
+    subgraph IDE["JetBrains IDE"]
+        subgraph Plugin["ReScript IntelliJ Plugin"]
+            subgraph L1["Layer 1: Language Foundation"]
+                Lexer["JFlex Lexer"]
+                Parser["Lightweight Parser"]
+                PSI["PSI Tree"]
+                Lexer --> Parser --> PSI
+                PSI --> Folding["Code Folding"]
+                PSI --> Structure["Structure View"]
+                PSI --> Highlight["Syntax Highlighting"]
+                PSI --> Mover["Statement Mover"]
+            end
+            subgraph L2["Layer 2: LSP Integration"]
+                Completion["Completion"]
+                Diagnostics["Diagnostics"]
+                Navigation["Navigation"]
+                Hover["Hover"]
+                SemanticTokens["Semantic Tokens"]
+                CodeLens["Code Lens"]
+                InlayHints["Inlay Hints"]
+            end
+            subgraph L3["Layer 3: IDE Integration"]
+                RunConfig["Run Configurations"]
+                Formatter["External Formatter"]
+                Inspections["Code Inspections"]
+                TestRunner["Test Runner"]
+                Reanalyze["Dead Code Analysis"]
+            end
+        end
+    end
+    L2 -->|stdio| LSP["@rescript/language-server<br/>(Node.js process)"]

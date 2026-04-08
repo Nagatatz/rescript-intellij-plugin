@@ -26,6 +26,7 @@ extensions = [
     "sphinx_llms_txt",
     "sphinxcontrib.budoux",
     "atsphinx.htmx_boost",
+    "sphinxcontrib.mermaid",
 ]
 
 # MyST Parser settings

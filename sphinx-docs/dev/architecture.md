@@ -1,40 +1,99 @@
+---
+myst:
+  html_meta:
+    "keywords": "architecture, lexer, parser, PSI, LSP, hybrid design"
+---
+
 # Architecture
 
 The ReScript IntelliJ Plugin uses a **hybrid architecture** that combines a built-in lexer with an external Language Server.
 
 ## Overview
 
+```{mermaid}
+graph TD
+    subgraph IDE["JetBrains IDE"]
+        subgraph Plugin["ReScript IntelliJ Plugin"]
+            subgraph L1["Layer 1: Language Foundation"]
+                Lexer["JFlex Lexer"]
+                Parser["Lightweight Parser"]
+                PSI["PSI Tree"]
+                Lexer --> Parser --> PSI
+                PSI --> Folding["Code Folding"]
+                PSI --> Structure["Structure View"]
+                PSI --> Highlight["Syntax Highlighting"]
+                PSI --> Mover["Statement Mover"]
+            end
+            subgraph L2["Layer 2: LSP Integration"]
+                Completion["Completion"]
+                Diagnostics["Diagnostics"]
+                Navigation["Navigation"]
+                Hover["Hover"]
+                SemanticTokens["Semantic Tokens"]
+                CodeLens["Code Lens"]
+                InlayHints["Inlay Hints"]
+            end
+            subgraph L3["Layer 3: IDE Integration"]
+                RunConfig["Run Configurations"]
+                Formatter["External Formatter"]
+                Inspections["Code Inspections"]
+                TestRunner["Test Runner"]
+                Reanalyze["Dead Code Analysis"]
+            end
+        end
+    end
+    L2 -->|stdio| LSP["@rescript/language-server<br/>(Node.js process)"]
 ```
-┌─────────────────────────────────────────────────────┐
-│                   JetBrains IDE                      │
-│  ┌───────────────────────────────────────────────┐  │
-│  │          ReScript IntelliJ Plugin              │  │
-│  │                                                │  │
-│  │  ┌─────────────────────────────────────────┐  │  │
-│  │  │  Layer 1: Language Foundation (Built-in)  │  │  │
-│  │  │                                          │  │  │
-│  │  │  JFlex Lexer → Syntax Highlighting       │  │  │
-│  │  │  Lightweight Parser → PSI Tree           │  │  │
-│  │  │  Code Folding, Structure View, Brace     │  │  │
-│  │  │  Matching, Comments, etc.                │  │  │
-│  │  └─────────────────────────────────────────┘  │  │
-│  │                                                │  │
-│  │  ┌─────────────────────────────────────────┐  │  │
-│  │  │  Layer 2: LSP Integration                │  │  │
-│  │  │                                          │  │  │
-│  │  │  Completion, Diagnostics, Navigation,    │  │  │
-│  │  │  Hover, References, Rename, Inlay Hints, │  │  │
-│  │  │  Semantic Tokens, Code Lens, etc.        │  │  │
-│  │  └──────────────────┬──────────────────────┘  │  │
-│  └──────────────────────┼────────────────────────┘  │
-│                         │ stdio                      │
-└─────────────────────────┼────────────────────────────┘
-                          │
-              ┌───────────┴───────────┐
-              │  @rescript/            │
-              │  language-server       │
-              │  (Node.js process)     │
-              └───────────────────────┘
+
+### PSI Tree Processing Pipeline
+
+```{mermaid}
+flowchart LR
+    Source[".res Source File"] --> Lexer["JFlex Lexer<br/>(Rescript.flex)"]
+    Lexer --> Tokens["Token Stream<br/>(RescriptTokenTypes)"]
+    Tokens --> Parser["Lightweight Parser<br/>(RescriptParser)"]
+    Parser --> PSI["PSI Tree"]
+    PSI --> Folding["Code Folding"]
+    PSI --> StructureView["Structure View"]
+    PSI --> Mover["Statement Mover"]
+    PSI --> Breadcrumb["Breadcrumbs"]
+    PSI --> StubIndex["Stub Index"]
+    PSI --> CallHierarchy["Call Hierarchy"]
+```
+
+### LSP Request Flow
+
+```{mermaid}
+sequenceDiagram
+    participant User
+    participant IDE as JetBrains IDE
+    participant Plugin as ReScript Plugin
+    participant LSP as Language Server
+
+    User->>IDE: Open .res file
+    IDE->>Plugin: File opened event
+    Plugin->>Plugin: Check extension (.res/.resi)
+    Plugin->>LSP: ensureServerStarted()
+    Note over Plugin,LSP: stdio connection
+
+    User->>IDE: Type code
+    IDE->>Plugin: Document changed
+    Plugin->>LSP: textDocument/didChange
+    LSP->>Plugin: textDocument/publishDiagnostics
+    Plugin->>IDE: Show errors/warnings
+
+    User->>IDE: Request completion
+    Plugin->>LSP: textDocument/completion
+    LSP->>Plugin: CompletionList
+    Plugin->>IDE: Show completions
+
+    User->>IDE: Ctrl+Click symbol
+    Plugin->>LSP: textDocument/definition
+    LSP->>Plugin: Location
+    Plugin->>IDE: Navigate to definition
+
+    LSP->>Plugin: rescript/compilationStatus
+    Plugin->>IDE: Update status bar
 ```
 
 ## Layer 1: Language Foundation
