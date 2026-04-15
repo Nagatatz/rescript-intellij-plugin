@@ -40,6 +40,7 @@ internal object MonorepoTemplateFiles {
                             "dev:client" to perWorkspaceCmd(pm, "client", "dev"),
                             "build:client" to perWorkspaceCmd(pm, "client", "build"),
                             "test" to allWorkspacesTestCmd(pm),
+                            "test:coverage" to allWorkspacesCoverageCmd(pm),
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -93,12 +94,14 @@ internal object MonorepoTemplateFiles {
                         linkedMapOf(
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "db:generate" to "drizzle-kit generate",
                             "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
@@ -145,6 +148,7 @@ internal object MonorepoTemplateFiles {
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
@@ -152,6 +156,7 @@ internal object MonorepoTemplateFiles {
                             "build" to "vp build",
                             "preview" to "vp preview",
                             "test" to "vp test",
+                            "test:coverage" to "vp test --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -194,6 +199,9 @@ internal object MonorepoTemplateFiles {
                         ),
                 ),
             )
+            put(".nvmrc", CommonFiles.nvmrc())
+            put("LICENSE", CommonFiles.mitLicense(holder = name))
+            put(".github/dependabot.yml", CommonFiles.dependabotYaml())
             put(".gitignore", CommonFiles.gitignore(extra = listOf("dist/", ".vite/", "packages/*/dist/")))
             put(".editorconfig", CommonFiles.editorconfig())
             put(".github/workflows/ci.yml", CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true))
@@ -244,6 +252,16 @@ internal object MonorepoTemplateFiles {
             PackageManager.PNPM -> "pnpm -r run test"
             PackageManager.YARN -> "yarn workspaces foreach -A run test"
             PackageManager.NPM -> "npm --workspaces run test --if-present"
+        }
+
+    /**
+     * Root-level `test:coverage` that fans out to every workspace exposing the same script.
+     */
+    private fun allWorkspacesCoverageCmd(pm: PackageManager): String =
+        when (pm) {
+            PackageManager.PNPM -> "pnpm -r run test:coverage"
+            PackageManager.YARN -> "yarn workspaces foreach -A run test:coverage"
+            PackageManager.NPM -> "npm --workspaces run test:coverage --if-present"
         }
 
     private fun clientIndexHtml(projectName: String): String =

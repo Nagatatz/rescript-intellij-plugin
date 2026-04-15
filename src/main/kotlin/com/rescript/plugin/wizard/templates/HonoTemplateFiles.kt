@@ -47,12 +47,14 @@ internal object HonoTemplateFiles {
                         linkedMapOf(
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "db:generate" to "drizzle-kit generate",
                             "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
@@ -94,7 +96,10 @@ internal object HonoTemplateFiles {
                             "Project Layout" to projectLayoutSection(),
                         ),
                 ),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "coverage/", "data/", "drizzle/")),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
+            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "data/", "drizzle/")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )

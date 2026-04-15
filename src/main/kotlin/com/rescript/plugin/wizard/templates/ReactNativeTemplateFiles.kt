@@ -37,13 +37,18 @@ internal object ReactNativeTemplateFiles {
                             "react-native" to TemplateVersions.REACT_NATIVE,
                             "expo" to TemplateVersions.EXPO,
                         ),
-                    devDependencies = linkedMapOf("vitest" to TemplateVersions.VITEST),
+                    devDependencies =
+                        linkedMapOf(
+                            "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                        ),
                     scripts =
                         linkedMapOf(
                             "start" to "expo start",
                             "android" to "expo start --android",
                             "ios" to "expo start --ios",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -75,6 +80,9 @@ internal object ReactNativeTemplateFiles {
                             "Project Layout" to rnLayoutSection(),
                         ),
                 ),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".expo/", "android/", "ios/", "*.tsbuildinfo")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),

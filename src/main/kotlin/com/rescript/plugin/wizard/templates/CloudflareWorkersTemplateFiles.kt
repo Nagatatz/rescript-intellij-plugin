@@ -34,12 +34,14 @@ internal object CloudflareWorkersTemplateFiles {
                         linkedMapOf(
                             "wrangler" to TemplateVersions.WRANGLER,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
                             "dev" to "wrangler dev",
                             "deploy" to "wrangler deploy",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -70,6 +72,9 @@ internal object CloudflareWorkersTemplateFiles {
                             "Deploy" to deploySection(ctx),
                         ),
                 ),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".wrangler/", "dist/")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),

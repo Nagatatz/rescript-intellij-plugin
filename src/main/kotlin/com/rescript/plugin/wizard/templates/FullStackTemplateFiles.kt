@@ -61,6 +61,7 @@ internal object FullStackTemplateFiles {
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
@@ -70,6 +71,7 @@ internal object FullStackTemplateFiles {
                             "build" to "vp build",
                             "preview" to "vp preview",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "db:generate" to "drizzle-kit generate",
                             "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
@@ -127,6 +129,9 @@ internal object FullStackTemplateFiles {
                             "About Vite+" to vitePlusNote(),
                         ),
                 ),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to
                 CommonFiles.gitignore(
                     extra = listOf("data/", "dist/", ".vite/", "drizzle/"),

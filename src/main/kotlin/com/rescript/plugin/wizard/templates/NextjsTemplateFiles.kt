@@ -43,6 +43,7 @@ internal object NextjsTemplateFiles {
                             "build" to "rescript && next build",
                             "start" to "next start",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -51,6 +52,7 @@ internal object NextjsTemplateFiles {
                         linkedMapOf(
                             "concurrently" to TemplateVersions.CONCURRENTLY,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                 ),
             "next.config.mjs" to
@@ -80,7 +82,10 @@ internal object NextjsTemplateFiles {
                             "Project Layout" to nextjsLayoutSection(),
                         ),
                 ),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf(".next/", "out/", "coverage/")),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
+            ".gitignore" to CommonFiles.gitignore(extra = listOf(".next/", "out/")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
         )

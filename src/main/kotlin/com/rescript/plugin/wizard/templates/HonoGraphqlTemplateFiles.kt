@@ -45,12 +45,14 @@ internal object HonoGraphqlTemplateFiles {
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
                             "@graphql-markdown/cli" to TemplateVersions.GRAPHQL_MARKDOWN,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "docs:graphql" to
                                 "graphql-markdown --schema=src/schema.graphql --base-url=./docs " +
                                 "--root-path=./docs --group-by=kind",
@@ -96,6 +98,9 @@ internal object HonoGraphqlTemplateFiles {
                             "Project Layout" to projectLayoutSection(),
                         ),
                 ),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(extra = listOf("data/", "docs/schema.md", "drizzle/")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),

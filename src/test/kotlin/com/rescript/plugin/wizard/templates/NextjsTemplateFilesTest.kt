@@ -47,4 +47,23 @@ class NextjsTemplateFilesTest {
         assertTrue(form.contains("React.useState"))
         assertTrue(form.contains("/api/greet"))
     }
+
+    @Test
+    fun `ships nvmrc, LICENSE, and dependabot config`() {
+        val files = NextjsTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey(".nvmrc"))
+        assertTrue(files.containsKey("LICENSE"))
+        assertTrue(files.containsKey(".github/dependabot.yml"))
+        assertTrue(files[".nvmrc"]!!.contains(TemplateVersions.NODE_MAJOR))
+        assertTrue(files["LICENSE"]!!.contains("MIT License"))
+        assertTrue(files["LICENSE"]!!.contains("site"))
+        assertTrue(files[".github/dependabot.yml"]!!.contains("package-ecosystem: \"npm\""))
+    }
+
+    @Test
+    fun `package json declares test coverage script and provider`() {
+        val pkg = NextjsTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"test:coverage\""))
+        assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
+    }
 }
