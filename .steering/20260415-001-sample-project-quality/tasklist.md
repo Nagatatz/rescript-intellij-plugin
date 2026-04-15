@@ -102,8 +102,8 @@
 
 ## Step 10: Integration Tests ワークフロー (Phase 1)
 
-- [ ] `.github/workflows/integration-tests.yml` を追加（`workflow_dispatch` + nightly cron）
-- [ ] コミット: `🔧 Add integration tests workflow (manual + nightly)`
+- [x] `.github/workflows/integration-tests.yml` を追加（`workflow_dispatch` + nightly cron + 失敗時アーティファクトアップロード）
+- [x] コミット: `🔧 Add integration tests workflow (manual + nightly)`
 
 ## Step 11: ドキュメント更新
 
