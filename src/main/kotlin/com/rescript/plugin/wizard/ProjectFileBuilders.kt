@@ -71,6 +71,8 @@ object ProjectFileBuilders {
      * @param workspaces optional list of workspace glob patterns
      * @param type optional module type ("module" for ESM)
      * @param isPrivate whether to set "private": true
+     * @param packageManager optional Corepack-style spec (e.g. `pnpm@9.12.0`)
+     * @param engines optional map of engine constraints (e.g. `node` → `>=20`)
      * @return the JSON content as a string
      */
     fun packageJson(
@@ -82,6 +84,8 @@ object ProjectFileBuilders {
         workspaces: List<String>? = null,
         type: String? = null,
         isPrivate: Boolean = false,
+        packageManager: String? = null,
+        engines: Map<String, String> = emptyMap(),
     ): String =
         buildString {
             appendLine("{")
@@ -92,6 +96,14 @@ object ProjectFileBuilders {
             }
             if (type != null) {
                 appendLine("  \"type\": \"$type\",")
+            }
+            if (packageManager != null) {
+                appendLine("  \"packageManager\": \"$packageManager\",")
+            }
+            if (engines.isNotEmpty()) {
+                appendLine("  \"engines\": {")
+                appendJsonObject(engines, this)
+                appendLine("  },")
             }
             if (bin != null) {
                 appendLine("  \"bin\": \"$bin\",")

@@ -27,12 +27,12 @@
 
 ## Step 3: Basic テンプレート改善 (Phase 2 + 4)
 
-- [ ] `BasicTemplateFiles.kt` を `TemplateContext` 対応に変更
-- [ ] README / .gitignore / .editorconfig / ci.yml を追加
-- [ ] `@rescript/core` を `rescript.json` と `package.json` に追加、`-open RescriptCore`
-- [ ] `package.json` に `packageManager` フィールドを追加
-- [ ] `BasicTemplateFilesTest.kt` を更新
-- [ ] コミット: `✨ Enhance Basic template with docs, tooling, and @rescript/core`
+- [x] `BasicTemplateFiles.kt` を `TemplateContext` 対応に変更
+- [x] README / .gitignore / .editorconfig / ci.yml を追加
+- [x] `package.json` に `packageManager`, `engines`, `private` フィールドを追加
+- [x] `ProjectFileBuilders.packageJson` に `packageManager` / `engines` パラメータを追加
+- [x] `BasicTemplateFilesTest.kt` 新規追加
+- [x] コミット: `✨ Enhance Basic template with docs, tooling, and packageManager metadata`
 
 ## Step 4: Vite+ 導入 — Vite + React テンプレート (Phase 4)
 
