@@ -154,13 +154,20 @@ internal object FullStackTemplateFiles {
 
     private fun serverTest(): String =
         buildString {
+            // Uses Hono's built-in `app.request()` harness so no server needs to boot
+            // and no SQLite file is touched. Targets the /api/health route from Server.res.
             appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("import { app } from \"../Server.res.mjs\";")
             appendLine("")
-            appendLine("describe(\"server module\", () => {")
-            appendLine("  it(\"loads without throwing\", async () => {")
-            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("describe(\"Full-Stack server\", () => {")
+            appendLine("  it(\"GET /api/health returns 200 with a JSON status\", async () => {")
+            appendLine("    const res = await app.request(\"/api/health\");")
+            appendLine("    expect(res.status).toBe(200);")
+            appendLine("    const body = await res.json();")
+            appendLine("    expect(body).toEqual({ status: \"ok\" });")
             appendLine("  });")
-            appendLine("});")
+            appendLine("})")
+            appendLine(";")
         }
 
     private fun clientTest(): String =

@@ -349,13 +349,20 @@ internal object MonorepoTemplateFiles {
 
     private fun serverTest(): String =
         buildString {
+            // Uses Hono's built-in `app.request()` harness. We target /api/hello because
+            // it's DB-free; the /api/users routes need a migrated SQLite file to succeed.
             appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("import { app } from \"../Server.res.mjs\";")
             appendLine("")
-            appendLine("describe(\"server module\", () => {")
-            appendLine("  it(\"loads without throwing\", async () => {")
-            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("describe(\"Monorepo server\", () => {")
+            appendLine("  it(\"GET /api/hello returns 200 with a JSON greeting\", async () => {")
+            appendLine("    const res = await app.request(\"/api/hello\");")
+            appendLine("    expect(res.status).toBe(200);")
+            appendLine("    const body = await res.json();")
+            appendLine("    expect(body.message).toMatch(/Hello/);")
             appendLine("  });")
-            appendLine("});")
+            appendLine("})")
+            appendLine(";")
         }
 
     private fun clientTest(): String =

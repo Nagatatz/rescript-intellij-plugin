@@ -93,7 +93,9 @@ class FullStackTemplateFilesTest {
         val files = FullStackTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("src/server/__tests__/Server.test.mjs"))
         assertTrue(files.containsKey("src/client/__tests__/Api.test.mjs"))
-        assertTrue(files["src/server/__tests__/Server.test.mjs"]!!.contains("import(\"../Server.res.mjs\")"))
+        assertTrue(
+            files["src/server/__tests__/Server.test.mjs"]!!.contains("app.request(\"/api/health\")"),
+        )
         assertTrue(files["src/client/__tests__/Api.test.mjs"]!!.contains("import(\"../Api.res.mjs\")"))
     }
 

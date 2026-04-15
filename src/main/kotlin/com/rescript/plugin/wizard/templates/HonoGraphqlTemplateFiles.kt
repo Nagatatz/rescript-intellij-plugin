@@ -319,13 +319,20 @@ internal object HonoGraphqlTemplateFiles {
 
     private fun serverTest(): String =
         buildString {
+            // Uses Hono's built-in `app.request()` harness so no server needs to boot.
+            // We hit `/health` rather than `/graphql` to avoid spinning up yoga + Drizzle.
             appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("import { app } from \"../Server.res.mjs\";")
             appendLine("")
-            appendLine("describe(\"server module\", () => {")
-            appendLine("  it(\"loads without throwing\", async () => {")
-            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("describe(\"Hono + GraphQL server\", () => {")
+            appendLine("  it(\"GET /health returns 200 with a JSON status\", async () => {")
+            appendLine("    const res = await app.request(\"/health\");")
+            appendLine("    expect(res.status).toBe(200);")
+            appendLine("    const body = await res.json();")
+            appendLine("    expect(body).toEqual({ status: \"ok\" });")
             appendLine("  });")
-            appendLine("});")
+            appendLine("})")
+            appendLine(";")
         }
 
     private fun tryItSection(): String =

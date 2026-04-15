@@ -109,4 +109,12 @@ class HonoTemplateFilesTest {
         assertTrue(server.contains("Internal Server Error"))
         assertTrue(server.contains("Hono.status(500)"))
     }
+
+    @Test
+    fun `server smoke test uses app request harness against DB-free route`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        val server = files["src/__tests__/Server.test.mjs"]!!
+        assertTrue(server.contains("import { app } from"))
+        assertTrue(server.contains("app.request(\"/health\")"))
+    }
 }

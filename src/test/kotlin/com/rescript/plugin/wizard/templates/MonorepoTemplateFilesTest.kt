@@ -151,4 +151,12 @@ class MonorepoTemplateFilesTest {
         assertTrue(server.contains("Internal Server Error"))
         assertTrue(server.contains("Hono.status(500)"))
     }
+
+    @Test
+    fun `server smoke test uses app request harness against DB-free route`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val server = files["packages/server/src/__tests__/Server.test.mjs"]!!
+        assertTrue(server.contains("import { app } from"))
+        assertTrue(server.contains("app.request(\"/api/hello\")"))
+    }
 }
