@@ -131,6 +131,10 @@ object ProjectFileBuilders {
 
     /**
      * Appends map entries as indented JSON key-value pairs.
+     *
+     * Escapes embedded backslashes and double quotes in [entries] values so that scripts
+     * containing nested quotes (e.g. `concurrently "rescript -w" "next dev"`) produce valid
+     * JSON that pnpm/npm can parse.
      */
     private fun appendJsonObject(
         entries: Map<String, String>,
@@ -139,9 +143,27 @@ object ProjectFileBuilders {
         val list = entries.entries.toList()
         list.forEachIndexed { index, (key, value) ->
             val comma = if (index < list.size - 1) "," else ""
-            builder.appendLine("    \"$key\": \"$value\"$comma")
+            builder.appendLine("    \"$key\": \"${escapeJsonString(value)}\"$comma")
         }
     }
+
+    /**
+     * Returns a JSON-safe encoding of [value] with backslashes, double quotes, and common
+     * control characters escaped per RFC 8259.
+     */
+    private fun escapeJsonString(value: String): String =
+        buildString(value.length) {
+            for (ch in value) {
+                when (ch) {
+                    '\\' -> append("\\\\")
+                    '"' -> append("\\\"")
+                    '\n' -> append("\\n")
+                    '\r' -> append("\\r")
+                    '\t' -> append("\\t")
+                    else -> append(ch)
+                }
+            }
+        }
 
     /**
      * Default ReScript build scripts for `package.json`.

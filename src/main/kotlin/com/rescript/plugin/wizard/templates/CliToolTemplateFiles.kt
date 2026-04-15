@@ -72,7 +72,9 @@ internal object CliToolTemplateFiles {
 
     private fun cliRes(projectName: String): String {
         val dollar = '$'
-        return "let args = Process.argv->Array.sliceToEnd(~start=2)\n" +
+        return "@val external argv: array<string> = \"process.argv\"\n" +
+            "\n" +
+            "let args = argv->Array.sliceToEnd(~start=2)\n" +
             "\n" +
             "switch args->Array.get(0) {\n" +
             "| Some(\"--help\") | Some(\"-h\") =>\n" +

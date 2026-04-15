@@ -122,8 +122,9 @@ internal object ElectronTemplateFiles {
 
     private fun mainRes(): String =
         buildString {
-            appendLine("switch ReactDOM.Client.createRoot(ReactDOM.querySelector(\"#root\")) {")
-            appendLine("| Some(root) => ReactDOM.Client.Root.render(root, <App />)")
+            appendLine("switch ReactDOM.querySelector(\"#root\") {")
+            appendLine("| Some(rootEl) =>")
+            appendLine("  ReactDOM.Client.Root.render(ReactDOM.Client.createRoot(rootEl), <App />)")
             appendLine("| None => Console.error(\"Could not find root element\")")
             append("}")
         }

@@ -81,7 +81,7 @@ internal object MonorepoTemplateFiles {
                         linkedMapOf(
                             "rescript" to TemplateVersions.RESCRIPT,
                             "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "@$name/shared" to "*",
+                            "@$name/shared" to workspaceDep(pm),
                             "hono" to TemplateVersions.HONO,
                             "@hono/node-server" to TemplateVersions.HONO_NODE_SERVER,
                         ),
@@ -123,7 +123,7 @@ internal object MonorepoTemplateFiles {
                             "rescript" to TemplateVersions.RESCRIPT,
                             "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
                             "@rescript/react" to TemplateVersions.RESCRIPT_REACT,
-                            "@$name/shared" to "*",
+                            "@$name/shared" to workspaceDep(pm),
                             "react" to TemplateVersions.REACT,
                             "react-dom" to TemplateVersions.REACT_DOM,
                         ),
@@ -163,8 +163,9 @@ internal object MonorepoTemplateFiles {
             )
             put(
                 "packages/client/src/Main.res",
-                "switch ReactDOM.Client.createRoot(ReactDOM.querySelector(\"#root\")) {\n" +
-                    "| Some(root) => ReactDOM.Client.Root.render(root, <App />)\n" +
+                "switch ReactDOM.querySelector(\"#root\") {\n" +
+                    "| Some(rootEl) =>\n" +
+                    "  ReactDOM.Client.Root.render(ReactDOM.Client.createRoot(rootEl), <App />)\n" +
                     "| None => Console.error(\"Could not find root element\")\n}",
             )
             put(
@@ -203,6 +204,19 @@ internal object MonorepoTemplateFiles {
         val server = perWorkspaceCmd(pm, "server", "dev")
         return "concurrently \\\"$server\\\" \\\"$client\\\""
     }
+
+    /**
+     * Returns the dependency-version string used to refer to a sibling workspace package.
+     *
+     * pnpm and Yarn 3+ recognize `workspace:*`; npm interprets the same dependency as a
+     * regular semver range, so we fall back to `*` for npm to keep `npm install` happy.
+     */
+    private fun workspaceDep(pm: PackageManager): String =
+        when (pm) {
+            PackageManager.PNPM -> "workspace:*"
+            PackageManager.YARN -> "workspace:*"
+            PackageManager.NPM -> "*"
+        }
 
     private fun perWorkspaceCmd(
         pm: PackageManager,

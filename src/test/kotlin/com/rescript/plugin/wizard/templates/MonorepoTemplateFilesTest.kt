@@ -46,6 +46,22 @@ class MonorepoTemplateFilesTest {
     }
 
     @Test
+    fun `pnpm context refers to shared workspace via workspace protocol`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val serverPkg = files["packages/server/package.json"]!!
+        val clientPkg = files["packages/client/package.json"]!!
+        assertTrue(serverPkg.contains("\"@app/shared\": \"workspace:*\""))
+        assertTrue(clientPkg.contains("\"@app/shared\": \"workspace:*\""))
+    }
+
+    @Test
+    fun `npm context refers to shared workspace via wildcard`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.NPM))
+        val serverPkg = files["packages/server/package.json"]!!
+        assertTrue(serverPkg.contains("\"@app/shared\": \"*\""))
+    }
+
+    @Test
     fun `top-level docs and CI files are included`() {
         val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
         assertTrue(files.containsKey("README.md"))

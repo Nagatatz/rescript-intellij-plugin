@@ -51,6 +51,12 @@ sourceSets {
         compileClasspath += sourceSets["main"].output
         runtimeClasspath += sourceSets["main"].output
     }
+    create("integrationTest") {
+        kotlin.srcDir("src/integrationTest/kotlin")
+        resources.srcDir("src/integrationTest/resources")
+        compileClasspath += sourceSets["main"].output + sourceSets["test"].output
+        runtimeClasspath += output + compileClasspath
+    }
 }
 
 val uiTestImplementation: Configuration by configurations.getting {
@@ -60,12 +66,23 @@ val uiTestRuntimeOnly: Configuration by configurations.getting {
     extendsFrom(configurations["runtimeOnly"])
 }
 
+val integrationTestImplementation: Configuration by configurations.getting {
+    extendsFrom(configurations["testImplementation"])
+}
+val integrationTestRuntimeOnly: Configuration by configurations.getting {
+    extendsFrom(configurations["testRuntimeOnly"])
+}
+
 dependencies {
     uiTestImplementation(kotlin("stdlib"))
     uiTestImplementation("com.intellij.remoterobot:remote-robot:0.11.23")
     uiTestImplementation("com.intellij.remoterobot:remote-fixtures:0.11.23")
     uiTestImplementation(libs.junit.jupiter)
     uiTestRuntimeOnly(libs.junit.platform.launcher)
+
+    integrationTestImplementation(kotlin("stdlib"))
+    integrationTestImplementation(libs.junit.jupiter)
+    integrationTestRuntimeOnly(libs.junit.platform.launcher)
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -274,6 +291,27 @@ val runIdeForUiTests by intellijPlatformTesting.runIde.registering {
     plugins {
         robotServerPlugin()
     }
+}
+
+// ── Template Integration Test task ──
+//
+// Runs each ProjectTemplate end-to-end: generate files into a temporary
+// directory, then `pnpm install` and `rescript build` (plus a `pnpm build`
+// for templates that bundle a JS app). This is intentionally excluded
+// from the default `test` task because it requires Node.js + pnpm and
+// may take several minutes per template.
+
+tasks.register<Test>("integrationTest") {
+    description = "Run template generation integration tests (requires Node.js + pnpm)."
+    group = "verification"
+    useJUnitPlatform()
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    shouldRunAfter(tasks.test)
+    // Run sequentially so concurrent pnpm processes do not contend over the store
+    maxParallelForks = 1
+    systemProperty("template.test.pnpm", System.getenv("PNPM_BIN") ?: "pnpm")
+    systemProperty("template.test.node", System.getenv("NODE_BIN") ?: "node")
 }
 
 tasks.register<Test>("uiTest") {

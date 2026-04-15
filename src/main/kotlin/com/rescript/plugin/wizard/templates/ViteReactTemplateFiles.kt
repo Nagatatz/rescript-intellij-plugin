@@ -116,8 +116,9 @@ internal object ViteReactTemplateFiles {
 
     private fun mainRes(): String =
         buildString {
-            appendLine("switch ReactDOM.Client.createRoot(ReactDOM.querySelector(\"#root\")) {")
-            appendLine("| Some(root) => ReactDOM.Client.Root.render(root, <App />)")
+            appendLine("switch ReactDOM.querySelector(\"#root\") {")
+            appendLine("| Some(rootEl) =>")
+            appendLine("  ReactDOM.Client.Root.render(ReactDOM.Client.createRoot(rootEl), <App />)")
             appendLine("| None => Console.error(\"Could not find root element\")")
             append("}")
         }
@@ -138,7 +139,12 @@ internal object ViteReactTemplateFiles {
         """
         This template uses [Vite+](https://vite.plus) (`vite-plus`), an early-access toolchain
         bundling Vite, Vitest, Oxlint, Oxfmt, and Rolldown. Vite+ is **pre-1.0** — APIs may
-        change before stable release. To fall back to plain Vite, replace `vite-plus` with
-        `vite` in `vite.config.mjs` and switch the npm scripts back to `vite` / `vite build`.
+        change before stable release.
+
+        > **Known issue:** the current pre-1.0 Vite+ does not resolve `vite/internal` cleanly
+        > when paired with `@vitejs/plugin-react`, so `vp build` may fail. As a fallback,
+        > replace `vite-plus` with `vite` in `vite.config.mjs` and switch the npm scripts to
+        > `vite` / `vite build`. The migration path back to Vite+ is straightforward once the
+        > stable release lands.
         """.trimIndent()
 }
