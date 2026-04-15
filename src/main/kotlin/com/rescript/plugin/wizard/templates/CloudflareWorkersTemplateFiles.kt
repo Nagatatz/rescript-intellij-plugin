@@ -30,11 +30,16 @@ internal object CloudflareWorkersTemplateFiles {
                             "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
                             "hono" to TemplateVersions.HONO,
                         ),
-                    devDependencies = linkedMapOf("wrangler" to TemplateVersions.WRANGLER),
+                    devDependencies =
+                        linkedMapOf(
+                            "wrangler" to TemplateVersions.WRANGLER,
+                            "vitest" to TemplateVersions.VITEST,
+                        ),
                     scripts =
                         linkedMapOf(
                             "dev" to "wrangler dev",
                             "deploy" to "wrangler deploy",
+                            "test" to "vitest run",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -44,6 +49,7 @@ internal object CloudflareWorkersTemplateFiles {
             "src/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/Kv.res" to kvBindings(),
             "src/Server.res" to serverRes(),
+            "src/__tests__/Server.test.mjs" to serverTest(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
@@ -54,6 +60,7 @@ internal object CloudflareWorkersTemplateFiles {
                         listOf(
                             "dev" to "Run wrangler dev locally",
                             "deploy" to "Deploy with `wrangler deploy`",
+                            "test" to "Run Vitest",
                             "res:dev" to "Watch ReScript sources",
                         ),
                     extraSections =
@@ -65,13 +72,24 @@ internal object CloudflareWorkersTemplateFiles {
                 ),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".wrangler/", "dist/")),
             ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx),
+            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )
 
     /**
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun serverTest(): String =
+        buildString {
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("")
+            appendLine("describe(\"Server module\", () => {")
+            appendLine("  it(\"loads without throwing\", async () => {")
+            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("  });")
+            appendLine("});")
+        }
 
     private fun wranglerConfig(projectName: String): String =
         buildString {

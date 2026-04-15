@@ -42,6 +42,20 @@ class GoogleCloudRunTemplateFilesTest {
     }
 
     @Test
+    fun `package json declares test script and vitest devDep`() {
+        val pkg = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))["package.json"]!!
+        assertTrue(pkg.contains("\"test\": \"vitest run\""))
+        assertTrue(pkg.contains("\"vitest\": \"${TemplateVersions.VITEST}\""))
+    }
+
+    @Test
+    fun `ships a vitest smoke test`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        assertTrue(files.containsKey("src/__tests__/Server.test.mjs"))
+        assertTrue(files["src/__tests__/Server.test.mjs"]!!.contains("import(\"../Server.res.mjs\")"))
+    }
+
+    @Test
     fun `README documents Cloud SQL recipe and environment section`() {
         val readme = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))["README.md"]!!
         assertTrue(readme.contains("## Environment"))

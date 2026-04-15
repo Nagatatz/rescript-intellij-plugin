@@ -34,6 +34,20 @@ class ElectronTemplateFilesTest {
     }
 
     @Test
+    fun `package json declares test script and vitest devDep`() {
+        val pkg = ElectronTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"test\": \"vp test\""))
+        assertTrue(pkg.contains("\"vitest\": \"${TemplateVersions.VITEST}\""))
+    }
+
+    @Test
+    fun `ships a vitest smoke test`() {
+        val files = ElectronTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/__tests__/App.test.mjs"))
+        assertTrue(files["src/__tests__/App.test.mjs"]!!.contains("import(\"../App.res.mjs\")"))
+    }
+
+    @Test
     fun `wires IPC through preload and renderer bindings`() {
         val files = ElectronTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("preload.cjs"))

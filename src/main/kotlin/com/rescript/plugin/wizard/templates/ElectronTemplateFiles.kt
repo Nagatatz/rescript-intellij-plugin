@@ -44,6 +44,7 @@ internal object ElectronTemplateFiles {
                             "vite" to TemplateVersions.VITE_PLUS,
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
+                            "vitest" to TemplateVersions.VITEST,
                         ),
                     scripts =
                         linkedMapOf(
@@ -51,6 +52,7 @@ internal object ElectronTemplateFiles {
                             "build" to "vp build",
                             "electron" to "electron .",
                             "start" to "vp build && electron .",
+                            "test" to "vp test",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -63,6 +65,7 @@ internal object ElectronTemplateFiles {
             "src/App.res" to appRes(),
             "src/Electron.res" to electronRes(),
             "src/Main.res" to mainRes(),
+            "src/__tests__/App.test.mjs" to appTest(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
@@ -72,6 +75,7 @@ internal object ElectronTemplateFiles {
                             "dev" to "Start the Vite+ dev server for the renderer",
                             "build" to "Bundle the renderer for production",
                             "start" to "Bundle and launch the Electron app",
+                            "test" to "Run Vitest via Vite+",
                             "res:dev" to "Watch ReScript sources",
                         ),
                     extraSections =
@@ -81,7 +85,7 @@ internal object ElectronTemplateFiles {
                 ),
             ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "out/", ".vite/")),
             ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true),
+            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
         )
 
     /**
@@ -145,6 +149,17 @@ internal object ElectronTemplateFiles {
             appendLine("@val external electronAPI: {\"getInfo\": unit => promise<info>} = \"electronAPI\"")
             appendLine("")
             appendLine("let getInfo = (): promise<info> => electronAPI[\"getInfo\"]()")
+        }
+
+    private fun appTest(): String =
+        buildString {
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("")
+            appendLine("describe(\"App module\", () => {")
+            appendLine("  it(\"loads without throwing\", async () => {")
+            appendLine("    await expect(import(\"../App.res.mjs\")).resolves.toBeDefined();")
+            appendLine("  });")
+            appendLine("});")
         }
 
     private fun appRes(): String =

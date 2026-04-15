@@ -67,6 +67,21 @@ class BasicTemplateFilesTest {
     }
 
     @Test
+    fun `package json declares test script and vitest devDep`() {
+        val pkg = BasicTemplateFiles.generate(pnpmCtx)["package.json"]!!
+        assertTrue(pkg.contains("\"test\": \"vitest run\""))
+        assertTrue(pkg.contains("\"vitest\": \"${TemplateVersions.VITEST}\""))
+    }
+
+    @Test
+    fun `ships a vitest smoke test`() {
+        val files = BasicTemplateFiles.generate(pnpmCtx)
+        assertTrue(files.containsKey("src/__tests__/App.test.mjs"))
+        val test = files["src/__tests__/App.test.mjs"]!!
+        assertTrue(test.contains("import(\"../App.res.mjs\")"))
+    }
+
+    @Test
     fun `App res demonstrates both argv and async file reading`() {
         val app = BasicTemplateFiles.generate(pnpmCtx)["src/App.res"]!!
         assertTrue(app.contains("Args.positional"), "App should use positional argv helper")
