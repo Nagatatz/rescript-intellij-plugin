@@ -525,7 +525,7 @@ Every generated project ships with the same baseline so you can start coding rig
 - **`.editorconfig`** — Pins indentation (2 spaces) and line endings (LF)
 - **`.github/workflows/ci.yml`** — Minimal CI pipeline that installs dependencies and runs `rescript`, plus the `build` / `test` script when the template defines one
 - **`packageManager` field in `package.json`** — Pins the toolchain version for [Corepack](https://nodejs.org/api/corepack.html) so collaborators get the same package manager
-- **Vitest sample test** — Included in CLI Tool, npm Library, Hono, Vite + React, and Next.js templates
+- **Vitest smoke test** — Every template ships `src/__tests__/*.test.mjs` (or workspace equivalents) wired to a `test` script. Monorepo fans out with `pnpm -r run test` / `yarn workspaces foreach` / `npm --workspaces run test --if-present`; React Native uses a filesystem smoke test since `react-native` won't load under Node
 - **Centralized dependency versions** — All template versions live in `wizard/templates/TemplateVersions.kt`; a nightly GitHub Actions job (`integration-tests.yml`) verifies that every template still installs and compiles
 
 ### Vite+ Toolchain (Vite + React, Electron, Monorepo)
