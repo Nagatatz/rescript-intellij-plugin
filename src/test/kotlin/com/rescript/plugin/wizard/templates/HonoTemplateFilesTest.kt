@@ -101,4 +101,12 @@ class HonoTemplateFilesTest {
         assertTrue(files.containsKey(".env.example"))
         assertTrue(files[".env.example"]!!.contains("DATABASE_URL"))
     }
+
+    @Test
+    fun `wires a global onError handler returning JSON 500`() {
+        val server = HonoTemplateFiles.generate(ctx)["src/Server.res"]!!
+        assertTrue(server.contains("Hono.onError"))
+        assertTrue(server.contains("Internal Server Error"))
+        assertTrue(server.contains("Hono.status(500)"))
+    }
 }

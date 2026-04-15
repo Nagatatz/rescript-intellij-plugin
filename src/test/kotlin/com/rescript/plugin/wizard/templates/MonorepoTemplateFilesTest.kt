@@ -140,4 +140,15 @@ class MonorepoTemplateFilesTest {
         assertTrue(files.containsKey("packages/server/.env.example"))
         assertTrue(files["packages/server/.env.example"]!!.contains("DATABASE_URL"))
     }
+
+    @Test
+    fun `wires a global onError handler returning JSON 500`() {
+        val server =
+            MonorepoTemplateFiles.generate(
+                TemplateContext("app", PackageManager.PNPM),
+            )["packages/server/src/Server.res"]!!
+        assertTrue(server.contains("Hono.onError"))
+        assertTrue(server.contains("Internal Server Error"))
+        assertTrue(server.contains("Hono.status(500)"))
+    }
 }

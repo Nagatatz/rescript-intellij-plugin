@@ -375,6 +375,12 @@ internal object MonorepoTemplateFiles {
         buildString {
             appendLine("let app = Hono.createApp()")
             appendLine("")
+            appendLine("// Global error handler: converts uncaught exceptions into a JSON 500 response.")
+            appendLine("app->Hono.onError((err, ctx) => {")
+            appendLine("  Console.error(err)")
+            appendLine("  ctx->Hono.status(500)->Hono.json({\"error\": \"Internal Server Error\"})")
+            appendLine("})")
+            appendLine("")
             appendLine("app->Hono.get(\"/api/hello\", ctx =>")
             appendLine("  ctx->Hono.json({\"message\": \"Hello from @$projectName/server!\"})")
             appendLine(")")
