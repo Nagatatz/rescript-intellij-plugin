@@ -11,6 +11,7 @@ import com.rescript.plugin.wizard.templates.MonorepoTemplateFiles
 import com.rescript.plugin.wizard.templates.NextjsTemplateFiles
 import com.rescript.plugin.wizard.templates.NpmLibraryTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeTemplateFiles
+import com.rescript.plugin.wizard.templates.TemplateContext
 import com.rescript.plugin.wizard.templates.ViteReactTemplateFiles
 
 /**
@@ -110,24 +111,36 @@ enum class ProjectTemplate(
     ;
 
     /**
-     * Generates all project files for this template.
+     * Generates all project files for this template using the full template context.
      *
-     * @param projectName the name of the project being created
+     * Templates that have migrated to the context-aware generator receive [ctx] directly;
+     * those still on the legacy signature fall back to [generateFiles(String)] which is
+     * wired to dispatch to the same per-template objects.
+     *
+     * @param ctx the template context (project name + selected package manager)
      * @return a map of relative file paths to their string content
      */
-    fun generateFiles(projectName: String): Map<String, String> =
+    fun generateFiles(ctx: TemplateContext): Map<String, String> =
         when (this) {
-            BASIC -> BasicTemplateFiles.generate(projectName)
-            VITE_REACT -> ViteReactTemplateFiles.generate(projectName)
-            NEXTJS -> NextjsTemplateFiles.generate(projectName)
-            ELECTRON -> ElectronTemplateFiles.generate(projectName)
-            HONO -> HonoTemplateFiles.generate(projectName)
-            CLOUDFLARE_WORKERS -> CloudflareWorkersTemplateFiles.generate(projectName)
-            AWS_LAMBDA -> AwsLambdaTemplateFiles.generate(projectName)
-            GOOGLE_CLOUD_RUN -> GoogleCloudRunTemplateFiles.generate(projectName)
-            REACT_NATIVE -> ReactNativeTemplateFiles.generate(projectName)
-            NPM_LIBRARY -> NpmLibraryTemplateFiles.generate(projectName)
-            CLI_TOOL -> CliToolTemplateFiles.generate(projectName)
-            MONOREPO -> MonorepoTemplateFiles.generate(projectName)
+            BASIC -> BasicTemplateFiles.generate(ctx)
+            VITE_REACT -> ViteReactTemplateFiles.generate(ctx)
+            NEXTJS -> NextjsTemplateFiles.generate(ctx)
+            ELECTRON -> ElectronTemplateFiles.generate(ctx)
+            HONO -> HonoTemplateFiles.generate(ctx)
+            CLOUDFLARE_WORKERS -> CloudflareWorkersTemplateFiles.generate(ctx)
+            AWS_LAMBDA -> AwsLambdaTemplateFiles.generate(ctx)
+            GOOGLE_CLOUD_RUN -> GoogleCloudRunTemplateFiles.generate(ctx)
+            REACT_NATIVE -> ReactNativeTemplateFiles.generate(ctx)
+            NPM_LIBRARY -> NpmLibraryTemplateFiles.generate(ctx)
+            CLI_TOOL -> CliToolTemplateFiles.generate(ctx)
+            MONOREPO -> MonorepoTemplateFiles.generate(ctx)
         }
+
+    /**
+     * Back-compatible entry point that defaults to pnpm when no package manager is specified.
+     *
+     * @param projectName the name of the project being created
+     */
+    fun generateFiles(projectName: String): Map<String, String> =
+        generateFiles(TemplateContext(projectName, PackageManager.PNPM))
 }

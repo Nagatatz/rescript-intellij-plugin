@@ -9,6 +9,9 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  * for TypeScript consumers.
  */
 internal object NpmLibraryTemplateFiles {
+    /** Context-aware entry point; falls through to the project-name generator until migrated. */
+    fun generate(ctx: TemplateContext): Map<String, String> = generate(ctx.projectName)
+
     fun generate(projectName: String): Map<String, String> =
         mapOf(
             "rescript.json" to ProjectFileBuilders.rescriptJson(name = projectName, includeGenType = true),

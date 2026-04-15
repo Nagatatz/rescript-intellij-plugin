@@ -4,6 +4,9 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
 
 /** Generates project template files for a Vite + React ReScript project. */
 internal object ViteReactTemplateFiles {
+    /** Context-aware entry point; falls through to the project-name generator until migrated. */
+    fun generate(ctx: TemplateContext): Map<String, String> = generate(ctx.projectName)
+
     fun generate(projectName: String): Map<String, String> =
         mapOf(
             "rescript.json" to
