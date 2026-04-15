@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-04-15 20:08+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -110,52 +110,64 @@ msgid ""
 msgstr "[高度な機能](features/advanced.md) — Code Lens、コンパイル済み JS プレビュー、モジュール階層"
 
 #: ../../user/index.md:24
+msgid "Project Templates"
+msgstr "プロジェクトテンプレート"
+
+#: ../../user/index.md:26
+msgid ""
+"[Project Templates](templates/index.md) — Scaffold production-shaped "
+"ReScript projects from the New Project wizard"
+msgstr ""
+"[プロジェクトテンプレート](templates/index.md) — New Project ウィザード"
+"からプロダクションレベルの ReScript プロジェクトをスキャフォールド"
+
+#: ../../user/index.md:28
 msgid "Recipes"
 msgstr ""
 
-#: ../../user/index.md:26
+#: ../../user/index.md:30
 msgid ""
 "[Recipe Collection](recipes/index.md) — Task-oriented guides for common "
 "workflows"
 msgstr ""
 
-#: ../../user/index.md:28
+#: ../../user/index.md:32
 msgid "Reference"
 msgstr "リファレンス"
 
-#: ../../user/index.md:30
+#: ../../user/index.md:34
 msgid ""
 "[Quick Reference Card](cheatsheet.md) — Condensed cheat sheet of "
 "shortcuts and features"
 msgstr ""
 
-#: ../../user/index.md:31
+#: ../../user/index.md:35
 msgid ""
 "[Version Matrix](version-matrix.md) — Features by version and IDE "
 "compatibility"
 msgstr ""
 
-#: ../../user/index.md:32
+#: ../../user/index.md:36
 msgid "[Configuration](configuration.md) — Plugin settings"
 msgstr "[設定](configuration.md) — プラグインの設定"
 
-#: ../../user/index.md:33
+#: ../../user/index.md:37
 msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference"
 msgstr "[キーボードショートカット](keyboard-shortcuts.md) — ショートカットリファレンス"
 
-#: ../../user/index.md:34
+#: ../../user/index.md:38
 msgid "[FAQ](faq.md) — Frequently asked questions"
 msgstr "[FAQ](faq.md) — よくある質問"
 
-#: ../../user/index.md:35
+#: ../../user/index.md:39
 msgid "[Troubleshooting](troubleshooting.md) — Common issues and solutions"
 msgstr "[トラブルシューティング](troubleshooting.md) — よくある問題と解決方法"
 
-#: ../../user/index.md:36
+#: ../../user/index.md:40
 msgid "[Glossary](glossary.md) — Key terms and definitions"
 msgstr "[用語集](glossary.md) — 主要な用語と定義"
 
-#: ../../user/index.md:37
+#: ../../user/index.md:41
 msgid "[Changelog](changelog.md) — Release notes"
 msgstr "[変更履歴](changelog.md) — リリースノート"
 

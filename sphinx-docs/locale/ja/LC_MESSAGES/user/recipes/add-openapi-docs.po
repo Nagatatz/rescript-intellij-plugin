@@ -1,0 +1,216 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-15 20:08+0900\n"
+"PO-Revision-Date: 2026-04-15 20:15+0900\n"
+"Last-Translator: \n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/add-openapi-docs.md
+msgid "openapi, scalar, hono, zod, rescript, api docs, swagger"
+msgstr "openapi, scalar, hono, zod, rescript, API ドキュメント, swagger"
+
+#: ../../user/recipes/add-openapi-docs.md:7
+msgid "Add OpenAPI Docs"
+msgstr "OpenAPI ドキュメントの追加"
+
+#: ../../user/recipes/add-openapi-docs.md:9
+msgid ""
+"The Hono REST template ships with [Scalar "
+"UI](https://github.com/scalar/scalar) at `/docs` and an OpenAPI 3.1 spec "
+"at `/openapi.json`, powered by `@hono/zod-openapi`. This recipe explains "
+"how the pieces fit together and how to enrich the generated spec."
+msgstr ""
+"Hono REST テンプレートには `/docs` の [Scalar UI]("
+"https://github.com/scalar/scalar) と `/openapi.json` の OpenAPI 3.1 "
+"仕様が同梱されており、`@hono/zod-openapi` によって動作しています。この"
+"レシピでは、各構成要素がどう連携しているか、そして生成される仕様を"
+"どう拡張するかを説明します。"
+
+#: ../../user/recipes/add-openapi-docs.md:11
+msgid "What You Get"
+msgstr "提供されるもの"
+
+#: ../../user/recipes/add-openapi-docs.md:13
+msgid "`src/ZodOpenapi.res` — ReScript bindings over `@hono/zod-openapi`"
+msgstr "`src/ZodOpenapi.res` — `@hono/zod-openapi` の ReScript バインディング"
+
+#: ../../user/recipes/add-openapi-docs.md:14
+msgid "`src/Scalar.res` — bindings over `@scalar/hono-api-reference`"
+msgstr "`src/Scalar.res` — `@scalar/hono-api-reference` のバインディング"
+
+#: ../../user/recipes/add-openapi-docs.md:15
+msgid "`src/Server.res` — wires `/openapi.json` and `/docs`"
+msgstr "`src/Server.res` — `/openapi.json` と `/docs` の配線"
+
+#: ../../user/recipes/add-openapi-docs.md:16
+msgid "`src/Routes/Users.res` — users CRUD exposed through the spec"
+msgstr "`src/Routes/Users.res` — 仕様に公開された users CRUD"
+
+#: ../../user/recipes/add-openapi-docs.md:18
+msgid ""
+"Open `http://localhost:3000/docs` after `pnpm dev` to see the interactive"
+" UI."
+msgstr ""
+"`pnpm dev` の後に `http://localhost:3000/docs` を開くと、インタラクティブ"
+"な UI を確認できます。"
+
+#: ../../user/recipes/add-openapi-docs.md:20
+msgid "How It Wires Together"
+msgstr "全体の配線"
+
+#: ../../user/recipes/add-openapi-docs.md:31
+msgid "Define a Zod Schema"
+msgstr "Zod スキーマの定義"
+
+#: ../../user/recipes/add-openapi-docs.md:47
+msgid "Attach to a Route"
+msgstr "ルートにアタッチする"
+
+#: ../../user/recipes/add-openapi-docs.md:77
+msgid "Describe the API"
+msgstr "API を記述する"
+
+#: ../../user/recipes/add-openapi-docs.md:79
+msgid "Add metadata so Scalar UI renders a title, description, and server list:"
+msgstr ""
+"Scalar UI にタイトル、説明、サーバー一覧を表示させるためのメタデータを"
+"追加します:"
+
+#: ../../user/recipes/add-openapi-docs.md:97
+msgid "Group Routes with Tags"
+msgstr "タグでルートをグループ化する"
+
+#: ../../user/recipes/add-openapi-docs.md:99
+msgid "Tags control how Scalar UI groups endpoints in the sidebar:"
+msgstr ""
+"タグは Scalar UI がサイドバーでエンドポイントをどうグループ化するかを"
+"制御します:"
+
+#: ../../user/recipes/add-openapi-docs.md:110
+msgid "Security"
+msgstr "セキュリティ"
+
+#: ../../user/recipes/add-openapi-docs.md:112
+msgid "Wire bearer-token auth into the spec:"
+msgstr "Bearer トークン認証を仕様に組み込みます:"
+
+#: ../../user/recipes/add-openapi-docs.md:127
+msgid ""
+"Scalar UI renders an \"Authorize\" button so visitors can paste their "
+"token."
+msgstr ""
+"Scalar UI は \"Authorize\" ボタンを表示し、訪問者がトークンを貼り付け"
+"られるようにします。"
+
+#: ../../user/recipes/add-openapi-docs.md:129
+msgid "Exporting the Spec"
+msgstr "仕様のエクスポート"
+
+#: ../../user/recipes/add-openapi-docs.md:131
+msgid ""
+"`curl http://localhost:3000/openapi.json > openapi.json` dumps the spec "
+"to disk. Wire this into CI to validate that the spec stays stable across "
+"commits, or feed it to a client generator (`openapi-generator`, `orval`, "
+"`@hey-api/openapi-ts`)."
+msgstr ""
+"`curl http://localhost:3000/openapi.json > openapi.json` で仕様をディスク"
+"に書き出せます。これを CI に組み込んで仕様がコミット間で安定している"
+"ことを検証したり、クライアントジェネレータ (`openapi-generator`、`orval`"
+"、`@hey-api/openapi-ts`) に渡したりできます。"
+
+#: ../../user/recipes/add-openapi-docs.md:133
+msgid "Switching UIs"
+msgstr "UI の切り替え"
+
+#: ../../user/recipes/add-openapi-docs.md:135
+msgid ""
+"Scalar is the default, but the spec at `/openapi.json` works with any "
+"OpenAPI renderer:"
+msgstr ""
+"Scalar がデフォルトですが、`/openapi.json` の仕様は任意の OpenAPI"
+" レンダラーで使用できます:"
+
+#: ../../user/recipes/add-openapi-docs.md:137
+msgid "[Swagger UI](https://github.com/swagger-api/swagger-ui)"
+msgstr "[Swagger UI](https://github.com/swagger-api/swagger-ui)"
+
+#: ../../user/recipes/add-openapi-docs.md:138
+msgid "[Redoc](https://github.com/Redocly/redoc)"
+msgstr "[Redoc](https://github.com/Redocly/redoc)"
+
+#: ../../user/recipes/add-openapi-docs.md:139
+msgid "[Stoplight Elements](https://stoplight.io/open-source/elements)"
+msgstr "[Stoplight Elements](https://stoplight.io/open-source/elements)"
+
+#: ../../user/recipes/add-openapi-docs.md:141
+msgid "Swap `Scalar.apiReference` in `src/Server.res` for the equivalent handler."
+msgstr ""
+"`src/Server.res` の `Scalar.apiReference` を同等のハンドラに置き換えて"
+"ください。"
+
+#: ../../user/recipes/add-openapi-docs.md:143
+msgid "Common Pitfalls"
+msgstr "よくある落とし穴"
+
+#: ../../user/recipes/add-openapi-docs.md:145
+msgid ""
+"**Route not showing in `/docs`** — ensure you used `app.openapi(route, "
+"handler)` rather than `app.get(...)`. Plain Hono routes don't appear in "
+"the spec."
+msgstr ""
+"**ルートが `/docs` に表示されない** — `app.get(...)` ではなく"
+" `app.openapi(route, handler)` を使用してください。通常の Hono ルートは"
+"仕様に現れません。"
+
+#: ../../user/recipes/add-openapi-docs.md:146
+msgid ""
+"**Scalar UI blank** — check the browser console. Usually `/openapi.json` "
+"returned HTML (error page) instead of JSON. Visit it directly to see the "
+"actual error."
+msgstr ""
+"**Scalar UI が空白** — ブラウザコンソールを確認してください。多くの"
+"場合、`/openapi.json` が JSON ではなく HTML (エラーページ) を返して"
+"います。直接アクセスして実際のエラーを確認してください。"
+
+#: ../../user/recipes/add-openapi-docs.md:147
+msgid ""
+"**Zod schema mismatch** — when a response handler returns a shape Zod "
+"can't coerce, you'll see a 500 with a validation error. Use "
+"`ZodOpenapi.string(~format=\"email\", ())` style helpers to match the "
+"runtime shape."
+msgstr ""
+"**Zod スキーマの不一致** — レスポンスハンドラが Zod で変換できない形状を"
+"返すと、バリデーションエラーで 500 になります。実行時の形状に一致させる"
+"には `ZodOpenapi.string(~format=\"email\", ())` のようなヘルパーを使って"
+"ください。"
+
+#: ../../user/recipes/add-openapi-docs.md:149
+msgid "Related"
+msgstr "関連リンク"
+
+#: ../../user/recipes/add-openapi-docs.md:151
+msgid "[Add a Hono endpoint](add-hono-endpoint.md) — adding routes end-to-end"
+msgstr "[Hono エンドポイントの追加](add-hono-endpoint.md) — エンドツーエンドのルート追加"
+
+#: ../../user/recipes/add-openapi-docs.md:152
+msgid "[Set up Drizzle](setup-drizzle.md) — persisting validated payloads"
+msgstr "[Drizzle のセットアップ](setup-drizzle.md) — 検証済みペイロードの永続化"
+
+#: ../../user/recipes/add-openapi-docs.md:153
+msgid "[Project Templates](../templates/index.md) — the template catalog"
+msgstr "[プロジェクトテンプレート](../templates/index.md) — テンプレートカタログ"

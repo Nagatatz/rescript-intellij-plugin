@@ -1,0 +1,262 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-15 20:08+0900\n"
+"PO-Revision-Date: 2026-04-15 20:15+0900\n"
+"Last-Translator: \n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/setup-drizzle.md
+msgid "drizzle, sqlite, libsql, turso, orm, migrations, rescript"
+msgstr "drizzle, sqlite, libsql, turso, orm, マイグレーション, rescript"
+
+#: ../../user/recipes/setup-drizzle.md:7
+msgid "Set Up Drizzle"
+msgstr "Drizzle のセットアップ"
+
+#: ../../user/recipes/setup-drizzle.md:9
+msgid ""
+"The Hono REST, Hono GraphQL, Full-Stack, and Monorepo templates all ship "
+"Drizzle ORM with SQLite (via `@libsql/client`). This recipe covers the "
+"day-two flow: changing the schema, generating migrations, and pointing at"
+" Turso for production."
+msgstr ""
+"Hono REST、Hono GraphQL、Full-Stack、Monorepo の各テンプレートは、"
+"SQLite (`@libsql/client` 経由) + Drizzle ORM を同梱しています。この"
+"レシピでは、スキーマ変更、マイグレーション生成、本番環境向けに Turso"
+" に向けるといった 2 日目以降のフローを扱います。"
+
+#: ../../user/recipes/setup-drizzle.md:11
+msgid "What You Get"
+msgstr "提供されるもの"
+
+#: ../../user/recipes/setup-drizzle.md:13
+msgid ""
+"`src/Schema.res` — Drizzle table definitions via `@module(\"drizzle-orm"
+"/sqlite-core\")` bindings"
+msgstr ""
+"`src/Schema.res` — `@module(\"drizzle-orm/sqlite-core\")` バインディング"
+"による Drizzle テーブル定義"
+
+#: ../../user/recipes/setup-drizzle.md:14
+#, python-brace-format
+msgid ""
+"`src/Db.res` — `createClient({url: ...})` + `drizzle(client)` + query "
+"helpers"
+msgstr ""
+"`src/Db.res` — `createClient({url: ...})` + `drizzle(client)` + クエリ"
+"ヘルパー"
+
+#: ../../user/recipes/setup-drizzle.md:15
+msgid ""
+"`drizzle.config.ts` — drizzle-kit config pointing at the compiled "
+"`Schema.res.mjs`"
+msgstr ""
+"`drizzle.config.ts` — コンパイル済み `Schema.res.mjs` を指す drizzle-kit"
+" の設定ファイル"
+
+#: ../../user/recipes/setup-drizzle.md:16
+msgid "`data/app.db` — default local SQLite file (gitignored)"
+msgstr "`data/app.db` — デフォルトのローカル SQLite ファイル (gitignore 済み)"
+
+#: ../../user/recipes/setup-drizzle.md:17
+msgid "Scripts — `db:generate`, `db:migrate`"
+msgstr "スクリプト — `db:generate`、`db:migrate`"
+
+#: ../../user/recipes/setup-drizzle.md:19
+msgid "Adding a Column"
+msgstr "カラムの追加"
+
+#: ../../user/recipes/setup-drizzle.md:21
+msgid "Edit `src/Schema.res`:"
+msgstr "`src/Schema.res` を編集します:"
+
+#: ../../user/recipes/setup-drizzle.md:32
+msgid "Regenerate and apply:"
+msgstr "再生成して適用します:"
+
+#: ../../user/recipes/setup-drizzle.md:40
+msgid ""
+"Commit the generated SQL in `./drizzle/` so collaborators replay the same"
+" changes."
+msgstr ""
+"コラボレーターが同じ変更を再生できるよう、`./drizzle/` に生成された SQL"
+" をコミットしてください。"
+
+#: ../../user/recipes/setup-drizzle.md:42
+msgid "Adding a Table"
+msgstr "テーブルの追加"
+
+#: ../../user/recipes/setup-drizzle.md:52
+msgid "Same two-step: `pnpm db:generate` then `pnpm db:migrate`."
+msgstr "同じ 2 ステップ: `pnpm db:generate` の後に `pnpm db:migrate`。"
+
+#: ../../user/recipes/setup-drizzle.md:54
+msgid "Querying"
+msgstr "クエリ"
+
+#: ../../user/recipes/setup-drizzle.md:56
+msgid ""
+"The generated `src/Db.res` binds the common verbs you need. Add more via "
+"`@send`:"
+msgstr ""
+"生成された `src/Db.res` は必要な主要動詞をバインドしています。さらに"
+"追加する場合は `@send` を使います:"
+
+#: ../../user/recipes/setup-drizzle.md:64
+msgid "Example — find by id:"
+msgstr "例 — id で検索する:"
+
+#: ../../user/recipes/setup-drizzle.md:82
+msgid "Pointing at Turso (Production)"
+msgstr "Turso へ接続する (本番環境)"
+
+#: ../../user/recipes/setup-drizzle.md:84
+msgid "Turso is a managed libsql host — the same client works with a remote URL."
+msgstr ""
+"Turso はマネージド libsql ホストです — リモート URL に対しても同じ"
+"クライアントが動作します。"
+
+#: ../../user/recipes/setup-drizzle.md:86
+msgid "`brew install tursodatabase/tap/turso`"
+msgstr "`brew install tursodatabase/tap/turso`"
+
+#: ../../user/recipes/setup-drizzle.md:87
+msgid "`turso auth login`"
+msgstr "`turso auth login`"
+
+#: ../../user/recipes/setup-drizzle.md:88
+msgid "`turso db create my-app`"
+msgstr "`turso db create my-app`"
+
+#: ../../user/recipes/setup-drizzle.md:89
+msgid "`turso db tokens create my-app`"
+msgstr "`turso db tokens create my-app`"
+
+#: ../../user/recipes/setup-drizzle.md:90
+msgid "Export env vars and run migrations:"
+msgstr "環境変数を設定してマイグレーションを実行します:"
+
+#: ../../user/recipes/setup-drizzle.md:98
+msgid "Extend `src/Db.res` to read the auth token:"
+msgstr "`src/Db.res` を拡張して認証トークンを読み込みます:"
+
+#: ../../user/recipes/setup-drizzle.md:109
+msgid "Drizzle Config Notes"
+msgstr "Drizzle 設定に関する注意"
+
+#: ../../user/recipes/setup-drizzle.md:111
+msgid ""
+"`drizzle.config.ts` reads `src/Schema.res.mjs` — the **compiled** file. "
+"If migrations come up empty after a schema edit, ensure ReScript has "
+"compiled:"
+msgstr ""
+"`drizzle.config.ts` は **コンパイル済み** の `src/Schema.res.mjs` を"
+"読み込みます。スキーマ編集後にマイグレーションが空になる場合は、"
+"ReScript がコンパイルされていることを確認してください:"
+
+#: ../../user/recipes/setup-drizzle.md:117
+msgid ""
+"Or run `pnpm res:dev` in another terminal so `Schema.res.mjs` stays up to"
+" date."
+msgstr ""
+"あるいは別のターミナルで `pnpm res:dev` を実行して、`Schema.res.mjs` を"
+"常に最新に保ちます。"
+
+#: ../../user/recipes/setup-drizzle.md:119
+msgid "Switching Dialects"
+msgstr "方言の切り替え"
+
+#: ../../user/recipes/setup-drizzle.md:121
+msgid "To use PostgreSQL instead, replace:"
+msgstr "PostgreSQL を使用する場合は、以下を置き換えます:"
+
+#: ../../user/recipes/setup-drizzle.md:123
+msgid "`@libsql/client` → `postgres` (or `pg`)"
+msgstr "`@libsql/client` → `postgres` (または `pg`)"
+
+#: ../../user/recipes/setup-drizzle.md:124
+msgid "`drizzle-orm/libsql` → `drizzle-orm/postgres-js`"
+msgstr "`drizzle-orm/libsql` → `drizzle-orm/postgres-js`"
+
+#: ../../user/recipes/setup-drizzle.md:125
+msgid "`drizzle-orm/sqlite-core` → `drizzle-orm/pg-core`"
+msgstr "`drizzle-orm/sqlite-core` → `drizzle-orm/pg-core`"
+
+#: ../../user/recipes/setup-drizzle.md:126
+msgid "`dialect: \"sqlite\"` → `dialect: \"postgresql\"` in `drizzle.config.ts`"
+msgstr "`drizzle.config.ts` で `dialect: \"sqlite\"` → `dialect: \"postgresql\"`"
+
+#: ../../user/recipes/setup-drizzle.md:128
+msgid ""
+"The route modules (`Routes/Users.res` etc.) remain unchanged because the "
+"query helpers are polymorphic."
+msgstr ""
+"クエリヘルパーは多相的なため、ルートモジュール (`Routes/Users.res` など)"
+" は変更不要です。"
+
+#: ../../user/recipes/setup-drizzle.md:130
+msgid "Common Pitfalls"
+msgstr "よくある落とし穴"
+
+#: ../../user/recipes/setup-drizzle.md:132
+msgid ""
+"**\"No migrations pending\" after editing the schema** — `drizzle-kit` "
+"reads the compiled `.mjs`. Run `res:build` first."
+msgstr ""
+"**スキーマ編集後に \"No migrations pending\" が出る** — `drizzle-kit` は"
+"コンパイル済みの `.mjs` を読むため、先に `res:build` を実行してください。"
+
+#: ../../user/recipes/setup-drizzle.md:133
+msgid ""
+"**Lock conflicts with watch mode** — stop `res:dev` before `db:migrate` "
+"if you hit file-lock errors on Windows."
+msgstr ""
+"**ウォッチモードとのロック競合** — Windows でファイルロックエラーが出る"
+"場合、`db:migrate` の前に `res:dev` を停止してください。"
+
+#: ../../user/recipes/setup-drizzle.md:134
+msgid ""
+"**Foreign key constraints** — SQLite doesn't enforce them by default. "
+"Call `PRAGMA foreign_keys = ON;` at connection time if you need "
+"enforcement."
+msgstr ""
+"**外部キー制約** — SQLite はデフォルトでは外部キー制約を強制しません。"
+"必要な場合は接続時に `PRAGMA foreign_keys = ON;` を実行してください。"
+
+#: ../../user/recipes/setup-drizzle.md:136
+msgid "Related"
+msgstr "関連リンク"
+
+#: ../../user/recipes/setup-drizzle.md:138
+msgid ""
+"[Add a Hono endpoint](add-hono-endpoint.md) — using the schema from an "
+"HTTP route"
+msgstr ""
+"[Hono エンドポイントの追加](add-hono-endpoint.md) — HTTP ルートから"
+"スキーマを利用する"
+
+#: ../../user/recipes/setup-drizzle.md:139
+msgid ""
+"[Add a GraphQL resolver](add-graphql-resolver.md) — using the schema from"
+" a resolver"
+msgstr ""
+"[GraphQL リゾルバの追加](add-graphql-resolver.md) — リゾルバから"
+"スキーマを利用する"
+
+#: ../../user/recipes/setup-drizzle.md:140
+msgid "[Project Templates](../templates/index.md) — the template catalog"
+msgstr "[プロジェクトテンプレート](../templates/index.md) — テンプレートカタログ"

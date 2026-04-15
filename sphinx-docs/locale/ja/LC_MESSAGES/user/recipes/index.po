@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-04-15 20:08+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -32,9 +32,7 @@ msgstr "レシピ"
 msgid ""
 "Task-oriented guides for common ReScript development workflows. Each "
 "recipe walks you through a specific use case step by step."
-msgstr ""
-"ReScript 開発でよくあるワークフローに対応したタスク指向のガイドです。各レシピでは、"
-"特定のユースケースをステップバイステップで解説します。"
+msgstr "ReScript 開発でよくあるワークフローに対応したタスク指向のガイドです。各レシピでは、特定のユースケースをステップバイステップで解説します。"
 
 #: ../../user/recipes/index.md:14
 msgid "Create a React Component"
@@ -99,3 +97,42 @@ msgstr "Import の最適化"
 #: ../../user/recipes/index.md:57
 msgid "Clean up duplicate and unused open statements."
 msgstr "重複・未使用の open 文を整理します。"
+
+#: ../../user/recipes/index.md:62
+msgid "Add a Hono Endpoint"
+msgstr "Hono エンドポイントの追加"
+
+#: ../../user/recipes/index.md:65
+msgid "Extend the Hono REST template with a new route, validation, and storage."
+msgstr "Hono REST テンプレートを新しいルート、バリデーション、ストレージで拡張します。"
+
+#: ../../user/recipes/index.md:67 ../../user/recipes/index.md:75
+#: ../../user/recipes/index.md:83 ../../user/recipes/index.md:91
+#, python-brace-format
+msgid "{bdg-info}`Template`"
+msgstr "{bdg-info}`テンプレート`"
+
+#: ../../user/recipes/index.md:70
+msgid "Add a GraphQL Resolver"
+msgstr "GraphQL リゾルバの追加"
+
+#: ../../user/recipes/index.md:73
+msgid "Expand the SDL and wire resolvers for the Hono + GraphQL template."
+msgstr "Hono + GraphQL テンプレートの SDL を拡張し、リゾルバを配線します。"
+
+#: ../../user/recipes/index.md:78
+msgid "Set Up Drizzle"
+msgstr "Drizzle のセットアップ"
+
+#: ../../user/recipes/index.md:81
+msgid "Change the schema, run migrations, and point at Turso for production."
+msgstr "スキーマを変更し、マイグレーションを実行し、本番環境では Turso に向けます。"
+
+#: ../../user/recipes/index.md:86
+msgid "Add OpenAPI Docs"
+msgstr "OpenAPI ドキュメントの追加"
+
+#: ../../user/recipes/index.md:89
+msgid "Enrich the Scalar UI documentation shipped with the Hono REST template."
+msgstr "Hono REST テンプレートに同梱されている Scalar UI ドキュメントを充実させます。"
+

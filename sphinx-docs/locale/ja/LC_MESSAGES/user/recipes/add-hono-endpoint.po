@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-15 20:08+0900\n"
+"PO-Revision-Date: 2026-04-15 20:15+0900\n"
+"Last-Translator: \n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/add-hono-endpoint.md
+msgid "hono, rest api, endpoint, zod, openapi, rescript, drizzle"
+msgstr "hono, REST API, エンドポイント, zod, openapi, rescript, drizzle"
+
+#: ../../user/recipes/add-hono-endpoint.md:7
+msgid "Add a Hono Endpoint"
+msgstr "Hono エンドポイントの追加"
+
+#: ../../user/recipes/add-hono-endpoint.md:9
+msgid ""
+"The Hono REST template (and Full-Stack / Monorepo variants) ship a users "
+"CRUD. This recipe walks through adding a new endpoint end-to-end: route "
+"handler, Drizzle storage, Zod validation, and OpenAPI docs."
+msgstr ""
+"Hono REST テンプレート (および Full-Stack / Monorepo 派生) はユーザー CRUD"
+"を同梱しています。このレシピでは、ルートハンドラ、Drizzle による永続化、"
+"Zod バリデーション、OpenAPI ドキュメントまで、新しいエンドポイントを"
+"エンドツーエンドで追加する手順を説明します。"
+
+#: ../../user/recipes/add-hono-endpoint.md:11
+msgid "What You Get Out of the Box"
+msgstr "デフォルトで提供されるもの"
+
+#: ../../user/recipes/add-hono-endpoint.md:13
+msgid "The generated project already wires:"
+msgstr "生成されたプロジェクトには以下が既に組み込まれています:"
+
+#: ../../user/recipes/add-hono-endpoint.md:15
+msgid ""
+"`src/Server.res` — Hono app with logger, `/openapi.json`, `/docs` (Scalar"
+" UI)"
+msgstr ""
+"`src/Server.res` — ロガー、`/openapi.json`、`/docs` (Scalar UI) を備えた"
+" Hono アプリ"
+
+#: ../../user/recipes/add-hono-endpoint.md:16
+msgid "`src/Routes/Users.res` — GET/POST/PUT/DELETE for `/users`"
+msgstr "`src/Routes/Users.res` — `/users` の GET/POST/PUT/DELETE"
+
+#: ../../user/recipes/add-hono-endpoint.md:17
+msgid "`src/Schema.res` — Drizzle `users` table"
+msgstr "`src/Schema.res` — Drizzle の `users` テーブル"
+
+#: ../../user/recipes/add-hono-endpoint.md:18
+msgid "`src/Db.res` — libsql client + common query helpers"
+msgstr "`src/Db.res` — libsql クライアント + 汎用クエリヘルパー"
+
+#: ../../user/recipes/add-hono-endpoint.md:19
+msgid "`src/ZodOpenapi.res` — Zod bindings for `@hono/zod-openapi`"
+msgstr "`src/ZodOpenapi.res` — `@hono/zod-openapi` 向けの Zod バインディング"
+
+#: ../../user/recipes/add-hono-endpoint.md:21
+msgid "Our goal: add a `/posts` endpoint that lists posts and creates one."
+msgstr "目標: 投稿一覧を返し、投稿を作成する `/posts` エンドポイントを追加します。"
+
+#: ../../user/recipes/add-hono-endpoint.md:23
+msgid "Step 1 — Add the Table to `Schema.res`"
+msgstr "Step 1 — `Schema.res` にテーブルを追加する"
+
+#: ../../user/recipes/add-hono-endpoint.md:34
+msgid "Generate and apply the migration:"
+msgstr "マイグレーションを生成して適用します:"
+
+#: ../../user/recipes/add-hono-endpoint.md:41
+msgid "Step 2 — Write the Route Module"
+msgstr "Step 2 — ルートモジュールを書く"
+
+#: ../../user/recipes/add-hono-endpoint.md:43
+msgid "Create `src/Routes/Posts.res`:"
+msgstr "`src/Routes/Posts.res` を作成します:"
+
+#: ../../user/recipes/add-hono-endpoint.md:77
+msgid "Step 3 — Register in `Server.res`"
+msgstr "Step 3 — `Server.res` に登録する"
+
+#: ../../user/recipes/add-hono-endpoint.md:84
+msgid "Step 4 — Add Zod Validation"
+msgstr "Step 4 — Zod バリデーションを追加する"
+
+#: ../../user/recipes/add-hono-endpoint.md:86
+msgid "Lift the payload shape to a shared Zod schema:"
+msgstr "ペイロードの形状を共有の Zod スキーマとして切り出します:"
+
+#: ../../user/recipes/add-hono-endpoint.md:96
+msgid "Validate before hitting the database:"
+msgstr "データベースにアクセスする前にバリデーションを実行します:"
+
+#: ../../user/recipes/add-hono-endpoint.md:110
+msgid "Step 5 — Expose in OpenAPI"
+msgstr "Step 5 — OpenAPI に公開する"
+
+#: ../../user/recipes/add-hono-endpoint.md:112
+msgid ""
+"The template already wires `/openapi.json` and `/docs`. Routes registered"
+" via `app->Hono.get(...)` appear automatically. For richer metadata "
+"(tags, response schemas), switch to `@hono/zod-openapi`'s `createRoute` "
+"helper — see the Hono docs for the full pattern."
+msgstr ""
+"テンプレートには `/openapi.json` と `/docs` が既に配線されています。"
+"`app->Hono.get(...)` で登録したルートは自動的に表示されます。より詳細な"
+"メタデータ (タグ、レスポンススキーマ) が必要な場合は `@hono/zod-openapi`"
+" の `createRoute` ヘルパーに切り替えてください。完全なパターンは Hono"
+" ドキュメントを参照してください。"
+
+#: ../../user/recipes/add-hono-endpoint.md:114
+msgid "Step 6 — Test"
+msgstr "Step 6 — テストする"
+
+#: ../../user/recipes/add-hono-endpoint.md:128
+msgid ""
+"Open `http://localhost:3000/docs` to exercise the new endpoint in Scalar "
+"UI."
+msgstr ""
+"`http://localhost:3000/docs` を開くと、Scalar UI で新しいエンドポイントを"
+"実行できます。"
+
+#: ../../user/recipes/add-hono-endpoint.md:130
+msgid "Common Pitfalls"
+msgstr "よくある落とし穴"
+
+#: ../../user/recipes/add-hono-endpoint.md:132
+msgid ""
+"**Forgetting to run migrations** — `db:generate` creates the SQL file, "
+"`db:migrate` applies it. If your insert errors with \"no such table\", "
+"you missed step 2."
+msgstr ""
+"**マイグレーションの実行漏れ** — `db:generate` が SQL ファイルを生成し、"
+"`db:migrate` が適用します。insert が \"no such table\" で失敗する場合は"
+" Step 2 を飛ばしています。"
+
+#: ../../user/recipes/add-hono-endpoint.md:133
+msgid ""
+"**Mixing records and dicts** — Drizzle's row shape is a dict (accessed "
+"with `payload[\"title\"]`). Convert to a ReScript record at the boundary "
+"if you want stricter typing downstream."
+msgstr ""
+"**レコードと Dict の混同** — Drizzle の行の形状は Dict (`payload[\"title\"]`"
+" でアクセス) です。下流でより厳密な型付けが必要であれば、境界で ReScript"
+" レコードに変換してください。"
+
+#: ../../user/recipes/add-hono-endpoint.md:134
+msgid ""
+"**CORS during frontend development** — use the Vite+ dev proxy (Full-"
+"Stack / Monorepo templates set this up automatically) instead of "
+"configuring CORS on Hono."
+msgstr ""
+"**フロントエンド開発時の CORS** — Hono 側で CORS を設定する代わりに、"
+"Vite+ の開発プロキシ (Full-Stack / Monorepo テンプレートは自動設定済み)"
+" を使用してください。"
+
+#: ../../user/recipes/add-hono-endpoint.md:136
+msgid "Related"
+msgstr "関連リンク"
+
+#: ../../user/recipes/add-hono-endpoint.md:138
+msgid "[Set up Drizzle](setup-drizzle.md) — schema, migrations, Turso"
+msgstr "[Drizzle のセットアップ](setup-drizzle.md) — スキーマ、マイグレーション、Turso"
+
+#: ../../user/recipes/add-hono-endpoint.md:139
+msgid "[Add OpenAPI docs](add-openapi-docs.md) — richer schema metadata"
+msgstr "[OpenAPI ドキュメントの追加](add-openapi-docs.md) — より詳細なスキーマメタデータ"
+
+#: ../../user/recipes/add-hono-endpoint.md:140
+msgid "[Project Templates](../templates/index.md) — the template catalog"
+msgstr "[プロジェクトテンプレート](../templates/index.md) — テンプレートカタログ"

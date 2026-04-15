@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-15 20:08+0900\n"
+"PO-Revision-Date: 2026-04-15 20:15+0900\n"
+"Last-Translator: \n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/recipes/add-graphql-resolver.md
+msgid "graphql, yoga, resolver, schema, rescript, hono, drizzle, graphiql"
+msgstr "graphql, yoga, リゾルバ, スキーマ, rescript, hono, drizzle, graphiql"
+
+#: ../../user/recipes/add-graphql-resolver.md:7
+msgid "Add a GraphQL Resolver"
+msgstr "GraphQL リゾルバの追加"
+
+#: ../../user/recipes/add-graphql-resolver.md:9
+msgid ""
+"The Hono + GraphQL template ships `graphql-yoga` mounted on Hono at "
+"`/graphql`. It includes GraphiQL (at the same URL) and a users type "
+"backed by Drizzle/SQLite. This recipe extends it with a `posts` type."
+msgstr ""
+"Hono + GraphQL テンプレートは `graphql-yoga` を Hono の `/graphql` に"
+"マウントして同梱します。同じ URL に GraphiQL が含まれ、Drizzle/SQLite"
+" を背後に持つ users 型が用意されています。このレシピでは `posts` 型を"
+"追加して拡張します。"
+
+#: ../../user/recipes/add-graphql-resolver.md:11
+msgid "Generated Layout"
+msgstr "生成されるレイアウト"
+
+#: ../../user/recipes/add-graphql-resolver.md:13
+msgid "`src/schema.graphql` — human-authored SDL (mirrored in typeDefs)"
+msgstr "`src/schema.graphql` — 人間が編集する SDL (typeDefs にミラー)"
+
+#: ../../user/recipes/add-graphql-resolver.md:14
+msgid ""
+"`src/GraphqlSchema.res` — inlined `typeDefs` + `rootValue` consumed by "
+"yoga"
+msgstr ""
+"`src/GraphqlSchema.res` — yoga が消費するインライン化された `typeDefs`"
+" と `rootValue`"
+
+#: ../../user/recipes/add-graphql-resolver.md:15
+msgid "`src/Resolvers/Users.res` — existing users query/mutation resolvers"
+msgstr "`src/Resolvers/Users.res` — 既存の users クエリ/ミューテーションリゾルバ"
+
+#: ../../user/recipes/add-graphql-resolver.md:16
+msgid "`src/Schema.res` — Drizzle users table"
+msgstr "`src/Schema.res` — Drizzle の users テーブル"
+
+#: ../../user/recipes/add-graphql-resolver.md:17
+msgid "`src/Server.res` — Hono app mounting yoga"
+msgstr "`src/Server.res` — yoga をマウントする Hono アプリ"
+
+#: ../../user/recipes/add-graphql-resolver.md:19
+msgid "Step 1 — Extend the SDL"
+msgstr "Step 1 — SDL を拡張する"
+
+#: ../../user/recipes/add-graphql-resolver.md:21
+msgid "Edit `src/schema.graphql` to add the new type:"
+msgstr "`src/schema.graphql` を編集して新しい型を追加します:"
+
+#: ../../user/recipes/add-graphql-resolver.md:40
+msgid ""
+"Mirror the change in `src/GraphqlSchema.res`'s `typeDefs` template string"
+" — yoga reads that inline SDL at startup."
+msgstr ""
+"`src/GraphqlSchema.res` の `typeDefs` テンプレート文字列にも同じ変更を"
+"反映してください — yoga は起動時にこのインライン SDL を読み込みます。"
+
+#: ../../user/recipes/add-graphql-resolver.md:42
+msgid "Step 2 — Add the Drizzle Table"
+msgstr "Step 2 — Drizzle テーブルを追加する"
+
+#: ../../user/recipes/add-graphql-resolver.md:44
+msgid "In `src/Schema.res`:"
+msgstr "`src/Schema.res` に以下を追加します:"
+
+#: ../../user/recipes/add-graphql-resolver.md:59
+msgid "Step 3 — Write the Resolvers"
+msgstr "Step 3 — リゾルバを書く"
+
+#: ../../user/recipes/add-graphql-resolver.md:61
+msgid "Create `src/Resolvers/Posts.res`:"
+msgstr "`src/Resolvers/Posts.res` を作成します:"
+
+#: ../../user/recipes/add-graphql-resolver.md:85
+msgid "Step 4 — Wire into `rootValue`"
+msgstr "Step 4 — `rootValue` に配線する"
+
+#: ../../user/recipes/add-graphql-resolver.md:87
+msgid "In `src/GraphqlSchema.res`:"
+msgstr "`src/GraphqlSchema.res` で:"
+
+#: ../../user/recipes/add-graphql-resolver.md:100
+msgid "Step 5 — Try It"
+msgstr "Step 5 — 動作確認"
+
+#: ../../user/recipes/add-graphql-resolver.md:106
+msgid "Open `http://localhost:4000/graphql` and run:"
+msgstr "`http://localhost:4000/graphql` を開いて以下を実行します:"
+
+#: ../../user/recipes/add-graphql-resolver.md:116
+msgid "Step 6 — Regenerate Docs"
+msgstr "Step 6 — ドキュメントを再生成する"
+
+#: ../../user/recipes/add-graphql-resolver.md:122
+msgid ""
+"This runs `graphql-markdown` against `src/schema.graphql` and writes "
+"`docs/schema.md` (grouped by kind). Commit that file so documentation "
+"tracks the schema."
+msgstr ""
+"これは `src/schema.graphql` に対して `graphql-markdown` を実行し、"
+"`docs/schema.md` (kind でグループ化) を書き出します。ドキュメントが"
+"スキーマに追従するよう、このファイルをコミットしてください。"
+
+#: ../../user/recipes/add-graphql-resolver.md:124
+msgid "Patterns for Real Resolvers"
+msgstr "実運用リゾルバのパターン"
+
+#: ../../user/recipes/add-graphql-resolver.md:126
+msgid ""
+"**Field-level resolvers** — put post author resolution inside "
+"`Post.author` rather than refetching users in every query"
+msgstr ""
+"**フィールドレベルのリゾルバ** — 投稿の著者解決を各クエリで再取得する"
+"のではなく、`Post.author` 内に配置する"
+
+#: ../../user/recipes/add-graphql-resolver.md:127
+msgid ""
+"**Loaders** — use `dataloader` to batch `Post.author` calls; bind with "
+"`@module(\"dataloader\")`"
+msgstr ""
+"**ローダー** — `Post.author` 呼び出しをバッチ化するには `dataloader` を"
+"使用し、`@module(\"dataloader\")` でバインドする"
+
+#: ../../user/recipes/add-graphql-resolver.md:128
+msgid ""
+"**Context** — forward auth / db handles through yoga's `context` option "
+"instead of module-level `Db.db`"
+msgstr ""
+"**コンテキスト** — 認証情報や DB ハンドルはモジュールレベルの `Db.db`"
+" ではなく、yoga の `context` オプション経由で引き回す"
+
+#: ../../user/recipes/add-graphql-resolver.md:130
+msgid "Common Pitfalls"
+msgstr "よくある落とし穴"
+
+#: ../../user/recipes/add-graphql-resolver.md:132
+msgid ""
+"**Schema drift** — `src/schema.graphql` and the inline `typeDefs` string "
+"must agree. Using a single file via `readFileSync` avoids this but "
+"requires filesystem access at startup; the template inlines to stay self-"
+"contained."
+msgstr ""
+"**スキーマの乖離** — `src/schema.graphql` とインラインの `typeDefs`"
+" 文字列は一致していなければなりません。`readFileSync` で単一ファイルを"
+"読み込めば回避できますが、起動時にファイルシステムアクセスが必要になり"
+"ます。テンプレートは自己完結性を保つためインライン化しています。"
+
+#: ../../user/recipes/add-graphql-resolver.md:133
+msgid ""
+"**Mutation returning null** — check that `returning` is called on the "
+"Drizzle builder; `insert(...).values(...)` alone doesn't return rows."
+msgstr ""
+"**ミューテーションが null を返す** — Drizzle ビルダーで `returning` が"
+"呼ばれているか確認してください。`insert(...).values(...)` だけでは行を"
+"返しません。"
+
+#: ../../user/recipes/add-graphql-resolver.md:135
+msgid "Related"
+msgstr "関連リンク"
+
+#: ../../user/recipes/add-graphql-resolver.md:137
+msgid "[Add a Hono endpoint](add-hono-endpoint.md) — the REST counterpart"
+msgstr "[Hono エンドポイントの追加](add-hono-endpoint.md) — REST 版の対応レシピ"
+
+#: ../../user/recipes/add-graphql-resolver.md:138
+msgid "[Set up Drizzle](setup-drizzle.md) — schema migrations"
+msgstr "[Drizzle のセットアップ](setup-drizzle.md) — スキーマのマイグレーション"
+
+#: ../../user/recipes/add-graphql-resolver.md:139
+msgid "[Project Templates](../templates/index.md) — the template catalog"
+msgstr "[プロジェクトテンプレート](../templates/index.md) — テンプレートカタログ"
