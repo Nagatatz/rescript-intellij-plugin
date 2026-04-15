@@ -59,8 +59,9 @@ class TemplateDependencyVersionsTest {
         val pkg = files["package.json"]!!
         assertMinVersion("react", extractVersion(pkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(pkg, "react-dom"), 19, 0, 4)
-        assertMinVersion("vite", extractVersion(pkg, "vite"), 8, 0, 0)
         assertMinVersion("@vitejs/plugin-react", extractVersion(pkg, "@vitejs/plugin-react"), 6, 0, 0)
+        // Vite+ is the active toolchain; vite-plus is pre-1.0 so we only assert presence.
+        assertTrue(extractVersion(pkg, "vite-plus") != null, "vite-plus should be present")
     }
 
     @Test

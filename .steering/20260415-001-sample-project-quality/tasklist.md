@@ -36,14 +36,14 @@
 
 ## Step 4: Vite+ 導入 — Vite + React テンプレート (Phase 4)
 
-- [ ] `ViteReactTemplateFiles.kt` を Vite+ 向けに書き換え（`vite-plus` + `@voidzero-dev/vite-plus-core`）
-- [ ] `vite.config.ts` の import を `vite-plus` に変更
-- [ ] JSX v4 automatic runtime を `rescript.json` で設定
-- [ ] `@rescript/core` + `-open RescriptCore`
-- [ ] README / .gitignore / .editorconfig / ci.yml / Vitest サンプル を追加
-- [ ] README に Vite+ pre-1.0 の注意書きを記載
-- [ ] `ViteReactTemplateFilesTest.kt` を更新
-- [ ] コミット: `✨ Migrate Vite+React template to Vite+ toolchain`
+- [x] `ViteReactTemplateFiles.kt` を Vite+ 向けに書き換え（`vite-plus` + `@voidzero-dev/vite-plus-core` + `vitest`）
+- [x] `vite.config.mjs` の import を `vite-plus` に変更
+- [x] JSX v4 を `rescript.json` で設定済みのまま維持
+- [x] README / .gitignore / .editorconfig / ci.yml / Vitest サンプル を追加
+- [x] README に Vite+ pre-1.0 の注意書きを記載
+- [x] `ViteReactTemplateFilesTest.kt` 新規追加
+- [x] `TemplateDependencyVersionsTest` の vite アサーションを vite-plus 存在チェックに更新
+- [x] コミット: `✨ Migrate Vite+React template to Vite+ toolchain`
 
 ## Step 5: Vite+ 導入 — Electron / Monorepo (Phase 4)
 
