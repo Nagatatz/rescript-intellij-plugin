@@ -60,6 +60,7 @@ internal object FullStackTemplateFiles {
                             "vite" to TemplateVersions.VITE_PLUS,
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
+                            "vitest" to TemplateVersions.VITEST,
                         ),
                     scripts =
                         linkedMapOf(
@@ -68,6 +69,7 @@ internal object FullStackTemplateFiles {
                             "dev:client" to "vp dev",
                             "build" to "vp build",
                             "preview" to "vp preview",
+                            "test" to "vitest run",
                             "db:generate" to "drizzle-kit generate",
                             "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
@@ -94,9 +96,11 @@ internal object FullStackTemplateFiles {
             "src/server/Schema.res" to serverSchemaRes(),
             "src/server/Db.res" to serverDbRes(),
             "src/server/Routes/Users.res" to serverRoutesUsersRes(),
+            "src/server/__tests__/Server.test.mjs" to serverTest(),
             "src/client/Main.res" to clientMainRes(),
             "src/client/App.res" to clientAppRes(ctx.projectName),
             "src/client/Api.res" to clientApiRes(),
+            "src/client/__tests__/Api.test.mjs" to clientTest(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
@@ -109,6 +113,7 @@ internal object FullStackTemplateFiles {
                             "dev:server" to "Run only the Hono backend (with --watch)",
                             "dev:client" to "Run only the Vite+ client dev server",
                             "build" to "Bundle the client for production",
+                            "test" to "Run Vitest (covers both server and client smoke tests)",
                             "db:generate" to "Generate Drizzle migration SQL",
                             "db:migrate" to "Apply pending migrations to the SQLite file",
                             "res:dev" to "Watch ReScript sources",
@@ -127,13 +132,37 @@ internal object FullStackTemplateFiles {
                     extra = listOf("data/", "dist/", ".vite/", "drizzle/"),
                 ),
             ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = false),
+            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true),
         )
 
     /**
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun serverTest(): String =
+        buildString {
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("")
+            appendLine("describe(\"server module\", () => {")
+            appendLine("  it(\"loads without throwing\", async () => {")
+            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("  });")
+            appendLine("});")
+        }
+
+    private fun clientTest(): String =
+        buildString {
+            // Main.res touches ReactDOM at import time. Api.res is pure fetch bindings,
+            // safe to import under Node.
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("")
+            appendLine("describe(\"client Api module\", () => {")
+            appendLine("  it(\"loads without throwing\", async () => {")
+            appendLine("    await expect(import(\"../Api.res.mjs\")).resolves.toBeDefined();")
+            appendLine("  });")
+            appendLine("});")
+        }
 
     private fun indexHtml(projectName: String): String =
         buildString {

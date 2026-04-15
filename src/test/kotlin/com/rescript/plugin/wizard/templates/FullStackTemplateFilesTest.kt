@@ -80,4 +80,20 @@ class FullStackTemplateFilesTest {
         assertTrue(users.contains("Db.insert"))
         assertTrue(users.contains("Shared.Api.createUserReq"))
     }
+
+    @Test
+    fun `package json declares test script and vitest devDep`() {
+        val pkg = FullStackTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"test\": \"vitest run\""))
+        assertTrue(pkg.contains("\"vitest\": \"${TemplateVersions.VITEST}\""))
+    }
+
+    @Test
+    fun `ships server and client smoke tests`() {
+        val files = FullStackTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/server/__tests__/Server.test.mjs"))
+        assertTrue(files.containsKey("src/client/__tests__/Api.test.mjs"))
+        assertTrue(files["src/server/__tests__/Server.test.mjs"]!!.contains("import(\"../Server.res.mjs\")"))
+        assertTrue(files["src/client/__tests__/Api.test.mjs"]!!.contains("import(\"../Api.res.mjs\")"))
+    }
 }
