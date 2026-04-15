@@ -30,4 +30,53 @@ class HonoGraphqlTemplateFilesTest {
         assertTrue(gitignore.contains("data/"))
         assertTrue(gitignore.contains("docs/schema.md"))
     }
+
+    @Test
+    fun `ships schema, db, yoga, resolvers, and GraphQL SDL`() {
+        val files = HonoGraphqlTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/Schema.res"))
+        assertTrue(files.containsKey("src/Db.res"))
+        assertTrue(files.containsKey("src/Yoga.res"))
+        assertTrue(files.containsKey("src/GraphqlSchema.res"))
+        assertTrue(files.containsKey("src/Resolvers/Users.res"))
+        assertTrue(files.containsKey("src/schema.graphql"))
+        assertTrue(files.containsKey("drizzle.config.ts"))
+    }
+
+    @Test
+    fun `server mounts yoga at slash graphql with GET and POST`() {
+        val server = HonoGraphqlTemplateFiles.generate(ctx)["src/Server.res"]!!
+        assertTrue(server.contains("Yoga.createYoga"))
+        assertTrue(server.contains("Hono.get(\"/graphql\""))
+        assertTrue(server.contains("Hono.post(\"/graphql\""))
+    }
+
+    @Test
+    fun `Users resolvers expose list, byId, create, delete`() {
+        val resolvers = HonoGraphqlTemplateFiles.generate(ctx)["src/Resolvers/Users.res"]!!
+        assertTrue(resolvers.contains("listUsers"))
+        assertTrue(resolvers.contains("userById"))
+        assertTrue(resolvers.contains("createUser"))
+        assertTrue(resolvers.contains("deleteUser"))
+    }
+
+    @Test
+    fun `schema graphql declares User type and CRUD query slash mutation`() {
+        val sdl = HonoGraphqlTemplateFiles.generate(ctx)["src/schema.graphql"]!!
+        assertTrue(sdl.contains("type User"))
+        assertTrue(sdl.contains("type Query"))
+        assertTrue(sdl.contains("type Mutation"))
+        assertTrue(sdl.contains("createUser(name: String!, email: String!): User!"))
+    }
+
+    @Test
+    fun `package json includes libsql, drizzle, graphql-yoga, and graphql-markdown`() {
+        val pkg = HonoGraphqlTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"@libsql/client\""))
+        assertTrue(pkg.contains("\"drizzle-orm\""))
+        assertTrue(pkg.contains("\"drizzle-kit\""))
+        assertTrue(pkg.contains("\"graphql-yoga\""))
+        assertTrue(pkg.contains("\"@graphql-markdown/cli\""))
+        assertTrue(pkg.contains("\"docs:graphql\""))
+    }
 }
