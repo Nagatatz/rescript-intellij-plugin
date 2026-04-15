@@ -234,18 +234,54 @@ object ProjectFileBuilders {
     /**
      * Generates shared Hono framework bindings for ReScript.
      *
-     * Used by Hono, Cloudflare Workers, AWS Lambda, and Google Cloud Run templates.
+     * Covers the request/response surface needed for typical CRUD APIs:
+     * routing (GET/POST/PUT/DELETE/PATCH), middleware registration, request
+     * helpers (path params / query / JSON body), and response helpers
+     * (text / JSON / status code chaining).
+     *
+     * Used by Hono, Hono GraphQL, Cloudflare Workers, AWS Lambda, Google Cloud Run,
+     * Monorepo, and Full-Stack templates.
      */
     fun honoBindings(): String =
         buildString {
+            appendLine("// Hono framework bindings.")
+            appendLine("// Extend as needed; this covers the common CRUD surface.")
+            appendLine("")
             appendLine("type app")
             appendLine("type context")
+            appendLine("type request")
+            appendLine("type next = unit => promise<unit>")
+            appendLine("type middleware = (context, next) => promise<unit>")
             appendLine("")
+            appendLine("// Construction")
             appendLine("@module(\"hono\") @new external createApp: unit => app = \"Hono\"")
+            appendLine("")
+            appendLine("// Routing")
             appendLine("@send external get: (app, string, context => 'a) => unit = \"get\"")
             appendLine("@send external post: (app, string, context => 'a) => unit = \"post\"")
+            appendLine("@send external put: (app, string, context => 'a) => unit = \"put\"")
+            appendLine("@send external patch: (app, string, context => 'a) => unit = \"patch\"")
+            appendLine("@send external deleteRoute: (app, string, context => 'a) => unit = \"delete\"")
+            appendLine("")
+            appendLine("// Middleware")
+            appendLine("@send external use: (app, middleware) => unit = \"use\"")
+            appendLine("@send external usePath: (app, string, middleware) => unit = \"use\"")
+            appendLine("")
+            appendLine("// Request access")
+            appendLine("@get external req: context => request = \"req\"")
+            appendLine("@send external paramAt: (request, string) => string = \"param\"")
+            appendLine("@send external query: (request, string) => Nullable.t<string> = \"query\"")
+            appendLine("@send external jsonBody: request => promise<'a> = \"json\"")
+            appendLine("@send external textBody: request => promise<string> = \"text\"")
+            appendLine("@get external method: request => string = \"method\"")
+            appendLine("@get external url: request => string = \"url\"")
+            appendLine("")
+            appendLine("// Response helpers (chainable: status returns context)")
             appendLine("@send external text: (context, string) => 'a = \"text\"")
-            append("@send external json: (context, 'a) => 'b = \"json\"")
+            appendLine("@send external json: (context, 'a) => 'b = \"json\"")
+            appendLine("@send external status: (context, int) => context = \"status\"")
+            appendLine("@send external header: (context, string, string) => context = \"header\"")
+            appendLine("@send external notFound: context => 'a = \"notFound\"")
         }
 
     /**

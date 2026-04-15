@@ -5,7 +5,9 @@ import com.rescript.plugin.wizard.templates.BasicTemplateFiles
 import com.rescript.plugin.wizard.templates.CliToolTemplateFiles
 import com.rescript.plugin.wizard.templates.CloudflareWorkersTemplateFiles
 import com.rescript.plugin.wizard.templates.ElectronTemplateFiles
+import com.rescript.plugin.wizard.templates.FullStackTemplateFiles
 import com.rescript.plugin.wizard.templates.GoogleCloudRunTemplateFiles
+import com.rescript.plugin.wizard.templates.HonoGraphqlTemplateFiles
 import com.rescript.plugin.wizard.templates.HonoTemplateFiles
 import com.rescript.plugin.wizard.templates.MonorepoTemplateFiles
 import com.rescript.plugin.wizard.templates.NextjsTemplateFiles
@@ -69,7 +71,12 @@ enum class ProjectTemplate(
     ),
     HONO(
         "Hono (Node.js)",
-        "Lightweight web server with Hono framework on Node.js",
+        "Lightweight web server with Hono framework on Node.js, SQLite (Drizzle), and OpenAPI/Scalar UI",
+        TemplateCategory.BACKEND,
+    ),
+    HONO_GRAPHQL(
+        "Hono GraphQL",
+        "GraphQL API on Hono with graphql-yoga, GraphiQL playground, and SQLite (Drizzle)",
         TemplateCategory.BACKEND,
     ),
     CLOUDFLARE_WORKERS(
@@ -104,9 +111,15 @@ enum class ProjectTemplate(
     ),
     MONOREPO(
         "Monorepo (Hono + React)",
-        "Full-stack monorepo with Hono backend and React frontend",
+        "Full-stack pnpm/npm/yarn workspace with Hono + Drizzle backend and React frontend",
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("packages/shared/src", "packages/server/src", "packages/client/src"),
+    ),
+    FULL_STACK(
+        "Full-Stack (single package)",
+        "Single-package full-stack app with Hono backend, Vite+React frontend, and SQLite (Drizzle)",
+        TemplateCategory.FULL_STACK,
+        sourceRoots = listOf("src/shared", "src/server", "src/client"),
     ),
     ;
 
@@ -127,6 +140,7 @@ enum class ProjectTemplate(
             NEXTJS -> NextjsTemplateFiles.generate(ctx)
             ELECTRON -> ElectronTemplateFiles.generate(ctx)
             HONO -> HonoTemplateFiles.generate(ctx)
+            HONO_GRAPHQL -> HonoGraphqlTemplateFiles.generate(ctx)
             CLOUDFLARE_WORKERS -> CloudflareWorkersTemplateFiles.generate(ctx)
             AWS_LAMBDA -> AwsLambdaTemplateFiles.generate(ctx)
             GOOGLE_CLOUD_RUN -> GoogleCloudRunTemplateFiles.generate(ctx)
@@ -134,6 +148,7 @@ enum class ProjectTemplate(
             NPM_LIBRARY -> NpmLibraryTemplateFiles.generate(ctx)
             CLI_TOOL -> CliToolTemplateFiles.generate(ctx)
             MONOREPO -> MonorepoTemplateFiles.generate(ctx)
+            FULL_STACK -> FullStackTemplateFiles.generate(ctx)
         }
 
     /**
