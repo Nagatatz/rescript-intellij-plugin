@@ -32,4 +32,17 @@ class ElectronTemplateFilesTest {
         assertTrue(files.containsKey(".github/workflows/ci.yml"))
         assertTrue(files.containsKey("main.cjs"))
     }
+
+    @Test
+    fun `wires IPC through preload and renderer bindings`() {
+        val files = ElectronTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("preload.cjs"))
+        assertTrue(files.containsKey("src/Electron.res"))
+        assertTrue(files["preload.cjs"]!!.contains("contextBridge"))
+        assertTrue(files["preload.cjs"]!!.contains("ipcRenderer.invoke"))
+        assertTrue(files["main.cjs"]!!.contains("ipcMain.handle"))
+        assertTrue(files["main.cjs"]!!.contains("preload: path.join"))
+        assertTrue(files["src/Electron.res"]!!.contains("electronAPI"))
+        assertTrue(files["src/App.res"]!!.contains("Electron.getInfo"))
+    }
 }
