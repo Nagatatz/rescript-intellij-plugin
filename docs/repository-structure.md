@@ -18,7 +18,6 @@ rescript-intellij-plugin/
 ├── gradlew / gradlew.bat         # Gradle Wrapper
 ├── .editorconfig                 # エディタ設定（インデント、行長等）
 ├── .gitignore                    # Git 除外設定
-├── qodana.yaml                   # Qodana 静的解析設定
 ├── CLAUDE.md                     # Claude Code プロジェクト指示書
 ├── README.md                     # プロジェクト README
 └── LICENSE                       # ライセンス
@@ -198,7 +197,6 @@ sphinx-docs/
 ├── workflows/
 │   ├── ci.yml                # CI（ビルド、テスト、カバレッジ）
 │   ├── release.yml           # リリース（タグベース）
-│   ├── qodana_code_quality.yml  # Qodana 静的解析
 │   └── docs.yml              # Sphinx ドキュメントビルド・デプロイ
 └── dependabot.yml            # Dependabot 設定
 ```

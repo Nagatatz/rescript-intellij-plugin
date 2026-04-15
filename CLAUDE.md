@@ -32,14 +32,13 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 
 ## CI/CD
 
-GitHub Actions で 4 つのワークフローを運用:
+GitHub Actions で 3 つのワークフローを運用:
 
 | ワークフロー | ファイル | トリガー | 内容 |
 |-------------|---------|---------|------|
 | CI | `ci.yml` | Push/PR to `main` | ビルド、テスト、ktlint、カバレッジ、プラグイン検証 |
 | Release | `release.yml` | Tag `v*.*.*` | GitHub Release 作成 |
 | Docs | `docs.yml` | Push/PR to `main` (`sphinx-docs/` 変更時) | Sphinx ドキュメントのビルド・デプロイ |
-| Qodana | `qodana_code_quality.yml` | Push/PR to `main` | 静的コード分析 |
 
 ```bash
 # ローカルで CI を再現

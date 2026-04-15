@@ -10,14 +10,13 @@ This page describes the CI/CD infrastructure for the ReScript IntelliJ Plugin.
 
 ## Overview
 
-The project uses **GitHub Actions** with 4 workflows:
+The project uses **GitHub Actions** with 3 workflows:
 
 | Workflow | File | Trigger | Purpose |
 |----------|------|---------|---------|
 | CI | `ci.yml` | Push/PR to `main` | Build, test, lint, verify |
 | Release | `release.yml` | Tag `v*.*.*` | Create GitHub Release |
 | Docs | `docs.yml` | Push/PR to `main` (sphinx-docs changes) | Build & deploy documentation |
-| Qodana | `qodana_code_quality.yml` | Push/PR to `main` | Static code analysis |
 
 Additionally, **Dependabot** is configured to automatically update Gradle and GitHub Actions dependencies on a weekly basis.
 
@@ -123,10 +122,6 @@ Builds the documentation site (English + Japanese) with Sphinx:
 
 Deploys the built site to GitHub Pages using `actions/deploy-pages@v4`.
 
-## Qodana Workflow (`qodana_code_quality.yml`)
-
-Runs JetBrains Qodana static analysis on push/PR to `main` and `releases/*` branches. Results are reported to [Qodana Cloud](https://qodana.cloud/).
-
 ## Local CI Reproduction
 
 You can run the same checks locally that CI performs:
@@ -196,7 +191,6 @@ The following GitHub repository secrets are used:
 
 | Secret | Workflow | Purpose |
 |--------|----------|---------|
-| `QODANA_TOKEN_1182880687` | Qodana | Authentication with Qodana Cloud |
 | `JETBRAINS_MARKETPLACE_TOKEN` | Release (TODO) | Plugin publishing (not yet configured) |
 
 ## Dependabot
