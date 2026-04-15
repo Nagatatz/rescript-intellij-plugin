@@ -19,11 +19,11 @@
 
 ## Step 2: PackageManager 選択値の反映
 
-- [ ] `RescriptProjectWizardStep.kt` のデフォルト選択を `PNPM` に変更
-- [ ] `RescriptModuleBuilder.kt` を修正、`generateFiles(ctx)` 経路に切替
-- [ ] 既存テンプレートが `TemplateContext` を受け取れるよう `*TemplateFiles.kt` のシグネチャを段階的に更新（本ステップでは転送のみ）
-- [ ] ユニットテスト (`RescriptProjectWizardStepTest.kt`, `RescriptModuleBuilderTest.kt`) を更新
-- [ ] コミット: `✨ Wire PackageManager selection through to template generation`
+- [x] `RescriptProjectWizardStep.kt` のデフォルト選択を `PNPM` に変更
+- [x] `RescriptModuleBuilder.kt` のデフォルトを `PNPM` に変更、`generateFiles(ctx)` 経路に切替
+- [x] `RescriptProjectGenerator.kt` に `generateFiles(template, ctx)` 追加、旧 API はデフォルト `PNPM` にフォールバック
+- [x] `RescriptModuleBuilderTest.kt` / `RescriptProjectGeneratorTest.kt` を更新
+- [x] コミット: `✨ Wire PackageManager selection through to template generation`
 
 ## Step 3: Basic テンプレート改善 (Phase 2 + 4)
 

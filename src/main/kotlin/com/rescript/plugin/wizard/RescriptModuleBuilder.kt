@@ -8,6 +8,7 @@ import com.intellij.openapi.module.ModuleTypeManager
 import com.intellij.openapi.roots.ModifiableRootModel
 import com.intellij.openapi.vfs.VfsUtil
 import com.rescript.plugin.RescriptIcons
+import com.rescript.plugin.wizard.templates.TemplateContext
 import java.io.File
 import javax.swing.Icon
 
@@ -22,7 +23,7 @@ import javax.swing.Icon
  * @see RescriptProjectGenerator for file content generation
  */
 class RescriptModuleBuilder : ModuleBuilder() {
-    var packageManager: PackageManager = PackageManager.NPM
+    var packageManager: PackageManager = PackageManager.PNPM
     var selectedTemplate: ProjectTemplate = ProjectTemplate.BASIC
 
     override fun getModuleType(): ModuleType<*> = ModuleTypeManager.getInstance().defaultModuleType
@@ -45,7 +46,11 @@ class RescriptModuleBuilder : ModuleBuilder() {
         val rootPath = contentRoot.file?.path ?: return
         val projectName = modifiableRootModel.module.name
 
-        val files = RescriptProjectGenerator.generateFiles(selectedTemplate, projectName)
+        val files =
+            RescriptProjectGenerator.generateFiles(
+                selectedTemplate,
+                TemplateContext(projectName, packageManager),
+            )
 
         // Write all generated files
         for ((relativePath, content) in files) {
