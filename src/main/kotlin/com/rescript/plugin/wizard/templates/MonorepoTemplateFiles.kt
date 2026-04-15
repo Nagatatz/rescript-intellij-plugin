@@ -40,6 +40,7 @@ internal object MonorepoTemplateFiles {
                             "dev:client" to perWorkspaceCmd(pm, "client", "dev"),
                             "build:client" to perWorkspaceCmd(pm, "client", "build"),
                             "test" to allWorkspacesTestCmd(pm),
+                            "test:coverage" to allWorkspacesCoverageCmd(pm),
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -93,12 +94,14 @@ internal object MonorepoTemplateFiles {
                         linkedMapOf(
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "db:generate" to "drizzle-kit generate",
                             "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
@@ -114,6 +117,15 @@ internal object MonorepoTemplateFiles {
             put("packages/server/src/Server.res", serverServerRes(name))
             put("packages/server/src/__tests__/Server.test.mjs", serverTest())
             put("packages/server/drizzle.config.ts", serverDrizzleConfig())
+            put(
+                "packages/server/.env.example",
+                CommonFiles.envExample(
+                    listOf(
+                        "Local SQLite file (default) or a Turso libsql:// URL" to
+                            "DATABASE_URL=file:./data/app.db",
+                    ),
+                ),
+            )
             // client (Vite+)
             put(
                 "packages/client/rescript.json",
@@ -145,6 +157,7 @@ internal object MonorepoTemplateFiles {
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
@@ -152,6 +165,7 @@ internal object MonorepoTemplateFiles {
                             "build" to "vp build",
                             "preview" to "vp preview",
                             "test" to "vp test",
+                            "test:coverage" to "vp test --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -194,7 +208,15 @@ internal object MonorepoTemplateFiles {
                         ),
                 ),
             )
-            put(".gitignore", CommonFiles.gitignore(extra = listOf("dist/", ".vite/", "packages/*/dist/")))
+            put(".nvmrc", CommonFiles.nvmrc())
+            put("LICENSE", CommonFiles.mitLicense(holder = name))
+            put(".github/dependabot.yml", CommonFiles.dependabotYaml())
+            put(
+                ".gitignore",
+                CommonFiles.gitignore(
+                    extra = listOf("dist/", ".vite/", "packages/*/dist/", "packages/*/data/", ".env"),
+                ),
+            )
             put(".editorconfig", CommonFiles.editorconfig())
             put(".github/workflows/ci.yml", CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true))
         }
@@ -244,6 +266,16 @@ internal object MonorepoTemplateFiles {
             PackageManager.PNPM -> "pnpm -r run test"
             PackageManager.YARN -> "yarn workspaces foreach -A run test"
             PackageManager.NPM -> "npm --workspaces run test --if-present"
+        }
+
+    /**
+     * Root-level `test:coverage` that fans out to every workspace exposing the same script.
+     */
+    private fun allWorkspacesCoverageCmd(pm: PackageManager): String =
+        when (pm) {
+            PackageManager.PNPM -> "pnpm -r run test:coverage"
+            PackageManager.YARN -> "yarn workspaces foreach -A run test:coverage"
+            PackageManager.NPM -> "npm --workspaces run test:coverage --if-present"
         }
 
     private fun clientIndexHtml(projectName: String): String =
@@ -317,13 +349,20 @@ internal object MonorepoTemplateFiles {
 
     private fun serverTest(): String =
         buildString {
+            // Uses Hono's built-in `app.request()` harness. We target /api/hello because
+            // it's DB-free; the /api/users routes need a migrated SQLite file to succeed.
             appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("import { app } from \"../Server.res.mjs\";")
             appendLine("")
-            appendLine("describe(\"server module\", () => {")
-            appendLine("  it(\"loads without throwing\", async () => {")
-            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("describe(\"Monorepo server\", () => {")
+            appendLine("  it(\"GET /api/hello returns 200 with a JSON greeting\", async () => {")
+            appendLine("    const res = await app.request(\"/api/hello\");")
+            appendLine("    expect(res.status).toBe(200);")
+            appendLine("    const body = await res.json();")
+            appendLine("    expect(body.message).toMatch(/Hello/);")
             appendLine("  });")
-            appendLine("});")
+            appendLine("})")
+            appendLine(";")
         }
 
     private fun clientTest(): String =
@@ -342,6 +381,12 @@ internal object MonorepoTemplateFiles {
     private fun serverServerRes(projectName: String): String =
         buildString {
             appendLine("let app = Hono.createApp()")
+            appendLine("")
+            appendLine("// Global error handler: converts uncaught exceptions into a JSON 500 response.")
+            appendLine("app->Hono.onError((err, ctx) => {")
+            appendLine("  Console.error(err)")
+            appendLine("  ctx->Hono.status(500)->Hono.json({\"error\": \"Internal Server Error\"})")
+            appendLine("})")
             appendLine("")
             appendLine("app->Hono.get(\"/api/hello\", ctx =>")
             appendLine("  ctx->Hono.json({\"message\": \"Hello from @$projectName/server!\"})")

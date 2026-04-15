@@ -29,12 +29,17 @@ internal object CliToolTemplateFiles {
                             "rescript" to TemplateVersions.RESCRIPT,
                             "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
                         ),
-                    devDependencies = linkedMapOf("vitest" to TemplateVersions.VITEST),
+                    devDependencies =
+                        linkedMapOf(
+                            "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                        ),
                     scripts =
                         linkedMapOf(
                             "build" to "rescript",
                             "start" to "node src/Cli.res.mjs",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -65,7 +70,10 @@ internal object CliToolTemplateFiles {
                             "Install Locally" to installLocallySection(ctx),
                         ),
                 ),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf("coverage/")),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
+            ".gitignore" to CommonFiles.gitignore(),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
         )

@@ -34,10 +34,20 @@ class TemplateVersionsTest {
                 "CONCURRENTLY" to TemplateVersions.CONCURRENTLY,
                 "TYPESCRIPT" to TemplateVersions.TYPESCRIPT,
                 "NODE_ENGINE" to TemplateVersions.NODE_ENGINE,
+                "VITEST_COVERAGE_V8" to TemplateVersions.VITEST_COVERAGE_V8,
             )
         for ((name, value) in constants) {
             assertTrue(semverLike.matches(value), "$name='$value' should be a valid version range")
         }
+    }
+
+    @Test
+    fun `NODE_MAJOR aligns with NODE_ENGINE lower bound`() {
+        val engineMajor = TemplateVersions.NODE_ENGINE.removePrefix(">=").substringBefore('.')
+        assertTrue(
+            TemplateVersions.NODE_MAJOR == engineMajor,
+            "NODE_MAJOR=${TemplateVersions.NODE_MAJOR} should match engine bound $engineMajor",
+        )
     }
 
     @Test

@@ -83,4 +83,10 @@ object TemplateVersions {
 
     // Node.js engine range used by templates
     const val NODE_ENGINE = ">=20"
+
+    // Node.js major version used by `.nvmrc` / `.node-version` (pairs with NODE_ENGINE)
+    const val NODE_MAJOR = "20"
+
+    // Vitest coverage provider used by `test:coverage` scripts
+    const val VITEST_COVERAGE_V8 = "^2.1.0"
 }

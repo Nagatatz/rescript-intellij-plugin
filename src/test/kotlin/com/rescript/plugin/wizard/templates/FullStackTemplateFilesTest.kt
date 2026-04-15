@@ -93,7 +93,43 @@ class FullStackTemplateFilesTest {
         val files = FullStackTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("src/server/__tests__/Server.test.mjs"))
         assertTrue(files.containsKey("src/client/__tests__/Api.test.mjs"))
-        assertTrue(files["src/server/__tests__/Server.test.mjs"]!!.contains("import(\"../Server.res.mjs\")"))
+        assertTrue(
+            files["src/server/__tests__/Server.test.mjs"]!!.contains("app.request(\"/api/health\")"),
+        )
         assertTrue(files["src/client/__tests__/Api.test.mjs"]!!.contains("import(\"../Api.res.mjs\")"))
+    }
+
+    @Test
+    fun `ships nvmrc, LICENSE, and dependabot config`() {
+        val files = FullStackTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey(".nvmrc"))
+        assertTrue(files.containsKey("LICENSE"))
+        assertTrue(files.containsKey(".github/dependabot.yml"))
+        assertTrue(files[".nvmrc"]!!.contains(TemplateVersions.NODE_MAJOR))
+        assertTrue(files["LICENSE"]!!.contains("MIT License"))
+        assertTrue(files["LICENSE"]!!.contains("fs-app"))
+        assertTrue(files[".github/dependabot.yml"]!!.contains("package-ecosystem: \"npm\""))
+    }
+
+    @Test
+    fun `package json declares test coverage script and provider`() {
+        val pkg = FullStackTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"test:coverage\""))
+        assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
+    }
+
+    @Test
+    fun `ships env example documenting DATABASE_URL`() {
+        val files = FullStackTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey(".env.example"))
+        assertTrue(files[".env.example"]!!.contains("DATABASE_URL"))
+    }
+
+    @Test
+    fun `wires a global onError handler returning JSON 500`() {
+        val server = FullStackTemplateFiles.generate(ctx)["src/server/Server.res"]!!
+        assertTrue(server.contains("Hono.onError"))
+        assertTrue(server.contains("Internal Server Error"))
+        assertTrue(server.contains("Hono.status(500)"))
     }
 }

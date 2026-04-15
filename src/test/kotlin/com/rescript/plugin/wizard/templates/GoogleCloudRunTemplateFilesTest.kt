@@ -8,7 +8,10 @@ class GoogleCloudRunTemplateFilesTest {
     @Test
     fun `Dockerfile uses pnpm when pnpm is selected`() {
         val ctx = TemplateContext("svc", PackageManager.PNPM)
-        val dockerfile = GoogleCloudRunTemplateFiles.generate(ctx)["Dockerfile"]!!
+        val dockerfile =
+            GoogleCloudRunTemplateFiles.generate(
+                TemplateContext("svc", PackageManager.PNPM),
+            )["Dockerfile"]!!
         assertTrue(dockerfile.contains("corepack enable && pnpm install"))
         assertTrue(dockerfile.contains("pnpm exec rescript"))
     }
@@ -34,7 +37,10 @@ class GoogleCloudRunTemplateFilesTest {
     @Test
     fun `server reads PORT env var and exposes POST echo endpoint`() {
         val ctx = TemplateContext("svc", PackageManager.PNPM)
-        val server = GoogleCloudRunTemplateFiles.generate(ctx)["src/Server.res"]!!
+        val server =
+            GoogleCloudRunTemplateFiles.generate(
+                TemplateContext("svc", PackageManager.PNPM),
+            )["src/Server.res"]!!
         assertTrue(server.contains("process.env"))
         assertTrue(server.contains("PORT"))
         assertTrue(server.contains("Hono.post"))
@@ -61,5 +67,31 @@ class GoogleCloudRunTemplateFilesTest {
         assertTrue(readme.contains("## Environment"))
         assertTrue(readme.contains("## Cloud SQL Recipe"))
         assertTrue(readme.contains("@google-cloud/cloud-sql-connector"))
+    }
+
+    @Test
+    fun `ships nvmrc, LICENSE, and dependabot config`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        assertTrue(files.containsKey(".nvmrc"))
+        assertTrue(files.containsKey("LICENSE"))
+        assertTrue(files.containsKey(".github/dependabot.yml"))
+        assertTrue(files[".nvmrc"]!!.contains(TemplateVersions.NODE_MAJOR))
+        assertTrue(files["LICENSE"]!!.contains("MIT License"))
+        assertTrue(files["LICENSE"]!!.contains("svc"))
+        assertTrue(files[".github/dependabot.yml"]!!.contains("package-ecosystem: \"npm\""))
+    }
+
+    @Test
+    fun `package json declares test coverage script and provider`() {
+        val pkg = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))["package.json"]!!
+        assertTrue(pkg.contains("\"test:coverage\""))
+        assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
+    }
+
+    @Test
+    fun `ships env example documenting PORT`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        assertTrue(files.containsKey(".env.example"))
+        assertTrue(files[".env.example"]!!.contains("PORT"))
     }
 }

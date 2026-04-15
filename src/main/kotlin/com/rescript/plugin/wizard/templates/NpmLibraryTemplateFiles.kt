@@ -36,6 +36,7 @@ internal object NpmLibraryTemplateFiles {
                     devDependencies =
                         linkedMapOf(
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                             "typescript" to TemplateVersions.TYPESCRIPT,
                         ),
                     scripts =
@@ -43,6 +44,7 @@ internal object NpmLibraryTemplateFiles {
                             "build" to "rescript",
                             "clean" to "rescript clean",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "prepare" to "rescript",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
@@ -74,7 +76,10 @@ internal object NpmLibraryTemplateFiles {
                             "Publish" to publishSection(ctx),
                         ),
                 ),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf("coverage/")),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
+            ".gitignore" to CommonFiles.gitignore(),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
         )

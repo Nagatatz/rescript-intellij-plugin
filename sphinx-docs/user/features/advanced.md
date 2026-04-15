@@ -525,7 +525,10 @@ Every generated project ships with the same baseline so you can start coding rig
 - **`.editorconfig`** — Pins indentation (2 spaces) and line endings (LF)
 - **`.github/workflows/ci.yml`** — Minimal CI pipeline that installs dependencies and runs `rescript`, plus the `build` / `test` script when the template defines one
 - **`packageManager` field in `package.json`** — Pins the toolchain version for [Corepack](https://nodejs.org/api/corepack.html) so collaborators get the same package manager
-- **Vitest smoke test** — Every template ships `src/__tests__/*.test.mjs` (or workspace equivalents) wired to a `test` script. Monorepo fans out with `pnpm -r run test` / `yarn workspaces foreach` / `npm --workspaces run test --if-present`; React Native uses a filesystem smoke test since `react-native` won't load under Node
+- **Vitest smoke test + coverage** — Every template ships `src/__tests__/*.test.mjs` (or workspace equivalents) wired to `test` and `test:coverage` scripts (backed by `@vitest/coverage-v8`). Monorepo fans out with `pnpm -r run test` / `yarn workspaces foreach` / `npm --workspaces run test --if-present`; React Native uses a filesystem smoke test since `react-native` won't load under Node; Hono-based templates use Hono's built-in `app.request()` harness to hit DB-free baseline routes
+- **`.nvmrc` / `LICENSE` / `.github/dependabot.yml`** — Every template pins the Node major version, ships an MIT license using the project name as the copyright holder, and wires Dependabot to poll npm + GitHub Actions dependencies weekly
+- **`.env.example`** — Templates that read environment variables (Hono REST, Hono GraphQL, Full-Stack, Monorepo server, Google Cloud Run) ship a `.env.example` documenting the expected keys (`DATABASE_URL`, `PORT`, etc.); `.env` is added to `.gitignore` so populated copies never get committed
+- **Hono `app.onError` global handler** — Hono-based templates (REST, GraphQL, Full-Stack, Monorepo server) wire `app.onError` to log the exception and return a JSON 500, so uncaught errors never leak a raw stack trace to clients
 - **Centralized dependency versions** — All template versions live in `wizard/templates/TemplateVersions.kt`; a nightly GitHub Actions job (`integration-tests.yml`) verifies that every template still installs and compiles
 
 ### Vite+ Toolchain (Vite + React, Electron, Monorepo)

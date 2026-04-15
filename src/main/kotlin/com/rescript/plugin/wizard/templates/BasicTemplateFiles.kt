@@ -28,11 +28,16 @@ internal object BasicTemplateFiles {
                             "rescript" to TemplateVersions.RESCRIPT,
                             "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
                         ),
-                    devDependencies = linkedMapOf("vitest" to TemplateVersions.VITEST),
+                    devDependencies =
+                        linkedMapOf(
+                            "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                        ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/App.res.mjs",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -42,6 +47,9 @@ internal object BasicTemplateFiles {
             "src/Files.res" to filesRes(),
             "src/App.res" to appRes(ctx.projectName),
             "src/__tests__/App.test.mjs" to appTest(),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,

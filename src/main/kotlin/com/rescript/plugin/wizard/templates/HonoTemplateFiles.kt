@@ -47,12 +47,14 @@ internal object HonoTemplateFiles {
                         linkedMapOf(
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "db:generate" to "drizzle-kit generate",
                             "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
@@ -94,7 +96,17 @@ internal object HonoTemplateFiles {
                             "Project Layout" to projectLayoutSection(),
                         ),
                 ),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "coverage/", "data/", "drizzle/")),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
+            ".env.example" to
+                CommonFiles.envExample(
+                    listOf(
+                        "Local SQLite file (default) or a Turso libsql:// URL" to
+                            "DATABASE_URL=file:./data/app.db",
+                    ),
+                ),
+            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "data/", "drizzle/", ".env")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )
@@ -249,7 +261,14 @@ internal object HonoTemplateFiles {
             appendLine("let app = Hono.createApp()")
             appendLine("app->Hono.use(Logger.logger())")
             appendLine("")
+            appendLine("// Global error handler: converts uncaught exceptions into a JSON 500 response.")
+            appendLine("app->Hono.onError((err, ctx) => {")
+            appendLine("  Console.error(err)")
+            appendLine("  ctx->Hono.status(500)->Hono.json({\"error\": \"Internal Server Error\"})")
+            appendLine("})")
+            appendLine("")
             appendLine("app->Hono.get(\"/\", ctx => ctx->Hono.text(\"Hono + SQLite + ReScript\"))")
+            appendLine("app->Hono.get(\"/health\", ctx => ctx->Hono.json({\"status\": \"ok\"}))")
             appendLine("Routes.Users.register(app)")
             appendLine("")
             appendLine("// Serve the OpenAPI spec + Scalar UI. In a production setup, guard behind auth.")
@@ -284,13 +303,21 @@ internal object HonoTemplateFiles {
 
     private fun serverTest(): String =
         buildString {
+            // Uses Hono's built-in `app.request()` harness so no server needs to boot and
+            // no database file is touched. We hit `/health` (defined in Server.res) to
+            // assert the baseline wiring.
             appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("import { app } from \"../Server.res.mjs\";")
             appendLine("")
-            appendLine("describe(\"server module\", () => {")
-            appendLine("  it(\"loads without throwing\", async () => {")
-            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("describe(\"Hono server\", () => {")
+            appendLine("  it(\"GET /health returns 200 with a JSON status\", async () => {")
+            appendLine("    const res = await app.request(\"/health\");")
+            appendLine("    expect(res.status).toBe(200);")
+            appendLine("    const body = await res.json();")
+            appendLine("    expect(body).toEqual({ status: \"ok\" });")
             appendLine("  });")
-            appendLine("});")
+            appendLine("})")
+            appendLine(";")
         }
 
     private fun apiSection(): String =

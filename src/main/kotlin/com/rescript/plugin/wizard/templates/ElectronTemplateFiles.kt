@@ -45,6 +45,7 @@ internal object ElectronTemplateFiles {
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
@@ -53,6 +54,7 @@ internal object ElectronTemplateFiles {
                             "electron" to "electron .",
                             "start" to "vp build && electron .",
                             "test" to "vp test",
+                            "test:coverage" to "vp test --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -83,6 +85,9 @@ internal object ElectronTemplateFiles {
                             "About Vite+" to vitePlusNote(),
                         ),
                 ),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "out/", ".vite/")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),

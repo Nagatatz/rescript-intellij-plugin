@@ -61,6 +61,7 @@ internal object FullStackTemplateFiles {
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                             "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
                     scripts =
                         linkedMapOf(
@@ -70,6 +71,7 @@ internal object FullStackTemplateFiles {
                             "build" to "vp build",
                             "preview" to "vp preview",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "db:generate" to "drizzle-kit generate",
                             "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
@@ -127,9 +129,19 @@ internal object FullStackTemplateFiles {
                             "About Vite+" to vitePlusNote(),
                         ),
                 ),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
+            ".env.example" to
+                CommonFiles.envExample(
+                    listOf(
+                        "Local SQLite file (default) or a Turso libsql:// URL" to
+                            "DATABASE_URL=file:./data/app.db",
+                    ),
+                ),
             ".gitignore" to
                 CommonFiles.gitignore(
-                    extra = listOf("data/", "dist/", ".vite/", "drizzle/"),
+                    extra = listOf("data/", "dist/", ".vite/", "drizzle/", ".env"),
                 ),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true),
@@ -142,13 +154,20 @@ internal object FullStackTemplateFiles {
 
     private fun serverTest(): String =
         buildString {
+            // Uses Hono's built-in `app.request()` harness so no server needs to boot
+            // and no SQLite file is touched. Targets the /api/health route from Server.res.
             appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("import { app } from \"../Server.res.mjs\";")
             appendLine("")
-            appendLine("describe(\"server module\", () => {")
-            appendLine("  it(\"loads without throwing\", async () => {")
-            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("describe(\"Full-Stack server\", () => {")
+            appendLine("  it(\"GET /api/health returns 200 with a JSON status\", async () => {")
+            appendLine("    const res = await app.request(\"/api/health\");")
+            appendLine("    expect(res.status).toBe(200);")
+            appendLine("    const body = await res.json();")
+            appendLine("    expect(body).toEqual({ status: \"ok\" });")
             appendLine("  });")
-            appendLine("});")
+            appendLine("})")
+            appendLine(";")
         }
 
     private fun clientTest(): String =
@@ -219,6 +238,12 @@ internal object FullStackTemplateFiles {
         buildString {
             appendLine("// Hono app wiring. Routes live under src/server/Routes/ for easy growth.")
             appendLine("let app = Hono.createApp()")
+            appendLine("")
+            appendLine("// Global error handler: converts uncaught exceptions into a JSON 500 response.")
+            appendLine("app->Hono.onError((err, ctx) => {")
+            appendLine("  Console.error(err)")
+            appendLine("  ctx->Hono.status(500)->Hono.json({\"error\": \"Internal Server Error\"})")
+            appendLine("})")
             appendLine("")
             appendLine("app->Hono.get(\"/api/health\", ctx => ctx->Hono.json({\"status\": \"ok\"}))")
             appendLine("Routes.Users.register(app)")

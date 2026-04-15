@@ -133,4 +133,30 @@ class MonorepoTemplateFilesTest {
         assertTrue(files.containsKey("packages/server/src/__tests__/Server.test.mjs"))
         assertTrue(files.containsKey("packages/client/src/__tests__/ApiClient.test.mjs"))
     }
+
+    @Test
+    fun `server package ships env example documenting DATABASE_URL`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertTrue(files.containsKey("packages/server/.env.example"))
+        assertTrue(files["packages/server/.env.example"]!!.contains("DATABASE_URL"))
+    }
+
+    @Test
+    fun `wires a global onError handler returning JSON 500`() {
+        val server =
+            MonorepoTemplateFiles.generate(
+                TemplateContext("app", PackageManager.PNPM),
+            )["packages/server/src/Server.res"]!!
+        assertTrue(server.contains("Hono.onError"))
+        assertTrue(server.contains("Internal Server Error"))
+        assertTrue(server.contains("Hono.status(500)"))
+    }
+
+    @Test
+    fun `server smoke test uses app request harness against DB-free route`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val server = files["packages/server/src/__tests__/Server.test.mjs"]!!
+        assertTrue(server.contains("import { app } from"))
+        assertTrue(server.contains("app.request(\"/api/hello\")"))
+    }
 }

@@ -89,4 +89,23 @@ class BasicTemplateFilesTest {
         assertTrue(app.contains("Files.read"), "App should demonstrate Files.read")
         assertTrue(app.contains("async") || app.contains("await"), "App should be async-aware")
     }
+
+    @Test
+    fun `ships nvmrc, LICENSE, and dependabot config`() {
+        val files = BasicTemplateFiles.generate(pnpmCtx)
+        assertTrue(files.containsKey(".nvmrc"))
+        assertTrue(files.containsKey("LICENSE"))
+        assertTrue(files.containsKey(".github/dependabot.yml"))
+        assertTrue(files[".nvmrc"]!!.contains(TemplateVersions.NODE_MAJOR))
+        assertTrue(files["LICENSE"]!!.contains("MIT License"))
+        assertTrue(files["LICENSE"]!!.contains("demo"))
+        assertTrue(files[".github/dependabot.yml"]!!.contains("package-ecosystem: \"npm\""))
+    }
+
+    @Test
+    fun `package json declares test coverage script and provider`() {
+        val pkg = BasicTemplateFiles.generate(pnpmCtx)["package.json"]!!
+        assertTrue(pkg.contains("\"test:coverage\""))
+        assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
+    }
 }

@@ -31,12 +31,17 @@ internal object GoogleCloudRunTemplateFiles {
                             "hono" to TemplateVersions.HONO,
                             "@hono/node-server" to TemplateVersions.HONO_NODE_SERVER,
                         ),
-                    devDependencies = linkedMapOf("vitest" to TemplateVersions.VITEST),
+                    devDependencies =
+                        linkedMapOf(
+                            "vitest" to TemplateVersions.VITEST,
+                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                        ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
                             "test" to "vitest run",
+                            "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -69,7 +74,17 @@ internal object GoogleCloudRunTemplateFiles {
                             "Cloud SQL Recipe" to cloudSqlRecipe(),
                         ),
                 ),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/")),
+            ".nvmrc" to CommonFiles.nvmrc(),
+            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
+            ".env.example" to
+                CommonFiles.envExample(
+                    listOf(
+                        "Cloud Run sets PORT in production; override locally if needed" to
+                            "PORT=8080",
+                    ),
+                ),
+            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", ".env")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )

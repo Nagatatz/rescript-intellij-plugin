@@ -65,4 +65,23 @@ class ViteReactTemplateFilesTest {
         assertTrue(files["src/Api.res"]!!.contains("fetch"))
         assertTrue(files["src/Api.res"]!!.contains("/api/greet"))
     }
+
+    @Test
+    fun `ships nvmrc, LICENSE, and dependabot config`() {
+        val files = ViteReactTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey(".nvmrc"))
+        assertTrue(files.containsKey("LICENSE"))
+        assertTrue(files.containsKey(".github/dependabot.yml"))
+        assertTrue(files[".nvmrc"]!!.contains(TemplateVersions.NODE_MAJOR))
+        assertTrue(files["LICENSE"]!!.contains("MIT License"))
+        assertTrue(files["LICENSE"]!!.contains("demo"))
+        assertTrue(files[".github/dependabot.yml"]!!.contains("package-ecosystem: \"npm\""))
+    }
+
+    @Test
+    fun `package json declares test coverage script and provider`() {
+        val pkg = ViteReactTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"test:coverage\""))
+        assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
+    }
 }
