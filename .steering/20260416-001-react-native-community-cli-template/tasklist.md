@@ -120,15 +120,15 @@
 
 - [x] コミット 1: `✨ Add React Native (Community CLI) template`
   - 対象: `TemplateVersions.kt`, `ReactNativeCliTemplateFiles.kt`, `ReactNativeCliTemplateFilesTest.kt`, `ProjectTemplate.kt`, `ProjectTemplateTest.kt`, `TemplateVersionsTest.kt`, `.steering/` 新規
-- [ ] コミット 2: `📝 Document React Native (Community CLI) template`
+- [x] コミット 2: `📝 Document React Native (Community CLI) template`
   - 対象: `CLAUDE.md`, `README.md`, `sphinx-docs/user/features/advanced.md`, `sphinx-docs/locale/ja/LC_MESSAGES/user/features/advanced.po`, `docs/product-requirements.md`
-- [ ] コミット 3: `📝 Mark tasklist complete for RN Community CLI template`
+- [x] コミット 3: `📝 Mark tasklist complete for RN Community CLI template`
   - 対象: `.steering/20260416-001-react-native-community-cli-template/tasklist.md`
 
 ## Phase 6: マージ
 
-- [ ] requirements.md の全受け入れ条件を満たしていることを確認
-- [ ] tasklist.md のすべてのタスクが `[x]` になっている
+- [x] requirements.md の全受け入れ条件を満たしていることを確認
+- [x] tasklist.md のすべてのタスクが `[x]` になっている
 - [ ] `AskUserQuestion` でユーザーにマージ可否を確認
 - [ ] 承認後、worktree 内で `git checkout main && git merge <作業ブランチ>` を実行
 - [ ] 作業ブランチを `git branch -d` で削除
