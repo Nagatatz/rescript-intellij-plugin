@@ -108,4 +108,29 @@ class MonorepoTemplateFilesTest {
         assertTrue(apiClient.contains("Shared.Types.user"))
         assertTrue(apiClient.contains("Shared.Api.createUserReq"))
     }
+
+    @Test
+    fun `root test script fans out to all workspaces per PM`() {
+        val pnpmFiles = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertTrue(pnpmFiles["package.json"]!!.contains("\"test\": \"pnpm -r run test\""))
+
+        val npmFiles = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.NPM))
+        assertTrue(npmFiles["package.json"]!!.contains("--workspaces run test --if-present"))
+
+        val yarnFiles = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.YARN))
+        assertTrue(yarnFiles["package.json"]!!.contains("yarn workspaces foreach -A run test"))
+    }
+
+    @Test
+    fun `server and client packages declare test scripts and smoke tests`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val serverPkg = files["packages/server/package.json"]!!
+        val clientPkg = files["packages/client/package.json"]!!
+        assertTrue(serverPkg.contains("\"test\": \"vitest run\""))
+        assertTrue(serverPkg.contains("\"vitest\""))
+        assertTrue(clientPkg.contains("\"test\": \"vp test\""))
+        assertTrue(clientPkg.contains("\"vitest\""))
+        assertTrue(files.containsKey("packages/server/src/__tests__/Server.test.mjs"))
+        assertTrue(files.containsKey("packages/client/src/__tests__/ApiClient.test.mjs"))
+    }
 }
