@@ -60,11 +60,11 @@
 
 ## Step 6: 残り React 系テンプレート (Phase 2 + 4)
 
-- [ ] `NextjsTemplateFiles.kt`: `@rescript/core` + JSX v4 + README / ci.yml / .gitignore / Vitest
-- [ ] `NextjsTemplateFilesTest.kt` を更新
-- [ ] `ReactNativeTemplateFiles.kt`: `@rescript/core` + JSX v4 + README / ci.yml / .gitignore
-- [ ] `ReactNativeTemplateFilesTest.kt` を更新
-- [ ] コミット: `✨ Enhance Next.js and React Native templates with modern config`
+- [x] `NextjsTemplateFiles.kt`: TemplateContext 対応 + Vitest + README / ci.yml / .gitignore / .editorconfig
+- [x] `NextjsTemplateFilesTest.kt` 新規追加
+- [x] `ReactNativeTemplateFiles.kt`: TemplateContext 対応 + README / ci.yml / .gitignore / .editorconfig
+- [x] `ReactNativeTemplateFilesTest.kt` 新規追加
+- [x] コミット: `✨ Enhance Next.js and React Native templates with modern config`
 
 ## Step 7: Backend 系テンプレート (Phase 2 + 4)
 
