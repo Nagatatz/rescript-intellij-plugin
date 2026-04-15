@@ -69,4 +69,43 @@ class MonorepoTemplateFilesTest {
         assertTrue(files.containsKey(".editorconfig"))
         assertTrue(files.containsKey(".github/workflows/ci.yml"))
     }
+
+    @Test
+    fun `shared package ships user and api request types`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertTrue(files.containsKey("packages/shared/src/Types.res"))
+        assertTrue(files.containsKey("packages/shared/src/Api.res"))
+        assertTrue(files["packages/shared/src/Api.res"]!!.contains("createUserReq"))
+    }
+
+    @Test
+    fun `server ships Drizzle schema, db client, and drizzle config`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertTrue(files.containsKey("packages/server/src/Schema.res"))
+        assertTrue(files.containsKey("packages/server/src/Db.res"))
+        assertTrue(files.containsKey("packages/server/drizzle.config.ts"))
+        val serverPkg = files["packages/server/package.json"]!!
+        assertTrue(serverPkg.contains("\"@libsql/client\""))
+        assertTrue(serverPkg.contains("\"drizzle-orm\""))
+        assertTrue(serverPkg.contains("\"drizzle-kit\""))
+        assertTrue(serverPkg.contains("\"db:generate\""))
+    }
+
+    @Test
+    fun `server wires users CRUD through Drizzle`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val server = files["packages/server/src/Server.res"]!!
+        assertTrue(server.contains("/api/users"))
+        assertTrue(server.contains("Db.select"))
+        assertTrue(server.contains("Db.insert"))
+    }
+
+    @Test
+    fun `client ships ApiClient using shared types`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertTrue(files.containsKey("packages/client/src/ApiClient.res"))
+        val apiClient = files["packages/client/src/ApiClient.res"]!!
+        assertTrue(apiClient.contains("Shared.Types.user"))
+        assertTrue(apiClient.contains("Shared.Api.createUserReq"))
+    }
 }

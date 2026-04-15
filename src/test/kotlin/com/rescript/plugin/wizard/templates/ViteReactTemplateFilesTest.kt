@@ -53,4 +53,16 @@ class ViteReactTemplateFilesTest {
         assertTrue(rj.contains("\"jsx\""))
         assertTrue(rj.contains("@rescript/react"))
     }
+
+    @Test
+    fun `App demonstrates useState + form + fetch`() {
+        val files = ViteReactTemplateFiles.generate(ctx)
+        val app = files["src/App.res"]!!
+        assertTrue(files.containsKey("src/Api.res"))
+        assertTrue(app.contains("React.useState"))
+        assertTrue(app.contains("onSubmit"))
+        assertTrue(app.contains("Api.greet"))
+        assertTrue(files["src/Api.res"]!!.contains("fetch"))
+        assertTrue(files["src/Api.res"]!!.contains("/api/greet"))
+    }
 }

@@ -30,4 +30,21 @@ class NextjsTemplateFilesTest {
         val gitignore = NextjsTemplateFiles.generate(ctx)[".gitignore"]!!
         assertTrue(gitignore.contains(".next/"))
     }
+
+    @Test
+    fun `ships Server Component, Client Component, and POST route handler`() {
+        val files = NextjsTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/app/page.tsx"))
+        assertTrue(files.containsKey("src/app/client/GreetForm.tsx"))
+        assertTrue(files.containsKey("src/app/api/greet/route.ts"))
+        assertTrue(files["src/app/client/GreetForm.tsx"]!!.contains("\"use client\""))
+        assertTrue(files["src/app/api/greet/route.ts"]!!.contains("POST"))
+    }
+
+    @Test
+    fun `GreetForm res uses useState and posts to slash api slash greet`() {
+        val form = NextjsTemplateFiles.generate(ctx)["src/GreetForm.res"]!!
+        assertTrue(form.contains("React.useState"))
+        assertTrue(form.contains("/api/greet"))
+    }
 }

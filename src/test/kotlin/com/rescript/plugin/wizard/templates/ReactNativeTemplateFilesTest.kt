@@ -31,4 +31,22 @@ class ReactNativeTemplateFilesTest {
         assertTrue(appJson.contains("\"name\": \"mobile\""))
         assertTrue(appJson.contains("\"slug\": \"mobile\""))
     }
+
+    @Test
+    fun `App res demonstrates useState + FlatList + TextInput`() {
+        val app = ReactNativeTemplateFiles.generate(ctx)["src/App.res"]!!
+        assertTrue(app.contains("React.useState"))
+        assertTrue(app.contains("ReactNative.FlatList"))
+        assertTrue(app.contains("ReactNative.TextInput"))
+        assertTrue(app.contains("ReactNative.Button"))
+    }
+
+    @Test
+    fun `ReactNative bindings include FlatList, TextInput, Button, Style`() {
+        val bindings = ReactNativeTemplateFiles.generate(ctx)["src/ReactNative.res"]!!
+        assertTrue(bindings.contains("module FlatList"))
+        assertTrue(bindings.contains("module TextInput"))
+        assertTrue(bindings.contains("module Button"))
+        assertTrue(bindings.contains("module Style"))
+    }
 }

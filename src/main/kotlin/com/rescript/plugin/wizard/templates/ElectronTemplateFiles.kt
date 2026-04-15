@@ -59,7 +59,9 @@ internal object ElectronTemplateFiles {
             "main.cjs" to mainCjs(ctx.projectName),
             "index.html" to indexHtml(ctx.projectName),
             "vite.config.mjs" to viteConfig(),
-            "src/App.res" to ProjectFileBuilders.reactComponent(),
+            "preload.cjs" to preloadCjs(),
+            "src/App.res" to appRes(),
+            "src/Electron.res" to electronRes(),
             "src/Main.res" to mainRes(),
             "README.md" to
                 CommonFiles.readme(
@@ -89,24 +91,96 @@ internal object ElectronTemplateFiles {
 
     private fun mainCjs(projectName: String): String =
         buildString {
-            appendLine("const { app, BrowserWindow } = require(\"electron\");")
+            appendLine("const { app, BrowserWindow, ipcMain } = require(\"electron\");")
             appendLine("const path = require(\"path\");")
+            appendLine("const os = require(\"os\");")
             appendLine("")
             appendLine("function createWindow() {")
             appendLine("  const win = new BrowserWindow({")
             appendLine("    width: 800,")
             appendLine("    height: 600,")
             appendLine("    title: \"$projectName\",")
+            appendLine("    webPreferences: {")
+            appendLine("      preload: path.join(__dirname, \"preload.cjs\"),")
+            appendLine("      contextIsolation: true,")
+            appendLine("      nodeIntegration: false,")
+            appendLine("    },")
             appendLine("  });")
             appendLine("")
             appendLine("  win.loadFile(path.join(__dirname, \"dist\", \"index.html\"));")
             appendLine("}")
+            appendLine("")
+            appendLine("// IPC handlers live in the main process and are invoked from the renderer")
+            appendLine("// via the `electronAPI` object exposed in preload.cjs.")
+            appendLine("ipcMain.handle(\"app:getInfo\", () => ({")
+            appendLine("  name: \"$projectName\",")
+            appendLine("  electronVersion: process.versions.electron,")
+            appendLine("  platform: os.platform(),")
+            appendLine("  arch: os.arch(),")
+            appendLine("}));")
             appendLine("")
             appendLine("app.whenReady().then(createWindow);")
             appendLine("")
             appendLine("app.on(\"window-all-closed\", () => {")
             appendLine("  if (process.platform !== \"darwin\") app.quit();")
             append("});")
+        }
+
+    private fun preloadCjs(): String =
+        buildString {
+            appendLine("// Exposes a typed, minimal API to the renderer via contextBridge so the")
+            appendLine("// renderer does not need Node integration enabled.")
+            appendLine("const { contextBridge, ipcRenderer } = require(\"electron\");")
+            appendLine("")
+            appendLine("contextBridge.exposeInMainWorld(\"electronAPI\", {")
+            appendLine("  getInfo: () => ipcRenderer.invoke(\"app:getInfo\"),")
+            append("});")
+        }
+
+    private fun electronRes(): String =
+        buildString {
+            appendLine("// Bindings over the `window.electronAPI` object exposed by preload.cjs.")
+            appendLine("type info = {name: string, electronVersion: string, platform: string, arch: string}")
+            appendLine("")
+            appendLine("@val external electronAPI: {\"getInfo\": unit => promise<info>} = \"electronAPI\"")
+            appendLine("")
+            appendLine("let getInfo = (): promise<info> => electronAPI[\"getInfo\"]()")
+        }
+
+    private fun appRes(): String =
+        buildString {
+            appendLine("// Interactive demo: click the button to invoke the main process via IPC")
+            appendLine("// and render the returned info.")
+            appendLine("@react.component")
+            appendLine("let make = () => {")
+            appendLine("  let (info, setInfo) = React.useState(() => None)")
+            appendLine("  let (loading, setLoading) = React.useState(() => false)")
+            appendLine("")
+            appendLine("  let handleClick = async _ => {")
+            appendLine("    setLoading(_ => true)")
+            appendLine("    let result = await Electron.getInfo()")
+            appendLine("    setInfo(_ => Some(result))")
+            appendLine("    setLoading(_ => false)")
+            appendLine("  }")
+            appendLine("")
+            appendLine("  <main style={ReactDOM.Style.make(~padding=\"2rem\", ~fontFamily=\"sans-serif\", ())}>")
+            appendLine("    <h1> {React.string(\"ReScript + Electron\")} </h1>")
+            appendLine("    <button onClick={handleClick} disabled={loading}>")
+            appendLine("      {React.string(loading ? \"Loading...\" : \"Get system info\")}")
+            appendLine("    </button>")
+            appendLine("    {switch info {")
+            appendLine("    | Some(i) =>")
+            appendLine("      <dl>")
+            appendLine("        <dt> {React.string(\"Name\")} </dt> <dd> {React.string(i.name)} </dd>")
+            appendLine("        <dt> {React.string(\"Electron\")} </dt> <dd> {React.string(i.electronVersion)} </dd>")
+            appendLine("        <dt> {React.string(\"Platform\")} </dt> <dd> {React.string(i.platform)} </dd>")
+            appendLine("        <dt> {React.string(\"Arch\")} </dt> <dd> {React.string(i.arch)} </dd>")
+            appendLine("      </dl>")
+            appendLine("    | None => React.null")
+            appendLine("    }}")
+            append("  </main>")
+            appendLine()
+            append("}")
         }
 
     private fun viteConfig(): String =

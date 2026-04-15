@@ -53,4 +53,25 @@ class BasicTemplateFilesTest {
         assertTrue(pkg.contains("\"name\": \"legacy\""))
         assertTrue(pkg.contains("pnpm@"))
     }
+
+    @Test
+    fun `ships CLI args helper and fs-promises file helpers`() {
+        val files = BasicTemplateFiles.generate(pnpmCtx)
+        val args = files["src/Args.res"]!!
+        val fsHelpers = files["src/Files.res"]!!
+        assertTrue(args.contains("process.argv"), "Args.res should bind process.argv")
+        assertTrue(args.contains("named"), "Args.res should expose a named flag helper")
+        assertTrue(fsHelpers.contains("node:fs/promises"), "Files.res should use node:fs/promises")
+        assertTrue(fsHelpers.contains("readFile"), "Files.res should bind readFile")
+        assertTrue(fsHelpers.contains("writeFile"), "Files.res should bind writeFile")
+    }
+
+    @Test
+    fun `App res demonstrates both argv and async file reading`() {
+        val app = BasicTemplateFiles.generate(pnpmCtx)["src/App.res"]!!
+        assertTrue(app.contains("Args.positional"), "App should use positional argv helper")
+        assertTrue(app.contains("Args.named"), "App should use named flag helper")
+        assertTrue(app.contains("Files.read"), "App should demonstrate Files.read")
+        assertTrue(app.contains("async") || app.contains("await"), "App should be async-aware")
+    }
 }

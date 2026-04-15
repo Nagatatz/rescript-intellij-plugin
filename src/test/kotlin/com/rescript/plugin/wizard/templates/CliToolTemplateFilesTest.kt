@@ -22,7 +22,7 @@ class CliToolTemplateFilesTest {
         assertTrue(files.containsKey(".gitignore"))
         assertTrue(files.containsKey(".editorconfig"))
         assertTrue(files.containsKey(".github/workflows/ci.yml"))
-        assertTrue(files.containsKey("src/__tests__/Cli.test.mjs"))
+        assertTrue(files.containsKey("src/__tests__/Args.test.mjs"))
     }
 
     @Test
@@ -30,5 +30,24 @@ class CliToolTemplateFilesTest {
         val readme = CliToolTemplateFiles.generate(ctx)["README.md"]!!
         assertTrue(readme.contains("npm link"))
         assertTrue(readme.contains("hello-cli"))
+    }
+
+    @Test
+    fun `ships subcommand dispatcher with Args, Greet, and Init`() {
+        val files = CliToolTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/Args.res"))
+        assertTrue(files.containsKey("src/Cli.res"))
+        assertTrue(files.containsKey("src/Commands/Greet.res"))
+        assertTrue(files.containsKey("src/Commands/Init.res"))
+        assertTrue(files["src/Cli.res"]!!.contains("Commands.Greet.run"))
+        assertTrue(files["src/Cli.res"]!!.contains("Commands.Init.run"))
+    }
+
+    @Test
+    fun `README documents available subcommands`() {
+        val readme = CliToolTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("greet Alice"))
+        assertTrue(readme.contains("init "))
+        assertTrue(readme.contains("--shout"))
     }
 }

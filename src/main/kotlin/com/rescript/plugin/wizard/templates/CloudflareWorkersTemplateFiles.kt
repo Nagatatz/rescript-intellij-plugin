@@ -6,8 +6,9 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
 /**
  * Generates project template files for a Cloudflare Workers Hono service.
  *
- * Ships wrangler config, README with deploy instructions, .gitignore (including `.wrangler/`),
- * .editorconfig, and a CI workflow.
+ * The generated app goes beyond "hello world": it wires POST + GET against a KV namespace so
+ * users have a working storage example out of the box (add/list greetings). `wrangler.jsonc`
+ * pre-declares the KV binding so `wrangler dev` boots with a real local store.
  */
 internal object CloudflareWorkersTemplateFiles {
     /**
@@ -39,18 +40,16 @@ internal object CloudflareWorkersTemplateFiles {
                             "res:dev" to "rescript -w",
                         ),
                 ),
-            "wrangler.jsonc" to
-                "{\n  \"name\": \"${ctx.projectName}\",\n  \"main\": \"src/Server.res.mjs\",\n" +
-                "  \"compatibility_date\": \"2024-01-01\"\n}",
+            "wrangler.jsonc" to wranglerConfig(ctx.projectName),
             "src/Hono.res" to ProjectFileBuilders.honoBindings(),
-            "src/Server.res" to
-                "let app = Hono.createApp()\n\napp->Hono.get(\"/\", ctx => {\n" +
-                "  ctx->Hono.text(\"Hello, Cloudflare Workers + ReScript!\")\n})\n\n" +
-                "%%raw(\"export default app\")",
+            "src/Kv.res" to kvBindings(),
+            "src/Server.res" to serverRes(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
-                    description = "A Cloudflare Workers service powered by Hono and ReScript.",
+                    description =
+                        "A Cloudflare Workers service powered by Hono, demonstrating POST/GET against " +
+                            "a Workers KV namespace.",
                     scripts =
                         listOf(
                             "dev" to "Run wrangler dev locally",
@@ -59,9 +58,9 @@ internal object CloudflareWorkersTemplateFiles {
                         ),
                     extraSections =
                         listOf(
-                            "Deploy" to
-                                "1. Authenticate: `npx wrangler login`\n" +
-                                "2. Deploy: ${ctx.runCmd("deploy")}",
+                            "API" to apiSection(),
+                            "KV Setup" to kvSetupSection(),
+                            "Deploy" to deploySection(ctx),
                         ),
                 ),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".wrangler/", "dist/")),
@@ -73,4 +72,87 @@ internal object CloudflareWorkersTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun wranglerConfig(projectName: String): String =
+        buildString {
+            appendLine("{")
+            appendLine("  // Workers KV binding. Replace the placeholder id after running:")
+            appendLine("  //   npx wrangler kv namespace create GREETINGS")
+            appendLine("  \"name\": \"$projectName\",")
+            appendLine("  \"main\": \"src/Server.res.mjs\",")
+            appendLine("  \"compatibility_date\": \"2024-01-01\",")
+            appendLine("  \"kv_namespaces\": [")
+            appendLine("    { \"binding\": \"GREETINGS\", \"id\": \"REPLACE_WITH_KV_NAMESPACE_ID\" }")
+            appendLine("  ]")
+            append("}")
+        }
+
+    private fun kvBindings(): String =
+        buildString {
+            appendLine("// Bindings over the Workers KV API (subset). The runtime exposes the")
+            appendLine("// binding on `env.GREETINGS` (see Server.res).")
+            appendLine("type namespace")
+            appendLine("type listResult = {keys: array<{\"name\": string}>}")
+            appendLine("")
+            appendLine("@send external get: (namespace, string) => promise<Nullable.t<string>> = \"get\"")
+            appendLine("@send external put: (namespace, string, string) => promise<unit> = \"put\"")
+            appendLine("@send external list: namespace => promise<listResult> = \"list\"")
+        }
+
+    private fun serverRes(): String =
+        buildString {
+            appendLine("// Request/response types shared between routes.")
+            appendLine("type greetingPayload = {name: string}")
+            appendLine("")
+            appendLine("// env is the bindings object Workers injects. We narrow it for our KV binding.")
+            appendLine("type env = {\"GREETINGS\": Kv.namespace}")
+            appendLine("")
+            appendLine("let app = Hono.createApp()")
+            appendLine("")
+            appendLine("app->Hono.get(\"/\", ctx => ctx->Hono.text(\"Workers + Hono + ReScript\"))")
+            appendLine("")
+            appendLine("app->Hono.post(\"/greetings\", async ctx => {")
+            appendLine("  let env: env = %raw(\"ctx.env\")")
+            appendLine("  let payload: greetingPayload = await ctx->Hono.req->Hono.jsonBody")
+            appendLine(
+                "  await env[\"GREETINGS\"]->Kv.put(payload.name, " +
+                    "Date.now()->Float.toString)",
+            )
+            appendLine("  ctx->Hono.status(201)->Hono.json({\"ok\": true, \"name\": payload.name})")
+            appendLine("})")
+            appendLine("")
+            appendLine("app->Hono.get(\"/greetings\", async ctx => {")
+            appendLine("  let env: env = %raw(\"ctx.env\")")
+            appendLine("  let result = await env[\"GREETINGS\"]->Kv.list")
+            appendLine(
+                "  ctx->Hono.json({\"names\": result.keys->Array.map(k => k[\"name\"])})",
+            )
+            appendLine("})")
+            appendLine("")
+            append("%%raw(\"export default app\")")
+        }
+
+    private fun apiSection(): String =
+        buildString {
+            appendLine("| Endpoint | Method | Description |")
+            appendLine("| --- | --- | --- |")
+            appendLine("| `/` | GET | Health check |")
+            appendLine("| `/greetings` | POST | Store `{ name }` in KV |")
+            append("| `/greetings` | GET | List stored names |")
+        }
+
+    private fun kvSetupSection(): String =
+        buildString {
+            appendLine("Create the namespace and paste the returned ID into `wrangler.jsonc`:")
+            appendLine()
+            appendLine("```bash")
+            appendLine("npx wrangler kv namespace create GREETINGS")
+            append("```")
+        }
+
+    private fun deploySection(ctx: TemplateContext): String =
+        buildString {
+            appendLine("1. Authenticate: `npx wrangler login`")
+            append("2. Deploy: ${ctx.runCmd("deploy")}")
+        }
 }

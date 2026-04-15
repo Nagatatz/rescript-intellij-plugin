@@ -30,4 +30,22 @@ class GoogleCloudRunTemplateFilesTest {
         val readme = files["README.md"]!!
         assertTrue(readme.contains("gcloud run deploy"))
     }
+
+    @Test
+    fun `server reads PORT env var and exposes POST echo endpoint`() {
+        val ctx = TemplateContext("svc", PackageManager.PNPM)
+        val server = GoogleCloudRunTemplateFiles.generate(ctx)["src/Server.res"]!!
+        assertTrue(server.contains("process.env"))
+        assertTrue(server.contains("PORT"))
+        assertTrue(server.contains("Hono.post"))
+        assertTrue(server.contains("/echo"))
+    }
+
+    @Test
+    fun `README documents Cloud SQL recipe and environment section`() {
+        val readme = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))["README.md"]!!
+        assertTrue(readme.contains("## Environment"))
+        assertTrue(readme.contains("## Cloud SQL Recipe"))
+        assertTrue(readme.contains("@google-cloud/cloud-sql-connector"))
+    }
 }

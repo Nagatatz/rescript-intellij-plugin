@@ -37,4 +37,31 @@ class NpmLibraryTemplateFilesTest {
         assertTrue(readme.contains("## Publish"))
         assertTrue(readme.contains("npm publish"))
     }
+
+    @Test
+    fun `ships multi-module API with sync, async, and generic helpers`() {
+        val files = NpmLibraryTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/ListUtils.res"))
+        assertTrue(files.containsKey("src/Fetcher.res"))
+        assertTrue(files["src/ListUtils.res"]!!.contains("chunk"))
+        assertTrue(files["src/ListUtils.res"]!!.contains("partitionMap"))
+        assertTrue(files["src/Fetcher.res"]!!.contains("fetchWithTimeout"))
+        assertTrue(files["src/Fetcher.res"]!!.contains("AbortController"))
+    }
+
+    @Test
+    fun `ships a Vitest file per module`() {
+        val files = NpmLibraryTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/__tests__/Index.test.mjs"))
+        assertTrue(files.containsKey("src/__tests__/ListUtils.test.mjs"))
+        assertTrue(files.containsKey("src/__tests__/Fetcher.test.mjs"))
+    }
+
+    @Test
+    fun `README lists the API surface`() {
+        val readme = NpmLibraryTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("## API Surface"))
+        assertTrue(readme.contains("chunk"))
+        assertTrue(readme.contains("fetchWithTimeout"))
+    }
 }

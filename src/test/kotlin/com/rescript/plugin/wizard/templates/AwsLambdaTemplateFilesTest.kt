@@ -23,7 +23,23 @@ class AwsLambdaTemplateFilesTest {
     @Test
     fun `README documents lambda deploy notes`() {
         val readme = AwsLambdaTemplateFiles.generate(ctx)["README.md"]!!
-        assertTrue(readme.contains("dist/index.mjs"))
-        assertTrue(readme.contains("Lambda"))
+        assertTrue(readme.contains("index.handler"))
+        assertTrue(readme.contains("Lambda") || readme.contains("lambda"))
+    }
+
+    @Test
+    fun `server ships POST + path param orders endpoints`() {
+        val server = AwsLambdaTemplateFiles.generate(ctx)["src/Server.res"]!!
+        assertTrue(server.contains("Hono.post"))
+        assertTrue(server.contains("/orders"))
+        assertTrue(server.contains("paramAt"))
+        assertTrue(server.contains("jsonBody"))
+    }
+
+    @Test
+    fun `README includes DynamoDB recipe`() {
+        val readme = AwsLambdaTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("DynamoDB"))
+        assertTrue(readme.contains("@aws-sdk/lib-dynamodb"))
     }
 }

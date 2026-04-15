@@ -58,8 +58,9 @@ internal object ViteReactTemplateFiles {
                 ),
             "index.html" to indexHtml(ctx.projectName),
             "vite.config.mjs" to viteConfig(),
-            "src/App.res" to ProjectFileBuilders.reactComponent(),
+            "src/App.res" to appRes(),
             "src/Main.res" to mainRes(),
+            "src/Api.res" to apiRes(),
             "src/__tests__/App.test.mjs" to appTest(),
             "README.md" to
                 CommonFiles.readme(
@@ -87,6 +88,89 @@ internal object ViteReactTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun appRes(): String {
+        val dollar = '$'
+        return buildString {
+            appendLine("// Interactive demo: form + useState + fetch. Replace /api/greet with your own backend,")
+            appendLine("// or run the Full-Stack / Monorepo templates for a paired server.")
+            appendLine("@react.component")
+            appendLine("let make = () => {")
+            appendLine("  let (name, setName) = React.useState(() => \"\")")
+            appendLine("  let (greeting, setGreeting) = React.useState(() => None)")
+            appendLine("  let (loading, setLoading) = React.useState(() => false)")
+            appendLine("")
+            appendLine("  let handleSubmit = async event => {")
+            appendLine("    ReactEvent.Form.preventDefault(event)")
+            appendLine("    setLoading(_ => true)")
+            appendLine("    try {")
+            appendLine("      let message = await Api.greet(name)")
+            appendLine("      setGreeting(_ => Some(message))")
+            appendLine("    } catch {")
+            appendLine("    | Exn.Error(err) =>")
+            appendLine(
+                "      setGreeting(_ => Some(\"Error: \" ++ err->Exn.message->Option.getOr(" +
+                    "\"unknown\")))",
+            )
+            appendLine("    }")
+            appendLine("    setLoading(_ => false)")
+            appendLine("  }")
+            appendLine("")
+            appendLine("  <main style={ReactDOM.Style.make(~padding=\"2rem\", ~fontFamily=\"sans-serif\", ())}>")
+            appendLine("    <h1> {React.string(\"ReScript + Vite+\")} </h1>")
+            appendLine("    <form onSubmit={handleSubmit}>")
+            appendLine("      <input")
+            appendLine("        type_=\"text\"")
+            appendLine("        placeholder=\"Your name\"")
+            appendLine("        value={name}")
+            appendLine("        onChange={e => setName(_ => (e->ReactEvent.Form.target)[\"value\"])}")
+            appendLine("      />")
+            appendLine("      <button type_=\"submit\" disabled={loading || name == \"\"}>")
+            appendLine("        {React.string(loading ? \"Sending...\" : \"Greet\")}")
+            appendLine("      </button>")
+            appendLine("    </form>")
+            appendLine("    {switch greeting {")
+            appendLine("    | Some(msg) => <p> {React.string(msg)} </p>")
+            appendLine("    | None => React.null")
+            appendLine("    }}")
+            append("  </main>")
+            appendLine()
+            append("}")
+        }
+    }
+
+    private fun apiRes(): String {
+        val dollar = '$'
+        return buildString {
+            appendLine("// Thin fetch wrapper. When no backend is available it falls back to a local")
+            appendLine("// greeting so the form stays functional out of the box.")
+            appendLine("type response")
+            appendLine("@send external json: response => promise<'a> = \"json\"")
+            appendLine("@get external ok: response => bool = \"ok\"")
+            appendLine("@val external fetch: (string, 'opts) => promise<response> = \"fetch\"")
+            appendLine("")
+            appendLine("let greet = async (name: string): string => {")
+            appendLine("  try {")
+            appendLine("    let response = await fetch(")
+            appendLine("      \"/api/greet\",")
+            appendLine("      {")
+            appendLine("        \"method\": \"POST\",")
+            appendLine("        \"headers\": {\"Content-Type\": \"application/json\"},")
+            appendLine("        \"body\": JSON.stringifyAny({\"name\": name})->Option.getOr(\"{}\"),")
+            appendLine("      },")
+            appendLine("    )")
+            appendLine("    if response->ok {")
+            appendLine("      let body = await response->json")
+            appendLine("      body[\"message\"]")
+            appendLine("    } else {")
+            appendLine("      `Hello, $dollar{name}! (offline fallback — no backend at /api/greet)`")
+            appendLine("    }")
+            appendLine("  } catch {")
+            appendLine("  | _ => `Hello, $dollar{name}! (offline fallback — fetch failed)`")
+            appendLine("  }")
+            append("}")
+        }
+    }
 
     private fun indexHtml(projectName: String): String =
         buildString {

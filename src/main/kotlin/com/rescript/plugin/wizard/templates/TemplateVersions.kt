@@ -61,6 +61,26 @@ object TemplateVersions {
     const val NPM = "10.9.0"
     const val YARN = "4.5.0"
 
+    // Database (libsql client + Drizzle ORM)
+    const val LIBSQL_CLIENT = "^0.14.0"
+    const val DRIZZLE_ORM = "^0.36.0"
+    const val DRIZZLE_KIT = "^0.28.0"
+
+    // Validation
+    const val ZOD = "^3.23.0"
+
+    // OpenAPI / Hono ecosystem
+    const val HONO_ZOD_OPENAPI = "^0.18.0"
+    const val SCALAR_HONO_API_REFERENCE = "^0.5.0"
+
+    // GraphQL (Hono GraphQL template)
+    const val GRAPHQL = "^16.9.0"
+    const val GRAPHQL_YOGA = "^5.7.0"
+    const val GRAPHQL_MARKDOWN = "^7.0.0"
+
+    // AWS Lambda runtime types (separate from @types/aws-lambda)
+    const val AWS_LAMBDA = "^1.0.0"
+
     // Node.js engine range used by templates
     const val NODE_ENGINE = ">=20"
 }
