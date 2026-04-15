@@ -63,7 +63,8 @@ internal object MonorepoTemplateFiles {
                         ),
                 ),
             )
-            put("packages/shared/src/Types.res", "type user = {\n  id: string,\n  name: string,\n}")
+            put("packages/shared/src/Types.res", sharedTypesRes())
+            put("packages/shared/src/Api.res", sharedApiRes())
             // server
             put(
                 "packages/server/rescript.json",
@@ -84,11 +85,19 @@ internal object MonorepoTemplateFiles {
                             "@$name/shared" to workspaceDep(pm),
                             "hono" to TemplateVersions.HONO,
                             "@hono/node-server" to TemplateVersions.HONO_NODE_SERVER,
+                            "@libsql/client" to TemplateVersions.LIBSQL_CLIENT,
+                            "drizzle-orm" to TemplateVersions.DRIZZLE_ORM,
+                        ),
+                    devDependencies =
+                        linkedMapOf(
+                            "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
                         ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
+                            "db:generate" to "drizzle-kit generate",
+                            "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -97,12 +106,10 @@ internal object MonorepoTemplateFiles {
             )
             put("packages/server/src/Hono.res", ProjectFileBuilders.honoBindings())
             put("packages/server/src/HonoNodeServer.res", ProjectFileBuilders.honoNodeServerBindings())
-            put(
-                "packages/server/src/Server.res",
-                "let app = Hono.createApp()\n\napp->Hono.get(\"/api/hello\", ctx => {\n" +
-                    "  ctx->Hono.json({\"message\": \"Hello from server!\"})\n})\n\n" +
-                    "HonoNodeServer.serve(app, {port: 3000})\nConsole.log(\"Server running on http://localhost:3000\")",
-            )
+            put("packages/server/src/Schema.res", serverSchemaRes())
+            put("packages/server/src/Db.res", serverDbRes())
+            put("packages/server/src/Server.res", serverServerRes(name))
+            put("packages/server/drizzle.config.ts", serverDrizzleConfig())
             // client (Vite+)
             put(
                 "packages/client/rescript.json",
@@ -156,18 +163,9 @@ internal object MonorepoTemplateFiles {
                         ),
                 ),
             )
-            put(
-                "packages/client/src/App.res",
-                "@react.component\nlet make = () => {\n  <div>\n" +
-                    "    {React.string(\"Hello, ReScript Monorepo!\")}\n  </div>\n}",
-            )
-            put(
-                "packages/client/src/Main.res",
-                "switch ReactDOM.querySelector(\"#root\") {\n" +
-                    "| Some(rootEl) =>\n" +
-                    "  ReactDOM.Client.Root.render(ReactDOM.Client.createRoot(rootEl), <App />)\n" +
-                    "| None => Console.error(\"Could not find root element\")\n}",
-            )
+            put("packages/client/src/App.res", clientAppRes(name))
+            put("packages/client/src/ApiClient.res", clientApiRes())
+            put("packages/client/src/Main.res", clientMainRes())
             put(
                 "README.md",
                 CommonFiles.readme(
@@ -243,6 +241,201 @@ internal object MonorepoTemplateFiles {
             appendLine("    <script type=\"module\" src=\"/src/Main.res.mjs\"></script>")
             appendLine("  </body>")
             append("</html>")
+        }
+
+    private fun sharedTypesRes(): String =
+        buildString {
+            appendLine("type user = {id: int, name: string, email: string}")
+        }
+
+    private fun sharedApiRes(): String =
+        buildString {
+            appendLine("// Request/response types shared by server and client.")
+            appendLine("type createUserReq = {name: string, email: string}")
+            appendLine("type createUserRes = {id: int, name: string, email: string}")
+        }
+
+    private fun serverSchemaRes(): String =
+        buildString {
+            appendLine("// Drizzle SQLite schema. Shared type lives in @<project>/shared/Types.res;")
+            appendLine("// the table definition stays here because it is server-only.")
+            appendLine("@module(\"drizzle-orm/sqlite-core\")")
+            appendLine("external sqliteTable: (string, 'columns) => 'table = \"sqliteTable\"")
+            appendLine("@module(\"drizzle-orm/sqlite-core\")")
+            appendLine("external intCol: (string, 'opts) => 'col = \"integer\"")
+            appendLine("@module(\"drizzle-orm/sqlite-core\")")
+            appendLine("external textCol: (string, 'opts) => 'col = \"text\"")
+            appendLine("")
+            appendLine("let users = sqliteTable(\"users\", {")
+            appendLine("  \"id\": intCol(\"id\", {\"primaryKey\": true, \"autoIncrement\": true}),")
+            appendLine("  \"name\": textCol(\"name\", {\"notNull\": true}),")
+            appendLine("  \"email\": textCol(\"email\", {\"notNull\": true}),")
+            append("})")
+        }
+
+    private fun serverDbRes(): String =
+        buildString {
+            appendLine("@module(\"@libsql/client\") external createClient: 'opts => 'client = \"createClient\"")
+            appendLine("@module(\"drizzle-orm/libsql\") external drizzle: 'client => 'db = \"drizzle\"")
+            appendLine("")
+            appendLine("@val external processEnv: Dict.t<string> = \"process.env\"")
+            appendLine("")
+            appendLine("let dbUrl =")
+            appendLine("  processEnv")
+            appendLine("  ->Dict.get(\"DATABASE_URL\")")
+            appendLine("  ->Option.getOr(\"file:./data/app.db\")")
+            appendLine("")
+            appendLine("let client = createClient({\"url\": dbUrl})")
+            appendLine("let db: 'db = drizzle(client)")
+            appendLine("")
+            appendLine("@send external insert: ('db, 'table) => 'builder = \"insert\"")
+            appendLine("@send external values: ('builder, 'row) => 'builder = \"values\"")
+            appendLine("@send external returning: 'q => promise<array<'row>> = \"returning\"")
+            appendLine("@send external select: ('db, 'opts) => 'query = \"select\"")
+            appendLine("@send external from: ('q, 'table) => 'q = \"from\"")
+            appendLine("@send external allAsync: 'q => promise<array<'row>> = \"all\"")
+        }
+
+    private fun serverServerRes(projectName: String): String =
+        buildString {
+            appendLine("let app = Hono.createApp()")
+            appendLine("")
+            appendLine("app->Hono.get(\"/api/hello\", ctx =>")
+            appendLine("  ctx->Hono.json({\"message\": \"Hello from @$projectName/server!\"})")
+            appendLine(")")
+            appendLine("")
+            appendLine("app->Hono.get(\"/api/users\", async ctx => {")
+            appendLine("  let rows =")
+            appendLine("    await Db.db")
+            appendLine("    ->Db.select({")
+            appendLine("      \"id\": Schema.users[\"id\"],")
+            appendLine("      \"name\": Schema.users[\"name\"],")
+            appendLine("      \"email\": Schema.users[\"email\"],")
+            appendLine("    })")
+            appendLine("    ->Db.from(Schema.users)")
+            appendLine("    ->Db.allAsync")
+            appendLine("  ctx->Hono.json(rows)")
+            appendLine("})")
+            appendLine("")
+            appendLine("app->Hono.post(\"/api/users\", async ctx => {")
+            appendLine("  let payload = await ctx->Hono.req->Hono.jsonBody")
+            appendLine("  let inserted =")
+            appendLine("    await Db.db")
+            appendLine("    ->Db.insert(Schema.users)")
+            appendLine(
+                "    ->Db.values({\"name\": payload[\"name\"], \"email\": payload[\"email\"]})",
+            )
+            appendLine("    ->Db.returning")
+            appendLine("  ctx->Hono.status(201)->Hono.json(inserted->Array.get(0))")
+            appendLine("})")
+            appendLine("")
+            appendLine("HonoNodeServer.serve(app, {port: 3000})")
+            append("Console.log(\"Server running on http://localhost:3000\")")
+        }
+
+    private fun serverDrizzleConfig(): String =
+        buildString {
+            appendLine("import { defineConfig } from \"drizzle-kit\";")
+            appendLine("")
+            appendLine("export default defineConfig({")
+            appendLine("  schema: \"./src/Schema.res.mjs\",")
+            appendLine("  out: \"./drizzle\",")
+            appendLine("  dialect: \"sqlite\",")
+            appendLine("  dbCredentials: {")
+            appendLine("    url: process.env.DATABASE_URL ?? \"file:./data/app.db\",")
+            appendLine("  },")
+            append("});")
+        }
+
+    private fun clientAppRes(projectName: String): String =
+        buildString {
+            appendLine("// Form + useState + fetch to the Hono server. Demonstrates the")
+            appendLine("// full client ↔ server loop with a shared Request type.")
+            appendLine("@react.component")
+            appendLine("let make = () => {")
+            appendLine("  let (users, setUsers) = React.useState(() => [])")
+            appendLine("  let (name, setName) = React.useState(() => \"\")")
+            appendLine("  let (email, setEmail) = React.useState(() => \"\")")
+            appendLine("")
+            appendLine("  let loadUsers = async () => {")
+            appendLine("    let fetched = await ApiClient.listUsers()")
+            appendLine("    setUsers(_ => fetched)")
+            appendLine("  }")
+            appendLine("")
+            appendLine("  React.useEffect0(() => {")
+            appendLine("    loadUsers()->ignore")
+            appendLine("    None")
+            appendLine("  })")
+            appendLine("")
+            appendLine("  let handleSubmit = async event => {")
+            appendLine("    ReactEvent.Form.preventDefault(event)")
+            appendLine("    let req: Shared.Api.createUserReq = {name, email}")
+            appendLine("    let _ = await ApiClient.createUser(req)")
+            appendLine("    setName(_ => \"\")")
+            appendLine("    setEmail(_ => \"\")")
+            appendLine("    await loadUsers()")
+            appendLine("  }")
+            appendLine("")
+            appendLine("  <main style={ReactDOM.Style.make(~padding=\"2rem\", ~fontFamily=\"sans-serif\", ())}>")
+            appendLine("    <h1> {React.string(\"$projectName\")} </h1>")
+            appendLine("    <form onSubmit={handleSubmit}>")
+            appendLine(
+                "      <input placeholder=\"name\" value={name} " +
+                    "onChange={e => setName(_ => (e->ReactEvent.Form.target)[\"value\"])} />",
+            )
+            appendLine(
+                "      <input placeholder=\"email\" value={email} " +
+                    "onChange={e => setEmail(_ => (e->ReactEvent.Form.target)[\"value\"])} />",
+            )
+            appendLine("      <button type_=\"submit\"> {React.string(\"Add user\")} </button>")
+            appendLine("    </form>")
+            appendLine("    <ul>")
+            appendLine("      {users")
+            appendLine("        ->Array.map(u =>")
+            appendLine("          <li key={u.id->Int.toString}>")
+            appendLine("            {React.string(u.name ++ \" — \" ++ u.email)}")
+            appendLine("          </li>")
+            appendLine("        )")
+            appendLine("        ->React.array}")
+            appendLine("    </ul>")
+            append("  </main>")
+            appendLine()
+            append("}")
+        }
+
+    private fun clientApiRes(): String =
+        buildString {
+            appendLine("// Fetch wrapper. Routes go through /api/* and are proxied by Vite+ to the Hono")
+            appendLine("// server during development.")
+            appendLine("type response")
+            appendLine("@send external json: response => promise<'a> = \"json\"")
+            appendLine("@val external fetch: (string, 'opts) => promise<response> = \"fetch\"")
+            appendLine("")
+            appendLine("let listUsers = async (): promise<array<Shared.Types.user>> => {")
+            appendLine("  let response = await fetch(\"/api/users\", Obj.magic())")
+            appendLine("  await response->json")
+            appendLine("}")
+            appendLine("")
+            appendLine(
+                "let createUser = async (payload: Shared.Api.createUserReq): " +
+                    "promise<Shared.Api.createUserRes> => {",
+            )
+            appendLine("  let response = await fetch(\"/api/users\", {")
+            appendLine("    \"method\": \"POST\",")
+            appendLine("    \"headers\": {\"Content-Type\": \"application/json\"},")
+            appendLine("    \"body\": JSON.stringifyAny(payload)->Option.getOr(\"{}\"),")
+            appendLine("  })")
+            appendLine("  await response->json")
+            append("}")
+        }
+
+    private fun clientMainRes(): String =
+        buildString {
+            appendLine("switch ReactDOM.querySelector(\"#root\") {")
+            appendLine("| Some(rootEl) =>")
+            appendLine("  ReactDOM.Client.Root.render(ReactDOM.Client.createRoot(rootEl), <App />)")
+            appendLine("| None => Console.error(\"Could not find root element\")")
+            append("}")
         }
 
     private fun workspacesNote(pm: PackageManager): String =
