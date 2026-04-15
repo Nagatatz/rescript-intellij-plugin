@@ -60,6 +60,30 @@ paths:
 | コード分析・Inspection・Quick Fix・Error Lens | `sphinx-docs/user/features/code-analysis.md` |
 | その他（ツールウィンドウ、プロジェクト統合等） | `sphinx-docs/user/features/advanced.md` |
 
+### 日本語訳の同時更新
+
+**以下は強制的な行動指示であり、例外なく従うこと。**
+
+`sphinx-docs/` 配下の `.md` を新規作成・更新した場合、**同一コミット内で** 対応する日本語訳 (`sphinx-docs/locale/ja/LC_MESSAGES/**/*.po`) も更新すること。英語のみ追加して `.po` を後回しにしてはならない。
+
+手順:
+
+```bash
+cd sphinx-docs
+make gettext      # .pot ファイルを再生成
+make update-po    # .po ファイルを .pot に同期 (新規は空 msgstr、既存は追記)
+# 各 .po の空 msgstr を日本語で埋める
+make build-ja     # 翻訳が通ることを確認
+```
+
+検証:
+
+- 新規 `.md` を追加したら、対応する `.po` がコミットに含まれているか確認する
+- 既存 `.md` を編集したら、該当 `.po` の `msgstr` が更新されている（または新しい `msgid` が翻訳済み）か確認する
+- `make build-ja` が成功することを必ず確認する
+
+例外: `.po` の POT-Creation-Date 行のみの変更や、リンクターゲットが変わっただけの参照行シフトは許容するが、未翻訳の `msgstr ""` を残したままコミットしてはならない。
+
 ## 図表・ダイアグラム
 
 **図表を作成・更新する場合は draw.io MCP ツールを使用すること。** ASCII アートや Markdown Mermaid コードブロックでの図表作成は禁止。ツール選択の詳細は `.claude/rules/diagram-rules.md` を参照。
