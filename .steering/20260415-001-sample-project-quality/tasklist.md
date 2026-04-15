@@ -107,11 +107,11 @@
 
 ## Step 11: ドキュメント更新
 
-- [ ] `CLAUDE.md` のレイヤー 3「プロジェクトウィザード」の記述を Vite+ / PM 反映 / テンプレ充実を反映
-- [ ] `README.md` の Features セクションを更新
-- [ ] `sphinx-docs/user/features/advanced.md` の Project Wizard セクションを更新
-- [ ] `docs/product-requirements.md` の実装済み機能セクションを更新
-- [ ] コミット: `📝 Update docs for sample project quality improvements`
+- [x] `CLAUDE.md` のレイヤー 3「プロジェクトウィザード」の記述を更新 (Vite+ / PM 反映 / テンプレ充実 / 統合テスト)
+- [x] `README.md` の Features セクションを更新
+- [x] `sphinx-docs/user/features/advanced.md` に Quality of Life / Vite+ Toolchain サブセクションを追加
+- [x] `docs/product-requirements.md` の Project Wizard 行を拡張
+- [x] コミット: `📝 Update docs for sample project quality improvements`
 
 ## Step 12: コミット前検証 (Definition of Done Phase 3)
 

@@ -512,9 +512,27 @@ my-project/
 
 After the wizard creates the project:
 
-1. Run your package manager's install command (e.g., `npm install`) to install dependencies
+1. Run your package manager's install command (e.g., `pnpm install`) to install dependencies
 2. Run `rescript build` (or use the ReScript run configuration) to compile the project
 3. The Language Server will start automatically once `@rescript/language-server` is available in `node_modules`
+
+### Quality of Life
+
+Every generated project ships with the same baseline so you can start coding right away:
+
+- **README.md** — Documents prerequisites, install/dev commands tuned to the selected package manager, and template-specific deployment notes (e.g. Cloudflare Workers `wrangler deploy`, AWS Lambda upload, Cloud Run `gcloud run deploy`)
+- **`.gitignore`** — Excludes `node_modules/`, ReScript build artifacts, OS files, and template-specific output (`.next/`, `dist/`, `.wrangler/`, …)
+- **`.editorconfig`** — Pins indentation (2 spaces) and line endings (LF)
+- **`.github/workflows/ci.yml`** — Minimal CI pipeline that installs dependencies and runs `rescript`, plus the `build` / `test` script when the template defines one
+- **`packageManager` field in `package.json`** — Pins the toolchain version for [Corepack](https://nodejs.org/api/corepack.html) so collaborators get the same package manager
+- **Vitest sample test** — Included in CLI Tool, npm Library, Hono, Vite + React, and Next.js templates
+- **Centralized dependency versions** — All template versions live in `wizard/templates/TemplateVersions.kt`; a nightly GitHub Actions job (`integration-tests.yml`) verifies that every template still installs and compiles
+
+### Vite+ Toolchain (Vite + React, Electron, Monorepo)
+
+The Vite + React, Electron, and Monorepo templates use [Vite+](https://vite.plus) (`vite-plus`) — a unified wrapper that bundles Vite, Vitest, Oxlint, Oxfmt, and Rolldown. Scripts are exposed as `vp dev`, `vp build`, `vp test`, etc.
+
+> **Known issue:** Vite+ is **pre-1.0** and currently does not link cleanly with `@vitejs/plugin-react` via pnpm's nested store, so `vp build` may fail with `ERR_MODULE_NOT_FOUND` on `vite/internal`. As a fallback, replace `vite-plus` with `vite` in `vite.config.mjs` and switch the npm scripts to `vite` / `vite build`. The migration back to Vite+ is a one-line change once Vite+ stabilizes.
 
 The Project Wizard lets you create a fully configured ReScript project in seconds — select a template, choose your package manager, and get a ready-to-build project without manually writing configuration files.
 

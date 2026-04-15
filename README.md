@@ -134,7 +134,7 @@
 ### Project & IDE Integration
 
 - **LSP auto-install** — One-click installation of `@rescript/language-server` with auto-detected package manager
-- **Project Wizard** — Create new projects from 12 templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm Library, CLI Tool, Monorepo)
+- **Project Wizard** — Create new projects from 12 templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run, React Native, npm Library, CLI Tool, Monorepo). Each template ships a README, `.gitignore`, `.editorconfig`, and a GitHub Actions CI workflow; the selected package manager (npm / pnpm / yarn, default pnpm) is reflected in `package.json` (`packageManager` field) and README commands. Vite + React / Electron / Monorepo use Vite+ (`vite-plus`). Dependency versions are centralized in `TemplateVersions.kt` and verified end-to-end by a nightly integration test workflow that runs `pnpm install` and `rescript build` for every template.
 - **Compiled JS preview** — Real-time preview of compiled JavaScript in a tool window
 - **Project View nesting** — `.resi` interface files nested under corresponding `.res` files
 - **rescript.json support** — Custom icon and JSON Schema for configuration files
