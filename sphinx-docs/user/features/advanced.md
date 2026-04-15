@@ -418,7 +418,7 @@ This ensures your code folding preferences persist across IDE sessions — block
 
 {bdg-success}`Native`
 
-Create new ReScript projects directly from the IDE with 12 pre-configured templates covering frontend, backend, serverless, mobile, and more.
+Create new ReScript projects directly from the IDE with 15 pre-configured templates covering frontend, backend, serverless, mobile, and more.
 
 ### Steps
 
@@ -426,7 +426,7 @@ Create new ReScript projects directly from the IDE with 12 pre-configured templa
 2. Select **ReScript** from the generator list on the left
 3. Configure project settings:
    - **Project name** and **location**
-   - **Template** --- Choose from 12 project templates grouped by category
+   - **Template** --- Choose from 15 project templates grouped by category
    - **Package manager** --- Choose between npm, pnpm, or yarn
 4. Click **Create** to generate the project
 
@@ -443,6 +443,7 @@ Create new ReScript projects directly from the IDE with 12 pre-configured templa
 | Serverless | **AWS Lambda** | Serverless function on AWS Lambda with Hono |
 | Serverless | **Google Cloud Run** | Container-based service on Google Cloud Run with Hono |
 | Mobile | **React Native (Expo)** | Mobile application with React Native and Expo |
+| Mobile | **React Native (Community CLI)** | Mobile app with React Native Community CLI (bare workflow) for native Android/iOS access |
 | Library | **npm Library** | Publishable npm package with `@genType` for TypeScript consumers |
 | Tool | **CLI Tool** | Command-line tool with argument parsing |
 | Full Stack | **Monorepo (Hono + React)** | Full-stack monorepo with Hono backend and React frontend |
@@ -496,7 +497,9 @@ my-project/
 
 ### Template Details
 
-**React-based templates** (Vite+React, Next.js, Electron, React Native) include JSX configuration in `rescript.json` and React dependencies.
+**React-based templates** (Vite+React, Next.js, Electron, React Native (Expo), React Native (Community CLI)) include JSX configuration in `rescript.json` and React dependencies.
+
+**React Native (Community CLI)** targets Android Studio / Xcode users who need direct access to the native `android/` and `ios/` projects. The template ships only the JavaScript/TypeScript + ReScript surface and a `metro.config.js` that resolves `.res.mjs`; the native projects themselves are produced by running `@react-native-community/cli` after project creation. A `src/NativeGreeting.res` file demonstrates how to bind a custom Kotlin/Swift `NativeModule` through `@module("react-native") @scope("NativeModules")`, though the Kotlin/Swift implementation itself is outside the scope of the template and should be written following the [official React Native docs](https://reactnative.dev/docs/legacy/native-modules-android).
 
 **Hono-based templates** (Hono, Cloudflare Workers, AWS Lambda, Google Cloud Run) share common Hono bindings (`src/Hono.res`) and differ in their deployment configuration:
 - **Hono (Node.js)** --- Uses `@hono/node-server` for local development
