@@ -47,14 +47,16 @@
 
 ## Step 5: Vite+ 導入 — Electron / Monorepo (Phase 4)
 
-- [ ] `ElectronTemplateFiles.kt` を Vite+ 向けに書き換え
-- [ ] Electron の README / ci.yml / .gitignore 等を追加
-- [ ] `ElectronTemplateFilesTest.kt` を更新
-- [ ] `MonorepoTemplateFiles.kt` を Vite+ (client) + `pnpm-workspace.yaml` 対応に書き換え
-- [ ] Monorepo: PM が pnpm 以外の場合は root `package.json` に `workspaces` フィールド
-- [ ] Monorepo の README / ci.yml / .gitignore / .editorconfig を追加
-- [ ] `MonorepoTemplateFilesTest.kt` を更新
-- [ ] コミット: `✨ Migrate Electron and Monorepo templates to Vite+ and pnpm workspaces`
+- [x] `ElectronTemplateFiles.kt` を Vite+ 向けに書き換え
+- [x] Electron の README / ci.yml / .gitignore / .editorconfig を追加
+- [x] `ElectronTemplateFilesTest.kt` 新規追加
+- [x] `MonorepoTemplateFiles.kt` を Vite+ (client) + `pnpm-workspace.yaml` 対応に書き換え
+- [x] Monorepo: PM が pnpm 以外の場合は root `package.json` に `workspaces` フィールドを出力
+- [x] Monorepo dev script を PM ごとに切替 (pnpm filter / yarn workspace / npm --workspace)
+- [x] Monorepo の README / ci.yml / .gitignore / .editorconfig を追加
+- [x] `MonorepoTemplateFilesTest.kt` 新規追加
+- [x] `ProjectTemplateTest` の workspaces アサーションを更新（PNPM/NPM 別ケース）
+- [x] コミット: `✨ Migrate Electron and Monorepo templates to Vite+ and pnpm workspaces`
 
 ## Step 6: 残り React 系テンプレート (Phase 2 + 4)
 

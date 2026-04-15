@@ -1,56 +1,91 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
 
-/** Generates project template files for an Electron ReScript project. */
+/**
+ * Generates project template files for an Electron desktop application powered by ReScript and Vite+.
+ *
+ * Pairs Electron's main process (CommonJS) with a Vite+ renderer that bundles the React UI written
+ * in ReScript. The template ships a ready-to-run dev workflow plus README, gitignore, editorconfig,
+ * and a CI workflow.
+ */
 internal object ElectronTemplateFiles {
-    /** Context-aware entry point; falls through to the project-name generator until migrated. */
-    fun generate(ctx: TemplateContext): Map<String, String> = generate(ctx.projectName)
-
-    fun generate(projectName: String): Map<String, String> =
+    /**
+     * Generates Electron template files using the supplied [TemplateContext].
+     */
+    fun generate(ctx: TemplateContext): Map<String, String> =
         mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
-                    name = projectName,
+                    name = ctx.projectName,
                     bsDependencies = listOf("@rescript/core", "@rescript/react"),
                     includeJsx = true,
                 ),
             "package.json" to
                 ProjectFileBuilders.packageJson(
-                    name = projectName,
+                    name = ctx.projectName,
+                    isPrivate = true,
+                    type = "module",
+                    packageManager = ctx.packageManagerSpec(),
+                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
                     dependencies =
                         linkedMapOf(
-                            "rescript" to "^12.0.0",
-                            "@rescript/core" to "^1.0.0",
-                            "@rescript/react" to "^0.14.0",
-                            "react" to "^19.0.4",
-                            "react-dom" to "^19.0.4",
+                            "rescript" to TemplateVersions.RESCRIPT,
+                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
+                            "@rescript/react" to TemplateVersions.RESCRIPT_REACT,
+                            "react" to TemplateVersions.REACT,
+                            "react-dom" to TemplateVersions.REACT_DOM,
                         ),
                     devDependencies =
                         linkedMapOf(
-                            "electron" to "^40.0.0",
-                            "@vitejs/plugin-react" to "^6.0.0",
-                            "vite" to "^8.0.0",
+                            "electron" to TemplateVersions.ELECTRON,
+                            "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
+                            "vite" to TemplateVersions.VITE_PLUS,
+                            "vite-plus" to TemplateVersions.VITE_PLUS,
+                            "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                         ),
                     scripts =
                         linkedMapOf(
-                            "dev" to "vite",
-                            "build" to "vite build",
+                            "dev" to "vp dev",
+                            "build" to "vp build",
                             "electron" to "electron .",
-                            "start" to "vite build && electron .",
+                            "start" to "vp build && electron .",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
                         ),
                 ),
-            "main.cjs" to mainCjs(projectName),
-            "index.html" to indexHtml(projectName),
-            "vite.config.mjs" to
-                "import { defineConfig } from \"vite\";\nimport react from \"@vitejs/plugin-react\";\n\nexport default defineConfig({\n  plugins: [react()],\n  base: \"./\",\n});",
+            "main.cjs" to mainCjs(ctx.projectName),
+            "index.html" to indexHtml(ctx.projectName),
+            "vite.config.mjs" to viteConfig(),
             "src/App.res" to ProjectFileBuilders.reactComponent(),
-            "src/Main.res" to
-                "switch ReactDOM.Client.createRoot(ReactDOM.querySelector(\"#root\")) {\n| Some(root) => ReactDOM.Client.Root.render(root, <App />)\n| None => Console.error(\"Could not find root element\")\n}",
+            "src/Main.res" to mainRes(),
+            "README.md" to
+                CommonFiles.readme(
+                    ctx = ctx,
+                    description = "An Electron desktop app with a ReScript + React renderer bundled by Vite+.",
+                    scripts =
+                        listOf(
+                            "dev" to "Start the Vite+ dev server for the renderer",
+                            "build" to "Bundle the renderer for production",
+                            "start" to "Bundle and launch the Electron app",
+                            "res:dev" to "Watch ReScript sources",
+                        ),
+                    extraSections =
+                        listOf(
+                            "About Vite+" to vitePlusNote(),
+                        ),
+                ),
+            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "out/", ".vite/")),
+            ".editorconfig" to CommonFiles.editorconfig(),
+            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true),
         )
+
+    /**
+     * Back-compatible entry point used by tests and any external callers.
+     */
+    fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
 
     private fun mainCjs(projectName: String): String =
         buildString {
@@ -74,6 +109,25 @@ internal object ElectronTemplateFiles {
             append("});")
         }
 
+    private fun viteConfig(): String =
+        buildString {
+            appendLine("import { defineConfig } from \"vite-plus\";")
+            appendLine("import react from \"@vitejs/plugin-react\";")
+            appendLine("")
+            appendLine("export default defineConfig({")
+            appendLine("  plugins: [react()],")
+            appendLine("  base: \"./\",")
+            append("});")
+        }
+
+    private fun mainRes(): String =
+        buildString {
+            appendLine("switch ReactDOM.Client.createRoot(ReactDOM.querySelector(\"#root\")) {")
+            appendLine("| Some(root) => ReactDOM.Client.Root.render(root, <App />)")
+            appendLine("| None => Console.error(\"Could not find root element\")")
+            append("}")
+        }
+
     private fun indexHtml(projectName: String): String =
         buildString {
             appendLine("<!DOCTYPE html>")
@@ -89,4 +143,11 @@ internal object ElectronTemplateFiles {
             appendLine("  </body>")
             append("</html>")
         }
+
+    private fun vitePlusNote(): String =
+        """
+        This template uses [Vite+](https://vite.plus) (`vite-plus`) for the renderer build.
+        Vite+ is **pre-1.0** — replace `vite-plus` with `vite` and adjust `vite.config.mjs`
+        if you prefer classic Vite.
+        """.trimIndent()
 }

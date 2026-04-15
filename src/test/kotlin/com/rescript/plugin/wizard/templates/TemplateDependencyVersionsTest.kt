@@ -79,9 +79,9 @@ class TemplateDependencyVersionsTest {
         val pkg = files["package.json"]!!
         assertMinVersion("react", extractVersion(pkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(pkg, "react-dom"), 19, 0, 4)
-        assertMinVersion("vite", extractVersion(pkg, "vite"), 8, 0, 0)
         assertMinVersion("@vitejs/plugin-react", extractVersion(pkg, "@vitejs/plugin-react"), 6, 0, 0)
         assertMinVersion("electron", extractVersion(pkg, "electron"), 40, 0, 0)
+        assertTrue(extractVersion(pkg, "vite-plus") != null, "vite-plus should be present")
     }
 
     @Test
@@ -115,7 +115,7 @@ class TemplateDependencyVersionsTest {
         val clientPkg = files["packages/client/package.json"]!!
         assertMinVersion("react", extractVersion(clientPkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(clientPkg, "react-dom"), 19, 0, 4)
-        assertMinVersion("vite", extractVersion(clientPkg, "vite"), 8, 0, 0)
         assertMinVersion("@vitejs/plugin-react", extractVersion(clientPkg, "@vitejs/plugin-react"), 6, 0, 0)
+        assertTrue(extractVersion(clientPkg, "vite-plus") != null, "client should depend on vite-plus")
     }
 }

@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard
 
+import com.rescript.plugin.wizard.templates.TemplateContext
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -165,9 +166,18 @@ class ProjectTemplateTest {
     }
 
     @Test
-    fun `MONOREPO root package json has workspaces`() {
+    fun `MONOREPO declares workspaces via pnpm-workspace yaml when defaulting to pnpm`() {
         val files = ProjectTemplate.MONOREPO.generateFiles("test-project")
+        assertTrue(files.containsKey("pnpm-workspace.yaml"))
+        assertTrue(files["pnpm-workspace.yaml"]!!.contains("packages/*"))
+    }
+
+    @Test
+    fun `MONOREPO uses npm workspaces field when npm is selected`() {
+        val ctx = TemplateContext("test-project", PackageManager.NPM)
+        val files = ProjectTemplate.MONOREPO.generateFiles(ctx)
         assertTrue(files["package.json"]!!.contains("\"workspaces\""))
+        assertFalse(files.containsKey("pnpm-workspace.yaml"))
     }
 
     @Test
