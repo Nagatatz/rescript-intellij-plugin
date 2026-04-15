@@ -64,6 +64,12 @@ internal object ReactNativeTemplateFiles {
                             "ios" to "Build and launch on an iOS simulator/device",
                             "res:dev" to "Watch ReScript sources",
                         ),
+                    extraSections =
+                        listOf(
+                            "Bindings" to bindingsSection(),
+                            "Adding Screens" to addScreensSection(),
+                            "Project Layout" to rnLayoutSection(),
+                        ),
                 ),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".expo/", "android/", "ios/", "*.tsbuildinfo")),
             ".editorconfig" to CommonFiles.editorconfig(),
@@ -128,6 +134,33 @@ internal object ReactNativeTemplateFiles {
             append("}")
         }
     }
+
+    private fun bindingsSection(): String =
+        """
+        `src/ReactNative.res` wraps the core components used by `App.res`: `View`, `Text`,
+        `TextInput`, `Button`, and `FlatList`. To add more (e.g. `ScrollView`, `Image`,
+        `Pressable`), follow the same `@module("react-native") @react.component` pattern.
+        For third-party modules (e.g. `react-native-reanimated`), bind against the package
+        name instead of `"react-native"`.
+        """.trimIndent()
+
+    private fun addScreensSection(): String =
+        """
+        The template ships as a single screen. For navigation, install `expo-router` or
+        `@react-navigation/native` and add screens as additional ReScript components
+        annotated with `@genType @react.component`. Keep shared types in a `Shared.res`
+        module so the navigator type-checks against the screen's props.
+        """.trimIndent()
+
+    private fun rnLayoutSection(): String =
+        buildString {
+            appendLine("| File | Purpose |")
+            appendLine("| --- | --- |")
+            appendLine("| `App.tsx` | Expo entry point re-exporting ReScript App |")
+            appendLine("| `src/App.res` | Root screen (todo list demo) |")
+            appendLine("| `src/ReactNative.res` | Bindings for core RN components |")
+            append("| `app.json` | Expo config |")
+        }
 
     private fun reactNativeBindings(): String =
         buildString {

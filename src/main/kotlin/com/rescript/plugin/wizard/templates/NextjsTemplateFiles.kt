@@ -73,6 +73,12 @@ internal object NextjsTemplateFiles {
                             "start" to "Run the production Next.js server",
                             "test" to "Run Vitest",
                         ),
+                    extraSections =
+                        listOf(
+                            "Server vs Client Components" to serverVsClientSection(),
+                            "Route Handlers" to routeHandlerSection(),
+                            "Project Layout" to nextjsLayoutSection(),
+                        ),
                 ),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".next/", "out/", "coverage/")),
             ".editorconfig" to CommonFiles.editorconfig(),
@@ -197,6 +203,43 @@ internal object NextjsTemplateFiles {
             append("}")
         }
     }
+
+    private fun serverVsClientSection(): String =
+        """
+        `src/App.res` is annotated `@genType` and consumed from `src/app/page.tsx`, a
+        **Server Component**. It has no state and no browser-only APIs. The form with
+        `useState` lives in `src/GreetForm.res`, consumed from `src/app/client/GreetForm.tsx`
+        which opts in with `"use client"`. Keep stateful ReScript components behind a
+        `use client` boundary; keep pure rendering components on the server side.
+        """.trimIndent()
+
+    private fun routeHandlerSection(): String =
+        """
+        `src/app/api/greet/route.ts` is a Next.js Route Handler (edge/node runtime).
+        Swap the hand-rolled parsing for `zod` / `valibot` before production:
+
+        ```ts
+        import { z } from "zod";
+        const Body = z.object({ name: z.string().min(1) });
+        export async function POST(req: NextRequest) {
+          const parsed = Body.safeParse(await req.json());
+          if (!parsed.success) return NextResponse.json({ error: parsed.error }, { status: 400 });
+          return NextResponse.json({ message: `Hello, ${'$'}{parsed.data.name}!` });
+        }
+        ```
+        """.trimIndent()
+
+    private fun nextjsLayoutSection(): String =
+        buildString {
+            appendLine("| File | Purpose |")
+            appendLine("| --- | --- |")
+            appendLine("| `src/app/page.tsx` | Server Component — app shell |")
+            appendLine("| `src/app/client/GreetForm.tsx` | Client wrapper around ReScript form |")
+            appendLine("| `src/app/api/greet/route.ts` | POST /api/greet Route Handler |")
+            appendLine("| `src/App.res` | ReScript server-rendered component |")
+            appendLine("| `src/GreetForm.res` | ReScript client component (state + fetch) |")
+            append("| `src/Fetch.res` | Fetch wrapper shared by clients |")
+        }
 
     private fun appTest(): String =
         buildString {
