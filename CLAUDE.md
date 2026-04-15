@@ -89,7 +89,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **モジュール階層** (`hierarchy/`) — モジュール依存関係のツリー表示
 - **Call Hierarchy** (`hierarchy/call/`) — 関数の呼び出し階層（Callers/Callees）ツリー表示（Ctrl+Alt+H）
 - **Project View** (`projectview/`) — コンパイル済み JS（`.res.js`/`.mjs`/`.cjs`、`.bs.js`/`.mjs`/`.cjs`）のネスト表示・灰色化
-- **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成
+- **プロジェクトウィザード** (`wizard/`) — 12 テンプレートによる新規プロジェクト作成。各テンプレートは README / .gitignore / .editorconfig / GitHub Actions CI を同梱し、選択した PackageManager (npm / pnpm / yarn、デフォルト pnpm) を `package.json` の `packageManager` フィールドや README コマンドに反映する。Vite + React / Electron / Monorepo は Vite+ (`vite-plus`) を採用 (pre-1.0 のため README に Known issue を記載)。依存バージョンは `wizard/templates/TemplateVersions.kt` で一元管理し、`./gradlew integrationTest` と `.github/workflows/integration-tests.yml` (nightly + manual) で生成→`pnpm install`→`rescript build` の動作確認を行う。
 - **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析（サーバーモード対応）、.resi シグネチャ同期、Suggested Refactoring 提案
 - **Reanalyze サーバーモード** (`analysis/`) — `rescript-tools reanalyze-server` デーモンプロセスによるデッドコード分析高速化（ReScript >= 12.1.0、自動起動・ヘルスチェック・自動再起動）
 - **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション、Extract Variable（Ctrl+Alt+V）、Extract Function（Ctrl+Alt+M）、Inline Variable/Function（Ctrl+Alt+N）、Introduce Constant、Change Signature（Ctrl+F6）、React コンポーネント抽出

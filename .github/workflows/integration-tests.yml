@@ -1,0 +1,53 @@
+name: Integration Tests
+
+# Runs the template generation integration tests (./gradlew integrationTest).
+# These are intentionally separate from the main CI workflow because they
+# require Node.js + pnpm and take ~2 minutes for the full template catalog.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Nightly at 03:00 UTC
+    - cron: '0 3 * * *'
+
+jobs:
+  integration-test:
+    name: Template integration tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
+
+      - name: Run template integration tests
+        run: ./gradlew integrationTest --info
+
+      - name: Upload test report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-report
+          path: build/reports/tests/integrationTest/
+          retention-days: 14

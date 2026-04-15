@@ -31,7 +31,10 @@ import javax.swing.border.EmptyBorder
 class RescriptProjectWizardStep(
     private val builder: RescriptModuleBuilder,
 ) : ModuleWizardStep() {
-    private val packageManagerCombo = JComboBox(PackageManager.entries.toTypedArray())
+    private val packageManagerCombo =
+        JComboBox(PackageManager.entries.toTypedArray()).apply {
+            selectedItem = PackageManager.PNPM
+        }
     private val templateListModel = DefaultListModel<Any>()
     private val templateList = JBList(templateListModel)
     private val descriptionArea =

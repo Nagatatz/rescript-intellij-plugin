@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard
 
+import com.rescript.plugin.wizard.templates.TemplateContext
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -44,5 +45,13 @@ class RescriptProjectGeneratorTest {
     @Test
     fun `PackageManager enum has three values`() {
         assertEquals(3, PackageManager.entries.size)
+    }
+
+    @Test
+    fun `generateFiles context overload dispatches to the template`() {
+        val ctx = TemplateContext("ctx-app", PackageManager.PNPM)
+        val files = RescriptProjectGenerator.generateFiles(ProjectTemplate.BASIC, ctx)
+        assertTrue(files.containsKey("rescript.json"))
+        assertTrue(files["rescript.json"]!!.contains("\"name\": \"ctx-app\""))
     }
 }

@@ -34,8 +34,8 @@ class RescriptModuleBuilderTest {
     }
 
     @Test
-    fun `default package manager is NPM`() {
-        assertEquals(PackageManager.NPM, builder.packageManager)
+    fun `default package manager is PNPM`() {
+        assertEquals(PackageManager.PNPM, builder.packageManager)
     }
 
     @Test
