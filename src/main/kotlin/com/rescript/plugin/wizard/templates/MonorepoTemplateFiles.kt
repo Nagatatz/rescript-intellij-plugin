@@ -39,6 +39,7 @@ internal object MonorepoTemplateFiles {
                             "dev:server" to perWorkspaceCmd(pm, "server", "dev"),
                             "dev:client" to perWorkspaceCmd(pm, "client", "dev"),
                             "build:client" to perWorkspaceCmd(pm, "client", "build"),
+                            "test" to allWorkspacesTestCmd(pm),
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -91,11 +92,13 @@ internal object MonorepoTemplateFiles {
                     devDependencies =
                         linkedMapOf(
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
+                            "vitest" to TemplateVersions.VITEST,
                         ),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
+                            "test" to "vitest run",
                             "db:generate" to "drizzle-kit generate",
                             "db:migrate" to "drizzle-kit migrate",
                             "res:build" to "rescript",
@@ -109,6 +112,7 @@ internal object MonorepoTemplateFiles {
             put("packages/server/src/Schema.res", serverSchemaRes())
             put("packages/server/src/Db.res", serverDbRes())
             put("packages/server/src/Server.res", serverServerRes(name))
+            put("packages/server/src/__tests__/Server.test.mjs", serverTest())
             put("packages/server/drizzle.config.ts", serverDrizzleConfig())
             // client (Vite+)
             put(
@@ -140,12 +144,14 @@ internal object MonorepoTemplateFiles {
                             "vite" to TemplateVersions.VITE_PLUS,
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
+                            "vitest" to TemplateVersions.VITEST,
                         ),
                     scripts =
                         linkedMapOf(
                             "dev" to "vp dev",
                             "build" to "vp build",
                             "preview" to "vp preview",
+                            "test" to "vp test",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -166,6 +172,7 @@ internal object MonorepoTemplateFiles {
             put("packages/client/src/App.res", clientAppRes(name))
             put("packages/client/src/ApiClient.res", clientApiRes())
             put("packages/client/src/Main.res", clientMainRes())
+            put("packages/client/src/__tests__/ApiClient.test.mjs", clientTest())
             put(
                 "README.md",
                 CommonFiles.readme(
@@ -178,6 +185,7 @@ internal object MonorepoTemplateFiles {
                             "dev:server" to "Run only the Hono server",
                             "dev:client" to "Run only the Vite+ client",
                             "build:client" to "Build the client for production",
+                            "test" to "Run tests across all workspaces",
                         ),
                     extraSections =
                         listOf(
@@ -188,7 +196,7 @@ internal object MonorepoTemplateFiles {
             )
             put(".gitignore", CommonFiles.gitignore(extra = listOf("dist/", ".vite/", "packages/*/dist/")))
             put(".editorconfig", CommonFiles.editorconfig())
-            put(".github/workflows/ci.yml", CommonFiles.ciWorkflow(ctx, hasBuild = false))
+            put(".github/workflows/ci.yml", CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true))
         }
     }
 
@@ -225,6 +233,17 @@ internal object MonorepoTemplateFiles {
             PackageManager.PNPM -> "pnpm --filter ./packages/$pkg $script"
             PackageManager.YARN -> "yarn workspace ./packages/$pkg run $script"
             PackageManager.NPM -> "npm --workspace packages/$pkg run $script"
+        }
+
+    /**
+     * Returns the root-level test command that fans out to every workspace that defines
+     * its own `test` script. Each package manager has a different invocation style.
+     */
+    private fun allWorkspacesTestCmd(pm: PackageManager): String =
+        when (pm) {
+            PackageManager.PNPM -> "pnpm -r run test"
+            PackageManager.YARN -> "yarn workspaces foreach -A run test"
+            PackageManager.NPM -> "npm --workspaces run test --if-present"
         }
 
     private fun clientIndexHtml(projectName: String): String =
@@ -294,6 +313,30 @@ internal object MonorepoTemplateFiles {
             appendLine("@send external select: ('db, 'opts) => 'query = \"select\"")
             appendLine("@send external from: ('q, 'table) => 'q = \"from\"")
             appendLine("@send external allAsync: 'q => promise<array<'row>> = \"all\"")
+        }
+
+    private fun serverTest(): String =
+        buildString {
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("")
+            appendLine("describe(\"server module\", () => {")
+            appendLine("  it(\"loads without throwing\", async () => {")
+            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("  });")
+            appendLine("});")
+        }
+
+    private fun clientTest(): String =
+        buildString {
+            // The client's Main.res touches ReactDOM at import time, which needs a DOM.
+            // ApiClient.res is pure fetch bindings, safe to import under Node.
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("")
+            appendLine("describe(\"ApiClient module\", () => {")
+            appendLine("  it(\"loads without throwing\", async () => {")
+            appendLine("    await expect(import(\"../ApiClient.res.mjs\")).resolves.toBeDefined();")
+            appendLine("  });")
+            appendLine("});")
         }
 
     private fun serverServerRes(projectName: String): String =

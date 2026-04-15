@@ -31,10 +31,12 @@ internal object GoogleCloudRunTemplateFiles {
                             "hono" to TemplateVersions.HONO,
                             "@hono/node-server" to TemplateVersions.HONO_NODE_SERVER,
                         ),
+                    devDependencies = linkedMapOf("vitest" to TemplateVersions.VITEST),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
                             "dev" to "node --watch src/Server.res.mjs",
+                            "test" to "vitest run",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -45,6 +47,7 @@ internal object GoogleCloudRunTemplateFiles {
             "src/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
             "src/Server.res" to serverRes(),
+            "src/__tests__/Server.test.mjs" to serverTest(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
@@ -55,6 +58,7 @@ internal object GoogleCloudRunTemplateFiles {
                         listOf(
                             "dev" to "Run locally with file watching",
                             "start" to "Run the server once",
+                            "test" to "Run Vitest",
                             "res:dev" to "Watch ReScript sources",
                         ),
                     extraSections =
@@ -67,13 +71,24 @@ internal object GoogleCloudRunTemplateFiles {
                 ),
             ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/")),
             ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx),
+            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )
 
     /**
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun serverTest(): String =
+        buildString {
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("")
+            appendLine("describe(\"Server module\", () => {")
+            appendLine("  it(\"loads without throwing\", async () => {")
+            appendLine("    await expect(import(\"../Server.res.mjs\")).resolves.toBeDefined();")
+            appendLine("  });")
+            appendLine("});")
+        }
 
     private fun serverRes(): String {
         val dollar = '$'

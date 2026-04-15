@@ -28,9 +28,11 @@ internal object BasicTemplateFiles {
                             "rescript" to TemplateVersions.RESCRIPT,
                             "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
                         ),
+                    devDependencies = linkedMapOf("vitest" to TemplateVersions.VITEST),
                     scripts =
                         linkedMapOf(
                             "start" to "node src/App.res.mjs",
+                            "test" to "vitest run",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -39,6 +41,7 @@ internal object BasicTemplateFiles {
             "src/Args.res" to argsRes(),
             "src/Files.res" to filesRes(),
             "src/App.res" to appRes(ctx.projectName),
+            "src/__tests__/App.test.mjs" to appTest(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
@@ -48,6 +51,7 @@ internal object BasicTemplateFiles {
                     scripts =
                         listOf(
                             "start" to "Build and run the entry module",
+                            "test" to "Run Vitest",
                             "res:dev" to "Compile ReScript sources in watch mode",
                             "res:build" to "Compile ReScript sources once",
                             "res:clean" to "Remove generated build artifacts",
@@ -60,7 +64,7 @@ internal object BasicTemplateFiles {
                 ),
             ".gitignore" to CommonFiles.gitignore(),
             ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx),
+            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )
 
     /**
@@ -127,6 +131,17 @@ internal object BasicTemplateFiles {
             appendLine("/** Writes [contents] to [path] as UTF-8. Creates or overwrites the file. */")
             appendLine("let write = (path: string, contents: string): promise<unit> =>")
             append("  writeFileUtf8Raw(path, contents, ())")
+        }
+
+    private fun appTest(): String =
+        buildString {
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("")
+            appendLine("describe(\"App module\", () => {")
+            appendLine("  it(\"loads without throwing\", async () => {")
+            appendLine("    await expect(import(\"../App.res.mjs\")).resolves.toBeDefined();")
+            appendLine("  });")
+            appendLine("});")
         }
 
     private fun appRes(projectName: String): String {

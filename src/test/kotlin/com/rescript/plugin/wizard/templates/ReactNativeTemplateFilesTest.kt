@@ -42,6 +42,24 @@ class ReactNativeTemplateFilesTest {
     }
 
     @Test
+    fun `package json declares test script and vitest devDep`() {
+        val pkg = ReactNativeTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"test\": \"vitest run\""))
+        assertTrue(pkg.contains("\"vitest\": \"${TemplateVersions.VITEST}\""))
+    }
+
+    @Test
+    fun `ships a source-level smoke test`() {
+        val files = ReactNativeTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/__tests__/App.test.mjs"))
+        val test = files["src/__tests__/App.test.mjs"]!!
+        assertTrue(
+            test.contains("existsSync"),
+            "RN test should avoid loading react-native and check filesystem instead",
+        )
+    }
+
+    @Test
     fun `ReactNative bindings include FlatList, TextInput, Button, Style`() {
         val bindings = ReactNativeTemplateFiles.generate(ctx)["src/ReactNative.res"]!!
         assertTrue(bindings.contains("module FlatList"))

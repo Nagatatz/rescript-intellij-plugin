@@ -37,11 +37,13 @@ internal object ReactNativeTemplateFiles {
                             "react-native" to TemplateVersions.REACT_NATIVE,
                             "expo" to TemplateVersions.EXPO,
                         ),
+                    devDependencies = linkedMapOf("vitest" to TemplateVersions.VITEST),
                     scripts =
                         linkedMapOf(
                             "start" to "expo start",
                             "android" to "expo start --android",
                             "ios" to "expo start --ios",
+                            "test" to "vitest run",
                             "res:build" to "rescript",
                             "res:clean" to "rescript clean",
                             "res:dev" to "rescript -w",
@@ -53,6 +55,7 @@ internal object ReactNativeTemplateFiles {
             "App.tsx" to "import App from \"./src/App.gen\";\n\nexport default App;",
             "src/App.res" to appRes(ctx.projectName),
             "src/ReactNative.res" to reactNativeBindings(),
+            "src/__tests__/App.test.mjs" to appTest(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
@@ -62,6 +65,7 @@ internal object ReactNativeTemplateFiles {
                             "start" to "Start the Expo dev server",
                             "android" to "Build and launch on an Android emulator/device",
                             "ios" to "Build and launch on an iOS simulator/device",
+                            "test" to "Run Vitest (source smoke test)",
                             "res:dev" to "Watch ReScript sources",
                         ),
                     extraSections =
@@ -73,13 +77,28 @@ internal object ReactNativeTemplateFiles {
                 ),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".expo/", "android/", "ios/", "*.tsbuildinfo")),
             ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx),
+            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )
 
     /**
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun appTest(): String =
+        buildString {
+            // Source-level smoke test: importing App.res.mjs at runtime would try to load
+            // react-native which is not available under Node. We instead verify that the
+            // compiled module file exists, which catches build-time regressions.
+            appendLine("import { describe, expect, it } from \"vitest\";")
+            appendLine("import { existsSync } from \"node:fs\";")
+            appendLine("")
+            appendLine("describe(\"App module\", () => {")
+            appendLine("  it(\"compiles to a .res.mjs file\", () => {")
+            appendLine("    expect(existsSync(\"src/App.res.mjs\")).toBe(true);")
+            appendLine("  });")
+            appendLine("});")
+        }
 
     private fun appRes(projectName: String): String {
         val dollar = '$'

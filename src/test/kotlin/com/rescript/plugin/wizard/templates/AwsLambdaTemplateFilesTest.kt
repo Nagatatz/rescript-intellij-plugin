@@ -37,6 +37,20 @@ class AwsLambdaTemplateFilesTest {
     }
 
     @Test
+    fun `package json declares test script and vitest devDep`() {
+        val pkg = AwsLambdaTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"test\": \"vitest run\""))
+        assertTrue(pkg.contains("\"vitest\": \"${TemplateVersions.VITEST}\""))
+    }
+
+    @Test
+    fun `ships a vitest smoke test`() {
+        val files = AwsLambdaTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/__tests__/Server.test.mjs"))
+        assertTrue(files["src/__tests__/Server.test.mjs"]!!.contains("import(\"../Server.res.mjs\")"))
+    }
+
+    @Test
     fun `README includes DynamoDB recipe`() {
         val readme = AwsLambdaTemplateFiles.generate(ctx)["README.md"]!!
         assertTrue(readme.contains("DynamoDB"))
