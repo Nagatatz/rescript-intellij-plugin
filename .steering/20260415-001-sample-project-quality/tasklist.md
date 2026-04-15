@@ -80,11 +80,11 @@
 
 ## Step 8: Library / CLI テンプレート (Phase 2 + 4)
 
-- [ ] `NpmLibraryTemplateFiles.kt`: genType 設定 + `@rescript/core` + README / ci.yml / .gitignore / Vitest
-- [ ] `NpmLibraryTemplateFilesTest.kt` を更新
-- [ ] `CliToolTemplateFiles.kt`: `@rescript/core` + README / ci.yml / .gitignore / Vitest
-- [ ] `CliToolTemplateFilesTest.kt` を更新
-- [ ] コミット: `✨ Enhance Library and CLI templates with genType and Vitest`
+- [x] `NpmLibraryTemplateFiles.kt`: TemplateContext 対応 + Vitest + TypeScript devDep + Publish 章
+- [x] `NpmLibraryTemplateFilesTest.kt` 新規追加
+- [x] `CliToolTemplateFiles.kt`: TemplateContext 対応 + Vitest + Install Locally 章
+- [x] `CliToolTemplateFilesTest.kt` 新規追加
+- [x] コミット: `✨ Enhance Library and CLI templates with genType and Vitest`
 
 ## Step 9: 統合テスト基盤 (Phase 1)
 
