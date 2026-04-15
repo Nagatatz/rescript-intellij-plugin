@@ -58,6 +58,38 @@ Clean up duplicate and unused open statements.
 
 {bdg-success}`Native`
 :::
+
+:::{grid-item-card} Add a Hono Endpoint
+:link: add-hono-endpoint
+:link-type: doc
+Extend the Hono REST template with a new route, validation, and storage.
+
+{bdg-info}`Template`
+:::
+
+:::{grid-item-card} Add a GraphQL Resolver
+:link: add-graphql-resolver
+:link-type: doc
+Expand the SDL and wire resolvers for the Hono + GraphQL template.
+
+{bdg-info}`Template`
+:::
+
+:::{grid-item-card} Set Up Drizzle
+:link: setup-drizzle
+:link-type: doc
+Change the schema, run migrations, and point at Turso for production.
+
+{bdg-info}`Template`
+:::
+
+:::{grid-item-card} Add OpenAPI Docs
+:link: add-openapi-docs
+:link-type: doc
+Enrich the Scalar UI documentation shipped with the Hono REST template.
+
+{bdg-info}`Template`
+:::
 ::::
 
 ```{toctree}
@@ -70,4 +102,8 @@ setup-monorepo
 debug-rescript
 convert-from-typescript
 optimize-imports
+add-hono-endpoint
+add-graphql-resolver
+setup-drizzle
+add-openapi-docs
 ```

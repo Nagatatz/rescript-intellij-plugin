@@ -21,6 +21,10 @@ Everything you need to get started with the ReScript IntelliJ Plugin and make th
 - [Code Analysis](features/code-analysis.md) — Inspections, dead code analysis, import optimization
 - [Advanced Features](features/advanced.md) — Code Lens, Compiled JS Preview, Module Hierarchy
 
+## Project Templates
+
+- [Project Templates](templates/index.md) — Scaffold production-shaped ReScript projects from the New Project wizard
+
 ## Recipes
 
 - [Recipe Collection](recipes/index.md) — Task-oriented guides for common workflows
@@ -45,6 +49,7 @@ quickstart
 migration-from-vscode
 rescript-basics
 features/index
+templates/index
 recipes/index
 cheatsheet
 version-matrix
