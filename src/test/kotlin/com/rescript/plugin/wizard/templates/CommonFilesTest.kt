@@ -92,4 +92,43 @@ class CommonFilesTest {
         assertTrue(yaml.contains("npx rescript"))
         assertTrue(yaml.contains("npm run test"))
     }
+
+    @Test
+    fun `nvmrc returns the node major version with trailing newline`() {
+        val content = CommonFiles.nvmrc()
+        assertTrue(content.contains(TemplateVersions.NODE_MAJOR))
+        assertTrue(content.endsWith("\n"))
+    }
+
+    @Test
+    fun `mitLicense contains the standard MIT wording, year, and holder`() {
+        val content = CommonFiles.mitLicense(year = 2026, holder = "Acme Inc.")
+        assertTrue(content.startsWith("MIT License"))
+        assertTrue(content.contains("Copyright (c) 2026 Acme Inc."))
+        assertTrue(content.contains("Permission is hereby granted"))
+        assertTrue(content.contains("WITHOUT WARRANTY OF ANY KIND"))
+    }
+
+    @Test
+    fun `dependabot yaml declares npm and github-actions ecosystems`() {
+        val content = CommonFiles.dependabotYaml()
+        assertTrue(content.contains("version: 2"))
+        assertTrue(content.contains("package-ecosystem: \"npm\""))
+        assertTrue(content.contains("package-ecosystem: \"github-actions\""))
+        assertTrue(content.contains("interval: \"weekly\""))
+    }
+
+    @Test
+    fun `envExample renders comment lines followed by key-value pairs`() {
+        val content =
+            CommonFiles.envExample(
+                listOf(
+                    "SQLite file or Turso libsql URL" to "DATABASE_URL=file:./data/app.db",
+                    "" to "PORT=3000",
+                ),
+            )
+        assertTrue(content.contains("# SQLite file or Turso libsql URL"))
+        assertTrue(content.contains("DATABASE_URL=file:./data/app.db"))
+        assertTrue(content.contains("PORT=3000"))
+    }
 }

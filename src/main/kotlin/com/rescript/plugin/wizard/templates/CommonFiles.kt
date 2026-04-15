@@ -170,6 +170,89 @@ object CommonFiles {
             }
         }
 
+    /**
+     * Generates a `.nvmrc` file pinning the Node.js major version used by the template.
+     *
+     * Pairs with the `engines.node` field in `package.json` so tools like nvm, fnm, and
+     * volta auto-switch when entering the project directory.
+     */
+    fun nvmrc(): String = "${TemplateVersions.NODE_MAJOR}\n"
+
+    /**
+     * Generates the standard MIT license text.
+     *
+     * @param year the copyright year displayed in the notice
+     * @param holder the copyright holder (typically the project or author name)
+     */
+    fun mitLicense(
+        year: Int = 2026,
+        holder: String,
+    ): String =
+        buildString {
+            appendLine("MIT License")
+            appendLine()
+            appendLine("Copyright (c) $year $holder")
+            appendLine()
+            appendLine("Permission is hereby granted, free of charge, to any person obtaining a copy")
+            appendLine("of this software and associated documentation files (the \"Software\"), to deal")
+            appendLine("in the Software without restriction, including without limitation the rights")
+            appendLine("to use, copy, modify, merge, publish, distribute, sublicense, and/or sell")
+            appendLine("copies of the Software, and to permit persons to whom the Software is")
+            appendLine("furnished to do so, subject to the following conditions:")
+            appendLine()
+            appendLine("The above copyright notice and this permission notice shall be included in all")
+            appendLine("copies or substantial portions of the Software.")
+            appendLine()
+            appendLine("THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR")
+            appendLine("IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,")
+            appendLine("FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE")
+            appendLine("AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER")
+            appendLine("LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,")
+            appendLine("OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE")
+            append("SOFTWARE.")
+        }
+
+    /**
+     * Generates a minimal Dependabot configuration that polls npm dependencies weekly.
+     *
+     * See https://docs.github.com/code-security/dependabot for the full schema if you
+     * want to add GitHub Actions, docker, or terraform ecosystems.
+     */
+    fun dependabotYaml(): String =
+        buildString {
+            appendLine("version: 2")
+            appendLine("updates:")
+            appendLine("  - package-ecosystem: \"npm\"")
+            appendLine("    directory: \"/\"")
+            appendLine("    schedule:")
+            appendLine("      interval: \"weekly\"")
+            appendLine("    open-pull-requests-limit: 10")
+            appendLine("  - package-ecosystem: \"github-actions\"")
+            appendLine("    directory: \"/\"")
+            appendLine("    schedule:")
+            append("      interval: \"weekly\"")
+        }
+
+    /**
+     * Generates a `.env.example` file documenting the environment variables the template reads.
+     *
+     * Each entry is rendered as an optional comment line followed by `KEY=value`. Pass the
+     * comment as empty to omit it for that entry.
+     *
+     * @param entries list of (commentOrEmpty, keyEqualsValue) pairs
+     */
+    fun envExample(entries: List<Pair<String, String>>): String =
+        buildString {
+            entries.forEachIndexed { index, (comment, keyValue) ->
+                if (index > 0) appendLine()
+                if (comment.isNotEmpty()) {
+                    comment.lines().forEach { line -> appendLine("# $line") }
+                }
+                append(keyValue)
+                if (index < entries.size - 1) appendLine()
+            }
+        }
+
     private fun packageManagerName(pm: PackageManager): String =
         when (pm) {
             PackageManager.NPM -> "npm"
