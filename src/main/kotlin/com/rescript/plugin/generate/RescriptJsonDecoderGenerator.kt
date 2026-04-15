@@ -21,11 +21,11 @@ internal object RescriptJsonDecoderGenerator {
         typeName: String,
         shape: TypeShape,
     ): String? =
-        when (shape) {
-            is TypeShape.Record -> generateRecordDecoder(typeName, shape.fields)
-            is TypeShape.Variant -> generateVariantDecoder(typeName, shape.constructors)
-            is TypeShape.Unknown -> null
-        }
+        RescriptJsonCodeGenerator.dispatchByShape(
+            shape,
+            onRecord = { fields -> generateRecordDecoder(typeName, fields) },
+            onVariant = { constructors -> generateVariantDecoder(typeName, constructors) },
+        )
 
     /**
      * Generates a decode let-binding for a record field.
@@ -150,15 +150,12 @@ internal object RescriptJsonDecoderGenerator {
         typeName: String,
         constructors: List<VariantConstructor>,
     ): String? {
-        if (constructors.isEmpty()) return null
-
         val funcName = RescriptJsonCodeGenerator.decoderName(typeName)
-
-        return if (RescriptJsonCodeGenerator.isSimpleEnum(constructors)) {
-            generateSimpleEnumDecoder(funcName, typeName, constructors)
-        } else {
-            generateTaggedUnionDecoder(funcName, typeName, constructors)
-        }
+        return RescriptJsonCodeGenerator.dispatchVariantKind(
+            constructors,
+            onSimpleEnum = { generateSimpleEnumDecoder(funcName, typeName, constructors) },
+            onTaggedUnion = { generateTaggedUnionDecoder(funcName, typeName, constructors) },
+        )
     }
 
     private fun generateSimpleEnumDecoder(

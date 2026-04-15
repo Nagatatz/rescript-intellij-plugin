@@ -147,6 +147,39 @@ object RescriptJsonCodeGenerator {
     internal fun isSimpleEnum(constructors: List<VariantConstructor>): Boolean = constructors.all { it.payload == null }
 
     /**
+     * Dispatches by [TypeShape] to the appropriate generator branch.
+     *
+     * Encoder and decoder share an identical top-level shape dispatch so future
+     * additions to [TypeShape] only need to be wired in here.
+     *
+     * @return the result from the matching branch, or null for [TypeShape.Unknown]
+     */
+    internal inline fun <T : Any> dispatchByShape(
+        shape: TypeShape,
+        onRecord: (List<RecordField>) -> T?,
+        onVariant: (List<VariantConstructor>) -> T?,
+    ): T? =
+        when (shape) {
+            is TypeShape.Record -> onRecord(shape.fields)
+            is TypeShape.Variant -> onVariant(shape.constructors)
+            is TypeShape.Unknown -> null
+        }
+
+    /**
+     * Dispatches variant generation by enum shape (simple enum vs tagged union).
+     *
+     * Returns null when [constructors] is empty (nothing to generate).
+     */
+    internal inline fun <T : Any> dispatchVariantKind(
+        constructors: List<VariantConstructor>,
+        onSimpleEnum: () -> T,
+        onTaggedUnion: () -> T,
+    ): T? {
+        if (constructors.isEmpty()) return null
+        return if (isSimpleEnum(constructors)) onSimpleEnum() else onTaggedUnion()
+    }
+
+    /**
      * Splits a variant constructor payload into individual type strings.
      *
      * Respects angle bracket nesting so that `"string, array<int>"` splits

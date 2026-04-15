@@ -437,6 +437,80 @@ class RescriptJsonCodeGeneratorTest {
         assertTrue(result.contains("Some(None)"))
     }
 
+    // --- dispatchByShape ---
+
+    @Test
+    fun `dispatchByShape routes Record branch`() {
+        val shape = TypeShape.Record(listOf(RecordField("name", "string", isMutable = false)))
+        val result =
+            RescriptJsonCodeGenerator.dispatchByShape(
+                shape,
+                onRecord = { fields -> "record:${fields.size}" },
+                onVariant = { _ -> "variant" },
+            )
+        assertEquals("record:1", result)
+    }
+
+    @Test
+    fun `dispatchByShape routes Variant branch`() {
+        val shape = TypeShape.Variant(listOf(VariantConstructor("Red", null)))
+        val result =
+            RescriptJsonCodeGenerator.dispatchByShape(
+                shape,
+                onRecord = { _ -> "record" },
+                onVariant = { ctors -> "variant:${ctors.size}" },
+            )
+        assertEquals("variant:1", result)
+    }
+
+    @Test
+    fun `dispatchByShape returns null for Unknown`() {
+        val result =
+            RescriptJsonCodeGenerator.dispatchByShape<String>(
+                TypeShape.Unknown,
+                onRecord = { "record" },
+                onVariant = { "variant" },
+            )
+        assertNull(result)
+    }
+
+    // --- dispatchVariantKind ---
+
+    @Test
+    fun `dispatchVariantKind returns null for empty constructors`() {
+        val result =
+            RescriptJsonCodeGenerator.dispatchVariantKind<String>(
+                emptyList(),
+                onSimpleEnum = { "simple" },
+                onTaggedUnion = { "tagged" },
+            )
+        assertNull(result)
+    }
+
+    @Test
+    fun `dispatchVariantKind picks simple enum when all payloads are null`() {
+        val constructors = listOf(VariantConstructor("A", null), VariantConstructor("B", null))
+        val result =
+            RescriptJsonCodeGenerator.dispatchVariantKind(
+                constructors,
+                onSimpleEnum = { "simple" },
+                onTaggedUnion = { "tagged" },
+            )
+        assertEquals("simple", result)
+    }
+
+    @Test
+    fun `dispatchVariantKind picks tagged union when any payload is present`() {
+        val constructors = listOf(VariantConstructor("A", null), VariantConstructor("B", "string"))
+        val result =
+            RescriptJsonCodeGenerator.dispatchVariantKind(
+                constructors,
+                onSimpleEnum = { "simple" },
+                onTaggedUnion = { "tagged" },
+            )
+        assertEquals("tagged", result)
+    }
+
     // --- End-to-end: parse and generate ---
 
     @Test

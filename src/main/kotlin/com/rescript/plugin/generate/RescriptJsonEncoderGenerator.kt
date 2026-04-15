@@ -21,11 +21,11 @@ internal object RescriptJsonEncoderGenerator {
         typeName: String,
         shape: TypeShape,
     ): String? =
-        when (shape) {
-            is TypeShape.Record -> generateRecordEncoder(typeName, shape.fields)
-            is TypeShape.Variant -> generateVariantEncoder(typeName, shape.constructors)
-            is TypeShape.Unknown -> null
-        }
+        RescriptJsonCodeGenerator.dispatchByShape(
+            shape,
+            onRecord = { fields -> generateRecordEncoder(typeName, fields) },
+            onVariant = { constructors -> generateVariantEncoder(typeName, constructors) },
+        )
 
     /**
      * Generates an encode expression for a given JSON type and source expression.
@@ -102,15 +102,12 @@ internal object RescriptJsonEncoderGenerator {
         typeName: String,
         constructors: List<VariantConstructor>,
     ): String? {
-        if (constructors.isEmpty()) return null
-
         val funcName = RescriptJsonCodeGenerator.encoderName(typeName)
-
-        return if (RescriptJsonCodeGenerator.isSimpleEnum(constructors)) {
-            generateSimpleEnumEncoder(funcName, typeName, constructors)
-        } else {
-            generateTaggedUnionEncoder(funcName, typeName, constructors)
-        }
+        return RescriptJsonCodeGenerator.dispatchVariantKind(
+            constructors,
+            onSimpleEnum = { generateSimpleEnumEncoder(funcName, typeName, constructors) },
+            onTaggedUnion = { generateTaggedUnionEncoder(funcName, typeName, constructors) },
+        )
     }
 
     private fun generateSimpleEnumEncoder(
