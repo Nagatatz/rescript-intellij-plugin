@@ -68,15 +68,15 @@
 
 ## Step 7: Backend 系テンプレート (Phase 2 + 4)
 
-- [ ] `HonoTemplateFiles.kt`: `@rescript/core` + README / ci.yml / .gitignore / .editorconfig / Vitest
-- [ ] `HonoTemplateFilesTest.kt` を更新
-- [ ] `CloudflareWorkersTemplateFiles.kt`: `@rescript/core` + README / ci.yml / .gitignore
-- [ ] `CloudflareWorkersTemplateFilesTest.kt` を更新
-- [ ] `AwsLambdaTemplateFiles.kt`: `@rescript/core` + README / ci.yml / .gitignore
-- [ ] `AwsLambdaTemplateFilesTest.kt` を更新
-- [ ] `GoogleCloudRunTemplateFiles.kt`: `@rescript/core` + Dockerfile + README / ci.yml / .gitignore
-- [ ] `GoogleCloudRunTemplateFilesTest.kt` を更新
-- [ ] コミット: `✨ Enhance backend templates (Hono, CF Workers, AWS Lambda, Cloud Run)`
+- [x] `HonoTemplateFiles.kt`: TemplateContext 対応 + Vitest + README / ci.yml / .gitignore / .editorconfig
+- [x] `HonoTemplateFilesTest.kt` 新規追加
+- [x] `CloudflareWorkersTemplateFiles.kt`: TemplateContext 対応 + README / ci.yml / .gitignore (`.wrangler/`)
+- [x] `CloudflareWorkersTemplateFilesTest.kt` 新規追加
+- [x] `AwsLambdaTemplateFiles.kt`: TemplateContext 対応 + README / build script / ci.yml / .gitignore
+- [x] `AwsLambdaTemplateFilesTest.kt` 新規追加
+- [x] `GoogleCloudRunTemplateFiles.kt`: TemplateContext 対応 + Dockerfile を PM 別に切替 + .dockerignore + README / ci.yml / .gitignore
+- [x] `GoogleCloudRunTemplateFilesTest.kt` 新規追加
+- [x] コミット: `✨ Enhance backend templates (Hono, CF Workers, AWS Lambda, Cloud Run)`
 
 ## Step 8: Library / CLI テンプレート (Phase 2 + 4)
 
