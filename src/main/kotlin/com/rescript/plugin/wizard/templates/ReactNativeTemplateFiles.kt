@@ -51,16 +51,8 @@ internal object ReactNativeTemplateFiles {
                 "{\n  \"expo\": {\n    \"name\": \"${ctx.projectName}\",\n" +
                 "    \"slug\": \"${ctx.projectName}\",\n    \"version\": \"1.0.0\"\n  }\n}",
             "App.tsx" to "import App from \"./src/App.gen\";\n\nexport default App;",
-            "src/App.res" to
-                "@genType @react.component\nlet make = () => {\n  <ReactNative.View>\n" +
-                "    <ReactNative.Text>\n" +
-                "      {React.string(\"Hello, ${ctx.projectName}!\")}\n" +
-                "    </ReactNative.Text>\n  </ReactNative.View>\n}",
-            "src/ReactNative.res" to
-                "module View = {\n  @module(\"react-native\") @react.component\n" +
-                "  external make: (~children: React.element=?) => React.element = \"View\"\n}\n\n" +
-                "module Text = {\n  @module(\"react-native\") @react.component\n" +
-                "  external make: (~children: React.element=?) => React.element = \"Text\"\n}",
+            "src/App.res" to appRes(ctx.projectName),
+            "src/ReactNative.res" to reactNativeBindings(),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
@@ -82,4 +74,112 @@ internal object ReactNativeTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun appRes(projectName: String): String {
+        val dollar = '$'
+        return buildString {
+            appendLine("// Interactive todo list: useState + FlatList + TextInput + Button.")
+            appendLine("// Demonstrates the common pattern of managing a dynamic list on mobile.")
+            appendLine("type todo = {id: int, text: string}")
+            appendLine("")
+            appendLine("@genType @react.component")
+            appendLine("let make = () => {")
+            appendLine("  let (todos, setTodos) = React.useState(() => [")
+            appendLine("    {id: 1, text: \"Build $projectName\"},")
+            appendLine("    {id: 2, text: \"Ship to the stores\"},")
+            appendLine("  ])")
+            appendLine("  let (draft, setDraft) = React.useState(() => \"\")")
+            appendLine("")
+            appendLine("  let addTodo = () => {")
+            appendLine("    if draft != \"\" {")
+            appendLine("      let nextId =")
+            appendLine(
+                "        todos->Array.reduce(0, (max, t) => t.id > max ? t.id : max) + 1",
+            )
+            appendLine(
+                "      setTodos(prev => prev->Array.concat([{id: nextId, text: draft}]))",
+            )
+            appendLine("      setDraft(_ => \"\")")
+            appendLine("    }")
+            appendLine("  }")
+            appendLine("")
+            appendLine("  let renderItem = (item: todo) =>")
+            appendLine("    <ReactNative.View")
+            appendLine("      key={item.id->Int.toString}")
+            appendLine("      style={ReactNative.Style.make(~padding=8, ())}>")
+            appendLine("      <ReactNative.Text> {React.string(item.text)} </ReactNative.Text>")
+            appendLine("    </ReactNative.View>")
+            appendLine("")
+            appendLine("  <ReactNative.View style={ReactNative.Style.make(~flex=1, ~padding=24, ())}>")
+            appendLine("    <ReactNative.Text> {React.string(\"$projectName TODOs\")} </ReactNative.Text>")
+            appendLine("    <ReactNative.TextInput")
+            appendLine("      value={draft}")
+            appendLine("      onChangeText={t => setDraft(_ => t)}")
+            appendLine("      placeholder=\"New todo\"")
+            appendLine("    />")
+            appendLine("    <ReactNative.Button title=\"Add\" onPress={_ => addTodo()} />")
+            appendLine("    <ReactNative.FlatList")
+            appendLine("      data={todos}")
+            appendLine("      keyExtractor={item => item.id->Int.toString}")
+            appendLine("      renderItem={({item}) => renderItem(item)}")
+            appendLine("    />")
+            append("  </ReactNative.View>")
+            appendLine()
+            append("}")
+        }
+    }
+
+    private fun reactNativeBindings(): String =
+        buildString {
+            appendLine("// Minimal bindings over react-native's core components.")
+            appendLine("module Style = {")
+            appendLine("  type t")
+            appendLine("  @obj external make: (")
+            appendLine("    ~flex: int=?,")
+            appendLine("    ~padding: int=?,")
+            appendLine("    ~margin: int=?,")
+            appendLine("    ~backgroundColor: string=?,")
+            appendLine("    unit,")
+            appendLine("  ) => t = \"\"")
+            appendLine("}")
+            appendLine("")
+            appendLine("module View = {")
+            appendLine("  @module(\"react-native\") @react.component")
+            appendLine("  external make: (")
+            appendLine("    ~style: Style.t=?,")
+            appendLine("    ~children: React.element=?,")
+            appendLine("  ) => React.element = \"View\"")
+            appendLine("}")
+            appendLine("")
+            appendLine("module Text = {")
+            appendLine("  @module(\"react-native\") @react.component")
+            appendLine("  external make: (~children: React.element=?) => React.element = \"Text\"")
+            appendLine("}")
+            appendLine("")
+            appendLine("module TextInput = {")
+            appendLine("  @module(\"react-native\") @react.component")
+            appendLine("  external make: (")
+            appendLine("    ~value: string,")
+            appendLine("    ~onChangeText: string => unit,")
+            appendLine("    ~placeholder: string=?,")
+            appendLine("  ) => React.element = \"TextInput\"")
+            appendLine("}")
+            appendLine("")
+            appendLine("module Button = {")
+            appendLine("  @module(\"react-native\") @react.component")
+            appendLine("  external make: (")
+            appendLine("    ~title: string,")
+            appendLine("    ~onPress: ReactEvent.Synthetic.t => unit,")
+            appendLine("  ) => React.element = \"Button\"")
+            appendLine("}")
+            appendLine("")
+            appendLine("module FlatList = {")
+            appendLine("  @module(\"react-native\") @react.component")
+            appendLine("  external make: (")
+            appendLine("    ~data: array<'a>,")
+            appendLine("    ~keyExtractor: 'a => string,")
+            appendLine("    ~renderItem: {\"item\": 'a} => React.element,")
+            appendLine("  ) => React.element = \"FlatList\"")
+            append("}")
+        }
 }
