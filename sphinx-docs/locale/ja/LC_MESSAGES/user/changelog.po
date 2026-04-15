@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../user/changelog.md
 msgid "changelog, release notes, version history"
-msgstr ""
+msgstr "変更履歴, リリースノート, バージョン履歴"
 
 #: ../../user/changelog.md:7
 msgid "Changelog"

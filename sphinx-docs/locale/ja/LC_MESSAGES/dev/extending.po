@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../dev/extending.md
 msgid "extending, adding features, extension points, plugin development"
-msgstr ""
+msgstr "拡張, 機能追加, 拡張ポイント, プラグイン開発"
 
 #: ../../dev/extending.md:7
 msgid "Extending the Plugin"

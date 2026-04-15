@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../../user/glossary.md
 msgid "glossary, terms, definitions, vocabulary"
-msgstr ""
+msgstr "用語集, 用語, 定義, ボキャブラリ"
 
 #: ../../user/glossary.md:7
 msgid "Glossary"

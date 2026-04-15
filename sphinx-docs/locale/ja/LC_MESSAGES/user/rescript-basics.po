@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../user/rescript-basics.md
 msgid "rescript project, rescript.json, project setup"
-msgstr ""
+msgstr "ReScript プロジェクト, rescript.json, プロジェクトセットアップ"
 
 #: ../../user/rescript-basics.md:7
 msgid "ReScript Basics"

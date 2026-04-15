@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../dev/setup.md
 msgid "development setup, prerequisites, IDE configuration"
-msgstr ""
+msgstr "開発環境セットアップ, 前提条件, IDE 設定"
 
 #: ../../dev/setup.md:7
 msgid "Development Setup"

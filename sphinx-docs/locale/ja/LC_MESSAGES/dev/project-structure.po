@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../dev/project-structure.md
 msgid "project structure, packages, source layout, files"
-msgstr ""
+msgstr "プロジェクト構造, パッケージ, ソースレイアウト, ファイル"
 
 #: ../../dev/project-structure.md:7
 msgid "Project Structure"

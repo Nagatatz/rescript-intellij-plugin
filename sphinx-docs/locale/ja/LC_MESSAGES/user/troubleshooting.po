@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../user/troubleshooting.md
 msgid "troubleshooting, errors, problems, fixes, language server"
-msgstr ""
+msgstr "トラブルシューティング, エラー, 問題, 修正, Language Server"
 
 #: ../../user/troubleshooting.md:7
 msgid "Troubleshooting"

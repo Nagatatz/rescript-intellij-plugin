@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../dev/testing.md
 msgid "testing, unit tests, test fixtures, coverage"
-msgstr ""
+msgstr "テスト, ユニットテスト, テストフィクスチャ, カバレッジ"
 
 #: ../../dev/testing.md:7
 msgid "Testing Guide"

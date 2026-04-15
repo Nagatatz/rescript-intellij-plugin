@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../dev/building.md
 msgid "build, gradle, runIde, plugin development"
-msgstr ""
+msgstr "ビルド, gradle, runIde, プラグイン開発"
 
 #: ../../dev/building.md:7
 msgid "Building & Running"

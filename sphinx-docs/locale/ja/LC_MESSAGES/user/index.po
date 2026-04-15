@@ -50,6 +50,8 @@ msgid ""
 "[Migrating from VSCode](migration-from-vscode.md) — Shortcut mapping and "
 "feature comparison"
 msgstr ""
+"[VSCode からの移行](migration-from-vscode.md) — ショートカット対応表と"
+"機能比較"
 
 #: ../../user/index.md:10
 msgid ""
@@ -123,13 +125,15 @@ msgstr ""
 
 #: ../../user/index.md:28
 msgid "Recipes"
-msgstr ""
+msgstr "レシピ"
 
 #: ../../user/index.md:30
 msgid ""
 "[Recipe Collection](recipes/index.md) — Task-oriented guides for common "
 "workflows"
 msgstr ""
+"[レシピ集](recipes/index.md) — よくあるワークフロー向けのタスク指向"
+"ガイド"
 
 #: ../../user/index.md:32
 msgid "Reference"
@@ -140,12 +144,16 @@ msgid ""
 "[Quick Reference Card](cheatsheet.md) — Condensed cheat sheet of "
 "shortcuts and features"
 msgstr ""
+"[クイックリファレンスカード](cheatsheet.md) — ショートカットと機能の"
+"要約チートシート"
 
 #: ../../user/index.md:35
 msgid ""
 "[Version Matrix](version-matrix.md) — Features by version and IDE "
 "compatibility"
 msgstr ""
+"[バージョンマトリクス](version-matrix.md) — バージョン別の機能と IDE"
+"互換性"
 
 #: ../../user/index.md:36
 msgid "[Configuration](configuration.md) — Plugin settings"

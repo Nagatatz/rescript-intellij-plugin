@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../user/configuration.md
 msgid "settings, configuration, preferences, language server path"
-msgstr ""
+msgstr "設定, コンフィグレーション, 環境設定, Language Server パス"
 
 #: ../../user/configuration.md:7
 msgid "Configuration"

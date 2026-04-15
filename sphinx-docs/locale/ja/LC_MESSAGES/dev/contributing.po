@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../dev/contributing.md
 msgid "contributing, pull requests, code review, guidelines"
-msgstr ""
+msgstr "コントリビューション, プルリクエスト, コードレビュー, ガイドライン"
 
 #: ../../dev/contributing.md:7
 msgid "Contributing Guide"

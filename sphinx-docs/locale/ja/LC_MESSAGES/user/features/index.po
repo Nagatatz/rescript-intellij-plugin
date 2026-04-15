@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../user/features/index.md
 msgid "features, overview, native, lsp, capabilities"
-msgstr ""
+msgstr "機能, 概要, ネイティブ, LSP, 機能一覧"
 
 #: ../../user/features/index.md:7
 msgid "Feature Overview"

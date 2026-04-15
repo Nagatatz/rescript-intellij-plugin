@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../user/keyboard-shortcuts.md
 msgid "keyboard shortcuts, keybindings, hotkeys, shortcut reference"
-msgstr ""
+msgstr "キーボードショートカット, キーバインディング, ホットキー, ショートカットリファレンス"
 
 #: ../../user/keyboard-shortcuts.md:7
 msgid "Keyboard Shortcuts"

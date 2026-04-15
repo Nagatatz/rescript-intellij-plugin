@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../user/installation.md
 msgid "installation, setup, language server, npm, plugin"
-msgstr ""
+msgstr "インストール, セットアップ, Language Server, npm, プラグイン"
 
 #: ../../user/installation.md:7
 msgid "Installation"

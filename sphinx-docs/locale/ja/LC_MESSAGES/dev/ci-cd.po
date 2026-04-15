@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-04-15 20:08+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../../dev/ci-cd.md
 msgid "ci, cd, github actions, continuous integration, deployment"
-msgstr ""
+msgstr "CI, CD, github actions, 継続的インテグレーション, デプロイ"
 
 #: ../../dev/ci-cd.md:7
 msgid "CI/CD Pipeline"
@@ -39,10 +39,11 @@ msgid "Overview"
 msgstr "概要"
 
 #: ../../dev/ci-cd.md:13
-msgid "The project uses **GitHub Actions** with 4 workflows:"
+#, fuzzy
+msgid "The project uses **GitHub Actions** with 3 workflows:"
 msgstr "本プロジェクトでは **GitHub Actions** を使用し、4つのワークフローを運用しています:"
 
-#: ../../dev/ci-cd.md ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md ../../dev/ci-cd.md:92
 msgid "Workflow"
 msgstr "ワークフロー"
 
@@ -54,7 +55,7 @@ msgstr "ファイル"
 msgid "Trigger"
 msgstr "トリガー"
 
-#: ../../dev/ci-cd.md ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md ../../dev/ci-cd.md:92
 msgid "Purpose"
 msgstr "目的"
 
@@ -106,43 +107,31 @@ msgstr "`main` への Push/PR（sphinx-docs の変更時）"
 msgid "Build & deploy documentation"
 msgstr "ドキュメントのビルドとデプロイ"
 
-#: ../../dev/ci-cd.md ../../dev/ci-cd.md:93
-msgid "Qodana"
-msgstr "Qodana"
-
-#: ../../dev/ci-cd.md
-msgid "`qodana_code_quality.yml`"
-msgstr "`qodana_code_quality.yml`"
-
-#: ../../dev/ci-cd.md
-msgid "Static code analysis"
-msgstr "静的コード解析"
-
-#: ../../dev/ci-cd.md:22
+#: ../../dev/ci-cd.md:21
 msgid ""
 "Additionally, **Dependabot** is configured to automatically update Gradle"
 " and GitHub Actions dependencies on a weekly basis."
 msgstr "さらに、**Dependabot** が設定されており、Gradle および GitHub Actions の依存関係を毎週自動更新します。"
 
-#: ../../dev/ci-cd.md:24
+#: ../../dev/ci-cd.md:23
 msgid "CI Workflow (`ci.yml`)"
 msgstr "CI ワークフロー (`ci.yml`)"
 
-#: ../../dev/ci-cd.md:26
+#: ../../dev/ci-cd.md:25
 msgid ""
 "The main CI pipeline runs on every push to `main` and on pull requests "
 "targeting `main`."
 msgstr "メインの CI パイプラインは、`main` への全てのプッシュと `main` をターゲットとするプルリクエストで実行されます。"
 
-#: ../../dev/ci-cd.md:28 ../../dev/ci-cd.md:101
+#: ../../dev/ci-cd.md:27 ../../dev/ci-cd.md:100
 msgid "Jobs"
 msgstr "ジョブ"
 
-#: ../../dev/ci-cd.md:30
+#: ../../dev/ci-cd.md:29
 msgid "1. actionlint"
 msgstr "1. actionlint"
 
-#: ../../dev/ci-cd.md:32
+#: ../../dev/ci-cd.md:31
 msgid ""
 "Validates GitHub Actions workflow syntax using "
 "[reviewdog](https://github.com/reviewdog/reviewdog). Fails on errors."
@@ -150,15 +139,15 @@ msgstr ""
 "[reviewdog](https://github.com/reviewdog/reviewdog) を使用して GitHub Actions "
 "ワークフローの構文を検証します。エラーがある場合は失敗します。"
 
-#: ../../dev/ci-cd.md:34 ../../dev/ci-cd.md:114
+#: ../../dev/ci-cd.md:33 ../../dev/ci-cd.md:113
 msgid "2. build"
 msgstr "2. build"
 
-#: ../../dev/ci-cd.md:36
+#: ../../dev/ci-cd.md:35
 msgid "The primary build and test job:"
 msgstr "主要なビルドおよびテストジョブ:"
 
-#: ../../dev/ci-cd.md:44
+#: ../../dev/ci-cd.md:43
 msgid "**Steps:**"
 msgstr "**ステップ:**"
 
@@ -166,7 +155,7 @@ msgstr "**ステップ:**"
 msgid "Step"
 msgstr "ステップ"
 
-#: ../../dev/ci-cd.md ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md ../../dev/ci-cd.md:92
 msgid "Command"
 msgstr "コマンド"
 
@@ -230,27 +219,27 @@ msgstr "`./gradlew verifyPluginProjectConfiguration`"
 msgid "Validate project configuration"
 msgstr "プロジェクト設定の検証"
 
-#: ../../dev/ci-cd.md:54
+#: ../../dev/ci-cd.md:53
 msgid "**Artifacts uploaded:**"
 msgstr "**アップロードされるアーティファクト:**"
 
-#: ../../dev/ci-cd.md:55
+#: ../../dev/ci-cd.md:54
 msgid "`plugin-zip` — Plugin distribution ZIP"
 msgstr "`plugin-zip` — プラグイン配布用 ZIP"
 
-#: ../../dev/ci-cd.md:56
+#: ../../dev/ci-cd.md:55
 msgid "`test-results` — JUnit test reports"
 msgstr "`test-results` — JUnit テストレポート"
 
-#: ../../dev/ci-cd.md:57
+#: ../../dev/ci-cd.md:56
 msgid "`coverage-report` — Kover HTML coverage report"
 msgstr "`coverage-report` — Kover HTML カバレッジレポート"
 
-#: ../../dev/ci-cd.md:59
+#: ../../dev/ci-cd.md:58
 msgid "**PR-specific features:**"
 msgstr "**PR 固有の機能:**"
 
-#: ../../dev/ci-cd.md:60
+#: ../../dev/ci-cd.md:59
 msgid ""
 "Code coverage is reported as a PR comment via [kover-"
 "report](https://github.com/mi-kas/kover-report)"
@@ -258,15 +247,15 @@ msgstr ""
 "コードカバレッジが [kover-report](https://github.com/mi-kas/kover-report) を通じて PR "
 "コメントとして報告されます"
 
-#: ../../dev/ci-cd.md:61
+#: ../../dev/ci-cd.md:60
 msgid "Gradle caching is read-only on PRs (writable only on `main` pushes)"
 msgstr "Gradle キャッシュは PR では読み取り専用です（`main` へのプッシュ時のみ書き込み可能）"
 
-#: ../../dev/ci-cd.md:63
+#: ../../dev/ci-cd.md:62
 msgid "3. verify (push only)"
 msgstr "3. verify（プッシュ時のみ）"
 
-#: ../../dev/ci-cd.md:65
+#: ../../dev/ci-cd.md:64
 msgid ""
 "Runs `./gradlew verifyPlugin` for binary compatibility verification using"
 " IntelliJ Plugin Verifier. This checks the plugin against recommended IDE"
@@ -275,65 +264,65 @@ msgstr ""
 "IntelliJ Plugin Verifier を使用したバイナリ互換性の検証として `./gradlew verifyPlugin` "
 "を実行します。推奨 IDE バージョンに対してプラグインをチェックし、API の非互換性を検出します。"
 
-#: ../../dev/ci-cd.md:67
+#: ../../dev/ci-cd.md:66
 msgid "Release Workflow (`release.yml`)"
 msgstr "Release ワークフロー (`release.yml`)"
 
-#: ../../dev/ci-cd.md:69
+#: ../../dev/ci-cd.md:68
 msgid "Triggered when a git tag matching `v*.*.*` is pushed."
 msgstr "`v*.*.*` に一致する git タグがプッシュされたときにトリガーされます。"
 
-#: ../../dev/ci-cd.md:71
+#: ../../dev/ci-cd.md:70
 msgid "Release flow"
 msgstr "リリースフロー"
 
-#: ../../dev/ci-cd.md:73
+#: ../../dev/ci-cd.md:72
 msgid "Extract version from tag (e.g., `v1.2.3` → `1.2.3`)"
 msgstr "タグからバージョンを抽出（例: `v1.2.3` → `1.2.3`）"
 
-#: ../../dev/ci-cd.md:74
+#: ../../dev/ci-cd.md:73
 msgid "Validate Gradle wrapper"
 msgstr "Gradle Wrapper の検証"
 
-#: ../../dev/ci-cd.md:75
+#: ../../dev/ci-cd.md:74
 msgid ""
 "Run pre-release checks: `ktlintCheck test verifyPluginStructure "
 "verifyPlugin`"
 msgstr "リリース前チェックの実行: `ktlintCheck test verifyPluginStructure verifyPlugin`"
 
-#: ../../dev/ci-cd.md:76
+#: ../../dev/ci-cd.md:75
 msgid "Build plugin"
 msgstr "プラグインのビルド"
 
-#: ../../dev/ci-cd.md:77
+#: ../../dev/ci-cd.md:76
 msgid "Create GitHub Release with auto-generated release notes"
 msgstr "自動生成されたリリースノートで GitHub Release を作成"
 
-#: ../../dev/ci-cd.md:78
+#: ../../dev/ci-cd.md:77
 msgid "Attach plugin ZIP as release asset"
 msgstr "プラグイン ZIP をリリースアセットとして添付"
 
-#: ../../dev/ci-cd.md:79
+#: ../../dev/ci-cd.md:78
 msgid ""
 "Pre-release detection: tags containing `-` (e.g., `v1.0.0-beta.1`) are "
 "marked as pre-release"
 msgstr "プレリリースの検出: `-` を含むタグ（例: `v1.0.0-beta.1`）はプレリリースとしてマークされます"
 
-#: ../../dev/ci-cd.md:81
+#: ../../dev/ci-cd.md:80
 msgid "Creating a release"
 msgstr "リリースの作成"
 
-#: ../../dev/ci-cd.md:94
+#: ../../dev/ci-cd.md:93
 msgid ""
 "JetBrains Marketplace publishing is not yet automated. See the TODO in "
 "`release.yml`."
 msgstr "JetBrains Marketplace への公開はまだ自動化されていません。`release.yml` 内の TODO を参照してください。"
 
-#: ../../dev/ci-cd.md:97
+#: ../../dev/ci-cd.md:96
 msgid "Documentation Workflow (`docs.yml`)"
 msgstr "Documentation ワークフロー (`docs.yml`)"
 
-#: ../../dev/ci-cd.md:99
+#: ../../dev/ci-cd.md:98
 msgid ""
 "Triggered on push/PR to `main` when files in `sphinx-docs/` change. Also "
 "supports manual dispatch."
@@ -341,128 +330,115 @@ msgstr ""
 "`sphinx-docs/` 内のファイルが変更された場合に `main` への push/PR "
 "でトリガーされます。手動ディスパッチにも対応しています。"
 
-#: ../../dev/ci-cd.md:103
+#: ../../dev/ci-cd.md:102
 msgid "1. lint-and-test"
 msgstr "1. lint-and-test"
 
-#: ../../dev/ci-cd.md:105
+#: ../../dev/ci-cd.md:104
 msgid "Runs quality checks on the Sphinx documentation source:"
 msgstr "Sphinx ドキュメントソースに対して品質チェックを実行します:"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Check"
 msgstr "チェック"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Ruff lint"
 msgstr "Ruff lint"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "`uv run ruff check .`"
 msgstr "`uv run ruff check .`"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Python linting"
 msgstr "Python リンティング"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Ruff format"
 msgstr "Ruff format"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "`uv run ruff format --check .`"
 msgstr "`uv run ruff format --check .`"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Python formatting"
 msgstr "Python フォーマッティング"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Mypy"
 msgstr "Mypy"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "`uv run mypy _ext/generate_rescript_lexer.py`"
 msgstr "`uv run mypy _ext/generate_rescript_lexer.py`"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Type checking"
 msgstr "型チェック"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Pytest"
 msgstr "Pytest"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "`uv run pytest`"
 msgstr "`uv run pytest`"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Test custom extensions"
 msgstr "カスタムエクステンションのテスト"
 
-#: ../../dev/ci-cd.md:116
+#: ../../dev/ci-cd.md:115
 msgid "Builds the documentation site (English + Japanese) with Sphinx:"
 msgstr "Sphinx でドキュメントサイト（英語 + 日本語）をビルドします:"
 
-#: ../../dev/ci-cd.md:118
+#: ../../dev/ci-cd.md:117
 msgid ""
 "Runs `make build-all` which builds both language versions and assembles "
 "the site with Pagefind search"
 msgstr "`make build-all` を実行し、両言語バージョンをビルドして Pagefind 検索を統合したサイトを構成します"
 
-#: ../../dev/ci-cd.md:119
+#: ../../dev/ci-cd.md:118
 msgid ""
 "On PRs: runs link checking (`make linkcheck`) and reports results to the "
 "Job Summary"
 msgstr "PR 時: リンクチェック (`make linkcheck`) を実行し、結果を Job Summary に報告します"
 
-#: ../../dev/ci-cd.md:120
+#: ../../dev/ci-cd.md:119
 msgid "On push: uploads the built site as a GitHub Pages artifact"
 msgstr "プッシュ時: ビルドされたサイトを GitHub Pages アーティファクトとしてアップロードします"
 
-#: ../../dev/ci-cd.md:122
+#: ../../dev/ci-cd.md:121
 msgid "3. deploy (push only)"
 msgstr "3. deploy（プッシュ時のみ）"
 
-#: ../../dev/ci-cd.md:124
+#: ../../dev/ci-cd.md:123
 msgid "Deploys the built site to GitHub Pages using `actions/deploy-pages@v4`."
 msgstr "`actions/deploy-pages@v4` を使用して、ビルドされたサイトを GitHub Pages にデプロイします。"
 
-#: ../../dev/ci-cd.md:126
-msgid "Qodana Workflow (`qodana_code_quality.yml`)"
-msgstr "Qodana ワークフロー (`qodana_code_quality.yml`)"
-
-#: ../../dev/ci-cd.md:128
-msgid ""
-"Runs JetBrains Qodana static analysis on push/PR to `main` and "
-"`releases/*` branches. Results are reported to [Qodana "
-"Cloud](https://qodana.cloud/)."
-msgstr ""
-"`main` および `releases/*` ブランチへの push/PR で JetBrains Qodana 静的解析を実行します。結果は "
-"[Qodana Cloud](https://qodana.cloud/) に報告されます。"
-
-#: ../../dev/ci-cd.md:130
+#: ../../dev/ci-cd.md:125
 msgid "Local CI Reproduction"
 msgstr "ローカルでの CI 再現"
 
-#: ../../dev/ci-cd.md:132
+#: ../../dev/ci-cd.md:127
 msgid "You can run the same checks locally that CI performs:"
 msgstr "CI で実行されるチェックと同じものをローカルで実行できます:"
 
-#: ../../dev/ci-cd.md:156
+#: ../../dev/ci-cd.md:151
 msgid "Troubleshooting"
 msgstr "トラブルシューティング"
 
-#: ../../dev/ci-cd.md:158
+#: ../../dev/ci-cd.md:153
 msgid "Build failures"
 msgstr "ビルドの失敗"
 
-#: ../../dev/ci-cd.md:160
+#: ../../dev/ci-cd.md:155
 msgid "**\"Could not resolve all files for configuration\"**"
 msgstr "**\"Could not resolve all files for configuration\"**"
 
-#: ../../dev/ci-cd.md:161
+#: ../../dev/ci-cd.md:156
 msgid ""
 "Gradle dependency resolution failure. Run `./gradlew --refresh-"
 "dependencies buildPlugin` to force re-download."
@@ -470,11 +446,11 @@ msgstr ""
 "Gradle の依存関係解決に失敗しています。`./gradlew --refresh-dependencies buildPlugin` "
 "を実行して強制的に再ダウンロードしてください。"
 
-#: ../../dev/ci-cd.md:163
+#: ../../dev/ci-cd.md:158
 msgid "**JFlex lexer generation fails**"
 msgstr "**JFlex レクサー生成の失敗**"
 
-#: ../../dev/ci-cd.md:164
+#: ../../dev/ci-cd.md:159
 msgid ""
 "The `generateRescriptLexer` task auto-runs before compilation. If it "
 "fails, check `src/main/java/com/rescript/plugin/lang/Rescript.flex` for "
@@ -486,25 +462,25 @@ msgstr ""
 " に構文エラーがないか確認してください。`./gradlew generateRescriptLexer` "
 "を単独で実行すると詳細なエラーを確認できます。"
 
-#: ../../dev/ci-cd.md:166
+#: ../../dev/ci-cd.md:161
 msgid "**ktlint check fails**"
 msgstr "**ktlint チェックの失敗**"
 
-#: ../../dev/ci-cd.md:167
+#: ../../dev/ci-cd.md:162
 msgid ""
 "Run `./gradlew ktlintFormat` to auto-fix most issues, then commit the "
 "changes."
 msgstr "`./gradlew ktlintFormat` を実行してほとんどの問題を自動修正し、変更をコミットしてください。"
 
-#: ../../dev/ci-cd.md:169
+#: ../../dev/ci-cd.md:164
 msgid "Test failures"
 msgstr "テストの失敗"
 
-#: ../../dev/ci-cd.md:171
+#: ../../dev/ci-cd.md:166
 msgid "**Tests pass locally but fail in CI**"
 msgstr "**ローカルでは成功するが CI で失敗するテスト**"
 
-#: ../../dev/ci-cd.md:172
+#: ../../dev/ci-cd.md:167
 msgid ""
 "CI runs on Ubuntu with a headless JDK. Tests that depend on UI components"
 " (Swing) may behave differently. Use `BasePlatformTestCase` for IDE "
@@ -514,11 +490,11 @@ msgstr ""
 "に依存するテストは異なる動作をする可能性があります。IDE 統合テストには `BasePlatformTestCase` を使用し、直接的な UI"
 " 操作は避けてください。"
 
-#: ../../dev/ci-cd.md:174
+#: ../../dev/ci-cd.md:169
 msgid "**\"No display available\" errors**"
 msgstr "**\"No display available\" エラー**"
 
-#: ../../dev/ci-cd.md:175
+#: ../../dev/ci-cd.md:170
 msgid ""
 "The Gradle `runIde` task requires a display. In CI, this is handled "
 "automatically, but local headless testing may need `DISPLAY` set or "
@@ -527,15 +503,15 @@ msgstr ""
 "Gradle の `runIde` タスクはディスプレイを必要とします。CI では自動的に処理されますが、ローカルでのヘッドレステストでは "
 "`DISPLAY` 環境変数の設定または `Xvfb` の起動が必要になる場合があります。"
 
-#: ../../dev/ci-cd.md:177
+#: ../../dev/ci-cd.md:172
 msgid "Coverage"
 msgstr "カバレッジ"
 
-#: ../../dev/ci-cd.md:179
+#: ../../dev/ci-cd.md:174
 msgid "**Coverage report is empty**"
 msgstr "**カバレッジレポートが空になる**"
 
-#: ../../dev/ci-cd.md:180
+#: ../../dev/ci-cd.md:175
 msgid ""
 "Ensure tests actually run by checking `./gradlew test` output. Kover "
 "reports are generated only if tests execute."
@@ -543,11 +519,11 @@ msgstr ""
 "`./gradlew test` の出力を確認して、テストが実際に実行されていることを確認してください。Kover "
 "レポートはテストが実行された場合にのみ生成されます。"
 
-#: ../../dev/ci-cd.md:182
+#: ../../dev/ci-cd.md:177
 msgid "**Coverage not appearing on PR**"
 msgstr "**PR にカバレッジが表示されない**"
 
-#: ../../dev/ci-cd.md:183
+#: ../../dev/ci-cd.md:178
 msgid ""
 "The `kover-report` action requires the XML report at "
 "`build/reports/kover/report.xml`. Verify this file exists after running "
@@ -556,15 +532,15 @@ msgstr ""
 "`kover-report` アクションは `build/reports/kover/report.xml` の XML "
 "レポートを必要とします。テスト実行後にこのファイルが存在することを確認してください。"
 
-#: ../../dev/ci-cd.md:185
+#: ../../dev/ci-cd.md:180
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#: ../../dev/ci-cd.md:187
+#: ../../dev/ci-cd.md:182
 msgid "**Sphinx build fails**"
 msgstr "**Sphinx ビルドの失敗**"
 
-#: ../../dev/ci-cd.md:188
+#: ../../dev/ci-cd.md:183
 msgid ""
 "Run `uv sync` in `sphinx-docs/` to install dependencies. Ensure Python "
 "3.12+ is available."
@@ -572,11 +548,11 @@ msgstr ""
 "`sphinx-docs/` ディレクトリで `uv sync` を実行して依存関係をインストールしてください。Python 3.12 "
 "以上が利用可能であることを確認してください。"
 
-#: ../../dev/ci-cd.md:190
+#: ../../dev/ci-cd.md:185
 msgid "**Link check failures on PR**"
 msgstr "**PR でのリンクチェック失敗**"
 
-#: ../../dev/ci-cd.md:191
+#: ../../dev/ci-cd.md:186
 msgid ""
 "Link checking is non-blocking (`continue-on-error: true`). Review the Job"
 " Summary for broken links and fix them if they point to project pages."
@@ -584,55 +560,75 @@ msgstr ""
 "リンクチェックは非ブロッキングです（`continue-on-error: true`）。Job Summary "
 "で壊れたリンクを確認し、プロジェクトページへのリンクであれば修正してください。"
 
-#: ../../dev/ci-cd.md:193
+#: ../../dev/ci-cd.md:188
 msgid "Secrets"
 msgstr "シークレット"
 
-#: ../../dev/ci-cd.md:195
+#: ../../dev/ci-cd.md:190
 msgid "The following GitHub repository secrets are used:"
 msgstr "以下の GitHub リポジトリシークレットが使用されています:"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Secret"
 msgstr "シークレット"
 
-#: ../../dev/ci-cd.md:93
-msgid "`QODANA_TOKEN_1182880687`"
-msgstr "`QODANA_TOKEN_1182880687`"
-
-#: ../../dev/ci-cd.md:93
-msgid "Authentication with Qodana Cloud"
-msgstr "Qodana Cloud との認証"
-
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "`JETBRAINS_MARKETPLACE_TOKEN`"
 msgstr "`JETBRAINS_MARKETPLACE_TOKEN`"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Release (TODO)"
 msgstr "Release (TODO)"
 
-#: ../../dev/ci-cd.md:93
+#: ../../dev/ci-cd.md:92
 msgid "Plugin publishing (not yet configured)"
 msgstr "プラグインの公開（未設定）"
 
-#: ../../dev/ci-cd.md:202
+#: ../../dev/ci-cd.md:196
 msgid "Dependabot"
 msgstr "Dependabot"
 
-#: ../../dev/ci-cd.md:204
+#: ../../dev/ci-cd.md:198
 msgid "Dependabot is configured in `.github/dependabot.yml`:"
 msgstr "Dependabot は `.github/dependabot.yml` で設定されています:"
 
-#: ../../dev/ci-cd.md:206
+#: ../../dev/ci-cd.md:200
 msgid "**Gradle dependencies**: Weekly updates on Mondays, up to 5 concurrent PRs"
 msgstr "**Gradle 依存関係**: 毎週月曜日に更新、最大5件の同時 PR"
 
-#: ../../dev/ci-cd.md:207
+#: ../../dev/ci-cd.md:201
 msgid "**GitHub Actions**: Weekly updates on Mondays, up to 5 concurrent PRs"
 msgstr "**GitHub Actions**: 毎週月曜日に更新、最大5件の同時 PR"
 
-#: ../../dev/ci-cd.md:208
+#: ../../dev/ci-cd.md:202
 msgid "All update PRs are labeled with `dependencies`"
 msgstr "全ての更新 PR には `dependencies` ラベルが付与されます"
+
+#~ msgid "Qodana"
+#~ msgstr "Qodana"
+
+#~ msgid "`qodana_code_quality.yml`"
+#~ msgstr "`qodana_code_quality.yml`"
+
+#~ msgid "Static code analysis"
+#~ msgstr "静的コード解析"
+
+#~ msgid "Qodana Workflow (`qodana_code_quality.yml`)"
+#~ msgstr "Qodana ワークフロー (`qodana_code_quality.yml`)"
+
+#~ msgid ""
+#~ "Runs JetBrains Qodana static analysis on"
+#~ " push/PR to `main` and `releases/*` "
+#~ "branches. Results are reported to "
+#~ "[Qodana Cloud](https://qodana.cloud/)."
+#~ msgstr ""
+#~ "`main` および `releases/*` ブランチへの push/PR で"
+#~ " JetBrains Qodana 静的解析を実行します。結果は [Qodana "
+#~ "Cloud](https://qodana.cloud/) に報告されます。"
+
+#~ msgid "`QODANA_TOKEN_1182880687`"
+#~ msgstr "`QODANA_TOKEN_1182880687`"
+
+#~ msgid "Authentication with Qodana Cloud"
+#~ msgstr "Qodana Cloud との認証"
 
