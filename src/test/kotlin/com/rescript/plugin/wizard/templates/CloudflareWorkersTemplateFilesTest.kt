@@ -25,4 +25,21 @@ class CloudflareWorkersTemplateFilesTest {
         assertTrue(readme.contains("## Deploy"))
         assertTrue(readme.contains("wrangler login"))
     }
+
+    @Test
+    fun `server uses KV namespace for POST and GET`() {
+        val files = CloudflareWorkersTemplateFiles.generate(ctx)
+        val server = files["src/Server.res"]!!
+        assertTrue(files.containsKey("src/Kv.res"))
+        assertTrue(server.contains("Hono.post"))
+        assertTrue(server.contains("Kv.put"))
+        assertTrue(server.contains("Kv.list"))
+    }
+
+    @Test
+    fun `wrangler config declares the GREETINGS KV binding`() {
+        val cfg = CloudflareWorkersTemplateFiles.generate(ctx)["wrangler.jsonc"]!!
+        assertTrue(cfg.contains("kv_namespaces"))
+        assertTrue(cfg.contains("GREETINGS"))
+    }
 }
