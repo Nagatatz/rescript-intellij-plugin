@@ -94,4 +94,11 @@ class HonoTemplateFilesTest {
         assertTrue(pkg.contains("\"test:coverage\""))
         assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
     }
+
+    @Test
+    fun `ships env example documenting DATABASE_URL`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey(".env.example"))
+        assertTrue(files[".env.example"]!!.contains("DATABASE_URL"))
+    }
 }

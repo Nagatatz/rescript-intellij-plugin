@@ -77,7 +77,14 @@ internal object GoogleCloudRunTemplateFiles {
             ".nvmrc" to CommonFiles.nvmrc(),
             "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/")),
+            ".env.example" to
+                CommonFiles.envExample(
+                    listOf(
+                        "Cloud Run sets PORT in production; override locally if needed" to
+                            "PORT=8080",
+                    ),
+                ),
+            ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", ".env")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )

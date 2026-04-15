@@ -117,6 +117,15 @@ internal object MonorepoTemplateFiles {
             put("packages/server/src/Server.res", serverServerRes(name))
             put("packages/server/src/__tests__/Server.test.mjs", serverTest())
             put("packages/server/drizzle.config.ts", serverDrizzleConfig())
+            put(
+                "packages/server/.env.example",
+                CommonFiles.envExample(
+                    listOf(
+                        "Local SQLite file (default) or a Turso libsql:// URL" to
+                            "DATABASE_URL=file:./data/app.db",
+                    ),
+                ),
+            )
             // client (Vite+)
             put(
                 "packages/client/rescript.json",
@@ -202,7 +211,12 @@ internal object MonorepoTemplateFiles {
             put(".nvmrc", CommonFiles.nvmrc())
             put("LICENSE", CommonFiles.mitLicense(holder = name))
             put(".github/dependabot.yml", CommonFiles.dependabotYaml())
-            put(".gitignore", CommonFiles.gitignore(extra = listOf("dist/", ".vite/", "packages/*/dist/")))
+            put(
+                ".gitignore",
+                CommonFiles.gitignore(
+                    extra = listOf("dist/", ".vite/", "packages/*/dist/", "packages/*/data/", ".env"),
+                ),
+            )
             put(".editorconfig", CommonFiles.editorconfig())
             put(".github/workflows/ci.yml", CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true))
         }

@@ -133,4 +133,11 @@ class MonorepoTemplateFilesTest {
         assertTrue(files.containsKey("packages/server/src/__tests__/Server.test.mjs"))
         assertTrue(files.containsKey("packages/client/src/__tests__/ApiClient.test.mjs"))
     }
+
+    @Test
+    fun `server package ships env example documenting DATABASE_URL`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertTrue(files.containsKey("packages/server/.env.example"))
+        assertTrue(files["packages/server/.env.example"]!!.contains("DATABASE_URL"))
+    }
 }

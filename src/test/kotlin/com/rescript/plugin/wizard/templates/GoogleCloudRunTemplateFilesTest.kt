@@ -87,4 +87,11 @@ class GoogleCloudRunTemplateFilesTest {
         assertTrue(pkg.contains("\"test:coverage\""))
         assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
     }
+
+    @Test
+    fun `ships env example documenting PORT`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        assertTrue(files.containsKey(".env.example"))
+        assertTrue(files[".env.example"]!!.contains("PORT"))
+    }
 }

@@ -101,7 +101,15 @@ internal object HonoGraphqlTemplateFiles {
             ".nvmrc" to CommonFiles.nvmrc(),
             "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf("data/", "docs/schema.md", "drizzle/")),
+            ".env.example" to
+                CommonFiles.envExample(
+                    listOf(
+                        "Local SQLite file (default) or a Turso libsql:// URL" to
+                            "DATABASE_URL=file:./data/app.db",
+                    ),
+                ),
+            ".gitignore" to
+                CommonFiles.gitignore(extra = listOf("data/", "docs/schema.md", "drizzle/", ".env")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )
