@@ -30,6 +30,8 @@ src/test-local/
 # UI test sample project dependencies (install locally)
 src/uiTest/testData/sample-project/node_modules/
 src/uiTest/testData/sample-project/lib/
+# In-source compiled output (rescript.json has "in-source": true)
+src/uiTest/testData/sample-project/src/*.res.js
 
 # Sphinx documentation
 sphinx-docs/_build/
