@@ -41,7 +41,7 @@ class RescriptLspSignatureParserTest {
     }
 
     @Test
-    fun `parseSignatureLabels parses optional param with =?`() {
+    fun `parseSignatureLabels parses optional param with trailing question mark`() {
         val result = RescriptLspSignatureParser.parseSignatureLabels("(~name: string, ~age: int=?) => person")
 
         assertEquals(2, result.size)

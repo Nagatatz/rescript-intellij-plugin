@@ -42,9 +42,9 @@
 
 ### コミット 5 — Windows 不正文字テスト名リネーム (category 6)
 
-- [ ] `src/test/kotlin/com/rescript/plugin/lsp/RescriptLspSignatureParserTest.kt:44` のテスト名 `` `parseSignatureLabels parses optional param with =?` `` を `` `parseSignatureLabels parses optional param with trailing question mark` `` に変更
-- [ ] `./gradlew test --tests "*RescriptLspSignatureParserTest"` で成功確認
-- [ ] tasklist.md 更新 + 個別ファイル指定でコミット
+- [x] `src/test/kotlin/com/rescript/plugin/lsp/RescriptLspSignatureParserTest.kt:44` のテスト名 `` `parseSignatureLabels parses optional param with =?` `` を `` `parseSignatureLabels parses optional param with trailing question mark` `` に変更
+- [x] `./gradlew test --tests "*RescriptLspSignatureParserTest"` で成功確認
+- [x] tasklist.md 更新 + 個別ファイル指定でコミット
   - `♻️ Rename test to remove Windows-unsafe question mark character`
 
 ### コミット 6 — 常に true の is チェック整理 (category 1a + 1b)
