@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 20:08+0900\n"
+"POT-Creation-Date: 2026-04-16 16:57+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -49,9 +49,7 @@ msgstr "[クイックスタート](quickstart.md) — JetBrains IDE での ReScr
 msgid ""
 "[Migrating from VSCode](migration-from-vscode.md) — Shortcut mapping and "
 "feature comparison"
-msgstr ""
-"[VSCode からの移行](migration-from-vscode.md) — ショートカット対応表と"
-"機能比較"
+msgstr "[VSCode からの移行](migration-from-vscode.md) — ショートカット対応表と機能比較"
 
 #: ../../user/index.md:10
 msgid ""
@@ -120,8 +118,8 @@ msgid ""
 "[Project Templates](templates/index.md) — Scaffold production-shaped "
 "ReScript projects from the New Project wizard"
 msgstr ""
-"[プロジェクトテンプレート](templates/index.md) — New Project ウィザード"
-"からプロダクションレベルの ReScript プロジェクトをスキャフォールド"
+"[プロジェクトテンプレート](templates/index.md) — New Project ウィザードからプロダクションレベルの "
+"ReScript プロジェクトをスキャフォールド"
 
 #: ../../user/index.md:28
 msgid "Recipes"
@@ -131,9 +129,7 @@ msgstr "レシピ"
 msgid ""
 "[Recipe Collection](recipes/index.md) — Task-oriented guides for common "
 "workflows"
-msgstr ""
-"[レシピ集](recipes/index.md) — よくあるワークフロー向けのタスク指向"
-"ガイド"
+msgstr "[レシピ集](recipes/index.md) — よくあるワークフロー向けのタスク指向ガイド"
 
 #: ../../user/index.md:32
 msgid "Reference"
@@ -143,39 +139,50 @@ msgstr "リファレンス"
 msgid ""
 "[Quick Reference Card](cheatsheet.md) — Condensed cheat sheet of "
 "shortcuts and features"
-msgstr ""
-"[クイックリファレンスカード](cheatsheet.md) — ショートカットと機能の"
-"要約チートシート"
+msgstr "[クイックリファレンスカード](cheatsheet.md) — ショートカットと機能の要約チートシート"
 
 #: ../../user/index.md:35
 msgid ""
-"[Version Matrix](version-matrix.md) — Features by version and IDE "
-"compatibility"
+"[Keymap Visualizer](keymap-visualizer.md) — Interactive keyboard layout "
+"with shortcut overlays"
 msgstr ""
-"[バージョンマトリクス](version-matrix.md) — バージョン別の機能と IDE"
-"互換性"
+"[キーマップビジュアライザ](keymap-visualizer.md) — ショートカットを重ねて表示する"
+"インタラクティブなキーボードレイアウト"
 
 #: ../../user/index.md:36
+msgid ""
+"[Settings Generator](settings-generator.md) — Build a custom plugin "
+"configuration JSON"
+msgstr ""
+"[設定ジェネレータ](settings-generator.md) — カスタムプラグイン設定 JSON を生成"
+
+#: ../../user/index.md:37
+msgid ""
+"[Version Matrix](version-matrix.md) — Features by version and IDE "
+"compatibility"
+msgstr "[バージョンマトリクス](version-matrix.md) — バージョン別の機能と IDE互換性"
+
+#: ../../user/index.md:38
 msgid "[Configuration](configuration.md) — Plugin settings"
 msgstr "[設定](configuration.md) — プラグインの設定"
 
-#: ../../user/index.md:37
+#: ../../user/index.md:39
 msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference"
 msgstr "[キーボードショートカット](keyboard-shortcuts.md) — ショートカットリファレンス"
 
-#: ../../user/index.md:38
+#: ../../user/index.md:40
 msgid "[FAQ](faq.md) — Frequently asked questions"
 msgstr "[FAQ](faq.md) — よくある質問"
 
-#: ../../user/index.md:39
+#: ../../user/index.md:41
 msgid "[Troubleshooting](troubleshooting.md) — Common issues and solutions"
 msgstr "[トラブルシューティング](troubleshooting.md) — よくある問題と解決方法"
 
-#: ../../user/index.md:40
+#: ../../user/index.md:42
 msgid "[Glossary](glossary.md) — Key terms and definitions"
 msgstr "[用語集](glossary.md) — 主要な用語と定義"
 
-#: ../../user/index.md:41
+#: ../../user/index.md:43
 msgid "[Changelog](changelog.md) — Release notes"
 msgstr "[変更履歴](changelog.md) — リリースノート"
 
