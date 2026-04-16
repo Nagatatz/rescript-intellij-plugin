@@ -71,13 +71,13 @@
 ### Group 3 — kover 設定更新
 
 #### コミット 10: 🔧 Update kover excludes and ratchet minBound
-- [ ] `./gradlew test koverHtmlReport` で実測カバレッジを確認
-- [ ] `build.gradle.kts` の class excludes から、新規テストで完全カバーされたクラスを削除を試みる:
-  - `com.rescript.plugin.RescriptIcons` (削除を試行)
-  - `com.rescript.plugin.lang.psi.RescriptDeclarationPsiElement*` (削除を試行)
-- [ ] 実測値を確認し、`minBound` を「実測 - 3%」に引き上げる
-- [ ] `./gradlew koverHtmlReport` で `minBound` 違反がないことを確認
-- [ ] tasklist 更新 + コミット
+- [x] `./gradlew test koverHtmlReport` で実測カバレッジ確認: LINE 89.65% (719/802)
+- [x] `build.gradle.kts` の class excludes から以下を削除:
+  - `com.rescript.plugin.RescriptIcons` (RescriptIconsTest で全フィールド検証)
+  - `com.rescript.plugin.lang.psi.RescriptDeclarationPsiElement*` (RescriptDeclarationPsiElementTest で getDeclarationName/toString 検証)
+- [x] `minBound` を 85 → 86 に引き上げ (実測 89.65% - 3% = 86.65 のフロア)
+- [x] `./gradlew test koverHtmlReport koverVerify -x integrationTest` で違反がないことを確認
+- [x] tasklist 更新 + コミット
 
 ## 免除対象 (テスト作成省略)
 
