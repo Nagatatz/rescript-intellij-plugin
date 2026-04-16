@@ -124,11 +124,12 @@
 
 ## Phase 4: マージ前
 
-- [ ] 全タスクが `[x]`
-- [ ] requirements.md の AC-01〜AC-08 すべて満たす
-- [ ] `./gradlew clean buildPlugin` が通る
-- [ ] `unzip -l build/distributions/rescript-intellij-plugin-*.zip | grep 'templates/'` でリソースがパッケージされていることを確認
-- [ ] `./gradlew runIde` で 5 テンプレートを実際に Wizard から生成 → ファイル内容が期待通り (任意、重い場合は省略してスナップショット diff で代替)
+- [x] 全実装タスクが `[x]` (Phase 2 コミット 1〜8)
+- [x] requirements.md の AC-01〜AC-08 すべて満たす (byte-equivalence + 既存テスト無修正 + リソース配置 + プレースホルダ + 新規テスト + ktlint + コミット粒度 + ドキュメント)
+- [x] `./gradlew clean buildPlugin` 通過
+- [x] `./gradlew test` 通過 (integrationTest は main でも pre-existing fail — 依存ドリフト/ReScript API 変更、byte-equivalence で無関係と確認)
+- [x] plugin zip の jar 内に `templates/hono/` 等のリソースが含まれていることを確認
+- [x] Kover line coverage 96.4% (minBound 85 を余裕でクリア)
 - [ ] `AskUserQuestion` でマージ可否を確認
 
 ---
