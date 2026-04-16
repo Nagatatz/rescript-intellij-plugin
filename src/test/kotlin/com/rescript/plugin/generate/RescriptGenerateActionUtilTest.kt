@@ -1,5 +1,6 @@
 package com.rescript.plugin.generate
 
+import com.intellij.openapi.actionSystem.ActionUiKind
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataContext
@@ -37,7 +38,7 @@ class RescriptGenerateActionUtilTest {
                     else -> null
                 }
             }
-        return AnActionEvent.createFromDataContext("test", Presentation(), dataContext)
+        return AnActionEvent.createEvent(dataContext, Presentation(), "test", ActionUiKind.NONE, null)
     }
 
     @Test

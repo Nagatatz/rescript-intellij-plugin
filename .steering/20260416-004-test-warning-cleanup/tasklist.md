@@ -19,11 +19,11 @@
 
 ### コミット 2 — Deprecated API 置換 (category 3)
 
-- [ ] `src/test/kotlin/com/rescript/plugin/navigation/RescriptOpenCompiledJsActionTest.kt:180` を `createEvent(...)` に置換、`ActionUiKind` import 追加
-- [ ] `src/test/kotlin/com/rescript/plugin/navigation/RescriptSwitchFileActionTest.kt:122` を同様に置換
-- [ ] `src/test/kotlin/com/rescript/plugin/generate/RescriptGenerateActionUtilTest.kt:40` を同様に置換
-- [ ] `./gradlew test --tests "*OpenCompiledJs*" --tests "*SwitchFile*" --tests "*GenerateActionUtil*"` で成功確認
-- [ ] tasklist.md 更新 + 個別ファイル指定でコミット
+- [x] `src/test/kotlin/com/rescript/plugin/navigation/RescriptOpenCompiledJsActionTest.kt:180` を `createEvent(...)` に置換、`ActionUiKind` import 追加
+- [x] `src/test/kotlin/com/rescript/plugin/navigation/RescriptSwitchFileActionTest.kt:122` を同様に置換
+- [x] `src/test/kotlin/com/rescript/plugin/generate/RescriptGenerateActionUtilTest.kt:40` を同様に置換
+- [x] `./gradlew test --tests "*OpenCompiledJs*" --tests "*SwitchFile*" --tests "*GenerateActionUtil*"` で成功確認
+- [x] tasklist.md 更新 + 個別ファイル指定でコミット
   - `♻️ Replace deprecated AnActionEvent.createFromDataContext with createEvent`
 
 ### コミット 3 — Deprecated override 警告抑制 (category 4)
