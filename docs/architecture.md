@@ -60,10 +60,18 @@
 | 制約 | 詳細 |
 |------|------|
 | **最低 IDE バージョン** | IntelliJ Platform 2025.3+（`sinceBuild = 253.0`） |
-| **上限 IDE バージョン** | 未設定（前方互換性のため `untilBuild` は意図的に省略） |
+| **上限 IDE バージョン** | 未設定（詳細は下記「`pluginUntilBuild` を設定しない理由」参照） |
 | **JDK** | 21 以上 |
 | **対象 IDE** | IntelliJ IDEA (Community/Ultimate)、WebStorm、その他全 JetBrains IDE |
 | **OS** | Windows / macOS / Linux（JetBrains IDE が動作する全 OS） |
+
+#### `pluginUntilBuild` を設定しない理由
+
+`gradle.properties` では `pluginSinceBuild` のみ設定し、`pluginUntilBuild` は意図的に未設定としている。
+
+- **前方互換性の維持** — IntelliJ Platform の破壊的変更は稀で、多くの場合新しい IDE バージョンでも既存プラグインは動作する。上限を明示すると、新 IDE のリリースごとに手動でタグを切り直してパブリッシュする必要が生じる
+- **Marketplace 側で検証されるため安全** — JetBrains Marketplace は新規プラグインと既存プラグインの互換性を継続的にチェックし、問題があれば該当バージョンを自動的に互換性リストから外す。プラグイン側で上限を設けなくても、ユーザーが不具合のあるビルドを掴むリスクは限定的
+- **上限を設定すべきケース** — 実際に特定の破壊的変更で動作しないことが判明した場合は、`pluginUntilBuild` を設定した緊急パッチをリリースし、修正版で再度上限を外す運用とする
 
 ### 外部依存
 
