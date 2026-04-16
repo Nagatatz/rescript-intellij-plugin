@@ -188,52 +188,27 @@ npm install -g @rescript/language-server
 
 ## Architecture
 
-This plugin uses a **hybrid approach**:
+The plugin combines a JFlex lexer for fast, accurate syntax highlighting with the official [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode/tree/master/server) for semantic features (completion, diagnostics, navigation, hover). A lightweight parser provides PSI structure for code folding and structure view.
 
-1. **Lexer-based syntax highlighting** — A JFlex lexer tokenizes ReScript source code for fast, accurate syntax coloring without depending on external tools.
+For the full architecture overview — layers, Extension Points, and class-level mapping — see [CLAUDE.md](CLAUDE.md) and [docs/architecture.md](docs/architecture.md).
 
-2. **LSP integration** — All semantic features (completion, diagnostics, navigation, hover, etc.) are provided by the [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode/tree/master/server) via the IntelliJ Platform's built-in LSP API. This ensures feature parity with the official VSCode extension.
+## Contributing
 
-3. **Lightweight parser** — A minimal parser provides PSI structure for IDE features like code folding and structure view. It recognizes top-level declarations and JSX elements without attempting to fully parse ReScript's complex expression syntax.
+Developer-facing documentation lives in:
 
-## Development
+- [CLAUDE.md](CLAUDE.md) — build commands, architecture layers, development conventions
+- [docs/](docs/) — permanent design documents (architecture, functional design, repository structure)
+- [sphinx-docs/dev/](sphinx-docs/dev/) — developer guide (setup, building, testing, contributing)
+- [.claude/rules/](.claude/rules/) — project rules (testing, Git conventions, documentation, release)
 
-### Prerequisites
-
-- JDK 21+
-- IntelliJ IDEA (for development)
-
-### Build
+Quick reference:
 
 ```bash
-./gradlew buildPlugin
+./gradlew buildPlugin     # build the plugin
+./gradlew runIde          # launch a sandbox IDE for manual testing
+./gradlew test            # run unit tests
+./gradlew ktlintCheck     # verify Kotlin formatting
 ```
-
-### Run (development instance)
-
-```bash
-./gradlew runIde
-```
-
-### Generate Lexer
-
-The JFlex lexer is automatically generated from `Rescript.flex` during the build process via the `generateRescriptLexer` Gradle task (dependency of `compileJava` / `compileKotlin`). Manual generation is not required.
-
-### UI Tests (Remote-Robot)
-
-UI tests use [IntelliJ Remote-Robot](https://github.com/JetBrains/intellij-ui-test-robot) to automate IDE interaction and capture Marketplace screenshots.
-
-```bash
-# 1. Start the IDE with Remote-Robot server (port 8082)
-./gradlew runIdeForUiTests
-
-# 2. Open the sample project: src/uiTest/testData/sample-project/
-
-# 3. In a separate terminal, run the UI tests
-./gradlew uiTest
-```
-
-Screenshots are saved to `build/screenshots/`. UI tests are not included in CI (requires a display).
 
 ## License
 
