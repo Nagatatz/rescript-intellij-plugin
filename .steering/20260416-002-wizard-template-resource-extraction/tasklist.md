@@ -80,11 +80,10 @@
 - [x] 既存 `MonorepoTemplateFilesTest` (17 テスト) 無修正で pass
 - [x] ktlint pass
 
-### コミット 8: `📝 Document TemplateResourceLoader in CLAUDE.md and repository-structure.md`
+### コミット 8: `📝 Document TemplateResourceLoader in CLAUDE.md and repository-structure.md` ✅
 
-- [ ] `CLAUDE.md` 「ユーティリティ」項に `TemplateResourceLoader` の1行を追加
-- [ ] `docs/repository-structure.md` の `src/main/resources/` テーブルに `templates/` 行を追加
-- [ ] `git add` でコミット
+- [x] `CLAUDE.md` 「ユーティリティ」項に `TemplateResourceLoader` の1行を追加
+- [x] `docs/repository-structure.md` の `src/main/resources/` テーブルに `templates/` 行を追加
 
 ---
 

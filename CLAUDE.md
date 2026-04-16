@@ -167,6 +167,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **エディタユーティリティ** (`util/`) — `WriteCommandAction` ラッパー（`replaceInWriteAction` 等）と `Document` 行アクセスヘルパー（`getLineTextAt`、`getLineRangeAt`）を `RescriptEditorUtils` に集約
 - **Intention 基底クラス** (`intention/`) — `RescriptBaseIntention` による `getFamilyName()` デフォルト実装と `RescriptFile` ガードの共通化
 - **Generate Action 基底クラス** (`generate/`) — `RescriptBaseGenerateAction` による `ActionUpdateThread.BGT` ポリシーの共通化
+- **Wizard テンプレートリソース** (`wizard/templates/`, `resources/templates/`) — 上位5テンプレートの静的コンテンツ（README セクション・`.res` サンプル・`drizzle.config.ts` 等）を classpath リソース化。`TemplateResourceLoader.load(path, vars)` で `{{key}}` プレースホルダ置換付きロード
 
 ## 開発規約
 
