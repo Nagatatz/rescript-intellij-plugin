@@ -50,17 +50,15 @@
 - [x] 既存 `HonoGraphqlTemplateFilesTest` (13 テスト) 無修正で pass
 - [x] ktlint pass
 
-### コミット 5: `♻️ Extract static content from ReactNativeCliTemplateFiles to resources`
+### コミット 5: `♻️ Extract static content from ReactNativeCliTemplateFiles to resources` ✅
 
-- [ ] スナップショット採取 (pre)
-- [ ] `ReactNativeCliTemplateFiles.kt` を読み、静的 `private fun` を洗い出し
-- [ ] `src/main/resources/templates/react-native-cli/` 下に抽出
-- [ ] Kotlin 側を `TemplateResourceLoader.load(...)` に差し替え
-- [ ] ctx 依存セクションのプレースホルダ化 (許容リスト更新)
-- [ ] スナップショット採取 (post) → `diff -r` で一致
-- [ ] 既存 `ReactNativeCliTemplateFilesTest` が無修正で通ること
-- [ ] `./gradlew ktlintCheck && ./gradlew test --tests "*ReactNativeCli*" --tests "*TemplateResourcesSmokeTest"` が通る
-- [ ] 個別 `git add` でコミット
+- [x] pre-snapshot 採取
+- [x] `src/main/resources/templates/react-native-cli/` に 15 ファイル抽出 (JS/TS 3 + .res 3 + app.json + test.mjs + readme/*.md 7)
+- [x] `ReactNativeCliTemplateFiles.kt` 404→162行
+- [x] 新規プレースホルダ: `projectName`/`installCmd`/`execReactNative`/`cmdResDev`/`cmdStart`/`cmdAndroid`
+- [x] post-snapshot → `diff -r` 完全一致
+- [x] 既存 `ReactNativeCliTemplateFilesTest` (14 テスト) 無修正で pass
+- [x] ktlint pass
 
 ### コミット 6: `♻️ Extract static content from FullStackTemplateFiles to resources`
 

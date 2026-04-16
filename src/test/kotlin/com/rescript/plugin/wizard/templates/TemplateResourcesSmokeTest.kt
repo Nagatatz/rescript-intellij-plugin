@@ -13,9 +13,18 @@ class TemplateResourcesSmokeTest {
     // in resource files (e.g. `{{projecName}}` instead of `{{projectName}}`).
     private val knownPlaceholders: Set<String> =
         setOf(
-            // hono/readme/database.md
+            // hono/readme/database.md, hono-graphql/readme/database.md
             "cmdDbGenerate",
             "cmdDbMigrate",
+            // react-native-cli: app.json, src/App.res
+            "projectName",
+            // react-native-cli/readme/community-cli.md
+            "installCmd",
+            "execReactNative",
+            // react-native-cli/readme/running-on-android.md, troubleshooting.md
+            "cmdResDev",
+            "cmdStart",
+            "cmdAndroid",
         )
 
     @Test
