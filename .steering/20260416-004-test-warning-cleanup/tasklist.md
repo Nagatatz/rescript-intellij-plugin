@@ -28,9 +28,9 @@
 
 ### コミット 3 — Deprecated override 警告抑制 (category 4)
 
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallHierarchyProviderTest.kt:49` の `override fun getData(dataId: String)` に `@Suppress("OVERRIDE_DEPRECATION")` を付与
-- [ ] `./gradlew test --tests "*CallHierarchyProviderTest"` で成功確認
-- [ ] tasklist.md 更新 + 個別ファイル指定でコミット
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallHierarchyProviderTest.kt:49` の `override fun getData(dataId: String)` に `@Suppress("OVERRIDE_DEPRECATION")` を付与
+- [x] `./gradlew test --tests "*CallHierarchyProviderTest"` で成功確認
+- [x] tasklist.md 更新 + 個別ファイル指定でコミット
   - `♻️ Suppress deprecated DataContext.getData override warning in CallHierarchy test`
 
 ### コミット 4 — Unchecked cast 警告抑制 (category 5)
