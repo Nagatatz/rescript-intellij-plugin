@@ -35,9 +35,9 @@
 
 ### コミット 4 — Unchecked cast 警告抑制 (category 5)
 
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptDependencyAnalyzerTest.kt:262` の `childArray as Array<PsiElement>` に `@Suppress("UNCHECKED_CAST")` を付与
-- [ ] `./gradlew test --tests "*DependencyAnalyzerTest"` で成功確認
-- [ ] tasklist.md 更新 + 個別ファイル指定でコミット
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptDependencyAnalyzerTest.kt:262` の `childArray as Array<PsiElement>` に `@Suppress("UNCHECKED_CAST")` を付与
+- [x] `./gradlew test --tests "*DependencyAnalyzerTest"` で成功確認
+- [x] tasklist.md 更新 + 個別ファイル指定でコミット
   - `♻️ Suppress unchecked cast in stub element test scaffolding`
 
 ### コミット 5 — Windows 不正文字テスト名リネーム (category 6)
