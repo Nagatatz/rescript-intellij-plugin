@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-16 01:02+0900\n"
+"POT-Creation-Date: 2026-04-16 01:13+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -1075,10 +1075,10 @@ msgstr "プロジェクトウィザード"
 
 #: ../../user/features/advanced.md:421
 msgid ""
-"Create new ReScript projects directly from the IDE with 12 pre-configured"
+"Create new ReScript projects directly from the IDE with 15 pre-configured"
 " templates covering frontend, backend, serverless, mobile, and more."
 msgstr ""
-"フロントエンド、バックエンド、サーバーレス、モバイルなどをカバーする 12 の事前設定済みテンプレートを使用して、IDE から直接新しい "
+"フロントエンド、バックエンド、サーバーレス、モバイルなどをカバーする 15 の事前設定済みテンプレートを使用して、IDE から直接新しい "
 "ReScript プロジェクトを作成します。"
 
 #: ../../user/features/advanced.md:423
@@ -1102,8 +1102,8 @@ msgid "**Project name** and **location**"
 msgstr "**プロジェクト名** と **保存場所**"
 
 #: ../../user/features/advanced.md:429
-msgid "**Template** --- Choose from 12 project templates grouped by category"
-msgstr "**テンプレート** --- カテゴリ別にグループ化された 12 のプロジェクトテンプレートから選択します"
+msgid "**Template** --- Choose from 15 project templates grouped by category"
+msgstr "**テンプレート** --- カテゴリ別にグループ化された 15 のプロジェクトテンプレートから選択します"
 
 #: ../../user/features/advanced.md:430
 msgid "**Package manager** --- Choose between npm, pnpm, or yarn"
@@ -1222,6 +1222,19 @@ msgid "Mobile application with React Native and Expo"
 msgstr "React Native と Expo を使用したモバイルアプリケーション"
 
 #: ../../user/features/advanced.md:50
+#, fuzzy
+msgid "**React Native (Community CLI)**"
+msgstr "**React Native (Community CLI)**"
+
+#: ../../user/features/advanced.md:50
+msgid ""
+"Mobile app with React Native Community CLI (bare workflow) for native "
+"Android/iOS access"
+msgstr ""
+"React Native Community CLI（bare workflow）を使用したモバイルアプリ。"
+"ネイティブの Android/iOS プロジェクトに直接アクセス可能。"
+
+#: ../../user/features/advanced.md:50
 msgid "Library"
 msgstr "Library"
 
@@ -1257,11 +1270,11 @@ msgstr "**Monorepo (Hono + React)**"
 msgid "Full-stack monorepo with Hono backend and React frontend"
 msgstr "Hono バックエンドと React フロントエンドのフルスタック Monorepo"
 
-#: ../../user/features/advanced.md:450
+#: ../../user/features/advanced.md:451
 msgid "Generated Project Structure"
 msgstr "生成されるプロジェクト構造"
 
-#: ../../user/features/advanced.md:452
+#: ../../user/features/advanced.md:453
 msgid ""
 "Each template generates a ready-to-use project with `rescript.json`, "
 "`package.json`, and template-specific source files."
@@ -1269,31 +1282,57 @@ msgstr ""
 "各テンプレートは "
 "`rescript.json`、`package.json`、およびテンプレート固有のソースファイルを含む、すぐに使えるプロジェクトを生成します。"
 
-#: ../../user/features/advanced.md:454
+#: ../../user/features/advanced.md:455
 msgid "**Basic template:**"
 msgstr "**Basic テンプレート:**"
 
-#: ../../user/features/advanced.md:464
+#: ../../user/features/advanced.md:465
 msgid "**Vite + React template:**"
 msgstr "**Vite + React テンプレート:**"
 
-#: ../../user/features/advanced.md:477
+#: ../../user/features/advanced.md:478
 msgid "**Monorepo template:**"
 msgstr "**Monorepo テンプレート:**"
 
-#: ../../user/features/advanced.md:497
+#: ../../user/features/advanced.md:498
 msgid "Template Details"
 msgstr "テンプレートの詳細"
 
-#: ../../user/features/advanced.md:499
+#: ../../user/features/advanced.md:500
 msgid ""
-"**React-based templates** (Vite+React, Next.js, Electron, React Native) "
-"include JSX configuration in `rescript.json` and React dependencies."
+"**React-based templates** (Vite+React, Next.js, Electron, React Native "
+"(Expo), React Native (Community CLI)) include JSX configuration in "
+"`rescript.json` and React dependencies."
 msgstr ""
-"**React ベースのテンプレート**（Vite+React、Next.js、Electron、React Native）は "
+"**React ベースのテンプレート**（Vite+React、Next.js、Electron、React Native (Expo)、React Native (Community CLI)）は "
 "`rescript.json` の JSX 設定と React 依存関係を含みます。"
 
-#: ../../user/features/advanced.md:501
+#: ../../user/features/advanced.md:502
+msgid ""
+"**React Native (Community CLI)** targets Android Studio / Xcode users who"
+" need direct access to the native `android/` and `ios/` projects. The "
+"template ships only the JavaScript/TypeScript + ReScript surface and a "
+"`metro.config.js` that resolves `.res.mjs`; the native projects "
+"themselves are produced by running `@react-native-community/cli` after "
+"project creation. A `src/NativeGreeting.res` file demonstrates how to "
+"bind a custom Kotlin/Swift `NativeModule` through `@module(\"react-"
+"native\") @scope(\"NativeModules\")`, though the Kotlin/Swift "
+"implementation itself is outside the scope of the template and should be "
+"written following the [official React Native "
+"docs](https://reactnative.dev/docs/legacy/native-modules-android)."
+msgstr ""
+"**React Native (Community CLI)** は、ネイティブの `android/` と `ios/` プロジェクトに"
+"直接アクセスしたい Android Studio / Xcode ユーザーを対象としています。"
+"このテンプレートには JavaScript/TypeScript + ReScript の部分と `.res.mjs` を解決する "
+"`metro.config.js` のみが含まれており、ネイティブプロジェクト自体は"
+"プロジェクト作成後に `@react-native-community/cli` を実行して生成します。"
+"`src/NativeGreeting.res` は、`@module(\"react-native\") @scope(\"NativeModules\")` 経由で"
+"カスタム Kotlin/Swift `NativeModule` をバインドする方法を示していますが、"
+"Kotlin/Swift の実装自体はテンプレートの範囲外であり、"
+"[公式 React Native ドキュメント](https://reactnative.dev/docs/legacy/native-modules-android) に"
+"従って記述する必要があります。"
+
+#: ../../user/features/advanced.md:504
 msgid ""
 "**Hono-based templates** (Hono, Cloudflare Workers, AWS Lambda, Google "
 "Cloud Run) share common Hono bindings (`src/Hono.res`) and differ in "
@@ -1302,58 +1341,58 @@ msgstr ""
 "**Hono ベースのテンプレート**（Hono、Cloudflare Workers、AWS Lambda、Google Cloud "
 "Run）は共通の Hono バインディング（`src/Hono.res`）を共有し、デプロイ設定が異なります:"
 
-#: ../../user/features/advanced.md:502
+#: ../../user/features/advanced.md:505
 msgid "**Hono (Node.js)** --- Uses `@hono/node-server` for local development"
 msgstr "**Hono (Node.js)** --- ローカル開発に `@hono/node-server` を使用"
 
-#: ../../user/features/advanced.md:503
+#: ../../user/features/advanced.md:506
 msgid "**Cloudflare Workers** --- Includes `wrangler.jsonc` configuration"
 msgstr "**Cloudflare Workers** --- `wrangler.jsonc` 設定を含む"
 
-#: ../../user/features/advanced.md:504
+#: ../../user/features/advanced.md:507
 msgid "**AWS Lambda** --- Includes esbuild bundling and Lambda adapter bindings"
 msgstr "**AWS Lambda** --- esbuild バンドルと Lambda アダプターバインディングを含む"
 
-#: ../../user/features/advanced.md:505
+#: ../../user/features/advanced.md:508
 msgid ""
 "**Google Cloud Run** --- Includes a `Dockerfile` for containerized "
 "deployment"
 msgstr "**Google Cloud Run** --- コンテナ化デプロイ用の `Dockerfile` を含む"
 
-#: ../../user/features/advanced.md:507
+#: ../../user/features/advanced.md:510
 msgid ""
 "**npm Library** includes `@genType` configuration for generating "
 "TypeScript type definitions."
 msgstr "**npm Library** は TypeScript 型定義を生成するための `@genType` 設定を含みます。"
 
-#: ../../user/features/advanced.md:509
+#: ../../user/features/advanced.md:512
 msgid ""
 "**CLI Tool** includes a `bin` entry in `package.json` and argument "
 "parsing via `Process.argv`."
 msgstr "**CLI Tool** は `package.json` の `bin` エントリと `Process.argv` による引数解析を含みます。"
 
-#: ../../user/features/advanced.md:511
+#: ../../user/features/advanced.md:514
 msgid "After Project Creation"
 msgstr "プロジェクト作成後"
 
-#: ../../user/features/advanced.md:513
+#: ../../user/features/advanced.md:516
 msgid "After the wizard creates the project:"
 msgstr "ウィザードがプロジェクトを作成した後:"
 
-#: ../../user/features/advanced.md:515
+#: ../../user/features/advanced.md:518
 #, fuzzy
 msgid ""
 "Run your package manager's install command (e.g., `pnpm install`) to "
 "install dependencies"
 msgstr "パッケージマネージャの install コマンド（例: `npm install`）を実行して依存関係をインストールします"
 
-#: ../../user/features/advanced.md:516
+#: ../../user/features/advanced.md:519
 msgid ""
 "Run `rescript build` (or use the ReScript run configuration) to compile "
 "the project"
 msgstr "`rescript build` を実行（または ReScript 実行構成を使用）してプロジェクトをコンパイルします"
 
-#: ../../user/features/advanced.md:517
+#: ../../user/features/advanced.md:520
 msgid ""
 "The Language Server will start automatically once `@rescript/language-"
 "server` is available in `node_modules`"
@@ -1361,17 +1400,17 @@ msgstr ""
 "`node_modules` に `@rescript/language-server` が利用可能になると、Language Server "
 "が自動的に起動します"
 
-#: ../../user/features/advanced.md:519
+#: ../../user/features/advanced.md:522
 msgid "Quality of Life"
 msgstr "開発者体験の向上"
 
-#: ../../user/features/advanced.md:521
+#: ../../user/features/advanced.md:524
 msgid ""
 "Every generated project ships with the same baseline so you can start "
 "coding right away:"
 msgstr "生成される各プロジェクトには共通のベースラインが同梱されており、すぐにコーディングを開始できます:"
 
-#: ../../user/features/advanced.md:523
+#: ../../user/features/advanced.md:526
 msgid ""
 "**README.md** — Documents prerequisites, install/dev commands tuned to "
 "the selected package manager, and template-specific deployment notes "
@@ -1382,7 +1421,7 @@ msgstr ""
 "(例: Cloudflare Workers の `wrangler deploy`、AWS Lambda アップロード、Cloud Run の "
 "`gcloud run deploy`) を記載"
 
-#: ../../user/features/advanced.md:524
+#: ../../user/features/advanced.md:527
 msgid ""
 "**`.gitignore`** — Excludes `node_modules/`, ReScript build artifacts, OS"
 " files, and template-specific output (`.next/`, `dist/`, `.wrangler/`, …)"
@@ -1390,11 +1429,11 @@ msgstr ""
 "**`.gitignore`** — `node_modules/`、ReScript ビルド成果物、OS ファイル、テンプレート固有の出力 "
 "(`.next/`、`dist/`、`.wrangler/` など) を除外"
 
-#: ../../user/features/advanced.md:525
+#: ../../user/features/advanced.md:528
 msgid "**`.editorconfig`** — Pins indentation (2 spaces) and line endings (LF)"
 msgstr "**`.editorconfig`** — インデント (スペース 2) と改行コード (LF) を固定"
 
-#: ../../user/features/advanced.md:526
+#: ../../user/features/advanced.md:529
 msgid ""
 "**`.github/workflows/ci.yml`** — Minimal CI pipeline that installs "
 "dependencies and runs `rescript`, plus the `build` / `test` script when "
@@ -1403,7 +1442,7 @@ msgstr ""
 "**`.github/workflows/ci.yml`** — 依存関係をインストールして `rescript` を実行する最小限の CI "
 "パイプライン。テンプレートが定義している場合は `build` / `test` スクリプトも実行"
 
-#: ../../user/features/advanced.md:527
+#: ../../user/features/advanced.md:530
 msgid ""
 "**`packageManager` field in `package.json`** — Pins the toolchain version"
 " for [Corepack](https://nodejs.org/api/corepack.html) so collaborators "
@@ -1413,7 +1452,7 @@ msgstr ""
 "[Corepack](https://nodejs.org/api/corepack.html) "
 "向けにツールチェインのバージョンを固定し、コラボレーターが同じパッケージマネージャを使えるようにする"
 
-#: ../../user/features/advanced.md:528
+#: ../../user/features/advanced.md:531
 msgid ""
 "**Vitest smoke test + coverage** — Every template ships "
 "`src/__tests__/*.test.mjs` (or workspace equivalents) wired to `test` and"
@@ -1433,7 +1472,7 @@ msgstr ""
 "システムスモークテストを、Hono 系テンプレは Hono 内蔵の `app.request()`"
 " ハーネスで DB フリーのベースラインルートを検証します"
 
-#: ../../user/features/advanced.md:529
+#: ../../user/features/advanced.md:532
 msgid ""
 "**`.nvmrc` / `LICENSE` / `.github/dependabot.yml`** — Every template pins"
 " the Node major version, ships an MIT license using the project name as "

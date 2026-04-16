@@ -12,6 +12,7 @@ import com.rescript.plugin.wizard.templates.HonoTemplateFiles
 import com.rescript.plugin.wizard.templates.MonorepoTemplateFiles
 import com.rescript.plugin.wizard.templates.NextjsTemplateFiles
 import com.rescript.plugin.wizard.templates.NpmLibraryTemplateFiles
+import com.rescript.plugin.wizard.templates.ReactNativeCliTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeTemplateFiles
 import com.rescript.plugin.wizard.templates.TemplateContext
 import com.rescript.plugin.wizard.templates.ViteReactTemplateFiles
@@ -99,6 +100,11 @@ enum class ProjectTemplate(
         "Mobile application with React Native and Expo",
         TemplateCategory.MOBILE,
     ),
+    REACT_NATIVE_CLI(
+        "React Native (Community CLI)",
+        "Mobile app with React Native Community CLI (bare workflow) for native Android/iOS access",
+        TemplateCategory.MOBILE,
+    ),
     NPM_LIBRARY(
         "npm Library",
         "Publishable npm package with ReScript",
@@ -145,6 +151,7 @@ enum class ProjectTemplate(
             AWS_LAMBDA -> AwsLambdaTemplateFiles.generate(ctx)
             GOOGLE_CLOUD_RUN -> GoogleCloudRunTemplateFiles.generate(ctx)
             REACT_NATIVE -> ReactNativeTemplateFiles.generate(ctx)
+            REACT_NATIVE_CLI -> ReactNativeCliTemplateFiles.generate(ctx)
             NPM_LIBRARY -> NpmLibraryTemplateFiles.generate(ctx)
             CLI_TOOL -> CliToolTemplateFiles.generate(ctx)
             MONOREPO -> MonorepoTemplateFiles.generate(ctx)

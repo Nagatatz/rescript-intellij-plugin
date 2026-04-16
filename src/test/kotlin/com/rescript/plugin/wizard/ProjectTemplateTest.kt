@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 
 class ProjectTemplateTest {
     @Test
-    fun `enum has 14 entries`() {
-        assertEquals(14, ProjectTemplate.entries.size)
+    fun `enum has 15 entries`() {
+        assertEquals(15, ProjectTemplate.entries.size)
     }
 
     @Test
@@ -146,6 +146,31 @@ class ProjectTemplateTest {
     }
 
     @Test
+    fun `REACT_NATIVE_CLI template uses Community CLI without expo`() {
+        val template = ProjectTemplate.REACT_NATIVE_CLI
+        assertEquals("React Native (Community CLI)", template.displayName)
+        assertEquals(TemplateCategory.MOBILE, template.category)
+        val files = template.generateFiles("test-project")
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"@react-native-community/cli\""))
+        assertTrue(pkg.contains("\"react-native\""))
+        assertFalse(pkg.contains("\"expo\""))
+        assertTrue(files.containsKey("metro.config.js"))
+        assertTrue(files.containsKey("babel.config.js"))
+        assertTrue(files.containsKey("index.js"))
+    }
+
+    @Test
+    fun `Expo and Community CLI templates differ in package json deps`() {
+        val expoPkg = ProjectTemplate.REACT_NATIVE.generateFiles("t")["package.json"]!!
+        val cliPkg = ProjectTemplate.REACT_NATIVE_CLI.generateFiles("t")["package.json"]!!
+        assertTrue(expoPkg.contains("\"expo\""))
+        assertFalse(cliPkg.contains("\"expo\""))
+        assertTrue(cliPkg.contains("\"@react-native-community/cli\""))
+        assertFalse(expoPkg.contains("\"@react-native-community/cli\""))
+    }
+
+    @Test
     fun `NPM_LIBRARY template includes genType config`() {
         val files = ProjectTemplate.NPM_LIBRARY.generateFiles("test-project")
         assertTrue(files["rescript.json"]!!.contains("gentypeconfig"))
@@ -222,6 +247,7 @@ class ProjectTemplateTest {
                 ProjectTemplate.NEXTJS,
                 ProjectTemplate.ELECTRON,
                 ProjectTemplate.REACT_NATIVE,
+                ProjectTemplate.REACT_NATIVE_CLI,
             )
         reactTemplates.forEach {
             val rj = it.generateFiles("test")["rescript.json"]!!
