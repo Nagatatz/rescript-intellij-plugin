@@ -19,10 +19,10 @@
 - [x] tasklist 更新 + コミット
 
 #### コミット 2: ✅ Add RescriptJsonSchemaProviderFactoryTest
-- [ ] `src/test/kotlin/com/rescript/plugin/config/RescriptJsonSchemaProviderFactoryTest.kt` 作成
-- [ ] テスト: `isAvailable` で `rescript.json` true, `bsconfig.json` true, `package.json` false, etc.
-- [ ] `./gradlew test --tests "com.rescript.plugin.config.RescriptJsonSchemaProviderFactoryTest"` パス確認
-- [ ] tasklist 更新 + コミット
+- [x] `src/test/kotlin/com/rescript/plugin/config/RescriptJsonSchemaProviderFactoryTest.kt` 作成
+- [x] テスト: `isAvailable` で `rescript.json` true, `bsconfig.json` true, `package.json` false, etc.
+- [x] `./gradlew test --tests "com.rescript.plugin.config.RescriptJsonSchemaProviderFactoryTest"` パス確認
+- [x] tasklist 更新 + コミット
 
 #### コミット 3: ✅ Add RescriptDeclarationPsiElementTest
 - [ ] `src/test/kotlin/com/rescript/plugin/lang/psi/RescriptDeclarationPsiElementTest.kt` 作成
