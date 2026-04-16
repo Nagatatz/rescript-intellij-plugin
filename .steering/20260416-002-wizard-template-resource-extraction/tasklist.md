@@ -16,60 +16,29 @@
 
 ## Phase 2: 実装
 
-### コミット 1: `✨ Add TemplateResourceLoader utility`
+### コミット 1: `✨ Add TemplateResourceLoader utility` ✅
 
-- [ ] `src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateResourceLoader.kt` 新規
-  - `internal object TemplateResourceLoader`
-  - `fun load(path: String, vars: Map<String, String> = emptyMap(), strict: Boolean = true): String`
-  - KDoc をクラスと `load` に英語で付与
-- [ ] `src/test/kotlin/com/rescript/plugin/wizard/templates/TemplateResourceLoaderTest.kt` 新規
-  - ダミーリソース: `src/test/resources/templates/__test__/basic.txt`, `with-placeholder.txt`
-  - ケース:
-    - [ ] 存在するリソースをロード
-    - [ ] プレースホルダ置換
-    - [ ] strict=true で未置換 → `IllegalStateException`
-    - [ ] strict=false で未置換 → 原文残存
-    - [ ] 存在しないパス → `IllegalStateException`
-    - [ ] UTF-8 マルチバイト文字のロード
-- [ ] `./gradlew ktlintCheck && ./gradlew test --tests "*TemplateResourceLoaderTest"` が通る
-- [ ] 個別 `git add` でコミット
+- [x] `src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateResourceLoader.kt` 新規
+- [x] `src/test/kotlin/com/rescript/plugin/wizard/templates/TemplateResourceLoaderTest.kt` 新規 (6 テスト全 pass)
+- [x] ダミーリソース `src/test/resources/templates/__test__/{basic,with-placeholder,utf8}.txt`
+- [x] `./gradlew ktlintCheck && ./gradlew test --tests "*TemplateResourceLoaderTest"` が通る
+- [x] 個別 `git add` でコミット (f3a9f40)
 
-### コミット 2: `✨ Add templates resource smoke test`
+### コミット 2: `✨ Add templates resource smoke test` ✅
 
-- [ ] `src/test/kotlin/com/rescript/plugin/wizard/templates/TemplateResourcesSmokeTest.kt` 新規
-  - 既知プレースホルダ許容リスト (初期値 = 設計した dynamic プレースホルダ名の列挙)
-  - `src/main/resources/templates/` 下を再帰走査 (存在しない場合は空リスト = パス)
-  - 各ファイルが UTF-8 で読める
-  - `{{key}}` が含まれる場合、`key` が許容リストにあること
-- [ ] `./gradlew test --tests "*TemplateResourcesSmokeTest"` が通る (`templates/` がまだ空でもパスする実装)
-- [ ] 個別 `git add` でコミット
+- [x] `src/test/kotlin/com/rescript/plugin/wizard/templates/TemplateResourcesSmokeTest.kt` 新規 (2 テスト pass)
+- [x] `src/main/resources/templates/` 下の再帰走査 + プレースホルダ検証
+- [x] 個別 `git add` でコミット (6d9ed8f)
 
-### コミット 3: `♻️ Extract static content from HonoTemplateFiles to resources`
+### コミット 3: `♻️ Extract static content from HonoTemplateFiles to resources` ✅
 
-- [ ] **スナップショット採取 (コミット対象外):** refactor 前に `HonoTemplateFiles.generate(TemplateContext("svc", NPM))` と `PNPM` 2ケースの Map を `/tmp/hono-snapshot-{pre}-{pm}/` に保存
-- [ ] `src/main/resources/templates/hono/` 下に抽出:
-  - `src/Logger.res`
-  - `src/Schema.res`
-  - `src/Db.res`
-  - `src/ZodOpenapi.res`
-  - `src/Scalar.res`
-  - `src/Routes/Users.res`
-  - `src/Server.res`
-  - `drizzle.config.ts`
-  - `src/__tests__/Server.test.mjs`
-  - `readme/api.md`
-  - `readme/database.md` (プレースホルダ: `{{cmdDbGenerate}}`, `{{cmdDbMigrate}}`)
-  - `readme/openapi.md`
-  - `readme/project-layout.md`
-- [ ] `HonoTemplateFiles.kt` を修正:
-  - 該当 `private fun` を削除
-  - `generate()` の該当行を `TemplateResourceLoader.load("hono/...", ...)` に差し替え
-  - `databaseSection` は `TemplateResourceLoader.load("hono/readme/database.md", mapOf("cmdDbGenerate" to ctx.runCmd("db:generate"), "cmdDbMigrate" to ctx.runCmd("db:migrate")))` に
-- [ ] スナップショット採取 (post) → `diff -r pre/ post/` で完全一致を確認
-- [ ] `TemplateResourcesSmokeTest` の許容プレースホルダ一覧に `cmdDbGenerate`, `cmdDbMigrate` を追加
-- [ ] 既存 `HonoTemplateFilesTest` が**無修正で**通ること
-- [ ] `./gradlew ktlintCheck && ./gradlew test --tests "*HonoTemplateFilesTest" --tests "*TemplateResourcesSmokeTest"` が通る
-- [ ] 個別 `git add` でコミット (`.kt` + 新規 resources のみ)
+- [x] pre-snapshot 採取 (`/tmp/tpl-snap-pre/hono/{NPM,PNPM,YARN}/`)
+- [x] `src/main/resources/templates/hono/` に 13 ファイル抽出 (`.res` 7, `drizzle.config.ts`, `Server.test.mjs`, `readme/*.md` 4)
+- [x] `HonoTemplateFiles.kt` 修正: 13 private fun 削除、`generate()` が `TemplateResourceLoader.load(...)` 呼び出しに差し替え
+- [x] `TemplateResourcesSmokeTest` の許容プレースホルダに `cmdDbGenerate`, `cmdDbMigrate` 追加
+- [x] post-snapshot 採取 → `diff -r pre/hono post/hono` で完全一致確認
+- [x] 既存 `HonoTemplateFilesTest` (11 テスト) 無修正で pass
+- [x] smoke test / loader test pass、ktlint pass
 
 ### コミット 4: `♻️ Extract static content from HonoGraphqlTemplateFiles to resources`
 

@@ -11,7 +11,12 @@ class TemplateResourcesSmokeTest {
     // Every `{{key}}` appearing in `src/main/resources/templates/` must be listed here.
     // Add new keys as template extraction introduces them — this guards against typos
     // in resource files (e.g. `{{projecName}}` instead of `{{projectName}}`).
-    private val knownPlaceholders: Set<String> = emptySet()
+    private val knownPlaceholders: Set<String> =
+        setOf(
+            // hono/readme/database.md
+            "cmdDbGenerate",
+            "cmdDbMigrate",
+        )
 
     @Test
     fun `every template resource is readable as UTF-8`() {
