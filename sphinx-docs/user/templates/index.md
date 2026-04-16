@@ -6,7 +6,7 @@ myst:
 
 # Project Templates
 
-The plugin ships 14 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
+The plugin ships 15 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
 
 ## Opening the Wizard
 
