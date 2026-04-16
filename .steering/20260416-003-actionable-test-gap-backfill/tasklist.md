@@ -25,10 +25,10 @@
 - [x] tasklist 更新 + コミット
 
 #### コミット 3: ✅ Add RescriptDeclarationPsiElementTest
-- [ ] `src/test/kotlin/com/rescript/plugin/lang/psi/RescriptDeclarationPsiElementTest.kt` 作成
-- [ ] テスト: fixture で `let foo = 1` 解析、getDeclarationName() == "foo", toString() prefix 確認
-- [ ] `./gradlew test --tests "com.rescript.plugin.lang.psi.RescriptDeclarationPsiElementTest"` パス確認
-- [ ] tasklist 更新 + コミット
+- [x] `src/test/kotlin/com/rescript/plugin/lang/psi/RescriptDeclarationPsiElementTest.kt` 作成
+- [x] テスト: fixture で `let foo = 1` 解析、getDeclarationName() == "foo", toString() prefix 確認
+- [x] `./gradlew test --tests "com.rescript.plugin.lang.psi.RescriptDeclarationPsiElementTest"` パス確認
+- [x] tasklist 更新 + コミット
 
 #### コミット 4: ✅ Add tests for module hierarchy descriptors and tree structures
 - [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptModuleHierarchyNodeDescriptorTest.kt` 作成
