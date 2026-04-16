@@ -210,7 +210,6 @@ kover {
                     "com.rescript.plugin.lang.RescriptFlexLexer",
                     // Pure type definitions (no logic)
                     "com.rescript.plugin.RescriptFileTypes",
-                    "com.rescript.plugin.RescriptIcons",
                     "com.rescript.plugin.RescriptLanguage",
                     // Root package classes with 0% coverage
                     "com.rescript.plugin.RescriptErrorReporter*",
@@ -224,7 +223,6 @@ kover {
                     "com.rescript.plugin.lang.RescriptElementDescriptionProvider*",
                     "com.rescript.plugin.lang.RescriptParserDefinition*",
                     // PSI elements requiring IDE lifecycle
-                    "com.rescript.plugin.lang.psi.RescriptDeclarationPsiElement*",
                     "com.rescript.plugin.lang.psi.RescriptDeclarationElementType*",
                     "com.rescript.plugin.lang.psi.RescriptDeclarationStub*",
                     "com.rescript.plugin.lang.psi.RescriptFileStub*",
@@ -259,7 +257,7 @@ kover {
         }
         verify {
             rule {
-                minBound(85)
+                minBound(86)
             }
         }
     }
