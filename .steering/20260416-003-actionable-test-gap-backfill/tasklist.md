@@ -31,10 +31,10 @@
 - [x] tasklist 更新 + コミット
 
 #### コミット 4: ✅ Add tests for module hierarchy descriptors and tree structures
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptModuleHierarchyNodeDescriptorTest.kt` 作成
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptModuleHierarchyTreeStructureTest.kt` 作成（両 TreeStructure を含む）
-- [ ] `./gradlew test --tests "com.rescript.plugin.hierarchy.*"` パス確認
-- [ ] tasklist 更新 + コミット
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptModuleHierarchyNodeDescriptorTest.kt` 作成
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptModuleHierarchyTreeStructureTest.kt` 作成（両 TreeStructure を含む）
+- [x] `./gradlew test --tests "com.rescript.plugin.hierarchy.*"` パス確認
+- [x] tasklist 更新 + コミット
 
 #### コミット 5: ✅ Add tests for call hierarchy descriptors and tree structures
 - [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallHierarchyNodeDescriptorTest.kt` 作成
