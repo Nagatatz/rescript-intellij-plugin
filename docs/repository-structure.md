@@ -109,6 +109,7 @@ rescript-intellij-plugin/
 | `scripts/dts-to-json.js` | バンドル Node.js スクリプト（.d.ts パーサー） |
 | `schemas/rescript.schema.json` | rescript.json 用 JSON Schema |
 | `icons/` | SVG アイコン（.res / .resi / rescript.json 用、Light/Dark 対応） |
+| `templates/` | Wizard テンプレートの静的ファイル（`.res` サンプル・README セクション・`drizzle.config.ts` 等）。`TemplateResourceLoader` 経由でロード |
 
 ### 2.2 テストコード (`src/test/`)
 

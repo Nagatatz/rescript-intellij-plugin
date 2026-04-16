@@ -1,0 +1,19 @@
+"""
+Users managed by the Hono GraphQL template.
+Keep this file in sync with src/GraphqlSchema.res typeDefs.
+"""
+type User {
+  id: Int!
+  name: String!
+  email: String!
+}
+
+type Query {
+  users: [User!]!
+  user(id: Int!): User
+}
+
+type Mutation {
+  createUser(name: String!, email: String!): User!
+  deleteUser(id: Int!): Boolean!
+}

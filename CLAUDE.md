@@ -88,7 +88,7 @@ IDE 統合機能は以下のカテゴリで実装されている。詳細な機�
 - **ツールウィンドウ・対話機能** (`preview/`, `repl/`, `scratch/`, `worksheet/`, `ppx/`, `diagram/`, `typeinfo/`) — JS プレビュー、REPL、Scratch File、Worksheet モード、PPX 展開ビュー、依存関係ダイアグラム
 - **言語インジェクション・ペースト** (`injection/`, `paste/`) — `%raw()` JS / `%re()` RegExp / Markdown コードフェンス、Paste as JSON.t、JS/TS → ReScript 変換
 - **補助機能** (`spellcheck/`, `grazie/`, `indexing/`, `documentation/`) — スペルチェック、Grazie 連携、TODO インデックス、External Documentation
-- **共通ユーティリティ** (`util/`) — offset↔Position 変換、正規表現パターン集約、プロセス実行、ファイル/エディタヘルパー、Intention/Generate 基底クラス
+- **共通ユーティリティ** (`util/`, `wizard/templates/`) — offset↔Position 変換、正規表現パターン集約、プロセス実行、ファイル/エディタヘルパー、Intention/Generate 基底クラス、Wizard テンプレートリソースローダー (`TemplateResourceLoader` で `resources/templates/` 配下の静的コンテンツと `{{key}}` プレースホルダをロード)
 
 ## 開発規約
 
