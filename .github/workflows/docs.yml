@@ -85,7 +85,6 @@ jobs:
 
       - name: Link check
         run: make linkcheck
-        continue-on-error: true
 
       - name: Report link check results
         if: always()
