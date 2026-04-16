@@ -62,9 +62,18 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | リアルタイム診断 | コンパイルエラー・警告のインライン表示 | P0 |
 | インレイヒント | 推論された型の注釈表示 | P1 |
 
-### 実装済み機能（当初ロードマップから完了）
+### 実装済み機能一覧
 
-以下の機能は当初ロードマップに含まれていたが、既に実装済みである。
+実装済み機能の完全なリストは以下を参照:
+
+- ユーザー向けサマリ: `README.md` の Features セクション
+- パッケージ/クラス単位の対応表: `docs/functional-design.md` の Extension Point マップ
+- 機能カテゴリ別の解説: `sphinx-docs/user/features/`
+
+以下、過去の記録として当初ロードマップ完了項目を残す（履歴目的）。
+
+<details>
+<summary>当初ロードマップ完了項目（クリックして展開）</summary>
 
 | 機能 | 説明 | 実装状況 |
 |---|---|---|
@@ -231,13 +240,13 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Generate Action 基底クラス抽出 | 6 Generate Action の `ActionUpdateThread.BGT` ポリシーを共通基底クラスに集約 | `RescriptBaseGenerateAction` |
 | エディタユーティリティ抽出 | `WriteCommandAction` ラッパーと `Document` 行アクセスヘルパーの共通化 | `RescriptEditorUtils` |
 
-### 将来機能（ロードマップ） — ギャップ分析
+</details>
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、全109件を実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件 + C 優先度23件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。#110, #111 は S 優先度として実装済み。#112, #113, #114 は A 優先度として実装済み。#118 は C 優先度として実装済み。#115, #116, #117 はインフラ改善として実装済み。
+### 将来機能（ロードマップ）
 
-JetBrains Marketplace には v0.1.2 で申請済み（審査中）。
+現時点で計画中の機能はない。3 回の機能調査で収集された 109 件の機能候補はすべて実装完了している。
 
-全機能実装済み。未実装機能なし。
+新規機能の提案は GitHub Issues で受け付ける。ロードマップの表記方法は `.claude/rules/roadmap-format.md` を参照。
 
 ## 4. 成功の定義
 
