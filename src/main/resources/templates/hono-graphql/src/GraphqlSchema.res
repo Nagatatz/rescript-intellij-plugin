@@ -1,0 +1,27 @@
+// Builds a graphql-js schema object from the SDL string and bundles the
+// resolvers (matching type.field => function shape) consumed by graphql-yoga.
+@val external readFileSync: (string, string) => string = "fs.readFileSync"
+@module("node:fs") external readFile: (string, string) => string = "readFileSync"
+
+// We inline the SDL rather than reading the file at startup so the bundle
+// stays self-contained; keep this in sync with src/schema.graphql.
+let typeDefs = \`
+  type User { id: Int!, name: String!, email: String! }
+  type Query {
+    users: [User!]!
+    user(id: Int!): User
+  }
+  type Mutation {
+    createUser(name: String!, email: String!): User!
+    deleteUser(id: Int!): Boolean!
+  }
+\`
+
+let schema = Yoga.buildSchema(typeDefs)
+
+let rootValue = {
+  "users": Resolvers.Users.listUsers,
+  "user": Resolvers.Users.userById,
+  "createUser": Resolvers.Users.createUser,
+  "deleteUser": Resolvers.Users.deleteUser,
+}

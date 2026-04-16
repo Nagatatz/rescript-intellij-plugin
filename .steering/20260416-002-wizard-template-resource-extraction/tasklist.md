@@ -40,17 +40,15 @@
 - [x] 既存 `HonoTemplateFilesTest` (11 テスト) 無修正で pass
 - [x] smoke test / loader test pass、ktlint pass
 
-### コミット 4: `♻️ Extract static content from HonoGraphqlTemplateFiles to resources`
+### コミット 4: `♻️ Extract static content from HonoGraphqlTemplateFiles to resources` ✅
 
-- [ ] スナップショット採取 (pre)
-- [ ] `HonoGraphqlTemplateFiles.kt` を読み、静的 `private fun` を洗い出し
-- [ ] `src/main/resources/templates/hono-graphql/` 下に抽出 (実装時に具体ファイル一覧を確定)
-- [ ] Kotlin 側を `TemplateResourceLoader.load(...)` 呼び出しに差し替え
-- [ ] ctx 依存セクションがあればプレースホルダ化 (許容リスト更新)
-- [ ] スナップショット採取 (post) → `diff -r` で一致
-- [ ] 既存 `HonoGraphqlTemplateFilesTest` が無修正で通ること
-- [ ] `./gradlew ktlintCheck && ./gradlew test --tests "*HonoGraphql*" --tests "*TemplateResourcesSmokeTest"` が通る
-- [ ] 個別 `git add` でコミット
+- [x] pre-snapshot 採取
+- [x] `src/main/resources/templates/hono-graphql/` に 13 ファイル抽出 (.res 6 + .graphql + drizzle.config.ts + .mjs + readme/*.md 4)
+- [x] `HonoGraphqlTemplateFiles.kt` 386→127行、13 private fun 削除
+- [x] `cmdDbGenerate`/`cmdDbMigrate` プレースホルダ再利用 (既に許容リスト済み)
+- [x] post-snapshot → `diff -r` 完全一致
+- [x] 既存 `HonoGraphqlTemplateFilesTest` (13 テスト) 無修正で pass
+- [x] ktlint pass
 
 ### コミット 5: `♻️ Extract static content from ReactNativeCliTemplateFiles to resources`
 
