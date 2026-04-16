@@ -57,10 +57,10 @@
 - [x] tasklist 更新 + コミット
 
 #### コミット 8: ✅ Add RescriptModuleHierarchyBrowserTest
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptModuleHierarchyBrowserTest.kt` 作成
-- [ ] テスト: `isApplicableElement`, `createHierarchyTreeStructure` の typeName ルーティング、`getContentDisplayName`, getActionPlace 等の定数
-- [ ] `./gradlew test --tests "com.rescript.plugin.hierarchy.RescriptModuleHierarchyBrowserTest"` パス確認
-- [ ] tasklist 更新 + コミット
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptModuleHierarchyBrowserTest.kt` 作成
+- [x] テスト: `isApplicableElement`, `createHierarchyTreeStructure` の typeName ルーティング、`getContentDisplayName`, getActionPlace 等の定数（protected メソッドはリフレクション経由）
+- [x] `./gradlew test --tests "com.rescript.plugin.hierarchy.RescriptModuleHierarchyBrowserTest"` パス確認
+- [x] tasklist 更新 + コミット
 
 #### コミット 9: ✅ Add RescriptCallHierarchyBrowserTest
 - [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallHierarchyBrowserTest.kt` 作成
