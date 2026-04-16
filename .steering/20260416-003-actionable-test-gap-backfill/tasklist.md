@@ -51,10 +51,10 @@
 ### Group 2 — Fixture / 重め (3 ファイル)
 
 #### コミット 7: ✅ Add RescriptFormattingServiceTest
-- [ ] `src/test/kotlin/com/rescript/plugin/formatter/RescriptFormattingServiceTest.kt` 作成
-- [ ] テスト: `canFormat` の判定、`getName/getNotificationGroupId/getFeatures`、`createFormattingTask` で CLI 未検出時 onError + null 返却
-- [ ] `./gradlew test --tests "com.rescript.plugin.formatter.RescriptFormattingServiceTest"` パス確認
-- [ ] tasklist 更新 + コミット
+- [x] `src/test/kotlin/com/rescript/plugin/formatter/RescriptFormattingServiceTest.kt` 作成
+- [x] テスト: `canFormat`/`getFeatures` (public)、`getName/getNotificationGroupId` は protected のためリフレクションで検証。`createFormattingTask` の happy path は AsyncFormattingRequest 構築と CLI バイナリが必要なため省略 (KDoc に記載)
+- [x] `./gradlew test --tests "com.rescript.plugin.formatter.RescriptFormattingServiceTest"` パス確認
+- [x] tasklist 更新 + コミット
 
 #### コミット 8: ✅ Add RescriptModuleHierarchyBrowserTest
 - [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/RescriptModuleHierarchyBrowserTest.kt` 作成
