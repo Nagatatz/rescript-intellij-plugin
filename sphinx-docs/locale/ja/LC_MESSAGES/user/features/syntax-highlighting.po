@@ -1375,10 +1375,10 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Template String Interpolation"
-#~ msgstr ""
+#~ msgstr "テンプレート文字列の補間"
 
 #~ msgid "Template strings with `${}` interpolation are fully supported:"
-#~ msgstr ""
+#~ msgstr "`${}` 補間を含むテンプレート文字列は完全にサポートされています:"
 
 #~ msgid ""
 #~ "When the Language Server is connected,"
@@ -1388,22 +1388,22 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "`let x = 1` → `x` colored as variable"
-#~ msgstr ""
+#~ msgstr "`let x = 1` → `x` は変数として色付け"
 
 #~ msgid "`type t = int` → `t` colored as type"
-#~ msgstr ""
+#~ msgstr "`type t = int` → `t` は型として色付け"
 
 #~ msgid "`Belt.Array` → `Belt` colored as namespace"
-#~ msgstr ""
+#~ msgstr "`Belt.Array` → `Belt` は名前空間として色付け"
 
 #~ msgid "`Some(x)` → `Some` colored as enum member"
-#~ msgstr ""
+#~ msgstr "`Some(x)` → `Some` は列挙メンバーとして色付け"
 
 #~ msgid "`user.name` → `name` colored as property"
-#~ msgstr ""
+#~ msgstr "`user.name` → `name` はプロパティとして色付け"
 
 #~ msgid "`<div>` → `div` colored as interface"
-#~ msgstr ""
+#~ msgstr "`<div>` → `div` はインターフェースとして色付け"
 
 #~ msgid ""
 #~ "Semantic highlighting overlays on top of"

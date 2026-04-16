@@ -1187,7 +1187,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Decorator"
-#~ msgstr ""
+#~ msgstr "デコレータ"
 
 #~ msgid ""
 #~ "When the Language Server is connected,"
@@ -1196,5 +1196,5 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Module names"
-#~ msgstr ""
+#~ msgstr "モジュール名"
 

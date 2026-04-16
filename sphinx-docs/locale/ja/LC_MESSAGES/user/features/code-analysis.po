@@ -925,7 +925,7 @@ msgid ""
 "After running the optimizer, a notification displays the result (e.g., "
 "\"Removed 2 duplicate open statement(s)\" or \"No duplicate open "
 "statements found\")."
-msgstr ""
+msgstr "オプティマイザ実行後、通知で結果が表示されます (例: "
 "オプティマイザの実行後、結果が通知として表示されます (例: \"Removed 2 duplicate open statement(s)\" "
 "または \"No duplicate open statements found\")。"
 
@@ -1068,22 +1068,22 @@ msgstr ""
 "クイックフィックスはコンパイラエラーをワンクリック修正に変換し、手動でコードを編集する代わりに、エラー箇所から直接型の不一致、不足しているインポート、不完全なパターンを解決できます。"
 
 #~ msgid "**Errors** — Shown with red underlines"
-#~ msgstr ""
+#~ msgstr "**Errors** — 赤い下線で表示"
 
 #~ msgid "**Warnings** — Shown with yellow underlines"
-#~ msgstr ""
+#~ msgstr "**Warnings** — 黄色い下線で表示"
 
 #~ msgid "**Info** — Shown with subtle underlines"
-#~ msgstr ""
+#~ msgstr "**Info** — 薄い下線で表示"
 
 #~ msgid "The plugin includes built-in inspections that run locally:"
-#~ msgstr ""
+#~ msgstr "プラグインはローカルで実行される組み込みインスペクションを提供します:"
 
 #~ msgid "Detects when the same module is opened multiple times:"
-#~ msgstr ""
+#~ msgstr "同じモジュールが複数回 open されていることを検出します:"
 
 #~ msgid "Warns about empty module declarations:"
-#~ msgstr ""
+#~ msgstr "空のモジュール宣言を警告します:"
 
 #~ msgid ""
 #~ "Warns when `rescript.json` (or "
@@ -1098,28 +1098,28 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "**Dead code** — Unused functions, values, and types"
-#~ msgstr ""
+#~ msgstr "**デッドコード** — 未使用の関数・値・型"
 
 #~ msgid "**Dead exceptions** — Unused exception declarations"
-#~ msgstr ""
+#~ msgstr "**デッド例外** — 未使用の例外宣言"
 
 #~ msgid "**Unhandled exceptions** — Exception paths not covered by try/catch"
-#~ msgstr ""
+#~ msgstr "**未処理例外** — try/catch でカバーされていない例外経路"
 
 #~ msgid "reanalyze runs as an external annotator on file save"
-#~ msgstr ""
+#~ msgstr "reanalyze はファイル保存時に external annotator として実行されます"
 
 #~ msgid "Results appear as editor annotations (warnings/info)"
-#~ msgstr ""
+#~ msgstr "結果はエディタアノテーション（警告/情報）として表示されます"
 
 #~ msgid "Quick fixes are available:"
-#~ msgstr ""
+#~ msgstr "Quick Fix が利用できます:"
 
 #~ msgid "Add `_` prefix to mark as intentionally unused"
-#~ msgstr ""
+#~ msgstr "意図的に未使用であることを示すため `_` プレフィックスを追加"
 
 #~ msgid "Remove the `_` prefix when code is actually used"
-#~ msgstr ""
+#~ msgstr "実際に使用している場合は `_` プレフィックスを削除"
 
 #~ msgid ""
 #~ "Run **Code** → **Inspect Code** to "
@@ -1129,23 +1129,23 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Press `Ctrl+Alt+O` to optimize imports:"
-#~ msgstr ""
+#~ msgstr "`Ctrl+Alt+O` を押すと import を整理できます:"
 
 #~ msgid "Removes duplicate `open` statements"
-#~ msgstr ""
+#~ msgstr "重複する `open` 文を削除"
 
 #~ msgid "Keeps unique `open` statements in their original order"
-#~ msgstr ""
+#~ msgstr "一意な `open` 文は元の順序を維持"
 
 #~ msgid "The Language Server provides automatic code fixes via `Alt+Enter`:"
-#~ msgstr ""
+#~ msgstr "Language Server は `Alt+Enter` により自動的なコード修正を提供します:"
 
 #~ msgid "Add missing imports"
-#~ msgstr ""
+#~ msgstr "不足している import を追加"
 
 #~ msgid "Add type annotations"
-#~ msgstr ""
+#~ msgstr "型注釈を追加"
 
 #~ msgid "Fix common type errors"
-#~ msgstr ""
+#~ msgstr "よくある型エラーを修正"
 
