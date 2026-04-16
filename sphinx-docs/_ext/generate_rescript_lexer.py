@@ -383,9 +383,9 @@ class RescriptDefaultStyle(Style):
 
     styles = {{
         Whitespace:          "",
-        Comment:             "italic #808080",
-        Comment.Single:      "italic #808080",
-        Comment.Multiline:   "italic #808080",
+        Comment:             "italic #767676",
+        Comment.Single:      "italic #767676",
+        Comment.Multiline:   "italic #767676",
         Keyword:             "bold #000080",
         Operator:            "#{default_colors.get("RESCRIPT_OPERATOR", "666666")}",
         Operator.Word:       "bold #000080",

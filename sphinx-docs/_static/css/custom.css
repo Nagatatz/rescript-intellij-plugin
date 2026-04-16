@@ -24,8 +24,35 @@
 }
 
 .language-switcher .separator {
-    color: var(--color-foreground-border);
+    /* #767676 meets WCAG 2.1 AA 4.5:1 contrast on Furo's light background. */
+    color: #767676;
     margin: 0 0.25rem;
+}
+
+/* Visually hide the submit button in Furo's sidebar search form. The button
+   must exist (H32 accessibility), but we keep the Furo styling which uses
+   Enter-to-submit visually. */
+.sidebar-search-submit {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* sphinx-design badge contrast fixes (WCAG 2.1 AA).
+   The default bg-success and bg-info backgrounds have ~3:1 contrast with
+   white text; darken them to #0a8927 / #008297 per pa11y recommendation. */
+.sd-bg-success.sd-bg-text-success {
+    background-color: #0a8927 !important;
+}
+
+.sd-bg-info.sd-bg-text-info {
+    background-color: #008297 !important;
 }
 
 /* Print-friendly layout for cheat sheet and reference pages */

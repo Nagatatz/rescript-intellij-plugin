@@ -1,0 +1,10 @@
+{# Override of Furo's sidebar search form that adds a visually-hidden submit
+   button so keyboard-only users can submit the form without pressing Enter
+   and so pa11y does not report a WCAG 2.1 H32 violation. #}
+<form class="sidebar-search-container" method="get" action="{{ pathto('search') }}" role="search">
+  <input class="sidebar-search" placeholder="{{ _("Search") }}" name="q" aria-label="{{ _("Search" ) }}">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+  <button type="submit" class="sidebar-search-submit">{{ _("Search") }}</button>
+</form>
+<div id="searchbox"></div>
