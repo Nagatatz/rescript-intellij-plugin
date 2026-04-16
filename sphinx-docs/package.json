@@ -1,0 +1,8 @@
+{
+  "name": "rescript-intellij-plugin-docs",
+  "private": true,
+  "description": "Node.js tooling for ReScript IntelliJ Plugin Sphinx docs (pa11y-ci, pagefind).",
+  "devDependencies": {
+    "pa11y-ci": "^3.1.0"
+  }
+}

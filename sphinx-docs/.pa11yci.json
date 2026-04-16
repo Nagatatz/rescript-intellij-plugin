@@ -1,0 +1,26 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "wait": 500,
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-dev-shm-usage"]
+    },
+    "ignore": [
+      "color-contrast",
+      "region"
+    ]
+  },
+  "urls": [
+    "http://127.0.0.1:8765/en/",
+    "http://127.0.0.1:8765/en/user/quickstart.html",
+    "http://127.0.0.1:8765/en/user/cheatsheet.html",
+    "http://127.0.0.1:8765/en/user/migration-from-vscode.html",
+    "http://127.0.0.1:8765/en/user/recipes/index.html",
+    "http://127.0.0.1:8765/en/user/features/index.html",
+    "http://127.0.0.1:8765/en/user/features/navigation.html",
+    "http://127.0.0.1:8765/en/user/version-matrix.html",
+    "http://127.0.0.1:8765/ja/",
+    "http://127.0.0.1:8765/ja/user/quickstart.html"
+  ]
+}
