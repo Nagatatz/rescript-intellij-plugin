@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.grammarkit)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.kover)
+    alias(libs.plugins.dokka)
 }
 
 repositories {
@@ -555,5 +556,28 @@ tasks {
         systemProperty("idea.required.plugins.id", "com.intellij.java")
         jvmArgs("-Xmx2G")
         autoReload = true
+    }
+}
+
+// Dokka configuration — generates Kotlin KDoc API reference into build/dokka/html.
+// The output is served at /api/ alongside the Sphinx user guide on GitHub Pages.
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+    moduleName.set("ReScript IntelliJ Plugin")
+    outputDirectory.set(layout.buildDirectory.dir("dokka/html"))
+    suppressInheritedMembers.set(true)
+    dokkaSourceSets.configureEach {
+        includes.from("docs/dokka-module.md")
+        sourceLink {
+            localDirectory.set(file("src/main/kotlin"))
+            remoteUrl.set(
+                uri("https://github.com/Nagatatz/rescript-intellij-plugin/tree/main/src/main/kotlin").toURL(),
+            )
+            remoteLineSuffix.set("#L")
+        }
+        // Generated JFlex lexer is not useful API documentation
+        perPackageOption {
+            matchingRegex.set("com\\.rescript\\.plugin\\.lang\\.RescriptFlexLexer.*")
+            suppress.set(true)
+        }
     }
 }

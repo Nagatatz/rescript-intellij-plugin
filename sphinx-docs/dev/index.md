@@ -11,6 +11,7 @@ This section covers everything you need to contribute to the ReScript IntelliJ P
 
 - [Architecture](architecture.md) — How the plugin is structured (lexer + LSP hybrid)
 - [Project Structure](project-structure.md) — Source code layout and key files
+- [API Reference](api-reference.md) — Auto-generated Kotlin KDoc (Dokka)
 
 ## Contributing
 
@@ -34,6 +35,7 @@ setup
 building
 architecture
 project-structure
+api-reference
 extending
 testing
 contributing

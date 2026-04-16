@@ -106,7 +106,8 @@ pygments_style = "rescript_lexer.RescriptDefaultStyle"
 pygments_dark_style = "rescript_lexer.RescriptDarculaStyle"
 
 html_static_path = ["_static"]
-html_css_files = ["css/custom.css"]
+html_css_files = ["css/custom.css", "css/keymap-visualizer.css", "css/settings-generator.css"]
+html_js_files = ["js/keymap-visualizer.js", "js/settings-generator.js"]
 templates_path = ["_templates"]
 
 # Site prefix for GitHub Pages (e.g., "/rescript-intellij-plugin")

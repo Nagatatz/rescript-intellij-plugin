@@ -32,6 +32,8 @@ Everything you need to get started with the ReScript IntelliJ Plugin and make th
 ## Reference
 
 - [Quick Reference Card](cheatsheet.md) — Condensed cheat sheet of shortcuts and features
+- [Keymap Visualizer](keymap-visualizer.md) — Interactive keyboard layout with shortcut overlays
+- [Settings Generator](settings-generator.md) — Build a custom plugin configuration JSON
 - [Version Matrix](version-matrix.md) — Features by version and IDE compatibility
 - [Configuration](configuration.md) — Plugin settings
 - [Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference
@@ -52,6 +54,8 @@ features/index
 templates/index
 recipes/index
 cheatsheet
+keymap-visualizer
+settings-generator
 version-matrix
 configuration
 keyboard-shortcuts

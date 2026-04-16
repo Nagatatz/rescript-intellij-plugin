@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-16 17:09+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../dev/api-reference.md
+msgid "api reference, dokka, kotlin, kdoc, classes, packages"
+msgstr "api reference, dokka, kotlin, kdoc, classes, packages"
+
+#: ../../dev/api-reference.md:7
+msgid "API Reference"
+msgstr "API リファレンス"
+
+#: ../../dev/api-reference.md:9
+msgid ""
+"The Kotlin API reference is generated from KDoc comments using "
+"[Dokka](https://kotlinlang.org/docs/dokka-introduction.html)."
+msgstr ""
+"Kotlin API リファレンスは、[Dokka](https://kotlinlang.org/docs/dokka-"
+"introduction.html) を用いて KDoc コメントから生成されます。"
+
+#: ../../dev/api-reference.md:12
+msgid ""
+"The API reference lives at [`/api/`](../../api/) alongside this "
+"documentation. The link above points to the deployed site; when running "
+"docs locally, generate the API docs first with `./gradlew dokkaGenerate` "
+"from the project root."
+msgstr ""
+"API リファレンスは、本ドキュメントと並んで [`/api/`](../../api/) に配置されます。"
+"上記リンクはデプロイ済みサイトを指しています。ローカルでドキュメントを実行する場合は、"
+"まずプロジェクトルートで `./gradlew dokkaGenerate` を実行して API ドキュメントを生成してください。"
+
+#: ../../dev/api-reference.md:15
+msgid "Generating the API reference locally"
+msgstr "API リファレンスをローカルで生成する"
+
+#: ../../dev/api-reference.md:25
+msgid "What's included"
+msgstr "含まれる内容"
+
+#: ../../dev/api-reference.md:27
+msgid ""
+"All `public` and `internal` Kotlin declarations under "
+"`src/main/kotlin/com/rescript/plugin/`:"
+msgstr ""
+"`src/main/kotlin/com/rescript/plugin/` 配下の `public` および `internal` "
+"のすべての Kotlin 宣言:"
+
+#: ../../dev/api-reference.md:29
+msgid "Classes, objects, interfaces, enums"
+msgstr "クラス、オブジェクト、インターフェース、列挙型"
+
+#: ../../dev/api-reference.md:30
+msgid "Top-level functions and properties"
+msgstr "トップレベル関数およびプロパティ"
+
+#: ../../dev/api-reference.md:31
+msgid "KDoc comments, `@param`, `@return`, `@see` annotations"
+msgstr "KDoc コメント、`@param`、`@return`、`@see` アノテーション"
+
+#: ../../dev/api-reference.md:32
+msgid "Source links to GitHub for each declaration"
+msgstr "各宣言に対応する GitHub へのソースリンク"
+
+#: ../../dev/api-reference.md:34
+msgid "What's excluded"
+msgstr "除外される内容"
+
+#: ../../dev/api-reference.md:36
+msgid ""
+"The auto-generated JFlex lexer (`RescriptFlexLexer.java`) — not useful as"
+" API"
+msgstr ""
+"自動生成された JFlex レクサー (`RescriptFlexLexer.java`) — API として利用価値がないため"
+
+#: ../../dev/api-reference.md:37
+msgid "`private` members (Dokka shows only `public` and `internal` by default)"
+msgstr "`private` メンバー（Dokka はデフォルトで `public` と `internal` のみを表示します）"
+
+#: ../../dev/api-reference.md:39
+msgid "Key packages"
+msgstr "主要なパッケージ"
+
+#: ../../dev/api-reference.md:11
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../dev/api-reference.md:11
+msgid "Purpose"
+msgstr "目的"
+
+#: ../../dev/api-reference.md:11
+msgid "`com.rescript.plugin.lang`"
+msgstr "`com.rescript.plugin.lang`"
+
+#: ../../dev/api-reference.md:11
+msgid "Lexer, parser, token types"
+msgstr "レクサー、パーサー、トークンタイプ"
+
+#: ../../dev/api-reference.md:11
+msgid "`com.rescript.plugin.lsp`"
+msgstr "`com.rescript.plugin.lsp`"
+
+#: ../../dev/api-reference.md:11
+msgid "Language Server integration"
+msgstr "Language Server 統合"
+
+#: ../../dev/api-reference.md:11
+msgid "`com.rescript.plugin.refactor`"
+msgstr "`com.rescript.plugin.refactor`"
+
+#: ../../dev/api-reference.md:11
+msgid "Refactoring support"
+msgstr "リファクタリングサポート"
+
+#: ../../dev/api-reference.md:11
+msgid "`com.rescript.plugin.intention`"
+msgstr "`com.rescript.plugin.intention`"
+
+#: ../../dev/api-reference.md:11
+msgid "Intention Actions"
+msgstr "Intention Actions"
+
+#: ../../dev/api-reference.md:11
+msgid "`com.rescript.plugin.inspection`"
+msgstr "`com.rescript.plugin.inspection`"
+
+#: ../../dev/api-reference.md:11
+msgid "Code inspections"
+msgstr "コードインスペクション"
+
+#: ../../dev/api-reference.md:11
+msgid "`com.rescript.plugin.util`"
+msgstr "`com.rescript.plugin.util`"
+
+#: ../../dev/api-reference.md:11
+msgid "Shared utilities"
+msgstr "共通ユーティリティ"
+
+#: ../../dev/api-reference.md:50
+msgid "See also"
+msgstr "関連項目"
+
+#: ../../dev/api-reference.md:52
+msgid "[Architecture](architecture.md) — High-level architecture overview"
+msgstr "[アーキテクチャ](architecture.md) — 高レベルのアーキテクチャ概要"
+
+#: ../../dev/api-reference.md:53
+msgid ""
+"[Project Structure](project-structure.md) — Source layout and file "
+"organization"
+msgstr ""
+"[プロジェクト構成](project-structure.md) — ソースのレイアウトとファイル構成"
+
+#: ../../dev/api-reference.md:54
+msgid "[Extending](extending.md) — How to add new plugin features"
+msgstr "[拡張方法](extending.md) — 新しいプラグイン機能の追加方法"

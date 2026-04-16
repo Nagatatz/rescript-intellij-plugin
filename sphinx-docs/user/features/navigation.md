@@ -72,7 +72,7 @@ When working with module interfaces, you frequently need to switch between the i
 
 Press `Ctrl+Alt+B` (`Cmd+Alt+B` on macOS) to jump from an interface declaration in a `.resi` file to the corresponding implementation in the `.res` file.
 
-This is the reverse of [Goto Super](#goto-super-res-resi): while Goto Super goes from implementation to interface, Go to Implementation goes from interface to implementation.
+This is the reverse of **Goto Super** (described below): while Goto Super goes from implementation to interface, Go to Implementation goes from interface to implementation.
 
 **Example:**
 

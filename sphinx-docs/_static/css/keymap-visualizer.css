@@ -1,0 +1,122 @@
+/* Keymap Visualizer */
+
+.keymap-container {
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) minmax(250px, 400px);
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+@media (max-width: 900px) {
+    .keymap-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.keymap-keyboard {
+    background: var(--color-background-secondary);
+    border: 1px solid var(--color-background-border);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.keymap-keyboard svg {
+    width: 100%;
+    height: auto;
+}
+
+.keymap-keyboard rect[data-key] {
+    fill: var(--color-background-primary);
+    stroke: var(--color-foreground-border);
+    stroke-width: 1;
+    transition: fill 0.15s ease, stroke 0.15s ease;
+}
+
+.keymap-keyboard text {
+    fill: var(--color-foreground-primary);
+    font-family: var(--font-stack--monospace);
+    font-size: 10px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.keymap-keyboard rect.keymap-active {
+    fill: var(--keymap-highlight, #3a7ab8);
+    stroke: var(--keymap-highlight, #3a7ab8);
+}
+
+.keymap-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.keymap-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.keymap-controls select,
+.keymap-controls input {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--color-background-border);
+    border-radius: 4px;
+    background: var(--color-background-primary);
+    color: var(--color-foreground-primary);
+    font-size: 0.9rem;
+}
+
+.keymap-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid var(--color-background-border);
+    border-radius: 4px;
+}
+
+.keymap-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--color-background-border);
+    cursor: pointer;
+    gap: 0.5rem;
+}
+
+.keymap-item:last-child {
+    border-bottom: none;
+}
+
+.keymap-item:hover,
+.keymap-item:focus {
+    background: var(--color-background-hover);
+    outline: none;
+}
+
+.keymap-name {
+    flex: 1;
+    color: var(--color-foreground-primary);
+    font-size: 0.9rem;
+}
+
+.keymap-keys {
+    font-size: 0.8rem;
+    color: var(--color-foreground-secondary);
+    background: var(--color-background-secondary);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.keymap-empty {
+    padding: 1rem;
+    text-align: center;
+    color: var(--color-foreground-muted);
+    font-style: italic;
+}

@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-16 16:57+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/settings-generator.md
+msgid "settings generator, configuration, json, plugin settings, interactive"
+msgstr "設定ジェネレータ, 構成, json, プラグイン設定, インタラクティブ"
+
+#: ../../user/settings-generator.md:7
+msgid "Settings Generator"
+msgstr "設定ジェネレータ"
+
+#: ../../user/settings-generator.md:9
+msgid ""
+"Build a custom plugin configuration by toggling the options below. The "
+"JSON output updates live — copy it to your clipboard or download as a "
+"file, then save it next to your project's `rescript.json` or apply via "
+"**Settings > Languages & Frameworks > ReScript**."
+msgstr ""
+"以下のオプションを切り替えてカスタムプラグイン設定を構築します。JSON 出力は"
+"リアルタイムで更新されます。クリップボードにコピーするかファイルとしてダウンロード"
+"し、プロジェクトの `rescript.json` の隣に保存するか、**Settings > Languages & "
+"Frameworks > ReScript** から適用してください。"
+
+#: ../../user/settings-generator.md:12
+msgid ""
+"Not every setting maps to a `rescript.json` field directly. Some values "
+"(such as `codeLens`) are sent to the language server through LSP "
+"initialization options; others (such as `errorLens`) are stored as IDE-"
+"local plugin settings. The JSON output uses a unified shape that mirrors "
+"the plugin's internal `RescriptProjectSettings` structure."
+msgstr ""
+"すべての設定が `rescript.json` のフィールドに直接マッピングされるわけではありません。"
+"一部の値（`codeLens` など）は LSP 初期化オプションを通じて Language Server に送信され、"
+"他の値（`errorLens` など）は IDE ローカルのプラグイン設定として保存されます。JSON 出力"
+"は、プラグイン内部の `RescriptProjectSettings` 構造を反映した統一された形式を使用します。"
+
+#: ../../user/settings-generator.md:32
+msgid "How to use"
+msgstr "使い方"
+
+#: ../../user/settings-generator.md:34
+msgid "**Toggle settings** in the left panel to enable or disable each feature."
+msgstr "左側のパネルで **設定を切り替え** て、各機能を有効または無効にします。"
+
+#: ../../user/settings-generator.md:35
+msgid "**Edit text fields** for custom paths (e.g., LSP binary location)."
+msgstr "カスタムパス（例: LSP バイナリの場所）については **テキストフィールドを編集** します。"
+
+#: ../../user/settings-generator.md:36
+msgid ""
+"**Copy** the generated JSON or **Download** it as `rescript-plugin-"
+"settings.json`."
+msgstr ""
+"生成された JSON を **コピー** するか、`rescript-plugin-settings.json` として "
+"**ダウンロード** します。"
+
+#: ../../user/settings-generator.md:37
+msgid "Apply the settings either by:"
+msgstr "設定を適用する方法は次のいずれかです:"
+
+#: ../../user/settings-generator.md:38
+msgid ""
+"Importing via **File > Settings > Languages & Frameworks > ReScript** "
+"(select \"Import from JSON\" — planned)"
+msgstr ""
+"**File > Settings > Languages & Frameworks > ReScript** からインポートする"
+"（\"Import from JSON\" を選択 — 予定）"
+
+#: ../../user/settings-generator.md:39
+msgid ""
+"Or manually setting each value in the settings UI using the JSON as a "
+"reference"
+msgstr ""
+"または、JSON を参考にしながら設定 UI で各値を手動で設定する"
+
+#: ../../user/settings-generator.md:41
+msgid "See also"
+msgstr "関連情報"
+
+#: ../../user/settings-generator.md:43
+msgid "[Configuration](configuration.md) — Full settings reference"
+msgstr "[設定](configuration.md) — 完全な設定リファレンス"
+
+#: ../../user/settings-generator.md:44
+msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Shortcut reference"
+msgstr "[キーボードショートカット](keyboard-shortcuts.md) — ショートカットリファレンス"
+

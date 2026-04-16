@@ -3,10 +3,10 @@ name: Docs
 on:
   push:
     branches: [main]
-    paths: ['sphinx-docs/**']
+    paths: ['sphinx-docs/**', 'src/main/kotlin/**', 'build.gradle.kts', 'docs/dokka-module.md']
   pull_request:
     branches: [main]
-    paths: ['sphinx-docs/**']
+    paths: ['sphinx-docs/**', 'src/main/kotlin/**', 'build.gradle.kts', 'docs/dokka-module.md']
   workflow_dispatch:
 
 concurrency:
@@ -49,6 +49,9 @@ jobs:
       - name: Pytest
         run: uv run pytest
 
+      - name: Translation quality check (pofilter)
+        run: make check-po
+
   build:
     runs-on: ubuntu-latest
     defaults:
@@ -77,6 +80,21 @@ jobs:
         env:
           SPHINX_SITE_PREFIX: /rescript-intellij-plugin
 
+      - name: Setup JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Generate Kotlin API reference (Dokka)
+        working-directory: ${{ github.workspace }}
+        run: ./gradlew dokkaHtml --no-configuration-cache
+
+      - name: Bundle API reference into site
+        run: |
+          mkdir -p _build/site/api
+          cp -r ../build/dokka/html/* _build/site/api/
+
       - name: Upload Pages artifact
         if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v4
@@ -85,7 +103,6 @@ jobs:
 
       - name: Link check
         run: make linkcheck
-        continue-on-error: true
 
       - name: Report link check results
         if: always()
@@ -98,6 +115,41 @@ jobs:
               echo '```'
             } >> "$GITHUB_STEP_SUMMARY"
           fi
+
+  a11y:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sphinx-docs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Build site
+        run: make build-all
+
+      - name: Start local server
+        run: |
+          cd _build/site
+          python3 -m http.server 8765 &
+          sleep 2
+
+      - name: Run pa11y-ci
+        run: npx --yes pa11y-ci --config .pa11yci.json
 
   deploy:
     if: github.event_name == 'push'

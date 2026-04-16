@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-17 16:42+0900\n"
+"POT-Creation-Date: 2026-04-16 17:09+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -59,45 +59,45 @@ msgid ""
 "files"
 msgstr "[プロジェクト構成](project-structure.md) — ソースコードのレイアウトと主要ファイル"
 
-#: ../../dev/index.md:15
+#: ../../dev/index.md:14
+msgid "[API Reference](api-reference.md) — Auto-generated Kotlin KDoc (Dokka)"
+msgstr "[API リファレンス](api-reference.md) — 自動生成された Kotlin KDoc (Dokka)"
+
+#: ../../dev/index.md:16
 msgid "Contributing"
 msgstr "コントリビュート"
 
-#: ../../dev/index.md:17
+#: ../../dev/index.md:18
 msgid "[Extending the Plugin](extending.md) — How to add new features"
 msgstr "[プラグインの拡張](extending.md) — 新機能の追加方法"
 
-#: ../../dev/index.md:18
+#: ../../dev/index.md:19
 msgid "[Testing Guide](testing.md) — Writing and running tests"
 msgstr "[テストガイド](testing.md) — テストの作成と実行"
 
-#: ../../dev/index.md:19
+#: ../../dev/index.md:20
 msgid ""
 "[Contributing Guide](contributing.md) — Workflow, conventions, and PR "
 "process"
 msgstr "[コントリビューションガイド](contributing.md) — ワークフロー、規約、PR プロセス"
 
-#: ../../dev/index.md:21
+#: ../../dev/index.md:22
 msgid "Infrastructure"
 msgstr "インフラストラクチャ"
 
-#: ../../dev/index.md:23
+#: ../../dev/index.md:24
 msgid ""
 "[CI/CD Pipeline](ci-cd.md) — GitHub Actions workflows, local CI "
 "reproduction, and troubleshooting"
-msgstr ""
-"[CI/CD パイプライン](ci-cd.md) — GitHub Actions ワークフロー、ローカル CI "
-"の再現、トラブルシューティング"
+msgstr "[CI/CD パイプライン](ci-cd.md) — GitHub Actions ワークフロー、ローカル CI の再現、トラブルシューティング"
 
-#: ../../dev/index.md:25
+#: ../../dev/index.md:26
 msgid "Tools"
 msgstr "ツール"
 
-#: ../../dev/index.md:27
+#: ../../dev/index.md:28
 msgid ""
 "[Claude Code Workflow](claude-code.md) — Rules, skills, hooks, and "
 "steering workflow for AI-assisted development"
-msgstr ""
-"[Claude Code ワークフロー](claude-code.md) — AI 支援開発のためのルール、スキル、"
-"フック、ステアリングワークフロー"
+msgstr "[Claude Code ワークフロー](claude-code.md) — AI 支援開発のためのルール、スキル、フック、ステアリングワークフロー"
 
