@@ -49,6 +49,9 @@ jobs:
       - name: Pytest
         run: uv run pytest
 
+      - name: Translation quality check (pofilter)
+        run: make check-po
+
   build:
     runs-on: ubuntu-latest
     defaults:
