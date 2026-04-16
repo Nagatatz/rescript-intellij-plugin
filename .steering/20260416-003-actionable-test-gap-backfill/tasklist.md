@@ -37,11 +37,11 @@
 - [x] tasklist 更新 + コミット
 
 #### コミット 5: ✅ Add tests for call hierarchy descriptors and tree structures
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallHierarchyNodeDescriptorTest.kt` 作成
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCalleeTreeStructureTest.kt` 作成
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallerTreeStructureTest.kt` 作成
-- [ ] `./gradlew test --tests "com.rescript.plugin.hierarchy.call.*"` パス確認
-- [ ] tasklist 更新 + コミット
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallHierarchyNodeDescriptorTest.kt` 作成
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCalleeTreeStructureTest.kt` 作成
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallerTreeStructureTest.kt` 作成（PsiSearchHelper 依存により caller find 結果のカウント確認は構造的不変条件のみ）
+- [x] `./gradlew test --tests "com.rescript.plugin.hierarchy.call.*"` パス確認
+- [x] tasklist 更新 + コミット
 
 #### コミット 6: ✅ Add RescriptDependencyDiagramProviderTest
 - [ ] `src/test/kotlin/com/rescript/plugin/diagram/RescriptDependencyDiagramProviderTest.kt` 作成（`buildDiagram` の fixture テスト。`extractDependencies` は既存の `RescriptDependencyDiagramModelTest` に残す）
