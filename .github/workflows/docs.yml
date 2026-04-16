@@ -3,10 +3,10 @@ name: Docs
 on:
   push:
     branches: [main]
-    paths: ['sphinx-docs/**']
+    paths: ['sphinx-docs/**', 'src/main/kotlin/**', 'build.gradle.kts', 'docs/dokka-module.md']
   pull_request:
     branches: [main]
-    paths: ['sphinx-docs/**']
+    paths: ['sphinx-docs/**', 'src/main/kotlin/**', 'build.gradle.kts', 'docs/dokka-module.md']
   workflow_dispatch:
 
 concurrency:
@@ -79,6 +79,21 @@ jobs:
         run: make build-all
         env:
           SPHINX_SITE_PREFIX: /rescript-intellij-plugin
+
+      - name: Setup JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Generate Kotlin API reference (Dokka)
+        working-directory: ${{ github.workspace }}
+        run: ./gradlew dokkaHtml --no-configuration-cache
+
+      - name: Bundle API reference into site
+        run: |
+          mkdir -p _build/site/api
+          cp -r ../build/dokka/html/* _build/site/api/
 
       - name: Upload Pages artifact
         if: github.event_name == 'push'
