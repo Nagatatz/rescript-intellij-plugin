@@ -44,9 +44,9 @@
 - [x] tasklist 更新 + コミット
 
 #### コミット 6: ✅ Add RescriptDependencyDiagramProviderTest
-- [ ] `src/test/kotlin/com/rescript/plugin/diagram/RescriptDependencyDiagramProviderTest.kt` 作成（`buildDiagram` の fixture テスト。`extractDependencies` は既存の `RescriptDependencyDiagramModelTest` に残す）
-- [ ] `./gradlew test --tests "com.rescript.plugin.diagram.*"` パス確認
-- [ ] tasklist 更新 + コミット
+- [x] `src/test/kotlin/com/rescript/plugin/diagram/RescriptDependencyDiagramProviderTest.kt` 作成（`buildDiagram` の smoke test。`EMPTY_PROJECT_DESCRIPTOR` には content root がないため `addFileToProject` は FileTypeIndex に反映されず、populated case は意図的に省略。理由はクラス KDoc に記載）
+- [x] `./gradlew test --tests "com.rescript.plugin.diagram.*"` パス確認
+- [x] tasklist 更新 + コミット
 
 ### Group 2 — Fixture / 重め (3 ファイル)
 
