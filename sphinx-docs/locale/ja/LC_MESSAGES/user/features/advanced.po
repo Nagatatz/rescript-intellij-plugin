@@ -2180,7 +2180,7 @@ msgstr "Project View の拡張"
 msgid ""
 "**Interface indicator:** `.res` files with a corresponding `.resi` show a"
 " \"(has .resi)\" suffix"
-msgstr ""
+msgstr "**インターフェース表示:** 対応する `.resi` を持つ `.res` ファイルには"
 "**インターフェースインジケーター:** 対応する `.resi` を持つ `.res` ファイルに \"(has .resi)\" "
 "サフィックスを表示"
 
@@ -3515,7 +3515,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "**Open:** **View** → **Tool Windows** → **Compiled JS Preview**"
-#~ msgstr ""
+#~ msgstr "**開き方:** **View** → **Tool Windows** → **Compiled JS Preview**"
 
 #~ msgid ""
 #~ "The preview updates automatically as you"
@@ -3523,7 +3523,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "View the module dependency hierarchy for any ReScript module."
-#~ msgstr ""
+#~ msgstr "任意の ReScript モジュールのモジュール依存階層を表示します。"
 
 #~ msgid ""
 #~ "**Open:** Right-click on a module "
@@ -3532,13 +3532,13 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "The hierarchy shows:"
-#~ msgstr ""
+#~ msgstr "階層には以下が表示されます:"
 
 #~ msgid "Module nesting (parent/child relationships)"
-#~ msgstr ""
+#~ msgstr "モジュールのネスト（親子関係）"
 
 #~ msgid "Dependencies via `open` and `include` statements"
-#~ msgstr ""
+#~ msgstr "`open` 文および `include` 文による依存関係"
 
 #~ msgid ""
 #~ "The Language Server displays inferred "
@@ -3559,16 +3559,16 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Auto-completion for configuration keys"
-#~ msgstr ""
+#~ msgstr "設定キーの自動補完"
 
 #~ msgid "Validation of values"
-#~ msgstr ""
+#~ msgstr "値のバリデーション"
 
 #~ msgid "Hover documentation for each field"
-#~ msgstr ""
+#~ msgstr "各フィールドのホバードキュメント"
 
 #~ msgid "ReScript code blocks in Markdown files are syntax-highlighted:"
-#~ msgstr ""
+#~ msgstr "Markdown ファイル内の ReScript コードブロックはシンタックスハイライトされます:"
 
 #~ msgid ""
 #~ "This requires the Markdown plugin to "
@@ -3582,19 +3582,19 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "This requires the JavaScript plugin to be available."
-#~ msgstr ""
+#~ msgstr "JavaScript プラグインが利用可能である必要があります。"
 
 #~ msgid "Create new ReScript projects from the IDE:"
-#~ msgstr ""
+#~ msgstr "IDE から新しい ReScript プロジェクトを作成できます:"
 
 #~ msgid "**File** → **New** → **Project**"
-#~ msgstr ""
+#~ msgstr "**File** → **New** → **Project**"
 
 #~ msgid "Select **ReScript** from the generator list"
-#~ msgstr ""
+#~ msgstr "ジェネレーターリストから **ReScript** を選択"
 
 #~ msgid "Configure project name and location"
-#~ msgstr ""
+#~ msgstr "プロジェクト名と場所を設定"
 
 #~ msgid ""
 #~ "The wizard generates a basic ReScript"
@@ -3602,22 +3602,22 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Create new ReScript files with pre-filled boilerplate:"
-#~ msgstr ""
+#~ msgstr "定型文を埋め込んだ新しい ReScript ファイルを作成できます:"
 
 #~ msgid "Right-click on a directory → **New** → **ReScript File**"
-#~ msgstr ""
+#~ msgstr "ディレクトリを右クリック → **New** → **ReScript File**"
 
 #~ msgid "Choose a template:"
-#~ msgstr ""
+#~ msgstr "テンプレートを選択:"
 
 #~ msgid "**Module** — Basic module file"
-#~ msgstr ""
+#~ msgstr "**Module** — 基本的なモジュールファイル"
 
 #~ msgid "**Interface** — Interface (`.resi`) file"
-#~ msgstr ""
+#~ msgstr "**Interface** — インターフェース (`.resi`) ファイル"
 
 #~ msgid "**Component** — React component boilerplate"
-#~ msgstr ""
+#~ msgstr "**Component** — React コンポーネントの定型コード"
 
 #~ msgid ""
 #~ "**Include React** --- Toggle to add "

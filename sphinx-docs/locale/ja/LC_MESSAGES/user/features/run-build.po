@@ -289,7 +289,7 @@ msgid ""
 "If the CLI is not found, the run configuration displays an error: "
 "*\"Cannot find 'rescript' CLI. Ensure it is installed via npm in the "
 "project.\"*"
-msgstr ""
+msgstr "CLI が見つからない場合、実行構成はエラーを表示します: "
 "CLI が見つからない場合、実行構成にエラーが表示されます: *\"Cannot find 'rescript' CLI. Ensure it "
 "is installed via npm in the project.\"*"
 
@@ -988,13 +988,13 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Compile the project once"
-#~ msgstr ""
+#~ msgstr "プロジェクトを 1 回コンパイル"
 
 #~ msgid "Compile and watch for file changes"
-#~ msgstr ""
+#~ msgstr "コンパイルしてファイル変更を監視"
 
 #~ msgid "Remove compiled artifacts"
-#~ msgstr ""
+#~ msgstr "コンパイル成果物を削除"
 
 #~ msgid ""
 #~ "**Working directory** — The project root"
@@ -1002,7 +1002,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "**Command** — Build, Build Watch, or Clean"
-#~ msgstr ""
+#~ msgstr "**Command** — Build、Build Watch、または Clean"
 
 #~ msgid ""
 #~ "A green ▶ run icon appears in "
@@ -1011,7 +1011,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Build Status"
-#~ msgstr ""
+#~ msgstr "ビルドステータス"
 
 #~ msgid ""
 #~ "The status bar at the bottom of"
@@ -1020,13 +1020,13 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "**Success** — Build completed without errors"
-#~ msgstr ""
+#~ msgstr "**成功** — エラーなくビルドが完了"
 
 #~ msgid "**Error** — Build failed with errors (click to see details)"
-#~ msgstr ""
+#~ msgstr "**エラー** — ビルドが失敗（クリックで詳細を表示）"
 
 #~ msgid "**Warning** — Build completed with warnings"
-#~ msgstr ""
+#~ msgstr "**警告** — ビルドは完了したが警告あり"
 
 #~ msgid ""
 #~ "The status is updated in real-time"

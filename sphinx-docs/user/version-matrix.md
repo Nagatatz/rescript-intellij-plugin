@@ -6,7 +6,7 @@ myst:
 
 # Version & Feature Matrix
 
-This page provides IDE compatibility information and a per-version breakdown of features added to the ReScript IntelliJ Plugin.
+This page provides IDE compatibility information and a per-version breakdown of features added to the ReScript IntelliJ Plugin. For the versioning policy, release workflow, and authoritative source of each piece of version information, see the [developer-facing version reference](https://github.com/Nagatatz/rescript-intellij-plugin/blob/main/docs/versions.md).
 
 ## IDE Compatibility
 

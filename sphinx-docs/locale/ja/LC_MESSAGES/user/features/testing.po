@@ -860,46 +860,46 @@ msgstr "これらのトラブルシューティングのヒントは最も一般
 #~ msgstr ""
 
 #~ msgid "Detection"
-#~ msgstr ""
+#~ msgstr "検出"
 
 #~ msgid "Detected via `jest` in `package.json` dependencies"
-#~ msgstr ""
+#~ msgstr "`package.json` の依存関係に `jest` があれば検出"
 
 #~ msgid "Detected via `vitest` in `package.json` dependencies"
-#~ msgstr ""
+#~ msgstr "`package.json` の依存関係に `vitest` があれば検出"
 
 #~ msgid "The plugin automatically detects which framework your project uses."
-#~ msgstr ""
+#~ msgstr "プラグインはプロジェクトが使用しているフレームワークを自動検出します。"
 
 #~ msgid "Configure the test file or directory"
-#~ msgstr ""
+#~ msgstr "テストファイルまたはディレクトリを設定"
 
 #~ msgid "Right-click on a test file in the Project panel and select **Run**."
-#~ msgstr ""
+#~ msgstr "Project パネルでテストファイルを右クリックし **Run** を選択します。"
 
 #~ msgid "Test results are displayed in the standard IntelliJ test runner UI:"
-#~ msgstr ""
+#~ msgstr "テスト結果は標準の IntelliJ テストランナー UI に表示されます:"
 
 #~ msgid "**Test tree** — Hierarchical view of test suites and cases"
-#~ msgstr ""
+#~ msgstr "**テストツリー** — テストスイートとケースの階層表示"
 
 #~ msgid "**Pass/fail indicators** — Green checkmarks and red crosses"
-#~ msgstr ""
+#~ msgstr "**成功/失敗インジケーター** — 緑のチェックマークと赤のバツ印"
 
 #~ msgid "**Output** — Stdout/stderr for each test"
-#~ msgstr ""
+#~ msgstr "**出力** — 各テストの Stdout/stderr"
 
 #~ msgid "**Duration** — Execution time per test"
-#~ msgstr ""
+#~ msgstr "**実行時間** — テストごとの実行時間"
 
 #~ msgid "The plugin compiles your `.res` test file to JavaScript"
-#~ msgstr ""
+#~ msgstr "プラグインは `.res` テストファイルを JavaScript にコンパイルします"
 
 #~ msgid "It runs the compiled `.js` file with Jest or Vitest"
-#~ msgstr ""
+#~ msgstr "コンパイル済みの `.js` ファイルを Jest または Vitest で実行します"
 
 #~ msgid "Test output is parsed and displayed in the SMTestRunner UI"
-#~ msgstr ""
+#~ msgstr "テスト出力はパースされ SMTestRunner UI に表示されます"
 
 #~ msgid ""
 #~ "Test running requires that your ReScript"
