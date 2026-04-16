@@ -63,10 +63,10 @@
 - [x] tasklist 更新 + コミット
 
 #### コミット 9: ✅ Add RescriptCallHierarchyBrowserTest
-- [ ] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallHierarchyBrowserTest.kt` 作成
-- [ ] テスト: 同 8 (call 系)
-- [ ] `./gradlew test --tests "com.rescript.plugin.hierarchy.call.RescriptCallHierarchyBrowserTest"` パス確認
-- [ ] tasklist 更新 + コミット
+- [x] `src/test/kotlin/com/rescript/plugin/hierarchy/call/RescriptCallHierarchyBrowserTest.kt` 作成
+- [x] テスト: 同 8 (call 系: applicability, typeName ルーティング, getContentDisplayName, 定数)
+- [x] `./gradlew test --tests "com.rescript.plugin.hierarchy.call.RescriptCallHierarchyBrowserTest"` パス確認
+- [x] tasklist 更新 + コミット
 
 ### Group 3 — kover 設定更新
 
