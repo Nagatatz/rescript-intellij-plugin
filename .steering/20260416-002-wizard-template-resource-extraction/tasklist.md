@@ -60,17 +60,15 @@
 - [x] 既存 `ReactNativeCliTemplateFilesTest` (14 テスト) 無修正で pass
 - [x] ktlint pass
 
-### コミット 6: `♻️ Extract static content from FullStackTemplateFiles to resources`
+### コミット 6: `♻️ Extract static content from FullStackTemplateFiles to resources` ✅
 
-- [ ] スナップショット採取 (pre)
-- [ ] `FullStackTemplateFiles.kt` を読み、静的 `private fun` を洗い出し
-- [ ] `src/main/resources/templates/full-stack/` 下に抽出
-- [ ] Kotlin 側を `TemplateResourceLoader.load(...)` に差し替え
-- [ ] ctx 依存セクションのプレースホルダ化 (許容リスト更新)
-- [ ] スナップショット採取 (post) → `diff -r` で一致
-- [ ] 既存 `FullStackTemplateFilesTest` が無修正で通ること
-- [ ] `./gradlew ktlintCheck && ./gradlew test --tests "*FullStack*" --tests "*TemplateResourcesSmokeTest"` が通る
-- [ ] 個別 `git add` でコミット
+- [x] pre-snapshot 採取
+- [x] `src/main/resources/templates/full-stack/` に 19 ファイル抽出 (.res 11 + .ts + .html + .mjs 2 + readme/*.md 5)
+- [x] `FullStackTemplateFiles.kt` 479→183行
+- [x] 既存プレースホルダ再利用 (projectName, cmdDbGenerate, cmdDbMigrate)
+- [x] post-snapshot → `diff -r` 完全一致
+- [x] 既存 `FullStackTemplateFilesTest` (13 テスト) 無修正で pass
+- [x] ktlint pass
 
 ### コミット 7: `♻️ Extract static content from MonorepoTemplateFiles to resources`
 
