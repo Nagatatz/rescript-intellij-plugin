@@ -70,17 +70,15 @@
 - [x] 既存 `FullStackTemplateFilesTest` (13 テスト) 無修正で pass
 - [x] ktlint pass
 
-### コミット 7: `♻️ Extract static content from MonorepoTemplateFiles to resources`
+### コミット 7: `♻️ Extract static content from MonorepoTemplateFiles to resources` ✅
 
-- [ ] スナップショット採取 (pre) — NPM / PNPM 両方 (monorepo は PM 分岐多し)
-- [ ] `MonorepoTemplateFiles.kt` を読み、静的 `private fun` を洗い出し
-- [ ] `src/main/resources/templates/monorepo/` 下に抽出
-- [ ] Kotlin 側を `TemplateResourceLoader.load(...)` に差し替え
-- [ ] ctx 依存セクションのプレースホルダ化 (許容リスト更新)
-- [ ] スナップショット採取 (post) → `diff -r` で一致 (NPM / PNPM 両方)
-- [ ] 既存 `MonorepoTemplateFilesTest` が無修正で通ること
-- [ ] `./gradlew ktlintCheck && ./gradlew test --tests "*Monorepo*" --tests "*TemplateResourcesSmokeTest"` が通る
-- [ ] 個別 `git add` でコミット
+- [x] pre-snapshot 採取 (全 3 PM)
+- [x] `src/main/resources/templates/monorepo/` に 13 ファイル抽出 (.res 8 + .ts + .html + .mjs 2 + readme/vite-plus.md)
+- [x] `MonorepoTemplateFiles.kt` 542→303行 (PM-dispatch ヘルパーは保持)
+- [x] 既存プレースホルダ再利用 (projectName)
+- [x] post-snapshot → `diff -r` 完全一致 (NPM/PNPM/YARN)
+- [x] 既存 `MonorepoTemplateFilesTest` (17 テスト) 無修正で pass
+- [x] ktlint pass
 
 ### コミット 8: `📝 Document TemplateResourceLoader in CLAUDE.md and repository-structure.md`
 

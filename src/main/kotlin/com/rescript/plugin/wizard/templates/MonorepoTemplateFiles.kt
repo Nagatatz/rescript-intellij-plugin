@@ -13,6 +13,10 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  *
  * Workspace plumbing adapts to the selected package manager: pnpm gets a `pnpm-workspace.yaml`
  * file, while npm/yarn use the `workspaces` field in the root `package.json`.
+ *
+ * Static file content lives under `src/main/resources/templates/monorepo/` and is
+ * loaded via [TemplateResourceLoader]; PM-specific dispatch (workspace deps, per-workspace
+ * commands, package.json composition) stays in Kotlin.
  */
 internal object MonorepoTemplateFiles {
     /**
@@ -23,6 +27,7 @@ internal object MonorepoTemplateFiles {
         val pm = ctx.packageManager
         val devCommand = devScript(pm)
         val workspaceField = if (pm == PackageManager.PNPM) null else listOf("packages/*")
+        val nameVar = mapOf("projectName" to name)
 
         return buildMap {
             put(
@@ -65,8 +70,14 @@ internal object MonorepoTemplateFiles {
                         ),
                 ),
             )
-            put("packages/shared/src/Types.res", sharedTypesRes())
-            put("packages/shared/src/Api.res", sharedApiRes())
+            put(
+                "packages/shared/src/Types.res",
+                TemplateResourceLoader.load("monorepo/packages/shared/src/Types.res"),
+            )
+            put(
+                "packages/shared/src/Api.res",
+                TemplateResourceLoader.load("monorepo/packages/shared/src/Api.res"),
+            )
             // server
             put(
                 "packages/server/rescript.json",
@@ -112,11 +123,26 @@ internal object MonorepoTemplateFiles {
             )
             put("packages/server/src/Hono.res", ProjectFileBuilders.honoBindings())
             put("packages/server/src/HonoNodeServer.res", ProjectFileBuilders.honoNodeServerBindings())
-            put("packages/server/src/Schema.res", serverSchemaRes())
-            put("packages/server/src/Db.res", serverDbRes())
-            put("packages/server/src/Server.res", serverServerRes(name))
-            put("packages/server/src/__tests__/Server.test.mjs", serverTest())
-            put("packages/server/drizzle.config.ts", serverDrizzleConfig())
+            put(
+                "packages/server/src/Schema.res",
+                TemplateResourceLoader.load("monorepo/packages/server/src/Schema.res"),
+            )
+            put(
+                "packages/server/src/Db.res",
+                TemplateResourceLoader.load("monorepo/packages/server/src/Db.res"),
+            )
+            put(
+                "packages/server/src/Server.res",
+                TemplateResourceLoader.load("monorepo/packages/server/src/Server.res", nameVar),
+            )
+            put(
+                "packages/server/src/__tests__/Server.test.mjs",
+                TemplateResourceLoader.load("monorepo/packages/server/src/__tests__/Server.test.mjs"),
+            )
+            put(
+                "packages/server/drizzle.config.ts",
+                TemplateResourceLoader.load("monorepo/packages/server/drizzle.config.ts"),
+            )
             put(
                 "packages/server/.env.example",
                 CommonFiles.envExample(
@@ -172,7 +198,10 @@ internal object MonorepoTemplateFiles {
                         ),
                 ),
             )
-            put("packages/client/index.html", clientIndexHtml(name))
+            put(
+                "packages/client/index.html",
+                TemplateResourceLoader.load("monorepo/packages/client/index.html", nameVar),
+            )
             put(
                 "packages/client/vite.config.mjs",
                 ProjectFileBuilders.viteConfigWithProxy(
@@ -183,10 +212,22 @@ internal object MonorepoTemplateFiles {
                         ),
                 ),
             )
-            put("packages/client/src/App.res", clientAppRes(name))
-            put("packages/client/src/ApiClient.res", clientApiRes())
-            put("packages/client/src/Main.res", clientMainRes())
-            put("packages/client/src/__tests__/ApiClient.test.mjs", clientTest())
+            put(
+                "packages/client/src/App.res",
+                TemplateResourceLoader.load("monorepo/packages/client/src/App.res", nameVar),
+            )
+            put(
+                "packages/client/src/ApiClient.res",
+                TemplateResourceLoader.load("monorepo/packages/client/src/ApiClient.res"),
+            )
+            put(
+                "packages/client/src/Main.res",
+                TemplateResourceLoader.load("monorepo/packages/client/src/Main.res"),
+            )
+            put(
+                "packages/client/src/__tests__/ApiClient.test.mjs",
+                TemplateResourceLoader.load("monorepo/packages/client/src/__tests__/ApiClient.test.mjs"),
+            )
             put(
                 "README.md",
                 CommonFiles.readme(
@@ -204,7 +245,7 @@ internal object MonorepoTemplateFiles {
                     extraSections =
                         listOf(
                             "Workspaces" to workspacesNote(pm),
-                            "About Vite+" to vitePlusNote(),
+                            "About Vite+" to TemplateResourceLoader.load("monorepo/readme/vite-plus.md"),
                         ),
                 ),
             )
@@ -278,265 +319,10 @@ internal object MonorepoTemplateFiles {
             PackageManager.NPM -> "npm --workspaces run test:coverage --if-present"
         }
 
-    private fun clientIndexHtml(projectName: String): String =
-        buildString {
-            appendLine("<!DOCTYPE html>")
-            appendLine("<html lang=\"en\">")
-            appendLine("  <head>")
-            appendLine("    <meta charset=\"UTF-8\" />")
-            appendLine("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />")
-            appendLine("    <title>$projectName</title>")
-            appendLine("  </head>")
-            appendLine("  <body>")
-            appendLine("    <div id=\"root\"></div>")
-            appendLine("    <script type=\"module\" src=\"/src/Main.res.mjs\"></script>")
-            appendLine("  </body>")
-            append("</html>")
-        }
-
-    private fun sharedTypesRes(): String =
-        buildString {
-            appendLine("type user = {id: int, name: string, email: string}")
-        }
-
-    private fun sharedApiRes(): String =
-        buildString {
-            appendLine("// Request/response types shared by server and client.")
-            appendLine("type createUserReq = {name: string, email: string}")
-            appendLine("type createUserRes = {id: int, name: string, email: string}")
-        }
-
-    private fun serverSchemaRes(): String =
-        buildString {
-            appendLine("// Drizzle SQLite schema. Shared type lives in @<project>/shared/Types.res;")
-            appendLine("// the table definition stays here because it is server-only.")
-            appendLine("@module(\"drizzle-orm/sqlite-core\")")
-            appendLine("external sqliteTable: (string, 'columns) => 'table = \"sqliteTable\"")
-            appendLine("@module(\"drizzle-orm/sqlite-core\")")
-            appendLine("external intCol: (string, 'opts) => 'col = \"integer\"")
-            appendLine("@module(\"drizzle-orm/sqlite-core\")")
-            appendLine("external textCol: (string, 'opts) => 'col = \"text\"")
-            appendLine("")
-            appendLine("let users = sqliteTable(\"users\", {")
-            appendLine("  \"id\": intCol(\"id\", {\"primaryKey\": true, \"autoIncrement\": true}),")
-            appendLine("  \"name\": textCol(\"name\", {\"notNull\": true}),")
-            appendLine("  \"email\": textCol(\"email\", {\"notNull\": true}),")
-            append("})")
-        }
-
-    private fun serverDbRes(): String =
-        buildString {
-            appendLine("@module(\"@libsql/client\") external createClient: 'opts => 'client = \"createClient\"")
-            appendLine("@module(\"drizzle-orm/libsql\") external drizzle: 'client => 'db = \"drizzle\"")
-            appendLine("")
-            appendLine("@val external processEnv: Dict.t<string> = \"process.env\"")
-            appendLine("")
-            appendLine("let dbUrl =")
-            appendLine("  processEnv")
-            appendLine("  ->Dict.get(\"DATABASE_URL\")")
-            appendLine("  ->Option.getOr(\"file:./data/app.db\")")
-            appendLine("")
-            appendLine("let client = createClient({\"url\": dbUrl})")
-            appendLine("let db: 'db = drizzle(client)")
-            appendLine("")
-            appendLine("@send external insert: ('db, 'table) => 'builder = \"insert\"")
-            appendLine("@send external values: ('builder, 'row) => 'builder = \"values\"")
-            appendLine("@send external returning: 'q => promise<array<'row>> = \"returning\"")
-            appendLine("@send external select: ('db, 'opts) => 'query = \"select\"")
-            appendLine("@send external from: ('q, 'table) => 'q = \"from\"")
-            appendLine("@send external allAsync: 'q => promise<array<'row>> = \"all\"")
-        }
-
-    private fun serverTest(): String =
-        buildString {
-            // Uses Hono's built-in `app.request()` harness. We target /api/hello because
-            // it's DB-free; the /api/users routes need a migrated SQLite file to succeed.
-            appendLine("import { describe, expect, it } from \"vitest\";")
-            appendLine("import { app } from \"../Server.res.mjs\";")
-            appendLine("")
-            appendLine("describe(\"Monorepo server\", () => {")
-            appendLine("  it(\"GET /api/hello returns 200 with a JSON greeting\", async () => {")
-            appendLine("    const res = await app.request(\"/api/hello\");")
-            appendLine("    expect(res.status).toBe(200);")
-            appendLine("    const body = await res.json();")
-            appendLine("    expect(body.message).toMatch(/Hello/);")
-            appendLine("  });")
-            appendLine("})")
-            appendLine(";")
-        }
-
-    private fun clientTest(): String =
-        buildString {
-            // The client's Main.res touches ReactDOM at import time, which needs a DOM.
-            // ApiClient.res is pure fetch bindings, safe to import under Node.
-            appendLine("import { describe, expect, it } from \"vitest\";")
-            appendLine("")
-            appendLine("describe(\"ApiClient module\", () => {")
-            appendLine("  it(\"loads without throwing\", async () => {")
-            appendLine("    await expect(import(\"../ApiClient.res.mjs\")).resolves.toBeDefined();")
-            appendLine("  });")
-            appendLine("});")
-        }
-
-    private fun serverServerRes(projectName: String): String =
-        buildString {
-            appendLine("let app = Hono.createApp()")
-            appendLine("")
-            appendLine("// Global error handler: converts uncaught exceptions into a JSON 500 response.")
-            appendLine("app->Hono.onError((err, ctx) => {")
-            appendLine("  Console.error(err)")
-            appendLine("  ctx->Hono.status(500)->Hono.json({\"error\": \"Internal Server Error\"})")
-            appendLine("})")
-            appendLine("")
-            appendLine("app->Hono.get(\"/api/hello\", ctx =>")
-            appendLine("  ctx->Hono.json({\"message\": \"Hello from @$projectName/server!\"})")
-            appendLine(")")
-            appendLine("")
-            appendLine("app->Hono.get(\"/api/users\", async ctx => {")
-            appendLine("  let rows =")
-            appendLine("    await Db.db")
-            appendLine("    ->Db.select({")
-            appendLine("      \"id\": Schema.users[\"id\"],")
-            appendLine("      \"name\": Schema.users[\"name\"],")
-            appendLine("      \"email\": Schema.users[\"email\"],")
-            appendLine("    })")
-            appendLine("    ->Db.from(Schema.users)")
-            appendLine("    ->Db.allAsync")
-            appendLine("  ctx->Hono.json(rows)")
-            appendLine("})")
-            appendLine("")
-            appendLine("app->Hono.post(\"/api/users\", async ctx => {")
-            appendLine("  let payload = await ctx->Hono.req->Hono.jsonBody")
-            appendLine("  let inserted =")
-            appendLine("    await Db.db")
-            appendLine("    ->Db.insert(Schema.users)")
-            appendLine(
-                "    ->Db.values({\"name\": payload[\"name\"], \"email\": payload[\"email\"]})",
-            )
-            appendLine("    ->Db.returning")
-            appendLine("  ctx->Hono.status(201)->Hono.json(inserted->Array.get(0))")
-            appendLine("})")
-            appendLine("")
-            appendLine("HonoNodeServer.serve(app, {port: 3000})")
-            append("Console.log(\"Server running on http://localhost:3000\")")
-        }
-
-    private fun serverDrizzleConfig(): String =
-        buildString {
-            appendLine("import { defineConfig } from \"drizzle-kit\";")
-            appendLine("")
-            appendLine("export default defineConfig({")
-            appendLine("  schema: \"./src/Schema.res.mjs\",")
-            appendLine("  out: \"./drizzle\",")
-            appendLine("  dialect: \"sqlite\",")
-            appendLine("  dbCredentials: {")
-            appendLine("    url: process.env.DATABASE_URL ?? \"file:./data/app.db\",")
-            appendLine("  },")
-            append("});")
-        }
-
-    private fun clientAppRes(projectName: String): String =
-        buildString {
-            appendLine("// Form + useState + fetch to the Hono server. Demonstrates the")
-            appendLine("// full client ↔ server loop with a shared Request type.")
-            appendLine("@react.component")
-            appendLine("let make = () => {")
-            appendLine("  let (users, setUsers) = React.useState(() => [])")
-            appendLine("  let (name, setName) = React.useState(() => \"\")")
-            appendLine("  let (email, setEmail) = React.useState(() => \"\")")
-            appendLine("")
-            appendLine("  let loadUsers = async () => {")
-            appendLine("    let fetched = await ApiClient.listUsers()")
-            appendLine("    setUsers(_ => fetched)")
-            appendLine("  }")
-            appendLine("")
-            appendLine("  React.useEffect0(() => {")
-            appendLine("    loadUsers()->ignore")
-            appendLine("    None")
-            appendLine("  })")
-            appendLine("")
-            appendLine("  let handleSubmit = async event => {")
-            appendLine("    ReactEvent.Form.preventDefault(event)")
-            appendLine("    let req: Shared.Api.createUserReq = {name, email}")
-            appendLine("    let _ = await ApiClient.createUser(req)")
-            appendLine("    setName(_ => \"\")")
-            appendLine("    setEmail(_ => \"\")")
-            appendLine("    await loadUsers()")
-            appendLine("  }")
-            appendLine("")
-            appendLine("  <main style={ReactDOM.Style.make(~padding=\"2rem\", ~fontFamily=\"sans-serif\", ())}>")
-            appendLine("    <h1> {React.string(\"$projectName\")} </h1>")
-            appendLine("    <form onSubmit={handleSubmit}>")
-            appendLine(
-                "      <input placeholder=\"name\" value={name} " +
-                    "onChange={e => setName(_ => (e->ReactEvent.Form.target)[\"value\"])} />",
-            )
-            appendLine(
-                "      <input placeholder=\"email\" value={email} " +
-                    "onChange={e => setEmail(_ => (e->ReactEvent.Form.target)[\"value\"])} />",
-            )
-            appendLine("      <button type_=\"submit\"> {React.string(\"Add user\")} </button>")
-            appendLine("    </form>")
-            appendLine("    <ul>")
-            appendLine("      {users")
-            appendLine("        ->Array.map(u =>")
-            appendLine("          <li key={u.id->Int.toString}>")
-            appendLine("            {React.string(u.name ++ \" — \" ++ u.email)}")
-            appendLine("          </li>")
-            appendLine("        )")
-            appendLine("        ->React.array}")
-            appendLine("    </ul>")
-            append("  </main>")
-            appendLine()
-            append("}")
-        }
-
-    private fun clientApiRes(): String =
-        buildString {
-            appendLine("// Fetch wrapper. Routes go through /api/* and are proxied by Vite+ to the Hono")
-            appendLine("// server during development.")
-            appendLine("type response")
-            appendLine("@send external json: response => promise<'a> = \"json\"")
-            appendLine("@val external fetch: (string, 'opts) => promise<response> = \"fetch\"")
-            appendLine("")
-            appendLine("let listUsers = async (): promise<array<Shared.Types.user>> => {")
-            appendLine("  let response = await fetch(\"/api/users\", Obj.magic())")
-            appendLine("  await response->json")
-            appendLine("}")
-            appendLine("")
-            appendLine(
-                "let createUser = async (payload: Shared.Api.createUserReq): " +
-                    "promise<Shared.Api.createUserRes> => {",
-            )
-            appendLine("  let response = await fetch(\"/api/users\", {")
-            appendLine("    \"method\": \"POST\",")
-            appendLine("    \"headers\": {\"Content-Type\": \"application/json\"},")
-            appendLine("    \"body\": JSON.stringifyAny(payload)->Option.getOr(\"{}\"),")
-            appendLine("  })")
-            appendLine("  await response->json")
-            append("}")
-        }
-
-    private fun clientMainRes(): String =
-        buildString {
-            appendLine("switch ReactDOM.querySelector(\"#root\") {")
-            appendLine("| Some(rootEl) =>")
-            appendLine("  ReactDOM.Client.Root.render(ReactDOM.Client.createRoot(rootEl), <App />)")
-            appendLine("| None => Console.error(\"Could not find root element\")")
-            append("}")
-        }
-
     private fun workspacesNote(pm: PackageManager): String =
         when (pm) {
             PackageManager.PNPM -> "This project uses pnpm workspaces (see `pnpm-workspace.yaml`)."
             PackageManager.YARN -> "This project uses Yarn workspaces (see the `workspaces` field in `package.json`)."
             PackageManager.NPM -> "This project uses npm workspaces (see the `workspaces` field in `package.json`)."
         }
-
-    private fun vitePlusNote(): String =
-        """
-        The client uses [Vite+](https://vite.plus) (`vite-plus`) for the build/test toolchain.
-        Vite+ is **pre-1.0** — replace `vite-plus` with `vite` in `packages/client/vite.config.mjs`
-        and update its scripts to fall back to classic Vite.
-        """.trimIndent()
 }
