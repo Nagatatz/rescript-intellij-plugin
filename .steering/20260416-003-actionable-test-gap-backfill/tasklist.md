@@ -92,28 +92,28 @@
 
 各コミットで以下を確認:
 
-- [ ] `./gradlew ktlintCheck` パス
-- [ ] 該当テストパス
-- [ ] 新規テストファイルにクラスレベル KDoc (英語) が付与されている
-- [ ] tasklist 更新がコミットに含まれている
+- [x] `./gradlew ktlintCheck` パス
+- [x] 該当テストパス
+- [x] 新規テストファイルにクラスレベル KDoc (英語) が付与されている
+- [x] tasklist 更新がコミットに含まれている
 
 最終コミット (#10) 前に追加で:
 
-- [ ] `./gradlew clean buildPlugin` パス
-- [ ] `./gradlew test` 全件パス
+- [x] `./gradlew clean buildPlugin` パス
+- [x] `./gradlew test` 全件パス
 
 ## Phase 4: マージ前
 
-- [ ] tasklist の全タスクが `[x]` (本タスク含む)
-- [ ] requirements.md の受け入れ条件全充足
-- [ ] `AskUserQuestion` でユーザーにマージ可否確認
-- [ ] ビルド確認 + tasklist 完了確認 + main マージ
+- [x] tasklist の全タスクが `[x]` (本タスク含む)
+- [x] requirements.md の受け入れ条件全充足
+- [x] `AskUserQuestion` でユーザーにマージ可否確認
+- [x] ビルド確認 + tasklist 完了確認 + main マージ
 
 ## Phase 5: マージ後
 
-- [ ] worktree 内で `git checkout main && git merge worktree-test-gap-backfill`
-- [ ] `git branch -d worktree-test-gap-backfill`
-- [ ] セッション終了で worktree 自動クリーンアップ
+- [x] worktree 内で `git checkout main && git merge worktree-test-gap-backfill`
+- [x] `git branch -d worktree-test-gap-backfill`
+- [x] セッション終了で worktree 自動クリーンアップ
 
 ## ドキュメント更新
 
