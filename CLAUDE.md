@@ -75,98 +75,20 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **Code Lens** (`RescriptCodeVisionProvider.kt`) — CodeVision API 経由で関数の型注釈を表示
 
 ### レイヤー 3: IDE 統合機能
-- **実行構成** (`run/`) — rescript.json 経由の ReScript ビルド実行
-- **テスト実行** (`test/`) — jest/vitest 自動検出、SMTRunner テストツリー
-- **デバッグ** (`debug/`) — コンパイル済み JS のデバッグ実行
-- **コードフォーマッタ** (`formatter/`) — `rescript format` CLI による外部フォーマッタ連携（`Cmd+Option+L`）
-- **コードスタイル** (`codestyle/`) — インデント設定
-- **カラースキーム** (`colorSchemes/`) — Darcula / Default テーマ用の専用配色
-- **rescript.json アイコン** (`config/`) — 設定ファイルへの専用アイコン表示
-- **ビルドステータス** (`statusbar/`) — ステータスバーにコンパイル状態表示
-- **Error Lens** (`errorlens/`) — エディタ行内にインライン診断表示、型ミスマッチ構造化ヒント（Expected/Actual 型のインライン表示）
-- **JS プレビュー** (`preview/`) — コンパイル済み JS のリアルタイムプレビュー
-- **モジュール階層** (`hierarchy/`) — モジュール依存関係のツリー表示
-- **Call Hierarchy** (`hierarchy/call/`) — 関数の呼び出し階層（Callers/Callees）ツリー表示（Ctrl+Alt+H）
-- **Project View** (`projectview/`) — コンパイル済み JS（`.res.js`/`.mjs`/`.cjs`、`.bs.js`/`.mjs`/`.cjs`）のネスト表示・灰色化
-- **プロジェクトウィザード** (`wizard/`) — 15 テンプレート (Basic / npm Library / CLI Tool / Vite+ + React / Next.js / Electron / React Native (Expo) / React Native (Community CLI) / Hono REST / Hono + GraphQL / Cloudflare Workers / AWS Lambda / Google Cloud Run / Monorepo / Full-Stack) による新規プロジェクト作成。各テンプレートは "one step deeper" の実用例を同梱: Hono REST は Drizzle(SQLite) + Zod + `@hono/zod-openapi` + Scalar UI、Hono GraphQL は `graphql-yoga` + GraphiQL + Drizzle + `@graphql-markdown/cli`、Monorepo / Full-Stack は Drizzle 入り Hono バックエンド + Vite+React クライアント + `src/shared` 型共有。選択した PackageManager (npm / pnpm / yarn、デフォルト pnpm) を `package.json` の `packageManager` フィールドや README コマンドに反映。Vite+ (`vite-plus`) 採用部分は pre-1.0 のため README に fallback を記載。全 15 テンプレートで Vitest スモークテスト (`test` + `test:coverage` スクリプト + `__tests__/*.test.mjs`) / `LICENSE` (MIT) / `.nvmrc` / `.github/dependabot.yml` を同梱し、Monorepo は workspace 横断テスト (`pnpm -r run test` 等) を提供。Hono 系 4 テンプレは `app.onError` グローバルエラーハンドラと `app.request()` ベースのルートテストを備え、DB 接続や PORT を読む 5 テンプレには `.env.example` を同梱。依存バージョンは `wizard/templates/TemplateVersions.kt` で一元管理し、`./gradlew integrationTest` と `.github/workflows/integration-tests.yml` (nightly + manual) で生成→`pnpm install`→`rescript build` の動作確認を行う。
-- **コード検査** (`inspection/`, `analysis/`) — 重複 open、空モジュール、rescript.json 欠落、reanalyze デッドコード分析（サーバーモード対応）、.resi シグネチャ同期、Suggested Refactoring 提案
-- **Reanalyze サーバーモード** (`analysis/`) — `rescript-tools reanalyze-server` デーモンプロセスによるデッドコード分析高速化（ReScript >= 12.1.0、自動起動・ヘルスチェック・自動再起動）
-- **リファクタリング** (`refactor/`) — LSP 経由リネーム、識別子バリデーション、Extract Variable（Ctrl+Alt+V）、Extract Function（Ctrl+Alt+M）、Inline Variable/Function（Ctrl+Alt+N）、Introduce Constant、Change Signature（Ctrl+F6）、React コンポーネント抽出
-- **Import 最適化** (`imports/`) — 重複・未使用 open の自動削除
-- **Intention Actions** (`intention/`) — Wrap with Some/Ok/Error、@genType 追加、ドキュメントコメント生成、->ignore 追加、_ プレフィックス追加、冗長ブレース削除、識別子ケース修正、ラベル付き引数挿入、Switch ケース統合、Case Split、位置→ラベル引数変換、括弧削除、修飾子削除、Pipe⇔関数呼び出し変換、インターフェース公開/非公開、分割代入の展開
-- **Quick Fix** (`quickfix/`) — 未解決参照の open 追加/修飾子付加、使用箇所からの関数生成、型ホール (`_`) 候補型提案
-- **Surround With** (`surround/`) — if/switch/try/block で囲む
-- **Postfix Completion** (`completion/`) — .switch, .pipe, .log, .promise, .await 等
-- **Completion Weigher** (`completion/`) — コンテキストベースの補完候補重み付け
-- **Completion Confidence** (`completion/`) — コメント・文字列内の補完ポップアップ抑制
-- **Live Template コンテキスト** (`completion/`) — ReScript 専用コンテキスト + moduleName/componentName マクロ
-- **コード折りたたみ** (`folding/`) — ブロック折りたたみ、//#region カスタム折りたたみ
-- **パンくずリスト** (`breadcrumb/`) — エディタ上部のナビゲーション
-- **ナビゲーションバー** (`navbar/`) — Structure View ベースのナビゲーションバー表示
-- **Generate アクション** (`generate/`) — Switch Arms / Module Type / Make 関数 / Record Value / JSON エンコーダ・デコーダ / モジュールタイプ実装生成
-- **.d.ts バインディング生成** (`binding/`) — TypeScript 型定義から ReScript バインディングを自動生成
-- **Unwrap/Remove** (`editor/`) — Some/Ok/Error/if/switch/try/ブレースの除去 (Ctrl+Shift+Delete)
-- **JSX 閉じタグ自動挿入** (`editor/`) — `>` 入力時に閉じタグを自動補完
-- **Context Info** (`editor/`) — スクロール時にトップレベル宣言のヘッダーを固定表示
-- **Go to Implementation** (`navigation/`) — .resi → .res 実装ジャンプ (Ctrl+Alt+B)
-- **Search Everywhere** (`navigation/`) — Shift+Shift でファイル・シンボルの統合検索
-- **Go to Test** (`navigation/`) — 実装⇔テストファイル間のナビゲーション・新規テスト作成 (Ctrl+Shift+T)
-- **Find Usages** (`lang/`) — WordsScanner によるシンボルインデキシング + 使用箇所検索
-- **バンドル辞書** (`spellcheck/`) — ReScript 固有用語のスペルチェック辞書
-- **テストファイル認識** (`test/`) — `*_test.res`、`*.test.res`、`__tests__/` の自動認識
-- **Project View ネスト** (`projectview/`) — `.resi` およびコンパイル済み JS を対応する `.res` の下にネスト表示
-- **コメンター** (`commenter/`) — 行コメント (`//`) / ブロックコメント (`/* */`) の Commenter 実装
-- **パッケージ依存関係** (`dependencies/`) — rescript.json の npm 依存関係ツリー表示
-- **Code Vision** (`codevision/`) — CodeVision API 経由で関数の型注釈表示
-- **Enter Handler** (`editor/`) — ドキュメントコメント・行コメントの自動継続
-- **Join Lines** (`editor/`) — let/pipe/arrow のスマート行結合
-- **Word Selection** (`editor/`) — 文字列・括弧・コメントの選択拡大/縮小
-- **Highlight Usages** (`highlight/`) — switch/if/try 等の対応キーワードハイライト
-- **Goto Super** (`navigation/`) — .res → .resi 宣言ジャンプ (Ctrl+U)
-- **External Documentation** (`documentation/`) — Belt/Js モジュールの外部ドキュメント URL (Shift+F1)
-- **Run Anything** (`run/`) — Ctrl+Ctrl で ReScript CLI コマンド実行
-- **Expression Type** (`lsp/`) — カーソル位置の式の型を LSP hover で表示 (Ctrl+Shift+P)
-- **パイプチェーン型ヒント** (`lsp/`) — `->` パイプチェーンの中間型をインライン表示
-- **Parameter Info Handler** (`completion/`) — Ctrl+P でラベル付き引数をネイティブ UI で表示
-- **GitHub エラーレポート** — 未処理例外の GitHub Issues 自動レポート（`RescriptErrorReporter`）
-- **Problem Highlight Filter** (`analysis/`) — node_modules 等のハイライト抑制
-- **Format Check** (`analysis/`) — 未フォーマットコードの検出と Quick Fix によるフォーマット実行（設定で ON/OFF）
-- **Type Info ToolWindow** (`typeinfo/`) — カーソル位置の式の型を常時表示するツールウィンドウ（LSP hover + debounce）
-- **`%re()` RegExp インジェクション** (`injection/`) — `%re("/pattern/flags")` 内の正規表現にRegExp言語インジェクション
-- **Framework Detector** (`config/`) — `rescript.json` によるReScript フレームワークの自動検出
-- **Code Rearranger** (`codestyle/`) — トップレベル宣言の自動並べ替え（open/include → type → exception → module → external → let）
-- **変更可能性の診断** (`inspection/`) — 不要な `ref` 使用の検出と Quick Fix による除去
-- **スタイルリンティング** (`inspection/`) — 冗長ブール式・Belt API・ブール switch パターンの検出と改善提案
-- **filter+map チェーン変換** (`intention/`) — `filter+map` チェーンを `filterMap` に変換 (Alt+Enter)
-- **型注釈追加** (`intention/`) — LSP hover 情報を用いた let 束縛への型注釈挿入 (Alt+Enter)
-- **PPX 可視化** (`lsp/`) — PPX アノテーションの効果をインレイヒントで表示
-- **型ミスマッチ差分表示** (`errorlens/`) — 型エラーの不一致部分を色分けして差分表示
-- **Strip Trailing Spaces Filter** (`editor/`) — 文字列リテラル内の空白を保護しつつ行末空白を除去
-- **Injected Language Formatting** (`formatter/`) — インジェクトされた言語フラグメントのフォーマット対応
-- **Grazie Text Extractor** (`grazie/`) — コメント・文字列からの自然言語テキスト抽出（Grazie 連携）
-- **Element Signature Provider** (`navigation/`) — 折りたたみ状態の永続化のための要素シグネチャ
-- **Index Pattern Builder** (`indexing/`) — コメント内 TODO/FIXME パターンのインデックス構築
-- **File Include Provider** (`navigation/`) — open 文からのファイルインクルードナビゲーション
-- **Floating Toolbar** (`editor/`) — ReScript ファイル用フローティングツールバー（Format/Open JS/Create Interface）
-- **Scratch File** (`scratch/`) — ReScript スクラッチファイルの作成・実行
-- **REPL** (`repl/`) — ReScript インタラクティブ実行環境ツールウィンドウ
-- **JS/TS→ReScript 変換** (`paste/`) — JavaScript/TypeScript コードを ReScript に変換してペースト（型注釈除去、JSX パターン変換対応）
-- **依存関係ダイアグラム** (`diagram/`) — モジュール依存関係のグラフ可視化
-- **PPX 展開ビュー** (`ppx/`) — PPX マクロの展開結果をツールウィンドウに表示
-- **コメント内コード評価** (`editor/`) — ドキュメントコメント内のコード例を評価・検証
-- **Worksheet モード** (`worksheet/`) — `.resw` ファイル全体をインタラクティブに評価
-- **型シグネチャ検索** (`navigation/`) — 型シグネチャから関数を逆引き検索（Search Everywhere 統合）
-- **Restart LSP アクション** (`lsp/`) — Tools メニューから LSP サーバーを明示的に再起動
-- **Dump LSP State** (`lsp/`) — LSP サーバーの内部状態をデバッグ出力するアクション（Tools メニュー）
-- **LSP 初期化オプション** (`settings/`, `lsp/`) — signatureHelp/cache/inlayHints/compileStatus の6設定を LSP に送信
-- **ビルド自動開始プロンプト** (`run/`) — プロジェクト起動時に `rescript build -w` の開始をバルーン通知で提案
-- **offset↔position 変換ユーティリティ** (`util/`) — LSP Position とエディタ offset の相互変換共通化
-- **共通 Regex パターン** (`util/`) — LIDENT/UIDENT/WHITESPACE/open 文パターン等の重複 Regex を `RescriptRegexPatterns` に集約
-- **プロセス実行ユーティリティ** (`util/`) — 外部コマンド実行の共通パターン（タイムアウト、stdout キャプチャ）を `RescriptProcessUtils` に集約
-- **ファイルユーティリティ** (`util/`) — `.res`/`.resi` 拡張子判定・対応ファイル検索を `RescriptFileUtil` に集約
-- **エディタユーティリティ** (`util/`) — `WriteCommandAction` ラッパー（`replaceInWriteAction` 等）と `Document` 行アクセスヘルパー（`getLineTextAt`、`getLineRangeAt`）を `RescriptEditorUtils` に集約
-- **Intention 基底クラス** (`intention/`) — `RescriptBaseIntention` による `getFamilyName()` デフォルト実装と `RescriptFile` ガードの共通化
-- **Generate Action 基底クラス** (`generate/`) — `RescriptBaseGenerateAction` による `ActionUpdateThread.BGT` ポリシーの共通化
+
+IDE 統合機能は以下のカテゴリで実装されている。詳細な機能一覧・クラス対応・キーバインドは `README.md` の Features セクション、Extension Point とクラス単位の対応は `docs/functional-design.md` を参照。
+
+- **エディタ体験** (`editor/`, `formatter/`, `highlight/`, `folding/`, `commenter/`, `breadcrumb/`, `navbar/`) — 外部フォーマッタ連携、JSX 閉じタグ自動挿入、Enter/Join Lines/Word Selection ハンドラ、対応キーワードハイライト、ブロック/`//#region` 折りたたみ、パンくずリスト、Floating Toolbar など
+- **コード補完・テンプレート** (`completion/`) — Postfix / Live Template コンテキスト / Completion Weigher / Parameter Info / Completion Confidence
+- **ナビゲーション** (`navigation/`, `lang/`, `hierarchy/`, `search/`) — Go to Implementation、Go to Test、Search Everywhere、Find Usages、モジュール階層、Call Hierarchy、型シグネチャ検索、File Include Provider
+- **リファクタリング・Intention・Quick Fix** (`refactor/`, `intention/`, `quickfix/`, `generate/`, `surround/`, `imports/`, `binding/`) — Extract/Inline/Change Signature、Wrap/Unwrap、filter+map→filterMap、識別子/ケース変換、Generate メニュー、Surround With、Import Optimizer、.d.ts → ReScript 変換
+- **分析・診断** (`analysis/`, `inspection/`, `errorlens/`, `codevision/`) — reanalyze（サーバーモード対応）、Format Check、重複 open/空モジュール/設定欠落、変更可能性・スタイルリンティング、Error Lens、Code Vision、Problem Highlight Filter
+- **実行・デバッグ・プロジェクト統合** (`run/`, `debug/`, `test/`, `statusbar/`, `config/`, `projectview/`, `dependencies/`, `wizard/`) — Run Configuration、jest/vitest テスト実行、デバッグ、ビルドステータス、rescript.json アイコン、Project View ネスト、依存関係ツリー、Project Wizard（15 テンプレート — 詳細は `docs/templates.md` 参照）
+- **LSP 拡張機能** (`lsp/`, `settings/`, `typeinfo/`) — Restart/Dump LSP State、Expression Type、パイプチェーン型ヒント、PPX 可視化、Type Info ToolWindow、LSP 初期化オプション
+- **ツールウィンドウ・対話機能** (`preview/`, `repl/`, `scratch/`, `worksheet/`, `ppx/`, `diagram/`, `typeinfo/`) — JS プレビュー、REPL、Scratch File、Worksheet モード、PPX 展開ビュー、依存関係ダイアグラム
+- **言語インジェクション・ペースト** (`injection/`, `paste/`) — `%raw()` JS / `%re()` RegExp / Markdown コードフェンス、Paste as JSON.t、JS/TS → ReScript 変換
+- **補助機能** (`spellcheck/`, `grazie/`, `indexing/`, `documentation/`) — スペルチェック、Grazie 連携、TODO インデックス、External Documentation
+- **共通ユーティリティ** (`util/`) — offset↔Position 変換、正規表現パターン集約、プロセス実行、ファイル/エディタヘルパー、Intention/Generate 基底クラス
 
 ## 開発規約
 
