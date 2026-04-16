@@ -6,7 +6,7 @@
 
 [ReScript](https://rescript-lang.org) language support for IntelliJ IDEA and other JetBrains IDEs.
 
-**[Documentation](https://nagatatz.github.io/rescript-intellij-plugin/)**
+**[Documentation](https://nagatatz.github.io/rescript-intellij-plugin/)** · **[Version & Compatibility](docs/versions.md)**
 
 ## Features
 

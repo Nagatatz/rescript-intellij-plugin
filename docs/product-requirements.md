@@ -254,7 +254,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 | 指標 | 目標値 |
 |---|---|
-| JetBrains Marketplace 公開 | v0.1.7 公開済み |
+| JetBrains Marketplace 公開 | 公開済み（現行バージョンは [docs/versions.md](versions.md) 参照） |
 | シンタックスハイライトの正確性 | ReScript の全トークンタイプを正しくカラーリング |
 | LSP 機能の動作率 | VSCode 拡張と同等の機能カバレッジ |
 | エディタ入力時のレスポンス | ハイライト更新が体感上即座（< 16ms） |
