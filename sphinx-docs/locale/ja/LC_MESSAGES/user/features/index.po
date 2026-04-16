@@ -571,11 +571,11 @@ msgstr ""
 "接続が自動的に確立されます。IDE を再起動せずにすべての LSP 機能が利用可能になります。"
 
 #~ msgid "✓"
-#~ msgstr ""
+#~ msgstr "✓"
 
 #~ msgid "✓ (semantic overlay)"
-#~ msgstr ""
+#~ msgstr "✓（セマンティックオーバーレイ）"
 
 #~ msgid "✓ (via CLI)"
-#~ msgstr ""
+#~ msgstr "✓（CLI 経由）"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-04-16 20:59+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -227,14 +227,110 @@ msgid "Ensure there are no conflicting file type associations for `.res` files"
 msgstr "`.res` ファイルのファイルタイプ関連付けに競合がないことを確認します"
 
 #: ../../user/troubleshooting.md:115
+msgid "Diagnostic Toolkit"
+msgstr "診断ツールキット"
+
+#: ../../user/troubleshooting.md:117
+msgid ""
+"When quick fixes above don't resolve the issue, the following steps help "
+"you gather evidence and reset state before filing a bug."
+msgstr "上記の Quick Fix で解決しない場合、以下の手順で情報を収集し、状態をリセットしてからバグを報告してください。"
+
+#: ../../user/troubleshooting.md:119
+msgid "Verify Node.js and the Language Server"
+msgstr "Node.js と Language Server を確認する"
+
+#: ../../user/troubleshooting.md:131
+msgid ""
+"If Node.js works in your shell but the IDE reports it missing, the IDE "
+"may be launched without your shell's PATH. On macOS, launching the IDE "
+"from Terminal (`idea .` or `webstorm .`) propagates your shell "
+"environment; the Dock launcher may not."
+msgstr "シェルでは Node.js が動作するのに IDE が見つからないと報告する場合、IDE がシェルの PATH なしで起動されている可能性があります。macOS では Terminal から IDE を起動 (`idea .` または `webstorm .`) するとシェル環境が引き継がれますが、Dock のランチャーでは引き継がれないことがあります。"
+
+#: ../../user/troubleshooting.md:133
+msgid "Restart the Language Server"
+msgstr "Language Server を再起動する"
+
+#: ../../user/troubleshooting.md:135
+msgid ""
+"**Tools → Restart ReScript LSP** — fully restarts the server without "
+"reopening the project. Use this after installing dependencies, switching "
+"branches, or when completion/diagnostics go silent."
+msgstr "**Tools → Restart ReScript LSP** — プロジェクトを再度開かずにサーバーを完全に再起動します。依存関係をインストールした後、ブランチを切り替えた後、補完/診断が無反応になったときに使用します。"
+
+#: ../../user/troubleshooting.md:136
+msgid ""
+"**Tools → Dump ReScript LSP State** — prints the server's internal "
+"request/response queues and initialization options to the Event Log. "
+"Attach the output when reporting bugs related to LSP behavior."
+msgstr "**Tools → Dump ReScript LSP State** — サーバーの内部リクエスト/レスポンスキューと初期化オプションを Event Log に出力します。LSP 挙動に関するバグ報告時に出力内容を添付してください。"
+
+#: ../../user/troubleshooting.md:138
+msgid "Clear Caches"
+msgstr "キャッシュをクリアする"
+
+#: ../../user/troubleshooting.md:140
+msgid ""
+"Stale indexes and caches are a frequent cause of wrong completions, "
+"missing references, or outdated diagnostics."
+msgstr "古くなったインデックスやキャッシュは、誤った補完・参照の欠落・古い診断の原因になります。"
+
+#: ../../user/troubleshooting.md:142
+msgid ""
+"**File → Invalidate Caches** → check *Clear file system cache and Local "
+"History* → click *Invalidate and Restart*."
+msgstr "**File → Invalidate Caches** → *Clear file system cache and Local History* をチェック → *Invalidate and Restart* をクリック。"
+
+#: ../../user/troubleshooting.md:143
+msgid ""
+"Delete the ReScript build output when `rescript build` reports phantom "
+"errors:"
+msgstr "`rescript build` が幻のエラーを報告する場合は ReScript のビルド出力を削除します:"
+
+#: ../../user/troubleshooting.md:150
+msgid "Inspect Logs"
+msgstr "ログを確認する"
+
+#: ../../user/troubleshooting.md:152
+msgid ""
+"**Help → Show Log in Finder** (macOS) / **Show Log in Explorer** "
+"(Windows/Linux)."
+msgstr "**Help → Show Log in Finder** (macOS) / **Show Log in Explorer** (Windows/Linux)。"
+
+#: ../../user/troubleshooting.md:153
+msgid ""
+"Open `idea.log` and filter for `ReScript`, `rescript-language-server`, or"
+" `com.rescript.plugin` to isolate plugin output."
+msgstr "`idea.log` を開き `ReScript`、`rescript-language-server`、または `com.rescript.plugin` でフィルタしてプラグインの出力を抽出します。"
+
+#: ../../user/troubleshooting.md:154
+msgid ""
+"For reproducible issues, enable verbose logging: **Help → Diagnostic "
+"Tools → Debug Log Settings…** → add `#com.rescript.plugin:trace`."
+msgstr "再現可能な問題では詳細ログを有効化します: **Help → Diagnostic Tools → Debug Log Settings…** → `#com.rescript.plugin:trace` を追加。"
+
+#: ../../user/troubleshooting.md:156
+msgid "Reset Plugin Configuration"
+msgstr "プラグイン設定をリセットする"
+
+#: ../../user/troubleshooting.md:158
+msgid "If settings appear corrupted, remove the plugin's persisted state:"
+msgstr "設定が壊れているように見える場合、プラグインの永続化状態を削除します:"
+
+#: ../../user/troubleshooting.md:171
+msgid "Restart the IDE afterwards; a fresh default file is generated."
+msgstr "その後 IDE を再起動すると、デフォルト設定ファイルが新規生成されます。"
+
+#: ../../user/troubleshooting.md:173
 msgid "Reporting Issues"
 msgstr "問題の報告"
 
-#: ../../user/troubleshooting.md:117
+#: ../../user/troubleshooting.md:175
 msgid "If you can't resolve the issue:"
 msgstr "問題が解決できない場合:"
 
-#: ../../user/troubleshooting.md:119
+#: ../../user/troubleshooting.md:177
 msgid ""
 "Check [existing issues](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/issues) on GitHub"
@@ -242,27 +338,33 @@ msgstr ""
 "GitHub で[既存の Issue](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/issues) を確認します"
 
-#: ../../user/troubleshooting.md:120
+#: ../../user/troubleshooting.md:178
 msgid "File a new issue with:"
 msgstr "以下の情報を含めて新しい Issue を作成します:"
 
-#: ../../user/troubleshooting.md:121
+#: ../../user/troubleshooting.md:179
 msgid "IDE version and OS"
 msgstr "IDE のバージョンと OS"
 
-#: ../../user/troubleshooting.md:122
+#: ../../user/troubleshooting.md:180
 msgid "Plugin version"
 msgstr "プラグインのバージョン"
 
-#: ../../user/troubleshooting.md:123
+#: ../../user/troubleshooting.md:181
 msgid "ReScript and Language Server versions"
 msgstr "ReScript と Language Server のバージョン"
 
-#: ../../user/troubleshooting.md:124
+#: ../../user/troubleshooting.md:182
 msgid "Steps to reproduce"
 msgstr "再現手順"
 
-#: ../../user/troubleshooting.md:125
+#: ../../user/troubleshooting.md:183
 msgid "Error logs (from **Help** → **Show Log in Finder/Explorer**)"
 msgstr "エラーログ（**Help** → **Show Log in Finder/Explorer** から取得）"
+
+#: ../../user/troubleshooting.md:184
+msgid ""
+"Output of **Tools → Dump ReScript LSP State** if the issue involves LSP "
+"features"
+msgstr "LSP 機能に関する問題の場合は **Tools → Dump ReScript LSP State** の出力"
 

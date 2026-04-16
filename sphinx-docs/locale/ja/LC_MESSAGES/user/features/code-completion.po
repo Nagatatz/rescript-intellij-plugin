@@ -1220,13 +1220,13 @@ msgstr ""
 " ポップアップを先に閉じるための追加キーストロークは不要です。"
 
 #~ msgid "Pipe (`|>`) chain suggestions"
-#~ msgstr ""
+#~ msgstr "パイプ (`|>`) チェーンの候補"
 
 #~ msgid "`switch expr { | _ => () }`"
-#~ msgstr ""
+#~ msgstr "`switch expr { | _ => () }`"
 
 #~ msgid "`Js.log(expr)`"
-#~ msgstr ""
+#~ msgstr "`Js.log(expr)`"
 
 #~ msgid ""
 #~ "Type a snippet abbreviation and press"
@@ -1234,55 +1234,55 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "`switch`"
-#~ msgstr ""
+#~ msgstr "`switch`"
 
 #~ msgid "`ifelse`"
-#~ msgstr ""
+#~ msgstr "`ifelse`"
 
 #~ msgid "`type`"
-#~ msgstr ""
+#~ msgstr "`type`"
 
 #~ msgid "`typerec`"
-#~ msgstr ""
+#~ msgstr "`typerec`"
 
 #~ msgid "`type name = { ... }`"
-#~ msgstr ""
+#~ msgstr "`type name = { ... }`"
 
 #~ msgid "`typevar`"
-#~ msgstr ""
+#~ msgstr "`typevar`"
 
 #~ msgid "`type name = Variant1 | Variant2`"
-#~ msgstr ""
+#~ msgstr "`type name = Variant1 | Variant2`"
 
 #~ msgid "`@module(\"...\") external name: type = \"name\"`"
-#~ msgstr ""
+#~ msgstr "`@module(\"...\") external name: type = \"name\"`"
 
 #~ msgid "`comp`"
-#~ msgstr ""
+#~ msgstr "`comp`"
 
 #~ msgid "React component boilerplate"
-#~ msgstr ""
+#~ msgstr "React コンポーネントの定型コード"
 
 #~ msgid "`->` pipe expression"
-#~ msgstr ""
+#~ msgstr "`->` パイプ式"
 
 #~ msgid "`test`"
-#~ msgstr ""
+#~ msgstr "`test`"
 
 #~ msgid "Test case boilerplate"
-#~ msgstr ""
+#~ msgstr "テストケースの定型コード"
 
 #~ msgid "`desc`"
-#~ msgstr ""
+#~ msgstr "`desc`"
 
 #~ msgid "Test describe block"
-#~ msgstr ""
+#~ msgstr "テストの describe ブロック"
 
 #~ msgid "`expect`"
-#~ msgstr ""
+#~ msgstr "`expect`"
 
 #~ msgid "Expect assertion"
-#~ msgstr ""
+#~ msgstr "Expect アサーション"
 
 #~ msgid ""
 #~ "Go to **Settings** → **Editor** → "

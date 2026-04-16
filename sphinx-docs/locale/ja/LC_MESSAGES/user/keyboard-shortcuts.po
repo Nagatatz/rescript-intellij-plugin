@@ -1018,5 +1018,5 @@ msgstr ""
 "はそれらを折りたたみ可能な単位として扱います。ユーティリティモジュールの整理や関連する関数のグループ化に便利です。"
 
 #~ msgid "Postfix: wrap in Js.log"
-#~ msgstr ""
+#~ msgstr "Postfix: Js.log で囲む"
 

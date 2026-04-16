@@ -1015,7 +1015,7 @@ msgstr "**未使用 open 検出** --- LSP の診断警告を使用して、エ�
 msgid ""
 "Both phases run together, and a notification summarizes the result (e.g.,"
 " \"Removed 1 duplicate and 2 unused open statement(s)\")."
-msgstr ""
+msgstr "両フェーズは一緒に実行され、通知で結果が要約されます (例:"
 "両フェーズは同時に実行され、結果が通知で表示されます（例: \"Removed 1 duplicate and 2 unused open "
 "statement(s)\"）。"
 

@@ -6,7 +6,7 @@
 
 [ReScript](https://rescript-lang.org) language support for IntelliJ IDEA and other JetBrains IDEs.
 
-**[Documentation](https://nagatatz.github.io/rescript-intellij-plugin/)**
+**[Documentation](https://nagatatz.github.io/rescript-intellij-plugin/)** · **[Version & Compatibility](docs/versions.md)**
 
 ## Features
 
@@ -134,7 +134,7 @@
 ### Project & IDE Integration
 
 - **LSP auto-install** — One-click installation of `@rescript/language-server` with auto-detected package manager
-- **Project Wizard** — Create new projects from 15 templates: Basic, npm Library, CLI Tool, Vite+ + React, Next.js, Electron, React Native (Expo), React Native (Community CLI — bare workflow with native Android/iOS access), Hono (REST with Drizzle + Zod + OpenAPI/Scalar UI), Hono + GraphQL (graphql-yoga + GraphiQL + Drizzle), Cloudflare Workers, AWS Lambda, Google Cloud Run, Monorepo (pnpm/npm/yarn workspaces), and Full-Stack (single package combining Hono+Drizzle and Vite+React with shared types). Each template ships "one step deeper" sample code (not just Hello World) plus README, `.gitignore`, `.editorconfig`, `LICENSE` (MIT), `.nvmrc`, `.github/dependabot.yml`, a GitHub Actions CI workflow, and a Vitest smoke test (`test` + `test:coverage` scripts + `__tests__/`); Hono-based templates also include a global `app.onError` handler and `app.request()`-based route tests, and templates that read env vars ship a `.env.example`. The selected package manager (npm / pnpm / yarn, default pnpm) is reflected in `package.json` (`packageManager` field) and README commands. Dependency versions are centralized in `TemplateVersions.kt` and verified end-to-end by a nightly integration test workflow that runs `pnpm install` and `rescript build` for every template.
+- **Project Wizard** — Create new projects from 15 production-shaped templates (Basic, npm Library, CLI Tool, Vite+ + React, Next.js, Electron, two React Native flavors, Hono REST/GraphQL, Cloudflare Workers, AWS Lambda, Google Cloud Run, Monorepo, Full-Stack). Each template ships "one step deeper" sample code, a Vitest smoke test, MIT `LICENSE`, `.nvmrc`, GitHub Actions CI, and Dependabot config. See [docs/templates.md](docs/templates.md) for the full matrix.
 - **Compiled JS preview** — Real-time preview of compiled JavaScript in a tool window
 - **Project View nesting** — `.resi` interface files nested under corresponding `.res` files
 - **rescript.json support** — Custom icon and JSON Schema for configuration files
@@ -188,52 +188,27 @@ npm install -g @rescript/language-server
 
 ## Architecture
 
-This plugin uses a **hybrid approach**:
+The plugin combines a JFlex lexer for fast, accurate syntax highlighting with the official [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode/tree/master/server) for semantic features (completion, diagnostics, navigation, hover). A lightweight parser provides PSI structure for code folding and structure view.
 
-1. **Lexer-based syntax highlighting** — A JFlex lexer tokenizes ReScript source code for fast, accurate syntax coloring without depending on external tools.
+For the full architecture overview — layers, Extension Points, and class-level mapping — see [CLAUDE.md](CLAUDE.md) and [docs/architecture.md](docs/architecture.md).
 
-2. **LSP integration** — All semantic features (completion, diagnostics, navigation, hover, etc.) are provided by the [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode/tree/master/server) via the IntelliJ Platform's built-in LSP API. This ensures feature parity with the official VSCode extension.
+## Contributing
 
-3. **Lightweight parser** — A minimal parser provides PSI structure for IDE features like code folding and structure view. It recognizes top-level declarations and JSX elements without attempting to fully parse ReScript's complex expression syntax.
+Developer-facing documentation lives in:
 
-## Development
+- [CLAUDE.md](CLAUDE.md) — build commands, architecture layers, development conventions
+- [docs/](docs/) — permanent design documents (architecture, functional design, repository structure)
+- [sphinx-docs/dev/](sphinx-docs/dev/) — developer guide (setup, building, testing, contributing)
+- [.claude/rules/](.claude/rules/) — project rules (testing, Git conventions, documentation, release)
 
-### Prerequisites
-
-- JDK 21+
-- IntelliJ IDEA (for development)
-
-### Build
+Quick reference:
 
 ```bash
-./gradlew buildPlugin
+./gradlew buildPlugin     # build the plugin
+./gradlew runIde          # launch a sandbox IDE for manual testing
+./gradlew test            # run unit tests
+./gradlew ktlintCheck     # verify Kotlin formatting
 ```
-
-### Run (development instance)
-
-```bash
-./gradlew runIde
-```
-
-### Generate Lexer
-
-The JFlex lexer is automatically generated from `Rescript.flex` during the build process via the `generateRescriptLexer` Gradle task (dependency of `compileJava` / `compileKotlin`). Manual generation is not required.
-
-### UI Tests (Remote-Robot)
-
-UI tests use [IntelliJ Remote-Robot](https://github.com/JetBrains/intellij-ui-test-robot) to automate IDE interaction and capture Marketplace screenshots.
-
-```bash
-# 1. Start the IDE with Remote-Robot server (port 8082)
-./gradlew runIdeForUiTests
-
-# 2. Open the sample project: src/uiTest/testData/sample-project/
-
-# 3. In a separate terminal, run the UI tests
-./gradlew uiTest
-```
-
-Screenshots are saved to `build/screenshots/`. UI tests are not included in CI (requires a display).
 
 ## License
 

@@ -62,9 +62,18 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | リアルタイム診断 | コンパイルエラー・警告のインライン表示 | P0 |
 | インレイヒント | 推論された型の注釈表示 | P1 |
 
-### 実装済み機能（当初ロードマップから完了）
+### 実装済み機能一覧
 
-以下の機能は当初ロードマップに含まれていたが、既に実装済みである。
+実装済み機能の完全なリストは以下を参照:
+
+- ユーザー向けサマリ: `README.md` の Features セクション
+- パッケージ/クラス単位の対応表: `docs/functional-design.md` の Extension Point マップ
+- 機能カテゴリ別の解説: `sphinx-docs/user/features/`
+
+以下、過去の記録として当初ロードマップ完了項目を残す（履歴目的）。
+
+<details>
+<summary>当初ロードマップ完了項目（クリックして展開）</summary>
 
 | 機能 | 説明 | 実装状況 |
 |---|---|---|
@@ -114,7 +123,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Statement Up/Down Mover | Alt+Shift+Up/Down でトップレベル宣言を上下移動 | `RescriptStatementUpDownMover` |
 | Qualified Name Copy | Cmd+Shift+Alt+C で完全修飾名コピー | `RescriptQualifiedNameProvider` |
 | Smart Enter | Shift+Enter で文を補完して改行（括弧閉じ、switch ブレース補完等） | `RescriptSmartEnterProcessor` |
-| Project Wizard | New Project ダイアログから 15 種類のプロジェクトテンプレート選択・作成（Basic, npm Library, CLI Tool, Vite++React, Next.js, Electron, React Native (Expo), React Native (Community CLI — bare workflow で `android/`・`ios/` を Android Studio/Xcode から直接編集可能), Hono (REST + Drizzle + Zod + OpenAPI/Scalar UI), Hono+GraphQL (graphql-yoga + GraphiQL + Drizzle), Cloudflare Workers, AWS Lambda, Google Cloud Run, Monorepo, Full-Stack）。各テンプレートに "one step deeper" の実用例 (CRUD 一式、型共有、OpenAPI/GraphiQL、Drizzle 移行) + README / .gitignore / .editorconfig / GitHub Actions CI / `package.json` の `packageManager` フィールド / Vitest スモークテストを同梱。Vite+ (`vite-plus`) 採用部分は pre-1.0 のため README に fallback を記載。全 15 テンプレートで Vitest スモークテスト (`test` + `test:coverage` スクリプト + `__tests__/*.test.mjs`) / `LICENSE` (MIT) / `.nvmrc` / `.github/dependabot.yml` を同梱 (React Native は filesystem smoke test)。Hono 系 4 テンプレは `app.onError` グローバルエラーハンドラ + `app.request()` ルートテスト、DB/PORT を使う 5 テンプレは `.env.example` 付き。デフォルト PM は pnpm。依存バージョンは `TemplateVersions.kt` に集約し、`integration-tests.yml` (nightly + manual) で生成→install→build を E2E 検証。 | `RescriptModuleBuilder` + `RescriptProjectWizardStep` + `ProjectTemplate` + `ProjectFileBuilders` + `templates/*` (`TemplateVersions`, `TemplateContext`, `CommonFiles`, `HonoGraphqlTemplateFiles`, `FullStackTemplateFiles`, `ReactNativeCliTemplateFiles` 等を含む) + `TemplateIntegrationTest` |
+| Project Wizard | New Project ダイアログから 15 種類のプロジェクトテンプレート選択・作成。テンプレート一覧・同梱要素・統合テストの詳細は [docs/templates.md](templates.md) 参照 | `RescriptModuleBuilder` + `RescriptProjectWizardStep` + `ProjectTemplate` + `ProjectFileBuilders` + `templates/*` + `TemplateIntegrationTest` |
 | Code Generation | variant switch arms / module type スケルトン / make 関数 / JSON エンコーダ・デコーダ自動生成 (Cmd+N) | `RescriptGenerateGroup` + `RescriptTypeDeclarationParser` + `RescriptJsonCodeGenerator` |
 | .d.ts → ReScript Binding 生成 | TypeScript `.d.ts` 定義ファイルから ReScript `external` バインディングコードを自動生成 | `DtsGenerateBindingAction` + `DtsToRescriptConverter` |
 | Bundled Dictionary | ReScript 固有用語（genType, Belt, functor 等）のスペルチェック辞書 | `RescriptBundledDictionaryProvider` + `rescript.dic` |
@@ -231,13 +240,13 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | Generate Action 基底クラス抽出 | 6 Generate Action の `ActionUpdateThread.BGT` ポリシーを共通基底クラスに集約 | `RescriptBaseGenerateAction` |
 | エディタユーティリティ抽出 | `WriteCommandAction` ラッパーと `Document` 行アクセスヘルパーの共通化 | `RescriptEditorUtils` |
 
-### 将来機能（ロードマップ） — ギャップ分析
+</details>
 
-3回の機能調査（初回調査・追加調査・関数型言語調査）で109件の未実装機能候補を収集し、全109件を実装済み（S/A/B 優先度42件 + Phase 1 Quick Wins 7件 + S 優先度6件 + A 優先度13件 + B 優先度18件 + C 優先度23件）。#79 (MultiLang Commenter) は ReScript/JS のコメント構文が同一のため不要と判断。#110, #111 は S 優先度として実装済み。#112, #113, #114 は A 優先度として実装済み。#118 は C 優先度として実装済み。#115, #116, #117 はインフラ改善として実装済み。
+### 将来機能（ロードマップ）
 
-JetBrains Marketplace には v0.1.2 で申請済み（審査中）。
+現時点で計画中の機能はない。3 回の機能調査で収集された 109 件の機能候補はすべて実装完了している。
 
-全機能実装済み。未実装機能なし。
+新規機能の提案は GitHub Issues で受け付ける。ロードマップの表記方法は `.claude/rules/roadmap-format.md` を参照。
 
 ## 4. 成功の定義
 
@@ -245,7 +254,7 @@ JetBrains Marketplace には v0.1.2 で申請済み（審査中）。
 
 | 指標 | 目標値 |
 |---|---|
-| JetBrains Marketplace 公開 | v0.1.7 公開済み |
+| JetBrains Marketplace 公開 | 公開済み（現行バージョンは [docs/versions.md](versions.md) 参照） |
 | シンタックスハイライトの正確性 | ReScript の全トークンタイプを正しくカラーリング |
 | LSP 機能の動作率 | VSCode 拡張と同等の機能カバレッジ |
 | エディタ入力時のレスポンス | ハイライト更新が体感上即座（< 16ms） |

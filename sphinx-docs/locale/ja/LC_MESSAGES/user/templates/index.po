@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 20:08+0900\n"
+"POT-Creation-Date: 2026-04-16 20:49+0900\n"
 "PO-Revision-Date: 2026-04-15 20:15+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -24,8 +24,8 @@ msgid ""
 "templates, project wizard, scaffolding, hono, graphql, react, drizzle, "
 "monorepo, full-stack"
 msgstr ""
-"テンプレート, プロジェクトウィザード, スキャフォールディング, hono,"
-" graphql, react, drizzle, monorepo, フルスタック"
+"テンプレート, プロジェクトウィザード, スキャフォールディング, hono, graphql, react, drizzle, "
+"monorepo, フルスタック"
 
 #: ../../user/templates/index.md:7
 msgid "Project Templates"
@@ -33,18 +33,17 @@ msgstr "プロジェクトテンプレート"
 
 #: ../../user/templates/index.md:9
 msgid ""
-"The plugin ships 14 project templates that scaffold production-shaped "
+"The plugin ships 15 project templates that scaffold production-shaped "
 "ReScript apps — not just \"Hello World\". Each template is a working, "
 "buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ "
 "where applicable, GitHub Actions CI) and documentation that answers the "
 "common day-two question: *\"How do I add the next thing?\"*"
 msgstr ""
-"このプラグインは、単なる \"Hello World\" ではなく、プロダクション"
-"レベルの形をした ReScript アプリをスキャフォールディングする 14 の"
-"プロジェクトテンプレートを同梱しています。各テンプレートはモダンな"
-"ツーリング (pnpm/npm/yarn 対応、ESM、該当箇所で Vite+、GitHub Actions CI)"
-" を備えた動作するビルド可能なプロジェクトであり、2 日目によくある質問"
-"「次はどう追加するのか?」に答えるドキュメントが付属します。"
+"プラグインには本番環境を想定した 15 個のプロジェクトテンプレートが同梱されており、単なる \"Hello World\" "
+"ではなくプロダクション形状の ReScript アプリをスキャフォールドします。各テンプレートはモダンなツーリング "
+"(pnpm/npm/yarn 対応、ESM、該当箇所で Vite+、GitHub Actions CI) "
+"を備えた動作するビルド可能なプロジェクトで、2 日目によくある質問「次はどう追加するのか?」"
+"に答えるドキュメントが付属します。"
 
 #: ../../user/templates/index.md:11
 msgid "Opening the Wizard"
@@ -70,9 +69,7 @@ msgstr "**Create** をクリック"
 msgid ""
 "You can also launch `npm create rescript@latest` from the terminal to get"
 " the same set of templates without the IDE."
-msgstr ""
-"ターミナルから `npm create rescript@latest` を実行しても、IDE なしで"
-"同じテンプレートセットを利用できます。"
+msgstr "ターミナルから `npm create rescript@latest` を実行しても、IDE なしで同じテンプレートセットを利用できます。"
 
 #: ../../user/templates/index.md:20
 msgid "Category: Basic"
@@ -88,9 +85,8 @@ msgid ""
 " (`node:fs/promises`) modules. Useful as the smallest working reference "
 "for a non-browser ReScript project."
 msgstr ""
-"`Args` (argv パース) と `Files` (`node:fs/promises`) モジュールを備えた"
-"最小限の ReScript + Node.js スターター。ブラウザ以外で動作する ReScript"
-" プロジェクトの最小限のリファレンスとして便利です。"
+"`Args` (argv パース) と `Files` (`node:fs/promises`) モジュールを備えた最小限の ReScript +"
+" Node.js スターター。ブラウザ以外で動作する ReScript プロジェクトの最小限のリファレンスとして便利です。"
 
 #: ../../user/templates/index.md:28 ../../user/templates/index.md:40
 #, python-brace-format
@@ -107,9 +103,9 @@ msgid ""
 "Vitest suites and `fetchWithTimeout` (AbortController). Publish-ready to "
 "npm via `pnpm publish`."
 msgstr ""
-"モジュール単位の Vitest スイートと `fetchWithTimeout` (AbortController)"
-" を備えた分割モジュール構成ライブラリ (`Index`、`ListUtils`、`Fetcher`)"
-"。`pnpm publish` で npm に公開できる状態です。"
+"モジュール単位の Vitest スイートと `fetchWithTimeout` (AbortController) "
+"を備えた分割モジュール構成ライブラリ (`Index`、`ListUtils`、`Fetcher`)。`pnpm publish` で npm "
+"に公開できる状態です。"
 
 #: ../../user/templates/index.md:34
 #, python-brace-format
@@ -126,9 +122,8 @@ msgid ""
 "`Commands/` directory. Demonstrates how to grow a CLI without a "
 "heavyweight framework."
 msgstr ""
-"独自の `Args` パーサーと `Commands/` ディレクトリを持つサブコマンド"
-"ディスパッチャ (`greet`、`init`)。重いフレームワークなしで CLI を"
-"成長させる方法を示します。"
+"独自の `Args` パーサーと `Commands/` ディレクトリを持つサブコマンドディスパッチャ "
+"(`greet`、`init`)。重いフレームワークなしで CLI を成長させる方法を示します。"
 
 #: ../../user/templates/index.md:44
 msgid "Category: Frontend"
@@ -144,10 +139,9 @@ msgid ""
 "`useState`, and a `fetch('/api/greet')` round-trip (offline fallback "
 "included). Includes `src/Api.res` as a reusable fetch wrapper."
 msgstr ""
-"[Vite+](https://vite.plus) を使用したシングルページ React アプリ。フォーム"
-"、`useState`、`fetch('/api/greet')` の往復 (オフラインフォールバック"
-"付き) を備えます。再利用可能な fetch ラッパーとして `src/Api.res` を"
-"同梱しています。"
+"[Vite+](https://vite.plus) を使用したシングルページ React "
+"アプリ。フォーム、`useState`、`fetch('/api/greet')` の往復 (オフラインフォールバック付き) "
+"を備えます。再利用可能な fetch ラッパーとして `src/Api.res` を同梱しています。"
 
 #: ../../user/templates/index.md:52
 #, python-brace-format
@@ -165,10 +159,9 @@ msgid ""
 "(`app/api/greet/route.ts`). ReScript components are exposed via "
 "`genType`."
 msgstr ""
-"Server Component (`app/page.tsx`)、Client Component"
-" (`app/client/GreetForm.tsx`)、Route Handler"
-" (`app/api/greet/route.ts`) を備えた App Router。ReScript コンポーネント"
-"は `genType` 経由で公開されます。"
+"Server Component (`app/page.tsx`)、Client Component "
+"(`app/client/GreetForm.tsx`)、Route Handler (`app/api/greet/route.ts`) "
+"を備えた App Router。ReScript コンポーネントは `genType` 経由で公開されます。"
 
 #: ../../user/templates/index.md:58
 #, python-brace-format
@@ -185,9 +178,9 @@ msgid ""
 "`src/Electron.res` binds the exposed `electronAPI` so renderer-process "
 "ReScript code can query system info."
 msgstr ""
-"`preload.cjs` + `contextBridge` + `ipcMain.handle` を使用したデスクトップ"
-"アプリ。`src/Electron.res` が公開された `electronAPI` をバインドし、"
-"レンダラープロセスの ReScript コードからシステム情報を取得できます。"
+"`preload.cjs` + `contextBridge` + `ipcMain.handle` "
+"を使用したデスクトップアプリ。`src/Electron.res` が公開された `electronAPI` をバインドし、レンダラープロセスの "
+"ReScript コードからシステム情報を取得できます。"
 
 #: ../../user/templates/index.md:64
 #, python-brace-format
@@ -204,10 +197,9 @@ msgid ""
 "`Button` + `FlatList`). `src/ReactNative.res` wraps the core RN component"
 " set. Extend the bindings to add more."
 msgstr ""
-"インタラクティブな Todo リスト (`useState` + `TextInput` + `Button`"
-" + `FlatList`) を備えた Expo ベースのアプリ。`src/ReactNative.res` が"
-" RN のコアコンポーネントセットをラップしています。バインディングを"
-"拡張すれば機能を追加できます。"
+"インタラクティブな Todo リスト (`useState` + `TextInput` + `Button` + `FlatList`) "
+"を備えた Expo ベースのアプリ。`src/ReactNative.res` が RN "
+"のコアコンポーネントセットをラップしています。バインディングを拡張すれば機能を追加できます。"
 
 #: ../../user/templates/index.md:70
 #, python-brace-format
@@ -228,9 +220,9 @@ msgid ""
 "`/docs`. Ships a complete users CRUD (`src/Routes/Users.res`), migrations"
 " via `drizzle-kit`, and an `/openapi.json` spec."
 msgstr ""
-"Hono + Drizzle (SQLite) + Zod + `@hono/zod-openapi` に `/docs` の Scalar"
-" UI を組み合わせた構成。完全な users CRUD (`src/Routes/Users.res`)、"
-"`drizzle-kit` によるマイグレーション、`/openapi.json` 仕様を同梱しています。"
+"Hono + Drizzle (SQLite) + Zod + `@hono/zod-openapi` に `/docs` の Scalar UI"
+" を組み合わせた構成。完全な users CRUD (`src/Routes/Users.res`)、`drizzle-kit` "
+"によるマイグレーション、`/openapi.json` 仕様を同梱しています。"
 
 #: ../../user/templates/index.md:84
 #, python-brace-format
@@ -247,10 +239,9 @@ msgid ""
 "lives in `src/schema.graphql`, resolvers in `src/Resolvers/Users.res`, "
 "storage in Drizzle. Run `pnpm docs:graphql` for human-readable docs."
 msgstr ""
-"`graphql-yoga` を `/graphql` でホストし、GraphiQL を内蔵した Hono。SDL"
-" は `src/schema.graphql`、リゾルバは `src/Resolvers/Users.res`、永続化は"
-" Drizzle に配置されています。人間向けドキュメントは `pnpm docs:graphql`"
-" で生成します。"
+"`graphql-yoga` を `/graphql` でホストし、GraphiQL を内蔵した Hono。SDL は "
+"`src/schema.graphql`、リゾルバは `src/Resolvers/Users.res`、永続化は Drizzle "
+"に配置されています。人間向けドキュメントは `pnpm docs:graphql` で生成します。"
 
 #: ../../user/templates/index.md:92
 #, python-brace-format
@@ -271,9 +262,8 @@ msgid ""
 "`GREETINGS` binding. `src/Kv.res` binds the KV API so you can extend to "
 "Durable Objects or R2."
 msgstr ""
-"`wrangler.jsonc` と、`GREETINGS` バインディングを用いた KV 裏付け"
-"の greetings エンドポイント (POST/GET)。`src/Kv.res` が KV API を"
-"バインドしており、Durable Objects や R2 に拡張できます。"
+"`wrangler.jsonc` と、`GREETINGS` バインディングを用いた KV 裏付けの greetings エンドポイント "
+"(POST/GET)。`src/Kv.res` が KV API をバインドしており、Durable Objects や R2 に拡張できます。"
 
 #: ../../user/templates/index.md:104
 #, python-brace-format
@@ -290,9 +280,8 @@ msgid ""
 "`/orders/:id` (path param). README includes a DynamoDB recipe using "
 "`@aws-sdk/lib-dynamodb`."
 msgstr ""
-"POST `/orders` (JSON body) と GET `/orders/:id` (パスパラメータ) を"
-"備えた API Gateway 向けハンドラ。README には `@aws-sdk/lib-dynamodb` を"
-"使った DynamoDB レシピを含みます。"
+"POST `/orders` (JSON body) と GET `/orders/:id` (パスパラメータ) を備えた API Gateway"
+" 向けハンドラ。README には `@aws-sdk/lib-dynamodb` を使った DynamoDB レシピを含みます。"
 
 #: ../../user/templates/index.md:110
 #, python-brace-format
@@ -309,9 +298,9 @@ msgid ""
 " and a `Dockerfile`. README includes a Cloud SQL recipe via `@google-"
 "cloud/cloud-sql-connector`."
 msgstr ""
-"`PORT` 環境変数の読み込み、POST `/echo` ルート、`Dockerfile` を備えた"
-"コンテナ化された Hono サービス。README には `@google-cloud/"
-"cloud-sql-connector` を使用した Cloud SQL レシピを含みます。"
+"`PORT` 環境変数の読み込み、POST `/echo` ルート、`Dockerfile` を備えたコンテナ化された Hono "
+"サービス。README には `@google-cloud/cloud-sql-connector` を使用した Cloud SQL "
+"レシピを含みます。"
 
 #: ../../user/templates/index.md:116
 #, python-brace-format
@@ -332,9 +321,9 @@ msgid ""
 "+ Drizzle), `packages/client` (Vite+/React). Types flow from "
 "`@<project>/shared` into both sides via the workspace protocol."
 msgstr ""
-"`packages/shared`、`packages/server` (Hono + Drizzle)、`packages/client`"
-" (Vite+/React) を持つ pnpm/npm/yarn ワークスペース。型は workspace"
-" プロトコル経由で `@<project>/shared` から両側へ流れます。"
+"`packages/shared`、`packages/server` (Hono + Drizzle)、`packages/client` "
+"(Vite+/React) を持つ pnpm/npm/yarn ワークスペース。型は workspace プロトコル経由で "
+"`@<project>/shared` から両側へ流れます。"
 
 #: ../../user/templates/index.md:128
 #, python-brace-format
@@ -352,9 +341,9 @@ msgid ""
 "`src/{shared,server,client}`, Hono + Drizzle backend, Vite+/React client,"
 " `concurrently` for dev, Vite+ proxy for `/api/*`."
 msgstr ""
-"Monorepo の単一パッケージ版: 1 つの `package.json`、"
-"`src/{shared,server,client}`、Hono + Drizzle バックエンド、Vite+/React"
-" クライアント、開発時は `concurrently`、`/api/*` は Vite+ プロキシ。"
+"Monorepo の単一パッケージ版: 1 つの `package.json`、`src/{shared,server,client}`、Hono"
+" + Drizzle バックエンド、Vite+/React クライアント、開発時は `concurrently`、`/api/*` は Vite+"
+" プロキシ。"
 
 #: ../../user/templates/index.md:136
 #, python-brace-format
@@ -437,41 +426,33 @@ msgstr "2 日目のレシピ"
 msgid ""
 "When you need to extend a generated project, these recipes pick up where "
 "the template README leaves off:"
-msgstr ""
-"生成したプロジェクトを拡張する必要があるとき、以下のレシピが"
-"テンプレート README の先を補完します:"
+msgstr "生成したプロジェクトを拡張する必要があるとき、以下のレシピがテンプレート README の先を補完します:"
 
 #: ../../user/templates/index.md:163
 msgid ""
 "[Add a Hono endpoint](../recipes/add-hono-endpoint.md) — adding routes, "
 "validation, and shared types"
-msgstr ""
-"[Hono エンドポイントの追加](../recipes/add-hono-endpoint.md) — ルート"
-"、バリデーション、共有型の追加"
+msgstr "[Hono エンドポイントの追加](../recipes/add-hono-endpoint.md) — ルート、バリデーション、共有型の追加"
 
 #: ../../user/templates/index.md:164
 msgid ""
 "[Add a GraphQL resolver](../recipes/add-graphql-resolver.md) — expanding "
 "the schema and regenerating docs"
-msgstr ""
-"[GraphQL リゾルバの追加](../recipes/add-graphql-resolver.md) — スキーマ"
-"の拡張とドキュメントの再生成"
+msgstr "[GraphQL リゾルバの追加](../recipes/add-graphql-resolver.md) — スキーマの拡張とドキュメントの再生成"
 
 #: ../../user/templates/index.md:165
 msgid ""
 "[Set up Drizzle](../recipes/setup-drizzle.md) — schema changes, "
 "migrations, and Turso"
-msgstr ""
-"[Drizzle のセットアップ](../recipes/setup-drizzle.md) — スキーマ変更、"
-"マイグレーション、Turso"
+msgstr "[Drizzle のセットアップ](../recipes/setup-drizzle.md) — スキーマ変更、マイグレーション、Turso"
 
 #: ../../user/templates/index.md:166
 msgid ""
 "[Add OpenAPI docs](../recipes/add-openapi-docs.md) — wiring Scalar UI and"
 " Zod schemas"
 msgstr ""
-"[OpenAPI ドキュメントの追加](../recipes/add-openapi-docs.md) — Scalar UI"
-" と Zod スキーマの配線"
+"[OpenAPI ドキュメントの追加](../recipes/add-openapi-docs.md) — Scalar UI と Zod "
+"スキーマの配線"
 
 #: ../../user/templates/index.md:168
 msgid "Notes on Vite+"
@@ -485,9 +466,8 @@ msgid ""
 "`vite.config.mjs` and swap the `vp` scripts for `vite` to fall back to "
 "classic Vite."
 msgstr ""
-"Vite+ ベースのテンプレート (Vite+ + React、Monorepo クライアント、"
-"Full-Stack) は `vite-plus` と `@voidzero-dev/vite-plus-core` を"
-" pre-1.0 バージョンに固定しています。アップグレード後にコマンドが"
-"壊れた場合は、`vite.config.mjs` の `vite-plus` を `vite` に置き換え、"
-"`vp` スクリプトを `vite` に変更して従来の Vite にフォールバックして"
-"ください。"
+"Vite+ ベースのテンプレート (Vite+ + React、Monorepo クライアント、Full-Stack) は `vite-plus`"
+" と `@voidzero-dev/vite-plus-core` を pre-1.0 "
+"バージョンに固定しています。アップグレード後にコマンドが壊れた場合は、`vite.config.mjs` の `vite-plus` を "
+"`vite` に置き換え、`vp` スクリプトを `vite` に変更して従来の Vite にフォールバックしてください。"
+
