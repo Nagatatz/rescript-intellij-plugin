@@ -1,31 +1,32 @@
 package com.rescript.plugin.editor
 
-import org.junit.jupiter.api.Assertions.assertEquals
+import com.rescript.plugin.IntelliJPlatformExtension
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+/**
+ * Tests for [RescriptFloatingToolbarProvider].
+ *
+ * The provider constructs its [com.intellij.openapi.actionSystem.ActionGroup]
+ * via [com.intellij.openapi.actionSystem.ActionManager], which requires the
+ * IntelliJ Platform application to be initialised — hence the use of
+ * [IntelliJPlatformExtension].
+ */
+@ExtendWith(IntelliJPlatformExtension::class)
 class RescriptFloatingToolbarProviderTest {
-    private val provider = RescriptFloatingToolbarProvider()
-
     @Test
     fun testProviderCanBeInstantiated() {
-        assertNotNull(provider)
+        assertNotNull(RescriptFloatingToolbarProvider())
     }
 
     @Test
     fun testActionGroupIsNotNull() {
-        assertNotNull(provider.actionGroup)
+        assertNotNull(RescriptFloatingToolbarProvider().actionGroup)
     }
 
     @Test
     fun testBuildActionGroupReturnsDefaultGroup() {
-        val group = RescriptFloatingToolbarProvider.buildActionGroup()
-        assertNotNull(group)
-    }
-
-    @Suppress("DEPRECATION")
-    @Test
-    fun testPriorityIsZero() {
-        assertEquals(0, provider.priority)
+        assertNotNull(RescriptFloatingToolbarProvider.buildActionGroup())
     }
 }

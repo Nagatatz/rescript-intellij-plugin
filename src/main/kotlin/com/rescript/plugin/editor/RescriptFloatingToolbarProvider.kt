@@ -37,12 +37,6 @@ class RescriptFloatingToolbarProvider : FloatingToolbarProvider {
 
     override val actionGroup: ActionGroup = buildActionGroup()
 
-    // Explicit override to avoid Kotlin bridge method invoking DefaultImpls,
-    // which triggers a Marketplace verification warning for scheduled-for-removal API.
-    // Ordering is controlled by the "order" attribute in plugin.xml instead.
-    @Suppress("OVERRIDE_DEPRECATION")
-    override val priority: Int = 0
-
     // isApplicable() is deprecated but no replacement API exists yet;
     // override required for file-type filtering.
     @Suppress("DEPRECATION")
