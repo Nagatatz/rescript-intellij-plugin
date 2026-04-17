@@ -67,7 +67,7 @@ object TemplateVersions {
     const val YARN = "4.5.0"
 
     // Database (libsql client + Drizzle ORM)
-    const val LIBSQL_CLIENT = "^0.14.0"
+    const val LIBSQL_CLIENT = "^0.17.0"
     const val DRIZZLE_ORM = "^0.45.0"
     const val DRIZZLE_KIT = "^0.31.0"
 
