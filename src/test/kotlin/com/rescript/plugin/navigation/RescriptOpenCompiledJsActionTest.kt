@@ -1,5 +1,6 @@
 package com.rescript.plugin.navigation
 
+import com.intellij.openapi.actionSystem.ActionUiKind
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -177,6 +178,6 @@ class RescriptOpenCompiledJsActionTest {
         if (file != null) {
             builder.add(CommonDataKeys.VIRTUAL_FILE, file)
         }
-        return AnActionEvent.createFromDataContext("test", Presentation(), builder.build())
+        return AnActionEvent.createEvent(builder.build(), Presentation(), "test", ActionUiKind.NONE, null)
     }
 }

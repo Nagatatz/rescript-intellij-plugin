@@ -21,7 +21,7 @@ class RescriptDocumentationProviderTest {
 
     @Test
     fun `is an AbstractDocumentationProvider`() {
-        val provider = RescriptDocumentationProvider()
+        val provider: Any = RescriptDocumentationProvider()
         assertTrue(provider is AbstractDocumentationProvider)
     }
 

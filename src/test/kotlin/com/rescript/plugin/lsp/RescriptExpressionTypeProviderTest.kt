@@ -14,7 +14,7 @@ class RescriptExpressionTypeProviderTest {
 
     @Test
     fun `is an ExpressionTypeProvider`() {
-        val provider = RescriptExpressionTypeProvider()
+        val provider: Any = RescriptExpressionTypeProvider()
         assertTrue(provider is com.intellij.lang.ExpressionTypeProvider<*>)
     }
 

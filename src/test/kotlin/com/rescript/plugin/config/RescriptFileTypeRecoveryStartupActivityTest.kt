@@ -25,7 +25,7 @@ class RescriptFileTypeRecoveryStartupActivityTest {
 
     @Test
     fun testActivityImplementsProjectActivity() {
-        val activity = RescriptFileTypeRecoveryStartupActivity()
+        val activity: Any = RescriptFileTypeRecoveryStartupActivity()
         assertTrue(activity is ProjectActivity)
     }
 

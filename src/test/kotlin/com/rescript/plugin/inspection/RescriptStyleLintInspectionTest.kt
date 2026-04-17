@@ -74,7 +74,8 @@ class RescriptStyleLintInspectionTest {
 
     @Test
     fun `inspection is a LocalInspectionTool`() {
-        assertTrue(RescriptStyleLintInspection() is com.intellij.codeInspection.LocalInspectionTool)
+        val subject: Any = RescriptStyleLintInspection()
+        assertTrue(subject is com.intellij.codeInspection.LocalInspectionTool)
     }
 
     @Test

@@ -46,6 +46,9 @@ class RescriptCallHierarchyProviderTest {
     private class EmptyDataContext : com.intellij.openapi.actionSystem.DataContext {
         override fun <T : Any?> getData(key: com.intellij.openapi.actionSystem.DataKey<T>): T? = null
 
+        // Override retained because the platform still routes some lookups through
+        // the string-keyed overload despite its deprecation.
+        @Suppress("OVERRIDE_DEPRECATION")
         override fun getData(dataId: String): Any? = null
     }
 }

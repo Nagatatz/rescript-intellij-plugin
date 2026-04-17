@@ -85,7 +85,7 @@ class RescriptSuggestedRefactoringInspectionTest {
 
     @Test
     fun `inspection can be instantiated`() {
-        val inspection = RescriptSuggestedRefactoringInspection()
+        val inspection: Any = RescriptSuggestedRefactoringInspection()
         assertTrue(inspection is com.intellij.codeInspection.LocalInspectionTool)
     }
 }

@@ -16,7 +16,8 @@ class RescriptFrameworkDetectorTest {
 
     @Test
     fun `detector is a FrameworkDetector`() {
-        assertTrue(detector is com.intellij.framework.detection.FrameworkDetector)
+        val subject: Any = detector
+        assertTrue(subject is com.intellij.framework.detection.FrameworkDetector)
     }
 
     @Test

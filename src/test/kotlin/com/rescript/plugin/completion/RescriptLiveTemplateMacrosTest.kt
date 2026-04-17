@@ -32,13 +32,13 @@ class RescriptLiveTemplateMacrosTest {
 
     @Test
     fun `RescriptModuleNameMacro is a Macro`() {
-        val macro = RescriptModuleNameMacro()
+        val macro: Any = RescriptModuleNameMacro()
         assertTrue(macro is com.intellij.codeInsight.template.Macro)
     }
 
     @Test
     fun `RescriptComponentNameMacro is a Macro`() {
-        val macro = RescriptComponentNameMacro()
+        val macro: Any = RescriptComponentNameMacro()
         assertTrue(macro is com.intellij.codeInsight.template.Macro)
     }
 

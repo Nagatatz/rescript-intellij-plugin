@@ -50,6 +50,7 @@ class RescriptRunAnythingProviderTest {
 
     @Test
     fun `is a RunAnythingProviderBase`() {
-        assertTrue(provider is com.intellij.ide.actions.runAnything.activity.RunAnythingProviderBase<*>)
+        val subject: Any = provider
+        assertTrue(subject is com.intellij.ide.actions.runAnything.activity.RunAnythingProviderBase<*>)
     }
 }

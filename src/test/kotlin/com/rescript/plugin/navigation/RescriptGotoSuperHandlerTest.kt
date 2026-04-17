@@ -15,7 +15,7 @@ class RescriptGotoSuperHandlerTest {
 
     @Test
     fun `is a CodeInsightActionHandler`() {
-        val handler = RescriptGotoSuperHandler()
+        val handler: Any = RescriptGotoSuperHandler()
         assertTrue(handler is CodeInsightActionHandler)
     }
 

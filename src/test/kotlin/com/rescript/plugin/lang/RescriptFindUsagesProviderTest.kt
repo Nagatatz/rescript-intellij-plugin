@@ -1,5 +1,6 @@
 package com.rescript.plugin.lang
 
+import com.intellij.psi.PsiElement
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -13,7 +14,12 @@ class RescriptFindUsagesProviderTest {
     }
 
     @Test
-    fun `help id is null`() {
-        assertEquals(null, provider.getHelpId(null as? com.intellij.psi.PsiElement ?: return))
+    fun `help id is null for any element`() {
+        val stub =
+            java.lang.reflect.Proxy.newProxyInstance(
+                PsiElement::class.java.classLoader,
+                arrayOf(PsiElement::class.java),
+            ) { _, _, _ -> null } as PsiElement
+        assertEquals(null, provider.getHelpId(stub))
     }
 }

@@ -259,6 +259,7 @@ class RescriptDependencyAnalyzerTest {
         }
 
         return object : SimpleStubElement(RescriptElementTypes.MODULE_DECLARATION, "scope") {
+            @Suppress("UNCHECKED_CAST")
             override fun getChildren(): Array<PsiElement> = childArray as Array<PsiElement>
 
             override fun getFirstChild(): PsiElement? = childArray.firstOrNull()

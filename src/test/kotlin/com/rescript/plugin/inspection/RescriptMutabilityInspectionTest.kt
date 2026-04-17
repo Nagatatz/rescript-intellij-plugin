@@ -75,7 +75,8 @@ class RescriptMutabilityInspectionTest {
 
     @Test
     fun `inspection is a LocalInspectionTool`() {
-        assertTrue(RescriptMutabilityInspection() is com.intellij.codeInspection.LocalInspectionTool)
+        val subject: Any = RescriptMutabilityInspection()
+        assertTrue(subject is com.intellij.codeInspection.LocalInspectionTool)
     }
 
     @Test

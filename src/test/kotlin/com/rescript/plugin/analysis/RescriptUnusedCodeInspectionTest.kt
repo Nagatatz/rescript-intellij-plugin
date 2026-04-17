@@ -127,7 +127,7 @@ class RescriptUnusedCodeInspectionTest {
 
     @Test
     fun `inspection is a GlobalInspectionTool`() {
-        val inspection = RescriptUnusedCodeInspection()
+        val inspection: Any = RescriptUnusedCodeInspection()
         assertTrue(inspection is com.intellij.codeInspection.GlobalInspectionTool)
     }
 

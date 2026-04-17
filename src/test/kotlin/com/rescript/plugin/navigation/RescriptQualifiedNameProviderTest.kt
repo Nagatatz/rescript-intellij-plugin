@@ -176,12 +176,12 @@ class RescriptQualifiedNameProviderTest {
 
     @Test
     fun testQualifiedNameToElementAlwaysReturnsNull() {
-        assertNull(
-            provider.qualifiedNameToElement(
-                "Foo.bar",
-                null as? com.intellij.openapi.project.Project ?: return,
-            ),
-        )
+        val stubProject =
+            java.lang.reflect.Proxy.newProxyInstance(
+                com.intellij.openapi.project.Project::class.java.classLoader,
+                arrayOf(com.intellij.openapi.project.Project::class.java),
+            ) { _, _, _ -> null } as com.intellij.openapi.project.Project
+        assertNull(provider.qualifiedNameToElement("Foo.bar", stubProject))
     }
 
     @Test
