@@ -22,17 +22,17 @@ object TemplateVersions {
     const val VITEST = "^2.1.0"
 
     // React
-    const val REACT = "^19.0.4"
-    const val REACT_DOM = "^19.0.4"
-    const val REACT_TYPES = "^19.0.0"
+    const val REACT = "^19.2.5"
+    const val REACT_DOM = "^19.2.5"
+    const val REACT_TYPES = "^19.2.0"
 
     // Backend
-    const val HONO = "^4.0.0"
-    const val HONO_NODE_SERVER = "^1.0.0"
+    const val HONO = "^4.12.0"
+    const val HONO_NODE_SERVER = "^1.19.0"
     const val NODE_TYPES = "^22.0.0"
 
     // Next.js
-    const val NEXTJS = "^16.0.0"
+    const val NEXTJS = "^16.2.0"
 
     // Electron
     const val ELECTRON = "^40.0.0"
@@ -49,15 +49,15 @@ object TemplateVersions {
     const val RN_TYPES = "^0.73.0"
 
     // Cloudflare Workers
-    const val WRANGLER = "^4.0.0"
-    const val CF_WORKERS_TYPES = "^4.20241022.0"
+    const val WRANGLER = "^4.83.0"
+    const val CF_WORKERS_TYPES = "^4.20260417.0"
 
     // AWS Lambda
     const val AWS_LAMBDA_TYPES = "^8.10.0"
     const val ESBUILD = "^0.27.0"
 
     // Monorepo tooling
-    const val CONCURRENTLY = "^9.0.0"
+    const val CONCURRENTLY = "^9.2.0"
 
     // TypeScript (used as devDependency where interop is needed)
     const val TYPESCRIPT = "^5.6.0"
@@ -80,9 +80,9 @@ object TemplateVersions {
     const val SCALAR_HONO_API_REFERENCE = "^0.5.0"
 
     // GraphQL (Hono GraphQL template)
-    const val GRAPHQL = "^16.9.0"
-    const val GRAPHQL_YOGA = "^5.7.0"
-    const val GRAPHQL_MARKDOWN = "^7.0.0"
+    const val GRAPHQL = "^16.13.0"
+    const val GRAPHQL_YOGA = "^5.21.0"
+    const val GRAPHQL_MARKDOWN = "^7.3.0"
 
     // AWS Lambda runtime types (separate from @types/aws-lambda)
     const val AWS_LAMBDA = "^1.0.0"
