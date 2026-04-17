@@ -30,7 +30,6 @@ class TemplateVersionsTest {
                 "RN_COMMUNITY_CLI" to TemplateVersions.RN_COMMUNITY_CLI,
                 "RN_METRO_CONFIG" to TemplateVersions.RN_METRO_CONFIG,
                 "RN_BABEL_PRESET" to TemplateVersions.RN_BABEL_PRESET,
-                "RN_TYPES" to TemplateVersions.RN_TYPES,
                 "WRANGLER" to TemplateVersions.WRANGLER,
                 "CF_WORKERS_TYPES" to TemplateVersions.CF_WORKERS_TYPES,
                 "AWS_LAMBDA_TYPES" to TemplateVersions.AWS_LAMBDA_TYPES,

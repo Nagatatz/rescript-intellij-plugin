@@ -46,7 +46,6 @@ object TemplateVersions {
     const val RN_COMMUNITY_CLI = "^15.0.0"
     const val RN_METRO_CONFIG = "^0.81.0"
     const val RN_BABEL_PRESET = "^0.81.0"
-    const val RN_TYPES = "^0.73.0"
 
     // Cloudflare Workers
     const val WRANGLER = "^4.83.0"

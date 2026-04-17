@@ -51,7 +51,6 @@ internal object ReactNativeCliTemplateFiles {
                             "@react-native-community/cli" to TemplateVersions.RN_COMMUNITY_CLI,
                             "@react-native/babel-preset" to TemplateVersions.RN_BABEL_PRESET,
                             "@react-native/metro-config" to TemplateVersions.RN_METRO_CONFIG,
-                            "@types/react-native" to TemplateVersions.RN_TYPES,
                             "vitest" to TemplateVersions.VITEST,
                             "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                         ),
