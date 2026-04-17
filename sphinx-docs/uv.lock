@@ -796,8 +796,8 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "atsphinx-htmx-boost", specifier = ">=0.2" },
-    { name = "furo", specifier = ">=2024.8,<2026.0" },
-    { name = "myst-parser", specifier = ">=4.0,<5.0" },
+    { name = "furo", specifier = ">=2024.8,<2027.0" },
+    { name = "myst-parser", specifier = ">=4.0,<6.0" },
     { name = "sphinx", specifier = ">=8.0,<10.0" },
     { name = "sphinx-copybutton", specifier = ">=0.5,<1.0" },
     { name = "sphinx-design", specifier = ">=0.6,<1.0" },
@@ -808,7 +808,7 @@ requires-dist = [
     { name = "sphinx-sitemap", specifier = ">=2.6,<3.0" },
     { name = "sphinx-tippy", specifier = ">=0.4,<1.0" },
     { name = "sphinxcontrib-budoux", specifier = ">=0.1" },
-    { name = "sphinxcontrib-mermaid", specifier = ">=1.0,<2.0" },
+    { name = "sphinxcontrib-mermaid", specifier = ">=1.0,<3.0" },
     { name = "sphinxext-opengraph", specifier = ">=0.9,<1.0" },
 ]
 
