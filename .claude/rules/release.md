@@ -79,18 +79,24 @@ git tag -a v<新バージョン> -m "<リリースノート>"
 git push origin main v<新バージョン>
 ```
 
-### 8. GitHub Release のリリースノート確認
+### 8. GitHub Release のリリースノート更新
 
-GitHub Actions の Release ワークフロー (`release.yml`) が起動し、以下が完了することを確認する:
+GitHub Actions の Release ワークフロー (`release.yml`) が起動し、GitHub Release が作成され JetBrains Marketplace へのパブリッシュが完了することを確認する。
 
-- GitHub Release が作成される
-- JetBrains Marketplace へのパブリッシュが成功する
+**以下は強制的な行動指示であり、例外なく従うこと。**
 
-`release.yml` は `generate_release_notes: true` で GitHub の自動生成ノートを使用するため、タグメッセージは GitHub Release には反映されない。必要に応じて `gh release edit` でリリースノートを手動で更新する。
+GitHub Release のリリースノートは **`gh release edit` で手動記述する**。`release.yml` の `generate_release_notes: true` による自動生成ノート（コミット一覧）は差し替える。
 
 ```bash
-gh release edit v<新バージョン> --notes "<リリースノート>"
+gh release edit v<新バージョン> --notes "<手動記述のリリースノート>"
 ```
+
+リリースノートは以下のフォーマットで記述する:
+
+- カテゴリ見出し (`## New Features`, `## Bug Fixes`, `## Refactoring`, `## Infrastructure`) で分類
+- 各項目は **ユーザーが理解できる日本語** で記述する（コミットメッセージのコピーではなく、変更の意味・価値を説明）
+- 主要な新機能には **太字** でタイトルを付け、補足説明を添える
+- 末尾に `**Full Changelog**: https://github.com/<owner>/<repo>/compare/<前タグ>...v<新バージョン>` を含める
 
 ## 禁止事項
 
