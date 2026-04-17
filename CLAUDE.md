@@ -104,6 +104,7 @@ IDE 統合機能は以下のカテゴリで実装されている。詳細な機�
 
 @.claude/rules/testing.md
 @.claude/rules/code-comments.md
+@.claude/rules/deprecated-api.md
 @.claude/rules/git-conventions.md
 @.claude/rules/steering-workflow.md
 @.claude/rules/documentation.md

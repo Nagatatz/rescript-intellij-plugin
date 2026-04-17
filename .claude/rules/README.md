@@ -17,6 +17,7 @@
 | [testing.md](testing.md) | テスト配置・命名・免除基準 |
 | [flex-rules.md](flex-rules.md) | JFlex レクサー編集時の制約（`RescriptFlexLexer.java` は自動生成） |
 | [plugin-xml-rules.md](plugin-xml-rules.md) | Extension Point 登録の配置ルール |
+| [deprecated-api.md](deprecated-api.md) | Deprecated / scheduled-for-removal API の使用禁止と抑制手順 |
 
 ## コミット・リリース時 — 公開する
 
