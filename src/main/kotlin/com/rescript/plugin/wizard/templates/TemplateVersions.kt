@@ -59,7 +59,7 @@ object TemplateVersions {
     const val CONCURRENTLY = "^9.2.0"
 
     // TypeScript (used as devDependency where interop is needed)
-    const val TYPESCRIPT = "^5.6.0"
+    const val TYPESCRIPT = "^6.0.0"
 
     // Package manager versions published via Corepack (`packageManager` field in package.json)
     const val PNPM = "9.12.0"
