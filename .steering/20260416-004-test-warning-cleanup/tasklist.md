@@ -67,15 +67,15 @@
 
 ## Phase 3: 最終検証
 
-- [ ] `./gradlew ktlintCheck` が成功する
-- [ ] `./gradlew clean buildPlugin` が成功する
-- [ ] `./gradlew test` が成功し、**テストソースからの `w:` 警告が 0 件**
-- [ ] テスト通過数が変更前と同等以上（`BUILD SUCCESSFUL` を確認）
-- [ ] カバレッジ `./gradlew koverHtmlReport` が `minBound=86` を下回らない
+- [x] `./gradlew ktlintCheck` が成功する
+- [x] `./gradlew clean buildPlugin` が成功する
+- [x] `./gradlew test` が成功し、**テストソースからの `w:` 警告が 0 件**
+- [x] テスト通過数が変更前と同等以上（`BUILD SUCCESSFUL` を確認）
+- [x] カバレッジ `./gradlew koverHtmlReport` が `minBound=86` を下回らない
 
 ## Phase 4: マージ前確認
 
-- [ ] すべてのタスクが `[x]` になっている
+- [x] すべてのタスクが `[x]` になっている
 - [ ] `AskUserQuestion` でユーザーに main マージ可否を確認する
 
 ## Phase 5: マージ実行・クリーンアップ
