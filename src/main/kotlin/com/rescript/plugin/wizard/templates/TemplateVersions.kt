@@ -12,7 +12,7 @@ object TemplateVersions {
     // ReScript core
     const val RESCRIPT = "^12.0.0"
     const val RESCRIPT_CORE = "^1.0.0"
-    const val RESCRIPT_REACT = "^0.14.0"
+    const val RESCRIPT_REACT = "^0.15.0"
 
     // Build tools
     // Vite+ (vite-plus) is pre-1.0; templates pin to the 0.1.x range until a stable release.
