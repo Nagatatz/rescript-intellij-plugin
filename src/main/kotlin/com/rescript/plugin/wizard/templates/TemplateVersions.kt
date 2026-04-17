@@ -35,8 +35,8 @@ object TemplateVersions {
     const val NEXTJS = "^16.2.0"
 
     // Electron
-    const val ELECTRON = "^40.0.0"
-    const val ELECTRON_BUILDER = "^25.0.0"
+    const val ELECTRON = "^41.0.0"
+    const val ELECTRON_BUILDER = "^26.0.0"
 
     // Expo / React Native
     const val EXPO = "^55.0.0"
