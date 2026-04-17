@@ -3,7 +3,6 @@ package com.rescript.plugin.typeinfo
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ModalityState
-import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.colors.EditorColorsManager
@@ -107,7 +106,7 @@ class RescriptTypeInfoPanel(
         // Capture offset and file on EDT before scheduling background work.
         // Caret model access requires EDT or read action — capturing here avoids
         // the threading violation that occurs when accessed from the pooled thread.
-        val offset = ReadAction.compute<Int, RuntimeException> { editor.caretModel.offset }
+        val offset = ApplicationManager.getApplication().runReadAction<Int> { editor.caretModel.offset }
         val file = FileDocumentManager.getInstance().getFile(editor.document)
         if (file == null || !RescriptFileUtil.isRescriptFile(file)) {
             showMessage(NO_RESCRIPT_FILE)

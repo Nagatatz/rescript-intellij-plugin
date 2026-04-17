@@ -1,6 +1,6 @@
 package com.rescript.plugin.lsp
 
-import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
@@ -94,10 +94,10 @@ object RescriptLspUtils {
             val server = getServer(project) ?: return null
 
             val position =
-                ReadAction.compute<Position?, RuntimeException> {
+                ApplicationManager.getApplication().runReadAction<Position?> {
                     val document =
                         FileDocumentManager.getInstance().getDocument(file)
-                            ?: return@compute null
+                            ?: return@runReadAction null
                     RescriptOffsetUtils.offsetToPosition(document, offset)
                 } ?: return null
 
