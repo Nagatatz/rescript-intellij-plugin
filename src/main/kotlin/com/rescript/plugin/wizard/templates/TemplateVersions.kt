@@ -53,7 +53,7 @@ object TemplateVersions {
 
     // AWS Lambda
     const val AWS_LAMBDA_TYPES = "^8.10.0"
-    const val ESBUILD = "^0.27.0"
+    const val ESBUILD = "^0.28.0"
 
     // Monorepo tooling
     const val CONCURRENTLY = "^9.2.0"
