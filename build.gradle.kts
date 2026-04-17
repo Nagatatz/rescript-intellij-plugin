@@ -133,7 +133,7 @@ intellijPlatform {
 }
 
 ktlint {
-    version.set("1.8.0")
+    version.set(libs.versions.ktlint.asProvider())
     android.set(false)
     outputToConsole.set(true)
     ignoreFailures.set(false)
