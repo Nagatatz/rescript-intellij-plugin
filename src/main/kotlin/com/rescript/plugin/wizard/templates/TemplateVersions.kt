@@ -72,10 +72,11 @@ object TemplateVersions {
     const val DRIZZLE_KIT = "^0.28.0"
 
     // Validation
-    const val ZOD = "^3.23.0"
+    const val ZOD = "^4.3.0"
 
     // OpenAPI / Hono ecosystem
-    const val HONO_ZOD_OPENAPI = "^0.18.0"
+    // @hono/zod-openapi v1 requires zod v4; they must be bumped together.
+    const val HONO_ZOD_OPENAPI = "^1.3.0"
     const val SCALAR_HONO_API_REFERENCE = "^0.5.0"
 
     // GraphQL (Hono GraphQL template)
