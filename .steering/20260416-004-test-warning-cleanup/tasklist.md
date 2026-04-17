@@ -76,13 +76,13 @@
 ## Phase 4: マージ前確認
 
 - [x] すべてのタスクが `[x]` になっている
-- [ ] `AskUserQuestion` でユーザーに main マージ可否を確認する
+- [x] `AskUserQuestion` でユーザーに main マージ可否を確認する
 
 ## Phase 5: マージ実行・クリーンアップ
 
-- [ ] worktree 内で `git checkout main && git merge worktree-test-warning-cleanup`
-- [ ] 作業ブランチを `git branch -d worktree-test-warning-cleanup`
-- [ ] セッション終了
+- [x] worktree 内で `git checkout main && git merge worktree-test-warning-cleanup`
+- [x] 作業ブランチを `git branch -d worktree-test-warning-cleanup`
+- [x] セッション終了
 
 ## テスト免除クラスに関する備考
 
