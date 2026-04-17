@@ -69,6 +69,42 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.12</h3>
+        <h4>New Features</h4>
+        <ul>
+            <li>Add React Native (Community CLI) project template</li>
+            <li>Add Full-Stack project template (single package)</li>
+            <li>Add Hono GraphQL template with yoga, GraphiQL, and Drizzle</li>
+            <li>Upgrade Hono template with SQLite/Drizzle and OpenAPI/Scalar UI</li>
+            <li>Add interactive examples to Vite+React and Electron templates</li>
+            <li>Add full-stack patterns to Next.js and interactive UI to React Native</li>
+            <li>Add vitest smoke tests across all 14 project templates</li>
+            <li>Add .nvmrc, LICENSE, dependabot config, and coverage script to all templates</li>
+            <li>Add PackageManager selection through to template generation</li>
+            <li>Add TemplateResourceLoader for static template content extraction</li>
+        </ul>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Fix broken tests with unreachable assertions (null early-return pattern)</li>
+            <li>Fix flaky integration test exec and preserve interrupt flag</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Extract static template content from 5 template files to resources</li>
+            <li>Extract common paste processor base class</li>
+            <li>Extract process execution logic to RescriptProcessUtils</li>
+            <li>Simplify HighlightUsagesHandlerFactory with keyword mapping</li>
+            <li>Clean up 53 Kotlin compiler warnings in test sources</li>
+            <li>Replace deprecated AnActionEvent.createFromDataContext API</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Add integration test harness for template generation</li>
+            <li>Add pa11y-ci accessibility audit and pofilter translation check to CI</li>
+            <li>Ratchet kover minBound to 86%</li>
+            <li>Add 11 new test classes for improved test coverage</li>
+        </ul>
+
         <h3>0.1.11</h3>
         <h4>New Features</h4>
         <ul>
@@ -900,7 +936,8 @@
 
         <!-- Split/Join List (1-line ↔ multi-line) -->
         <listSplitJoinContext
-                implementation="com.rescript.plugin.editor.RescriptListSplitJoinContext"/>
+                language="ReScript"
+                implementationClass="com.rescript.plugin.editor.RescriptListSplitJoinContext"/>
 
         <!-- Strip trailing spaces filter (protect strings) (#53) -->
         <stripTrailingSpacesFilterFactory
