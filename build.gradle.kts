@@ -545,6 +545,11 @@ tasks {
     named("runKtlintCheckOverMainSourceSet") {
         mustRunAfter(generateRescriptLexer)
     }
+    // Dokka V2 scans src/main/java where the JFlex lexer is generated, so declare
+    // the dependency explicitly to satisfy Gradle's strict task-output validation.
+    withType<org.jetbrains.dokka.gradle.tasks.DokkaGenerateTask>().configureEach {
+        dependsOn(generateRescriptLexer)
+    }
     test {
         useJUnitPlatform()
     }
@@ -559,17 +564,17 @@ tasks {
 
 // Dokka configuration — generates Kotlin KDoc API reference into build/dokka/html.
 // The output is served at /api/ alongside the Sphinx user guide on GitHub Pages.
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+dokka {
     moduleName.set("ReScript IntelliJ Plugin")
-    outputDirectory.set(layout.buildDirectory.dir("dokka/html"))
-    suppressInheritedMembers.set(true)
+    dokkaPublications.html {
+        outputDirectory.set(layout.buildDirectory.dir("dokka/html"))
+        suppressInheritedMembers.set(true)
+    }
     dokkaSourceSets.configureEach {
         includes.from("docs/dokka-module.md")
         sourceLink {
             localDirectory.set(file("src/main/kotlin"))
-            remoteUrl.set(
-                uri("https://github.com/Nagatatz/rescript-intellij-plugin/tree/main/src/main/kotlin").toURL(),
-            )
+            remoteUrl("https://github.com/Nagatatz/rescript-intellij-plugin/tree/main/src/main/kotlin")
             remoteLineSuffix.set("#L")
         }
         // Generated JFlex lexer is not useful API documentation
