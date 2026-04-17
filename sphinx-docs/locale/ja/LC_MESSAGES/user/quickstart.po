@@ -28,12 +28,11 @@ msgid "Quick Start"
 msgstr "クイックスタート"
 
 #: ../../user/quickstart.md:9
-#, fuzzy
 msgid ""
 "This hands-on guide walks you through your first experience with the "
 "ReScript IntelliJ Plugin. Follow each step and verify the expected result"
 " before moving on."
-msgstr "このガイドでは、ReScript IntelliJ Plugin をインストールした後の基本的な使い方を説明します。"
+msgstr "このハンズオンガイドでは、ReScript IntelliJ Plugin の初回体験を順を追って説明します。各ステップを実行し、期待される結果を確認してから次に進んでください。"
 
 #: ../../user/quickstart.md:11
 msgid "Prerequisites"
@@ -48,23 +47,20 @@ msgid "A ReScript project with `rescript.json` (or `bsconfig.json`)"
 msgstr "`rescript.json`（または `bsconfig.json`）を含む ReScript プロジェクト"
 
 #: ../../user/quickstart.md:15
-#, fuzzy
 msgid ""
 "`@rescript/language-server` installed in the project (`npm install -D "
 "@rescript/language-server`)"
-msgstr "プロジェクトに `@rescript/language-server` がインストール済みであること"
+msgstr "プロジェクトに `@rescript/language-server` がインストール済みであること（`npm install -D @rescript/language-server`）"
 
 #: ../../user/quickstart.md:19
-#, fuzzy
 msgid "Step 1: Open Your Project"
-msgstr "プロジェクトを開く"
+msgstr "ステップ 1: プロジェクトを開く"
 
 #: ../../user/quickstart.md:21
-#, fuzzy
 msgid ""
 "**File** → **Open** → Select your ReScript project folder (the directory "
 "containing `rescript.json`)"
-msgstr "**File** → **Open** → ReScript プロジェクトフォルダを選択します"
+msgstr "**File** → **Open** → ReScript プロジェクトフォルダ（`rescript.json` を含むディレクトリ）を選択します"
 
 #: ../../user/quickstart.md:22
 msgid "Wait a few seconds for the IDE to index the project"
@@ -153,9 +149,8 @@ msgid ""
 msgstr "**一部のハイライトのみ表示される**: 最初の数秒間はこれが正常です。レイヤー 1（レクサー）のハイライトは即座に適用されます。レイヤー 2（セマンティック）のハイライトは Language Server の起動後に表示されます"
 
 #: ../../user/quickstart.md:64
-#, fuzzy
 msgid "Step 3: Try Code Completion"
-msgstr "コード補完"
+msgstr "ステップ 3: コード補完を試す"
 
 #: ../../user/quickstart.md:66
 msgid ""
@@ -164,9 +159,8 @@ msgid ""
 msgstr "関数本体にカーソルを置いて入力を開始します。例えば、`Js.log` や `Console.` と入力してください。"
 
 #: ../../user/quickstart.md:68
-#, fuzzy
 msgid "Press `Ctrl+Space` (`Cmd+Space` on macOS) to trigger completion manually."
-msgstr "手動で補完を呼び出すには、`Ctrl+Space`（macOS では `Cmd+Space`）を押します。"
+msgstr "`Ctrl+Space`（macOS では `Cmd+Space`）を押すと、手動で補完を呼び出せます。"
 
 #: ../../user/quickstart.md:73
 msgid ""
@@ -208,11 +202,10 @@ msgid "Step 4: Navigate with Go to Definition"
 msgstr "ステップ 4: Go to Definition でナビゲーション"
 
 #: ../../user/quickstart.md:90
-#, fuzzy
 msgid ""
 "Hold `Ctrl` (`Cmd` on macOS) and click on any symbol — a function name, "
 "module name, or type. You can also press `Ctrl+B` (`Cmd+B`)."
-msgstr "`Ctrl`（macOS では `Cmd`）を押しながらシンボルをクリックすると、定義元にジャンプできます。`Ctrl+B` を押しても同様です。"
+msgstr "`Ctrl`（macOS では `Cmd`）を押しながら任意のシンボル（関数名、モジュール名、型）をクリックします。`Ctrl+B`（`Cmd+B`）でも同様です。"
 
 #: ../../user/quickstart.md:95
 msgid "The editor jumps to the symbol's definition, even if it's in another file"
@@ -285,11 +278,8 @@ msgid "Step 6: Format Your Code"
 msgstr "ステップ 6: コードのフォーマット"
 
 #: ../../user/quickstart.md:133
-#, fuzzy
 msgid "Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file."
-msgstr ""
-"`Ctrl+Alt+L`（macOS では `Cmd+Option+L`）を押すと、`rescript format` "
-"を使用して現在のファイルをフォーマットできます。"
+msgstr "`Ctrl+Alt+L`（macOS では `Cmd+Option+L`）を押すと、現在のファイルをフォーマットできます。"
 
 #: ../../user/quickstart.md:138
 msgid ""
@@ -321,16 +311,14 @@ msgid "There are several ways to run a ReScript build:"
 msgstr "ReScript ビルドを実行するにはいくつかの方法があります:"
 
 #: ../../user/quickstart.md:155
-#, fuzzy
 msgid "**Gutter icon**: Click the green ▶ icon in the gutter next to your file"
-msgstr "ファイル横のガターにある緑色の ▶ アイコンをクリックします"
+msgstr "**ガターアイコン**: ファイル横のガターにある緑色の ▶ アイコンをクリックします"
 
 #: ../../user/quickstart.md:156
-#, fuzzy
 msgid ""
 "**Run Configuration**: **Run** → **Edit Configurations** → **+** → "
 "**ReScript** → Select \"Build\" or \"Build Watch\""
-msgstr "または実行構成を作成します: **Run** → **Edit Configurations** → **+** → **ReScript**"
+msgstr "**実行構成**: **Run** → **Edit Configurations** → **+** → **ReScript** → \"Build\" または \"Build Watch\" を選択"
 
 #: ../../user/quickstart.md:157
 msgid ""
@@ -375,11 +363,10 @@ msgid "Structure View"
 msgstr "ストラクチャービュー"
 
 #: ../../user/quickstart.md:184
-#, fuzzy
 msgid ""
 "Press `Cmd+7` / `Alt+7` to see an outline of your file's modules, "
 "functions, and types."
-msgstr "`Cmd+7`（または `Alt+7`）を押すと Structure パネルが開き、ファイル内のモジュール、関数、型のアウトラインを確認できます。"
+msgstr "`Cmd+7` / `Alt+7` を押すと、ファイル内のモジュール、関数、型のアウトラインを確認できます。"
 
 #: ../../user/quickstart.md:187
 msgid "Live Templates"
@@ -414,11 +401,10 @@ msgid "What's Next?"
 msgstr "次のステップ"
 
 #: ../../user/quickstart.md:202
-#, fuzzy
 msgid ""
 "[Feature Overview](features/index.md) — Explore all 90+ features "
 "organized by category"
-msgstr "[機能一覧](features/index.md) --- 利用可能なすべての機能を確認する"
+msgstr "[機能一覧](features/index.md) --- カテゴリ別に整理された 90 以上の機能を探索する"
 
 #: ../../user/quickstart.md:203
 msgid ""
@@ -427,9 +413,8 @@ msgid ""
 msgstr "[クイックリファレンスカード](cheatsheet.md) --- ショートカットと機能の簡潔なチートシート"
 
 #: ../../user/quickstart.md:204
-#, fuzzy
 msgid "[Keyboard Shortcuts](keyboard-shortcuts.md) — Complete shortcut reference"
-msgstr "[キーボードショートカット](keyboard-shortcuts.md) --- ショートカットを学ぶ"
+msgstr "[キーボードショートカット](keyboard-shortcuts.md) --- ショートカットの完全なリファレンス"
 
 #: ../../user/quickstart.md:205
 msgid "[Configuration](configuration.md) — Customize the plugin settings"

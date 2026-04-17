@@ -4,7 +4,6 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
@@ -21,9 +20,8 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 #: ../../dev/claude-code.md
-#, fuzzy
 msgid "claude code, ai development, rules, steering"
-msgstr "Claude Code 開発ワークフロー"
+msgstr "claude code, AI 開発, ルール, ステアリング"
 
 #: ../../dev/claude-code.md:7
 msgid "Claude Code Development Workflow"

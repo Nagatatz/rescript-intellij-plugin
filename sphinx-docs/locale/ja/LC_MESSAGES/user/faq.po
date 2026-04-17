@@ -4,7 +4,6 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
@@ -21,9 +20,8 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 #: ../../user/faq.md
-#, fuzzy
 msgid "faq, frequently asked questions, help"
-msgstr "よくある質問"
+msgstr "faq, よくある質問, ヘルプ"
 
 #: ../../user/faq.md:7
 msgid "Frequently Asked Questions"

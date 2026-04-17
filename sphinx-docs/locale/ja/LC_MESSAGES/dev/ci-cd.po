@@ -4,7 +4,6 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
@@ -39,9 +38,8 @@ msgid "Overview"
 msgstr "概要"
 
 #: ../../dev/ci-cd.md:13
-#, fuzzy
 msgid "The project uses **GitHub Actions** with 3 workflows:"
-msgstr "本プロジェクトでは **GitHub Actions** を使用し、4つのワークフローを運用しています:"
+msgstr "本プロジェクトでは **GitHub Actions** を使用し、3つのワークフローを運用しています:"
 
 #: ../../dev/ci-cd.md ../../dev/ci-cd.md:92
 msgid "Workflow"

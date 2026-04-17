@@ -1222,7 +1222,6 @@ msgid "Mobile application with React Native and Expo"
 msgstr "React Native と Expo を使用したモバイルアプリケーション"
 
 #: ../../user/features/advanced.md:50
-#, fuzzy
 msgid "**React Native (Community CLI)**"
 msgstr "**React Native (Community CLI)**"
 
@@ -1380,11 +1379,10 @@ msgid "After the wizard creates the project:"
 msgstr "ウィザードがプロジェクトを作成した後:"
 
 #: ../../user/features/advanced.md:518
-#, fuzzy
 msgid ""
 "Run your package manager's install command (e.g., `pnpm install`) to "
 "install dependencies"
-msgstr "パッケージマネージャの install コマンド（例: `npm install`）を実行して依存関係をインストールします"
+msgstr "パッケージマネージャの install コマンド（例: `pnpm install`）を実行して依存関係をインストールします"
 
 #: ../../user/features/advanced.md:519
 msgid ""
