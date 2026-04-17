@@ -68,8 +68,8 @@ object TemplateVersions {
 
     // Database (libsql client + Drizzle ORM)
     const val LIBSQL_CLIENT = "^0.14.0"
-    const val DRIZZLE_ORM = "^0.36.0"
-    const val DRIZZLE_KIT = "^0.28.0"
+    const val DRIZZLE_ORM = "^0.45.0"
+    const val DRIZZLE_KIT = "^0.31.0"
 
     // Validation
     const val ZOD = "^4.3.0"
