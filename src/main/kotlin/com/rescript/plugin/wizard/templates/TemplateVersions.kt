@@ -29,7 +29,7 @@ object TemplateVersions {
     // Backend
     const val HONO = "^4.12.0"
     const val HONO_NODE_SERVER = "^1.19.0"
-    const val NODE_TYPES = "^22.0.0"
+    const val NODE_TYPES = "^25.0.0"
 
     // Next.js
     const val NEXTJS = "^16.2.0"
@@ -88,10 +88,10 @@ object TemplateVersions {
     const val AWS_LAMBDA = "^1.0.0"
 
     // Node.js engine range used by templates
-    const val NODE_ENGINE = ">=20"
+    const val NODE_ENGINE = ">=22"
 
     // Node.js major version used by `.nvmrc` / `.node-version` (pairs with NODE_ENGINE)
-    const val NODE_MAJOR = "20"
+    const val NODE_MAJOR = "22"
 
     // Vitest coverage provider used by `test:coverage` scripts
     const val VITEST_COVERAGE_V8 = "^4.1.0"
