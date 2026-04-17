@@ -35,12 +35,18 @@ class RescriptDeclarationElementTypeTest {
         assertEquals("LET_DECLARATION", RescriptStubElementTypes.LET_DECLARATION.toString())
     }
 
+    // These assertions guard against accidental type changes in the element-type
+    // registry. The `is` checks look tautological to the compiler because the
+    // singleton `val`s expose their concrete type, so we suppress the warning.
+
     @Test
+    @Suppress("USELESS_IS_CHECK")
     fun testIsSubtypeOfIElementType() {
         assertTrue(RescriptStubElementTypes.LET_DECLARATION is com.intellij.psi.tree.IElementType)
     }
 
     @Test
+    @Suppress("USELESS_IS_CHECK")
     fun testElementTypesAreStubBased() {
         assertTrue(RescriptElementTypes.LET_DECLARATION is RescriptDeclarationElementType)
         assertTrue(RescriptElementTypes.TYPE_DECLARATION is RescriptDeclarationElementType)
@@ -50,6 +56,7 @@ class RescriptDeclarationElementTypeTest {
     }
 
     @Test
+    @Suppress("USELESS_IS_CHECK")
     fun testNonStubElementTypesRemainPlain() {
         assertTrue(RescriptElementTypes.OPEN_STATEMENT is RescriptElementType)
         assertTrue(RescriptElementTypes.INCLUDE_STATEMENT is RescriptElementType)

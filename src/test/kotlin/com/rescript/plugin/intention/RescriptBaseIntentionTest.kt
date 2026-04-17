@@ -55,7 +55,7 @@ class RescriptBaseIntentionTest {
 
     @Test
     fun testAllConcreteIntentionsExtendBaseIntention() {
-        val intentions =
+        val intentions: List<Any> =
             listOf(
                 RescriptAddIgnoreIntention(),
                 RescriptAddGenTypeIntention(),

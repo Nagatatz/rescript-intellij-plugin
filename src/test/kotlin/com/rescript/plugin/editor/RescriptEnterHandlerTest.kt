@@ -14,7 +14,7 @@ class RescriptEnterHandlerTest {
 
     @Test
     fun `is an EnterHandlerDelegateAdapter`() {
-        val handler = RescriptEnterHandler()
+        val handler: Any = RescriptEnterHandler()
         assertTrue(handler is EnterHandlerDelegateAdapter)
     }
 }

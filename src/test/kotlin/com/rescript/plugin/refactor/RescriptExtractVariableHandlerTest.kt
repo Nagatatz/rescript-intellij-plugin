@@ -14,7 +14,7 @@ class RescriptExtractVariableHandlerTest {
 
     @Test
     fun `handler implements RefactoringActionHandler`() {
-        val handler = RescriptExtractVariableHandler()
+        val handler: Any = RescriptExtractVariableHandler()
         assertTrue(handler is RefactoringActionHandler)
     }
 }

@@ -20,7 +20,7 @@ class RescriptBaseGenerateActionTest {
 
     @Test
     fun testAllConcreteActionsExtendBaseGenerateAction() {
-        val actions =
+        val actions: List<Any> =
             listOf(
                 RescriptGenerateSwitchAction(),
                 RescriptGenerateMakeAction(),

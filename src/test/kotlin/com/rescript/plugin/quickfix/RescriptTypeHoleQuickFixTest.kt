@@ -81,7 +81,7 @@ class RescriptTypeHoleQuickFixTest {
 
     @Test
     fun `inspection can be instantiated`() {
-        val inspection = RescriptTypeHoleQuickFix()
+        val inspection: Any = RescriptTypeHoleQuickFix()
         assertTrue(inspection is com.intellij.codeInspection.LocalInspectionTool)
     }
 }

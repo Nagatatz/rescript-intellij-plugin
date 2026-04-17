@@ -15,7 +15,7 @@ class RescriptTemplateContextTypeTest {
 
     @Test
     fun `is a TemplateContextType`() {
-        val contextType = RescriptTemplateContextType()
+        val contextType: Any = RescriptTemplateContextType()
         assertTrue(contextType is TemplateContextType)
     }
 

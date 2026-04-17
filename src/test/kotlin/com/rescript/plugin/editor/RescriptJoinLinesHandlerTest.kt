@@ -14,7 +14,7 @@ class RescriptJoinLinesHandlerTest {
 
     @Test
     fun `is a JoinLinesHandlerDelegate`() {
-        val handler = RescriptJoinLinesHandler()
+        val handler: Any = RescriptJoinLinesHandler()
         assertTrue(handler is JoinLinesHandlerDelegate)
     }
 }

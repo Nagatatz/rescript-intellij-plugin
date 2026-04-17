@@ -20,7 +20,8 @@ class RescriptRefactoringSupportProviderTest {
     @Test
     fun `getIntroduceVariableHandler returns ExtractVariableHandler`() {
         val provider = RescriptRefactoringSupportProvider()
-        assertTrue(provider.introduceVariableHandler is RescriptExtractVariableHandler)
+        val handler: Any? = provider.introduceVariableHandler
+        assertTrue(handler is RescriptExtractVariableHandler)
     }
 
     @Test

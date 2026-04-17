@@ -49,6 +49,8 @@ class RescriptPsiTest {
     }
 
     @Test
+    // Guards against accidental type changes in the element-type registry.
+    @Suppress("USELESS_IS_CHECK")
     fun `non-stub element types are RescriptElementType instances`() {
         assertTrue(RescriptElementTypes.OPEN_STATEMENT is RescriptElementType)
         assertTrue(RescriptElementTypes.INCLUDE_STATEMENT is RescriptElementType)

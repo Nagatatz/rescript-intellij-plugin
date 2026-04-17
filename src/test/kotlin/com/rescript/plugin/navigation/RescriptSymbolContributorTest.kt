@@ -24,7 +24,8 @@ class RescriptSymbolContributorTest {
 
     @Test
     fun testImplementsChooseByNameContributorEx() {
-        assertTrue(contributor is ChooseByNameContributorEx)
+        val subject: Any = contributor
+        assertTrue(subject is ChooseByNameContributorEx)
     }
 
     @Test

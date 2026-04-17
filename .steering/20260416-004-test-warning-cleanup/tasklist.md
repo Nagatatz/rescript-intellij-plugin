@@ -51,41 +51,18 @@
 
 #### 1a: ローカル変数型を `Any` に広げる (25 箇所)
 
-- [ ] `src/test/kotlin/com/rescript/plugin/analysis/RescriptUnusedCodeInspectionTest.kt:131`
-- [ ] `src/test/kotlin/com/rescript/plugin/completion/RescriptCompletionConfidenceTest.kt:16, 39`
-- [ ] `src/test/kotlin/com/rescript/plugin/completion/RescriptLiveTemplateMacrosTest.kt:36, 42`
-- [ ] `src/test/kotlin/com/rescript/plugin/completion/RescriptTemplateContextTypeTest.kt:19`
-- [ ] `src/test/kotlin/com/rescript/plugin/config/RescriptFileTypeRecoveryStartupActivityTest.kt:29`
-- [ ] `src/test/kotlin/com/rescript/plugin/config/RescriptFrameworkDetectorTest.kt:19`
-- [ ] `src/test/kotlin/com/rescript/plugin/documentation/RescriptDocumentationProviderTest.kt:25`
-- [ ] `src/test/kotlin/com/rescript/plugin/editor/RescriptEnterHandlerTest.kt:18`
-- [ ] `src/test/kotlin/com/rescript/plugin/editor/RescriptJoinLinesHandlerTest.kt:18`
-- [ ] `src/test/kotlin/com/rescript/plugin/generate/RescriptBaseGenerateActionTest.kt:34`
-- [ ] `src/test/kotlin/com/rescript/plugin/highlight/RescriptHighlightUsagesHandlerFactoryTest.kt:18`
-- [ ] `src/test/kotlin/com/rescript/plugin/inspection/RescriptDuplicateOpenInspectionTest.kt:18`
-- [ ] `src/test/kotlin/com/rescript/plugin/inspection/RescriptEmptyModuleInspectionTest.kt:18`
-- [ ] `src/test/kotlin/com/rescript/plugin/inspection/RescriptMissingConfigInspectionTest.kt:18`
-- [ ] `src/test/kotlin/com/rescript/plugin/inspection/RescriptMutabilityInspectionTest.kt:78`
-- [ ] `src/test/kotlin/com/rescript/plugin/inspection/RescriptStyleLintInspectionTest.kt:77`
-- [ ] `src/test/kotlin/com/rescript/plugin/inspection/RescriptSuggestedRefactoringInspectionTest.kt:89`
-- [ ] `src/test/kotlin/com/rescript/plugin/intention/RescriptBaseIntentionTest.kt:85`
-- [ ] `src/test/kotlin/com/rescript/plugin/lsp/RescriptExpressionTypeProviderTest.kt:18`
-- [ ] `src/test/kotlin/com/rescript/plugin/navigation/RescriptGotoSuperHandlerTest.kt:19`
-- [ ] `src/test/kotlin/com/rescript/plugin/navigation/RescriptSymbolContributorTest.kt:27`
-- [ ] `src/test/kotlin/com/rescript/plugin/quickfix/RescriptTypeHoleQuickFixTest.kt:85`
-- [ ] `src/test/kotlin/com/rescript/plugin/refactor/RescriptExtractVariableHandlerTest.kt:18`
-- [ ] `src/test/kotlin/com/rescript/plugin/refactor/RescriptRefactoringSupportProviderTest.kt:23`
-- [ ] `src/test/kotlin/com/rescript/plugin/run/RescriptRunAnythingProviderTest.kt:53`
+- [x] 全 25 箇所を修正完了（ローカル変数の型を `Any` / `Any?` に広げるか、class-level val は `val subject: Any = x` を導入）
 
-#### 1b: `@Suppress("KotlinConstantConditions")` 付与 (2 ファイル)
+#### 1b: `@Suppress("USELESS_IS_CHECK")` 付与 (2 ファイル)
 
-- [ ] `src/test/kotlin/com/rescript/plugin/lang/psi/RescriptDeclarationElementTypeTest.kt:39, 44, 53` の各 `@Test` 関数に `@Suppress` 付与
-- [ ] `src/test/kotlin/com/rescript/plugin/lang/psi/RescriptPsiTest.kt` の該当 `@Test` 関数に `@Suppress` 付与
+- [x] `RescriptDeclarationElementTypeTest.kt` — 3 テスト関数に `@Suppress("USELESS_IS_CHECK")` 付与
+- [x] `RescriptPsiTest.kt` — 1 テスト関数に `@Suppress("USELESS_IS_CHECK")` 付与
+- 注: 当初 `"KotlinConstantConditions"` を予定していたが、正しい suppress キーは `"USELESS_IS_CHECK"` だった
 
 #### 検証
 
-- [ ] `./gradlew test` を全体実行し、警告が残っていないことを確認
-- [ ] tasklist.md 更新 + 個別ファイル指定でコミット
+- [x] `./gradlew compileTestKotlin --rerun-tasks` でテストソースの `w:` 警告が 0 件を確認
+- [x] tasklist.md 更新 + 個別ファイル指定でコミット
   - `♻️ Clarify runtime type assertions in 25 test classes to remove always-true warnings`
 
 ## Phase 3: 最終検証

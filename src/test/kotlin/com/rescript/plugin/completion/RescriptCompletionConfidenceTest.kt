@@ -11,7 +11,7 @@ class RescriptCompletionConfidenceTest {
         // Access NON_CODE_TOKENS indirectly via shouldSkipAutopopup behavior
         // Since the set is private, we verify via the companion or by confirming
         // expected tokens are in the non-applicable set used by the related provider
-        val confidence = RescriptCompletionConfidence()
+        val confidence: Any = RescriptCompletionConfidence()
         // Instantiation should succeed
         assertTrue(confidence is RescriptCompletionConfidence)
     }
@@ -35,7 +35,7 @@ class RescriptCompletionConfidenceTest {
 
     @Test
     fun `instance can be created`() {
-        val confidence = RescriptCompletionConfidence()
+        val confidence: Any = RescriptCompletionConfidence()
         assertTrue(confidence is com.intellij.codeInsight.completion.CompletionConfidence)
     }
 }

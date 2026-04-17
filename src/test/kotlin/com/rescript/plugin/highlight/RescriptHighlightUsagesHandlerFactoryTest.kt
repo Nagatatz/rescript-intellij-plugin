@@ -14,7 +14,7 @@ class RescriptHighlightUsagesHandlerFactoryTest {
 
     @Test
     fun `is a HighlightUsagesHandlerFactory`() {
-        val factory = RescriptHighlightUsagesHandlerFactory()
+        val factory: Any = RescriptHighlightUsagesHandlerFactory()
         assertTrue(factory is HighlightUsagesHandlerFactory)
     }
 

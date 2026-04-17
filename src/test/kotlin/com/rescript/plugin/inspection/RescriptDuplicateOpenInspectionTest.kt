@@ -15,7 +15,8 @@ class RescriptDuplicateOpenInspectionTest {
 
     @Test
     fun `inspection is a LocalInspectionTool`() {
-        assertTrue(inspection is com.intellij.codeInspection.LocalInspectionTool)
+        val subject: Any = inspection
+        assertTrue(subject is com.intellij.codeInspection.LocalInspectionTool)
     }
 
     @Test
