@@ -21,6 +21,13 @@ repositories {
 
 kotlin {
     jvmToolchain(21)
+    compilerOptions {
+        // Emit JVM default methods directly instead of Kotlin's DefaultImpls
+        // bridge. Prevents bytecode references to deprecated Java-interface
+        // default methods (e.g., ToolWindowFactory.isApplicable,
+        // isDoNotActivateOnStart) for subclasses that do not override them.
+        freeCompilerArgs.add("-jvm-default=no-compatibility")
+    }
 }
 
 dependencies {
