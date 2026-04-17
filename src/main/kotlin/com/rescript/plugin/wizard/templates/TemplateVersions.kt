@@ -62,8 +62,8 @@ object TemplateVersions {
     const val TYPESCRIPT = "^6.0.0"
 
     // Package manager versions published via Corepack (`packageManager` field in package.json)
-    const val PNPM = "9.12.0"
-    const val NPM = "10.9.0"
+    const val PNPM = "10.33.0"
+    const val NPM = "11.12.0"
     const val YARN = "4.5.0"
 
     // Database (libsql client + Drizzle ORM)
