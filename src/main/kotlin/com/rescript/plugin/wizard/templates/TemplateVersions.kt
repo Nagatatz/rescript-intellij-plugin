@@ -40,12 +40,12 @@ object TemplateVersions {
 
     // Expo / React Native
     const val EXPO = "^55.0.0"
-    const val REACT_NATIVE = "^0.84.0"
+    const val REACT_NATIVE = "^0.85.0"
 
     // React Native Community CLI (bare workflow)
-    const val RN_COMMUNITY_CLI = "^15.0.0"
-    const val RN_METRO_CONFIG = "^0.81.0"
-    const val RN_BABEL_PRESET = "^0.81.0"
+    const val RN_COMMUNITY_CLI = "^20.0.0"
+    const val RN_METRO_CONFIG = "^0.85.0"
+    const val RN_BABEL_PRESET = "^0.85.0"
 
     // Cloudflare Workers
     const val WRANGLER = "^4.83.0"
