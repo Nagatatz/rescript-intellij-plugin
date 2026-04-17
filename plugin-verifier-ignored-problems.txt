@@ -1,6 +1,17 @@
-// ── Internal API exceptions ──────────────────────────────────────────
-// Reviewed: 2026-03-17 | Target: IntelliJ 2025.3+
+// ── Overview ──────────────────────────────────────────────────────────
+// Reviewed: 2026-04-17 | Target: IntelliJ 2025.3+
+//
+// The Kotlin compiler option `-jvm-default=no-compatibility` (see
+// build.gradle.kts) removes the DefaultImpls bridge methods that used to
+// reference deprecated Java-interface default methods. Bridge-method
+// entries that were previously listed here (ToolWindowFactory.isApplicable,
+// ToolWindowFactory.isDoNotActivateOnStart, the
+// ProjectViewNodeDecorator.decorate(PackageDependenciesNode, …) overload,
+// StatusBarWidget.getPresentation(PlatformType), StatusBarWidget.PlatformType)
+// are no longer needed. Do not re-add them without first checking that the
+// compiler flag still eliminates the corresponding bytecode references.
 
+// ── Internal API exceptions ──────────────────────────────────────────
 // CodeVisionPlaceholderCollector — listed as an exception on the JetBrains
 // Internal API Migration page: "Made public in 2024.2"
 // https://plugins.jetbrains.com/docs/intellij/api-internal.html
@@ -9,59 +20,26 @@
 // Status: KEEP — annotation not yet removed from source.
 com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*
 
-// ── Kotlin bridge methods ──────────────────────────────────────────────
-// Reviewed: 2026-03-17 | Target: IntelliJ 2025.3+
-//
-// Kotlin compiler generates synthetic bridge methods for Java interface
-// default methods. These are not explicitly overridden in source code but
-// appear in bytecode. Entries are needed as long as deprecated default
-// methods exist in IntelliJ Platform interfaces.
-
-// ToolWindowFactory.isDoNotActivateOnStart() / isApplicable(Project)
-// 5 ToolWindowFactory subclasses only override shouldBeAvailable() but
-// Kotlin bytecode includes bridges for these deprecated default methods.
-// Status: KEEP — deprecated defaults still present in IntelliJ 2025.3.
-com\.rescript\.plugin:.*:.*ToolWindowFactory.*isDoNotActivateOnStart.*
-com\.rescript\.plugin:.*:.*ToolWindowFactory.*isApplicable.*
-
-// ProjectViewNodeDecorator.decorate(PackageDependenciesNode, ColoredTreeCellRenderer)
-// Our decorators only override decorate(ProjectViewNode, PresentationData)
-// but Kotlin generates a bridge for the deprecated overload.
-// Status: KEEP — deprecated overload still present in IntelliJ 2025.3.
-com\.rescript\.plugin:.*:.*ProjectViewNodeDecorator.*decorate.*PackageDependenciesNode.*
-
-// StatusBarWidget.getPresentation(PlatformType)
-// Our widget overrides the parameterless getPresentation() but Kotlin
-// generates a bridge for the deprecated PlatformType overload.
-// Status: KEEP — PlatformType still present in IntelliJ 2025.3.
-com\.rescript\.plugin:.*:.*StatusBarWidget.*getPresentation.*PlatformType.*
-com\.rescript\.plugin:.*:.*StatusBarWidget\$PlatformType.*
-
 // ── Deprecated overrides with no replacement API ───────────────────────
-// Reviewed: 2026-03-17 | Target: IntelliJ 2025.3+
 //
-// These methods are explicitly overridden in source with @Suppress annotations.
-// The verifier operates on bytecode and still reports them.
+// These methods are explicitly overridden in source with @Suppress
+// annotations. The verifier operates on bytecode and still reports them.
 
-// FloatingToolbarProvider.getPriority() / isApplicable() — scheduled for
-// removal, but no replacement API exists yet in IntelliJ 2025.3.
+// FloatingToolbarProvider.isApplicable(DataContext) — deprecated, but no
+// replacement API exists yet in IntelliJ 2025.3. Required for file-type
+// filtering of the ReScript editor floating toolbar.
 // Status: KEEP — no alternative API available.
 // Source: RescriptFloatingToolbarProvider.kt
-com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*getPriority.*
 com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*isApplicable.*
 
-// CompletionConfidence.shouldSkipAutopopup() — deprecated with no replacement.
+// CompletionConfidence.shouldSkipAutopopup() — deprecated with no
+// replacement. Required to suppress the autopopup inside comments and
+// string literals.
 // Status: KEEP — no alternative API available.
 // Source: RescriptCompletionConfidence.kt
 com\.rescript\.plugin:.*:.*CompletionConfidence.*shouldSkipAutopopup.*
 
-// StubBasedPsiElementBase.getElementType() — used in toString() for debugging.
-// Status: KEEP — property accessed in RescriptDeclarationPsiElement.toString().
-// Source: RescriptDeclarationPsiElement.kt
-com\.rescript\.plugin:.*:.*StubBasedPsiElementBase.*getElementType.*
-
 // ── Transitive deprecation from LSP4J ──────────────────────────────────
-// Reviewed: 2026-03-17 | Target: IntelliJ 2025.3+
 //
 // MarkedString is referenced only via LSP4J's Hover response type
 // (Either<List<Either<String, MarkedString>>, MarkupContent>).
