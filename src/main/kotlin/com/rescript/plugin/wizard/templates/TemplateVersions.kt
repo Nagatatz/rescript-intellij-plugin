@@ -19,7 +19,7 @@ object TemplateVersions {
     const val VITE_PLUS = "^0.1.0"
     const val VITE_PLUS_CORE = "^0.1.0"
     const val VITEJS_PLUGIN_REACT = "^6.0.0"
-    const val VITEST = "^2.1.0"
+    const val VITEST = "^4.1.0"
 
     // React
     const val REACT = "^19.2.5"
@@ -94,5 +94,5 @@ object TemplateVersions {
     const val NODE_MAJOR = "20"
 
     // Vitest coverage provider used by `test:coverage` scripts
-    const val VITEST_COVERAGE_V8 = "^2.1.0"
+    const val VITEST_COVERAGE_V8 = "^4.1.0"
 }
