@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a Hono + GraphQL Yoga + Drizzle SQLite project.
@@ -11,19 +12,23 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  * - SQLite via libsql + Drizzle ORM (schema, queries, drizzle-kit migrations)
  * - Users type with query/mutation resolvers (users / user(id) / createUser / deleteUser)
  * - `docs:graphql` script runs graphql-markdown against the schema for human-readable docs
+ * - Runtime mutation input validation via `Validation.res` (zod or sury, selected in Wizard)
  *
  * The generated project answers the common day-two question "how do I add a new GraphQL
  * type + resolver?" by showing an already-wired users type alongside the Drizzle table.
  *
  * Static file content lives under `src/main/resources/templates/hono-graphql/` and is
  * loaded via [TemplateResourceLoader]; only dynamic composition stays in Kotlin.
+ * Validation-library-specific files live under `variants/<key>/` and are selected by
+ * [TemplateContext.validationLibrary].
  */
 internal object HonoGraphqlTemplateFiles {
     /**
      * Generates Hono GraphQL template files using the supplied [TemplateContext].
      */
-    fun generate(ctx: TemplateContext): Map<String, String> =
-        mapOf(
+    fun generate(ctx: TemplateContext): Map<String, String> {
+        val variantKey = ctx.validationLibrary.variantKey()
+        return mapOf(
             "rescript.json" to ProjectFileBuilders.rescriptJson(name = ctx.projectName),
             "package.json" to
                 ProjectFileBuilders.packageJson(
@@ -32,17 +37,7 @@ internal object HonoGraphqlTemplateFiles {
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "hono" to TemplateVersions.HONO,
-                            "@hono/node-server" to TemplateVersions.HONO_NODE_SERVER,
-                            "graphql" to TemplateVersions.GRAPHQL,
-                            "graphql-yoga" to TemplateVersions.GRAPHQL_YOGA,
-                            "@libsql/client" to TemplateVersions.LIBSQL_CLIENT,
-                            "drizzle-orm" to TemplateVersions.DRIZZLE_ORM,
-                        ),
+                    dependencies = honoGraphqlDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
@@ -69,6 +64,8 @@ internal object HonoGraphqlTemplateFiles {
             "src/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
             "src/Schema.res" to TemplateResourceLoader.load("hono-graphql/src/Schema.res"),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("hono-graphql/variants/$variantKey/src/Validation.res"),
             "src/Db.res" to TemplateResourceLoader.load("hono-graphql/src/Db.res"),
             "src/Yoga.res" to TemplateResourceLoader.load("hono-graphql/src/Yoga.res"),
             "src/GraphqlSchema.res" to TemplateResourceLoader.load("hono-graphql/src/GraphqlSchema.res"),
@@ -125,9 +122,27 @@ internal object HonoGraphqlTemplateFiles {
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )
+    }
 
     /**
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun honoGraphqlDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["hono"] = TemplateVersions.HONO
+        deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
+        deps["graphql"] = TemplateVersions.GRAPHQL
+        deps["graphql-yoga"] = TemplateVersions.GRAPHQL_YOGA
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        deps["@libsql/client"] = TemplateVersions.LIBSQL_CLIENT
+        deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM
+        return deps
+    }
 }

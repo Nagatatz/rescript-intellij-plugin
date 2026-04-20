@@ -21,12 +21,16 @@ module Users = {
   }
 
   let createUser = async (_parent, args, _ctx, _info) => {
-    let inserted =
-      await Db.db
-      ->Db.insert(Schema.users)
-      ->Db.values({"name": args["name"], "email": args["email"]})
-      ->Db.returning
-    inserted->Array.get(0)
+    switch Validation.parseCreateUserInput(args->Obj.magic) {
+    | Error(msg) => failwith(msg)
+    | Ok(payload) =>
+      let inserted =
+        await Db.db
+        ->Db.insert(Schema.users)
+        ->Db.values({"name": payload.name, "email": payload.email})
+        ->Db.returning
+      inserted->Array.get(0)
+    }
   }
 
   let deleteUser = async (_parent, _args, _ctx, _info) => {

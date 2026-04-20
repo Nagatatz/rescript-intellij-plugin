@@ -1,11 +1,14 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class HonoGraphqlTemplateFilesTest {
     private val ctx = TemplateContext("graphql-svc", PackageManager.PNPM)
+    private val suryCtx = TemplateContext("graphql-svc", PackageManager.PNPM, ValidationLibrary.SURY)
 
     @Test
     fun `package json declares hono and graphql-yoga`() {
@@ -59,6 +62,38 @@ class HonoGraphqlTemplateFilesTest {
         assertTrue(resolvers.contains("userById"))
         assertTrue(resolvers.contains("createUser"))
         assertTrue(resolvers.contains("deleteUser"))
+    }
+
+    @Test
+    fun `createUser resolver validates input via Validation module`() {
+        val resolvers = HonoGraphqlTemplateFiles.generate(ctx)["src/Resolvers.res"]!!
+        assertTrue(resolvers.contains("Validation.parseCreateUserInput"))
+        assertTrue(resolvers.contains("failwith(msg)"))
+    }
+
+    @Test
+    fun `zod variant ships zod Validation module and zod dependency`() {
+        val files = HonoGraphqlTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/Validation.res"))
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("@module(\"zod\")"))
+        assertTrue(validation.contains("parseCreateUserInput"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"zod\": \"${TemplateVersions.ZOD}\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships sury Validation module and sury dependency`() {
+        val files = HonoGraphqlTemplateFiles.generate(suryCtx)
+        assertTrue(files.containsKey("src/Validation.res"))
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("S.object"))
+        assertTrue(validation.contains("S.parseOrThrow"))
+        assertFalse(validation.contains("@module(\"zod\")"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"sury\": \"${TemplateVersions.SURY}\""))
+        assertFalse(pkg.contains("\"zod\":"))
     }
 
     @Test
