@@ -134,11 +134,11 @@ internal object BasicTemplateFiles {
             appendLine("external writeFileUtf8Raw: (string, string, @as(\"utf8\") _) => promise<unit> = \"writeFile\"")
             appendLine("")
             appendLine("/** Reads [path] as UTF-8 text. Rejects if the file does not exist. */")
-            appendLine("let read = (path: string): promise<string> => readFileUtf8Raw(path, ())")
+            appendLine("let read = (path: string): promise<string> => readFileUtf8Raw(path)")
             appendLine("")
             appendLine("/** Writes [contents] to [path] as UTF-8. Creates or overwrites the file. */")
             appendLine("let write = (path: string, contents: string): promise<unit> =>")
-            append("  writeFileUtf8Raw(path, contents, ())")
+            append("  writeFileUtf8Raw(path, contents)")
         }
 
     private fun appTest(): String =
@@ -170,9 +170,9 @@ internal object BasicTemplateFiles {
             appendLine("      Console.log(`First line of $dollar{path}:`)")
             appendLine("      Console.log(contents->String.split(\"\\n\")->Array.get(0)->Option.getOr(\"\"))")
             appendLine("    } catch {")
-            appendLine("    | Exn.Error(err) =>")
+            appendLine("    | JsExn(err) =>")
             appendLine(
-                "      Console.error(`Could not read $dollar{path}: $dollar{err->Exn.message" +
+                "      Console.error(`Could not read $dollar{path}: $dollar{err->JsExn.message" +
                     "->Option.getOr(\"unknown error\")}`)",
             )
             appendLine("    }")
