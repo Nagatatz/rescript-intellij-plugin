@@ -1,10 +1,10 @@
 # Learn スキル
 
-セッション中に得た知見を抽出し、`.claude/rules/learnings.md` に永続化するスキルです。`/learn` で明示的に呼び出してください。
+セッション中に得た知見を抽出し、`.claude/memories/learnings.md` に永続化するスキルです。`/learn` で明示的に呼び出してください。
 
 ## 保存先
 
-`.claude/rules/learnings.md` に記録する。このファイルは `.claude/rules/` 配下にあるため、Claude Code が自動的に読み込む。CLAUDE.md には記録しない（CLAUDE.md は簡潔に保つ方針のため）。
+`.claude/memories/learnings.md` に記録する。このファイルは `.claude/rules/` 配下にあるため、Claude Code が自動的に読み込む。CLAUDE.md には記録しない（CLAUDE.md は簡潔に保つ方針のため）。
 
 ## 記録対象
 
@@ -27,13 +27,13 @@
 ## 実行手順
 
 1. **知見の抽出**: 現在のセッションの会話履歴を振り返り、上記カテゴリに該当する非自明な発見を特定する
-2. **重複チェック**: `.claude/rules/learnings.md` を読み込み（存在する場合）、既に記載済みでないことを確認する
-3. **記録**: `.claude/rules/learnings.md` に追記する（ファイルがなければ作成する）
+2. **重複チェック**: `.claude/memories/learnings.md` を読み込み（存在する場合）、既に記載済みでないことを確認する
+3. **記録**: `.claude/memories/learnings.md` に追記する（ファイルがなければ作成する）
 4. **確認**: 追記した内容をユーザーに提示し、確認を得る
 
 ## 記録フォーマット
 
-`.claude/rules/learnings.md` に以下の形式で記録する:
+`.claude/memories/learnings.md` に以下の形式で記録する:
 
 ```markdown
 # プロジェクト固有の知見（Learnings）
