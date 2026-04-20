@@ -1,45 +1,45 @@
-# IntelliJ Plugin Release Flow
+# IntelliJ Plugin リリースフロー
 
-Implements the strict ordering defined in `.claude/rules/release.md`. The critical invariant: **`plugin.xml` `<change-notes>` and `gradle.properties` `pluginVersion` MUST be committed before the tag is created**, because both are baked into the artifact that `publishPlugin` uploads to JetBrains Marketplace. Nothing after the tag can fix a missed entry.
+`.claude/rules/release.md` で定義された厳格な順序を実装する。重要な不変条件: **`plugin.xml` の `<change-notes>` と `gradle.properties` の `pluginVersion` はタグ作成より前に必ずコミットすること**。どちらも `publishPlugin` が JetBrains Marketplace にアップロードするアーティファクトに焼き込まれるため、タグ作成後の修正では反映されない。
 
-## When to use
+## 利用タイミング
 
-- User asks to release version `X.Y.Z`
-- User asks to draft change notes for an upcoming release
-- Post-merge, user asks "what's next before we tag?"
+- ユーザーがバージョン `X.Y.Z` のリリースを依頼した場合
+- 次回リリース用のチェンジノート草稿を依頼された場合
+- マージ完了後に「タグ付けまで残っている作業は？」と聞かれた場合
 
-## Preconditions (verify before touching any file)
+## 事前条件（どのファイルにも触れる前に検証）
 
-- `git branch --show-current` is `main`
-- `git status` is clean
-- `git pull --ff-only origin main` succeeds
-- CI is green on `main` (`gh run list --branch main --limit 1 --json conclusion,status`)
-- Target version is SemVer-valid (`MAJOR.MINOR.PATCH`) and strictly greater than current `pluginVersion` in `gradle.properties`
+- `git branch --show-current` が `main`
+- `git status` がクリーン
+- `git pull --ff-only origin main` が成功
+- `main` の CI が緑 (`gh run list --branch main --limit 1 --json conclusion,status`)
+- 対象バージョンが SemVer 準拠 (`MAJOR.MINOR.PATCH`) で、`gradle.properties` の現在の `pluginVersion` より厳密に大きい
 
-## Workflow
+## ワークフロー
 
-### 1. Collect change-log inputs
+### 1. チェンジログ入力の収集
 
 ```bash
 PREV_TAG=$(git describe --tags --abbrev=0)
 git log "$PREV_TAG"..HEAD --pretty=format:'%s'
 ```
 
-Classify each commit by its emoji prefix (per `.claude/rules/git-conventions.md`):
+各コミットを絵文字プレフィックスで分類する（`.claude/rules/git-conventions.md` 準拠）:
 
-| Emoji | Category heading |
-|-------|------------------|
+| 絵文字 | カテゴリ見出し |
+|-------|---------------|
 | ✨ | New Features |
 | 🐛 | Bug Fixes |
 | ♻️ | Refactoring |
 | ⚡ | Performance |
 | 🔧 / ⬆ | Infrastructure |
 
-Drop categories with no entries. Translate each commit subject into a user-facing English sentence that explains the value, not the mechanics. **Never ship Japanese in release notes** (`.claude/rules/language.md`).
+該当エントリが 0 件のカテゴリは落とす。各コミット件名を、機構ではなく価値を説明するユーザー向け英文に翻訳する。**リリースノートに日本語を混入させてはならない**（`.claude/rules/language.md`）。
 
-### 2. Update `<change-notes>` in `src/main/resources/META-INF/plugin.xml`
+### 2. `src/main/resources/META-INF/plugin.xml` の `<change-notes>` を更新
 
-Insert at the top of the existing `<change-notes>` block:
+既存 `<change-notes>` ブロックの先頭に挿入する:
 
 ```xml
 <h3>X.Y.Z</h3>
@@ -53,46 +53,46 @@ Insert at the top of the existing `<change-notes>` block:
 </ul>
 ```
 
-Only include `<h4>` sections that have at least one entry.
+エントリが 1 件以上ある `<h4>` セクションのみ含める。
 
-### 3. Bump `pluginVersion` in `gradle.properties`
+### 3. `gradle.properties` の `pluginVersion` をバンプ
 
 ```
 pluginVersion=X.Y.Z
 ```
 
-### 4. Update Kover coverage ratchet
+### 4. Kover カバレッジラチェットの更新
 
 ```bash
 ./gradlew test koverHtmlReport
-# Open build/reports/kover/html/index.html and note the INSTRUCTION coverage percentage.
+# build/reports/kover/html/index.html を開き INSTRUCTION の値を確認
 ```
 
-Then in `build.gradle.kts`, update `kover { reports { verify { rule { bound { minValue = <measured - 3> } } } } }`:
+続いて `build.gradle.kts` の `kover { reports { verify { rule { bound { minValue = <測定値 - 3> } } } } }` を更新する:
 
-- Ratchet rule: `minValue` must **never decrease** across releases.
-- If measured coverage fell below the existing floor, add tests **before** releasing; do not lower the floor.
+- ラチェット原則: `minValue` はリリースをまたいで**決して下げてはならない**
+- 測定値が既存の下限を下回った場合は、下限を下げずに**先にテストを追加**してからリリースする
 
-### 5. Verify the build
+### 5. ビルド検証
 
 ```bash
 ./gradlew clean buildPlugin
 ```
 
-Must succeed with no new warnings. `buildPlugin` exercises `verifyPluginStructure`; failures here are blockers.
+新規警告なしで成功する必要がある。`buildPlugin` は `verifyPluginStructure` を実行するため、ここでの失敗はブロッカーとなる。
 
-### 6. Commit the bump (single commit)
+### 6. バンプをコミット（単一コミット）
 
 ```bash
 git add gradle.properties src/main/resources/META-INF/plugin.xml build.gradle.kts
 git commit -m "⬆ Bump version to X.Y.Z"
 ```
 
-The commit emoji is `⬆` (per user preference in memory), not `🔧`.
+コミット絵文字は `⬆`（memory のユーザー設定に従う）であり、`🔧` ではない。
 
-### 7. Create an annotated tag
+### 7. アノテーション付きタグの作成
 
-The tag message becomes the release narrative — include the categorized change-log from step 1. **Annotated, never lightweight.**
+タグメッセージがリリースの解説本体となる。Step 1 で分類したチェンジログを含めること。**軽量タグではなく必ずアノテーション付き**。
 
 ```bash
 git tag -a vX.Y.Z -m "$(cat <<'EOF'
@@ -107,17 +107,17 @@ EOF
 )"
 ```
 
-### 8. Push commit + tag together
+### 8. コミットとタグを同時プッシュ
 
 ```bash
 git push origin main vX.Y.Z
 ```
 
-Atomic push is mandatory. Never push the tag without the commit (Marketplace publish would fail) and never push the commit without the tag (skips the release workflow).
+アトミックなプッシュが必須。コミットなしでタグだけプッシュしてはならない（Marketplace publish が失敗する）。逆にタグなしでコミットだけプッシュしてもならない（release ワークフローがスキップされる）。
 
-### 9. Rewrite the GitHub Release notes
+### 9. GitHub Release のノートを書き換える
 
-`release.yml` runs with `generate_release_notes: true`, producing an auto-generated commit list. Replace it with the hand-written, categorized English notes:
+`release.yml` は `generate_release_notes: true` で動作し、自動生成のコミット一覧が出力される。これを手書きの分類済み英語ノートで差し替える:
 
 ```bash
 gh release edit vX.Y.Z --notes "$(cat <<'EOF'
@@ -138,23 +138,23 @@ EOF
 )"
 ```
 
-### 10. Verify Marketplace publish
+### 10. Marketplace publish の確認
 
-`release.yml` runs `publishPlugin`. Confirm:
+`release.yml` が `publishPlugin` を実行する。以下を確認する:
 
-- `gh run list --workflow release.yml --limit 1` shows `completed / success`
-- JetBrains Marketplace plugin page lists version `X.Y.Z` (may lag a few minutes)
+- `gh run list --workflow release.yml --limit 1` が `completed / success` を示す
+- JetBrains Marketplace のプラグインページに `X.Y.Z` が出現する（数分遅延することあり）
 
-## Hard stops (abort and fix before continuing)
+## 即時停止すべき事象（継続せず修正）
 
-- `plugin.xml` `<change-notes>` was not updated → the Marketplace version will have a blank changelog forever. Revert the tag, fix, re-tag.
-- Lightweight tag (`git tag vX.Y.Z` without `-a`) was created → delete locally and remotely, recreate with `-a`.
-- Pushed the tag without the commit → `git push origin main` immediately; Marketplace publish will then succeed on retry.
-- Kover `minValue` was lowered → revert, add tests, re-release.
+- `plugin.xml` の `<change-notes>` が未更新 → Marketplace 版の Changelog が永久に空欄になる。タグを破棄して修正し再タグ
+- 軽量タグ (`git tag vX.Y.Z` を `-a` なしで作成) を作った → ローカル・リモート両方で削除し `-a` 付きで作り直す
+- タグだけプッシュしコミットが未プッシュ → 直ちに `git push origin main` を実行。再試行で Marketplace publish が成功する
+- Kover `minValue` を下げてしまった → revert してテストを追加し再リリース
 
-## Reference
+## 参考
 
-- Rule: `.claude/rules/release.md`
-- Emoji prefixes: `.claude/rules/git-conventions.md`
-- Language policy: `.claude/rules/language.md`
-- Workflow: `.github/workflows/release.yml`
+- ルール: `.claude/rules/release.md`
+- 絵文字プレフィックス: `.claude/rules/git-conventions.md`
+- 言語方針: `.claude/rules/language.md`
+- ワークフロー: `.github/workflows/release.yml`

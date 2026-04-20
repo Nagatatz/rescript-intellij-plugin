@@ -113,20 +113,20 @@ IDE 統合機能の完全なカテゴリ一覧・パッケージ対応・Extensi
 
 ## コンテキスト管理
 
-When compacting, always preserve:
-- Current working branch and worktree path
-- The active `.steering/` directory path and current tasklist.md progress
-- List of modified/created files in the current session
-- Build errors or test failures encountered
+コンパクション時は常に以下を保持すること:
+- 現在の作業ブランチと worktree のパス
+- 現在アクティブな `.steering/` ディレクトリのパスと `tasklist.md` の進捗
+- 現在のセッション内で変更・新規作成したファイルの一覧
+- 発生したビルドエラー・テスト失敗の内容
 
 Task ツール（サブエージェント）を使用する場合、`run_in_background` は **明示的に指示された場合のみ** 使用すること。
 
 ## セキュリティ
 
-- Validate all external inputs (LSP server responses, file system paths, JSON config parsing)
-- Use ProcessBuilder with explicit argument lists for external process execution; never concatenate user input into command strings
-- Never expose absolute file system paths in user-facing UI elements or error messages
-- Sanitize file paths from LSP responses before using in file operations
+- 外部入力（LSP サーバーレスポンス、ファイルシステムパス、JSON 設定のパース結果）はすべて検証すること
+- 外部プロセスの実行には `ProcessBuilder` に明示的な引数リストを渡すこと。ユーザー入力をコマンド文字列に連結してはならない
+- ユーザー向け UI 要素やエラーメッセージに絶対パスを露出させないこと
+- LSP レスポンス由来のファイルパスは、ファイル操作に利用する前にサニタイズすること
 
 ## ロードマップ
 

@@ -1,65 +1,65 @@
-# Sphinx `.po` Japanese Translation Sync
+# Sphinx `.po` 日本語訳同期
 
-Enforce `.claude/rules/documentation.md` "日本語訳の同時更新" rule: whenever any `sphinx-docs/**/*.md` file (outside `locale/`) is added or modified, the corresponding `sphinx-docs/locale/ja/LC_MESSAGES/**/*.po` must be updated in the **same commit** with a filled-in `msgstr`.
+`.claude/rules/documentation.md` の「日本語訳の同時更新」ルールを強制するスキル。`sphinx-docs/**/*.md` (locale/ 配下を除く) の追加・変更時は、対応する `sphinx-docs/locale/ja/LC_MESSAGES/**/*.po` を **同一コミット内で** 更新し、`msgstr` を埋める。
 
-## When to use
+## 利用タイミング
 
-- Added a new `.md` under `sphinx-docs/user/features/` or `sphinx-docs/dev/`
-- Edited headings, paragraphs, or examples in any tracked `sphinx-docs/**/*.md`
-- `git status` shows staged `.md` changes without corresponding `.po` changes
-- User asks: "update translations", "sync Japanese docs", "why is `make build-ja` failing?"
+- `sphinx-docs/user/features/` または `sphinx-docs/dev/` 配下に新規 `.md` を追加した
+- 任意の追跡下 `sphinx-docs/**/*.md` で見出し・段落・サンプルを編集した
+- `git status` で `.md` がステージされているのに対応する `.po` の変更がない
+- ユーザーから「翻訳を更新して」「日本語 docs を同期」「`make build-ja` が失敗する理由は？」と問われた
 
-## Workflow
+## ワークフロー
 
-1. **Inspect the English change**
-   - `git diff sphinx-docs/**/*.md` (outside `locale/`) to identify added or modified `msgid` candidates.
+1. **英語側の変更を確認**
+   - `git diff sphinx-docs/**/*.md` (locale/ 配下を除く) で追加・変更された `msgid` 候補を特定する
 
-2. **Regenerate `.pot` and sync `.po`**
+2. **`.pot` 再生成と `.po` 同期**
    ```bash
    cd sphinx-docs
-   make gettext      # regenerate .pot templates from current .md
-   make update-po    # merge .pot into ja .po (new msgids appended with empty msgstr)
+   make gettext      # 現在の .md から .pot テンプレートを再生成
+   make update-po    # .pot を ja の .po にマージ（新規 msgid は空 msgstr で追記）
    ```
 
-3. **Fill every empty `msgstr`** in the touched `.po` files.
-   - Keep ReST/Sphinx roles (`:ref:`, `:doc:`, backticks) byte-identical with the `msgid`.
-   - Preserve leading/trailing whitespace.
-   - Do not translate identifiers, code fences, class names, or English technical terms that appear in `docs/glossary.md`.
-   - If a `msgid` is a section heading that maps 1:1 to an existing translated page, reuse the existing Japanese wording for consistency.
+3. **触れた `.po` の空 `msgstr` をすべて埋める**
+   - ReST/Sphinx のロール (`:ref:`, `:doc:`, バッククォート) は `msgid` とバイト単位で一致させる
+   - 先頭・末尾の空白を保持する
+   - 識別子・コードフェンス・クラス名・`docs/glossary.md` に登場する英語の技術用語は翻訳しない
+   - `msgid` が既訳ページの見出しと 1:1 対応する場合は、一貫性のため既存の日本語訳を再利用する
 
-4. **Verify the Japanese build**
+4. **日本語ビルドを検証**
    ```bash
    cd sphinx-docs && make build-ja
    ```
-   Must exit 0. If warnings about `msgstr` mismatches appear, fix the offending entry (usually a malformed ReST role) before committing.
+   終了コード 0 必須。`msgstr` の不整合警告が出た場合は（通常は ReST ロールの記述ミス）コミット前に該当エントリを修正する
 
-5. **Stage both sides together**
-   - Every `sphinx-docs/**/*.md` in the commit must be accompanied by the corresponding `.po` in `sphinx-docs/locale/ja/LC_MESSAGES/**`.
-   - Use explicit `git add <paths>`; never `git add .` (per `.claude/rules/definition-of-done.md` Phase 3).
+5. **両側をまとめてステージング**
+   - コミット内の `sphinx-docs/**/*.md` には必ず対応する `sphinx-docs/locale/ja/LC_MESSAGES/**` 配下の `.po` を同伴させる
+   - `git add <paths>` で明示指定する。`git add .` は禁止（`.claude/rules/definition-of-done.md` Phase 3）
 
-## Acceptance checks (run before committing)
+## コミット前の受け入れチェック
 
-- [ ] `git diff --name-only --cached | grep 'sphinx-docs.*\.md$'` non-empty ⇒ matching `.po` also staged.
-- [ ] No `msgstr ""` left in touched `.po` files (`grep -nE '^msgstr ""$' <file>` returns no unexpected entries — the initial header entry is allowed).
-- [ ] `make build-ja` succeeds from `sphinx-docs/`.
+- [ ] `git diff --name-only --cached | grep 'sphinx-docs.*\.md$'` が非空 ⇒ 対応 `.po` もステージされている
+- [ ] 触れた `.po` に `msgstr ""` が残っていない (`grep -nE '^msgstr ""$' <file>` に想定外エントリが出ない。ヘッダの初期エントリのみ許容)
+- [ ] `sphinx-docs/` で `make build-ja` が成功する
 
-## Allowed diff shape for `.po`
+## `.po` の許容 diff 形状
 
-Minor churn that does NOT require new translation:
+新規翻訳を要さない軽微な変動は以下のみ:
 
-- `POT-Creation-Date:` header bumps
-- Source reference line shifts (`#: user/features/foo.md:42` → `:45`)
+- `POT-Creation-Date:` ヘッダの更新
+- ソース参照行のシフト (`#: user/features/foo.md:42` → `:45`)
 
-Any new or changed `msgid` requires a Japanese `msgstr`.
+`msgid` の新規追加・変更には必ず日本語 `msgstr` が必要。
 
-## Anti-patterns
+## アンチパターン
 
-- Committing an English `.md` change and deferring the `.po` update to a follow-up commit.
-- Translating code identifiers, CLI flags, file paths, or technical terms present in `docs/glossary.md`.
-- Leaving `msgstr ""` because "the English is clear enough" — build-ja will still pass but the user-facing Japanese page will show English fallbacks.
+- 英語 `.md` の変更をコミットし、`.po` 更新を後続コミットに先送りする
+- コード識別子・CLI フラグ・ファイルパス・`docs/glossary.md` の技術用語を翻訳する
+- 「英語で十分伝わる」と判断して `msgstr ""` を放置する — `build-ja` は通るが、ユーザー向け日本語ページで英語フォールバックが表示される
 
-## Reference
+## 参考
 
-- Rule: `.claude/rules/documentation.md` → "日本語訳の同時更新"
-- Glossary (do-not-translate terms): `docs/glossary.md`
-- Makefile targets: `sphinx-docs/Makefile` (`gettext`, `update-po`, `build-ja`, `serve`)
+- ルール: `.claude/rules/documentation.md` →「日本語訳の同時更新」
+- 用語集（翻訳禁止）: `docs/glossary.md`
+- Makefile ターゲット: `sphinx-docs/Makefile` (`gettext`, `update-po`, `build-ja`, `serve`)

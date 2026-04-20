@@ -1,4 +1,4 @@
-# Docs Lint — Instructions
+# Docs Lint — 手順書
 
 `.claude/rules/documentation.md` の「機能実装時のドキュメント更新」と「日本語訳の同時更新」を staged 差分に対して機械チェックする。
 
@@ -9,7 +9,7 @@
 ```bash
 # staged changes
 git diff --cached --name-only > /tmp/docs-lint-staged.txt
-# new Kotlin classes added in staged diff
+# staged diff で新規追加された Kotlin クラス
 git diff --cached --diff-filter=A --name-only -- 'src/main/**/*.kt' > /tmp/docs-lint-new-classes.txt
 ```
 
@@ -19,7 +19,7 @@ git diff --cached --diff-filter=A --name-only -- 'src/main/**/*.kt' > /tmp/docs-
 
 ```bash
 for md in $(grep '^sphinx-docs/' /tmp/docs-lint-staged.txt | grep '\.md$' | grep -v '/locale/'); do
-  # derive corresponding ja .po path
+  # 対応する ja 側 .po パスを導出
   po="sphinx-docs/locale/ja/LC_MESSAGES/${md#sphinx-docs/}"
   po="${po%.md}.po"
   if grep -Fxq "$po" /tmp/docs-lint-staged.txt; then
@@ -30,11 +30,11 @@ for md in $(grep '^sphinx-docs/' /tmp/docs-lint-staged.txt | grep '\.md$' | grep
 done
 ```
 
-staged `.po` に `msgstr ""`（翻訳欠落）が残っていないかチェック。ヘッダーエントリ（最初の空 msgid 直後の msgstr "" は許容）を除外する:
+staged `.po` に `msgstr ""`（翻訳欠落）が残っていないかチェックする。ヘッダーエントリ（最初の空 `msgid` 直後の `msgstr ""`）は許容し、それ以外を検出する:
 
 ```bash
 for po in $(grep 'locale/ja.*\.po$' /tmp/docs-lint-staged.txt); do
-  # skip header entry (first msgstr ""), flag subsequent empty msgstr
+  # ヘッダー直後の msgstr "" のみ許容し、それ以降の空 msgstr を検出
   empty=$(awk '/^msgstr ""/{c++; if (c>1) print NR": "$0}' "$po")
   [ -n "$empty" ] && echo "[FAIL] $po has untranslated entries:" && echo "$empty"
 done
@@ -42,40 +42,40 @@ done
 
 ### 2. 4-target sync matrix チェック（新規 Kotlin クラス）
 
-対象: `/tmp/docs-lint-new-classes.txt` に列挙された新規 `*.kt` ファイル内のトップレベル `class` / `object` 宣言。
+対象: `/tmp/docs-lint-new-classes.txt` に列挙された新規 `*.kt` 内のトップレベル `class` / `object` 宣言。
 
-新規クラスごとに以下の 4 ターゲットを grep:
+新規クラスごとに以下の 4 ターゲットを grep する:
 
 ```bash
 for kt in $(cat /tmp/docs-lint-new-classes.txt); do
-  # extract top-level class/object names
+  # トップレベルの class/object 名を抽出
   classes=$(grep -oE '^(internal |public )?(class|object|enum class|sealed class) [A-Z][A-Za-z0-9]+' "$kt" | awk '{print $NF}')
   for cls in $classes; do
-    # Target 1: functional-design.md (CLAUDE.md レイヤー 3 の pointer 先)
+    # Target 1: functional-design.md（CLAUDE.md レイヤー 3 のポインタ先）
     grep -q "$cls" docs/functional-design.md || echo "[WARN] $cls not mentioned in docs/functional-design.md"
-    # Target 2: repository-structure.md (CLAUDE.md レイヤー 3 の pointer 先)
-    grep -q "$cls" docs/repository-structure.md || echo "[INFO] $cls not in docs/repository-structure.md (may be implicit under package)"
-    # Target 3: README Features セクション
+    # Target 2: repository-structure.md（CLAUDE.md レイヤー 3 のポインタ先）
+    grep -q "$cls" docs/repository-structure.md || echo "[INFO] $cls not in docs/repository-structure.md (パッケージ単位で暗黙的に該当する場合あり)"
+    # Target 3: README の Features セクション
     grep -q "$cls" README.md || echo "[WARN] $cls not mentioned in README.md"
-    # Target 4: sphinx-docs feature pages
+    # Target 4: sphinx-docs の feature ページ
     grep -rq "$cls" sphinx-docs/user/features/ 2>/dev/null || echo "[WARN] $cls not mentioned in sphinx-docs/user/features/"
-    # Target 5: product-requirements.md (if was in roadmap, should now be in 実装済み)
+    # Target 5: product-requirements.md（ロードマップから実装済みへ移動済みかの確認）
     grep -q "$cls" docs/product-requirements.md docs/archive/implemented-features.md 2>/dev/null && echo "[INFO] $cls mentioned in product-requirements or archive"
   done
 done
 ```
 
-`[WARN]` は advisory（手動レビューで省略可能かを判断）、`[FAIL]` のみ blocking とする。
+`[WARN]` は advisory（手動レビューで省略可否を判断）、`[FAIL]` のみブロッキングとする。
 
-### 3. Sphinx build 成否
+### 3. Sphinx ビルドの成否
 
-オプション（ユーザーが「build も確認して」と言った場合のみ実行。時間がかかる）:
+オプション（ユーザーが「ビルドも確認して」と指示した場合のみ実行。時間がかかる）:
 
 ```bash
 cd sphinx-docs && make build-ja
 ```
 
-`make build-ja` が非 0 終了 → Fail として報告、ログの最終 20 行を出力。
+`make build-ja` が非 0 で終了した場合は FAIL として報告し、ログの最終 20 行を出力する。
 
 ### 4. 出力フォーマット
 
@@ -101,11 +101,11 @@ FAIL: 2  WARN: 2  OK: 1
 
 ## 非ゴール
 
-- 実際の翻訳品質判定（Japanese wording quality）
+- 翻訳品質の判定（日本語表現の良し悪し）
 - Sphinx ReST 文法の検証（`make build-ja` に委譲）
-- `.po` の `msgstr` 自動補完（これは `sphinx-po-ja-sync` スキルの役割）
+- `.po` の `msgstr` 自動補完（`sphinx-po-ja-sync` スキルの役割）
 
-## Reference
+## 参考
 
-- Rule: `.claude/rules/documentation.md`（4-target matrix と `.po` 同期）
-- 関連スキル: `.claude/skills/sphinx-po-ja-sync/`（write 側）、`.claude/skills/definition-of-done-check/`（DoD 全体チェック）
+- ルール: `.claude/rules/documentation.md`（4-target matrix と `.po` 同期）
+- 関連スキル: `.claude/skills/sphinx-po-ja-sync/`（書き込み側）、`.claude/skills/definition-of-done-check/`（DoD 全体チェック）
