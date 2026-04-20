@@ -158,3 +158,19 @@ htmx_boost_preload = "mouseover"
 
 # Suppress toctree warnings for locale files
 suppress_warnings = ["toc.excluded"]
+
+# -- Link check --------------------------------------------------------------
+
+# Flaky external sites (React Native docs, etc.) frequently time out in CI.
+# Double the default 30s timeout and retry up to three times so transient
+# failures don't red the whole pipeline, while still surfacing genuinely
+# broken links.
+linkcheck_timeout = 60
+linkcheck_retries = 3
+
+# Endpoints that consistently time out or rate-limit CI runners. Keep this
+# list short and review it when upstream improves.
+linkcheck_ignore = [
+    # Intermittent read timeouts from reactnative.dev's legacy docs path.
+    r"^https://reactnative\.dev/docs/legacy/.*",
+]
