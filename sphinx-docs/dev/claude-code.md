@@ -42,8 +42,7 @@ All configuration lives in the `.claude/` directory at the project root.
 │   ├── implementation-validator/  # /implementation-validator
 │   └── prd-writing/      # /prd-writing — PRD creation
 ├── commands/             # Multi-step command workflows
-│   ├── setup-project.md  # Initial project setup
-│   └── add-feature.md    # Feature addition workflow
+│   └── setup-project.md  # Initial project setup
 ├── agents/               # Subagent definitions
 │   ├── code-reviewer.md  # Automated code review checklist
 │   └── build-resolver.md # Build error diagnosis
@@ -129,9 +128,8 @@ Commands in `.claude/commands/` define multi-step workflows that combine multipl
 | Command | File | Steps |
 |---------|------|-------|
 | `setup-project` | `commands/setup-project.md` | Read ideas → Create PRD → Create functional design |
-| `add-feature` | `commands/add-feature.md` | Create steering docs → Implement → Review → Commit |
 
-Commands are invoked the same way as skills: `/setup-project`, `/add-feature`.
+Commands are invoked the same way as skills: `/setup-project`. Feature work is driven by the `add-feature` skill (`skills/add-feature/`).
 
 ## Agents
 
