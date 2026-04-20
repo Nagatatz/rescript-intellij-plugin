@@ -30,6 +30,8 @@ class TemplateResourcesSmokeTest {
             "cmdBuild",
             // cloudflare-workers/readme/deploy.md
             "cmdDeploy",
+            // npm-library/readme/publish.md
+            "cmdTest",
         )
 
     @Test
