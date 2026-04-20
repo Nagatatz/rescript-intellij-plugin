@@ -1,10 +1,14 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class GoogleCloudRunTemplateFilesTest {
+    private val suryCtx = TemplateContext("svc", PackageManager.PNPM, ValidationLibrary.SURY)
+
     @Test
     fun `Dockerfile uses pnpm when pnpm is selected`() {
         val ctx = TemplateContext("svc", PackageManager.PNPM)
@@ -45,6 +49,36 @@ class GoogleCloudRunTemplateFilesTest {
         assertTrue(server.contains("PORT"))
         assertTrue(server.contains("Hono.post"))
         assertTrue(server.contains("/echo"))
+    }
+
+    @Test
+    fun `server validates POST body via Validation and returns 400 on Error`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        val server = files["src/Server.res"]!!
+        assertTrue(server.contains("Validation.parseEchoPayload"))
+        assertTrue(server.contains("Hono.status(400)"))
+    }
+
+    @Test
+    fun `zod variant ships zod Validation module and zod dependency`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("@module(\"zod\")"))
+        assertTrue(validation.contains("parseEchoPayload"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"zod\": \"${TemplateVersions.ZOD}\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships sury Validation module and sury dependency`() {
+        val files = GoogleCloudRunTemplateFiles.generate(suryCtx)
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("S.object"))
+        assertTrue(validation.contains("S.parseOrThrow"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"sury\": \"${TemplateVersions.SURY}\""))
+        assertFalse(pkg.contains("\"zod\":"))
     }
 
     @Test
