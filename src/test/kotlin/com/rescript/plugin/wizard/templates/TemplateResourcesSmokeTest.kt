@@ -26,6 +26,8 @@ class TemplateResourcesSmokeTest {
             "cmdStart",
             "cmdAndroid",
             // basic/readme/run-the-app.md already uses cmdStart above
+            // aws-lambda/readme/deploy.md
+            "cmdBuild",
         )
 
     @Test
