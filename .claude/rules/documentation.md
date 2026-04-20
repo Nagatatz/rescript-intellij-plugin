@@ -86,4 +86,4 @@ make build-ja     # 翻訳が通ることを確認
 
 ## 図表・ダイアグラム
 
-**図表を作成・更新する場合は draw.io MCP ツールを使用すること。** ASCII アートや Markdown Mermaid コードブロックでの図表作成は禁止。ツール選択の詳細は `.claude/rules/diagram-rules.md` を参照。
+図表の作成・更新方針は `.claude/rules/diagram-rules.md` を参照（canonical: beautiful-mermaid）。
