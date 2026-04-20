@@ -191,7 +191,7 @@ internal object NextjsTemplateFiles {
             appendLine("    setGreeting(_ => Some(body[\"message\"]))")
             appendLine("  }")
             appendLine("")
-            appendLine("  <form onSubmit={handleSubmit}>")
+            appendLine("  <form onSubmit={event => handleSubmit(event)->ignore}>")
             appendLine("    <input")
             appendLine("      type_=\"text\"")
             appendLine("      placeholder=\"Your name\"")

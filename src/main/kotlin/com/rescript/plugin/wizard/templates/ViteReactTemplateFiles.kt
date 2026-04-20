@@ -112,18 +112,18 @@ internal object ViteReactTemplateFiles {
             appendLine("      let message = await Api.greet(name)")
             appendLine("      setGreeting(_ => Some(message))")
             appendLine("    } catch {")
-            appendLine("    | Exn.Error(err) =>")
+            appendLine("    | JsExn(err) =>")
             appendLine(
-                "      setGreeting(_ => Some(\"Error: \" ++ err->Exn.message->Option.getOr(" +
+                "      setGreeting(_ => Some(\"Error: \" ++ err->JsExn.message->Option.getOr(" +
                     "\"unknown\")))",
             )
             appendLine("    }")
             appendLine("    setLoading(_ => false)")
             appendLine("  }")
             appendLine("")
-            appendLine("  <main style={ReactDOM.Style.make(~padding=\"2rem\", ~fontFamily=\"sans-serif\", ())}>")
+            appendLine("  <main style={{padding: \"2rem\", fontFamily: \"sans-serif\"}}>")
             appendLine("    <h1> {React.string(\"ReScript + Vite+\")} </h1>")
-            appendLine("    <form onSubmit={handleSubmit}>")
+            appendLine("    <form onSubmit={event => handleSubmit(event)->ignore}>")
             appendLine("      <input")
             appendLine("        type_=\"text\"")
             appendLine("        placeholder=\"Your name\"")
