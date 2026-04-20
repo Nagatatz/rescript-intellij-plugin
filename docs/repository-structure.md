@@ -43,7 +43,7 @@ rescript-intellij-plugin/
 | `run/` | 実行構成（ReScript ビルド）、実行共通ユーティリティ | `RescriptRunConfigurationType`, `RescriptRunConfiguration`, `RescriptRunUtils` |
 | `test/` | テスト実行構成（jest/vitest） | `RescriptTestRunConfigurationType` |
 | `debug/` | デバッグ実行構成 | `RescriptDebugConfigurationType` |
-| `settings/` | プロジェクト設定 UI・永続化 | `RescriptConfigurable`, `RescriptProjectSettings` |
+| `settings/` | プロジェクト設定 UI・永続化（スキーマ駆動） | `RescriptConfigurable`, `RescriptProjectSettings`, `RescriptSettingsSchema`, `RescriptSettingDescriptor`, `RescriptSettingsValidator` |
 | `structure/` | ストラクチャービュー | `RescriptStructureViewFactory` |
 | `indexing/` | TODO インデクシング | `RescriptTodoIndexer` |
 | `editor/` | エディタ補助（引用符、通知バー、Smart Enter 等） | `RescriptQuoteHandler`, `RescriptSmartEnterProcessor` |

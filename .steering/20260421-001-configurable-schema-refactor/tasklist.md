@@ -1,0 +1,193 @@
+# Tasklist — RescriptConfigurable スキーマ駆動リファクタリング
+
+**参照:** `.claude/rules/definition-of-done.md` の 5 フェーズに沿う。
+
+---
+
+## Phase 1: 計画
+
+- [x] `.steering/20260421-001-configurable-schema-refactor/` 作成
+- [x] `requirements.md` 作成・承認
+- [x] `design.md` 作成・承認
+- [x] `tasklist.md` 作成・承認
+- [x] `EnterWorktree` で `configurable-schema` worktree に入る
+
+---
+
+## Phase 2: 実装
+
+各コミットは独立してビルド・テスト pass する単位で分割する。個別 `git add`。
+
+### コミット 1: `♻️ Extract settings path validation to RescriptSettingsValidator`
+
+- [x] `src/main/kotlin/com/rescript/plugin/settings/RescriptSettingsValidator.kt` 新規作成
+  - `validateLspPath`, `validateNodePath`, `validateRescriptBinaryPath`,
+    `validatePlatformPath`, `validateRuntimePath`
+  - 既存 `apply()` のエラーメッセージ文言を 1 字 1 句変えずに移植
+  - 全関数に英語 KDoc
+- [x] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingsValidatorTest.kt` 新規作成
+  - 空文字列 pass
+  - 存在しないパス → `ConfigurationException` with 既存文言
+  - `.js` ファイル (LSP): 実行可チェックスキップで pass
+  - 非 .js + 非実行可 → 例外
+  - 実行可ファイル → pass
+  - ディレクトリ系 (platform/runtime) の存在・不在
+  - `ConfigurationException.getMessage` deprecation 回避: Throwable 経由で読む拡張プロパティを追加
+- [x] `RescriptConfigurable.apply()` を validator 呼び出しに差し替え（UI 無変更）、未使用 import 削除
+- [x] `./gradlew ktlintCheck && ./gradlew test --tests "*RescriptSettingsValidatorTest*"`
+      pass (18/18)
+- [x] tasklist.md のこのコミット項目を `[x]` に更新
+- [ ] 個別 `git add` でコミット
+
+### コミット 2: `♻️ Add RescriptSettingDescriptor sealed hierarchy`
+
+- [x] `src/main/kotlin/com/rescript/plugin/settings/RescriptSettingDescriptor.kt` 新規作成
+  - `sealed class RescriptSettingDescriptor<T>` と `SettingComponent<T>` インターフェース
+  - 具象: `BoolDescriptor`, `PathDescriptor` (ファイル/フォルダ切替フラグ),
+    `ComboDescriptor`, `IntSpinnerDescriptor`
+  - `PathDescriptor` 内に `@Suppress("DialogTitleCapitalization")` を保持
+  - 全クラス・public メソッドに英語 KDoc
+- [x] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingDescriptorTest.kt`
+      新規作成（testing.md: Swing UI 例外に該当しないユーティリティロジックが対象）
+  - `BoolDescriptor.currentValue/applyValue` の往復
+  - `PathDescriptor.currentValue/applyValue` の往復
+  - `ComboDescriptor.currentValue/applyValue` の往復
+  - `IntSpinnerDescriptor.currentValue/applyValue` の往復
+  - （`createComponent` 側は Swing UI 免除）
+- [x] `./gradlew ktlintCheck && ./gradlew test --tests "*RescriptSettingDescriptorTest*"`
+      pass (5/5)
+- [x] この時点では `RescriptConfigurable` から未参照。ビルドは通る
+- [x] tasklist.md のこのコミット項目を `[x]` に更新
+- [ ] 個別 `git add` でコミット
+
+### コミット 3: `♻️ Drive RescriptConfigurable via settings schema`
+
+- [ ] `src/main/kotlin/com/rescript/plugin/settings/RescriptSettingsSchema.kt` 新規作成
+  - `SchemaEntry.Field` / `SchemaEntry.Separator`（`data object`）
+  - `entries: List<SchemaEntry>` を 19 フィールド + 5 セパレータで定義
+  - 各エントリの label / tooltip 文字列は既存の `FormBuilder` 呼び出しから 1 字 1 句
+    コピー
+  - object クラス KDoc で順序固定の旨を明記
+  - `pathDescriptorIds` を公開（apply 側でパスのみ先行スナップショット）
+- [x] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingsSchemaTest.kt`
+      新規作成（6 テスト全 pass）
+  - エントリ総数 / Separator 数
+  - descriptor id の重複がないこと
+  - `pathDescriptorIds` が PathDescriptor の id 集合と一致
+  - 全 descriptor が `RescriptProjectSettings` に対して round-trip 成功
+  - 先頭/末尾エントリの order
+- [x] `RescriptConfigurable.kt` を書き換え
+  - フィールド宣言を `components: Map<String, SettingComponent<*>>` 1 本に
+  - `createComponent` を schema 走査で組み立てに変更
+  - `isModified` を `fieldEntries().any { entryIsModified(...) }` に
+  - `apply` を「path snapshot → validator → schema 走査 applyValue → reanalyze/LSP 副作用」に
+  - `reset` を schema 走査に変更
+- [x] 旧 `private var xxxCheckbox` / `xxxField` / `xxxCombo` / `xxxSpinner` を全削除
+- [x] `./gradlew ktlintCheck` pass（Separator ブランチに波括弧追加）
+- [x] `./gradlew clean buildPlugin` pass
+- [x] `./gradlew test` 全体 pass (3331 tests, 0 failures, 10 skipped)
+- [ ] `./gradlew runIde` で設定 UI を手動確認（Phase 4 マージ前にユーザー側で実施）
+  - 全 19 フィールドが表示される
+  - ラベル・tooltip が現行と同じ
+  - 区切り線位置が現行と同じ
+  - Apply ボタンが modified 時に有効になる
+  - 値変更 → Apply → 再起動 → 値が保持される
+  - 不正パス入力で既存文言のエラーが表示される
+- [x] `RescriptConfigurable.kt` の行数 139 行（目標 ≤280）
+- [x] tasklist.md のこのコミット項目を `[x]` に更新
+- [ ] 個別 `git add` でコミット
+
+### コミット 4: `📝 Document settings schema architecture`
+
+- [x] `CLAUDE.md` レイヤー 3 の「LSP 拡張機能」行に「スキーマ駆動設定 UI
+      (`RescriptSettingsSchema` + `RescriptSettingDescriptor` + `RescriptSettingsValidator`)」
+      を追記
+- [x] `docs/repository-structure.md` の `settings/` 行を更新
+  - 代表クラスに `RescriptSettingsSchema`, `RescriptSettingDescriptor`,
+    `RescriptSettingsValidator` を追加
+- [x] README.md / sphinx-docs / product-requirements.md: **ユーザー可視機能の変更なし
+      のため更新不要**
+- [x] ktlint pass（Markdown のみ、主要な ktlint ターゲット外）
+- [x] tasklist.md のこのコミット項目を `[x]` に更新
+- [ ] 個別 `git add` でコミット
+
+---
+
+## Phase 3: コミット前検証
+
+各コミットで以下を満たすこと（`.claude/rules/definition-of-done.md` Phase 3）。
+
+### 自己検証
+
+- [x] `./gradlew ktlintCheck` 成功（各コミットごとに pre-commit hook で実行済み）
+- [x] `./gradlew clean buildPlugin` 成功
+- [x] `./gradlew test` 成功 (3331 tests, 0 failures, 10 skipped)
+- [x] ビルド警告の新規増加なし
+- [x] Deprecated API 新規利用なし（`@Suppress("DialogTitleCapitalization")` は既存箇所から
+      `PathDescriptor.createComponent` 内へ移動のみ。新規 deprecated 参照ゼロ）
+
+### コード品質
+
+- [x] 新規 `class` / `object` / `sealed class` / `interface` すべてに英語 KDoc
+- [x] `RescriptSettingsValidator`, `RescriptSettingDescriptor`, `RescriptSettingsSchema`
+      に対応するテストファイルが存在（Swing UI 部分は免除）
+
+### ドキュメント同期
+
+- [x] `CLAUDE.md` 更新（コミット 4）
+- [x] `docs/repository-structure.md` 更新（コミット 4）
+- [x] sphinx-docs 未更新（ユーザー可視変更なし）
+
+### Git
+
+- [x] コミット 1〜4 が機能単位で分割されている
+- [x] 絵文字プレフィックス付与（♻️ ×3, 📝 ×1）
+- [x] 個別 `git add`（`-A` / `.` 未使用）
+
+### セキュリティ
+
+- [x] `RescriptSettingsValidator` のパス検証文言・ロジックを既存から改変していない
+- [x] 絶対パスを UI・エラーメッセージに露出する変更を加えていない（既存の
+      `ConfigurationException` メッセージを移植のみ）
+- [x] 外部プロセス呼び出しの追加なし
+
+---
+
+## Phase 4: マージ前
+
+- [x] tasklist.md のすべての Phase 2 / Phase 3 項目が `[x]`
+- [x] requirements.md の AC-01〜AC-09 すべて満たす
+  - AC-01（UI 表示）は `runIde` 手動確認がユーザー側で残る（下記）
+  - AC-05（validator テスト）18/18 pass
+  - AC-06（行数 ≤280）139 行で達成
+  - AC-07（ktlint/build/test）全 pass
+  - AC-08（Kover minBound 85）`koverVerify` BUILD SUCCESSFUL
+  - AC-09（deprecated API 新規なし）確認済み
+- [x] `./gradlew clean buildPlugin` pass
+- [x] `./gradlew test` pass
+- [x] Kover 行カバレッジ minBound 85 を下回らない（`./gradlew koverVerify` pass）
+- [x] `./gradlew verifyPluginStructure` pass
+- [ ] `AskUserQuestion` でマージ可否をユーザーに確認
+  - セキュリティ影響: なし（validator はロジック保存のみ、新規外部 I/O なし）
+  - UI 手動確認: ユーザー側で `./gradlew runIde` 実施を推奨（Swing レイアウトは自動検証不能）
+- [x] tasklist.md のこのセクションを `[x]` に更新（マージ前最終コミット）
+
+---
+
+## Phase 5: マージ後
+
+- [ ] worktree 内で `git checkout main && git merge worktree-configurable-schema`
+- [ ] `git branch -d worktree-configurable-schema`
+- [ ] セッション終了で worktree 自動クリーンアップ
+
+---
+
+## 備考
+
+- 設定 UI の手動確認は `runIde` 必須。CI では Swing UI の目視確認ができないため、
+  コミット 3 の直前で必ず実施する。
+- Descriptor の型パラメータ `T` を保つため、`componentMap` は `Map<String,
+  SettingComponent<*>>` とし、各参照箇所で `@Suppress("UNCHECKED_CAST")` を
+  descriptor 側ヘルパーに閉じ込める。
+- 文字列差分（label / tooltip / エラー文言）はリファクタの合否を左右するため、
+  既存コードからのコピーに限定し、リワードしない。
