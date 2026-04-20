@@ -47,8 +47,7 @@ internal object CliToolTemplateFiles {
                 ),
             "src/Args.res" to argsRes(),
             "src/Cli.res" to cliRes(ctx.projectName),
-            "src/Commands/Greet.res" to greetCommand(),
-            "src/Commands/Init.res" to initCommand(ctx.projectName),
+            "src/Commands.res" to commandsRes(ctx.projectName),
             "src/__tests__/Args.test.mjs" to argsTest(),
             "README.md" to
                 CommonFiles.readme(
@@ -99,8 +98,7 @@ internal object CliToolTemplateFiles {
             appendLine("| --- | --- |")
             appendLine("| `src/Cli.res` | Entry point + subcommand dispatcher |")
             appendLine("| `src/Args.res` | Positional / named flag helpers |")
-            appendLine("| `src/Commands/Greet.res` | Sample subcommand with a boolean flag |")
-            append("| `src/Commands/Init.res` | Sample subcommand with a positional argument |")
+            append("| `src/Commands.res` | Subcommands (`Commands.Greet`, `Commands.Init`) |")
         }
 
     private fun installLocallySection(ctx: TemplateContext): String =
@@ -173,36 +171,38 @@ internal object CliToolTemplateFiles {
         }
     }
 
-    private fun greetCommand(): String {
+    private fun commandsRes(projectName: String): String {
         val dollar = '$'
         return buildString {
-            appendLine("// `greet <name> [--shout]` — demonstrates positional + boolean flag.")
-            appendLine("let run = (args: array<string>) => {")
-            appendLine("  switch args->Array.get(0) {")
-            appendLine("  | None =>")
-            appendLine("    Console.error(\"greet: missing required argument <name>\")")
-            appendLine("  | Some(name) =>")
-            appendLine("    let shout = args->Args.hasFlag(\"--shout\")")
-            appendLine("    let greeting = `Hello, $dollar{name}!`")
-            appendLine("    Console.log(shout ? greeting->String.toUpperCase : greeting)")
+            appendLine("// Subcommands live in nested modules so `Cli.res` can dispatch with")
+            appendLine("// `Commands.<Name>.run(args)`. Add new ones as siblings below.")
+            appendLine("module Greet = {")
+            appendLine("  // `greet <name> [--shout]` — demonstrates positional + boolean flag.")
+            appendLine("  let run = (args: array<string>) => {")
+            appendLine("    switch args->Array.get(0) {")
+            appendLine("    | None =>")
+            appendLine("      Console.error(\"greet: missing required argument <name>\")")
+            appendLine("    | Some(name) =>")
+            appendLine("      let shout = args->Args.hasFlag(\"--shout\")")
+            appendLine("      let greeting = `Hello, $dollar{name}!`")
+            appendLine("      Console.log(shout ? greeting->String.toUpperCase : greeting)")
+            appendLine("    }")
             appendLine("  }")
-            append("}")
-        }
-    }
-
-    private fun initCommand(projectName: String): String {
-        val dollar = '$'
-        return buildString {
-            appendLine("// `init <project-name>` — demonstrates a subcommand that would normally")
-            appendLine("// scaffold files. In this template it just logs what it would do.")
-            appendLine("let run = (args: array<string>) => {")
-            appendLine("  switch args->Array.get(0) {")
-            appendLine("  | None =>")
-            appendLine("    Console.error(\"init: missing required argument <project-name>\")")
-            appendLine("  | Some(target) =>")
-            appendLine("    Console.log(`Initializing new \\\"$projectName\\\"-style project at $dollar{target}...`)")
-            appendLine("    Console.log(\"(In a real CLI, this would create files on disk.)\")")
-            appendLine("  }")
+            appendLine("}")
+            appendLine("")
+            appendLine("module Init = {")
+            appendLine("  // `init <project-name>` — demonstrates a subcommand that would normally")
+            appendLine("  // scaffold files. In this template it just logs what it would do.")
+            appendLine("  let run = (args: array<string>) => {")
+            appendLine("    switch args->Array.get(0) {")
+            appendLine("    | None =>")
+            appendLine("      Console.error(\"init: missing required argument <project-name>\")")
+            appendLine("    | Some(target) =>")
+            appendLine("      Console.log(`Initializing new \\\"$projectName\\\"-style project at $dollar{target}...`)")
+            appendLine("      Console.log(\"(In a real CLI, this would create files on disk.)\")")
+            appendLine("    }")
+            append("  }")
+            appendLine()
             append("}")
         }
     }

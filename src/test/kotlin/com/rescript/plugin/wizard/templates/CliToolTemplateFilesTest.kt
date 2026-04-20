@@ -37,8 +37,9 @@ class CliToolTemplateFilesTest {
         val files = CliToolTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("src/Args.res"))
         assertTrue(files.containsKey("src/Cli.res"))
-        assertTrue(files.containsKey("src/Commands/Greet.res"))
-        assertTrue(files.containsKey("src/Commands/Init.res"))
+        assertTrue(files.containsKey("src/Commands.res"))
+        assertTrue(files["src/Commands.res"]!!.contains("module Greet"))
+        assertTrue(files["src/Commands.res"]!!.contains("module Init"))
         assertTrue(files["src/Cli.res"]!!.contains("Commands.Greet.run"))
         assertTrue(files["src/Cli.res"]!!.contains("Commands.Init.run"))
     }
