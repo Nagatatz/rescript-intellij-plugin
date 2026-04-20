@@ -18,21 +18,28 @@
 
 各コミットで個別 `git add`、ktlint/test pass を確認してからコミット。
 
-### コミット 1: `✨ Add ValidationLibrary enum + Wizard ComboBox`
+### コミット 1: `✨ Add ValidationLibrary enum + Wizard ComboBox` ✅
 
-- [ ] `src/main/kotlin/com/rescript/plugin/wizard/ValidationLibrary.kt` 新規
-- [ ] `src/main/kotlin/com/rescript/plugin/wizard/RescriptProjectWizardStep.kt` に ComboBox + updateDataModel 追加
-- [ ] `src/main/kotlin/com/rescript/plugin/wizard/RescriptModuleBuilder.kt` に field + ctx 構築追加
-- [ ] `src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateContext.kt` に `validationLibrary` field 追加（デフォルト ZOD）
-- [ ] `src/test/kotlin/com/rescript/plugin/wizard/ValidationLibraryTest.kt` 新規
-- [ ] `src/test/kotlin/com/rescript/plugin/wizard/RescriptModuleBuilderTest.kt` で新フィールドテスト
-- [ ] `src/test/kotlin/com/rescript/plugin/wizard/templates/TemplateContextTest.kt` で round-trip
-- [ ] ktlint + build + test pass（全 `*TemplateFilesTest` は無修正で pass、デフォルト ZOD で既存挙動）
+- [x] `src/main/kotlin/com/rescript/plugin/wizard/ValidationLibrary.kt` 新規
+- [x] `src/main/kotlin/com/rescript/plugin/wizard/RescriptProjectWizardStep.kt` に ComboBox + updateDataModel 追加
+- [x] `src/main/kotlin/com/rescript/plugin/wizard/RescriptModuleBuilder.kt` に field + ctx 構築追加
+- [x] `src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateContext.kt` に `validationLibrary` field 追加（デフォルト ZOD）
+- [x] `src/test/kotlin/com/rescript/plugin/wizard/ValidationLibraryTest.kt` 新規 (4/4 pass)
+- [x] `src/test/kotlin/com/rescript/plugin/wizard/RescriptModuleBuilderTest.kt` で新フィールドテスト
+- [x] `src/test/kotlin/com/rescript/plugin/wizard/templates/TemplateContextTest.kt` で round-trip
+- [x] ktlint + build + test pass（全 `*TemplateFilesTest` は無修正で pass、デフォルト ZOD で既存挙動）
 
-### コミット 2: `🔧 Add SURY dependency version`
+### コミット 2: `🔧 Add SURY dependency version` ✅
 
-- [ ] `src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateVersions.kt` に `SURY` 追加
-- [ ] `TemplateVersionsTest.kt` を更新
+- [x] `src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateVersions.kt` に `SURY = "^10.0.0"` 追加
+- [x] `TemplateVersionsTest.kt` に ZOD/SURY を semver 検証対象として追加
+
+### 一時停止: per-template 対応は別セッションで継続
+
+残りコミット（3〜10）は各サーバーテンプレートに zod/sury のバインディングを実装する作業で、
+ReScript 側のバインディング（特に sury の API 使用）を実機 REPL で確認しながら進める必要がある。
+現セッションでは foundation の 2 コミットまでを完了し、後続のテンプレート個別対応は別セッションで
+継続する。foundation は単独でも動作する（全テンプレートは ZOD 選択時と同じ既存挙動を保つ）。
 
 ### コミット 3: `♻️ Switch Hono templates to selectable zod/sury Schema`
 
