@@ -9,8 +9,6 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.ui.FormBuilder
 import com.rescript.plugin.errorlens.RescriptErrorLensSeverity
-import com.rescript.plugin.util.RescriptSecurityUtils
-import java.io.File
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JCheckBox
 import javax.swing.JComponent
@@ -249,54 +247,11 @@ class RescriptConfigurable(
         val platPath = platformPathField?.text?.trim() ?: ""
         val rtPath = runtimePathField?.text?.trim() ?: ""
 
-        if (lspPath.isNotEmpty()) {
-            if (!File(lspPath).exists()) {
-                throw ConfigurationException(
-                    "Language server path does not exist: $lspPath. " +
-                        "Leave blank to use the project's node_modules, " +
-                        "or run 'npm install @rescript/language-server' to install it.",
-                )
-            }
-            // Non-.js server paths must be executable binaries
-            if (!lspPath.endsWith(".js") && !RescriptSecurityUtils.isValidExecutable(lspPath)) {
-                throw ConfigurationException(
-                    "Language server path is not an executable file: $lspPath. " +
-                        "Ensure the file has execute permissions (chmod +x on Unix).",
-                )
-            }
-        }
-        if (nodePath.isNotEmpty()) {
-            if (!File(nodePath).exists()) {
-                throw ConfigurationException(
-                    "Node.js interpreter path does not exist: $nodePath. " +
-                        "Leave blank to auto-detect from PATH, or install Node.js from https://nodejs.org.",
-                )
-            }
-            if (!RescriptSecurityUtils.isValidExecutable(nodePath)) {
-                throw ConfigurationException(
-                    "Node.js interpreter path is not an executable file: $nodePath. " +
-                        "Ensure the file has execute permissions (chmod +x on Unix).",
-                )
-            }
-        }
-        if (binaryPath.isNotEmpty() && !File(binaryPath).exists()) {
-            throw ConfigurationException(
-                "ReScript binary path does not exist: $binaryPath. " +
-                    "Leave blank to auto-detect from node_modules, or run 'npm install rescript'.",
-            )
-        }
-        if (platPath.isNotEmpty() && !File(platPath).exists()) {
-            throw ConfigurationException(
-                "Platform path does not exist: $platPath. " +
-                    "Leave blank to use the default path, or verify the ReScript installation.",
-            )
-        }
-        if (rtPath.isNotEmpty() && !File(rtPath).exists()) {
-            throw ConfigurationException(
-                "Runtime path does not exist: $rtPath. " +
-                    "Leave blank to use the default path, or verify the ReScript installation.",
-            )
-        }
+        RescriptSettingsValidator.validateLspPath(lspPath)
+        RescriptSettingsValidator.validateNodePath(nodePath)
+        RescriptSettingsValidator.validateRescriptBinaryPath(binaryPath)
+        RescriptSettingsValidator.validatePlatformPath(platPath)
+        RescriptSettingsValidator.validateRuntimePath(rtPath)
 
         val settings = RescriptProjectSettings.getInstance(project)
         settings.lspServerPath = lspPath
