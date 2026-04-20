@@ -154,7 +154,7 @@ internal object ReactNativeTemplateFiles {
             appendLine("    <ReactNative.FlatList")
             appendLine("      data={todos}")
             appendLine("      keyExtractor={item => item.id->Int.toString}")
-            appendLine("      renderItem={({item}) => renderItem(item)}")
+            appendLine("      renderItem={info => renderItem(info[\"item\"])}")
             appendLine("    />")
             append("  </ReactNative.View>")
             appendLine()

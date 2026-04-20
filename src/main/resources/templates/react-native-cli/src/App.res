@@ -37,7 +37,7 @@ let make = () => {
     <ReactNative.FlatList
       data={todos}
       keyExtractor={item => item.id->Int.toString}
-      renderItem={({item}) => renderItem(item)}
+      renderItem={info => renderItem(info["item"])}
     />
   </ReactNative.View>
 }
