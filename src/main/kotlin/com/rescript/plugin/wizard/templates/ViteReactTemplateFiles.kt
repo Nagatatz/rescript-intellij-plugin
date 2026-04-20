@@ -40,7 +40,8 @@ internal object ViteReactTemplateFiles {
                     devDependencies =
                         linkedMapOf(
                             "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
-                            "vite" to TemplateVersions.VITE_PLUS, // Vite+ ships its own pinned vite via overrides
+                            // Direct vite dep for the documented Vite+ → Vite fallback path.
+                            "vite" to TemplateVersions.VITE,
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                             "vitest" to TemplateVersions.VITEST,

@@ -10,82 +10,86 @@ package com.rescript.plugin.wizard.templates
  */
 object TemplateVersions {
     // ReScript core
-    const val RESCRIPT = "^12.0.0"
-    const val RESCRIPT_CORE = "^1.0.0"
+    const val RESCRIPT = "^12.2.0"
+    const val RESCRIPT_CORE = "^1.6.1"
     const val RESCRIPT_REACT = "^0.15.0"
 
     // Build tools
+    // Raw Vite pin used when templates need a direct `vite` dep (fallback away
+    // from Vite+). Vite+ bundles its own vite under the hood.
+    const val VITE = "^8.0.9"
+
     // Vite+ (vite-plus) is pre-1.0; templates pin to the 0.1.x range until a stable release.
-    const val VITE_PLUS = "^0.1.0"
-    const val VITE_PLUS_CORE = "^0.1.0"
-    const val VITEJS_PLUGIN_REACT = "^6.0.0"
-    const val VITEST = "^4.1.0"
+    const val VITE_PLUS = "^0.1.18"
+    const val VITE_PLUS_CORE = "^0.1.18"
+    const val VITEJS_PLUGIN_REACT = "^6.0.1"
+    const val VITEST = "^4.1.4"
 
     // React
     const val REACT = "^19.2.5"
     const val REACT_DOM = "^19.2.5"
-    const val REACT_TYPES = "^19.2.0"
+    const val REACT_TYPES = "^19.2.14"
 
     // Backend
-    const val HONO = "^4.12.0"
-    const val HONO_NODE_SERVER = "^1.19.0"
-    const val NODE_TYPES = "^25.0.0"
+    const val HONO = "^4.12.14"
+    const val HONO_NODE_SERVER = "^1.19.14"
+    const val NODE_TYPES = "^25.6.0"
 
     // Next.js
-    const val NEXTJS = "^16.2.0"
+    const val NEXTJS = "^16.2.4"
 
     // Electron
-    const val ELECTRON = "^41.0.0"
-    const val ELECTRON_BUILDER = "^26.0.0"
+    const val ELECTRON = "^41.2.1"
+    const val ELECTRON_BUILDER = "^26.8.1"
 
     // Expo / React Native
-    const val EXPO = "^55.0.0"
-    const val REACT_NATIVE = "^0.85.0"
+    const val EXPO = "^55.0.15"
+    const val REACT_NATIVE = "^0.85.1"
 
     // React Native Community CLI (bare workflow)
-    const val RN_COMMUNITY_CLI = "^20.0.0"
-    const val RN_METRO_CONFIG = "^0.85.0"
-    const val RN_BABEL_PRESET = "^0.85.0"
+    const val RN_COMMUNITY_CLI = "^20.1.3"
+    const val RN_METRO_CONFIG = "^0.85.1"
+    const val RN_BABEL_PRESET = "^0.85.1"
 
     // Cloudflare Workers
     const val WRANGLER = "^4.83.0"
-    const val CF_WORKERS_TYPES = "^4.20260417.0"
+    const val CF_WORKERS_TYPES = "^4.20260420.1"
 
     // AWS Lambda
-    const val AWS_LAMBDA_TYPES = "^8.10.0"
+    const val AWS_LAMBDA_TYPES = "^8.10.161"
     const val ESBUILD = "^0.28.0"
 
     // Monorepo tooling
-    const val CONCURRENTLY = "^9.2.0"
+    const val CONCURRENTLY = "^9.2.1"
 
     // TypeScript (used as devDependency where interop is needed)
-    const val TYPESCRIPT = "^6.0.0"
+    const val TYPESCRIPT = "^6.0.3"
 
     // Package manager versions published via Corepack (`packageManager` field in package.json)
     const val PNPM = "10.33.0"
-    const val NPM = "11.12.0"
-    const val YARN = "4.5.0"
+    const val NPM = "11.12.1"
+    const val YARN = "4.14.1"
 
     // Database (libsql client + Drizzle ORM)
-    const val LIBSQL_CLIENT = "^0.17.0"
-    const val DRIZZLE_ORM = "^0.45.0"
-    const val DRIZZLE_KIT = "^0.31.0"
+    const val LIBSQL_CLIENT = "^0.17.2"
+    const val DRIZZLE_ORM = "^0.45.2"
+    const val DRIZZLE_KIT = "^0.31.10"
 
     // Validation
-    const val ZOD = "^4.3.0"
+    const val ZOD = "^4.3.6"
 
     // OpenAPI / Hono ecosystem
     // @hono/zod-openapi v1 requires zod v4; they must be bumped together.
     const val HONO_ZOD_OPENAPI = "^1.3.0"
-    const val SCALAR_HONO_API_REFERENCE = "^0.5.0"
+    const val SCALAR_HONO_API_REFERENCE = "^0.10.9"
 
     // GraphQL (Hono GraphQL template)
-    const val GRAPHQL = "^16.13.0"
+    const val GRAPHQL = "^16.13.2"
     const val GRAPHQL_YOGA = "^5.21.0"
-    const val GRAPHQL_MARKDOWN = "^0.7.0"
+    const val GRAPHQL_MARKDOWN = "^0.7.1"
 
     // AWS Lambda runtime types (separate from @types/aws-lambda)
-    const val AWS_LAMBDA = "^1.0.0"
+    const val AWS_LAMBDA = "^1.0.7"
 
     // Node.js engine range used by templates
     const val NODE_ENGINE = ">=22"
@@ -94,5 +98,5 @@ object TemplateVersions {
     const val NODE_MAJOR = "22"
 
     // Vitest coverage provider used by `test:coverage` scripts
-    const val VITEST_COVERAGE_V8 = "^4.1.0"
+    const val VITEST_COVERAGE_V8 = "^4.1.4"
 }

@@ -62,7 +62,7 @@ internal object FullStackTemplateFiles {
                             "concurrently" to TemplateVersions.CONCURRENTLY,
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
                             "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
-                            "vite" to TemplateVersions.VITE_PLUS,
+                            "vite" to TemplateVersions.VITE,
                             "vite-plus" to TemplateVersions.VITE_PLUS,
                             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                             "vitest" to TemplateVersions.VITEST,
