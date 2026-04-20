@@ -77,6 +77,7 @@ object TemplateVersions {
 
     // Validation
     const val ZOD = "^4.3.6"
+    const val SURY = "^10.0.0"
 
     // OpenAPI / Hono ecosystem
     // @hono/zod-openapi v1 requires zod v4; they must be bumped together.
