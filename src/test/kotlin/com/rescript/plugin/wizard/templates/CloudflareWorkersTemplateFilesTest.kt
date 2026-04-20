@@ -1,11 +1,14 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class CloudflareWorkersTemplateFilesTest {
     private val ctx = TemplateContext("worker", PackageManager.PNPM)
+    private val suryCtx = TemplateContext("worker", PackageManager.PNPM, ValidationLibrary.SURY)
 
     @Test
     fun `package json includes wrangler from TemplateVersions`() {
@@ -34,6 +37,35 @@ class CloudflareWorkersTemplateFilesTest {
         assertTrue(server.contains("Hono.post"))
         assertTrue(server.contains("Kv.put"))
         assertTrue(server.contains("Kv.list"))
+    }
+
+    @Test
+    fun `server validates POST body via Validation and returns 400 on Error`() {
+        val server = CloudflareWorkersTemplateFiles.generate(ctx)["src/Server.res"]!!
+        assertTrue(server.contains("Validation.parseGreetingPayload"))
+        assertTrue(server.contains("Hono.status(400)"))
+    }
+
+    @Test
+    fun `zod variant ships zod Validation module and zod dependency`() {
+        val files = CloudflareWorkersTemplateFiles.generate(ctx)
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("@module(\"zod\")"))
+        assertTrue(validation.contains("parseGreetingPayload"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"zod\": \"${TemplateVersions.ZOD}\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships sury Validation module and sury dependency`() {
+        val files = CloudflareWorkersTemplateFiles.generate(suryCtx)
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("S.object"))
+        assertTrue(validation.contains("S.parseOrThrow"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"sury\": \"${TemplateVersions.SURY}\""))
+        assertFalse(pkg.contains("\"zod\":"))
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a Cloudflare Workers Hono service.
@@ -9,6 +10,8 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  * The generated app goes beyond "hello world": it wires POST + GET against a KV namespace so
  * users have a working storage example out of the box (add/list greetings). `wrangler.jsonc`
  * pre-declares the KV binding so `wrangler dev` boots with a real local store.
+ * Runtime HTTP body validation is provided by `Validation.res` (zod or sury, selected in
+ * Wizard via [TemplateContext.validationLibrary]).
  */
 internal object CloudflareWorkersTemplateFiles {
     private const val RESOURCE_ROOT = "cloudflare-workers"
@@ -19,6 +22,7 @@ internal object CloudflareWorkersTemplateFiles {
     fun generate(ctx: TemplateContext): Map<String, String> {
         val projectVars = mapOf("projectName" to ctx.projectName)
         val deployVars = mapOf("cmdDeploy" to ctx.runCmd("deploy"))
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to ProjectFileBuilders.rescriptJson(name = ctx.projectName),
             "package.json" to
@@ -28,12 +32,7 @@ internal object CloudflareWorkersTemplateFiles {
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "hono" to TemplateVersions.HONO,
-                        ),
+                    dependencies = cloudflareWorkersDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "wrangler" to TemplateVersions.WRANGLER,
@@ -54,6 +53,8 @@ internal object CloudflareWorkersTemplateFiles {
             "wrangler.jsonc" to TemplateResourceLoader.load("$RESOURCE_ROOT/wrangler.jsonc", projectVars),
             "src/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/Kv.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Kv.res"),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/Server.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Server.res"),
             "src/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Server.test.mjs"),
@@ -90,4 +91,16 @@ internal object CloudflareWorkersTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun cloudflareWorkersDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["hono"] = TemplateVersions.HONO
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        return deps
+    }
 }
