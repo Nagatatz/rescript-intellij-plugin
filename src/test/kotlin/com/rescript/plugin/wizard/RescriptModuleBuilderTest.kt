@@ -39,6 +39,17 @@ class RescriptModuleBuilderTest {
     }
 
     @Test
+    fun `default validation library is ZOD`() {
+        assertEquals(ValidationLibrary.ZOD, builder.validationLibrary)
+    }
+
+    @Test
+    fun `validation library can be changed`() {
+        builder.validationLibrary = ValidationLibrary.SURY
+        assertEquals(ValidationLibrary.SURY, builder.validationLibrary)
+    }
+
+    @Test
     fun `default selected template is BASIC`() {
         assertEquals(ProjectTemplate.BASIC, builder.selectedTemplate)
     }

@@ -25,8 +25,8 @@ import javax.swing.border.EmptyBorder
  *
  * Provides a template selection list grouped by [TemplateCategory],
  * a description panel showing details about the selected template,
- * and a package manager combo box. Values are written back to
- * [RescriptModuleBuilder] via [updateDataModel].
+ * a package manager combo box, and a validation library combo box.
+ * Values are written back to [RescriptModuleBuilder] via [updateDataModel].
  */
 class RescriptProjectWizardStep(
     private val builder: RescriptModuleBuilder,
@@ -34,6 +34,13 @@ class RescriptProjectWizardStep(
     private val packageManagerCombo =
         JComboBox(PackageManager.entries.toTypedArray()).apply {
             selectedItem = PackageManager.PNPM
+        }
+    private val validationLibraryCombo =
+        JComboBox(ValidationLibrary.entries.toTypedArray()).apply {
+            selectedItem = ValidationLibrary.ZOD
+            toolTipText =
+                "HTTP input validation library used by server templates. " +
+                "zod is TS-first; sury is ReScript-native."
         }
     private val templateListModel = DefaultListModel<Any>()
     private val templateList = JBList(templateListModel)
@@ -101,12 +108,23 @@ class RescriptProjectWizardStep(
         gbc.fill = GridBagConstraints.HORIZONTAL
         innerPanel.add(packageManagerCombo, gbc)
 
+        // Validation library
+        gbc.gridx = 0
+        gbc.gridy = 3
+        gbc.fill = GridBagConstraints.NONE
+        innerPanel.add(JLabel("Validation library:"), gbc)
+
+        gbc.gridx = 1
+        gbc.fill = GridBagConstraints.HORIZONTAL
+        innerPanel.add(validationLibraryCombo, gbc)
+
         panel.add(innerPanel, BorderLayout.CENTER)
         return panel
     }
 
     override fun updateDataModel() {
         builder.packageManager = packageManagerCombo.selectedItem as PackageManager
+        builder.validationLibrary = validationLibraryCombo.selectedItem as ValidationLibrary
         val selected = templateList.selectedValue
         if (selected is ProjectTemplate) {
             builder.selectedTemplate = selected

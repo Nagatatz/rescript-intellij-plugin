@@ -24,6 +24,7 @@ import javax.swing.Icon
  */
 class RescriptModuleBuilder : ModuleBuilder() {
     var packageManager: PackageManager = PackageManager.PNPM
+    var validationLibrary: ValidationLibrary = ValidationLibrary.ZOD
     var selectedTemplate: ProjectTemplate = ProjectTemplate.BASIC
 
     override fun getModuleType(): ModuleType<*> = ModuleTypeManager.getInstance().defaultModuleType
@@ -49,7 +50,7 @@ class RescriptModuleBuilder : ModuleBuilder() {
         val files =
             RescriptProjectGenerator.generateFiles(
                 selectedTemplate,
-                TemplateContext(projectName, packageManager),
+                TemplateContext(projectName, packageManager, validationLibrary),
             )
 
         // Write all generated files
