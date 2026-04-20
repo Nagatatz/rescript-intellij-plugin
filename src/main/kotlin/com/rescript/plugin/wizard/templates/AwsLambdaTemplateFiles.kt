@@ -2,12 +2,15 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for an AWS Lambda Hono service.
  *
  * Uses esbuild to bundle the compiled ReScript output into a single ESM file deployable as
  * a Lambda handler. Ships README, .gitignore (`dist/`), .editorconfig, and a CI workflow.
+ * Runtime HTTP body validation is provided by `Validation.res` (zod or sury, selected in
+ * Wizard via [TemplateContext.validationLibrary]).
  */
 internal object AwsLambdaTemplateFiles {
     private const val RESOURCE_ROOT = "aws-lambda"
@@ -21,6 +24,7 @@ internal object AwsLambdaTemplateFiles {
                 "cmdBuild" to ctx.runCmd("build"),
                 "projectName" to ctx.projectName,
             )
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to ProjectFileBuilders.rescriptJson(name = ctx.projectName),
             "package.json" to
@@ -30,12 +34,7 @@ internal object AwsLambdaTemplateFiles {
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "hono" to TemplateVersions.HONO,
-                        ),
+                    dependencies = awsLambdaDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "esbuild" to TemplateVersions.ESBUILD,
@@ -57,6 +56,8 @@ internal object AwsLambdaTemplateFiles {
                 ),
             "src/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/HonoLambda.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/HonoLambda.res"),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/Server.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Server.res"),
             "src/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Server.test.mjs"),
@@ -93,4 +94,16 @@ internal object AwsLambdaTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun awsLambdaDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["hono"] = TemplateVersions.HONO
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        return deps
+    }
 }

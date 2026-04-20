@@ -1,5 +1,4 @@
-// Request/response types.
-type createOrderPayload = {productId: string, quantity: int}
+// Response type produced by POST /orders.
 type createOrderResponse = {orderId: string, productId: string, quantity: int}
 
 let app = Hono.createApp()
@@ -12,15 +11,19 @@ app->Hono.get("/orders/:id", ctx => {
   ctx->Hono.json({"orderId": id, "status": "pending"})
 })
 
-// Example POST with JSON body.
+// Example POST with JSON body validated by Validation.res (zod or sury variant).
 app->Hono.post("/orders", async ctx => {
-  let payload: createOrderPayload = await ctx->Hono.req->Hono.jsonBody
-  let response: createOrderResponse = {
-    orderId: "ord_" ++ Date.now()->Float.toString,
-    productId: payload.productId,
-    quantity: payload.quantity,
+  let raw = await ctx->Hono.req->Hono.jsonBody
+  switch Validation.parseCreateOrderPayload(raw) {
+  | Error(msg) => ctx->Hono.status(400)->Hono.json({"error": msg})
+  | Ok(payload) =>
+    let response: createOrderResponse = {
+      orderId: "ord_" ++ Date.now()->Float.toString,
+      productId: payload.productId,
+      quantity: payload.quantity,
+    }
+    ctx->Hono.status(201)->Hono.json(response)
   }
-  ctx->Hono.status(201)->Hono.json(response)
 })
 
 %%raw("export const handler = HonoLambda.handle(app)")
