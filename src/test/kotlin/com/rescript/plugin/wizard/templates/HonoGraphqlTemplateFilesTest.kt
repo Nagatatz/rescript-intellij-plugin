@@ -38,7 +38,7 @@ class HonoGraphqlTemplateFilesTest {
         assertTrue(files.containsKey("src/Db.res"))
         assertTrue(files.containsKey("src/Yoga.res"))
         assertTrue(files.containsKey("src/GraphqlSchema.res"))
-        assertTrue(files.containsKey("src/Resolvers/Users.res"))
+        assertTrue(files.containsKey("src/Resolvers.res"))
         assertTrue(files.containsKey("src/schema.graphql"))
         assertTrue(files.containsKey("drizzle.config.ts"))
     }
@@ -53,7 +53,8 @@ class HonoGraphqlTemplateFilesTest {
 
     @Test
     fun `Users resolvers expose list, byId, create, delete`() {
-        val resolvers = HonoGraphqlTemplateFiles.generate(ctx)["src/Resolvers/Users.res"]!!
+        val resolvers = HonoGraphqlTemplateFiles.generate(ctx)["src/Resolvers.res"]!!
+        assertTrue(resolvers.contains("module Users"))
         assertTrue(resolvers.contains("listUsers"))
         assertTrue(resolvers.contains("userById"))
         assertTrue(resolvers.contains("createUser"))

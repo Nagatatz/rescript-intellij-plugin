@@ -82,7 +82,7 @@ object TemplateVersions {
     // GraphQL (Hono GraphQL template)
     const val GRAPHQL = "^16.13.0"
     const val GRAPHQL_YOGA = "^5.21.0"
-    const val GRAPHQL_MARKDOWN = "^7.3.0"
+    const val GRAPHQL_MARKDOWN = "^0.7.0"
 
     // AWS Lambda runtime types (separate from @types/aws-lambda)
     const val AWS_LAMBDA = "^1.0.0"

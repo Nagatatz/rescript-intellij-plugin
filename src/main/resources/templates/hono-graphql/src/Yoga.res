@@ -2,10 +2,10 @@
 // handler that Hono's context.req can pass through directly.
 @module("graphql") external buildSchema: string => 'schema = "buildSchema"
 
-type yogaHandler = Hono.request => promise<'response>
+type yogaHandler<'response> = Hono.request => promise<'response>
 
 @module("graphql-yoga")
 external createYoga: {
   "schema": 'schema,
   "rootValue": 'resolvers,
-} => yogaHandler = "createYoga"
+} => yogaHandler<'response> = "createYoga"

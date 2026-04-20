@@ -72,7 +72,7 @@ internal object HonoGraphqlTemplateFiles {
             "src/Db.res" to TemplateResourceLoader.load("hono-graphql/src/Db.res"),
             "src/Yoga.res" to TemplateResourceLoader.load("hono-graphql/src/Yoga.res"),
             "src/GraphqlSchema.res" to TemplateResourceLoader.load("hono-graphql/src/GraphqlSchema.res"),
-            "src/Resolvers/Users.res" to TemplateResourceLoader.load("hono-graphql/src/Resolvers/Users.res"),
+            "src/Resolvers.res" to TemplateResourceLoader.load("hono-graphql/src/Resolvers.res"),
             "src/Server.res" to TemplateResourceLoader.load("hono-graphql/src/Server.res"),
             "src/schema.graphql" to TemplateResourceLoader.load("hono-graphql/src/schema.graphql"),
             "drizzle.config.ts" to TemplateResourceLoader.load("hono-graphql/drizzle.config.ts"),
