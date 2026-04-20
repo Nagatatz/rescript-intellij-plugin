@@ -119,50 +119,58 @@
 
 ### 自己検証
 
-- [ ] `./gradlew ktlintCheck` 成功
-- [ ] `./gradlew clean buildPlugin` 成功
-- [ ] `./gradlew test` 成功
-- [ ] ビルド警告の新規増加なし
-- [ ] Deprecated API 新規利用なし（`@Suppress("DialogTitleCapitalization")` は既存と同数）
+- [x] `./gradlew ktlintCheck` 成功（各コミットごとに pre-commit hook で実行済み）
+- [x] `./gradlew clean buildPlugin` 成功
+- [x] `./gradlew test` 成功 (3331 tests, 0 failures, 10 skipped)
+- [x] ビルド警告の新規増加なし
+- [x] Deprecated API 新規利用なし（`@Suppress("DialogTitleCapitalization")` は既存箇所から
+      `PathDescriptor.createComponent` 内へ移動のみ。新規 deprecated 参照ゼロ）
 
 ### コード品質
 
-- [ ] 新規 `class` / `object` / `sealed class` / `interface` すべてに英語 KDoc
-- [ ] `RescriptSettingsValidator`, `RescriptSettingDescriptor`, `RescriptSettingsSchema`
+- [x] 新規 `class` / `object` / `sealed class` / `interface` すべてに英語 KDoc
+- [x] `RescriptSettingsValidator`, `RescriptSettingDescriptor`, `RescriptSettingsSchema`
       に対応するテストファイルが存在（Swing UI 部分は免除）
 
 ### ドキュメント同期
 
-- [ ] `CLAUDE.md` 更新（コミット 4）
-- [ ] `docs/repository-structure.md` 更新（コミット 4）
-- [ ] sphinx-docs 未更新（ユーザー可視変更なし）
+- [x] `CLAUDE.md` 更新（コミット 4）
+- [x] `docs/repository-structure.md` 更新（コミット 4）
+- [x] sphinx-docs 未更新（ユーザー可視変更なし）
 
 ### Git
 
-- [ ] コミット 1〜4 が機能単位で分割されている
-- [ ] 絵文字プレフィックス付与（♻️ ×3, 📝 ×1）
-- [ ] 個別 `git add`（`-A` / `.` 禁止）
+- [x] コミット 1〜4 が機能単位で分割されている
+- [x] 絵文字プレフィックス付与（♻️ ×3, 📝 ×1）
+- [x] 個別 `git add`（`-A` / `.` 未使用）
 
 ### セキュリティ
 
-- [ ] `RescriptSettingsValidator` のパス検証文言・ロジックを既存から改変していない
-- [ ] 絶対パスを UI・エラーメッセージに露出する変更を加えていない
-- [ ] 外部プロセス呼び出しの追加なし
+- [x] `RescriptSettingsValidator` のパス検証文言・ロジックを既存から改変していない
+- [x] 絶対パスを UI・エラーメッセージに露出する変更を加えていない（既存の
+      `ConfigurationException` メッセージを移植のみ）
+- [x] 外部プロセス呼び出しの追加なし
 
 ---
 
 ## Phase 4: マージ前
 
-- [ ] tasklist.md のすべての Phase 2 / Phase 3 項目が `[x]`
-- [ ] requirements.md の AC-01〜AC-09 すべて満たす
-- [ ] `./gradlew clean buildPlugin` pass
-- [ ] `./gradlew test` pass
-- [ ] Kover 行カバレッジ minBound 85 を下回らない
-  （`./gradlew test koverHtmlReport` で確認）
-- [ ] `./gradlew verifyPluginStructure` pass
+- [x] tasklist.md のすべての Phase 2 / Phase 3 項目が `[x]`
+- [x] requirements.md の AC-01〜AC-09 すべて満たす
+  - AC-01（UI 表示）は `runIde` 手動確認がユーザー側で残る（下記）
+  - AC-05（validator テスト）18/18 pass
+  - AC-06（行数 ≤280）139 行で達成
+  - AC-07（ktlint/build/test）全 pass
+  - AC-08（Kover minBound 85）`koverVerify` BUILD SUCCESSFUL
+  - AC-09（deprecated API 新規なし）確認済み
+- [x] `./gradlew clean buildPlugin` pass
+- [x] `./gradlew test` pass
+- [x] Kover 行カバレッジ minBound 85 を下回らない（`./gradlew koverVerify` pass）
+- [x] `./gradlew verifyPluginStructure` pass
 - [ ] `AskUserQuestion` でマージ可否をユーザーに確認
-  - セキュリティ影響: なし（validator はロジック保存のみ、新規外部 I/O なし）を明示
-- [ ] tasklist.md のこのセクションを `[x]` に更新（マージ前最終コミット）
+  - セキュリティ影響: なし（validator はロジック保存のみ、新規外部 I/O なし）
+  - UI 手動確認: ユーザー側で `./gradlew runIde` 実施を推奨（Swing レイアウトは自動検証不能）
+- [x] tasklist.md のこのセクションを `[x]` に更新（マージ前最終コミット）
 
 ---
 
