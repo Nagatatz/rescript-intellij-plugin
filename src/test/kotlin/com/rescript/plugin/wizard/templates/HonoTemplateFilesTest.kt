@@ -39,7 +39,7 @@ class HonoTemplateFilesTest {
     @Test
     fun `server ships CRUD routes, OpenAPI spec, and Scalar UI`() {
         val files = HonoTemplateFiles.generate(ctx)
-        assertTrue(files.containsKey("src/Routes/Users.res"))
+        assertTrue(files.containsKey("src/Routes.res"))
         assertTrue(files.containsKey("src/ZodOpenapi.res"))
         assertTrue(files.containsKey("src/Scalar.res"))
         val server = files["src/Server.res"]!!
@@ -47,7 +47,8 @@ class HonoTemplateFilesTest {
         assertTrue(server.contains("/openapi.json"))
         assertTrue(server.contains("/docs"))
         assertTrue(server.contains("Scalar.apiReference"))
-        val routes = files["src/Routes/Users.res"]!!
+        val routes = files["src/Routes.res"]!!
+        assertTrue(routes.contains("module Users"))
         assertTrue(routes.contains("Hono.post"))
         assertTrue(routes.contains("Hono.put"))
         assertTrue(routes.contains("Hono.deleteRoute"))

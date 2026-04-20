@@ -73,7 +73,7 @@ internal object HonoTemplateFiles {
             "src/Db.res" to TemplateResourceLoader.load("hono/src/Db.res"),
             "src/ZodOpenapi.res" to TemplateResourceLoader.load("hono/src/ZodOpenapi.res"),
             "src/Scalar.res" to TemplateResourceLoader.load("hono/src/Scalar.res"),
-            "src/Routes/Users.res" to TemplateResourceLoader.load("hono/src/Routes/Users.res"),
+            "src/Routes.res" to TemplateResourceLoader.load("hono/src/Routes.res"),
             "src/Server.res" to TemplateResourceLoader.load("hono/src/Server.res"),
             "drizzle.config.ts" to TemplateResourceLoader.load("hono/drizzle.config.ts"),
             "src/__tests__/Server.test.mjs" to TemplateResourceLoader.load("hono/src/__tests__/Server.test.mjs"),

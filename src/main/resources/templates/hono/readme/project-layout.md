@@ -1,7 +1,7 @@
 | File | Purpose |
 | --- | --- |
 | `src/Server.res` | App entry point: middleware, routes, docs |
-| `src/Routes/Users.res` | Users CRUD handlers |
+| `src/Routes.res` | Users CRUD handlers (nested as `Routes.Users`) |
 | `src/Schema.res` | Drizzle + Zod schemas (single source of truth) |
 | `src/Db.res` | libsql client + Drizzle wrapper |
 | `src/Logger.res` | Logger middleware binding |
