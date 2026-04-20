@@ -41,23 +41,23 @@
 
 ### コミット 2: `♻️ Add RescriptSettingDescriptor sealed hierarchy`
 
-- [ ] `src/main/kotlin/com/rescript/plugin/settings/RescriptSettingDescriptor.kt` 新規作成
+- [x] `src/main/kotlin/com/rescript/plugin/settings/RescriptSettingDescriptor.kt` 新規作成
   - `sealed class RescriptSettingDescriptor<T>` と `SettingComponent<T>` インターフェース
   - 具象: `BoolDescriptor`, `PathDescriptor` (ファイル/フォルダ切替フラグ),
     `ComboDescriptor`, `IntSpinnerDescriptor`
   - `PathDescriptor` 内に `@Suppress("DialogTitleCapitalization")` を保持
   - 全クラス・public メソッドに英語 KDoc
-- [ ] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingDescriptorTest.kt`
+- [x] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingDescriptorTest.kt`
       新規作成（testing.md: Swing UI 例外に該当しないユーティリティロジックが対象）
   - `BoolDescriptor.currentValue/applyValue` の往復
   - `PathDescriptor.currentValue/applyValue` の往復
   - `ComboDescriptor.currentValue/applyValue` の往復
   - `IntSpinnerDescriptor.currentValue/applyValue` の往復
   - （`createComponent` 側は Swing UI 免除）
-- [ ] `./gradlew ktlintCheck && ./gradlew test --tests "*RescriptSettingDescriptorTest*"`
-      pass
-- [ ] この時点では `RescriptConfigurable` から未参照。ビルドは通る
-- [ ] tasklist.md のこのコミット項目を `[x]` に更新
+- [x] `./gradlew ktlintCheck && ./gradlew test --tests "*RescriptSettingDescriptorTest*"`
+      pass (5/5)
+- [x] この時点では `RescriptConfigurable` から未参照。ビルドは通る
+- [x] tasklist.md のこのコミット項目を `[x]` に更新
 - [ ] 個別 `git add` でコミット
 
 ### コミット 3: `♻️ Drive RescriptConfigurable via settings schema`
