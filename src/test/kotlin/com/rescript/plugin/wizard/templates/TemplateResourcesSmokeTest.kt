@@ -25,6 +25,13 @@ class TemplateResourcesSmokeTest {
             "cmdResDev",
             "cmdStart",
             "cmdAndroid",
+            // basic/readme/run-the-app.md already uses cmdStart above
+            // aws-lambda/readme/deploy.md
+            "cmdBuild",
+            // cloudflare-workers/readme/deploy.md
+            "cmdDeploy",
+            // npm-library/readme/publish.md
+            "cmdTest",
         )
 
     @Test
