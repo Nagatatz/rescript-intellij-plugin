@@ -18,13 +18,17 @@ module Users = {
     })
 
     app->Hono.post("/users", async ctx => {
-      let payload: {"name": string, "email": string} = await ctx->Hono.req->Hono.jsonBody
-      let inserted =
-        await Db.db
-        ->Db.insert(Schema.users)
-        ->Db.values({"name": payload["name"], "email": payload["email"]})
-        ->Db.returning
-      ctx->Hono.status(201)->Hono.json(inserted)
+      let raw = await ctx->Hono.req->Hono.jsonBody
+      switch Validation.parseCreateUserInput(raw) {
+      | Error(msg) => ctx->Hono.status(400)->Hono.json({"error": msg})
+      | Ok(payload) =>
+        let inserted =
+          await Db.db
+          ->Db.insert(Schema.users)
+          ->Db.values({"name": payload.name, "email": payload.email})
+          ->Db.returning
+        ctx->Hono.status(201)->Hono.json(inserted)
+      }
     })
 
     app->Hono.put("/users/:id", async ctx => {

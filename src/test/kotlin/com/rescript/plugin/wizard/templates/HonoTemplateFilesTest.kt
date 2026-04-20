@@ -1,11 +1,14 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class HonoTemplateFilesTest {
     private val ctx = TemplateContext("svc", PackageManager.PNPM)
+    private val suryCtx = TemplateContext("svc", PackageManager.PNPM, ValidationLibrary.SURY)
 
     @Test
     fun `package json declares hono and node-server pulled from TemplateVersions`() {
@@ -37,10 +40,18 @@ class HonoTemplateFilesTest {
     }
 
     @Test
+    fun `drizzle schema does not mix in zod or sury bindings`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        val schema = files["src/Schema.res"]!!
+        assertFalse(schema.contains("@module(\"zod\")"))
+        assertFalse(schema.contains("S.object"))
+        assertFalse(schema.contains("createUserSchema"))
+    }
+
+    @Test
     fun `server ships CRUD routes, OpenAPI spec, and Scalar UI`() {
         val files = HonoTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("src/Routes.res"))
-        assertTrue(files.containsKey("src/ZodOpenapi.res"))
         assertTrue(files.containsKey("src/Scalar.res"))
         val server = files["src/Server.res"]!!
         assertTrue(server.contains("Logger.logger"))
@@ -55,16 +66,65 @@ class HonoTemplateFilesTest {
     }
 
     @Test
-    fun `package json declares SQLite, OpenAPI, and drizzle-kit`() {
+    fun `routes wire Validation parseCreateUserInput with 400 response`() {
+        val routes = HonoTemplateFiles.generate(ctx)["src/Routes.res"]!!
+        assertTrue(routes.contains("Validation.parseCreateUserInput"))
+        assertTrue(routes.contains("Hono.status(400)"))
+        assertTrue(routes.contains("{\"error\": msg}"))
+    }
+
+    @Test
+    fun `zod variant ships zod Validation module and ZodOpenapi bindings`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/Validation.res"))
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("@module(\"zod\")"))
+        assertTrue(validation.contains("parseCreateUserInput"))
+        assertTrue(files.containsKey("src/ZodOpenapi.res"))
+        assertTrue(files["src/ZodOpenapi.res"]!!.contains("@hono/zod-openapi"))
+    }
+
+    @Test
+    fun `sury variant ships sury Validation module and drops zod-only scaffolding`() {
+        val files = HonoTemplateFiles.generate(suryCtx)
+        assertTrue(files.containsKey("src/Validation.res"))
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("S.object"))
+        assertTrue(validation.contains("S.parseOrThrow"))
+        assertTrue(validation.contains("parseCreateUserInput"))
+        assertFalse(validation.contains("@module(\"zod\")"))
+        assertFalse(files.containsKey("src/ZodOpenapi.res"))
+    }
+
+    @Test
+    fun `package json declares SQLite, zod, and drizzle-kit for zod variant`() {
         val pkg = HonoTemplateFiles.generate(ctx)["package.json"]!!
         assertTrue(pkg.contains("\"@libsql/client\""))
         assertTrue(pkg.contains("\"drizzle-orm\""))
         assertTrue(pkg.contains("\"drizzle-kit\""))
         assertTrue(pkg.contains("\"@hono/zod-openapi\""))
         assertTrue(pkg.contains("\"@scalar/hono-api-reference\""))
-        assertTrue(pkg.contains("\"zod\""))
+        assertTrue(pkg.contains("\"zod\": \"${TemplateVersions.ZOD}\""))
+        assertFalse(pkg.contains("\"sury\""))
         assertTrue(pkg.contains("\"db:generate\""))
         assertTrue(pkg.contains("\"db:migrate\""))
+    }
+
+    @Test
+    fun `package json swaps zod for sury and drops hono-zod-openapi in sury variant`() {
+        val pkg = HonoTemplateFiles.generate(suryCtx)["package.json"]!!
+        assertTrue(pkg.contains("\"sury\": \"${TemplateVersions.SURY}\""))
+        assertFalse(pkg.contains("\"zod\":"))
+        assertFalse(pkg.contains("\"@hono/zod-openapi\""))
+        assertTrue(pkg.contains("\"@scalar/hono-api-reference\""))
+    }
+
+    @Test
+    fun `README describes selected validation library`() {
+        val zodReadme = HonoTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(zodReadme.contains("zod validation"))
+        val suryReadme = HonoTemplateFiles.generate(suryCtx)["README.md"]!!
+        assertTrue(suryReadme.contains("sury validation"))
     }
 
     @Test
