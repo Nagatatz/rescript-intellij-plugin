@@ -8,9 +8,15 @@
 
 - [x] `.steering/20260421-003-validation-library-selection/` 作成
 - [x] `requirements.md` 作成・承認
-- [x] `design.md` 作成・承認
+- [x] `design.md` 作成・承認（初版）
 - [x] `tasklist.md` 作成・承認（ExitPlanMode で承認済み）
-- [ ] `EnterWorktree` で `validation-library-selection` worktree に入る
+- [x] foundation 2 コミットを main にマージ済み（97f0172）
+- [x] sury v10.0.4 の実機 API 確認（`S.object` / `S.parseOrThrow` / `S.Error(err).message`、`namespace: false` で `S` 直接参照可）
+- [x] Next.js 完全 ReScript 化の実現可能性検証（`NextServer.res` バインディング + `GreetRoute.res` + `route.ts` shim、コンパイル pass）
+- [x] per-template 方針決定（モジュール名 `Validation.res`、nextjs 完全 ReScript 化、`parseXxx: JSON.t => result<_, string>` 統一）
+- [x] `design.md` 改訂（sury 実機結果・Next.js 方針・`Validation.res` 命名を反映）
+- [ ] `tasklist.md` 改訂（本ドキュメント）の承認
+- [ ] `EnterWorktree` で `validation-library-per-template` worktree に入る
 
 ---
 
@@ -34,44 +40,77 @@
 - [x] `src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateVersions.kt` に `SURY = "^10.0.0"` 追加
 - [x] `TemplateVersionsTest.kt` に ZOD/SURY を semver 検証対象として追加
 
-### 一時停止: per-template 対応は別セッションで継続
+### 命名・配置の原則
 
-残りコミット（3〜10）は各サーバーテンプレートに zod/sury のバインディングを実装する作業で、
-ReScript 側のバインディング（特に sury の API 使用）を実機 REPL で確認しながら進める必要がある。
-現セッションでは foundation の 2 コミットまでを完了し、後続のテンプレート個別対応は別セッションで
-継続する。foundation は単独でも動作する（全テンプレートは ZOD 選択時と同じ既存挙動を保つ）。
+- バリデーション API のモジュール名は **`Validation.res`**（drizzle `Schema.res` との衝突回避）
+- 公開 API は **`parseXxx: JSON.t => result<T, string>`** に統一（両 variant 同一シグネチャ）
+- variant 固有のみ `variants/{zod,sury}/src/Validation.res` に配置。Server.res / Routes.res / drizzle Schema.res は共通
+- zod 版は既存の `@module("zod")` バインディングパターンを踏襲。sury 版は `S.object` / `S.parseOrThrow` / `S.Error(err).message`（`open Sury` 不要）
 
-### コミット 3: `♻️ Switch Hono templates to selectable zod/sury Schema`
+### コミット 3: `♻️ Extract hono Validation module with zod/sury variants`
 
-- [ ] 既存 `templates/hono/src/Schema.res` を `templates/hono/variants/zod/src/Schema.res` へ移動
-- [ ] `templates/hono/variants/sury/src/Schema.res` を新規追加
-- [ ] `HonoTemplateFiles.kt` で `variants/<key>/...` を参照
-- [ ] hono-graphql に対して同様の措置
-- [ ] Server.res 側で `Schema.parseXxx : JSON.t => result<_,_>` の呼び出しに統一
-- [ ] `HonoTemplateFilesTest` / `HonoGraphqlTemplateFilesTest` を ZOD/SURY 両バリアントで検証
+- [ ] `src/main/resources/templates/hono/variants/zod/src/Validation.res` 新規（既存 `Schema.res` の zod 部分を切り出し + `parseCreateUserInput: JSON.t => result<_, string>` 統一）
+- [ ] `src/main/resources/templates/hono/variants/sury/src/Validation.res` 新規
+- [ ] 既存 `src/main/resources/templates/hono/src/Schema.res` は drizzle 部分のみに縮小
+- [ ] `src/main/resources/templates/hono/src/Routes.res` を `Validation.parseCreateUserInput` 呼び出しに書き換え、400 エラー応答を追加
+- [ ] `HonoTemplateFiles.kt` で依存切替（`zod` or `sury` の 1 つのみ）+ `variants/<key>/src/Validation.res` のロード追加
+- [ ] `HonoTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
+- [ ] `TemplateResourcesSmokeTest.knownPlaceholders` を必要に応じて更新
+- [ ] ktlint / test pass
 
-### コミット 4: `♻️ Add zod/sury validation to AwsLambda server`
+### コミット 4: `♻️ Extract hono-graphql Validation module with zod/sury variants`
 
-### コミット 5: `♻️ Add zod/sury validation to CloudflareWorkers server`
+- [ ] `templates/hono-graphql/variants/{zod,sury}/src/Validation.res` 新規
+- [ ] `templates/hono-graphql/src/Resolvers.res`（または該当箇所）を `Validation.parseXxx` 呼び出しに書き換え（mutation 入力検証を追加）
+- [ ] `HonoGraphqlTemplateFiles.kt` で依存切替 + リソース切替
+- [ ] `HonoGraphqlTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
 
-### コミット 6: `♻️ Add zod/sury validation to GoogleCloudRun server`
+### コミット 5: `♻️ Add zod/sury Validation to AwsLambda server`
 
-### コミット 7: `♻️ Add zod/sury validation to Nextjs route handler`
+- [ ] `templates/aws-lambda/variants/{zod,sury}/src/Validation.res` 新規（`createOrderPayload` 用 parseCreateOrderPayload）
+- [ ] `templates/aws-lambda/src/Server.res` の `await ctx->Hono.req->Hono.jsonBody` を `Validation.parseCreateOrderPayload` 呼び出しに置換し、400 応答を追加
+- [ ] `AwsLambdaTemplateFiles.kt` で依存切替 + リソース切替
+- [ ] `AwsLambdaTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
 
-### コミット 8: `♻️ Add zod/sury validation to FullStack server`
+### コミット 6: `♻️ Add zod/sury Validation to CloudflareWorkers server`
 
-### コミット 9: `♻️ Add zod/sury validation to Monorepo server`
+- [ ] `templates/cloudflare-workers/variants/{zod,sury}/src/Validation.res` 新規（`greetingPayload` 用 parseGreetingPayload）
+- [ ] `templates/cloudflare-workers/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
+- [ ] `CloudflareWorkersTemplateFiles.kt` / `CloudflareWorkersTemplateFilesTest.kt` を更新
 
-- [ ] 上記各コミットで `variants/{zod,sury}/src/Schema.res` 作成
-- [ ] `<Name>TemplateFiles.kt` で依存と Schema 差し替え
-- [ ] `<Name>TemplateFilesTest.kt` を ZOD/SURY 両バリアントで検証
-- [ ] snapshot 両バリアントで diff 0 確認（意図した差分のみ）
+### コミット 7: `♻️ Add zod/sury Validation to GoogleCloudRun server`
 
-### コミット 10: `📝 Document validation library selection`
+- [ ] `templates/google-cloud-run/variants/{zod,sury}/src/Validation.res` 新規（`echoPayload` 用 parseEchoPayload）
+- [ ] `templates/google-cloud-run/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
+- [ ] `GoogleCloudRunTemplateFiles.kt` / `GoogleCloudRunTemplateFilesTest.kt` を更新
 
-- [ ] `CLAUDE.md` レイヤー 3 の `wizard/` 行に 1 文追記
-- [ ] `docs/repository-structure.md` で wizard/ パッケージに `ValidationLibrary` を追加
-- [ ] 必要に応じ `sphinx-docs/user/features/advanced.md`（Wizard 節）に 1 文追記
+### コミット 8: `♻️ Convert Nextjs route handler to ReScript with zod/sury Validation`
+
+- [ ] `templates/nextjs/src/NextServer.res` 新規（共通バインディング）
+- [ ] `templates/nextjs/src/app/api/greet/GreetRoute.res` 新規（共通ハンドラ本体）
+- [ ] `templates/nextjs/src/app/api/greet/route.ts` を 1 行の re-export shim に置換
+- [ ] `templates/nextjs/variants/{zod,sury}/src/app/api/greet/Validation.res` 新規（`greetInput` 用 parseGreetInput）
+- [ ] `NextjsTemplateFiles.kt` で依存切替 + リソース切替
+- [ ] `NextjsTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
+
+### コミット 9: `♻️ Add zod/sury Validation to FullStack server`
+
+- [ ] `templates/full-stack/variants/{zod,sury}/src/server/Validation.res` 新規（`createUserReq` 用 parseCreateUserReq）
+- [ ] `templates/full-stack/src/server/Routes.res` を Validation 呼び出しに書き換え + 400 応答
+- [ ] `FullStackTemplateFiles.kt` / `FullStackTemplateFilesTest.kt` を更新
+
+### コミット 10: `♻️ Add zod/sury Validation to Monorepo server`
+
+- [ ] `templates/monorepo/variants/{zod,sury}/packages/server/src/Validation.res` 新規
+- [ ] `templates/monorepo/packages/server/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
+- [ ] `MonorepoTemplateFiles.kt` / `MonorepoTemplateFilesTest.kt` を更新
+
+### コミット 11: `📝 Document validation library selection`
+
+- [ ] `CLAUDE.md` レイヤー 3 の `wizard/` 行に `ValidationLibrary` 選択の 1 文追記
+- [ ] `docs/repository-structure.md` の `wizard/` パッケージ欄に `ValidationLibrary` を追加
+- [ ] `sphinx-docs/user/features/advanced.md`（Wizard 節）に 1 段落追記
+- [ ] `sphinx-docs/locale/ja/LC_MESSAGES/**/*.po` を同期（`make gettext` → `make update-po` → `msgstr` 日本語化 → `make build-ja` 成功確認）
 
 ---
 

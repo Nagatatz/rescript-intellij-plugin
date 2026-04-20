@@ -63,24 +63,26 @@ val validationDep = when (ctx.validationLibrary) {
 }
 ```
 
-**リソース**:
+**モジュール名**: `Validation.res`（`Schema.res` は drizzle ORM 用に既存 4 テンプレートで使われているため名前衝突を避ける）。
+
+**リソース配置**:
 ```
 src/main/resources/templates/<name>/
-├── src/                             # 共通ファイル（Server.res 等）
+├── src/                             # 共通ファイル（drizzle Schema.res, Server.res 等）
 └── variants/
-    ├── zod/src/Schema.res           # zod 固有
-    └── sury/src/Schema.res          # sury 固有
+    ├── zod/src/Validation.res       # zod 固有
+    └── sury/src/Validation.res      # sury 固有
 ```
 
 `generate()` 内:
 ```kotlin
-"src/Schema.res" to TemplateResourceLoader.load(
-    "$RESOURCE_ROOT/variants/${ctx.validationLibrary.variantKey()}/src/Schema.res",
+"src/Validation.res" to TemplateResourceLoader.load(
+    "$RESOURCE_ROOT/variants/${ctx.validationLibrary.variantKey()}/src/Validation.res",
     vars
 )
 ```
 
-## Schema.res 公開 API 統一
+## Validation.res 公開 API 統一
 
 どちらのバリアントも以下の形に揃える（例: greet エンドポイント）:
 
@@ -89,29 +91,100 @@ src/main/resources/templates/<name>/
 let parseGreetInput: JSON.t => result<greetInput, string>
 ```
 
-zod 版:
+zod 版（`@module("zod")` バインディング）:
 - `@module("zod")` 経由で JS 側の `z.object({ ... })` を ReScript から構築
 - `safeParse` の結果を `result` に翻訳
 
-sury 版:
-- `Sury.S.object(s => { ... })` でスキーマ定義
-- `S.parseOrThrow` を try/catch で `result` に翻訳
+sury 版（実機で v10.0.4 API 確認済み）:
+- `S.object(s => { name: s.field("name", S.string) })` でスキーマ定義
+- 型は `S.t<greetInput>`
+- `S.parseOrThrow` を try/catch し、`S.Error(err)` で `err.message : string` を取得
+- `sury` パッケージは `namespace: false` でモジュール `S` を公開するため、ReScript 側では `S.*` 直接呼び出し（`open Sury` 不要）
+
+sury バインディングの最小サンプル:
+```rescript
+type greetInput = {name: string}
+
+let greetInputSchema: S.t<greetInput> = S.object(s => {
+  name: s.field("name", S.string),
+})
+
+let parseGreetInput = (json: JSON.t): result<greetInput, string> =>
+  try Ok(json->S.parseOrThrow(greetInputSchema)) catch {
+  | S.Error(err) => Error(err.message)
+  }
+```
 
 ## Server.res 側
 
-大半のテンプレートで `Server.res` などの呼び出し側は 1 本のまま。`Schema.parseGreetInput(body)` の戻りを `result` として扱い、`Error` 時は `ctx->Hono.status(400)->Hono.json({"error": msg})` のようなレスポンスを返す。
+大半のテンプレートで `Server.res` / `Routes.res` の呼び出し側を以下に統一する:
 
-既存 hono テンプレートでは `c.req.valid("json")` 相当の zod/hono アダプタを使っているが、本プランでは「Schema モジュール経由で parse → 手動で 400 応答」に統一する（両ライブラリで同じフローにするため）。この統一に伴い、既存 hono でも Server.res の一部が変化するが、機能等価。デフォルト ZOD 時の byte-identical は hono は崩れる可能性があり、**AC-04 は hono / hono-graphql では現実的ではないため、AC-04 を「hono 系以外の既存 zod 部分は byte-identical、hono 系は『既存 zod API の範囲内で意図的に統一化』を許容」と読み替える**（steering レビュー時に明記）。
+```rescript
+let raw = await ctx->Hono.req->Hono.jsonBody
+switch Validation.parseGreetInput(raw) {
+| Ok(input) => ctx->Hono.json({"message": "Hello, " ++ input.name})
+| Error(msg) => ctx->Hono.status(400)->Hono.json({"error": msg})
+}
+```
+
+既存 hono テンプレートでは `c.req.valid("json")` 相当の zod/hono アダプタを使っているが、本プランでは「Validation モジュール経由で parse → 手動で 400 応答」に統一する（両ライブラリで同じフローにするため）。この統一に伴い、既存 hono でも Server.res の一部が変化するが、機能等価。デフォルト ZOD 時の byte-identical は hono は崩れる可能性があり、**AC-04 は hono / hono-graphql では現実的ではないため、AC-04 を「hono 系以外の既存 zod 部分は byte-identical、hono 系は『既存 zod API の範囲内で意図的に統一化』を許容」と読み替える**（steering レビュー時に明記）。
 
 > 代替案: hono 系だけは既存の `c.req.valid` アダプタを残す。この場合、Server.res の分岐が複雑になる。統一 API（`parseXxx: JSON.t => result<_, _>`）を優先する方を採用。
 
+## Next.js Route Handler — 完全 ReScript 化
+
+既存 `src/app/api/greet/route.ts` は TypeScript だが、Next.js の Route Handler は `route.(ts|js|mjs)` ファイル名規約がある。一方 ReScript はモジュール名に大文字始まりを強制するため、`Route.res` → `route.mjs` には直接変換できない。
+
+**方針**: `next/server` の `NextRequest` / `NextResponse.json` を最小バインディングし、ハンドラ本体を `src/app/api/greet/GreetRoute.res` に置く。Next.js からは `src/app/api/greet/route.ts` を **1 行の re-export shim** として残す。
+
+```ts
+// src/app/api/greet/route.ts — thin shim (variant 非依存)
+export { post as POST } from "./GreetRoute.res.mjs";
+```
+
+```rescript
+// src/app/api/greet/GreetRoute.res — variant 非依存
+let post = async (req: NextServer.nextRequest): NextServer.nextResponse => {
+  let raw = try await NextServer.reqJson(req) catch {
+  | _ => JSON.Object(Dict.make())
+  }
+  switch Validation.parseGreetInput(raw) {
+  | Ok(input) =>
+    NextServer.jsonResponse(
+      JSON.Object(Dict.fromArray([("message", JSON.String("Hello, " ++ input.name ++ "!"))])),
+    )
+  | Error(msg) =>
+    NextServer.jsonResponseWithInit(
+      JSON.Object(Dict.fromArray([("error", JSON.String(msg))])),
+      {"status": 400},
+    )
+  }
+}
+```
+
+```rescript
+// src/NextServer.res — 共通 (variant 非依存)
+type nextRequest
+type nextResponse
+
+@send external reqJson: nextRequest => promise<JSON.t> = "json"
+
+@module("next/server") @scope("NextResponse")
+external jsonResponse: JSON.t => nextResponse = "json"
+
+@module("next/server") @scope("NextResponse")
+external jsonResponseWithInit: (JSON.t, {..}) => nextResponse = "json"
+```
+
+`Validation.res` のみ variants/{zod,sury}/ に置き分け、`GreetRoute.res` / `NextServer.res` / `route.ts` は共通。上記 sury 版は実機コンパイル検証済み。
+
 ## 実装順序
 
-1. **Foundation**: enum + Wizard UI + Builder + Context（デフォルト ZOD、全テンプレート無変更）。ビルド pass。
-2. **TemplateVersions**: `SURY` 追加のみ。
-3. **Hono 系**: 既存 zod 実装を `variants/zod/` に移し、`variants/sury/` を新規追加。Server.res を統一 API に寄せる。
-4. **残り 6 テンプレート**: 1 コミット/テンプレートで zod/sury 両バリアントを新規追加。
-5. **Docs**: CLAUDE.md / repository-structure.md 更新。
+1. ✅ **Foundation**: enum + Wizard UI + Builder + Context（main にマージ済み）
+2. ✅ **TemplateVersions**: `SURY = "^10.0.0"`（main にマージ済み）
+3. **Hono 系 2 テンプレ**: 既存 Schema.res の zod 依存部分を `variants/zod/src/Validation.res` に抽出し、drizzle 部分を `Schema.res` に残す。`variants/sury/src/Validation.res` を新規追加。Routes.res / Server.res を統一 API に寄せる。
+4. **残り 6 テンプレート** (aws-lambda / cloudflare-workers / google-cloud-run / nextjs / full-stack / monorepo): 1 コミット/テンプレートで `variants/{zod,sury}/src/Validation.res` を新規追加し、Server.res / Routes.res を統一 API 呼び出しに書き換え。nextjs のみ `NextServer.res` + `GreetRoute.res` + `route.ts` shim 追加を含む。
+5. **Docs**: CLAUDE.md / repository-structure.md 更新 (`wizard/` パッケージに `ValidationLibrary` への 1 行言及)。
 
 ## snapshot 検証
 
