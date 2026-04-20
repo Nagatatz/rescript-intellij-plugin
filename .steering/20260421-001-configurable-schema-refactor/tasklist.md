@@ -99,15 +99,16 @@
 
 ### コミット 4: `📝 Document settings schema architecture`
 
-- [ ] `CLAUDE.md` レイヤー 3 の「settings/」記述に「スキーマ駆動設定 UI
-      (`RescriptSettingsSchema` + `RescriptSettingDescriptor`)」を追記
-- [ ] `docs/repository-structure.md` の `settings/` 行を更新
+- [x] `CLAUDE.md` レイヤー 3 の「LSP 拡張機能」行に「スキーマ駆動設定 UI
+      (`RescriptSettingsSchema` + `RescriptSettingDescriptor` + `RescriptSettingsValidator`)」
+      を追記
+- [x] `docs/repository-structure.md` の `settings/` 行を更新
   - 代表クラスに `RescriptSettingsSchema`, `RescriptSettingDescriptor`,
     `RescriptSettingsValidator` を追加
-- [ ] README.md / sphinx-docs / product-requirements.md: **ユーザー可視機能の変更なし
+- [x] README.md / sphinx-docs / product-requirements.md: **ユーザー可視機能の変更なし
       のため更新不要**
-- [ ] ktlint pass
-- [ ] tasklist.md のこのコミット項目を `[x]` に更新
+- [x] ktlint pass（Markdown のみ、主要な ktlint ターゲット外）
+- [x] tasklist.md のこのコミット項目を `[x]` に更新
 - [ ] 個別 `git add` でコミット
 
 ---

@@ -84,7 +84,7 @@ IDE 統合機能は以下のカテゴリで実装されている。詳細な機�
 - **リファクタリング・Intention・Quick Fix** (`refactor/`, `intention/`, `quickfix/`, `generate/`, `surround/`, `imports/`, `binding/`) — Extract/Inline/Change Signature、Wrap/Unwrap、filter+map→filterMap、識別子/ケース変換、Generate メニュー、Surround With、Import Optimizer、.d.ts → ReScript 変換
 - **分析・診断** (`analysis/`, `inspection/`, `errorlens/`, `codevision/`) — reanalyze（サーバーモード対応）、Format Check、重複 open/空モジュール/設定欠落、変更可能性・スタイルリンティング、Error Lens、Code Vision、Problem Highlight Filter
 - **実行・デバッグ・プロジェクト統合** (`run/`, `debug/`, `test/`, `statusbar/`, `config/`, `projectview/`, `dependencies/`, `wizard/`) — Run Configuration、jest/vitest テスト実行、デバッグ、ビルドステータス、rescript.json アイコン、Project View ネスト、依存関係ツリー、Project Wizard（15 テンプレート — 詳細は `docs/templates.md` 参照）
-- **LSP 拡張機能** (`lsp/`, `settings/`, `typeinfo/`) — Restart/Dump LSP State、Expression Type、パイプチェーン型ヒント、PPX 可視化、Type Info ToolWindow、LSP 初期化オプション
+- **LSP 拡張機能** (`lsp/`, `settings/`, `typeinfo/`) — Restart/Dump LSP State、Expression Type、パイプチェーン型ヒント、PPX 可視化、Type Info ToolWindow、LSP 初期化オプション。設定 UI はスキーマ駆動（`RescriptSettingsSchema` + `RescriptSettingDescriptor` + `RescriptSettingsValidator`）で、項目追加時の変更箇所を 1 箇所に集約
 - **ツールウィンドウ・対話機能** (`preview/`, `repl/`, `scratch/`, `worksheet/`, `ppx/`, `diagram/`, `typeinfo/`) — JS プレビュー、REPL、Scratch File、Worksheet モード、PPX 展開ビュー、依存関係ダイアグラム
 - **言語インジェクション・ペースト** (`injection/`, `paste/`) — `%raw()` JS / `%re()` RegExp / Markdown コードフェンス、Paste as JSON.t、JS/TS → ReScript 変換
 - **補助機能** (`spellcheck/`, `grazie/`, `indexing/`, `documentation/`) — スペルチェック、Grazie 連携、TODO インデックス、External Documentation
