@@ -1,9 +1,4 @@
-// POST /api/greet — minimal Route Handler. Parses { name } and returns a greeting.
-// Extend with zod/valibot for production validation.
-import { NextRequest, NextResponse } from "next/server";
-
-export async function POST(req: NextRequest) {
-  const body = await req.json().catch(() => ({}));
-  const name = typeof body?.name === "string" ? body.name : "stranger";
-  return NextResponse.json({ message: `Hello, ${name}!` });
-}
+// Thin re-export shim. Next.js requires `route.(ts|js|mjs)` as the filename,
+// but ReScript requires module filenames to start with an uppercase letter.
+// The handler body lives in `GreetRoute.res`; this file just surfaces POST.
+export { post as POST } from "./GreetRoute.res.mjs";

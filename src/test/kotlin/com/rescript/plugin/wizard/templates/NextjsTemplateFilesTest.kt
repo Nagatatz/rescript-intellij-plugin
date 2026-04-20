@@ -1,11 +1,14 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class NextjsTemplateFilesTest {
     private val ctx = TemplateContext("site", PackageManager.PNPM)
+    private val suryCtx = TemplateContext("site", PackageManager.PNPM, ValidationLibrary.SURY)
 
     @Test
     fun `package json includes Next, vitest, and packageManager metadata`() {
@@ -39,6 +42,46 @@ class NextjsTemplateFilesTest {
         assertTrue(files.containsKey("src/app/api/greet/route.ts"))
         assertTrue(files["src/app/client/GreetForm.tsx"]!!.contains("\"use client\""))
         assertTrue(files["src/app/api/greet/route.ts"]!!.contains("POST"))
+    }
+
+    @Test
+    fun `route ts is a one-line re-export shim pointing at GreetRoute`() {
+        val files = NextjsTemplateFiles.generate(ctx)
+        val route = files["src/app/api/greet/route.ts"]!!
+        assertTrue(route.contains("GreetRoute.res.mjs"))
+        assertTrue(route.contains("post as POST"))
+    }
+
+    @Test
+    fun `NextServer bindings and GreetRoute handler ship in ReScript`() {
+        val files = NextjsTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/NextServer.res"))
+        assertTrue(files.containsKey("src/app/api/greet/GreetRoute.res"))
+        val greetRoute = files["src/app/api/greet/GreetRoute.res"]!!
+        assertTrue(greetRoute.contains("Validation.parseGreetInput"))
+        assertTrue(greetRoute.contains("NextServer.jsonResponseWithInit"))
+    }
+
+    @Test
+    fun `zod variant ships zod Validation module and zod dependency`() {
+        val files = NextjsTemplateFiles.generate(ctx)
+        val validation = files["src/app/api/greet/Validation.res"]!!
+        assertTrue(validation.contains("@module(\"zod\")"))
+        assertTrue(validation.contains("parseGreetInput"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"zod\": \"${TemplateVersions.ZOD}\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships sury Validation module and sury dependency`() {
+        val files = NextjsTemplateFiles.generate(suryCtx)
+        val validation = files["src/app/api/greet/Validation.res"]!!
+        assertTrue(validation.contains("S.object"))
+        assertTrue(validation.contains("S.parseOrThrow"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"sury\": \"${TemplateVersions.SURY}\""))
+        assertFalse(pkg.contains("\"zod\":"))
     }
 
     @Test
