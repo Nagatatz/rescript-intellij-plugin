@@ -63,36 +63,38 @@
 ### コミット 3: `♻️ Drive RescriptConfigurable via settings schema`
 
 - [ ] `src/main/kotlin/com/rescript/plugin/settings/RescriptSettingsSchema.kt` 新規作成
-  - `SchemaEntry.Field` / `SchemaEntry.Separator`
-  - `entries: List<SchemaEntry>` を 24 エントリで定義（design.md の並びを厳密に再現）
+  - `SchemaEntry.Field` / `SchemaEntry.Separator`（`data object`）
+  - `entries: List<SchemaEntry>` を 19 フィールド + 5 セパレータで定義
   - 各エントリの label / tooltip 文字列は既存の `FormBuilder` 呼び出しから 1 字 1 句
     コピー
   - object クラス KDoc で順序固定の旨を明記
-- [ ] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingsSchemaTest.kt`
-      新規作成
-  - 各 descriptor id が `RescriptProjectSettings` のフィールドに対応することを反射で確認
-  - エントリ総数と Separator 位置が design.md の仕様と一致
+  - `pathDescriptorIds` を公開（apply 側でパスのみ先行スナップショット）
+- [x] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingsSchemaTest.kt`
+      新規作成（6 テスト全 pass）
+  - エントリ総数 / Separator 数
   - descriptor id の重複がないこと
-- [ ] `RescriptConfigurable.kt` を書き換え
-  - フィールド宣言を `private var componentMap: Map<String, SettingComponent<*>>` 1 本に
+  - `pathDescriptorIds` が PathDescriptor の id 集合と一致
+  - 全 descriptor が `RescriptProjectSettings` に対して round-trip 成功
+  - 先頭/末尾エントリの order
+- [x] `RescriptConfigurable.kt` を書き換え
+  - フィールド宣言を `components: Map<String, SettingComponent<*>>` 1 本に
   - `createComponent` を schema 走査で組み立てに変更
-  - `isModified` を schema 走査に変更
-  - `apply` を「validator 呼び出し + schema 走査 applyValue + 副作用」に変更
-    （LSP 再起動などの副作用コードは保持）
+  - `isModified` を `fieldEntries().any { entryIsModified(...) }` に
+  - `apply` を「path snapshot → validator → schema 走査 applyValue → reanalyze/LSP 副作用」に
   - `reset` を schema 走査に変更
-- [ ] 旧 `private var xxxCheckbox` / `xxxField` / `xxxCombo` / `xxxSpinner` を全削除
-- [ ] `./gradlew ktlintCheck` pass
-- [ ] `./gradlew clean buildPlugin` pass
-- [ ] `./gradlew test` 全体 pass
-- [ ] `./gradlew runIde` で設定 UI を手動確認
-  - [ ] 全 20 フィールドが表示される
-  - [ ] ラベル・tooltip が現行と同じ
-  - [ ] 区切り線位置が現行と同じ
-  - [ ] Apply ボタンが modified 時に有効になる
-  - [ ] 値変更 → Apply → 再起動 → 値が保持される
-  - [ ] 不正パス入力で既存文言のエラーが表示される
-- [ ] `RescriptConfigurable.kt` の行数が 280 行以下
-- [ ] tasklist.md のこのコミット項目を `[x]` に更新
+- [x] 旧 `private var xxxCheckbox` / `xxxField` / `xxxCombo` / `xxxSpinner` を全削除
+- [x] `./gradlew ktlintCheck` pass（Separator ブランチに波括弧追加）
+- [x] `./gradlew clean buildPlugin` pass
+- [x] `./gradlew test` 全体 pass (3331 tests, 0 failures, 10 skipped)
+- [ ] `./gradlew runIde` で設定 UI を手動確認（Phase 4 マージ前にユーザー側で実施）
+  - 全 19 フィールドが表示される
+  - ラベル・tooltip が現行と同じ
+  - 区切り線位置が現行と同じ
+  - Apply ボタンが modified 時に有効になる
+  - 値変更 → Apply → 再起動 → 値が保持される
+  - 不正パス入力で既存文言のエラーが表示される
+- [x] `RescriptConfigurable.kt` の行数 139 行（目標 ≤280）
+- [x] tasklist.md のこのコミット項目を `[x]` に更新
 - [ ] 個別 `git add` でコミット
 
 ### コミット 4: `📝 Document settings schema architecture`
