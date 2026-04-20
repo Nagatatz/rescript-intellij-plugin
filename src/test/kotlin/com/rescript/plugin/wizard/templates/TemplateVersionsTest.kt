@@ -38,6 +38,8 @@ class TemplateVersionsTest {
                 "TYPESCRIPT" to TemplateVersions.TYPESCRIPT,
                 "NODE_ENGINE" to TemplateVersions.NODE_ENGINE,
                 "VITEST_COVERAGE_V8" to TemplateVersions.VITEST_COVERAGE_V8,
+                "ZOD" to TemplateVersions.ZOD,
+                "SURY" to TemplateVersions.SURY,
             )
         for ((name, value) in constants) {
             assertTrue(semverLike.matches(value), "$name='$value' should be a valid version range")

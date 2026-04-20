@@ -1,6 +1,7 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -38,5 +39,17 @@ class TemplateContextTest {
         assertEquals("package-lock.json", TemplateContext("p", PackageManager.NPM).lockfileName())
         assertEquals("pnpm-lock.yaml", TemplateContext("p", PackageManager.PNPM).lockfileName())
         assertEquals("yarn.lock", TemplateContext("p", PackageManager.YARN).lockfileName())
+    }
+
+    @Test
+    fun `default validation library is ZOD when omitted`() {
+        val ctx = TemplateContext("p", PackageManager.PNPM)
+        assertEquals(ValidationLibrary.ZOD, ctx.validationLibrary)
+    }
+
+    @Test
+    fun `validation library round-trips when provided`() {
+        val ctx = TemplateContext("p", PackageManager.PNPM, ValidationLibrary.SURY)
+        assertEquals(ValidationLibrary.SURY, ctx.validationLibrary)
     }
 }
