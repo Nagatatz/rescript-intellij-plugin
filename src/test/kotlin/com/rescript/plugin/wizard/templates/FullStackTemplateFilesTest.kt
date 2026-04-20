@@ -31,16 +31,15 @@ class FullStackTemplateFilesTest {
     @Test
     fun `template ships shared, server, and client entry files`() {
         val files = FullStackTemplateFiles.generate(ctx)
-        assertTrue(files.containsKey("src/shared/Api.res"))
-        assertTrue(files.containsKey("src/shared/Types.res"))
-        assertTrue(files.containsKey("src/server/Main.res"))
+        assertTrue(files.containsKey("src/shared/Shared.res"))
+        assertTrue(files.containsKey("src/server/ServerMain.res"))
         assertTrue(files.containsKey("src/server/Server.res"))
-        assertTrue(files.containsKey("src/server/Routes/Users.res"))
+        assertTrue(files.containsKey("src/server/Routes.res"))
         assertTrue(files.containsKey("src/server/Schema.res"))
         assertTrue(files.containsKey("src/server/Db.res"))
         assertTrue(files.containsKey("src/client/App.res"))
-        assertTrue(files.containsKey("src/client/Main.res"))
-        assertTrue(files.containsKey("src/client/Api.res"))
+        assertTrue(files.containsKey("src/client/ClientMain.res"))
+        assertTrue(files.containsKey("src/client/ApiClient.res"))
     }
 
     @Test
@@ -75,7 +74,7 @@ class FullStackTemplateFilesTest {
 
     @Test
     fun `users route uses drizzle and shared api types`() {
-        val users = FullStackTemplateFiles.generate(ctx)["src/server/Routes/Users.res"]!!
+        val users = FullStackTemplateFiles.generate(ctx)["src/server/Routes.res"]!!
         assertTrue(users.contains("Db.select"))
         assertTrue(users.contains("Db.insert"))
         assertTrue(users.contains("Shared.Api.createUserReq"))
@@ -96,7 +95,7 @@ class FullStackTemplateFilesTest {
         assertTrue(
             files["src/server/__tests__/Server.test.mjs"]!!.contains("app.request(\"/api/health\")"),
         )
-        assertTrue(files["src/client/__tests__/Api.test.mjs"]!!.contains("import(\"../Api.res.mjs\")"))
+        assertTrue(files["src/client/__tests__/Api.test.mjs"]!!.contains("import(\"../ApiClient.res.mjs\")"))
     }
 
     @Test

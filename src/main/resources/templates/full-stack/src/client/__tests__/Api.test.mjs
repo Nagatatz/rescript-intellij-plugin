@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-describe("client Api module", () => {
+describe("client ApiClient module", () => {
   it("loads without throwing", async () => {
-    await expect(import("../Api.res.mjs")).resolves.toBeDefined();
+    await expect(import("../ApiClient.res.mjs")).resolves.toBeDefined();
   });
 });

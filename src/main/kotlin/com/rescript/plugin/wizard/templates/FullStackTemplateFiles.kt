@@ -71,7 +71,7 @@ internal object FullStackTemplateFiles {
                     scripts =
                         linkedMapOf(
                             "dev" to "concurrently \"npm:dev:server\" \"npm:dev:client\"",
-                            "dev:server" to "node --watch src/server/Main.res.mjs",
+                            "dev:server" to "node --watch src/server/ServerMain.res.mjs",
                             "dev:client" to "vp dev",
                             "build" to "vp build",
                             "preview" to "vp preview",
@@ -94,21 +94,19 @@ internal object FullStackTemplateFiles {
                         ),
                 ),
             "drizzle.config.ts" to TemplateResourceLoader.load("full-stack/drizzle.config.ts"),
-            "src/shared/Api.res" to TemplateResourceLoader.load("full-stack/src/shared/Api.res"),
-            "src/shared/Types.res" to TemplateResourceLoader.load("full-stack/src/shared/Types.res"),
-            "src/server/Main.res" to TemplateResourceLoader.load("full-stack/src/server/Main.res"),
+            "src/shared/Shared.res" to TemplateResourceLoader.load("full-stack/src/shared/Shared.res"),
+            "src/server/ServerMain.res" to TemplateResourceLoader.load("full-stack/src/server/ServerMain.res"),
             "src/server/Server.res" to TemplateResourceLoader.load("full-stack/src/server/Server.res"),
             "src/server/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/server/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
             "src/server/Schema.res" to TemplateResourceLoader.load("full-stack/src/server/Schema.res"),
             "src/server/Db.res" to TemplateResourceLoader.load("full-stack/src/server/Db.res"),
-            "src/server/Routes/Users.res" to
-                TemplateResourceLoader.load("full-stack/src/server/Routes/Users.res"),
+            "src/server/Routes.res" to TemplateResourceLoader.load("full-stack/src/server/Routes.res"),
             "src/server/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("full-stack/src/server/__tests__/Server.test.mjs"),
-            "src/client/Main.res" to TemplateResourceLoader.load("full-stack/src/client/Main.res"),
+            "src/client/ClientMain.res" to TemplateResourceLoader.load("full-stack/src/client/ClientMain.res"),
             "src/client/App.res" to TemplateResourceLoader.load("full-stack/src/client/App.res", nameVar),
-            "src/client/Api.res" to TemplateResourceLoader.load("full-stack/src/client/Api.res"),
+            "src/client/ApiClient.res" to TemplateResourceLoader.load("full-stack/src/client/ApiClient.res"),
             "src/client/__tests__/Api.test.mjs" to
                 TemplateResourceLoader.load("full-stack/src/client/__tests__/Api.test.mjs"),
             "README.md" to

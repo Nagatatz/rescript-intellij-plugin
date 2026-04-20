@@ -7,7 +7,7 @@ let make = () => {
   let (email, setEmail) = React.useState(() => "")
 
   let refresh = async () => {
-    let fetched = await Api.listUsers()
+    let fetched = await ApiClient.listUsers()
     setUsers(_ => fetched)
   }
 
@@ -19,15 +19,15 @@ let make = () => {
   let handleSubmit = async event => {
     ReactEvent.Form.preventDefault(event)
     let req: Shared.Api.createUserReq = {name, email}
-    let _ = await Api.createUser(req)
+    let _ = await ApiClient.createUser(req)
     setName(_ => "")
     setEmail(_ => "")
     await refresh()
   }
 
-  <main style={ReactDOM.Style.make(~padding="2rem", ~fontFamily="sans-serif", ())}>
+  <main style={{padding: "2rem", fontFamily: "sans-serif"}}>
     <h1> {React.string("{{projectName}}")} </h1>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={event => handleSubmit(event)->ignore}>
       <input placeholder="name" value={name} onChange={e => setName(_ => (e->ReactEvent.Form.target)["value"])} />
       <input placeholder="email" value={email} onChange={e => setEmail(_ => (e->ReactEvent.Form.target)["value"])} />
       <button type_="submit"> {React.string("Add user")} </button>
