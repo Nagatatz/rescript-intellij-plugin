@@ -52,78 +52,262 @@ enum class ProjectTemplate(
 ) {
     BASIC(
         "Basic",
-        "Minimal ReScript project with console output",
+        """
+        A minimal ReScript starter that goes beyond "Hello World": demonstrates CLI
+        argument parsing, file I/O via Node's fs/promises, and a small app entry point
+        that ties them together.
+
+        Includes:
+        • @rescript/core standard library
+        • Vitest + @vitest/coverage-v8 for tests
+        • GitHub Actions CI workflow and Dependabot config
+        • .nvmrc, .editorconfig, MIT LICENSE
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.BASIC,
     ),
     VITE_REACT(
         "Vite + React",
-        "React single-page application with Vite bundler",
+        """
+        A React single-page application built with ReScript and the Vite+ toolchain —
+        a unified wrapper over Vite, Vitest, Oxlint, Oxfmt, and Rolldown.
+
+        Includes:
+        • @rescript/react + React 19 with JSX enabled
+        • Vite+ (vite-plus) with a documented fallback to plain Vite
+        • @vitejs/plugin-react, Vitest + coverage
+        • Sample App / Main / Api modules and a component test
+
+        Requires: Node.js 22+. Vite+ is pre-1.0; the README shows how to fall back
+        to plain Vite if needed.
+        """.trimIndent(),
         TemplateCategory.FRONTEND,
     ),
     NEXTJS(
         "Next.js",
-        "Server-side rendered React application with Next.js",
+        """
+        A Next.js 16 App Router project that exposes ReScript components to
+        TSX/route-handler code via genType.
+
+        Includes:
+        • Next.js 16 + React 19 + @rescript/react
+        • genType interop (ReScript ↔ TypeScript)
+        • `concurrently` wiring `rescript -w` with `next dev`
+        • Sample App / GreetForm / Fetch modules + API route handler
+        • Vitest + coverage
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.FRONTEND,
     ),
     ELECTRON(
         "Electron",
-        "Cross-platform desktop application with Electron",
+        """
+        A cross-platform desktop application pairing an Electron main process with a
+        Vite+ renderer written in ReScript + React.
+
+        Includes:
+        • Electron 41 (main) + @rescript/react + React 19 (renderer)
+        • Vite+ bundling for the renderer, preload.cjs for context isolation
+        • `npm start` builds and launches Electron in one command
+        • Vitest + coverage
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.DESKTOP,
     ),
     HONO(
         "Hono (Node.js)",
-        "Lightweight web server with Hono framework on Node.js, SQLite (Drizzle), and OpenAPI/Scalar UI",
+        """
+        A production-shape REST API on Hono + Node.js covering persistence, validation,
+        and API documentation out of the box.
+
+        Includes:
+        • Hono + @hono/node-server
+        • SQLite via libsql + Drizzle ORM (schema, queries, drizzle-kit migrations)
+        • Zod schemas for POST/PUT body validation
+        • @hono/zod-openapi auto-generated OpenAPI 3 spec
+        • Scalar UI mounted at /docs, raw spec at /openapi.json
+        • Logger middleware + structured error handling
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.BACKEND,
     ),
     HONO_GRAPHQL(
         "Hono GraphQL",
-        "GraphQL API on Hono with graphql-yoga, GraphiQL playground, and SQLite (Drizzle)",
+        """
+        A GraphQL API on Hono + graphql-yoga with a users type wired end-to-end
+        (query, mutation, Drizzle table) so "add a new GraphQL type" is a copy/paste
+        exercise.
+
+        Includes:
+        • Hono + @hono/node-server with graphql-yoga mounted at /graphql
+        • GraphiQL playground at the same URL
+        • SQLite via libsql + Drizzle ORM
+        • users query/mutation resolvers (users / user(id) / createUser / deleteUser)
+        • `docs:graphql` script runs graphql-markdown against the schema
+        • Vitest + coverage
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.BACKEND,
     ),
     CLOUDFLARE_WORKERS(
         "Cloudflare Workers",
-        "Serverless API on Cloudflare Workers with Hono",
+        """
+        A serverless Hono service on Cloudflare Workers with a working Workers KV
+        example (POST/GET greetings) so `wrangler dev` boots with a real local store.
+
+        Includes:
+        • Hono on Cloudflare Workers runtime
+        • Wrangler 4 (`dev` / `deploy`) with KV binding pre-declared in wrangler.jsonc
+        • @cloudflare/workers-types
+        • Vitest + coverage
+        • README sections for API, KV setup, and deploy
+
+        Requires: Node.js 22+ for local tooling, Cloudflare account for deploy.
+        """.trimIndent(),
         TemplateCategory.SERVERLESS,
     ),
     AWS_LAMBDA(
         "AWS Lambda",
-        "Serverless function on AWS Lambda with Hono",
+        """
+        A Hono API on AWS Lambda bundled to a single ESM file via esbuild. Ships
+        POST/GET endpoints plus a DynamoDB integration recipe.
+
+        Includes:
+        • Hono with AWS Lambda event adapter
+        • esbuild bundling ReScript output to dist/index.mjs
+        • @types/aws-lambda for handler typing
+        • Vitest + coverage
+        • README sections for API, deploy, and DynamoDB integration
+
+        Requires: Node.js 22+, AWS account + IAM credentials for deploy.
+        """.trimIndent(),
         TemplateCategory.SERVERLESS,
     ),
     GOOGLE_CLOUD_RUN(
         "Google Cloud Run",
-        "Container-based service on Google Cloud Run with Hono",
+        """
+        A container-based Hono service deployable to Google Cloud Run, with a
+        multi-stage Dockerfile that honors the selected package manager.
+
+        Includes:
+        • Hono + @hono/node-server
+        • Multi-stage Dockerfile (pnpm / npm / yarn aware) + .dockerignore
+        • POST/GET endpoints with environment variable reading
+        • Vitest + coverage
+        • README sections for API, environment, deploy, and Cloud SQL recipe
+
+        Requires: Node.js 22+, Docker for image builds, gcloud CLI for deploy.
+        """.trimIndent(),
         TemplateCategory.SERVERLESS,
     ),
     REACT_NATIVE(
         "React Native (Expo)",
-        "Mobile application with React Native and Expo",
+        """
+        An Expo-managed React Native app with ReScript components exposed to App.tsx
+        via genType — no native tooling required to get started.
+
+        Includes:
+        • Expo 55 + React Native + React 19
+        • @rescript/react with genType for .gen.tsx interop
+        • Sample App + ReactNative bindings module
+        • Vitest source smoke test
+        • `expo start` / `expo start --android` / `expo start --ios`
+
+        Requires: Node.js 22+; Android emulator or iOS simulator for device runs.
+        """.trimIndent(),
         TemplateCategory.MOBILE,
     ),
     REACT_NATIVE_CLI(
         "React Native (Community CLI)",
-        "Mobile app with React Native Community CLI (bare workflow) for native Android/iOS access",
+        """
+        A bare-workflow React Native app using the Community CLI. Ships only the
+        JS/TS + ReScript surface; run `npx @react-native-community/cli` afterwards
+        to scaffold the native android/ and ios/ projects.
+
+        Includes:
+        • React Native + @react-native-community/cli
+        • @react-native/metro-config + babel-preset
+        • Metro resolver configured for .res.mjs output
+        • Sample NativeGreeting binding for custom native modules
+        • Vitest
+
+        Requires: Node.js 22+, Android Studio / Xcode for native builds.
+        """.trimIndent(),
         TemplateCategory.MOBILE,
     ),
     NPM_LIBRARY(
         "npm Library",
-        "Publishable npm package with ReScript",
+        """
+        A publishable npm package written in ReScript with TypeScript types generated
+        via genType. Exercises the common day-two patterns library authors hit.
+
+        Includes:
+        • @rescript/core + genType for .d.ts emission
+        • TypeScript devDependency for type consumers
+        • Sample API: sync greet, async fetchWithTimeout, list helpers
+        • Vitest + coverage across three test files
+        • `prepare` hook so `npm install` from git builds the package
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.LIBRARY,
     ),
     CLI_TOOL(
         "CLI Tool",
-        "Command-line tool with argument parsing",
+        """
+        A command-line tool with a subcommand dispatcher (`greet`, `init`) and a
+        flag-parsing helper — mirrors the shape of git / docker / rescript.
+
+        Includes:
+        • @rescript/core + `bin` entry pointing at Cli.res.mjs
+        • Args / Commands modules with tests
+        • Vitest + coverage
+        • README sections for usage, project layout, and local install
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.TOOL,
     ),
     MONOREPO(
         "Monorepo (Hono + React)",
-        "Full-stack pnpm/npm/yarn workspace with Hono + Drizzle backend and React frontend",
+        """
+        A full-stack workspace monorepo splitting shared types, a Hono + Drizzle
+        backend, and a Vite+ React frontend into three packages. Workspace plumbing
+        adapts to the selected package manager.
+
+        Includes:
+        • packages/shared — shared ReScript types
+        • packages/server — Hono + @hono/node-server + Drizzle SQLite
+        • packages/client — React 19 + Vite+
+        • pnpm-workspace.yaml (pnpm) or `workspaces` field (npm / yarn)
+        • `concurrently` dev loop across packages
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("packages/shared/src", "packages/server/src", "packages/client/src"),
     ),
     FULL_STACK(
         "Full-Stack (single package)",
-        "Single-package full-stack app with Hono backend, Vite+React frontend, and SQLite (Drizzle)",
+        """
+        A single-package full-stack app pairing a Hono + Drizzle backend with a
+        Vite+/React frontend. Types are shared through src/shared/Api.res — simpler
+        than a workspace monorepo while still demonstrating the fetch → API → DB loop.
+
+        Includes:
+        • Hono + @hono/node-server + libsql + Drizzle ORM (SQLite)
+        • React 19 + @rescript/react + Vite+
+        • drizzle-kit migrations (db:generate / db:migrate)
+        • `concurrently` dev loop (server watch + vp dev)
+        • Vitest + coverage
+
+        Requires: Node.js 22+.
+        """.trimIndent(),
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("src/shared", "src/server", "src/client"),
     ),
