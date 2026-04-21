@@ -118,6 +118,10 @@ object CommonFiles {
                 appendLine(body.trimEnd())
                 appendLine()
             }
+            appendLine("## Extending Bindings")
+            appendLine()
+            appendLine(TemplateResourceLoader.load("common/readme/extending-bindings.md").trimEnd())
+            appendLine()
             appendLine("## Learn More")
             appendLine()
             appendLine("- [ReScript documentation](https://rescript-lang.org/)")

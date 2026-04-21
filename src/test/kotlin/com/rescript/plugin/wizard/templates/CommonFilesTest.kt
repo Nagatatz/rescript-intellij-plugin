@@ -75,6 +75,38 @@ class CommonFilesTest {
     }
 
     @Test
+    fun `readme appends Extending Bindings section with recipes`() {
+        val readme =
+            CommonFiles.readme(
+                ctx = pnpmCtx,
+                description = "x",
+                scripts = emptyList(),
+            )
+        assertTrue(readme.contains("## Extending Bindings"))
+        assertTrue(readme.contains("### Binding attributes at a glance"))
+        assertTrue(readme.contains("### Pattern: typed fetch wrapper"))
+        assertTrue(readme.contains("### Pattern: adding a Hono middleware"))
+        assertTrue(readme.contains("### Pattern: filtering with drizzle-orm"))
+        assertTrue(readme.contains("@rescript/webapi"))
+    }
+
+    @Test
+    fun `Extending Bindings is placed between extra sections and Learn More`() {
+        val readme =
+            CommonFiles.readme(
+                ctx = pnpmCtx,
+                description = "x",
+                scripts = emptyList(),
+                extraSections = listOf("Deploy" to "Run `wrangler deploy`."),
+            )
+        val deployIdx = readme.indexOf("## Deploy")
+        val extendingIdx = readme.indexOf("## Extending Bindings")
+        val learnMoreIdx = readme.indexOf("## Learn More")
+        assertTrue(deployIdx in 0 until extendingIdx, "Extending Bindings should follow extra sections")
+        assertTrue(extendingIdx in 0 until learnMoreIdx, "Learn More should follow Extending Bindings")
+    }
+
+    @Test
     fun `ci workflow installs with pnpm and pins pnpm action setup`() {
         val yaml = CommonFiles.ciWorkflow(pnpmCtx, hasBuild = true, hasTest = false)
         assertTrue(yaml.contains("pnpm/action-setup@v4"))

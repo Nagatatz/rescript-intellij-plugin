@@ -27,6 +27,25 @@ class ProjectTemplateTest {
     }
 
     @Test
+    fun `every template README contains Extending Bindings section`() {
+        ProjectTemplate.entries.forEach { template ->
+            val readme =
+                template.generateFiles("demo")["README.md"]
+                    ?: error("${template.name} should generate a README.md")
+            assertTrue(
+                readme.contains("## Extending Bindings"),
+                "${template.name} README should include the Extending Bindings section",
+            )
+            assertTrue(
+                readme.contains("### Pattern: typed fetch wrapper") ||
+                    readme.contains("### Pattern: adding a Hono middleware") ||
+                    readme.contains("### Pattern: filtering with drizzle-orm"),
+                "${template.name} README should include at least one binding recipe",
+            )
+        }
+    }
+
+    @Test
     fun `BASIC template has single source root`() {
         assertEquals(listOf("src"), ProjectTemplate.BASIC.sourceRoots)
     }
