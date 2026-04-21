@@ -48,6 +48,13 @@ class RescriptProjectGeneratorTest {
     }
 
     @Test
+    fun `PackageManager toString returns the lowercase command for Swing renderers`() {
+        assertEquals("npm", PackageManager.NPM.toString())
+        assertEquals("pnpm", PackageManager.PNPM.toString())
+        assertEquals("yarn", PackageManager.YARN.toString())
+    }
+
+    @Test
     fun `generateFiles context overload dispatches to the template`() {
         val ctx = TemplateContext("ctx-app", PackageManager.PNPM)
         val files = RescriptProjectGenerator.generateFiles(ProjectTemplate.BASIC, ctx)

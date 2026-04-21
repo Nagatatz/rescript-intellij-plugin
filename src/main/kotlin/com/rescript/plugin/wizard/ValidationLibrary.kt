@@ -25,4 +25,10 @@ enum class ValidationLibrary(
      * `src/main/resources/templates/<template>/variants/<key>/...`.
      */
     fun variantKey(): String = name.lowercase()
+
+    /**
+     * Returns the user-visible library name (lowercase) so default Swing renderers
+     * show "zod" / "sury" in the Wizard ComboBox instead of the Kotlin enum name.
+     */
+    override fun toString(): String = displayName
 }

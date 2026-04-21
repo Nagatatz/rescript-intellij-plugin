@@ -11,6 +11,13 @@ enum class PackageManager(
     NPM("npm"),
     PNPM("pnpm"),
     YARN("yarn"),
+    ;
+
+    /**
+     * Returns the CLI command (lowercase) so default Swing renderers show
+     * "npm" / "pnpm" / "yarn" in the Wizard ComboBox instead of the Kotlin enum name.
+     */
+    override fun toString(): String = command
 }
 
 /**

@@ -30,4 +30,10 @@ class ValidationLibraryTest {
         assertEquals("zod", ValidationLibrary.ZOD.variantKey())
         assertEquals("sury", ValidationLibrary.SURY.variantKey())
     }
+
+    @Test
+    fun `toString returns the lowercase display name for Swing renderers`() {
+        assertEquals("zod", ValidationLibrary.ZOD.toString())
+        assertEquals("sury", ValidationLibrary.SURY.toString())
+    }
 }
