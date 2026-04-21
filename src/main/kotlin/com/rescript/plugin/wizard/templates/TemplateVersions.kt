@@ -93,6 +93,13 @@ object TemplateVersions {
     const val RESCRIPT_RELAY = "^4.1.0"
     const val RELAY_COMPILER = "^19.0.0"
 
+    // res-x (Bun + Vite + HTMX framework) and its Bun peer dependency
+    const val RESCRIPT_X = "^1.4.0"
+    const val RESCRIPT_BUN = "^2.1.0"
+
+    // HTMX CDN version used by the res-x template's Layout.res
+    const val HTMX_CDN = "2.0.7"
+
     // AWS Lambda runtime types (separate from @types/aws-lambda)
     const val AWS_LAMBDA = "^1.0.7"
 
