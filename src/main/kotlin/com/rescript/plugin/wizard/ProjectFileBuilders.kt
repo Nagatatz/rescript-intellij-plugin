@@ -25,6 +25,7 @@ object ProjectFileBuilders {
         includeJsx: Boolean = false,
         includeGenType: Boolean = false,
         sources: String? = null,
+        ppxFlags: List<String> = emptyList(),
     ): String {
         val bsDeps = bsDependencies.joinToString(", ") { "\"$it\"" }
 
@@ -45,6 +46,10 @@ object ProjectFileBuilders {
             appendLine("  },")
             appendLine("  \"suffix\": \".res.mjs\",")
             appendLine("  \"bs-dependencies\": [$bsDeps],")
+            if (ppxFlags.isNotEmpty()) {
+                val flags = ppxFlags.joinToString(", ") { "\"$it\"" }
+                appendLine("  \"ppx-flags\": [$flags],")
+            }
             if (includeJsx) {
                 appendLine("  \"jsx\": {")
                 appendLine("    \"version\": 4")

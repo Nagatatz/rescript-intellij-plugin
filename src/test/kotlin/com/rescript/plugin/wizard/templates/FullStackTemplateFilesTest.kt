@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.ApiStrategy
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -9,6 +10,10 @@ import org.junit.jupiter.api.Test
 class FullStackTemplateFilesTest {
     private val ctx = TemplateContext("fs-app", PackageManager.PNPM)
     private val suryCtx = TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.SURY)
+    private val graphqlCtx =
+        TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.ZOD, ApiStrategy.GRAPHQL)
+    private val graphqlSuryCtx =
+        TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.SURY, ApiStrategy.GRAPHQL)
 
     @Test
     fun `package json bundles server and client deps in one place`() {
@@ -156,5 +161,134 @@ class FullStackTemplateFilesTest {
         assertTrue(server.contains("Hono.onError"))
         assertTrue(server.contains("Internal Server Error"))
         assertTrue(server.contains("Hono.status(500)"))
+    }
+
+    // ---- API strategy: REST ----
+
+    @Test
+    fun `rest variant ships REST server routes and fetch-based client`() {
+        val files = FullStackTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/server/Routes.res"))
+        assertTrue(files.containsKey("src/client/ApiClient.res"))
+        assertFalse(files.containsKey("src/server/Yoga.res"))
+        assertFalse(files.containsKey("src/server/GraphqlSchema.res"))
+        assertFalse(files.containsKey("src/client/RelayEnvironment.res"))
+        assertFalse(files.containsKey("relay.config.js"))
+    }
+
+    // ---- API strategy: GRAPHQL ----
+
+    @Test
+    fun `graphql variant ships yoga server mount and rescript-relay client`() {
+        val files = FullStackTemplateFiles.generate(graphqlCtx)
+        assertTrue(files.containsKey("src/server/Yoga.res"))
+        assertTrue(files.containsKey("src/server/GraphqlSchema.res"))
+        assertTrue(files.containsKey("src/server/Resolvers.res"))
+        assertTrue(files.containsKey("src/server/schema.graphql"))
+        assertTrue(files.containsKey("src/client/RelayEnvironment.res"))
+        assertTrue(files.containsKey("src/client/UsersListQuery.res"))
+        assertTrue(files.containsKey("relay.config.js"))
+        assertFalse(files.containsKey("src/server/Routes.res"))
+        assertFalse(files.containsKey("src/client/ApiClient.res"))
+    }
+
+    @Test
+    fun `graphql variant package json includes graphql-yoga and rescript-relay`() {
+        val pkg = FullStackTemplateFiles.generate(graphqlCtx)["package.json"]!!
+        assertTrue(pkg.contains("\"graphql\": \"${TemplateVersions.GRAPHQL}\""))
+        assertTrue(pkg.contains("\"graphql-yoga\": \"${TemplateVersions.GRAPHQL_YOGA}\""))
+        assertTrue(pkg.contains("\"rescript-relay\": \"${TemplateVersions.RESCRIPT_RELAY}\""))
+        assertTrue(pkg.contains("\"relay-compiler\": \"${TemplateVersions.RELAY_COMPILER}\""))
+    }
+
+    @Test
+    fun `graphql variant dev script runs relay compiler watcher alongside server and client`() {
+        val pkg = FullStackTemplateFiles.generate(graphqlCtx)["package.json"]!!
+        assertTrue(pkg.contains("\"relay\": \"relay-compiler\""))
+        assertTrue(pkg.contains("\"relay:watch\": \"relay-compiler --watch\""))
+        assertTrue(pkg.contains("npm:relay:watch"))
+    }
+
+    @Test
+    fun `graphql variant rescript json wires the relay ppx and bs-dependency`() {
+        val rj = FullStackTemplateFiles.generate(graphqlCtx)["rescript.json"]!!
+        assertTrue(rj.contains("\"rescript-relay\""))
+        assertTrue(rj.contains("\"ppx-flags\""))
+        assertTrue(rj.contains("rescript-relay/ppx"))
+    }
+
+    @Test
+    fun `graphql variant gitignores the Relay artifact directory`() {
+        val gi = FullStackTemplateFiles.generate(graphqlCtx)[".gitignore"]!!
+        assertTrue(gi.contains("src/client/__generated__/"))
+    }
+
+    @Test
+    fun `graphql variant README documents the GraphQL workflow`() {
+        val readme = FullStackTemplateFiles.generate(graphqlCtx)["README.md"]!!
+        assertTrue(readme.contains("## GraphQL"))
+        assertTrue(readme.contains("relay-compiler"))
+        assertTrue(readme.contains("%relay()"))
+    }
+
+    @Test
+    fun `graphql variant server mounts yoga at slash graphql`() {
+        val server = FullStackTemplateFiles.generate(graphqlCtx)["src/server/Server.res"]!!
+        assertTrue(server.contains("Yoga.createYoga"))
+        assertTrue(server.contains("/graphql"))
+    }
+
+    @Test
+    fun `graphql variant resolvers use shared Db helpers`() {
+        val resolvers = FullStackTemplateFiles.generate(graphqlCtx)["src/server/Resolvers.res"]!!
+        assertTrue(resolvers.contains("Db.where(Db.eq(Schema.users[\"id\"], args[\"id\"]))"))
+        assertTrue(resolvers.contains("Db.deleteFrom(Schema.users)"))
+    }
+
+    // ---- 4-combo: all (API × Validation) pairs generate without errors ----
+
+    @Test
+    fun `all four variant combinations emit a package json and rescript json`() {
+        val combos =
+            listOf(
+                TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.ZOD, ApiStrategy.REST),
+                TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.SURY, ApiStrategy.REST),
+                TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.ZOD, ApiStrategy.GRAPHQL),
+                TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.SURY, ApiStrategy.GRAPHQL),
+            )
+        combos.forEach { combo ->
+            val files = FullStackTemplateFiles.generate(combo)
+            assertTrue(
+                files.containsKey("package.json"),
+                "${combo.apiStrategy}+${combo.validationLibrary} should emit package.json",
+            )
+            assertTrue(
+                files.containsKey("rescript.json"),
+                "${combo.apiStrategy}+${combo.validationLibrary} should emit rescript.json",
+            )
+            assertTrue(
+                files.containsKey("src/server/Validation.res"),
+                "${combo.apiStrategy}+${combo.validationLibrary} should emit Validation.res",
+            )
+        }
+    }
+
+    @Test
+    fun `graphql plus sury keeps sury validation while adding graphql deps`() {
+        val files = FullStackTemplateFiles.generate(graphqlSuryCtx)
+        val validation = files["src/server/Validation.res"]!!
+        val pkg = files["package.json"]!!
+        assertTrue(validation.contains("S.object"))
+        assertTrue(pkg.contains("\"sury\": \"${TemplateVersions.SURY}\""))
+        assertTrue(pkg.contains("\"graphql-yoga\""))
+        assertTrue(pkg.contains("\"rescript-relay\""))
+    }
+
+    @Test
+    fun `shared Yoga res is byte-identical between full-stack graphql and hono-graphql`() {
+        val fullStackYoga = FullStackTemplateFiles.generate(graphqlCtx)["src/server/Yoga.res"]!!
+        val honoGraphqlYoga =
+            HonoGraphqlTemplateFiles.generate(TemplateContext("hg", PackageManager.PNPM))["src/Yoga.res"]!!
+        assertTrue(fullStackYoga == honoGraphqlYoga, "Yoga.res should be shared across templates")
     }
 }

@@ -116,6 +116,10 @@ already covers the surface you need:
   runtime validation with zero-cost encode/decode.
 - [`graphql-ppx`](https://github.com/reasonml-community/graphql-ppx) — compile-time
   typed GraphQL queries (useful alongside the Hono GraphQL template).
+- [`rescript-relay`](https://github.com/zth/rescript-relay) — official Relay
+  bindings for ReScript. Generates typed query / fragment / mutation artifacts
+  from `%relay()` tags via a codegen step. Used by the FULL_STACK GraphQL
+  variant for end-to-end typed queries.
 
 Full package index: <https://rescript-lang.org/packages/>.
 

@@ -89,6 +89,10 @@ object TemplateVersions {
     const val GRAPHQL_YOGA = "^5.21.0"
     const val GRAPHQL_MARKDOWN = "^0.7.1"
 
+    // rescript-relay (FULL_STACK GraphQL variant client). 4.x targets ReScript 12.
+    const val RESCRIPT_RELAY = "^4.1.0"
+    const val RELAY_COMPILER = "^19.0.0"
+
     // AWS Lambda runtime types (separate from @types/aws-lambda)
     const val AWS_LAMBDA = "^1.0.7"
 

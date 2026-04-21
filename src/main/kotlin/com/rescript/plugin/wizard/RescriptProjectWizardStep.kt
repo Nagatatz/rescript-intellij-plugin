@@ -35,6 +35,14 @@ class RescriptProjectWizardStep(
         JComboBox(PackageManager.entries.toTypedArray()).apply {
             selectedItem = PackageManager.PNPM
         }
+    private val apiStrategyCombo =
+        JComboBox(ApiStrategy.entries.toTypedArray()).apply {
+            selectedItem = ApiStrategy.REST
+            toolTipText =
+                "API shape for full-stack templates. REST uses Hono routes + fetch; " +
+                "GraphQL mounts graphql-yoga on Hono and wires rescript-relay on the client. " +
+                "Currently only affects the FULL_STACK template."
+        }
     private val validationLibraryCombo =
         JComboBox(ValidationLibrary.entries.toTypedArray()).apply {
             selectedItem = ValidationLibrary.ZOD
@@ -108,9 +116,19 @@ class RescriptProjectWizardStep(
         gbc.fill = GridBagConstraints.HORIZONTAL
         innerPanel.add(packageManagerCombo, gbc)
 
-        // Validation library
+        // API strategy
         gbc.gridx = 0
         gbc.gridy = 3
+        gbc.fill = GridBagConstraints.NONE
+        innerPanel.add(JLabel("API strategy:"), gbc)
+
+        gbc.gridx = 1
+        gbc.fill = GridBagConstraints.HORIZONTAL
+        innerPanel.add(apiStrategyCombo, gbc)
+
+        // Validation library
+        gbc.gridx = 0
+        gbc.gridy = 4
         gbc.fill = GridBagConstraints.NONE
         innerPanel.add(JLabel("Validation library:"), gbc)
 
@@ -124,6 +142,7 @@ class RescriptProjectWizardStep(
 
     override fun updateDataModel() {
         builder.packageManager = packageManagerCombo.selectedItem as PackageManager
+        builder.apiStrategy = apiStrategyCombo.selectedItem as ApiStrategy
         builder.validationLibrary = validationLibraryCombo.selectedItem as ValidationLibrary
         val selected = templateList.selectedValue
         if (selected is ProjectTemplate) {

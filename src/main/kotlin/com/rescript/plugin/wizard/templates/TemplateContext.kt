@@ -1,15 +1,18 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.ApiStrategy
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Context passed to each template file generator.
  *
- * Bundles the project name, the selected package manager, and the validation library
- * choice so templates can render package-manager-specific commands (e.g. `pnpm dev` vs
- * `npm run dev`), metadata (the `packageManager` field in `package.json` enabling
- * Corepack), and emit server schema files for either `zod` or `sury`.
+ * Bundles the project name, the selected package manager, the validation library
+ * choice, and the API strategy so templates can render package-manager-specific
+ * commands (e.g. `pnpm dev` vs `npm run dev`), metadata (the `packageManager` field
+ * in `package.json` enabling Corepack), emit server schema files for either `zod`
+ * or `sury`, and choose between a REST (Hono routes + fetch client) or GraphQL
+ * (graphql-yoga + rescript-relay) shape for full-stack templates.
  *
  * @see TemplateVersions for the dependency versions used together with this context
  */
@@ -17,6 +20,7 @@ data class TemplateContext(
     val projectName: String,
     val packageManager: PackageManager,
     val validationLibrary: ValidationLibrary = ValidationLibrary.ZOD,
+    val apiStrategy: ApiStrategy = ApiStrategy.REST,
 ) {
     /**
      * Returns the Corepack-style spec string for the `packageManager` field in `package.json`.
