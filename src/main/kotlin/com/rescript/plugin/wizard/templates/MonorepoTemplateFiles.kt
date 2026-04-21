@@ -246,6 +246,7 @@ internal object MonorepoTemplateFiles {
                         listOf(
                             "Workspaces" to workspacesNote(pm),
                             "About Vite+" to TemplateResourceLoader.load("monorepo/readme/vite-plus.md"),
+                            "Networking" to TemplateResourceLoader.load("monorepo/readme/networking.md"),
                         ),
                 ),
             )

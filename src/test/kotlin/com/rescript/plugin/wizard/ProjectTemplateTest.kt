@@ -259,6 +259,62 @@ class ProjectTemplateTest {
     }
 
     @Test
+    fun `shared Hono bindings expose the hono cors middleware factory`() {
+        val hono = ProjectTemplate.HONO.generateFiles("test")["src/Hono.res"]!!
+        assertTrue(hono.contains("@module(\"hono/cors\")"), "Hono.res should @module hono/cors")
+        assertTrue(hono.contains("external cors"), "Hono.res should expose a cors external")
+    }
+
+    @Test
+    fun `FULL_STACK server ships a commented-out CORS block referencing Vite dev origin`() {
+        val server =
+            ProjectTemplate.FULL_STACK.generateFiles("demo")["src/server/Server.res"]
+                ?: error("FULL_STACK Server.res missing")
+        assertTrue(server.contains("Hono.cors"), "Server.res should reference Hono.cors")
+        assertTrue(server.contains("http://localhost:5173"), "Server.res should mention Vite dev origin")
+        assertTrue(
+            server.contains("// app->Hono.use("),
+            "CORS block should be commented out so the Vite proxy handles dev unchanged",
+        )
+    }
+
+    @Test
+    fun `MONOREPO server ships a commented-out CORS block referencing Vite dev origin`() {
+        val server =
+            ProjectTemplate.MONOREPO.generateFiles("demo")["packages/server/src/Server.res"]
+                ?: error("MONOREPO server Server.res missing")
+        assertTrue(server.contains("Hono.cors"), "Server.res should reference Hono.cors")
+        assertTrue(server.contains("http://localhost:5173"), "Server.res should mention Vite dev origin")
+        assertTrue(
+            server.contains("// app->Hono.use("),
+            "CORS block should be commented out so the Vite proxy handles dev unchanged",
+        )
+    }
+
+    @Test
+    fun `all Hono server templates surface the cors binding in their Server res`() {
+        val targets =
+            listOf(
+                ProjectTemplate.HONO to "src/Server.res",
+                ProjectTemplate.HONO_GRAPHQL to "src/Server.res",
+                ProjectTemplate.CLOUDFLARE_WORKERS to "src/Server.res",
+                ProjectTemplate.AWS_LAMBDA to "src/Server.res",
+                ProjectTemplate.GOOGLE_CLOUD_RUN to "src/Server.res",
+                ProjectTemplate.FULL_STACK to "src/server/Server.res",
+                ProjectTemplate.MONOREPO to "packages/server/src/Server.res",
+            )
+        targets.forEach { (template, path) ->
+            val server =
+                template.generateFiles("demo")[path]
+                    ?: error("${template.name} missing $path")
+            assertTrue(
+                server.contains("Hono.cors"),
+                "${template.name} $path should mention Hono.cors (pre-wired or commented)",
+            )
+        }
+    }
+
+    @Test
     fun `React templates include jsx config`() {
         val reactTemplates =
             listOf(

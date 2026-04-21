@@ -3,6 +3,9 @@ type createOrderResponse = {orderId: string, productId: string, quantity: int}
 
 let app = Hono.createApp()
 
+// Enable CORS if API Gateway fronts this Lambda for a browser client:
+//   app->Hono.use(Hono.cors({"origin": "https://your-app.example"}))
+
 app->Hono.get("/", ctx => ctx->Hono.text("Lambda + Hono + ReScript"))
 
 // Example GET with a path param

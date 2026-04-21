@@ -286,6 +286,10 @@ object ProjectFileBuilders {
             appendLine("@send external status: (context, int) => context = \"status\"")
             appendLine("@send external header: (context, string, string) => context = \"header\"")
             appendLine("@send external notFound: context => 'a = \"notFound\"")
+            appendLine("")
+            appendLine("// Middleware factories")
+            appendLine("// CORS: accepts any hono/cors option (origin, allowMethods, credentials, ...).")
+            appendLine("@module(\"hono/cors\") external cors: 'opts => middleware = \"cors\"")
         }
 
     /**

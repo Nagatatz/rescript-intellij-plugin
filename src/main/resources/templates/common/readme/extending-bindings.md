@@ -38,15 +38,16 @@ let getUser = async id => {
 
 ### Pattern: adding a Hono middleware (backend)
 
-Hono ships many first-party middlewares (`hono/cors`, `hono/jwt`,
-`hono/basic-auth`, `hono/cache`, ...). Bind the factory and pass the result to
+`hono/cors` is already pre-bound as `Hono.cors` in the shared `Hono.res` of this
+template. For other middlewares (`hono/jwt`, `hono/basic-auth`, `hono/cache`,
+`hono/secure-headers`, ...), bind the factory yourself and pass the result to
 `Hono.use`:
 
 ```rescript
-@module("hono/cors") external cors: {"origin": string} => Hono.middleware = "cors"
+@module("hono/jwt") external jwt: {"secret": string} => Hono.middleware = "jwt"
 
 let app = Hono.createApp()
-app->Hono.use(cors({"origin": "http://localhost:5173"}))
+app->Hono.use(jwt({"secret": "change-me-in-prod"}))
 ```
 
 The same shape works for any third-party middleware: bind the factory with

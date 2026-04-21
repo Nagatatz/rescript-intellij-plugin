@@ -6,6 +6,9 @@ let yoga = Yoga.createYoga({
 
 let app = Hono.createApp()
 
+// Enable CORS if GraphiQL or your client is served from a different origin:
+//   app->Hono.use(Hono.cors({"origin": "https://your-app.example"}))
+
 // Global error handler: converts uncaught exceptions into a JSON 500 response.
 app->Hono.onError((err, ctx) => {
   Console.error(err)

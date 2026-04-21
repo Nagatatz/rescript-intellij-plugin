@@ -9,6 +9,9 @@ let port =
 
 let app = Hono.createApp()
 
+// Enable CORS if this service is called from a browser on another origin:
+//   app->Hono.use(Hono.cors({"origin": "https://your-app.example"}))
+
 app->Hono.get("/", ctx => ctx->Hono.text("Cloud Run + Hono + ReScript"))
 
 app->Hono.post("/echo", async ctx => {

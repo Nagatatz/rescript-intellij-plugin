@@ -2,6 +2,9 @@
 let app = Hono.createApp()
 app->Hono.use(Logger.logger())
 
+// Enable CORS if this service is called from a browser:
+//   app->Hono.use(Hono.cors({"origin": "https://your-app.example"}))
+
 // Global error handler: converts uncaught exceptions into a JSON 500 response.
 app->Hono.onError((err, ctx) => {
   Console.error(err)

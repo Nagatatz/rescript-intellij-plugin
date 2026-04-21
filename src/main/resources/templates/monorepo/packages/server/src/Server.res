@@ -1,5 +1,19 @@
 let app = Hono.createApp()
 
+// CORS is not needed in dev because the client's Vite+ server proxies /api/*
+// to this server (see packages/client/vite.config.mjs), keeping browser
+// requests same-origin. Uncomment the block below if you remove the proxy,
+// point the client at a remote server, or host the client on a separate
+// origin in production. Adjust the origin list before deploying.
+//
+// app->Hono.use(
+//   Hono.cors({
+//     "origin": "http://localhost:5173",
+//     "allowMethods": ["GET", "POST", "PUT", "DELETE"],
+//     "credentials": true,
+//   }),
+// )
+
 // Global error handler: converts uncaught exceptions into a JSON 500 response.
 app->Hono.onError((err, ctx) => {
   Console.error(err)
