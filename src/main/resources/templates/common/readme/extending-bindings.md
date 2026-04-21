@@ -56,23 +56,52 @@ The same shape works for any third-party middleware: bind the factory with
 
 ### Pattern: filtering with drizzle-orm
 
-The stock `src/Db.res` does not bind `eq` / `and` / `or`, so `SELECT ... WHERE`
-queries need one more external:
+The stock `src/Db.res` already binds the drizzle-orm essentials — comparison
+operators (`eq` / `ne` / `gt` / `gte` / `lt` / `lte` / `inArray` / `like` /
+`isNull` / ...), boolean combinators (`and` / `or` / `not`), query chain
+builders (`where` / `orderBy` / `limit` / `offset` / `groupBy`), mutation
+entry points (`update` / `set` / `deleteFrom`), and ordering helpers
+(`asc` / `desc`) — so everyday `WHERE` / `ORDER BY` / `UPDATE` / `DELETE`
+queries stay in ReScript:
 
 ```rescript
-@module("drizzle-orm") external eq: ('col, 'val) => 'expr = "eq"
-@send external where: ('q, 'expr) => 'q = "where"
-
 let userById = async id =>
   await Db.db
   ->Db.select({"id": Schema.users["id"], "name": Schema.users["name"]})
   ->Db.from(Schema.users)
-  ->where(eq(Schema.users["id"], id))
+  ->Db.where(Db.eq(Schema.users["id"], id))
+  ->Db.allAsync
+  ->Promise.then(rows => Array.get(rows, 0))
+
+let recentUsers = async () =>
+  await Db.db
+  ->Db.select({"id": Schema.users["id"], "name": Schema.users["name"]})
+  ->Db.from(Schema.users)
+  ->Db.orderBy(Db.desc(Schema.users["id"]))
+  ->Db.limit(10)
   ->Db.allAsync
 ```
 
-`and`, `or`, `inArray`, and the rest of `drizzle-orm`'s expression helpers follow
-the same shape.
+If you need an operator that isn't in `Db.res` yet, bind it with the same
+`@module("drizzle-orm")` / `@send` pattern used inside that file.
+
+### If you need fuller type safety
+
+drizzle-orm keeps the ReScript side polymorphic (`'expr` / `'row`), so
+mistyped column references or result shapes won't be caught until runtime.
+When that becomes painful, two ReScript-native options are worth a look:
+
+- [`pgtyped-rescript`](https://github.com/zth/pgtyped-rescript) — write raw
+  PostgreSQL in `%sql.one` / `%sql.many` tags; argument and row types are
+  generated from a running database. **PostgreSQL only.** The README notes
+  the API may still change.
+- [`rescript-edgedb`](https://github.com/zth/rescript-edgedb) — embed EdgeQL
+  in ReScript with full type safety and a dedicated VSCode extension.
+  Requires EdgeDB (now Gel) as the backend, so it is a DB-platform swap
+  rather than a drop-in replacement for libsql/Postgres.
+
+Both come with a codegen step and are maintained by a single community
+author; treat them as signposts, not drop-in substitutes.
 
 ### Community binding packages
 

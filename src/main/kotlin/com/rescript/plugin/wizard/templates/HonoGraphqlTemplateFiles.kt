@@ -66,7 +66,7 @@ internal object HonoGraphqlTemplateFiles {
             "src/Schema.res" to TemplateResourceLoader.load("hono-graphql/src/Schema.res"),
             "src/Validation.res" to
                 TemplateResourceLoader.load("hono-graphql/variants/$variantKey/src/Validation.res"),
-            "src/Db.res" to TemplateResourceLoader.load("hono-graphql/src/Db.res"),
+            "src/Db.res" to TemplateResourceLoader.load("common/db/Db.res"),
             "src/Yoga.res" to TemplateResourceLoader.load("hono-graphql/src/Yoga.res"),
             "src/GraphqlSchema.res" to TemplateResourceLoader.load("hono-graphql/src/GraphqlSchema.res"),
             "src/Resolvers.res" to TemplateResourceLoader.load("hono-graphql/src/Resolvers.res"),

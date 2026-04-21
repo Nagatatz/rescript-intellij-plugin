@@ -64,7 +64,7 @@ internal object HonoTemplateFiles {
                 "src/Logger.res" to TemplateResourceLoader.load("hono/src/Logger.res"),
                 "src/Schema.res" to TemplateResourceLoader.load("hono/src/Schema.res"),
                 "src/Validation.res" to TemplateResourceLoader.load("hono/variants/$variantKey/src/Validation.res"),
-                "src/Db.res" to TemplateResourceLoader.load("hono/src/Db.res"),
+                "src/Db.res" to TemplateResourceLoader.load("common/db/Db.res"),
                 "src/Scalar.res" to TemplateResourceLoader.load("hono/src/Scalar.res"),
                 "src/Routes.res" to TemplateResourceLoader.load("hono/src/Routes.res"),
                 "src/Server.res" to TemplateResourceLoader.load("hono/src/Server.res"),

@@ -123,7 +123,7 @@ internal object MonorepoTemplateFiles {
             )
             put(
                 "packages/server/src/Db.res",
-                TemplateResourceLoader.load("monorepo/packages/server/src/Db.res"),
+                TemplateResourceLoader.load("common/db/Db.res"),
             )
             put(
                 "packages/server/src/Validation.res",

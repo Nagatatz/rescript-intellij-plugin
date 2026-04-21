@@ -259,6 +259,58 @@ class ProjectTemplateTest {
     }
 
     @Test
+    fun `drizzle Db res is shared across all four drizzle-backed templates`() {
+        val hono = ProjectTemplate.HONO.generateFiles("demo")["src/Db.res"]!!
+        val graphql = ProjectTemplate.HONO_GRAPHQL.generateFiles("demo")["src/Db.res"]!!
+        val fullStack = ProjectTemplate.FULL_STACK.generateFiles("demo")["src/server/Db.res"]!!
+        val monorepo = ProjectTemplate.MONOREPO.generateFiles("demo")["packages/server/src/Db.res"]!!
+        assertEquals(hono, graphql)
+        assertEquals(hono, fullStack)
+        assertEquals(hono, monorepo)
+    }
+
+    @Test
+    fun `shared Db res exposes the new drizzle helpers`() {
+        val db = ProjectTemplate.HONO.generateFiles("demo")["src/Db.res"]!!
+        listOf(
+            "eq",
+            "and",
+            "or",
+            "inArray",
+            "where",
+            "orderBy",
+            "limit",
+            "update",
+            "set",
+            "deleteFrom",
+            "asc",
+            "desc",
+        ).forEach { helper ->
+            assertTrue(
+                db.contains("external $helper"),
+                "Db.res should expose a $helper external",
+            )
+        }
+    }
+
+    @Test
+    fun `hono-graphql resolvers use the new helpers and carry no TODO placeholders`() {
+        val resolvers =
+            ProjectTemplate.HONO_GRAPHQL.generateFiles("demo")["src/Resolvers.res"]
+                ?: error("hono-graphql Resolvers.res missing")
+        assertTrue(
+            resolvers.contains("Db.where(Db.eq(Schema.users[\"id\"], args[\"id\"]))"),
+            "userById / deleteUser should filter with Db.where(Db.eq(...))",
+        )
+        assertTrue(
+            resolvers.contains("Db.deleteFrom(Schema.users)"),
+            "deleteUser should use Db.deleteFrom",
+        )
+        assertFalse(resolvers.contains("TODO"), "userById TODO comment should be gone")
+        assertFalse(resolvers.contains("Placeholder"), "deleteUser placeholder comment should be gone")
+    }
+
+    @Test
     fun `shared Hono bindings expose the hono cors middleware factory`() {
         val hono = ProjectTemplate.HONO.generateFiles("test")["src/Hono.res"]!!
         assertTrue(hono.contains("@module(\"hono/cors\")"), "Hono.res should @module hono/cors")

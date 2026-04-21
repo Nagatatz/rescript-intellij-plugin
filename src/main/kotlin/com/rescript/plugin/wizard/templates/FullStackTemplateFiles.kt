@@ -94,7 +94,7 @@ internal object FullStackTemplateFiles {
             "src/server/Schema.res" to TemplateResourceLoader.load("full-stack/src/server/Schema.res"),
             "src/server/Validation.res" to
                 TemplateResourceLoader.load("full-stack/variants/$variantKey/src/server/Validation.res"),
-            "src/server/Db.res" to TemplateResourceLoader.load("full-stack/src/server/Db.res"),
+            "src/server/Db.res" to TemplateResourceLoader.load("common/db/Db.res"),
             "src/server/Routes.res" to TemplateResourceLoader.load("full-stack/src/server/Routes.res"),
             "src/server/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("full-stack/src/server/__tests__/Server.test.mjs"),

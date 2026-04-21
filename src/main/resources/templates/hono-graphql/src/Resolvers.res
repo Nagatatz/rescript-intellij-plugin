@@ -14,10 +14,18 @@ module Users = {
     ->Db.allAsync
   }
 
-  let userById = async (_parent, _args, _ctx, _info) => {
-    // TODO: implement with drizzle-orm `eq` filter once the binding is added.
-    let users = await listUsers(_parent, _args, _ctx, _info)
-    users->Array.get(0)
+  let userById = async (_parent, args, _ctx, _info) => {
+    let rows =
+      await Db.db
+      ->Db.select({
+        "id": Schema.users["id"],
+        "name": Schema.users["name"],
+        "email": Schema.users["email"],
+      })
+      ->Db.from(Schema.users)
+      ->Db.where(Db.eq(Schema.users["id"], args["id"]))
+      ->Db.allAsync
+    rows->Array.get(0)
   }
 
   let createUser = async (_parent, args, _ctx, _info) => {
@@ -33,8 +41,12 @@ module Users = {
     }
   }
 
-  let deleteUser = async (_parent, _args, _ctx, _info) => {
-    // Placeholder: wire to drizzle `delete(...).where(eq(users.id, args.id))`.
-    true
+  let deleteUser = async (_parent, args, _ctx, _info) => {
+    let deleted =
+      await Db.db
+      ->Db.deleteFrom(Schema.users)
+      ->Db.where(Db.eq(Schema.users["id"], args["id"]))
+      ->Db.returning
+    deleted->Array.length > 0
   }
 }
