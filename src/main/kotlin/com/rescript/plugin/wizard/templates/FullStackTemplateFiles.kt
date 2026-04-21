@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a single-package full-stack ReScript app.
@@ -13,7 +14,8 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  *
  * The generated project answers the common day-two question "how do I share
  * types between server and client?" by shipping a `src/shared/Api.res` module
- * imported by both sides.
+ * imported by both sides. HTTP body validation lives in `src/server/Validation.res`
+ * (zod or sury, selected via [TemplateContext.validationLibrary]).
  *
  * Static file content lives under `src/main/resources/templates/full-stack/` and is
  * loaded via [TemplateResourceLoader]; dynamic composition (package.json, README
@@ -25,6 +27,7 @@ internal object FullStackTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val nameVar = mapOf("projectName" to ctx.projectName)
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -45,18 +48,7 @@ internal object FullStackTemplateFiles {
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "@rescript/react" to TemplateVersions.RESCRIPT_REACT,
-                            "react" to TemplateVersions.REACT,
-                            "react-dom" to TemplateVersions.REACT_DOM,
-                            "hono" to TemplateVersions.HONO,
-                            "@hono/node-server" to TemplateVersions.HONO_NODE_SERVER,
-                            "@libsql/client" to TemplateVersions.LIBSQL_CLIENT,
-                            "drizzle-orm" to TemplateVersions.DRIZZLE_ORM,
-                        ),
+                    dependencies = fullStackDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "concurrently" to TemplateVersions.CONCURRENTLY,
@@ -100,6 +92,8 @@ internal object FullStackTemplateFiles {
             "src/server/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/server/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
             "src/server/Schema.res" to TemplateResourceLoader.load("full-stack/src/server/Schema.res"),
+            "src/server/Validation.res" to
+                TemplateResourceLoader.load("full-stack/variants/$variantKey/src/server/Validation.res"),
             "src/server/Db.res" to TemplateResourceLoader.load("full-stack/src/server/Db.res"),
             "src/server/Routes.res" to TemplateResourceLoader.load("full-stack/src/server/Routes.res"),
             "src/server/__tests__/Server.test.mjs" to
@@ -166,4 +160,22 @@ internal object FullStackTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun fullStackDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/react"] = TemplateVersions.RESCRIPT_REACT
+        deps["react"] = TemplateVersions.REACT
+        deps["react-dom"] = TemplateVersions.REACT_DOM
+        deps["hono"] = TemplateVersions.HONO
+        deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        deps["@libsql/client"] = TemplateVersions.LIBSQL_CLIENT
+        deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM
+        return deps
+    }
 }

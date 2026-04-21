@@ -17,13 +17,17 @@ module Users = {
     })
 
     app->Hono.post("/api/users", async ctx => {
-      let payload: Shared.Api.createUserReq = await ctx->Hono.req->Hono.jsonBody
-      let inserted =
-        await Db.db
-        ->Db.insert(Schema.users)
-        ->Db.values({"name": payload.name, "email": payload.email})
-        ->Db.returning
-      ctx->Hono.status(201)->Hono.json(inserted->Array.get(0))
+      let raw = await ctx->Hono.req->Hono.jsonBody
+      switch Validation.parseCreateUserReq(raw) {
+      | Error(msg) => ctx->Hono.status(400)->Hono.json({"error": msg})
+      | Ok(payload) =>
+        let inserted =
+          await Db.db
+          ->Db.insert(Schema.users)
+          ->Db.values({"name": payload.name, "email": payload.email})
+          ->Db.returning
+        ctx->Hono.status(201)->Hono.json(inserted->Array.get(0))
+      }
     })
   }
 }

@@ -1,11 +1,14 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class FullStackTemplateFilesTest {
     private val ctx = TemplateContext("fs-app", PackageManager.PNPM)
+    private val suryCtx = TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.SURY)
 
     @Test
     fun `package json bundles server and client deps in one place`() {
@@ -73,11 +76,34 @@ class FullStackTemplateFilesTest {
     }
 
     @Test
-    fun `users route uses drizzle and shared api types`() {
+    fun `users route uses drizzle and validates via Validation`() {
         val users = FullStackTemplateFiles.generate(ctx)["src/server/Routes.res"]!!
         assertTrue(users.contains("Db.select"))
         assertTrue(users.contains("Db.insert"))
-        assertTrue(users.contains("Shared.Api.createUserReq"))
+        assertTrue(users.contains("Validation.parseCreateUserReq"))
+        assertTrue(users.contains("Hono.status(400)"))
+    }
+
+    @Test
+    fun `zod variant ships zod Validation module and zod dependency`() {
+        val files = FullStackTemplateFiles.generate(ctx)
+        val validation = files["src/server/Validation.res"]!!
+        assertTrue(validation.contains("@module(\"zod\")"))
+        assertTrue(validation.contains("parseCreateUserReq"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"zod\": \"${TemplateVersions.ZOD}\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships sury Validation module and sury dependency`() {
+        val files = FullStackTemplateFiles.generate(suryCtx)
+        val validation = files["src/server/Validation.res"]!!
+        assertTrue(validation.contains("S.object"))
+        assertTrue(validation.contains("S.parseOrThrow"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"sury\": \"${TemplateVersions.SURY}\""))
+        assertFalse(pkg.contains("\"zod\":"))
     }
 
     @Test
