@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-16 20:49+0900\n"
+"POT-Creation-Date: 2026-04-22 01:46+0900\n"
 "PO-Revision-Date: 2026-04-15 20:15+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -33,17 +33,16 @@ msgstr "プロジェクトテンプレート"
 
 #: ../../user/templates/index.md:9
 msgid ""
-"The plugin ships 15 project templates that scaffold production-shaped "
+"The plugin ships 16 project templates that scaffold production-shaped "
 "ReScript apps — not just \"Hello World\". Each template is a working, "
 "buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ "
 "where applicable, GitHub Actions CI) and documentation that answers the "
 "common day-two question: *\"How do I add the next thing?\"*"
 msgstr ""
-"プラグインには本番環境を想定した 15 個のプロジェクトテンプレートが同梱されており、単なる \"Hello World\" "
-"ではなくプロダクション形状の ReScript アプリをスキャフォールドします。各テンプレートはモダンなツーリング "
-"(pnpm/npm/yarn 対応、ESM、該当箇所で Vite+、GitHub Actions CI) "
-"を備えた動作するビルド可能なプロジェクトで、2 日目によくある質問「次はどう追加するのか?」"
-"に答えるドキュメントが付属します。"
+"プラグインには本番環境を想定した 16 個のプロジェクトテンプレートが同梱されており、単なる \"Hello World\" "
+"ではなくプロダクション形状の ReScript アプリをスキャフォールドします。各テンプレートはモダンなツーリング (pnpm/npm/yarn "
+"対応、ESM、該当箇所で Vite+、GitHub Actions CI) を備えた動作するビルド可能なプロジェクトで、2 "
+"日目によくある質問「次はどう追加するのか?」に答えるドキュメントが付属します。"
 
 #: ../../user/templates/index.md:11
 msgid "Opening the Wizard"
@@ -75,7 +74,7 @@ msgstr "ターミナルから `npm create rescript@latest` を実行しても、
 msgid "Category: Basic"
 msgstr "カテゴリ: Basic"
 
-#: ../../user/templates/index.md:25 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:25 ../../user/templates/index.md:139
 msgid "Basic"
 msgstr "Basic"
 
@@ -93,7 +92,7 @@ msgstr ""
 msgid "{bdg-info}`Node.js`"
 msgstr "{bdg-info}`Node.js`"
 
-#: ../../user/templates/index.md:31 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:31 ../../user/templates/index.md:139
 msgid "npm Library"
 msgstr "npm Library"
 
@@ -112,7 +111,7 @@ msgstr ""
 msgid "{bdg-info}`Node.js` {bdg-success}`Testing`"
 msgstr "{bdg-info}`Node.js` {bdg-success}`テスト`"
 
-#: ../../user/templates/index.md:37 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:37 ../../user/templates/index.md:139
 msgid "CLI Tool"
 msgstr "CLI Tool"
 
@@ -129,7 +128,7 @@ msgstr ""
 msgid "Category: Frontend"
 msgstr "カテゴリ: Frontend"
 
-#: ../../user/templates/index.md:49 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:49 ../../user/templates/index.md:139
 msgid "Vite+ + React"
 msgstr "Vite+ + React"
 
@@ -148,7 +147,7 @@ msgstr ""
 msgid "{bdg-warning}`Vite+ pre-1.0`"
 msgstr "{bdg-warning}`Vite+ pre-1.0`"
 
-#: ../../user/templates/index.md:55 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:55 ../../user/templates/index.md:139
 msgid "Next.js"
 msgstr "Next.js"
 
@@ -168,7 +167,7 @@ msgstr ""
 msgid "{bdg-primary}`genType`"
 msgstr "{bdg-primary}`genType`"
 
-#: ../../user/templates/index.md:61 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:61 ../../user/templates/index.md:139
 msgid "Electron"
 msgstr "Electron"
 
@@ -187,7 +186,7 @@ msgstr ""
 msgid "{bdg-info}`Desktop`"
 msgstr "{bdg-info}`デスクトップ`"
 
-#: ../../user/templates/index.md:67 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:67 ../../user/templates/index.md:139
 msgid "React Native"
 msgstr "React Native"
 
@@ -210,7 +209,7 @@ msgstr "{bdg-info}`モバイル`"
 msgid "Category: Backend"
 msgstr "カテゴリ: Backend"
 
-#: ../../user/templates/index.md:79 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:79 ../../user/templates/index.md:139
 msgid "Hono (REST)"
 msgstr "Hono (REST)"
 
@@ -229,7 +228,7 @@ msgstr ""
 msgid "{bdg-success}`REST` {bdg-primary}`OpenAPI` {bdg-info}`SQLite`"
 msgstr "{bdg-success}`REST` {bdg-primary}`OpenAPI` {bdg-info}`SQLite`"
 
-#: ../../user/templates/index.md:87 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:87 ../../user/templates/index.md:139
 msgid "Hono + GraphQL"
 msgstr "Hono + GraphQL"
 
@@ -252,7 +251,7 @@ msgstr "{bdg-success}`GraphQL` {bdg-info}`SQLite`"
 msgid "Category: Serverless"
 msgstr "カテゴリ: Serverless"
 
-#: ../../user/templates/index.md:101 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:101 ../../user/templates/index.md:139
 msgid "Cloudflare Workers"
 msgstr "Cloudflare Workers"
 
@@ -270,7 +269,7 @@ msgstr ""
 msgid "{bdg-info}`Edge`"
 msgstr "{bdg-info}`Edge`"
 
-#: ../../user/templates/index.md:107 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:107 ../../user/templates/index.md:139
 msgid "AWS Lambda"
 msgstr "AWS Lambda"
 
@@ -288,7 +287,7 @@ msgstr ""
 msgid "{bdg-info}`Serverless`"
 msgstr "{bdg-info}`サーバーレス`"
 
-#: ../../user/templates/index.md:113 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:113 ../../user/templates/index.md:139
 msgid "Google Cloud Run"
 msgstr "Google Cloud Run"
 
@@ -311,7 +310,7 @@ msgstr "{bdg-info}`コンテナ`"
 msgid "Category: Full-Stack"
 msgstr "カテゴリ: Full-Stack"
 
-#: ../../user/templates/index.md:125 ../../user/templates/index.md:131
+#: ../../user/templates/index.md:125 ../../user/templates/index.md:139
 msgid "Monorepo"
 msgstr "Monorepo"
 
@@ -330,7 +329,7 @@ msgstr ""
 msgid "{bdg-success}`Workspaces` {bdg-info}`Shared types`"
 msgstr "{bdg-success}`ワークスペース` {bdg-info}`共有型`"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:131 ../../user/templates/index.md:139
 msgid "Full-Stack"
 msgstr "Full-Stack"
 
@@ -350,103 +349,127 @@ msgstr ""
 msgid "{bdg-success}`Single package` {bdg-info}`Shared types`"
 msgstr "{bdg-success}`単一パッケージ` {bdg-info}`共有型`"
 
+#: ../../user/templates/index.md:139
+msgid "res-x (HTMX on Bun)"
+msgstr "res-x (Bun 上の HTMX)"
+
 #: ../../user/templates/index.md:140
+msgid ""
+"Server-driven web app built with `rescript-x` (JSX rendered on the "
+"server) and HTMX for client-side interactivity. Ships a Counter with `hx-"
+"post` increment/decrement endpoints and a Todo form that validates input "
+"through zod or sury. Runs on Bun + Vite."
+msgstr ""
+"`rescript-x` (JSX をサーバ側でレンダリング) と HTMX によるクライアントインタラクションで構築するサーバ駆動型 "
+"Web アプリ。`hx-post` で増減する Counter と、zod または sury "
+"で入力を検証する Todo フォームを同梱。Bun + Vite 上で動作します。"
+
+#: ../../user/templates/index.md:142
+#, python-brace-format
+msgid "{bdg-warning}`Bun required` {bdg-info}`HTMX` {bdg-success}`Server-driven`"
+msgstr "{bdg-warning}`Bun 必須` {bdg-info}`HTMX` {bdg-success}`サーバ駆動`"
+
+#: ../../user/templates/index.md:146
 msgid "Which Template Should I Choose?"
 msgstr "どのテンプレートを選ぶべきか?"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "Situation"
 msgstr "シチュエーション"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "Template"
 msgstr "テンプレート"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I'm new to ReScript and just want to try it"
 msgstr "ReScript を初めて試したい"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I'm writing a reusable npm package"
 msgstr "再利用可能な npm パッケージを書きたい"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I'm building a CLI tool"
 msgstr "CLI ツールを構築したい"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I need a React SPA"
 msgstr "React SPA が必要"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I need SSR / Server Components / SEO"
 msgstr "SSR / Server Components / SEO が必要"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I'm building a desktop app"
 msgstr "デスクトップアプリを構築したい"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I'm building a mobile app"
 msgstr "モバイルアプリを構築したい"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I need a REST API with typed docs"
 msgstr "型付きドキュメントを備えた REST API が必要"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I need a GraphQL API"
 msgstr "GraphQL API が必要"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I'm deploying to Cloudflare's edge"
 msgstr "Cloudflare のエッジにデプロイしたい"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I'm deploying to AWS Lambda"
 msgstr "AWS Lambda にデプロイしたい"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I'm deploying a container to GCP"
 msgstr "GCP にコンテナをデプロイしたい"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I want multiple packages sharing types (scales to more)"
 msgstr "複数のパッケージで型を共有したい (スケールしやすい)"
 
-#: ../../user/templates/index.md:131
+#: ../../user/templates/index.md:139
 msgid "I want one package with backend + frontend (simpler)"
 msgstr "バックエンド + フロントエンドを 1 パッケージにしたい (シンプル)"
 
-#: ../../user/templates/index.md:159
+#: ../../user/templates/index.md:139
+msgid "I want server-rendered HTML with HTMX on Bun"
+msgstr "Bun 上で HTMX を使ったサーバレンダリング HTML を書きたい"
+
+#: ../../user/templates/index.md:166
 msgid "Day-Two Recipes"
 msgstr "2 日目のレシピ"
 
-#: ../../user/templates/index.md:161
+#: ../../user/templates/index.md:168
 msgid ""
 "When you need to extend a generated project, these recipes pick up where "
 "the template README leaves off:"
 msgstr "生成したプロジェクトを拡張する必要があるとき、以下のレシピがテンプレート README の先を補完します:"
 
-#: ../../user/templates/index.md:163
+#: ../../user/templates/index.md:170
 msgid ""
 "[Add a Hono endpoint](../recipes/add-hono-endpoint.md) — adding routes, "
 "validation, and shared types"
 msgstr "[Hono エンドポイントの追加](../recipes/add-hono-endpoint.md) — ルート、バリデーション、共有型の追加"
 
-#: ../../user/templates/index.md:164
+#: ../../user/templates/index.md:171
 msgid ""
 "[Add a GraphQL resolver](../recipes/add-graphql-resolver.md) — expanding "
 "the schema and regenerating docs"
 msgstr "[GraphQL リゾルバの追加](../recipes/add-graphql-resolver.md) — スキーマの拡張とドキュメントの再生成"
 
-#: ../../user/templates/index.md:165
+#: ../../user/templates/index.md:172
 msgid ""
 "[Set up Drizzle](../recipes/setup-drizzle.md) — schema changes, "
 "migrations, and Turso"
 msgstr "[Drizzle のセットアップ](../recipes/setup-drizzle.md) — スキーマ変更、マイグレーション、Turso"
 
-#: ../../user/templates/index.md:166
+#: ../../user/templates/index.md:173
 msgid ""
 "[Add OpenAPI docs](../recipes/add-openapi-docs.md) — wiring Scalar UI and"
 " Zod schemas"
@@ -454,11 +477,11 @@ msgstr ""
 "[OpenAPI ドキュメントの追加](../recipes/add-openapi-docs.md) — Scalar UI と Zod "
 "スキーマの配線"
 
-#: ../../user/templates/index.md:168
+#: ../../user/templates/index.md:175
 msgid "Notes on Vite+"
 msgstr "Vite+ に関する注意"
 
-#: ../../user/templates/index.md:170
+#: ../../user/templates/index.md:177
 msgid ""
 "The Vite+ based templates (Vite+ + React, Monorepo client, Full-Stack) "
 "pin `vite-plus` and `@voidzero-dev/vite-plus-core` at pre-1.0 versions. "

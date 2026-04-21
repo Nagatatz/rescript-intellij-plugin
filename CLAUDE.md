@@ -82,7 +82,7 @@ IDE 統合機能の完全なカテゴリ一覧・パッケージ対応・Extensi
 - パッケージ構成: `docs/repository-structure.md`
 - ユーザー向けサマリ: `README.md` の Features セクション
 
-Project Wizard (`wizard/`) は Package Manager と Validation Library (`zod` / `sury`) の選択 UI を備える。サーバー系 8 テンプレート（hono / hono-graphql / aws-lambda / cloudflare-workers / google-cloud-run / nextjs / full-stack / monorepo）は選択に応じて `Validation.res` を `variants/<key>/` から生成する。
+Project Wizard (`wizard/`) は Package Manager と Validation Library (`zod` / `sury`) の選択 UI を備える。サーバー系 9 テンプレート（hono / hono-graphql / aws-lambda / cloudflare-workers / google-cloud-run / nextjs / full-stack / monorepo / res-x）は選択に応じて `Validation.res` を `variants/<key>/` から生成する。res-x テンプレートは Bun + Vite + HTMX 前提で `package.json` の scripts に `bun` コマンドを直接書き込む。
 
 ## 開発規約
 
