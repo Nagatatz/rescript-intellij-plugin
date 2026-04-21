@@ -66,8 +66,8 @@ rescript-intellij-plugin/
 | `intention/` | Intention Actions（Wrap with、@genType 追加等） | `RescriptWrapWithIntention` |
 | `surround/` | Surround With | `RescriptSurroundDescriptor` |
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
-| `wizard/` | Project Wizard（新規プロジェクト作成） | `RescriptModuleBuilder` |
-| `wizard/templates/` | 12 種類のプロジェクトテンプレートファイル生成 | `BasicTemplateFiles`, `ViteReactTemplateFiles` 等 |
+| `wizard/` | Project Wizard（新規プロジェクト作成、Package Manager / Validation Library 選択 UI） | `RescriptModuleBuilder`, `PackageManager`, `ValidationLibrary` |
+| `wizard/templates/` | 12 種類のプロジェクトテンプレートファイル生成（サーバー系は zod/sury の `Validation.res` を variants/<key>/ から選択） | `BasicTemplateFiles`, `ViteReactTemplateFiles` 等 |
 | `generate/` | Code Generation（Generate メニュー） | `RescriptGenerateGroup` |
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |

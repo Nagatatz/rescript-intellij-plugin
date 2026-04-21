@@ -428,6 +428,7 @@ Create new ReScript projects directly from the IDE with 15 pre-configured templa
    - **Project name** and **location**
    - **Template** --- Choose from 15 project templates grouped by category
    - **Package manager** --- Choose between npm, pnpm, or yarn
+   - **Validation library** --- Choose between `zod` and `sury` for runtime HTTP body validation in server-side templates
 4. Click **Create** to generate the project
 
 ### Available Templates
@@ -510,6 +511,10 @@ my-project/
 **npm Library** includes `@genType` configuration for generating TypeScript type definitions.
 
 **CLI Tool** includes a `bin` entry in `package.json` and argument parsing via `Process.argv`.
+
+### Validation Library
+
+Server-side templates (Hono, Hono GraphQL, AWS Lambda, Cloudflare Workers, Google Cloud Run, Next.js, Full-Stack, Monorepo) ship a `Validation.res` module that parses incoming JSON bodies with either [`zod`](https://zod.dev) (default) or [`sury`](https://github.com/DZakh/sury) (ReScript-native, selected via the **Validation library** wizard option). Both backends expose the same function signature --- `parseXxx: JSON.t => result<T, string>` --- so route handlers call the same code regardless of the library selected. Validation failures short-circuit to HTTP 400 with a JSON error body.
 
 ### After Project Creation
 
