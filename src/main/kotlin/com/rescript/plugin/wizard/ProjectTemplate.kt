@@ -14,6 +14,7 @@ import com.rescript.plugin.wizard.templates.NextjsTemplateFiles
 import com.rescript.plugin.wizard.templates.NpmLibraryTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeCliTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeTemplateFiles
+import com.rescript.plugin.wizard.templates.ResXTemplateFiles
 import com.rescript.plugin.wizard.templates.TemplateContext
 import com.rescript.plugin.wizard.templates.ViteReactTemplateFiles
 
@@ -311,6 +312,23 @@ enum class ProjectTemplate(
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("src/shared", "src/server", "src/client"),
     ),
+    RES_X(
+        "res-x (HTMX on Bun)",
+        """
+        A server-driven web application built with res-x: JSX renders HTML on
+        Bun and HTMX drives client interactivity — no client-side framework.
+
+        Includes:
+        • rescript-x (Hjsx) + rescript-bun on Bun's native serve API
+        • Counter component with hx-post increment/decrement endpoints
+        • Todo form that validates input with zod or sury (selectable in Wizard)
+        • Vite + the res-x Vite plugin, HTMX loaded from CDN
+        • Vitest + coverage smoke test
+
+        Requires: Node.js 22+ for tooling, Bun 1.1+ (https://bun.sh) for running the server.
+        """.trimIndent(),
+        TemplateCategory.FULL_STACK,
+    ),
     ;
 
     /**
@@ -340,6 +358,7 @@ enum class ProjectTemplate(
             CLI_TOOL -> CliToolTemplateFiles.generate(ctx)
             MONOREPO -> MonorepoTemplateFiles.generate(ctx)
             FULL_STACK -> FullStackTemplateFiles.generate(ctx)
+            RES_X -> ResXTemplateFiles.generate(ctx)
         }
 
     /**

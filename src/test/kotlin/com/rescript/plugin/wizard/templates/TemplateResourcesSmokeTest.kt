@@ -32,6 +32,13 @@ class TemplateResourcesSmokeTest {
             "cmdDeploy",
             // npm-library/readme/publish.md
             "cmdTest",
+            // res-x: rescript.json uses {{name}} for the project name
+            "name",
+            // res-x: Layout.res and readme/htmx.md embed the pinned HTMX CDN version
+            "htmxVersion",
+            // res-x: readme/app.md, readme/project-layout.md, TodoForm.res describe
+            // the selected validation library (zod or sury) in prose
+            "validationLib",
         )
 
     @Test

@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 
 class ProjectTemplateTest {
     @Test
-    fun `enum has 15 entries`() {
-        assertEquals(15, ProjectTemplate.entries.size)
+    fun `enum has 16 entries`() {
+        assertEquals(16, ProjectTemplate.entries.size)
     }
 
     @Test
