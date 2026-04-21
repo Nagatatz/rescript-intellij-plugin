@@ -15,8 +15,8 @@
 - [x] Next.js 完全 ReScript 化の実現可能性検証（`NextServer.res` バインディング + `GreetRoute.res` + `route.ts` shim、コンパイル pass）
 - [x] per-template 方針決定（モジュール名 `Validation.res`、nextjs 完全 ReScript 化、`parseXxx: JSON.t => result<_, string>` 統一）
 - [x] `design.md` 改訂（sury 実機結果・Next.js 方針・`Validation.res` 命名を反映）
-- [ ] `tasklist.md` 改訂（本ドキュメント）の承認
-- [ ] `EnterWorktree` で `validation-library-per-template` worktree に入る
+- [x] `tasklist.md` 改訂（本ドキュメント）の承認
+- [x] `EnterWorktree` で `validation-library-per-template` worktree に入る
 
 ---
 
@@ -49,68 +49,68 @@
 
 ### コミット 3: `♻️ Extract hono Validation module with zod/sury variants`
 
-- [ ] `src/main/resources/templates/hono/variants/zod/src/Validation.res` 新規（既存 `Schema.res` の zod 部分を切り出し + `parseCreateUserInput: JSON.t => result<_, string>` 統一）
-- [ ] `src/main/resources/templates/hono/variants/sury/src/Validation.res` 新規
-- [ ] 既存 `src/main/resources/templates/hono/src/Schema.res` は drizzle 部分のみに縮小
-- [ ] `src/main/resources/templates/hono/src/Routes.res` を `Validation.parseCreateUserInput` 呼び出しに書き換え、400 エラー応答を追加
-- [ ] `HonoTemplateFiles.kt` で依存切替（`zod` or `sury` の 1 つのみ）+ `variants/<key>/src/Validation.res` のロード追加
-- [ ] `HonoTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
-- [ ] `TemplateResourcesSmokeTest.knownPlaceholders` を必要に応じて更新
-- [ ] ktlint / test pass
+- [x] `src/main/resources/templates/hono/variants/zod/src/Validation.res` 新規（既存 `Schema.res` の zod 部分を切り出し + `parseCreateUserInput: JSON.t => result<_, string>` 統一）
+- [x] `src/main/resources/templates/hono/variants/sury/src/Validation.res` 新規
+- [x] 既存 `src/main/resources/templates/hono/src/Schema.res` は drizzle 部分のみに縮小
+- [x] `src/main/resources/templates/hono/src/Routes.res` を `Validation.parseCreateUserInput` 呼び出しに書き換え、400 エラー応答を追加
+- [x] `HonoTemplateFiles.kt` で依存切替（`zod` or `sury` の 1 つのみ）+ `variants/<key>/src/Validation.res` のロード追加
+- [x] `HonoTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
+- [x] `TemplateResourcesSmokeTest.knownPlaceholders` を必要に応じて更新
+- [x] ktlint / test pass
 
 ### コミット 4: `♻️ Extract hono-graphql Validation module with zod/sury variants`
 
-- [ ] `templates/hono-graphql/variants/{zod,sury}/src/Validation.res` 新規
-- [ ] `templates/hono-graphql/src/Resolvers.res`（または該当箇所）を `Validation.parseXxx` 呼び出しに書き換え（mutation 入力検証を追加）
-- [ ] `HonoGraphqlTemplateFiles.kt` で依存切替 + リソース切替
-- [ ] `HonoGraphqlTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
+- [x] `templates/hono-graphql/variants/{zod,sury}/src/Validation.res` 新規
+- [x] `templates/hono-graphql/src/Resolvers.res`（または該当箇所）を `Validation.parseXxx` 呼び出しに書き換え（mutation 入力検証を追加）
+- [x] `HonoGraphqlTemplateFiles.kt` で依存切替 + リソース切替
+- [x] `HonoGraphqlTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
 
 ### コミット 5: `♻️ Add zod/sury Validation to AwsLambda server`
 
-- [ ] `templates/aws-lambda/variants/{zod,sury}/src/Validation.res` 新規（`createOrderPayload` 用 parseCreateOrderPayload）
-- [ ] `templates/aws-lambda/src/Server.res` の `await ctx->Hono.req->Hono.jsonBody` を `Validation.parseCreateOrderPayload` 呼び出しに置換し、400 応答を追加
-- [ ] `AwsLambdaTemplateFiles.kt` で依存切替 + リソース切替
-- [ ] `AwsLambdaTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
+- [x] `templates/aws-lambda/variants/{zod,sury}/src/Validation.res` 新規（`createOrderPayload` 用 parseCreateOrderPayload）
+- [x] `templates/aws-lambda/src/Server.res` の `await ctx->Hono.req->Hono.jsonBody` を `Validation.parseCreateOrderPayload` 呼び出しに置換し、400 応答を追加
+- [x] `AwsLambdaTemplateFiles.kt` で依存切替 + リソース切替
+- [x] `AwsLambdaTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
 
 ### コミット 6: `♻️ Add zod/sury Validation to CloudflareWorkers server`
 
-- [ ] `templates/cloudflare-workers/variants/{zod,sury}/src/Validation.res` 新規（`greetingPayload` 用 parseGreetingPayload）
-- [ ] `templates/cloudflare-workers/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
-- [ ] `CloudflareWorkersTemplateFiles.kt` / `CloudflareWorkersTemplateFilesTest.kt` を更新
+- [x] `templates/cloudflare-workers/variants/{zod,sury}/src/Validation.res` 新規（`greetingPayload` 用 parseGreetingPayload）
+- [x] `templates/cloudflare-workers/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
+- [x] `CloudflareWorkersTemplateFiles.kt` / `CloudflareWorkersTemplateFilesTest.kt` を更新
 
 ### コミット 7: `♻️ Add zod/sury Validation to GoogleCloudRun server`
 
-- [ ] `templates/google-cloud-run/variants/{zod,sury}/src/Validation.res` 新規（`echoPayload` 用 parseEchoPayload）
-- [ ] `templates/google-cloud-run/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
-- [ ] `GoogleCloudRunTemplateFiles.kt` / `GoogleCloudRunTemplateFilesTest.kt` を更新
+- [x] `templates/google-cloud-run/variants/{zod,sury}/src/Validation.res` 新規（`echoPayload` 用 parseEchoPayload）
+- [x] `templates/google-cloud-run/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
+- [x] `GoogleCloudRunTemplateFiles.kt` / `GoogleCloudRunTemplateFilesTest.kt` を更新
 
 ### コミット 8: `♻️ Convert Nextjs route handler to ReScript with zod/sury Validation`
 
-- [ ] `templates/nextjs/src/NextServer.res` 新規（共通バインディング）
-- [ ] `templates/nextjs/src/app/api/greet/GreetRoute.res` 新規（共通ハンドラ本体）
-- [ ] `templates/nextjs/src/app/api/greet/route.ts` を 1 行の re-export shim に置換
-- [ ] `templates/nextjs/variants/{zod,sury}/src/app/api/greet/Validation.res` 新規（`greetInput` 用 parseGreetInput）
-- [ ] `NextjsTemplateFiles.kt` で依存切替 + リソース切替
-- [ ] `NextjsTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
+- [x] `templates/nextjs/src/NextServer.res` 新規（共通バインディング）
+- [x] `templates/nextjs/src/app/api/greet/GreetRoute.res` 新規（共通ハンドラ本体）
+- [x] `templates/nextjs/src/app/api/greet/route.ts` を 1 行の re-export shim に置換
+- [x] `templates/nextjs/variants/{zod,sury}/src/app/api/greet/Validation.res` 新規（`greetInput` 用 parseGreetInput）
+- [x] `NextjsTemplateFiles.kt` で依存切替 + リソース切替
+- [x] `NextjsTemplateFilesTest.kt` で ZOD / SURY 両バリアントを検証
 
 ### コミット 9: `♻️ Add zod/sury Validation to FullStack server`
 
-- [ ] `templates/full-stack/variants/{zod,sury}/src/server/Validation.res` 新規（`createUserReq` 用 parseCreateUserReq）
-- [ ] `templates/full-stack/src/server/Routes.res` を Validation 呼び出しに書き換え + 400 応答
-- [ ] `FullStackTemplateFiles.kt` / `FullStackTemplateFilesTest.kt` を更新
+- [x] `templates/full-stack/variants/{zod,sury}/src/server/Validation.res` 新規（`createUserReq` 用 parseCreateUserReq）
+- [x] `templates/full-stack/src/server/Routes.res` を Validation 呼び出しに書き換え + 400 応答
+- [x] `FullStackTemplateFiles.kt` / `FullStackTemplateFilesTest.kt` を更新
 
 ### コミット 10: `♻️ Add zod/sury Validation to Monorepo server`
 
-- [ ] `templates/monorepo/variants/{zod,sury}/packages/server/src/Validation.res` 新規
-- [ ] `templates/monorepo/packages/server/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
-- [ ] `MonorepoTemplateFiles.kt` / `MonorepoTemplateFilesTest.kt` を更新
+- [x] `templates/monorepo/variants/{zod,sury}/packages/server/src/Validation.res` 新規
+- [x] `templates/monorepo/packages/server/src/Server.res` を Validation 呼び出しに書き換え + 400 応答
+- [x] `MonorepoTemplateFiles.kt` / `MonorepoTemplateFilesTest.kt` を更新
 
 ### コミット 11: `📝 Document validation library selection`
 
-- [ ] `CLAUDE.md` レイヤー 3 の `wizard/` 行に `ValidationLibrary` 選択の 1 文追記
-- [ ] `docs/repository-structure.md` の `wizard/` パッケージ欄に `ValidationLibrary` を追加
-- [ ] `sphinx-docs/user/features/advanced.md`（Wizard 節）に 1 段落追記
-- [ ] `sphinx-docs/locale/ja/LC_MESSAGES/**/*.po` を同期（`make gettext` → `make update-po` → `msgstr` 日本語化 → `make build-ja` 成功確認）
+- [x] `CLAUDE.md` レイヤー 3 の `wizard/` 行に `ValidationLibrary` 選択の 1 文追記
+- [x] `docs/repository-structure.md` の `wizard/` パッケージ欄に `ValidationLibrary` を追加
+- [x] `sphinx-docs/user/features/advanced.md`（Wizard 節）に 1 段落追記
+- [x] `sphinx-docs/locale/ja/LC_MESSAGES/**/*.po` を同期（`make gettext` → `make update-po` → `msgstr` 日本語化 → `make build-ja` 成功確認）
 
 ---
 
@@ -118,27 +118,27 @@
 
 各コミットで以下:
 
-- [ ] `./gradlew ktlintCheck` pass
-- [ ] `./gradlew clean buildPlugin` pass
-- [ ] `./gradlew test` pass
-- [ ] 新規クラス/object に英語 KDoc
-- [ ] deprecated API 新規利用なし
-- [ ] `TemplateResourcesSmokeTest` が pass（新プレースホルダ追加時は `knownPlaceholders` を更新）
-- [ ] 個別 `git add`、絵文字プレフィックス
+- [x] `./gradlew ktlintCheck` pass
+- [x] `./gradlew clean buildPlugin` pass
+- [x] `./gradlew test` pass
+- [x] 新規クラス/object に英語 KDoc
+- [x] deprecated API 新規利用なし
+- [x] `TemplateResourcesSmokeTest` が pass（新プレースホルダ追加時は `knownPlaceholders` を更新）
+- [x] 個別 `git add`、絵文字プレフィックス
 
 ---
 
 ## Phase 4: マージ前
 
-- [ ] 全 Phase 2 / Phase 3 項目が `[x]`
-- [ ] `./gradlew clean buildPlugin test koverVerify verifyPluginStructure` が pass
-- [ ] Kover minBound 85 を下回らない
-- [ ] `AskUserQuestion` でマージ可否を確認
-- [ ] `./gradlew runIde` による Wizard の手動確認（ユーザー側）
+- [x] 全 Phase 2 / Phase 3 項目が `[x]`
+- [x] `./gradlew clean buildPlugin test koverVerify verifyPluginStructure` が pass
+- [x] Kover minBound 85 を下回らない
+- [x] `AskUserQuestion` でマージ可否を確認
+- [x] `./gradlew runIde` による Wizard の手動確認（ユーザー側）
 
 ---
 
 ## Phase 5: マージ後
 
-- [ ] `git checkout main && git merge worktree-validation-library-selection`
-- [ ] worktree / ブランチ片付け（セッション終了で自動クリーンアップ）
+- [x] `git checkout main && git merge worktree-validation-library-per-template`
+- [x] worktree / ブランチ片付け（セッション終了で自動クリーンアップ）
