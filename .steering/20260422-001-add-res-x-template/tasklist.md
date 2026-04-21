@@ -58,12 +58,12 @@
 
 ## Phase 5: コミット
 
-- [ ] コミット 1: `🔧 Add TemplateVersions constants for res-x`
-- [ ] コミット 2: `✨ Add res-x (HTMX on Bun) project template`
-- [ ] コミット 3: `📝 Document res-x template`
-- [ ] コミット 4: `📝 Update tasklist for res-x template`（このファイルを `[x]` に更新）
+- [x] コミット 1: `🔧 Add TemplateVersions constants for res-x`
+- [x] コミット 2: `✨ Add res-x (HTMX on Bun) project template`
+- [x] コミット 3: `📝 Document res-x template across README, CLAUDE, and docs`
+- [x] コミット 4: `📝 Add steering docs for res-x template work`
 
 ## Phase 6: マージ
 
-- [ ] `AskUserQuestion` でマージ可否をユーザー確認
-- [ ] `main` に merge、`feature/res-x-template` ブランチを削除
+- [x] `AskUserQuestion` でマージ可否をユーザー確認
+- [x] `main` に merge、`feature/res-x-template` ブランチを削除
