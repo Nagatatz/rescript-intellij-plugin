@@ -1,6 +1,7 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -98,6 +99,37 @@ class MonorepoTemplateFilesTest {
         assertTrue(server.contains("/api/users"))
         assertTrue(server.contains("Db.select"))
         assertTrue(server.contains("Db.insert"))
+    }
+
+    @Test
+    fun `server validates POST body via Validation and returns 400 on Error`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val server = files["packages/server/src/Server.res"]!!
+        assertTrue(server.contains("Validation.parseCreateUserReq"))
+        assertTrue(server.contains("Hono.status(400)"))
+    }
+
+    @Test
+    fun `zod variant ships zod Validation module and zod dependency`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val validation = files["packages/server/src/Validation.res"]!!
+        assertTrue(validation.contains("@module(\"zod\")"))
+        assertTrue(validation.contains("parseCreateUserReq"))
+        val pkg = files["packages/server/package.json"]!!
+        assertTrue(pkg.contains("\"zod\": \"${TemplateVersions.ZOD}\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships sury Validation module and sury dependency`() {
+        val files =
+            MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM, ValidationLibrary.SURY))
+        val validation = files["packages/server/src/Validation.res"]!!
+        assertTrue(validation.contains("S.object"))
+        assertTrue(validation.contains("S.parseOrThrow"))
+        val pkg = files["packages/server/package.json"]!!
+        assertTrue(pkg.contains("\"sury\": \"${TemplateVersions.SURY}\""))
+        assertFalse(pkg.contains("\"zod\":"))
     }
 
     @Test

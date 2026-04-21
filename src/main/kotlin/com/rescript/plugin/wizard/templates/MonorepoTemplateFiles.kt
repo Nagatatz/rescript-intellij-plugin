@@ -2,17 +2,19 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a full-stack monorepo (Hono backend + Vite+ React frontend).
  *
  * Layout:
  * - `packages/shared` — shared ReScript types
- * - `packages/server` — Hono + Node.js HTTP server
+ * - `packages/server` — Hono + Node.js HTTP server with runtime body validation
  * - `packages/client` — React frontend bundled by Vite+
  *
  * Workspace plumbing adapts to the selected package manager: pnpm gets a `pnpm-workspace.yaml`
- * file, while npm/yarn use the `workspaces` field in the root `package.json`.
+ * file, while npm/yarn use the `workspaces` field in the root `package.json`. The server's
+ * `Validation.res` is selected from variants/{zod,sury}/ via [TemplateContext.validationLibrary].
  *
  * Static file content lives under `src/main/resources/templates/monorepo/` and is
  * loaded via [TemplateResourceLoader]; PM-specific dispatch (workspace deps, per-workspace
@@ -28,6 +30,7 @@ internal object MonorepoTemplateFiles {
         val devCommand = devScript(pm)
         val workspaceField = if (pm == PackageManager.PNPM) null else listOf("packages/*")
         val nameVar = mapOf("projectName" to name)
+        val variantKey = ctx.validationLibrary.variantKey()
 
         return buildMap {
             put(
@@ -91,16 +94,7 @@ internal object MonorepoTemplateFiles {
                 ProjectFileBuilders.packageJson(
                     name = "@$name/server",
                     type = "module",
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "@$name/shared" to workspaceDep(pm),
-                            "hono" to TemplateVersions.HONO,
-                            "@hono/node-server" to TemplateVersions.HONO_NODE_SERVER,
-                            "@libsql/client" to TemplateVersions.LIBSQL_CLIENT,
-                            "drizzle-orm" to TemplateVersions.DRIZZLE_ORM,
-                        ),
+                    dependencies = monorepoServerDependencies(ctx, name),
                     devDependencies =
                         linkedMapOf(
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
@@ -130,6 +124,12 @@ internal object MonorepoTemplateFiles {
             put(
                 "packages/server/src/Db.res",
                 TemplateResourceLoader.load("monorepo/packages/server/src/Db.res"),
+            )
+            put(
+                "packages/server/src/Validation.res",
+                TemplateResourceLoader.load(
+                    "monorepo/variants/$variantKey/packages/server/src/Validation.res",
+                ),
             )
             put(
                 "packages/server/src/Server.res",
@@ -267,6 +267,25 @@ internal object MonorepoTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun monorepoServerDependencies(
+        ctx: TemplateContext,
+        name: String,
+    ): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@$name/shared"] = workspaceDep(ctx.packageManager)
+        deps["hono"] = TemplateVersions.HONO
+        deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
+        when (ctx.validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        deps["@libsql/client"] = TemplateVersions.LIBSQL_CLIENT
+        deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM
+        return deps
+    }
 
     private fun devScript(pm: PackageManager): String {
         val client = perWorkspaceCmd(pm, "client", "dev")
