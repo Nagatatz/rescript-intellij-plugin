@@ -126,6 +126,8 @@ internal object ResXTemplateFiles {
                                 mapOf("validationLib" to validationLabel),
                             ),
                         "Deploy" to TemplateResourceLoader.load("res-x/readme/deploy.md"),
+                        "Persistence" to
+                            TemplateResourceLoader.load("res-x/readme/persistence.md"),
                     ),
                 extraPrerequisites = listOf("Bun 1.3 or later (install from https://bun.sh)"),
             )

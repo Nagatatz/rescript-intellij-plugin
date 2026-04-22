@@ -260,6 +260,14 @@ class ResXTemplateFilesTest {
     }
 
     @Test
+    fun `README documents a Persistence day-two guide pointing at Bun SQLite`() {
+        val readme = ResXTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("## Persistence"))
+        assertTrue(readme.contains("bun:sqlite"))
+        assertTrue(readme.contains("data/app.db"))
+    }
+
+    @Test
     fun `ships common project files nvmrc, LICENSE, gitignore, editorconfig, CI`() {
         val files = ResXTemplateFiles.generate(ctx)
         assertTrue(files.containsKey(".nvmrc"))
