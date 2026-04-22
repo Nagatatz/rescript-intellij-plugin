@@ -1,5 +1,9 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.ApiStrategy
+import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ProjectTemplate
+import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -56,6 +60,42 @@ class TemplateResourcesSmokeTest {
                 }
             }
         assertEquals(emptyList<String>(), unreadable, "unreadable resources")
+    }
+
+    @Test
+    fun `no unresolved handlebars placeholders survive in any generated file`() {
+        // Match only identifier-shaped placeholders so JSX style records like
+        // `{{padding: "2rem"}}` are not flagged.
+        val residuePattern = Regex("""\{\{[a-zA-Z][a-zA-Z0-9_]*}}""")
+        val contexts =
+            listOf(
+                TemplateContext("demo-zod", PackageManager.PNPM, ValidationLibrary.ZOD),
+                TemplateContext("demo-sury", PackageManager.PNPM, ValidationLibrary.SURY),
+                TemplateContext(
+                    "demo-graphql",
+                    PackageManager.PNPM,
+                    ValidationLibrary.ZOD,
+                    ApiStrategy.GRAPHQL,
+                ),
+            )
+        val violations = mutableListOf<String>()
+        ProjectTemplate.entries.forEach { template ->
+            contexts.forEach { ctx ->
+                val files = template.generateFiles(ctx)
+                files.forEach { (path, content) ->
+                    residuePattern.findAll(content).forEach { match ->
+                        violations.add(
+                            "$template (${ctx.validationLibrary}/${ctx.apiStrategy}) @ $path: ${match.value}",
+                        )
+                    }
+                }
+            }
+        }
+        assertTrue(
+            violations.isEmpty(),
+            "Unresolved {{placeholder}} strings found in generated files:\n" +
+                violations.joinToString("\n") { "  $it" },
+        )
     }
 
     @Test
