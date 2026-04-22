@@ -1,12 +1,9 @@
 // Runtime validation for Todo form input using sury (rescript-struct).
 //
-// `parseTodoInput` takes the two raw form fields as strings and either returns
-// a normalized record (description becomes `None` when blank) or an error
-// message ready to surface back through the HTMX response.
-type todoInput = {
-  name: string,
-  description: option<string>,
-}
+// The schema owns the trim and min/max rules, so `parseTodoInput` only
+// needs to collapse the (already-trimmed) description to `None` when the
+// user left it blank. Any schema failure surfaces through `S.Error` with a
+// human-readable message ready for the HTMX response.
 
 type rawInput = {
   name: string,
@@ -14,32 +11,38 @@ type rawInput = {
 }
 
 let rawInputSchema: S.t<rawInput> = S.object(s => {
-  name: s.field("name", S.string),
-  description: s.field("description", S.string),
+  name: s.field(
+    "name",
+    S.string
+    ->S.trim
+    ->S.min(1, ~message="Name must not be empty")
+    ->S.max(80, ~message="Name must be 80 characters or fewer"),
+  ),
+  description: s.field(
+    "description",
+    S.string
+    ->S.trim
+    ->S.max(240, ~message="Description must be 240 characters or fewer"),
+  ),
 })
 
+type todoInput = {
+  name: string,
+  description: option<string>,
+}
+
 let parseTodoInput = (~name: string, ~description: string): result<todoInput, string> => {
-  let trimmedName = name->String.trim
-  let trimmedDescription = description->String.trim
-  if trimmedName === "" {
-    Error("Name must not be empty")
-  } else if String.length(trimmedName) > 80 {
-    Error("Name must be 80 characters or fewer")
-  } else if String.length(trimmedDescription) > 240 {
-    Error("Description must be 240 characters or fewer")
-  } else {
-    let payload = {
-      "name": trimmedName,
-      "description": trimmedDescription,
-    }
-    try {
-      let _: rawInput = payload->Obj.magic->S.parseOrThrow(rawInputSchema)
-      Ok({
-        name: trimmedName,
-        description: trimmedDescription === "" ? None : Some(trimmedDescription),
-      })
-    } catch {
-    | S.Error(err) => Error(err.message)
-    }
+  let payload = {
+    "name": name,
+    "description": description,
+  }
+  try {
+    let data = payload->Obj.magic->S.parseOrThrow(rawInputSchema)
+    Ok({
+      name: data.name,
+      description: data.description === "" ? None : Some(data.description),
+    })
+  } catch {
+  | S.Error(err) => Error(err.message)
   }
 }

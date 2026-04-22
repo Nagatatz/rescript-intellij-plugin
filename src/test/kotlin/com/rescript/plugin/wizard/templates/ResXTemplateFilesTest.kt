@@ -183,8 +183,26 @@ class ResXTemplateFilesTest {
     fun `sury variant constructs payload via a ReScript object literal, not raw template`() {
         val validation = ResXTemplateFiles.generate(suryCtx)["src/Validation.res"]!!
         assertFalse(validation.contains("%raw(`"))
-        assertTrue(validation.contains("\"name\": trimmedName"))
-        assertTrue(validation.contains("\"description\": trimmedDescription"))
+        assertTrue(validation.contains("\"name\": name"))
+        assertTrue(validation.contains("\"description\": description"))
+    }
+
+    @Test
+    fun `sury variant drives length checks through the schema via S trim and min and max`() {
+        val validation = ResXTemplateFiles.generate(suryCtx)["src/Validation.res"]!!
+        assertTrue(validation.contains("S.trim"))
+        assertTrue(validation.contains("S.min(1, ~message=\"Name must not be empty\")"))
+        assertTrue(validation.contains("S.max(80, ~message=\"Name must be 80 characters or fewer\")"))
+        assertTrue(
+            validation.contains(
+                "S.max(240, ~message=\"Description must be 240 characters or fewer\")",
+            ),
+        )
+        assertFalse(
+            validation.contains("if trimmedName"),
+            "length checks should live in the schema, not the app layer",
+        )
+        assertFalse(validation.contains("String.length(trimmedName)"))
     }
 
     @Test
