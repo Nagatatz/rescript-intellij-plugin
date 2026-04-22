@@ -152,6 +152,21 @@ class ResXTemplateFilesTest {
     }
 
     @Test
+    fun `zod variant drives length checks through the schema and safeParse`() {
+        val validation = ResXTemplateFiles.generate(ctx)["src/Validation.res"]!!
+        assertTrue(validation.contains("->trim"))
+        assertTrue(validation.contains("->min(1, \"Name must not be empty\")"))
+        assertTrue(validation.contains("->max(80, \"Name must be 80 characters or fewer\")"))
+        assertTrue(validation.contains("->max(240, \"Description must be 240 characters or fewer\")"))
+        assertTrue(validation.contains("safeParse"))
+        assertFalse(
+            validation.contains("if trimmedName"),
+            "length checks should live in the schema, not the app layer",
+        )
+        assertFalse(validation.contains("String.length(trimmedName)"))
+    }
+
+    @Test
     fun `sury variant ships sury schema and declares the sury npm dependency`() {
         val files = ResXTemplateFiles.generate(suryCtx)
         val validation = files["src/Validation.res"]!!
