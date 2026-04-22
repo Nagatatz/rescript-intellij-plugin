@@ -13,8 +13,8 @@
     "module": "Hjsx",
     "version": 4
   },
-  "bs-dependencies": ["@rescript/core", "rescript-x", "rescript-bun"],
-  "bsc-flags": [
+  "dependencies": ["@rescript/core", "rescript-x", "rescript-bun"],
+  "compiler-flags": [
     "-open RescriptCore",
     "-open RescriptBun",
     "-open RescriptBun.Globals",

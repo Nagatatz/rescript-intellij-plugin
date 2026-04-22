@@ -28,10 +28,12 @@ let parseTodoInput = (~name: string, ~description: string): result<todoInput, st
   } else if String.length(trimmedDescription) > 240 {
     Error("Description must be 240 characters or fewer")
   } else {
-    let payload: JSON.t =
-      %raw(`{name: trimmedName, description: trimmedDescription}`)
+    let payload = {
+      "name": trimmedName,
+      "description": trimmedDescription,
+    }
     try {
-      let _: rawInput = payload->S.parseOrThrow(rawInputSchema)
+      let _: rawInput = payload->Obj.magic->S.parseOrThrow(rawInputSchema)
       Ok({
         name: trimmedName,
         description: trimmedDescription === "" ? None : Some(trimmedDescription),

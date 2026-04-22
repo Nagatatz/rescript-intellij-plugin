@@ -4,7 +4,7 @@ import resXVitePlugin from "rescript-x/res-x-vite-plugin.mjs"
 export default defineConfig({
   plugins: [
     resXVitePlugin({
-      clientDirs: ["client"],
+      clientDirs: [],
     }),
   ],
   server: {

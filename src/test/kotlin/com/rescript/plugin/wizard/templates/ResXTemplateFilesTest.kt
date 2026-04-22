@@ -23,9 +23,37 @@ class ResXTemplateFilesTest {
     fun `package json scripts invoke bun directly for server commands`() {
         val pkg = ResXTemplateFiles.generate(ctx)["package.json"]!!
         assertTrue(pkg.contains("\"start\": \"bun run src/App.res.mjs\""))
-        assertTrue(pkg.contains("\"dev\": \"bun --watch run src/App.res.mjs\""))
         assertTrue(pkg.contains("\"build\": \"vite build\""))
         assertFalse(pkg.contains("\"start\": \"node "))
+    }
+
+    @Test
+    fun `dev script launches rescript watcher and bun watcher via concurrently`() {
+        val pkg = ResXTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"dev\": \"concurrently"))
+        assertTrue(pkg.contains("rescript -w"))
+        assertTrue(pkg.contains("bun --watch run src/App.res.mjs"))
+    }
+
+    @Test
+    fun `package json declares concurrently devDependency`() {
+        val pkg = ResXTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"concurrently\": \"${TemplateVersions.CONCURRENTLY}\""))
+    }
+
+    @Test
+    fun `README mentions the Bun prerequisite`() {
+        val readme = ResXTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("## Prerequisites"))
+        assertTrue(readme.contains("Bun 1.3 or later"))
+        assertTrue(readme.contains("https://bun.sh"))
+    }
+
+    @Test
+    fun `CI workflow installs Bun via oven-sh setup action`() {
+        val yaml = ResXTemplateFiles.generate(ctx)[".github/workflows/ci.yml"]!!
+        assertTrue(yaml.contains("oven-sh/setup-bun"))
+        assertTrue(yaml.contains("bun-version: latest"))
     }
 
     @Test
@@ -77,6 +105,27 @@ class ResXTemplateFilesTest {
     }
 
     @Test
+    fun `Layout interpolates children through JSX braces rather than as a literal`() {
+        val layout = ResXTemplateFiles.generate(ctx)["src/Layout.res"]!!
+        assertTrue(layout.contains("{children}"))
+        assertFalse(layout.contains("<main> children </main>"))
+    }
+
+    @Test
+    fun `TodoForm avoids React-style key attributes that Hjsx cannot render`() {
+        val form = ResXTemplateFiles.generate(ctx)["src/TodoForm.res"]!!
+        assertFalse(form.contains("key={todo.name}"))
+        assertFalse(form.contains(" key="))
+    }
+
+    @Test
+    fun `TodoForm reads form fields through the supported getString helper`() {
+        val form = ResXTemplateFiles.generate(ctx)["src/TodoForm.res"]!!
+        assertTrue(form.contains("ResX.FormDataHelpers.getString"))
+        assertFalse(form.contains("ResX.FormDataHelpers.maybeString"))
+    }
+
+    @Test
     fun `zod variant ships zod schema and declares the zod npm dependency`() {
         val files = ResXTemplateFiles.generate(ctx)
         val validation = files["src/Validation.res"]!!
@@ -101,6 +150,14 @@ class ResXTemplateFilesTest {
     }
 
     @Test
+    fun `sury variant constructs payload via a ReScript object literal, not raw template`() {
+        val validation = ResXTemplateFiles.generate(suryCtx)["src/Validation.res"]!!
+        assertFalse(validation.contains("%raw(`"))
+        assertTrue(validation.contains("\"name\": trimmedName"))
+        assertTrue(validation.contains("\"description\": trimmedDescription"))
+    }
+
+    @Test
     fun `README describes selected validation library and lists res-x sections`() {
         val zodReadme = ResXTemplateFiles.generate(ctx)["README.md"]!!
         assertTrue(zodReadme.contains("zod"))
@@ -117,6 +174,22 @@ class ResXTemplateFilesTest {
         val config = ResXTemplateFiles.generate(ctx)["vite.config.js"]!!
         assertTrue(config.contains("rescript-x/res-x-vite-plugin.mjs"))
         assertTrue(config.contains("resXVitePlugin"))
+    }
+
+    @Test
+    fun `vite config leaves clientDirs empty to match the generated project layout`() {
+        val config = ResXTemplateFiles.generate(ctx)["vite.config.js"]!!
+        assertTrue(config.contains("clientDirs: []"))
+        assertFalse(config.contains("clientDirs: [\"client\"]"))
+    }
+
+    @Test
+    fun `rescript_json uses the non-deprecated dependencies and compiler-flags fields`() {
+        val config = ResXTemplateFiles.generate(ctx)["rescript.json"]!!
+        assertTrue(config.contains("\"dependencies\""))
+        assertTrue(config.contains("\"compiler-flags\""))
+        assertFalse(config.contains("\"bs-dependencies\""))
+        assertFalse(config.contains("\"bsc-flags\""))
     }
 
     @Test

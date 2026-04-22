@@ -57,6 +57,7 @@ internal object ResXTemplateFiles {
                         dependencies = resXDependencies(ctx.validationLibrary),
                         devDependencies =
                             linkedMapOf(
+                                "concurrently" to TemplateVersions.CONCURRENTLY,
                                 "vite" to TemplateVersions.VITE,
                                 "vitest" to TemplateVersions.VITEST,
                                 "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
@@ -64,7 +65,7 @@ internal object ResXTemplateFiles {
                         scripts =
                             linkedMapOf(
                                 "start" to "bun run src/App.res.mjs",
-                                "dev" to "bun --watch run src/App.res.mjs",
+                                "dev" to "concurrently \"rescript -w\" \"bun --watch run src/App.res.mjs\"",
                                 "build" to "vite build",
                                 "test" to "vitest run",
                                 "test:coverage" to "vitest run --coverage",
@@ -98,7 +99,7 @@ internal object ResXTemplateFiles {
                 description = resXDescription(ctx.validationLibrary),
                 scripts =
                     listOf(
-                        "dev" to "Run the Bun server in watch mode",
+                        "dev" to "Run ReScript and the Bun server together in watch mode",
                         "start" to "Run the compiled Bun server once",
                         "build" to "Build client assets with Vite",
                         "test" to "Run Vitest",
@@ -122,6 +123,7 @@ internal object ResXTemplateFiles {
                                 mapOf("validationLib" to validationLabel),
                             ),
                     ),
+                extraPrerequisites = listOf("Bun 1.3 or later (install from https://bun.sh)"),
             )
         files[".nvmrc"] = CommonFiles.nvmrc()
         files["LICENSE"] = CommonFiles.mitLicense(holder = ctx.projectName)
@@ -131,7 +133,8 @@ internal object ResXTemplateFiles {
                 extra = listOf("dist/", "build/", ".env", ".res-x-cache/"),
             )
         files[".editorconfig"] = CommonFiles.editorconfig()
-        files[".github/workflows/ci.yml"] = CommonFiles.ciWorkflow(ctx, hasTest = true)
+        files[".github/workflows/ci.yml"] =
+            CommonFiles.ciWorkflow(ctx, hasTest = true, setupBun = true)
         return files
     }
 

@@ -62,6 +62,35 @@ class CommonFilesTest {
     }
 
     @Test
+    fun `readme appends extra prerequisites when provided`() {
+        val readme =
+            CommonFiles.readme(
+                ctx = pnpmCtx,
+                description = "x",
+                scripts = emptyList(),
+                extraPrerequisites = listOf("Bun 1.3 or later (install from https://bun.sh)"),
+            )
+        val bunIdx = readme.indexOf("- Bun 1.3 or later")
+        val gettingStartedIdx = readme.indexOf("## Getting Started")
+        assertTrue(bunIdx > 0, "extra prerequisite should appear in the Prerequisites section")
+        assertTrue(
+            bunIdx < gettingStartedIdx,
+            "extra prerequisite must be emitted before Getting Started",
+        )
+    }
+
+    @Test
+    fun `readme omits extra prerequisites section when list is empty`() {
+        val readme =
+            CommonFiles.readme(
+                ctx = pnpmCtx,
+                description = "x",
+                scripts = emptyList(),
+            )
+        assertFalse(readme.contains("- Bun"))
+    }
+
+    @Test
     fun `readme appends extra sections verbatim`() {
         val readme =
             CommonFiles.readme(
@@ -114,6 +143,19 @@ class CommonFilesTest {
         assertTrue(yaml.contains("pnpm exec rescript"))
         assertTrue(yaml.contains("pnpm build"))
         assertFalse(yaml.contains("pnpm test"), "test step should be skipped when hasTest is false")
+    }
+
+    @Test
+    fun `ci workflow emits oven-sh setup-bun when setupBun is true`() {
+        val yaml = CommonFiles.ciWorkflow(pnpmCtx, setupBun = true)
+        assertTrue(yaml.contains("oven-sh/setup-bun@v2"))
+        assertTrue(yaml.contains("bun-version: latest"))
+    }
+
+    @Test
+    fun `ci workflow omits setup-bun by default`() {
+        val yaml = CommonFiles.ciWorkflow(pnpmCtx)
+        assertFalse(yaml.contains("oven-sh/setup-bun"))
     }
 
     @Test

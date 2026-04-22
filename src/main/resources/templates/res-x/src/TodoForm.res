@@ -16,7 +16,7 @@ let renderList = () =>
   <ul id={listId}>
     {Hjsx.array(
       todos.contents->Array.map(todo =>
-        <li key={todo.name}>
+        <li>
           <strong> {Hjsx.string(todo.name)} </strong>
           {switch todo.description {
           | Some(desc) when desc !== "" => <span> {Hjsx.string(" — " ++ desc)} </span>
@@ -27,26 +27,36 @@ let renderList = () =>
     )}
   </ul>
 
+// Forward-declare the renderer so `onSubmit` (which re-renders the form on
+// validation failure) and `renderForm` (which wires `hx-post` to `onSubmit`)
+// can reference each other. ReScript's `let rec` rejects a function-call RHS
+// like `Handler.handler.hxPost(...)`, so a ref cell is the minimal workaround.
+let renderFormRef: ref<option<(~error: string=?, unit) => Jsx.element>> = ref(None)
+
 let onSubmit = Handler.handler.hxPost(
   "/todos",
   ~securityPolicy=ResX.SecurityPolicy.allow,
   ~handler=async ({request, requestController}) => {
     let formData = await request->Request.formData
     let rawName =
-      formData->ResX.FormDataHelpers.maybeString("name")->Option.getOr("")
+      formData->ResX.FormDataHelpers.getString("name")->Option.getOr("")
     let rawDescription =
-      formData->ResX.FormDataHelpers.maybeString("description")->Option.getOr("")
+      formData->ResX.FormDataHelpers.getString("description")->Option.getOr("")
     switch Validation.parseTodoInput(~name=rawName, ~description=rawDescription) {
     | Ok({name, description}) =>
       todos := todos.contents->Array.concat([{name, description}])
       renderList()
     | Error(msg) =>
       requestController.setStatus(400)
-      renderFormWithError(msg)
+      switch renderFormRef.contents {
+      | Some(render) => render(~error=msg, ())
+      | None => Hjsx.null
+      }
     }
   },
 )
-and renderFormWithError = (msg: string) =>
+
+let renderForm = (~error=?, ()) =>
   <form
     id={formId}
     hxPost={onSubmit}
@@ -61,25 +71,13 @@ and renderFormWithError = (msg: string) =>
       <input type_="text" name="description" maxLength=240 />
     </label>
     <button type_="submit"> {Hjsx.string("Add todo")} </button>
-    <p style="color:crimson"> {Hjsx.string(msg)} </p>
+    {switch error {
+    | Some(msg) => <p style={{color: "crimson"}}> {Hjsx.string(msg)} </p>
+    | None => Hjsx.null
+    }}
   </form>
 
-let renderForm = () =>
-  <form
-    id={formId}
-    hxPost={onSubmit}
-    hxSwap={ResX.Htmx.Swap.make(OuterHTML)}
-    hxTarget={ResX.Htmx.Target.make(CssSelector(`#${formId}`))}>
-    <label>
-      {Hjsx.string("Name ")}
-      <input type_="text" name="name" required={true} maxLength=80 />
-    </label>
-    <label>
-      {Hjsx.string("Description ")}
-      <input type_="text" name="description" maxLength=240 />
-    </label>
-    <button type_="submit"> {Hjsx.string("Add todo")} </button>
-  </form>
+renderFormRef := Some(renderForm)
 
 @jsx.component
 let make = () =>

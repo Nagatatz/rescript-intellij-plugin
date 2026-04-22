@@ -76,12 +76,15 @@ object CommonFiles {
      * @param description short description shown under the title
      * @param scripts list of (script name, human-readable description) pairs to document
      * @param extraSections optional extra Markdown sections appended after the scripts table
+     * @param extraPrerequisites extra bullet lines appended to the Prerequisites section
+     *   (e.g. "Bun 1.3 or later (install from https://bun.sh)" for the res-x template)
      */
     fun readme(
         ctx: TemplateContext,
         description: String,
         scripts: List<Pair<String, String>>,
         extraSections: List<Pair<String, String>> = emptyList(),
+        extraPrerequisites: List<String> = emptyList(),
     ): String =
         buildString {
             appendLine("# ${ctx.projectName}")
@@ -92,6 +95,7 @@ object CommonFiles {
             appendLine()
             appendLine("- Node.js ${TemplateVersions.NODE_ENGINE.removePrefix(">=")}+")
             appendLine("- ${packageManagerName(ctx.packageManager)} (managed via Corepack)")
+            extraPrerequisites.forEach { appendLine("- $it") }
             appendLine()
             appendLine("## Getting Started")
             appendLine()
@@ -135,11 +139,14 @@ object CommonFiles {
      * @param ctx template context (used for package-manager-specific install step)
      * @param hasBuild whether the project exposes a top-level `build` script to run
      * @param hasTest whether the project exposes a top-level `test` script to run
+     * @param setupBun when true, inserts an `oven-sh/setup-bun` step after `setup-node`
+     *   so templates whose scripts invoke `bun` (e.g. res-x) have the binary available
      */
     fun ciWorkflow(
         ctx: TemplateContext,
         hasBuild: Boolean = false,
         hasTest: Boolean = false,
+        setupBun: Boolean = false,
     ): String =
         buildString {
             appendLine("name: CI")
@@ -158,6 +165,11 @@ object CommonFiles {
             appendLine("      - uses: actions/setup-node@v4")
             appendLine("        with:")
             appendLine("          node-version: 20")
+            if (setupBun) {
+                appendLine("      - uses: oven-sh/setup-bun@v2")
+                appendLine("        with:")
+                appendLine("          bun-version: latest")
+            }
             if (ctx.packageManager == PackageManager.PNPM) {
                 appendLine("      - uses: pnpm/action-setup@v4")
                 appendLine("        with:")

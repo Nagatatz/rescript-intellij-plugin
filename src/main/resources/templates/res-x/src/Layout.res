@@ -14,7 +14,7 @@ let make = (~title: string, ~children: Hjsx.element) => {
       />
     </head>
     <body>
-      <main> children </main>
+      <main> {children} </main>
     </body>
   </html>
 }
