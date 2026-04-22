@@ -49,7 +49,7 @@ let db: 'db = drizzle(client)
 @module("drizzle-orm") external isNotNull: 'col => 'expr = "isNotNull"
 
 // --- Boolean combinators -----------------------------------------------------
-@module("drizzle-orm") @variadic external and: array<'expr> => 'expr = "and"
+@module("drizzle-orm") @variadic external \"and": array<'expr> => 'expr = "and"
 @module("drizzle-orm") @variadic external or: array<'expr> => 'expr = "or"
 @module("drizzle-orm") external not: 'expr => 'expr = "not"
 

@@ -274,7 +274,7 @@ class ProjectTemplateTest {
         val db = ProjectTemplate.HONO.generateFiles("demo")["src/Db.res"]!!
         listOf(
             "eq",
-            "and",
+            "\\\"and\"",
             "or",
             "inArray",
             "where",
