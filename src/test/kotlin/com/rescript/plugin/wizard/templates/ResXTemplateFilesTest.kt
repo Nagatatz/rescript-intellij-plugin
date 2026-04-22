@@ -36,6 +36,21 @@ class ResXTemplateFilesTest {
     }
 
     @Test
+    fun `compile script invokes bun build for a standalone binary`() {
+        val pkg = ResXTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(
+            pkg.contains("\"compile\": \"bun build --compile src/App.res.mjs --outfile dist/app\""),
+        )
+    }
+
+    @Test
+    fun `README documents the compile script alongside dev and build`() {
+        val readme = ResXTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("pnpm compile"))
+        assertTrue(readme.contains("standalone binary"))
+    }
+
+    @Test
     fun `package json declares concurrently devDependency`() {
         val pkg = ResXTemplateFiles.generate(ctx)["package.json"]!!
         assertTrue(pkg.contains("\"concurrently\": \"${TemplateVersions.CONCURRENTLY}\""))
