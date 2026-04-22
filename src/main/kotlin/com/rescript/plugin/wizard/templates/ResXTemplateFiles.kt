@@ -93,6 +93,7 @@ internal object ResXTemplateFiles {
                 "src/__tests__/App.test.mjs" to
                     TemplateResourceLoader.load("res-x/src/__tests__/App.test.mjs"),
                 "vite.config.js" to TemplateResourceLoader.load("res-x/vite.config.js"),
+                "Dockerfile" to TemplateResourceLoader.load("res-x/Dockerfile"),
             )
         files["README.md"] =
             CommonFiles.readme(
@@ -124,6 +125,7 @@ internal object ResXTemplateFiles {
                                 "res-x/readme/project-layout.md",
                                 mapOf("validationLib" to validationLabel),
                             ),
+                        "Deploy" to TemplateResourceLoader.load("res-x/readme/deploy.md"),
                     ),
                 extraPrerequisites = listOf("Bun 1.3 or later (install from https://bun.sh)"),
             )

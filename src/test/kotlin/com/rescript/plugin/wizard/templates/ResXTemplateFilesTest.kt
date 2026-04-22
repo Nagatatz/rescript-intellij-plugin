@@ -241,6 +241,25 @@ class ResXTemplateFilesTest {
     }
 
     @Test
+    fun `template ships a Dockerfile based on the oven bun image`() {
+        val files = ResXTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("Dockerfile"))
+        val dockerfile = files["Dockerfile"]!!
+        assertTrue(dockerfile.contains("FROM oven/bun:1"))
+        assertTrue(dockerfile.contains("bunx rescript"))
+        assertTrue(dockerfile.contains("CMD [\"bun\", \"run\", \"src/App.res.mjs\"]"))
+        assertTrue(dockerfile.contains("EXPOSE 4444"))
+    }
+
+    @Test
+    fun `README documents the Deploy section with docker build instructions`() {
+        val readme = ResXTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("## Deploy"))
+        assertTrue(readme.contains("docker build"))
+        assertTrue(readme.contains("docker run"))
+    }
+
+    @Test
     fun `ships common project files nvmrc, LICENSE, gitignore, editorconfig, CI`() {
         val files = ResXTemplateFiles.generate(ctx)
         assertTrue(files.containsKey(".nvmrc"))
