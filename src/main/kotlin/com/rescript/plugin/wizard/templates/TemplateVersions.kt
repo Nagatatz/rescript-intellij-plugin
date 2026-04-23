@@ -29,7 +29,7 @@ object TemplateVersions {
     const val REACT = "^19.2.5"
     const val REACT_DOM = "^19.2.5"
     const val REACT_TYPES = "^19.2.14"
-    const val REACT_DOM_TYPES = "^19.2.14"
+    const val REACT_DOM_TYPES = "^19.2.3"
 
     // Backend
     const val HONO = "^4.12.14"
