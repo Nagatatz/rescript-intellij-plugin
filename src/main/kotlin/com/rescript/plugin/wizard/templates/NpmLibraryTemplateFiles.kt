@@ -42,6 +42,26 @@ internal object NpmLibraryTemplateFiles {
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to ctx.nodeEngine),
+                    // Entry points surface the compiled ESM + genType .d.ts so consumers
+                    // can `import { greet } from "<pkg>"` with real types. `files`
+                    // restricts the published tarball to runtime / type artifacts.
+                    main = "./src/Index.res.mjs",
+                    types = "./src/Index.gen.d.ts",
+                    exports =
+                        linkedMapOf(
+                            "." to
+                                linkedMapOf(
+                                    "types" to "./src/Index.gen.d.ts",
+                                    "import" to "./src/Index.res.mjs",
+                                ),
+                        ),
+                    files =
+                        listOf(
+                            "src/**/*.res.mjs",
+                            "src/**/*.res",
+                            "src/**/*.gen.d.ts",
+                            "src/**/*.gen.tsx",
+                        ),
                     dependencies = npmLibraryDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(

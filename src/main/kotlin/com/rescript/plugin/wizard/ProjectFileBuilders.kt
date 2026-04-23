@@ -78,6 +78,12 @@ object ProjectFileBuilders {
      * @param isPrivate whether to set "private": true
      * @param packageManager optional Corepack-style spec (e.g. `pnpm@9.12.0`)
      * @param engines optional map of engine constraints (e.g. `node` → `>=20`)
+     * @param main optional package entry point (e.g. `./src/Index.res.mjs`)
+     * @param types optional `.d.ts` entry point (e.g. `./src/Index.gen.d.ts`)
+     * @param exports optional pre-rendered `exports` field body (JSON object; must not
+     *                 include the surrounding `{}` braces so that the caller can embed
+     *                 a subpath map such as `".": {"types": "...", "import": "..."}`)
+     * @param files optional `files` allowlist controlling what ships in the npm tarball
      * @return the JSON content as a string
      */
     fun packageJson(
@@ -91,6 +97,10 @@ object ProjectFileBuilders {
         isPrivate: Boolean = false,
         packageManager: String? = null,
         engines: Map<String, String> = emptyMap(),
+        main: String? = null,
+        types: String? = null,
+        exports: Map<String, Map<String, String>>? = null,
+        files: List<String>? = null,
     ): String =
         buildString {
             appendLine("{")
@@ -109,6 +119,31 @@ object ProjectFileBuilders {
                 appendLine("  \"engines\": {")
                 appendJsonObject(engines, this)
                 appendLine("  },")
+            }
+            if (main != null) {
+                appendLine("  \"main\": \"$main\",")
+            }
+            if (types != null) {
+                appendLine("  \"types\": \"$types\",")
+            }
+            if (exports != null) {
+                appendLine("  \"exports\": {")
+                val subpaths = exports.entries.toList()
+                subpaths.forEachIndexed { sIdx, (subpath, conditions) ->
+                    val sComma = if (sIdx < subpaths.size - 1) "," else ""
+                    appendLine("    \"$subpath\": {")
+                    val condList = conditions.entries.toList()
+                    condList.forEachIndexed { cIdx, (cond, target) ->
+                        val cComma = if (cIdx < condList.size - 1) "," else ""
+                        appendLine("      \"$cond\": \"$target\"$cComma")
+                    }
+                    appendLine("    }$sComma")
+                }
+                appendLine("  },")
+            }
+            if (files != null) {
+                val fileList = files.joinToString(", ") { "\"$it\"" }
+                appendLine("  \"files\": [$fileList],")
             }
             if (bin != null) {
                 appendLine("  \"bin\": \"$bin\",")

@@ -122,6 +122,41 @@ class ProjectFileBuildersTest {
     }
 
     @Test
+    fun `packageJson renders main, types, exports, and files when supplied`() {
+        val json =
+            ProjectFileBuilders.packageJson(
+                "my-lib",
+                type = "module",
+                main = "./src/Index.res.mjs",
+                types = "./src/Index.gen.d.ts",
+                exports =
+                    linkedMapOf(
+                        "." to
+                            linkedMapOf(
+                                "types" to "./src/Index.gen.d.ts",
+                                "import" to "./src/Index.res.mjs",
+                            ),
+                    ),
+                files = listOf("src/**/*.res.mjs", "src/**/*.gen.d.ts"),
+            )
+        assertTrue(json.contains("\"main\": \"./src/Index.res.mjs\""))
+        assertTrue(json.contains("\"types\": \"./src/Index.gen.d.ts\""))
+        assertTrue(json.contains("\"exports\""))
+        assertTrue(json.contains("\".\""))
+        assertTrue(json.contains("\"import\": \"./src/Index.res.mjs\""))
+        assertTrue(json.contains("\"files\": [\"src/**/*.res.mjs\", \"src/**/*.gen.d.ts\"]"))
+    }
+
+    @Test
+    fun `packageJson omits main, types, exports, and files when not supplied`() {
+        val json = ProjectFileBuilders.packageJson("my-app")
+        assertFalse(json.contains("\"main\""))
+        assertFalse(json.contains("\"types\""))
+        assertFalse(json.contains("\"exports\""))
+        assertFalse(json.contains("\"files\""))
+    }
+
+    @Test
     fun `defaultScripts returns three entries`() {
         assertEquals(3, ProjectFileBuilders.defaultScripts().size)
     }

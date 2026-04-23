@@ -122,4 +122,25 @@ class NpmLibraryTemplateFilesTest {
         assertTrue(tsconfig.contains("\"noImplicitAny\": true"))
         assertTrue(tsconfig.contains("\"declaration\": true"))
     }
+
+    @Test
+    fun `package json declares main, types, and exports so consumers can import the library`() {
+        val pkg = NpmLibraryTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"main\": \"./src/Index.res.mjs\""))
+        assertTrue(pkg.contains("\"types\": \"./src/Index.gen.d.ts\""))
+        // exports subpath with types + import conditions
+        assertTrue(pkg.contains("\"exports\""))
+        assertTrue(pkg.contains("\".\""))
+        assertTrue(pkg.contains("\"types\": \"./src/Index.gen.d.ts\""))
+        assertTrue(pkg.contains("\"import\": \"./src/Index.res.mjs\""))
+    }
+
+    @Test
+    fun `package json restricts published files to runtime and type artifacts`() {
+        val pkg = NpmLibraryTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"files\""))
+        assertTrue(pkg.contains("src/**/*.res.mjs"))
+        assertTrue(pkg.contains("src/**/*.gen.d.ts"))
+        assertTrue(pkg.contains("src/**/*.gen.tsx"))
+    }
 }
