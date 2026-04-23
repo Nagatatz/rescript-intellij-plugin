@@ -6,7 +6,7 @@ myst:
 
 # Project Templates
 
-The plugin ships 15 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
+The plugin ships 16 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
 
 ## Opening the Wizard
 
@@ -135,6 +135,12 @@ Single-package alternative to Monorepo: one `package.json`, `src/{shared,server,
 
 {bdg-success}`Single package` {bdg-info}`Shared types`
 :::
+
+:::{grid-item-card} res-x (HTMX on Bun)
+Server-driven web app built with `rescript-x` (JSX rendered on the server) and HTMX for client-side interactivity. Ships a Counter with `hx-post` increment/decrement endpoints and a Todo form that validates input through zod or sury. Runs on Bun + Vite.
+
+{bdg-warning}`Bun required` {bdg-info}`HTMX` {bdg-success}`Server-driven`
+:::
 ::::
 
 ## Which Template Should I Choose?
@@ -155,6 +161,7 @@ Single-package alternative to Monorepo: one `package.json`, `src/{shared,server,
 | I'm deploying a container to GCP | Google Cloud Run |
 | I want multiple packages sharing types (scales to more) | Monorepo |
 | I want one package with backend + frontend (simpler) | Full-Stack |
+| I want server-rendered HTML with HTMX on Bun | res-x (HTMX on Bun) |
 
 ## Day-Two Recipes
 

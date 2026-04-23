@@ -40,11 +40,15 @@ class RescriptProjectGeneratorTest {
         assertEquals("npm", PackageManager.NPM.command)
         assertEquals("pnpm", PackageManager.PNPM.command)
         assertEquals("yarn", PackageManager.YARN.command)
+        assertEquals("bun", PackageManager.BUN.command)
     }
 
     @Test
-    fun `PackageManager enum has three values`() {
-        assertEquals(3, PackageManager.entries.size)
+    fun `PackageManager enum exposes npm pnpm yarn and bun`() {
+        assertEquals(
+            listOf("npm", "pnpm", "yarn", "bun"),
+            PackageManager.entries.map { it.command },
+        )
     }
 
     @Test
@@ -52,6 +56,7 @@ class RescriptProjectGeneratorTest {
         assertEquals("npm", PackageManager.NPM.toString())
         assertEquals("pnpm", PackageManager.PNPM.toString())
         assertEquals("yarn", PackageManager.YARN.toString())
+        assertEquals("bun", PackageManager.BUN.toString())
     }
 
     @Test

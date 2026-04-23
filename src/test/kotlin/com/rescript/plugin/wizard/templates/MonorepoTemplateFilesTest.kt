@@ -151,6 +151,39 @@ class MonorepoTemplateFilesTest {
 
         val yarnFiles = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.YARN))
         assertTrue(yarnFiles["package.json"]!!.contains("yarn workspaces foreach -A run test"))
+
+        val bunFiles = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.BUN))
+        assertTrue(bunFiles["package.json"]!!.contains("\"test\": \"bun --filter '*' run test\""))
+    }
+
+    @Test
+    fun `BUN workspaces use workspace protocol and bun --filter per-package scripts`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.BUN))
+        val rootPkg = files["package.json"]!!
+        assertTrue(
+            rootPkg.contains("bun --filter ./packages/server dev"),
+            "root dev script should drive the server via bun --filter",
+        )
+        assertTrue(
+            rootPkg.contains("bun --filter ./packages/client dev"),
+            "root dev script should drive the client via bun --filter",
+        )
+        assertTrue(
+            rootPkg.contains("\"test:coverage\": \"bun --filter '*' run test:coverage\""),
+        )
+        val clientPkg = files["packages/client/package.json"]!!
+        assertTrue(
+            clientPkg.contains("workspace:*"),
+            "workspace deps should use the workspace: protocol under BUN",
+        )
+    }
+
+    @Test
+    fun `BUN workspaces note directs users to the package_json workspaces field`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.BUN))
+        val readme = files["README.md"]!!
+        assertTrue(readme.contains("Bun workspaces"))
+        assertTrue(readme.contains("`workspaces` field in `package.json`"))
     }
 
     @Test

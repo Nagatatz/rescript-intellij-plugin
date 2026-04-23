@@ -82,7 +82,7 @@ IDE 統合機能の完全なカテゴリ一覧・パッケージ対応・Extensi
 - パッケージ構成: `docs/repository-structure.md`
 - ユーザー向けサマリ: `README.md` の Features セクション
 
-Project Wizard (`wizard/`) は Package Manager と Validation Library (`zod` / `sury`) の選択 UI を備える。全 16 テンプレートが選択に応じて `Validation.res` を `variants/<key>/` から生成する。検証対象はテンプレートごとに異なる: サーバー系 9 テンプレート（hono / hono-graphql / aws-lambda / cloudflare-workers / google-cloud-run / nextjs / full-stack / monorepo / res-x）は HTTP 入力、CLI Tool は `init` サブコマンドのオプション、npm Library は public API 引数、Basic は `config.json` の shape、Electron は IPC レスポンス、React Native (Expo / CLI) と Vite+React はフォーム入力を対象にする。
+Project Wizard (`wizard/`) は Package Manager と Validation Library (`zod` / `sury`) の選択 UI を備える。全 16 テンプレートが選択に応じて `Validation.res` を `variants/<key>/` から生成する。検証対象はテンプレートごとに異なる: サーバー系 9 テンプレート（hono / hono-graphql / aws-lambda / cloudflare-workers / google-cloud-run / nextjs / full-stack / monorepo / res-x）は HTTP 入力、CLI Tool は `init` サブコマンドのオプション、npm Library は public API 引数、Basic は `config.json` の shape、Electron は IPC レスポンス、React Native (Expo / CLI) と Vite+React はフォーム入力を対象にする。res-x テンプレートは Bun + Vite + HTMX 前提で `package.json` の scripts に `bun` コマンドを直接書き込む。
 
 ## 開発規約
 

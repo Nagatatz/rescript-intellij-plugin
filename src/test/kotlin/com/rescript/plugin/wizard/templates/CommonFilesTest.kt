@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 class CommonFilesTest {
     private val pnpmCtx = TemplateContext("demo", PackageManager.PNPM)
     private val npmCtx = TemplateContext("demo", PackageManager.NPM)
+    private val bunCtx = TemplateContext("demo", PackageManager.BUN)
 
     @Test
     fun `gitignore covers node_modules, ReScript artifacts, OS files`() {
@@ -51,6 +52,19 @@ class CommonFilesTest {
     }
 
     @Test
+    fun `readme swaps Corepack wording for Bun install guidance when PM is BUN`() {
+        val readme =
+            CommonFiles.readme(
+                ctx = bunCtx,
+                description = "x",
+                scripts = emptyList(),
+            )
+        assertTrue(readme.contains("- Bun ${TemplateVersions.BUN} or later"))
+        assertTrue(readme.contains("https://bun.sh"))
+        assertFalse(readme.contains("Bun (managed via Corepack)"))
+    }
+
+    @Test
     fun `readme falls back to res dev when no top-level dev script exists`() {
         val readme =
             CommonFiles.readme(
@@ -59,6 +73,35 @@ class CommonFilesTest {
                 scripts = listOf("res:dev" to "Watch sources", "res:build" to "Compile"),
             )
         assertTrue(readme.contains("pnpm res:dev"))
+    }
+
+    @Test
+    fun `readme appends extra prerequisites when provided`() {
+        val readme =
+            CommonFiles.readme(
+                ctx = pnpmCtx,
+                description = "x",
+                scripts = emptyList(),
+                extraPrerequisites = listOf("Bun 1.3 or later (install from https://bun.sh)"),
+            )
+        val bunIdx = readme.indexOf("- Bun 1.3 or later")
+        val gettingStartedIdx = readme.indexOf("## Getting Started")
+        assertTrue(bunIdx > 0, "extra prerequisite should appear in the Prerequisites section")
+        assertTrue(
+            bunIdx < gettingStartedIdx,
+            "extra prerequisite must be emitted before Getting Started",
+        )
+    }
+
+    @Test
+    fun `readme omits extra prerequisites section when list is empty`() {
+        val readme =
+            CommonFiles.readme(
+                ctx = pnpmCtx,
+                description = "x",
+                scripts = emptyList(),
+            )
+        assertFalse(readme.contains("- Bun"))
     }
 
     @Test
@@ -114,6 +157,29 @@ class CommonFilesTest {
         assertTrue(yaml.contains("pnpm exec rescript"))
         assertTrue(yaml.contains("pnpm build"))
         assertFalse(yaml.contains("pnpm test"), "test step should be skipped when hasTest is false")
+    }
+
+    @Test
+    fun `ci workflow emits oven-sh setup-bun when setupBun is true`() {
+        val yaml = CommonFiles.ciWorkflow(pnpmCtx, setupBun = true)
+        assertTrue(yaml.contains("oven-sh/setup-bun@v2"))
+        assertTrue(yaml.contains("bun-version: latest"))
+    }
+
+    @Test
+    fun `ci workflow omits setup-bun by default`() {
+        val yaml = CommonFiles.ciWorkflow(pnpmCtx)
+        assertFalse(yaml.contains("oven-sh/setup-bun"))
+    }
+
+    @Test
+    fun `ci workflow auto-enables setup-bun when the PackageManager is BUN`() {
+        val yaml = CommonFiles.ciWorkflow(bunCtx)
+        assertTrue(yaml.contains("oven-sh/setup-bun@v2"))
+        assertFalse(
+            yaml.contains("pnpm/action-setup"),
+            "BUN selection should not trigger pnpm setup step",
+        )
     }
 
     @Test

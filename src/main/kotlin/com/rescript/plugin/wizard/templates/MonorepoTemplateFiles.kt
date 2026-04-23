@@ -304,6 +304,7 @@ internal object MonorepoTemplateFiles {
         when (pm) {
             PackageManager.PNPM -> "workspace:*"
             PackageManager.YARN -> "workspace:*"
+            PackageManager.BUN -> "workspace:*"
             PackageManager.NPM -> "*"
         }
 
@@ -316,6 +317,7 @@ internal object MonorepoTemplateFiles {
             PackageManager.PNPM -> "pnpm --filter ./packages/$pkg $script"
             PackageManager.YARN -> "yarn workspace ./packages/$pkg run $script"
             PackageManager.NPM -> "npm --workspace packages/$pkg run $script"
+            PackageManager.BUN -> "bun --filter ./packages/$pkg $script"
         }
 
     /**
@@ -327,6 +329,7 @@ internal object MonorepoTemplateFiles {
             PackageManager.PNPM -> "pnpm -r run test"
             PackageManager.YARN -> "yarn workspaces foreach -A run test"
             PackageManager.NPM -> "npm --workspaces run test --if-present"
+            PackageManager.BUN -> "bun --filter '*' run test"
         }
 
     /**
@@ -337,6 +340,7 @@ internal object MonorepoTemplateFiles {
             PackageManager.PNPM -> "pnpm -r run test:coverage"
             PackageManager.YARN -> "yarn workspaces foreach -A run test:coverage"
             PackageManager.NPM -> "npm --workspaces run test:coverage --if-present"
+            PackageManager.BUN -> "bun --filter '*' run test:coverage"
         }
 
     private fun workspacesNote(pm: PackageManager): String =
@@ -344,5 +348,6 @@ internal object MonorepoTemplateFiles {
             PackageManager.PNPM -> "This project uses pnpm workspaces (see `pnpm-workspace.yaml`)."
             PackageManager.YARN -> "This project uses Yarn workspaces (see the `workspaces` field in `package.json`)."
             PackageManager.NPM -> "This project uses npm workspaces (see the `workspaces` field in `package.json`)."
+            PackageManager.BUN -> "This project uses Bun workspaces (see the `workspaces` field in `package.json`)."
         }
 }

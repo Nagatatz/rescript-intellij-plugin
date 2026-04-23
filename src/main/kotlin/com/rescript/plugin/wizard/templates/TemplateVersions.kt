@@ -70,6 +70,11 @@ object TemplateVersions {
     const val NPM = "11.12.1"
     const val YARN = "4.14.1"
 
+    // Bun runtime + package manager. v1.2+ introduces the text-based `bun.lock`
+    // lockfile and the pnpm-style `bun --filter` monorepo selector; the template
+    // generators assume both and therefore require v1.2 at minimum.
+    const val BUN = "1.2.0"
+
     // Database (libsql client + Drizzle ORM)
     const val LIBSQL_CLIENT = "^0.17.2"
     const val DRIZZLE_ORM = "^0.45.2"
@@ -92,6 +97,13 @@ object TemplateVersions {
     // rescript-relay (FULL_STACK GraphQL variant client). 4.x targets ReScript 12.
     const val RESCRIPT_RELAY = "^4.1.0"
     const val RELAY_COMPILER = "^19.0.0"
+
+    // res-x (Bun + Vite + HTMX framework) and its Bun peer dependency
+    const val RESCRIPT_X = "^1.4.0"
+    const val RESCRIPT_BUN = "^2.1.0"
+
+    // HTMX CDN version used by the res-x template's Layout.res
+    const val HTMX_CDN = "2.0.7"
 
     // AWS Lambda runtime types (separate from @types/aws-lambda)
     const val AWS_LAMBDA = "^1.0.7"

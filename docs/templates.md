@@ -1,6 +1,6 @@
 # Project Wizard テンプレート一覧
 
-Project Wizard が提供する 15 種類のプロジェクトテンプレートの開発者向け参照資料。ユーザー向けのスクリーンショット・カード表示・ガイドは [sphinx-docs/user/templates/index.md](../sphinx-docs/user/templates/index.md) を参照。
+Project Wizard が提供する 16 種類のプロジェクトテンプレートの開発者向け参照資料。ユーザー向けのスクリーンショット・カード表示・ガイドは [sphinx-docs/user/templates/index.md](../sphinx-docs/user/templates/index.md) を参照。
 
 ## テンプレート一覧
 
@@ -21,6 +21,7 @@ Project Wizard が提供する 15 種類のプロジェクトテンプレート�
 | 13 | Google Cloud Run | Serverless | コンテナサービス | `Dockerfile`、Cloud SQL レシピ同梱 |
 | 14 | Monorepo | Full Stack | pnpm/npm/yarn workspace | `packages/{shared,server,client}`、workspace protocol 型共有 |
 | 15 | Full-Stack | Full Stack | 単一パッケージの統合構成 | `src/{shared,server,client}`、Hono + Drizzle + Vite+ React |
+| 16 | res-x (HTMX on Bun) | Full Stack | Bun + Vite + HTMX サーバドリブン SPA | `rescript-x` + `rescript-bun`、Counter + Todo フォーム、`Validation.res` (zod/sury) |
 
 テンプレート定義は `src/main/kotlin/com/rescript/plugin/wizard/ProjectTemplate.kt`、ファイル生成は `wizard/templates/` 配下。
 
@@ -42,6 +43,7 @@ Project Wizard が提供する 15 種類のプロジェクトテンプレート�
 | DB/PORT を使う 5 テンプレ（9, 10, 11, 14, 15） | `.env.example` |
 | Monorepo | workspace 横断テスト (`pnpm -r run test` 等) |
 | React Native 2 テンプレ（7, 8） | filesystem smoke test（JS ランタイム非依存） |
+| res-x（16） | `jsx.module=Hjsx` / `-open ResX.Globals` を `rescript.json` にプリ配線、HTMX CDN スクリプト |
 
 ## バージョン管理
 
