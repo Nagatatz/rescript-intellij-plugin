@@ -173,6 +173,16 @@ class CommonFilesTest {
     }
 
     @Test
+    fun `ci workflow auto-enables setup-bun when the PackageManager is BUN`() {
+        val yaml = CommonFiles.ciWorkflow(bunCtx)
+        assertTrue(yaml.contains("oven-sh/setup-bun@v2"))
+        assertFalse(
+            yaml.contains("pnpm/action-setup"),
+            "BUN selection should not trigger pnpm setup step",
+        )
+    }
+
+    @Test
     fun `ci workflow for npm omits pnpm action setup`() {
         val yaml = CommonFiles.ciWorkflow(npmCtx, hasBuild = false, hasTest = true)
         assertFalse(yaml.contains("pnpm/action-setup"))

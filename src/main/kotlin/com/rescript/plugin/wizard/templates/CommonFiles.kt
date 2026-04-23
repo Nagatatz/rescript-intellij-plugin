@@ -155,6 +155,7 @@ object CommonFiles {
         setupBun: Boolean = false,
     ): String =
         buildString {
+            val needsBun = setupBun || ctx.packageManager == PackageManager.BUN
             appendLine("name: CI")
             appendLine()
             appendLine("on:")
@@ -171,7 +172,7 @@ object CommonFiles {
             appendLine("      - uses: actions/setup-node@v4")
             appendLine("        with:")
             appendLine("          node-version: 20")
-            if (setupBun) {
+            if (needsBun) {
                 appendLine("      - uses: oven-sh/setup-bun@v2")
                 appendLine("        with:")
                 appendLine("          bun-version: latest")
