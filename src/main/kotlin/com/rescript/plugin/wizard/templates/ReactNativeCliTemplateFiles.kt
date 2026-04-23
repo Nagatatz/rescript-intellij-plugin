@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a React Native app using the Community CLI (bare workflow).
@@ -10,7 +11,9 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  * (typically Android Studio / Xcode users). The template ships the JS/TS + ReScript surface
  * only; the native projects themselves are produced by running `npx @react-native-community/cli`
  * after the template is generated. Includes a Metro config that resolves `.res.mjs`, a bindings
- * example for custom native modules, and Android Studio setup guidance in the README.
+ * example for custom native modules, Android Studio setup guidance in the README, and a
+ * `Validation.res` (zod or sury, selected via [TemplateContext.validationLibrary]) that guards
+ * the draft-todo input.
  *
  * Static file content lives under `src/main/resources/templates/react-native-cli/` and is
  * loaded via [TemplateResourceLoader]; `{{projectName}}` / PM-specific command placeholders
@@ -24,6 +27,7 @@ internal object ReactNativeCliTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val nameVar = mapOf("projectName" to ctx.projectName)
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -38,14 +42,7 @@ internal object ReactNativeCliTemplateFiles {
                     isPrivate = true,
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "@rescript/react" to TemplateVersions.RESCRIPT_REACT,
-                            "react" to TemplateVersions.REACT,
-                            "react-native" to TemplateVersions.REACT_NATIVE,
-                        ),
+                    dependencies = reactNativeCliDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "@react-native-community/cli" to TemplateVersions.RN_COMMUNITY_CLI,
@@ -74,6 +71,8 @@ internal object ReactNativeCliTemplateFiles {
             "src/App.res" to TemplateResourceLoader.load("react-native-cli/src/App.res", nameVar),
             "src/ReactNative.res" to TemplateResourceLoader.load("react-native-cli/src/ReactNative.res"),
             "src/NativeGreeting.res" to TemplateResourceLoader.load("react-native-cli/src/NativeGreeting.res"),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("react-native-cli/variants/$variantKey/src/Validation.res"),
             "src/__tests__/App.test.mjs" to
                 TemplateResourceLoader.load("react-native-cli/src/__tests__/App.test.mjs"),
             "README.md" to
@@ -152,4 +151,18 @@ internal object ReactNativeCliTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun reactNativeCliDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/react"] = TemplateVersions.RESCRIPT_REACT
+        deps["react"] = TemplateVersions.REACT
+        deps["react-native"] = TemplateVersions.REACT_NATIVE
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        return deps
+    }
 }

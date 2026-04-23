@@ -1,5 +1,7 @@
 // Interactive todo list: useState + FlatList + TextInput + Button.
-// Demonstrates the common pattern of managing a dynamic list on mobile.
+// Draft input is validated via `Validation.parseDraftTodo` before being
+// appended to the list, so blank / too-long entries surface as a banner
+// instead of silently joining the todos.
 type todo = {id: int, text: string}
 
 @genType @react.component
@@ -9,13 +11,17 @@ let make = () => {
     {id: 2, text: "Ship to the stores"},
   ])
   let (draft, setDraft) = React.useState(() => "")
+  let (error, setError) = React.useState(() => None)
 
   let addTodo = () => {
-    if draft != "" {
+    switch Validation.parseDraftTodo(draft) {
+    | Error(message) => setError(_ => Some(message))
+    | Ok({text}) =>
       let nextId =
         todos->Array.reduce(0, (max, t) => t.id > max ? t.id : max) + 1
-      setTodos(prev => prev->Array.concat([{id: nextId, text: draft}]))
+      setTodos(prev => prev->Array.concat([{id: nextId, text}]))
       setDraft(_ => "")
+      setError(_ => None)
     }
   }
 
@@ -34,6 +40,11 @@ let make = () => {
       placeholder="New todo"
     />
     <ReactNative.Button title="Add" onPress={_ => addTodo()} />
+    {switch error {
+    | Some(message) =>
+      <ReactNative.Text> {React.string(`⚠ ${message}`)} </ReactNative.Text>
+    | None => React.null
+    }}
     <ReactNative.FlatList
       data={todos}
       keyExtractor={item => item.id->Int.toString}
