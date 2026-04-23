@@ -1,13 +1,15 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a minimal ReScript project.
  *
  * The Basic template doubles as a "Hello World + one practical step" starter: in addition to
  * `Console.log`, it demonstrates reading CLI arguments, reading/writing files via `fs/promises`,
- * and a small app entry point that ties them together.
+ * and validates a bundled `config.sample.json` through `Validation.res`, whose implementation
+ * (zod or sury) is chosen via [TemplateContext.validationLibrary] in the Wizard.
  */
 internal object BasicTemplateFiles {
     private const val RESOURCE_ROOT = "basic"
@@ -17,7 +19,13 @@ internal object BasicTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val projectVars = mapOf("projectName" to ctx.projectName)
-        val runVars = mapOf("cmdStart" to ctx.runCmd("start"))
+        val runVars =
+            mapOf(
+                "cmdStart" to ctx.runCmd("start"),
+                "validationLibrary" to ctx.validationLibrary.displayName,
+            )
+        val layoutVars = mapOf("validationLibrary" to ctx.validationLibrary.displayName)
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to ProjectFileBuilders.rescriptJson(name = ctx.projectName),
             "package.json" to
@@ -27,11 +35,7 @@ internal object BasicTemplateFiles {
                     isPrivate = true,
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                        ),
+                    dependencies = basicDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "vitest" to TemplateVersions.VITEST,
@@ -50,6 +54,9 @@ internal object BasicTemplateFiles {
             "src/Args.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Args.res"),
             "src/Files.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Files.res"),
             "src/App.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/App.res", projectVars),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
+            "config.sample.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/config.sample.json"),
             "src/__tests__/App.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/App.test.mjs"),
             ".nvmrc" to CommonFiles.nvmrc(),
@@ -59,8 +66,9 @@ internal object BasicTemplateFiles {
                 CommonFiles.readme(
                     ctx = ctx,
                     description =
-                        "A starter ReScript project showcasing CLI argument parsing and " +
-                            "file I/O via Node's fs/promises API.",
+                        "A starter ReScript project showcasing CLI argument parsing, file I/O via " +
+                            "Node's fs/promises API, and ${ctx.validationLibrary.displayName}-backed " +
+                            "validation of a bundled `config.sample.json`.",
                     scripts =
                         listOf(
                             "start" to "Build and run the entry module",
@@ -74,7 +82,10 @@ internal object BasicTemplateFiles {
                             "Run the App" to
                                 TemplateResourceLoader.load("$RESOURCE_ROOT/readme/run-the-app.md", runVars),
                             "Project Layout" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/project-layout.md"),
+                                TemplateResourceLoader.load(
+                                    "$RESOURCE_ROOT/readme/project-layout.md",
+                                    layoutVars,
+                                ),
                         ),
                 ),
             ".gitignore" to CommonFiles.gitignore(),
@@ -88,4 +99,15 @@ internal object BasicTemplateFiles {
      */
     fun generate(projectName: String): Map<String, String> =
         generate(TemplateContext(projectName, com.rescript.plugin.wizard.PackageManager.PNPM))
+
+    private fun basicDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        return deps
+    }
 }
