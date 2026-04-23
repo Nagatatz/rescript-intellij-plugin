@@ -48,8 +48,11 @@ internal object ReactNativeCliTemplateFiles {
                             "@react-native-community/cli" to TemplateVersions.RN_COMMUNITY_CLI,
                             "@react-native/babel-preset" to TemplateVersions.RN_BABEL_PRESET,
                             "@react-native/metro-config" to TemplateVersions.RN_METRO_CONFIG,
+                            "@react-native/typescript-config" to TemplateVersions.RN_TYPESCRIPT_CONFIG,
                             "vitest" to TemplateVersions.VITEST,
                             "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                            "typescript" to TemplateVersions.TYPESCRIPT,
+                            "@types/react" to TemplateVersions.REACT_TYPES,
                         ),
                     scripts =
                         linkedMapOf(
@@ -64,6 +67,7 @@ internal object ReactNativeCliTemplateFiles {
                         ),
                 ),
             "app.json" to TemplateResourceLoader.load("react-native-cli/app.json", nameVar),
+            "tsconfig.json" to TemplateResourceLoader.load("react-native-cli/tsconfig.json"),
             "index.js" to TemplateResourceLoader.load("react-native-cli/index.js"),
             "App.tsx" to "import App from \"./src/App.gen\";\n\nexport default App;\n",
             "metro.config.js" to TemplateResourceLoader.load("react-native-cli/metro.config.js"),

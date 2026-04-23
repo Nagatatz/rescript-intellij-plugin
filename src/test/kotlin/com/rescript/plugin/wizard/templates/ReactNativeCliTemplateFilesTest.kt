@@ -193,4 +193,25 @@ class ReactNativeCliTemplateFilesTest {
         val app = ReactNativeCliTemplateFiles.generate(ctx)["src/App.res"]!!
         assertTrue(app.contains("Validation.parseDraftTodo"))
     }
+
+    @Test
+    fun `ships strict tsconfig that extends react-native typescript-config`() {
+        val files = ReactNativeCliTemplateFiles.generate(ctx)
+        val tsconfig = files["tsconfig.json"]!!
+        assertTrue(tsconfig.contains("@react-native/typescript-config"))
+        assertTrue(tsconfig.contains("\"strict\": true"))
+        assertTrue(tsconfig.contains("\"noImplicitAny\": true"))
+    }
+
+    @Test
+    fun `devDependencies declare typescript config, typescript, and @types react`() {
+        val pkg = ReactNativeCliTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(
+            pkg.contains(
+                "\"@react-native/typescript-config\": \"${TemplateVersions.RN_TYPESCRIPT_CONFIG}\"",
+            ),
+        )
+        assertTrue(pkg.contains("\"typescript\": \"${TemplateVersions.TYPESCRIPT}\""))
+        assertTrue(pkg.contains("\"@types/react\": \"${TemplateVersions.REACT_TYPES}\""))
+    }
 }
