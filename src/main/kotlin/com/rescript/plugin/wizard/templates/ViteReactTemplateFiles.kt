@@ -2,13 +2,16 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a React single-page application powered by ReScript and Vite+.
  *
  * Uses Vite+ (`vite-plus`) as the build/test toolchain. Vite+ is a unified wrapper over Vite,
  * Vitest, Oxlint, Oxfmt, and Rolldown. Because Vite+ is pre-1.0, the README warns users about
- * the early-access status and shows how to fall back to plain Vite.
+ * the early-access status and shows how to fall back to plain Vite. Form input is validated via
+ * `Validation.res` before the network call; the backing library (zod or sury) is selected through
+ * [TemplateContext.validationLibrary] in the Wizard.
  */
 internal object ViteReactTemplateFiles {
     private const val RESOURCE_ROOT = "vite-react"
@@ -18,6 +21,7 @@ internal object ViteReactTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val projectVars = mapOf("projectName" to ctx.projectName)
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -32,14 +36,7 @@ internal object ViteReactTemplateFiles {
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "@rescript/react" to TemplateVersions.RESCRIPT_REACT,
-                            "react" to TemplateVersions.REACT,
-                            "react-dom" to TemplateVersions.REACT_DOM,
-                        ),
+                    dependencies = viteReactDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
@@ -67,12 +64,16 @@ internal object ViteReactTemplateFiles {
             "src/App.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/App.res"),
             "src/Main.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Main.res"),
             "src/Api.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Api.res"),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/__tests__/App.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/App.test.mjs"),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
-                    description = "A React single-page app built with ReScript and the Vite+ toolchain.",
+                    description =
+                        "A React single-page app built with ReScript and the Vite+ toolchain. " +
+                            "The greet form validates input through ${ctx.validationLibrary.displayName}.",
                     scripts =
                         listOf(
                             "dev" to "Start the Vite+ dev server",
@@ -100,4 +101,18 @@ internal object ViteReactTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun viteReactDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/react"] = TemplateVersions.RESCRIPT_REACT
+        deps["react"] = TemplateVersions.REACT
+        deps["react-dom"] = TemplateVersions.REACT_DOM
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        return deps
+    }
 }
