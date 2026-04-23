@@ -2,13 +2,16 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for an Electron desktop application powered by ReScript and Vite+.
  *
  * Pairs Electron's main process (CommonJS) with a Vite+ renderer that bundles the React UI written
  * in ReScript. The template ships a ready-to-run dev workflow plus README, gitignore, editorconfig,
- * and a CI workflow.
+ * and a CI workflow. The renderer validates IPC responses through `Validation.res` — either zod or
+ * sury, selected via [TemplateContext.validationLibrary] — so malformed main-process payloads
+ * surface as UI errors instead of silent type crashes.
  */
 internal object ElectronTemplateFiles {
     private const val RESOURCE_ROOT = "electron"
@@ -18,6 +21,7 @@ internal object ElectronTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val projectVars = mapOf("projectName" to ctx.projectName)
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -32,14 +36,7 @@ internal object ElectronTemplateFiles {
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "@rescript/react" to TemplateVersions.RESCRIPT_REACT,
-                            "react" to TemplateVersions.REACT,
-                            "react-dom" to TemplateVersions.REACT_DOM,
-                        ),
+                    dependencies = electronDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "electron" to TemplateVersions.ELECTRON,
@@ -70,12 +67,17 @@ internal object ElectronTemplateFiles {
             "src/App.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/App.res"),
             "src/Electron.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Electron.res"),
             "src/Main.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Main.res"),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/__tests__/App.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/App.test.mjs"),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
-                    description = "An Electron desktop app with a ReScript + React renderer bundled by Vite+.",
+                    description =
+                        "An Electron desktop app with a ReScript + React renderer bundled by Vite+. " +
+                            "IPC payloads are validated in the renderer via ${ctx.validationLibrary.displayName} " +
+                            "before they reach UI code.",
                     scripts =
                         listOf(
                             "dev" to "Start the Vite+ dev server for the renderer",
@@ -103,4 +105,18 @@ internal object ElectronTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun electronDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/react"] = TemplateVersions.RESCRIPT_REACT
+        deps["react"] = TemplateVersions.REACT
+        deps["react-dom"] = TemplateVersions.REACT_DOM
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        return deps
+    }
 }

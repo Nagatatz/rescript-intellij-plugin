@@ -1,6 +1,8 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -77,5 +79,36 @@ class ElectronTemplateFilesTest {
         val pkg = ElectronTemplateFiles.generate(ctx)["package.json"]!!
         assertTrue(pkg.contains("\"test:coverage\""))
         assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
+    }
+
+    @Test
+    fun `zod variant ships Validation res and pins the zod dependency`() {
+        val zodCtx = ctx.copy(validationLibrary = ValidationLibrary.ZOD)
+        val files = ElectronTemplateFiles.generate(zodCtx)
+        assertTrue(files["src/Validation.res"]!!.contains("@module(\"zod\")"))
+        assertTrue(files["src/Validation.res"]!!.contains("parseInfo"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"zod\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships Validation res and pins the sury dependency`() {
+        val suryCtx = ctx.copy(validationLibrary = ValidationLibrary.SURY)
+        val files = ElectronTemplateFiles.generate(suryCtx)
+        assertTrue(files["src/Validation.res"]!!.contains("S.parseOrThrow"))
+        assertTrue(files["src/Validation.res"]!!.contains("parseInfo"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"sury\""))
+        assertFalse(pkg.contains("\"zod\""))
+    }
+
+    @Test
+    fun `App res validates IPC responses through Validation parseInfo`() {
+        val files = ElectronTemplateFiles.generate(ctx)
+        assertTrue(files["src/Electron.res"]!!.contains("getInfoRaw"))
+        assertTrue(files["src/Electron.res"]!!.contains("JSON.t"))
+        assertTrue(files["src/App.res"]!!.contains("Validation.parseInfo"))
+        assertTrue(files["src/App.res"]!!.contains("Electron.getInfoRaw"))
     }
 }

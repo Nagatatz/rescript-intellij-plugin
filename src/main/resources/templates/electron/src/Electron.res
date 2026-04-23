@@ -1,6 +1,6 @@
-// Bindings over the `window.electronAPI` object exposed by preload.cjs.
-type info = {name: string, electronVersion: string, platform: string, arch: string}
+// Bindings over the `window.electronAPI` object exposed by preload.cjs. The
+// renderer receives `JSON.t` — `Validation.parseInfo` decides whether the
+// payload matches the expected shape.
+@val external electronAPI: {"getInfo": unit => promise<JSON.t>} = "electronAPI"
 
-@val external electronAPI: {"getInfo": unit => promise<info>} = "electronAPI"
-
-let getInfo = (): promise<info> => electronAPI["getInfo"]()
+let getInfoRaw = (): promise<JSON.t> => electronAPI["getInfo"]()
