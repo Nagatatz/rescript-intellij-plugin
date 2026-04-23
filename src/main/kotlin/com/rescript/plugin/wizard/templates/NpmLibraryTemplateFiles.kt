@@ -61,6 +61,7 @@ internal object NpmLibraryTemplateFiles {
                             "res:dev" to "rescript -w",
                         ),
                 ),
+            "tsconfig.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/tsconfig.json"),
             "src/Index.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Index.res", projectVars),
             "src/ListUtils.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/ListUtils.res"),
             "src/Fetcher.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Fetcher.res"),

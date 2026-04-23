@@ -114,4 +114,12 @@ class NpmLibraryTemplateFilesTest {
         assertTrue(index.contains("greetChecked"))
         assertTrue(index.contains("Validation.parseGreetInput"))
     }
+
+    @Test
+    fun `ships strict tsconfig with declaration support`() {
+        val tsconfig = NpmLibraryTemplateFiles.generate(ctx)["tsconfig.json"]!!
+        assertTrue(tsconfig.contains("\"strict\": true"))
+        assertTrue(tsconfig.contains("\"noImplicitAny\": true"))
+        assertTrue(tsconfig.contains("\"declaration\": true"))
+    }
 }
