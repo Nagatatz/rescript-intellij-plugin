@@ -98,9 +98,29 @@ class ProjectFileBuildersTest {
     }
 
     @Test
-    fun `packageJson with bin entry`() {
-        val json = ProjectFileBuilders.packageJson("my-app", bin = "./src/cli.mjs")
-        assertTrue(json.contains("\"bin\": \"./src/cli.mjs\""))
+    fun `packageJson with single bin entry renders as an object keyed by executable name`() {
+        val json =
+            ProjectFileBuilders.packageJson(
+                "my-app",
+                bin = linkedMapOf("my-app" to "./bin/cli.mjs"),
+            )
+        assertTrue(json.contains("\"bin\""))
+        assertTrue(json.contains("\"my-app\": \"./bin/cli.mjs\""))
+    }
+
+    @Test
+    fun `packageJson with multiple bin entries renders all executables`() {
+        val json =
+            ProjectFileBuilders.packageJson(
+                "my-app",
+                bin =
+                    linkedMapOf(
+                        "my-app" to "./bin/cli.mjs",
+                        "my-app-init" to "./bin/init.mjs",
+                    ),
+            )
+        assertTrue(json.contains("\"my-app\": \"./bin/cli.mjs\""))
+        assertTrue(json.contains("\"my-app-init\": \"./bin/init.mjs\""))
     }
 
     @Test

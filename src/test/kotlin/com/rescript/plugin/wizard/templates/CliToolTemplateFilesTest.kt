@@ -10,11 +10,22 @@ class CliToolTemplateFilesTest {
     private val ctx = TemplateContext("hello-cli", PackageManager.PNPM)
 
     @Test
-    fun `package json declares bin entry, vitest, and packageManager metadata`() {
+    fun `package json declares bin object, vitest, and packageManager metadata`() {
         val pkg = CliToolTemplateFiles.generate(ctx)["package.json"]!!
-        assertTrue(pkg.contains("\"bin\": \"./src/Cli.res.mjs\""))
+        // Object-form bin keyed by project name so multi-binary packages extend cleanly.
+        assertTrue(pkg.contains("\"bin\""))
+        assertTrue(pkg.contains("\"hello-cli\": \"./bin/cli.mjs\""))
         assertTrue(pkg.contains("\"vitest\""))
         assertTrue(pkg.contains("\"packageManager\""))
+    }
+
+    @Test
+    fun `ships bin wrapper with node shebang pointing at compiled Cli res mjs`() {
+        val files = CliToolTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("bin/cli.mjs"))
+        val wrapper = files["bin/cli.mjs"]!!
+        assertTrue(wrapper.startsWith("#!/usr/bin/env node"))
+        assertTrue(wrapper.contains("../src/Cli.res.mjs"))
     }
 
     @Test

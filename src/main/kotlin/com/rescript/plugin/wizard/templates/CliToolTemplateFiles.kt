@@ -40,7 +40,9 @@ internal object CliToolTemplateFiles {
                 ProjectFileBuilders.packageJson(
                     name = ctx.projectName,
                     type = "module",
-                    bin = "./src/Cli.res.mjs",
+                    // Object form so projects can expose multiple executables later
+                    // (e.g. add a sibling entry and a new bin/<name>.mjs wrapper).
+                    bin = linkedMapOf(ctx.projectName to "./bin/cli.mjs"),
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = cliToolDependencies(ctx.validationLibrary),
@@ -52,7 +54,7 @@ internal object CliToolTemplateFiles {
                     scripts =
                         linkedMapOf(
                             "build" to "rescript",
-                            "start" to "node src/Cli.res.mjs",
+                            "start" to "node bin/cli.mjs",
                             "test" to "vitest run",
                             "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
@@ -60,6 +62,7 @@ internal object CliToolTemplateFiles {
                             "res:dev" to "rescript -w",
                         ),
                 ),
+            "bin/cli.mjs" to TemplateResourceLoader.load("$RESOURCE_ROOT/bin/cli.mjs", projectVars),
             "src/Args.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Args.res"),
             "src/Cli.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Cli.res", projectVars),
             "src/Commands.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Commands.res", projectVars),

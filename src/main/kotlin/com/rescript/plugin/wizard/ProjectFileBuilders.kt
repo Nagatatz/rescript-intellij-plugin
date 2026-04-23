@@ -72,7 +72,9 @@ object ProjectFileBuilders {
      * @param dependencies map of dependency name to version
      * @param devDependencies map of dev dependency name to version
      * @param scripts map of script name to command
-     * @param bin optional binary entry point for CLI tools
+     * @param bin optional map of CLI binary name → entry script path. Rendered as an
+     *             object so projects can expose multiple executables (e.g. `my-cli` and
+     *             `my-cli-init`). Pass a single-entry map for single-binary tools.
      * @param workspaces optional list of workspace glob patterns
      * @param type optional module type ("module" for ESM)
      * @param isPrivate whether to set "private": true
@@ -91,7 +93,7 @@ object ProjectFileBuilders {
         dependencies: Map<String, String> = emptyMap(),
         devDependencies: Map<String, String> = emptyMap(),
         scripts: Map<String, String> = defaultScripts(),
-        bin: String? = null,
+        bin: Map<String, String>? = null,
         workspaces: List<String>? = null,
         type: String? = null,
         isPrivate: Boolean = false,
@@ -146,7 +148,9 @@ object ProjectFileBuilders {
                 appendLine("  \"files\": [$fileList],")
             }
             if (bin != null) {
-                appendLine("  \"bin\": \"$bin\",")
+                appendLine("  \"bin\": {")
+                appendJsonObject(bin, this)
+                appendLine("  },")
             }
             if (workspaces != null) {
                 val ws = workspaces.joinToString(", ") { "\"$it\"" }
