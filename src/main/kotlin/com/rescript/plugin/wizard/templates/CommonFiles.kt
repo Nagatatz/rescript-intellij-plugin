@@ -34,6 +34,7 @@ object CommonFiles {
             appendLine("pnpm-debug.log*")
             appendLine("yarn-debug.log*")
             appendLine("yarn-error.log*")
+            appendLine("bun-debug.log*")
             appendLine()
             appendLine("# OS")
             appendLine(".DS_Store")

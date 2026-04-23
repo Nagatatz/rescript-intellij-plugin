@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
 
-# ---------- deps: install node_modules with the lockfile pnpm uses ----------
+# ---------- deps: install node_modules with Bun's text-based lockfile --------
 FROM oven/bun:1 AS deps
 WORKDIR /app
 COPY package.json ./
-COPY pnpm-lock.yaml* bun.lockb* ./
+COPY bun.lock* ./
 RUN bun install --ignore-scripts
 
 # ---------- builder: compile ReScript + build client assets ----------------

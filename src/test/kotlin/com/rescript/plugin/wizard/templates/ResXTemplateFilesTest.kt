@@ -252,6 +252,16 @@ class ResXTemplateFilesTest {
     }
 
     @Test
+    fun `Dockerfile copies the Bun 1_2+ text-based lockfile, not the legacy bun_lockb`() {
+        val dockerfile = ResXTemplateFiles.generate(ctx)["Dockerfile"]!!
+        assertTrue(dockerfile.contains("bun.lock*"))
+        assertFalse(
+            dockerfile.contains("bun.lockb"),
+            "res-x Dockerfile must not reference the legacy bun.lockb binary lockfile",
+        )
+    }
+
+    @Test
     fun `README documents the Deploy section with docker build instructions`() {
         val readme = ResXTemplateFiles.generate(ctx)["README.md"]!!
         assertTrue(readme.contains("## Deploy"))

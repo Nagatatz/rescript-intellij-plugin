@@ -20,6 +20,15 @@ class CommonFilesTest {
     }
 
     @Test
+    fun `gitignore covers PM-specific debug logs for all four package managers`() {
+        val content = CommonFiles.gitignore()
+        assertTrue(content.contains("npm-debug.log*"))
+        assertTrue(content.contains("pnpm-debug.log*"))
+        assertTrue(content.contains("yarn-debug.log*"))
+        assertTrue(content.contains("bun-debug.log*"))
+    }
+
+    @Test
     fun `gitignore appends project-specific patterns when provided`() {
         val content = CommonFiles.gitignore(listOf("dist/", ".next/"))
         assertTrue(content.contains("dist/"))
