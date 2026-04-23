@@ -116,4 +116,20 @@ class ReactNativeTemplateFilesTest {
         val app = ReactNativeTemplateFiles.generate(ctx)["src/App.res"]!!
         assertTrue(app.contains("Validation.parseDraftTodo"))
     }
+
+    @Test
+    fun `ships strict tsconfig that extends expo base`() {
+        val files = ReactNativeTemplateFiles.generate(ctx)
+        val tsconfig = files["tsconfig.json"]!!
+        assertTrue(tsconfig.contains("expo/tsconfig.base"))
+        assertTrue(tsconfig.contains("\"strict\": true"))
+        assertTrue(tsconfig.contains("\"noImplicitAny\": true"))
+    }
+
+    @Test
+    fun `devDependencies declare typescript and @types react`() {
+        val pkg = ReactNativeTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"typescript\": \"${TemplateVersions.TYPESCRIPT}\""))
+        assertTrue(pkg.contains("\"@types/react\": \"${TemplateVersions.REACT_TYPES}\""))
+    }
 }

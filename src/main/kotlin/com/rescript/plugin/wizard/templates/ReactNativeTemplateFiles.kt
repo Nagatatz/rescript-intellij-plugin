@@ -40,6 +40,8 @@ internal object ReactNativeTemplateFiles {
                         linkedMapOf(
                             "vitest" to TemplateVersions.VITEST,
                             "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                            "typescript" to TemplateVersions.TYPESCRIPT,
+                            "@types/react" to TemplateVersions.REACT_TYPES,
                         ),
                     scripts =
                         linkedMapOf(
@@ -54,6 +56,7 @@ internal object ReactNativeTemplateFiles {
                         ),
                 ),
             "app.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/app.json", projectVars),
+            "tsconfig.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/tsconfig.json"),
             "App.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/App.tsx"),
             "src/App.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/App.res", projectVars),
             "src/ReactNative.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/ReactNative.res"),
