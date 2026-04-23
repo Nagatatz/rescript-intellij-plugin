@@ -40,7 +40,7 @@ internal object MonorepoTemplateFiles {
                     workspaces = workspaceField,
                     isPrivate = true,
                     packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                    engines = mapOf("node" to ctx.nodeEngine),
                     scripts =
                         linkedMapOf(
                             "dev" to devCommand,
@@ -250,8 +250,8 @@ internal object MonorepoTemplateFiles {
                         ),
                 ),
             )
-            put(".nvmrc", CommonFiles.nvmrc())
-            put("LICENSE", CommonFiles.mitLicense(holder = name))
+            put(".nvmrc", CommonFiles.nvmrc(ctx))
+            put("LICENSE", CommonFiles.mitLicense(ctx, holder = name))
             put(".github/dependabot.yml", CommonFiles.dependabotYaml())
             put(
                 ".gitignore",

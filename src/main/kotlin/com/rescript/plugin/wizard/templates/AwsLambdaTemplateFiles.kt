@@ -33,7 +33,7 @@ internal object AwsLambdaTemplateFiles {
                     isPrivate = true,
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                    engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = awsLambdaDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
@@ -81,8 +81,8 @@ internal object AwsLambdaTemplateFiles {
                             "DynamoDB Recipe" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/dynamodb.md"),
                         ),
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(),
-            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".nvmrc" to CommonFiles.nvmrc(ctx),
+            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "*.zip")),
             ".editorconfig" to CommonFiles.editorconfig(),

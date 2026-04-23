@@ -34,7 +34,7 @@ internal object BasicTemplateFiles {
                     type = "module",
                     isPrivate = true,
                     packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                    engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = basicDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
@@ -59,8 +59,8 @@ internal object BasicTemplateFiles {
             "config.sample.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/config.sample.json"),
             "src/__tests__/App.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/App.test.mjs"),
-            ".nvmrc" to CommonFiles.nvmrc(),
-            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".nvmrc" to CommonFiles.nvmrc(ctx),
+            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             "README.md" to
                 CommonFiles.readme(

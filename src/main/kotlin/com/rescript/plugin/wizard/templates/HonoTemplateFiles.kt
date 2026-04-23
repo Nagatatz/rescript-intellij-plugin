@@ -38,7 +38,7 @@ internal object HonoTemplateFiles {
                         isPrivate = true,
                         type = "module",
                         packageManager = ctx.packageManagerSpec(),
-                        engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                        engines = mapOf("node" to ctx.nodeEngine),
                         dependencies = honoDependencies(ctx.validationLibrary),
                         devDependencies =
                             linkedMapOf(
@@ -102,8 +102,8 @@ internal object HonoTemplateFiles {
                         "Project Layout" to TemplateResourceLoader.load("hono/readme/project-layout.md"),
                     ),
             )
-        files[".nvmrc"] = CommonFiles.nvmrc()
-        files["LICENSE"] = CommonFiles.mitLicense(holder = ctx.projectName)
+        files[".nvmrc"] = CommonFiles.nvmrc(ctx)
+        files["LICENSE"] = CommonFiles.mitLicense(ctx, holder = ctx.projectName)
         files[".github/dependabot.yml"] = CommonFiles.dependabotYaml()
         files[".env.example"] =
             CommonFiles.envExample(

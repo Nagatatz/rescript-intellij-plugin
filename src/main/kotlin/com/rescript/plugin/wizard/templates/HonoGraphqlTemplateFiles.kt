@@ -36,7 +36,7 @@ internal object HonoGraphqlTemplateFiles {
                     isPrivate = true,
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                    engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = honoGraphqlDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
@@ -107,8 +107,8 @@ internal object HonoGraphqlTemplateFiles {
                                 TemplateResourceLoader.load("hono-graphql/readme/project-layout.md"),
                         ),
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(),
-            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".nvmrc" to CommonFiles.nvmrc(ctx),
+            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".env.example" to
                 CommonFiles.envExample(

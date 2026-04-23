@@ -53,7 +53,7 @@ internal object ResXTemplateFiles {
                         isPrivate = true,
                         type = "module",
                         packageManager = ctx.packageManagerSpec(),
-                        engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                        engines = mapOf("node" to ctx.nodeEngine),
                         dependencies = resXDependencies(ctx.validationLibrary),
                         devDependencies =
                             linkedMapOf(
@@ -131,8 +131,8 @@ internal object ResXTemplateFiles {
                     ),
                 extraPrerequisites = listOf("Bun 1.3 or later (install from https://bun.sh)"),
             )
-        files[".nvmrc"] = CommonFiles.nvmrc()
-        files["LICENSE"] = CommonFiles.mitLicense(holder = ctx.projectName)
+        files[".nvmrc"] = CommonFiles.nvmrc(ctx)
+        files["LICENSE"] = CommonFiles.mitLicense(ctx, holder = ctx.projectName)
         files[".github/dependabot.yml"] = CommonFiles.dependabotYaml()
         files[".gitignore"] =
             CommonFiles.gitignore(

@@ -42,7 +42,7 @@ internal object CliToolTemplateFiles {
                     type = "module",
                     bin = "./src/Cli.res.mjs",
                     packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                    engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = cliToolDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
@@ -93,8 +93,8 @@ internal object CliToolTemplateFiles {
                                 TemplateResourceLoader.load("$RESOURCE_ROOT/readme/install-locally.md", installVars),
                         ),
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(),
-            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".nvmrc" to CommonFiles.nvmrc(ctx),
+            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(),
             ".editorconfig" to CommonFiles.editorconfig(),

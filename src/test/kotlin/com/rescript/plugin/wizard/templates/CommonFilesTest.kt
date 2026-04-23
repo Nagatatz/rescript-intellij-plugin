@@ -193,16 +193,24 @@ class CommonFilesTest {
 
     @Test
     fun `nvmrc returns the node major version with trailing newline`() {
-        val content = CommonFiles.nvmrc()
+        val content = CommonFiles.nvmrc(pnpmCtx)
         assertTrue(content.contains(TemplateVersions.NODE_MAJOR))
         assertTrue(content.endsWith("\n"))
     }
 
     @Test
+    fun `nvmrc uses the nodeMajor from the context`() {
+        val customCtx = pnpmCtx.copy(nodeMajor = "24")
+        val content = CommonFiles.nvmrc(customCtx)
+        assertTrue(content.startsWith("24"))
+    }
+
+    @Test
     fun `mitLicense contains the standard MIT wording, year, and holder`() {
-        val content = CommonFiles.mitLicense(year = 2026, holder = "Acme Inc.")
+        val fixedCtx = pnpmCtx.copy(year = 2099)
+        val content = CommonFiles.mitLicense(fixedCtx, holder = "Acme Inc.")
         assertTrue(content.startsWith("MIT License"))
-        assertTrue(content.contains("Copyright (c) 2026 Acme Inc."))
+        assertTrue(content.contains("Copyright (c) 2099 Acme Inc."))
         assertTrue(content.contains("Permission is hereby granted"))
         assertTrue(content.contains("WITHOUT WARRANTY OF ANY KIND"))
     }

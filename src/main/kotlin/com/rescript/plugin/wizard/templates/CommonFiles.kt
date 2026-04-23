@@ -93,7 +93,7 @@ object CommonFiles {
             appendLine()
             appendLine("## Prerequisites")
             appendLine()
-            appendLine("- Node.js ${TemplateVersions.NODE_ENGINE.removePrefix(">=")}+")
+            appendLine("- Node.js ${ctx.nodeEngine.removePrefix(">=")}+")
             if (ctx.packageManager == PackageManager.BUN) {
                 appendLine(
                     "- Bun ${TemplateVersions.BUN} or later (install from https://bun.sh)",
@@ -171,7 +171,7 @@ object CommonFiles {
             appendLine("      - uses: actions/checkout@v4")
             appendLine("      - uses: actions/setup-node@v4")
             appendLine("        with:")
-            appendLine("          node-version: 20")
+            appendLine("          node-version: ${ctx.nodeMajor}")
             if (needsBun) {
                 appendLine("      - uses: oven-sh/setup-bun@v2")
                 appendLine("        with:")
@@ -201,23 +201,25 @@ object CommonFiles {
      *
      * Pairs with the `engines.node` field in `package.json` so tools like nvm, fnm, and
      * volta auto-switch when entering the project directory.
+     *
+     * @param ctx template context (provides [TemplateContext.nodeMajor])
      */
-    fun nvmrc(): String = "${TemplateVersions.NODE_MAJOR}\n"
+    fun nvmrc(ctx: TemplateContext): String = "${ctx.nodeMajor}\n"
 
     /**
      * Generates the standard MIT license text.
      *
-     * @param year the copyright year displayed in the notice
+     * @param ctx template context (provides [TemplateContext.year])
      * @param holder the copyright holder (typically the project or author name)
      */
     fun mitLicense(
-        year: Int = 2026,
+        ctx: TemplateContext,
         holder: String,
     ): String =
         buildString {
             appendLine("MIT License")
             appendLine()
-            appendLine("Copyright (c) $year $holder")
+            appendLine("Copyright (c) ${ctx.year} $holder")
             appendLine()
             appendLine("Permission is hereby granted, free of charge, to any person obtaining a copy")
             appendLine("of this software and associated documentation files (the \"Software\"), to deal")

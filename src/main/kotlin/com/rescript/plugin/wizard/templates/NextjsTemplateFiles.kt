@@ -36,7 +36,7 @@ internal object NextjsTemplateFiles {
                     name = ctx.projectName,
                     isPrivate = true,
                     packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                    engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = nextjsDependencies(ctx.validationLibrary),
                     scripts =
                         linkedMapOf(
@@ -95,8 +95,8 @@ internal object NextjsTemplateFiles {
                                 TemplateResourceLoader.load("$RESOURCE_ROOT/readme/project-layout.md"),
                         ),
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(),
-            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".nvmrc" to CommonFiles.nvmrc(ctx),
+            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".next/", "out/")),
             ".editorconfig" to CommonFiles.editorconfig(),

@@ -35,7 +35,7 @@ internal object ElectronTemplateFiles {
                     isPrivate = true,
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                    engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = electronDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
@@ -92,8 +92,8 @@ internal object ElectronTemplateFiles {
                                 TemplateResourceLoader.load("$RESOURCE_ROOT/readme/about-vite-plus.md"),
                         ),
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(),
-            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".nvmrc" to CommonFiles.nvmrc(ctx),
+            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(extra = listOf("dist/", "out/", ".vite/")),
             ".editorconfig" to CommonFiles.editorconfig(),

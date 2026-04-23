@@ -34,7 +34,7 @@ internal object ReactNativeTemplateFiles {
                     name = ctx.projectName,
                     isPrivate = true,
                     packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+                    engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = reactNativeDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
@@ -84,8 +84,8 @@ internal object ReactNativeTemplateFiles {
                                 TemplateResourceLoader.load("$RESOURCE_ROOT/readme/project-layout.md"),
                         ),
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(),
-            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".nvmrc" to CommonFiles.nvmrc(ctx),
+            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".gitignore" to CommonFiles.gitignore(extra = listOf(".expo/", "android/", "ios/", "*.tsbuildinfo")),
             ".editorconfig" to CommonFiles.editorconfig(),

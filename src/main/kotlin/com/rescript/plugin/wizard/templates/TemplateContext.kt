@@ -3,6 +3,7 @@ package com.rescript.plugin.wizard.templates
 import com.rescript.plugin.wizard.ApiStrategy
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
+import java.time.Year
 
 /**
  * Context passed to each template file generator.
@@ -14,6 +15,12 @@ import com.rescript.plugin.wizard.ValidationLibrary
  * or `sury`, and choose between a REST (Hono routes + fetch client) or GraphQL
  * (graphql-yoga + rescript-relay) shape for full-stack templates.
  *
+ * Also carries shared-but-non-primary metadata (the LICENSE copyright `year`, and the
+ * Node.js `nodeMajor` / `nodeEngine` strings) so individual templates do not each
+ * hardcode `TemplateVersions` constants or the current year. Defaults wire to the
+ * current year (via [Year.now]) and to [TemplateVersions]; tests override them
+ * explicitly to stay deterministic.
+ *
  * @see TemplateVersions for the dependency versions used together with this context
  */
 data class TemplateContext(
@@ -21,6 +28,9 @@ data class TemplateContext(
     val packageManager: PackageManager,
     val validationLibrary: ValidationLibrary = ValidationLibrary.ZOD,
     val apiStrategy: ApiStrategy = ApiStrategy.REST,
+    val year: Int = Year.now().value,
+    val nodeMajor: String = TemplateVersions.NODE_MAJOR,
+    val nodeEngine: String = TemplateVersions.NODE_ENGINE,
 ) {
     /**
      * Returns the Corepack-style spec string for the `packageManager` field in `package.json`.

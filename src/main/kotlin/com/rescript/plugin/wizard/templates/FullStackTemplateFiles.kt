@@ -138,8 +138,8 @@ internal object FullStackTemplateFiles {
             "src/server/Db.res" to TemplateResourceLoader.load("common/db/Db.res"),
             "src/server/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("full-stack/src/server/__tests__/Server.test.mjs"),
-            ".nvmrc" to CommonFiles.nvmrc(),
-            "LICENSE" to CommonFiles.mitLicense(holder = ctx.projectName),
+            ".nvmrc" to CommonFiles.nvmrc(ctx),
+            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
             ".env.example" to
                 CommonFiles.envExample(
@@ -183,7 +183,7 @@ internal object FullStackTemplateFiles {
             isPrivate = true,
             type = "module",
             packageManager = ctx.packageManagerSpec(),
-            engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+            engines = mapOf("node" to ctx.nodeEngine),
             dependencies = restDependencies(ctx.validationLibrary),
             devDependencies = commonDevDependencies(),
             scripts =
@@ -209,7 +209,7 @@ internal object FullStackTemplateFiles {
             isPrivate = true,
             type = "module",
             packageManager = ctx.packageManagerSpec(),
-            engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
+            engines = mapOf("node" to ctx.nodeEngine),
             dependencies = graphqlDependencies(ctx.validationLibrary),
             devDependencies =
                 commonDevDependencies() +
