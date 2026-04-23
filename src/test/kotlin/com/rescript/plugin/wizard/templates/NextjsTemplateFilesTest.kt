@@ -109,4 +109,25 @@ class NextjsTemplateFilesTest {
         assertTrue(pkg.contains("\"test:coverage\""))
         assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
     }
+
+    @Test
+    fun `ships strict tsconfig with Next plugin and bundler module resolution`() {
+        val files = NextjsTemplateFiles.generate(ctx)
+        val tsconfig = files["tsconfig.json"]!!
+        assertTrue(tsconfig.contains("\"strict\": true"))
+        assertTrue(tsconfig.contains("\"noImplicitAny\": true"))
+        assertTrue(tsconfig.contains("\"moduleResolution\": \"bundler\""))
+        assertTrue(tsconfig.contains("\"name\": \"next\""))
+        assertTrue(files.containsKey("rescript-modules.d.ts"))
+        assertTrue(files["rescript-modules.d.ts"]!!.contains("*.res.mjs"))
+    }
+
+    @Test
+    fun `devDependencies declare typescript, @types react, @types react-dom, @types node`() {
+        val pkg = NextjsTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"typescript\": \"${TemplateVersions.TYPESCRIPT}\""))
+        assertTrue(pkg.contains("\"@types/react\": \"${TemplateVersions.REACT_TYPES}\""))
+        assertTrue(pkg.contains("\"@types/react-dom\": \"${TemplateVersions.REACT_DOM_TYPES}\""))
+        assertTrue(pkg.contains("\"@types/node\": \"${TemplateVersions.NODE_TYPES}\""))
+    }
 }

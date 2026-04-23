@@ -29,6 +29,7 @@ object TemplateVersions {
     const val REACT = "^19.2.5"
     const val REACT_DOM = "^19.2.5"
     const val REACT_TYPES = "^19.2.14"
+    const val REACT_DOM_TYPES = "^19.2.14"
 
     // Backend
     const val HONO = "^4.12.14"
@@ -50,6 +51,7 @@ object TemplateVersions {
     const val RN_COMMUNITY_CLI = "^20.1.3"
     const val RN_METRO_CONFIG = "^0.85.1"
     const val RN_BABEL_PRESET = "^0.85.1"
+    const val RN_TYPESCRIPT_CONFIG = "^0.85.1"
 
     // Cloudflare Workers
     const val WRANGLER = "^4.83.0"
