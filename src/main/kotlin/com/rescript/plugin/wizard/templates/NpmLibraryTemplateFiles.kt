@@ -2,6 +2,7 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates files for the npm Library template.
@@ -10,6 +11,10 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  * Ships a small API surface (sync greeting, async fetchWithTimeout, list helpers) that
  * exercises the common patterns library authors hit on day two: pure utilities, async I/O,
  * and generic helpers. Includes README, .gitignore, .editorconfig, CI workflow, and Vitest.
+ *
+ * The public `greetChecked` function validates an untyped JSON payload through a
+ * `Validation.res` whose implementation is selected via [TemplateContext.validationLibrary]
+ * (zod or sury), so libraries can defend themselves from malformed input from JS/TS callers.
  */
 internal object NpmLibraryTemplateFiles {
     private const val RESOURCE_ROOT = "npm-library"
@@ -24,6 +29,7 @@ internal object NpmLibraryTemplateFiles {
                 "cmdBuild" to ctx.runCmd("build"),
                 "cmdTest" to ctx.runCmd("test"),
             )
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -36,11 +42,7 @@ internal object NpmLibraryTemplateFiles {
                     type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                        ),
+                    dependencies = npmLibraryDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "vitest" to TemplateVersions.VITEST,
@@ -62,6 +64,8 @@ internal object NpmLibraryTemplateFiles {
             "src/Index.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Index.res", projectVars),
             "src/ListUtils.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/ListUtils.res"),
             "src/Fetcher.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Fetcher.res"),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/__tests__/Index.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Index.test.mjs"),
             "src/__tests__/ListUtils.test.mjs" to
@@ -74,7 +78,8 @@ internal object NpmLibraryTemplateFiles {
                     description =
                         "A publishable npm package written in ReScript with TypeScript bindings via genType. " +
                             "Ships a small utility API (sync greet, async fetch-with-timeout, list helpers) " +
-                            "to demonstrate common day-two patterns for library authors.",
+                            "plus a ${ctx.validationLibrary.displayName}-backed input guard so untyped JS " +
+                            "callers get readable errors instead of stack traces.",
                     scripts =
                         listOf(
                             "build" to "Compile ReScript sources",
@@ -84,7 +89,10 @@ internal object NpmLibraryTemplateFiles {
                     extraSections =
                         listOf(
                             "API Surface" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/api-surface.md"),
+                                TemplateResourceLoader.load(
+                                    "$RESOURCE_ROOT/readme/api-surface.md",
+                                    mapOf("validationLibrary" to ctx.validationLibrary.displayName),
+                                ),
                             "Publish" to
                                 TemplateResourceLoader.load("$RESOURCE_ROOT/readme/publish.md", publishVars),
                         ),
@@ -102,4 +110,15 @@ internal object NpmLibraryTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun npmLibraryDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        return deps
+    }
 }

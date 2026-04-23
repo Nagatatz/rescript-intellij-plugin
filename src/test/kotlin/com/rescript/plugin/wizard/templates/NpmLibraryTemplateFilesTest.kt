@@ -1,6 +1,8 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -82,5 +84,34 @@ class NpmLibraryTemplateFilesTest {
         val pkg = NpmLibraryTemplateFiles.generate(ctx)["package.json"]!!
         assertTrue(pkg.contains("\"test:coverage\""))
         assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
+    }
+
+    @Test
+    fun `zod variant ships Validation res and pins the zod dependency`() {
+        val zodCtx = ctx.copy(validationLibrary = ValidationLibrary.ZOD)
+        val files = NpmLibraryTemplateFiles.generate(zodCtx)
+        assertTrue(files["src/Validation.res"]!!.contains("@module(\"zod\")"))
+        assertTrue(files["src/Validation.res"]!!.contains("parseGreetInput"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"zod\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships Validation res and pins the sury dependency`() {
+        val suryCtx = ctx.copy(validationLibrary = ValidationLibrary.SURY)
+        val files = NpmLibraryTemplateFiles.generate(suryCtx)
+        assertTrue(files["src/Validation.res"]!!.contains("S.parseOrThrow"))
+        assertTrue(files["src/Validation.res"]!!.contains("parseGreetInput"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"sury\""))
+        assertFalse(pkg.contains("\"zod\""))
+    }
+
+    @Test
+    fun `Index res exposes greetChecked that goes through Validation`() {
+        val index = NpmLibraryTemplateFiles.generate(ctx)["src/Index.res"]!!
+        assertTrue(index.contains("greetChecked"))
+        assertTrue(index.contains("Validation.parseGreetInput"))
     }
 }
