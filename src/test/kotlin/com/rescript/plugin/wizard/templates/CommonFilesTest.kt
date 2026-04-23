@@ -192,6 +192,22 @@ class CommonFilesTest {
     }
 
     @Test
+    fun `ci workflow setup-node version honors ctx nodeMajor (not a hardcoded value)`() {
+        val customCtx = pnpmCtx.copy(nodeMajor = "24")
+        val yaml = CommonFiles.ciWorkflow(customCtx)
+        assertTrue(yaml.contains("node-version: 24"))
+        // Previously this was hardcoded to 20 while TemplateVersions.NODE_MAJOR was 22;
+        // this assertion guards against that regression returning.
+        assertFalse(yaml.contains("node-version: 20"))
+    }
+
+    @Test
+    fun `ci workflow defaults to TemplateVersions NODE_MAJOR for setup-node`() {
+        val yaml = CommonFiles.ciWorkflow(pnpmCtx)
+        assertTrue(yaml.contains("node-version: ${TemplateVersions.NODE_MAJOR}"))
+    }
+
+    @Test
     fun `nvmrc returns the node major version with trailing newline`() {
         val content = CommonFiles.nvmrc(pnpmCtx)
         assertTrue(content.contains(TemplateVersions.NODE_MAJOR))

@@ -4,6 +4,7 @@ import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.time.Year
 
 class TemplateContextTest {
     @Test
@@ -56,5 +57,24 @@ class TemplateContextTest {
     fun `validation library round-trips when provided`() {
         val ctx = TemplateContext("p", PackageManager.PNPM, ValidationLibrary.SURY)
         assertEquals(ValidationLibrary.SURY, ctx.validationLibrary)
+    }
+
+    @Test
+    fun `year defaults to the current calendar year`() {
+        val ctx = TemplateContext("p", PackageManager.PNPM)
+        assertEquals(Year.now().value, ctx.year)
+    }
+
+    @Test
+    fun `nodeMajor and nodeEngine default to TemplateVersions`() {
+        val ctx = TemplateContext("p", PackageManager.PNPM)
+        assertEquals(TemplateVersions.NODE_MAJOR, ctx.nodeMajor)
+        assertEquals(TemplateVersions.NODE_ENGINE, ctx.nodeEngine)
+    }
+
+    @Test
+    fun `overriding year yields the supplied value`() {
+        val ctx = TemplateContext("p", PackageManager.PNPM, year = 2099)
+        assertEquals(2099, ctx.year)
     }
 }
