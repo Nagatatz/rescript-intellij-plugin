@@ -2,12 +2,15 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
+import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for an Expo-based React Native app written in ReScript.
  *
  * Pairs Expo CLI with ReScript via genType so the entry point can import compiled `.gen.tsx`
- * artifacts. Ships README, .gitignore, .editorconfig, and a CI workflow.
+ * artifacts. The draft todo input is validated through a `Validation.res` whose backing
+ * library (zod or sury) is selected via [TemplateContext.validationLibrary], so blank or
+ * oversized entries never reach the list state.
  */
 internal object ReactNativeTemplateFiles {
     private const val RESOURCE_ROOT = "react-native"
@@ -17,6 +20,7 @@ internal object ReactNativeTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val projectVars = mapOf("projectName" to ctx.projectName)
+        val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -31,15 +35,7 @@ internal object ReactNativeTemplateFiles {
                     isPrivate = true,
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to TemplateVersions.NODE_ENGINE),
-                    dependencies =
-                        linkedMapOf(
-                            "rescript" to TemplateVersions.RESCRIPT,
-                            "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
-                            "@rescript/react" to TemplateVersions.RESCRIPT_REACT,
-                            "react" to TemplateVersions.REACT,
-                            "react-native" to TemplateVersions.REACT_NATIVE,
-                            "expo" to TemplateVersions.EXPO,
-                        ),
+                    dependencies = reactNativeDependencies(ctx.validationLibrary),
                     devDependencies =
                         linkedMapOf(
                             "vitest" to TemplateVersions.VITEST,
@@ -61,12 +57,16 @@ internal object ReactNativeTemplateFiles {
             "App.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/App.tsx"),
             "src/App.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/App.res", projectVars),
             "src/ReactNative.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/ReactNative.res"),
+            "src/Validation.res" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/__tests__/App.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/App.test.mjs"),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
-                    description = "An Expo-based React Native app with ReScript components exposed via genType.",
+                    description =
+                        "An Expo-based React Native app with ReScript components exposed via genType. " +
+                            "Draft todo input is validated by ${ctx.validationLibrary.displayName}.",
                     scripts =
                         listOf(
                             "start" to "Start the Expo dev server",
@@ -97,4 +97,19 @@ internal object ReactNativeTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
+
+    private fun reactNativeDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+        val deps = linkedMapOf<String, String>()
+        deps["rescript"] = TemplateVersions.RESCRIPT
+        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/react"] = TemplateVersions.RESCRIPT_REACT
+        deps["react"] = TemplateVersions.REACT
+        deps["react-native"] = TemplateVersions.REACT_NATIVE
+        deps["expo"] = TemplateVersions.EXPO
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
+            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
+        }
+        return deps
+    }
 }
