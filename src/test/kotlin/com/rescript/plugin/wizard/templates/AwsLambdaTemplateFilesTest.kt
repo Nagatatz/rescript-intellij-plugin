@@ -109,4 +109,10 @@ class AwsLambdaTemplateFilesTest {
         assertTrue(pkg.contains("\"test:coverage\""))
         assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
     }
+
+    @Test
+    fun `gitignore excludes SAM CLI build artifacts`() {
+        val gitignore = AwsLambdaTemplateFiles.generate(ctx)[".gitignore"]!!
+        assertTrue(gitignore.contains(".aws-sam/"))
+    }
 }

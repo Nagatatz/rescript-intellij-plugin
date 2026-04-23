@@ -104,7 +104,7 @@ internal object NextjsTemplateFiles {
             ".nvmrc" to CommonFiles.nvmrc(ctx),
             "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf(".next/", "out/")),
+            ".gitignore" to CommonFiles.gitignore(extra = listOf(".next/", "out/", ".env*.local")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
         )

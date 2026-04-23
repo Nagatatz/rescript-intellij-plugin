@@ -23,6 +23,12 @@ class CloudflareWorkersTemplateFilesTest {
     }
 
     @Test
+    fun `gitignore excludes wrangler dev secrets`() {
+        val gitignore = CloudflareWorkersTemplateFiles.generate(ctx)[".gitignore"]!!
+        assertTrue(gitignore.contains(".dev.vars"))
+    }
+
+    @Test
     fun `template includes README with Deploy section`() {
         val readme = CloudflareWorkersTemplateFiles.generate(ctx)["README.md"]!!
         assertTrue(readme.contains("## Deploy"))

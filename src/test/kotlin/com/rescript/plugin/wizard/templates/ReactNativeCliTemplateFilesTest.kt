@@ -88,6 +88,9 @@ class ReactNativeCliTemplateFilesTest {
             "ios/.xcode.env.local",
             "*.hbc",
             "*.keystore",
+            "*.apk",
+            "*.aab",
+            "*.ipa",
         ).forEach { pattern ->
             assertTrue(gi.contains(pattern), ".gitignore missing $pattern")
         }

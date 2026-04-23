@@ -81,7 +81,7 @@ internal object CloudflareWorkersTemplateFiles {
             ".nvmrc" to CommonFiles.nvmrc(ctx),
             "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to CommonFiles.gitignore(extra = listOf(".wrangler/", "dist/")),
+            ".gitignore" to CommonFiles.gitignore(extra = listOf(".wrangler/", "dist/", ".dev.vars")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
         )

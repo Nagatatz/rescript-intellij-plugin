@@ -35,6 +35,12 @@ class NextjsTemplateFilesTest {
     }
 
     @Test
+    fun `gitignore excludes local env overrides to prevent secret leaks`() {
+        val gitignore = NextjsTemplateFiles.generate(ctx)[".gitignore"]!!
+        assertTrue(gitignore.contains(".env*.local"))
+    }
+
+    @Test
     fun `ships Server Component, Client Component, and POST route handler`() {
         val files = NextjsTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("src/app/page.tsx"))
