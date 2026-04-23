@@ -113,21 +113,25 @@ internal object GoogleCloudRunTemplateFiles {
     }
 
     private fun dockerfile(ctx: TemplateContext): String {
+        val isBun = ctx.packageManager == PackageManager.BUN
+        val baseImage = if (isBun) "oven/bun:1-slim" else "node:22-slim"
         val installInPm =
             when (ctx.packageManager) {
                 PackageManager.NPM -> "npm install --omit=dev"
                 PackageManager.PNPM -> "corepack enable && pnpm install --prod --frozen-lockfile=false"
                 PackageManager.YARN -> "corepack enable && yarn install --production"
+                PackageManager.BUN -> "bun install --production"
             }
+        val runner = if (isBun) "bun" else "node"
         return buildString {
-            appendLine("FROM node:22-slim")
+            appendLine("FROM $baseImage")
             appendLine("WORKDIR /app")
             appendLine("COPY package*.json ./")
             appendLine("RUN $installInPm")
             appendLine("COPY . .")
             appendLine("RUN ${ctx.execCmd("rescript")}")
             appendLine("EXPOSE 8080")
-            append("CMD [\"node\", \"src/Server.res.mjs\"]")
+            append("CMD [\"$runner\", \"src/Server.res.mjs\"]")
         }
     }
 }

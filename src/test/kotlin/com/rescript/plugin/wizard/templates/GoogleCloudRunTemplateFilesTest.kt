@@ -29,6 +29,18 @@ class GoogleCloudRunTemplateFilesTest {
     }
 
     @Test
+    fun `Dockerfile switches to oven-sh bun base and bun install for BUN`() {
+        val ctx = TemplateContext("svc", PackageManager.BUN)
+        val dockerfile = GoogleCloudRunTemplateFiles.generate(ctx)["Dockerfile"]!!
+        assertTrue(dockerfile.contains("FROM oven/bun:1-slim"))
+        assertTrue(dockerfile.contains("bun install --production"))
+        assertTrue(dockerfile.contains("bunx rescript"))
+        assertTrue(dockerfile.contains("CMD [\"bun\", \"src/Server.res.mjs\"]"))
+        assertFalse(dockerfile.contains("node:22-slim"))
+        assertFalse(dockerfile.contains("CMD [\"node\""))
+    }
+
+    @Test
     fun `template ships dockerignore, README, and CI workflow`() {
         val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
         assertTrue(files.containsKey(".dockerignore"))

@@ -94,7 +94,13 @@ object CommonFiles {
             appendLine("## Prerequisites")
             appendLine()
             appendLine("- Node.js ${TemplateVersions.NODE_ENGINE.removePrefix(">=")}+")
-            appendLine("- ${packageManagerName(ctx.packageManager)} (managed via Corepack)")
+            if (ctx.packageManager == PackageManager.BUN) {
+                appendLine(
+                    "- Bun ${TemplateVersions.BUN} or later (install from https://bun.sh)",
+                )
+            } else {
+                appendLine("- ${packageManagerName(ctx.packageManager)} (managed via Corepack)")
+            }
             extraPrerequisites.forEach { appendLine("- $it") }
             appendLine()
             appendLine("## Getting Started")
@@ -277,5 +283,6 @@ object CommonFiles {
             PackageManager.NPM -> "npm"
             PackageManager.PNPM -> "pnpm"
             PackageManager.YARN -> "Yarn"
+            PackageManager.BUN -> "Bun"
         }
 }

@@ -30,6 +30,7 @@ data class TemplateContext(
             PackageManager.NPM -> "npm@${TemplateVersions.NPM}"
             PackageManager.PNPM -> "pnpm@${TemplateVersions.PNPM}"
             PackageManager.YARN -> "yarn@${TemplateVersions.YARN}"
+            PackageManager.BUN -> "bun@${TemplateVersions.BUN}"
         }
 
     /**
@@ -40,6 +41,7 @@ data class TemplateContext(
             PackageManager.NPM -> "npm install"
             PackageManager.PNPM -> "pnpm install"
             PackageManager.YARN -> "yarn"
+            PackageManager.BUN -> "bun install"
         }
 
     /**
@@ -52,6 +54,7 @@ data class TemplateContext(
             PackageManager.NPM -> "npm run $script"
             PackageManager.PNPM -> "pnpm $script"
             PackageManager.YARN -> "yarn $script"
+            PackageManager.BUN -> "bun run $script"
         }
 
     /**
@@ -65,6 +68,7 @@ data class TemplateContext(
             PackageManager.NPM -> "npx $binary"
             PackageManager.PNPM -> "pnpm exec $binary"
             PackageManager.YARN -> "yarn $binary"
+            PackageManager.BUN -> "bunx $binary"
         }
 
     /**
@@ -75,5 +79,6 @@ data class TemplateContext(
             PackageManager.NPM -> "package-lock.json"
             PackageManager.PNPM -> "pnpm-lock.yaml"
             PackageManager.YARN -> "yarn.lock"
+            PackageManager.BUN -> "bun.lock"
         }
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 class CommonFilesTest {
     private val pnpmCtx = TemplateContext("demo", PackageManager.PNPM)
     private val npmCtx = TemplateContext("demo", PackageManager.NPM)
+    private val bunCtx = TemplateContext("demo", PackageManager.BUN)
 
     @Test
     fun `gitignore covers node_modules, ReScript artifacts, OS files`() {
@@ -48,6 +49,19 @@ class CommonFilesTest {
         assertTrue(readme.contains("pnpm dev"))
         assertTrue(readme.contains("pnpm build"))
         assertFalse(readme.contains("npm run dev"), "pnpm readme should not use 'npm run dev'")
+    }
+
+    @Test
+    fun `readme swaps Corepack wording for Bun install guidance when PM is BUN`() {
+        val readme =
+            CommonFiles.readme(
+                ctx = bunCtx,
+                description = "x",
+                scripts = emptyList(),
+            )
+        assertTrue(readme.contains("- Bun ${TemplateVersions.BUN} or later"))
+        assertTrue(readme.contains("https://bun.sh"))
+        assertFalse(readme.contains("Bun (managed via Corepack)"))
     }
 
     @Test

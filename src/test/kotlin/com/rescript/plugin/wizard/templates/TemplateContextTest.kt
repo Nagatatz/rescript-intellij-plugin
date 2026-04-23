@@ -11,6 +11,7 @@ class TemplateContextTest {
         assertEquals("npm@${TemplateVersions.NPM}", TemplateContext("p", PackageManager.NPM).packageManagerSpec())
         assertEquals("pnpm@${TemplateVersions.PNPM}", TemplateContext("p", PackageManager.PNPM).packageManagerSpec())
         assertEquals("yarn@${TemplateVersions.YARN}", TemplateContext("p", PackageManager.YARN).packageManagerSpec())
+        assertEquals("bun@${TemplateVersions.BUN}", TemplateContext("p", PackageManager.BUN).packageManagerSpec())
     }
 
     @Test
@@ -18,6 +19,7 @@ class TemplateContextTest {
         assertEquals("npm install", TemplateContext("p", PackageManager.NPM).installCmd())
         assertEquals("pnpm install", TemplateContext("p", PackageManager.PNPM).installCmd())
         assertEquals("yarn", TemplateContext("p", PackageManager.YARN).installCmd())
+        assertEquals("bun install", TemplateContext("p", PackageManager.BUN).installCmd())
     }
 
     @Test
@@ -25,6 +27,7 @@ class TemplateContextTest {
         assertEquals("npm run dev", TemplateContext("p", PackageManager.NPM).runCmd("dev"))
         assertEquals("pnpm dev", TemplateContext("p", PackageManager.PNPM).runCmd("dev"))
         assertEquals("yarn dev", TemplateContext("p", PackageManager.YARN).runCmd("dev"))
+        assertEquals("bun run dev", TemplateContext("p", PackageManager.BUN).runCmd("dev"))
     }
 
     @Test
@@ -32,6 +35,7 @@ class TemplateContextTest {
         assertEquals("npx rescript", TemplateContext("p", PackageManager.NPM).execCmd("rescript"))
         assertEquals("pnpm exec rescript", TemplateContext("p", PackageManager.PNPM).execCmd("rescript"))
         assertEquals("yarn rescript", TemplateContext("p", PackageManager.YARN).execCmd("rescript"))
+        assertEquals("bunx rescript", TemplateContext("p", PackageManager.BUN).execCmd("rescript"))
     }
 
     @Test
@@ -39,6 +43,7 @@ class TemplateContextTest {
         assertEquals("package-lock.json", TemplateContext("p", PackageManager.NPM).lockfileName())
         assertEquals("pnpm-lock.yaml", TemplateContext("p", PackageManager.PNPM).lockfileName())
         assertEquals("yarn.lock", TemplateContext("p", PackageManager.YARN).lockfileName())
+        assertEquals("bun.lock", TemplateContext("p", PackageManager.BUN).lockfileName())
     }
 
     @Test

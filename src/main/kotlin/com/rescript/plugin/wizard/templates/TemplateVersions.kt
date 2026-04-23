@@ -70,6 +70,11 @@ object TemplateVersions {
     const val NPM = "11.12.1"
     const val YARN = "4.14.1"
 
+    // Bun runtime + package manager. v1.2+ introduces the text-based `bun.lock`
+    // lockfile and the pnpm-style `bun --filter` monorepo selector; the template
+    // generators assume both and therefore require v1.2 at minimum.
+    const val BUN = "1.2.0"
+
     // Database (libsql client + Drizzle ORM)
     const val LIBSQL_CLIENT = "^0.17.2"
     const val DRIZZLE_ORM = "^0.45.2"
