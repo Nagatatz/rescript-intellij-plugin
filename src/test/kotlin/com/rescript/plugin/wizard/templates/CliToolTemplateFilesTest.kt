@@ -1,6 +1,8 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
+import com.rescript.plugin.wizard.ValidationLibrary
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -69,5 +71,45 @@ class CliToolTemplateFilesTest {
         val pkg = CliToolTemplateFiles.generate(ctx)["package.json"]!!
         assertTrue(pkg.contains("\"test:coverage\""))
         assertTrue(pkg.contains("\"@vitest/coverage-v8\""))
+    }
+
+    @Test
+    fun `zod variant ships a zod Validation res and pins the zod dependency`() {
+        val zodCtx = ctx.copy(validationLibrary = ValidationLibrary.ZOD)
+        val files = CliToolTemplateFiles.generate(zodCtx)
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("@module(\"zod\")"))
+        assertTrue(validation.contains("parseInitOptions"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"zod\""))
+        assertFalse(pkg.contains("\"sury\""))
+    }
+
+    @Test
+    fun `sury variant ships a sury Validation res and pins the sury dependency`() {
+        val suryCtx = ctx.copy(validationLibrary = ValidationLibrary.SURY)
+        val files = CliToolTemplateFiles.generate(suryCtx)
+        val validation = files["src/Validation.res"]!!
+        assertTrue(validation.contains("S.parseOrThrow"))
+        assertTrue(validation.contains("parseInitOptions"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"sury\""))
+        assertFalse(pkg.contains("\"zod\""))
+    }
+
+    @Test
+    fun `Commands res wires the init subcommand to Validation parseInitOptions`() {
+        val commands = CliToolTemplateFiles.generate(ctx)["src/Commands.res"]!!
+        assertTrue(commands.contains("Validation.parseInitOptions"))
+        assertTrue(commands.contains("--name"))
+        assertTrue(commands.contains("--dir"))
+    }
+
+    @Test
+    fun `README usage section mentions the selected validation library`() {
+        val readme = CliToolTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("zod"))
+        assertTrue(readme.contains("--name"))
+        assertTrue(readme.contains("--dir"))
     }
 }

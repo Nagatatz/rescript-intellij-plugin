@@ -32,6 +32,8 @@ class TemplateResourcesSmokeTest {
             "cmdDeploy",
             // npm-library/readme/publish.md
             "cmdTest",
+            // cli-tool/readme/usage.md + project-layout.md (ValidationLibrary wiring)
+            "validationLibrary",
         )
 
     @Test
