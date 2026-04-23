@@ -77,6 +77,7 @@ class TemplateResourcesSmokeTest {
                     ValidationLibrary.ZOD,
                     ApiStrategy.GRAPHQL,
                 ),
+                TemplateContext("demo-bun", PackageManager.BUN, ValidationLibrary.ZOD),
             )
         val violations = mutableListOf<String>()
         ProjectTemplate.entries.forEach { template ->
