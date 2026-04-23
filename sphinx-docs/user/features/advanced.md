@@ -426,9 +426,9 @@ Create new ReScript projects directly from the IDE with 15 pre-configured templa
 2. Select **ReScript** from the generator list on the left
 3. Configure project settings:
    - **Project name** and **location**
-   - **Template** --- Choose from 15 project templates grouped by category
-   - **Package manager** --- Choose between npm, pnpm, or yarn
-   - **Validation library** --- Choose between `zod` and `sury` for runtime HTTP body validation in server-side templates
+   - **Template** --- Choose from 16 project templates grouped by category
+   - **Package manager** --- Choose between npm, pnpm, yarn, or bun
+   - **Validation library** --- Choose between `zod` and `sury`. Every template wires the choice into a `Validation.res` whose input differs by template (HTTP body, CLI options, form input, IPC payload, config file, or public API arguments)
 4. Click **Create** to generate the project
 
 ### Available Templates
@@ -514,7 +514,17 @@ my-project/
 
 ### Validation Library
 
-Server-side templates (Hono, Hono GraphQL, AWS Lambda, Cloudflare Workers, Google Cloud Run, Next.js, Full-Stack, Monorepo) ship a `Validation.res` module that parses incoming JSON bodies with either [`zod`](https://zod.dev) (default) or [`sury`](https://github.com/DZakh/sury) (ReScript-native, selected via the **Validation library** wizard option). Both backends expose the same function signature --- `parseXxx: JSON.t => result<T, string>` --- so route handlers call the same code regardless of the library selected. Validation failures short-circuit to HTTP 400 with a JSON error body.
+All 16 templates ship a `Validation.res` module whose backing library is selected via the **Validation library** wizard option --- either [`zod`](https://zod.dev) (default) or [`sury`](https://github.com/DZakh/sury) (ReScript-native). The function signature is the same across backends --- `parseXxx: <input> => result<T, string>` --- so callers don't need to branch on the library choice. What each template validates depends on the shape of its input boundary:
+
+| Template | Validates |
+|----------|-----------|
+| Hono / Hono GraphQL / AWS Lambda / Cloudflare Workers / Google Cloud Run / Next.js / Full-Stack / Monorepo / res-x | Incoming HTTP JSON bodies (failures short-circuit to HTTP 400) |
+| CLI Tool | `init --name / --dir` subcommand options |
+| npm Library | Public API arguments from JS/TS consumers |
+| Basic | `config.json` shape when `--config` is supplied |
+| Electron | IPC responses returned from the main process |
+| React Native (Expo) / React Native (Community CLI) | Draft todo input on the form |
+| Vite + React | Greet-form input before the fetch call |
 
 ### After Project Creation
 
