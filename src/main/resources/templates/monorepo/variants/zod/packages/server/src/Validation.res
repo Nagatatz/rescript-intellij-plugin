@@ -16,9 +16,9 @@ let createUserReqSchema = z["object"]({
   "email": z["string"](),
 })
 
-let parseCreateUserReq = (json: JSON.t): result<Api.createUserReq, string> =>
+let parseCreateUserReq = (json: JSON.t): result<Shared.Api.createUserReq, string> =>
   try {
-    let parsed: Api.createUserReq = parse(createUserReqSchema, json)
+    let parsed: Shared.Api.createUserReq = parse(createUserReqSchema, json)
     Ok(parsed)
   } catch {
   | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Validation failed"))

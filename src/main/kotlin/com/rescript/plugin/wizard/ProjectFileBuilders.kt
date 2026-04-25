@@ -17,6 +17,10 @@ object ProjectFileBuilders {
      * @param includeJsx whether to include JSX v4 configuration
      * @param includeGenType whether to include gentype configuration
      * @param sources custom source directory configuration string; defaults to standard src/ with subdirs
+     * @param namespace optional namespace string to wrap all modules under (e.g. `"Shared"`).
+     *                   Required for monorepo `bs-dependencies` consumers that want to
+     *                   reference the dependency's modules under a stable top-level name
+     *                   rather than relying on globally-flat module identifiers.
      * @return the JSON content as a string
      */
     fun rescriptJson(
@@ -26,6 +30,7 @@ object ProjectFileBuilders {
         includeGenType: Boolean = false,
         sources: String? = null,
         ppxFlags: List<String> = emptyList(),
+        namespace: String? = null,
     ): String {
         val bsDeps = bsDependencies.joinToString(", ") { "\"$it\"" }
 
@@ -45,6 +50,9 @@ object ProjectFileBuilders {
             appendLine("    \"in-source\": true")
             appendLine("  },")
             appendLine("  \"suffix\": \".res.mjs\",")
+            if (namespace != null) {
+                appendLine("  \"namespace\": \"$namespace\",")
+            }
             appendLine("  \"bs-dependencies\": [$bsDeps],")
             if (ppxFlags.isNotEmpty()) {
                 val flags = ppxFlags.joinToString(", ") { "\"$it\"" }

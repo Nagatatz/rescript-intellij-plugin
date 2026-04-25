@@ -11,7 +11,7 @@ let make = (~serverGeneratedAt: string) => {
     <p>
       {React.string("This block is a Server Component. " ++ "The form below is a Client Component.")}
     </p>
-    <p style={ReactDOM.Style.make(~color="#666", ~fontSize="0.875rem", ())}>
+    <p style={{color: "#666", fontSize: "0.875rem"}}>
       {React.string("Rendered on the server at " ++ serverGeneratedAt)}
     </p>
   </section>

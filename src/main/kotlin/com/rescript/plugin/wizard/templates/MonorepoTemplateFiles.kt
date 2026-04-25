@@ -60,7 +60,16 @@ internal object MonorepoTemplateFiles {
                 put("pnpm-workspace.yaml", "packages:\n  - \"packages/*\"\n")
             }
             // shared
-            put("packages/shared/rescript.json", ProjectFileBuilders.rescriptJson(name = "@$name/shared"))
+            put(
+                "packages/shared/rescript.json",
+                ProjectFileBuilders.rescriptJson(
+                    name = "@$name/shared",
+                    // Wrap shared's modules under a `Shared` namespace so consumers
+                    // (server / client) can reference `Shared.Types.user` rather than
+                    // colliding on flat module names like `Types` or `Api`.
+                    namespace = "Shared",
+                ),
+            )
             put(
                 "packages/shared/package.json",
                 ProjectFileBuilders.packageJson(

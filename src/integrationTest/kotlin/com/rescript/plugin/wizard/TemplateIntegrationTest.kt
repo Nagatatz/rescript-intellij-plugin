@@ -40,17 +40,43 @@ class TemplateIntegrationTest {
             "pnpm install failed for ${template.displayName}\nstdout=${install.stdout}\nstderr=${install.stderr}",
         )
 
-        if (files.keys.any { it == "rescript.json" }) {
-            val rescript =
-                IntegrationTestSupport.exec(
-                    tempDir,
-                    listOf(pnpm, "exec", "rescript"),
+        // Compile every workspace that ships a `rescript.json`, not just the
+        // project root. Monorepo templates have per-package configs and no
+        // root config, so a naive `it == "rescript.json"` check would skip
+        // them entirely and silently mask broken client/server ReScript.
+        val rescriptDirs =
+            files.keys
+                .filter { it.endsWith("rescript.json") }
+                .map { it.removeSuffix("rescript.json").trimEnd('/') }
+        if (rescriptDirs.isNotEmpty()) {
+            val isWorkspace = files.keys.any { it == "pnpm-workspace.yaml" }
+            if (isWorkspace) {
+                // pnpm's recursive-exec topological order doesn't actually wait for
+                // a producer to finish before consumers start (even with
+                // `--workspace-concurrency=1`), so we run rescript per-workspace
+                // explicitly. Build the bs-dependency `shared` first; everything
+                // that depends on it runs afterwards in declaration order.
+                val ordered = rescriptDirs.sortedBy { if (it.endsWith("/shared")) 0 else 1 }
+                ordered.forEach { dir ->
+                    val res =
+                        IntegrationTestSupport.exec(
+                            tempDir,
+                            listOf(pnpm, "--filter", "./$dir", "exec", "rescript"),
+                        )
+                    assertTrue(
+                        res.succeeded,
+                        "rescript build failed for ${template.displayName} in $dir\n" +
+                            "stdout=${res.stdout}\nstderr=${res.stderr}",
+                    )
+                }
+            } else {
+                val rescript = IntegrationTestSupport.exec(tempDir, listOf(pnpm, "exec", "rescript"))
+                assertTrue(
+                    rescript.succeeded,
+                    "rescript build failed for ${template.displayName}\n" +
+                        "stdout=${rescript.stdout}\nstderr=${rescript.stderr}",
                 )
-            assertTrue(
-                rescript.succeeded,
-                "rescript build failed for ${template.displayName}\n" +
-                    "stdout=${rescript.stdout}\nstderr=${rescript.stderr}",
-            )
+            }
         }
 
         if (template in templatesWithBundle) {

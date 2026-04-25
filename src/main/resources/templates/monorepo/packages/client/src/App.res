@@ -25,9 +25,9 @@ let make = () => {
     await loadUsers()
   }
 
-  <main style={ReactDOM.Style.make(~padding="2rem", ~fontFamily="sans-serif", ())}>
+  <main style={{padding: "2rem", fontFamily: "sans-serif"}}>
     <h1> {React.string("{{projectName}}")} </h1>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={event => handleSubmit(event)->ignore}>
       <input placeholder="name" value={name} onChange={e => setName(_ => (e->ReactEvent.Form.target)["value"])} />
       <input placeholder="email" value={email} onChange={e => setEmail(_ => (e->ReactEvent.Form.target)["value"])} />
       <button type_="submit"> {React.string("Add user")} </button>
