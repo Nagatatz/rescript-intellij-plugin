@@ -20,6 +20,9 @@ class TemplateResourcesSmokeTest {
             // hono/readme/database.md, hono-graphql/readme/database.md
             "cmdDbGenerate",
             "cmdDbMigrate",
+            // hono-graphql/readme/schema.md uses {{cmdDocsGraphql}} when documenting
+            // how to regenerate the human-readable schema.md after editing SDL.
+            "cmdDocsGraphql",
             // react-native-cli: app.json, src/App.res
             "projectName",
             // react-native-cli/readme/community-cli.md

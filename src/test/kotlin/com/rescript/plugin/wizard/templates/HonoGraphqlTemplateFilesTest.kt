@@ -157,4 +157,38 @@ class HonoGraphqlTemplateFilesTest {
         assertTrue(server.contains("import { app } from"))
         assertTrue(server.contains("app.request(\"/health\")"))
     }
+
+    @Test
+    fun `README Schema section explains schema-first vs code-first trade-off`() {
+        val readme = HonoGraphqlTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("Schema-first by design"))
+        // Must explicitly contrast with code-first frameworks so users can
+        // make an informed choice when their project outgrows schema-first.
+        assertTrue(readme.contains("code-first"))
+        assertTrue(readme.contains("Pothos"))
+        // Must teach the canonical "add a new type + resolver" workflow,
+        // including the SDL/typeDefs sync requirement.
+        assertTrue(readme.contains("Adding a new type + resolver"))
+        assertTrue(readme.contains("schema.graphql"))
+        assertTrue(readme.contains("typeDefs"))
+    }
+
+    @Test
+    fun `README Schema section interpolates the docs-graphql command for the selected PM`() {
+        val readme = HonoGraphqlTemplateFiles.generate(ctx)["README.md"]!!
+        // pnpm context: the regenerate-docs step must be the actual `pnpm` command,
+        // not a literal `{{cmdDocsGraphql}}` placeholder leaking through.
+        assertTrue(readme.contains("pnpm docs:graphql"))
+        assertFalse(readme.contains("{{cmdDocsGraphql}}"))
+    }
+
+    @Test
+    fun `README Schema section shows how to test resolvers in isolation`() {
+        val readme = HonoGraphqlTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("Testing resolvers in isolation"))
+        // The example must use graphql/execution against the schema/rootValue
+        // exported from GraphqlSchema.res rather than only the HTTP boundary.
+        assertTrue(readme.contains("graphql/execution") || readme.contains("from \"graphql\""))
+        assertTrue(readme.contains("GraphqlSchema.res.mjs"))
+    }
 }

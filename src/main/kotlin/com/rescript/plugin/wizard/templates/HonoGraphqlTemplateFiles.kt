@@ -92,20 +92,23 @@ internal object HonoGraphqlTemplateFiles {
                             "res:dev" to "Watch ReScript sources",
                         ),
                     extraSections =
-                        listOf(
-                            "Try It" to TemplateResourceLoader.load("hono-graphql/readme/try-it.md"),
-                            "Schema" to TemplateResourceLoader.load("hono-graphql/readme/schema.md"),
-                            "Database" to
-                                TemplateResourceLoader.load(
-                                    "hono-graphql/readme/database.md",
-                                    mapOf(
-                                        "cmdDbGenerate" to ctx.runCmd("db:generate"),
-                                        "cmdDbMigrate" to ctx.runCmd("db:migrate"),
-                                    ),
-                                ),
-                            "Project Layout" to
-                                TemplateResourceLoader.load("hono-graphql/readme/project-layout.md"),
-                        ),
+                        run {
+                            val dbVars =
+                                mapOf(
+                                    "cmdDbGenerate" to ctx.runCmd("db:generate"),
+                                    "cmdDbMigrate" to ctx.runCmd("db:migrate"),
+                                    "cmdDocsGraphql" to ctx.runCmd("docs:graphql"),
+                                )
+                            listOf(
+                                "Try It" to TemplateResourceLoader.load("hono-graphql/readme/try-it.md"),
+                                "Schema" to
+                                    TemplateResourceLoader.load("hono-graphql/readme/schema.md", dbVars),
+                                "Database" to
+                                    TemplateResourceLoader.load("hono-graphql/readme/database.md", dbVars),
+                                "Project Layout" to
+                                    TemplateResourceLoader.load("hono-graphql/readme/project-layout.md"),
+                            )
+                        },
                 ),
             ".nvmrc" to CommonFiles.nvmrc(ctx),
             "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
