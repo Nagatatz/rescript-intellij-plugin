@@ -115,4 +115,24 @@ class AwsLambdaTemplateFilesTest {
         val gitignore = AwsLambdaTemplateFiles.generate(ctx)[".gitignore"]!!
         assertTrue(gitignore.contains(".aws-sam/"))
     }
+
+    @Test
+    fun `README documents bundling strategy with esbuild --external and Lambda Layers`() {
+        val readme = AwsLambdaTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("## Bundling Strategy"))
+        assertTrue(readme.contains("--external:@aws-sdk/*"))
+        assertTrue(readme.contains("publish-layer-version"))
+        // Layer publish command interpolates the Node major from the context, not 20
+        assertTrue(readme.contains("nodejs${TemplateVersions.NODE_MAJOR}.x"))
+    }
+
+    @Test
+    fun `Deploy section reports the runtime Node major from the context`() {
+        val readme = AwsLambdaTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("Runtime: Node.js ${TemplateVersions.NODE_MAJOR}"))
+        assertFalse(
+            readme.contains("Runtime: Node.js 20"),
+            "Deploy section must not mention the legacy Node.js 20 runtime",
+        )
+    }
 }

@@ -46,6 +46,9 @@ class TemplateResourcesSmokeTest {
             // res-x: readme/app.md, readme/project-layout.md, TodoForm.res describe
             // the selected validation library (zod or sury) in prose
             "validationLib",
+            // aws-lambda/readme/deploy.md + bundling.md embed the Node major used by
+            // the Lambda runtime (e.g. nodejs22.x), which now follows ctx.nodeMajor
+            "nodeMajor",
         )
 
     @Test

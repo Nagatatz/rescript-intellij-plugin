@@ -23,6 +23,12 @@ internal object AwsLambdaTemplateFiles {
             mapOf(
                 "cmdBuild" to ctx.runCmd("build"),
                 "projectName" to ctx.projectName,
+                "nodeMajor" to ctx.nodeMajor,
+            )
+        val bundlingVars =
+            mapOf(
+                "projectName" to ctx.projectName,
+                "nodeMajor" to ctx.nodeMajor,
             )
         val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
@@ -78,6 +84,8 @@ internal object AwsLambdaTemplateFiles {
                         listOf(
                             "API" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/api.md"),
                             "Deploy" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/deploy.md", deployVars),
+                            "Bundling Strategy" to
+                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/bundling.md", bundlingVars),
                             "DynamoDB Recipe" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/dynamodb.md"),
                         ),
                 ),
