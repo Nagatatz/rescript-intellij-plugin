@@ -245,6 +245,14 @@ internal object MonorepoTemplateFiles {
                     extraSections =
                         listOf(
                             "Workspaces" to workspacesNote(pm),
+                            "Database" to
+                                TemplateResourceLoader.load(
+                                    "monorepo/readme/database.md",
+                                    mapOf(
+                                        "cmdDbGenerate" to perWorkspaceCmd(pm, "server", "db:generate"),
+                                        "cmdDbMigrate" to perWorkspaceCmd(pm, "server", "db:migrate"),
+                                    ),
+                                ),
                             "About Vite+" to TemplateResourceLoader.load("monorepo/readme/vite-plus.md"),
                             "Networking" to TemplateResourceLoader.load("monorepo/readme/networking.md"),
                         ),

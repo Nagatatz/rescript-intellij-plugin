@@ -224,4 +224,25 @@ class MonorepoTemplateFilesTest {
         assertTrue(server.contains("import { app } from"))
         assertTrue(server.contains("app.request(\"/api/hello\")"))
     }
+
+    @Test
+    fun `README documents the Database section with workspace-filtered drizzle commands`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val readme = files["README.md"]!!
+        assertTrue(readme.contains("## Database"))
+        assertTrue(readme.contains("DATABASE_URL"))
+        assertTrue(readme.contains("Turso"))
+        assertTrue(readme.contains("packages/server/src/Schema.res"))
+        // pnpm filter resolves to the per-workspace drizzle-kit invocation
+        assertTrue(readme.contains("pnpm --filter ./packages/server db:generate"))
+        assertTrue(readme.contains("pnpm --filter ./packages/server db:migrate"))
+    }
+
+    @Test
+    fun `README database commands honor selected package manager (npm)`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.NPM))
+        val readme = files["README.md"]!!
+        assertTrue(readme.contains("npm --workspace packages/server run db:generate"))
+        assertTrue(readme.contains("npm --workspace packages/server run db:migrate"))
+    }
 }
