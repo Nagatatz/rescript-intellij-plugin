@@ -29,7 +29,7 @@ let parseGreetForm = (name: string): result<greetForm, string> => {
       let parsed: greetForm = parse(greetFormSchema, payload)
       Ok(parsed)
     } catch {
-    | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Invalid form input"))
+    | JsExn(err) => Error(err->JsExn.message->Option.getOr("Invalid form input"))
     }
   }
 }

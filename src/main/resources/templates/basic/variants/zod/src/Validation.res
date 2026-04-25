@@ -24,5 +24,5 @@ let parseConfig = (json: JSON.t): result<config, string> =>
     let parsed: config = parse(configSchema, json)
     Ok(parsed)
   } catch {
-  | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Invalid config"))
+  | JsExn(err) => Error(err->JsExn.message->Option.getOr("Invalid config"))
   }

@@ -26,5 +26,5 @@ let parseInfo = (json: JSON.t): result<info, string> =>
     let parsed: info = parse(infoSchema, json)
     Ok(parsed)
   } catch {
-  | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Invalid IPC payload"))
+  | JsExn(err) => Error(err->JsExn.message->Option.getOr("Invalid IPC payload"))
   }

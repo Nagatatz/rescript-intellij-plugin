@@ -21,5 +21,5 @@ let parseCreateUserReq = (json: JSON.t): result<Shared.Api.createUserReq, string
     let parsed: Shared.Api.createUserReq = parse(createUserReqSchema, json)
     Ok(parsed)
   } catch {
-  | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Validation failed"))
+  | JsExn(err) => Error(err->JsExn.message->Option.getOr("Validation failed"))
   }

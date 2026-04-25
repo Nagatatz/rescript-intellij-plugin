@@ -23,5 +23,5 @@ let parseInitOptions = (json: JSON.t): result<initOptions, string> =>
     let parsed: initOptions = parse(initOptionsSchema, json)
     Ok(parsed)
   } catch {
-  | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Invalid init options"))
+  | JsExn(err) => Error(err->JsExn.message->Option.getOr("Invalid init options"))
   }

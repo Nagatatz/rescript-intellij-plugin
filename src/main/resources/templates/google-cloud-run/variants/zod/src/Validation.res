@@ -21,5 +21,5 @@ let parseEchoPayload = (json: JSON.t): result<echoPayload, string> =>
     let parsed: echoPayload = parse(echoPayloadSchema, json)
     Ok(parsed)
   } catch {
-  | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Validation failed"))
+  | JsExn(err) => Error(err->JsExn.message->Option.getOr("Validation failed"))
   }

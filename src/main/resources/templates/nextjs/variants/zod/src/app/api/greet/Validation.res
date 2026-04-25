@@ -20,5 +20,5 @@ let parseGreetInput = (json: JSON.t): result<greetInput, string> =>
     let parsed: greetInput = parse(greetInputSchema, json)
     Ok(parsed)
   } catch {
-  | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Validation failed"))
+  | JsExn(err) => Error(err->JsExn.message->Option.getOr("Validation failed"))
   }

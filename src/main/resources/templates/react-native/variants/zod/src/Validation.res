@@ -29,7 +29,7 @@ let parseDraftTodo = (text: string): result<draftTodo, string> => {
       let parsed: draftTodo = parse(draftTodoSchema, payload)
       Ok(parsed)
     } catch {
-    | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Invalid todo"))
+    | JsExn(err) => Error(err->JsExn.message->Option.getOr("Invalid todo"))
     }
   }
 }

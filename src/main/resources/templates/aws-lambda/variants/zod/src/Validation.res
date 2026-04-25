@@ -23,5 +23,5 @@ let parseCreateOrderPayload = (json: JSON.t): result<createOrderPayload, string>
     let parsed: createOrderPayload = parse(createOrderPayloadSchema, json)
     Ok(parsed)
   } catch {
-  | Exn.Error(err) => Error(err->Exn.message->Option.getOr("Validation failed"))
+  | JsExn(err) => Error(err->JsExn.message->Option.getOr("Validation failed"))
   }
