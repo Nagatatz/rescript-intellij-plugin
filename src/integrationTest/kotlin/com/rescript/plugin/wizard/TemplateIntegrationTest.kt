@@ -79,6 +79,19 @@ class TemplateIntegrationTest {
             }
         }
 
+        if (template !in templatesSkipTest) {
+            // Run the bundled vitest smoke tests so a broken `Server.test.mjs`
+            // / `App.test.mjs` doesn't ship to a user. Unit tests on the
+            // generator side only verify the test files were *emitted*, not
+            // that the assertions actually pass at runtime.
+            val test = IntegrationTestSupport.exec(tempDir, listOf(pnpm, "test"))
+            assertTrue(
+                test.succeeded,
+                "pnpm test failed for ${template.displayName}\n" +
+                    "stdout=${test.stdout}\nstderr=${test.stderr}",
+            )
+        }
+
         if (template in templatesWithBundle) {
             val build =
                 IntegrationTestSupport.exec(
@@ -102,5 +115,38 @@ class TemplateIntegrationTest {
         // top-level bundler invocation. The README of each template documents the
         // pre-1.0 status and the fallback to plain Vite.
         private val templatesWithBundle: Set<ProjectTemplate> = emptySet()
+
+        // Templates whose `test` script needs setup the smoke-import alone
+        // can't provide in a temp dir. Each entry below documents why; drop
+        // an entry once the upstream constraint is lifted.
+        private val templatesSkipTest: Set<ProjectTemplate> =
+            setOf(
+                // Vite+ wraps Vitest as `vp test`. Pre-1.0 vite-plus inherits
+                // the same plugin-resolution issue that blocks `vp build` and
+                // surfaces it for the test command too.
+                ProjectTemplate.VITE_REACT,
+                ProjectTemplate.ELECTRON,
+                // The bundled smoke test does `import("../Server.res.mjs")`,
+                // which runs `Db.res`'s top-level `createClient(...)`. That
+                // tries to open `./data/app.db` and fails in the temp dir.
+                // Re-enable once smoke tests gain a vitest setup file that
+                // pins `DATABASE_URL` to `:memory:` before module load.
+                ProjectTemplate.HONO,
+                ProjectTemplate.HONO_GRAPHQL,
+                ProjectTemplate.MONOREPO,
+                ProjectTemplate.FULL_STACK,
+                // Server.res calls `HonoNodeServer.serve(...)` at module
+                // load. The smoke import therefore tries to bind a real port,
+                // and `@hono/node-server`'s current API ends up calling our
+                // options object as a `listeningListener`. Re-enable after
+                // splitting `Server.res` into a side-effect-free `app`
+                // definition + a separate entry-point that calls `serve`.
+                ProjectTemplate.GOOGLE_CLOUD_RUN,
+                // res-x's runtime imports `rescript-bun` / `rescript-x`,
+                // which reference the global `Bun` object. Vitest runs under
+                // Node where `Bun` is undefined. The smoke test would have
+                // to run under `bun test` instead.
+                ProjectTemplate.RES_X,
+            )
     }
 }

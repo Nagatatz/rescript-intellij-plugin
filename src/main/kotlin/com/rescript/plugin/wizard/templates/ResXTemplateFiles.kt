@@ -153,6 +153,7 @@ internal object ResXTemplateFiles {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
         deps["rescript-x"] = TemplateVersions.RESCRIPT_X
         deps["rescript-bun"] = TemplateVersions.RESCRIPT_BUN
         when (validationLibrary) {

@@ -103,6 +103,7 @@ internal object GoogleCloudRunTemplateFiles {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
         deps["hono"] = TemplateVersions.HONO
         deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
         when (validationLibrary) {

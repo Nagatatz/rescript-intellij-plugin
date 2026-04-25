@@ -105,6 +105,7 @@ internal object ReactNativeTemplateFiles {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
         deps["@rescript/react"] = TemplateVersions.RESCRIPT_REACT
         deps["react"] = TemplateVersions.REACT
         deps["react-native"] = TemplateVersions.REACT_NATIVE

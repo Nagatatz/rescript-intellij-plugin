@@ -29,4 +29,8 @@ app->Hono.post("/orders", async ctx => {
   }
 })
 
-%%raw("export const handler = HonoLambda.handle(app)")
+// Top-level lets become named ESM exports automatically — equivalent to
+// `export const handler = ...` on the JS side, which is what AWS Lambda
+// looks up at invocation time. Doing it via a real binding (rather than
+// `%%raw`) ensures the compiler emits the `HonoLambda` import.
+let handler = HonoLambda.handle(app)

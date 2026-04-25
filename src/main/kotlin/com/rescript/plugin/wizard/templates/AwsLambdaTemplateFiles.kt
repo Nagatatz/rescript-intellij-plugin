@@ -107,6 +107,7 @@ internal object AwsLambdaTemplateFiles {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
         deps["hono"] = TemplateVersions.HONO
         when (validationLibrary) {
             ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD

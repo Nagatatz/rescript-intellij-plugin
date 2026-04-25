@@ -14,6 +14,13 @@ object TemplateVersions {
     const val RESCRIPT_CORE = "^1.6.1"
     const val RESCRIPT_REACT = "^0.15.0"
 
+    // Compiled `.res.mjs` output imports `@rescript/runtime/lib/es6/...` (e.g.
+    // `Stdlib_JsExn.js`) at runtime. The package is a transitive dependency
+    // of the `rescript` compiler, but pnpm's strict layout hides transitive
+    // deps from user code — so every template declares it as a direct
+    // dependency to keep the runtime accessible to vitest / node / browsers.
+    const val RESCRIPT_RUNTIME = "^12.2.0"
+
     // Build tools
     // Raw Vite pin used when templates need a direct `vite` dep (fallback away
     // from Vite+). Vite+ bundles its own vite under the hood.

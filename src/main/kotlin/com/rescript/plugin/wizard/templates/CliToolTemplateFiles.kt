@@ -114,6 +114,7 @@ internal object CliToolTemplateFiles {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
         when (validationLibrary) {
             ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
             ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY

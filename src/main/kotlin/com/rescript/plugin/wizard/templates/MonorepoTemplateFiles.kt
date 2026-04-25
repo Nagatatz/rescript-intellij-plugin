@@ -79,6 +79,7 @@ internal object MonorepoTemplateFiles {
                         linkedMapOf(
                             "rescript" to TemplateVersions.RESCRIPT,
                             "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
+                            "@rescript/runtime" to TemplateVersions.RESCRIPT_RUNTIME,
                         ),
                 ),
             )
@@ -184,6 +185,7 @@ internal object MonorepoTemplateFiles {
                         linkedMapOf(
                             "rescript" to TemplateVersions.RESCRIPT,
                             "@rescript/core" to TemplateVersions.RESCRIPT_CORE,
+                            "@rescript/runtime" to TemplateVersions.RESCRIPT_RUNTIME,
                             "@rescript/react" to TemplateVersions.RESCRIPT_REACT,
                             "@$name/shared" to workspaceDep(pm),
                             "react" to TemplateVersions.REACT,
@@ -300,6 +302,7 @@ internal object MonorepoTemplateFiles {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
+        deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
         deps["@$name/shared"] = workspaceDep(ctx.packageManager)
         deps["hono"] = TemplateVersions.HONO
         deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
