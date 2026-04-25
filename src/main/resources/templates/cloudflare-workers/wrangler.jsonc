@@ -1,10 +1,22 @@
 {
-  // Workers KV binding. Replace the placeholder id after running:
-  //   npx wrangler kv namespace create GREETINGS
   "name": "{{projectName}}",
   "main": "src/Server.res.mjs",
   "compatibility_date": "2024-01-01",
+  // Workers KV bindings.
+  //
+  // `id` is used by `wrangler deploy` (production), `preview_id` is used by
+  // `wrangler dev` so local runs never touch the production namespace.
+  // Create both namespaces once and paste the returned IDs below:
+  //
+  //   npx wrangler kv namespace create GREETINGS
+  //   npx wrangler kv namespace create GREETINGS --preview
+  //
+  // See README "KV Setup" for the full workflow.
   "kv_namespaces": [
-    { "binding": "GREETINGS", "id": "REPLACE_WITH_KV_NAMESPACE_ID" }
+    {
+      "binding": "GREETINGS",
+      "id": "REPLACE_WITH_PRODUCTION_KV_NAMESPACE_ID",
+      "preview_id": "REPLACE_WITH_PREVIEW_KV_NAMESPACE_ID"
+    }
   ]
 }

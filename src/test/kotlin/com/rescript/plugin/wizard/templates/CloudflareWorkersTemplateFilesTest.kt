@@ -96,6 +96,25 @@ class CloudflareWorkersTemplateFilesTest {
     }
 
     @Test
+    fun `wrangler config wires both production id and preview_id for KV`() {
+        val cfg = CloudflareWorkersTemplateFiles.generate(ctx)["wrangler.jsonc"]!!
+        assertTrue(cfg.contains("\"id\": \"REPLACE_WITH_PRODUCTION_KV_NAMESPACE_ID\""))
+        assertTrue(cfg.contains("\"preview_id\": \"REPLACE_WITH_PREVIEW_KV_NAMESPACE_ID\""))
+        assertTrue(cfg.contains("npx wrangler kv namespace create GREETINGS --preview"))
+    }
+
+    @Test
+    fun `README KV Setup documents production vs preview workflow`() {
+        val readme = CloudflareWorkersTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("## KV Setup"))
+        assertTrue(readme.contains("npx wrangler kv namespace create GREETINGS --preview"))
+        assertTrue(readme.contains("preview_id"))
+        // The README must explicitly distinguish wrangler dev (preview) from wrangler deploy.
+        assertTrue(readme.contains("wrangler dev"))
+        assertTrue(readme.contains("wrangler deploy"))
+    }
+
+    @Test
     fun `ships nvmrc, LICENSE, and dependabot config`() {
         val files = CloudflareWorkersTemplateFiles.generate(ctx)
         assertTrue(files.containsKey(".nvmrc"))
