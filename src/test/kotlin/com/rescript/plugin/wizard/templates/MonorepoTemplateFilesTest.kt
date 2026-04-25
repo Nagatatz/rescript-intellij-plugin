@@ -245,4 +245,27 @@ class MonorepoTemplateFilesTest {
         assertTrue(readme.contains("npm --workspace packages/server run db:generate"))
         assertTrue(readme.contains("npm --workspace packages/server run db:migrate"))
     }
+
+    @Test
+    fun `server workspace dev script boots rescript watcher alongside node --watch`() {
+        // Without rescript -w in the concurrent group, edits to .res files
+        // never reach the running API and the user has to remember to run
+        // res:dev in a third terminal — guard against regressions.
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val serverPkg = files["packages/server/package.json"]!!
+        assertTrue(serverPkg.contains("npm:res:dev"))
+        assertTrue(serverPkg.contains("node --watch src/Server.res.mjs"))
+        // concurrently is required at the workspace level (not just root) so
+        // pnpm's non-hoisted layout still resolves the binary.
+        assertTrue(serverPkg.contains("\"concurrently\": \"${TemplateVersions.CONCURRENTLY}\""))
+    }
+
+    @Test
+    fun `client workspace dev script boots rescript watcher alongside Vite-plus`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        val clientPkg = files["packages/client/package.json"]!!
+        assertTrue(clientPkg.contains("npm:res:dev"))
+        assertTrue(clientPkg.contains("vp dev"))
+        assertTrue(clientPkg.contains("\"concurrently\": \"${TemplateVersions.CONCURRENTLY}\""))
+    }
 }

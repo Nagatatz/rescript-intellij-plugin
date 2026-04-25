@@ -97,6 +97,7 @@ internal object MonorepoTemplateFiles {
                     dependencies = monorepoServerDependencies(ctx, name),
                     devDependencies =
                         linkedMapOf(
+                            "concurrently" to TemplateVersions.CONCURRENTLY,
                             "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,
                             "vitest" to TemplateVersions.VITEST,
                             "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
@@ -104,7 +105,10 @@ internal object MonorepoTemplateFiles {
                     scripts =
                         linkedMapOf(
                             "start" to "node src/Server.res.mjs",
-                            "dev" to "node --watch src/Server.res.mjs",
+                            // `dev` must run rescript -w alongside node --watch so that
+                            // edits to .res files actually rebuild while the API restarts.
+                            "dev" to
+                                "concurrently \"npm:res:dev\" \"node --watch src/Server.res.mjs\"",
                             "test" to "vitest run",
                             "test:coverage" to "vitest run --coverage",
                             "db:generate" to "drizzle-kit generate",
@@ -178,6 +182,7 @@ internal object MonorepoTemplateFiles {
                         ),
                     devDependencies =
                         linkedMapOf(
+                            "concurrently" to TemplateVersions.CONCURRENTLY,
                             "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
                             "vite" to TemplateVersions.VITE,
                             "vite-plus" to TemplateVersions.VITE_PLUS,
@@ -187,7 +192,9 @@ internal object MonorepoTemplateFiles {
                         ),
                     scripts =
                         linkedMapOf(
-                            "dev" to "vp dev",
+                            // Pair vp dev with rescript -w so edits to .res files
+                            // recompile and HMR picks up the new .res.mjs.
+                            "dev" to "concurrently \"npm:res:dev\" \"vp dev\"",
                             "build" to "vp build",
                             "preview" to "vp preview",
                             "test" to "vp test",
