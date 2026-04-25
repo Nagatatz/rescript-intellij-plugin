@@ -72,6 +72,16 @@ class FullStackTemplateFilesTest {
     }
 
     @Test
+    fun `dev script also boots rescript -w so res file edits propagate`() {
+        // Without npm:res:dev in the concurrent group, `npm run dev` would
+        // serve stale .res.mjs forever — a real footgun. Guard against
+        // accidental removal.
+        val pkg = FullStackTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("npm:res:dev"))
+        assertTrue(pkg.contains("\"res:dev\": \"rescript -w\""))
+    }
+
+    @Test
     fun `README documents architecture, shared types, and database`() {
         val readme = FullStackTemplateFiles.generate(ctx)["README.md"]!!
         assertTrue(readme.contains("## Architecture"))
@@ -207,6 +217,8 @@ class FullStackTemplateFilesTest {
         assertTrue(pkg.contains("\"relay\": \"relay-compiler\""))
         assertTrue(pkg.contains("\"relay:watch\": \"relay-compiler --watch\""))
         assertTrue(pkg.contains("npm:relay:watch"))
+        // Same fix as the REST variant: ReScript watcher must be in the concurrent group.
+        assertTrue(pkg.contains("npm:res:dev"))
     }
 
     @Test

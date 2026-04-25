@@ -188,7 +188,11 @@ internal object FullStackTemplateFiles {
             devDependencies = commonDevDependencies(),
             scripts =
                 linkedMapOf(
-                    "dev" to "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+                    // `npm:res:dev` runs `rescript -w` so edits to .res files actually
+                    // recompile while `dev` is running. Without it, `dev:server` keeps
+                    // serving stale `.res.mjs` and `dev:client` never sees client-side
+                    // ReScript changes — a footgun previous versions hit.
+                    "dev" to "concurrently \"npm:res:dev\" \"npm:dev:server\" \"npm:dev:client\"",
                     "dev:server" to "node --watch src/server/ServerMain.res.mjs",
                     "dev:client" to "vp dev",
                     "build" to "vp build",
@@ -219,7 +223,8 @@ internal object FullStackTemplateFiles {
             scripts =
                 linkedMapOf(
                     "dev" to
-                        "concurrently \"npm:dev:server\" \"npm:dev:client\" \"npm:relay:watch\"",
+                        "concurrently \"npm:res:dev\" \"npm:dev:server\" \"npm:dev:client\" " +
+                        "\"npm:relay:watch\"",
                     "dev:server" to "node --watch src/server/ServerMain.res.mjs",
                     "dev:client" to "vp dev",
                     "build" to "vp build",
