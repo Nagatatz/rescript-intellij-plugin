@@ -111,4 +111,20 @@ class ElectronTemplateFilesTest {
         assertTrue(files["src/App.res"]!!.contains("Validation.parseInfo"))
         assertTrue(files["src/App.res"]!!.contains("Electron.getInfoRaw"))
     }
+
+    @Test
+    fun `README ships an IPC section documenting the security model and channel naming`() {
+        val readme = ElectronTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("Renderer ↔ Main IPC"))
+        assertTrue(readme.contains("contextIsolation"))
+        assertTrue(readme.contains("nodeIntegration"))
+        assertTrue(readme.contains("contextBridge"))
+        // The naming-convention guide must call out the domain:action shape.
+        assertTrue(readme.contains("domain:action"))
+        // Step-by-step "add a new channel" walkthrough must touch all three layers.
+        assertTrue(readme.contains("Adding a new IPC channel"))
+        assertTrue(readme.contains("main.cjs"))
+        assertTrue(readme.contains("preload.cjs"))
+        assertTrue(readme.contains("Electron.res"))
+    }
 }

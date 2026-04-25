@@ -88,6 +88,8 @@ internal object ElectronTemplateFiles {
                         ),
                     extraSections =
                         listOf(
+                            "Renderer ↔ Main IPC" to
+                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/ipc.md"),
                             "About Vite+" to
                                 TemplateResourceLoader.load("$RESOURCE_ROOT/readme/about-vite-plus.md"),
                         ),
