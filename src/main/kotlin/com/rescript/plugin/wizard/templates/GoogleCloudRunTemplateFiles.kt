@@ -22,7 +22,11 @@ internal object GoogleCloudRunTemplateFiles {
         val projectVars = mapOf("projectName" to ctx.projectName)
         val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
-            "rescript.json" to ProjectFileBuilders.rescriptJson(name = ctx.projectName),
+            "rescript.json" to
+                ProjectFileBuilders.rescriptJson(
+                    name = ctx.projectName,
+                    bsDependencies = listOf("@rescript/core") + ctx.validationBsDeps(),
+                ),
             "package.json" to
                 ProjectFileBuilders.packageJson(
                     name = ctx.projectName,

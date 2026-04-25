@@ -4,12 +4,18 @@ import com.rescript.plugin.wizard.templates.TemplateContext
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.io.TempDir
 import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.EnumSource
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import java.nio.file.Path
+import java.util.stream.Stream
 
 /**
  * End-to-end smoke test that materializes each [ProjectTemplate], installs its dependencies
  * with pnpm, and runs `rescript` to verify the generated project compiles.
+ *
+ * Parameterized over [ValidationLibrary] so both `zod` and `sury` variants of every
+ * template are exercised — single-validation runs would silently mask bugs in whichever
+ * variant the default context doesn't select.
  *
  * Templates that ship a top-level JS bundle (Vite+React, Electron) additionally run their
  * `build` script. Mobile/native templates that require platform SDKs (React Native) only
@@ -18,15 +24,21 @@ import java.nio.file.Path
 class TemplateIntegrationTest {
     private val pnpm: String = System.getProperty("template.test.pnpm", "pnpm")
 
-    @ParameterizedTest(name = "{0} generates a working project")
-    @EnumSource(ProjectTemplate::class)
+    @ParameterizedTest(name = "{0} ({1}) generates a working project")
+    @MethodSource("templateAndValidationCombinations")
     fun template(
         template: ProjectTemplate,
+        validation: ValidationLibrary,
         @TempDir tempDir: Path,
     ) {
         IntegrationTestSupport.requireBinary(pnpm)
 
-        val ctx = TemplateContext("demo-${template.name.lowercase()}", PackageManager.PNPM)
+        val ctx =
+            TemplateContext(
+                "demo-${template.name.lowercase()}-${validation.name.lowercase()}",
+                PackageManager.PNPM,
+                validation,
+            )
         val files = template.generateFiles(ctx)
         IntegrationTestSupport.writeFiles(tempDir, files)
 
@@ -37,7 +49,7 @@ class TemplateIntegrationTest {
             )
         assertTrue(
             install.succeeded,
-            "pnpm install failed for ${template.displayName}\nstdout=${install.stdout}\nstderr=${install.stderr}",
+            "pnpm install failed for ${template.displayName} (${validation.name.lowercase()})\nstdout=${install.stdout}\nstderr=${install.stderr}",
         )
 
         // Compile every workspace that ships a `rescript.json`, not just the
@@ -65,7 +77,7 @@ class TemplateIntegrationTest {
                         )
                     assertTrue(
                         res.succeeded,
-                        "rescript build failed for ${template.displayName} in $dir\n" +
+                        "rescript build failed for ${template.displayName} (${validation.name.lowercase()}) in $dir\n" +
                             "stdout=${res.stdout}\nstderr=${res.stderr}",
                     )
                 }
@@ -73,7 +85,7 @@ class TemplateIntegrationTest {
                 val rescript = IntegrationTestSupport.exec(tempDir, listOf(pnpm, "exec", "rescript"))
                 assertTrue(
                     rescript.succeeded,
-                    "rescript build failed for ${template.displayName}\n" +
+                    "rescript build failed for ${template.displayName} (${validation.name.lowercase()})\n" +
                         "stdout=${rescript.stdout}\nstderr=${rescript.stderr}",
                 )
             }
@@ -87,7 +99,7 @@ class TemplateIntegrationTest {
             val test = IntegrationTestSupport.exec(tempDir, listOf(pnpm, "test"))
             assertTrue(
                 test.succeeded,
-                "pnpm test failed for ${template.displayName}\n" +
+                "pnpm test failed for ${template.displayName} (${validation.name.lowercase()})\n" +
                     "stdout=${test.stdout}\nstderr=${test.stderr}",
             )
         }
@@ -100,13 +112,28 @@ class TemplateIntegrationTest {
                 )
             assertTrue(
                 build.succeeded,
-                "pnpm build failed for ${template.displayName}\n" +
+                "pnpm build failed for ${template.displayName} (${validation.name.lowercase()})\n" +
                     "stdout=${build.stdout}\nstderr=${build.stderr}",
             )
         }
     }
 
     companion object {
+        /**
+         * Cartesian product of every [ProjectTemplate] × every [ValidationLibrary].
+         * 16 templates × 2 libraries = 32 parameter rows, so the integration suite
+         * doubles in runtime — acceptable trade-off for not silently shipping a
+         * broken sury variant.
+         */
+        @JvmStatic
+        fun templateAndValidationCombinations(): Stream<Arguments> =
+            ProjectTemplate.entries
+                .flatMap { template ->
+                    ValidationLibrary.entries.map { validation ->
+                        Arguments.of(template, validation)
+                    }
+                }.stream()
+
         // Vite+ (vite-plus) is pre-1.0 and currently does not link cleanly with
         // @vitejs/plugin-react via pnpm's nested store layout. The generated
         // `pnpm build` therefore fails with ERR_MODULE_NOT_FOUND on `vite/internal`.

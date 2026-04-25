@@ -25,7 +25,8 @@ internal object ReactNativeTemplateFiles {
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
                     name = ctx.projectName,
-                    bsDependencies = listOf("@rescript/core", "@rescript/react"),
+                    bsDependencies =
+                        listOf("@rescript/core", "@rescript/react") + ctx.validationBsDeps(),
                     includeJsx = true,
                     includeGenType = true,
                 ),

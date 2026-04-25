@@ -82,6 +82,21 @@ data class TemplateContext(
         }
 
     /**
+     * Returns the extra `bs-dependencies` entries that the selected validation
+     * library requires in `rescript.json`.
+     *
+     * `sury` ships ReScript source (`.res` / `.cmt`) and exposes a public `S`
+     * module — consumers must list `"sury"` in `dependencies` for that module
+     * to be in scope. `zod` is a pure JS library bound via `@module("zod")`
+     * externals and needs no `rescript.json` entry.
+     */
+    fun validationBsDeps(): List<String> =
+        when (validationLibrary) {
+            ValidationLibrary.ZOD -> emptyList()
+            ValidationLibrary.SURY -> listOf("sury")
+        }
+
+    /**
      * Returns the lockfile name produced by the selected package manager.
      */
     fun lockfileName(): String =

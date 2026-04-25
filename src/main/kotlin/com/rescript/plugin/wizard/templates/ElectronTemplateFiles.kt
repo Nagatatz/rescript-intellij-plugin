@@ -26,7 +26,8 @@ internal object ElectronTemplateFiles {
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
                     name = ctx.projectName,
-                    bsDependencies = listOf("@rescript/core", "@rescript/react"),
+                    bsDependencies =
+                        listOf("@rescript/core", "@rescript/react") + ctx.validationBsDeps(),
                     includeJsx = true,
                 ),
             "package.json" to

@@ -34,6 +34,7 @@ internal object NpmLibraryTemplateFiles {
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
                     name = ctx.projectName,
+                    bsDependencies = listOf("@rescript/core") + ctx.validationBsDeps(),
                     includeGenType = true,
                 ),
             "package.json" to

@@ -156,7 +156,8 @@ internal object FullStackTemplateFiles {
     private fun restRescriptJson(ctx: TemplateContext): String =
         ProjectFileBuilders.rescriptJson(
             name = ctx.projectName,
-            bsDependencies = listOf("@rescript/core", "@rescript/react"),
+            bsDependencies =
+                listOf("@rescript/core", "@rescript/react") + ctx.validationBsDeps(),
             includeJsx = true,
             sources = fullStackSources(),
         )
@@ -164,7 +165,9 @@ internal object FullStackTemplateFiles {
     private fun graphqlRescriptJson(ctx: TemplateContext): String =
         ProjectFileBuilders.rescriptJson(
             name = ctx.projectName,
-            bsDependencies = listOf("@rescript/core", "@rescript/react", "rescript-relay"),
+            bsDependencies =
+                listOf("@rescript/core", "@rescript/react", "rescript-relay") +
+                    ctx.validationBsDeps(),
             includeJsx = true,
             sources = fullStackSources(),
             ppxFlags = listOf("rescript-relay/ppx"),

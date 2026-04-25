@@ -45,7 +45,13 @@ internal object ResXTemplateFiles {
                 "rescript.json" to
                     TemplateResourceLoader.load(
                         "res-x/rescript.json",
-                        mapOf("name" to ctx.projectName),
+                        mapOf(
+                            "name" to ctx.projectName,
+                            // Append `, "sury"` only when the SURY variant is selected so
+                            // the dependencies array stays valid JSON for both variants.
+                            "maybeSuryDep" to
+                                ctx.validationBsDeps().joinToString("") { ", \"$it\"" },
+                        ),
                     ),
                 "package.json" to
                     ProjectFileBuilders.packageJson(

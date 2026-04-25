@@ -96,7 +96,8 @@ internal object MonorepoTemplateFiles {
                 "packages/server/rescript.json",
                 ProjectFileBuilders.rescriptJson(
                     name = "@$name/server",
-                    bsDependencies = listOf("@rescript/core", "@$name/shared"),
+                    bsDependencies =
+                        listOf("@rescript/core", "@$name/shared") + ctx.validationBsDeps(),
                 ),
             )
             put(

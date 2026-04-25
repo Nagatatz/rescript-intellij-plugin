@@ -31,7 +31,11 @@ internal object HonoTemplateFiles {
         val variantKey = ctx.validationLibrary.variantKey()
         val files =
             linkedMapOf(
-                "rescript.json" to ProjectFileBuilders.rescriptJson(name = ctx.projectName),
+                "rescript.json" to
+                    ProjectFileBuilders.rescriptJson(
+                        name = ctx.projectName,
+                        bsDependencies = listOf("@rescript/core") + ctx.validationBsDeps(),
+                    ),
                 "package.json" to
                     ProjectFileBuilders.packageJson(
                         name = ctx.projectName,

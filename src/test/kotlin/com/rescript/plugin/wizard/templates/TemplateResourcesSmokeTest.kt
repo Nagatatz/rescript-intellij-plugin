@@ -23,6 +23,10 @@ class TemplateResourcesSmokeTest {
             // hono-graphql/readme/schema.md uses {{cmdDocsGraphql}} when documenting
             // how to regenerate the human-readable schema.md after editing SDL.
             "cmdDocsGraphql",
+            // res-x/rescript.json appends `, "sury"` to the dependencies array
+            // only when the SURY variant is selected; ZOD renders an empty
+            // string so the array stays valid JSON in both cases.
+            "maybeSuryDep",
             // react-native-cli: app.json, src/App.res
             "projectName",
             // react-native-cli/readme/community-cli.md

@@ -13,7 +13,7 @@
     "module": "Hjsx",
     "version": 4
   },
-  "dependencies": ["@rescript/core", "rescript-x", "rescript-bun"],
+  "dependencies": ["@rescript/core", "rescript-x", "rescript-bun"{{maybeSuryDep}}],
   "compiler-flags": [
     "-open RescriptCore",
     "-open RescriptBun",
