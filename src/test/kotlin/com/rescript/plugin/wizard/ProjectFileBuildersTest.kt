@@ -27,9 +27,13 @@ class ProjectFileBuildersTest {
     }
 
     @Test
-    fun `rescriptJson includes default bs-dependencies`() {
+    fun `rescriptJson includes default dependencies under the modern key`() {
         val json = ProjectFileBuilders.rescriptJson("my-app")
         assertTrue(json.contains("\"@rescript/core\""))
+        // Modern key required: ReScript prints a deprecation warning on every
+        // build for the legacy bs-dependencies alias.
+        assertTrue(json.contains("\"dependencies\":"))
+        assertFalse(json.contains("\"bs-dependencies\""))
     }
 
     @Test
@@ -52,9 +56,11 @@ class ProjectFileBuildersTest {
     }
 
     @Test
-    fun `rescriptJson includes bsc-flags`() {
+    fun `rescriptJson includes compiler-flags under the modern key`() {
         val json = ProjectFileBuilders.rescriptJson("my-app")
         assertTrue(json.contains("\"-open RescriptCore\""))
+        assertTrue(json.contains("\"compiler-flags\":"))
+        assertFalse(json.contains("\"bsc-flags\""))
     }
 
     @Test

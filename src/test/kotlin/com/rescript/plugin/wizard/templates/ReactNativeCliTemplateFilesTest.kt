@@ -40,7 +40,7 @@ class ReactNativeCliTemplateFilesTest {
     }
 
     @Test
-    fun `rescript json declares core and react bs-dependencies with jsx and gentype`() {
+    fun `rescript json declares core and react dependencies with jsx and gentype`() {
         val rj = ReactNativeCliTemplateFiles.generate(ctx)["rescript.json"]!!
         assertTrue(rj.contains("\"@rescript/core\""))
         assertTrue(rj.contains("\"@rescript/react\""))

@@ -21,7 +21,7 @@ import com.rescript.plugin.wizard.ValidationLibrary
  * Static file content lives under `src/main/resources/templates/res-x/` and is
  * loaded via [TemplateResourceLoader]. `rescript.json` is bundled verbatim
  * (with a `{{name}}` placeholder) because res-x requires a specific
- * `jsx.module` / `bsc-flags` shape that [ProjectFileBuilders.rescriptJson]
+ * `jsx.module` / `compiler-flags` shape that [ProjectFileBuilders.rescriptJson]
  * does not produce.
  *
  * The template hardcodes `bun` in its npm scripts regardless of the selected

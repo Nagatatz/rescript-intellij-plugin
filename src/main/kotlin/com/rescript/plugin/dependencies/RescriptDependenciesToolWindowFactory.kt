@@ -7,8 +7,8 @@ import com.intellij.openapi.wm.ToolWindowFactory
 
 /**
  * Factory for the "ReScript Dependencies" tool window that displays a tree view
- * of packages listed in `rescript.json` (`bs-dependencies`, `bs-dev-dependencies`,
- * `pinned-dependencies`).
+ * of packages listed in `rescript.json` (`dependencies`, `dev-dependencies`,
+ * `pinned-dependencies`; legacy `bs-` aliases are still recognized).
  *
  * Shows each dependency with its installed version resolved from `node_modules/<pkg>/package.json`.
  * Double-clicking a dependency opens its folder in the project view.

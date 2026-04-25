@@ -15,8 +15,9 @@ import javax.swing.tree.DefaultTreeModel
 /**
  * Panel that displays ReScript package dependencies in a tree view.
  *
- * Reads `rescript.json` to extract `bs-dependencies`, `bs-dev-dependencies`, and
- * `pinned-dependencies`, then resolves each package's installed version from
+ * Reads `rescript.json` to extract `dependencies`, `dev-dependencies`, and
+ * `pinned-dependencies` (plus the legacy `bs-` aliases for older projects),
+ * then resolves each package's installed version from
  * `node_modules/<pkg>/package.json`.
  *
  * @param project the current IntelliJ project
@@ -61,9 +62,20 @@ class RescriptDependenciesPanel(
                     .parseString(content)
                     .asJsonObject
 
-            addDependencyCategory(jsonObj, "bs-dependencies", basePath)
-            addDependencyCategory(jsonObj, "bs-dev-dependencies", basePath)
+            // Modern key names (current rescript.json schema). The legacy aliases
+            // are still accepted by the compiler but emit deprecation warnings —
+            // we display whichever the user's project happens to have.
+            addDependencyCategory(jsonObj, "dependencies", basePath)
+            addDependencyCategory(jsonObj, "dev-dependencies", basePath)
             addDependencyCategory(jsonObj, "pinned-dependencies", basePath)
+            // Legacy key names (rescript < latest). Render only if the project
+            // hasn't migrated yet, so we don't double-list dependencies.
+            if (!jsonObj.has("dependencies")) {
+                addDependencyCategory(jsonObj, "bs-dependencies", basePath)
+            }
+            if (!jsonObj.has("dev-dependencies")) {
+                addDependencyCategory(jsonObj, "bs-dev-dependencies", basePath)
+            }
         } catch (e: java.io.IOException) {
             log.debug("Failed to read rescript.json", e)
             rootNode.add(DefaultMutableTreeNode("Error reading rescript.json"))
@@ -83,7 +95,7 @@ class RescriptDependenciesPanel(
      * Adds a dependency category node to the tree if the category exists in rescript.json.
      *
      * @param jsonObj the parsed rescript.json object
-     * @param category the dependency category key (e.g., "bs-dependencies")
+     * @param category the dependency category key (e.g., "dependencies")
      * @param basePath the project base directory path
      */
     private fun addDependencyCategory(

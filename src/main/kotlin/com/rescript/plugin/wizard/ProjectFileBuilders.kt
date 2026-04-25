@@ -12,13 +12,19 @@ object ProjectFileBuilders {
     /**
      * Generates a `rescript.json` configuration file.
      *
+     * Emits the modern `dependencies` / `compiler-flags` keys rather than the legacy
+     * `bs-dependencies` / `bsc-flags` aliases — those still work but trigger a
+     * deprecation warning on every build with current ReScript versions.
+     *
      * @param name project name
-     * @param bsDependencies list of bs-dependencies (e.g., "@rescript/core", "@rescript/react")
+     * @param bsDependencies list of ReScript package dependencies (e.g., "@rescript/core",
+     *                   "@rescript/react"). Rendered under the `dependencies` field; the
+     *                   parameter name is kept for source-compatibility with callers.
      * @param includeJsx whether to include JSX v4 configuration
      * @param includeGenType whether to include gentype configuration
      * @param sources custom source directory configuration string; defaults to standard src/ with subdirs
      * @param namespace optional namespace string to wrap all modules under (e.g. `"Shared"`).
-     *                   Required for monorepo `bs-dependencies` consumers that want to
+     *                   Required for monorepo `dependencies` consumers that want to
      *                   reference the dependency's modules under a stable top-level name
      *                   rather than relying on globally-flat module identifiers.
      * @return the JSON content as a string
@@ -53,7 +59,7 @@ object ProjectFileBuilders {
             if (namespace != null) {
                 appendLine("  \"namespace\": \"$namespace\",")
             }
-            appendLine("  \"bs-dependencies\": [$bsDeps],")
+            appendLine("  \"dependencies\": [$bsDeps],")
             if (ppxFlags.isNotEmpty()) {
                 val flags = ppxFlags.joinToString(", ") { "\"$it\"" }
                 appendLine("  \"ppx-flags\": [$flags],")
@@ -68,7 +74,7 @@ object ProjectFileBuilders {
                 appendLine("    \"language\": \"typescript\"")
                 appendLine("  },")
             }
-            appendLine("  \"bsc-flags\": [\"-open RescriptCore\"]")
+            appendLine("  \"compiler-flags\": [\"-open RescriptCore\"]")
             append("}")
         }
     }
