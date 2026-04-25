@@ -36,8 +36,55 @@ class GoogleCloudRunTemplateFilesTest {
         assertTrue(dockerfile.contains("bun install --production"))
         assertTrue(dockerfile.contains("bunx rescript"))
         assertTrue(dockerfile.contains("CMD [\"bun\", \"src/Server.res.mjs\"]"))
-        assertFalse(dockerfile.contains("node:22-slim"))
+        assertTrue(dockerfile.contains("USER bun"))
         assertFalse(dockerfile.contains("CMD [\"node\""))
+    }
+
+    @Test
+    fun `Dockerfile is multi-stage with builder and runtime stages`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        val dockerfile = files["Dockerfile"]!!
+        assertTrue(dockerfile.contains("AS builder"))
+        assertTrue(dockerfile.contains("AS runtime"))
+        assertTrue(dockerfile.contains("COPY --from=builder"))
+        // Runtime stage must reinstall production-only deps, not copy node_modules from builder.
+        assertFalse(dockerfile.contains("COPY --from=builder /app/node_modules"))
+    }
+
+    @Test
+    fun `Dockerfile runtime stage runs as a non-root user and sets NODE_ENV`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        val dockerfile = files["Dockerfile"]!!
+        assertTrue(dockerfile.contains("USER node"))
+        assertTrue(dockerfile.contains("ENV NODE_ENV=production"))
+    }
+
+    @Test
+    fun `Dockerfile pins base image to ctx nodeMajor instead of hardcoded 22`() {
+        // ctx.nodeMajor defaults to TemplateVersions.NODE_MAJOR; verify the Dockerfile follows it.
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        val dockerfile = files["Dockerfile"]!!
+        assertTrue(dockerfile.contains("FROM node:${TemplateVersions.NODE_MAJOR}-slim AS builder"))
+        assertTrue(dockerfile.contains("FROM node:${TemplateVersions.NODE_MAJOR}-slim AS runtime"))
+    }
+
+    @Test
+    fun `dockerignore excludes ReScript build output and env files but keeps env example`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        val dockerignore = files[".dockerignore"]!!
+        assertTrue(dockerignore.contains("lib"))
+        assertTrue(dockerignore.contains("node_modules"))
+        assertTrue(dockerignore.contains(".env"))
+        assertTrue(dockerignore.contains("!.env.example"))
+        assertTrue(dockerignore.contains("coverage"))
+    }
+
+    @Test
+    fun `README deploy section documents multi-stage layout and non-root runtime`() {
+        val readme = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))["README.md"]!!
+        assertTrue(readme.contains("multi-stage"))
+        assertTrue(readme.contains("non-root"))
+        assertTrue(readme.contains("NODE_ENV=production"))
     }
 
     @Test
