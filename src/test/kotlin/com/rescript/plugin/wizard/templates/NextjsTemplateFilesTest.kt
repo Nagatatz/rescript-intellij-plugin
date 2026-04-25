@@ -51,6 +51,41 @@ class NextjsTemplateFilesTest {
     }
 
     @Test
+    fun `page tsx is an async Server Component that fetches server-only data`() {
+        val page = NextjsTemplateFiles.generate(ctx)["src/app/page.tsx"]!!
+        // The default export must be an async function — that's what unlocks
+        // server-side data fetching in the RSC model.
+        assertTrue(page.contains("export default async function Page()"))
+        // It must thread an awaited value into App as a prop, demonstrating
+        // the canonical RSC pattern (no client waterfall).
+        assertTrue(page.contains("await loadServerTimestamp()"))
+        assertTrue(page.contains("serverGeneratedAt={serverGeneratedAt}"))
+    }
+
+    @Test
+    fun `App res accepts the serverGeneratedAt prop emitted from the Server Component`() {
+        val app = NextjsTemplateFiles.generate(ctx)["src/App.res"]!!
+        assertTrue(app.contains("~serverGeneratedAt: string"))
+        assertTrue(app.contains("@genType"))
+    }
+
+    @Test
+    fun `template ships an app loading tsx Suspense fallback`() {
+        val files = NextjsTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/app/loading.tsx"))
+        val loading = files["src/app/loading.tsx"]!!
+        assertTrue(loading.contains("export default function Loading()"))
+    }
+
+    @Test
+    fun `README documents the async Server Component pattern and Suspense fallback`() {
+        val readme = NextjsTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("Async Server Component"))
+        assertTrue(readme.contains("loading.tsx"))
+        assertTrue(readme.contains("Suspense"))
+    }
+
+    @Test
     fun `route ts is a one-line re-export shim pointing at GreetRoute`() {
         val files = NextjsTemplateFiles.generate(ctx)
         val route = files["src/app/api/greet/route.ts"]!!

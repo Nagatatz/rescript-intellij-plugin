@@ -64,6 +64,7 @@ internal object NextjsTemplateFiles {
             "tsconfig.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/tsconfig.json"),
             "rescript-modules.d.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/rescript-modules.d.ts"),
             "src/app/page.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/app/page.tsx"),
+            "src/app/loading.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/app/loading.tsx"),
             "src/app/client/GreetForm.tsx" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/app/client/GreetForm.tsx"),
             "src/app/api/greet/route.ts" to
