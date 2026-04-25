@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1.7
 
 # ---------- deps: install node_modules with Bun's text-based lockfile --------
 FROM oven/bun:1 AS deps
@@ -18,9 +18,12 @@ RUN bunx rescript && bun run build
 FROM oven/bun:1-slim AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/dist ./dist
-COPY package.json rescript.json ./
+# Copy compiled artifacts into the image, then hand ownership to the
+# unprivileged `bun` user (uid 1000) that ships with the base image.
+COPY --from=builder --chown=bun:bun /app/node_modules ./node_modules
+COPY --from=builder --chown=bun:bun /app/src ./src
+COPY --from=builder --chown=bun:bun /app/dist ./dist
+COPY --chown=bun:bun package.json rescript.json ./
+USER bun
 EXPOSE 4444
 CMD ["bun", "run", "src/App.res.mjs"]

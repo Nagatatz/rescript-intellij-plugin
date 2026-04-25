@@ -262,6 +262,14 @@ class ResXTemplateFilesTest {
     }
 
     @Test
+    fun `Dockerfile runtime stage drops to the unprivileged bun user`() {
+        val dockerfile = ResXTemplateFiles.generate(ctx)["Dockerfile"]!!
+        assertTrue(dockerfile.contains("USER bun"))
+        // Files copied into the runtime stage must be chowned so the bun user can read them.
+        assertTrue(dockerfile.contains("--chown=bun:bun"))
+    }
+
+    @Test
     fun `README documents the Deploy section with docker build instructions`() {
         val readme = ResXTemplateFiles.generate(ctx)["README.md"]!!
         assertTrue(readme.contains("## Deploy"))
