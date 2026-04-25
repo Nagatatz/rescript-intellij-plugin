@@ -23,6 +23,7 @@ import java.util.stream.Stream
  */
 class TemplateIntegrationTest {
     private val pnpm: String = System.getProperty("template.test.pnpm", "pnpm")
+    private val bun: String = System.getProperty("template.test.bun", "bun")
 
     @ParameterizedTest(name = "{0} ({1}) generates a working project")
     @MethodSource("templateAndValidationCombinations")
@@ -118,6 +119,70 @@ class TemplateIntegrationTest {
         }
     }
 
+    /**
+     * Same shape as [template], but exercises [PackageManager.BUN]. Auto-skips
+     * via JUnit `Assumptions` when `bun` is not on `PATH`, so the suite still
+     * runs everywhere — bun coverage just upgrades from `skipped` to `passed`
+     * once the binary is installed.
+     *
+     * BUN-specific quirks compared to the pnpm path:
+     * - Workspace install / compile uses `bun install` and `bunx rescript` per
+     *   workspace; `bun --filter` is supported but the resolution model
+     *   doesn't need a recursive-exec wait between producer/consumer because
+     *   bun installs hoist by default (the tradeoff is broader symbol visibility
+     *   in transitive deps, which we accept for the test path).
+     * - The vitest skip set carries over: import-time side effects are PM-
+     *   independent (DB connection, `serve()`).
+     */
+    @ParameterizedTest(name = "{0} ({1}) generates a working BUN project")
+    @MethodSource("bunTemplateAndValidationCombinations")
+    fun bunTemplate(
+        template: ProjectTemplate,
+        validation: ValidationLibrary,
+        @TempDir tempDir: Path,
+    ) {
+        IntegrationTestSupport.requireBinary(bun)
+
+        val ctx =
+            TemplateContext(
+                "demo-bun-${template.name.lowercase()}-${validation.name.lowercase()}",
+                PackageManager.BUN,
+                validation,
+            )
+        val files = template.generateFiles(ctx)
+        IntegrationTestSupport.writeFiles(tempDir, files)
+
+        val install =
+            IntegrationTestSupport.exec(
+                tempDir,
+                listOf(bun, "install", "--ignore-scripts"),
+            )
+        assertTrue(
+            install.succeeded,
+            "bun install failed for ${template.displayName} (${validation.name.lowercase()})\n" +
+                "stdout=${install.stdout}\nstderr=${install.stderr}",
+        )
+
+        // bun installs hoist transitive deps so `bunx rescript` resolves the
+        // compiler from any workspace. The pnpm path has to invoke
+        // `--filter` per-workspace because of its strict layout — bun doesn't.
+        val rescriptDirs =
+            files.keys
+                .filter { it.endsWith("rescript.json") }
+                .map { it.removeSuffix("rescript.json").trimEnd('/') }
+        val ordered = rescriptDirs.sortedBy { if (it.endsWith("/shared")) 0 else 1 }
+        ordered.forEach { dir ->
+            val target = if (dir.isEmpty()) tempDir else tempDir.resolve(dir)
+            val res = IntegrationTestSupport.exec(target, listOf(bun, "x", "rescript"))
+            assertTrue(
+                res.succeeded,
+                "rescript build failed under bun for ${template.displayName} " +
+                    "(${validation.name.lowercase()}) in ${dir.ifEmpty { "<root>" }}\n" +
+                    "stdout=${res.stdout}\nstderr=${res.stderr}",
+            )
+        }
+    }
+
     companion object {
         /**
          * Cartesian product of every [ProjectTemplate] × every [ValidationLibrary].
@@ -133,6 +198,40 @@ class TemplateIntegrationTest {
                         Arguments.of(template, validation)
                     }
                 }.stream()
+
+        /**
+         * BUN parameter source. Excludes templates whose generated `package.json`
+         * scripts hardcode `pnpm` / `npx` (no PM support layer was added) and
+         * templates that need React Native CLI tooling that doesn't run under
+         * bun. The list mirrors what the BUN PackageManager path actually
+         * supports today; expand once a template gains BUN compatibility.
+         */
+        @JvmStatic
+        fun bunTemplateAndValidationCombinations(): Stream<Arguments> {
+            val bunCompatible =
+                ProjectTemplate.entries.filter { it !in templatesNotBunCompatible }
+            return bunCompatible
+                .flatMap { template ->
+                    ValidationLibrary.entries.map { validation ->
+                        Arguments.of(template, validation)
+                    }
+                }.stream()
+        }
+
+        // Templates that explicitly opt out of BUN coverage today.
+        // - REACT_NATIVE_CLI requires the React Native CLI which assumes
+        //   npm/yarn for android/ios scripts; bun isn't a community-supported
+        //   replacement.
+        // - REACT_NATIVE (Expo) shells out to expo-cli that hits node directly.
+        // - MONOREPO root scripts use `pnpm --filter` / `npm --workspace` /
+        //   `bun --filter` per PM, but the generator wasn't fully exercised
+        //   for BUN before this audit; track separately.
+        private val templatesNotBunCompatible: Set<ProjectTemplate> =
+            setOf(
+                ProjectTemplate.REACT_NATIVE,
+                ProjectTemplate.REACT_NATIVE_CLI,
+                ProjectTemplate.MONOREPO,
+            )
 
         // Vite+ (vite-plus) is pre-1.0 and currently does not link cleanly with
         // @vitejs/plugin-react via pnpm's nested store layout. The generated
