@@ -21,6 +21,7 @@ permissions:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: sphinx-docs
@@ -54,6 +55,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: sphinx-docs
@@ -118,6 +120,7 @@ jobs:
 
   a11y:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: sphinx-docs
@@ -149,12 +152,16 @@ jobs:
           sleep 2
 
       - name: Run pa11y-ci
-        run: npx --yes pa11y-ci --config .pa11yci.json
+        # Pinned to a specific version for reproducibility. Bump manually
+        # when checking against a newer release; Dependabot does not track
+        # ad-hoc npx invocations.
+        run: npx --yes pa11y-ci@4.1.0 --config .pa11yci.json
 
   deploy:
     if: github.event_name == 'push'
     needs: [lint-and-test, build]
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
