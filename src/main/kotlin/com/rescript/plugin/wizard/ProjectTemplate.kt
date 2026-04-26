@@ -325,7 +325,7 @@ enum class ProjectTemplate(
         • Vite + the res-x Vite plugin, HTMX loaded from CDN
         • Vitest + coverage smoke test
 
-        Requires: Node.js 24+ for tooling, Bun 1.1+ (https://bun.sh) for running the server.
+        Requires: Node.js 24+ for tooling, Bun 1.3+ (https://bun.sh) for running the server.
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
     ),

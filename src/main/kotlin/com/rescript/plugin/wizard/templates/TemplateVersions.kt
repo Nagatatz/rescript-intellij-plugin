@@ -81,8 +81,9 @@ object TemplateVersions {
 
     // Bun runtime + package manager. v1.2+ introduces the text-based `bun.lock`
     // lockfile and the pnpm-style `bun --filter` monorepo selector; the template
-    // generators assume both and therefore require v1.2 at minimum.
-    const val BUN = "1.2.0"
+    // generators assume both. Floor pinned to the latest stable so corepack
+    // resolves a recent runtime when scaffolding new projects.
+    const val BUN = "1.3.13"
 
     // Database (libsql client + Drizzle ORM)
     const val LIBSQL_CLIENT = "^0.17.2"
