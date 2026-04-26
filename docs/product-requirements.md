@@ -117,6 +117,35 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 2. **フェーズ 2（安定版）** — 全 P0/P1 機能の完成、エッジケースの修正
 3. **フェーズ 3（公開）** — JetBrains Marketplace への公開、ドキュメント整備
 
+### プラットフォーム互換性戦略
+
+JetBrains IDE は年 3 回（春・夏・秋）メジャーバージョンをリリースする。本プラグインは以下のポリシーで互換性を維持する。
+
+#### サポートポリシー
+
+| 項目 | 方針 |
+|---|---|
+| `pluginSinceBuild` | 直近 LTS（現在 2025.3）を最低互換とする。新メジャー版が出ても **既存ユーザーが取り残されない限り** 最低互換は据え置き |
+| `pluginUntilBuild` | 通常未設定（前方互換性を維持）。破壊的変更で動作不能と判明した場合のみ、緊急パッチで一時設定し、修正版で再度外す |
+| 新メジャー版対応 | リリース後 1 か月以内に `verifyPlugin` で互換性を検証し、問題があれば `verifierIdeVersions` に追加 |
+| サポート終了 | `pluginSinceBuild` 引き上げは **3 メジャーバージョン以上前** の IDE のみを対象とする |
+
+#### Verifier ブロッカー対応
+
+`./gradlew verifyPlugin` および JetBrains Marketplace の自動互換性チェックで問題が報告された場合、次の優先度で対応する:
+
+1. **Critical**（クラッシュ、API 削除）: 緊急パッチをリリースし、影響バージョンを `pluginUntilBuild` で除外
+2. **Warning**（deprecated 警告）: 次回リリースまでに代替 API へ移行（`.claude/rules/deprecated-api.md` 参照）
+3. **Info**（非推奨予定の通知）: `plugin-verifier-ignored-problems.txt` で抑制し、計画的に解消
+
+**現在の既知ブロッカー**:
+
+- IntelliJ Platform **2026.1** への移行は、`verifier-cli` 1.402 が新しい split-jar layout に対応していないため一時保留。`verifier-cli` 1.403+ のリリース後、`platformVersion` を引き上げる予定。
+
+#### 月次互換性検証
+
+CI に月次の `verifyPlugin` ジョブを追加することを推奨する（`.github/workflows/ci.yml` の `schedule:` トリガー）。これにより、新リリースされた IDE バージョンへの追従漏れを早期発見できる。
+
 ## 6. ユーザーストーリー
 
 ### US-01: シンタックスハイライト
