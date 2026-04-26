@@ -521,6 +521,16 @@ flowchart TD
 | `com.intellij.listSplitJoinContext` | `RescriptListSplitJoinContext` | リスト分割/結合 | 実装済み |
 | `com.intellij.refactoring.safeDeleteProcessor` | `RescriptSafeDeleteProcessor` | Safe Delete プロセッサ | 実装済み |
 | `com.intellij.nameSuggestionProvider` | `RescriptNameSuggestionProvider` | リネーム名前候補 | 実装済み |
+| `com.intellij.fileType` | `RescriptWorksheetFileType` | Worksheet モード（`.resw`） | 実装済み |
+| `com.intellij.toolWindow` | `RescriptReplToolWindowFactory` | REPL ツールウィンドウ（インタラクティブ評価） | 実装済み |
+| `com.intellij.toolWindow` | `RescriptPpxViewToolWindowFactory` | PPX 展開ビュー（macro 出力可視化） | 実装済み |
+| `com.intellij.toolWindow` | `RescriptTypeInfoToolWindowFactory` | Type Info ツールウィンドウ（カーソル位置の型表示） | 実装済み |
+| `com.intellij.scratch.rootType` | `RescriptScratchRootType` | ReScript スクラッチファイル | 実装済み |
+| `com.intellij.scratch.creationHelper` | `RescriptScratchCreationHelper` | スクラッチファイル作成ヘルパー | 実装済み |
+| `com.intellij.codeInsight.inlayHintsProvider` | `RescriptPpxVisualizationProvider` | PPX アノテーション展開のインレイ表示 | 実装済み |
+| `com.intellij.codeInsight.inlayHintsProvider` | `RescriptCommentEvalProvider` | Worksheet モードのコメント評価結果表示 | 実装済み |
+| `com.intellij.searchEverywhereContributor` | `RescriptTypeSignatureSearchContributor$Factory` | 型シグネチャによる関数逆引き検索 | 実装済み |
+| `com.intellij.grazie.textExtractor` | `RescriptGrazieTextExtractor` | Grazie 自然言語チェック対象抽出（optional: tanvd.grazi） | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
