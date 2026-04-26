@@ -61,12 +61,15 @@ internal object ResXTemplateFiles {
                         packageManager = ctx.packageManagerSpec(),
                         engines = mapOf("node" to ctx.nodeEngine),
                         dependencies = resXDependencies(ctx.validationLibrary),
+                        // res-x uses Bun's built-in test runner instead of vitest because
+                        // the compiled output dereferences the global `Bun` object via
+                        // rescript-bun — vitest under Node would crash with `Bun is not
+                        // defined`. `bun test` ships its own coverage reporter so no
+                        // separate vitest devDeps are needed.
                         devDependencies =
                             linkedMapOf(
                                 "concurrently" to TemplateVersions.CONCURRENTLY,
                                 "vite" to TemplateVersions.VITE,
-                                "vitest" to TemplateVersions.VITEST,
-                                "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
                             ),
                         scripts =
                             linkedMapOf(
@@ -74,8 +77,8 @@ internal object ResXTemplateFiles {
                                 "dev" to "concurrently \"rescript -w\" \"bun --watch run src/App.res.mjs\"",
                                 "build" to "vite build",
                                 "compile" to "bun build --compile src/App.res.mjs --outfile dist/app",
-                                "test" to "vitest run",
-                                "test:coverage" to "vitest run --coverage",
+                                "test" to "bun test",
+                                "test:coverage" to "bun test --coverage",
                                 "res:build" to "rescript",
                                 "res:clean" to "rescript clean",
                                 "res:dev" to "rescript -w",
@@ -111,7 +114,7 @@ internal object ResXTemplateFiles {
                         "start" to "Run the compiled Bun server once",
                         "build" to "Build client assets with Vite",
                         "compile" to "Compile the Bun server into a standalone binary at dist/app",
-                        "test" to "Run Vitest",
+                        "test" to "Run bun test",
                         "res:dev" to "Watch ReScript sources",
                     ),
                 extraSections =

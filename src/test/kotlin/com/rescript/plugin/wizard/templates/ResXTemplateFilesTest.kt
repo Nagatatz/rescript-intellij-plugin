@@ -298,12 +298,22 @@ class ResXTemplateFilesTest {
     }
 
     @Test
-    fun `package json declares coverage tooling and vite as devDependencies`() {
+    fun `package json uses bun test runner instead of vitest`() {
         val pkg = ResXTemplateFiles.generate(ctx)["package.json"]!!
+        // res-x compiles against rescript-bun, which dereferences the global
+        // `Bun` object. vitest under Node would fail with `Bun is not defined`.
         assertTrue(pkg.contains("\"vite\": \"${TemplateVersions.VITE}\""))
-        assertTrue(pkg.contains("\"vitest\": \"${TemplateVersions.VITEST}\""))
-        assertTrue(pkg.contains("\"@vitest/coverage-v8\": \"${TemplateVersions.VITEST_COVERAGE_V8}\""))
-        assertTrue(pkg.contains("\"test:coverage\""))
+        assertTrue(pkg.contains("\"test\": \"bun test\""))
+        assertTrue(pkg.contains("\"test:coverage\": \"bun test --coverage\""))
+        assertFalse(pkg.contains("\"vitest\""))
+        assertFalse(pkg.contains("\"@vitest/coverage-v8\""))
+    }
+
+    @Test
+    fun `smoke test imports describe and expect from bun colon test`() {
+        val testFile = ResXTemplateFiles.generate(ctx)["src/__tests__/App.test.mjs"]!!
+        assertTrue(testFile.contains("from \"bun:test\""))
+        assertFalse(testFile.contains("from \"vitest\""))
     }
 
     @Test
