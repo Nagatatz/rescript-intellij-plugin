@@ -173,4 +173,8 @@ linkcheck_retries = 3
 linkcheck_ignore = [
     # Intermittent read timeouts from reactnative.dev's legacy docs path.
     r"^https://reactnative\.dev/docs/legacy/.*",
+    # Local dev server URLs documented in template guides — unreachable from CI.
+    r"^http://localhost(:\d+)?(/.*)?$",
+    # npmjs.com returns 403 to the linkcheck bot's HEAD/GET requests.
+    r"^https://www\.npmjs\.com/package/.*",
 ]
