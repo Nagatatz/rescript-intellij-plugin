@@ -45,11 +45,23 @@ msgstr "**JDK** — 21 以降（JetBrains IDE にバンドル済み）"
 
 #: ../../user/installation.md:13
 msgid ""
-"**Node.js** — Installed and available in PATH (required for the Language "
-"Server)"
-msgstr "**Node.js** — インストール済みで PATH に含まれていること（Language Server に必要）"
+"**Node.js** — 18 LTS or later, available in PATH (required for the "
+"Language Server)"
+msgstr "**Node.js** — 18 LTS 以降で PATH に含まれていること（Language Server に必要）"
+
+#: ../../user/installation.md:14
+msgid ""
+"**`@rescript/language-server`** — 1.0.0 or later (compatible with ReScript"
+" 11+); installed per-project or globally"
+msgstr ""
+"**`@rescript/language-server`** — 1.0.0 以降（ReScript 11+ 互換）。プロジェクトまたはグローバルに"
+"インストール"
 
 #: ../../user/installation.md:15
+msgid "**ReScript** — 11.0 or later, set up in your project (`rescript.json` present)"
+msgstr "**ReScript** — 11.0 以降がプロジェクトにセットアップされていること（`rescript.json` あり）"
+
+#: ../../user/installation.md:17
 msgid "Step 1: Install the Plugin"
 msgstr "ステップ 1: プラグインのインストール"
 
@@ -110,12 +122,15 @@ msgstr "ステップ 2: ReScript Language Server のインストール"
 msgid ""
 "The plugin uses the [ReScript Language Server](https://github.com"
 "/rescript-lang/rescript-vscode) for semantic features like code "
-"completion, diagnostics, and navigation. You need to install it in your "
+"completion, diagnostics, and navigation. The plugin requires "
+"**`@rescript/language-server` 1.0.0 or later** (compatible with ReScript "
+"11+); the latest stable release is recommended. Install it in your "
 "project:"
 msgstr ""
 "このプラグインは、コード補完、診断、ナビゲーションなどのセマンティック機能のために [ReScript Language "
 "Server](https://github.com/rescript-lang/rescript-vscode) "
-"を使用します。プロジェクトにインストールする必要があります:"
+"を使用します。**`@rescript/language-server` 1.0.0 以降**（ReScript 11+ 互換）が必要で、"
+"最新の安定版を推奨します。プロジェクトにインストールしてください:"
 
 #: ../../user/installation.md:36
 msgid "Local Installation (Recommended)"

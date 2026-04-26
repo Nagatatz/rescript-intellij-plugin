@@ -67,8 +67,8 @@ msgid "Language Server"
 msgstr "Language Server"
 
 #: ../../user/version-matrix.md
-msgid "0.1.2 -- 0.1.11"
-msgstr "0.1.2 -- 0.1.11"
+msgid "0.1.2 -- 0.1.12"
+msgstr "0.1.2 -- 0.1.12"
 
 #: ../../user/version-matrix.md
 msgid "2025.3+"
@@ -83,19 +83,24 @@ msgid "v11+"
 msgstr "v11+"
 
 #: ../../user/version-matrix.md
-msgid "`@rescript/language-server` (required for LSP features)"
-msgstr "`@rescript/language-server`（LSP 機能に必要）"
+msgid "`@rescript/language-server` 1.0.0+ (latest stable recommended)"
+msgstr "`@rescript/language-server` 1.0.0+（最新の安定版を推奨）"
 
 #: ../../user/version-matrix.md:18
 msgid ""
 "Native features (syntax highlighting, code folding, brace matching, etc.)"
 " work without the language server. LSP-powered features (completion, "
 "diagnostics, definition jump, etc.) require `@rescript/language-server` "
-"to be installed in your project."
+"1.0.0 or later to be installed in your project. Older 0.x releases are "
+"not supported because the plugin uses LSP extensions "
+"(`rescript/compilationStatus`, `textDocument/createInterface`, "
+"`textDocument/openCompiled`, semantic tokens) introduced in 1.x."
 msgstr ""
-"ネイティブ機能（シンタックスハイライト、コード折りたたみ、ブレースマッチングなど）は Language Server なしで動作します。LSP "
-"ベースの機能（補完、診断、定義ジャンプなど）を使用するには、プロジェクトに `@rescript/language-server` "
-"をインストールする必要があります。"
+"ネイティブ機能（シンタックスハイライト、コード折りたたみ、ブレースマッチングなど）は Language Server なしで動作します。"
+"LSP ベースの機能（補完、診断、定義ジャンプなど）を使用するには、プロジェクトに `@rescript/language-server` "
+"1.0.0 以降をインストールする必要があります。0.x 系は本プラグインが使用する LSP 拡張プロトコル"
+"（`rescript/compilationStatus`、`textDocument/createInterface`、"
+"`textDocument/openCompiled`、Semantic Tokens）に対応しないためサポート対象外です。"
 
 #: ../../user/version-matrix.md:22
 msgid "Features by Version"

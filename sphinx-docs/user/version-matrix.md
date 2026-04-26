@@ -12,11 +12,11 @@ This page provides IDE compatibility information and a per-version breakdown of 
 
 | Plugin Version | IntelliJ Platform | JDK | ReScript | Language Server |
 |----------------|-------------------|-----|----------|-----------------|
-| 0.1.2 -- 0.1.11 | 2025.3+ | 21+ | v11+ | `@rescript/language-server` (required for LSP features) |
+| 0.1.2 -- 0.1.12 | 2025.3+ | 21+ | v11+ | `@rescript/language-server` 1.0.0+ (latest stable recommended) |
 
 :::{note}
 Native features (syntax highlighting, code folding, brace matching, etc.) work without the language server.
-LSP-powered features (completion, diagnostics, definition jump, etc.) require `@rescript/language-server` to be installed in your project.
+LSP-powered features (completion, diagnostics, definition jump, etc.) require `@rescript/language-server` 1.0.0 or later to be installed in your project. Older 0.x releases are not supported because the plugin uses LSP extensions (`rescript/compilationStatus`, `textDocument/createInterface`, `textDocument/openCompiled`, semantic tokens) introduced in 1.x.
 :::
 
 ## Features by Version

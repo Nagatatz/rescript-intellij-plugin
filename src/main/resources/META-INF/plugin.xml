@@ -63,8 +63,8 @@
 
         <h3>Requirements</h3>
         <ul>
-            <li>Node.js installed and available in PATH</li>
-            <li><code>@rescript/language-server</code> installed in project or globally</li>
+            <li>Node.js 18 LTS or later, available in PATH</li>
+            <li><code>@rescript/language-server</code> 1.0.0+ installed in project or globally (compatible with ReScript 11+; the bundled installer always pulls the latest stable)</li>
         </ul>
     ]]></description>
 

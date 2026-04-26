@@ -75,13 +75,20 @@
 
 ### 外部依存
 
-| 依存 | 必須/任意 | 用途 |
-|------|----------|------|
-| Node.js | 任意（LSP 機能に必要） | `@rescript/language-server` の実行 |
-| `@rescript/language-server` | 任意（LSP 機能に必要） | コード補完、診断、定義ジャンプ等 |
-| JavaScript プラグイン | 任意 | `%raw()` 内 JavaScript ハイライト |
-| Markdown プラグイン | 任意 | Markdown コードフェンスハイライト |
-| JavaScriptDebugger | 任意 | コンパイル済み JS のデバッグ |
+| 依存 | 最低バージョン | 必須/任意 | 用途 |
+|------|---------------|----------|------|
+| Node.js | 18 LTS+ | 任意（LSP 機能に必要） | `@rescript/language-server` の実行 |
+| `@rescript/language-server` | 1.0.0+（ReScript 11+ 対応版） | 任意（LSP 機能に必要） | コード補完、診断、定義ジャンプ等 |
+| ReScript | 11.0+ | 任意（LSP 機能に必要） | Language Server が解析対象とする ReScript ランタイム |
+| JavaScript プラグイン | IDE 同梱版 | 任意 | `%raw()` 内 JavaScript ハイライト |
+| Markdown プラグイン | IDE 同梱版 | 任意 | Markdown コードフェンスハイライト |
+| JavaScriptDebugger | IDE 同梱版（Ultimate/WebStorm） | 任意 | コンパイル済み JS のデバッグ |
+
+**`@rescript/language-server` のバージョンに関する注記**:
+
+- 最新の安定版（1.x 系）を推奨。プラグインは LSP 拡張プロトコル（`rescript/compilationStatus`、`textDocument/createInterface`、`textDocument/openCompiled`、Semantic Tokens）を使用するため、これらをサポートする 1.0.0 以降のバージョンが必要。
+- 0.x 系（ReScript 10 以前向け）は本プラグインの動作対象外。
+- LSP の自動インストール機能（`RescriptLspInstaller`）はバージョン未指定で `@rescript/language-server` をインストールするため、常に最新版が選択される。
 
 ### API 制約
 

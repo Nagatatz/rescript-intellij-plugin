@@ -10,7 +10,9 @@ myst:
 
 - **JetBrains IDE** — IntelliJ IDEA 2025.3+ (Ultimate or Community), WebStorm, or other JetBrains IDE with LSP support
 - **JDK** — 21 or later (bundled with JetBrains IDEs)
-- **Node.js** — Installed and available in PATH (required for the Language Server)
+- **Node.js** — 18 LTS or later, available in PATH (required for the Language Server)
+- **`@rescript/language-server`** — 1.0.0 or later (compatible with ReScript 11+); installed per-project or globally
+- **ReScript** — 11.0 or later, set up in your project (`rescript.json` present)
 
 ## Step 1: Install the Plugin
 
@@ -31,7 +33,7 @@ myst:
 
 ## Step 2: Install the ReScript Language Server
 
-The plugin uses the [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode) for semantic features like code completion, diagnostics, and navigation. You need to install it in your project:
+The plugin uses the [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode) for semantic features like code completion, diagnostics, and navigation. The plugin requires **`@rescript/language-server` 1.0.0 or later** (compatible with ReScript 11+); the latest stable release is recommended. Install it in your project:
 
 ### Local Installation (Recommended)
 
