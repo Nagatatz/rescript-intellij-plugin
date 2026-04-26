@@ -103,9 +103,10 @@ object TemplateVersions {
     const val GRAPHQL_YOGA = "^5.21.0"
     const val GRAPHQL_MARKDOWN = "^0.7.1"
 
-    // rescript-relay (FULL_STACK GraphQL variant client). 4.x targets ReScript 12.
-    const val RESCRIPT_RELAY = "^4.1.0"
-    const val RELAY_COMPILER = "^19.0.0"
+    // rescript-relay (FULL_STACK GraphQL variant client). 4.x targets ReScript 12
+    // and bundles Relay compiler 20.1.1 internally; relay-compiler must match.
+    const val RESCRIPT_RELAY = "^4.4.1"
+    const val RELAY_COMPILER = "^20.1.1"
 
     // res-x (Bun + Vite + HTMX framework) and its Bun peer dependency
     const val RESCRIPT_X = "^1.4.0"
