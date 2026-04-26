@@ -6,13 +6,21 @@ on:
   pull_request:
     branches: [main]
 
+# Cancel queued PR runs when a newer commit lands; keep main runs intact for history.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   actionlint:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write  # reviewdog posts PR review comments
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -25,6 +33,10 @@ jobs:
 
   security:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      security-events: write  # upload SARIF to Code Scanning
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -41,6 +53,10 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write  # mi-kas/kover-report posts coverage summary on PRs
 
     steps:
       - name: Checkout
@@ -144,6 +160,9 @@ jobs:
 
   template-integration:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
     # Verifies that every Project Wizard template materializes, installs deps,
     # compiles ReScript, and (where safe) runs vitest end-to-end. Catches bugs
     # that the unit tests can't see — wrong dep versions, ReScript module
