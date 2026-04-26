@@ -2,22 +2,23 @@
 
 ## Phase 1: 環境準備
 
-- [ ] worktree 作成（`EnterWorktree` ツール、機能名: `lsp-code-action-verification`）
-- [ ] `node --version` / `npm ls -g @rescript/language-server` でバージョン記録
-- [ ] `findings.md` の「環境情報」セクションを記録
-- [ ] `samples/` ディレクトリを作成
+- [x] worktree 作成（`EnterWorktree` ツール、機能名: `lsp-code-action-verification`）
+- [x] `node --version` / `npm ls -g @rescript/language-server` でバージョン記録
+- [x] `findings.md` の「環境情報」セクションを記録
+- [x] `samples/` ディレクトリを作成
 
 ## Phase 2: サンプル `.res` 作成
 
-- [ ] `samples/01_missing_cases.res`
-- [ ] `samples/02_wrap_in_some.res`
-- [ ] `samples/03_record_missing_fields.res`
-- [ ] `samples/04_simple_conversion.res`
-- [ ] `samples/05_did_you_mean.res`
-- [ ] `samples/06_remove_unused.res`
-- [ ] `samples/07_extract_local_module.res`
-- [ ] `samples/08_expand_catch_all.res`
-- [ ] `samples/09_apply_uncurried.res`
+- [x] `samples/01_missing_cases.res`
+- [x] `samples/02_wrap_in_some.res`
+- [x] `samples/03_record_missing_fields.res`
+- [x] `samples/04_simple_conversion.res`
+- [x] `samples/05_did_you_mean.res`
+- [x] `samples/06_remove_unused.res`
+- [x] `samples/07_extract_local_module.res`
+- [x] `samples/08_expand_catch_all.res`
+- [x] `samples/09_apply_uncurried.res`
+- [x] `samples/README.md` で利用手順を整理
 
 ## Phase 3: runIde で検証
 
