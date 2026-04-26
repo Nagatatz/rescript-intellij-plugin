@@ -5,11 +5,20 @@ on:
     tags:
       - 'v*.*.*'
 
+# Releases must never be cancelled mid-flight; queue serially per tag.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
 jobs:
   validate-and-build:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
-      contents: write
+      contents: write  # softprops/action-gh-release creates the GitHub Release
 
     steps:
       - name: Checkout
@@ -50,8 +59,39 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Run checks
-        run: ./gradlew ktlintCheck test verifyPluginStructure verifyPlugin
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Run full quality gate
+        # ktlint, KDoc, Extension Point checks, unit tests with coverage
+        # ratchet, plugin structure, and binary compatibility — all must
+        # pass before we tag a Marketplace release.
+        run: |
+          ./gradlew \
+            ktlintCheck \
+            checkKdoc \
+            checkExtensionPointRegistration \
+            test koverVerify koverXmlReport \
+            verifyPluginStructure \
+            verifyPluginProjectConfiguration \
+            verifyPlugin
+
+      - name: Run template integration tests
+        # Catches template generation regressions (broken deps, ReScript
+        # module resolution issues) before publish.
+        run: ./gradlew integrationTest --info
 
       - name: Build plugin
         run: ./gradlew buildPlugin
@@ -61,6 +101,7 @@ jobs:
         with:
           name: plugin-zip
           path: build/distributions/*.zip
+          retention-days: 30
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
@@ -73,6 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: validate-and-build
     environment: marketplace
+    timeout-minutes: 15
     permissions:
       contents: read
 
@@ -93,6 +135,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
 
       - name: Build plugin
+        # publishPlugin re-builds because IntelliJ Platform Gradle Plugin's
+        # task graph wires signPlugin/buildPlugin as dependencies. The
+        # validate-and-build job ensured the same code passes the full
+        # quality gate; here we trust the gate and publish.
         run: ./gradlew buildPlugin
 
       - name: Publish to JetBrains Marketplace
