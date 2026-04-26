@@ -30,6 +30,7 @@
 | ファイル | 用途 |
 |---|---|
 | [git-conventions.md](git-conventions.md) | コミットメッセージの絵文字プレフィックス・粒度・ブランチ運用 |
+| [github-actions-pinning.md](github-actions-pinning.md) | `uses:` のバージョン固定方針（公式 vs サードパーティ） |
 | [release.md](release.md) | バージョンアップとタグ作成の手順 |
 
 ## ドキュメント作成時 — 伝える
