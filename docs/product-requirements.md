@@ -345,6 +345,8 @@ CI に月次の `verifyPlugin` ジョブを追加することを推奨する（`
 | IDE 起動への影響 | 無視できるレベル（遅延ロード） |
 | メモリ使用量 | プラグイン単体で 50MB 以下 |
 
+各指標の計測手段、リリース時の検証手順、退化ガードのラチェット案は [docs/performance-validation.md](performance-validation.md) を参照。
+
 ### NFR-02: 互換性
 
 | 要件 | 詳細 |

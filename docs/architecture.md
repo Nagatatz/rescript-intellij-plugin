@@ -118,6 +118,10 @@
 - **LSP 通信の非同期化**: Platform LSP API が自動的に非同期 I/O を管理
 - **Gradle ビルド最適化**: Configuration Cache + Parallel Execution + Build Cache 有効
 
+### パフォーマンス検証
+
+各指標の計測手段、リリース時の検証手順、ラチェット運用方針は [performance-validation.md](performance-validation.md) を参照。
+
 ## 5. セキュリティ考慮事項
 
 | 項目 | 対策 |
