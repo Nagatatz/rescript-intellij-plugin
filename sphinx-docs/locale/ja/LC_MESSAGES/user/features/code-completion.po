@@ -23,7 +23,9 @@ msgstr ""
 msgid ""
 "code completion, postfix templates, live templates, signature help, "
 "parameter info"
-msgstr "コード補完, Postfix テンプレート, Live テンプレート, シグネチャヘルプ, パラメータ情報"
+msgstr ""
+"コード補完, Postfix テンプレート, Live テンプレート, シグネチャヘルプ, パラ"
+"メータ情報"
 
 #: ../../user/features/code-completion.md:7
 msgid "Code Completion"
@@ -31,9 +33,11 @@ msgstr "コード補完"
 
 #: ../../user/features/code-completion.md:9
 msgid ""
-"The plugin provides multiple completion mechanisms to help you write code"
-" faster."
-msgstr "本プラグインは、コードをより速く記述するための複数の補完メカニズムを提供します。"
+"The plugin provides multiple completion mechanisms to help you write code "
+"faster."
+msgstr ""
+"本プラグインは、コードをより速く記述するための複数の補完メカニズムを提供しま"
+"す。"
 
 #: ../../user/features/code-completion.md:11
 msgid "LSP Completion"
@@ -50,12 +54,12 @@ msgstr "{bdg-primary}`LSP Required`"
 
 #: ../../user/features/code-completion.md:15
 msgid ""
-"The Language Server provides intelligent, type-aware completions. Trigger"
-" completion with `Ctrl+Space` (or `Cmd+Space` on macOS), or just start "
-"typing."
+"The Language Server provides intelligent, type-aware completions. Trigger "
+"completion with `Ctrl+Space` (or `Cmd+Space` on macOS), or just start typing."
 msgstr ""
-"Language Server は、型を考慮したインテリジェントな補完を提供します。`Ctrl+Space`（macOS では "
-"`Cmd+Space`）で補完をトリガーするか、入力を開始するだけで補完が表示されます。"
+"Language Server は、型を考慮したインテリジェントな補完を提供します。"
+"`Ctrl+Space`（macOS では `Cmd+Space`）で補完をトリガーするか、入力を開始する"
+"だけで補完が表示されます。"
 
 #: ../../user/features/code-completion.md:17
 msgid "What Gets Completed"
@@ -87,10 +91,12 @@ msgstr "パイプ（`->`）チェーンの候補"
 
 #: ../../user/features/code-completion.md:26
 msgid ""
-"Type-aware completions mean you spend less time memorizing API surfaces —"
-" the IDE suggests the right functions, fields, and constructors based on "
-"the types in your code."
-msgstr "型認識補完により API を暗記する時間が減ります — IDE がコード内の型に基づいて適切な関数、フィールド、コンストラクタを提案します。"
+"Type-aware completions mean you spend less time memorizing API surfaces — "
+"the IDE suggests the right functions, fields, and constructors based on the "
+"types in your code."
+msgstr ""
+"型認識補完により API を暗記する時間が減ります — IDE がコード内の型に基づいて"
+"適切な関数、フィールド、コンストラクタを提案します。"
 
 #: ../../user/features/code-completion.md:28
 msgid "Postfix Completion"
@@ -106,9 +112,10 @@ msgstr "{bdg-success}`Native`"
 
 #: ../../user/features/code-completion.md:32
 msgid ""
-"Type an expression followed by `.` and a postfix template name to "
-"transform the expression."
-msgstr "式の後に `.` とポストフィックステンプレート名を入力すると、式が変換されます。"
+"Type an expression followed by `.` and a postfix template name to transform "
+"the expression."
+msgstr ""
+"式の後に `.` とポストフィックステンプレート名を入力すると、式が変換されます。"
 
 #: ../../user/features/code-completion.md
 msgid "Template"
@@ -234,7 +241,8 @@ msgstr "`await expr`"
 
 #: ../../user/features/code-completion.md:47
 msgid "Postfix templates are not available inside comments or string literals."
-msgstr "ポストフィックステンプレートはコメントや文字列リテラル内では使用できません。"
+msgstr ""
+"ポストフィックステンプレートはコメントや文字列リテラル内では使用できません。"
 
 #: ../../user/features/code-completion.md:50
 msgid "Detailed Usage"
@@ -246,12 +254,13 @@ msgstr "`.switch` -- パターンマッチング"
 
 #: ../../user/features/code-completion.md:54
 msgid ""
-"Use `.switch` when you need to pattern match on a value. This is one of "
-"the most frequently used postfix templates, as `switch` expressions are "
-"central to ReScript programming."
+"Use `.switch` when you need to pattern match on a value. This is one of the "
+"most frequently used postfix templates, as `switch` expressions are central "
+"to ReScript programming."
 msgstr ""
-"値に対してパターンマッチが必要なときに `.switch` を使用します。`switch` 式は ReScript "
-"プログラミングの中核であるため、最も頻繁に使用されるポストフィックステンプレートの 1 つです。"
+"値に対してパターンマッチが必要なときに `.switch` を使用します。`switch` 式は "
+"ReScript プログラミングの中核であるため、最も頻繁に使用されるポストフィックス"
+"テンプレートの 1 つです。"
 
 #: ../../user/features/code-completion.md:56
 #: ../../user/features/code-completion.md:76
@@ -281,7 +290,9 @@ msgstr "変換後:"
 msgid ""
 "The cursor is placed after `=>` so you can immediately start typing the "
 "branch body. Add additional arms manually."
-msgstr "カーソルは `=>` の後に配置されるため、すぐにブランチの本体を入力できます。追加のアームは手動で追加してください。"
+msgstr ""
+"カーソルは `=>` の後に配置されるため、すぐにブランチの本体を入力できます。追"
+"加のアームは手動で追加してください。"
 
 #: ../../user/features/code-completion.md:72
 msgid "`.pipe` -- Functional Composition"
@@ -289,32 +300,39 @@ msgstr "`.pipe` -- 関数合成"
 
 #: ../../user/features/code-completion.md:74
 msgid ""
-"Use `.pipe` to start or extend a pipe chain. ReScript uses `->` (pipe "
-"first) for chaining function calls, and this template saves keystrokes "
-"when building data transformation pipelines."
+"Use `.pipe` to start or extend a pipe chain. ReScript uses `->` (pipe first) "
+"for chaining function calls, and this template saves keystrokes when "
+"building data transformation pipelines."
 msgstr ""
-"パイプチェーンを開始または拡張するために `.pipe` を使用します。ReScript は 関数呼び出しのチェーンに `->` (pipe "
-"first) を使用しており、このテンプレートはデータ変換パイプラインを構築する際のキーストロークを節約します。"
+"パイプチェーンを開始または拡張するために `.pipe` を使用します。ReScript は 関"
+"数呼び出しのチェーンに `->` (pipe first) を使用しており、このテンプレートは"
+"データ変換パイプラインを構築する際のキーストロークを節約します。"
 
 #: ../../user/features/code-completion.md:88
 msgid ""
 "The cursor is placed right after `->` so you can type the next function "
 "name. This is especially useful for building chains:"
-msgstr "カーソルは `->` の直後に配置されるため、次の関数名をすぐに入力できます。これはチェーンを構築する際に特に便利です:"
+msgstr ""
+"カーソルは `->` の直後に配置されるため、次の関数名をすぐに入力できます。これ"
+"はチェーンを構築する際に特に便利です:"
 
 #: ../../user/features/code-completion.md:97
 msgid "`.log` -- Debug Logging"
 msgstr "`.log` -- デバッグログ"
 
 #: ../../user/features/code-completion.md:99
-msgid "Use `.log` to quickly wrap an expression in `Console.log()` for debugging."
-msgstr "`.log` を使用して、デバッグのために式を `Console.log()` で素早くラップします。"
+msgid ""
+"Use `.log` to quickly wrap an expression in `Console.log()` for debugging."
+msgstr ""
+"`.log` を使用して、デバッグのために式を `Console.log()` で素早くラップしま"
+"す。"
 
 #: ../../user/features/code-completion.md:113
 msgid ""
-"This is convenient for quick debugging without manually typing the "
-"wrapping function."
-msgstr "ラッピング関数を手動で入力することなく、素早くデバッグできるため便利です。"
+"This is convenient for quick debugging without manually typing the wrapping "
+"function."
+msgstr ""
+"ラッピング関数を手動で入力することなく、素早くデバッグできるため便利です。"
 
 #: ../../user/features/code-completion.md:115
 msgid "`.some` -- Optional Value Wrapping"
@@ -322,9 +340,9 @@ msgstr "`.some` -- オプショナル値のラッピング"
 
 #: ../../user/features/code-completion.md:117
 msgid ""
-"Use `.some` to wrap a value in the `Some` constructor of the `option` "
-"type."
-msgstr "`.some` を使用して、`option` 型の `Some` コンストラクタで値をラップします。"
+"Use `.some` to wrap a value in the `Some` constructor of the `option` type."
+msgstr ""
+"`.some` を使用して、`option` 型の `Some` コンストラクタで値をラップします。"
 
 #: ../../user/features/code-completion.md:131
 msgid "Useful when you need to return an optional value from a function:"
@@ -335,13 +353,14 @@ msgid "`.ok` / `.error` -- Result Type Wrapping"
 msgstr "`.ok` / `.error` -- Result 型のラッピング"
 
 #: ../../user/features/code-completion.md:142
-msgid "Use `.ok` and `.error` to wrap values in the `result` type constructors."
-msgstr "`.ok` と `.error` を使用して、`result` 型のコンストラクタで値をラップします。"
+msgid ""
+"Use `.ok` and `.error` to wrap values in the `result` type constructors."
+msgstr ""
+"`.ok` と `.error` を使用して、`result` 型のコンストラクタで値をラップします。"
 
 #: ../../user/features/code-completion.md:168
 msgid ""
-"These are helpful when working with functions that return `result<'a, "
-"'b>`:"
+"These are helpful when working with functions that return `result<'a, 'b>`:"
 msgstr "`result<'a, 'b>` を返す関数を扱う場合に役立ちます:"
 
 #: ../../user/features/code-completion.md:180
@@ -351,11 +370,10 @@ msgstr "`.ignore` -- 戻り値の破棄"
 #: ../../user/features/code-completion.md:182
 msgid ""
 "Use `.ignore` when you want to call a function for its side effects and "
-"discard the return value. This avoids compiler warnings about unused "
-"values."
+"discard the return value. This avoids compiler warnings about unused values."
 msgstr ""
-"副作用のために関数を呼び出し、戻り値を破棄したい場合に `.ignore` "
-"を使用します。これにより、未使用の値に関するコンパイラ警告を回避できます。"
+"副作用のために関数を呼び出し、戻り値を破棄したい場合に `.ignore` を使用しま"
+"す。これにより、未使用の値に関するコンパイラ警告を回避できます。"
 
 #: ../../user/features/code-completion.md:196
 msgid "`.promise` -- Async Promise Chain"
@@ -363,15 +381,19 @@ msgstr "`.promise` -- 非同期 Promise チェーン"
 
 #: ../../user/features/code-completion.md:198
 msgid ""
-"Use `.promise` to wrap an expression in a `Promise.then` callback, useful"
-" when working with asynchronous code."
-msgstr "`.promise` を使用して、式を `Promise.then` コールバックでラップします。非同期コードを扱う際に便利です。"
+"Use `.promise` to wrap an expression in a `Promise.then` callback, useful "
+"when working with asynchronous code."
+msgstr ""
+"`.promise` を使用して、式を `Promise.then` コールバックでラップします。非同期"
+"コードを扱う際に便利です。"
 
 #: ../../user/features/code-completion.md:214
 msgid ""
-"The cursor is placed inside the callback body so you can immediately "
-"write the continuation logic."
-msgstr "カーソルはコールバック本体の内側に配置されるため、すぐに継続ロジックを記述できます。"
+"The cursor is placed inside the callback body so you can immediately write "
+"the continuation logic."
+msgstr ""
+"カーソルはコールバック本体の内側に配置されるため、すぐに継続ロジックを記述で"
+"きます。"
 
 #: ../../user/features/code-completion.md:216
 msgid "`.await` -- Await Expression"
@@ -381,30 +403,34 @@ msgstr "`.await` -- Await 式"
 msgid ""
 "Use `.await` to prepend `await` to an expression, converting it from a "
 "promise to a resolved value inside an `async` function."
-msgstr "`.await` を使用して、式の前に `await` を付加し、`async` 関数内で Promise を解決された値に変換します。"
+msgstr ""
+"`.await` を使用して、式の前に `await` を付加し、`async` 関数内で Promise を解"
+"決された値に変換します。"
 
 #: ../../user/features/code-completion.md:232
 msgid ""
 "This is the quickest way to await a promise expression without manually "
 "repositioning the cursor."
-msgstr "手動でカーソルを移動することなく、Promise 式を await する最も素早い方法です。"
+msgstr ""
+"手動でカーソルを移動することなく、Promise 式を await する最も素早い方法です。"
 
 #: ../../user/features/code-completion.md:234
 msgid ""
-"Postfix templates let you transform expressions without moving the cursor"
-" back to the beginning — type the expression first, then apply the "
+"Postfix templates let you transform expressions without moving the cursor "
+"back to the beginning — type the expression first, then apply the "
 "transformation, keeping your natural left-to-right typing flow."
 msgstr ""
-"Postfix テンプレートを使えば、カーソルを先頭に戻さずに式を変換できます — "
-"まず式を入力し、その後変換を適用することで、自然な左から右への入力フローを維持できます。"
+"Postfix テンプレートを使えば、カーソルを先頭に戻さずに式を変換できます — まず"
+"式を入力し、その後変換を適用することで、自然な左から右への入力フローを維持で"
+"きます。"
 
 #: ../../user/features/code-completion.md:237
 msgid ""
-"[Code Editing](code-editing.md) offers Intention Actions and Surround "
-"With for more code transformation patterns."
+"[Code Editing](code-editing.md) offers Intention Actions and Surround With "
+"for more code transformation patterns."
 msgstr ""
-"[Code Editing](code-editing.md) では、さらに多くのコード変換パターンのための Intention アクションと "
-"Surround With を提供しています。"
+"[Code Editing](code-editing.md) では、さらに多くのコード変換パターンのための "
+"Intention アクションと Surround With を提供しています。"
 
 #: ../../user/features/code-completion.md:240
 msgid "Live Templates"
@@ -412,12 +438,13 @@ msgstr "Live Templates"
 
 #: ../../user/features/code-completion.md:244
 msgid ""
-"Type a snippet abbreviation and press `Tab` to expand. The cursor stops "
-"at each placeholder (shown in the expansions below); press `Tab` to move "
-"to the next placeholder."
+"Type a snippet abbreviation and press `Tab` to expand. The cursor stops at "
+"each placeholder (shown in the expansions below); press `Tab` to move to the "
+"next placeholder."
 msgstr ""
-"スニペットの省略形を入力して `Tab` を押すと展開されます。カーソルは各プレースホルダー（以下の展開例に表示）で停止し、`Tab` "
-"を押すと次のプレースホルダーに移動します。"
+"スニペットの省略形を入力して `Tab` を押すと展開されます。カーソルは各プレース"
+"ホルダー（以下の展開例に表示）で停止し、`Tab` を押すと次のプレースホルダーに"
+"移動します。"
 
 #: ../../user/features/code-completion.md:236
 msgid "Abbreviation"
@@ -714,7 +741,8 @@ msgid "**`letfn`** -- Function definition"
 msgstr "**`letfn`** -- 関数定義"
 
 #: ../../user/features/code-completion.md:290
-msgid "The cursor stops at `name`, then `params`, then inside the function body."
+msgid ""
+"The cursor stops at `name`, then `params`, then inside the function body."
 msgstr "カーソルは `name`、`params`、関数本体の順に停止します。"
 
 #: ../../user/features/code-completion.md:292
@@ -739,9 +767,11 @@ msgstr "**`typr`** -- レコード型定義"
 
 #: ../../user/features/code-completion.md:325
 msgid ""
-"The cursor stops at `name`, then `field`, then the field type, then "
-"inside the record for additional fields."
-msgstr "カーソルは `name`、`field`、フィールドの型、レコード内部（追加フィールド用）の順に停止します。"
+"The cursor stops at `name`, then `field`, then the field type, then inside "
+"the record for additional fields."
+msgstr ""
+"カーソルは `name`、`field`、フィールドの型、レコード内部（追加フィールド用）"
+"の順に停止します。"
 
 #: ../../user/features/code-completion.md:327
 msgid "**`typv`** -- Variant type definition"
@@ -749,9 +779,11 @@ msgstr "**`typv`** -- バリアント型定義"
 
 #: ../../user/features/code-completion.md:334
 msgid ""
-"The cursor stops at `name`, then `Variant`, allowing you to define the "
-"first constructor and continue adding more."
-msgstr "カーソルは `name`、`Variant` の順に停止し、最初のコンストラクタを定義してさらに追加できます。"
+"The cursor stops at `name`, then `Variant`, allowing you to define the first "
+"constructor and continue adding more."
+msgstr ""
+"カーソルは `name`、`Variant` の順に停止し、最初のコンストラクタを定義してさら"
+"に追加できます。"
 
 #: ../../user/features/code-completion.md:336
 msgid "Control Flow"
@@ -779,9 +811,11 @@ msgstr "**`for`** -- for ループ"
 
 #: ../../user/features/code-completion.md:382
 msgid ""
-"The cursor stops at the loop variable `i`, then the start value `0`, then"
-" the end value `10`, then the loop body."
-msgstr "カーソルはループ変数 `i`、開始値 `0`、終了値 `10`、ループ本体の順に停止します。"
+"The cursor stops at the loop variable `i`, then the start value `0`, then "
+"the end value `10`, then the loop body."
+msgstr ""
+"カーソルはループ変数 `i`、開始値 `0`、終了値 `10`、ループ本体の順に停止しま"
+"す。"
 
 #: ../../user/features/code-completion.md:384
 msgid "FFI (Foreign Function Interface)"
@@ -793,11 +827,11 @@ msgstr "**`ext`** -- external 宣言"
 
 #: ../../user/features/code-completion.md:392
 msgid ""
-"The cursor stops at `name`, then the type annotation, then the JavaScript"
-" name string. Useful for binding to JavaScript functions and values."
+"The cursor stops at `name`, then the type annotation, then the JavaScript "
+"name string. Useful for binding to JavaScript functions and values."
 msgstr ""
-"カーソルは `name`、型アノテーション、JavaScript の名前文字列の順に停止します。JavaScript "
-"の関数や値へのバインディングに便利です。"
+"カーソルは `name`、型アノテーション、JavaScript の名前文字列の順に停止しま"
+"す。JavaScript の関数や値へのバインディングに便利です。"
 
 #: ../../user/features/code-completion.md:394
 msgid "Utility"
@@ -809,9 +843,11 @@ msgstr "**`pipe`** -- 関数呼び出し付きパイプ演算子"
 
 #: ../../user/features/code-completion.md:402
 msgid ""
-"Type this after an expression to pipe it into a function. The cursor "
-"stops at `func`, then inside the parentheses for arguments."
-msgstr "式の後に入力して関数にパイプします。カーソルは `func` で停止し、次に括弧内の引数部分で停止します。"
+"Type this after an expression to pipe it into a function. The cursor stops "
+"at `func`, then inside the parentheses for arguments."
+msgstr ""
+"式の後に入力して関数にパイプします。カーソルは `func` で停止し、次に括弧内の"
+"引数部分で停止します。"
 
 #: ../../user/features/code-completion.md:404
 msgid "**`log`** -- Console.log"
@@ -833,7 +869,9 @@ msgstr "**`@module`** -- モジュールバインディング"
 msgid ""
 "The cursor stops at the module name, then the binding name, type, and "
 "JavaScript export name."
-msgstr "カーソルはモジュール名、バインディング名、型、JavaScript エクスポート名の順に停止します。"
+msgstr ""
+"カーソルはモジュール名、バインディング名、型、JavaScript エクスポート名の順に"
+"停止します。"
 
 #: ../../user/features/code-completion.md:423
 msgid "**`@val`** -- Global value binding"
@@ -847,7 +885,9 @@ msgstr "**`@send`** -- メソッドバインディング"
 msgid ""
 "The cursor stops at the binding name, the receiver object type, the "
 "parameter type, the return type, and the JavaScript method name."
-msgstr "カーソルはバインディング名、レシーバーオブジェクト型、パラメータ型、戻り値型、JavaScript メソッド名の順に停止します。"
+msgstr ""
+"カーソルはバインディング名、レシーバーオブジェクト型、パラメータ型、戻り値"
+"型、JavaScript メソッド名の順に停止します。"
 
 #: ../../user/features/code-completion.md:437
 msgid "**`@get`** -- Property getter binding"
@@ -867,7 +907,8 @@ msgstr "**`comp`** -- React コンポーネント"
 
 #: ../../user/features/code-completion.md:460
 msgid "The cursor stops at the props parameter, then the component body."
-msgstr "カーソルは props パラメーターで停止し、次にコンポーネント本体で停止します。"
+msgstr ""
+"カーソルは props パラメーターで停止し、次にコンポーネント本体で停止します。"
 
 #: ../../user/features/code-completion.md:462
 msgid "Customization"
@@ -875,11 +916,12 @@ msgstr "カスタマイズ"
 
 #: ../../user/features/code-completion.md:464
 msgid ""
-"You can customize all ReScript live templates at **Settings** | "
-"**Editor** | **Live Templates** | **ReScript**. From there you can:"
+"You can customize all ReScript live templates at **Settings** | **Editor** | "
+"**Live Templates** | **ReScript**. From there you can:"
 msgstr ""
 "すべての ReScript Live Templates は **Settings** | **Editor** | **Live "
-"Templates** | **ReScript** でカスタマイズできます。ここから以下の操作が可能です:"
+"Templates** | **ReScript** でカスタマイズできます。ここから以下の操作が可能で"
+"す:"
 
 #: ../../user/features/code-completion.md:466
 msgid "Edit existing template expansions and placeholder variables"
@@ -904,9 +946,10 @@ msgid ""
 "components from scratch, a short abbreviation expands into the full "
 "structure with placeholder navigation."
 msgstr ""
-"Live テンプレートは反復的なボイラープレートを排除します — `switch`、`if-else`、`@module` "
-"バインディング、React "
-"コンポーネントなどの共通パターンをゼロから入力する代わりに、短い略語がプレースホルダーナビゲーション付きの完全な構造に展開されます。"
+"Live テンプレートは反復的なボイラープレートを排除します — `switch`、`if-"
+"else`、`@module` バインディング、React コンポーネントなどの共通パターンをゼロ"
+"から入力する代わりに、短い略語がプレースホルダーナビゲーション付きの完全な構"
+"造に展開されます。"
 
 #: ../../user/features/code-completion.md:473
 msgid "Completion Weigher"
@@ -914,10 +957,12 @@ msgstr "Completion Weigher"
 
 #: ../../user/features/code-completion.md:477
 msgid ""
-"The plugin provides context-based prioritization of completion "
-"candidates, ensuring that the most relevant suggestions appear first in "
-"the completion popup."
-msgstr "プラグインはコンテキストに基づいた補完候補の優先順位付けを提供し、最も関連性の高い候補が補完ポップアップの先頭に表示されるようにします。"
+"The plugin provides context-based prioritization of completion candidates, "
+"ensuring that the most relevant suggestions appear first in the completion "
+"popup."
+msgstr ""
+"プラグインはコンテキストに基づいた補完候補の優先順位付けを提供し、最も関連性"
+"の高い候補が補完ポップアップの先頭に表示されるようにします。"
 
 #: ../../user/features/code-completion.md:479
 #: ../../user/features/code-completion.md:536
@@ -928,19 +973,24 @@ msgstr "仕組み"
 msgid ""
 "When the Language Server returns completion candidates, the Completion "
 "Weigher re-orders them based on contextual signals:"
-msgstr "Language Server が補完候補を返すと、Completion Weigher がコンテキストの手がかりに基づいて候補を並べ替えます:"
+msgstr ""
+"Language Server が補完候補を返すと、Completion Weigher がコンテキストの手がか"
+"りに基づいて候補を並べ替えます:"
 
 #: ../../user/features/code-completion.md:483
 msgid ""
 "**Locality** --- Symbols defined in the current file or module are "
 "prioritized over external imports"
-msgstr "**局所性** --- 現在のファイルまたはモジュールで定義されたシンボルが、外部インポートよりも優先されます"
+msgstr ""
+"**局所性** --- 現在のファイルまたはモジュールで定義されたシンボルが、外部イン"
+"ポートよりも優先されます"
 
 #: ../../user/features/code-completion.md:484
 msgid ""
-"**Type compatibility** --- Candidates whose types match the expected type"
-" at the insertion point are boosted"
-msgstr "**型の互換性** --- 挿入位置で期待される型に一致する候補がブーストされます"
+"**Type compatibility** --- Candidates whose types match the expected type at "
+"the insertion point are boosted"
+msgstr ""
+"**型の互換性** --- 挿入位置で期待される型に一致する候補がブーストされます"
 
 #: ../../user/features/code-completion.md:485
 msgid "**Recency** --- Recently used completions are ranked higher"
@@ -948,16 +998,20 @@ msgstr "**直近の使用** --- 最近使用した補完候補がより上位に
 
 #: ../../user/features/code-completion.md:486
 msgid ""
-"**Pipe context** --- In a `->` pipe chain, functions whose first "
-"parameter matches the pipe input type are prioritized"
-msgstr "**パイプコンテキスト** --- `->` パイプチェーン内では、第一引数がパイプ入力の型に一致する関数が優先されます"
+"**Pipe context** --- In a `->` pipe chain, functions whose first parameter "
+"matches the pipe input type are prioritized"
+msgstr ""
+"**パイプコンテキスト** --- `->` パイプチェーン内では、第一引数がパイプ入力の"
+"型に一致する関数が優先されます"
 
 #: ../../user/features/code-completion.md:488
 msgid ""
 "This means that when you trigger completion, you typically see the most "
-"useful candidates at the top of the list without needing to scroll or "
-"type additional filter characters."
-msgstr "これにより、補完をトリガーすると、スクロールや追加のフィルター文字を入力することなく、通常はリストの先頭に最も有用な候補が表示されます。"
+"useful candidates at the top of the list without needing to scroll or type "
+"additional filter characters."
+msgstr ""
+"これにより、補完をトリガーすると、スクロールや追加のフィルター文字を入力する"
+"ことなく、通常はリストの先頭に最も有用な候補が表示されます。"
 
 #: ../../user/features/code-completion.md:490
 #: ../../user/features/code-completion.md:508
@@ -968,9 +1022,10 @@ msgstr "例"
 #: ../../user/features/code-completion.md:500
 msgid ""
 "Smart ranking means the completion you want is usually at the top of the "
-"list, reducing the number of keystrokes needed to select the right "
-"candidate."
-msgstr "スマートランキングにより、必要な補完候補は通常リストの先頭に表示され、正しい候補を選択するために必要なキーストローク数が減ります。"
+"list, reducing the number of keystrokes needed to select the right candidate."
+msgstr ""
+"スマートランキングにより、必要な補完候補は通常リストの先頭に表示され、正しい"
+"候補を選択するために必要なキーストローク数が減ります。"
 
 #: ../../user/features/code-completion.md:502
 msgid "Pipe Chain Type Hints"
@@ -978,18 +1033,20 @@ msgstr "パイプチェーン型ヒント"
 
 #: ../../user/features/code-completion.md:506
 msgid ""
-"When writing `->` pipe chains, the plugin displays intermediate type "
-"hints between each pipe step, making it easy to understand the data flow "
-"through a chain of transformations."
+"When writing `->` pipe chains, the plugin displays intermediate type hints "
+"between each pipe step, making it easy to understand the data flow through a "
+"chain of transformations."
 msgstr ""
-"`->` "
-"パイプチェーンを記述する際、プラグインは各パイプステップ間に中間型ヒントを表示し、変換チェーンを通じたデータフローを容易に理解できるようにします。"
+"`->` パイプチェーンを記述する際、プラグインは各パイプステップ間に中間型ヒント"
+"を表示し、変換チェーンを通じたデータフローを容易に理解できるようにします。"
 
 #: ../../user/features/code-completion.md:518
 msgid ""
-"Each inlay hint shows the type of the expression at that point in the "
-"chain, so you can trace how the data is transformed at every step."
-msgstr "各インレイヒントはチェーン内のその時点での式の型を表示するため、各ステップでデータがどのように変換されるかを追跡できます。"
+"Each inlay hint shows the type of the expression at that point in the chain, "
+"so you can trace how the data is transformed at every step."
+msgstr ""
+"各インレイヒントはチェーン内のその時点での式の型を表示するため、各ステップで"
+"データがどのように変換されるかを追跡できます。"
 
 #: ../../user/features/code-completion.md:520
 msgid "Configuration"
@@ -1000,8 +1057,8 @@ msgid ""
 "Pipe chain type hints are displayed as inlay hints. Configure their "
 "visibility in **Settings** > **Editor** > **Inlay Hints** > **ReScript**."
 msgstr ""
-"パイプチェーン型ヒントはインレイヒントとして表示されます。表示/非表示は **Settings** > **Editor** > **Inlay "
-"Hints** > **ReScript** で設定できます。"
+"パイプチェーン型ヒントはインレイヒントとして表示されます。表示/非表示は "
+"**Settings** > **Editor** > **Inlay Hints** > **ReScript** で設定できます。"
 
 #: ../../user/features/code-completion.md:524
 msgid "Requirements"
@@ -1013,15 +1070,18 @@ msgid ""
 "information is fetched via LSP hover requests for each intermediate "
 "expression in the pipe chain."
 msgstr ""
-"この機能は Language Server が起動している必要があります。パイプチェーン内の各中間式の型情報は LSP hover "
-"リクエストを介して取得されます。"
+"この機能は Language Server が起動している必要があります。パイプチェーン内の各"
+"中間式の型情報は LSP hover リクエストを介して取得されます。"
 
 #: ../../user/features/code-completion.md:528
 msgid ""
-"When building data transformation pipelines, intermediate type hints let "
-"you verify that each step produces the expected type, catching "
-"transformation errors mid-chain rather than at the end."
-msgstr "データ変換パイプラインを構築する際、中間型ヒントにより各ステップが期待される型を生成していることを確認でき、チェーンの最後ではなく途中で変換エラーをキャッチできます。"
+"When building data transformation pipelines, intermediate type hints let you "
+"verify that each step produces the expected type, catching transformation "
+"errors mid-chain rather than at the end."
+msgstr ""
+"データ変換パイプラインを構築する際、中間型ヒントにより各ステップが期待される"
+"型を生成していることを確認でき、チェーンの最後ではなく途中で変換エラーを"
+"キャッチできます。"
 
 #: ../../user/features/code-completion.md:530
 msgid "Parameter Info"
@@ -1029,22 +1089,23 @@ msgstr "Parameter Info"
 
 #: ../../user/features/code-completion.md:534
 msgid ""
-"Press `Ctrl+P` (`Cmd+P` on macOS) inside a function call to display "
-"labeled argument information in a native IDE popup."
+"Press `Ctrl+P` (`Cmd+P` on macOS) inside a function call to display labeled "
+"argument information in a native IDE popup."
 msgstr ""
-"関数呼び出し内で `Ctrl+P`（macOS では `Cmd+P`）を押すと、ネイティブ IDE "
-"ポップアップにラベル付き引数の情報が表示されます。"
+"関数呼び出し内で `Ctrl+P`（macOS では `Cmd+P`）を押すと、ネイティブ IDE ポッ"
+"プアップにラベル付き引数の情報が表示されます。"
 
 #: ../../user/features/code-completion.md:538
 msgid ""
-"When you invoke Parameter Info inside the parentheses of a function call,"
-" the plugin requests hover information from the Language Server and "
-"parses the function signature to extract labeled arguments. The result is"
-" displayed in a native popup that highlights the current parameter "
-"position."
+"When you invoke Parameter Info inside the parentheses of a function call, "
+"the plugin requests hover information from the Language Server and parses "
+"the function signature to extract labeled arguments. The result is displayed "
+"in a native popup that highlights the current parameter position."
 msgstr ""
-"関数呼び出しの括弧内で Parameter Info を呼び出すと、プラグインは Language Server から hover "
-"情報をリクエストし、関数シグネチャを解析してラベル付き引数を抽出します。結果は現在のパラメータ位置をハイライトしたネイティブポップアップで表示されます。"
+"関数呼び出しの括弧内で Parameter Info を呼び出すと、プラグインは Language "
+"Server から hover 情報をリクエストし、関数シグネチャを解析してラベル付き引数"
+"を抽出します。結果は現在のパラメータ位置をハイライトしたネイティブポップアッ"
+"プで表示されます。"
 
 #: ../../user/features/code-completion.md:553
 msgid "Difference from Signature Help"
@@ -1088,21 +1149,21 @@ msgstr "LSP `textDocument/hover` + 引数解析"
 
 #: ../../user/features/code-completion.md:560
 msgid ""
-"Parameter Info is useful when you want to check the expected arguments "
-"after the initial signature help popup has dismissed, or when you "
-"navigate back to an existing function call."
+"Parameter Info is useful when you want to check the expected arguments after "
+"the initial signature help popup has dismissed, or when you navigate back to "
+"an existing function call."
 msgstr ""
-"Parameter Info は、最初の Signature Help "
-"ポップアップが閉じた後に期待される引数を確認したい場合や、既存の関数呼び出しに戻って確認する場合に便利です。"
+"Parameter Info は、最初の Signature Help ポップアップが閉じた後に期待される引"
+"数を確認したい場合や、既存の関数呼び出しに戻って確認する場合に便利です。"
 
 #: ../../user/features/code-completion.md:562
 msgid ""
-"Parameter Info gives you on-demand access to a function's labeled "
-"arguments without leaving your current editing position, so you can fill "
-"in parameters correctly without checking the function definition."
+"Parameter Info gives you on-demand access to a function's labeled arguments "
+"without leaving your current editing position, so you can fill in parameters "
+"correctly without checking the function definition."
 msgstr ""
-"Parameter Info "
-"は現在の編集位置を離れることなく、関数のラベル付き引数にオンデマンドでアクセスでき、関数定義を確認せずに正しくパラメータを入力できます。"
+"Parameter Info は現在の編集位置を離れることなく、関数のラベル付き引数にオンデ"
+"マンドでアクセスでき、関数定義を確認せずに正しくパラメータを入力できます。"
 
 #: ../../user/features/code-completion.md:564
 msgid "Signature Help"
@@ -1114,8 +1175,9 @@ msgid ""
 "parameter information including types and names. This helps you fill in "
 "arguments correctly without checking the documentation."
 msgstr ""
-"関数名の後に `(` "
-"を入力すると、型や名前を含む関数のパラメータ情報がポップアップで表示されます。ドキュメントを確認せずに引数を正しく入力するのに役立ちます。"
+"関数名の後に `(` を入力すると、型や名前を含む関数のパラメータ情報がポップアッ"
+"プで表示されます。ドキュメントを確認せずに引数を正しく入力するのに役立ちま"
+"す。"
 
 #: ../../user/features/code-completion.md:570
 msgid "For example, given a function:"
@@ -1123,27 +1185,30 @@ msgstr "たとえば、以下の関数がある場合:"
 
 #: ../../user/features/code-completion.md:578
 msgid "Typing `makeUser(` triggers the signature help popup, which displays:"
-msgstr "`makeUser(` と入力すると Signature Help のポップアップがトリガーされ、以下が表示されます:"
+msgstr ""
+"`makeUser(` と入力すると Signature Help のポップアップがトリガーされ、以下が"
+"表示されます:"
 
 #: ../../user/features/code-completion.md:584
 msgid ""
 "As you type each argument and enter a comma, the popup highlights the "
-"current parameter position so you always know which argument you are "
-"filling in. This works for all functions whose signatures are known to "
-"the language server, including standard library functions and your own "
-"definitions."
+"current parameter position so you always know which argument you are filling "
+"in. This works for all functions whose signatures are known to the language "
+"server, including standard library functions and your own definitions."
 msgstr ""
-"各引数を入力してカンマを入力するたびに、ポップアップは現在のパラメータ位置をハイライトするため、どの引数を入力しているかが常にわかります。これは、標準ライブラリ関数や独自の定義を含め、Language"
-" Server がシグネチャを把握しているすべての関数で動作します。"
+"各引数を入力してカンマを入力するたびに、ポップアップは現在のパラメータ位置を"
+"ハイライトするため、どの引数を入力しているかが常にわかります。これは、標準ラ"
+"イブラリ関数や独自の定義を含め、Language Server がシグネチャを把握しているす"
+"べての関数で動作します。"
 
 #: ../../user/features/code-completion.md:586
 msgid ""
 "Signature Help removes the guesswork from function calls — you see the "
-"expected parameter types and names inline as you type, reducing errors "
-"from mismatched argument order or types."
+"expected parameter types and names inline as you type, reducing errors from "
+"mismatched argument order or types."
 msgstr ""
-"Signature Help は関数呼び出しの推測を排除します — "
-"入力中にパラメータの型と名前がインラインで表示され、引数の順序や型の不一致によるエラーが減ります。"
+"Signature Help は関数呼び出しの推測を排除します — 入力中にパラメータの型と名"
+"前がインラインで表示され、引数の順序や型の不一致によるエラーが減ります。"
 
 #: ../../user/features/code-completion.md:588
 msgid "Completion Confidence"
@@ -1151,15 +1216,19 @@ msgstr "Completion Confidence"
 
 #: ../../user/features/code-completion.md:592
 msgid ""
-"The plugin suppresses the automatic completion popup in contexts where it"
-" would be unhelpful or disruptive:"
-msgstr "プラグインは、補完が役に立たないまたは邪魔になるコンテキストでは自動補完ポップアップを抑制します:"
+"The plugin suppresses the automatic completion popup in contexts where it "
+"would be unhelpful or disruptive:"
+msgstr ""
+"プラグインは、補完が役に立たないまたは邪魔になるコンテキストでは自動補完ポッ"
+"プアップを抑制します:"
 
 #: ../../user/features/code-completion.md:594
 msgid ""
-"**Inside comments** — Line comments (`//`), block comments (`/* */`), and"
-" doc comments (`/** */`)"
-msgstr "**コメント内** — 行コメント（`//`）、ブロックコメント（`/* */`）、ドキュメントコメント（`/** */`）"
+"**Inside comments** — Line comments (`//`), block comments (`/* */`), and "
+"doc comments (`/** */`)"
+msgstr ""
+"**コメント内** — 行コメント（`//`）、ブロックコメント（`/* */`）、ドキュメン"
+"トコメント（`/** */`）"
 
 #: ../../user/features/code-completion.md:595
 msgid ""
@@ -1170,19 +1239,22 @@ msgstr "**文字列リテラル内** — 通常の文字列、テンプレート
 #: ../../user/features/code-completion.md:597
 msgid ""
 "In these contexts, you can still trigger completion manually with "
-"`Ctrl+Space`, but the popup will not appear automatically as you type. "
-"This prevents irrelevant suggestions from interrupting documentation or "
-"string authoring."
+"`Ctrl+Space`, but the popup will not appear automatically as you type. This "
+"prevents irrelevant suggestions from interrupting documentation or string "
+"authoring."
 msgstr ""
-"これらのコンテキストでも `Ctrl+Space` "
-"で手動で補完をトリガーできますが、入力中にポップアップが自動的に表示されることはありません。これにより、ドキュメントや文字列の記述が無関係な候補によって中断されるのを防ぎます。"
+"これらのコンテキストでも `Ctrl+Space` で手動で補完をトリガーできますが、入力"
+"中にポップアップが自動的に表示されることはありません。これにより、ドキュメン"
+"トや文字列の記述が無関係な候補によって中断されるのを防ぎます。"
 
 #: ../../user/features/code-completion.md:599
 msgid ""
-"This ensures the completion popup only appears when it is genuinely "
-"useful, so writing comments and strings is never interrupted by "
-"irrelevant code suggestions."
-msgstr "これにより補完ポップアップは本当に有用な場合にのみ表示され、コメントや文字列の記述が無関係なコード提案に中断されることがなくなります。"
+"This ensures the completion popup only appears when it is genuinely useful, "
+"so writing comments and strings is never interrupted by irrelevant code "
+"suggestions."
+msgstr ""
+"これにより補完ポップアップは本当に有用な場合にのみ表示され、コメントや文字列"
+"の記述が無関係なコード提案に中断されることがなくなります。"
 
 #: ../../user/features/code-completion.md:601
 msgid "Lookup Character Filter"
@@ -1192,19 +1264,24 @@ msgstr "入力文字フィルター"
 msgid ""
 "The plugin intelligently filters completion behavior based on typed "
 "characters:"
-msgstr "プラグインは入力された文字に基づいて補完の動作をインテリジェントにフィルタリングします:"
+msgstr ""
+"プラグインは入力された文字に基づいて補完の動作をインテリジェントにフィルタリ"
+"ングします:"
 
 #: ../../user/features/code-completion.md:606
 msgid ""
-"Typing `.` accepts the current completion and inserts the dot (for module"
-" access patterns)"
-msgstr "`.` を入力すると、現在の補完を確定してドットを挿入します（モジュールアクセスパターン用）"
+"Typing `.` accepts the current completion and inserts the dot (for module "
+"access patterns)"
+msgstr ""
+"`.` を入力すると、現在の補完を確定してドットを挿入します（モジュールアクセス"
+"パターン用）"
 
 #: ../../user/features/code-completion.md:607
 msgid ""
 "Typing `(` accepts the current completion and inserts parentheses (for "
 "function calls)"
-msgstr "`(` を入力すると、現在の補完を確定して括弧を挿入します（関数呼び出し用）"
+msgstr ""
+"`(` を入力すると、現在の補完を確定して括弧を挿入します（関数呼び出し用）"
 
 #: ../../user/features/code-completion.md:608
 msgid "Other special characters behave appropriately for ReScript syntax"
@@ -1212,89 +1289,10 @@ msgstr "その他の特殊文字は ReScript 構文に適した動作をしま�
 
 #: ../../user/features/code-completion.md:610
 msgid ""
-"Smart character handling lets you flow naturally from completion into the"
-" next editing action — accepting a module with `.` or a function with `(`"
-" — without extra keystrokes to dismiss the popup first."
+"Smart character handling lets you flow naturally from completion into the "
+"next editing action — accepting a module with `.` or a function with `(` — "
+"without extra keystrokes to dismiss the popup first."
 msgstr ""
-"スマートな文字処理により、補完から次の編集アクションへ自然に移行できます — `.` でモジュールを受け入れたり `(` で関数を受け入れたり —"
-" ポップアップを先に閉じるための追加キーストロークは不要です。"
-
-#~ msgid "Pipe (`|>`) chain suggestions"
-#~ msgstr "パイプ (`|>`) チェーンの候補"
-
-#~ msgid "`switch expr { | _ => () }`"
-#~ msgstr "`switch expr { | _ => () }`"
-
-#~ msgid "`Js.log(expr)`"
-#~ msgstr "`Js.log(expr)`"
-
-#~ msgid ""
-#~ "Type a snippet abbreviation and press"
-#~ " `Tab` to expand. Available templates:"
-#~ msgstr ""
-
-#~ msgid "`switch`"
-#~ msgstr "`switch`"
-
-#~ msgid "`ifelse`"
-#~ msgstr "`ifelse`"
-
-#~ msgid "`type`"
-#~ msgstr "`type`"
-
-#~ msgid "`typerec`"
-#~ msgstr "`typerec`"
-
-#~ msgid "`type name = { ... }`"
-#~ msgstr "`type name = { ... }`"
-
-#~ msgid "`typevar`"
-#~ msgstr "`typevar`"
-
-#~ msgid "`type name = Variant1 | Variant2`"
-#~ msgstr "`type name = Variant1 | Variant2`"
-
-#~ msgid "`@module(\"...\") external name: type = \"name\"`"
-#~ msgstr "`@module(\"...\") external name: type = \"name\"`"
-
-#~ msgid "`comp`"
-#~ msgstr "`comp`"
-
-#~ msgid "React component boilerplate"
-#~ msgstr "React コンポーネントの定型コード"
-
-#~ msgid "`->` pipe expression"
-#~ msgstr "`->` パイプ式"
-
-#~ msgid "`test`"
-#~ msgstr "`test`"
-
-#~ msgid "Test case boilerplate"
-#~ msgstr "テストケースの定型コード"
-
-#~ msgid "`desc`"
-#~ msgstr "`desc`"
-
-#~ msgid "Test describe block"
-#~ msgstr "テストの describe ブロック"
-
-#~ msgid "`expect`"
-#~ msgstr "`expect`"
-
-#~ msgid "Expect assertion"
-#~ msgstr "Expect アサーション"
-
-#~ msgid ""
-#~ "Go to **Settings** → **Editor** → "
-#~ "**Live Templates** → **ReScript** to "
-#~ "view and customize templates."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "When you type `(` after a function"
-#~ " name, a popup shows the function's"
-#~ " parameter information (types and names)."
-#~ " This helps you fill in arguments "
-#~ "correctly without checking the documentation."
-#~ msgstr ""
-
+"スマートな文字処理により、補完から次の編集アクションへ自然に移行できます — "
+"`.` でモジュールを受け入れたり `(` で関数を受け入れたり — ポップアップを先に"
+"閉じるための追加キーストロークは不要です。"
