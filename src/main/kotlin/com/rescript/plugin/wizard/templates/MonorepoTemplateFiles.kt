@@ -115,11 +115,13 @@ internal object MonorepoTemplateFiles {
                         ),
                     scripts =
                         linkedMapOf(
-                            "start" to "node src/Server.res.mjs",
+                            // ServerMain.res calls `Server.start()`; importing
+                            // Server.res alone has no side effects so vitest stays happy.
+                            "start" to "node src/ServerMain.res.mjs",
                             // `dev` must run rescript -w alongside node --watch so that
                             // edits to .res files actually rebuild while the API restarts.
                             "dev" to
-                                "concurrently \"npm:res:dev\" \"node --watch src/Server.res.mjs\"",
+                                "concurrently \"npm:res:dev\" \"node --watch src/ServerMain.res.mjs\"",
                             "test" to "vitest run",
                             "test:coverage" to "vitest run --coverage",
                             "db:generate" to "drizzle-kit generate",
@@ -151,8 +153,20 @@ internal object MonorepoTemplateFiles {
                 TemplateResourceLoader.load("monorepo/packages/server/src/Server.res", nameVar),
             )
             put(
+                "packages/server/src/ServerMain.res",
+                TemplateResourceLoader.load("monorepo/packages/server/src/ServerMain.res"),
+            )
+            put(
                 "packages/server/src/__tests__/Server.test.mjs",
                 TemplateResourceLoader.load("monorepo/packages/server/src/__tests__/Server.test.mjs"),
+            )
+            put(
+                "packages/server/vitest.config.mjs",
+                TemplateResourceLoader.load("monorepo/packages/server/vitest.config.mjs"),
+            )
+            put(
+                "packages/server/vitest.setup.mjs",
+                TemplateResourceLoader.load("monorepo/packages/server/vitest.setup.mjs"),
             )
             put(
                 "packages/server/drizzle.config.ts",

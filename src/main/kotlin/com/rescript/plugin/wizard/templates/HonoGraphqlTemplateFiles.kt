@@ -51,8 +51,10 @@ internal object HonoGraphqlTemplateFiles {
                         ),
                     scripts =
                         linkedMapOf(
-                            "start" to "node src/Server.res.mjs",
-                            "dev" to "node --watch src/Server.res.mjs",
+                            // ServerMain.res calls `Server.start()`; importing
+                            // Server.res alone has no side effects so vitest stays happy.
+                            "start" to "node src/ServerMain.res.mjs",
+                            "dev" to "node --watch src/ServerMain.res.mjs",
                             "test" to "vitest run",
                             "test:coverage" to "vitest run --coverage",
                             "docs:graphql" to
@@ -75,10 +77,13 @@ internal object HonoGraphqlTemplateFiles {
             "src/GraphqlSchema.res" to TemplateResourceLoader.load("hono-graphql/src/GraphqlSchema.res"),
             "src/Resolvers.res" to TemplateResourceLoader.load("hono-graphql/src/Resolvers.res"),
             "src/Server.res" to TemplateResourceLoader.load("hono-graphql/src/Server.res"),
+            "src/ServerMain.res" to TemplateResourceLoader.load("hono-graphql/src/ServerMain.res"),
             "src/schema.graphql" to TemplateResourceLoader.load("hono-graphql/src/schema.graphql"),
             "drizzle.config.ts" to TemplateResourceLoader.load("hono-graphql/drizzle.config.ts"),
             "src/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("hono-graphql/src/__tests__/Server.test.mjs"),
+            "vitest.config.mjs" to TemplateResourceLoader.load("hono-graphql/vitest.config.mjs"),
+            "vitest.setup.mjs" to TemplateResourceLoader.load("hono-graphql/vitest.setup.mjs"),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,

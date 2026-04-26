@@ -254,7 +254,7 @@ class MonorepoTemplateFilesTest {
         val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
         val serverPkg = files["packages/server/package.json"]!!
         assertTrue(serverPkg.contains("npm:res:dev"))
-        assertTrue(serverPkg.contains("node --watch src/Server.res.mjs"))
+        assertTrue(serverPkg.contains("node --watch src/ServerMain.res.mjs"))
         // concurrently is required at the workspace level (not just root) so
         // pnpm's non-hoisted layout still resolves the binary.
         assertTrue(serverPkg.contains("\"concurrently\": \"${TemplateVersions.CONCURRENTLY}\""))
@@ -267,5 +267,28 @@ class MonorepoTemplateFilesTest {
         assertTrue(clientPkg.contains("npm:res:dev"))
         assertTrue(clientPkg.contains("vp dev"))
         assertTrue(clientPkg.contains("\"concurrently\": \"${TemplateVersions.CONCURRENTLY}\""))
+    }
+
+    @Test
+    fun `server workspace ships ServerMain res with side-effect-free Server res`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertTrue(files.containsKey("packages/server/src/ServerMain.res"))
+        assertTrue(files["packages/server/src/ServerMain.res"]!!.contains("Server.start()"))
+        val server = files["packages/server/src/Server.res"]!!
+        assertTrue(server.contains("let start = () => {"))
+        val topLevelLines = server.lines().filter { !it.startsWith("  ") && !it.startsWith("//") }
+        assertFalse(
+            topLevelLines.any { it.trimStart().startsWith("HonoNodeServer.serve") },
+            "Monorepo server's Server.res must wrap serve() inside start()",
+        )
+    }
+
+    @Test
+    fun `server workspace vitest setup pins DATABASE_URL to in-memory`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertTrue(files.containsKey("packages/server/vitest.config.mjs"))
+        assertTrue(files.containsKey("packages/server/vitest.setup.mjs"))
+        assertTrue(files["packages/server/vitest.setup.mjs"]!!.contains("DATABASE_URL"))
+        assertTrue(files["packages/server/vitest.setup.mjs"]!!.contains(":memory:"))
     }
 }

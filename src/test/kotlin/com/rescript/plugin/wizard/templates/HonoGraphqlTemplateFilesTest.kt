@@ -191,4 +191,36 @@ class HonoGraphqlTemplateFilesTest {
         assertTrue(readme.contains("graphql/execution") || readme.contains("from \"graphql\""))
         assertTrue(readme.contains("GraphqlSchema.res.mjs"))
     }
+
+    @Test
+    fun `Server res defines a start function and never calls serve at top level`() {
+        val files = HonoGraphqlTemplateFiles.generate(ctx)
+        val server = files["src/Server.res"]!!
+        assertTrue(server.contains("let start = () => {"))
+        val topLevelLines = server.lines().filter { !it.startsWith("  ") && !it.startsWith("//") }
+        assertFalse(
+            topLevelLines.any { it.trimStart().startsWith("HonoNodeServer.serve") },
+            "Server.res must wrap serve() so vitest can import it without binding a port",
+        )
+    }
+
+    @Test
+    fun `ServerMain res ships and is the dev start entry point`() {
+        val files = HonoGraphqlTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/ServerMain.res"))
+        assertTrue(files["src/ServerMain.res"]!!.contains("Server.start()"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"start\": \"node src/ServerMain.res.mjs\""))
+        assertTrue(pkg.contains("\"dev\": \"node --watch src/ServerMain.res.mjs\""))
+    }
+
+    @Test
+    fun `vitest setup pins DATABASE_URL to in-memory libsql before module load`() {
+        val files = HonoGraphqlTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("vitest.config.mjs"))
+        assertTrue(files.containsKey("vitest.setup.mjs"))
+        assertTrue(files["vitest.config.mjs"]!!.contains("setupFiles"))
+        assertTrue(files["vitest.setup.mjs"]!!.contains("DATABASE_URL"))
+        assertTrue(files["vitest.setup.mjs"]!!.contains(":memory:"))
+    }
 }

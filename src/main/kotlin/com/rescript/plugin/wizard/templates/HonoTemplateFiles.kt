@@ -52,8 +52,11 @@ internal object HonoTemplateFiles {
                             ),
                         scripts =
                             linkedMapOf(
-                                "start" to "node src/Server.res.mjs",
-                                "dev" to "node --watch src/Server.res.mjs",
+                                // ServerMain.res is the entry point that calls
+                                // `Server.start()`; importing Server.res itself does
+                                // not bind a port (so vitest can `import` it freely).
+                                "start" to "node src/ServerMain.res.mjs",
+                                "dev" to "node --watch src/ServerMain.res.mjs",
                                 "test" to "vitest run",
                                 "test:coverage" to "vitest run --coverage",
                                 "db:generate" to "drizzle-kit generate",
@@ -72,8 +75,11 @@ internal object HonoTemplateFiles {
                 "src/Scalar.res" to TemplateResourceLoader.load("hono/src/Scalar.res"),
                 "src/Routes.res" to TemplateResourceLoader.load("hono/src/Routes.res"),
                 "src/Server.res" to TemplateResourceLoader.load("hono/src/Server.res"),
+                "src/ServerMain.res" to TemplateResourceLoader.load("hono/src/ServerMain.res"),
                 "drizzle.config.ts" to TemplateResourceLoader.load("hono/drizzle.config.ts"),
                 "src/__tests__/Server.test.mjs" to TemplateResourceLoader.load("hono/src/__tests__/Server.test.mjs"),
+                "vitest.config.mjs" to TemplateResourceLoader.load("hono/vitest.config.mjs"),
+                "vitest.setup.mjs" to TemplateResourceLoader.load("hono/vitest.setup.mjs"),
             )
         if (ctx.validationLibrary == ValidationLibrary.ZOD) {
             files["src/ZodOpenapi.res"] = TemplateResourceLoader.load("hono/variants/zod/src/ZodOpenapi.res")

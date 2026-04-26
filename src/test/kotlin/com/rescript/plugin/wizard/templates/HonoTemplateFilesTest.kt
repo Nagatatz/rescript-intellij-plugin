@@ -178,4 +178,40 @@ class HonoTemplateFilesTest {
         assertTrue(server.contains("import { app } from"))
         assertTrue(server.contains("app.request(\"/health\")"))
     }
+
+    @Test
+    fun `Server res defines a start function and never calls serve at top level`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        val server = files["src/Server.res"]!!
+        // The HTTP server must boot from ServerMain so vitest can `import` Server.res
+        // without binding port 3000.
+        assertTrue(server.contains("let start = () => {"))
+        // No bare top-level `HonoNodeServer.serve(...)` outside the function body.
+        val topLevelLines = server.lines().filter { !it.startsWith("  ") && !it.startsWith("//") }
+        assertFalse(
+            topLevelLines.any { it.trimStart().startsWith("HonoNodeServer.serve") },
+            "Server.res must wrap serve() inside `start = () => ...` so import is side-effect-free",
+        )
+    }
+
+    @Test
+    fun `ServerMain res ships and is the dev start entry point`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/ServerMain.res"))
+        assertTrue(files["src/ServerMain.res"]!!.contains("Server.start()"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"start\": \"node src/ServerMain.res.mjs\""))
+        assertTrue(pkg.contains("\"dev\": \"node --watch src/ServerMain.res.mjs\""))
+    }
+
+    @Test
+    fun `vitest setup pins DATABASE_URL to in-memory libsql before module load`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("vitest.config.mjs"))
+        assertTrue(files.containsKey("vitest.setup.mjs"))
+        assertTrue(files["vitest.config.mjs"]!!.contains("setupFiles"))
+        assertTrue(files["vitest.config.mjs"]!!.contains("./vitest.setup.mjs"))
+        assertTrue(files["vitest.setup.mjs"]!!.contains("DATABASE_URL"))
+        assertTrue(files["vitest.setup.mjs"]!!.contains(":memory:"))
+    }
 }

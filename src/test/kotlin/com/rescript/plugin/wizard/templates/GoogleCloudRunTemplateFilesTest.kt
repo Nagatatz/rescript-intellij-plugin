@@ -35,7 +35,7 @@ class GoogleCloudRunTemplateFilesTest {
         assertTrue(dockerfile.contains("FROM oven/bun:1-slim"))
         assertTrue(dockerfile.contains("bun install --production"))
         assertTrue(dockerfile.contains("bunx rescript"))
-        assertTrue(dockerfile.contains("CMD [\"bun\", \"src/Server.res.mjs\"]"))
+        assertTrue(dockerfile.contains("CMD [\"bun\", \"src/ServerMain.res.mjs\"]"))
         assertTrue(dockerfile.contains("USER bun"))
         assertFalse(dockerfile.contains("CMD [\"node\""))
     }
@@ -186,5 +186,27 @@ class GoogleCloudRunTemplateFilesTest {
         val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
         assertTrue(files.containsKey(".env.example"))
         assertTrue(files[".env.example"]!!.contains("PORT"))
+    }
+
+    @Test
+    fun `Server res defines a start function and never calls serve at top level`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        val server = files["src/Server.res"]!!
+        assertTrue(server.contains("let start = () => {"))
+        val topLevelLines = server.lines().filter { !it.startsWith("  ") && !it.startsWith("//") }
+        assertFalse(
+            topLevelLines.any { it.trimStart().startsWith("HonoNodeServer.serve") },
+            "Server.res must wrap serve() so vitest can import it without binding a port",
+        )
+    }
+
+    @Test
+    fun `ServerMain res ships and is the dev start entry point`() {
+        val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))
+        assertTrue(files.containsKey("src/ServerMain.res"))
+        assertTrue(files["src/ServerMain.res"]!!.contains("Server.start()"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"start\": \"node src/ServerMain.res.mjs\""))
+        assertTrue(pkg.contains("\"dev\": \"node --watch src/ServerMain.res.mjs\""))
     }
 }

@@ -42,8 +42,10 @@ internal object GoogleCloudRunTemplateFiles {
                         ),
                     scripts =
                         linkedMapOf(
-                            "start" to "node src/Server.res.mjs",
-                            "dev" to "node --watch src/Server.res.mjs",
+                            // ServerMain.res calls `Server.start()`; importing
+                            // Server.res alone has no side effects so vitest stays happy.
+                            "start" to "node src/ServerMain.res.mjs",
+                            "dev" to "node --watch src/ServerMain.res.mjs",
                             "test" to "vitest run",
                             "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
@@ -58,6 +60,7 @@ internal object GoogleCloudRunTemplateFiles {
             "src/Validation.res" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/Server.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Server.res"),
+            "src/ServerMain.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/ServerMain.res"),
             "src/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Server.test.mjs"),
             "README.md" to
@@ -198,7 +201,7 @@ internal object GoogleCloudRunTemplateFiles {
             appendLine("COPY --from=builder /app/src ./src")
             appendLine("USER $runtimeUser")
             appendLine("EXPOSE 8080")
-            append("CMD [\"$runner\", \"src/Server.res.mjs\"]")
+            append("CMD [\"$runner\", \"src/ServerMain.res.mjs\"]")
         }
     }
 }
