@@ -1,0 +1,58 @@
+name: OS Matrix Verify
+
+# Builds and verifies the plugin on Linux, macOS, and Windows weekly.
+# The main CI workflow only runs on ubuntu to keep PR feedback fast;
+# this catches OS-specific regressions (path separators, line endings,
+# prepareSandbox quirks) before they reach a release.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every Monday 02:00 UTC
+    - cron: '0 2 * * 1'
+
+concurrency:
+  group: os-matrix-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build plugin
+        run: ./gradlew buildPlugin
+
+      - name: Verify plugin (binary compatibility)
+        run: ./gradlew verifyPlugin
+
+      - name: Upload verifier report on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: verifier-report-${{ matrix.os }}
+          path: build/reports/pluginVerifier/
+          retention-days: 14
