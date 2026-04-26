@@ -29,7 +29,7 @@ my-project/
 │       └── App.test.mjs           # smoke test that App is a function component
 ├── README.md                      # script docs + About Vite+ section
 ├── LICENSE                        # MIT, holder = project name
-├── .nvmrc                         # Node 22
+├── .nvmrc                         # Node 24
 ├── .gitignore                     # node_modules + ReScript build + dist/ + .vite/
 ├── .editorconfig                  # 2-space indent, LF line endings
 └── .github/

@@ -32,7 +32,7 @@ my-project/
 │   └── __tests__/App.test.mjs     # vitest filesystem-only smoke test
 ├── README.md                      # CLI setup + Android Studio + Native Modules + Troubleshooting + Fallback
 ├── LICENSE                        # MIT, holder = project name
-├── .nvmrc                         # Node 22
+├── .nvmrc                         # Node 24
 ├── .gitignore                     # adds android/build/, ios/Pods/, *.hbc, *.keystore, *.apk, *.aab, *.ipa, …
 ├── .editorconfig                  # 2-space indent, LF line endings
 └── .github/

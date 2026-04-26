@@ -499,11 +499,11 @@ msgstr "**`COPY --from=builder /app/src ./src`** はステージ間で受け渡�
 
 #: ../../user/templates/google-cloud-run.md:203
 msgid ""
-"**The `node` engine is pinned to `>=22`** and `.nvmrc` says `22`. The "
+"**The `node` engine is pinned to `>=24`** and `.nvmrc` says `24`. The "
 "Dockerfile's base image follows `nodeMajor` (default "
 "`TemplateVersions.NODE_MAJOR`); changing one in the wizard updates all of"
 " them."
-msgstr "**`node` エンジンは `>=22` に固定されており**、`.nvmrc` は `22` を指定する。Dockerfile のベースイメージは `nodeMajor`（デフォルトは `TemplateVersions.NODE_MAJOR`）に追従する。ウィザードでいずれかを変更するとすべてが更新される。"
+msgstr "**`node` エンジンは `>=24` に固定されており**、`.nvmrc` は `24` を指定する。Dockerfile のベースイメージは `nodeMajor`（デフォルトは `TemplateVersions.NODE_MAJOR`）に追従する。ウィザードでいずれかを変更するとすべてが更新される。"
 
 #: ../../user/templates/google-cloud-run.md:204
 msgid ""

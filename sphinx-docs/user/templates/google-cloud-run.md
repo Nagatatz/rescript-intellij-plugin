@@ -17,7 +17,7 @@ The runtime image is intentionally small: a builder stage installs every depende
 ```
 my-service/
 ├── rescript.json
-├── package.json                    # ESM, "type":"module", engines.node = >=22
+├── package.json                    # ESM, "type":"module", engines.node = >=24
 ├── Dockerfile                      # multi-stage: builder → runtime
 ├── .dockerignore                   # excludes node_modules, lib/, coverage, .env
 ├── .env.example                    # PORT=8080 (Cloud Run sets it for you)
@@ -30,7 +30,7 @@ my-service/
 │   └── __tests__/Server.test.mjs   # vitest smoke test that imports Server.res.mjs
 ├── README.md                       # script docs + API + Environment + Deploy + Cloud SQL
 ├── LICENSE                         # MIT, holder = project name
-├── .nvmrc                          # Node 22
+├── .nvmrc                          # Node 24
 ├── .gitignore                      # node_modules + dist/ + .env + ReScript artifacts
 ├── .editorconfig                   # 2-space indent, LF line endings
 └── .github/
@@ -200,7 +200,7 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 - **`PORT` is not configurable in the manifest.** Cloud Run sets it on every invocation; `Server.res` honours it. Locally, `PORT=3000 pnpm dev` works because the same env-reading logic falls back to user input before defaulting to 8080.
 - **The Dockerfile re-runs `bun install --production` even when there is no lockfile.** Bun creates `bun.lock` on first install. CI environments without a committed lockfile will still produce a working image, but production deployments should always commit the lockfile to guarantee reproducibility.
 - **`COPY --from=builder /app/src ./src`** is the only artifact carried across stages. If you generate additional output (`dist/`, `public/`), add explicit `COPY --from=builder` lines for each.
-- **The `node` engine is pinned to `>=22`** and `.nvmrc` says `22`. The Dockerfile's base image follows `nodeMajor` (default `TemplateVersions.NODE_MAJOR`); changing one in the wizard updates all of them.
+- **The `node` engine is pinned to `>=24`** and `.nvmrc` says `24`. The Dockerfile's base image follows `nodeMajor` (default `TemplateVersions.NODE_MAJOR`); changing one in the wizard updates all of them.
 - **The vitest suite is intentionally tiny** — it asserts that `import("../Server.res.mjs")` resolves. Add a `app.request("/")` style integration test (see the Monorepo and Full-Stack templates for examples) before relying on tests for regression coverage.
 - **The `.gitignore` excludes `.env`** but keeps `.env.example`. Cloud Run secrets should travel through `--set-env-vars` or Secret Manager, never through a committed `.env`.
 - **CORS is off by default.** Uncomment the `Hono.cors(...)` block at the top of `Server.res` and pin an origin allowlist before exposing the service to a browser-side client on another origin.

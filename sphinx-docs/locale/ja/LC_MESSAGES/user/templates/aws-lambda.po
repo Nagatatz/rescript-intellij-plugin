@@ -440,7 +440,7 @@ msgid ""
 "Set the function's *Handler* to `index.handler` and *Runtime* to `Node.js"
 " 22`. Use **API Gateway HTTP API** as the trigger unless you need a "
 "feature only REST API offers."
-msgstr "関数の *Handler* を `index.handler` に、*Runtime* を `Node.js 22` に設定する。REST API でしか提供されない機能が必要でない限り、トリガーには **API Gateway HTTP API** を使う。"
+msgstr "関数の *Handler* を `index.handler` に、*Runtime* を `Node.js 24` に設定する。REST API でしか提供されない機能が必要でない限り、トリガーには **API Gateway HTTP API** を使う。"
 
 #: ../../user/templates/aws-lambda.md:197
 msgid "Bundle size escape hatches"
@@ -603,7 +603,7 @@ msgid ""
 "lambda.zip index.mjs`) and `aws lambda update-function-code` it. The "
 "function's *Handler* setting is `index.handler`; the *Runtime* is Node.js"
 " 22."
-msgstr "**単一アーティファクトのバンドル。** `pnpm build` は `dist/index.mjs` を生成する — 全依存をインライン化、ESM、Node ターゲット。zip にして (`cd dist && zip lambda.zip index.mjs`) `aws lambda update-function-code` でアップロードする。関数の *Handler* 設定は `index.handler`、*Runtime* は Node.js 22 である。"
+msgstr "**単一アーティファクトのバンドル。** `pnpm build` は `dist/index.mjs` を生成する — 全依存をインライン化、ESM、Node ターゲット。zip にして (`cd dist && zip lambda.zip index.mjs`) `aws lambda update-function-code` でアップロードする。関数の *Handler* 設定は `index.handler`、*Runtime* は Node.js 24 である。"
 
 #: ../../user/templates/aws-lambda.md:294
 msgid ""
@@ -654,12 +654,12 @@ msgstr "**`dist/`、`*.zip`、`.aws-sam/` は gitignore 済み。** ビルド成
 
 #: ../../user/templates/aws-lambda.md:299
 msgid ""
-"**Node 22 is mandatory.** `engines.node` is `>=22`, `.nvmrc` says `22`, "
+"**Node 24 is mandatory.** `engines.node` is `>=24`, `.nvmrc` says `24`, "
 "and the README's *Deploy* section pins the Lambda runtime to `Node.js "
-"22`. The Layer publish snippet interpolates `nodejs22.x` from the same "
+"22`. The Layer publish snippet interpolates `nodejs24.x` from the same "
 "source — bumping `TemplateVersions.NODE_MAJOR` updates all three "
 "locations atomically."
-msgstr "**Node 22 が必須。** `engines.node` は `>=22`、`.nvmrc` は `22`、README の *Deploy* セクションは Lambda ランタイムを `Node.js 22` に固定している。Layer の パブリッシュスニペットは同じソースから `nodejs22.x` を展開している — `TemplateVersions.NODE_MAJOR` を更新すれば 3 箇所すべてがアトミックに追従する。"
+msgstr "**Node 24 が必須。** `engines.node` は `>=24`、`.nvmrc` は `24`、README の *Deploy* セクションは Lambda ランタイムを `Node.js 24` に固定している。Layer の パブリッシュスニペットは同じソースから `nodejs24.x` を展開している — `TemplateVersions.NODE_MAJOR` を更新すれば 3 箇所すべてがアトミックに追従する。"
 
 #: ../../user/templates/aws-lambda.md:300
 msgid ""

@@ -40,7 +40,7 @@ my-project/
 │               └── Validation.res # zod or sury — selected in the wizard
 ├── README.md                      # script docs + RSC + Route Handlers + Project Layout
 ├── LICENSE                        # MIT, holder = project name
-├── .nvmrc                         # Node 22
+├── .nvmrc                         # Node 24
 ├── .gitignore                     # node_modules + ReScript build + .next/ + out/ + .env*.local
 ├── .editorconfig                  # 2-space indent, LF line endings
 └── .github/

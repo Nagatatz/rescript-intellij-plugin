@@ -30,7 +30,7 @@ my-app/
 │   └── __tests__/App.test.mjs          # bun:test smoke test
 ├── README.md                           # Application + HTMX + Layout + Deploy + Persistence sections
 ├── LICENSE                             # MIT, holder = project name
-├── .nvmrc                              # Node 22 (used by tooling that looks at .nvmrc)
+├── .nvmrc                              # Node 24 (used by tooling that looks at .nvmrc)
 ├── .gitignore                          # adds dist/, build/, .env, .res-x-cache/
 ├── .editorconfig
 └── .github/

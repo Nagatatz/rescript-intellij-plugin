@@ -64,7 +64,7 @@ enum class ProjectTemplate(
         • GitHub Actions CI workflow and Dependabot config
         • .nvmrc, .editorconfig, MIT LICENSE
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.BASIC,
     ),
@@ -80,7 +80,7 @@ enum class ProjectTemplate(
         • @vitejs/plugin-react, Vitest + coverage
         • Sample App / Main / Api modules and a component test
 
-        Requires: Node.js 22+. Vite+ is pre-1.0; the README shows how to fall back
+        Requires: Node.js 24+. Vite+ is pre-1.0; the README shows how to fall back
         to plain Vite if needed.
         """.trimIndent(),
         TemplateCategory.FRONTEND,
@@ -98,7 +98,7 @@ enum class ProjectTemplate(
         • Sample App / GreetForm / Fetch modules + API route handler
         • Vitest + coverage
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.FRONTEND,
     ),
@@ -114,7 +114,7 @@ enum class ProjectTemplate(
         • `npm start` builds and launches Electron in one command
         • Vitest + coverage
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.DESKTOP,
     ),
@@ -132,7 +132,7 @@ enum class ProjectTemplate(
         • Scalar UI mounted at /docs, raw spec at /openapi.json
         • Logger middleware + structured error handling
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.BACKEND,
     ),
@@ -151,7 +151,7 @@ enum class ProjectTemplate(
         • `docs:graphql` script runs graphql-markdown against the schema
         • Vitest + coverage
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.BACKEND,
     ),
@@ -168,7 +168,7 @@ enum class ProjectTemplate(
         • Vitest + coverage
         • README sections for API, KV setup, and deploy
 
-        Requires: Node.js 22+ for local tooling, Cloudflare account for deploy.
+        Requires: Node.js 24+ for local tooling, Cloudflare account for deploy.
         """.trimIndent(),
         TemplateCategory.SERVERLESS,
     ),
@@ -185,7 +185,7 @@ enum class ProjectTemplate(
         • Vitest + coverage
         • README sections for API, deploy, and DynamoDB integration
 
-        Requires: Node.js 22+, AWS account + IAM credentials for deploy.
+        Requires: Node.js 24+, AWS account + IAM credentials for deploy.
         """.trimIndent(),
         TemplateCategory.SERVERLESS,
     ),
@@ -202,7 +202,7 @@ enum class ProjectTemplate(
         • Vitest + coverage
         • README sections for API, environment, deploy, and Cloud SQL recipe
 
-        Requires: Node.js 22+, Docker for image builds, gcloud CLI for deploy.
+        Requires: Node.js 24+, Docker for image builds, gcloud CLI for deploy.
         """.trimIndent(),
         TemplateCategory.SERVERLESS,
     ),
@@ -219,7 +219,7 @@ enum class ProjectTemplate(
         • Vitest source smoke test
         • `expo start` / `expo start --android` / `expo start --ios`
 
-        Requires: Node.js 22+; Android emulator or iOS simulator for device runs.
+        Requires: Node.js 24+; Android emulator or iOS simulator for device runs.
         """.trimIndent(),
         TemplateCategory.MOBILE,
     ),
@@ -237,7 +237,7 @@ enum class ProjectTemplate(
         • Sample NativeGreeting binding for custom native modules
         • Vitest
 
-        Requires: Node.js 22+, Android Studio / Xcode for native builds.
+        Requires: Node.js 24+, Android Studio / Xcode for native builds.
         """.trimIndent(),
         TemplateCategory.MOBILE,
     ),
@@ -254,7 +254,7 @@ enum class ProjectTemplate(
         • Vitest + coverage across three test files
         • `prepare` hook so `npm install` from git builds the package
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.LIBRARY,
     ),
@@ -270,7 +270,7 @@ enum class ProjectTemplate(
         • Vitest + coverage
         • README sections for usage, project layout, and local install
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.TOOL,
     ),
@@ -288,7 +288,7 @@ enum class ProjectTemplate(
         • pnpm-workspace.yaml (pnpm) or `workspaces` field (npm / yarn)
         • `concurrently` dev loop across packages
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("packages/shared/src", "packages/server/src", "packages/client/src"),
@@ -307,7 +307,7 @@ enum class ProjectTemplate(
         • `concurrently` dev loop (server watch + vp dev)
         • Vitest + coverage
 
-        Requires: Node.js 22+.
+        Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("src/shared", "src/server", "src/client"),
@@ -325,7 +325,7 @@ enum class ProjectTemplate(
         • Vite + the res-x Vite plugin, HTMX loaded from CDN
         • Vitest + coverage smoke test
 
-        Requires: Node.js 22+ for tooling, Bun 1.1+ (https://bun.sh) for running the server.
+        Requires: Node.js 24+ for tooling, Bun 1.3+ (https://bun.sh) for running the server.
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
     ),

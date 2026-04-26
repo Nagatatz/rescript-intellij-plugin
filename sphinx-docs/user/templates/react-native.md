@@ -28,7 +28,7 @@ my-project/
 │   └── __tests__/App.test.mjs     # vitest filesystem-only smoke test (does not import RN)
 ├── README.md                      # Bindings + Adding Screens + Project Layout sections
 ├── LICENSE                        # MIT, holder = project name
-├── .nvmrc                         # Node 22
+├── .nvmrc                         # Node 24
 ├── .gitignore                     # node_modules + ReScript output + .expo/, android/, ios/, *.tsbuildinfo
 ├── .editorconfig                  # 2-space indent, LF line endings
 └── .github/

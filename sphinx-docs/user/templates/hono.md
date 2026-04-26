@@ -36,7 +36,7 @@ my-project/
 │   └── __tests__/Server.test.mjs  # vitest — imports Server.res.mjs, calls app.request("/health")
 ├── README.md                      # API + Database + OpenAPI Docs + Project Layout sections
 ├── LICENSE                        # MIT, holder = project name
-├── .nvmrc                         # Node 22
+├── .nvmrc                         # Node 24
 ├── .env.example                   # DATABASE_URL=file:./data/app.db (or libsql:// for production)
 ├── .gitignore                     # node_modules + ReScript output + dist/, data/, drizzle/, .env
 ├── .editorconfig                  # 2-space indent, LF line endings

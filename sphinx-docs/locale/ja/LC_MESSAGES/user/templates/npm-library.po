@@ -56,11 +56,11 @@ msgid ""
 "or private registry) and want JS/TS consumers to enjoy real `.d.ts` types"
 " generated from your ReScript sources. The template assumes ESM-only "
 "consumers; if you need CJS interop you can layer it on top, but the "
-"defaults target modern bundlers and Node 22+."
+"defaults target modern bundlers and Node 24+."
 msgstr ""
 "プロジェクトを npm（パブリック／プライベートレジストリ）にリリースする予定で、JS/TS 利用者に ReScript ソースから "
 "生成された本物の `.d.ts` 型を提供したい場合に選択する。本テンプレートは ESM のみの利用者を想定している。"
-"CJS 相互運用が必要であれば後から重ねて対応できるが、デフォルトはモダンバンドラと Node 22+ をターゲットにしている。"
+"CJS 相互運用が必要であれば後から重ねて対応できるが、デフォルトはモダンバンドラと Node 24+ をターゲットにしている。"
 
 #: ../../user/templates/npm-library.md:15
 msgid "What You Get"
@@ -619,10 +619,10 @@ msgstr "補足"
 
 #: ../../user/templates/npm-library.md:254
 msgid ""
-"`node` engine is pinned to `>=22` and `.nvmrc` says `22`. Earlier majors "
+"`node` engine is pinned to `>=24` and `.nvmrc` says `24`. Earlier majors "
 "are not exercised by CI."
 msgstr ""
-"`node` エンジンは `>=22` に固定されており、`.nvmrc` には `22` が記載されている。"
+"`node` エンジンは `>=24` に固定されており、`.nvmrc` には `24` が記載されている。"
 "これより古いメジャーバージョンは CI で検証されない。"
 
 #: ../../user/templates/npm-library.md:255

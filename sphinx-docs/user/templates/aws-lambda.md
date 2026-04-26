@@ -26,7 +26,7 @@ my-project/
 │   └── __tests__/Server.test.mjs # vitest smoke import
 ├── README.md                    # API / Deploy / Bundling Strategy / DynamoDB Recipe
 ├── LICENSE                      # MIT, holder = project name
-├── .nvmrc                       # Node 22 (matches the Lambda runtime)
+├── .nvmrc                       # Node 24 (matches the Lambda runtime)
 ├── .gitignore                   # node_modules, dist/, *.zip, .aws-sam/
 ├── .editorconfig                # 2-space indent, LF line endings
 └── .github/
@@ -192,7 +192,7 @@ aws lambda update-function-code \
   --zip-file fileb://lambda.zip
 ```
 
-Set the function's *Handler* to `index.handler` and *Runtime* to `Node.js 22`. Use **API Gateway HTTP API** as the trigger unless you need a feature only REST API offers.
+Set the function's *Handler* to `index.handler` and *Runtime* to `Node.js 24`. Use **API Gateway HTTP API** as the trigger unless you need a feature only REST API offers.
 
 ### Bundle size escape hatches
 
@@ -217,7 +217,7 @@ For large native dependencies (Sharp, Prisma engines, custom binaries), publish 
 ```bash
 aws lambda publish-layer-version \
   --layer-name my-project-deps \
-  --compatible-runtimes nodejs22.x \
+  --compatible-runtimes nodejs24.x \
   --zip-file fileb://layer.zip
 
 aws lambda update-function-configuration \
@@ -290,13 +290,13 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 ## Notes
 
 - **API Gateway-friendly out of the box.** `hono/aws-lambda` accepts both REST API (v1) and HTTP API (v2) event shapes, so wiring the function to either trigger works without code changes. HTTP API is cheaper and faster — pick that one unless you need a feature only REST API offers (mTLS, request validation at the gateway, etc).
-- **Single-artifact bundle.** `pnpm build` produces `dist/index.mjs` — every dependency inlined, ESM, Node target. Zip it (`cd dist && zip lambda.zip index.mjs`) and `aws lambda update-function-code` it. The function's *Handler* setting is `index.handler`; the *Runtime* is Node.js 22.
+- **Single-artifact bundle.** `pnpm build` produces `dist/index.mjs` — every dependency inlined, ESM, Node target. Zip it (`cd dist && zip lambda.zip index.mjs`) and `aws lambda update-function-code` it. The function's *Handler* setting is `index.handler`; the *Runtime* is Node.js 24.
 - **Watch the 50 MB upload limit.** The default bundle inlines every dependency for low cold-start latency, but the artifact grows with each new dep. The README's *Bundling Strategy* section walks through three escape hatches: marking Lambda-provided deps as `--external` (the AWS SDK v3 is preinstalled on the Node runtime — excluding it saves several MB), publishing big native deps as Lambda Layers (Sharp, Prisma engines), and turning on tree-shaking + minify + sourcemaps for production.
 - **DynamoDB recipe is in the README.** The shipped *DynamoDB Recipe* section shows the minimal ReScript bindings over `@aws-sdk/lib-dynamodb` (`DynamoDBDocumentClient`, `send`) and reminds you to grant the Lambda IAM role `dynamodb:PutItem` / `dynamodb:GetItem`. Install with `pnpm add @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb` — and do **not** `--external` those if you are on a runtime where they are not preinstalled.
 - **`handler` is a real `let` binding for a reason.** ReScript's compiler only emits the `HonoLambda` import when the module is actually referenced. Defining `let handler = HonoLambda.handle(app)` keeps the import alive; switching to `%%raw("export const handler = ...")` would silently drop it from the bundle.
 - **Smoke test only verifies module load.** `src/__tests__/Server.test.mjs` does `await import("../Server.res.mjs")` and asserts it resolves. For real Lambda integration tests, drive the bundled `dist/index.mjs` with synthetic API Gateway events using `aws-lambda-mock-context` or a SAM `sam local invoke`.
 - **`dist/`, `*.zip`, and `.aws-sam/` are gitignored.** Build artifacts and SAM CLI working state never go in the repo.
-- **Node 22 is mandatory.** `engines.node` is `>=22`, `.nvmrc` says `22`, and the README's *Deploy* section pins the Lambda runtime to `Node.js 22`. The Layer publish snippet interpolates `nodejs22.x` from the same source — bumping `TemplateVersions.NODE_MAJOR` updates all three locations atomically.
+- **Node 24 is mandatory.** `engines.node` is `>=24`, `.nvmrc` says `24`, and the README's *Deploy* section pins the Lambda runtime to `Node.js 24`. The Layer publish snippet interpolates `nodejs24.x` from the same source — bumping `TemplateVersions.NODE_MAJOR` updates all three locations atomically.
 - **No reserved concurrency or provisioned concurrency configured.** The shipped template assumes on-demand. If your workload is latency-sensitive enough to need provisioned concurrency, configure it on the Lambda console (or via SAM/CDK/Terraform) — it doesn't affect the bundle.
 - **Cold start matters.** ReScript's compiled output and Hono are both small (`hono` is ~14 KB minzipped), so a cold start is dominated by V8 warm-up and any AWS SDK clients you instantiate at module load. Move SDK client construction outside the handler closure to keep it warm across invocations within the same container, but keep request-scoped state inside the handler.
 - **Bundling is intentional, not optional.** `node src/Server.res.mjs` directly will not work as a Lambda — Lambda invokes the named ESM export, and ReScript's compiler emits relative imports that break once `index.mjs` ships in isolation. Always upload the esbuild output, never raw `.res.mjs` files.

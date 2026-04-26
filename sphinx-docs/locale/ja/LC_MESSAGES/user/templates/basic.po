@@ -367,10 +367,10 @@ msgstr "補足"
 
 #: ../../user/templates/basic.md:111
 msgid ""
-"`node` engine is pinned to `>=22` and `.nvmrc` says `22`. Earlier majors "
+"`node` engine is pinned to `>=24` and `.nvmrc` says `24`. Earlier majors "
 "are not exercised by CI."
 msgstr ""
-"`node` エンジンは `>=22` に固定されており、`.nvmrc` には `22` が記載されている。"
+"`node` エンジンは `>=24` に固定されており、`.nvmrc` には `24` が記載されている。"
 "これより古いメジャーバージョンは CI で検証されない。"
 
 #: ../../user/templates/basic.md:112

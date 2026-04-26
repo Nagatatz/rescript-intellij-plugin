@@ -30,7 +30,7 @@ my-project/
 │   └── __tests__/App.test.mjs     # vitest smoke test that imports App.res.mjs
 ├── README.md                      # IPC security model + "About Vite+" section
 ├── LICENSE                        # MIT, holder = project name
-├── .nvmrc                         # Node 22
+├── .nvmrc                         # Node 24
 ├── .gitignore                     # node_modules + ReScript output + dist/, out/, .vite/
 ├── .editorconfig                  # 2-space indent, LF line endings
 └── .github/

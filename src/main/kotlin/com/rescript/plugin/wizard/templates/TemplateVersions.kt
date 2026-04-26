@@ -24,13 +24,13 @@ object TemplateVersions {
     // Build tools
     // Raw Vite pin used when templates need a direct `vite` dep (fallback away
     // from Vite+). Vite+ bundles its own vite under the hood.
-    const val VITE = "^8.0.9"
+    const val VITE = "^8.0.10"
 
     // Vite+ (vite-plus) is pre-1.0; templates pin to the 0.1.x range until a stable release.
-    const val VITE_PLUS = "^0.1.18"
-    const val VITE_PLUS_CORE = "^0.1.18"
+    const val VITE_PLUS = "^0.1.19"
+    const val VITE_PLUS_CORE = "^0.1.19"
     const val VITEJS_PLUGIN_REACT = "^6.0.1"
-    const val VITEST = "^4.1.4"
+    const val VITEST = "^4.1.5"
 
     // React
     const val REACT = "^19.2.5"
@@ -39,30 +39,30 @@ object TemplateVersions {
     const val REACT_DOM_TYPES = "^19.2.3"
 
     // Backend
-    const val HONO = "^4.12.14"
-    const val HONO_NODE_SERVER = "^1.19.14"
+    const val HONO = "^4.12.15"
+    const val HONO_NODE_SERVER = "^2.0.0"
     const val NODE_TYPES = "^25.6.0"
 
     // Next.js
     const val NEXTJS = "^16.2.4"
 
     // Electron
-    const val ELECTRON = "^41.2.1"
+    const val ELECTRON = "^41.3.0"
     const val ELECTRON_BUILDER = "^26.8.1"
 
     // Expo / React Native
-    const val EXPO = "^55.0.15"
-    const val REACT_NATIVE = "^0.85.1"
+    const val EXPO = "^55.0.17"
+    const val REACT_NATIVE = "^0.85.2"
 
     // React Native Community CLI (bare workflow)
     const val RN_COMMUNITY_CLI = "^20.1.3"
-    const val RN_METRO_CONFIG = "^0.85.1"
-    const val RN_BABEL_PRESET = "^0.85.1"
-    const val RN_TYPESCRIPT_CONFIG = "^0.85.1"
+    const val RN_METRO_CONFIG = "^0.85.2"
+    const val RN_BABEL_PRESET = "^0.85.2"
+    const val RN_TYPESCRIPT_CONFIG = "^0.85.2"
 
     // Cloudflare Workers
-    const val WRANGLER = "^4.83.0"
-    const val CF_WORKERS_TYPES = "^4.20260420.1"
+    const val WRANGLER = "^4.85.0"
+    const val CF_WORKERS_TYPES = "^4.20260426.1"
 
     // AWS Lambda
     const val AWS_LAMBDA_TYPES = "^8.10.161"
@@ -75,17 +75,18 @@ object TemplateVersions {
     const val TYPESCRIPT = "^6.0.3"
 
     // Package manager versions published via Corepack (`packageManager` field in package.json)
-    const val PNPM = "10.33.0"
-    const val NPM = "11.12.1"
+    const val PNPM = "10.33.2"
+    const val NPM = "11.13.0"
     const val YARN = "4.14.1"
 
     // Bun runtime + package manager. v1.2+ introduces the text-based `bun.lock`
     // lockfile and the pnpm-style `bun --filter` monorepo selector; the template
-    // generators assume both and therefore require v1.2 at minimum.
-    const val BUN = "1.2.0"
+    // generators assume both. Floor pinned to the latest stable so corepack
+    // resolves a recent runtime when scaffolding new projects.
+    const val BUN = "1.3.13"
 
     // Database (libsql client + Drizzle ORM)
-    const val LIBSQL_CLIENT = "^0.17.2"
+    const val LIBSQL_CLIENT = "^0.17.3"
     const val DRIZZLE_ORM = "^0.45.2"
     const val DRIZZLE_KIT = "^0.31.10"
 
@@ -96,33 +97,34 @@ object TemplateVersions {
     // OpenAPI / Hono ecosystem
     // @hono/zod-openapi v1 requires zod v4; they must be bumped together.
     const val HONO_ZOD_OPENAPI = "^1.3.0"
-    const val SCALAR_HONO_API_REFERENCE = "^0.10.9"
+    const val SCALAR_HONO_API_REFERENCE = "^0.10.10"
 
     // GraphQL (Hono GraphQL template)
     const val GRAPHQL = "^16.13.2"
     const val GRAPHQL_YOGA = "^5.21.0"
     const val GRAPHQL_MARKDOWN = "^0.7.1"
 
-    // rescript-relay (FULL_STACK GraphQL variant client). 4.x targets ReScript 12.
-    const val RESCRIPT_RELAY = "^4.1.0"
-    const val RELAY_COMPILER = "^19.0.0"
+    // rescript-relay (FULL_STACK GraphQL variant client). 4.x targets ReScript 12
+    // and bundles Relay compiler 20.1.1 internally; relay-compiler must match.
+    const val RESCRIPT_RELAY = "^4.4.1"
+    const val RELAY_COMPILER = "^20.1.1"
 
     // res-x (Bun + Vite + HTMX framework) and its Bun peer dependency
     const val RESCRIPT_X = "^1.4.0"
     const val RESCRIPT_BUN = "^2.1.0"
 
     // HTMX CDN version used by the res-x template's Layout.res
-    const val HTMX_CDN = "2.0.7"
+    const val HTMX_CDN = "2.0.10"
 
     // AWS Lambda runtime types (separate from @types/aws-lambda)
     const val AWS_LAMBDA = "^1.0.7"
 
     // Node.js engine range used by templates
-    const val NODE_ENGINE = ">=22"
+    const val NODE_ENGINE = ">=24"
 
     // Node.js major version used by `.nvmrc` / `.node-version` (pairs with NODE_ENGINE)
-    const val NODE_MAJOR = "22"
+    const val NODE_MAJOR = "24"
 
     // Vitest coverage provider used by `test:coverage` scripts
-    const val VITEST_COVERAGE_V8 = "^4.1.4"
+    const val VITEST_COVERAGE_V8 = "^4.1.5"
 }

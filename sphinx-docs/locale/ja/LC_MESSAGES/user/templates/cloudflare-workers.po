@@ -634,9 +634,9 @@ msgid ""
 "That's why the template ships only `hono` (no `@hono/node-server`) and "
 "the entry file ends with `%%raw(\"export default app\")` — Workers invoke"
 " the default export's `fetch(request, env, ctx)`. `.nvmrc` still says "
-"`22` because **tooling** (wrangler, esbuild under the hood, vitest) runs "
+"`24` because **tooling** (wrangler, esbuild under the hood, vitest) runs "
 "on Node locally."
-msgstr "**Node ランタイムは使用しない。** Cloudflare Workers は Node ではなく V8 isolate で動作する。テンプレートが `@hono/node-server` 抜きで `hono` のみを同梱し、エントリファイルの末尾が `%%raw(\"export default app\")` になっているのはこのためである — Workers はデフォルトエクスポートの `fetch(request, env, ctx)` を呼び出す。`.nvmrc` が依然として `22` を指定しているのは、**ツール群** (wrangler、内部の esbuild、vitest) がローカルでは Node 上で動作するためである。"
+msgstr "**Node ランタイムは使用しない。** Cloudflare Workers は Node ではなく V8 isolate で動作する。テンプレートが `@hono/node-server` 抜きで `hono` のみを同梱し、エントリファイルの末尾が `%%raw(\"export default app\")` になっているのはこのためである — Workers はデフォルトエクスポートの `fetch(request, env, ctx)` を呼び出す。`.nvmrc` が依然として `24` を指定しているのは、**ツール群** (wrangler、内部の esbuild、vitest) がローカルでは Node 上で動作するためである。"
 
 #: ../../user/templates/cloudflare-workers.md:295
 msgid ""
