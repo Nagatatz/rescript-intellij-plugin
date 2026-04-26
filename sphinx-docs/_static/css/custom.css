@@ -88,3 +88,16 @@
         max-width: 33% !important;
     }
 }
+
+/* sphinx-copybutton: reveal the button on touch / narrow viewports where
+   :hover never fires (the upstream CSS keeps it at opacity:0 until hover). */
+@media (hover: none), (max-width: 768px) {
+    .highlight button.copybtn {
+        opacity: 0.6;
+    }
+
+    .highlight button.copybtn:focus,
+    .highlight button.copybtn:active {
+        opacity: 1;
+    }
+}
