@@ -40,7 +40,7 @@ object TemplateVersions {
 
     // Backend
     const val HONO = "^4.12.14"
-    const val HONO_NODE_SERVER = "^1.19.14"
+    const val HONO_NODE_SERVER = "^2.0.0"
     const val NODE_TYPES = "^25.6.0"
 
     // Next.js
