@@ -1,0 +1,528 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/google-cloud-run.md
+msgid ""
+"google cloud run, gcp, hono, rescript, docker, multi-stage, dockerfile, "
+"cloud sql, container, validation, zod, sury"
+msgstr "google cloud run, gcp, hono, rescript, docker, multi-stage, dockerfile, cloud sql, container, validation, zod, sury"
+
+#: ../../user/templates/google-cloud-run.md:7
+msgid "Google Cloud Run"
+msgstr "Google Cloud Run"
+
+#: ../../user/templates/google-cloud-run.md:9
+#, python-brace-format
+msgid ""
+"{bdg-info}`GCP` {bdg-info}`Hono` {bdg-success}`Validation` {bdg-"
+"warning}`Container`"
+msgstr "{bdg-info}`GCP` {bdg-info}`Hono` {bdg-success}`Validation` {bdg-warning}`Container`"
+
+#: ../../user/templates/google-cloud-run.md:11
+msgid ""
+"A container-first ReScript service built around [Hono](https://hono.dev) "
+"and ready to deploy to [Google Cloud Run](https://cloud.google.com/run). "
+"Unlike the Hono (Node.js) starter, this template ships an opinionated "
+"multi-stage `Dockerfile`, a `.dockerignore`, an `.env.example`, and "
+"README sections that walk you through `gcloud run deploy` and a Cloud SQL"
+" recipe."
+msgstr "[Hono](https://hono.dev) を中核に据えたコンテナファーストの ReScript サービスで、[Google Cloud Run](https://cloud.google.com/run) へのデプロイをすぐに行える。Hono (Node.js) スターターと異なり、このテンプレートは設計済みのマルチステージ `Dockerfile`、`.dockerignore`、`.env.example`、そして `gcloud run deploy` と Cloud SQL のレシピを順を追って説明する README セクションを同梱している。"
+
+#: ../../user/templates/google-cloud-run.md:13
+msgid ""
+"The runtime image is intentionally small: a builder stage installs every "
+"dependency and compiles ReScript, then the runtime stage reinstalls "
+"**production-only** dependencies, copies the generated `.res.mjs` files, "
+"drops to a non-root user, and exposes port 8080. The result is a "
+"deterministic image that runs the same way locally, inside a CI registry,"
+" and on Cloud Run."
+msgstr "ランタイムイメージは意図的に小さく構成されている。ビルダーステージで全依存関係をインストールし ReScript をコンパイルした後、ランタイムステージで **本番用のみ** の依存関係を再インストールし、生成された `.res.mjs` ファイルをコピーし、非 root ユーザーにドロップしてポート 8080 を公開する。結果として、ローカル・CI レジストリ・Cloud Run のいずれの環境でも同じ動作をする決定的なイメージが得られる。"
+
+#: ../../user/templates/google-cloud-run.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/google-cloud-run.md:41
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/google-cloud-run.md
+msgid ""
+"Becomes the npm `name`, the LICENSE holder, and substitutes into the "
+"README's `gcloud run deploy <projectName>` examples"
+msgstr "npm の `name`、LICENSE の保持者となり、README の `gcloud run deploy <projectName>` 例にも差し込まれる"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/google-cloud-run.md
+msgid ""
+"npm / pnpm / yarn / bun. Drives the `packageManager` Corepack field, the "
+"README install/run commands, the CI cache key, **and the Dockerfile's "
+"install commands and base image**"
+msgstr "npm / pnpm / yarn / bun のいずれか。`packageManager` Corepack フィールド、README のインストール／実行コマンド、CI キャッシュキー、**そして Dockerfile のインストールコマンドとベースイメージ** を切り替える"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/google-cloud-run.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `src/Validation.res` variant ships and adds"
+" the matching runtime dependency"
+msgstr "`zod` ↔ `sury`。どの `src/Validation.res` バリアントを同梱するかを選択し、対応するランタイム依存を追加する"
+
+#: ../../user/templates/google-cloud-run.md:49
+msgid ""
+"The Dockerfile branch is the meaningful difference from other Hono "
+"templates. Selecting Bun swaps the base image to `oven/bun:1-slim`, "
+"replaces every `npm install` / `pnpm install` line with `bun install`, "
+"and changes the runtime user from `node` to `bun` (both uid 1000). "
+"Pinning the Node major to `nodeMajor` (defaults to "
+"`TemplateVersions.NODE_MAJOR`) means `gcloud run deploy` and your local "
+"`node --watch` always see the same runtime — no `package.json` engines-"
+"vs-image drift."
+msgstr "Dockerfile の分岐は、他の Hono テンプレートとの意味のある違いとなっている。Bun を選ぶとベースイメージは `oven/bun:1-slim` に切り替わり、すべての `npm install` / `pnpm install` 行は `bun install` に置き換わり、ランタイムユーザーは `node` から `bun` に変わる（どちらも uid 1000）。Node のメジャーバージョンを `nodeMajor` （デフォルトは `TemplateVersions.NODE_MAJOR`）に固定することで、`gcloud run deploy` とローカルの `node --watch` が常に同じランタイムを見るようになる。`package.json` の engines とイメージのバージョンずれは発生しない。"
+
+#: ../../user/templates/google-cloud-run.md:51
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Runtime stubs the compiled `.res.mjs` imports"
+msgstr "コンパイル済み `.res.mjs` の import に必要なランタイムスタブ"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`hono`"
+msgstr "`hono`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "HTTP framework — small, fast, web-standard `Request`/`Response`"
+msgstr "HTTP フレームワーク。小型・高速で、Web 標準の `Request`/`Response` に対応"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`TemplateVersions.HONO`"
+msgstr "`TemplateVersions.HONO`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`@hono/node-server`"
+msgstr "`@hono/node-server`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Adapter that mounts a Hono app on Node's HTTP server"
+msgstr "Hono アプリを Node の HTTP サーバーにマウントするアダプタ"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`TemplateVersions.HONO_NODE_SERVER`"
+msgstr "`TemplateVersions.HONO_NODE_SERVER`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Validation backend (chosen in the wizard)"
+msgstr "バリデーションバックエンド（ウィザードで選択）"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+msgstr "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Smoke test runner"
+msgstr "スモークテストランナー"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` 用のカバレッジプロバイダ"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/google-cloud-run.md:64
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/google-cloud-run.md:66
+msgid "`src/Server.res`"
+msgstr "`src/Server.res`"
+
+#: ../../user/templates/google-cloud-run.md:68
+msgid ""
+"The Hono app. It reads `PORT` from `process.env` (Cloud Run sets it "
+"automatically) and falls back to `8080` for local development:"
+msgstr "Hono アプリ本体。`process.env` から `PORT` を読み取り（Cloud Run が自動的に設定する）、ローカル開発用には `8080` にフォールバックする:"
+
+#: ../../user/templates/google-cloud-run.md:98
+msgid ""
+"The CORS hook is left commented near the top — uncomment it when the "
+"service is called from a browser on another origin and adjust the "
+"allowlist before deploying."
+msgstr "CORS フックはファイル冒頭付近にコメントアウトされた状態で残されている。別オリジンのブラウザからサービスを呼び出す場合はコメントを解除し、デプロイ前に許可リストを調整すること。"
+
+#: ../../user/templates/google-cloud-run.md:100
+msgid "`src/ServerMain.res`"
+msgstr "`src/ServerMain.res`"
+
+#: ../../user/templates/google-cloud-run.md:102
+msgid ""
+"A single line: `Server.start()`. The split exists so vitest can "
+"`import(\"../Server.res.mjs\")` to verify the app compiles without "
+"binding to a port."
+msgstr "中身は `Server.start()` の 1 行のみ。この分割があることで、vitest が `import(\"../Server.res.mjs\")` を実行してポートにバインドせずにアプリのコンパイルを検証できる。"
+
+#: ../../user/templates/google-cloud-run.md:104
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/google-cloud-run.md:106
+msgid ""
+"`parseEchoPayload: JSON.t => result<echoPayload, string>` — the runtime "
+"contract for the `/echo` route's body. The signature is identical between"
+" the zod and sury variants so callers do not branch on which library "
+"shipped."
+msgstr "`parseEchoPayload: JSON.t => result<echoPayload, string>` —— `/echo` ルートのボディに対するランタイムコントラクト。シグネチャは zod / sury のどちらのバリアントでも同一なので、呼び出し側がどちらのライブラリが採用されたかで分岐する必要はない。"
+
+#: ../../user/templates/google-cloud-run.md:108
+msgid "`Dockerfile`"
+msgstr "`Dockerfile`"
+
+#: ../../user/templates/google-cloud-run.md:110
+msgid ""
+"A two-stage image generated from the wizard inputs. The exact contents "
+"depend on the selected package manager and `nodeMajor`, but the shape is:"
+msgstr "ウィザード入力から生成される 2 ステージのイメージ。具体的な内容は選択したパッケージマネージャと `nodeMajor` に依存するが、形は次のとおり:"
+
+#: ../../user/templates/google-cloud-run.md:135
+msgid "Three properties are intentional and load-bearing:"
+msgstr "次の 3 つの性質は意図的であり、設計上重要である:"
+
+#: ../../user/templates/google-cloud-run.md:137
+msgid ""
+"**`node_modules` is never copied across stages** — it is reinstalled with"
+" `--prod` flags so the runtime layer is reproducible from the lockfile."
+msgstr "**`node_modules` はステージ間でコピーされない** —— `--prod` フラグで再インストールされるため、ランタイムレイヤーはロックファイルから再現可能となる。"
+
+#: ../../user/templates/google-cloud-run.md:138
+msgid ""
+"**The runtime stage runs as a non-root user** (`node` for Node images, "
+"`bun` for `oven/bun`). Cloud Run's hardened policies expect this."
+msgstr "**ランタイムステージは非 root ユーザーで動作する**（Node イメージでは `node`、`oven/bun` では `bun`）。Cloud Run の堅牢化ポリシーがこれを前提としている。"
+
+#: ../../user/templates/google-cloud-run.md:139
+msgid ""
+"**The base image's Node major matches `package.json`'s `engines.node` and"
+" `.nvmrc`.** Bumping `nodeMajor` updates all three in lockstep."
+msgstr "**ベースイメージの Node メジャーバージョンは `package.json` の `engines.node` および `.nvmrc` と一致する。** `nodeMajor` を更新すると、3 つすべてが同時に更新される。"
+
+#: ../../user/templates/google-cloud-run.md:141
+msgid "`.dockerignore`"
+msgstr "`.dockerignore`"
+
+#: ../../user/templates/google-cloud-run.md:143
+msgid ""
+"Keeps the build context lean by excluding VCS metadata, IDE state, "
+"package-manager debug logs, the `lib/` ReScript build artifact, "
+"`coverage/`, and any `.env*` files. The `!.env.example` line preserves "
+"the sample env file so the README's deploy instructions still find it."
+msgstr "VCS メタデータ、IDE の状態、パッケージマネージャのデバッグログ、`lib/` の ReScript ビルド成果物、`coverage/`、すべての `.env*` ファイルを除外することでビルドコンテキストを小さく保つ。`!.env.example` 行はサンプル env ファイルを保持し、README のデプロイ手順が引き続きそれを参照できるようにする。"
+
+#: ../../user/templates/google-cloud-run.md:145
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`node src/ServerMain.res.mjs` — run the compiled server"
+msgstr "`node src/ServerMain.res.mjs` —— コンパイル済みサーバーを実行する"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`node --watch src/ServerMain.res.mjs` — restart on rebuilt output"
+msgstr "`node --watch src/ServerMain.res.mjs` —— 再ビルド出力に応じて再起動する"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`vitest run` — execute the smoke suite"
+msgstr "`vitest run` —— スモークスイートを実行する"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`vitest run --coverage` — same, with v8 coverage"
+msgstr "`vitest run --coverage` —— 上記に v8 カバレッジを加えたもの"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`rescript` — one-shot compile"
+msgstr "`rescript` —— ワンショットコンパイル"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` —— 保存時に再コンパイル"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/google-cloud-run.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` —— 生成された `.res.mjs` を削除する"
+
+#: ../../user/templates/google-cloud-run.md:157
+msgid ""
+"For local development, run `res:dev` and `dev` in two terminals (or chain"
+" them through your own `concurrently` invocation if you prefer a single-"
+"window workflow)."
+msgstr "ローカル開発では `res:dev` と `dev` を 2 つのターミナルで動かす（あるいは、シングルウィンドウのワークフローを好むなら、自前の `concurrently` 呼び出しで連結する）。"
+
+#: ../../user/templates/google-cloud-run.md:159
+msgid "Deploying to Cloud Run"
+msgstr "Cloud Run へのデプロイ"
+
+#: ../../user/templates/google-cloud-run.md:161
+msgid ""
+"The README ships a copy-paste deploy block that uses Cloud Build to push "
+"the image and `gcloud run deploy` to roll it out:"
+msgstr "README には、Cloud Build でイメージをプッシュし `gcloud run deploy` でロールアウトするコピー＆ペースト可能なデプロイブロックが含まれている:"
+
+#: ../../user/templates/google-cloud-run.md:171
+msgid ""
+"Cloud Run injects `PORT` at runtime (the value is not always 8080), which"
+" is why `Server.res` reads it from `process.env`. The `--port 8080` flag "
+"tells Cloud Run which port the container listens on, not which port to "
+"publish — they are independent settings."
+msgstr "Cloud Run はランタイムで `PORT` を注入する（値が常に 8080 とは限らない）。そのため `Server.res` は `process.env` からこの値を読み取る。`--port 8080` フラグはコンテナがリッスンするポートを Cloud Run に伝えるものであり、公開するポートを指定するものではない —— これらは独立した設定である。"
+
+#: ../../user/templates/google-cloud-run.md:173
+msgid ""
+"The README also covers two operational follow-ups: pinning a deployed "
+"revision's image digest for immutable rollouts and tailing logs with "
+"`gcloud run services logs tail`."
+msgstr "README ではさらに 2 つの運用フォローアップを扱っている。デプロイ済みリビジョンのイメージダイジェストを固定して不変ロールアウトを実現する方法と、`gcloud run services logs tail` によるログのテーリングである。"
+
+#: ../../user/templates/google-cloud-run.md:175
+msgid "Cloud SQL recipe"
+msgstr "Cloud SQL レシピ"
+
+#: ../../user/templates/google-cloud-run.md:177
+msgid ""
+"The bundled README includes a short recipe for connecting to a Cloud SQL "
+"Postgres instance via `@google-cloud/cloud-sql-connector` (or the Cloud "
+"SQL Auth Proxy with a vanilla `pg` driver). The pattern in summary:"
+msgstr "同梱の README には、`@google-cloud/cloud-sql-connector`（またはバニラの `pg` ドライバと Cloud SQL Auth Proxy の組み合わせ）を使って Cloud SQL の Postgres インスタンスに接続する短いレシピが含まれている。要約すると次のパターンになる:"
+
+#: ../../user/templates/google-cloud-run.md:188
+#, python-brace-format
+msgid ""
+"Pass `DATABASE_URL` (or the Cloud SQL connection name plus credentials) "
+"as an environment variable via `--set-env-vars` on `gcloud run deploy`. "
+"For Drizzle ORM on top of Postgres, see the {doc}`../recipes/setup-"
+"drizzle` recipe — the same shape applies once you swap the libsql client "
+"for `pg`."
+msgstr "`gcloud run deploy` の `--set-env-vars` を使い、`DATABASE_URL`（または Cloud SQL 接続名と認証情報）を環境変数として渡すこと。Postgres 上で Drizzle ORM を使う場合は {doc}`../recipes/setup-drizzle` レシピを参照する。libsql クライアントを `pg` に置き換えれば同じ構造がそのまま当てはまる。"
+
+#: ../../user/templates/google-cloud-run.md:190
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/google-cloud-run.md:192
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-hono-endpoint` — add a typed POST/GET route "
+"alongside `/echo`"
+msgstr "{doc}`../recipes/add-hono-endpoint` —— `/echo` と並ぶ型付き POST/GET ルートを追加する"
+
+#: ../../user/templates/google-cloud-run.md:193
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/setup-drizzle` — add a Drizzle ORM schema (translate the"
+" libsql examples to `pg` for Cloud SQL)"
+msgstr "{doc}`../recipes/setup-drizzle` —— Drizzle ORM のスキーマを追加する（Cloud SQL 向けには libsql の例を `pg` に置き換えて使う）"
+
+#: ../../user/templates/google-cloud-run.md:194
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-openapi-docs` — generate Scalar API docs from `@hono"
+"/zod-openapi` schemas"
+msgstr "{doc}`../recipes/add-openapi-docs` —— `@hono/zod-openapi` のスキーマから Scalar API ドキュメントを生成する"
+
+#: ../../user/templates/google-cloud-run.md:196
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr "プロジェクトを開いた後の ReScript 側のエディタワークフローについては {doc}`../features/index` を参照する。"
+
+#: ../../user/templates/google-cloud-run.md:198
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/google-cloud-run.md:200
+msgid ""
+"**`PORT` is not configurable in the manifest.** Cloud Run sets it on "
+"every invocation; `Server.res` honours it. Locally, `PORT=3000 pnpm dev` "
+"works because the same env-reading logic falls back to user input before "
+"defaulting to 8080."
+msgstr "**`PORT` はマニフェストで設定できない。** Cloud Run が呼び出しごとに設定し、`Server.res` がそれを尊重する。ローカルでは `PORT=3000 pnpm dev` が動作する。これは同じ env 読み取りロジックが、8080 にデフォルトする前にユーザー入力にフォールバックするためである。"
+
+#: ../../user/templates/google-cloud-run.md:201
+msgid ""
+"**The Dockerfile re-runs `bun install --production` even when there is no"
+" lockfile.** Bun creates `bun.lock` on first install. CI environments "
+"without a committed lockfile will still produce a working image, but "
+"production deployments should always commit the lockfile to guarantee "
+"reproducibility."
+msgstr "**Dockerfile はロックファイルがない場合でも `bun install --production` を再実行する。** Bun は初回インストール時に `bun.lock` を作成する。コミット済みロックファイルがない CI 環境でも動作するイメージは生成されるが、再現性を保証するため本番デプロイでは必ずロックファイルをコミットすべきである。"
+
+#: ../../user/templates/google-cloud-run.md:202
+msgid ""
+"**`COPY --from=builder /app/src ./src`** is the only artifact carried "
+"across stages. If you generate additional output (`dist/`, `public/`), "
+"add explicit `COPY --from=builder` lines for each."
+msgstr "**`COPY --from=builder /app/src ./src`** はステージ間で受け渡される唯一の成果物である。追加の出力（`dist/`、`public/`）を生成する場合は、それぞれに対して明示的な `COPY --from=builder` 行を追加する必要がある。"
+
+#: ../../user/templates/google-cloud-run.md:203
+msgid ""
+"**The `node` engine is pinned to `>=22`** and `.nvmrc` says `22`. The "
+"Dockerfile's base image follows `nodeMajor` (default "
+"`TemplateVersions.NODE_MAJOR`); changing one in the wizard updates all of"
+" them."
+msgstr "**`node` エンジンは `>=22` に固定されており**、`.nvmrc` は `22` を指定する。Dockerfile のベースイメージは `nodeMajor`（デフォルトは `TemplateVersions.NODE_MAJOR`）に追従する。ウィザードでいずれかを変更するとすべてが更新される。"
+
+#: ../../user/templates/google-cloud-run.md:204
+msgid ""
+"**The vitest suite is intentionally tiny** — it asserts that "
+"`import(\"../Server.res.mjs\")` resolves. Add a `app.request(\"/\")` "
+"style integration test (see the Monorepo and Full-Stack templates for "
+"examples) before relying on tests for regression coverage."
+msgstr "**vitest スイートは意図的に最小限である** —— `import(\"../Server.res.mjs\")` が解決することのみを検証する。リグレッションカバレッジをテストに依存させる前に、`app.request(\"/\")` スタイルの統合テスト（例は Monorepo および Full-Stack テンプレートを参照）を追加すること。"
+
+#: ../../user/templates/google-cloud-run.md:205
+msgid ""
+"**The `.gitignore` excludes `.env`** but keeps `.env.example`. Cloud Run "
+"secrets should travel through `--set-env-vars` or Secret Manager, never "
+"through a committed `.env`."
+msgstr "**`.gitignore` は `.env` を除外する** が、`.env.example` は保持する。Cloud Run のシークレットは `--set-env-vars` か Secret Manager を経由して渡すべきで、コミットした `.env` 経由で渡してはならない。"
+
+#: ../../user/templates/google-cloud-run.md:206
+msgid ""
+"**CORS is off by default.** Uncomment the `Hono.cors(...)` block at the "
+"top of `Server.res` and pin an origin allowlist before exposing the "
+"service to a browser-side client on another origin."
+msgstr "**CORS はデフォルトで無効になっている。** 別オリジンのブラウザサイドクライアントにサービスを公開する前に、`Server.res` 冒頭の `Hono.cors(...)` ブロックのコメントを解除し、オリジンの許可リストを固定すること。"

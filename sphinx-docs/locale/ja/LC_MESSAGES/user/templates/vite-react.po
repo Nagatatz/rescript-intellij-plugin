@@ -1,0 +1,723 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/vite-react.md
+msgid ""
+"vite, vite plus, react, jsx, rescript-react, single-page, spa, fetch, "
+"validation, zod, sury"
+msgstr ""
+"vite, vite plus, react, jsx, rescript-react, シングルページ, spa, fetch, "
+"バリデーション, zod, sury"
+
+#: ../../user/templates/vite-react.md:7
+msgid "Vite+ + React"
+msgstr "Vite+ + React"
+
+#: ../../user/templates/vite-react.md:9
+#, python-brace-format
+msgid "{bdg-warning}`Vite+ pre-1.0` {bdg-info}`SPA` {bdg-success}`React 19`"
+msgstr "{bdg-warning}`Vite+ pre-1.0` {bdg-info}`SPA` {bdg-success}`React 19`"
+
+#: ../../user/templates/vite-react.md:11
+msgid ""
+"A single-page React application powered by ReScript and the Vite+ "
+"toolchain. Vite+ (`vite-plus`) is a unified wrapper over Vite, Vitest, "
+"Oxlint, Oxfmt, and Rolldown — one CLI (`vp`) handles dev, build, preview,"
+" and tests. The template ships a working greet form (input + `useState` +"
+" `fetch`) backed by an offline fallback, plus a `vp test` smoke suite."
+msgstr ""
+"ReScript と Vite+ ツールチェーンで動作するシングルページ React アプリケーション。Vite+（`vite-plus`）は "
+"Vite・Vitest・Oxlint・Oxfmt・Rolldown を統合したラッパーであり、1 つの CLI（`vp`）が dev・build・"
+"preview・test を処理する。テンプレートはオフラインフォールバックを備えた動作する greet フォーム "
+"（入力 + `useState` + `fetch`）と、`vp test` のスモークスイートを同梱する。"
+
+#: ../../user/templates/vite-react.md:13
+msgid ""
+"Pick this template when you want a React SPA with the modern unified "
+"toolchain. It is the fastest way to get a `.res` + JSX project running in"
+" the browser. If Vite+ blocks you (it is pre-1.0), the README and this "
+"page describe a clean fallback to vanilla Vite — you are not locked in."
+msgstr ""
+"モダンな統合ツールチェーンで React SPA を組みたい場合に本テンプレートを選択する。`.res` + JSX のプロジェクトを "
+"ブラウザで動かす最速の手段である。Vite+ で詰まった場合（pre-1.0 のため）も、README と本ページに vanilla Vite への "
+"クリーンなフォールバック手順が記載されている — ロックインされることはない。"
+
+#: ../../user/templates/vite-react.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/vite-react.md:40
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/vite-react.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/vite-react.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/vite-react.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/vite-react.md
+msgid ""
+"Becomes the npm `name`, the LICENSE holder, and the `<title>` in "
+"`index.html`"
+msgstr ""
+"npm の `name`、LICENSE 保有者、および `index.html` の `<title>` となる"
+
+#: ../../user/templates/vite-react.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/vite-react.md
+msgid ""
+"npm / pnpm / yarn / bun. Affects `packageManager` field, README install "
+"commands, and CI cache key"
+msgstr ""
+"npm / pnpm / yarn / bun。`packageManager` フィールド、README のインストールコマンド、"
+"CI のキャッシュキーに影響する"
+
+#: ../../user/templates/vite-react.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/vite-react.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `src/Validation.res` variant ships — the "
+"validator runs inside the form's submit handler"
+msgstr ""
+"`zod` ↔ `sury`。同梱される `src/Validation.res` のバリアントを選択する — バリデータは "
+"フォームの submit ハンドラ内で動作する"
+
+#: ../../user/templates/vite-react.md:48
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/vite-react.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/vite-react.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/vite-react.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/vite-react.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/vite-react.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/vite-react.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/vite-react.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/vite-react.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/vite-react.md
+msgid "Runtime stubs the compiled `.res.mjs` imports at runtime"
+msgstr "コンパイル後の `.res.mjs` がランタイムでインポートするランタイムスタブ"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/vite-react.md
+msgid "`@rescript/react`"
+msgstr "`@rescript/react`"
+
+#: ../../user/templates/vite-react.md
+msgid "React bindings (hooks, components, events)"
+msgstr "React バインディング（フック・コンポーネント・イベント）"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.RESCRIPT_REACT`"
+msgstr "`TemplateVersions.RESCRIPT_REACT`"
+
+#: ../../user/templates/vite-react.md
+msgid "`react` / `react-dom`"
+msgstr "`react` / `react-dom`"
+
+#: ../../user/templates/vite-react.md
+msgid "React 19 runtime"
+msgstr "React 19 ランタイム"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.REACT` / `TemplateVersions.REACT_DOM`"
+msgstr "`TemplateVersions.REACT` / `TemplateVersions.REACT_DOM`"
+
+#: ../../user/templates/vite-react.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/vite-react.md
+msgid "Form input validation (chosen in the wizard)"
+msgstr "フォーム入力のバリデーション（ウィザードで選択）"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+msgstr "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+
+#: ../../user/templates/vite-react.md
+msgid "`vite-plus` *(dev)*"
+msgstr "`vite-plus` *(dev)*"
+
+#: ../../user/templates/vite-react.md
+msgid "Unified Vite/Vitest/Oxlint wrapper exposing the `vp` CLI"
+msgstr "Vite/Vitest/Oxlint を統合し `vp` CLI を提供するラッパー"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.VITE_PLUS`"
+msgstr "`TemplateVersions.VITE_PLUS`"
+
+#: ../../user/templates/vite-react.md
+msgid "`@voidzero-dev/vite-plus-core` *(dev)*"
+msgstr "`@voidzero-dev/vite-plus-core` *(dev)*"
+
+#: ../../user/templates/vite-react.md
+msgid "Vite+ core engine"
+msgstr "Vite+ のコアエンジン"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.VITE_PLUS_CORE`"
+msgstr "`TemplateVersions.VITE_PLUS_CORE`"
+
+#: ../../user/templates/vite-react.md
+msgid "`vite` *(dev)*"
+msgstr "`vite` *(dev)*"
+
+#: ../../user/templates/vite-react.md
+msgid ""
+"Direct dep so the documented Vite+ → Vite fallback works without changing"
+" dependencies"
+msgstr ""
+"ドキュメント化されている Vite+ → Vite フォールバックが依存を変更せずに機能するよう、直接依存として追加されている"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.VITE`"
+msgstr "`TemplateVersions.VITE`"
+
+#: ../../user/templates/vite-react.md
+msgid "`@vitejs/plugin-react` *(dev)*"
+msgstr "`@vitejs/plugin-react` *(dev)*"
+
+#: ../../user/templates/vite-react.md
+msgid "React Fast Refresh + JSX"
+msgstr "React Fast Refresh + JSX"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.VITEJS_PLUGIN_REACT`"
+msgstr "`TemplateVersions.VITEJS_PLUGIN_REACT`"
+
+#: ../../user/templates/vite-react.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/vite-react.md
+msgid "Smoke test runner (also driven through `vp test`)"
+msgstr "スモークテストランナー（`vp test` 経由でも駆動される）"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/vite-react.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/vite-react.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` 用のカバレッジプロバイダ"
+
+#: ../../user/templates/vite-react.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/vite-react.md:65
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/vite-react.md:67
+msgid "`rescript.json`"
+msgstr "`rescript.json`"
+
+#: ../../user/templates/vite-react.md:69
+msgid "Three template-specific bits:"
+msgstr "本テンプレート固有の 3 つのポイント:"
+
+#: ../../user/templates/vite-react.md:71
+msgid "`bs-dependencies` includes `@rescript/react` so JSX type-checks"
+msgstr "`bs-dependencies` に `@rescript/react` が含まれているため JSX が型チェックされる"
+
+#: ../../user/templates/vite-react.md:72
+msgid ""
+"`jsx.mode = \"automatic\"` so JSX desugars to `react/jsx-runtime` rather "
+"than `React.createElement`"
+msgstr ""
+"`jsx.mode = \"automatic\"` により、JSX は `React.createElement` ではなく "
+"`react/jsx-runtime` に展開される"
+
+#: ../../user/templates/vite-react.md:73
+msgid ""
+"The validation library (`@rescript/zod` shim or `rescript-sury`) is "
+"appended depending on the wizard pick"
+msgstr ""
+"ウィザードでの選択に応じて、バリデーションライブラリ（`@rescript/zod` シムまたは `rescript-sury`）"
+"が追記される"
+
+#: ../../user/templates/vite-react.md:75
+msgid ""
+"You should rarely need to touch any of those — they map 1:1 onto modern "
+"React + ReScript conventions."
+msgstr ""
+"これらに手を加える必要はほとんどない — いずれもモダンな React + ReScript の規約と 1:1 で対応している。"
+
+#: ../../user/templates/vite-react.md:77
+msgid "`index.html`"
+msgstr "`index.html`"
+
+#: ../../user/templates/vite-react.md:79
+msgid ""
+"The Vite entry document. Loads `/src/Main.res.mjs` as a module — Vite "
+"resolves the path through its dev server (in `dev`) or rewrites it to a "
+"hashed bundle (in `build`)."
+msgstr ""
+"Vite のエントリドキュメント。`/src/Main.res.mjs` をモジュールとして読み込む — Vite はこのパスを "
+"dev サーバ経由で解決する（`dev` の場合）か、ハッシュ付きのバンドルへ書き換える（`build` の場合）。"
+
+#: ../../user/templates/vite-react.md:81
+msgid "`src/Main.res`"
+msgstr "`src/Main.res`"
+
+#: ../../user/templates/vite-react.md:83
+msgid ""
+"The bootstrap. Three lines: find `#root`, create a React root, render "
+"`<App />`:"
+msgstr ""
+"ブートストラップ。3 行で構成される: `#root` を検索し、React ルートを作成し、`<App />` をレンダリングする:"
+
+#: ../../user/templates/vite-react.md:93
+msgid "`src/App.res`"
+msgstr "`src/App.res`"
+
+#: ../../user/templates/vite-react.md:95
+msgid ""
+"The interactive demo. A controlled `<input>` + a submit button + four "
+"pieces of `useState` (name, greeting, error, loading). The submit handler"
+" validates the input through `Validation.parseGreetForm`, then calls "
+"`Api.greet`:"
+msgstr ""
+"インタラクティブなデモ。制御された `<input>` + submit ボタン + 4 つの `useState` "
+"（name, greeting, error, loading）から成る。submit ハンドラは `Validation.parseGreetForm` "
+"で入力をバリデートしてから `Api.greet` を呼び出す:"
+
+#: ../../user/templates/vite-react.md:119
+msgid ""
+"The validate-then-fetch ordering matters: validation is cheap and "
+"synchronous, so you check it before paying for a network round-trip. "
+"Errors render inline (`<p style={{color: \"crimson\"}}>`) and disable the"
+" submit button while the request is in flight."
+msgstr ""
+"validate してから fetch する順序が重要である: バリデーションは安価かつ同期的なので、ネットワークラウンドトリップの "
+"コストを払う前にチェックする。エラーはインライン（`<p style={{color: \"crimson\"}}>`）で描画され、"
+"リクエスト処理中は submit ボタンが無効化される。"
+
+#: ../../user/templates/vite-react.md:121
+msgid "`src/Api.res`"
+msgstr "`src/Api.res`"
+
+#: ../../user/templates/vite-react.md:123
+msgid ""
+"A thin `fetch` wrapper aimed at `/api/greet`. The notable detail is the "
+"*offline fallback*: when no backend is available the function still "
+"returns a usable greeting so the form does not appear broken on first "
+"run."
+msgstr ""
+"`/api/greet` を対象とした薄い `fetch` ラッパー。注目すべき点は *オフラインフォールバック* である: "
+"バックエンドが利用できなくても関数は使える挨拶を返すため、初回実行時にフォームが壊れて見えることがない。"
+
+#: ../../user/templates/vite-react.md:141
+msgid ""
+"When you wire a real backend (graduate to **Full-Stack** or **Monorepo**,"
+" or stand up the **Hono (REST)** template), drop the fallback branches."
+msgstr ""
+"実際のバックエンドを接続する場合（**Full-Stack** や **Monorepo** に移行するか、**Hono (REST)** "
+"テンプレートを立ち上げる場合）には、フォールバック分岐を削除すること。"
+
+#: ../../user/templates/vite-react.md:143
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/vite-react.md:145
+msgid ""
+"`parseGreetForm: string => result<greetForm, string>` — runs before the "
+"fetch call. The zod and sury variants both check that the trimmed name is"
+" non-empty and ≤ 80 characters. Bad input lights up the inline error "
+"message; valid input proceeds to `Api.greet`."
+msgstr ""
+"`parseGreetForm: string => result<greetForm, string>` — fetch 呼び出しの前に実行される。"
+"zod 版・sury 版のいずれも、トリム後の name が空でなく、80 文字以下であることをチェックする。"
+"不正な入力はインラインのエラーメッセージを点灯させ、妥当な入力は `Api.greet` へ進む。"
+
+#: ../../user/templates/vite-react.md:147
+msgid "`src/__tests__/App.test.mjs`"
+msgstr "`src/__tests__/App.test.mjs`"
+
+#: ../../user/templates/vite-react.md:149
+msgid ""
+"The smoke test imports the *compiled* `App.res.mjs` and asserts on the "
+"exported component:"
+msgstr ""
+"スモークテストは *コンパイル後* の `App.res.mjs` をインポートし、エクスポートされたコンポーネントを検証する:"
+
+#: ../../user/templates/vite-react.md:162
+msgid ""
+"This is a minimal sanity check that the component is reachable. It does "
+"not render the form. To assert on DOM behavior, add `@testing-"
+"library/react` and a JSDOM environment to the dev dependencies, then "
+"write tests that render `<App />` and click the submit button."
+msgstr ""
+"コンポーネントが到達可能であることを確認する最小限のサニティチェックである。フォーム自体はレンダリングしない。"
+"DOM の挙動を検証するには、`@testing-library/react` と JSDOM 環境を dev dependencies に追加し、"
+"`<App />` をレンダリングして submit ボタンをクリックするテストを記述する。"
+
+#: ../../user/templates/vite-react.md:164
+msgid "`vite.config.mjs`"
+msgstr "`vite.config.mjs`"
+
+#: ../../user/templates/vite-react.md:166
+msgid "Two lines plus boilerplate:"
+msgstr "ボイラープレートに加えて 2 行:"
+
+#: ../../user/templates/vite-react.md:177
+msgid ""
+"Note the `defineConfig` import comes from `vite-plus`, not `vite`. To "
+"fall back to vanilla Vite, swap that import (see Notes below)."
+msgstr ""
+"`defineConfig` のインポート元が `vite` ではなく `vite-plus` である点に注意。vanilla Vite に "
+"フォールバックする場合はこのインポートを差し替える（下記の Notes を参照）。"
+
+#: ../../user/templates/vite-react.md:179
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/vite-react.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/vite-react.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/vite-react.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/vite-react.md
+msgid "`vp dev` — start the Vite+ dev server with HMR"
+msgstr "`vp dev` — HMR 付きで Vite+ の dev サーバを起動"
+
+#: ../../user/templates/vite-react.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/vite-react.md
+msgid "`vp build` — produce a production bundle in `dist/`"
+msgstr "`vp build` — `dist/` にプロダクションバンドルを生成"
+
+#: ../../user/templates/vite-react.md
+msgid "`preview`"
+msgstr "`preview`"
+
+#: ../../user/templates/vite-react.md
+msgid "`vp preview` — serve the built `dist/` for manual smoke testing"
+msgstr "`vp preview` — 手動スモークテスト用にビルド済みの `dist/` を配信"
+
+#: ../../user/templates/vite-react.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/vite-react.md
+msgid "`vp test` — run Vitest through the Vite+ CLI"
+msgstr "`vp test` — Vite+ CLI 経由で Vitest を実行"
+
+#: ../../user/templates/vite-react.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/vite-react.md
+msgid "`vp test --coverage` — same, with v8 coverage report"
+msgstr "`vp test --coverage` — 同上に v8 のカバレッジレポートを付与"
+
+#: ../../user/templates/vite-react.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/vite-react.md
+msgid "`rescript` — one-shot ReScript compile"
+msgstr "`rescript` — ワンショットの ReScript コンパイル"
+
+#: ../../user/templates/vite-react.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/vite-react.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除"
+
+#: ../../user/templates/vite-react.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/vite-react.md
+msgid "`rescript -w` — recompile on save (run alongside `vp dev`)"
+msgstr "`rescript -w` — 保存時に再コンパイル（`vp dev` と並行して実行する）"
+
+#: ../../user/templates/vite-react.md:192
+msgid ""
+"The recommended development workflow is two terminals: `pnpm res:dev` in "
+"one to keep `.res.mjs` outputs current, `pnpm dev` in the other for the "
+"Vite+ HMR server. Vite+ picks up the recompiled modules via its file "
+"watcher."
+msgstr ""
+"推奨される開発ワークフローは 2 ターミナル構成である: 一方で `pnpm res:dev` を走らせ `.res.mjs` 出力を "
+"最新に保ち、もう一方で `pnpm dev` を走らせて Vite+ の HMR サーバを動かす。Vite+ はファイルウォッチャ経由で "
+"再コンパイルされたモジュールを拾う。"
+
+#: ../../user/templates/vite-react.md:194
+msgid "Falling Back to Vanilla Vite"
+msgstr "vanilla Vite へのフォールバック"
+
+#: ../../user/templates/vite-react.md:196
+msgid ""
+"When pre-1.0 Vite+ misbehaves (most often a `vite/internal` resolution "
+"failure during `vp build`), the migration off Vite+ is two edits and zero"
+" new dependencies:"
+msgstr ""
+"pre-1.0 の Vite+ が誤動作する場合（よくあるのは `vp build` 中の `vite/internal` の解決失敗）、"
+"Vite+ から移行するのは 2 箇所の編集だけで、新しい依存は不要である:"
+
+#: ../../user/templates/vite-react.md:198
+msgid "In `vite.config.mjs`, swap the import:"
+msgstr "`vite.config.mjs` のインポートを差し替える:"
+
+#: ../../user/templates/vite-react.md:205
+msgid ""
+"In `package.json`, replace the `vp` scripts with their vanilla "
+"equivalents:"
+msgstr ""
+"`package.json` で `vp` スクリプトを vanilla 相当のものに置き換える:"
+
+#: ../../user/templates/vite-react.md:217
+msgid ""
+"The `vite` and `vitest` packages are already in `devDependencies`. You "
+"can leave `vite-plus` and `@voidzero-dev/vite-plus-core` installed (they "
+"are inert when the config does not import them) or remove them with `pnpm"
+" remove vite-plus @voidzero-dev/vite-plus-core`."
+msgstr ""
+"`vite` と `vitest` のパッケージは既に `devDependencies` に含まれている。`vite-plus` と "
+"`@voidzero-dev/vite-plus-core` はインストールしたまま残しておいてもよいし（設定からインポートされなければ "
+"何もしない）、`pnpm remove vite-plus @voidzero-dev/vite-plus-core` で削除してもよい。"
+
+#: ../../user/templates/vite-react.md:219
+msgid ""
+"When Vite+ ships a stable release, the migration back is the same edit in"
+" reverse — there is no `vite.config` syntax difference between the two "
+"for a typical React project."
+msgstr ""
+"Vite+ の安定リリースが出たら、戻すのは同じ編集の逆操作で済む — 典型的な React プロジェクトでは、両者の間で "
+"`vite.config` の構文に違いはない。"
+
+#: ../../user/templates/vite-react.md:221
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/vite-react.md:223
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/create-react-component` — adding a new ReScript React "
+"component and wiring it into `App.res`"
+msgstr ""
+"{doc}`../recipes/create-react-component` — 新しい ReScript React コンポーネントを "
+"追加して `App.res` に組み込む"
+
+#: ../../user/templates/vite-react.md:224
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/convert-from-typescript` — porting an existing `.tsx` "
+"component into a `.res` component"
+msgstr ""
+"{doc}`../recipes/convert-from-typescript` — 既存の `.tsx` コンポーネントを `.res` "
+"コンポーネントに移植する"
+
+#: ../../user/templates/vite-react.md:225
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/optimize-imports` — keeping `App.res` and `Main.res` "
+"tidy as the SPA grows"
+msgstr ""
+"{doc}`../recipes/optimize-imports` — SPA が成長しても `App.res` と `Main.res` "
+"を整然と保つ"
+
+#: ../../user/templates/vite-react.md:226
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/find-dead-code` — running `reanalyze` to catch unused "
+"components"
+msgstr ""
+"{doc}`../recipes/find-dead-code` — `reanalyze` を実行して未使用コンポーネントを検出する"
+
+#: ../../user/templates/vite-react.md:228
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr ""
+"プロジェクトを開いた後の ReScript 側のエディタワークフローについては、"
+"{doc}`../features/index` を参照すること。"
+
+#: ../../user/templates/vite-react.md:230
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/vite-react.md:232
+msgid ""
+"**Vite+ is pre-1.0.** `TemplateVersions.VITE_PLUS` pins the `0.1.x` "
+"range. APIs, defaults, and CLI flags may shift before the stable release."
+" Track the [Vite+ changelog](https://vite.plus) when bumping."
+msgstr ""
+"**Vite+ は pre-1.0 である。** `TemplateVersions.VITE_PLUS` は `0.1.x` レンジに固定している。"
+"安定リリース前に API・デフォルト値・CLI フラグが変わる可能性がある。バンプの際は "
+"[Vite+ のチェンジログ](https://vite.plus) を追跡すること。"
+
+#: ../../user/templates/vite-react.md:233
+#, python-brace-format
+msgid ""
+"**Known incompatibility:** the current pre-1.0 Vite+ does not always "
+"resolve `vite/internal` cleanly when paired with `@vitejs/plugin-react`, "
+"so `vp build` may fail. The fallback is one edit: in `vite.config.mjs`, "
+"replace `import { defineConfig } from \"vite-plus\"` with `import { "
+"defineConfig } from \"vite\"`, then swap the npm scripts (`dev` / `build`"
+" / `preview` / `test`) from `vp` to `vite` / `vite build` / `vite "
+"preview` / `vitest run`. The template already declares a direct `vite` "
+"dependency so this swap requires no `npm install`."
+msgstr ""
+"**既知の非互換性:** 現在の pre-1.0 Vite+ は `@vitejs/plugin-react` と組み合わせた際に "
+"`vite/internal` を常にクリーンに解決できるとは限らないため、`vp build` が失敗することがある。フォールバックは "
+"1 箇所の編集である: `vite.config.mjs` で `import { defineConfig } from \"vite-plus\"` を "
+"`import { defineConfig } from \"vite\"` に置き換え、npm スクリプト（`dev` / `build` / "
+"`preview` / `test`）を `vp` から `vite` / `vite build` / `vite preview` / "
+"`vitest run` に差し替える。テンプレートは既に直接の `vite` 依存を宣言しているため、この差し替えに "
+"`npm install` は不要である。"
+
+#: ../../user/templates/vite-react.md:234
+msgid ""
+"React 19 is the default. `@rescript/react` and the `@types/react` family "
+"are pinned to matching majors in `TemplateVersions.kt`; bump them "
+"together."
+msgstr ""
+"デフォルトは React 19 である。`@rescript/react` と `@types/react` 系は "
+"`TemplateVersions.kt` で対応するメジャーに固定されている。一緒にバンプすること。"
+
+#: ../../user/templates/vite-react.md:235
+msgid ""
+"`rescript.json`'s `jsx.mode` is set to `\"automatic\"`. If you set it "
+"back to `\"classic\"`, you also need to import `React` at the top of "
+"every `.res` file that uses JSX."
+msgstr ""
+"`rescript.json` の `jsx.mode` は `\"automatic\"` に設定されている。`\"classic\"` に戻す場合は、"
+"JSX を使うすべての `.res` ファイルの先頭で `React` をインポートする必要もある。"
+
+#: ../../user/templates/vite-react.md:236
+#, python-brace-format
+msgid ""
+"The Vitest smoke test only verifies that `import { make as App } from "
+"\"../App.res.mjs\"` returns a function. It does not actually render the "
+"form. Add `@testing-library/react` and a JSDOM environment when you need "
+"DOM assertions."
+msgstr ""
+"Vitest のスモークテストは `import { make as App } from \"../App.res.mjs\"` が関数を "
+"返すことだけを確認する。フォームを実際にレンダリングはしない。DOM のアサーションが必要になったら "
+"`@testing-library/react` と JSDOM 環境を追加すること。"
+
+#: ../../user/templates/vite-react.md:237
+msgid ""
+"The form intentionally calls `Validation` *before* the network. This "
+"keeps the contract simple: the network only sees inputs that already "
+"passed local checks. Server-side validation is still required — see the "
+"**Hono (REST)** or **Full-Stack** templates for the matching backend "
+"pattern."
+msgstr ""
+"フォームは意図的にネットワーク呼び出しの *前* に `Validation` を呼ぶ。これにより契約がシンプルに保たれる: "
+"ネットワークは既にローカルチェックを通過した入力しか見ない。サーバ側のバリデーションは依然として必須である — "
+"対応するバックエンドパターンについては **Hono (REST)** または **Full-Stack** テンプレートを参照すること。"
+
+#: ../../user/templates/vite-react.md:238
+msgid ""
+"`.gitignore` adds `dist/` and `.vite/` on top of the ReScript defaults so"
+" build artifacts and Vite's local cache do not get committed."
+msgstr ""
+"`.gitignore` は ReScript のデフォルトに加えて `dist/` と `.vite/` を追加しており、ビルドアーティファクトや "
+"Vite のローカルキャッシュがコミットされないようになっている。"
+
+#: ../../user/templates/vite-react.md:239
+msgid ""
+"`package.json` declares `\"private\": true`. Flip it to `false` (and add "
+"a real `version` and `license`) only when you actually want to publish "
+"the SPA itself to npm — which is unusual for an end-user app."
+msgstr ""
+"`package.json` は `\"private\": true` を宣言している。SPA そのものを実際に npm に公開したい場合に限り、"
+"`false` に切り替え（同時に正式な `version` と `license` を追加する）こと — エンドユーザ向けアプリでは珍しい。"
+
+#: ../../user/templates/vite-react.md:240
+msgid ""
+"The `vp` CLI is a thin wrapper over Vitest for `vp test`. If you ever "
+"need Vitest-only flags that Vite+ does not surface, run `vitest run` "
+"directly — the `vitest` and `@vitest/coverage-v8` deps are already "
+"installed."
+msgstr ""
+"`vp` CLI は `vp test` においては Vitest の薄いラッパーである。Vite+ が公開しない Vitest 固有のフラグが "
+"必要になったら、直接 `vitest run` を実行すること — `vitest` と `@vitest/coverage-v8` の依存は "
+"既にインストール済みである。"

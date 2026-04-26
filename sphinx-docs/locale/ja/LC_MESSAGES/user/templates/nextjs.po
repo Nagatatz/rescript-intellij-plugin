@@ -1,0 +1,641 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/nextjs.md
+msgid ""
+"next.js, app router, server components, route handler, gentype, react, "
+"rescript, validation, zod, sury"
+msgstr "next.js, app router, サーバーコンポーネント, route handler, gentype, react, rescript, バリデーション, zod, sury"
+
+#: ../../user/templates/nextjs.md:7
+msgid "Next.js"
+msgstr "Next.js"
+
+#: ../../user/templates/nextjs.md:9
+#, python-brace-format
+msgid "{bdg-info}`SSR` {bdg-success}`React 19` {bdg-primary}`genType`"
+msgstr "{bdg-info}`SSR` {bdg-success}`React 19` {bdg-primary}`genType`"
+
+#: ../../user/templates/nextjs.md:11
+msgid ""
+"A Next.js 16 application with the App Router, ReScript components "
+"surfaced through `genType`, and a fully ReScript-implemented `POST "
+"/api/greet` Route Handler. The template demonstrates the canonical RSC "
+"layering: an async **Server Component** that fetches data on the server, "
+"a **Client Component** for interactivity, and a **Route Handler** for "
+"server-side endpoints — each backed by ReScript via genType bindings."
+msgstr "App Router を採用した Next.js 16 アプリケーションで、ReScript コンポーネントを `genType` 経由で公開し、`POST /api/greet` Route Handler を完全に ReScript で実装している。テンプレートは RSC の定番レイヤリングを 示している: サーバ側でデータを取得する非同期の **Server Component**、対話性を担う **Client Component**、そしてサーバ側エンドポイント用の **Route Handler** — それぞれが genType バインディングを介して ReScript に 裏打ちされている。"
+
+#: ../../user/templates/nextjs.md:13
+msgid ""
+"Pick this template when you need server-side rendering, server-side data "
+"fetching, SEO, or App Router primitives (layouts, loading fallbacks, "
+"route handlers). If you only need a client-only React SPA, the **Vite+ + "
+"React** template is lighter."
+msgstr "サーバサイドレンダリング、サーバ側のデータ取得、SEO、または App Router のプリミティブ（layouts、loading フォールバック、route handler）が必要な場合に本テンプレートを選択する。クライアントのみの React SPA で十分なら、**Vite+ + React** テンプレートの方が軽量である。"
+
+#: ../../user/templates/nextjs.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/nextjs.md:51
+msgid "There is **no** `pages/` directory. This is App Router only."
+msgstr "`pages/` ディレクトリは **存在しない**。本テンプレートは App Router 専用である。"
+
+#: ../../user/templates/nextjs.md:53
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/nextjs.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/nextjs.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/nextjs.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/nextjs.md
+msgid ""
+"Becomes the npm `name`, the LICENSE holder, and the `<h1>` text in "
+"`App.res`"
+msgstr "npm の `name`、LICENSE 保有者、および `App.res` の `<h1>` テキストとなる"
+
+#: ../../user/templates/nextjs.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/nextjs.md
+msgid ""
+"npm / pnpm / yarn / bun. Affects `packageManager` field, README install "
+"commands, and CI cache key"
+msgstr "npm / pnpm / yarn / bun。`packageManager` フィールド、README のインストールコマンド、CI のキャッシュキーに影響する"
+
+#: ../../user/templates/nextjs.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/nextjs.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `src/app/api/greet/Validation.res` variant "
+"ships — the validator runs inside the API route on the parsed JSON body"
+msgstr "`zod` ↔ `sury`。同梱される `src/app/api/greet/Validation.res` のバリアントを選択する — バリデータは API ルート内でパース済みの JSON ボディに対して動作する"
+
+#: ../../user/templates/nextjs.md:61
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/nextjs.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/nextjs.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/nextjs.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/nextjs.md
+msgid "`next`"
+msgstr "`next`"
+
+#: ../../user/templates/nextjs.md
+msgid "Next.js framework"
+msgstr "Next.js フレームワーク"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.NEXTJS`"
+msgstr "`TemplateVersions.NEXTJS`"
+
+#: ../../user/templates/nextjs.md
+msgid "`react` / `react-dom`"
+msgstr "`react` / `react-dom`"
+
+#: ../../user/templates/nextjs.md
+msgid "React 19 runtime"
+msgstr "React 19 ランタイム"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.REACT` / `TemplateVersions.REACT_DOM`"
+msgstr "`TemplateVersions.REACT` / `TemplateVersions.REACT_DOM`"
+
+#: ../../user/templates/nextjs.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/nextjs.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/nextjs.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/nextjs.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/nextjs.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/nextjs.md
+msgid "Runtime stubs the compiled `.res.mjs` imports at runtime"
+msgstr "コンパイル後の `.res.mjs` がランタイムでインポートするランタイムスタブ"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/nextjs.md
+msgid "`@rescript/react`"
+msgstr "`@rescript/react`"
+
+#: ../../user/templates/nextjs.md
+msgid "React bindings (hooks, components, events)"
+msgstr "React バインディング（フック・コンポーネント・イベント）"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.RESCRIPT_REACT`"
+msgstr "`TemplateVersions.RESCRIPT_REACT`"
+
+#: ../../user/templates/nextjs.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/nextjs.md
+msgid "API body validation (chosen in the wizard)"
+msgstr "API ボディのバリデーション（ウィザードで選択）"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+msgstr "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+
+#: ../../user/templates/nextjs.md
+msgid "`concurrently` *(dev)*"
+msgstr "`concurrently` *(dev)*"
+
+#: ../../user/templates/nextjs.md
+msgid "Runs `rescript -w` and `next dev` together under a single process"
+msgstr "`rescript -w` と `next dev` を 1 つのプロセスで並行実行"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.CONCURRENTLY`"
+msgstr "`TemplateVersions.CONCURRENTLY`"
+
+#: ../../user/templates/nextjs.md
+msgid "`typescript` *(dev)*"
+msgstr "`typescript` *(dev)*"
+
+#: ../../user/templates/nextjs.md
+msgid "Required by Next.js + by genType for the emitted `.gen.tsx` / `.gen.d.ts`"
+msgstr "Next.js が要求し、genType が生成する `.gen.tsx` / `.gen.d.ts` にも必要"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.TYPESCRIPT`"
+msgstr "`TemplateVersions.TYPESCRIPT`"
+
+#: ../../user/templates/nextjs.md
+msgid "`@types/react` / `@types/react-dom` *(dev)*"
+msgstr "`@types/react` / `@types/react-dom` *(dev)*"
+
+#: ../../user/templates/nextjs.md
+msgid "React typings"
+msgstr "React の型定義"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.REACT_TYPES` / `TemplateVersions.REACT_DOM_TYPES`"
+msgstr "`TemplateVersions.REACT_TYPES` / `TemplateVersions.REACT_DOM_TYPES`"
+
+#: ../../user/templates/nextjs.md
+msgid "`@types/node` *(dev)*"
+msgstr "`@types/node` *(dev)*"
+
+#: ../../user/templates/nextjs.md
+msgid "Node typings consumed by `next.config.mjs` and route handlers"
+msgstr "`next.config.mjs` と route handler が利用する Node の型定義"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.NODE_TYPES`"
+msgstr "`TemplateVersions.NODE_TYPES`"
+
+#: ../../user/templates/nextjs.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/nextjs.md
+msgid "Smoke test runner"
+msgstr "スモークテストランナー"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/nextjs.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/nextjs.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` 用のカバレッジプロバイダ"
+
+#: ../../user/templates/nextjs.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/nextjs.md:79
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/nextjs.md:81
+msgid "`rescript.json`"
+msgstr "`rescript.json`"
+
+#: ../../user/templates/nextjs.md:83
+msgid "Three template-specific bits:"
+msgstr "本テンプレート固有の 3 つのポイント:"
+
+#: ../../user/templates/nextjs.md:85
+msgid "`bs-dependencies` includes `@rescript/react` so JSX type-checks"
+msgstr "`bs-dependencies` に `@rescript/react` が含まれているため JSX が型チェックされる"
+
+#: ../../user/templates/nextjs.md:86
+msgid "`jsx.mode = \"automatic\"` so JSX desugars to `react/jsx-runtime`"
+msgstr "`jsx.mode = \"automatic\"` により、JSX は `react/jsx-runtime` に展開される"
+
+#: ../../user/templates/nextjs.md:87
+msgid ""
+"`gentypeconfig` is enabled — every `@genType` annotation produces a "
+"matching `.gen.tsx` (for components) or `.gen.d.ts` next to the "
+"`.res.mjs` output"
+msgstr "`gentypeconfig` が有効 — `@genType` アノテーションが付与されたものはすべて、`.res.mjs` 出力の隣に 対応する `.gen.tsx`（コンポーネント用）または `.gen.d.ts` を生成する"
+
+#: ../../user/templates/nextjs.md:89
+msgid ""
+"genType is on by default because the App Router consumes ReScript "
+"components from `.tsx` files. Without it, TypeScript would only see the "
+"untyped runtime modules."
+msgstr "App Router は `.tsx` ファイルから ReScript コンポーネントを利用するため、genType はデフォルトで有効に なっている。これがないと、TypeScript は型なしのランタイムモジュールしか見られない。"
+
+#: ../../user/templates/nextjs.md:91
+msgid "`src/app/page.tsx` (Server Component)"
+msgstr "`src/app/page.tsx`（Server Component）"
+
+#: ../../user/templates/nextjs.md:93
+msgid ""
+"The default export of every App Router route file is a React component. "
+"Marking it `async` opts into server-side data fetching with no "
+"`useEffect`, no client waterfall, and no API round-trip:"
+msgstr "App Router のすべてのルートファイルのデフォルトエクスポートは React コンポーネントである。`async` を付けることで、`useEffect` なし、クライアントウォーターフォールなし、API ラウンドトリップなしのサーバ側データ取得にオプトインできる:"
+
+#: ../../user/templates/nextjs.md:115
+msgid ""
+"`App` is imported from `App.gen` — the genType-generated `.tsx` file, "
+"*not* the original `App.res`. That means TypeScript sees real types for "
+"the ReScript component's props."
+msgstr "`App` は `App.gen` からインポートされる — これは genType が生成した `.tsx` ファイルであり、元の `App.res` *ではない*。これにより、TypeScript は ReScript コンポーネントの props に対する 本物の型を参照できる。"
+
+#: ../../user/templates/nextjs.md:117
+msgid "`src/App.res` (ReScript server-renderable component)"
+msgstr "`src/App.res`（ReScript のサーバレンダリング可能なコンポーネント）"
+
+#: ../../user/templates/nextjs.md:119
+msgid ""
+"A pure component that accepts a `serverGeneratedAt` string prop and "
+"renders it. No state, no client-only APIs:"
+msgstr "`serverGeneratedAt` という string の prop を受け取って描画する純粋なコンポーネントである。状態もクライアント専用 API も使わない:"
+
+#: ../../user/templates/nextjs.md:134
+msgid ""
+"The `@genType @react.component` pair is the canonical annotation for "
+"\"expose this React component to TypeScript callers.\" Drop the "
+"`@genType` and the component becomes ReScript-only."
+msgstr "`@genType @react.component` の組み合わせは「この React コンポーネントを TypeScript の 呼び出し側に公開する」ための定番アノテーションである。`@genType` を外すと、コンポーネントは ReScript 専用になる。"
+
+#: ../../user/templates/nextjs.md:136
+msgid "`src/app/client/GreetForm.tsx` + `src/GreetForm.res`"
+msgstr "`src/app/client/GreetForm.tsx` + `src/GreetForm.res`"
+
+#: ../../user/templates/nextjs.md:138
+msgid "The Client Component is a two-file sandwich:"
+msgstr "Client Component は 2 ファイルのサンドイッチ構成である:"
+
+#: ../../user/templates/nextjs.md:151
+msgid ""
+"The `\"use client\"` directive is the *boundary*: it tells Next.js that "
+"everything imported from this file (transitively) belongs in the browser "
+"bundle. The actual ReScript component (`src/GreetForm.res`) uses "
+"`React.useState`, attaches event handlers, and calls `Fetch.post` — all "
+"of which require running on the client."
+msgstr "`\"use client\"` ディレクティブは *境界* である: このファイルから（推移的に）インポートされるすべてが ブラウザバンドルに属することを Next.js に伝える。実際の ReScript コンポーネント（`src/GreetForm.res`）は `React.useState` を使い、イベントハンドラを取り付け、`Fetch.post` を呼び出す — これらはすべてクライアント上で 動作する必要がある。"
+
+#: ../../user/templates/nextjs.md:170
+msgid ""
+"The rule of thumb: keep stateful or event-driven ReScript components "
+"behind a `\"use client\"` boundary. Keep pure or async-data-fetching "
+"components on the server side."
+msgstr "目安: 状態を持つ、あるいはイベント駆動の ReScript コンポーネントは `\"use client\"` 境界の内側に置く。純粋なコンポーネントや非同期データ取得を行うコンポーネントはサーバ側に残す。"
+
+#: ../../user/templates/nextjs.md:172
+msgid "`src/app/api/greet/route.ts` + `GreetRoute.res` (Route Handler)"
+msgstr "`src/app/api/greet/route.ts` + `GreetRoute.res`（Route Handler）"
+
+#: ../../user/templates/nextjs.md:174
+msgid ""
+"Next.js requires the file to be named `route.ts` / `route.js` / "
+"`route.mjs`. ReScript requires module filenames to start with an "
+"*uppercase* letter. The template resolves the conflict with a one-line "
+"re-export shim:"
+msgstr "Next.js はファイル名を `route.ts` / `route.js` / `route.mjs` にすることを要求する。一方、ReScript はモジュール名が *大文字* で始まることを要求する。テンプレートはこの競合を 1 行の 再エクスポートシムで解決する:"
+
+#: ../../user/templates/nextjs.md:181
+msgid "The handler body lives in `GreetRoute.res`:"
+msgstr "ハンドラの本体は `GreetRoute.res` に存在する:"
+
+#: ../../user/templates/nextjs.md:202
+#, python-brace-format
+msgid ""
+"The validate-then-respond ordering matters: untyped HTTP bodies are "
+"exactly the surface where `Validation` earns its keep. Bad input returns "
+"`400` with `{ \"error\": \"...\" }`; valid input returns `200` with the "
+"greeting."
+msgstr "validate してから応答する順序が重要である: 型なしの HTTP ボディこそ `Validation` の真価が発揮される面である。不正な入力には `{ \"error\": \"...\" }` とともに `400` を返し、妥当な入力には挨拶とともに `200` を返す。"
+
+#: ../../user/templates/nextjs.md:204
+msgid "`src/NextServer.res`"
+msgstr "`src/NextServer.res`"
+
+#: ../../user/templates/nextjs.md:206
+msgid "Minimal bindings to `next/server`. Just enough for the POST handler:"
+msgstr "`next/server` への最小限のバインディング。POST ハンドラに必要な分だけを定義している:"
+
+#: ../../user/templates/nextjs.md:221
+msgid ""
+"Extend this file as you add more Route Handlers — keeping the bindings "
+"centralized prevents `@module(\"next/server\")` externals from sprawling "
+"across the project."
+msgstr "Route Handler を追加していく際はこのファイルを拡張すること — バインディングを集中管理することで、`@module(\"next/server\")` の external がプロジェクト全体に散らばるのを防げる。"
+
+#: ../../user/templates/nextjs.md:223
+msgid "`src/app/api/greet/Validation.res`"
+msgstr "`src/app/api/greet/Validation.res`"
+
+#: ../../user/templates/nextjs.md:225
+msgid ""
+"`parseGreetInput: JSON.t => result<greetInput, string>` — runs against "
+"the parsed HTTP body. The signature is identical between the zod and sury"
+" variants so `GreetRoute.res` does not branch on which is loaded."
+msgstr "`parseGreetInput: JSON.t => result<greetInput, string>` — パース済みの HTTP ボディに対して 動作する。シグネチャは zod 版と sury 版で同一なので、`GreetRoute.res` はどちらが読み込まれているかで分岐しない。"
+
+#: ../../user/templates/nextjs.md:227
+msgid ""
+"When you add a new endpoint that takes JSON, ship a sibling "
+"`Validation.res` and run it before doing any work. Returning a `result` "
+"keeps the contract honest at the HTTP boundary."
+msgstr "JSON を受ける新しいエンドポイントを追加する場合は、姉妹となる `Validation.res` を同梱し、実処理を行う前に 実行すること。`result` を返すことで、HTTP 境界における契約が誠実に保たれる。"
+
+#: ../../user/templates/nextjs.md:229
+msgid "`rescript-modules.d.ts`"
+msgstr "`rescript-modules.d.ts`"
+
+#: ../../user/templates/nextjs.md:235
+msgid ""
+"An ambient declaration so TypeScript stops complaining about the runtime "
+"entry points (`route.ts`'s re-export of `./GreetRoute.res.mjs` would "
+"otherwise be untyped). The `.gen.tsx` / `.gen.d.ts` files genType emits "
+"already carry real types for component props — this declaration covers "
+"the runtime-only modules."
+msgstr "ランタイムエントリポイントについて TypeScript が文句を言わないようにするための ambient 宣言である （さもなくば `route.ts` による `./GreetRoute.res.mjs` の再エクスポートは型なしになってしまう）。genType が生成する `.gen.tsx` / `.gen.d.ts` ファイルは既にコンポーネント props 用の本物の型を持っている — この宣言はランタイムのみのモジュールをカバーする。"
+
+#: ../../user/templates/nextjs.md:237
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/nextjs.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/nextjs.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/nextjs.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/nextjs.md
+msgid ""
+"`concurrently \"rescript -w\" \"next dev\"` — watch ReScript and run the "
+"dev server together"
+msgstr "`concurrently \"rescript -w\" \"next dev\"` — ReScript の watch と dev サーバを同時に動かす"
+
+#: ../../user/templates/nextjs.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/nextjs.md
+msgid "`rescript && next build` — compile ReScript first, then build Next.js"
+msgstr "`rescript && next build` — まず ReScript をコンパイルし、その後 Next.js をビルド"
+
+#: ../../user/templates/nextjs.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/nextjs.md
+msgid "`next start` — run the production Next.js server"
+msgstr "`next start` — 本番用の Next.js サーバを起動"
+
+#: ../../user/templates/nextjs.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/nextjs.md
+msgid "`vitest run` — execute the smoke suite"
+msgstr "`vitest run` — スモークスイートを実行"
+
+#: ../../user/templates/nextjs.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/nextjs.md
+msgid "`vitest run --coverage` — same, with v8 coverage report"
+msgstr "`vitest run --coverage` — 同上に v8 のカバレッジレポートを付与"
+
+#: ../../user/templates/nextjs.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/nextjs.md
+msgid "`rescript` — one-shot ReScript compile"
+msgstr "`rescript` — ワンショットの ReScript コンパイル"
+
+#: ../../user/templates/nextjs.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/nextjs.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除"
+
+#: ../../user/templates/nextjs.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/nextjs.md
+msgid "`rescript -w` — recompile on save (also wired into `dev`)"
+msgstr "`rescript -w` — 保存時に再コンパイル（`dev` にも組み込まれている）"
+
+#: ../../user/templates/nextjs.md:250
+msgid ""
+"`build` puts the ReScript compile *before* `next build` deliberately. "
+"Next.js reads the `.res.mjs` and `.gen.tsx` outputs during its own "
+"bundling pass, so they must exist on disk first."
+msgstr "`build` は意図的に ReScript のコンパイルを `next build` の *前* に置いている。Next.js は自身の バンドルパスの中で `.res.mjs` と `.gen.tsx` の出力を読むため、それらが先にディスク上に存在する必要がある。"
+
+#: ../../user/templates/nextjs.md:252
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/nextjs.md:254
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/create-react-component` — adding new ReScript components"
+" and exposing them via genType"
+msgstr "{doc}`../recipes/create-react-component` — 新しい ReScript コンポーネントを追加し、genType 経由で公開する"
+
+#: ../../user/templates/nextjs.md:255
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/convert-from-typescript` — porting an existing `.tsx` "
+"page into a `.res` component"
+msgstr "{doc}`../recipes/convert-from-typescript` — 既存の `.tsx` ページを `.res` コンポーネントに移植する"
+
+#: ../../user/templates/nextjs.md:256
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/optimize-imports` — keeping `App.res` and "
+"`GreetForm.res` tidy as the app grows"
+msgstr "{doc}`../recipes/optimize-imports` — アプリが成長しても `App.res` と `GreetForm.res` を整然と保つ"
+
+#: ../../user/templates/nextjs.md:257
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/find-dead-code` — running `reanalyze` to catch unused "
+"components and bindings"
+msgstr "{doc}`../recipes/find-dead-code` — `reanalyze` を実行して未使用のコンポーネントや バインディングを検出する"
+
+#: ../../user/templates/nextjs.md:259
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr "プロジェクトを開いた後の ReScript 側のエディタワークフローについては、{doc}`../features/index` を参照すること。"
+
+#: ../../user/templates/nextjs.md:261
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/nextjs.md:263
+msgid ""
+"**App Router only.** There is no `pages/` directory and no "
+"`getServerSideProps`. If you need pages-router primitives, this template "
+"is the wrong starting point."
+msgstr "**App Router 専用である。** `pages/` ディレクトリも `getServerSideProps` も存在しない。pages-router のプリミティブが必要であれば、本テンプレートは出発点として誤りである。"
+
+#: ../../user/templates/nextjs.md:264
+msgid ""
+"**ReScript files compile to `.res.mjs` then are imported from TSX.** "
+"Always remember the chain: `App.res` → `App.res.mjs` (runtime) → "
+"`App.gen.tsx` (genType-typed wrapper) → `app/page.tsx` (consumer). Edit "
+"`App.res`; consume from `*.gen.tsx`."
+msgstr "**ReScript ファイルは `.res.mjs` にコンパイルされ、その後 TSX からインポートされる。** 連鎖を常に意識すること: `App.res` → `App.res.mjs`（ランタイム）→ `App.gen.tsx`（genType による型付きラッパー）→ `app/page.tsx`（利用側）。編集対象は `App.res`、利用側は `*.gen.tsx` から読む。"
+
+#: ../../user/templates/nextjs.md:265
+msgid ""
+"**Route Handler filename collision.** `route.ts` is a Next.js "
+"requirement; `GreetRoute.res` is a ReScript requirement. Keep the shim "
+"pattern (one-line re-export) for every new endpoint rather than inlining "
+"handler logic in `route.ts`."
+msgstr "**Route Handler のファイル名衝突。** `route.ts` は Next.js の要求、`GreetRoute.res` は ReScript の要求である。新しいエンドポイントごとにシムパターン（1 行の再エクスポート）を維持し、`route.ts` にハンドラのロジックをインライン展開しないこと。"
+
+#: ../../user/templates/nextjs.md:266
+msgid ""
+"**Validation runs on the server.** The API route is the trust boundary — "
+"anything coming over HTTP is unsafe until `Validation.parseGreetInput` "
+"returns `Ok`. Server-side checks must not be skipped even when the client"
+" form already validates the same field; the client is just UX, not "
+"security."
+msgstr "**バリデーションはサーバ上で動作する。** API ルートは信頼境界であり — HTTP 経由で入ってくるものは `Validation.parseGreetInput` が `Ok` を返すまで安全ではない。クライアント側のフォームが既に同じ フィールドをバリデートしていても、サーバ側のチェックを省いてはならない。クライアントは UX のためであって、セキュリティのためではない。"
+
+#: ../../user/templates/nextjs.md:267
+msgid ""
+"**`concurrently` quoting.** `dev` is wired as `concurrently \"rescript "
+"-w\" \"next dev\"` with literal escaped quotes. If you add a third "
+"process, follow the same quoting style or `concurrently` will silently "
+"merge the args."
+msgstr "**`concurrently` のクォート。** `dev` はリテラルなエスケープ済みクォート付きで `concurrently \"rescript -w\" \"next dev\"` として配線されている。3 つ目のプロセスを追加する場合は同じクォートスタイルに 従うこと。さもないと `concurrently` は黙って引数をマージしてしまう。"
+
+#: ../../user/templates/nextjs.md:268
+msgid ""
+"**Server Components cannot use `useState`.** If you try to call a hook "
+"inside a non-`\"use client\"` ReScript component imported from "
+"`page.tsx`, Next.js will fail at build time with a Server Component "
+"error. Move the stateful component behind a `\"use client\"` wrapper like"
+" `app/client/GreetForm.tsx`."
+msgstr "**Server Components は `useState` を使えない。** `page.tsx` からインポートされる、`\"use client\"` を持たない ReScript コンポーネント内でフックを呼び出そうとすると、Next.js は ビルド時に Server Component エラーで失敗する。状態を持つコンポーネントは `app/client/GreetForm.tsx` のような `\"use client\"` ラッパーの内側に移動すること。"
+
+#: ../../user/templates/nextjs.md:269
+msgid ""
+"**`@rescript/runtime` must be a direct dependency** (it is, by default). "
+"pnpm's strict layout hides transitive deps from user code, and `.res.mjs`"
+" files import from `@rescript/runtime/lib/es6/...` at runtime — without "
+"the direct dep, both the dev server and `next build` will throw `Cannot "
+"find module '@rescript/runtime/...'`."
+msgstr "**`@rescript/runtime` は直接依存でなければならない**（デフォルトでそうなっている）。pnpm の strict レイアウトはユーザコードから推移的依存を隠す上、`.res.mjs` ファイルはランタイムで `@rescript/runtime/lib/es6/...` からインポートする — 直接依存がなければ、dev サーバも `next build` も `Cannot find module '@rescript/runtime/...'` を投げる。"
+
+#: ../../user/templates/nextjs.md:270
+msgid ""
+"**`.gitignore` adds `.next/`, `out/`, and `.env*.local`** on top of the "
+"ReScript defaults so the Next.js build cache, the static export output, "
+"and local env files are not committed."
+msgstr "**`.gitignore` は ReScript のデフォルトに加えて `.next/`、`out/`、`.env*.local` を追加する** ため、Next.js のビルドキャッシュ、static export の出力、ローカルの env ファイルがコミットされない。"
+
+#: ../../user/templates/nextjs.md:271
+msgid ""
+"**Vitest does not exercise the API route.** The bundled smoke test only "
+"checks that `App.res.mjs` exposes a function. Add a test that imports "
+"`GreetRoute.res.mjs` and feeds it a fake `nextRequest` when you start "
+"adding business logic to the handler."
+msgstr "**Vitest は API ルートを実行しない。** 同梱のスモークテストは `App.res.mjs` が関数を公開していることだけを チェックする。ハンドラにビジネスロジックを追加し始めた段階で、`GreetRoute.res.mjs` をインポートし偽の `nextRequest` を渡すテストを追加すること。"

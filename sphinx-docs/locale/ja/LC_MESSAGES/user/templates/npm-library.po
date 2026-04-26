@@ -1,0 +1,691 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/npm-library.md
+msgid ""
+"npm library, rescript, gentype, typescript bindings, vitest, "
+"abortcontroller, validation, zod, sury, publish"
+msgstr ""
+"npm ライブラリ, rescript, gentype, TypeScript バインディング, vitest, "
+"AbortController, バリデーション, zod, sury, publish"
+
+#: ../../user/templates/npm-library.md:7
+msgid "npm Library"
+msgstr "npm Library"
+
+#: ../../user/templates/npm-library.md:9
+#, python-brace-format
+msgid "{bdg-info}`Node.js` {bdg-success}`Testing` {bdg-primary}`genType`"
+msgstr "{bdg-info}`Node.js` {bdg-success}`Testing` {bdg-primary}`genType`"
+
+#: ../../user/templates/npm-library.md:11
+msgid ""
+"A publishable npm package written in ReScript with first-class TypeScript"
+" bindings via `genType`. The template ships a small but realistic API "
+"surface — a synchronous greeting, an async `fetchWithTimeout` "
+"(AbortController), and two list helpers — so you have something to "
+"compile, test, and publish on day one."
+msgstr ""
+"`genType` 経由でファーストクラスの TypeScript バインディングを備えた、ReScript で記述された "
+"公開可能な npm パッケージ。テンプレートは小規模ながら現実的な API 表面を同梱している "
+"— 同期的な挨拶、非同期の `fetchWithTimeout`（AbortController）、2 つのリストヘルパー —"
+"ので、初日からコンパイル・テスト・公開できる素材が揃っている。"
+
+#: ../../user/templates/npm-library.md:13
+msgid ""
+"Pick this template when you intend to release the project to npm (public "
+"or private registry) and want JS/TS consumers to enjoy real `.d.ts` types"
+" generated from your ReScript sources. The template assumes ESM-only "
+"consumers; if you need CJS interop you can layer it on top, but the "
+"defaults target modern bundlers and Node 22+."
+msgstr ""
+"プロジェクトを npm（パブリック／プライベートレジストリ）にリリースする予定で、JS/TS 利用者に ReScript ソースから "
+"生成された本物の `.d.ts` 型を提供したい場合に選択する。本テンプレートは ESM のみの利用者を想定している。"
+"CJS 相互運用が必要であれば後から重ねて対応できるが、デフォルトはモダンバンドラと Node 22+ をターゲットにしている。"
+
+#: ../../user/templates/npm-library.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/npm-library.md:41
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/npm-library.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/npm-library.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/npm-library.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/npm-library.md
+msgid ""
+"Becomes the npm `name`, the LICENSE holder, and the suffix in "
+"`Index.res`'s default greeting"
+msgstr ""
+"npm の `name`、LICENSE 保有者、および `Index.res` のデフォルト挨拶のサフィックスとなる"
+
+#: ../../user/templates/npm-library.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/npm-library.md
+msgid ""
+"npm / pnpm / yarn / bun. Affects `packageManager` field, README install "
+"commands, and CI cache key"
+msgstr ""
+"npm / pnpm / yarn / bun。`packageManager` フィールド、README のインストールコマンド、"
+"CI のキャッシュキーに影響する"
+
+#: ../../user/templates/npm-library.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/npm-library.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `src/Validation.res` variant ships and "
+"which dependency is added"
+msgstr ""
+"`zod` ↔ `sury`。同梱される `src/Validation.res` のバリアントと追加される依存を選択する"
+
+#: ../../user/templates/npm-library.md:49
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/npm-library.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/npm-library.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/npm-library.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/npm-library.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/npm-library.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/npm-library.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/npm-library.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/npm-library.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/npm-library.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/npm-library.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/npm-library.md
+msgid "Runtime stubs the compiled `.res.mjs` imports at runtime"
+msgstr "コンパイル後の `.res.mjs` がランタイムでインポートするランタイムスタブ"
+
+#: ../../user/templates/npm-library.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/npm-library.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/npm-library.md
+msgid "Validation backend (chosen in the wizard)"
+msgstr "バリデーションのバックエンド（ウィザードで選択）"
+
+#: ../../user/templates/npm-library.md
+msgid "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+msgstr "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+
+#: ../../user/templates/npm-library.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/npm-library.md
+msgid "Per-module test runner"
+msgstr "モジュールごとのテストランナー"
+
+#: ../../user/templates/npm-library.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/npm-library.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/npm-library.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` 用のカバレッジプロバイダ"
+
+#: ../../user/templates/npm-library.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/npm-library.md
+msgid "`typescript` *(dev)*"
+msgstr "`typescript` *(dev)*"
+
+#: ../../user/templates/npm-library.md
+msgid "Required by `tsc --noEmit` and by genType for `.d.ts` checking"
+msgstr "`tsc --noEmit` および genType による `.d.ts` チェックに必要"
+
+#: ../../user/templates/npm-library.md
+msgid "`TemplateVersions.TYPESCRIPT`"
+msgstr "`TemplateVersions.TYPESCRIPT`"
+
+#: ../../user/templates/npm-library.md:61
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/npm-library.md:63
+msgid "`src/Index.res`"
+msgstr "`src/Index.res`"
+
+#: ../../user/templates/npm-library.md:65
+msgid ""
+"The public entry point. Every export the package surfaces lives here, "
+"either as a definition or as a re-export from another module. Each is "
+"annotated `@genType` so genType can emit a matching declaration in "
+"`Index.gen.d.ts`."
+msgstr ""
+"公開エントリポイント。パッケージが提供するすべてのエクスポートは、定義として、あるいは別モジュールからの再エクスポートとして "
+"ここに集約されている。それぞれに `@genType` が付与されており、genType が `Index.gen.d.ts` "
+"に対応する宣言を生成する。"
+
+#: ../../user/templates/npm-library.md:89
+msgid ""
+"`greetChecked` is the canonical pattern for \"I don't trust my caller\": "
+"run the JSON through `Validation.parseGreetInput` and return a `result` "
+"rather than throwing across the FFI boundary. This is what makes the "
+"library safe to consume from plain JavaScript, where the type checker "
+"won't catch a malformed argument."
+msgstr ""
+"`greetChecked` は「呼び出し側を信用しない」場合の定番パターンである: JSON を "
+"`Validation.parseGreetInput` に通し、FFI 境界をまたぐ例外を投げる代わりに `result` を返す。"
+"型チェッカが不正な引数を捕捉できない素の JavaScript から利用しても安全な理由はここにある。"
+
+#: ../../user/templates/npm-library.md:91
+msgid "`src/ListUtils.res`"
+msgstr "`src/ListUtils.res`"
+
+#: ../../user/templates/npm-library.md:93
+msgid "Two generic helpers that double as worked examples of `Array` operations:"
+msgstr "`Array` 操作の実例を兼ねた 2 つの汎用ヘルパー:"
+
+#: ../../user/templates/npm-library.md:95
+msgid ""
+"`chunk(xs, ~size)` — splits an array into fixed-size buckets; the last "
+"bucket may be shorter."
+msgstr ""
+"`chunk(xs, ~size)` — 配列を固定サイズのバケットに分割する。末尾のバケットは短くなる場合がある。"
+
+#: ../../user/templates/npm-library.md:96
+msgid ""
+"`partitionMap(xs, f)` — runs `f` on each element and routes `Ok` / "
+"`Error` results into a tuple of two arrays."
+msgstr ""
+"`partitionMap(xs, f)` — 各要素に `f` を適用し、`Ok` / `Error` の結果を 2 つの配列のタプルに振り分ける。"
+
+#: ../../user/templates/npm-library.md:98
+msgid ""
+"Both are written with mutable `ref` accumulators — straightforward to "
+"read, fast at runtime, and a useful demonstration that ReScript's stdlib "
+"lets you combine functional and imperative styles."
+msgstr ""
+"いずれも可変な `ref` アキュムレータで実装されており、読みやすく、実行時も高速で、ReScript "
+"の標準ライブラリが関数型と命令型のスタイルを組み合わせて使える点を示す好例である。"
+
+#: ../../user/templates/npm-library.md:100
+msgid "`src/Fetcher.res`"
+msgstr "`src/Fetcher.res`"
+
+#: ../../user/templates/npm-library.md:102
+msgid ""
+"`fetchWithTimeout` shows the canonical Promise + AbortController pattern "
+"in ReScript:"
+msgstr ""
+"`fetchWithTimeout` は ReScript における Promise + AbortController の定番パターンを示している:"
+
+#: ../../user/templates/npm-library.md:128
+msgid ""
+"The `clearTimeout` call lives in *both* the success and the failure "
+"branch so the timer never leaks. Copy this shape when you write any "
+"abortable async helper — it generalizes cleanly to streaming, retries, "
+"and cancellation tokens."
+msgstr ""
+"`clearTimeout` の呼び出しは成功・失敗の *両方* の分岐に置かれており、タイマーがリークしないようになっている。"
+"中断可能な非同期ヘルパーを書くときはこの形を踏襲すること — ストリーミング、リトライ、キャンセル "
+"トークンに自然に拡張できる。"
+
+#: ../../user/templates/npm-library.md:130
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/npm-library.md:132
+msgid ""
+"`parseGreetInput: JSON.t => result<greetInput, string>`, validating the "
+"*public-API arguments that JS/TS consumers pass*. The signature is "
+"identical between the zod and sury variants, so callers and types do not "
+"need to branch on which backend was chosen."
+msgstr ""
+"`parseGreetInput: JSON.t => result<greetInput, string>` は、*JS/TS 利用者が渡す "
+"公開 API 引数* をバリデートする。シグネチャは zod 版と sury 版で同一なので、呼び出し側と型はどちらの "
+"バックエンドが選ばれたかで分岐する必要がない。"
+
+#: ../../user/templates/npm-library.md:134
+msgid ""
+"When you add a new public function that accepts untyped input, define a "
+"new `parseFooInput` here and call it from `Index.res` before doing any "
+"work. Returning a `result` keeps the contract honest: the JS side either "
+"gets a value back or a readable error message — never an exception across"
+" the FFI boundary."
+msgstr ""
+"型なし入力を受ける新しい公開関数を追加する場合、ここに新しい `parseFooInput` を定義し、`Index.res` "
+"で実処理を行う前に呼び出すこと。`result` を返すことで契約が誠実に保たれる: JS 側は値か "
+"可読なエラーメッセージを受け取り、FFI 境界をまたいで例外が伝搬することはない。"
+
+#: ../../user/templates/npm-library.md:136
+msgid "`src/__tests__/Index.test.mjs`"
+msgstr "`src/__tests__/Index.test.mjs`"
+
+#: ../../user/templates/npm-library.md:138
+msgid ""
+"The smoke test imports the *compiled* `Index.res.mjs` and asserts on the "
+"exported `greet`:"
+msgstr ""
+"スモークテストは *コンパイル後* の `Index.res.mjs` をインポートし、エクスポートされた `greet` "
+"を検証する:"
+
+#: ../../user/templates/npm-library.md:151
+msgid ""
+"This is the canonical guard that the public API is reachable from a JS "
+"consumer's perspective — if `greet` ever stops being exported (or "
+"`@genType` is dropped), the suite fails. When you add a new public "
+"function, follow the same pattern: import it from `Index.res.mjs`, "
+"exercise it, assert on the runtime value."
+msgstr ""
+"これは公開 API が JS 利用者の視点から到達可能であることを保証する定番のガードである — `greet` "
+"がエクスポートされなくなったり、`@genType` が外れたりすると、スイートが失敗する。新しい公開関数を追加する際は同じパターンに従うこと: "
+"`Index.res.mjs` からインポートし、実際に呼び出し、ランタイム値を検証する。"
+
+#: ../../user/templates/npm-library.md:153
+msgid "`src/__tests__/ListUtils.test.mjs`"
+msgstr "`src/__tests__/ListUtils.test.mjs`"
+
+#: ../../user/templates/npm-library.md:155
+msgid ""
+"Per-module Vitest suite for the helpers. Notable: it asserts on the "
+"ReScript-generated variant runtime tag directly:"
+msgstr ""
+"ヘルパー向けのモジュール単位の Vitest スイート。注目すべき点として、ReScript "
+"が生成するバリアントのランタイムタグを直接検証している:"
+
+#: ../../user/templates/npm-library.md:163
+#, python-brace-format
+msgid ""
+"`{ TAG: \"Ok\", _0: ... }` is the shape ReScript emits for polymorphic "
+"variants in ESM mode. Keep this in mind when you write JS-side tests "
+"against ReScript-generated unions — you call the function with raw "
+"variant payloads, not constructor functions."
+msgstr ""
+"`{ TAG: \"Ok\", _0: ... }` は ESM モードにおいて ReScript がポリモーフィックバリアントに対して "
+"出力する形である。ReScript が生成したユニオンに対して JS 側のテストを書くときはこの点に留意すること — "
+"コンストラクタ関数ではなく、生のバリアントペイロードを渡して関数を呼ぶことになる。"
+
+#: ../../user/templates/npm-library.md:165
+msgid "`src/__tests__/Fetcher.test.mjs`"
+msgstr "`src/__tests__/Fetcher.test.mjs`"
+
+#: ../../user/templates/npm-library.md:167
+msgid "Async test that stubs the global `fetch` via Vitest's `vi.stubGlobal`:"
+msgstr "Vitest の `vi.stubGlobal` でグローバルな `fetch` をスタブする非同期テスト:"
+
+#: ../../user/templates/npm-library.md:184
+msgid ""
+"The `afterEach(() => vi.restoreAllMocks())` is mandatory — without it, a "
+"stubbed `fetch` from one test leaks into the next and breaks any suite "
+"that does not also stub. When you add new fetch-driven modules, follow "
+"the same pattern."
+msgstr ""
+"`afterEach(() => vi.restoreAllMocks())` は必須である — これがないと、あるテストでスタブした "
+"`fetch` が次のテストへと漏れ、同様にスタブしていないスイートを壊してしまう。新しい fetch ベースのモジュールを "
+"追加する際は同じパターンに従うこと。"
+
+#: ../../user/templates/npm-library.md:186
+msgid "`package.json` entry points"
+msgstr "`package.json` のエントリポイント"
+
+#: ../../user/templates/npm-library.md:188
+#, python-brace-format
+msgid ""
+"The publish-related fields are wired so consumers can `import { greet } "
+"from \"<pkg>\"` and get real types:"
+msgstr ""
+"公開関連のフィールドは、利用者が `import { greet } from \"<pkg>\"` と書くだけで本物の型を得られるよう "
+"配線されている:"
+
+#: ../../user/templates/npm-library.md:210
+msgid ""
+"The `files` allowlist is deliberately tight: only compiled JS, the "
+"matching `.gen.d.ts` types, the optional `.gen.tsx` (for React component "
+"bindings), and the original `.res` sources travel in the published "
+"tarball. Everything else — tests, configs, `node_modules` — is excluded "
+"by default."
+msgstr ""
+"`files` の許可リストは意図的に絞られている: コンパイル済みの JS、対応する `.gen.d.ts` 型、（React "
+"コンポーネントバインディング用の）任意の `.gen.tsx`、元の `.res` ソースのみが公開 tarball に含まれる。"
+"それ以外のテスト・設定・`node_modules` などはデフォルトで除外される。"
+
+#: ../../user/templates/npm-library.md:212
+msgid "`prepare` script"
+msgstr "`prepare` スクリプト"
+
+#: ../../user/templates/npm-library.md:214
+msgid ""
+"`scripts.prepare = \"rescript\"` is wired so a fresh `npm install` of "
+"your library inside another project will compile the ReScript sources "
+"before the package is consumed. Combined with the `files` allowlist "
+"above, this means consumers do not need to install `rescript` themselves "
+"— they just `import` and use."
+msgstr ""
+"`scripts.prepare = \"rescript\"` を設定しているため、別プロジェクトで本ライブラリを新規に `npm install` "
+"した際に、パッケージが利用される前に ReScript ソースがコンパイルされる。上記の `files` 許可リストと組み合わせれば、"
+"利用者は自分で `rescript` をインストールする必要がない — `import` してそのまま使えばよい。"
+
+#: ../../user/templates/npm-library.md:216
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/npm-library.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/npm-library.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/npm-library.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/npm-library.md
+msgid "`rescript` — one-shot compile"
+msgstr "`rescript` — ワンショットコンパイル"
+
+#: ../../user/templates/npm-library.md
+msgid "`clean`"
+msgstr "`clean`"
+
+#: ../../user/templates/npm-library.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除"
+
+#: ../../user/templates/npm-library.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/npm-library.md
+msgid "`vitest run` — execute the per-module suites"
+msgstr "`vitest run` — モジュール単位のスイートを実行"
+
+#: ../../user/templates/npm-library.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/npm-library.md
+msgid "`vitest run --coverage` — same, with v8 coverage report"
+msgstr "`vitest run --coverage` — 同上に v8 のカバレッジレポートを付与"
+
+#: ../../user/templates/npm-library.md
+msgid "`prepare`"
+msgstr "`prepare`"
+
+#: ../../user/templates/npm-library.md
+msgid "`rescript` — runs on `npm install` of the published tarball"
+msgstr "`rescript` — 公開 tarball の `npm install` 時に実行される"
+
+#: ../../user/templates/npm-library.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/npm-library.md
+msgid "`rescript` — alias kept for parity with other templates"
+msgstr "`rescript` — 他テンプレートとの整合性のために残されたエイリアス"
+
+#: ../../user/templates/npm-library.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/npm-library.md
+msgid "`rescript clean` — alias kept for parity with other templates"
+msgstr "`rescript clean` — 他テンプレートとの整合性のために残されたエイリアス"
+
+#: ../../user/templates/npm-library.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/npm-library.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存時に再コンパイル"
+
+#: ../../user/templates/npm-library.md:229
+msgid ""
+"`prepare` and `build` are both `rescript` today. They are kept separate "
+"so you can later wire `build` to a wider pipeline (bundling, "
+"minification, copying assets) without breaking the `prepare` contract npm"
+" relies on."
+msgstr ""
+"`prepare` と `build` は現在いずれも `rescript` だが、別々に保たれている。これにより、npm が依存する "
+"`prepare` の契約を壊さずに、後から `build` をより広いパイプライン（バンドリング、minify、アセットコピーなど）に "
+"つなげられる。"
+
+#: ../../user/templates/npm-library.md:231
+msgid "Publishing Flow"
+msgstr "公開フロー"
+
+#: ../../user/templates/npm-library.md:233
+msgid "The README ships a four-step recipe that maps onto the `Publish` section:"
+msgstr "README には `Publish` セクションに対応する 4 ステップのレシピが同梱されている:"
+
+#: ../../user/templates/npm-library.md:235
+msgid "Bump the version in `package.json`."
+msgstr "`package.json` のバージョンをバンプする。"
+
+#: ../../user/templates/npm-library.md:236
+msgid ""
+"Run `pnpm build` (or the equivalent for your package manager) to "
+"regenerate the `.res.mjs` and `.gen.d.ts` artifacts that the `files` "
+"allowlist depends on."
+msgstr ""
+"`pnpm build`（または利用しているパッケージマネージャの同等コマンド）を実行して、`files` 許可リストが依存する "
+"`.res.mjs` と `.gen.d.ts` のアーティファクトを再生成する。"
+
+#: ../../user/templates/npm-library.md:237
+msgid "Run `pnpm test` to confirm Vitest passes."
+msgstr "`pnpm test` を実行して Vitest が通ることを確認する。"
+
+#: ../../user/templates/npm-library.md:238
+msgid ""
+"Run `npm publish --access public` (drop `--access public` for a private "
+"scoped package)."
+msgstr ""
+"`npm publish --access public` を実行する（プライベートなスコープ付きパッケージの場合は "
+"`--access public` を外す）。"
+
+#: ../../user/templates/npm-library.md:240
+msgid ""
+"The `prepare` script means consumers who install your tarball will *also*"
+" run `rescript` — so even if the publish artifacts are stale, the "
+"consumer's `node_modules` ends up with a fresh compile. Treat this as a "
+"safety net, not a substitute for running `pnpm build` before `npm "
+"publish`."
+msgstr ""
+"`prepare` スクリプトがあるため、利用者が tarball をインストールすると *同時に* `rescript` も実行される — "
+"これにより、公開アーティファクトが古くても利用者の `node_modules` には新鮮なコンパイル結果が入る。これはあくまで "
+"セーフティネットとして扱い、`npm publish` 前に `pnpm build` を実行することの代替とはしないこと。"
+
+#: ../../user/templates/npm-library.md:242
+msgid ""
+"If you publish under an npm scope (`@your-org/my-lib`), update the `name`"
+" in `package.json` and the README install snippet at the top. The `bin` "
+"field is not used by this template (libraries usually do not ship "
+"binaries), so there is nothing to rename there."
+msgstr ""
+"npm のスコープ（`@your-org/my-lib`）下で公開する場合は、`package.json` の `name` と README "
+"冒頭のインストールスニペットを更新すること。`bin` フィールドは本テンプレートでは利用していない（ライブラリは通常バイナリを "
+"配布しない）ため、ここで改名するものはない。"
+
+#: ../../user/templates/npm-library.md:244
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/npm-library.md:246
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/convert-from-typescript` — porting an existing `.ts` "
+"module into a `.res` module that lives next to your other library files"
+msgstr ""
+"{doc}`../recipes/convert-from-typescript` — 既存の `.ts` モジュールを、他のライブラリ "
+"ファイルと並ぶ `.res` モジュールに移植する"
+
+#: ../../user/templates/npm-library.md:247
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/find-dead-code` — running `reanalyze` to confirm every "
+"export is actually reachable before publishing"
+msgstr ""
+"{doc}`../recipes/find-dead-code` — `reanalyze` を実行して、公開前にすべての "
+"エクスポートが実際に到達可能であることを確認する"
+
+#: ../../user/templates/npm-library.md:248
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/optimize-imports` — keeping `Index.res` tidy as the "
+"surface grows"
+msgstr ""
+"{doc}`../recipes/optimize-imports` — 公開面が広がっても `Index.res` を整然と保つ"
+
+#: ../../user/templates/npm-library.md:250
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr ""
+"プロジェクトを開いた後の ReScript 側のエディタワークフローについては、"
+"{doc}`../features/index` を参照すること。"
+
+#: ../../user/templates/npm-library.md:252
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/npm-library.md:254
+msgid ""
+"`node` engine is pinned to `>=22` and `.nvmrc` says `22`. Earlier majors "
+"are not exercised by CI."
+msgstr ""
+"`node` エンジンは `>=22` に固定されており、`.nvmrc` には `22` が記載されている。"
+"これより古いメジャーバージョンは CI で検証されない。"
+
+#: ../../user/templates/npm-library.md:255
+msgid ""
+"The Vitest suites import the *compiled* `.res.mjs` outputs, not the "
+"`.res` sources. CI runs `rescript` before `vitest run` to make sure the "
+"artifacts exist; locally, run `pnpm res:dev` in a side terminal so saves "
+"recompile and Vitest's watcher picks up the change."
+msgstr ""
+"Vitest のスイートは `.res` ソースではなく、*コンパイル後* の `.res.mjs` 出力をインポートする。CI は "
+"`vitest run` の前に `rescript` を実行してアーティファクトが存在することを保証する。ローカルでは別ターミナルで "
+"`pnpm res:dev` を実行しておけば、保存時に再コンパイルされ、Vitest のウォッチャがその変更を拾う。"
+
+#: ../../user/templates/npm-library.md:256
+msgid ""
+"`Fetcher.test.mjs` stubs the global `fetch` via `vi.stubGlobal` and uses "
+"`afterEach(() => vi.restoreAllMocks())`. When you add new fetch-driven "
+"modules, follow the same pattern so suites stay isolated."
+msgstr ""
+"`Fetcher.test.mjs` は `vi.stubGlobal` でグローバルな `fetch` をスタブし、"
+"`afterEach(() => vi.restoreAllMocks())` を使用する。新しい fetch ベースのモジュールを追加する際は "
+"同じパターンに従い、スイートが互いに干渉しないようにすること。"
+
+#: ../../user/templates/npm-library.md:257
+#, python-brace-format
+msgid ""
+"`ListUtils.test.mjs` exercises the ReScript variant runtime tag (`{ TAG: "
+"\"Ok\", _0: ... }`) directly. That is the shape ReScript emits for "
+"polymorphic variants — keep it in mind if you write JS-side tests against"
+" ReScript-generated unions."
+msgstr ""
+"`ListUtils.test.mjs` は ReScript のバリアントランタイムタグ（`{ TAG: \"Ok\", _0: ... }`）を "
+"直接検証する。これが ReScript がポリモーフィックバリアントに対して出力する形である — ReScript "
+"生成のユニオンに対して JS 側のテストを書くときはこの点に留意すること。"
+
+#: ../../user/templates/npm-library.md:258
+msgid ""
+"`tsconfig.json` ships with `strict: true` and `declaration: true` so "
+"genType's `.d.ts` output round-trips through `tsc --noEmit` without "
+"errors. Do not relax those flags casually — the published `.d.ts` files "
+"are the only contract your TS consumers see."
+msgstr ""
+"`tsconfig.json` は `strict: true` と `declaration: true` を有効にして同梱している。"
+"これにより genType の `.d.ts` 出力が `tsc --noEmit` を通過する。安易にこれらのフラグを緩めないこと — "
+"公開される `.d.ts` ファイルは TS 利用者が目にする唯一の契約である。"
+
+#: ../../user/templates/npm-library.md:259
+msgid ""
+"The `prepare` script means consumers who install your *unpublished* "
+"tarball (`npm pack && npm install ./pkg.tgz`) also get a fresh ReScript "
+"compile. This is occasionally surprising on CI machines without "
+"`node_modules`; if it bites you, override with `--ignore-scripts`."
+msgstr ""
+"`prepare` スクリプトがあるため、*未公開* の tarball（`npm pack && npm install ./pkg.tgz`）を "
+"インストールした利用者にも新鮮な ReScript コンパイルが行われる。`node_modules` がない CI マシンでは "
+"驚かされることがある。引っかかった場合は `--ignore-scripts` で上書きすること。"
+
+#: ../../user/templates/npm-library.md:260
+msgid ""
+"`.github/dependabot.yml` opens weekly PRs against `package-ecosystem: "
+"npm`. Review the ReScript / `@rescript/runtime` bumps together — they are"
+" pinned to the same major in `TemplateVersions.kt` for a reason."
+msgstr ""
+"`.github/dependabot.yml` は `package-ecosystem: npm` に対して毎週 PR を作成する。"
+"ReScript / `@rescript/runtime` のバンプは一緒にレビューすること — `TemplateVersions.kt` で "
+"同じメジャーに固定されているのには理由がある。"

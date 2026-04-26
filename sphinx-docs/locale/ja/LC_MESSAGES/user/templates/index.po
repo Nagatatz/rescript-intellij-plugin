@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 01:46+0900\n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
 "PO-Revision-Date: 2026-04-15 20:15+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -74,11 +74,11 @@ msgstr "ターミナルから `npm create rescript@latest` を実行しても、
 msgid "Category: Basic"
 msgstr "カテゴリ: Basic"
 
-#: ../../user/templates/index.md:25 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:25 ../../user/templates/index.md:169
 msgid "Basic"
 msgstr "Basic"
 
-#: ../../user/templates/index.md:26
+#: ../../user/templates/index.md:28
 msgid ""
 "Minimal ReScript + Node.js starter with `Args` (argv parsing) and `Files`"
 " (`node:fs/promises`) modules. Useful as the smallest working reference "
@@ -87,16 +87,16 @@ msgstr ""
 "`Args` (argv パース) と `Files` (`node:fs/promises`) モジュールを備えた最小限の ReScript +"
 " Node.js スターター。ブラウザ以外で動作する ReScript プロジェクトの最小限のリファレンスとして便利です。"
 
-#: ../../user/templates/index.md:28 ../../user/templates/index.md:40
+#: ../../user/templates/index.md:30 ../../user/templates/index.md:46
 #, python-brace-format
 msgid "{bdg-info}`Node.js`"
 msgstr "{bdg-info}`Node.js`"
 
-#: ../../user/templates/index.md:31 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:33 ../../user/templates/index.md:169
 msgid "npm Library"
 msgstr "npm Library"
 
-#: ../../user/templates/index.md:32
+#: ../../user/templates/index.md:36
 msgid ""
 "Split-module library (`Index`, `ListUtils`, `Fetcher`) with per-module "
 "Vitest suites and `fetchWithTimeout` (AbortController). Publish-ready to "
@@ -106,16 +106,16 @@ msgstr ""
 "を備えた分割モジュール構成ライブラリ (`Index`、`ListUtils`、`Fetcher`)。`pnpm publish` で npm "
 "に公開できる状態です。"
 
-#: ../../user/templates/index.md:34
+#: ../../user/templates/index.md:38
 #, python-brace-format
 msgid "{bdg-info}`Node.js` {bdg-success}`Testing`"
 msgstr "{bdg-info}`Node.js` {bdg-success}`テスト`"
 
-#: ../../user/templates/index.md:37 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:41 ../../user/templates/index.md:169
 msgid "CLI Tool"
 msgstr "CLI Tool"
 
-#: ../../user/templates/index.md:38
+#: ../../user/templates/index.md:44
 msgid ""
 "Subcommand dispatcher (`greet`, `init`) with its own `Args` parser and a "
 "`Commands/` directory. Demonstrates how to grow a CLI without a "
@@ -124,15 +124,15 @@ msgstr ""
 "独自の `Args` パーサーと `Commands/` ディレクトリを持つサブコマンドディスパッチャ "
 "(`greet`、`init`)。重いフレームワークなしで CLI を成長させる方法を示します。"
 
-#: ../../user/templates/index.md:44
+#: ../../user/templates/index.md:50
 msgid "Category: Frontend"
 msgstr "カテゴリ: Frontend"
 
-#: ../../user/templates/index.md:49 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:55 ../../user/templates/index.md:169
 msgid "Vite+ + React"
 msgstr "Vite+ + React"
 
-#: ../../user/templates/index.md:50
+#: ../../user/templates/index.md:58
 msgid ""
 "Single-page React app using [Vite+](https://vite.plus) with a form, "
 "`useState`, and a `fetch('/api/greet')` round-trip (offline fallback "
@@ -142,16 +142,16 @@ msgstr ""
 "アプリ。フォーム、`useState`、`fetch('/api/greet')` の往復 (オフラインフォールバック付き) "
 "を備えます。再利用可能な fetch ラッパーとして `src/Api.res` を同梱しています。"
 
-#: ../../user/templates/index.md:52
+#: ../../user/templates/index.md:60
 #, python-brace-format
 msgid "{bdg-warning}`Vite+ pre-1.0`"
 msgstr "{bdg-warning}`Vite+ pre-1.0`"
 
-#: ../../user/templates/index.md:55 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:63 ../../user/templates/index.md:169
 msgid "Next.js"
 msgstr "Next.js"
 
-#: ../../user/templates/index.md:56
+#: ../../user/templates/index.md:66
 msgid ""
 "App router with a Server Component (`app/page.tsx`), a Client Component "
 "(`app/client/GreetForm.tsx`), and a Route Handler "
@@ -162,16 +162,16 @@ msgstr ""
 "(`app/client/GreetForm.tsx`)、Route Handler (`app/api/greet/route.ts`) "
 "を備えた App Router。ReScript コンポーネントは `genType` 経由で公開されます。"
 
-#: ../../user/templates/index.md:58
+#: ../../user/templates/index.md:68
 #, python-brace-format
 msgid "{bdg-primary}`genType`"
 msgstr "{bdg-primary}`genType`"
 
-#: ../../user/templates/index.md:61 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:71 ../../user/templates/index.md:169
 msgid "Electron"
 msgstr "Electron"
 
-#: ../../user/templates/index.md:62
+#: ../../user/templates/index.md:74
 msgid ""
 "Desktop app with `preload.cjs` + `contextBridge` + `ipcMain.handle`. "
 "`src/Electron.res` binds the exposed `electronAPI` so renderer-process "
@@ -181,39 +181,60 @@ msgstr ""
 "を使用したデスクトップアプリ。`src/Electron.res` が公開された `electronAPI` をバインドし、レンダラープロセスの "
 "ReScript コードからシステム情報を取得できます。"
 
-#: ../../user/templates/index.md:64
+#: ../../user/templates/index.md:76
 #, python-brace-format
 msgid "{bdg-info}`Desktop`"
 msgstr "{bdg-info}`デスクトップ`"
 
-#: ../../user/templates/index.md:67 ../../user/templates/index.md:139
-msgid "React Native"
-msgstr "React Native"
+#: ../../user/templates/index.md:79
+msgid "React Native (Expo)"
+msgstr "React Native (Expo)"
 
-#: ../../user/templates/index.md:68
+#: ../../user/templates/index.md:82
 msgid ""
-"Expo-based app with an interactive todo list (`useState` + `TextInput` + "
-"`Button` + `FlatList`). `src/ReactNative.res` wraps the core RN component"
-" set. Extend the bindings to add more."
+"Expo-managed app with an interactive todo list (`useState` + `TextInput` "
+"+ `Button` + `FlatList`). `src/ReactNative.res` wraps the core RN "
+"component set. Extend the bindings to add more."
 msgstr ""
 "インタラクティブな Todo リスト (`useState` + `TextInput` + `Button` + `FlatList`) "
-"を備えた Expo ベースのアプリ。`src/ReactNative.res` が RN "
-"のコアコンポーネントセットをラップしています。バインディングを拡張すれば機能を追加できます。"
+"を備えた Expo マネージドアプリ。`src/ReactNative.res` が RN "
+"のコアコンポーネントセットをラップしており、バインディングを拡張すれば機能を追加できます。"
 
-#: ../../user/templates/index.md:70
+#: ../../user/templates/index.md:84
 #, python-brace-format
 msgid "{bdg-info}`Mobile`"
 msgstr "{bdg-info}`モバイル`"
 
-#: ../../user/templates/index.md:74
+#: ../../user/templates/index.md:87
+msgid "React Native (Community CLI)"
+msgstr "React Native (Community CLI)"
+
+#: ../../user/templates/index.md:90
+msgid ""
+"Bare-workflow React Native template aimed at Android Studio / Xcode "
+"users. Ships only the JS/TS + ReScript surface plus a `metro.config.js` "
+"that resolves `.res.mjs`; native projects are produced by `@react-native-"
+"community/cli` after creation."
+msgstr ""
+"Android Studio / Xcode を直接利用するユーザー向けの bare-workflow React Native "
+"テンプレート。JS/TS + ReScript の表層と、`.res.mjs` を解決する "
+"`metro.config.js` のみを同梱しており、ネイティブプロジェクトは生成後に "
+"`@react-native-community/cli` で作成します。"
+
+#: ../../user/templates/index.md:92
+#, python-brace-format
+msgid "{bdg-info}`Mobile` {bdg-warning}`Bare workflow`"
+msgstr "{bdg-info}`モバイル` {bdg-warning}`Bare workflow`"
+
+#: ../../user/templates/index.md:96
 msgid "Category: Backend"
 msgstr "カテゴリ: Backend"
 
-#: ../../user/templates/index.md:79 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:101 ../../user/templates/index.md:169
 msgid "Hono (REST)"
 msgstr "Hono (REST)"
 
-#: ../../user/templates/index.md:82
+#: ../../user/templates/index.md:104
 msgid ""
 "Hono + Drizzle (SQLite) + Zod + `@hono/zod-openapi` with Scalar UI at "
 "`/docs`. Ships a complete users CRUD (`src/Routes/Users.res`), migrations"
@@ -223,16 +244,16 @@ msgstr ""
 " を組み合わせた構成。完全な users CRUD (`src/Routes/Users.res`)、`drizzle-kit` "
 "によるマイグレーション、`/openapi.json` 仕様を同梱しています。"
 
-#: ../../user/templates/index.md:84
+#: ../../user/templates/index.md:106
 #, python-brace-format
 msgid "{bdg-success}`REST` {bdg-primary}`OpenAPI` {bdg-info}`SQLite`"
 msgstr "{bdg-success}`REST` {bdg-primary}`OpenAPI` {bdg-info}`SQLite`"
 
-#: ../../user/templates/index.md:87 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:109 ../../user/templates/index.md:169
 msgid "Hono + GraphQL"
 msgstr "Hono + GraphQL"
 
-#: ../../user/templates/index.md:90
+#: ../../user/templates/index.md:112
 msgid ""
 "Hono hosting `graphql-yoga` at `/graphql` with GraphiQL built in. SDL "
 "lives in `src/schema.graphql`, resolvers in `src/Resolvers/Users.res`, "
@@ -242,20 +263,20 @@ msgstr ""
 "`src/schema.graphql`、リゾルバは `src/Resolvers/Users.res`、永続化は Drizzle "
 "に配置されています。人間向けドキュメントは `pnpm docs:graphql` で生成します。"
 
-#: ../../user/templates/index.md:92
+#: ../../user/templates/index.md:114
 #, python-brace-format
 msgid "{bdg-success}`GraphQL` {bdg-info}`SQLite`"
 msgstr "{bdg-success}`GraphQL` {bdg-info}`SQLite`"
 
-#: ../../user/templates/index.md:96
+#: ../../user/templates/index.md:118
 msgid "Category: Serverless"
 msgstr "カテゴリ: Serverless"
 
-#: ../../user/templates/index.md:101 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:123 ../../user/templates/index.md:169
 msgid "Cloudflare Workers"
 msgstr "Cloudflare Workers"
 
-#: ../../user/templates/index.md:102
+#: ../../user/templates/index.md:126
 msgid ""
 "`wrangler.jsonc` + a KV-backed greetings endpoint (POST/GET) using the "
 "`GREETINGS` binding. `src/Kv.res` binds the KV API so you can extend to "
@@ -264,16 +285,16 @@ msgstr ""
 "`wrangler.jsonc` と、`GREETINGS` バインディングを用いた KV 裏付けの greetings エンドポイント "
 "(POST/GET)。`src/Kv.res` が KV API をバインドしており、Durable Objects や R2 に拡張できます。"
 
-#: ../../user/templates/index.md:104
+#: ../../user/templates/index.md:128
 #, python-brace-format
 msgid "{bdg-info}`Edge`"
 msgstr "{bdg-info}`Edge`"
 
-#: ../../user/templates/index.md:107 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:131 ../../user/templates/index.md:169
 msgid "AWS Lambda"
 msgstr "AWS Lambda"
 
-#: ../../user/templates/index.md:108
+#: ../../user/templates/index.md:134
 msgid ""
 "API Gateway-friendly handler with POST `/orders` (JSON body) and GET "
 "`/orders/:id` (path param). README includes a DynamoDB recipe using "
@@ -282,16 +303,16 @@ msgstr ""
 "POST `/orders` (JSON body) と GET `/orders/:id` (パスパラメータ) を備えた API Gateway"
 " 向けハンドラ。README には `@aws-sdk/lib-dynamodb` を使った DynamoDB レシピを含みます。"
 
-#: ../../user/templates/index.md:110
+#: ../../user/templates/index.md:136
 #, python-brace-format
 msgid "{bdg-info}`Serverless`"
 msgstr "{bdg-info}`サーバーレス`"
 
-#: ../../user/templates/index.md:113 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:139 ../../user/templates/index.md:169
 msgid "Google Cloud Run"
 msgstr "Google Cloud Run"
 
-#: ../../user/templates/index.md:114
+#: ../../user/templates/index.md:142
 msgid ""
 "Containerized Hono service with `PORT` env reading, a POST `/echo` route,"
 " and a `Dockerfile`. README includes a Cloud SQL recipe via `@google-"
@@ -301,20 +322,20 @@ msgstr ""
 "サービス。README には `@google-cloud/cloud-sql-connector` を使用した Cloud SQL "
 "レシピを含みます。"
 
-#: ../../user/templates/index.md:116
+#: ../../user/templates/index.md:144
 #, python-brace-format
 msgid "{bdg-info}`Containers`"
 msgstr "{bdg-info}`コンテナ`"
 
-#: ../../user/templates/index.md:120
+#: ../../user/templates/index.md:148
 msgid "Category: Full-Stack"
 msgstr "カテゴリ: Full-Stack"
 
-#: ../../user/templates/index.md:125 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:153 ../../user/templates/index.md:169
 msgid "Monorepo"
 msgstr "Monorepo"
 
-#: ../../user/templates/index.md:126
+#: ../../user/templates/index.md:156
 msgid ""
 "pnpm/npm/yarn workspaces with `packages/shared`, `packages/server` (Hono "
 "+ Drizzle), `packages/client` (Vite+/React). Types flow from "
@@ -324,16 +345,16 @@ msgstr ""
 "(Vite+/React) を持つ pnpm/npm/yarn ワークスペース。型は workspace プロトコル経由で "
 "`@<project>/shared` から両側へ流れます。"
 
-#: ../../user/templates/index.md:128
+#: ../../user/templates/index.md:158
 #, python-brace-format
 msgid "{bdg-success}`Workspaces` {bdg-info}`Shared types`"
 msgstr "{bdg-success}`ワークスペース` {bdg-info}`共有型`"
 
-#: ../../user/templates/index.md:131 ../../user/templates/index.md:139
+#: ../../user/templates/index.md:161 ../../user/templates/index.md:169
 msgid "Full-Stack"
 msgstr "Full-Stack"
 
-#: ../../user/templates/index.md:134
+#: ../../user/templates/index.md:164
 #, python-brace-format
 msgid ""
 "Single-package alternative to Monorepo: one `package.json`, "
@@ -344,132 +365,147 @@ msgstr ""
 " + Drizzle バックエンド、Vite+/React クライアント、開発時は `concurrently`、`/api/*` は Vite+"
 " プロキシ。"
 
-#: ../../user/templates/index.md:136
+#: ../../user/templates/index.md:166
 #, python-brace-format
 msgid "{bdg-success}`Single package` {bdg-info}`Shared types`"
 msgstr "{bdg-success}`単一パッケージ` {bdg-info}`共有型`"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "res-x (HTMX on Bun)"
 msgstr "res-x (Bun 上の HTMX)"
 
-#: ../../user/templates/index.md:140
+#: ../../user/templates/index.md:172
 msgid ""
 "Server-driven web app built with `rescript-x` (JSX rendered on the "
 "server) and HTMX for client-side interactivity. Ships a Counter with `hx-"
 "post` increment/decrement endpoints and a Todo form that validates input "
 "through zod or sury. Runs on Bun + Vite."
 msgstr ""
-"`rescript-x` (JSX をサーバ側でレンダリング) と HTMX によるクライアントインタラクションで構築するサーバ駆動型 "
-"Web アプリ。`hx-post` で増減する Counter と、zod または sury "
-"で入力を検証する Todo フォームを同梱。Bun + Vite 上で動作します。"
+"`rescript-x` (JSX をサーバ側でレンダリング) と HTMX によるクライアントインタラクションで構築するサーバ駆動型 Web "
+"アプリ。`hx-post` で増減する Counter と、zod または sury で入力を検証する Todo フォームを同梱。Bun + "
+"Vite 上で動作します。"
 
-#: ../../user/templates/index.md:142
+#: ../../user/templates/index.md:174
 #, python-brace-format
 msgid "{bdg-warning}`Bun required` {bdg-info}`HTMX` {bdg-success}`Server-driven`"
 msgstr "{bdg-warning}`Bun 必須` {bdg-info}`HTMX` {bdg-success}`サーバ駆動`"
 
-#: ../../user/templates/index.md:146
+#: ../../user/templates/index.md:178
 msgid "Which Template Should I Choose?"
 msgstr "どのテンプレートを選ぶべきか?"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "Situation"
 msgstr "シチュエーション"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "Template"
 msgstr "テンプレート"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I'm new to ReScript and just want to try it"
 msgstr "ReScript を初めて試したい"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I'm writing a reusable npm package"
 msgstr "再利用可能な npm パッケージを書きたい"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I'm building a CLI tool"
 msgstr "CLI ツールを構築したい"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I need a React SPA"
 msgstr "React SPA が必要"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I need SSR / Server Components / SEO"
 msgstr "SSR / Server Components / SEO が必要"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I'm building a desktop app"
 msgstr "デスクトップアプリを構築したい"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I'm building a mobile app"
 msgstr "モバイルアプリを構築したい"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
+msgid "React Native"
+msgstr "React Native"
+
+#: ../../user/templates/index.md:169
 msgid "I need a REST API with typed docs"
 msgstr "型付きドキュメントを備えた REST API が必要"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I need a GraphQL API"
 msgstr "GraphQL API が必要"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I'm deploying to Cloudflare's edge"
 msgstr "Cloudflare のエッジにデプロイしたい"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I'm deploying to AWS Lambda"
 msgstr "AWS Lambda にデプロイしたい"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I'm deploying a container to GCP"
 msgstr "GCP にコンテナをデプロイしたい"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I want multiple packages sharing types (scales to more)"
 msgstr "複数のパッケージで型を共有したい (スケールしやすい)"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I want one package with backend + frontend (simpler)"
 msgstr "バックエンド + フロントエンドを 1 パッケージにしたい (シンプル)"
 
-#: ../../user/templates/index.md:139
+#: ../../user/templates/index.md:169
 msgid "I want server-rendered HTML with HTMX on Bun"
 msgstr "Bun 上で HTMX を使ったサーバレンダリング HTML を書きたい"
 
-#: ../../user/templates/index.md:166
+#: ../../user/templates/index.md:199
+msgid ""
+"Each row above links to a per-template detail page covering generated "
+"layout, dependencies, key files, npm scripts, and day-two extension "
+"pointers. Use the toctree at the bottom of the page (or the \"Project "
+"Templates\" section in the left sidebar) to jump straight to one."
+msgstr ""
+"上の表の各行は、生成されるレイアウト、依存関係、主要ファイル、npm スクリプト、2 "
+"日目以降の拡張ポインタを解説したテンプレートごとの詳細ページにリンクしています。ページ下部の toctree (または左サイドバーの "
+"\"Project Templates\" セクション) から目的のページに直接ジャンプできます。"
+
+#: ../../user/templates/index.md:202
 msgid "Day-Two Recipes"
 msgstr "2 日目のレシピ"
 
-#: ../../user/templates/index.md:168
+#: ../../user/templates/index.md:204
 msgid ""
 "When you need to extend a generated project, these recipes pick up where "
 "the template README leaves off:"
 msgstr "生成したプロジェクトを拡張する必要があるとき、以下のレシピがテンプレート README の先を補完します:"
 
-#: ../../user/templates/index.md:170
+#: ../../user/templates/index.md:206
 msgid ""
 "[Add a Hono endpoint](../recipes/add-hono-endpoint.md) — adding routes, "
 "validation, and shared types"
 msgstr "[Hono エンドポイントの追加](../recipes/add-hono-endpoint.md) — ルート、バリデーション、共有型の追加"
 
-#: ../../user/templates/index.md:171
+#: ../../user/templates/index.md:207
 msgid ""
 "[Add a GraphQL resolver](../recipes/add-graphql-resolver.md) — expanding "
 "the schema and regenerating docs"
 msgstr "[GraphQL リゾルバの追加](../recipes/add-graphql-resolver.md) — スキーマの拡張とドキュメントの再生成"
 
-#: ../../user/templates/index.md:172
+#: ../../user/templates/index.md:208
 msgid ""
 "[Set up Drizzle](../recipes/setup-drizzle.md) — schema changes, "
 "migrations, and Turso"
 msgstr "[Drizzle のセットアップ](../recipes/setup-drizzle.md) — スキーマ変更、マイグレーション、Turso"
 
-#: ../../user/templates/index.md:173
+#: ../../user/templates/index.md:209
 msgid ""
 "[Add OpenAPI docs](../recipes/add-openapi-docs.md) — wiring Scalar UI and"
 " Zod schemas"
@@ -477,11 +513,11 @@ msgstr ""
 "[OpenAPI ドキュメントの追加](../recipes/add-openapi-docs.md) — Scalar UI と Zod "
 "スキーマの配線"
 
-#: ../../user/templates/index.md:175
+#: ../../user/templates/index.md:211
 msgid "Notes on Vite+"
 msgstr "Vite+ に関する注意"
 
-#: ../../user/templates/index.md:177
+#: ../../user/templates/index.md:213
 msgid ""
 "The Vite+ based templates (Vite+ + React, Monorepo client, Full-Stack) "
 "pin `vite-plus` and `@voidzero-dev/vite-plus-core` at pre-1.0 versions. "
@@ -493,4 +529,3 @@ msgstr ""
 " と `@voidzero-dev/vite-plus-core` を pre-1.0 "
 "バージョンに固定しています。アップグレード後にコマンドが壊れた場合は、`vite.config.mjs` の `vite-plus` を "
 "`vite` に置き換え、`vp` スクリプトを `vite` に変更して従来の Vite にフォールバックしてください。"
-

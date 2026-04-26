@@ -1,0 +1,765 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/hono.md
+msgid ""
+"hono template, rescript, node.js, rest api, drizzle, libsql, sqlite, "
+"openapi, scalar, validation, zod, sury"
+msgstr "hono テンプレート, rescript, node.js, rest api, drizzle, libsql, sqlite, openapi, scalar, バリデーション, zod, sury"
+
+#: ../../user/templates/hono.md:7
+msgid "Hono (Node.js)"
+msgstr "Hono (Node.js)"
+
+#: ../../user/templates/hono.md:9
+#, python-brace-format
+msgid "{bdg-info}`Node.js` {bdg-primary}`REST` {bdg-success}`Validation`"
+msgstr "{bdg-info}`Node.js` {bdg-primary}`REST` {bdg-success}`Validation`"
+
+#: ../../user/templates/hono.md:11
+msgid ""
+"A production-shaped Hono REST service running on Node.js. The template is"
+" intentionally not a \"Hello World\" — it wires up the four day-two "
+"concerns most teams reach for in week one and want to stop reverse-"
+"engineering: persistence (SQLite via libsql + Drizzle ORM), runtime body "
+"validation (zod or sury, chosen in the wizard), structured request "
+"logging, and OpenAPI 3.1 docs served interactively at `/docs` via Scalar "
+"UI."
+msgstr "Node.js 上で動作する、本番形態の Hono REST サービスである。テンプレートは意図的に \"Hello World\" ではなく、多くのチームが初週から手を伸ばし、もうリバースエンジニアリングしたくないと感じる 2 日目以降の 4 つの関心事を配線している: 永続化 (libsql + Drizzle ORM 経由の SQLite)、ランタイムボディバリデーション (ウィザードで選択した zod または sury)、構造化リクエストロギング、および Scalar UI を介して `/docs` で対話的に提供される OpenAPI 3.1 ドキュメントである。"
+
+#: ../../user/templates/hono.md:13
+msgid ""
+"Pick this template when you want a JSON HTTP API on Node and don't want "
+"to spend the first sprint deciding which database client to use, where to"
+" put validation, and how to publish docs. The shipped users CRUD "
+"demonstrates the full stack so you can see exactly where to plug new "
+"endpoints in."
+msgstr "Node 上で JSON HTTP API を作りたいが、どのデータベースクライアントを使うか、バリデーションをどこに置くか、ドキュメントをどう公開するかに最初のスプリントを費やしたくない場合に本テンプレートを選ぶ。同梱の users CRUD はスタック全体を示しており、新しいエンドポイントを差し込む場所が正確に分かる。"
+
+#: ../../user/templates/hono.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/hono.md:48
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/hono.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/hono.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/hono.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/hono.md
+msgid ""
+"Becomes the npm `name`, the LICENSE holder, and is referenced by the "
+"README"
+msgstr "npm `name`、LICENSE のホルダーになり、README から参照される"
+
+#: ../../user/templates/hono.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/hono.md
+msgid ""
+"npm / pnpm / yarn / bun. Sets `packageManager`, README install/run "
+"snippets, and the CI cache key. The README's Database section substitutes"
+" the chosen `db:generate` / `db:migrate` invocations"
+msgstr "npm / pnpm / yarn / bun。`packageManager`、README のインストール/実行スニペット、および CI キャッシュキーを設定する。README の Database セクションは、選択された `db:generate` / `db:migrate` の呼び出しを置換する"
+
+#: ../../user/templates/hono.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/hono.md
+msgid ""
+"`zod` ↔ `sury`. Determines which `src/Validation.res` ships, whether "
+"`src/ZodOpenapi.res` is generated, whether `@hono/zod-openapi` is added "
+"to `dependencies`, and whether `zod` or `sury` is installed"
+msgstr "`zod` ↔ `sury`。同梱する `src/Validation.res`、`src/ZodOpenapi.res` を生成するかどうか、`@hono/zod-openapi` を `dependencies` に追加するかどうか、`zod` か `sury` のどちらをインストールするかを決定する"
+
+#: ../../user/templates/hono.md:56
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/hono.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/hono.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/hono.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/hono.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/hono.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/hono.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/hono.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/hono.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/hono.md
+msgid "Runtime stubs imported by compiled `.res.mjs`"
+msgstr "コンパイル済み `.res.mjs` がインポートするランタイムスタブ"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/hono.md
+msgid "`hono`"
+msgstr "`hono`"
+
+#: ../../user/templates/hono.md
+msgid "HTTP framework (router, middleware, context)"
+msgstr "HTTP フレームワーク (ルーター、ミドルウェア、コンテキスト)"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.HONO`"
+msgstr "`TemplateVersions.HONO`"
+
+#: ../../user/templates/hono.md
+msgid "`@hono/node-server`"
+msgstr "`@hono/node-server`"
+
+#: ../../user/templates/hono.md
+msgid "Node.js adapter — turns the Hono fetch handler into an HTTP server"
+msgstr "Node.js アダプタ — Hono の fetch ハンドラを HTTP サーバーに変える"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.HONO_NODE_SERVER`"
+msgstr "`TemplateVersions.HONO_NODE_SERVER`"
+
+#: ../../user/templates/hono.md
+msgid "`@hono/zod-openapi`"
+msgstr "`@hono/zod-openapi`"
+
+#: ../../user/templates/hono.md
+msgid ""
+"*zod variant only* — declarative routes that double as the OpenAPI spec "
+"source"
+msgstr "*zod バリアントのみ* — OpenAPI 仕様のソースを兼ねる宣言的なルート"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.HONO_ZOD_OPENAPI`"
+msgstr "`TemplateVersions.HONO_ZOD_OPENAPI`"
+
+#: ../../user/templates/hono.md
+msgid "`@scalar/hono-api-reference`"
+msgstr "`@scalar/hono-api-reference`"
+
+#: ../../user/templates/hono.md
+msgid "Mounts the Scalar UI at `/docs`"
+msgstr "Scalar UI を `/docs` にマウントする"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.SCALAR_HONO_API_REFERENCE`"
+msgstr "`TemplateVersions.SCALAR_HONO_API_REFERENCE`"
+
+#: ../../user/templates/hono.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/hono.md
+msgid "Validation backend (HTTP body parser)"
+msgstr "バリデーションバックエンド (HTTP ボディパーサー)"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.ZOD` / `SURY`"
+msgstr "`TemplateVersions.ZOD` / `SURY`"
+
+#: ../../user/templates/hono.md
+msgid "`@libsql/client`"
+msgstr "`@libsql/client`"
+
+#: ../../user/templates/hono.md
+msgid "libsql / SQLite client (works against local files and Turso)"
+msgstr "libsql / SQLite クライアント (ローカルファイルおよび Turso に対して動作する)"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.LIBSQL_CLIENT`"
+msgstr "`TemplateVersions.LIBSQL_CLIENT`"
+
+#: ../../user/templates/hono.md
+msgid "`drizzle-orm`"
+msgstr "`drizzle-orm`"
+
+#: ../../user/templates/hono.md
+msgid "ORM + query builder (read/write)"
+msgstr "ORM + クエリビルダー (読み書き)"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.DRIZZLE_ORM`"
+msgstr "`TemplateVersions.DRIZZLE_ORM`"
+
+#: ../../user/templates/hono.md
+msgid "`drizzle-kit` *(dev)*"
+msgstr "`drizzle-kit` *(dev)*"
+
+#: ../../user/templates/hono.md
+msgid "Schema diff + migration generator"
+msgstr "スキーマ差分 + マイグレーション生成"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.DRIZZLE_KIT`"
+msgstr "`TemplateVersions.DRIZZLE_KIT`"
+
+#: ../../user/templates/hono.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/hono.md
+msgid "Test runner (uses `app.request` rather than booting a server)"
+msgstr "テストランナー (サーバーを起動するのではなく `app.request` を使用する)"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/hono.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/hono.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` のカバレッジプロバイダ"
+
+#: ../../user/templates/hono.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/hono.md:74
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/hono.md:76
+msgid "`src/Server.res`"
+msgstr "`src/Server.res`"
+
+#: ../../user/templates/hono.md:78
+msgid "The Hono app definition. Two top-level bindings, deliberately separated:"
+msgstr "Hono アプリの定義。意図的に分離された 2 つのトップレベルバインディングを持つ:"
+
+#: ../../user/templates/hono.md:80
+msgid ""
+"`let app = Hono.createApp()` — the app is constructed at module load, "
+"middleware and routes are attached, and the binding is exported. "
+"Importing this module is **side-effect-free** with respect to networking "
+"(no port is bound)."
+msgstr "`let app = Hono.createApp()` — アプリはモジュールロード時に構築され、ミドルウェアとルートが取り付けられ、バインディングがエクスポートされる。このモジュールをインポートすることはネットワークに関しては **副作用がない** (ポートはバインドされない)。"
+
+#: ../../user/templates/hono.md:81
+#, python-brace-format
+msgid ""
+"`let start = () => { HonoNodeServer.serve(...); Console.log(...) }` — "
+"wraps the actual `serve()` call so that booting only happens when "
+"something explicitly calls `Server.start()`."
+msgstr "`let start = () => { HonoNodeServer.serve(...); Console.log(...) }` — 実際の `serve()` 呼び出しをラップしており、何かが明示的に `Server.start()` を呼んだときだけ起動が発生する。"
+
+#: ../../user/templates/hono.md:83
+#, python-brace-format
+msgid ""
+"The split is what makes the test harness work: `Server.test.mjs` can "
+"`import { app } from \"../Server.res.mjs\"` and drive endpoints through "
+"`app.request(\"/health\")` without binding port 3000."
+msgstr "この分離があるおかげでテストハーネスが動作する: `Server.test.mjs` は `import { app } from \"../Server.res.mjs\"` を行い、ポート 3000 をバインドすることなく `app.request(\"/health\")` を通じてエンドポイントを駆動できる。"
+
+#: ../../user/templates/hono.md:85
+msgid "The shipped `app` registers:"
+msgstr "同梱の `app` は以下を登録する:"
+
+#: ../../user/templates/hono.md:87
+msgid "`Logger.logger()` middleware"
+msgstr "`Logger.logger()` ミドルウェア"
+
+#: ../../user/templates/hono.md:88
+msgid ""
+"A global `onError` handler converting uncaught exceptions into JSON 500 "
+"responses"
+msgstr "未捕捉例外を JSON 500 レスポンスに変換するグローバルな `onError` ハンドラ"
+
+#: ../../user/templates/hono.md:89
+#, python-brace-format
+msgid "`GET /` (health text), `GET /health` (JSON `{ status: \"ok\" }`)"
+msgstr "`GET /` (health のテキスト)、`GET /health` (JSON `{ status: \"ok\" }`)"
+
+#: ../../user/templates/hono.md:90
+msgid "`Routes.Users.register(app)` (the CRUD module)"
+msgstr "`Routes.Users.register(app)` (CRUD モジュール)"
+
+#: ../../user/templates/hono.md:91
+msgid "`GET /openapi.json` (a stub spec — see Notes)"
+msgstr "`GET /openapi.json` (スタブ仕様 — 補足を参照)"
+
+#: ../../user/templates/hono.md:92
+msgid "`GET /docs` (Scalar UI bound to `/openapi.json`)"
+msgstr "`GET /docs` (`/openapi.json` にバインドされた Scalar UI)"
+
+#: ../../user/templates/hono.md:108
+msgid "`src/ServerMain.res`"
+msgstr "`src/ServerMain.res`"
+
+#: ../../user/templates/hono.md:110
+msgid "A two-line entry point:"
+msgstr "2 行のエントリポイント:"
+
+#: ../../user/templates/hono.md:116
+msgid ""
+"`package.json`'s `start` and `dev` scripts run `ServerMain.res.mjs` (not "
+"`Server.res.mjs`) — that is what triggers the actual port bind. Tests "
+"import `Server.res.mjs` directly and never go through this file."
+msgstr "`package.json` の `start` と `dev` スクリプトは `Server.res.mjs` ではなく `ServerMain.res.mjs` を実行する — これが実際のポートバインドをトリガーする。テストは `Server.res.mjs` を直接インポートし、このファイルを通ることはない。"
+
+#: ../../user/templates/hono.md:118
+msgid "`src/Routes.res`"
+msgstr "`src/Routes.res`"
+
+#: ../../user/templates/hono.md:120
+#, python-brace-format
+msgid ""
+"Route registrations grouped by domain. The shipped `module Users` shows "
+"the canonical pattern: `let register = (app) => { app->Hono.get(...); "
+"app->Hono.post(...) }`. Adding new groups means adding `module Posts = { "
+"let register = ... }` and calling `Routes.Posts.register(app)` from "
+"`Server.res`."
+msgstr "ドメインごとにグループ化されたルート登録。同梱の `module Users` が標準パターンを示している: `let register = (app) => { app->Hono.get(...); app->Hono.post(...) }`。新しいグループを追加するには `module Posts = { let register = ... }` を追加し、`Server.res` から `Routes.Posts.register(app)` を呼び出す。"
+
+#: ../../user/templates/hono.md:122
+msgid "The POST handler is also the canonical example of where validation lives:"
+msgstr "POST ハンドラはバリデーションが置かれる場所の標準例でもある:"
+
+#: ../../user/templates/hono.md:140
+#, python-brace-format
+msgid ""
+"Failed validation is a 400 with `{\"error\": msg}` — never reaches the "
+"database."
+msgstr "バリデーション失敗は `{\"error\": msg}` を伴う 400 となる — 決してデータベースには到達しない。"
+
+#: ../../user/templates/hono.md:142
+msgid "`src/Schema.res`"
+msgstr "`src/Schema.res`"
+
+#: ../../user/templates/hono.md:144
+msgid ""
+"The Drizzle schema. Stays focused on persistence (no zod / sury "
+"intertwined) so the diff that `db:generate` reads is small and "
+"unambiguous."
+msgstr "Drizzle のスキーマ。永続化に集中している (zod / sury を絡めない) ため、`db:generate` が読む差分は小さく曖昧さがない。"
+
+#: ../../user/templates/hono.md:154
+msgid "`src/Db.res`"
+msgstr "`src/Db.res`"
+
+#: ../../user/templates/hono.md:156
+msgid ""
+"Bindings for the libsql client + Drizzle query builder. Handles three "
+"things:"
+msgstr "libsql クライアント + Drizzle クエリビルダーのバインディング。次の 3 つを処理する:"
+
+#: ../../user/templates/hono.md:158
+msgid "Reads `DATABASE_URL` from `process.env` (default: `file:./data/app.db`)"
+msgstr "`process.env` から `DATABASE_URL` を読む (デフォルト: `file:./data/app.db`)"
+
+#: ../../user/templates/hono.md:159
+msgid "Constructs the client + the `db` Drizzle wrapper at module load"
+msgstr "モジュールロード時にクライアントと `db` Drizzle ラッパーを構築する"
+
+#: ../../user/templates/hono.md:160
+msgid ""
+"Exports the query helpers: `select`, `from`, `insert`, `values`, "
+"`update`, `set`, `deleteFrom`, `where`, `orderBy`, `limit`, `offset`, "
+"`groupBy`, `allAsync`, `getAsync`, `returning`, plus the comparison "
+"operators (`eq`, `gt`, `lt`, `inArray`, `like`, …) and the boolean "
+"combinators (`and`, `or`, `not`)"
+msgstr "クエリヘルパーをエクスポートする: `select`、`from`、`insert`、`values`、`update`、`set`、`deleteFrom`、`where`、`orderBy`、`limit`、`offset`、`groupBy`、`allAsync`、`getAsync`、`returning`、加えて比較演算子 (`eq`、`gt`、`lt`、`inArray`、`like` など) と論理コンビネータ (`and`、`or`、`not`) である"
+
+#: ../../user/templates/hono.md:162
+msgid ""
+"Because the client is constructed at module load, anything that imports "
+"`Db.res.mjs` will open the database immediately — see the vitest setup "
+"below."
+msgstr "クライアントはモジュールロード時に構築されるため、`Db.res.mjs` をインポートするものはすべて即座にデータベースを開く — 後述の vitest セットアップを参照のこと。"
+
+#: ../../user/templates/hono.md:164
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/hono.md:166
+msgid ""
+"`parseCreateUserInput: JSON.t => result<createUserInput, string>`. Same "
+"signature regardless of zod vs sury, so `Routes.res` does not branch on "
+"which library shipped. Failed parses propagate as `Error(msg)` and become"
+" HTTP 400 in the route handler."
+msgstr "`parseCreateUserInput: JSON.t => result<createUserInput, string>`。zod でも sury でもシグネチャが同じであるため、`Routes.res` はどちらのライブラリが同梱されたかで分岐しない。失敗したパースは `Error(msg)` として伝播し、ルートハンドラ内で HTTP 400 になる。"
+
+#: ../../user/templates/hono.md:168
+msgid ""
+"The zod variant uses `@module(\"zod\")` externals and `parse(...)`; the "
+"sury variant uses `S.object` + `S.parseOrThrow` and traps `S.Error` to "
+"turn it back into a `result`."
+msgstr "zod バリアントは `@module(\"zod\")` の externals と `parse(...)` を使用する; sury バリアントは `S.object` + `S.parseOrThrow` を使用し、`S.Error` を捕捉して `result` に戻す。"
+
+#: ../../user/templates/hono.md:170
+msgid "`src/ZodOpenapi.res` *(zod variant only)*"
+msgstr "`src/ZodOpenapi.res` *(zod バリアントのみ)*"
+
+#: ../../user/templates/hono.md:172
+msgid ""
+"Bindings for `@hono/zod-openapi` — `createApp`, `createRoute`, "
+"`openapiRoute`, `doc`. The zod variant ships these because `@hono/zod-"
+"openapi` lets you describe a route declaratively once and have it serve "
+"both as the runtime router and as the source of the OpenAPI spec. The "
+"sury variant ships *no* equivalent file; if you need OpenAPI generation "
+"under sury, use `S.toJSONSchema` and assemble the document by hand in "
+"`Server.res`."
+msgstr "`@hono/zod-openapi` のバインディング — `createApp`、`createRoute`、`openapiRoute`、`doc`。zod バリアントはこれらを同梱する。`@hono/zod-openapi` を使えばルートを一度宣言的に記述するだけで、ランタイムのルーターと OpenAPI 仕様のソースの両方として機能させられるためである。sury バリアントには等価なファイルは *同梱されない*; sury 下で OpenAPI 生成が必要な場合は、`S.toJSONSchema` を使い、`Server.res` 内で手動でドキュメントを組み立てる。"
+
+#: ../../user/templates/hono.md:174
+msgid "`src/Logger.res`"
+msgstr "`src/Logger.res`"
+
+#: ../../user/templates/hono.md:176
+msgid "Two-line binding for `hono/logger`:"
+msgstr "`hono/logger` のための 2 行のバインディング:"
+
+#: ../../user/templates/hono.md:182
+msgid "Mounted via `app->Hono.use(Logger.logger())` in `Server.res`."
+msgstr "`Server.res` 内で `app->Hono.use(Logger.logger())` を通じてマウントされる。"
+
+#: ../../user/templates/hono.md:184
+msgid "`src/Scalar.res`"
+msgstr "`src/Scalar.res`"
+
+#: ../../user/templates/hono.md:186
+#, python-brace-format
+msgid ""
+"Binding for `@scalar/hono-api-reference`. Mounted in `Server.res` as "
+"`app->Hono.get(\"/docs\", Scalar.apiReference({\"spec\": {\"url\": "
+"\"/openapi.json\"}}))`."
+msgstr "`@scalar/hono-api-reference` のバインディング。`Server.res` 内で `app->Hono.get(\"/docs\", Scalar.apiReference({\"spec\": {\"url\": \"/openapi.json\"}}))` としてマウントされる。"
+
+#: ../../user/templates/hono.md:188
+msgid "`drizzle.config.ts`"
+msgstr "`drizzle.config.ts`"
+
+#: ../../user/templates/hono.md:190
+msgid ""
+"drizzle-kit config — schema location, dialect, output directory, and "
+"database URL. Reads `DATABASE_URL` from the environment (default: "
+"`file:./data/app.db`)."
+msgstr "drizzle-kit の設定 — スキーマ位置、dialect、出力ディレクトリ、およびデータベース URL。環境から `DATABASE_URL` を読む (デフォルト: `file:./data/app.db`)。"
+
+#: ../../user/templates/hono.md:201
+msgid "`vitest.config.mjs` + `vitest.setup.mjs`"
+msgstr "`vitest.config.mjs` + `vitest.setup.mjs`"
+
+#: ../../user/templates/hono.md:203
+msgid ""
+"Two-file pair that solves a subtle problem: `Db.res` constructs the "
+"libsql client at module load, so any test that imports `Server.res.mjs` "
+"(which transitively imports `Db.res.mjs`) would otherwise try to open "
+"`./data/app.db` — a file that does not exist in fresh checkouts or in the"
+" integration-test temp dir."
+msgstr "微妙な問題を解決する 2 ファイルのペア: `Db.res` はモジュールロード時に libsql クライアントを構築するため、`Server.res.mjs` (これは推移的に `Db.res.mjs` をインポートする) をインポートするテストは、放っておけば `./data/app.db` を開こうとする — 新規チェックアウトや統合テストの一時ディレクトリには存在しないファイルである。"
+
+#: ../../user/templates/hono.md:205
+msgid ""
+"`vitest.setup.mjs` pins `process.env.DATABASE_URL = \":memory:\"` before "
+"any test file's static imports execute. `vitest.config.mjs` registers it "
+"via `setupFiles`. The result: tests run against a per-process in-memory "
+"SQLite, never touch disk, and `Server.res` requires no test-only "
+"branching."
+msgstr "`vitest.setup.mjs` は、いかなるテストファイルの静的インポートが実行される前に `process.env.DATABASE_URL = \":memory:\"` を固定する。`vitest.config.mjs` はそれを `setupFiles` で登録する。結果として、テストはプロセスごとのインメモリ SQLite に対して実行され、ディスクには一切触れず、`Server.res` にテスト専用の分岐は不要となる。"
+
+#: ../../user/templates/hono.md:207
+msgid "`src/__tests__/Server.test.mjs`"
+msgstr "`src/__tests__/Server.test.mjs`"
+
+#: ../../user/templates/hono.md:209
+msgid ""
+"Imports `app` from the compiled `Server.res.mjs` and exercises endpoints "
+"via Hono's built-in `app.request(...)` — the same fetch-style harness "
+"Hono ships for testing without a running HTTP server."
+msgstr "コンパイル済み `Server.res.mjs` から `app` をインポートし、Hono 組み込みの `app.request(...)` を介してエンドポイントを動かす — これは Hono が HTTP サーバーを動かさずにテストするために同梱している、同じ fetch スタイルのハーネスである。"
+
+#: ../../user/templates/hono.md:217
+msgid ""
+"This works precisely because `Server.res` does *not* call `serve()` at "
+"module load."
+msgstr "これが動作するのは、まさに `Server.res` がモジュールロード時に `serve()` を呼ばない *からこそ* である。"
+
+#: ../../user/templates/hono.md:219
+msgid "`.env.example`"
+msgstr "`.env.example`"
+
+#: ../../user/templates/hono.md:221
+msgid "Documents the single environment variable the template reads:"
+msgstr "テンプレートが読む唯一の環境変数を文書化している:"
+
+#: ../../user/templates/hono.md:227
+msgid ""
+"Replace with a Turso `libsql://` URL (or any libsql-compatible endpoint) "
+"to scale beyond a local file."
+msgstr "Turso の `libsql://` URL (または libsql 互換のエンドポイント) に置き換えることで、ローカルファイルを超えてスケールできる。"
+
+#: ../../user/templates/hono.md:229
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/hono.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/hono.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/hono.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/hono.md
+msgid "`node src/ServerMain.res.mjs` — run the server once"
+msgstr "`node src/ServerMain.res.mjs` — サーバーを 1 回実行する"
+
+#: ../../user/templates/hono.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/hono.md
+msgid "`node --watch src/ServerMain.res.mjs` — run with file-watching restart"
+msgstr "`node --watch src/ServerMain.res.mjs` — ファイル監視による再起動付きで実行する"
+
+#: ../../user/templates/hono.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/hono.md
+msgid "`vitest run` — execute the smoke suite (in-memory DB)"
+msgstr "`vitest run` — スモークスイートを実行する (インメモリ DB)"
+
+#: ../../user/templates/hono.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/hono.md
+msgid "`vitest run --coverage` — same, with v8 coverage"
+msgstr "`vitest run --coverage` — 同上、v8 カバレッジ付き"
+
+#: ../../user/templates/hono.md
+msgid "`db:generate`"
+msgstr "`db:generate`"
+
+#: ../../user/templates/hono.md
+msgid ""
+"`drizzle-kit generate` — diff `Schema.res.mjs` against the current DB and"
+" emit migration SQL into `./drizzle/`"
+msgstr "`drizzle-kit generate` — `Schema.res.mjs` と現在の DB を比較し、マイグレーション SQL を `./drizzle/` に出力する"
+
+#: ../../user/templates/hono.md
+msgid "`db:migrate`"
+msgstr "`db:migrate`"
+
+#: ../../user/templates/hono.md
+msgid ""
+"`drizzle-kit migrate` — apply pending migrations to the database pointed "
+"at by `DATABASE_URL`"
+msgstr "`drizzle-kit migrate` — `DATABASE_URL` が指すデータベースに保留中のマイグレーションを適用する"
+
+#: ../../user/templates/hono.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/hono.md
+msgid "`rescript` — one-shot ReScript compile"
+msgstr "`rescript` — ワンショットの ReScript コンパイル"
+
+#: ../../user/templates/hono.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/hono.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存時に再コンパイル"
+
+#: ../../user/templates/hono.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/hono.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除"
+
+#: ../../user/templates/hono.md:243
+msgid ""
+"In a normal session you'll keep two terminals open: `npm run res:dev` for"
+" the ReScript watcher and `npm run dev` for the auto-restarting server."
+msgstr "通常のセッションでは 2 つのターミナルを開いておく: ReScript ウォッチャー用の `npm run res:dev` と、自動再起動サーバー用の `npm run dev` である。"
+
+#: ../../user/templates/hono.md:245
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/hono.md:247
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-hono-endpoint` — end-to-end walkthrough adding a new"
+" route + Drizzle table + zod validation + OpenAPI doc"
+msgstr "{doc}`../recipes/add-hono-endpoint` — 新しいルート + Drizzle テーブル + zod バリデーション + OpenAPI ドキュメントを追加するエンドツーエンドのウォークスルー"
+
+#: ../../user/templates/hono.md:248
+#, python-brace-format
+msgid "{doc}`../recipes/setup-drizzle` — schema modeling and migration patterns"
+msgstr "{doc}`../recipes/setup-drizzle` — スキーマモデリングとマイグレーションパターン"
+
+#: ../../user/templates/hono.md:249
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-openapi-docs` — going from the stub `/openapi.json` "
+"to a real generated spec"
+msgstr "{doc}`../recipes/add-openapi-docs` — スタブの `/openapi.json` から実際に生成された仕様への移行"
+
+#: ../../user/templates/hono.md:251
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see "
+"{doc}`../features/index`."
+msgstr "プロジェクトを開いた後の ReScript 側のエディタワークフローについては {doc}`../features/index` を参照のこと。"
+
+#: ../../user/templates/hono.md:253
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/hono.md:255
+#, python-brace-format
+msgid ""
+"**`/openapi.json` ships as a stub.** The default response is "
+"`{\"openapi\": \"3.1.0\", \"info\": {...}, \"paths\": {}}` — Scalar UI "
+"mounts cleanly but shows zero endpoints. Wire the real spec by either (a)"
+" declaring routes through `@hono/zod-openapi` (`ZodOpenapi.res` ships "
+"those bindings in the zod variant) or (b) generating a JSON Schema from "
+"sury (`S.toJSONSchema`) and assembling the OpenAPI document by hand. The "
+"{doc}`../recipes/add-openapi-docs` recipe walks both paths."
+msgstr "**`/openapi.json` はスタブとして同梱される。** デフォルトのレスポンスは `{\"openapi\": \"3.1.0\", \"info\": {...}, \"paths\": {}}` である — Scalar UI はクリーンにマウントされるが、エンドポイントは 0 個と表示される。実際の仕様を配線するには (a) `@hono/zod-openapi` でルートを宣言する (zod バリアントには `ZodOpenapi.res` が同梱されている) か、(b) sury から JSON Schema を生成し (`S.toJSONSchema`)、OpenAPI ドキュメントを手動で組み立てる。{doc}`../recipes/add-openapi-docs` レシピは両方の経路を順を追って説明している。"
+
+#: ../../user/templates/hono.md:256
+msgid ""
+"**Validation is the wall in front of every external input.** The route "
+"handler is the canonical place: `parseCreateUserInput(raw)` — `Error → "
+"400`, `Ok → DB`. Do not destructure raw JSON anywhere upstream of the "
+"validator."
+msgstr "**バリデーションはあらゆる外部入力の手前に立つ壁である。** ルートハンドラが標準の場所である: `parseCreateUserInput(raw)` — `Error → 400`、`Ok → DB`。バリデーターの上流のどこでも生の JSON を分解しないこと。"
+
+#: ../../user/templates/hono.md:257
+msgid ""
+"**`Db.res` opens the database at module load.** This is a deliberate "
+"trade — every route handler gets a hot client without lazy-init plumbing "
+"— but it means `import \"../Db.res.mjs\"` from anywhere triggers an open."
+" The vitest setup pins `DATABASE_URL=:memory:` before module load so "
+"tests never touch disk; preserve that ordering if you customize the test "
+"config."
+msgstr "**`Db.res` はモジュールロード時にデータベースを開く。** これは意図的なトレードオフである — 遅延初期化の配管なしに、すべてのルートハンドラがホットなクライアントを得る — その代わり、どこからでも `import \"../Db.res.mjs\"` を行うとオープンがトリガーされる。vitest セットアップはモジュールロード前に `DATABASE_URL=:memory:` を固定するため、テストはディスクに一切触れない; テスト設定をカスタマイズする場合はその順序を維持すること。"
+
+#: ../../user/templates/hono.md:258
+msgid ""
+"**`Server.res` must remain side-effect-free.** The split between `let app"
+" = ...` and `let start = () => ...` is enforced by tests (the server-test"
+" asserts no top-level `HonoNodeServer.serve(...)` call). If you need "
+"module-load work, do it in `start()` so importers stay safe."
+msgstr "**`Server.res` は副作用がない状態を保たなければならない。** `let app = ...` と `let start = () => ...` の分離はテストで強制される (server-test はトップレベルの `HonoNodeServer.serve(...)` 呼び出しがないことをアサートする)。モジュールロード時の作業が必要な場合は `start()` 内で行い、インポーターの安全性を保つこと。"
+
+#: ../../user/templates/hono.md:259
+msgid ""
+"**The sury variant has no `ZodOpenapi.res`.** That is intentional, not an"
+" oversight — `@hono/zod-openapi` is zod-only. Sury users get a smaller "
+"`package.json` (no `@hono/zod-openapi`) and write OpenAPI generation "
+"themselves when they need it."
+msgstr "**sury バリアントには `ZodOpenapi.res` がない。** これは見落としではなく意図的である — `@hono/zod-openapi` は zod 専用である。sury ユーザーはより小さな `package.json` (`@hono/zod-openapi` なし) を得て、必要なときに自分で OpenAPI 生成を書く。"
+
+#: ../../user/templates/hono.md:260
+#, python-brace-format
+msgid ""
+"**CORS is commented out, not enabled.** A one-line "
+"`app->Hono.use(Hono.cors({\"origin\": \"...\"}))` block is shipped "
+"commented in `Server.res`. Uncomment when the API is called from a "
+"browser origin."
+msgstr "**CORS はコメントアウトされており、有効化されていない。** 1 行の `app->Hono.use(Hono.cors({\"origin\": \"...\"}))` ブロックが `Server.res` にコメント状態で同梱されている。API がブラウザのオリジンから呼ばれる際にコメントを外すこと。"
+
+#: ../../user/templates/hono.md:261
+msgid ""
+"**Database URL precedence.** `Db.res`, `drizzle.config.ts`, and the test "
+"harness all read `DATABASE_URL` from `process.env` (with "
+"`file:./data/app.db` as the fallback). Production deployments should set "
+"it to a `libsql://` URL."
+msgstr "**データベース URL の優先順位。** `Db.res`、`drizzle.config.ts`、およびテストハーネスはすべて `process.env` から `DATABASE_URL` を読む (フォールバックは `file:./data/app.db`)。本番デプロイでは `libsql://` URL に設定するべきである。"
+
+#: ../../user/templates/hono.md:262
+msgid ""
+"**Migrations live in `./drizzle/`.** That directory is gitignored by "
+"default — flip the ignore for your own project if you want migrations "
+"under version control (the standard workflow for production teams)."
+msgstr "**マイグレーションは `./drizzle/` に置かれる。** このディレクトリはデフォルトで gitignore されている — マイグレーションをバージョン管理下に置きたい場合は (本番チームの標準的なワークフローである)、自分のプロジェクトで ignore を反転させること。"
+
+#: ../../user/templates/hono.md:263
+msgid ""
+"**The CI workflow runs the full suite.** `npm install + rescript build + "
+"vitest`. Vitest will use the in-memory database via `vitest.setup.mjs`, "
+"so CI does not need any external service to pass the smoke test."
+msgstr "**CI ワークフローはフルスイートを実行する。** `npm install + rescript build + vitest`。Vitest は `vitest.setup.mjs` を介してインメモリデータベースを使うため、CI はスモークテストを通過するために外部サービスを必要としない。"
+
+#: ../../user/templates/hono.md:264
+msgid ""
+"**OpenAPI 3.1, not 3.0.** The stub spec declares `\"openapi\": "
+"\"3.1.0\"`. If you generate clients from the spec, ensure your generator "
+"supports 3.1 (most modern ones do; `openapi-generator` may need "
+"`--openapi-generator-version` flags to opt in)."
+msgstr "**OpenAPI 3.0 ではなく 3.1 である。** スタブ仕様は `\"openapi\": \"3.1.0\"` を宣言している。仕様からクライアントを生成する場合、ジェネレータが 3.1 をサポートしていることを確認すること (現代的なもののほとんどはサポートしている; `openapi-generator` はオプトインのために `--openapi-generator-version` フラグが必要となる場合がある)。"

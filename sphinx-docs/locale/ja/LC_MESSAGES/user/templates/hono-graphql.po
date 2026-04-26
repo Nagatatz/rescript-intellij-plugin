@@ -1,0 +1,682 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: 2026-04-26 13:06+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/hono-graphql.md
+msgid ""
+"hono, graphql, graphql-yoga, graphiql, schema-first, sdl, drizzle, "
+"libsql, sqlite, rescript template, validation, zod, sury"
+msgstr "hono, graphql, graphql-yoga, graphiql, schema-first, sdl, drizzle, libsql, sqlite, rescript template, validation, zod, sury"
+
+#: ../../user/templates/hono-graphql.md:7
+msgid "Hono GraphQL"
+msgstr "Hono GraphQL"
+
+#: ../../user/templates/hono-graphql.md:9
+#, python-brace-format
+msgid ""
+"{bdg-info}`Node.js` {bdg-primary}`GraphQL` {bdg-success}`Validation` "
+"{bdg-warning}`Schema-first`"
+msgstr "{bdg-info}`Node.js` {bdg-primary}`GraphQL` {bdg-success}`Validation` {bdg-warning}`Schema-first`"
+
+#: ../../user/templates/hono-graphql.md:11
+msgid ""
+"A working **GraphQL Yoga** server mounted on **Hono**, backed by SQLite "
+"via **libsql + Drizzle ORM**. The wizard generates an end-to-end Users "
+"CRUD example — SDL, resolvers, table, and a built-in GraphiQL IDE — so "
+"the moment you run `pnpm dev` you can open "
+"<http://localhost:4000/graphql> and execute a mutation."
+msgstr "**Hono** にマウントされた動作する **GraphQL Yoga** サーバーで、**libsql + Drizzle ORM** 経由で SQLite に接続される。ウィザードはエンドツーエンドの Users CRUD 例 — SDL、リゾルバ、テーブル、内蔵の GraphiQL IDE — を生成するため、`pnpm dev` を実行した瞬間に <http://localhost:4000/graphql> を開いてミューテーションを実行できる。"
+
+#: ../../user/templates/hono-graphql.md:13
+msgid ""
+"The template is **schema-first by design**: the contract lives in "
+"`src/schema.graphql` (SDL) and is mirrored by a `typeDefs` template "
+"string in `src/GraphqlSchema.res`. Resolvers are plain ReScript functions"
+" in `src/Resolvers.res`, wired into `rootValue` by name. If you outgrow "
+"this style, the README contrasts it with code-first builders (Pothos, "
+"Nexus, gqtx) so the migration decision stays informed."
+msgstr "このテンプレートは **設計として schema-first** である: 契約は `src/schema.graphql` (SDL) に存在し、`src/GraphqlSchema.res` の `typeDefs` テンプレート文字列にミラーされる。リゾルバは `src/Resolvers.res` 内の素の ReScript 関数で、名前で `rootValue` に配線される。このスタイルから卒業する場合、README は code-first ビルダー (Pothos、Nexus、gqtx) と対比して移行判断の材料を提供する。"
+
+#: ../../user/templates/hono-graphql.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/hono-graphql.md:48
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/hono-graphql.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/hono-graphql.md
+msgid ""
+"Becomes the npm `name`, license holder, and `wrangler` `name` field for "
+"any Worker derivatives you copy this into"
+msgstr "npm の `name`、ライセンス保有者、およびこのテンプレートをコピーして派生させる Worker プロジェクトでの `wrangler` の `name` フィールドになる"
+
+#: ../../user/templates/hono-graphql.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/hono-graphql.md
+msgid ""
+"npm / pnpm / yarn / bun. Affects `packageManager` field, README "
+"install/run commands, and CI cache key"
+msgstr "npm / pnpm / yarn / bun。`packageManager` フィールド、README の install/run コマンド、CI のキャッシュキーに影響する"
+
+#: ../../user/templates/hono-graphql.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/hono-graphql.md
+msgid ""
+"`zod` ↔ `sury`. Picks `src/Validation.res` and adds the matching "
+"dependency. Both expose the same `parseCreateUserInput` signature so "
+"resolvers don't branch"
+msgstr "`zod` ↔ `sury`。`src/Validation.res` を選択し、対応する依存を追加する。両者は同じ `parseCreateUserInput` シグネチャを公開するため、リゾルバは分岐する必要がない"
+
+#: ../../user/templates/hono-graphql.md:56
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Runtime stubs the compiled `.res.mjs` imports"
+msgstr "コンパイル済み `.res.mjs` がインポートするランタイムスタブ"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`hono`"
+msgstr "`hono`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "HTTP router that hosts yoga"
+msgstr "yoga をホストする HTTP ルーター"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.HONO`"
+msgstr "`TemplateVersions.HONO`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`@hono/node-server`"
+msgstr "`@hono/node-server`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Node adapter for Hono"
+msgstr "Hono の Node アダプター"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.HONO_NODE_SERVER`"
+msgstr "`TemplateVersions.HONO_NODE_SERVER`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`graphql`"
+msgstr "`graphql`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Reference implementation (peer of yoga)"
+msgstr "リファレンス実装 (yoga の peer)"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.GRAPHQL`"
+msgstr "`TemplateVersions.GRAPHQL`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`graphql-yoga`"
+msgstr "`graphql-yoga`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Schema executor + GraphiQL UI"
+msgstr "スキーマ実行系 + GraphiQL UI"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.GRAPHQL_YOGA`"
+msgstr "`TemplateVersions.GRAPHQL_YOGA`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`@libsql/client`"
+msgstr "`@libsql/client`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "SQLite driver (also speaks Turso `libsql://`)"
+msgstr "SQLite ドライバ (Turso の `libsql://` にも対応)"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.LIBSQL_CLIENT`"
+msgstr "`TemplateVersions.LIBSQL_CLIENT`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`drizzle-orm`"
+msgstr "`drizzle-orm`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Type-safe SQL builder"
+msgstr "型安全な SQL ビルダー"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.DRIZZLE_ORM`"
+msgstr "`TemplateVersions.DRIZZLE_ORM`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Mutation input validation (chosen in the wizard)"
+msgstr "ミューテーション入力のバリデーション (ウィザードで選択)"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.ZOD` / `SURY`"
+msgstr "`TemplateVersions.ZOD` / `SURY`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`drizzle-kit` *(dev)*"
+msgstr "`drizzle-kit` *(dev)*"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Migration generator/runner"
+msgstr "マイグレーションのジェネレータ/ランナー"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.DRIZZLE_KIT`"
+msgstr "`TemplateVersions.DRIZZLE_KIT`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`@graphql-markdown/cli` *(dev)*"
+msgstr "`@graphql-markdown/cli` *(dev)*"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Renders SDL to Markdown for `pnpm docs:graphql`"
+msgstr "`pnpm docs:graphql` 向けに SDL を Markdown にレンダリング"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.GRAPHQL_MARKDOWN`"
+msgstr "`TemplateVersions.GRAPHQL_MARKDOWN`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Smoke test runner"
+msgstr "スモークテストランナー"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` 向けのカバレッジプロバイダ"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/hono-graphql.md:75
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/hono-graphql.md:77
+msgid "`src/schema.graphql`"
+msgstr "`src/schema.graphql`"
+
+#: ../../user/templates/hono-graphql.md:79
+msgid ""
+"The human-authored source of truth. Read by `@graphql-markdown/cli` (and "
+"any external GraphQL tool — Apollo Studio, Hasura, codegen) to render "
+"`docs/schema.md`:"
+msgstr "人間が記述する信頼できる情報源。`@graphql-markdown/cli` (および Apollo Studio、Hasura、codegen など任意の外部 GraphQL ツール) が `docs/schema.md` のレンダリングのために読み取る:"
+
+#: ../../user/templates/hono-graphql.md:99
+msgid "`src/GraphqlSchema.res`"
+msgstr "`src/GraphqlSchema.res`"
+
+#: ../../user/templates/hono-graphql.md:101
+msgid ""
+"Builds the runtime schema yoga executes. The `typeDefs` template string "
+"**must mirror `src/schema.graphql`** — the SDL file is what tooling "
+"reads, but yoga consumes the inline string so the bundle stays self-"
+"contained:"
+msgstr "yoga が実行するランタイムスキーマを構築する。`typeDefs` テンプレート文字列は **`src/schema.graphql` をミラーする必要がある** — SDL ファイルはツールチェインが読むが、yoga はインライン文字列を消費するため、バンドルは自己完結したままになる:"
+
+#: ../../user/templates/hono-graphql.md:123
+msgid ""
+"`Obj.magic` is intentional — it erases the polymorphic `(parent, args, "
+"ctx, info) => 'a` resolver shape so the record can be generalised. The "
+"concrete signatures are checked at each resolver definition site in "
+"`Resolvers.res`."
+msgstr "`Obj.magic` は意図的なものである — 多相的な `(parent, args, ctx, info) => 'a` のリゾルバ形状を消去することでレコードを汎化できるようにする。具体的なシグネチャは `Resolvers.res` 内の各リゾルバ定義箇所で検査される。"
+
+#: ../../user/templates/hono-graphql.md:125
+msgid "`src/Resolvers.res`"
+msgstr "`src/Resolvers.res`"
+
+#: ../../user/templates/hono-graphql.md:127
+msgid ""
+"Each GraphQL type gets a nested module so `GraphqlSchema.res` can "
+"reference fields as `Resolvers.<Type>.<field>`. The shipped `Users` "
+"module shows the full CRUD surface:"
+msgstr "各 GraphQL 型はネストモジュールに配置され、`GraphqlSchema.res` から `Resolvers.<Type>.<field>` としてフィールドを参照できる。同梱の `Users` モジュールは完全な CRUD 表層を示している:"
+
+#: ../../user/templates/hono-graphql.md:143
+msgid ""
+"`createUser` runs every input through `Validation.parseCreateUserInput` "
+"and `failwith`s on error — graphql-yoga catches the throw and translates "
+"it into an `errors[]` entry on the response. No extra plumbing."
+msgstr "`createUser` はすべての入力を `Validation.parseCreateUserInput` に通し、エラー時に `failwith` する — graphql-yoga が throw を捕捉し、レスポンスの `errors[]` エントリに変換する。追加の配線は不要である。"
+
+#: ../../user/templates/hono-graphql.md:145
+msgid "`src/Server.res`"
+msgstr "`src/Server.res`"
+
+#: ../../user/templates/hono-graphql.md:147
+msgid ""
+"Wires Hono, mounts yoga at `/graphql` (GET + POST so GraphiQL works), and"
+" exposes `start()` separately so vitest can "
+"`import(\"../Server.res.mjs\")` without binding a port:"
+msgstr "Hono を配線し、yoga を `/graphql` にマウントし (GraphiQL のため GET + POST 両方)、`start()` を別途公開することで、vitest がポートをバインドせずに `import(\"../Server.res.mjs\")` できるようにする:"
+
+#: ../../user/templates/hono-graphql.md:172
+msgid "`src/ServerMain.res`"
+msgstr "`src/ServerMain.res`"
+
+#: ../../user/templates/hono-graphql.md:174
+msgid "A two-line entry point that the npm `start` / `dev` scripts run:"
+msgstr "npm の `start` / `dev` スクリプトが実行する 2 行のエントリポイント:"
+
+#: ../../user/templates/hono-graphql.md:180
+msgid ""
+"Kept separate from `Server.res` so `app` stays importable from tests "
+"without side effects."
+msgstr "`Server.res` から分離されており、`app` を副作用なくテストからインポートできる状態に保つ。"
+
+#: ../../user/templates/hono-graphql.md:182
+msgid "`src/Schema.res`"
+msgstr "`src/Schema.res`"
+
+#: ../../user/templates/hono-graphql.md:184
+msgid "Drizzle SQLite table definitions consumed by `db:generate`:"
+msgstr "`db:generate` が消費する Drizzle の SQLite テーブル定義:"
+
+#: ../../user/templates/hono-graphql.md:194
+msgid "`drizzle.config.ts`"
+msgstr "`drizzle.config.ts`"
+
+#: ../../user/templates/hono-graphql.md:196
+msgid ""
+"Points drizzle-kit at the **compiled** schema (`Schema.res.mjs`) and "
+"reads `DATABASE_URL` from the environment, defaulting to "
+"`file:./data/app.db`:"
+msgstr "drizzle-kit を **コンパイル済み** スキーマ (`Schema.res.mjs`) に向け、`DATABASE_URL` を環境変数から読み取り、既定値は `file:./data/app.db` とする:"
+
+#: ../../user/templates/hono-graphql.md:209
+msgid "`vitest.config.mjs` + `vitest.setup.mjs`"
+msgstr "`vitest.config.mjs` + `vitest.setup.mjs`"
+
+#: ../../user/templates/hono-graphql.md:211
+msgid ""
+"The setup file pins `DATABASE_URL` to libsql's in-memory store before any"
+" module loads:"
+msgstr "セットアップファイルは、いずれかのモジュールがロードされる前に `DATABASE_URL` を libsql のインメモリストアに固定する:"
+
+#: ../../user/templates/hono-graphql.md:217
+msgid ""
+"This matters because importing `Server.res.mjs` transitively loads `Db → "
+"Schema → Resolvers`, and without the override the import chain would try "
+"to open `./data/app.db` during test collection."
+msgstr "これが重要なのは、`Server.res.mjs` のインポートが推移的に `Db → Schema → Resolvers` をロードし、上書きしなければインポートチェインがテスト収集時に `./data/app.db` を開こうとしてしまうためである。"
+
+#: ../../user/templates/hono-graphql.md:219
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/hono-graphql.md:221
+msgid ""
+"Both variants expose `parseCreateUserInput: JSON.t => "
+"result<createUserInput, string>`. The `createUser` resolver `failwith`s "
+"on `Error`, which graphql-yoga converts into a GraphQL error."
+msgstr "両バリアントは `parseCreateUserInput: JSON.t => result<createUserInput, string>` を公開する。`createUser` リゾルバは `Error` で `failwith` し、graphql-yoga がそれを GraphQL エラーに変換する。"
+
+#: ../../user/templates/hono-graphql.md:223
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/hono-graphql.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`node src/ServerMain.res.mjs` — run the GraphQL server once"
+msgstr "`node src/ServerMain.res.mjs` — GraphQL サーバーを 1 回起動する"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`node --watch src/ServerMain.res.mjs` — restart on save"
+msgstr "`node --watch src/ServerMain.res.mjs` — 保存ごとに再起動する"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`vitest run` — execute the smoke suite"
+msgstr "`vitest run` — スモークスイートを実行する"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`vitest run --coverage` — same, with v8 coverage report"
+msgstr "`vitest run --coverage` — 同じだが v8 のカバレッジレポートを付与する"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`docs:graphql`"
+msgstr "`docs:graphql`"
+
+#: ../../user/templates/hono-graphql.md
+msgid ""
+"`graphql-markdown --schema=src/schema.graphql ...` — render "
+"`docs/schema.md` from SDL"
+msgstr "`graphql-markdown --schema=src/schema.graphql ...` — SDL から `docs/schema.md` をレンダリングする"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`db:generate`"
+msgstr "`db:generate`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`drizzle-kit generate` — emit migration SQL from `Schema.res`"
+msgstr "`drizzle-kit generate` — `Schema.res` からマイグレーション SQL を生成する"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`db:migrate`"
+msgstr "`db:migrate`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`drizzle-kit migrate` — apply pending migrations to the SQLite file"
+msgstr "`drizzle-kit migrate` — 未適用のマイグレーションを SQLite ファイルに適用する"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`rescript` — one-shot compile"
+msgstr "`rescript` — 単発のコンパイル"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存ごとに再コンパイル"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/hono-graphql.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除する"
+
+#: ../../user/templates/hono-graphql.md:238
+msgid "Adding a New Type and Resolver"
+msgstr "新しい型とリゾルバの追加"
+
+#: ../../user/templates/hono-graphql.md:240
+msgid ""
+"The README walks through this in detail; the workflow boils down to six "
+"steps. Use this template's existing `Users` type as a worked example you "
+"can copy."
+msgstr "README で詳細に解説しているが、ワークフローは 6 ステップに集約される。本テンプレート同梱の `Users` 型をコピー可能な作例として活用してほしい。"
+
+#: ../../user/templates/hono-graphql.md:242
+msgid "**Edit `src/schema.graphql`** with the new type and root fields:"
+msgstr "**`src/schema.graphql` を編集**して、新しい型とルートフィールドを追加する:"
+
+#: ../../user/templates/hono-graphql.md:249
+msgid ""
+"**Mirror it in `src/GraphqlSchema.res#typeDefs`** so the runtime schema "
+"and the SDL stay in lock-step."
+msgstr "**`src/GraphqlSchema.res#typeDefs` でミラーする** ことで、ランタイムスキーマと SDL を同期させる。"
+
+#: ../../user/templates/hono-graphql.md:250
+msgid ""
+"**Add a Drizzle table** in `src/Schema.res` and run `pnpm db:generate` + "
+"`pnpm db:migrate`."
+msgstr "**Drizzle テーブルを追加** する: `src/Schema.res` に追加し、`pnpm db:generate` と `pnpm db:migrate` を実行する。"
+
+#: ../../user/templates/hono-graphql.md:251
+msgid "**Add a resolver module** in `src/Resolvers.res`:"
+msgstr "**リゾルバモジュールを追加** する: `src/Resolvers.res` に追加する:"
+
+#: ../../user/templates/hono-graphql.md:263
+msgid "**Wire it into `rootValue`** in `GraphqlSchema.res`:"
+msgstr "**`rootValue` に配線** する: `GraphqlSchema.res` で配線する:"
+
+#: ../../user/templates/hono-graphql.md:272
+msgid "**Regenerate docs**: `pnpm docs:graphql` writes `docs/schema.md`."
+msgstr "**ドキュメントを再生成**: `pnpm docs:graphql` で `docs/schema.md` を書き出す。"
+
+#: ../../user/templates/hono-graphql.md:274
+msgid ""
+"Mutations follow the same pattern, with one extra step: add a "
+"`parsePostInput` to `Validation.res` and `failwith` on `Error` so "
+"graphql-yoga can translate the throw into a GraphQL error."
+msgstr "ミューテーションも同じパターンに従うが、追加で 1 ステップある: `Validation.res` に `parsePostInput` を追加し、`Error` で `failwith` することで、graphql-yoga が throw を GraphQL エラーに変換できるようにする。"
+
+#: ../../user/templates/hono-graphql.md:276
+msgid "Testing Resolvers in Isolation"
+msgstr "リゾルバを単独でテストする"
+
+#: ../../user/templates/hono-graphql.md:278
+msgid ""
+"`src/__tests__/Server.test.mjs` covers the HTTP boundary against the "
+"`/health` route. For resolver-level tests, hit the schema directly with "
+"`graphql/execution`:"
+msgstr "`src/__tests__/Server.test.mjs` は `/health` ルートに対する HTTP 境界をカバーする。リゾルバ単位のテストでは、`graphql/execution` でスキーマを直接呼び出す:"
+
+#: ../../user/templates/hono-graphql.md:295
+msgid ""
+"For pure unit tests, mock `Db.allAsync` with `vi.mock(\"../Db.res.mjs\", "
+"...)` so you exercise resolver logic without spinning up SQLite. Combined"
+" with the `vitest.setup.mjs` in-memory DATABASE_URL pin, you can run the "
+"entire suite without filesystem I/O."
+msgstr "純粋なユニットテストでは、`vi.mock(\"../Db.res.mjs\", ...)` で `Db.allAsync` を モックすることで、SQLite を起動せずにリゾルバロジックを実行できる。`vitest.setup.mjs` のインメモリ DATABASE_URL の固定と組み合わせれば、ファイルシステム I/O なしでスイート全体を実行できる。"
+
+#: ../../user/templates/hono-graphql.md:297
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/hono-graphql.md:299
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-graphql-resolver` — add a new type + resolver, "
+"including the SDL/typeDefs sync workflow"
+msgstr "{doc}`../recipes/add-graphql-resolver` — 新しい型とリゾルバを追加する。SDL/typeDefs の同期ワークフローも含む"
+
+#: ../../user/templates/hono-graphql.md:300
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/setup-drizzle` — Drizzle schema, migrations, and Turso "
+"swap"
+msgstr "{doc}`../recipes/setup-drizzle` — Drizzle スキーマ、マイグレーション、Turso へのスワップ"
+
+#: ../../user/templates/hono-graphql.md:301
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-hono-endpoint` — add a REST route alongside "
+"`/graphql` (e.g. webhook intake, health probes)"
+msgstr "{doc}`../recipes/add-hono-endpoint` — `/graphql` と並行して REST ルートを追加する (例: webhook 受信、ヘルスプローブ)"
+
+#: ../../user/templates/hono-graphql.md:302
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-openapi-docs` — bolt OpenAPI on top if you grow a "
+"parallel REST surface"
+msgstr "{doc}`../recipes/add-openapi-docs` — 並行する REST 表層を成長させた場合に OpenAPI を上乗せする"
+
+#: ../../user/templates/hono-graphql.md:304
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr "プロジェクトを開いた後の ReScript 側のエディタワークフローについては、{doc}`../features/index` を参照してほしい。"
+
+#: ../../user/templates/hono-graphql.md:306
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/hono-graphql.md:308
+msgid ""
+"**SDL and typeDefs must agree.** The SDL file (`src/schema.graphql`) is "
+"what `graphql-markdown` and external tools read; `typeDefs` in "
+"`GraphqlSchema.res` is what yoga executes. They are two copies on purpose"
+" — the bundle stays self-contained — but they are easy to drift. A pre-"
+"commit hook running `node -e "
+"\"require('graphql').buildSchema(require('fs').readFileSync('src/schema.graphql','utf-8'))\"`"
+" catches SDL parse errors before CI does."
+msgstr "**SDL と typeDefs は一致している必要がある。** SDL ファイル (`src/schema.graphql`) は `graphql-markdown` や外部ツールが読み取るものであり、`GraphqlSchema.res` の `typeDefs` は yoga が実行するものである。これらは意図的に 2 つのコピーである — バンドルが自己完結するため — が、容易にずれてしまう。pre-commit フックで `node -e \"require('graphql').buildSchema(require('fs').readFileSync('src/schema.graphql','utf-8'))\"` を実行すれば、CI より先に SDL のパースエラーを検出できる。"
+
+#: ../../user/templates/hono-graphql.md:309
+msgid ""
+"**Schema-first vs code-first.** This template is opinionated toward "
+"schema-first because it is friendlier to polyglot teams, public schemas, "
+"and external codegen. If you have many contributors and heavy schema "
+"churn, the README's *Schema* section walks through swapping "
+"`GraphqlSchema.res` for a code-first builder (Pothos, Nexus). Drizzle and"
+" Hono stay; only the schema/resolver wiring changes."
+msgstr "**Schema-first と code-first。** このテンプレートは schema-first を志向している。これは多言語チーム、公開スキーマ、外部コード生成と相性がよいためである。コントリビュータが多くスキーマの変更が激しい場合、README の *Schema* セクションは `GraphqlSchema.res` を code-first ビルダー (Pothos、Nexus) に差し替える方法を解説している。Drizzle と Hono はそのまま残り、変わるのはスキーマ/リゾルバの配線のみである。"
+
+#: ../../user/templates/hono-graphql.md:310
+#, python-brace-format
+msgid ""
+"**Resolver-level testing.** `src/__tests__/Server.test.mjs` only covers "
+"the HTTP boundary (`app.request(\"/health\")`). The README's *Schema* "
+"section shows how to call `graphql({ schema, rootValue, source })` "
+"directly from a test — useful when you want to exercise resolver logic "
+"without spinning up SQLite. Pair it with `vi.mock(\"../Db.res.mjs\", "
+"...)` for pure unit tests."
+msgstr "**リゾルバ単位のテスト。** `src/__tests__/Server.test.mjs` は HTTP 境界 (`app.request(\"/health\")`) のみをカバーする。README の *Schema* セクションでは、テストから `graphql({ schema, rootValue, source })` を直接呼び出す方法を示している — SQLite を起動せずにリゾルバロジックを実行したい場合に有用である。純粋なユニットテストでは `vi.mock(\"../Db.res.mjs\", ...)` と組み合わせるとよい。"
+
+#: ../../user/templates/hono-graphql.md:311
+msgid ""
+"**`Server.res` never calls `serve()` at module top level** — that work "
+"lives in `start()` and is invoked from `ServerMain.res`. Tests can "
+"therefore `import(\"../Server.res.mjs\")` without binding port 4000."
+msgstr "**`Server.res` はモジュールトップレベルで `serve()` を呼び出さない** — その処理は `start()` に置かれ、`ServerMain.res` から呼び出される。これにより、テストはポート 4000 をバインドせずに `import(\"../Server.res.mjs\")` できる。"
+
+#: ../../user/templates/hono-graphql.md:312
+msgid ""
+"**`failwith` in resolvers becomes a GraphQL error.** graphql-yoga catches"
+" the throw, walks the path, and emits an `errors[]` entry instead of a "
+"500. Use `failwith` for client-visible validation; reserve `Hono.onError`"
+" for unexpected exceptions in non-yoga routes (the global handler returns"
+" a JSON 500)."
+msgstr "**リゾルバ内の `failwith` は GraphQL エラーになる。** graphql-yoga は throw を捕捉してパスをたどり、500 ではなく `errors[]` エントリを発行する。クライアントから見えるバリデーションには `failwith` を使い、`Hono.onError` は yoga 以外のルートでの想定外の例外用に温存する (グローバルハンドラは JSON 500 を返す)。"
+
+#: ../../user/templates/hono-graphql.md:313
+msgid ""
+"**Defaults to a local SQLite file.** `DATABASE_URL=file:./data/app.db` is"
+" the out-of-the-box wiring. Swap it for a `libsql://` URL (Turso) without"
+" touching code — the libsql client speaks both protocols. `.env.example` "
+"documents the variable."
+msgstr "**ローカルの SQLite ファイルが既定。** `DATABASE_URL=file:./data/app.db` が標準の配線である。コードに触れずに `libsql://` URL (Turso) に差し替えできる — libsql クライアントは両方のプロトコルを話す。`.env.example` がこの変数を記載している。"
+
+#: ../../user/templates/hono-graphql.md:314
+msgid ""
+"**Node 22 only.** `engines.node` is `>=22` and `.nvmrc` says `22`. "
+"Earlier majors are not exercised by CI."
+msgstr "**Node 22 のみ対応。** `engines.node` は `>=22`、`.nvmrc` は `22` を指定している。これより古いメジャーバージョンは CI で検証していない。"
+
+#: ../../user/templates/hono-graphql.md:315
+msgid ""
+"**Generated artifacts are gitignored:** `data/`, `drizzle/` (migration "
+"SQL), `docs/schema.md`, and `.env`."
+msgstr "**生成物は gitignore 済み:** `data/`、`drizzle/` (マイグレーション SQL)、`docs/schema.md`、`.env`。"

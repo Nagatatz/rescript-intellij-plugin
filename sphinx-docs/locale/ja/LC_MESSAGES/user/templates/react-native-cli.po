@@ -1,0 +1,827 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/react-native-cli.md
+msgid ""
+"react native template, community cli, bare workflow, rescript, mobile, "
+"ios, android, native modules, metro, gentype"
+msgstr ""
+"react native テンプレート, community cli, bare ワークフロー, rescript, モバイル, "
+"ios, android, ネイティブモジュール, metro, gentype"
+
+#: ../../user/templates/react-native-cli.md:7
+msgid "React Native (Community CLI)"
+msgstr "React Native (Community CLI)"
+
+#: ../../user/templates/react-native-cli.md:9
+#, python-brace-format
+msgid "{bdg-info}`Mobile` {bdg-warning}`Bare Workflow` {bdg-success}`Validation`"
+msgstr "{bdg-info}`Mobile` {bdg-warning}`Bare Workflow` {bdg-success}`Validation`"
+
+#: ../../user/templates/react-native-cli.md:11
+msgid ""
+"A ReScript-powered React Native app on the **Community CLI bare "
+"workflow** — the path you take when you need direct access to the "
+"`android/` Gradle project, the `ios/` Xcode workspace, custom native "
+"modules in Kotlin/Swift, or any tooling Expo's managed workflow doesn't "
+"yet support. The template ships only the JavaScript / TypeScript / "
+"ReScript surface; the native projects themselves are produced by running "
+"`@react-native-community/cli` after the wizard finishes."
+msgstr ""
+"**Community CLI bare ワークフロー** で動作する ReScript ベースの React Native アプリである — "
+"`android/` の Gradle プロジェクト、`ios/` の Xcode ワークスペース、Kotlin/Swift によるカスタムネイティブモジュール、"
+"あるいは Expo マネージドワークフローがまだサポートしていないツールチェーンへの直接アクセスが必要な場合に進む経路である。"
+"テンプレートには JavaScript / TypeScript / ReScript のサーフェスのみが含まれている; "
+"ネイティブプロジェクト自体は、ウィザード完了後に `@react-native-community/cli` を実行することで生成される。"
+
+#: ../../user/templates/react-native-cli.md:13
+#, python-brace-format
+msgid ""
+"Pick this template if you have native-side requirements (a Kotlin SDK to "
+"wrap, a custom CocoaPod, a build flavor that diverges per environment) or"
+" if your team already lives in Android Studio / Xcode. If your needs sit "
+"comfortably inside Expo's managed pipeline, the {doc}`react-native` "
+"template will cost you less day-to-day overhead."
+msgstr ""
+"ネイティブ側の要件 (ラップすべき Kotlin SDK、カスタム CocoaPod、環境ごとに分岐するビルドフレーバー) がある場合や、"
+"チームがすでに Android Studio / Xcode で暮らしている場合に本テンプレートを選ぶ。"
+"ニーズが Expo のマネージドパイプライン内に快適に収まる場合は、{doc}`react-native` テンプレートのほうが日々のオーバーヘッドは少なく済む。"
+
+#: ../../user/templates/react-native-cli.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/react-native-cli.md:43
+msgid ""
+"What is **not** in the box: the `android/` and `ios/` directories "
+"themselves. They are generated on first run by the Community CLI — see "
+"the next section."
+msgstr ""
+"箱に **入っていないもの**: `android/` と `ios/` ディレクトリそのものである。"
+"これらは初回実行時に Community CLI によって生成される — 次のセクションを参照のこと。"
+
+#: ../../user/templates/react-native-cli.md:45
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/react-native-cli.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/react-native-cli.md
+msgid ""
+"Becomes the npm `name`, the AppRegistry `name` + `displayName` in "
+"`app.json`, the LICENSE holder, and the title rendered above the todo "
+"list (`{{projectName}} TODOs`)"
+msgstr ""
+"npm `name`、`app.json` の AppRegistry `name` + `displayName`、LICENSE のホルダー、"
+"および TODO リストの上に表示されるタイトル (`{{projectName}} TODOs`) になる"
+
+#: ../../user/templates/react-native-cli.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/react-native-cli.md
+msgid ""
+"npm / pnpm / yarn / bun. Sets `packageManager`, README install/run "
+"snippets, and the CI cache key. The README's \"Community CLI Setup\" "
+"section substitutes the chosen install + execute commands "
+"(`{{installCmd}}` / `{{execReactNative}}`)"
+msgstr ""
+"npm / pnpm / yarn / bun。`packageManager`、README のインストール/実行スニペット、"
+"および CI キャッシュキーを設定する。README の \"Community CLI Setup\" セクションは、"
+"選択されたインストール + 実行コマンド (`{{installCmd}}` / `{{execReactNative}}`) を置換する"
+
+#: ../../user/templates/react-native-cli.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/react-native-cli.md
+msgid ""
+"`zod` ↔ `sury`. Picks which `src/Validation.res` variant ships and which "
+"dep lands in `dependencies`"
+msgstr ""
+"`zod` ↔ `sury`。同梱する `src/Validation.res` のバリアントと、"
+"`dependencies` に追加される依存を選択する"
+
+#: ../../user/templates/react-native-cli.md:53
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Runtime stubs imported by compiled `.res.mjs`"
+msgstr "コンパイル済み `.res.mjs` がインポートするランタイムスタブ"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@rescript/react`"
+msgstr "`@rescript/react`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "React bindings (JSX-enabled `rescript.json`)"
+msgstr "React バインディング (JSX 有効化された `rescript.json`)"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.RESCRIPT_REACT`"
+msgstr "`TemplateVersions.RESCRIPT_REACT`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`react`"
+msgstr "`react`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "UI library shared with React Native"
+msgstr "React Native と共有する UI ライブラリ"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.REACT`"
+msgstr "`TemplateVersions.REACT`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`react-native`"
+msgstr "`react-native`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Native UI primitives"
+msgstr "ネイティブ UI プリミティブ"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.REACT_NATIVE`"
+msgstr "`TemplateVersions.REACT_NATIVE`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Validation backend (form input parser)"
+msgstr "バリデーションバックエンド (フォーム入力パーサー)"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.ZOD` / `SURY`"
+msgstr "`TemplateVersions.ZOD` / `SURY`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@react-native-community/cli` *(dev)*"
+msgstr "`@react-native-community/cli` *(dev)*"
+
+#: ../../user/templates/react-native-cli.md
+msgid ""
+"CLI used to scaffold `android/` and `ios/`, run Metro, and trigger native"
+" builds"
+msgstr ""
+"`android/` と `ios/` をスキャフォールドし、Metro を実行し、ネイティブビルドをトリガーする CLI"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.RN_COMMUNITY_CLI`"
+msgstr "`TemplateVersions.RN_COMMUNITY_CLI`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@react-native/babel-preset` *(dev)*"
+msgstr "`@react-native/babel-preset` *(dev)*"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Babel preset RN bundlers expect"
+msgstr "RN バンドラーが期待する Babel プリセット"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.RN_BABEL_PRESET`"
+msgstr "`TemplateVersions.RN_BABEL_PRESET`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@react-native/metro-config` *(dev)*"
+msgstr "`@react-native/metro-config` *(dev)*"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Default Metro config we extend in `metro.config.js`"
+msgstr "`metro.config.js` で拡張するデフォルトの Metro 設定"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.RN_METRO_CONFIG`"
+msgstr "`TemplateVersions.RN_METRO_CONFIG`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@react-native/typescript-config` *(dev)*"
+msgstr "`@react-native/typescript-config` *(dev)*"
+
+#: ../../user/templates/react-native-cli.md
+msgid "TS config base for `App.tsx` + the `.gen.tsx` files"
+msgstr "`App.tsx` + `.gen.tsx` ファイル用の TS 設定ベース"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.RN_TYPESCRIPT_CONFIG`"
+msgstr "`TemplateVersions.RN_TYPESCRIPT_CONFIG`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Smoke test runner — pure-Node, never loads RN"
+msgstr "スモークテストランナー — pure-Node で、RN は決してロードしない"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` のカバレッジプロバイダ"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`typescript` *(dev)*"
+msgstr "`typescript` *(dev)*"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Required for `App.tsx` + the genType-emitted `.gen.tsx` files"
+msgstr "`App.tsx` および genType が出力する `.gen.tsx` ファイルに必要"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.TYPESCRIPT`"
+msgstr "`TemplateVersions.TYPESCRIPT`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`@types/react` *(dev)*"
+msgstr "`@types/react` *(dev)*"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Type definitions for the React surface genType emits against"
+msgstr "genType が出力対象とする React サーフェスの型定義"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`TemplateVersions.REACT_TYPES`"
+msgstr "`TemplateVersions.REACT_TYPES`"
+
+#: ../../user/templates/react-native-cli.md:73
+msgid "Generating the Native Projects"
+msgstr "ネイティブプロジェクトの生成"
+
+#: ../../user/templates/react-native-cli.md:75
+msgid ""
+"The wizard does not run `@react-native-community/cli` for you. After the "
+"project is generated and dependencies are installed, run:"
+msgstr ""
+"ウィザードは `@react-native-community/cli` を代わりに実行することはない。"
+"プロジェクトが生成され依存がインストールされた後、次を実行する:"
+
+#: ../../user/templates/react-native-cli.md:83
+msgid ""
+"If `init-android` / `init-ios` are unavailable in your CLI revision, use "
+"the upstream template as a fallback:"
+msgstr ""
+"使用している CLI のリビジョンで `init-android` / `init-ios` が利用できない場合は、"
+"フォールバックとして上流テンプレートを使うこと:"
+
+#: ../../user/templates/react-native-cli.md:90
+msgid "Prerequisites:"
+msgstr "前提条件:"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Target"
+msgstr "ターゲット"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Toolchain"
+msgstr "ツールチェーン"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Android"
+msgstr "Android"
+
+#: ../../user/templates/react-native-cli.md
+msgid "JDK 21, Android Studio, Android SDK + NDK, watchman (macOS/Linux)"
+msgstr "JDK 21, Android Studio, Android SDK + NDK, watchman (macOS/Linux)"
+
+#: ../../user/templates/react-native-cli.md
+msgid "iOS"
+msgstr "iOS"
+
+#: ../../user/templates/react-native-cli.md
+msgid "macOS, Xcode 16+, CocoaPods"
+msgstr "macOS, Xcode 16+, CocoaPods"
+
+#: ../../user/templates/react-native-cli.md:97
+msgid ""
+"The README ships expanded versions of these instructions and substitutes "
+"your chosen package manager into the command lines."
+msgstr ""
+"README にはこれらの手順を拡張したバージョンが同梱されており、コマンドラインに選択したパッケージマネージャを置換する。"
+
+#: ../../user/templates/react-native-cli.md:99
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/react-native-cli.md:101
+msgid "`App.tsx`"
+msgstr "`App.tsx`"
+
+#: ../../user/templates/react-native-cli.md:103
+msgid ""
+"Intentionally trivial — an inline string in the generator, not loaded "
+"from a resource file:"
+msgstr ""
+"意図的に簡素である — リソースファイルからロードされるのではなく、ジェネレータ内のインライン文字列である:"
+
+#: ../../user/templates/react-native-cli.md:111
+msgid ""
+"`AppRegistry` (in `index.js`) calls `() => App` and does not invoke any "
+"factory. genType emits the matching `App.gen.tsx` next to `src/App.res` "
+"during compilation."
+msgstr ""
+"`AppRegistry` (`index.js` 内) は `() => App` を呼び出し、ファクトリは呼び出さない。"
+"genType はコンパイル時に `src/App.res` の隣に対応する `App.gen.tsx` を出力する。"
+
+#: ../../user/templates/react-native-cli.md:113
+msgid "`index.js`"
+msgstr "`index.js`"
+
+#: ../../user/templates/react-native-cli.md:115
+msgid "The native-side entry point. Standard React Native bootstrap:"
+msgstr "ネイティブ側のエントリポイント。標準的な React Native のブートストラップである:"
+
+#: ../../user/templates/react-native-cli.md:125
+msgid "`metro.config.js`"
+msgstr "`metro.config.js`"
+
+#: ../../user/templates/react-native-cli.md:127
+msgid ""
+"The single non-default piece of bundler configuration: appending "
+"`\"mjs\"` to Metro's `sourceExts` so it picks up ReScript-compiled "
+"output."
+msgstr ""
+"バンドラー設定で唯一デフォルトと異なる箇所: Metro の `sourceExts` に `\"mjs\"` を追加して、"
+"ReScript のコンパイル出力を拾えるようにしている。"
+
+#: ../../user/templates/react-native-cli.md:143
+msgid ""
+"If you ever see a `Module not found` error pointing at a `.res.mjs` file,"
+" this resolver entry is the first thing to verify."
+msgstr ""
+"`.res.mjs` ファイルを指す `Module not found` エラーが発生した場合、まず確認すべきはこのリゾルバエントリである。"
+
+#: ../../user/templates/react-native-cli.md:145
+msgid "`babel.config.js`"
+msgstr "`babel.config.js`"
+
+#: ../../user/templates/react-native-cli.md:147
+msgid "Single line of config:"
+msgstr "1 行の設定:"
+
+#: ../../user/templates/react-native-cli.md:153
+msgid ""
+"ReScript compiles `.res` to standards-compliant ES modules — no Babel "
+"transform of ReScript output is needed; this preset only services the JS "
+"/ TS layer."
+msgstr ""
+"ReScript は `.res` を標準準拠の ES モジュールにコンパイルする — ReScript 出力の Babel 変換は不要である; "
+"このプリセットは JS / TS 層のみに供される。"
+
+#: ../../user/templates/react-native-cli.md:155
+msgid "`src/App.res`"
+msgstr "`src/App.res`"
+
+#: ../../user/templates/react-native-cli.md:157
+msgid ""
+"The interactive todo list. Identical to the Expo template's demo — "
+"`useState` slices for `todos`, `draft`, `error`; validation gate before "
+"append; `FlatList` for render — and uses the same `@genType "
+"@react.component` annotations so genType emits `App.gen.tsx`."
+msgstr ""
+"対話的な TODO リスト。Expo テンプレートのデモと同一である — "
+"`todos`、`draft`、`error` 用の `useState` スライス、追加前のバリデーションゲート、レンダリング用の `FlatList` — "
+"そして同じ `@genType @react.component` アノテーションを使用するため、genType が `App.gen.tsx` を出力する。"
+
+#: ../../user/templates/react-native-cli.md:172
+msgid "`src/ReactNative.res`"
+msgstr "`src/ReactNative.res`"
+
+#: ../../user/templates/react-native-cli.md:174
+msgid ""
+"Same minimal binding set as the Expo template: `View`, `Text`, "
+"`TextInput`, `Button`, `FlatList`, plus a `Style.make` helper. Each "
+"module follows the `@module(\"react-native\") @react.component external "
+"make: (...) => React.element = \"...\"` pattern; copy it to bind more "
+"components, or use a third-party package name in place of `\"react-"
+"native\"` for community modules."
+msgstr ""
+"Expo テンプレートと同じ最小限のバインディングセット: `View`、`Text`、`TextInput`、`Button`、`FlatList` に加えて `Style.make` ヘルパー。"
+"各モジュールは `@module(\"react-native\") @react.component external make: (...) => React.element = \"...\"` パターンに従う; "
+"コピーしてさらにコンポーネントをバインドするか、コミュニティモジュールについては `\"react-native\"` の代わりにサードパーティのパッケージ名を使う。"
+
+#: ../../user/templates/react-native-cli.md:176
+msgid "`src/NativeGreeting.res`"
+msgstr "`src/NativeGreeting.res`"
+
+#: ../../user/templates/react-native-cli.md:178
+msgid ""
+"The reason most teams pick the bare workflow: a worked example of binding"
+" a custom Kotlin/Swift `NativeModule`."
+msgstr ""
+"多くのチームが bare ワークフローを選ぶ理由: カスタム Kotlin/Swift `NativeModule` をバインドする実例である。"
+
+#: ../../user/templates/react-native-cli.md:189
+msgid ""
+"This file contains **bindings only**. The Kotlin (Android) or Swift (iOS)"
+" implementation must be added separately under "
+"`android/app/src/main/java/...` or `ios/`. The template intentionally "
+"does **not** ship the native side — it varies per platform and per "
+"minimum-OS target, and bundling a stale example would be more harmful "
+"than helpful. Follow the official RN guides:"
+msgstr ""
+"このファイルには **バインディングのみ** が含まれる。Kotlin (Android) または Swift (iOS) 実装は、"
+"`android/app/src/main/java/...` または `ios/` 配下に別途追加する必要がある。"
+"テンプレートは意図的にネイティブ側を **同梱しない** — プラットフォームと最小 OS ターゲットごとに大きく異なるためであり、"
+"古い例を同梱することは助けになるよりも害となる。公式の RN ガイドに従うこと:"
+
+#: ../../user/templates/react-native-cli.md:191
+msgid "Android: <https://reactnative.dev/docs/legacy/native-modules-android>"
+msgstr "Android: <https://reactnative.dev/docs/legacy/native-modules-android>"
+
+#: ../../user/templates/react-native-cli.md:192
+msgid "iOS: <https://reactnative.dev/docs/legacy/native-modules-ios>"
+msgstr "iOS: <https://reactnative.dev/docs/legacy/native-modules-ios>"
+
+#: ../../user/templates/react-native-cli.md:194
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/react-native-cli.md:196
+msgid ""
+"`parseDraftTodo: string => result<draftTodo, string>`. Same shape and "
+"behavior as the Expo template — trims input, rejects blanks, rejects "
+"entries longer than 120 characters, otherwise hands back a `draftTodo` "
+"record."
+msgstr ""
+"`parseDraftTodo: string => result<draftTodo, string>`。Expo テンプレートと同じ形と振る舞いである — "
+"入力をトリムし、空のエントリと 120 文字を超えるエントリを拒否し、それ以外の場合は `draftTodo` レコードを返す。"
+
+#: ../../user/templates/react-native-cli.md:198
+msgid "`src/__tests__/App.test.mjs`"
+msgstr "`src/__tests__/App.test.mjs`"
+
+#: ../../user/templates/react-native-cli.md:200
+msgid ""
+"Filesystem-only smoke test — checks that the compiled artifacts exist via"
+" `existsSync`. Importing `App.res.mjs` from plain Node would pull in "
+"`react-native`, which Vitest can't run. Treat this as a build canary; use"
+" Jest + `jest-react-native` for behavior tests."
+msgstr ""
+"ファイルシステムのみのスモークテスト — コンパイル成果物が存在するかを `existsSync` で確認する。"
+"`App.res.mjs` を素の Node からインポートすると `react-native` を引き込んでしまい、Vitest はこれを実行できない。"
+"これはビルドのカナリアとして扱うこと; 振る舞いのテストには Jest + `jest-react-native` を使う。"
+
+#: ../../user/templates/react-native-cli.md:202
+msgid "`tsconfig.json`"
+msgstr "`tsconfig.json`"
+
+#: ../../user/templates/react-native-cli.md:204
+msgid ""
+"Extends `@react-native/typescript-config` with `\"strict\": true` and "
+"`\"noImplicitAny\": true`. The strict pair keeps the genType-emitted "
+"`.gen.tsx` files honest."
+msgstr ""
+"`@react-native/typescript-config` を `\"strict\": true` と `\"noImplicitAny\": true` で拡張する。"
+"この strict のペアが genType の出力する `.gen.tsx` ファイルを厳格に保つ。"
+
+#: ../../user/templates/react-native-cli.md:206
+msgid "`.gitignore`"
+msgstr "`.gitignore`"
+
+#: ../../user/templates/react-native-cli.md:208
+msgid ""
+"The bare workflow needs more aggressive ignores than the Expo flavor: "
+"build outputs (`android/build/`, `android/app/build/`, `ios/build/`, "
+"`ios/Pods/`), gradle caches (`android/.gradle/`), local Android config "
+"(`android/local.properties`), Hermes bytecode (`*.hbc`), signing material"
+" (`*.keystore`, `ios/.xcode.env.local`), build artifacts (`*.apk`, "
+"`*.aab`, `*.ipa`), and TypeScript incremental info (`*.tsbuildinfo`)."
+msgstr ""
+"bare ワークフローでは Expo フレーバーよりも積極的な ignore が必要となる: "
+"ビルド出力 (`android/build/`、`android/app/build/`、`ios/build/`、`ios/Pods/`)、"
+"gradle キャッシュ (`android/.gradle/`)、ローカル Android 設定 (`android/local.properties`)、"
+"Hermes バイトコード (`*.hbc`)、署名素材 (`*.keystore`、`ios/.xcode.env.local`)、"
+"ビルド成果物 (`*.apk`、`*.aab`、`*.ipa`)、および TypeScript 増分ビルド情報 (`*.tsbuildinfo`) である。"
+
+#: ../../user/templates/react-native-cli.md:210
+msgid ""
+"Note that `android/` and `ios/` themselves are *not* ignored — once you "
+"generate them you commit the configs (`build.gradle`, `Podfile`, "
+"`Info.plist`, etc.) so the team builds reproducibly."
+msgstr ""
+"`android/` と `ios/` 自体は *ignore されない* ことに注意 — 生成後は設定 (`build.gradle`、`Podfile`、`Info.plist` など) を"
+"コミットして、チームが再現可能なビルドを行えるようにする。"
+
+#: ../../user/templates/react-native-cli.md:212
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/react-native-cli.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`react-native start` — launch Metro"
+msgstr "`react-native start` — Metro を起動する"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`android`"
+msgstr "`android`"
+
+#: ../../user/templates/react-native-cli.md
+msgid ""
+"`react-native run-android` — Gradle build + install on a connected "
+"emulator/device"
+msgstr ""
+"`react-native run-android` — 接続されたエミュレータ/デバイス上で Gradle ビルド + インストール"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`ios`"
+msgstr "`ios`"
+
+#: ../../user/templates/react-native-cli.md
+msgid ""
+"`react-native run-ios` — Xcode build + install on a simulator/device "
+"(macOS only)"
+msgstr ""
+"`react-native run-ios` — シミュレータ/デバイス上で Xcode ビルド + インストール (macOS のみ)"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`vitest run` — run the source smoke test"
+msgstr "`vitest run` — ソースのスモークテストを実行する"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`vitest run --coverage` — same, with v8 coverage"
+msgstr "`vitest run --coverage` — 同上、v8 カバレッジ付き"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`rescript` — one-shot ReScript compile"
+msgstr "`rescript` — ワンショットの ReScript コンパイル"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存時に再コンパイル"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/react-native-cli.md
+msgid "`rescript clean` — remove generated `.res.mjs` and `.gen.tsx`"
+msgstr "`rescript clean` — 生成された `.res.mjs` と `.gen.tsx` を削除"
+
+#: ../../user/templates/react-native-cli.md:225
+msgid ""
+"A typical session uses three terminals: `npm run res:dev` (ReScript "
+"watcher), `npm start` (Metro), and `npm run android` / `npm run ios` (or "
+"Android Studio / Xcode for the native build)."
+msgstr ""
+"典型的なセッションでは 3 つのターミナルを使う: `npm run res:dev` (ReScript ウォッチャー)、"
+"`npm start` (Metro)、および `npm run android` / `npm run ios` (もしくはネイティブビルド用に Android Studio / Xcode) である。"
+
+#: ../../user/templates/react-native-cli.md:227
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/react-native-cli.md:229
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/create-react-component` — same JSX patterns apply "
+"(substitute `View` for `<div>`)"
+msgstr ""
+"{doc}`../recipes/create-react-component` — 同じ JSX パターンが適用される (`<div>` を `View` に置き換える)"
+
+#: ../../user/templates/react-native-cli.md:230
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/optimize-imports` — keep `src/ReactNative.res` and "
+"`src/NativeGreeting.res` lean as bindings grow"
+msgstr ""
+"{doc}`../recipes/optimize-imports` — バインディングが増えるにつれて "
+"`src/ReactNative.res` と `src/NativeGreeting.res` を簡潔に保つ"
+
+#: ../../user/templates/react-native-cli.md:231
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/find-dead-code` — useful as the screen + native-module "
+"surface grows"
+msgstr ""
+"{doc}`../recipes/find-dead-code` — 画面 + ネイティブモジュールのサーフェスが拡大するにつれて有用になる"
+
+#: ../../user/templates/react-native-cli.md:233
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see "
+"{doc}`../features/index`."
+msgstr ""
+"プロジェクトを開いた後の ReScript 側のエディタワークフローについては {doc}`../features/index` を参照のこと。"
+
+#: ../../user/templates/react-native-cli.md:235
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/react-native-cli.md:237
+msgid ""
+"**Native projects are generated separately.** The wizard ships only the "
+"JS/TS + ReScript surface. Run `npx @react-native-community/cli init-"
+"android` / `init-ios` after the wizard, or use the upstream template "
+"fallback — see \"Generating the Native Projects\" above."
+msgstr ""
+"**ネイティブプロジェクトは別途生成する。** ウィザードには JS/TS + ReScript のサーフェスしか含まれていない。"
+"ウィザードの後で `npx @react-native-community/cli init-android` / `init-ios` を実行するか、"
+"上流テンプレートのフォールバックを使うこと — 上記の \"ネイティブプロジェクトの生成\" を参照のこと。"
+
+#: ../../user/templates/react-native-cli.md:238
+msgid ""
+"**Open `android/`, not the project root, in Android Studio.** Gradle "
+"expects to be the IDE root. Set Gradle JDK to 21 under `File > Settings >"
+" Build, Execution, Deployment > Build Tools > Gradle`. Metro must already"
+" be running before you hit `Run > Run 'app'`."
+msgstr ""
+"**Android Studio ではプロジェクトルートではなく `android/` を開く。** Gradle が IDE のルートであることを期待する。"
+"`File > Settings > Build, Execution, Deployment > Build Tools > Gradle` で Gradle JDK を 21 に設定すること。"
+"`Run > Run 'app'` を押す前に Metro が起動していなければならない。"
+
+#: ../../user/templates/react-native-cli.md:239
+msgid ""
+"**`metro.config.js` is the single non-default file.** The `mjs` sourceExt"
+" is what makes ReScript output resolvable. If you `mergeConfig` further "
+"customizations, preserve that resolver entry or `.res.mjs` imports will "
+"start failing with \"Module not found\"."
+msgstr ""
+"**`metro.config.js` がデフォルトと異なる唯一のファイルである。** `mjs` の sourceExt によって ReScript 出力が解決可能になる。"
+"`mergeConfig` でさらにカスタマイズを加える場合、そのリゾルバエントリを保持しないと "
+"`.res.mjs` のインポートが \"Module not found\" で失敗し始める。"
+
+#: ../../user/templates/react-native-cli.md:240
+msgid ""
+"**Native modules are bindings only.** `NativeGreeting.res` shows the "
+"ReScript half; you write the Kotlin / Swift half. The template stays "
+"neutral on which RN native-modules architecture you target (legacy bridge"
+" vs. TurboModules / Fabric) — the link in the file points at the legacy "
+"docs for clarity."
+msgstr ""
+"**ネイティブモジュールはバインディングのみである。** `NativeGreeting.res` は ReScript 側を示す; "
+"Kotlin / Swift 側は自分で書く必要がある。テンプレートはどの RN ネイティブモジュールアーキテクチャ "
+"(legacy bridge vs. TurboModules / Fabric) を対象とするかについては中立を保つ — "
+"ファイル内のリンクは明確さのために legacy ドキュメントを指している。"
+
+#: ../../user/templates/react-native-cli.md:241
+msgid ""
+"**`@react-native-community/cli` moves quickly.** Command names and flags "
+"drift between minor releases. If the README's snippets diverge from the "
+"current CLI, fall back to the official docs at <https://reactnative.dev>;"
+" the ReScript half of the template (`rescript.json`, `src/*.res`, "
+"`metro.config.js`) is unaffected."
+msgstr ""
+"**`@react-native-community/cli` は速いペースで動く。** コマンド名やフラグはマイナーリリース間で漂流する。"
+"README のスニペットが現在の CLI から乖離した場合は、<https://reactnative.dev> の公式ドキュメントにフォールバックすること; "
+"テンプレートの ReScript 側 (`rescript.json`、`src/*.res`、`metro.config.js`) は影響を受けない。"
+
+#: ../../user/templates/react-native-cli.md:242
+msgid ""
+"**Common stumbling blocks** (also documented in the README's "
+"Troubleshooting section):"
+msgstr ""
+"**よくある落とし穴** (README の Troubleshooting セクションにも記載されている):"
+
+#: ../../user/templates/react-native-cli.md:243
+msgid "*Metro cannot reach the device:* `adb reverse tcp:8081 tcp:8081`"
+msgstr "*Metro がデバイスに到達できない:* `adb reverse tcp:8081 tcp:8081`"
+
+#: ../../user/templates/react-native-cli.md:244
+msgid "*Stale Metro cache:* restart Metro with `--reset-cache`"
+msgstr "*古い Metro キャッシュ:* `--reset-cache` を付けて Metro を再起動する"
+
+#: ../../user/templates/react-native-cli.md:245
+msgid ""
+"*Gradle errors after upgrading deps:* `cd android && ./gradlew clean`, "
+"then rebuild"
+msgstr ""
+"*依存アップグレード後の Gradle エラー:* `cd android && ./gradlew clean` の後に再ビルドする"
+
+#: ../../user/templates/react-native-cli.md:246
+msgid ""
+"*Module not found for `.res.mjs`:* confirm `metro.config.js` still "
+"appends `mjs` to `resolver.sourceExts`"
+msgstr ""
+"*`.res.mjs` の Module not found:* `metro.config.js` が `resolver.sourceExts` に `mjs` を追加し続けているか確認する"
+
+#: ../../user/templates/react-native-cli.md:247
+msgid ""
+"**The smoke test is intentionally toothless.** Same constraint as the "
+"Expo flavor — `App.res.mjs` cannot be imported from plain Node. Use Jest "
+"with the appropriate RN preset for component-level tests."
+msgstr ""
+"**スモークテストは意図的に無力である。** Expo フレーバーと同じ制約 — `App.res.mjs` は素の Node からインポートできない。"
+"コンポーネントレベルのテストには適切な RN プリセット付きの Jest を使うこと。"
+
+#: ../../user/templates/react-native-cli.md:248
+msgid ""
+"**genType is mandatory.** The boot path `index.js → App.tsx → "
+"src/App.gen` only works because `rescript.json` has genType enabled. "
+"Disabling it breaks `App.tsx` immediately."
+msgstr ""
+"**genType は必須である。** 起動経路 `index.js → App.tsx → src/App.gen` が動作するのは、"
+"`rescript.json` で genType が有効化されているからこそである。これを無効化すると `App.tsx` が直ちに壊れる。"

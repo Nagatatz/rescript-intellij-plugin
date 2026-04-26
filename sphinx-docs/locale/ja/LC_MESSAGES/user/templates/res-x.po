@@ -1,0 +1,599 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/res-x.md
+msgid ""
+"res-x, rescript-x, htmx, bun, vite, server-driven, jsx server-side, hjsx,"
+" rescript-bun, validation, zod, sury"
+msgstr "res-x, rescript-x, htmx, bun, vite, server-driven, jsx server-side, hjsx, rescript-bun, バリデーション, zod, sury"
+
+#: ../../user/templates/res-x.md:7
+msgid "res-x (HTMX on Bun)"
+msgstr "res-x (Bun ä¸ã® HTMX)"
+
+#: ../../user/templates/res-x.md:9
+#, python-brace-format
+msgid ""
+"{bdg-info}`Bun` {bdg-info}`HTMX` {bdg-info}`Vite` {bdg-"
+"success}`Validation` {bdg-warning}`Bun-only`"
+msgstr "{bdg-info}`Bun` {bdg-info}`HTMX` {bdg-info}`Vite` {bdg-success}`Validation` {bdg-warning}`Bun-only`"
+
+#: ../../user/templates/res-x.md:11
+msgid ""
+"A server-driven web application built with "
+"[res-x](https://www.npmjs.com/package/rescript-x) (`rescript-x` on npm), "
+"running on [Bun](https://bun.sh) and bundled by Vite. JSX renders HTML on"
+" the server; HTMX drives client-side interactivity by swapping HTML "
+"fragments returned from typed endpoints. There is no React, no virtual "
+"DOM, and no client-side bundle of application logic — the browser just "
+"receives HTML and trades it back and forth with the server."
+msgstr "[res-x](https://www.npmjs.com/package/rescript-x) (npm 上の `rescript-x`) で構築され、[Bun](https://bun.sh) 上で動作し、Vite でバンドルされるサーバー駆動型 Web アプリケーションである。JSX はサーバー側で HTML をレンダリングし、HTMX は型付きエンドポイントから返される HTML フラグメントを差し替えることでクライアント側のインタラクティビティを駆動する。React も仮想 DOM もアプリケーションロジックのクライアント側バンドルも存在せず、ブラウザは単に HTML を受け取りサーバーとやり取りするだけである。"
+
+#: ../../user/templates/res-x.md:13
+msgid ""
+"Pick this template when you want fast first-load, no client framework, "
+"and the simplest possible state model: every interaction is an HTTP "
+"request that returns a JSX fragment. The starter ships two end-to-end "
+"examples — a counter and a todo form — that demonstrate the patterns you "
+"reach for ninety percent of the time."
+msgstr "高速な初回読み込み、クライアントフレームワーク不要、そして可能な限りシンプルな状態モデル（あらゆるインタラクションが JSX フラグメントを返す HTTP リクエストである）を求めるなら、このテンプレートを選ぶとよい。スターターには 2 つのエンドツーエンドの例（カウンタと todo フォーム）が含まれており、九割のケースで使うパターンを示している。"
+
+#: ../../user/templates/res-x.md:15
+msgid "What You Get"
+msgstr "çæåå®¹"
+
+#: ../../user/templates/res-x.md:41
+msgid "Wizard Options"
+msgstr "ã¦ã£ã¶ã¼ããªãã·ã§ã³"
+
+#: ../../user/templates/res-x.md
+msgid "Option"
+msgstr "ãªãã·ã§ã³"
+
+#: ../../user/templates/res-x.md
+msgid "Effect"
+msgstr "å¹æ"
+
+#: ../../user/templates/res-x.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/res-x.md
+msgid ""
+"Becomes the npm `name`, the LICENSE holder, and the `name` field "
+"substituted into `rescript.json`"
+msgstr "npm の `name`、LICENSE の保有者、および `rescript.json` に差し込まれる `name` フィールドになる"
+
+#: ../../user/templates/res-x.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/res-x.md
+msgid ""
+"npm / pnpm / yarn / bun. Affects only the `packageManager` Corepack "
+"field, the README install commands, and the CI cache key — **all run-time"
+" scripts are hardcoded to `bun`** regardless"
+msgstr "npm / pnpm / yarn / bun。`packageManager` Corepack フィールド、README のインストールコマンド、CI のキャッシュキーにのみ影響する — **すべての実行時スクリプトはいずれにせよ `bun` にハードコードされている**"
+
+#: ../../user/templates/res-x.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/res-x.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `src/Validation.res` variant ships and adds"
+" `sury` to `rescript.json`'s `dependencies` array (zod has no ReScript-"
+"side bs-deps)"
+msgstr "`zod` ↔ `sury`。出荷される `src/Validation.res` のバリアントを選択し、`rescript.json` の `dependencies` 配列に `sury` を追加する（zod は ReScript 側の bs-deps を持たない）"
+
+#: ../../user/templates/res-x.md:49
+msgid ""
+"The package-manager choice is intentionally cosmetic. Bun is the "
+"recommended PM and is required at runtime; the other PMs are supported "
+"solely so the wizard does not refuse a project for the install step."
+msgstr "パッケージマネージャの選択は意図的に表面的なものに留めている。Bun が推奨 PM であり実行時に必須であるが、他の PM もサポートされているのは、ウィザードがインストール手順でプロジェクトを拒否しないためだけの理由による。"
+
+#: ../../user/templates/res-x.md:51
+msgid "Key Dependencies"
+msgstr "ä¸»è¦ãªä¾å­"
+
+#: ../../user/templates/res-x.md
+msgid "Package"
+msgstr "ããã±ã¼ã¸"
+
+#: ../../user/templates/res-x.md
+msgid "Purpose"
+msgstr "ç¨é"
+
+#: ../../user/templates/res-x.md
+msgid "Version"
+msgstr "ãã¼ã¸ã§ã³"
+
+#: ../../user/templates/res-x.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/res-x.md
+msgid "ReScript compiler"
+msgstr "ReScript ã³ã³ãã¤ã©"
+
+#: ../../user/templates/res-x.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/res-x.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/res-x.md
+msgid "Standard library"
+msgstr "æ¨æºã©ã¤ãã©ãª"
+
+#: ../../user/templates/res-x.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/res-x.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/res-x.md
+msgid "Runtime stubs the compiled `.res.mjs` imports"
+msgstr "ã³ã³ãã¤ã«æ¸ã¿ `.res.mjs` ãã¤ã³ãã¼ãããã©ã³ã¿ã¤ã ã¹ã¿ã"
+
+#: ../../user/templates/res-x.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/res-x.md
+msgid "`rescript-x`"
+msgstr "`rescript-x`"
+
+#: ../../user/templates/res-x.md
+msgid "Server-side JSX framework with HTMX-first handler API"
+msgstr "HTMX ファーストのハンドラ API を備えたサーバーサイド JSX フレームワーク"
+
+#: ../../user/templates/res-x.md
+msgid "`TemplateVersions.RESCRIPT_X`"
+msgstr "`TemplateVersions.RESCRIPT_X`"
+
+#: ../../user/templates/res-x.md
+msgid "`rescript-bun`"
+msgstr "`rescript-bun`"
+
+#: ../../user/templates/res-x.md
+msgid "ReScript bindings for Bun's runtime APIs (Bun.serve, FormData, etc.)"
+msgstr "Bun のランタイム API（Bun.serve、FormData など）に対する ReScript バインディング"
+
+#: ../../user/templates/res-x.md
+msgid "`TemplateVersions.RESCRIPT_BUN`"
+msgstr "`TemplateVersions.RESCRIPT_BUN`"
+
+#: ../../user/templates/res-x.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *ã¾ãã¯* `sury`"
+
+#: ../../user/templates/res-x.md
+msgid "Validation backend (chosen in the wizard)"
+msgstr "ããªãã¼ã·ã§ã³ã®ããã¯ã¨ã³ãï¼ã¦ã£ã¶ã¼ãã§é¸æï¼"
+
+#: ../../user/templates/res-x.md
+msgid "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+msgstr "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+
+#: ../../user/templates/res-x.md
+msgid "`vite` *(dev)*"
+msgstr "`vite` *(dev)*"
+
+#: ../../user/templates/res-x.md
+msgid "Bundler used for client-side assets when needed"
+msgstr "必要な場合にクライアント側アセットをバンドルするためのバンドラ"
+
+#: ../../user/templates/res-x.md
+msgid "`TemplateVersions.VITE`"
+msgstr "`TemplateVersions.VITE`"
+
+#: ../../user/templates/res-x.md
+msgid "`concurrently` *(dev)*"
+msgstr "`concurrently` *(dev)*"
+
+#: ../../user/templates/res-x.md
+msgid "Pairs `rescript -w` with `bun --watch` for dev"
+msgstr "開発用に `rescript -w` と `bun --watch` を組み合わせる"
+
+#: ../../user/templates/res-x.md
+msgid "`TemplateVersions.CONCURRENTLY`"
+msgstr "`TemplateVersions.CONCURRENTLY`"
+
+#: ../../user/templates/res-x.md:64
+msgid ""
+"HTMX itself is loaded from a CDN at runtime (pinned to "
+"`TemplateVersions.HTMX_CDN` via `src/Layout.res`); it is not an npm "
+"dependency."
+msgstr "HTMX 自体は実行時に CDN から読み込まれる（`src/Layout.res` 経由で `TemplateVersions.HTMX_CDN` に固定されている）。npm の依存ではない。"
+
+#: ../../user/templates/res-x.md:66
+msgid "Key Files"
+msgstr "ä¸»è¦ãªãã¡ã¤ã«"
+
+#: ../../user/templates/res-x.md:68
+msgid "`rescript.json`"
+msgstr "`rescript.json`"
+
+#: ../../user/templates/res-x.md:70
+msgid ""
+"`rescript-x` requires a specific config shape — `jsx.module = \"Hjsx\"` "
+"plus a set of `compiler-flags` that open `ResX.Globals` and the "
+"`RescriptBun.Globals` module. The wizard ships this verbatim because "
+"`ProjectFileBuilders.rescriptJson` does not produce that shape:"
+msgstr "`rescript-x` は特定の設定形状を必要とする — `jsx.module = \"Hjsx\"` に加え、`ResX.Globals` と `RescriptBun.Globals` モジュールを open する `compiler-flags` のセットである。`ProjectFileBuilders.rescriptJson` ではその形状を生成できないため、ウィザードはこれをそのまま出荷する:"
+
+#: ../../user/templates/res-x.md:89
+msgid ""
+"Selecting the sury variant appends `, \"sury\"` to the `dependencies` "
+"array; zod has no ReScript-side bindings to register."
+msgstr "sury バリアントを選択すると `, \"sury\"` が `dependencies` 配列に追加される。zod には登録すべき ReScript 側のバインディングがない。"
+
+#: ../../user/templates/res-x.md:91
+msgid "`src/App.res`"
+msgstr "`src/App.res`"
+
+#: ../../user/templates/res-x.md:93
+msgid ""
+"The entry point. `Bun.serve` mounts the res-x handler; the inner `render`"
+" function pattern-matches on the request `path` and returns JSX that "
+"res-x converts to an HTML `Response`. HTMX endpoints registered via "
+"`Handler.handler.hxPost` / `hxGet` are matched by res-x **before** this "
+"fallback renderer runs."
+msgstr "エントリポイント。`Bun.serve` が res-x ハンドラをマウントし、内部の `render` 関数がリクエストの `path` に対してパターンマッチングを行い、res-x が HTML `Response` に変換する JSX を返す。`Handler.handler.hxPost` / `hxGet` 経由で登録された HTMX エンドポイントは、このフォールバックレンダラが動作する **前** に res-x によってマッチングされる。"
+
+#: ../../user/templates/res-x.md:124
+msgid "`src/Handler.res`"
+msgstr "`src/Handler.res`"
+
+#: ../../user/templates/res-x.md:126
+msgid ""
+"The per-request context and handler bootstrap. Extend the `context` "
+"record with the values you want available via `useContext()` — a database"
+" connection, the authenticated user, request metadata. The default ships "
+"with a single optional `userId` for illustration."
+msgstr "リクエストごとのコンテキストとハンドラのブートストラップ。`useContext()` 経由で利用可能にしたい値（データベース接続、認証済みユーザー、リクエストメタデータなど）で `context` レコードを拡張する。デフォルトでは説明用に単一のオプショナル `userId` のみが含まれている。"
+
+#: ../../user/templates/res-x.md:128
+msgid "`src/Layout.res`"
+msgstr "`src/Layout.res`"
+
+#: ../../user/templates/res-x.md:130
+msgid ""
+"The shared HTML shell. Loads HTMX from "
+"`https://unpkg.com/htmx.org@<TemplateVersions.HTMX_CDN>` (pinned, not "
+"floating) so the page boots without bundling anything client-side. Swap "
+"the `<script src>` to `/htmx.min.js` once you drop a self-hosted copy "
+"into `public/`."
+msgstr "共有 HTML シェル。`https://unpkg.com/htmx.org@<TemplateVersions.HTMX_CDN>` から HTMX を読み込む（フローティングではなく固定版）ため、クライアント側で何もバンドルすることなくページが起動する。`public/` にセルフホスト版を配置したら、`<script src>` を `/htmx.min.js` に差し替えるとよい。"
+
+#: ../../user/templates/res-x.md:132
+msgid "`src/Counter.res`"
+msgstr "`src/Counter.res`"
+
+#: ../../user/templates/res-x.md:134
+msgid ""
+"The minimal HTMX pattern: server-side state in a `ref`, two `hx-post` "
+"endpoints, and an `outerHTML` swap on a single `<span>`:"
+msgstr "最小限の HTMX パターン: `ref` 内のサーバー側状態、2 つの `hx-post` エンドポイント、そして単一の `<span>` に対する `outerHTML` の差し替えである:"
+
+#: ../../user/templates/res-x.md:166
+msgid ""
+"The handler returns the refreshed `<span>` and HTMX swaps it into place —"
+" no page reload, no client framework."
+msgstr "ハンドラは更新された `<span>` を返し、HTMX がそれを所定の位置に差し替える — ページのリロードなし、クライアントフレームワークなしである。"
+
+#: ../../user/templates/res-x.md:168
+msgid "`src/TodoForm.res`"
+msgstr "`src/TodoForm.res`"
+
+#: ../../user/templates/res-x.md:170
+msgid ""
+"The form-input pattern. Posts to `/todos` with form-encoded data, runs "
+"the input through `Validation.parseTodoInput` (implemented with the "
+"selected validation library), and either appends the new todo to the list"
+" or sets status 400 and re-renders the form with an inline error:"
+msgstr "フォーム入力パターン。フォームエンコードされたデータを `/todos` に POST し、入力を `Validation.parseTodoInput`（選択したバリデーションライブラリで実装される）に通し、新しい todo をリストに追加するか、ステータス 400 を設定してインラインエラー付きでフォームを再レンダリングする:"
+
+#: ../../user/templates/res-x.md:192
+msgid ""
+"The same `outerHTML` swap pattern applies: the handler's return value "
+"becomes the new DOM subtree."
+msgstr "同じ `outerHTML` 差し替えパターンが適用される: ハンドラの戻り値が新しい DOM サブツリーになる。"
+
+#: ../../user/templates/res-x.md:194
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/res-x.md:196
+msgid ""
+"`parseTodoInput: (~name: string, ~description: string) => "
+"result<todoInput, string>` — the runtime contract for the todo form. The "
+"signature is identical between the zod and sury variants. The zod variant"
+" trims/min/max-validates `name` (1–80 chars) and `description` (≤240 "
+"chars) via schema rules."
+msgstr "`parseTodoInput: (~name: string, ~description: string) => result<todoInput, string>` — todo フォームの実行時コントラクトである。シグネチャは zod バリアントと sury バリアントで同一である。zod バリアントは、スキーマルール経由で `name`（1–80 文字）と `description`（≤240 文字）に対して trim / min / max のバリデーションを行う。"
+
+#: ../../user/templates/res-x.md:198
+msgid "`src/__tests__/App.test.mjs`"
+msgstr "`src/__tests__/App.test.mjs`"
+
+#: ../../user/templates/res-x.md:200
+msgid ""
+"The smoke test imports `../App.res.mjs` under **`bun:test`**, not vitest."
+" The compiled output dereferences the global `Bun` object via rescript-"
+"bun, so running it under Node would crash with `Bun is not defined`:"
+msgstr "スモークテストは vitest ではなく **`bun:test`** の下で `../App.res.mjs` をインポートする。コンパイル済み出力は rescript-bun 経由でグローバルな `Bun` オブジェクトを参照するため、Node の下で実行すると `Bun is not defined` でクラッシュする:"
+
+#: ../../user/templates/res-x.md:213
+msgid ""
+"`bun test` ships its own coverage reporter, so no separate vitest devDeps"
+" are needed — and the template intentionally omits them."
+msgstr "`bun test` は独自のカバレッジレポーターを同梱しているため、vitest の devDeps を別途必要としない — そしてテンプレートはそれらを意図的に省略している。"
+
+#: ../../user/templates/res-x.md:215
+msgid "`Dockerfile`"
+msgstr "`Dockerfile`"
+
+#: ../../user/templates/res-x.md:217
+msgid "A three-stage image based on `oven/bun:1`:"
+msgstr "`oven/bun:1` をベースとする 3 段階のイメージ:"
+
+#: ../../user/templates/res-x.md:219
+msgid ""
+"`deps` — `bun install --ignore-scripts` against whichever lockfile is "
+"present (`bun.lock`, `pnpm-lock.yaml`, etc.)"
+msgstr "`deps` — 存在するいずれかのロックファイル（`bun.lock`、`pnpm-lock.yaml` など）に対する `bun install --ignore-scripts`"
+
+#: ../../user/templates/res-x.md:220
+msgid ""
+"`builder` — `bunx rescript && bun run build` (compile ReScript and any "
+"client assets)"
+msgstr "`builder` — `bunx rescript && bun run build`（ReScript およびクライアントアセットをコンパイル）"
+
+#: ../../user/templates/res-x.md:221
+msgid ""
+"`runtime` — slim `oven/bun:1-slim` layer that carries `node_modules/`, "
+"`src/`, `dist/`, `package.json`, `rescript.json`, drops to the "
+"unprivileged `bun` user (uid 1000), exposes `4444`, and runs `bun run "
+"src/App.res.mjs`"
+msgstr "`runtime` — `node_modules/`、`src/`、`dist/`、`package.json`、`rescript.json` を含む `oven/bun:1-slim` のスリムなレイヤーで、非特権 `bun` ユーザー (uid 1000) に切り替え、`4444` を公開し、`bun run src/App.res.mjs` を実行する"
+
+#: ../../user/templates/res-x.md:223
+msgid ""
+"Managed platforms that speak OCI images (Fly.io, Railway, Render, Google "
+"Cloud Run, Scaleway Serverless Containers) can deploy this image "
+"directly. For single-binary workflows, swap the runtime `CMD` for "
+"`./dist/app` after running `bun run compile` locally."
+msgstr "OCI イメージに対応したマネージドプラットフォーム（Fly.io、Railway、Render、Google Cloud Run、Scaleway Serverless Containers）はこのイメージを直接デプロイできる。シングルバイナリのワークフローの場合は、ローカルで `bun run compile` を実行した後に runtime の `CMD` を `./dist/app` に差し替えるとよい。"
+
+#: ../../user/templates/res-x.md:225
+msgid "npm Scripts"
+msgstr "npm ã¹ã¯ãªãã"
+
+#: ../../user/templates/res-x.md
+msgid "Script"
+msgstr "ã¹ã¯ãªãã"
+
+#: ../../user/templates/res-x.md
+msgid "Description"
+msgstr "èª¬æ"
+
+#: ../../user/templates/res-x.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/res-x.md
+msgid "`bun run src/App.res.mjs` — run the compiled server once"
+msgstr "`bun run src/App.res.mjs` — コンパイル済みサーバーを 1 回実行する"
+
+#: ../../user/templates/res-x.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/res-x.md
+msgid ""
+"`concurrently \"rescript -w\" \"bun --watch run src/App.res.mjs\"` — pair"
+" ReScript watcher with Bun's hot-reload"
+msgstr "`concurrently \"rescript -w\" \"bun --watch run src/App.res.mjs\"` — ReScript ウォッチャーと Bun のホットリロードを組み合わせる"
+
+#: ../../user/templates/res-x.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/res-x.md
+msgid "`vite build` — bundle client assets through the res-x Vite plugin"
+msgstr "`vite build` — res-x Vite プラグインを通じてクライアントアセットをバンドルする"
+
+#: ../../user/templates/res-x.md
+msgid "`compile`"
+msgstr "`compile`"
+
+#: ../../user/templates/res-x.md
+msgid ""
+"`bun build --compile src/App.res.mjs --outfile dist/app` — produce a "
+"standalone Bun binary"
+msgstr "`bun build --compile src/App.res.mjs --outfile dist/app` — スタンドアロンの Bun バイナリを生成する"
+
+#: ../../user/templates/res-x.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/res-x.md
+msgid "`bun test` — run the bun:test smoke suite"
+msgstr "`bun test` — bun:test のスモークスイートを実行する"
+
+#: ../../user/templates/res-x.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/res-x.md
+msgid "`bun test --coverage` — same, with Bun's built-in coverage reporter"
+msgstr "`bun test --coverage` — 同じだが、Bun の組み込みカバレッジレポーター付きで実行する"
+
+#: ../../user/templates/res-x.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/res-x.md
+msgid "`rescript` — one-shot compile"
+msgstr "`rescript` â åçºã®ã³ã³ãã¤ã«"
+
+#: ../../user/templates/res-x.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/res-x.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` â ä¿å­ãã¨ã«åã³ã³ãã¤ã«"
+
+#: ../../user/templates/res-x.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/res-x.md
+msgid "`rescript clean`"
+msgstr "`rescript clean`"
+
+#: ../../user/templates/res-x.md:239
+msgid ""
+"Every script invokes `bun` (or `rescript` directly) regardless of the "
+"wizard's package-manager choice. The PM selection only affects how "
+"dependencies are installed in the README and the `packageManager` "
+"Corepack field — `bun` is required at runtime no matter what."
+msgstr "あらゆるスクリプトはウィザードのパッケージマネージャ選択にかかわらず `bun`（または `rescript` を直接）呼び出す。PM の選択は README での依存インストール方法と `packageManager` Corepack フィールドにのみ影響する — いずれにせよ実行時には `bun` が必要である。"
+
+#: ../../user/templates/res-x.md:241
+msgid "Day-Two Recipes"
+msgstr "2æ¥ç®ä»¥éã®ã¬ã·ã"
+
+#: ../../user/templates/res-x.md:243
+msgid ""
+"This template is intentionally minimal and Bun-specific — most cross-"
+"template recipes do not apply directly. The two patterns most users reach"
+" for next:"
+msgstr "このテンプレートは意図的に最小限かつ Bun 固有である — 他テンプレート横断のレシピのほとんどは直接適用できない。多くのユーザーが次に手を伸ばす 2 つのパターンを示す:"
+
+#: ../../user/templates/res-x.md:245
+msgid ""
+"**Persistence** — the bundled README walks through promoting the in-"
+"memory todo `ref` to `bun:sqlite` storage in `Db.res`, including a "
+"wrapper, schema, and `.gitignore` adjustment. Bun ships an embedded "
+"SQLite driver, so this is a day-two task rather than a migration."
+msgstr "**永続化** — 同梱の README には、インメモリの todo `ref` を `Db.res` 内の `bun:sqlite` ストレージへ昇格させる手順（ラッパー、スキーマ、`.gitignore` の調整を含む）が解説されている。Bun は埋め込み SQLite ドライバを同梱しているため、これはマイグレーションではなく 2 日目の作業となる。"
+
+#: ../../user/templates/res-x.md:246
+msgid ""
+"**Self-hosting HTMX** — drop `htmx.min.js` into `public/` and swap the "
+"`<script src>` in `src/Layout.res` from the unpkg CDN to `/htmx.min.js`. "
+"Vite copies `public/` as-is to the production build."
+msgstr "**HTMX のセルフホスト** — `htmx.min.js` を `public/` に配置し、`src/Layout.res` の `<script src>` を unpkg CDN から `/htmx.min.js` に差し替える。Vite は `public/` を本番ビルドにそのままコピーする。"
+
+#: ../../user/templates/res-x.md:248
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr "ãã­ã¸ã§ã¯ããéããå¾ã® ReScript å´ã®ã¨ãã£ã¿ã¯ã¼ã¯ãã­ã¼ã«ã¤ãã¦ã¯ã{doc}`../features/index` ãåç§ãã¦ã»ããã"
+
+#: ../../user/templates/res-x.md:250
+msgid "Notes"
+msgstr "è£è¶³"
+
+#: ../../user/templates/res-x.md:252
+msgid ""
+"**Bun is required at runtime.** Every npm script in `package.json` "
+"invokes `bun` directly (`bun run`, `bun --watch run`, `bun test`, `bun "
+"build --compile`). Bun 1.3 or later must be installed separately "
+"(https://bun.sh) — the README's Prerequisites section calls this out "
+"explicitly."
+msgstr "**Bun は実行時に必須である。** `package.json` のすべての npm スクリプトは `bun` を直接呼び出す（`bun run`、`bun --watch run`、`bun test`、`bun build --compile`）。Bun 1.3 以降を別途インストールする必要がある (https://bun.sh) — README の Prerequisites セクションでこの点が明示されている。"
+
+#: ../../user/templates/res-x.md:253
+msgid ""
+"**The package-manager choice is cosmetic.** Selecting npm / pnpm / yarn "
+"only affects the install commands shown in the README and the "
+"`packageManager` Corepack field. The wizard does not block other PM "
+"choices because they still work for the dependency-install step, but the "
+"runtime is always Bun."
+msgstr "**パッケージマネージャの選択は表面的なものである。** npm / pnpm / yarn の選択は、README に示されるインストールコマンドと `packageManager` Corepack フィールドのみに影響する。ウィザードが他の PM 選択をブロックしないのは、依存インストール手順では依然として動作するからだが、実行時は常に Bun である。"
+
+#: ../../user/templates/res-x.md:254
+msgid ""
+"**`bun test`, not vitest.** The compiled `.res.mjs` references the global"
+" `Bun` object via rescript-bun. Running the suite under Node would crash "
+"with `Bun is not defined`. `bun test` ships its own coverage reporter "
+"(`bun test --coverage`), so no vitest devDeps are needed."
+msgstr "**vitest ではなく `bun test` を使う。** コンパイル済みの `.res.mjs` は rescript-bun 経由でグローバルな `Bun` オブジェクトを参照する。Node の下でスイートを実行すると `Bun is not defined` でクラッシュする。`bun test` は独自のカバレッジレポーター (`bun test --coverage`) を同梱しているため、vitest の devDeps は不要である。"
+
+#: ../../user/templates/res-x.md:255
+msgid ""
+"**CI auto-enables `oven-sh/setup-bun`.** When the `bun` PM (or any res-x "
+"project) ships, `CommonFiles.ciWorkflow(..., setupBun = true)` injects "
+"the `setup-bun@v2` step with `bun-version: latest` so the workflow can "
+"`bun install` and `bun test` out of the box."
+msgstr "**CI は `oven-sh/setup-bun` を自動で有効化する。** `bun` PM（または res-x プロジェクト）が出荷される際、`CommonFiles.ciWorkflow(..., setupBun = true)` が `bun-version: latest` を指定した `setup-bun@v2` ステップを差し込み、ワークフローで `bun install` と `bun test` をそのまま実行できるようにする。"
+
+#: ../../user/templates/res-x.md:256
+msgid ""
+"**`rescript.json` is shipped verbatim, not generated.** `rescript-x` "
+"requires `jsx.module = \"Hjsx\"` plus four `compiler-flags` that open "
+"`ResX.Globals` and `RescriptBun.Globals`. "
+"`ProjectFileBuilders.rescriptJson` does not produce that shape, so the "
+"template loads it from `res-x/rescript.json` as a resource."
+msgstr "**`rescript.json` は生成されるのではなく、そのまま出荷される。** `rescript-x` は `jsx.module = \"Hjsx\"` に加え、`ResX.Globals` と `RescriptBun.Globals` を open する 4 つの `compiler-flags` を必要とする。`ProjectFileBuilders.rescriptJson` ではその形状を生成できないため、テンプレートは `res-x/rescript.json` からリソースとして読み込む。"
+
+#: ../../user/templates/res-x.md:257
+msgid ""
+"**HTMX is loaded from "
+"`https://unpkg.com/htmx.org@<TemplateVersions.HTMX_CDN>`** (pinned, not "
+"floating). Self-host by dropping `htmx.min.js` into `public/` and "
+"pointing the `<script src>` at `/htmx.min.js`."
+msgstr "**HTMX は `https://unpkg.com/htmx.org@<TemplateVersions.HTMX_CDN>` から読み込まれる**（フローティングではなく固定）。`htmx.min.js` を `public/` に配置し、`<script src>` を `/htmx.min.js` に向けることでセルフホストできる。"
+
+#: ../../user/templates/res-x.md:258
+msgid ""
+"**The dev port is 4444 for the server and 9000 for Vite.** `App.res` "
+"hardcodes 4444; `vite.config.js` configures Vite's dev server on 9000. "
+"The Dockerfile's `EXPOSE 4444` matches the server port."
+msgstr "**開発ポートはサーバーが 4444、Vite が 9000 である。** `App.res` は 4444 をハードコードし、`vite.config.js` は Vite の開発サーバーを 9000 に設定する。Dockerfile の `EXPOSE 4444` はサーバーポートと一致する。"
+
+#: ../../user/templates/res-x.md:259
+msgid ""
+"**State lives in a process-local `ref`** for the counter and todo list, "
+"which is convenient for exploring HTMX patterns but evaporates on every "
+"restart. The README's Persistence section walks through promoting to "
+"`bun:sqlite` when you outgrow the in-memory shape."
+msgstr "**カウンタと todo リストの状態はプロセスローカルな `ref` 内に存在する**。HTMX パターンを探求するには便利だが、再起動のたびに消滅する。インメモリ形状を超えて成長したときには、README の Persistence セクションで `bun:sqlite` への昇格手順が解説されている。"
+
+#: ../../user/templates/res-x.md:260
+msgid ""
+"**`bun build --compile` produces a standalone binary** at `dist/app`. "
+"After running `bun run compile` locally, you can swap the Dockerfile "
+"runtime stage's `CMD` for `[\"/app/dist/app\"]` for a self-contained "
+"deployment that does not need `bun` at runtime."
+msgstr "**`bun build --compile` は `dist/app` にスタンドアロンバイナリを生成する**。ローカルで `bun run compile` を実行した後、Dockerfile の runtime ステージの `CMD` を `[\"/app/dist/app\"]` に差し替えることで、実行時に `bun` を必要としない自己完結したデプロイが可能になる。"

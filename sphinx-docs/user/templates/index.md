@@ -23,18 +23,24 @@ You can also launch `npm create rescript@latest` from the terminal to get the sa
 :gutter: 3
 
 :::{grid-item-card} Basic
+:link: basic
+:link-type: doc
 Minimal ReScript + Node.js starter with `Args` (argv parsing) and `Files` (`node:fs/promises`) modules. Useful as the smallest working reference for a non-browser ReScript project.
 
 {bdg-info}`Node.js`
 :::
 
 :::{grid-item-card} npm Library
+:link: npm-library
+:link-type: doc
 Split-module library (`Index`, `ListUtils`, `Fetcher`) with per-module Vitest suites and `fetchWithTimeout` (AbortController). Publish-ready to npm via `pnpm publish`.
 
 {bdg-info}`Node.js` {bdg-success}`Testing`
 :::
 
 :::{grid-item-card} CLI Tool
+:link: cli-tool
+:link-type: doc
 Subcommand dispatcher (`greet`, `init`) with its own `Args` parser and a `Commands/` directory. Demonstrates how to grow a CLI without a heavyweight framework.
 
 {bdg-info}`Node.js`
@@ -47,27 +53,43 @@ Subcommand dispatcher (`greet`, `init`) with its own `Args` parser and a `Comman
 :gutter: 3
 
 :::{grid-item-card} Vite+ + React
+:link: vite-react
+:link-type: doc
 Single-page React app using [Vite+](https://vite.plus) with a form, `useState`, and a `fetch('/api/greet')` round-trip (offline fallback included). Includes `src/Api.res` as a reusable fetch wrapper.
 
 {bdg-warning}`Vite+ pre-1.0`
 :::
 
 :::{grid-item-card} Next.js
+:link: nextjs
+:link-type: doc
 App router with a Server Component (`app/page.tsx`), a Client Component (`app/client/GreetForm.tsx`), and a Route Handler (`app/api/greet/route.ts`). ReScript components are exposed via `genType`.
 
 {bdg-primary}`genType`
 :::
 
 :::{grid-item-card} Electron
+:link: electron
+:link-type: doc
 Desktop app with `preload.cjs` + `contextBridge` + `ipcMain.handle`. `src/Electron.res` binds the exposed `electronAPI` so renderer-process ReScript code can query system info.
 
 {bdg-info}`Desktop`
 :::
 
-:::{grid-item-card} React Native
-Expo-based app with an interactive todo list (`useState` + `TextInput` + `Button` + `FlatList`). `src/ReactNative.res` wraps the core RN component set. Extend the bindings to add more.
+:::{grid-item-card} React Native (Expo)
+:link: react-native
+:link-type: doc
+Expo-managed app with an interactive todo list (`useState` + `TextInput` + `Button` + `FlatList`). `src/ReactNative.res` wraps the core RN component set. Extend the bindings to add more.
 
 {bdg-info}`Mobile`
+:::
+
+:::{grid-item-card} React Native (Community CLI)
+:link: react-native-cli
+:link-type: doc
+Bare-workflow React Native template aimed at Android Studio / Xcode users. Ships only the JS/TS + ReScript surface plus a `metro.config.js` that resolves `.res.mjs`; native projects are produced by `@react-native-community/cli` after creation.
+
+{bdg-info}`Mobile` {bdg-warning}`Bare workflow`
 :::
 ::::
 
@@ -77,7 +99,7 @@ Expo-based app with an interactive todo list (`useState` + `TextInput` + `Button
 :gutter: 3
 
 :::{grid-item-card} Hono (REST)
-:link: ../recipes/add-hono-endpoint
+:link: hono
 :link-type: doc
 Hono + Drizzle (SQLite) + Zod + `@hono/zod-openapi` with Scalar UI at `/docs`. Ships a complete users CRUD (`src/Routes/Users.res`), migrations via `drizzle-kit`, and an `/openapi.json` spec.
 
@@ -85,7 +107,7 @@ Hono + Drizzle (SQLite) + Zod + `@hono/zod-openapi` with Scalar UI at `/docs`. S
 :::
 
 :::{grid-item-card} Hono + GraphQL
-:link: ../recipes/add-graphql-resolver
+:link: hono-graphql
 :link-type: doc
 Hono hosting `graphql-yoga` at `/graphql` with GraphiQL built in. SDL lives in `src/schema.graphql`, resolvers in `src/Resolvers/Users.res`, storage in Drizzle. Run `pnpm docs:graphql` for human-readable docs.
 
@@ -99,18 +121,24 @@ Hono hosting `graphql-yoga` at `/graphql` with GraphiQL built in. SDL lives in `
 :gutter: 3
 
 :::{grid-item-card} Cloudflare Workers
+:link: cloudflare-workers
+:link-type: doc
 `wrangler.jsonc` + a KV-backed greetings endpoint (POST/GET) using the `GREETINGS` binding. `src/Kv.res` binds the KV API so you can extend to Durable Objects or R2.
 
 {bdg-info}`Edge`
 :::
 
 :::{grid-item-card} AWS Lambda
+:link: aws-lambda
+:link-type: doc
 API Gateway-friendly handler with POST `/orders` (JSON body) and GET `/orders/:id` (path param). README includes a DynamoDB recipe using `@aws-sdk/lib-dynamodb`.
 
 {bdg-info}`Serverless`
 :::
 
 :::{grid-item-card} Google Cloud Run
+:link: google-cloud-run
+:link-type: doc
 Containerized Hono service with `PORT` env reading, a POST `/echo` route, and a `Dockerfile`. README includes a Cloud SQL recipe via `@google-cloud/cloud-sql-connector`.
 
 {bdg-info}`Containers`
@@ -123,13 +151,15 @@ Containerized Hono service with `PORT` env reading, a POST `/echo` route, and a 
 :gutter: 3
 
 :::{grid-item-card} Monorepo
+:link: monorepo
+:link-type: doc
 pnpm/npm/yarn workspaces with `packages/shared`, `packages/server` (Hono + Drizzle), `packages/client` (Vite+/React). Types flow from `@<project>/shared` into both sides via the workspace protocol.
 
 {bdg-success}`Workspaces` {bdg-info}`Shared types`
 :::
 
 :::{grid-item-card} Full-Stack
-:link: ../recipes/setup-drizzle
+:link: full-stack
 :link-type: doc
 Single-package alternative to Monorepo: one `package.json`, `src/{shared,server,client}`, Hono + Drizzle backend, Vite+/React client, `concurrently` for dev, Vite+ proxy for `/api/*`.
 
@@ -137,6 +167,8 @@ Single-package alternative to Monorepo: one `package.json`, `src/{shared,server,
 :::
 
 :::{grid-item-card} res-x (HTMX on Bun)
+:link: res-x
+:link-type: doc
 Server-driven web app built with `rescript-x` (JSX rendered on the server) and HTMX for client-side interactivity. Ships a Counter with `hx-post` increment/decrement endpoints and a Todo form that validates input through zod or sury. Runs on Bun + Vite.
 
 {bdg-warning}`Bun required` {bdg-info}`HTMX` {bdg-success}`Server-driven`
@@ -163,6 +195,10 @@ Server-driven web app built with `rescript-x` (JSX rendered on the server) and H
 | I want one package with backend + frontend (simpler) | Full-Stack |
 | I want server-rendered HTML with HTMX on Bun | res-x (HTMX on Bun) |
 
+```{tip}
+Each row above links to a per-template detail page covering generated layout, dependencies, key files, npm scripts, and day-two extension pointers. Use the toctree at the bottom of the page (or the "Project Templates" section in the left sidebar) to jump straight to one.
+```
+
 ## Day-Two Recipes
 
 When you need to extend a generated project, these recipes pick up where the template README leaves off:
@@ -179,4 +215,21 @@ The Vite+ based templates (Vite+ + React, Monorepo client, Full-Stack) pin `vite
 ```{toctree}
 :hidden:
 :maxdepth: 1
+
+basic
+npm-library
+cli-tool
+vite-react
+nextjs
+electron
+react-native
+react-native-cli
+hono
+hono-graphql
+cloudflare-workers
+aws-lambda
+google-cloud-run
+monorepo
+full-stack
+res-x
 ```

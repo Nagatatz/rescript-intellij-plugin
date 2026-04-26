@@ -1,0 +1,584 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/cli-tool.md
+msgid ""
+"cli, command line, subcommand, dispatcher, args, npm bin, vitest, "
+"validation, zod, sury, rescript"
+msgstr "cli, コマンドライン, サブコマンド, ディスパッチャ, args, npm bin, vitest, バリデーション, zod, sury, rescript"
+
+#: ../../user/templates/cli-tool.md:7
+msgid "CLI Tool"
+msgstr "CLI Tool"
+
+#: ../../user/templates/cli-tool.md:9
+#, python-brace-format
+msgid "{bdg-info}`Node.js` {bdg-success}`Testing`"
+msgstr "{bdg-info}`Node.js` {bdg-success}`Testing`"
+
+#: ../../user/templates/cli-tool.md:11
+msgid ""
+"A minimal but production-shaped command-line tool: a `bin/` shim that "
+"satisfies npm's `bin` contract, a top-level dispatcher (`Cli.res`), per-"
+"subcommand modules (`Commands.Greet`, `Commands.Init`), and a small flag-"
+"parsing helper (`Args.res`) that you own end to end. No `commander`, "
+"`yargs`, or `clipanion` — when you need more, the helpers are short "
+"enough to extend."
+msgstr "最小限ながら本番品質の形をしたコマンドラインツール: npm の `bin` 契約を満たす `bin/` のシム、トップレベルの ディスパッチャ（`Cli.res`）、サブコマンドごとのモジュール（`Commands.Greet`、`Commands.Init`）、そして自前で完全に管理できる小さなフラグパースヘルパー（`Args.res`）から構成される。`commander`、`yargs`、`clipanion` は使っていない — 拡張が必要になっても、ヘルパーは十分短くて拡張しやすい。"
+
+#: ../../user/templates/cli-tool.md:13
+msgid ""
+"Pick this template when you are building anything `npx`-able, an internal"
+" tool, a code generator, or the early scaffold of a CLI that will "
+"eventually grow subcommands. The structure mirrors the way `git`, "
+"`docker`, and the `rescript` binary itself are organized: one entry point"
+" that dispatches to per-command modules."
+msgstr "`npx` で実行できるもの、社内ツール、コードジェネレータ、あるいは将来サブコマンドが増えていく CLI の 初期 scaffold を作る場合に本テンプレートを選択する。構造は `git`、`docker`、`rescript` バイナリ自身の 整理方針を踏襲している: 1 つのエントリポイントが各コマンドモジュールへディスパッチする形である。"
+
+#: ../../user/templates/cli-tool.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/cli-tool.md:40
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/cli-tool.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/cli-tool.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/cli-tool.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/cli-tool.md
+msgid ""
+"Becomes the npm `name`, the `bin` key (so `npm link` exposes the binary "
+"under that name), the LICENSE holder, and the program name printed by "
+"`--help`"
+msgstr "npm の `name`、`bin` キー（`npm link` でバイナリがこの名前で公開される）、LICENSE 保有者、`--help` で表示されるプログラム名となる"
+
+#: ../../user/templates/cli-tool.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/cli-tool.md
+msgid ""
+"npm / pnpm / yarn / bun. Affects `packageManager` field, README "
+"install/run commands, and CI cache key"
+msgstr "npm / pnpm / yarn / bun。`packageManager` フィールド、README のインストール／実行コマンド、CI のキャッシュキーに影響する"
+
+#: ../../user/templates/cli-tool.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/cli-tool.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `src/Validation.res` variant ships — the "
+"validator runs inside `init` to check `--name` / `--dir`"
+msgstr "`zod` ↔ `sury`。同梱される `src/Validation.res` のバリアントを選択する — バリデータは `init` の内部で `--name` / `--dir` をチェックするために動作する"
+
+#: ../../user/templates/cli-tool.md:48
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/cli-tool.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/cli-tool.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/cli-tool.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/cli-tool.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/cli-tool.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/cli-tool.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/cli-tool.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/cli-tool.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/cli-tool.md
+msgid "Runtime stubs the compiled `.res.mjs` imports at runtime"
+msgstr "コンパイル後の `.res.mjs` がランタイムでインポートするランタイムスタブ"
+
+#: ../../user/templates/cli-tool.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/cli-tool.md
+msgid "Validation backend (chosen in the wizard)"
+msgstr "バリデーションのバックエンド（ウィザードで選択）"
+
+#: ../../user/templates/cli-tool.md
+msgid "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+msgstr "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/cli-tool.md
+msgid "Smoke test runner"
+msgstr "スモークテストランナー"
+
+#: ../../user/templates/cli-tool.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/cli-tool.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` 用のカバレッジプロバイダ"
+
+#: ../../user/templates/cli-tool.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/cli-tool.md:59
+msgid ""
+"Notably absent: any third-party CLI framework. `Args.res` is ~25 lines, "
+"`Cli.res` is the dispatcher, and you can extend either without learning a"
+" DSL."
+msgstr "特筆すべきは、サードパーティ製の CLI フレームワークを一切利用していない点である。`Args.res` は約 25 行、`Cli.res` がディスパッチャであり、DSL を覚えることなくどちらも拡張できる。"
+
+#: ../../user/templates/cli-tool.md:61
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/cli-tool.md:63
+msgid "`bin/cli.mjs`"
+msgstr "`bin/cli.mjs`"
+
+#: ../../user/templates/cli-tool.md:65
+msgid ""
+"The canonical npm `bin` shim. The file must start with `#!/usr/bin/env "
+"node` so Unix resolves the right interpreter when the binary is invoked "
+"directly. Everything else lives in ReScript:"
+msgstr "npm の `bin` の定番シムである。バイナリが直接実行されたときに Unix が正しいインタプリタを解決できるよう、ファイルは `#!/usr/bin/env node` で始まらなければならない。それ以外はすべて ReScript 側に存在する:"
+
+#: ../../user/templates/cli-tool.md:72
+msgid "`package.json` maps the project name to this file:"
+msgstr "`package.json` はプロジェクト名をこのファイルにマップする:"
+
+#: ../../user/templates/cli-tool.md:80
+msgid ""
+"The `bin` field is an *object* (not a bare string) on purpose — when you "
+"add a second binary later you can drop another entry alongside without "
+"restructuring."
+msgstr "`bin` フィールドが（単なる文字列ではなく）*オブジェクト* なのは意図的である — 後から 2 つ目の バイナリを追加する際に、構造を変えずにエントリを並べて追加できる。"
+
+#: ../../user/templates/cli-tool.md:82
+msgid "`src/Cli.res`"
+msgstr "`src/Cli.res`"
+
+#: ../../user/templates/cli-tool.md:84
+msgid ""
+"The entry. Reads `process.argv`, splits off the subcommand name, and "
+"dispatches:"
+msgstr "エントリ。`process.argv` を読み、サブコマンド名を切り出してディスパッチする:"
+
+#: ../../user/templates/cli-tool.md:102
+msgid ""
+"To add a new subcommand: add a new module under `Commands.res`, then add "
+"a new pattern arm to the `switch` above. The unknown-command branch falls"
+" through to `printUsage` so misspelled inputs get a useful error rather "
+"than silent exit zero."
+msgstr "新しいサブコマンドを追加するには: `Commands.res` の下に新しいモジュールを追加し、上記の `switch` に新しいパターン分岐を追加する。未知のコマンド分岐は `printUsage` に流れるので、入力ミスがあった場合に 何も表示せず exit 0 する代わりに、有用なエラーが出る。"
+
+#: ../../user/templates/cli-tool.md:104
+msgid "`src/Args.res`"
+msgstr "`src/Args.res`"
+
+#: ../../user/templates/cli-tool.md:106
+msgid "Four small helpers, all written against `process.argv`:"
+msgstr "`process.argv` に対して書かれた 4 つの小さなヘルパー:"
+
+#: ../../user/templates/cli-tool.md
+msgid "Function"
+msgstr "関数"
+
+#: ../../user/templates/cli-tool.md
+msgid "`positional()`"
+msgstr "`positional()`"
+
+#: ../../user/templates/cli-tool.md
+msgid "Returns argv with the node binary and script path stripped"
+msgstr "node バイナリとスクリプトパスを取り除いた argv を返す"
+
+#: ../../user/templates/cli-tool.md
+msgid "`splitSubcommand(args)`"
+msgstr "`splitSubcommand(args)`"
+
+#: ../../user/templates/cli-tool.md
+msgid "Returns `(Some(first), rest)` or `(None, [])`"
+msgstr "`(Some(first), rest)` または `(None, [])` を返す"
+
+#: ../../user/templates/cli-tool.md
+msgid "`hasFlag(args, flag)`"
+msgstr "`hasFlag(args, flag)`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`true` if `flag` appears anywhere in `args`"
+msgstr "`flag` が `args` のどこかに現れる場合 `true`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`namedValue(args, flag)`"
+msgstr "`namedValue(args, flag)`"
+
+#: ../../user/templates/cli-tool.md
+msgid "The value following `flag`, or `None` if absent"
+msgstr "`flag` の直後にある値、存在しない場合は `None`"
+
+#: ../../user/templates/cli-tool.md:115
+msgid ""
+"`hasFlag` and `namedValue` are `@genType`-annotated so JS-side tests can "
+"call them directly (which is exactly what `Args.test.mjs` does). When you"
+" outgrow this — e.g. you need short-flag clustering, `--flag=value` "
+"syntax, or subcommand-specific help — extend `Args.res` rather than "
+"reaching for a framework. The whole module is short enough to read in one"
+" sitting."
+msgstr "`hasFlag` と `namedValue` には `@genType` が付与されているため、JS 側のテストから直接呼び出せる （`Args.test.mjs` がまさにそれを行っている）。短いフラグの結合、`--flag=value` 構文、サブコマンド固有のヘルプなどで このヘルパーを越える要求が生じても、フレームワークに手を伸ばすのではなく `Args.res` を拡張すること。モジュール全体が 一気に読み切れる長さに収まっている。"
+
+#: ../../user/templates/cli-tool.md:117
+msgid "`src/Commands.res`"
+msgstr "`src/Commands.res`"
+
+#: ../../user/templates/cli-tool.md:119
+msgid ""
+"Subcommands are nested modules so the dispatcher can write "
+"`Commands.<Name>.run(args)`. The template ships two:"
+msgstr "サブコマンドはネストされたモジュールとして実装されており、ディスパッチャは `Commands.<Name>.run(args)` と書ける。テンプレートには 2 つ同梱されている:"
+
+#: ../../user/templates/cli-tool.md:121
+msgid ""
+"**`Commands.Greet`** — `greet <name> [--shout]`. Demonstrates a "
+"positional argument plus a boolean flag (`hasFlag`)."
+msgstr "**`Commands.Greet`** — `greet <name> [--shout]`。位置引数とブール値フラグ （`hasFlag`）の組み合わせを示す。"
+
+#: ../../user/templates/cli-tool.md:122
+msgid ""
+"**`Commands.Init`** — `init --name <project-name> --dir <path>`. "
+"Demonstrates a subcommand that *validates its options* before doing any "
+"work:"
+msgstr "**`Commands.Init`** — `init --name <project-name> --dir <path>`。実処理を行う前に *オプションをバリデート* するサブコマンドの例である:"
+
+#: ../../user/templates/cli-tool.md:142
+msgid ""
+"The pattern — collect raw args into a `JSON.t`, hand it to `Validation`, "
+"branch on the `result` — generalizes to every subcommand that takes "
+"structured options. It also keeps the validation library swappable: "
+"change zod ↔ sury in the wizard and only `Validation.res` differs."
+msgstr "このパターン — 生の引数を `JSON.t` にまとめ、`Validation` に渡し、`result` で分岐する — は 構造化オプションを取るあらゆるサブコマンドに一般化できる。さらに、バリデーションライブラリも差し替え可能なままにできる: ウィザードで zod ↔ sury を変えても、変わるのは `Validation.res` だけである。"
+
+#: ../../user/templates/cli-tool.md:144
+msgid "`src/__tests__/Args.test.mjs`"
+msgstr "`src/__tests__/Args.test.mjs`"
+
+#: ../../user/templates/cli-tool.md:146
+msgid ""
+"The smoke test imports the *compiled* `Args.res.mjs` and exercises the "
+"two flag helpers:"
+msgstr "スモークテストは *コンパイル後* の `Args.res.mjs` をインポートし、2 つのフラグヘルパーを実行する:"
+
+#: ../../user/templates/cli-tool.md:171
+msgid ""
+"This is the canonical guard that the argv-parsing helpers behave "
+"identically across ReScript bumps. When you extend `Args.res` (e.g. add "
+"`--flag=value` parsing), add a matching describe block here. The suite "
+"imports the compiled `.res.mjs` so it doubles as a check that the source "
+"still compiles."
+msgstr "これは ReScript のバンプを跨いでも argv パースヘルパーが同じ挙動を保つことを保証する定番のガードである。`Args.res` を拡張する場合（例: `--flag=value` のパースを追加する場合）には、対応する describe ブロックを ここにも追加すること。スイートはコンパイル後の `.res.mjs` をインポートするため、ソースが今もコンパイルできることの チェックも兼ねている。"
+
+#: ../../user/templates/cli-tool.md:173
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/cli-tool.md:175
+msgid ""
+"`parseInitOptions: JSON.t => result<initOptions, string>`. Validates the "
+"`--name` and `--dir` options that `Commands.Init` collects from argv. The"
+" signature is identical between the zod and sury variants so "
+"`Commands.res` does not need to know which is loaded."
+msgstr "`parseInitOptions: JSON.t => result<initOptions, string>`。`Commands.Init` が argv から収集した `--name` と `--dir` オプションをバリデートする。シグネチャは zod 版と sury 版で同一なので、`Commands.res` はどちらが読み込まれているかを知る必要がない。"
+
+#: ../../user/templates/cli-tool.md:177
+msgid ""
+"When you add a new subcommand that takes structured options, define a new"
+" `parseFooOptions` here and call it from the command body. Returning a "
+"`result` keeps the contract honest: the dispatcher either gets validated "
+"data back or prints `<command>: <error>` to stderr."
+msgstr "構造化オプションを取る新しいサブコマンドを追加する場合は、ここに新しい `parseFooOptions` を定義し、コマンドの本体から 呼び出すこと。`result` を返すことで契約が誠実に保たれる: ディスパッチャは検証済みのデータを受け取るか、`<command>: <error>` を stderr に表示するかのどちらかになる。"
+
+#: ../../user/templates/cli-tool.md:179
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/cli-tool.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/cli-tool.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/cli-tool.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`rescript` — one-shot compile"
+msgstr "`rescript` — ワンショットコンパイル"
+
+#: ../../user/templates/cli-tool.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`node bin/cli.mjs` — run the CLI once locally (without `npm link`)"
+msgstr "`node bin/cli.mjs` — `npm link` なしでローカルに CLI を一度実行する"
+
+#: ../../user/templates/cli-tool.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`vitest run` — execute the smoke suite"
+msgstr "`vitest run` — スモークスイートを実行"
+
+#: ../../user/templates/cli-tool.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`vitest run --coverage` — same, with v8 coverage report"
+msgstr "`vitest run --coverage` — 同上に v8 のカバレッジレポートを付与"
+
+#: ../../user/templates/cli-tool.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`rescript` — alias kept for parity with other templates"
+msgstr "`rescript` — 他テンプレートとの整合性のために残されたエイリアス"
+
+#: ../../user/templates/cli-tool.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除"
+
+#: ../../user/templates/cli-tool.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/cli-tool.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存時に再コンパイル"
+
+#: ../../user/templates/cli-tool.md:191
+msgid ""
+"To pass arguments through `start`, use the package-manager pass-through: "
+"`pnpm start -- greet Alice --shout`."
+msgstr "`start` 経由で引数を渡すには、パッケージマネージャの pass-through を使う: `pnpm start -- greet Alice --shout`。"
+
+#: ../../user/templates/cli-tool.md:193
+msgid "Usage Examples"
+msgstr "使用例"
+
+#: ../../user/templates/cli-tool.md:195
+msgid ""
+"After running the build (`pnpm build`), invoke the CLI through `node "
+"bin/cli.mjs` or `pnpm start --`:"
+msgstr "ビルド（`pnpm build`）を実行した後、`node bin/cli.mjs` あるいは `pnpm start --` で CLI を呼び出す:"
+
+#: ../../user/templates/cli-tool.md:204
+msgid ""
+"`init` validates the `--name` / `--dir` options through "
+"`Validation.parseInitOptions`. Missing or malformed options produce an "
+"`init: <message>` error on stderr and exit non-zero (Node's default for "
+"an uncaught error from `Console.error` will not change exit code "
+"automatically — wrap with `process.exit(1)` if you need a hard failure)."
+msgstr "`init` は `Validation.parseInitOptions` 経由で `--name` / `--dir` オプションをバリデートする。オプションが欠けていたり不正な形をしていると、stderr に `init: <message>` のエラーが出力され、非ゼロで終了する （`Console.error` 由来の捕捉されないエラーに対して Node はデフォルトで終了コードを自動的に変更しない — 明確な失敗が必要な場合は `process.exit(1)` でラップすること）。"
+
+#: ../../user/templates/cli-tool.md:206
+msgid "Installing Locally"
+msgstr "ローカルインストール"
+
+#: ../../user/templates/cli-tool.md:208
+msgid "Two paths to test the CLI on your `$PATH`:"
+msgstr "`$PATH` 上で CLI をテストする 2 つの方法:"
+
+#: ../../user/templates/cli-tool.md:210
+msgid ""
+"**`npm link`** — links the package globally so you can call the binary by"
+" its name from any directory:"
+msgstr "**`npm link`** — パッケージをグローバルにリンクし、任意のディレクトリからその名前でバイナリを呼び出せるようにする:"
+
+#: ../../user/templates/cli-tool.md:218
+msgid ""
+"`npm unlink -g <projectName>` reverses it. (`pnpm` users may prefer `pnpm"
+" link --global` instead.)"
+msgstr "`npm unlink -g <projectName>` で元に戻る。（`pnpm` ユーザは代わりに `pnpm link --global` を使ってもよい。）"
+
+#: ../../user/templates/cli-tool.md:220
+msgid "**`npx`** from a tarball — run without installing globally:"
+msgstr "**`npx`** を tarball から実行 — グローバルインストールなしで実行する:"
+
+#: ../../user/templates/cli-tool.md:228
+msgid ""
+"When you are ready to publish, `npm publish` ships the package and "
+"consumers can `npx <projectName>` directly."
+msgstr "公開の準備ができたら、`npm publish` でパッケージを配布すれば、利用者は直接 `npx <projectName>` を実行できる。"
+
+#: ../../user/templates/cli-tool.md:230
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/cli-tool.md:232
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/find-dead-code` — running `reanalyze` so removed "
+"subcommands or helpers do not linger"
+msgstr "{doc}`../recipes/find-dead-code` — `reanalyze` を実行して、削除したサブコマンドやヘルパーが 残らないようにする"
+
+#: ../../user/templates/cli-tool.md:233
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/optimize-imports` — keeping `Cli.res` and `Commands.res`"
+" tidy as the dispatcher grows"
+msgstr "{doc}`../recipes/optimize-imports` — ディスパッチャが成長しても `Cli.res` と `Commands.res` を整然と保つ"
+
+#: ../../user/templates/cli-tool.md:234
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/debug-rescript` — attaching a debugger to `node "
+"bin/cli.mjs` to step through subcommand bodies"
+msgstr "{doc}`../recipes/debug-rescript` — `node bin/cli.mjs` にデバッガをアタッチして サブコマンドの本体をステップ実行する"
+
+#: ../../user/templates/cli-tool.md:236
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr "プロジェクトを開いた後の ReScript 側のエディタワークフローについては、{doc}`../features/index` を参照すること。"
+
+#: ../../user/templates/cli-tool.md:238
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/cli-tool.md:240
+msgid ""
+"`node` engine is pinned to `>=22` and `.nvmrc` says `22`. Earlier majors "
+"are not exercised by CI."
+msgstr "`node` エンジンは `>=22` に固定されており、`.nvmrc` には `22` が記載されている。これより古いメジャーバージョンは CI で検証されない。"
+
+#: ../../user/templates/cli-tool.md:241
+msgid ""
+"The `bin` key in `package.json` is the *project name*, so the binary is "
+"exposed as that name after `npm link` (or after publish + global "
+"install). Plan accordingly when picking the project name in the wizard — "
+"it ends up on user `$PATH`s."
+msgstr "`package.json` の `bin` キーは *プロジェクト名* であり、`npm link`（または公開＋グローバルインストール）後にバイナリはこの名前で公開される。ウィザードでプロジェクト名を決める際はこの点を踏まえて選ぶこと — ユーザの `$PATH` に最終的に乗る名前になる。"
+
+#: ../../user/templates/cli-tool.md:242
+msgid ""
+"`bin/cli.mjs` is intentionally a one-line `import` of the compiled "
+"ReScript output. Do *not* hand-edit it to add logic — extend `Cli.res` "
+"instead. The shim's only job is to provide the shebang and resolve the "
+"entry module."
+msgstr "`bin/cli.mjs` は意図的に、コンパイル後の ReScript 出力を `import` する 1 行のみで構成されている。ロジックを追加するために手で編集してはならない — 代わりに `Cli.res` を拡張すること。シムの唯一の役割は shebang を提供し、エントリモジュールを解決することである。"
+
+#: ../../user/templates/cli-tool.md:243
+msgid ""
+"To install the CLI globally for local testing: `pnpm build && npm link`. "
+"Then run the binary by its project name from anywhere. `npm unlink` "
+"reverses it."
+msgstr "ローカルテスト用に CLI をグローバルインストールするには: `pnpm build && npm link`。その後、任意の場所から プロジェクト名でバイナリを実行できる。`npm unlink` で元に戻る。"
+
+#: ../../user/templates/cli-tool.md:244
+msgid ""
+"Adding a second binary: append a new entry to `package.json#bin` and ship"
+" a sibling wrapper under `bin/` (e.g. `bin/<name>-init.mjs`). Each "
+"wrapper still needs the `#!/usr/bin/env node` shebang."
+msgstr "2 つ目のバイナリを追加するには: `package.json#bin` に新しいエントリを追加し、`bin/` 直下に 姉妹ラッパー（例: `bin/<name>-init.mjs`）を配置する。各ラッパーには `#!/usr/bin/env node` の shebang が依然必要である。"
+
+#: ../../user/templates/cli-tool.md:245
+msgid ""
+"The `Args.test.mjs` suite imports the *compiled* `Args.res.mjs`, so it "
+"doubles as a guard that the `.res` source still compiles. Run `pnpm "
+"res:dev` in a side terminal during development so saves recompile before "
+"Vitest re-executes."
+msgstr "`Args.test.mjs` スイートは *コンパイル後* の `Args.res.mjs` をインポートするため、`.res` ソースが今も コンパイルできることのガードを兼ねる。開発中は別ターミナルで `pnpm res:dev` を走らせ、保存時に再コンパイルされてから Vitest が再実行されるようにすること。"
+
+#: ../../user/templates/cli-tool.md:246
+msgid ""
+"The `init` body intentionally encodes argv into JSON and then validates "
+"it. That asymmetry exists so the same validator can be reused later by an"
+" HTTP / RPC entry point that already speaks JSON — you do not have to re-"
+"implement the option contract per surface."
+msgstr "`init` の本体は意図的に argv を JSON にエンコードしてからバリデートしている。この非対称性は、すでに JSON を扱う HTTP / RPC エントリポイントから後で同じバリデータを再利用できるようにするためにある — 公開面ごとに オプションの契約を再実装する必要はない。"
+
+#: ../../user/templates/cli-tool.md:247
+msgid ""
+"There is no `prepare` script. Unlike the npm Library template, this "
+"scaffold assumes you publish a built CLI rather than expecting consumers "
+"to compile on install. If you want the same `prepare` behavior, add "
+"`\"prepare\": \"rescript\"` to the scripts block."
+msgstr "`prepare` スクリプトは存在しない。npm Library テンプレートと異なり、本 scaffold は利用者がインストール時に コンパイルするのではなく、ビルド済みの CLI を公開することを前提としている。同じ `prepare` の挙動が欲しい場合は、scripts ブロックに `\"prepare\": \"rescript\"` を追加すること。"

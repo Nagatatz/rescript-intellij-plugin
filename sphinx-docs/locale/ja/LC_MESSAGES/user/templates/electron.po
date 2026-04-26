@@ -1,0 +1,807 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/electron.md
+msgid ""
+"electron template, rescript, desktop, ipc, contextBridge, vite-plus, "
+"react, validation, zod, sury"
+msgstr ""
+"electron テンプレート, rescript, デスクトップ, ipc, contextBridge, vite-plus, "
+"react, バリデーション, zod, sury"
+
+#: ../../user/templates/electron.md:7
+msgid "Electron"
+msgstr "Electron"
+
+#: ../../user/templates/electron.md:9
+#, python-brace-format
+msgid "{bdg-info}`Desktop` {bdg-primary}`React` {bdg-success}`Validation`"
+msgstr "{bdg-info}`Desktop` {bdg-primary}`React` {bdg-success}`Validation`"
+
+#: ../../user/templates/electron.md:11
+msgid ""
+"A working Electron desktop app whose renderer is a ReScript + React UI "
+"bundled by Vite+. The shipped sample is not a \"Hello World\" — it shows "
+"the full request/response loop between the renderer and the main process,"
+" including the safety net you actually need in production: every IPC "
+"payload that re-enters the renderer is parsed through `Validation.res` "
+"(zod or sury) so a malformed reply from `main.cjs` becomes a UI error, "
+"not a `TypeError` deep inside React."
+msgstr ""
+"レンダラーが Vite+ でバンドルされた ReScript + React UI である、動作する Electron デスクトップアプリである。"
+"同梱サンプルは \"Hello World\" ではなく、レンダラーとメインプロセス間の完全な"
+"リクエスト/レスポンスループを示している。本番環境で実際に必要となるセーフティネットも含まれており、"
+"レンダラーに再入する IPC ペイロードはすべて `Validation.res` (zod もしくは sury) を通してパースされる。"
+"そのため `main.cjs` からの不正な応答は React 内部の `TypeError` ではなく UI エラーとなる。"
+
+#: ../../user/templates/electron.md:13
+msgid ""
+"Pick this template if you want to ship a desktop app and start from a "
+"stack that already wires `contextIsolation: true`, `nodeIntegration: "
+"false`, and `contextBridge.exposeInMainWorld`. The renderer is the same "
+"Vite-driven React surface as the **Vite + React** template, so React "
+"knowledge transfers directly; the new ground is Electron's two-process "
+"model and the IPC contract sitting between them."
+msgstr ""
+"デスクトップアプリをリリースするにあたり、`contextIsolation: true`、`nodeIntegration: false`、"
+"`contextBridge.exposeInMainWorld` がすでに配線されたスタックから始めたい場合に本テンプレートを選ぶ。"
+"レンダラーは **Vite + React** テンプレートと同じ Vite ベースの React サーフェスであるため、"
+"React の知識はそのまま活用できる。新たに学ぶのは Electron の 2 プロセスモデルと、その間にある IPC コントラクトである。"
+
+#: ../../user/templates/electron.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/electron.md:41
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/electron.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/electron.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/electron.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/electron.md
+msgid ""
+"Becomes the npm `name`, the `BrowserWindow` title (`main.cjs` substitutes"
+" `{{projectName}}`), the `<title>` in `index.html`, and the LICENSE "
+"holder"
+msgstr ""
+"npm `name`、`BrowserWindow` のタイトル (`main.cjs` が `{{projectName}}` を置換)、"
+"`index.html` の `<title>`、および LICENSE のホルダーになる"
+
+#: ../../user/templates/electron.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/electron.md
+msgid ""
+"npm / pnpm / yarn / bun. Sets the `packageManager` field, the README "
+"install/run snippets, and the CI cache key"
+msgstr ""
+"npm / pnpm / yarn / bun から選択。`packageManager` フィールド、"
+"README のインストール/実行スニペット、および CI キャッシュキーを設定する"
+
+#: ../../user/templates/electron.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/electron.md
+msgid ""
+"`zod` ↔ `sury`. Selects which `src/Validation.res` variant ships and "
+"which of `zod` / `sury` is added to `dependencies`"
+msgstr ""
+"`zod` ↔ `sury`。同梱する `src/Validation.res` のバリアントと、"
+"`dependencies` に追加される `zod` / `sury` のいずれかを選択する"
+
+#: ../../user/templates/electron.md:49
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/electron.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/electron.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/electron.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/electron.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/electron.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/electron.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/electron.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/electron.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/electron.md
+msgid "Runtime stubs imported by compiled `.res.mjs`"
+msgstr "コンパイル済み `.res.mjs` がインポートするランタイムスタブ"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/electron.md
+msgid "`@rescript/react`"
+msgstr "`@rescript/react`"
+
+#: ../../user/templates/electron.md
+msgid "React bindings (JSX-enabled `rescript.json`)"
+msgstr "React バインディング (JSX 有効化された `rescript.json`)"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.RESCRIPT_REACT`"
+msgstr "`TemplateVersions.RESCRIPT_REACT`"
+
+#: ../../user/templates/electron.md
+msgid "`react` / `react-dom`"
+msgstr "`react` / `react-dom`"
+
+#: ../../user/templates/electron.md
+msgid "Renderer UI library"
+msgstr "レンダラーの UI ライブラリ"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.REACT` / `REACT_DOM`"
+msgstr "`TemplateVersions.REACT` / `REACT_DOM`"
+
+#: ../../user/templates/electron.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/electron.md
+msgid "Validation backend (IPC payload parser)"
+msgstr "バリデーションバックエンド (IPC ペイロードパーサー)"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.ZOD` / `SURY`"
+msgstr "`TemplateVersions.ZOD` / `SURY`"
+
+#: ../../user/templates/electron.md
+msgid "`electron` *(dev)*"
+msgstr "`electron` *(dev)*"
+
+#: ../../user/templates/electron.md
+msgid "Desktop runtime + bundler-side types"
+msgstr "デスクトップランタイム + バンドラー側の型定義"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.ELECTRON`"
+msgstr "`TemplateVersions.ELECTRON`"
+
+#: ../../user/templates/electron.md
+msgid "`vite-plus` *(dev)*"
+msgstr "`vite-plus` *(dev)*"
+
+#: ../../user/templates/electron.md
+msgid "Vite-based bundler used to produce `dist/`"
+msgstr "`dist/` を生成する Vite ベースのバンドラー"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.VITE_PLUS`"
+msgstr "`TemplateVersions.VITE_PLUS`"
+
+#: ../../user/templates/electron.md
+msgid "`@voidzero-dev/vite-plus-core` *(dev)*"
+msgstr "`@voidzero-dev/vite-plus-core` *(dev)*"
+
+#: ../../user/templates/electron.md
+msgid "Vite+ core runtime (peer of `vite-plus`)"
+msgstr "Vite+ コアランタイム (`vite-plus` の peer)"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.VITE_PLUS_CORE`"
+msgstr "`TemplateVersions.VITE_PLUS_CORE`"
+
+#: ../../user/templates/electron.md
+msgid "`vite` *(dev)*"
+msgstr "`vite` *(dev)*"
+
+#: ../../user/templates/electron.md
+msgid "Direct `vite` pin used by `@vitejs/plugin-react`"
+msgstr "`@vitejs/plugin-react` が使用する `vite` の直接ピン"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.VITE`"
+msgstr "`TemplateVersions.VITE`"
+
+#: ../../user/templates/electron.md
+msgid "`@vitejs/plugin-react` *(dev)*"
+msgstr "`@vitejs/plugin-react` *(dev)*"
+
+#: ../../user/templates/electron.md
+msgid "React refresh + JSX transform plugin"
+msgstr "React refresh + JSX 変換プラグイン"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.VITEJS_PLUGIN_REACT`"
+msgstr "`TemplateVersions.VITEJS_PLUGIN_REACT`"
+
+#: ../../user/templates/electron.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/electron.md
+msgid "Smoke test runner"
+msgstr "スモークテストランナー"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/electron.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/electron.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` のカバレッジプロバイダ"
+
+#: ../../user/templates/electron.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/electron.md:67
+msgid ""
+"`electron-builder` is **not** included by default — see the Notes section"
+" for why and when to add it."
+msgstr ""
+"`electron-builder` はデフォルトでは **含まれない**。理由と追加すべきタイミングについては補足セクションを参照のこと。"
+
+#: ../../user/templates/electron.md:69
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/electron.md:71
+msgid "`main.cjs`"
+msgstr "`main.cjs`"
+
+#: ../../user/templates/electron.md:73
+msgid ""
+"The Electron main process. CommonJS (`.cjs`) because Electron's "
+"`app`/`BrowserWindow`/`ipcMain` modules are CJS-only at the time the "
+"template was authored; using `.cjs` keeps the file working regardless of "
+"the `\"type\": \"module\"` in `package.json`."
+msgstr ""
+"Electron のメインプロセス。テンプレート作成時点で Electron の "
+"`app`/`BrowserWindow`/`ipcMain` モジュールが CJS 専用であるため CommonJS (`.cjs`) を使用している。"
+"`.cjs` を使うことで、`package.json` の `\"type\": \"module\"` に左右されずに動作する。"
+
+#: ../../user/templates/electron.md:75
+msgid "It does three things:"
+msgstr "次の 3 つを行う:"
+
+#: ../../user/templates/electron.md:77
+msgid ""
+"Creates a single `BrowserWindow` with hardened defaults — "
+"`contextIsolation: true`, `nodeIntegration: false`, and a `preload: "
+"path.join(__dirname, \"preload.cjs\")`."
+msgstr ""
+"硬化されたデフォルト値で `BrowserWindow` を 1 つ生成する — "
+"`contextIsolation: true`、`nodeIntegration: false`、および "
+"`preload: path.join(__dirname, \"preload.cjs\")`。"
+
+#: ../../user/templates/electron.md:78
+msgid "Loads `dist/index.html` (the production bundle Vite+ produced)."
+msgstr "`dist/index.html` (Vite+ が生成した本番バンドル) をロードする。"
+
+#: ../../user/templates/electron.md:79
+msgid ""
+"Registers an `ipcMain.handle(\"app:getInfo\", ...)` handler that returns "
+"app + system info."
+msgstr ""
+"アプリ情報とシステム情報を返す `ipcMain.handle(\"app:getInfo\", ...)` ハンドラを登録する。"
+
+#: ../../user/templates/electron.md:81
+msgid ""
+"The `app:getInfo` channel demonstrates the recommended `domain:action` "
+"naming convention (see the README's \"Renderer ↔ Main IPC\" section). "
+"Avoid bare verbs like `getInfo` — they collide as the surface grows."
+msgstr ""
+"`app:getInfo` チャネルは推奨される `domain:action` という命名規約を示している "
+"(README の \"Renderer ↔ Main IPC\" セクションを参照)。"
+"`getInfo` のような単独の動詞は避けること — サーフェスが拡大するにつれて衝突する。"
+
+#: ../../user/templates/electron.md:83
+msgid "`preload.cjs`"
+msgstr "`preload.cjs`"
+
+#: ../../user/templates/electron.md:85
+msgid ""
+"The single bridge across the contextIsolation boundary. Uses "
+"`contextBridge.exposeInMainWorld` to publish a small `electronAPI` object"
+" on `window`:"
+msgstr ""
+"contextIsolation 境界をまたぐ唯一のブリッジである。"
+"`contextBridge.exposeInMainWorld` を使って小さな `electronAPI` オブジェクトを `window` に公開する:"
+
+#: ../../user/templates/electron.md:93
+msgid ""
+"Anything **not** in this object is invisible to the renderer. Adding a "
+"new channel always means editing this file plus `main.cjs` plus "
+"`src/Electron.res` — the README ships a step-by-step walkthrough of all "
+"three layers."
+msgstr ""
+"このオブジェクトに **含まれない** ものはレンダラーから見えない。"
+"新しいチャネルを追加する際は必ずこのファイルに加え、`main.cjs` と `src/Electron.res` も編集する必要がある — "
+"README には 3 層すべての手順を追ったウォークスルーが同梱されている。"
+
+#: ../../user/templates/electron.md:95
+msgid "`src/Electron.res`"
+msgstr "`src/Electron.res`"
+
+#: ../../user/templates/electron.md:97
+msgid ""
+"Thin ReScript binding over the exposed object. The shipped binding is "
+"intentionally typed as `JSON.t` — *not* the eventual `info` record — "
+"because validation lives one layer further in:"
+msgstr ""
+"公開されたオブジェクトに対する薄い ReScript バインディング。"
+"同梱バインディングは意図的に `JSON.t` として型付けされており、最終的な `info` レコードではない。"
+"バリデーションがさらに 1 層内側にあるためである:"
+
+#: ../../user/templates/electron.md:105
+msgid ""
+"The `Raw` suffix is a deliberate convention: it signals \"this value has "
+"*not* been validated yet\" so callers know they need to run it through "
+"`Validation.res` before destructuring."
+msgstr ""
+"`Raw` というサフィックスは意図的な規約である。「この値はまだバリデーション *されていない*」を示し、"
+"呼び出し側に対して分解前に `Validation.res` を通す必要があることを伝える。"
+
+#: ../../user/templates/electron.md:107
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/electron.md:109
+msgid ""
+"`parseInfo: JSON.t => result<info, string>`. The signature is identical "
+"between the zod and sury variants, so the renderer's call site does not "
+"branch on which library shipped:"
+msgstr ""
+"`parseInfo: JSON.t => result<info, string>`。シグネチャは zod バリアントと sury バリアントで同一であるため、"
+"レンダラーの呼び出し側はどちらのライブラリが同梱されたかで分岐しない:"
+
+#: ../../user/templates/electron.md:116
+msgid ""
+"Why validate at all? The renderer sits behind contextIsolation, but the "
+"*main process* can still ship malformed payloads during a bad refactor. "
+"`parseInfo` turns those into a human-readable error before the UI assumes"
+" the shape."
+msgstr ""
+"なぜそもそもバリデーションするのか? レンダラーは contextIsolation の背後にあるが、"
+"*メインプロセス* は不適切なリファクタリング時に不正なペイロードを送出しうる。"
+"`parseInfo` は UI が形状を仮定する前にそれらを人間可読なエラーへと変換する。"
+
+#: ../../user/templates/electron.md:118
+msgid "`src/App.res`"
+msgstr "`src/App.res`"
+
+#: ../../user/templates/electron.md:120
+msgid "The interactive demo. A button click runs:"
+msgstr "対話的なデモ。ボタンクリックで次が実行される:"
+
+#: ../../user/templates/electron.md:130
+msgid ""
+"The error branch renders a red `IPC validation error: ...` banner. Mutate"
+" `main.cjs` to return an unexpected payload and you can watch the "
+"validator catch it without the React tree blowing up."
+msgstr ""
+"エラー分岐は赤い `IPC validation error: ...` バナーをレンダリングする。"
+"`main.cjs` を改変して予期しないペイロードを返させると、React ツリーが破綻することなく"
+"バリデーターがそれを捕捉する様子を確認できる。"
+
+#: ../../user/templates/electron.md:132
+msgid "`src/Main.res`"
+msgstr "`src/Main.res`"
+
+#: ../../user/templates/electron.md:134
+msgid ""
+"The renderer entry the `index.html` `<script type=\"module\">` loads. "
+"Mounts `<App />` onto `#root`:"
+msgstr ""
+"`index.html` の `<script type=\"module\">` がロードするレンダラーのエントリ。"
+"`<App />` を `#root` にマウントする:"
+
+#: ../../user/templates/electron.md:144
+msgid "`vite.config.mjs`"
+msgstr "`vite.config.mjs`"
+
+#: ../../user/templates/electron.md:146
+msgid ""
+"Minimal Vite+ config — `defineConfig` from `vite-plus` (not `vite`), the "
+"React plugin, and `base: \"./\"`. The relative `base` matters: Electron "
+"loads `dist/index.html` via `file://`, so absolute asset URLs would 404."
+msgstr ""
+"最小限の Vite+ 設定 — `vite` ではなく `vite-plus` からの `defineConfig`、"
+"React プラグイン、および `base: \"./\"`。相対的な `base` が重要である: "
+"Electron は `dist/index.html` を `file://` でロードするため、絶対パスのアセット URL は 404 になってしまう。"
+
+#: ../../user/templates/electron.md:148
+msgid "`index.html`"
+msgstr "`index.html`"
+
+#: ../../user/templates/electron.md:150
+msgid ""
+"The renderer entry HTML. Hosts the React root and pulls in "
+"`/src/Main.res.mjs` as an ES module — the file the ReScript compiler "
+"emits next to `Main.res`."
+msgstr ""
+"レンダラーのエントリ HTML。React ルートをホストし、`/src/Main.res.mjs` を ES モジュールとして取り込む。"
+"これは ReScript コンパイラが `Main.res` の隣に出力するファイルである。"
+
+#: ../../user/templates/electron.md:152
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/electron.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/electron.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/electron.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/electron.md
+msgid ""
+"`vp dev` — Vite+ dev server for the renderer (open in a browser to "
+"iterate on UI without launching Electron)"
+msgstr ""
+"`vp dev` — レンダラー向け Vite+ 開発サーバー (Electron を起動せずブラウザで開いて UI を反復開発できる)"
+
+#: ../../user/templates/electron.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/electron.md
+msgid "`vp build` — bundle the renderer to `dist/`"
+msgstr "`vp build` — レンダラーを `dist/` にバンドルする"
+
+#: ../../user/templates/electron.md
+msgid "`electron`"
+msgstr "`electron`"
+
+#: ../../user/templates/electron.md
+msgid "`electron .` — launch Electron against an already-built `dist/`"
+msgstr "`electron .` — すでにビルド済みの `dist/` に対して Electron を起動する"
+
+#: ../../user/templates/electron.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/electron.md
+msgid "`vp build && electron .` — production-like one-shot: build then launch"
+msgstr "`vp build && electron .` — 本番相当のワンショット: ビルドしてから起動"
+
+#: ../../user/templates/electron.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/electron.md
+msgid "`vp test` — Vitest under the Vite+ runner"
+msgstr "`vp test` — Vite+ ランナー上で Vitest を実行"
+
+#: ../../user/templates/electron.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/electron.md
+msgid "`vp test --coverage` — same, with v8 coverage"
+msgstr "`vp test --coverage` — 同上、v8 カバレッジ付き"
+
+#: ../../user/templates/electron.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/electron.md
+msgid "`rescript` — one-shot ReScript compile"
+msgstr "`rescript` — ワンショットの ReScript コンパイル"
+
+#: ../../user/templates/electron.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/electron.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存時に再コンパイル"
+
+#: ../../user/templates/electron.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/electron.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除"
+
+#: ../../user/templates/electron.md:166
+msgid "Adding a New IPC Channel"
+msgstr "新しい IPC チャネルの追加"
+
+#: ../../user/templates/electron.md:168
+msgid ""
+"Adding a channel always touches three layers — the README ships a step-"
+"by-step walkthrough and the shape is worth memorizing because forgetting "
+"any layer is silent (`undefined is not a function` in the renderer)."
+msgstr ""
+"チャネルの追加は常に 3 層に触れる — README には手順を追ったウォークスルーが同梱されている。"
+"いずれかの層を忘れると黙って失敗する (レンダラー側で `undefined is not a function` が発生する) ため、"
+"その形を記憶しておく価値がある。"
+
+#: ../../user/templates/electron.md:170
+msgid "**Define the handler in `main.cjs`**:"
+msgstr "**ハンドラを `main.cjs` で定義する**:"
+
+#: ../../user/templates/electron.md:178
+msgid "**Expose it from `preload.cjs`**:"
+msgstr "**`preload.cjs` から公開する**:"
+
+#: ../../user/templates/electron.md:187
+msgid ""
+"**Bind it in `src/Electron.res`** (extend the externals object so "
+"ReScript sees the new method):"
+msgstr ""
+"**`src/Electron.res` でバインドする** (externals オブジェクトを拡張して ReScript から新しいメソッドが見えるようにする):"
+
+#: ../../user/templates/electron.md:198
+msgid ""
+"**Validate the response** in `Validation.res` if the handler returns data"
+" the UI consumes — a stray `null` or shape change in main is far easier "
+"to debug as a parse error than as a `TypeError` deep inside React. For "
+"fire-and-forget channels (`setWindowTitle` returns `unit`) you can skip "
+"this step."
+msgstr ""
+"ハンドラが UI の消費するデータを返す場合は **`Validation.res` でレスポンスをバリデートする** — "
+"メイン側でうっかり `null` が返ったり形状が変わったりした場合、React 内部の `TypeError` よりもパースエラーとしてデバッグするほうがはるかに簡単である。"
+"fire-and-forget なチャネル (`setWindowTitle` は `unit` を返す) ではこの手順を省略できる。"
+
+#: ../../user/templates/electron.md:200
+msgid "Security Model"
+msgstr "セキュリティモデル"
+
+#: ../../user/templates/electron.md:202
+msgid ""
+"The bundled `BrowserWindow` is configured with the modern hardened "
+"defaults:"
+msgstr ""
+"同梱される `BrowserWindow` は現代的な硬化済みデフォルト値で設定されている:"
+
+#: ../../user/templates/electron.md
+msgid "Setting"
+msgstr "設定"
+
+#: ../../user/templates/electron.md
+msgid "Value"
+msgstr "値"
+
+#: ../../user/templates/electron.md
+msgid "Why"
+msgstr "理由"
+
+#: ../../user/templates/electron.md
+msgid "`contextIsolation`"
+msgstr "`contextIsolation`"
+
+#: ../../user/templates/electron.md
+msgid "`true`"
+msgstr "`true`"
+
+#: ../../user/templates/electron.md
+msgid "Keeps preload globals out of the page's `window`"
+msgstr "preload のグローバルをページの `window` から隔離する"
+
+#: ../../user/templates/electron.md
+msgid "`nodeIntegration`"
+msgstr "`nodeIntegration`"
+
+#: ../../user/templates/electron.md
+msgid "`false`"
+msgstr "`false`"
+
+#: ../../user/templates/electron.md
+msgid "Renderer cannot `require(\"fs\")`; no Node escape from a compromised dep"
+msgstr "レンダラーから `require(\"fs\")` できない; 侵害された依存からの Node エスケープを防ぐ"
+
+#: ../../user/templates/electron.md
+msgid "Preload bridge"
+msgstr "Preload ブリッジ"
+
+#: ../../user/templates/electron.md
+msgid "`contextBridge.exposeInMainWorld`"
+msgstr "`contextBridge.exposeInMainWorld`"
+
+#: ../../user/templates/electron.md
+msgid "Only the surface you opt-in to crosses the boundary"
+msgstr "明示的にオプトインしたサーフェスのみが境界を越える"
+
+#: ../../user/templates/electron.md:210
+msgid ""
+"The renderer never imports Electron directly. Every cross-process call "
+"goes through `window.electronAPI.*` → `ipcRenderer.invoke(...)` → "
+"`ipcMain.handle(...)`. Validate every payload that re-enters the renderer"
+" with `Validation.res` so a buggy main-process change cannot crash the UI"
+" silently."
+msgstr ""
+"レンダラーは Electron を直接インポートしない。すべてのプロセス間呼び出しは "
+"`window.electronAPI.*` → `ipcRenderer.invoke(...)` → `ipcMain.handle(...)` を経由する。"
+"レンダラーに再入するペイロードはすべて `Validation.res` でバリデートすることで、"
+"メインプロセス側のバグによる変更が UI を黙ってクラッシュさせるのを防ぐ。"
+
+#: ../../user/templates/electron.md:212
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/electron.md:214
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/create-react-component` — same React conventions apply "
+"to the renderer"
+msgstr ""
+"{doc}`../recipes/create-react-component` — 同じ React 規約がレンダラーにも適用される"
+
+#: ../../user/templates/electron.md:215
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/optimize-imports` — keep `src/Electron.res` and "
+"`src/Validation.res` tidy as the IPC surface grows"
+msgstr ""
+"{doc}`../recipes/optimize-imports` — IPC サーフェスが拡大するにつれて "
+"`src/Electron.res` と `src/Validation.res` を整理しておく"
+
+#: ../../user/templates/electron.md:216
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/find-dead-code` — useful for pruning IPC channels that "
+"no renderer still calls"
+msgstr ""
+"{doc}`../recipes/find-dead-code` — どのレンダラーからも呼び出されていない IPC チャネルの剪定に役立つ"
+
+#: ../../user/templates/electron.md:218
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see "
+"{doc}`../features/index`."
+msgstr ""
+"プロジェクトを開いた後の ReScript 側のエディタワークフローについては {doc}`../features/index` を参照のこと。"
+
+#: ../../user/templates/electron.md:220
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/electron.md:222
+msgid ""
+"**Electron is not hot-reloaded.** `vp dev` updates the renderer in your "
+"browser, but the running Electron window does not auto-refresh on "
+"`main.cjs` / `preload.cjs` changes. Stop and re-run `npm start` after "
+"touching the main-process files."
+msgstr ""
+"**Electron はホットリロードされない。** `vp dev` はブラウザ内のレンダラーを更新するが、"
+"動作中の Electron ウィンドウは `main.cjs` / `preload.cjs` の変更で自動リフレッシュされない。"
+"メインプロセスのファイルを触ったあとは `npm start` を停止して再実行すること。"
+
+#: ../../user/templates/electron.md:223
+msgid ""
+"**`electron-builder` is intentionally absent.** Packaging is opinionated "
+"(signing identities, icons, target platforms, auto-updater) and varies "
+"wildly per project, so the template stops at \"runs locally\". Add "
+"`electron-builder` (or Forge / Tauri-style alternatives) when you decide "
+"on a release strategy."
+msgstr ""
+"**`electron-builder` は意図的に省いている。** パッケージング (署名 ID、アイコン、ターゲットプラットフォーム、自動更新) "
+"はオピニオネイテッドであり、プロジェクトごとに大きく異なる。そのためテンプレートは「ローカルで動く」までで止めている。"
+"リリース戦略を決めた段階で `electron-builder` (もしくは Forge / Tauri スタイルの代替) を追加すること。"
+
+#: ../../user/templates/electron.md:224
+msgid ""
+"**The renderer never imports Electron directly.** Every cross-process "
+"call goes through `window.electronAPI.*` → `ipcRenderer.invoke(...)` → "
+"`ipcMain.handle(...)`. If you find yourself wanting "
+"`require(\"electron\")` in the renderer, you almost certainly want a new "
+"IPC channel instead."
+msgstr ""
+"**レンダラーは Electron を直接インポートしない。** すべてのプロセス間呼び出しは "
+"`window.electronAPI.*` → `ipcRenderer.invoke(...)` → `ipcMain.handle(...)` を経由する。"
+"レンダラーで `require(\"electron\")` を使いたくなった場合、それはほぼ確実に新しい IPC チャネルが必要なケースである。"
+
+#: ../../user/templates/electron.md:225
+msgid ""
+"**`ipcRenderer.send` is fire-and-forget.** The shipped pattern uses "
+"`invoke`/`handle` exclusively — request/response with a typed return "
+"value the validator can inspect. Stick to it unless you have a streaming "
+"use case."
+msgstr ""
+"**`ipcRenderer.send` は fire-and-forget である。** 同梱パターンは `invoke`/`handle` のみを使用する — "
+"バリデーターが検査できる型付きの戻り値を伴うリクエスト/レスポンスである。ストリーミングのユースケースがない限りこれを守ること。"
+
+#: ../../user/templates/electron.md:226
+msgid ""
+"**Functions, class instances, and DOM nodes cannot cross the bridge.** "
+"Stringify or convert to plain objects before returning from "
+"`ipcMain.handle`."
+msgstr ""
+"**関数、クラスインスタンス、および DOM ノードはブリッジを越えられない。** "
+"`ipcMain.handle` から返す前に文字列化するかプレーンオブジェクトに変換すること。"
+
+#: ../../user/templates/electron.md:227
+msgid ""
+"**Channel names use `domain:action`.** The shipped `app:getInfo` is the "
+"canonical example; the `app:*` prefix is reserved for app-lifecycle "
+"channels — pick a different domain (`fs:*`, `db:*`, `window:*`) for "
+"feature work."
+msgstr ""
+"**チャネル名には `domain:action` を使う。** 同梱されている `app:getInfo` が標準例である。"
+"`app:*` プレフィックスはアプリのライフサイクルチャネル用に予約されている — "
+"機能開発では別のドメイン (`fs:*`、`db:*`、`window:*`) を選ぶこと。"
+
+#: ../../user/templates/electron.md:228
+msgid ""
+"**The smoke test is intentionally tiny.** `App.test.mjs` only verifies "
+"that `import(\"../App.res.mjs\")` resolves; it does not boot Electron or "
+"exercise IPC. Add domain tests as you grow the renderer."
+msgstr ""
+"**スモークテストは意図的に小さい。** `App.test.mjs` は `import(\"../App.res.mjs\")` が解決されることを検証するだけで、"
+"Electron を起動したり IPC を動かしたりはしない。レンダラーを拡張する際にドメインテストを追加すること。"
+
+#: ../../user/templates/electron.md:229
+msgid ""
+"**`vite-plus` is pre-1.0.** The version pin is `^0.1.x`; expect minor "
+"breaking changes between releases until 1.0 lands. Vite+ bundles its own "
+"`vite` internally — the direct `vite` dependency is only there so "
+"`@vitejs/plugin-react` resolves a peer."
+msgstr ""
+"**`vite-plus` は 1.0 未満である。** バージョンピンは `^0.1.x` である; 1.0 に到達するまでリリース間でマイナーな破壊的変更を想定しておくこと。"
+"Vite+ は内部に独自の `vite` をバンドルしている — 直接の `vite` 依存は `@vitejs/plugin-react` の peer を解決するためだけに存在する。"

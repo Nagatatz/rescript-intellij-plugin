@@ -1,0 +1,726 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: 2026-04-26 13:06+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid ""
+"cloudflare workers, wrangler, hono, kv, workers kv, edge, v8 isolate, "
+"rescript template, validation, zod, sury"
+msgstr "cloudflare workers, wrangler, hono, kv, workers kv, edge, v8 isolate, rescript template, validation, zod, sury"
+
+#: ../../user/templates/cloudflare-workers.md:7
+msgid "Cloudflare Workers"
+msgstr "Cloudflare Workers"
+
+#: ../../user/templates/cloudflare-workers.md:9
+#, python-brace-format
+msgid ""
+"{bdg-info}`Cloudflare Workers` {bdg-primary}`Hono` {bdg-"
+"success}`Validation`"
+msgstr "{bdg-info}`Cloudflare Workers` {bdg-primary}`Hono` {bdg-success}`Validation`"
+
+#: ../../user/templates/cloudflare-workers.md:11
+msgid ""
+"A **Cloudflare Workers** service powered by **Hono** with a working "
+"**Workers KV** example baked in. The shipped app goes beyond \"hello "
+"world\": it stores submitted greetings in a KV namespace via `POST "
+"/greetings` and reads them back via `GET /greetings`, so the moment you "
+"run `wrangler dev` you have a real binding to exercise — not a "
+"placeholder."
+msgstr "**Hono** で動作する **Cloudflare Workers** サービスで、動作する **Workers KV** の例が組み込まれている。同梱のアプリは \"hello world\" を超えており、`POST /greetings` で送信された挨拶文を KV ネームスペースに保存し、`GET /greetings` で読み戻す。そのため `wrangler dev` を実行した瞬間、プレースホルダではなく実際にバインディングを動かせる。"
+
+#: ../../user/templates/cloudflare-workers.md:13
+msgid ""
+"The runtime is V8 isolates, not Node. The template uses Hono's native "
+"`fetch` export rather than `@hono/node-server`, and `wrangler.jsonc` "
+"(note: `.jsonc`, not `.json`) pre-declares the KV binding so the dev "
+"session boots with a real local store the first time you `wrangler dev`."
+msgstr "ランタイムは Node ではなく V8 isolate である。テンプレートは `@hono/node-server` ではなく Hono のネイティブ `fetch` エクスポートを使用しており、`wrangler.jsonc` (注意: `.json` ではなく `.jsonc`) が KV バインディングを事前宣言しているため、`wrangler dev` を初めて実行した際に開発セッションが実際のローカルストア付きで起動する。"
+
+#: ../../user/templates/cloudflare-workers.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/cloudflare-workers.md:38
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid ""
+"Becomes the npm `name`, license holder, and the `name` field interpolated"
+" into `wrangler.jsonc` (the deployed Worker name)"
+msgstr "npm の `name`、ライセンス保有者、および `wrangler.jsonc` に展開される `name` フィールド (デプロイされる Worker 名) になる"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid ""
+"npm / pnpm / yarn / bun. Affects `packageManager` field, README "
+"install/run commands, and CI cache key"
+msgstr "npm / pnpm / yarn / bun。`packageManager` フィールド、README の install/run コマンド、CI のキャッシュキーに影響する"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid ""
+"`zod` ↔ `sury`. Picks `src/Validation.res` and adds the matching "
+"dependency. Both expose `parseGreetingPayload` so route handlers don't "
+"branch"
+msgstr "`zod` ↔ `sury`。`src/Validation.res` を選択し、対応する依存を追加する。両者は `parseGreetingPayload` を公開するため、ルートハンドラは分岐する必要がない"
+
+#: ../../user/templates/cloudflare-workers.md:46
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Runtime stubs the compiled `.res.mjs` imports"
+msgstr "コンパイル済み `.res.mjs` がインポートするランタイムスタブ"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`hono`"
+msgstr "`hono`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "HTTP router with native Workers fetch handler"
+msgstr "Workers ネイティブの fetch ハンドラを備えた HTTP ルーター"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`TemplateVersions.HONO`"
+msgstr "`TemplateVersions.HONO`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Request body validation (chosen in the wizard)"
+msgstr "リクエストボディのバリデーション (ウィザードで選択)"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`TemplateVersions.ZOD` / `SURY`"
+msgstr "`TemplateVersions.ZOD` / `SURY`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`wrangler` *(dev)*"
+msgstr "`wrangler` *(dev)*"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Cloudflare CLI: dev server, KV, deploy"
+msgstr "Cloudflare CLI: 開発サーバー、KV、デプロイ"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`TemplateVersions.WRANGLER`"
+msgstr "`TemplateVersions.WRANGLER`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Smoke test runner"
+msgstr "スモークテストランナー"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` 向けのカバレッジプロバイダ"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/cloudflare-workers.md:59
+msgid ""
+"`@hono/node-server` is **not** included — the Workers runtime takes "
+"Hono's native `fetch` export directly (see `Server.res`)."
+msgstr "`@hono/node-server` は **同梱されない** — Workers ランタイムが Hono のネイティブ `fetch` エクスポートを直接受け取る (`Server.res` を参照)。"
+
+#: ../../user/templates/cloudflare-workers.md:61
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/cloudflare-workers.md:63
+msgid "`wrangler.jsonc`"
+msgstr "`wrangler.jsonc`"
+
+#: ../../user/templates/cloudflare-workers.md:65
+msgid ""
+"The Workers config. Comments are preserved (hence `.jsonc`), so the KV "
+"setup workflow lives next to the binding it documents:"
+msgstr "Workers の設定ファイル。コメントが保持されるため (これが `.jsonc` である理由)、KV セットアップのワークフローが、説明対象のバインディングの隣に置かれる:"
+
+#: ../../user/templates/cloudflare-workers.md:82
+msgid ""
+"`id` is what `wrangler deploy` uses (production); `preview_id` is what "
+"`wrangler dev` uses (local). Keeping them split means local "
+"experimentation never mutates production data — see the README's *KV "
+"Setup* section for the full create-and-wire workflow."
+msgstr "`id` は `wrangler deploy` (本番) が使用し、`preview_id` は `wrangler dev` (ローカル) が使用する。両者を分けておくことで、ローカルでの実験が本番データを変更することがない — 作成と配線の完全なワークフローについては README の *KV Setup* セクションを参照してほしい。"
+
+#: ../../user/templates/cloudflare-workers.md:84
+msgid "`src/Server.res`"
+msgstr "`src/Server.res`"
+
+#: ../../user/templates/cloudflare-workers.md:86
+#, python-format
+msgid ""
+"The Hono app. `env` is narrowed to the bindings this Worker actually uses"
+" (`GREETINGS`), and the file ends with `%%raw(\"export default app\")` "
+"because the Workers runtime invokes the default export's `fetch(request, "
+"env, ctx)`:"
+msgstr "Hono アプリ。`env` はこの Worker が実際に使用するバインディング (`GREETINGS`) に絞り込まれており、ファイルの末尾は `%%raw(\"export default app\")` になっている。これは Workers ランタイムがデフォルトエクスポートの `fetch(request, env, ctx)` を呼び出すためである:"
+
+#: ../../user/templates/cloudflare-workers.md:115
+msgid "`src/Kv.res`"
+msgstr "`src/Kv.res`"
+
+#: ../../user/templates/cloudflare-workers.md:117
+msgid ""
+"Bindings over the Workers KV API. The shipped subset (`get` / `put` / "
+"`list`) is enough to run the example; the file is a drop-in seed for "
+"further bindings — Durable Objects, R2, queues, D1 — when you need them:"
+msgstr "Workers KV API のバインディング。同梱のサブセット (`get` / `put` / `list`) はサンプルを動かすには十分である。このファイルは、必要になった際に Durable Objects、R2、queues、D1 といった追加バインディングを書き始めるための雛形として機能する:"
+
+#: ../../user/templates/cloudflare-workers.md:128
+#, python-format
+msgid ""
+"The `namespace` type is opaque on purpose — Cloudflare injects the real "
+"KV instance at runtime via `env.GREETINGS`, and we read it through "
+"`%raw(\"ctx.env\")` in the route handlers."
+msgstr "`namespace` 型は意図的に opaque である — Cloudflare が実行時に `env.GREETINGS` 経由で実際の KV インスタンスを注入し、ルートハンドラ内では `%raw(\"ctx.env\")` を介して読み取る。"
+
+#: ../../user/templates/cloudflare-workers.md:130
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/cloudflare-workers.md:132
+msgid ""
+"Both variants expose `parseGreetingPayload: JSON.t => "
+"result<greetingPayload, string>`. The route handler returns 400 on "
+"`Error` and proceeds on `Ok` — no exception propagation, no extra "
+"middleware. Choose **zod** if you want the broader ecosystem (zod-to-"
+"openapi, hono/zod-openapi, drizzle-zod), or **sury** if you prefer "
+"ReScript-native ergonomics and a smaller runtime footprint."
+msgstr "両バリアントは `parseGreetingPayload: JSON.t => result<greetingPayload, string>` を公開する。ルートハンドラは `Error` で 400 を返し、`Ok` で処理を続行する — 例外伝搬も追加のミドルウェアもない。より広いエコシステム (zod-to-openapi、hono/zod-openapi、drizzle-zod) を取りたいなら **zod** を、ReScript ネイティブの使い心地と小さいランタイムフットプリントを優先するなら **sury** を選ぶとよい。"
+
+#: ../../user/templates/cloudflare-workers.md:134
+msgid "`src/__tests__/Server.test.mjs`"
+msgstr "`src/__tests__/Server.test.mjs`"
+
+#: ../../user/templates/cloudflare-workers.md:136
+msgid "A one-line smoke test that asserts the module loads:"
+msgstr "モジュールがロードされることを検証する 1 行のスモークテスト:"
+
+#: ../../user/templates/cloudflare-workers.md:142
+#, python-format
+msgid ""
+"It exists so CI catches obvious link-time regressions (missing imports, "
+"broken `%raw` blocks) without requiring you to wire up Miniflare or "
+"`unstable_dev`. Add KV-bound integration tests once your routes have "
+"logic worth covering — `wrangler` ships an `unstable_dev` API that boots "
+"a real Workers runtime in-process for vitest."
+msgstr "これは Miniflare や `unstable_dev` を配線せずとも、CI が明らかなリンク時のリグレッション (import 漏れ、壊れた `%raw` ブロック) を捕捉できるようにするためのものである。ルートにカバーする価値のあるロジックが入ってきたら、KV バインドの統合テストを追加するとよい — `wrangler` は vitest 向けに、実際の Workers ランタイムを in-process で起動する `unstable_dev` API を提供している。"
+
+#: ../../user/templates/cloudflare-workers.md:144
+msgid "Endpoints"
+msgstr "エンドポイント"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Endpoint"
+msgstr "エンドポイント"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Method"
+msgstr "メソッド"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`/`"
+msgstr "`/`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "GET"
+msgstr "GET"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Health check (`text/plain`)"
+msgstr "ヘルスチェック (`text/plain`)"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`/greetings`"
+msgstr "`/greetings`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "POST"
+msgstr "POST"
+
+#: ../../user/templates/cloudflare-workers.md
+#, python-brace-format
+msgid "Validate `{ name }`, store in KV, return 201"
+msgstr "`{ name }` を検証し、KV に保存して 201 を返す"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "List stored names"
+msgstr "保存されている名前を一覧表示する"
+
+#: ../../user/templates/cloudflare-workers.md:152
+msgid "Request and response shapes"
+msgstr "リクエスト/レスポンスの形状"
+
+#: ../../user/templates/cloudflare-workers.md:179
+msgid "A missing or invalid body produces a 400:"
+msgstr "ボディが欠落または不正な場合は 400 を返す:"
+
+#: ../../user/templates/cloudflare-workers.md:188
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`wrangler dev` — local Workers runtime against the preview KV namespace"
+msgstr "`wrangler dev` — preview KV ネームスペースに対するローカル Workers ランタイム"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`deploy`"
+msgstr "`deploy`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`wrangler deploy` — push to Cloudflare"
+msgstr "`wrangler deploy` — Cloudflare にプッシュする"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`vitest run` — execute the smoke suite"
+msgstr "`vitest run` — スモークスイートを実行する"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`vitest run --coverage` — same, with v8 coverage report"
+msgstr "`vitest run --coverage` — 同じだが v8 カバレッジレポートを付与する"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`rescript` — one-shot compile"
+msgstr "`rescript` — 単発のコンパイル"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存ごとに再コンパイル"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除する"
+
+#: ../../user/templates/cloudflare-workers.md:200
+msgid "KV Setup Walkthrough"
+msgstr "KV セットアップの手順"
+
+#: ../../user/templates/cloudflare-workers.md:202
+msgid ""
+"The shipped `wrangler.jsonc` has placeholder IDs that wrangler will "
+"refuse to use until you replace them. The README's *KV Setup* section "
+"walks through the workflow; the gist is:"
+msgstr "同梱の `wrangler.jsonc` にはプレースホルダの ID が記載されており、置き換えるまで wrangler はそれを使用しない。README の *KV Setup* セクションでワークフロー全体を解説しているが、要点は次の通り:"
+
+#: ../../user/templates/cloudflare-workers.md:212
+msgid ""
+"Each command prints a JSON snippet with an `id`. Copy them into "
+"`wrangler.jsonc` under `kv_namespaces[0].id` and `.preview_id` "
+"respectively. Verify the wiring with:"
+msgstr "各コマンドは `id` を含む JSON スニペットを表示する。それらを `wrangler.jsonc` の `kv_namespaces[0].id` と `.preview_id` にそれぞれコピーする。配線は次のコマンドで確認できる:"
+
+#: ../../user/templates/cloudflare-workers.md:218
+msgid "Local reads and writes go through the **preview** namespace by default:"
+msgstr "ローカルでの読み書きは既定で **preview** ネームスペースを経由する:"
+
+#: ../../user/templates/cloudflare-workers.md:228
+msgid ""
+"If you omit `preview_id`, wrangler falls back to a one-off in-memory "
+"store wiped between sessions. That is fine for throwaway demos but "
+"brittle for anything you want to inspect later."
+msgstr "`preview_id` を省略すると、wrangler はセッション間で消去される使い捨てのインメモリストアにフォールバックする。使い捨てデモには問題ないが、後で内容を確認したい場合には脆い。"
+
+#: ../../user/templates/cloudflare-workers.md:230
+msgid "Extending the Bindings"
+msgstr "バインディングを拡張する"
+
+#: ../../user/templates/cloudflare-workers.md:232
+msgid ""
+"The shipped `Kv.res` covers the routes in the example, not the full "
+"Workers KV surface. When you need more, add the binding directly — most "
+"KV operations are a single `@send` line:"
+msgstr "同梱の `Kv.res` は例で使うルートをカバーしているが、Workers KV の表層全体を網羅しているわけではない。必要になったら直接バインディングを追加する — KV 操作のほとんどは 1 行の `@send` で書ける:"
+
+#: ../../user/templates/cloudflare-workers.md:248
+msgid ""
+"Other Workers primitives follow the same shape. Each gets its own thin "
+"module:"
+msgstr "他の Workers プリミティブも同じ形に従う。それぞれが独自の薄いモジュールを持つ:"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Binding"
+msgstr "バインディング"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Module"
+msgstr "モジュール"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Wrangler config key"
+msgstr "Wrangler 設定キー"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Typical methods"
+msgstr "代表的なメソッド"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "KV"
+msgstr "KV"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`Kv.res` (shipped)"
+msgstr "`Kv.res` (同梱)"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`kv_namespaces`"
+msgstr "`kv_namespaces`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`get` / `put` / `list` / `delete`"
+msgstr "`get` / `put` / `list` / `delete`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "R2"
+msgstr "R2"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "add `R2.res`"
+msgstr "`R2.res` を追加"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`r2_buckets`"
+msgstr "`r2_buckets`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`put` / `get` / `list` / `head`"
+msgstr "`put` / `get` / `list` / `head`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Durable Objects"
+msgstr "Durable Objects"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "add `Do.res`"
+msgstr "`Do.res` を追加"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`durable_objects.bindings`"
+msgstr "`durable_objects.bindings`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`idFromName` / `get` / `fetch`"
+msgstr "`idFromName` / `get` / `fetch`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "D1"
+msgstr "D1"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "add `D1.res`"
+msgstr "`D1.res` を追加"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`d1_databases`"
+msgstr "`d1_databases`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`prepare` / `bind` / `all` / `first`"
+msgstr "`prepare` / `bind` / `all` / `first`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "Queues"
+msgstr "Queues"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "add `Queue.res`"
+msgstr "`Queue.res` を追加"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`queues.producers` / `consumers`"
+msgstr "`queues.producers` / `consumers`"
+
+#: ../../user/templates/cloudflare-workers.md
+msgid "`send` / `sendBatch`"
+msgstr "`send` / `sendBatch`"
+
+#: ../../user/templates/cloudflare-workers.md:258
+#, python-format
+msgid ""
+"For each, declare the binding in `wrangler.jsonc`, add the field to `type"
+" env` in `Server.res`, and read it via `%raw(\"ctx.env\")` in the route "
+"handler. The pattern is uniform so muscle memory transfers across "
+"services."
+msgstr "いずれの場合も、`wrangler.jsonc` でバインディングを宣言し、`Server.res` の `type env` にフィールドを追加し、ルートハンドラ内で `%raw(\"ctx.env\")` 経由で読み取る。パターンが統一されているため、サービスをまたいでマッスルメモリが活かせる。"
+
+#: ../../user/templates/cloudflare-workers.md:260
+msgid "Try It"
+msgstr "試してみる"
+
+#: ../../user/templates/cloudflare-workers.md:262
+msgid ""
+"Once `wrangler dev` is running and the KV IDs are wired (see *KV Setup "
+"Walkthrough* above), exercise the example end-to-end:"
+msgstr "`wrangler dev` が起動し、KV ID が配線されたら (上記の *KV Setup Walkthrough* を参照)、サンプルをエンドツーエンドで動かしてみる:"
+
+#: ../../user/templates/cloudflare-workers.md:282
+msgid ""
+"When you're ready to push to Cloudflare, `npx wrangler login` once and "
+"then `pnpm deploy` (or your PM equivalent). The first deploy provisions "
+"the route at `<worker-name>.<account>.workers.dev`; subsequent deploys "
+"are atomic and roll back automatically if the upload fails health-check."
+msgstr "Cloudflare へのプッシュ準備ができたら、`npx wrangler login` を一度実行し、その後 `pnpm deploy` (またはお使いの PM の同等コマンド) を実行する。最初のデプロイで `<worker-name>.<account>.workers.dev` にルートがプロビジョニングされ、以降のデプロイはアトミックで、ヘルスチェックに失敗した場合は自動でロールバックされる。"
+
+#: ../../user/templates/cloudflare-workers.md:284
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/cloudflare-workers.md:286
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-hono-endpoint` — add another route alongside "
+"`/greetings`"
+msgstr "{doc}`../recipes/add-hono-endpoint` — `/greetings` と並行して別のルートを追加する"
+
+#: ../../user/templates/cloudflare-workers.md:287
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/convert-from-typescript` — port an existing Worker to "
+"ReScript module-by-module"
+msgstr "{doc}`../recipes/convert-from-typescript` — 既存の Worker をモジュールごとに ReScript へ移植する"
+
+#: ../../user/templates/cloudflare-workers.md:288
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/optimize-imports` — cut bundle size (every byte counts "
+"at the edge)"
+msgstr "{doc}`../recipes/optimize-imports` — バンドルサイズを削る (エッジでは 1 バイトが効いてくる)"
+
+#: ../../user/templates/cloudflare-workers.md:290
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr "プロジェクトを開いた後の ReScript 側のエディタワークフローについては、{doc}`../features/index` を参照してほしい。"
+
+#: ../../user/templates/cloudflare-workers.md:292
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/cloudflare-workers.md:294
+#, python-format
+msgid ""
+"**No Node runtime.** Cloudflare Workers run on V8 isolates, not Node. "
+"That's why the template ships only `hono` (no `@hono/node-server`) and "
+"the entry file ends with `%%raw(\"export default app\")` — Workers invoke"
+" the default export's `fetch(request, env, ctx)`. `.nvmrc` still says "
+"`22` because **tooling** (wrangler, esbuild under the hood, vitest) runs "
+"on Node locally."
+msgstr "**Node ランタイムは使用しない。** Cloudflare Workers は Node ではなく V8 isolate で動作する。テンプレートが `@hono/node-server` 抜きで `hono` のみを同梱し、エントリファイルの末尾が `%%raw(\"export default app\")` になっているのはこのためである — Workers はデフォルトエクスポートの `fetch(request, env, ctx)` を呼び出す。`.nvmrc` が依然として `22` を指定しているのは、**ツール群** (wrangler、内部の esbuild、vitest) がローカルでは Node 上で動作するためである。"
+
+#: ../../user/templates/cloudflare-workers.md:295
+msgid ""
+"**`wrangler.jsonc`, not `wrangler.toml`.** Cloudflare supports both. We "
+"chose JSONC because it lets us keep the KV setup walkthrough next to the "
+"binding it documents — no separate file to skim."
+msgstr "**`wrangler.toml` ではなく `wrangler.jsonc` を採用。** Cloudflare は両方をサポートしている。JSONC を選んだ理由は、KV セットアップの解説を、説明対象のバインディングの隣に置けるためである — 別ファイルを見渡す必要がない。"
+
+#: ../../user/templates/cloudflare-workers.md:296
+msgid ""
+"**Two KV namespaces, on purpose.** `id` (production) and `preview_id` "
+"(local) are kept distinct so `wrangler dev` never writes to production. "
+"If you omit `preview_id`, wrangler falls back to a one-off in-memory "
+"store that is wiped between sessions — fine for throwaway demos, brittle "
+"for anything you want to inspect later. Run `npx wrangler kv namespace "
+"create GREETINGS` and `... --preview` once and paste the IDs in."
+msgstr "**KV ネームスペースを 2 つ用意するのは意図的。** `id` (本番) と `preview_id` (ローカル) を分けておくことで、`wrangler dev` が本番に書き込んでしまうことがない。`preview_id` を省略すると、wrangler はセッション間で消去される使い捨てのインメモリストアにフォールバックする — 使い捨てデモには問題ないが、後で内容を確認したい場合には脆い。`npx wrangler kv namespace create GREETINGS` と `... --preview` を一度ずつ実行し、表示された ID を貼り付ける。"
+
+#: ../../user/templates/cloudflare-workers.md:297
+#, python-brace-format
+msgid ""
+"**Bindings are typed by hand, not generated.** The template does not "
+"depend on `@cloudflare/workers-types`; the `env` shape lives in "
+"`Server.res` as `type env = {\"GREETINGS\": Kv.namespace}`. If you add "
+"bindings (Durable Objects, R2, queues), add a field to that type and a "
+"binding entry in `wrangler.jsonc`."
+msgstr "**バインディングの型は生成ではなく手書き。** テンプレートは `@cloudflare/workers-types` に依存していない。`env` の形状は `Server.res` に `type env = {\"GREETINGS\": Kv.namespace}` として記述されている。バインディング (Durable Objects、R2、queues) を追加する場合は、その型にフィールドを追加し、`wrangler.jsonc` にバインディングエントリを追記する。"
+
+#: ../../user/templates/cloudflare-workers.md:298
+msgid ""
+"**`.dev.vars` is gitignored.** Use it for local-only secrets that "
+"wrangler reads automatically. For production, run `npx wrangler secret "
+"put NAME` — secrets never live in `wrangler.jsonc`."
+msgstr "**`.dev.vars` は gitignore 済み。** wrangler が自動で読み取るローカル専用のシークレットを ここに置く。本番では `npx wrangler secret put NAME` を実行する — シークレットを `wrangler.jsonc` に置いてはならない。"
+
+#: ../../user/templates/cloudflare-workers.md:299
+msgid ""
+"**`.wrangler/` and `dist/` are gitignored.** wrangler caches local state "
+"in the former; the latter is reserved for any bundling step you add "
+"later."
+msgstr "**`.wrangler/` と `dist/` は gitignore 済み。** 前者には wrangler がローカル状態をキャッシュする。後者は将来追加するバンドル工程のために予約されている。"
+
+#: ../../user/templates/cloudflare-workers.md:300
+msgid ""
+"**Smoke test only verifies module load.** `src/__tests__/Server.test.mjs`"
+" does `await import(\"../Server.res.mjs\")` and asserts it resolves. Add "
+"KV-bound integration tests with `unstable_dev` from `wrangler` once your "
+"routes have logic worth covering."
+msgstr "**スモークテストはモジュールのロードのみを検証する。** `src/__tests__/Server.test.mjs` は `await import(\"../Server.res.mjs\")` を実行し、それが解決することをアサートする。ルートにカバーする価値のあるロジックが入ってきたら、`wrangler` の `unstable_dev` を使って KV バインドの統合テストを追加するとよい。"
+
+#: ../../user/templates/cloudflare-workers.md:301
+msgid ""
+"**Deploy needs auth.** `npx wrangler login` once per machine, then `pnpm "
+"deploy` (or your PM equivalent) pushes to your account. The README's "
+"*Deploy* section interpolates the right command for the package manager "
+"you chose."
+msgstr "**デプロイには認証が必要。** マシンごとに `npx wrangler login` を一度実行し、その後 `pnpm deploy` (またはお使いの PM の同等コマンド) でアカウントへプッシュする。README の *Deploy* セクションは、選択したパッケージマネージャに応じた正しいコマンドを表示する。"
+
+#: ../../user/templates/cloudflare-workers.md:302
+msgid ""
+"**No `compatibility_flags`, conservative `compatibility_date`.** The "
+"shipped `wrangler.jsonc` uses `2024-01-01` and no flags. Bump the date "
+"when you need newer Workers runtime behaviour (Node.js compat shims, "
+"`nodejs_compat`, `streams_enable_constructors`, etc) — the field is opt-"
+"in by design so older deployments don't break when Cloudflare ships a "
+"runtime update."
+msgstr "**`compatibility_flags` なし、保守的な `compatibility_date`。** 同梱の `wrangler.jsonc` は `2024-01-01` を使用し、フラグは指定していない。新しい Workers ランタイムの挙動 (Node.js 互換シム、`nodejs_compat`、`streams_enable_constructors` など) が必要になった場合は日付を更新する — このフィールドは設計上 opt-in であり、Cloudflare がランタイムを更新しても古いデプロイが壊れないようになっている。"
+
+#: ../../user/templates/cloudflare-workers.md:303
+#, python-format
+msgid ""
+"**Bindings beyond KV.** Add Durable Objects, R2 buckets, queues, D1 "
+"databases, or service bindings by editing `wrangler.jsonc` and extending "
+"`type env` in `Server.res`. The pattern stays the same: declare the "
+"binding in JSONC, name its type in the `env` record, read it via "
+"`%raw(\"ctx.env\")`. Each new binding gets its own thin `.res` module "
+"mirroring `Kv.res`."
+msgstr "**KV 以外のバインディング。** Durable Objects、R2 バケット、キュー、D1 データベース、サービスバインディングを追加するには、`wrangler.jsonc` を編集し、`Server.res` の `type env` を拡張する。パターンは変わらない: JSONC でバインディングを宣言し、`env` レコードでその型を命名し、`%raw(\"ctx.env\")` 経由で読み取る。新しいバインディングごとに、`Kv.res` を模した薄い `.res` モジュールを用意する。"
+
+#: ../../user/templates/cloudflare-workers.md:304
+msgid ""
+"**Free-plan limits matter.** A Worker has a 50 ms CPU time budget per "
+"request on the free plan (10 ms before May 2024) — validation, KV reads, "
+"and JSON serialisation all count. The shipped routes stay well within "
+"that envelope, but the moment you reach for heavy crypto or large JSON, "
+"run `wrangler dev --inspect` and profile."
+msgstr "**無料プランの上限を意識する。** 無料プランでは Worker のリクエストごとの CPU 時間予算は 50 ms である (2024 年 5 月以前は 10 ms) — バリデーション、KV 読み取り、JSON シリアライズもすべてここに含まれる。同梱のルートはこのエンベロープに余裕を持って収まっているが、重い暗号処理や大きな JSON を扱い始めたら、`wrangler dev --inspect` を起動してプロファイルすること。"

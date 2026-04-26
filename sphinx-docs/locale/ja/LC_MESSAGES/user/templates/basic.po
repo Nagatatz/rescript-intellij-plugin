@@ -1,0 +1,393 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/basic.md
+msgid "basic template, rescript, node.js, cli, fs, validation, zod, sury, starter"
+msgstr "Basic テンプレート, rescript, node.js, cli, fs, バリデーション, zod, sury, スターター"
+
+#: ../../user/templates/basic.md:7
+msgid "Basic"
+msgstr "Basic"
+
+#: ../../user/templates/basic.md:9
+#, python-brace-format
+msgid "{bdg-info}`Node.js` {bdg-success}`Validation`"
+msgstr "{bdg-info}`Node.js` {bdg-success}`Validation`"
+
+#: ../../user/templates/basic.md:11
+msgid ""
+"The smallest working ReScript + Node.js starter. It is **not** a \"Hello "
+"World\" — in addition to `Console.log`, it demonstrates argv parsing, "
+"file I/O via `node:fs/promises`, and validation of a bundled "
+"`config.sample.json` through `Validation.res` (zod or sury, chosen in the"
+" wizard)."
+msgstr ""
+"動作する最小限の ReScript + Node.js スターターである。**「Hello World」ではない** — `Console.log` "
+"に加えて、argv のパース、`node:fs/promises` 経由のファイル I/O、そしてウィザードで選択した zod または sury "
+"を使った `Validation.res` による同梱の `config.sample.json` のバリデーションを示している。"
+
+#: ../../user/templates/basic.md:13
+msgid ""
+"Use this as the reference when you want to understand exactly what "
+"minimal scaffolding the plugin produces, or as the starting point for a "
+"small Node.js script that would otherwise grow into a one-off."
+msgstr ""
+"プラグインが生成する最小限の scaffolding を正確に理解したい場合、あるいはその場限りで終わりかねない小さな Node.js "
+"スクリプトの出発点として、本テンプレートを参照すると良い。"
+
+#: ../../user/templates/basic.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/basic.md:38
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/basic.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/basic.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/basic.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/basic.md
+msgid ""
+"Becomes the npm `name`, license holder, and the `--name` echoed by "
+"`App.res` examples"
+msgstr ""
+"npm の `name`、ライセンス保有者、および `App.res` の例で `--name` として echo "
+"される値となる"
+
+#: ../../user/templates/basic.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/basic.md
+msgid ""
+"npm / pnpm / yarn / bun. Affects `packageManager` field, README "
+"install/run commands, and CI cache key"
+msgstr ""
+"npm / pnpm / yarn / bun。`packageManager` フィールド、README のインストール／実行コマンド、CI "
+"のキャッシュキーに影響する"
+
+#: ../../user/templates/basic.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/basic.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `src/Validation.res` variant ships and "
+"which dependency is added"
+msgstr ""
+"`zod` ↔ `sury`。同梱される `src/Validation.res` のバリアントと追加される依存を選択する"
+
+#: ../../user/templates/basic.md:46
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/basic.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/basic.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/basic.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/basic.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/basic.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/basic.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/basic.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/basic.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/basic.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/basic.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/basic.md
+msgid "Runtime stubs the compiled `.res.mjs` imports"
+msgstr "コンパイル後の `.res.mjs` がインポートするランタイムスタブ"
+
+#: ../../user/templates/basic.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/basic.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/basic.md
+msgid "Validation backend (chosen in the wizard)"
+msgstr "バリデーションのバックエンド（ウィザードで選択）"
+
+#: ../../user/templates/basic.md
+msgid "`TemplateVersions.ZOD` / `SURY`"
+msgstr "`TemplateVersions.ZOD` / `SURY`"
+
+#: ../../user/templates/basic.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/basic.md
+msgid "Smoke test runner"
+msgstr "スモークテストランナー"
+
+#: ../../user/templates/basic.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/basic.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/basic.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` 用のカバレッジプロバイダ"
+
+#: ../../user/templates/basic.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/basic.md:57
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/basic.md:59
+msgid "`src/App.res`"
+msgstr "`src/App.res`"
+
+#: ../../user/templates/basic.md:61
+msgid ""
+"Entry point invoked by `npm start`. It calls "
+"`Args.parse(NodeJs.Process.process->NodeJs.Process.argv)` and either "
+"prints a greeting or (when `--config <path>` is supplied) reads the file "
+"with `Files.readFile` and parses it through `Validation.parseConfig`."
+msgstr ""
+"`npm start` から呼び出されるエントリポイント。"
+"`Args.parse(NodeJs.Process.process->NodeJs.Process.argv)` を呼び出し、"
+"挨拶を表示するか、（`--config <path>` が指定された場合は）"
+"`Files.readFile` でファイルを読み込み、`Validation.parseConfig` 経由でパースする。"
+
+#: ../../user/templates/basic.md:63
+msgid "`src/Args.res` / `src/Files.res`"
+msgstr "`src/Args.res` / `src/Files.res`"
+
+#: ../../user/templates/basic.md:65
+msgid ""
+"Two small modules that exist so the template can show *useful* APIs "
+"without pulling in a CLI framework:"
+msgstr ""
+"CLI フレームワークを引き込まずに *実用的な* API を示すために用意された 2 つの小さなモジュール:"
+
+#: ../../user/templates/basic.md:67
+msgid "`Args.res` — minimal `--flag` / `--flag=value` / positional parser"
+msgstr "`Args.res` — `--flag` / `--flag=value` / 位置引数を扱う最小限のパーサー"
+
+#: ../../user/templates/basic.md:68
+msgid ""
+"`Files.res` — `readFile`, `writeFile`, `exists` wrappers around "
+"`node:fs/promises`"
+msgstr ""
+"`Files.res` — `node:fs/promises` をラップする `readFile`、`writeFile`、`exists` "
+"のラッパー"
+
+#: ../../user/templates/basic.md:70
+msgid ""
+"Both are intentionally short — they double as a worked example of how to "
+"wrap a Node API with `@module` / `@val` bindings."
+msgstr ""
+"いずれも意図的に短くしてある — `@module` / `@val` バインディングで Node API を "
+"ラップする方法の実例も兼ねている。"
+
+#: ../../user/templates/basic.md:72
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/basic.md:74
+msgid ""
+"`parseConfig: Js.Json.t => result<config, string>` for the bundled "
+"`config.sample.json`. The signature is identical between the zod and sury"
+" variants so callers don't need to branch."
+msgstr ""
+"同梱の `config.sample.json` 用の `parseConfig: Js.Json.t => result<config, "
+"string>`。シグネチャは zod 版と sury 版で同一なので、呼び出し側で分岐する必要はない。"
+
+#: ../../user/templates/basic.md:76
+msgid "`config.sample.json`"
+msgstr "`config.sample.json`"
+
+#: ../../user/templates/basic.md:78
+msgid "A reference config that exercises the validator:"
+msgstr "バリデータを実際に動かすためのリファレンス設定:"
+
+#: ../../user/templates/basic.md:88
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/basic.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/basic.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/basic.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/basic.md
+msgid "`node src/App.res.mjs` — run the compiled entry point"
+msgstr "`node src/App.res.mjs` — コンパイル済みのエントリポイントを実行"
+
+#: ../../user/templates/basic.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/basic.md
+msgid "`vitest run` — execute the smoke suite"
+msgstr "`vitest run` — スモークスイートを実行"
+
+#: ../../user/templates/basic.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/basic.md
+msgid "`vitest run --coverage` — same, with v8 coverage report"
+msgstr "`vitest run --coverage` — 同上に v8 のカバレッジレポートを付与"
+
+#: ../../user/templates/basic.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/basic.md
+msgid "`rescript` — one-shot compile"
+msgstr "`rescript` — ワンショットコンパイル"
+
+#: ../../user/templates/basic.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/basic.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存時に再コンパイル"
+
+#: ../../user/templates/basic.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/basic.md
+msgid "`rescript clean` — remove generated `.res.mjs`"
+msgstr "`rescript clean` — 生成された `.res.mjs` を削除"
+
+#: ../../user/templates/basic.md:99
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/basic.md:101
+msgid ""
+"This template is intentionally close to the metal — there's no framework "
+"to extend. Common follow-ups:"
+msgstr ""
+"このテンプレートは意図的に低レベル寄りで、拡張すべきフレームワークは存在しない。よくある次のステップ:"
+
+#: ../../user/templates/basic.md:103
+msgid ""
+"Add a CLI subcommand → graduate to the **CLI Tool** template (or copy its"
+" `Commands/` pattern)"
+msgstr ""
+"CLI サブコマンドを追加 → **CLI Tool** テンプレートへ移行する（または `Commands/` "
+"パターンを複製する）"
+
+#: ../../user/templates/basic.md:104
+msgid "Add HTTP → graduate to **Hono (Node.js)**"
+msgstr "HTTP を追加 → **Hono (Node.js)** へ移行する"
+
+#: ../../user/templates/basic.md:105
+msgid "Publish to npm → graduate to **npm Library**"
+msgstr "npm に公開 → **npm Library** へ移行する"
+
+#: ../../user/templates/basic.md:107
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr ""
+"プロジェクトを開いた後の ReScript 側のエディタワークフローについては、"
+"{doc}`../features/index` を参照すること。"
+
+#: ../../user/templates/basic.md:109
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/basic.md:111
+msgid ""
+"`node` engine is pinned to `>=22` and `.nvmrc` says `22`. Earlier majors "
+"are not exercised by CI."
+msgstr ""
+"`node` エンジンは `>=22` に固定されており、`.nvmrc` には `22` が記載されている。"
+"これより古いメジャーバージョンは CI で検証されない。"
+
+#: ../../user/templates/basic.md:112
+msgid ""
+"The smoke test only verifies that `import(\"../App.res.mjs\")` resolves —"
+" it does not exercise `Files.res` or `Validation.res`. Add domain-"
+"specific tests as you grow the project."
+msgstr ""
+"スモークテストは `import(\"../App.res.mjs\")` が解決できることだけを確認するもので、"
+"`Files.res` や `Validation.res` までは検証しない。プロジェクトを育てる過程でドメイン固有のテストを追加すること。"
+
+#: ../../user/templates/basic.md:113
+msgid ""
+"The `config.sample.json` filename is deliberate: `.gitignore` keeps "
+"`config.json` (the real, possibly-secret one) out of the repo while "
+"letting the *sample* travel with the source."
+msgstr ""
+"`config.sample.json` というファイル名は意図的なものである: `.gitignore` が（実運用の、"
+"場合によっては秘匿される）`config.json` をリポジトリから除外しつつ、*サンプル* "
+"はソースとともに配布できるようにしている。"

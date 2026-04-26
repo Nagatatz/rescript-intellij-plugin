@@ -1,0 +1,731 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/full-stack.md
+msgid ""
+"full-stack, single package, hono, react, vite, drizzle, shared types, "
+"rescript, validation, rest, graphql, relay"
+msgstr "full-stack, single package, hono, react, vite, drizzle, shared types, rescript, validation, rest, graphql, relay"
+
+#: ../../user/templates/full-stack.md:7
+msgid "Full-Stack (single package)"
+msgstr "Full-Stack (single package)"
+
+#: ../../user/templates/full-stack.md:9
+#, python-brace-format
+msgid ""
+"{bdg-info}`Hono` {bdg-info}`Vite+/React` {bdg-success}`Drizzle` {bdg-"
+"success}`Validation` {bdg-primary}`Shared Types`"
+msgstr "{bdg-info}`Hono` {bdg-info}`Vite+/React` {bdg-success}`Drizzle` {bdg-success}`Validation` {bdg-primary}`Shared Types`"
+
+#: ../../user/templates/full-stack.md:11
+#, python-brace-format
+msgid ""
+"A full-stack ReScript application in **one** `package.json`. The server "
+"(Hono + Drizzle on SQLite) and client (Vite+/React) live side by side "
+"under `src/server/` and `src/client/`, and a third source root, "
+"`src/shared/`, holds types both sides import. Pick this template when you"
+" want shared types and a single-process dev loop without paying the "
+"workspace tooling tax that the {doc}`monorepo` template charges."
+msgstr "**1 つの** `package.json` で完結するフルスタック ReScript アプリケーション。サーバー（SQLite 上の Hono + Drizzle）とクライアント（Vite+/React）が `src/server/` と `src/client/` 配下に並んで配置され、3 つ目のソースルート `src/shared/` に両側が import する型を置く。共有型と単一プロセスの dev ループを望み、{doc}`monorepo` テンプレートが要求するワークスペースツーリングのコストを払いたくない場合に、このテンプレートを選ぶ。"
+
+#: ../../user/templates/full-stack.md:13
+msgid ""
+"The wizard exposes an additional **API strategy** dimension: REST "
+"(handwritten Hono routes plus a fetch client) or GraphQL (graphql-yoga "
+"mounted on `/graphql` plus rescript-relay on the client). The shared "
+"infrastructure — Drizzle schema, libsql client, vitest setup, Vite+ "
+"proxy, `Shared.res` — is identical in both modes."
+msgstr "ウィザードはさらに **API strategy** という軸を提示する: REST（手書きの Hono ルートとfetch クライアント）か GraphQL（`/graphql` にマウントされる graphql-yoga とクライアント側の rescript-relay）。共有インフラ —— Drizzle スキーマ、libsql クライアント、vitest セットアップ、Vite+ プロキシ、`Shared.res` —— はどちらのモードでも同一である。"
+
+#: ../../user/templates/full-stack.md:15
+msgid "What You Get (REST)"
+msgstr "生成内容 (REST)"
+
+#: ../../user/templates/full-stack.md:53
+msgid ""
+"The GraphQL variant adds `src/server/Yoga.res`, "
+"`src/server/GraphqlSchema.res`, `src/server/Resolvers.res`, "
+"`src/server/schema.graphql`, `src/client/RelayEnvironment.res`, "
+"`src/client/UsersListQuery.res`, and `relay.config.js`; gitignores "
+"`src/client/__generated__/`; declares `graphql`, `graphql-yoga`, "
+"`rescript-relay`, and `relay-compiler`; and adds a `relay`/`relay:watch` "
+"script pair plus an extra `npm:relay:watch` token in `dev`."
+msgstr "GraphQL バリアントでは `src/server/Yoga.res`、`src/server/GraphqlSchema.res`、`src/server/Resolvers.res`、`src/server/schema.graphql`、`src/client/RelayEnvironment.res`、`src/client/UsersListQuery.res`、`relay.config.js` が追加され、`src/client/__generated__/` が gitignore され、`graphql`、`graphql-yoga`、`rescript-relay`、`relay-compiler` が宣言され、`relay`/`relay:watch` のスクリプトペアと、`dev` に追加の `npm:relay:watch` トークンが追加される。"
+
+#: ../../user/templates/full-stack.md:55
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/full-stack.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/full-stack.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/full-stack.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/full-stack.md
+msgid ""
+"Becomes the npm `name`, the LICENSE holder, and the `<h1>` text in "
+"`src/client/App.res`"
+msgstr "npm の `name`、LICENSE の保持者、`src/client/App.res` の `<h1>` テキストになる"
+
+#: ../../user/templates/full-stack.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/full-stack.md
+msgid ""
+"npm / pnpm / yarn / bun. Drives the `packageManager` Corepack field, the "
+"README install/run commands, and the CI cache key"
+msgstr "npm / pnpm / yarn / bun のいずれか。`packageManager` Corepack フィールド、README のインストール／実行コマンド、CI キャッシュキーを切り替える"
+
+#: ../../user/templates/full-stack.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/full-stack.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `src/server/Validation.res` variant ships "
+"and adds the matching dependency"
+msgstr "`zod` ↔ `sury`。どの `src/server/Validation.res` バリアントを同梱するかを選択し、対応する依存を追加する"
+
+#: ../../user/templates/full-stack.md
+msgid "**API strategy**"
+msgstr "**API strategy**"
+
+#: ../../user/templates/full-stack.md
+msgid ""
+"REST ↔ GraphQL. Selects the server/client shape (handwritten Hono routes "
+"+ fetch vs. graphql-yoga + rescript-relay) and adjusts dependencies, "
+"scripts, and the rescript.json `ppx-flags` accordingly"
+msgstr "REST ↔ GraphQL。サーバー／クライアントの形（手書きの Hono ルート + fetch か、graphql-yoga + rescript-relay か）を選び、依存・スクリプト・rescript.json の `ppx-flags` をそれに合わせて調整する"
+
+#: ../../user/templates/full-stack.md:64
+msgid "Key Dependencies (REST)"
+msgstr "主要な依存 (REST)"
+
+#: ../../user/templates/full-stack.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/full-stack.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/full-stack.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/full-stack.md
+msgid "`rescript`, `@rescript/core`, `@rescript/runtime`"
+msgstr "`rescript`, `@rescript/core`, `@rescript/runtime`"
+
+#: ../../user/templates/full-stack.md
+msgid "ReScript compiler + runtime"
+msgstr "ReScript コンパイラ＋ランタイム"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.RESCRIPT` / `_CORE` / `_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT` / `_CORE` / `_RUNTIME`"
+
+#: ../../user/templates/full-stack.md
+msgid "`@rescript/react`"
+msgstr "`@rescript/react`"
+
+#: ../../user/templates/full-stack.md
+msgid "React bindings"
+msgstr "React バインディング"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.RESCRIPT_REACT`"
+msgstr "`TemplateVersions.RESCRIPT_REACT`"
+
+#: ../../user/templates/full-stack.md
+msgid "`react`, `react-dom`"
+msgstr "`react`, `react-dom`"
+
+#: ../../user/templates/full-stack.md
+msgid "React runtime"
+msgstr "React ランタイム"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.REACT` / `TemplateVersions.REACT_DOM`"
+msgstr "`TemplateVersions.REACT` / `TemplateVersions.REACT_DOM`"
+
+#: ../../user/templates/full-stack.md
+msgid "`hono`"
+msgstr "`hono`"
+
+#: ../../user/templates/full-stack.md
+msgid "HTTP framework"
+msgstr "HTTP フレームワーク"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.HONO`"
+msgstr "`TemplateVersions.HONO`"
+
+#: ../../user/templates/full-stack.md
+msgid "`@hono/node-server`"
+msgstr "`@hono/node-server`"
+
+#: ../../user/templates/full-stack.md
+msgid "Node HTTP adapter"
+msgstr "Node HTTP アダプタ"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.HONO_NODE_SERVER`"
+msgstr "`TemplateVersions.HONO_NODE_SERVER`"
+
+#: ../../user/templates/full-stack.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/full-stack.md
+msgid "Validation backend"
+msgstr "バリデーションバックエンド"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+msgstr "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+
+#: ../../user/templates/full-stack.md
+msgid "`@libsql/client`"
+msgstr "`@libsql/client`"
+
+#: ../../user/templates/full-stack.md
+msgid "libsql client (SQLite-compatible, Turso-ready)"
+msgstr "libsql クライアント（SQLite 互換、Turso 対応）"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.LIBSQL_CLIENT`"
+msgstr "`TemplateVersions.LIBSQL_CLIENT`"
+
+#: ../../user/templates/full-stack.md
+msgid "`drizzle-orm`"
+msgstr "`drizzle-orm`"
+
+#: ../../user/templates/full-stack.md
+msgid "Type-safe SQL builder"
+msgstr "型安全な SQL ビルダー"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.DRIZZLE_ORM`"
+msgstr "`TemplateVersions.DRIZZLE_ORM`"
+
+#: ../../user/templates/full-stack.md
+msgid "`drizzle-kit` *(dev)*"
+msgstr "`drizzle-kit` *(dev)*"
+
+#: ../../user/templates/full-stack.md
+msgid "Migration generator"
+msgstr "マイグレーションジェネレータ"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.DRIZZLE_KIT`"
+msgstr "`TemplateVersions.DRIZZLE_KIT`"
+
+#: ../../user/templates/full-stack.md
+msgid "`vite-plus`, `@voidzero-dev/vite-plus-core`, `vite`"
+msgstr "`vite-plus`, `@voidzero-dev/vite-plus-core`, `vite`"
+
+#: ../../user/templates/full-stack.md
+msgid "Vite+ build tool + classic-Vite fallback"
+msgstr "Vite+ ビルドツール＋クラシック Vite のフォールバック"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.VITE_PLUS` / `_CORE` / `TemplateVersions.VITE`"
+msgstr "`TemplateVersions.VITE_PLUS` / `_CORE` / `TemplateVersions.VITE`"
+
+#: ../../user/templates/full-stack.md
+msgid "`@vitejs/plugin-react`"
+msgstr "`@vitejs/plugin-react`"
+
+#: ../../user/templates/full-stack.md
+msgid "React fast-refresh"
+msgstr "React fast-refresh"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.VITEJS_PLUGIN_REACT`"
+msgstr "`TemplateVersions.VITEJS_PLUGIN_REACT`"
+
+#: ../../user/templates/full-stack.md
+msgid "`vitest`, `@vitest/coverage-v8` *(dev)*"
+msgstr "`vitest`, `@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/full-stack.md
+msgid "Test runner + coverage"
+msgstr "テストランナー＋カバレッジ"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.VITEST` / `TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST` / `TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/full-stack.md
+msgid "`concurrently` *(dev)*"
+msgstr "`concurrently` *(dev)*"
+
+#: ../../user/templates/full-stack.md
+msgid "Runs `rescript -w`, `node --watch`, `vp dev` together"
+msgstr "`rescript -w`、`node --watch`、`vp dev` を同時に実行する"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.CONCURRENTLY`"
+msgstr "`TemplateVersions.CONCURRENTLY`"
+
+#: ../../user/templates/full-stack.md:82
+msgid "GraphQL variant adds"
+msgstr "GraphQL バリアントで追加されるもの"
+
+#: ../../user/templates/full-stack.md
+msgid "`graphql`"
+msgstr "`graphql`"
+
+#: ../../user/templates/full-stack.md
+msgid "Reference implementation, peer dep of `graphql-yoga` and `rescript-relay`"
+msgstr "リファレンス実装。`graphql-yoga` と `rescript-relay` の peer dep"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.GRAPHQL`"
+msgstr "`TemplateVersions.GRAPHQL`"
+
+#: ../../user/templates/full-stack.md
+msgid "`graphql-yoga`"
+msgstr "`graphql-yoga`"
+
+#: ../../user/templates/full-stack.md
+msgid "GraphQL server mounted on Hono via `Yoga.res`"
+msgstr "`Yoga.res` を介して Hono にマウントする GraphQL サーバー"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.GRAPHQL_YOGA`"
+msgstr "`TemplateVersions.GRAPHQL_YOGA`"
+
+#: ../../user/templates/full-stack.md
+msgid "`rescript-relay`"
+msgstr "`rescript-relay`"
+
+#: ../../user/templates/full-stack.md
+msgid "ReScript bindings + ppx for the Relay runtime"
+msgstr "Relay ランタイム向けの ReScript バインディング＋ppx"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.RESCRIPT_RELAY`"
+msgstr "`TemplateVersions.RESCRIPT_RELAY`"
+
+#: ../../user/templates/full-stack.md
+msgid "`relay-compiler` *(dev)*"
+msgstr "`relay-compiler` *(dev)*"
+
+#: ../../user/templates/full-stack.md
+#, python-format
+msgid "Generates typed `%relay()` artifacts from `schema.graphql`"
+msgstr "`schema.graphql` から型付きの `%relay()` 成果物を生成する"
+
+#: ../../user/templates/full-stack.md
+msgid "`TemplateVersions.RELAY_COMPILER`"
+msgstr "`TemplateVersions.RELAY_COMPILER`"
+
+#: ../../user/templates/full-stack.md:91
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/full-stack.md:93
+msgid "`src/shared/Shared.res`"
+msgstr "`src/shared/Shared.res`"
+
+#: ../../user/templates/full-stack.md:106
+msgid ""
+"The nested module layout means consumers reach types as "
+"`Shared.Types.user` and `Shared.Api.createUserReq` — easy to grep, easy "
+"to refactor, no import gymnastics. Editing a field forces both "
+"`src/server/` and `src/client/` to recompile until they agree."
+msgstr "ネストされたモジュール構造により、利用側は `Shared.Types.user` や `Shared.Api.createUserReq` のように型へ到達できる。grep しやすく、リファクタリングも容易で、import の曲芸は不要である。フィールドを編集すると、`src/server/` と `src/client/` の両方が整合するまで再コンパイルされる。"
+
+#: ../../user/templates/full-stack.md:108
+msgid "`src/server/Server.res` (REST)"
+msgstr "`src/server/Server.res` (REST)"
+
+#: ../../user/templates/full-stack.md:110
+msgid ""
+"Hono app skeleton. Health route lives inline; the per-resource routes "
+"live in `src/server/Routes.res` and register themselves through a tiny "
+"convention:"
+msgstr "Hono アプリの骨組み。ヘルスチェックルートはインラインに置かれ、リソース別のルートは `src/server/Routes.res` に配置され、小さな規約を介して自分自身を登録する:"
+
+#: ../../user/templates/full-stack.md:129
+#, python-brace-format
+msgid ""
+"Add a new resource by adding a sibling module to `Routes.res` (`module "
+"Posts = { let register = app => ... }`) and a single "
+"`Routes.Posts.register(app)` call here."
+msgstr "新しいリソースを追加するには、`Routes.res` に兄弟モジュール（`module Posts = { let register = app => ... }`）を追加し、ここに `Routes.Posts.register(app)` の呼び出しを 1 行追加する。"
+
+#: ../../user/templates/full-stack.md:131
+msgid "`src/server/Routes.res`"
+msgstr "`src/server/Routes.res`"
+
+#: ../../user/templates/full-stack.md:133
+msgid ""
+"Holds the actual handler logic. The shipped `Users` group does the full "
+"Drizzle round trip (select → return rows; insert → 400 on validation "
+"failure or 201 + the inserted row)."
+msgstr "実際のハンドラロジックを保持する。同梱の `Users` グループは Drizzle のフルラウンドトリップを実行する（select → 行を返す、insert → バリデーション失敗時は 400、成功時は 201 と挿入された行を返す）。"
+
+#: ../../user/templates/full-stack.md:135
+msgid "`src/server/Validation.res`"
+msgstr "`src/server/Validation.res`"
+
+#: ../../user/templates/full-stack.md:137
+msgid ""
+"`parseCreateUserReq: JSON.t => result<createUserReq, string>` — the "
+"runtime contract for `POST /api/users`. The signature is identical "
+"between the zod and sury variants so callers do not branch on which "
+"library shipped."
+msgstr "`parseCreateUserReq: JSON.t => result<createUserReq, string>` —— `POST /api/users` のランタイムコントラクト。シグネチャは zod / sury のどちらのバリアントでも同一なので、呼び出し側がどちらのライブラリが採用されたかで分岐する必要はない。"
+
+#: ../../user/templates/full-stack.md:139
+msgid "`src/server/ServerMain.res`"
+msgstr "`src/server/ServerMain.res`"
+
+#: ../../user/templates/full-stack.md:141
+msgid ""
+"A single line: `Server.start()`. The split lets `vitest.setup.mjs` pin "
+"`DATABASE_URL=:memory:` before the test imports `Server.res.mjs` to call "
+"`app.request(\"/api/health\")` without binding a port:"
+msgstr "中身は `Server.start()` の 1 行のみ。この分割により、テストが `Server.res.mjs` を import する前に `vitest.setup.mjs` で `DATABASE_URL=:memory:` を固定でき、ポートにバインドせずに `app.request(\"/api/health\")` を呼び出せる:"
+
+#: ../../user/templates/full-stack.md:148
+msgid "`src/client/App.res`"
+msgstr "`src/client/App.res`"
+
+#: ../../user/templates/full-stack.md:150
+msgid ""
+"A small users form + list. The wire-format types are explicit, so any "
+"drift in `src/shared/Shared.res` shows up immediately:"
+msgstr "小さなユーザーフォームとリスト。ワイヤフォーマット型が明示されているため、`src/shared/Shared.res` のずれは即座に現れる:"
+
+#: ../../user/templates/full-stack.md:157
+msgid "`src/client/ApiClient.res`"
+msgstr "`src/client/ApiClient.res`"
+
+#: ../../user/templates/full-stack.md:159
+msgid ""
+"A thin `fetch` wrapper. Everything routes under `/api/*` so the Vite+ "
+"proxy in `vite.config.mjs` can forward to the Hono server in dev (no CORS"
+" needed); in production the same server hosts both."
+msgstr "薄い `fetch` ラッパ。すべてのルートが `/api/*` 配下にあるので、`vite.config.mjs` のVite+ プロキシが dev 時に Hono サーバーへ転送できる（CORS は不要）。本番環境では同じサーバーが両方をホストする。"
+
+#: ../../user/templates/full-stack.md:161
+msgid "`vite.config.mjs`"
+msgstr "`vite.config.mjs`"
+
+#: ../../user/templates/full-stack.md:163
+msgid ""
+"Generated through `ProjectFileBuilders.viteConfigWithProxy` — Vite+ + "
+"React fast-refresh + a `/api/*` proxy targeting the Hono server. Edit the"
+" proxy target if you split the deployment across two origins."
+msgstr "`ProjectFileBuilders.viteConfigWithProxy` を介して生成される —— Vite+ + React fast-refresh + Hono サーバーをターゲットとする `/api/*` プロキシ。デプロイを 2 つのオリジンに分割する場合は、プロキシのターゲットを編集すること。"
+
+#: ../../user/templates/full-stack.md:165
+msgid ""
+"GraphQL variant: `src/server/GraphqlSchema.res`, `Resolvers.res`, "
+"`schema.graphql`"
+msgstr "GraphQL バリアント: `src/server/GraphqlSchema.res`, `Resolvers.res`, `schema.graphql`"
+
+#: ../../user/templates/full-stack.md:167
+msgid ""
+"The GraphQL schema lives in two places that must stay in sync: SDL in "
+"`src/server/schema.graphql` (read by the Relay compiler at build time) "
+"and the inlined `typeDefs` string in `src/server/GraphqlSchema.res` (read"
+" by graphql-yoga at runtime). Resolvers are organized into nested modules"
+" under `src/server/Resolvers.res` (e.g. `module Users`)."
+msgstr "GraphQL スキーマは同期を保つべき 2 箇所に存在する: `src/server/schema.graphql` の SDL（ビルド時に Relay コンパイラが読む）と、`src/server/GraphqlSchema.res` 内にインライン展開された `typeDefs` 文字列（ランタイムに graphql-yoga が読む）。リゾルバは `src/server/Resolvers.res` 配下にネストされたモジュール（例えば `module Users`）として整理されている。"
+
+#: ../../user/templates/full-stack.md:169
+msgid "GraphQL variant: `src/client/RelayEnvironment.res`, `UsersListQuery.res`"
+msgstr "GraphQL バリアント: `src/client/RelayEnvironment.res`, `UsersListQuery.res`"
+
+#: ../../user/templates/full-stack.md:171
+#, python-format
+msgid ""
+"`RelayEnvironment.res` configures the Relay client; queries live in "
+"`%relay()` tags (e.g. `module UsersListQuery = %relay( ... )`). Run "
+"`relay-compiler --watch` to regenerate "
+"`src/client/__generated__/<Query>_graphql.res` after editing a query — "
+"those generated files are gitignored."
+msgstr "`RelayEnvironment.res` は Relay クライアントを設定する。クエリは `%relay()` タグ（例: `module UsersListQuery = %relay( ... )`）として書かれる。クエリを編集した後は `relay-compiler --watch` を実行して `src/client/__generated__/<Query>_graphql.res` を再生成する。これらの生成ファイルは gitignore 対象である。"
+
+#: ../../user/templates/full-stack.md:173
+msgid "npm Scripts (REST)"
+msgstr "npm スクリプト (REST)"
+
+#: ../../user/templates/full-stack.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/full-stack.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/full-stack.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/full-stack.md
+msgid ""
+"`concurrently \"npm:res:dev\" \"npm:dev:server\" \"npm:dev:client\"` — "
+"three watchers in parallel"
+msgstr "`concurrently \"npm:res:dev\" \"npm:dev:server\" \"npm:dev:client\"` —— 3 つのウォッチャーを並列で実行する"
+
+#: ../../user/templates/full-stack.md
+msgid "`dev:server`"
+msgstr "`dev:server`"
+
+#: ../../user/templates/full-stack.md
+msgid "`node --watch src/server/ServerMain.res.mjs`"
+msgstr "`node --watch src/server/ServerMain.res.mjs`"
+
+#: ../../user/templates/full-stack.md
+msgid "`dev:client`"
+msgstr "`dev:client`"
+
+#: ../../user/templates/full-stack.md
+msgid "`vp dev` — Vite+ dev server (with `/api` proxy to the Hono backend)"
+msgstr "`vp dev` —— Vite+ dev サーバー（Hono バックエンドへの `/api` プロキシ付き）"
+
+#: ../../user/templates/full-stack.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/full-stack.md
+msgid "`vp build` — bundle the client for production"
+msgstr "`vp build` —— 本番向けにクライアントをバンドルする"
+
+#: ../../user/templates/full-stack.md
+msgid "`preview`"
+msgstr "`preview`"
+
+#: ../../user/templates/full-stack.md
+msgid "`vp preview` — preview the production build"
+msgstr "`vp preview` —— 本番ビルドをプレビューする"
+
+#: ../../user/templates/full-stack.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/full-stack.md
+msgid "`vitest run` — covers server + client smoke tests"
+msgstr "`vitest run` —— サーバーとクライアントのスモークテストをカバーする"
+
+#: ../../user/templates/full-stack.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/full-stack.md
+msgid "`vitest run --coverage`"
+msgstr "`vitest run --coverage`"
+
+#: ../../user/templates/full-stack.md
+msgid "`db:generate`"
+msgstr "`db:generate`"
+
+#: ../../user/templates/full-stack.md
+msgid "`drizzle-kit generate` — generate migration SQL"
+msgstr "`drizzle-kit generate` —— マイグレーション SQL を生成する"
+
+#: ../../user/templates/full-stack.md
+msgid "`db:migrate`"
+msgstr "`db:migrate`"
+
+#: ../../user/templates/full-stack.md
+msgid "`drizzle-kit migrate` — apply pending migrations"
+msgstr "`drizzle-kit migrate` —— 未適用のマイグレーションを反映する"
+
+#: ../../user/templates/full-stack.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/full-stack.md
+msgid ""
+"`rescript` — one-shot compile across `src/shared`, `src/server`, "
+"`src/client`"
+msgstr "`rescript` —— `src/shared`、`src/server`、`src/client` を横断するワンショットコンパイル"
+
+#: ../../user/templates/full-stack.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/full-stack.md
+msgid "`rescript -w` — watch mode"
+msgstr "`rescript -w` —— ウォッチモード"
+
+#: ../../user/templates/full-stack.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/full-stack.md
+msgid "`rescript clean`"
+msgstr "`rescript clean`"
+
+#: ../../user/templates/full-stack.md:190
+msgid "npm Scripts (GraphQL adds)"
+msgstr "npm スクリプト（GraphQL で追加されるもの）"
+
+#: ../../user/templates/full-stack.md
+msgid "adds `\"npm:relay:watch\"` to the concurrently fan-out"
+msgstr "concurrently のファンアウトに `\"npm:relay:watch\"` を追加する"
+
+#: ../../user/templates/full-stack.md
+msgid "`relay`"
+msgstr "`relay`"
+
+#: ../../user/templates/full-stack.md
+#, python-format
+msgid "`relay-compiler` — emit typed `%relay()` artifacts once"
+msgstr "`relay-compiler` —— 型付きの `%relay()` 成果物を 1 度生成する"
+
+#: ../../user/templates/full-stack.md
+msgid "`relay:watch`"
+msgstr "`relay:watch`"
+
+#: ../../user/templates/full-stack.md
+msgid "`relay-compiler --watch` — keep regenerating on schema/query edits"
+msgstr "`relay-compiler --watch` —— スキーマ／クエリ編集に応じて再生成し続ける"
+
+#: ../../user/templates/full-stack.md:198
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/full-stack.md:200
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-hono-endpoint` — add a typed POST/GET route under "
+"`src/server/Routes.res`"
+msgstr "{doc}`../recipes/add-hono-endpoint` —— `src/server/Routes.res` 配下に型付きの POST/GET ルートを追加する"
+
+#: ../../user/templates/full-stack.md:201
+#, python-brace-format, python-format
+msgid ""
+"{doc}`../recipes/add-graphql-resolver` — add a resolver and matching "
+"`%relay()` query (GraphQL variant)"
+msgstr "{doc}`../recipes/add-graphql-resolver` —— リゾルバと対応する `%relay()` クエリを追加する（GraphQL バリアント）"
+
+#: ../../user/templates/full-stack.md:202
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/setup-drizzle` — deepen the Drizzle schema "
+"(`src/server/Schema.res`)"
+msgstr "{doc}`../recipes/setup-drizzle` —— Drizzle スキーマ（`src/server/Schema.res`）を深掘りする"
+
+#: ../../user/templates/full-stack.md:203
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/create-react-component` — add a new client-side React "
+"component"
+msgstr "{doc}`../recipes/create-react-component` —— クライアント側に新しい React コンポーネントを追加する"
+
+#: ../../user/templates/full-stack.md:204
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-openapi-docs` — generate OpenAPI docs from Hono + "
+"zod schemas (REST variant)"
+msgstr "{doc}`../recipes/add-openapi-docs` —— Hono + zod スキーマから OpenAPI ドキュメントを生成する（REST バリアント）"
+
+#: ../../user/templates/full-stack.md:206
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr "プロジェクトを開いた後の ReScript 側のエディタワークフローについては {doc}`../features/index` を参照する。"
+
+#: ../../user/templates/full-stack.md:208
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/full-stack.md:210
+msgid ""
+"**One `package.json` covers the world.** The server, client, and shared "
+"roots compile through a single `rescript.json` with three `sources` "
+"entries; running `npm install` once installs all dependencies for "
+"everyone."
+msgstr "**1 つの `package.json` で世界を覆う。** サーバー・クライアント・共有の各ルートは、3 つの `sources` エントリを持つ単一の `rescript.json` を介してコンパイルされる。`npm install` を 1 回実行するだけで、すべての依存関係がインストールされる。"
+
+#: ../../user/templates/full-stack.md:211
+msgid ""
+"**`dev` boots three (or four, with GraphQL) processes via "
+"`concurrently`.** They are: `rescript -w`, `node --watch "
+"src/server/ServerMain.res.mjs`, `vp dev`, and (GraphQL only) `relay-"
+"compiler --watch`. If the server fails to start the first time `dev` "
+"runs, that means `rescript -w` has not produced its first `.res.mjs` yet "
+"— wait one cycle or rerun `dev`."
+msgstr "**`dev` は `concurrently` 経由で 3 つ（GraphQL の場合は 4 つ）のプロセスを起動する。** 内訳は `rescript -w`、`node --watch src/server/ServerMain.res.mjs`、`vp dev`、そして（GraphQL のみ）`relay-compiler --watch` である。`dev` の初回実行時にサーバー起動が失敗する場合、`rescript -w` がまだ最初の `.res.mjs` を生成していないことを意味する —— 1 サイクル待つか `dev` を再実行する。"
+
+#: ../../user/templates/full-stack.md:212
+msgid ""
+"**Vite+ proxies `/api/*` (and `/graphql` in the GraphQL variant) to the "
+"Hono server**, keeping browser requests same-origin in dev. CORS is off "
+"by default; uncomment the `Hono.cors(...)` block at the top of "
+"`src/server/Server.res` and pin an origin allowlist before deploying "
+"separately-hosted client and server."
+msgstr "**Vite+ は `/api/*`（GraphQL バリアントでは `/graphql` も）を Hono サーバーへプロキシし**、dev 時にブラウザリクエストを同一オリジンに保つ。CORS はデフォルトで無効である。クライアントとサーバーを別ホスティングでデプロイする前に、`src/server/Server.res` 冒頭の `Hono.cors(...)` ブロックのコメントを解除し、オリジンの許可リストを固定すること。"
+
+#: ../../user/templates/full-stack.md:213
+msgid ""
+"**`Shared.res` lives in `src/shared/`** because nested modules under "
+"`src/shared/Shared.res` keep the dependency direction obvious — both "
+"sides depend on `Shared`; `Shared` depends on neither. Renaming a record "
+"field forces both sides to recompile."
+msgstr "**`Shared.res` は `src/shared/` に置かれている** —— `src/shared/Shared.res` 配下のネストモジュールが依存方向を明確に保つためである。両側が `Shared` に依存し、`Shared` はどちらにも依存しない。record フィールドをリネームすると、両側が再コンパイルされる。"
+
+#: ../../user/templates/full-stack.md:214
+msgid ""
+"**`vitest.setup.mjs` pins `DATABASE_URL=:memory:`** before any test "
+"imports `Server.res.mjs`. The committed `.env.example` shows the "
+"production-shape default (`file:./data/app.db`)."
+msgstr "**`vitest.setup.mjs` は `DATABASE_URL=:memory:` を固定する** —— テストが `Server.res.mjs` を import する前に実行される。コミット済みの `.env.example` は本番形のデフォルト（`file:./data/app.db`）を示す。"
+
+#: ../../user/templates/full-stack.md:215
+msgid ""
+"**`data/`, `dist/`, `.vite/`, `drizzle/`, `.env`** (and "
+"`src/client/__generated__/` in the GraphQL variant) are gitignored."
+msgstr "**`data/`、`dist/`、`.vite/`、`drizzle/`、`.env`**（および GraphQL バリアントでは `src/client/__generated__/`）は gitignore 対象である。"
+
+#: ../../user/templates/full-stack.md:216
+msgid ""
+"**GraphQL ships with a one-time bootstrap step**: `pnpm relay` (or `npm "
+"run relay`) must run at least once before the first build to populate "
+"`src/client/__generated__/`. The `dev` script keeps `relay:watch` running"
+" so this is invisible after the first cycle."
+msgstr "**GraphQL は 1 度きりのブートストラップ手順を含む**: 初回ビルドの前に `pnpm relay`（または `npm run relay`）を 1 度は実行して、`src/client/__generated__/` を生成しておく必要がある。`dev` スクリプトは `relay:watch` を起動し続けるので、初回サイクル以降は意識する必要がない。"
+
+#: ../../user/templates/full-stack.md:217
+msgid ""
+"**Vite+ is pre-1.0.** If a release breaks, swap `vite-plus` for `vite` in"
+" `vite.config.mjs` and replace the `vp` scripts with `vite`. The classic "
+"Vite dep is already declared as a fallback."
+msgstr "**Vite+ は 1.0 以前のリリースである。** リリースで動かなくなった場合は、`vite.config.mjs` の `vite-plus` を `vite` に置き換え、`vp` スクリプトを `vite` に置き換えること。クラシックな Vite 依存はすでにフォールバックとして宣言されている。"

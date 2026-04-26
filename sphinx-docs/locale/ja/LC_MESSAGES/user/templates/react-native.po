@@ -1,0 +1,810 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/react-native.md
+msgid ""
+"react native template, expo, rescript, mobile, ios, android, gentype, "
+"validation, zod, sury"
+msgstr ""
+"react native テンプレート, expo, rescript, モバイル, ios, android, gentype, "
+"バリデーション, zod, sury"
+
+#: ../../user/templates/react-native.md:7
+msgid "React Native (Expo)"
+msgstr "React Native (Expo)"
+
+#: ../../user/templates/react-native.md:9
+#, python-brace-format
+msgid "{bdg-info}`Mobile` {bdg-primary}`Expo` {bdg-success}`Validation`"
+msgstr "{bdg-info}`Mobile` {bdg-primary}`Expo` {bdg-success}`Validation`"
+
+#: ../../user/templates/react-native.md:11
+msgid ""
+"A ReScript-powered React Native app on the **Expo-managed workflow** — no"
+" `android/` or `ios/` directories to maintain, no Xcode/Android Studio "
+"prerequisites for day-to-day work, and a single `expo start` command to "
+"drive iOS / Android / web from one terminal. ReScript components are "
+"exposed to the JS entry point via genType, so the world-facing `App.tsx` "
+"stays a one-line re-export."
+msgstr ""
+"**Expo 管理ワークフロー** で動作する ReScript ベースの React Native アプリである — "
+"メンテナンスすべき `android/` や `ios/` ディレクトリはなく、日常作業に Xcode/Android Studio の前提条件もなく、"
+"単一の `expo start` コマンドで iOS / Android / web を 1 つのターミナルから駆動できる。"
+"ReScript コンポーネントは genType を通じて JS エントリポイントに公開されるため、"
+"外部に公開する `App.tsx` は 1 行の再エクスポートのままでよい。"
+
+#: ../../user/templates/react-native.md:13
+#, python-brace-format
+msgid ""
+"Pick this template when your team wants to ship a mobile app without "
+"owning the native build pipeline. If you already need direct access to "
+"`android/app/build.gradle` or custom CocoaPods, jump to the {doc}`react-"
+"native-cli` template instead — it covers the bare workflow."
+msgstr ""
+"ネイティブのビルドパイプラインを抱えずにモバイルアプリをリリースしたいチームは本テンプレートを選ぶ。"
+"すでに `android/app/build.gradle` への直接アクセスやカスタム CocoaPods が必要な場合は、"
+"代わりに {doc}`react-native-cli` テンプレートに進むこと — bare ワークフローをカバーしている。"
+
+#: ../../user/templates/react-native.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/react-native.md:39
+msgid ""
+"Note that `android/` and `ios/` are listed in `.gitignore` — Expo manages"
+" them under the hood; you only ever drop into them via `expo prebuild` or"
+" `expo run:*`, and the generated trees should not be checked in."
+msgstr ""
+"`android/` と `ios/` は `.gitignore` に列挙されていることに注意。Expo が裏で管理している。"
+"これらに踏み込むのは `expo prebuild` や `expo run:*` 経由のみであり、生成されたツリーはチェックインすべきではない。"
+
+#: ../../user/templates/react-native.md:41
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/react-native.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/react-native.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/react-native.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/react-native.md
+msgid ""
+"Becomes the npm `name`, the Expo `name` + `slug` in `app.json`, the "
+"LICENSE holder, and the title rendered above the todo list "
+"(`{{projectName}} TODOs`)"
+msgstr ""
+"npm `name`、`app.json` の Expo `name` + `slug`、LICENSE のホルダー、"
+"および TODO リストの上に表示されるタイトル (`{{projectName}} TODOs`) になる"
+
+#: ../../user/templates/react-native.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/react-native.md
+msgid ""
+"npm / pnpm / yarn / bun. Sets `packageManager`, README install/run "
+"snippets, and the CI cache key. Note: Expo CLI works with all four, but "
+"EAS Build historically preferred npm/yarn — check current Expo docs if "
+"you go to production"
+msgstr ""
+"npm / pnpm / yarn / bun。`packageManager`、README のインストール/実行スニペット、"
+"および CI キャッシュキーを設定する。注意: Expo CLI は 4 つすべてで動作するが、"
+"EAS Build は過去 npm/yarn を優先してきた — 本番に進む場合は最新の Expo ドキュメントを確認すること"
+
+#: ../../user/templates/react-native.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/react-native.md
+msgid ""
+"`zod` ↔ `sury`. Picks which `src/Validation.res` variant ships and which "
+"dep lands in `dependencies`"
+msgstr ""
+"`zod` ↔ `sury`。同梱する `src/Validation.res` のバリアントと、"
+"`dependencies` に追加される依存を選択する"
+
+#: ../../user/templates/react-native.md:49
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/react-native.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/react-native.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/react-native.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/react-native.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/react-native.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/react-native.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/react-native.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/react-native.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/react-native.md
+msgid "Runtime stubs imported by compiled `.res.mjs`"
+msgstr "コンパイル済み `.res.mjs` がインポートするランタイムスタブ"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/react-native.md
+msgid "`@rescript/react`"
+msgstr "`@rescript/react`"
+
+#: ../../user/templates/react-native.md
+msgid "React bindings (JSX-enabled `rescript.json`)"
+msgstr "React バインディング (JSX 有効化された `rescript.json`)"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.RESCRIPT_REACT`"
+msgstr "`TemplateVersions.RESCRIPT_REACT`"
+
+#: ../../user/templates/react-native.md
+msgid "`react`"
+msgstr "`react`"
+
+#: ../../user/templates/react-native.md
+msgid "UI library shared with React Native"
+msgstr "React Native と共有する UI ライブラリ"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.REACT`"
+msgstr "`TemplateVersions.REACT`"
+
+#: ../../user/templates/react-native.md
+msgid "`react-native`"
+msgstr "`react-native`"
+
+#: ../../user/templates/react-native.md
+msgid "Native UI primitives"
+msgstr "ネイティブ UI プリミティブ"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.REACT_NATIVE`"
+msgstr "`TemplateVersions.REACT_NATIVE`"
+
+#: ../../user/templates/react-native.md
+msgid "`expo`"
+msgstr "`expo`"
+
+#: ../../user/templates/react-native.md
+msgid "Managed workflow CLI + native runtime"
+msgstr "マネージドワークフロー CLI + ネイティブランタイム"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.EXPO`"
+msgstr "`TemplateVersions.EXPO`"
+
+#: ../../user/templates/react-native.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/react-native.md
+msgid "Validation backend (form input parser)"
+msgstr "バリデーションバックエンド (フォーム入力パーサー)"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.ZOD` / `SURY`"
+msgstr "`TemplateVersions.ZOD` / `SURY`"
+
+#: ../../user/templates/react-native.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/react-native.md
+msgid "Smoke test runner — pure-Node, never loads RN"
+msgstr "スモークテストランナー — pure-Node で、RN は決してロードしない"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/react-native.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/react-native.md
+msgid "Coverage provider for `test:coverage`"
+msgstr "`test:coverage` のカバレッジプロバイダ"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/react-native.md
+msgid "`typescript` *(dev)*"
+msgstr "`typescript` *(dev)*"
+
+#: ../../user/templates/react-native.md
+msgid "Required for `App.tsx` + the genType-emitted `.gen.tsx` files"
+msgstr "`App.tsx` および genType が出力する `.gen.tsx` ファイルに必要"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.TYPESCRIPT`"
+msgstr "`TemplateVersions.TYPESCRIPT`"
+
+#: ../../user/templates/react-native.md
+msgid "`@types/react` *(dev)*"
+msgstr "`@types/react` *(dev)*"
+
+#: ../../user/templates/react-native.md
+msgid "Type definitions for the React surface genType emits against"
+msgstr "genType が出力対象とする React サーフェスの型定義"
+
+#: ../../user/templates/react-native.md
+msgid "`TemplateVersions.REACT_TYPES`"
+msgstr "`TemplateVersions.REACT_TYPES`"
+
+#: ../../user/templates/react-native.md:66
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/react-native.md:68
+msgid "`App.tsx`"
+msgstr "`App.tsx`"
+
+#: ../../user/templates/react-native.md:70
+msgid "Intentionally trivial:"
+msgstr "意図的に簡素である:"
+
+#: ../../user/templates/react-native.md:78
+msgid ""
+"This is the file Expo's runtime boots into. The real implementation is in"
+" `src/App.res`; genType emits `src/App.gen.tsx` next to it during "
+"compilation, and the JS layer just re-exports the typed component. Do not"
+" write logic here — it would be erased the next time you regenerate."
+msgstr ""
+"これは Expo のランタイムが起動するファイルである。実際の実装は `src/App.res` にある; "
+"genType がコンパイル時にその隣に `src/App.gen.tsx` を出力し、JS 層は型付きのコンポーネントを再エクスポートするだけである。"
+"ここにロジックを書いてはならない — 次回の再生成時に消去されてしまう。"
+
+#: ../../user/templates/react-native.md:80
+msgid "`src/App.res`"
+msgstr "`src/App.res`"
+
+#: ../../user/templates/react-native.md:82
+msgid ""
+"The interactive todo list. Demonstrates the patterns you actually need on"
+" day one:"
+msgstr ""
+"対話的な TODO リスト。初日から実際に必要となるパターンを示している:"
+
+#: ../../user/templates/react-native.md:84
+msgid "`React.useState` for `todos`, `draft`, and `error` slices"
+msgstr "`todos`、`draft`、`error` スライス用の `React.useState`"
+
+#: ../../user/templates/react-native.md:85
+msgid ""
+"`ReactNative.TextInput` for the new-todo entry, `ReactNative.Button` for "
+"submit"
+msgstr ""
+"新規 TODO 入力用の `ReactNative.TextInput`、送信用の `ReactNative.Button`"
+
+#: ../../user/templates/react-native.md:86
+msgid ""
+"Validation gate: `Validation.parseDraftTodo(draft)` decides whether the "
+"entry joins `todos` or surfaces as a banner"
+msgstr ""
+"バリデーションゲート: `Validation.parseDraftTodo(draft)` がエントリを `todos` に加えるか、"
+"バナーとして表面化するかを判定する"
+
+#: ../../user/templates/react-native.md:87
+msgid ""
+"`ReactNative.FlatList` to render the todo list with a stable "
+"`keyExtractor`"
+msgstr ""
+"安定した `keyExtractor` で TODO リストをレンダリングする `ReactNative.FlatList`"
+
+#: ../../user/templates/react-native.md:102
+msgid ""
+"The `@genType @react.component` annotations on `make` are what produce "
+"the `App.gen.tsx` that `App.tsx` imports."
+msgstr ""
+"`make` に付与された `@genType @react.component` アノテーションが、`App.tsx` がインポートする `App.gen.tsx` を生成する。"
+
+#: ../../user/templates/react-native.md:104
+msgid "`src/ReactNative.res`"
+msgstr "`src/ReactNative.res`"
+
+#: ../../user/templates/react-native.md:106
+msgid ""
+"Minimal bindings over the React Native core component set used by "
+"`App.res`:"
+msgstr ""
+"`App.res` が使用する React Native コアコンポーネントセットへの最小限のバインディング:"
+
+#: ../../user/templates/react-native.md
+msgid "Module"
+msgstr "モジュール"
+
+#: ../../user/templates/react-native.md
+msgid "Maps to"
+msgstr "対応先"
+
+#: ../../user/templates/react-native.md
+#: ../../user/templates/react-native.md:200
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/react-native.md
+msgid "`View`"
+msgstr "`View`"
+
+#: ../../user/templates/react-native.md
+msgid "`react-native` `View`"
+msgstr "`react-native` の `View`"
+
+#: ../../user/templates/react-native.md
+msgid "Layout container; takes `style` + `children`"
+msgstr "レイアウトコンテナ; `style` + `children` を受け取る"
+
+#: ../../user/templates/react-native.md
+msgid "`Text`"
+msgstr "`Text`"
+
+#: ../../user/templates/react-native.md
+msgid "`react-native` `Text`"
+msgstr "`react-native` の `Text`"
+
+#: ../../user/templates/react-native.md
+msgid "Text leaves (RN refuses to render bare strings)"
+msgstr "テキストリーフ (RN は素の文字列のレンダリングを拒否する)"
+
+#: ../../user/templates/react-native.md
+msgid "`TextInput`"
+msgstr "`TextInput`"
+
+#: ../../user/templates/react-native.md
+msgid "`react-native` `TextInput`"
+msgstr "`react-native` の `TextInput`"
+
+#: ../../user/templates/react-native.md
+msgid "Controlled input (`value` + `onChangeText`)"
+msgstr "制御された入力 (`value` + `onChangeText`)"
+
+#: ../../user/templates/react-native.md
+msgid "`Button`"
+msgstr "`Button`"
+
+#: ../../user/templates/react-native.md
+msgid "`react-native` `Button`"
+msgstr "`react-native` の `Button`"
+
+#: ../../user/templates/react-native.md
+msgid "Tap target with `title` + `onPress`"
+msgstr "`title` + `onPress` を持つタップターゲット"
+
+#: ../../user/templates/react-native.md
+msgid "`FlatList`"
+msgstr "`FlatList`"
+
+#: ../../user/templates/react-native.md
+msgid "`react-native` `FlatList`"
+msgstr "`react-native` の `FlatList`"
+
+#: ../../user/templates/react-native.md
+msgid "Virtualized list with `data` / `keyExtractor` / `renderItem`"
+msgstr "`data` / `keyExtractor` / `renderItem` を持つ仮想化リスト"
+
+#: ../../user/templates/react-native.md
+msgid "`Style.make`"
+msgstr "`Style.make`"
+
+#: ../../user/templates/react-native.md
+msgid "inline-style record builder"
+msgstr "インラインスタイルレコードビルダー"
+
+#: ../../user/templates/react-native.md
+msgid "`~flex`, `~padding`, `~margin`, `~backgroundColor`"
+msgstr "`~flex`, `~padding`, `~margin`, `~backgroundColor`"
+
+#: ../../user/templates/react-native.md:117
+msgid ""
+"Each module follows the same `@module(\"react-native\") @react.component "
+"external make: (...) => React.element = \"...\"` shape. Add more (e.g. "
+"`ScrollView`, `Image`, `Pressable`) by copying the pattern. For third-"
+"party native modules, bind against the package name instead of `\"react-"
+"native\"`."
+msgstr ""
+"各モジュールは `@module(\"react-native\") @react.component external make: (...) => React.element = \"...\"` "
+"という同じ形に従う。`ScrollView`、`Image`、`Pressable` などはこのパターンをコピーして追加する。"
+"サードパーティのネイティブモジュールについては、`\"react-native\"` の代わりにパッケージ名でバインドする。"
+
+#: ../../user/templates/react-native.md:119
+msgid "`src/Validation.res`"
+msgstr "`src/Validation.res`"
+
+#: ../../user/templates/react-native.md:121
+msgid ""
+"`parseDraftTodo: string => result<draftTodo, string>`. The shape is the "
+"same regardless of zod vs sury, so the call site never branches. Trims "
+"input, rejects blank entries, rejects entries longer than 120 characters,"
+" and otherwise hands the trimmed string back wrapped in a `draftTodo` "
+"record."
+msgstr ""
+"`parseDraftTodo: string => result<draftTodo, string>`。形状は zod でも sury でも同じであるため、"
+"呼び出し側は決して分岐しない。入力をトリムし、空のエントリと 120 文字を超えるエントリを拒否し、"
+"それ以外の場合はトリム済みの文字列を `draftTodo` レコードでラップして返す。"
+
+#: ../../user/templates/react-native.md:123
+msgid "`src/__tests__/App.test.mjs`"
+msgstr "`src/__tests__/App.test.mjs`"
+
+#: ../../user/templates/react-native.md:125
+msgid ""
+"The smoke test deliberately **does not import** `App.res.mjs`. Loading "
+"the compiled output would drag the React Native bundler in, which Vitest "
+"can't run under plain Node. Instead, the test only checks that the "
+"compiler emitted the expected file (`existsSync(...)`). Treat it as a "
+"\"did the build complete\" canary, not a behavioral test."
+msgstr ""
+"スモークテストは意図的に `App.res.mjs` を **インポートしない**。コンパイル出力をロードすると "
+"React Native のバンドラーが引きずり込まれ、Vitest は素の Node でこれを実行できない。"
+"代わりに、テストはコンパイラが期待されるファイルを出力したかどうかだけをチェックする (`existsSync(...)`)。"
+"「ビルドが完了したか」のカナリアとして扱うこと。振る舞いのテストではない。"
+
+#: ../../user/templates/react-native.md:127
+msgid ""
+"For component logic, write a separate test under your own framework — RN "
+"component tests typically run under Jest with the `jest-expo` preset."
+msgstr ""
+"コンポーネントロジックについては独自のフレームワーク下で別のテストを書くこと — "
+"RN コンポーネントテストは通常 `jest-expo` プリセットの Jest 上で実行される。"
+
+#: ../../user/templates/react-native.md:129
+msgid "`tsconfig.json`"
+msgstr "`tsconfig.json`"
+
+#: ../../user/templates/react-native.md:131
+msgid ""
+"Extends `expo/tsconfig.base`, adds `\"strict\": true` and "
+"`\"noImplicitAny\": true`. The strict pair is required to keep genType-"
+"emitted code honest — the generated `.gen.tsx` files do not include "
+"defensive `any` casts and rely on every binding having a precise type."
+msgstr ""
+"`expo/tsconfig.base` を継承し、`\"strict\": true` と `\"noImplicitAny\": true` を追加する。"
+"この strict のペアは genType が出力するコードを厳格に保つために必要である — "
+"生成された `.gen.tsx` ファイルには防御的な `any` キャストが含まれておらず、すべてのバインディングが正確な型を持つことに依存している。"
+
+#: ../../user/templates/react-native.md:133
+msgid "`app.json`"
+msgstr "`app.json`"
+
+#: ../../user/templates/react-native.md:135
+msgid "Expo's manifest, scoped to the bare minimum:"
+msgstr "Expo のマニフェスト。最小限にスコープされている:"
+
+#: ../../user/templates/react-native.md:147
+msgid ""
+"Add `icon`, `splash`, `ios.bundleIdentifier`, `android.package`, etc. "
+"when you start preparing for store submission — see the Expo docs for the"
+" current set."
+msgstr ""
+"ストア提出の準備を始める段階で `icon`、`splash`、`ios.bundleIdentifier`、`android.package` などを追加する — "
+"最新のセットについては Expo ドキュメントを参照のこと。"
+
+#: ../../user/templates/react-native.md:149
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/react-native.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/react-native.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/react-native.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/react-native.md
+msgid "`expo start` — launch Metro + the Expo Dev Tools"
+msgstr "`expo start` — Metro + Expo Dev Tools を起動する"
+
+#: ../../user/templates/react-native.md
+msgid "`android`"
+msgstr "`android`"
+
+#: ../../user/templates/react-native.md
+msgid ""
+"`expo start --android` — build and launch on a connected Android "
+"emulator/device"
+msgstr ""
+"`expo start --android` — 接続された Android エミュレータ/デバイス上でビルドして起動する"
+
+#: ../../user/templates/react-native.md
+msgid "`ios`"
+msgstr "`ios`"
+
+#: ../../user/templates/react-native.md
+msgid ""
+"`expo start --ios` — build and launch on an iOS simulator/device (macOS "
+"only)"
+msgstr ""
+"`expo start --ios` — iOS シミュレータ/デバイス上でビルドして起動する (macOS のみ)"
+
+#: ../../user/templates/react-native.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/react-native.md
+msgid "`vitest run` — run the source smoke test"
+msgstr "`vitest run` — ソースのスモークテストを実行する"
+
+#: ../../user/templates/react-native.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/react-native.md
+msgid "`vitest run --coverage` — same, with v8 coverage"
+msgstr "`vitest run --coverage` — 同上、v8 カバレッジ付き"
+
+#: ../../user/templates/react-native.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/react-native.md
+msgid "`rescript` — one-shot ReScript compile"
+msgstr "`rescript` — ワンショットの ReScript コンパイル"
+
+#: ../../user/templates/react-native.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/react-native.md
+msgid "`rescript -w` — recompile on save"
+msgstr "`rescript -w` — 保存時に再コンパイル"
+
+#: ../../user/templates/react-native.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/react-native.md
+msgid "`rescript clean` — remove generated `.res.mjs` and `.gen.tsx`"
+msgstr "`rescript clean` — 生成された `.res.mjs` と `.gen.tsx` を削除"
+
+#: ../../user/templates/react-native.md:162
+msgid ""
+"In a normal session you'll keep two terminals open: `npm run res:dev` for"
+" the ReScript watcher and `npm start` for Metro."
+msgstr ""
+"通常のセッションでは 2 つのターミナルを開いておく: ReScript ウォッチャー用の `npm run res:dev` と、"
+"Metro 用の `npm start` である。"
+
+#: ../../user/templates/react-native.md:164
+msgid "Adding a Screen"
+msgstr "画面の追加"
+
+#: ../../user/templates/react-native.md:166
+msgid ""
+"There is no router on day one — `App.res` is the single mounted "
+"component. To grow into a multi-screen app:"
+msgstr ""
+"初日にはルーターは存在しない — `App.res` がマウントされた唯一のコンポーネントである。"
+"複数画面のアプリへと成長させるには:"
+
+#: ../../user/templates/react-native.md:168
+msgid ""
+"**Pick a router.** `react-navigation` is the de-facto standard for both "
+"managed and bare workflows; the Expo docs cover the install (`expo "
+"install @react-navigation/native @react-navigation/native-stack` plus the"
+" platform peers)."
+msgstr ""
+"**ルーターを選ぶ。** `react-navigation` はマネージド/bare 両ワークフローでデファクトスタンダードである; "
+"Expo ドキュメントがインストール手順をカバーしている (`expo install @react-navigation/native @react-navigation/native-stack` "
+"およびプラットフォームの peer)。"
+
+#: ../../user/templates/react-native.md:169
+msgid ""
+"**Bind it in ReScript.** Either drop a thin `Navigation.res` next to "
+"`ReactNative.res` (same `@module(...) @react.component external make` "
+"pattern) or pull in a community binding package."
+msgstr ""
+"**ReScript でバインドする。** `ReactNative.res` の隣に薄い `Navigation.res` を置く "
+"(同じ `@module(...) @react.component external make` パターン) か、"
+"コミュニティのバインディングパッケージを取り込む。"
+
+#: ../../user/templates/react-native.md:170
+msgid ""
+"**Move the todo screen.** Lift `App.res`'s body into "
+"`src/Screens/Todos.res` and turn `App.res` into the navigator container "
+"that mounts it as the initial route."
+msgstr ""
+"**TODO 画面を移動する。** `App.res` のボディを `src/Screens/Todos.res` に引き上げ、"
+"`App.res` をそれを初期ルートとしてマウントするナビゲータコンテナに変える。"
+
+#: ../../user/templates/react-native.md:171
+msgid ""
+"**Add new screens as siblings of `Todos.res`.** Keep one screen per file "
+"so genType emits one `.gen.tsx` per route — the JS layer can import them "
+"without touching the navigator."
+msgstr ""
+"**新しい画面は `Todos.res` の兄弟として追加する。** 1 ファイル 1 画面を保つことで、"
+"genType がルートごとに 1 つの `.gen.tsx` を出力する — JS 層はナビゲータに触れることなくそれらをインポートできる。"
+
+#: ../../user/templates/react-native.md:173
+msgid "The README's \"Adding Screens\" section walks through the same flow."
+msgstr "README の \"Adding Screens\" セクションが同じフローを順を追って説明している。"
+
+#: ../../user/templates/react-native.md:175
+msgid "Adding a Component Binding"
+msgstr "コンポーネントバインディングの追加"
+
+#: ../../user/templates/react-native.md:177
+msgid ""
+"`src/ReactNative.res` only ships the components `App.res` actually uses. "
+"To bind another (e.g. `ScrollView`):"
+msgstr ""
+"`src/ReactNative.res` には `App.res` が実際に使用するコンポーネントしか含まれていない。"
+"別のもの (例: `ScrollView`) をバインドするには:"
+
+#: ../../user/templates/react-native.md:190
+msgid ""
+"Same pattern for community modules — replace `\"react-native\"` with the "
+"package name (`\"react-native-reanimated\"`, `\"@shopify/flash-list\"`, "
+"…). Wrap the result in a module so the `make` constructor is namespaced."
+msgstr ""
+"コミュニティモジュールでも同じパターンが使える — `\"react-native\"` をパッケージ名 "
+"(`\"react-native-reanimated\"`、`\"@shopify/flash-list\"` など) に置き換える。"
+"結果をモジュールでラップして `make` コンストラクタに名前空間を付与する。"
+
+#: ../../user/templates/react-native.md:192
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/react-native.md:194
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/create-react-component` — same JSX patterns apply "
+"(substitute `View` for `<div>`)"
+msgstr ""
+"{doc}`../recipes/create-react-component` — 同じ JSX パターンが適用される (`<div>` を `View` に置き換える)"
+
+#: ../../user/templates/react-native.md:195
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/optimize-imports` — keep `src/ReactNative.res` lean as "
+"you bind more components"
+msgstr ""
+"{doc}`../recipes/optimize-imports` — より多くのコンポーネントをバインドするにつれて `src/ReactNative.res` を簡潔に保つ"
+
+#: ../../user/templates/react-native.md:196
+#, python-brace-format
+msgid "{doc}`../recipes/find-dead-code` — useful as the screen count grows"
+msgstr "{doc}`../recipes/find-dead-code` — 画面数が増えるにつれて有用になる"
+
+#: ../../user/templates/react-native.md:198
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see "
+"{doc}`../features/index`."
+msgstr ""
+"プロジェクトを開いた後の ReScript 側のエディタワークフローについては {doc}`../features/index` を参照のこと。"
+
+#: ../../user/templates/react-native.md:202
+#, python-brace-format
+msgid ""
+"**Managed workflow only.** Expo Go and `expo run:*` cover most projects, "
+"but anything that requires a custom native module not yet on the Expo SDK"
+" ecosystem will need either a config plugin or graduation to the bare "
+"workflow ({doc}`react-native-cli`)."
+msgstr ""
+"**マネージドワークフローのみ。** Expo Go と `expo run:*` でほとんどのプロジェクトは賄えるが、"
+"Expo SDK エコシステムにまだないカスタムネイティブモジュールを必要とするものは、"
+"config プラグインか bare ワークフロー ({doc}`react-native-cli`) への移行のいずれかが必要となる。"
+
+#: ../../user/templates/react-native.md:203
+msgid ""
+"**`android/` and `ios/` are gitignored on purpose.** Expo regenerates "
+"them from `app.json` + `expo.config.js`. Committing them locks you out of"
+" `expo prebuild` upgrades."
+msgstr ""
+"**`android/` と `ios/` は意図的に gitignore されている。** Expo が `app.json` + `expo.config.js` から再生成する。"
+"これらをコミットすると `expo prebuild` のアップグレードができなくなる。"
+
+#: ../../user/templates/react-native.md:204
+msgid ""
+"**The smoke test is intentionally toothless.** It only checks the "
+"compiler emitted the file, because importing `App.res.mjs` from plain "
+"Node would pull in `react-native`. Add component tests under Jest + "
+"`jest-expo` if you need behavior coverage."
+msgstr ""
+"**スモークテストは意図的に無力である。** `App.res.mjs` を素の Node からインポートすると `react-native` を引き込んでしまうため、"
+"コンパイラがファイルを出力したことだけをチェックしている。振る舞いのカバレッジが必要なら Jest + `jest-expo` でコンポーネントテストを追加すること。"
+
+#: ../../user/templates/react-native.md:205
+msgid ""
+"**genType is mandatory here, not optional.** `App.tsx` imports "
+"`./src/App.gen`; the `.gen.tsx` file is emitted only because "
+"`rescript.json` has `\"genTypeConfig\"` enabled. Disabling it will break "
+"the boot path."
+msgstr ""
+"**ここでは genType は必須であり、オプションではない。** `App.tsx` は `./src/App.gen` をインポートする; "
+"`.gen.tsx` ファイルは `rescript.json` で `\"genTypeConfig\"` が有効になっているからこそ出力される。"
+"これを無効化すると起動経路が壊れる。"
+
+#: ../../user/templates/react-native.md:206
+msgid ""
+"**Vitest is for the source canary, not for components.** The Vitest you "
+"see in `devDependencies` exists to run the smoke test (and any pure-data "
+"ReScript tests you add under `src/`). It is not configured to render RN "
+"components."
+msgstr ""
+"**Vitest はソースのカナリア用であり、コンポーネント用ではない。** `devDependencies` に見える Vitest は、"
+"スモークテスト (および `src/` 配下に追加する純粋なデータの ReScript テスト) を実行するために存在する。"
+"RN コンポーネントをレンダリングするようには設定されていない。"
+
+#: ../../user/templates/react-native.md:207
+msgid ""
+"**Validation guards the form, not the network.** The shipped "
+"`parseDraftTodo` only protects the local state. If you wire this app to a"
+" backend, validate the server response in a separate `Validation.parse*` "
+"function before destructuring."
+msgstr ""
+"**バリデーションはフォームを守るのであって、ネットワークを守るのではない。** 同梱の `parseDraftTodo` はローカル状態のみを保護する。"
+"このアプリをバックエンドに接続する場合は、分解前に別の `Validation.parse*` 関数でサーバーレスポンスをバリデートすること。"
+
+#: ../../user/templates/react-native.md:208
+msgid ""
+"**Expo SDK / React Native pin must move together.** Bumping `expo` "
+"typically requires the matching `react-native` minor — do them in one "
+"commit and re-run the `npm install` so peer-dep warnings don't drift."
+msgstr ""
+"**Expo SDK / React Native のピンは一緒に動かす必要がある。** `expo` のバンプは通常マッチする `react-native` マイナーバージョンを必要とする — "
+"1 つのコミットでまとめて行い、peer 依存の警告がずれないように `npm install` を再実行すること。"

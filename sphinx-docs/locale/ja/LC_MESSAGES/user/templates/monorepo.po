@@ -1,0 +1,927 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 13:06+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/monorepo.md
+msgid ""
+"monorepo, workspaces, pnpm, npm, yarn, bun, hono, react, vite, drizzle, "
+"shared types, rescript, validation"
+msgstr ""
+"monorepo, workspaces, pnpm, npm, yarn, bun, hono, react, vite, drizzle, "
+"shared types, rescript, validation"
+
+#: ../../user/templates/monorepo.md:7
+msgid "Monorepo (Hono + React)"
+msgstr "Monorepo (Hono + React)"
+
+#: ../../user/templates/monorepo.md:9
+#, python-brace-format
+msgid ""
+"{bdg-info}`Workspaces` {bdg-info}`Hono` {bdg-info}`Vite+/React` {bdg-"
+"success}`Drizzle` {bdg-success}`Validation`"
+msgstr ""
+"{bdg-info}`Workspaces` {bdg-info}`Hono` {bdg-info}`Vite+/React` {bdg-"
+"success}`Drizzle` {bdg-success}`Validation`"
+
+#: ../../user/templates/monorepo.md:11
+#, python-brace-format
+msgid ""
+"A three-package workspace that wires a Hono backend, a Vite+/React "
+"client, and a shared types package together. Pick this template when you "
+"want clear separation between server, client, and the contract that "
+"connects them — and when you are willing to pay the workspace-tooling "
+"cost to get it. If a single `package.json` is enough, prefer the {doc"
+"}`full-stack` template instead."
+msgstr ""
+"Hono バックエンド、Vite+/React クライアント、そして共有型パッケージを 1 つの"
+"ワークスペースで連携させる 3 パッケージ構成。サーバー・クライアント・両者をつなぐ"
+"コントラクトを明確に分離したい場合、かつワークスペースツーリングのコストを許容できる"
+"場合に選ぶ。単一の `package.json` で済むなら、代わりに {doc}`full-stack` テンプレートを"
+"検討すること。"
+
+#: ../../user/templates/monorepo.md:13
+msgid ""
+"The shared package exports ReScript types under a `Shared.*` namespace; "
+"the server depends on `@<project>/shared` and uses those types in route "
+"handlers; the client depends on the same workspace and consumes them "
+"inside React components. Editing a wire-format record in "
+"`packages/shared/src/Api.res` breaks the build on **both** sides until "
+"they agree — the structural typing is the entire point."
+msgstr ""
+"共有パッケージは ReScript の型を `Shared.*` 名前空間でエクスポートする。サーバーは "
+"`@<project>/shared` に依存し、ルートハンドラ内でそれらの型を使う。クライアントは"
+"同じワークスペースに依存し、React コンポーネント内で型を消費する。"
+"`packages/shared/src/Api.res` のワイヤフォーマット record を編集すると、双方の"
+"ビルドが整合するまで **両側** で破壊される —— 構造的型付けこそがこのテンプレートの肝である。"
+
+#: ../../user/templates/monorepo.md:15
+msgid "What You Get"
+msgstr "生成内容"
+
+#: ../../user/templates/monorepo.md:64
+msgid "Wizard Options"
+msgstr "ウィザードオプション"
+
+#: ../../user/templates/monorepo.md
+msgid "Option"
+msgstr "オプション"
+
+#: ../../user/templates/monorepo.md
+msgid "Effect"
+msgstr "効果"
+
+#: ../../user/templates/monorepo.md
+msgid "**Project name**"
+msgstr "**Project name**"
+
+#: ../../user/templates/monorepo.md
+msgid ""
+"Becomes the npm `name` for the root and the prefix for every workspace "
+"package (`@<project>/shared`, `@<project>/server`, `@<project>/client`)"
+msgstr ""
+"ルートの npm `name` となり、各ワークスペースパッケージ"
+"（`@<project>/shared`、`@<project>/server`、`@<project>/client`）の"
+"プレフィックスになる"
+
+#: ../../user/templates/monorepo.md
+msgid "**Package manager**"
+msgstr "**Package manager**"
+
+#: ../../user/templates/monorepo.md
+msgid ""
+"npm / pnpm / yarn / bun. Selects the workspace declaration shape, the "
+"per-workspace command syntax, the `dev`/`test` fan-out script, the "
+"workspace-dep version specifier, the README install/run snippets, and the"
+" CI cache key"
+msgstr ""
+"npm / pnpm / yarn / bun のいずれか。ワークスペース宣言の形、ワークスペースごとの"
+"コマンド構文、`dev`/`test` のファンアウトスクリプト、ワークスペース依存のバージョン指定子、"
+"README のインストール／実行スニペット、CI キャッシュキーをそれぞれ切り替える"
+
+#: ../../user/templates/monorepo.md
+msgid "**Validation library**"
+msgstr "**Validation library**"
+
+#: ../../user/templates/monorepo.md
+msgid ""
+"`zod` ↔ `sury`. Chooses which `packages/server/src/Validation.res` "
+"variant ships and which dependency is added to the server workspace"
+msgstr ""
+"`zod` ↔ `sury`。どの `packages/server/src/Validation.res` バリアントを同梱するかと、"
+"サーバーワークスペースに追加する依存を選択する"
+
+#: ../../user/templates/monorepo.md:72
+msgid ""
+"The package-manager choice affects three load-bearing things in addition "
+"to the install command:"
+msgstr ""
+"パッケージマネージャの選択は、インストールコマンドに加えて、設計上重要な 3 点に影響する:"
+
+#: ../../user/templates/monorepo.md
+msgid "Concern"
+msgstr "観点"
+
+#: ../../user/templates/monorepo.md
+msgid "pnpm"
+msgstr "pnpm"
+
+#: ../../user/templates/monorepo.md
+msgid "yarn"
+msgstr "yarn"
+
+#: ../../user/templates/monorepo.md
+msgid "npm"
+msgstr "npm"
+
+#: ../../user/templates/monorepo.md
+msgid "bun"
+msgstr "bun"
+
+#: ../../user/templates/monorepo.md
+msgid "Workspace declaration"
+msgstr "ワークスペース宣言"
+
+#: ../../user/templates/monorepo.md
+msgid "`pnpm-workspace.yaml`"
+msgstr "`pnpm-workspace.yaml`"
+
+#: ../../user/templates/monorepo.md
+msgid "`workspaces` field"
+msgstr "`workspaces` フィールド"
+
+#: ../../user/templates/monorepo.md
+msgid "Per-workspace command"
+msgstr "ワークスペース単位コマンド"
+
+#: ../../user/templates/monorepo.md
+msgid "`pnpm --filter ./packages/<x> <s>`"
+msgstr "`pnpm --filter ./packages/<x> <s>`"
+
+#: ../../user/templates/monorepo.md
+msgid "`yarn workspace ./packages/<x> run <s>`"
+msgstr "`yarn workspace ./packages/<x> run <s>`"
+
+#: ../../user/templates/monorepo.md
+msgid "`npm --workspace packages/<x> run <s>`"
+msgstr "`npm --workspace packages/<x> run <s>`"
+
+#: ../../user/templates/monorepo.md
+msgid "`bun --filter ./packages/<x> <s>`"
+msgstr "`bun --filter ./packages/<x> <s>`"
+
+#: ../../user/templates/monorepo.md
+msgid "Workspace dep version"
+msgstr "ワークスペース依存バージョン"
+
+#: ../../user/templates/monorepo.md
+msgid "`workspace:*`"
+msgstr "`workspace:*`"
+
+#: ../../user/templates/monorepo.md
+msgid "`*` (npm rejects `workspace:*`)"
+msgstr "`*`（npm は `workspace:*` を拒否する）"
+
+#: ../../user/templates/monorepo.md:80
+msgid "Key Dependencies"
+msgstr "主要な依存"
+
+#: ../../user/templates/monorepo.md:82 ../../user/templates/monorepo.md:195
+msgid "Root"
+msgstr "ルート"
+
+#: ../../user/templates/monorepo.md
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../../user/templates/monorepo.md
+msgid "Purpose"
+msgstr "用途"
+
+#: ../../user/templates/monorepo.md
+msgid "Version"
+msgstr "バージョン"
+
+#: ../../user/templates/monorepo.md
+msgid "`concurrently` *(dev)*"
+msgstr "`concurrently` *(dev)*"
+
+#: ../../user/templates/monorepo.md
+msgid "Runs server + client dev watchers in parallel"
+msgstr "サーバーとクライアントの dev ウォッチャーを並列で実行する"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.CONCURRENTLY`"
+msgstr "`TemplateVersions.CONCURRENTLY`"
+
+#: ../../user/templates/monorepo.md:88
+msgid "`packages/shared`"
+msgstr "`packages/shared`"
+
+#: ../../user/templates/monorepo.md
+msgid "`rescript`"
+msgstr "`rescript`"
+
+#: ../../user/templates/monorepo.md
+msgid "ReScript compiler"
+msgstr "ReScript コンパイラ"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.RESCRIPT`"
+msgstr "`TemplateVersions.RESCRIPT`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@rescript/core`"
+msgstr "`@rescript/core`"
+
+#: ../../user/templates/monorepo.md
+msgid "Standard library"
+msgstr "標準ライブラリ"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.RESCRIPT_CORE`"
+msgstr "`TemplateVersions.RESCRIPT_CORE`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@rescript/runtime`"
+msgstr "`@rescript/runtime`"
+
+#: ../../user/templates/monorepo.md
+msgid "Runtime stubs the compiled `.res.mjs` imports"
+msgstr "コンパイル済み `.res.mjs` の import に必要なランタイムスタブ"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.RESCRIPT_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT_RUNTIME`"
+
+#: ../../user/templates/monorepo.md:96 ../../user/templates/monorepo.md:209
+msgid "`packages/server`"
+msgstr "`packages/server`"
+
+#: ../../user/templates/monorepo.md
+msgid "`rescript`, `@rescript/core`, `@rescript/runtime`"
+msgstr "`rescript`, `@rescript/core`, `@rescript/runtime`"
+
+#: ../../user/templates/monorepo.md
+msgid "ReScript compiler + runtime"
+msgstr "ReScript コンパイラ＋ランタイム"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.RESCRIPT` / `_CORE` / `_RUNTIME`"
+msgstr "`TemplateVersions.RESCRIPT` / `_CORE` / `_RUNTIME`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@<project>/shared`"
+msgstr "`@<project>/shared`"
+
+#: ../../user/templates/monorepo.md
+msgid "Workspace dep on the shared types package"
+msgstr "共有型パッケージへのワークスペース依存"
+
+#: ../../user/templates/monorepo.md
+msgid "`workspace:*` (or `*` on npm)"
+msgstr "`workspace:*`（npm の場合は `*`）"
+
+#: ../../user/templates/monorepo.md
+msgid "`hono`"
+msgstr "`hono`"
+
+#: ../../user/templates/monorepo.md
+msgid "HTTP framework"
+msgstr "HTTP フレームワーク"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.HONO`"
+msgstr "`TemplateVersions.HONO`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@hono/node-server`"
+msgstr "`@hono/node-server`"
+
+#: ../../user/templates/monorepo.md
+msgid "Node HTTP adapter"
+msgstr "Node HTTP アダプタ"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.HONO_NODE_SERVER`"
+msgstr "`TemplateVersions.HONO_NODE_SERVER`"
+
+#: ../../user/templates/monorepo.md
+msgid "`zod` *or* `sury`"
+msgstr "`zod` *または* `sury`"
+
+#: ../../user/templates/monorepo.md
+msgid "Validation backend"
+msgstr "バリデーションバックエンド"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+msgstr "`TemplateVersions.ZOD` / `TemplateVersions.SURY`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@libsql/client`"
+msgstr "`@libsql/client`"
+
+#: ../../user/templates/monorepo.md
+msgid "libsql client (SQLite-compatible, Turso-ready)"
+msgstr "libsql クライアント（SQLite 互換、Turso 対応）"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.LIBSQL_CLIENT`"
+msgstr "`TemplateVersions.LIBSQL_CLIENT`"
+
+#: ../../user/templates/monorepo.md
+msgid "`drizzle-orm`"
+msgstr "`drizzle-orm`"
+
+#: ../../user/templates/monorepo.md
+msgid "Type-safe SQL builder"
+msgstr "型安全な SQL ビルダー"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.DRIZZLE_ORM`"
+msgstr "`TemplateVersions.DRIZZLE_ORM`"
+
+#: ../../user/templates/monorepo.md
+msgid "`drizzle-kit` *(dev)*"
+msgstr "`drizzle-kit` *(dev)*"
+
+#: ../../user/templates/monorepo.md
+msgid "Migration generator"
+msgstr "マイグレーションジェネレータ"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.DRIZZLE_KIT`"
+msgstr "`TemplateVersions.DRIZZLE_KIT`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vitest` *(dev)*"
+msgstr "`vitest` *(dev)*"
+
+#: ../../user/templates/monorepo.md
+msgid "Test runner"
+msgstr "テストランナー"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.VITEST`"
+msgstr "`TemplateVersions.VITEST`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@vitest/coverage-v8` *(dev)*"
+msgstr "`@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/monorepo.md
+msgid "Coverage provider"
+msgstr "カバレッジプロバイダ"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/monorepo.md
+msgid "Pairs `rescript -w` with `node --watch` for dev"
+msgstr "dev 用に `rescript -w` と `node --watch` をペアにする"
+
+#: ../../user/templates/monorepo.md:112 ../../user/templates/monorepo.md:221
+msgid "`packages/client`"
+msgstr "`packages/client`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@rescript/react`"
+msgstr "`@rescript/react`"
+
+#: ../../user/templates/monorepo.md
+msgid "React bindings"
+msgstr "React バインディング"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.RESCRIPT_REACT`"
+msgstr "`TemplateVersions.RESCRIPT_REACT`"
+
+#: ../../user/templates/monorepo.md
+msgid "`react` / `react-dom`"
+msgstr "`react` / `react-dom`"
+
+#: ../../user/templates/monorepo.md
+msgid "React runtime"
+msgstr "React ランタイム"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.REACT` / `TemplateVersions.REACT_DOM`"
+msgstr "`TemplateVersions.REACT` / `TemplateVersions.REACT_DOM`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vite-plus`"
+msgstr "`vite-plus`"
+
+#: ../../user/templates/monorepo.md
+msgid "Vite+ build tool (vite + vitest + opinionated defaults)"
+msgstr "Vite+ ビルドツール（vite + vitest + 設計済みデフォルト）"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.VITE_PLUS`"
+msgstr "`TemplateVersions.VITE_PLUS`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@voidzero-dev/vite-plus-core`"
+msgstr "`@voidzero-dev/vite-plus-core`"
+
+#: ../../user/templates/monorepo.md
+msgid "Vite+ runtime core"
+msgstr "Vite+ ランタイムコア"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.VITE_PLUS_CORE`"
+msgstr "`TemplateVersions.VITE_PLUS_CORE`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vite`"
+msgstr "`vite`"
+
+#: ../../user/templates/monorepo.md
+msgid "Underlying Vite (held as a fallback dep)"
+msgstr "基盤となる Vite（フォールバック依存として保持）"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.VITE`"
+msgstr "`TemplateVersions.VITE`"
+
+#: ../../user/templates/monorepo.md
+msgid "`@vitejs/plugin-react`"
+msgstr "`@vitejs/plugin-react`"
+
+#: ../../user/templates/monorepo.md
+msgid "React fast-refresh plugin"
+msgstr "React fast-refresh プラグイン"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.VITEJS_PLUGIN_REACT`"
+msgstr "`TemplateVersions.VITEJS_PLUGIN_REACT`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vitest` / `@vitest/coverage-v8` *(dev)*"
+msgstr "`vitest` / `@vitest/coverage-v8` *(dev)*"
+
+#: ../../user/templates/monorepo.md
+msgid "Test runner + coverage"
+msgstr "テストランナー＋カバレッジ"
+
+#: ../../user/templates/monorepo.md
+msgid "`TemplateVersions.VITEST` / `TemplateVersions.VITEST_COVERAGE_V8`"
+msgstr "`TemplateVersions.VITEST` / `TemplateVersions.VITEST_COVERAGE_V8`"
+
+#: ../../user/templates/monorepo.md
+msgid "Pairs `rescript -w` with `vp dev`"
+msgstr "`rescript -w` と `vp dev` をペアにする"
+
+#: ../../user/templates/monorepo.md:127
+msgid "Key Files"
+msgstr "主要なファイル"
+
+#: ../../user/templates/monorepo.md:129
+msgid "`packages/shared/src/Types.res` and `Api.res`"
+msgstr "`packages/shared/src/Types.res` と `Api.res`"
+
+#: ../../user/templates/monorepo.md:131
+msgid "Two tiny modules that own the shared contract:"
+msgstr "共有コントラクトを担う 2 つの小さなモジュール:"
+
+#: ../../user/templates/monorepo.md:142
+msgid ""
+"`rescript.json` for the shared package sets `namespace: \"Shared\"`, so "
+"consumers reference `Shared.Types.user` and `Shared.Api.createUserReq` — "
+"no flat-module collisions when two packages happen to define `Types`."
+msgstr ""
+"shared パッケージの `rescript.json` は `namespace: \"Shared\"` を設定するため、"
+"利用側は `Shared.Types.user` や `Shared.Api.createUserReq` のように参照する。"
+"2 つのパッケージがたまたま `Types` を定義してもフラットモジュールの衝突は起きない。"
+
+#: ../../user/templates/monorepo.md:144
+msgid "`packages/server/src/Server.res`"
+msgstr "`packages/server/src/Server.res`"
+
+#: ../../user/templates/monorepo.md:146
+msgid ""
+"Hono app with three routes (`GET /api/hello`, `GET /api/users`, `POST "
+"/api/users`). The POST route validates the body with "
+"`Validation.parseCreateUserReq`, then writes through Drizzle:"
+msgstr ""
+"3 つのルート（`GET /api/hello`、`GET /api/users`、`POST /api/users`）を持つ Hono アプリ。"
+"POST ルートはボディを `Validation.parseCreateUserReq` でバリデーションしたうえで、"
+"Drizzle 経由で書き込む:"
+
+#: ../../user/templates/monorepo.md:164
+msgid ""
+"The CORS hook is left commented; the dev workflow does not need it "
+"because Vite+ proxies `/api/*` to the server (same-origin)."
+msgstr ""
+"CORS フックはコメントアウトされたままになっている。Vite+ が `/api/*` をサーバーに"
+"プロキシして同一オリジンになるため、dev ワークフローでは不要である。"
+
+#: ../../user/templates/monorepo.md:166
+msgid "`packages/server/src/ServerMain.res`"
+msgstr "`packages/server/src/ServerMain.res`"
+
+#: ../../user/templates/monorepo.md:168
+msgid ""
+"A single line: `Server.start()`. The split exists so `vitest.setup.mjs` "
+"can pin `DATABASE_URL=:memory:` before tests "
+"`import(\"../Server.res.mjs\")` to call `app.request(\"/api/hello\")` "
+"without binding a port."
+msgstr ""
+"中身は `Server.start()` の 1 行のみ。この分割があることで、`vitest.setup.mjs` が"
+"テストが `import(\"../Server.res.mjs\")` する前に `DATABASE_URL=:memory:` を固定でき、"
+"ポートにバインドせずに `app.request(\"/api/hello\")` を呼び出せる。"
+
+#: ../../user/templates/monorepo.md:170
+msgid "`packages/server/vitest.setup.mjs`"
+msgstr "`packages/server/vitest.setup.mjs`"
+
+#: ../../user/templates/monorepo.md:176
+msgid ""
+"Pinning the URL before the test imports `Server.res.mjs` (transitively "
+"`Db.res`) ensures the libsql client opens an in-memory database instead "
+"of trying to read `./data/app.db`, which does not exist in the test temp "
+"directory."
+msgstr ""
+"テストが `Server.res.mjs`（推移的に `Db.res`）を import する前に URL を固定することで、"
+"libsql クライアントはテスト一時ディレクトリに存在しない `./data/app.db` を読もうとせず、"
+"インメモリのデータベースを開くようになる。"
+
+#: ../../user/templates/monorepo.md:178
+msgid "`packages/client/src/App.res` and `ApiClient.res`"
+msgstr "`packages/client/src/App.res` と `ApiClient.res`"
+
+#: ../../user/templates/monorepo.md:180
+msgid ""
+"`App.res` is a small users form + list. Its critical detail is the "
+"`Shared.Api.createUserReq` annotation: any drift in `packages/shared` "
+"produces a compile error in **both** the client and the server, exactly "
+"when you want the breakage:"
+msgstr ""
+"`App.res` は小さなユーザーフォームとリストである。重要な点は "
+"`Shared.Api.createUserReq` の型注釈であり、`packages/shared` にずれが生じれば"
+"クライアントとサーバーの **両方** でコンパイルエラーが発生する。これは破壊が起きてほしい"
+"瞬間に起きるという、まさに望ましい挙動である:"
+
+#: ../../user/templates/monorepo.md:187
+msgid ""
+"`ApiClient.res` wraps `fetch` and returns `Shared.Types.user[]` (or "
+"`Shared.Api.createUserRes`), keeping the type round-trip honest end-to-"
+"end."
+msgstr ""
+"`ApiClient.res` は `fetch` をラップし、`Shared.Types.user[]`（または "
+"`Shared.Api.createUserRes`）を返すことで、エンドツーエンドの型ラウンドトリップを"
+"正直に保つ。"
+
+#: ../../user/templates/monorepo.md:189
+msgid "`packages/client/vite.config.mjs`"
+msgstr "`packages/client/vite.config.mjs`"
+
+#: ../../user/templates/monorepo.md:191
+msgid ""
+"Vite+ config with a `/api/*` proxy that forwards to the Hono server. "
+"Generated via `ProjectFileBuilders.viteConfigWithProxy` so it stays "
+"consistent with the Vite+/Hono contract used by other templates."
+msgstr ""
+"`/api/*` を Hono サーバーに転送するプロキシ付きの Vite+ 設定。"
+"`ProjectFileBuilders.viteConfigWithProxy` を介して生成されるため、他のテンプレートで"
+"使われる Vite+/Hono コントラクトと一貫性を保つ。"
+
+#: ../../user/templates/monorepo.md:193
+msgid "npm Scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/monorepo.md
+msgid "Script"
+msgstr "スクリプト"
+
+#: ../../user/templates/monorepo.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/monorepo.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/monorepo.md
+msgid ""
+"`concurrently \"<server-dev>\" \"<client-dev>\"` — runs both watchers in "
+"parallel"
+msgstr ""
+"`concurrently \"<server-dev>\" \"<client-dev>\"` —— 両方のウォッチャーを並列で実行する"
+
+#: ../../user/templates/monorepo.md
+msgid "`dev:server`"
+msgstr "`dev:server`"
+
+#: ../../user/templates/monorepo.md
+msgid "Per-workspace dispatch to `packages/server`'s `dev` script"
+msgstr "`packages/server` の `dev` スクリプトへのワークスペース単位ディスパッチ"
+
+#: ../../user/templates/monorepo.md
+msgid "`dev:client`"
+msgstr "`dev:client`"
+
+#: ../../user/templates/monorepo.md
+msgid "Per-workspace dispatch to `packages/client`'s `dev` script"
+msgstr "`packages/client` の `dev` スクリプトへのワークスペース単位ディスパッチ"
+
+#: ../../user/templates/monorepo.md
+msgid "`build:client`"
+msgstr "`build:client`"
+
+#: ../../user/templates/monorepo.md
+msgid "Per-workspace dispatch to `packages/client`'s `build` script"
+msgstr "`packages/client` の `build` スクリプトへのワークスペース単位ディスパッチ"
+
+#: ../../user/templates/monorepo.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/monorepo.md
+msgid ""
+"Fan-out to every workspace exposing a `test` script (`pnpm -r run test` /"
+" `yarn workspaces foreach -A run test` / `npm --workspaces run test --if-"
+"present` / `bun --filter '*' run test`)"
+msgstr ""
+"`test` スクリプトを公開するすべてのワークスペースへファンアウトする"
+"（`pnpm -r run test` / `yarn workspaces foreach -A run test` / "
+"`npm --workspaces run test --if-present` / `bun --filter '*' run test`）"
+
+#: ../../user/templates/monorepo.md
+msgid "`test:coverage`"
+msgstr "`test:coverage`"
+
+#: ../../user/templates/monorepo.md
+msgid "Same fan-out, but for `test:coverage`"
+msgstr "同じファンアウトを `test:coverage` 向けに行う"
+
+#: ../../user/templates/monorepo.md
+msgid "`res:build`"
+msgstr "`res:build`"
+
+#: ../../user/templates/monorepo.md
+msgid "`rescript` — one-shot compile across the monorepo"
+msgstr "`rescript` —— monorepo 全体をワンショットコンパイル"
+
+#: ../../user/templates/monorepo.md
+msgid "`res:dev`"
+msgstr "`res:dev`"
+
+#: ../../user/templates/monorepo.md
+msgid "`rescript -w` — watch mode"
+msgstr "`rescript -w` —— ウォッチモード"
+
+#: ../../user/templates/monorepo.md
+msgid "`res:clean`"
+msgstr "`res:clean`"
+
+#: ../../user/templates/monorepo.md
+msgid "`rescript clean`"
+msgstr "`rescript clean`"
+
+#: ../../user/templates/monorepo.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/monorepo.md
+msgid "`node src/ServerMain.res.mjs`"
+msgstr "`node src/ServerMain.res.mjs`"
+
+#: ../../user/templates/monorepo.md
+msgid "`concurrently \"npm:res:dev\" \"node --watch src/ServerMain.res.mjs\"`"
+msgstr "`concurrently \"npm:res:dev\" \"node --watch src/ServerMain.res.mjs\"`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vitest run`"
+msgstr "`vitest run`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vitest run --coverage`"
+msgstr "`vitest run --coverage`"
+
+#: ../../user/templates/monorepo.md
+msgid "`db:generate`"
+msgstr "`db:generate`"
+
+#: ../../user/templates/monorepo.md
+msgid "`drizzle-kit generate`"
+msgstr "`drizzle-kit generate`"
+
+#: ../../user/templates/monorepo.md
+msgid "`db:migrate`"
+msgstr "`db:migrate`"
+
+#: ../../user/templates/monorepo.md
+msgid "`drizzle-kit migrate`"
+msgstr "`drizzle-kit migrate`"
+
+#: ../../user/templates/monorepo.md
+msgid "`res:build` / `res:dev` / `res:clean`"
+msgstr "`res:build` / `res:dev` / `res:clean`"
+
+#: ../../user/templates/monorepo.md
+msgid "ReScript compile / watch / clean"
+msgstr "ReScript のコンパイル／ウォッチ／クリーン"
+
+#: ../../user/templates/monorepo.md
+msgid ""
+"`concurrently \"npm:res:dev\" \"vp dev\"` — pairs ReScript watch with "
+"Vite+ dev server"
+msgstr ""
+"`concurrently \"npm:res:dev\" \"vp dev\"` —— ReScript ウォッチと Vite+ dev サーバーを"
+"ペアにする"
+
+#: ../../user/templates/monorepo.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vp build`"
+msgstr "`vp build`"
+
+#: ../../user/templates/monorepo.md
+msgid "`preview`"
+msgstr "`preview`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vp preview`"
+msgstr "`vp preview`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vp test`"
+msgstr "`vp test`"
+
+#: ../../user/templates/monorepo.md
+msgid "`vp test --coverage`"
+msgstr "`vp test --coverage`"
+
+#: ../../user/templates/monorepo.md:232
+msgid "Day-Two Recipes"
+msgstr "2日目以降のレシピ"
+
+#: ../../user/templates/monorepo.md:234
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/setup-monorepo` — IDE-side LSP configuration tips for "
+"monorepo workspaces"
+msgstr ""
+"{doc}`../recipes/setup-monorepo` —— monorepo ワークスペース向けの IDE 側 LSP "
+"設定の Tips"
+
+#: ../../user/templates/monorepo.md:235
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-hono-endpoint` — add a typed POST/GET route on the "
+"server side"
+msgstr ""
+"{doc}`../recipes/add-hono-endpoint` —— サーバー側に型付きの POST/GET ルートを追加する"
+
+#: ../../user/templates/monorepo.md:236
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/setup-drizzle` — extend the Drizzle schema (the template"
+" ships one already)"
+msgstr ""
+"{doc}`../recipes/setup-drizzle` —— Drizzle スキーマを拡張する（テンプレートには"
+"すでに 1 つ同梱されている）"
+
+#: ../../user/templates/monorepo.md:237
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/create-react-component` — pattern for adding a new "
+"client-side React component"
+msgstr ""
+"{doc}`../recipes/create-react-component` —— クライアント側に新しい React コンポーネントを"
+"追加するパターン"
+
+#: ../../user/templates/monorepo.md:238
+#, python-brace-format
+msgid ""
+"{doc}`../recipes/add-openapi-docs` — generate OpenAPI docs from the Hono "
+"routes"
+msgstr ""
+"{doc}`../recipes/add-openapi-docs` —— Hono ルートから OpenAPI ドキュメントを生成する"
+
+#: ../../user/templates/monorepo.md:240
+#, python-brace-format
+msgid ""
+"For ReScript-side editor workflows once the project is open, see the "
+"{doc}`../features/index`."
+msgstr ""
+"プロジェクトを開いた後の ReScript 側のエディタワークフローについては "
+"{doc}`../features/index` を参照する。"
+
+#: ../../user/templates/monorepo.md:242
+msgid "Notes"
+msgstr "補足"
+
+#: ../../user/templates/monorepo.md:244
+msgid ""
+"**The workspace declaration shape changes with the package manager.** "
+"pnpm uses a separate `pnpm-workspace.yaml`; npm, yarn, and bun all use "
+"the `workspaces` field in the root `package.json`. The wizard generates "
+"the right one automatically."
+msgstr ""
+"**ワークスペース宣言の形はパッケージマネージャによって変わる。** pnpm は別ファイルの "
+"`pnpm-workspace.yaml` を使い、npm、yarn、bun はいずれもルート `package.json` の "
+"`workspaces` フィールドを使う。ウィザードが自動的に正しい方を生成する。"
+
+#: ../../user/templates/monorepo.md:245
+msgid ""
+"**npm rejects `workspace:*`** as a dependency specifier and treats it as "
+"a literal version. The template falls back to `*` on npm and uses "
+"`workspace:*` for pnpm, yarn, and bun."
+msgstr ""
+"**npm は `workspace:*` を依存指定子として拒否し**、リテラルバージョンとして扱う。"
+"テンプレートは npm の場合 `*` にフォールバックし、pnpm・yarn・bun では "
+"`workspace:*` を使う。"
+
+#: ../../user/templates/monorepo.md:246
+msgid ""
+"**`concurrently` runs at three levels.** The root `dev` runs the two "
+"workspace watchers in parallel; each workspace `dev` runs `rescript -w` "
+"alongside its respective node/vite watcher. Without the inner "
+"`concurrently`, edits to `.res` files would not recompile while `dev` was"
+" running and you would chase stale `.res.mjs` for hours — a footgun "
+"previous template versions hit."
+msgstr ""
+"**`concurrently` は 3 階層で動作する。** ルートの `dev` は 2 つのワークスペース"
+"ウォッチャーを並列実行する。各ワークスペースの `dev` はそれぞれの node/vite "
+"ウォッチャーと並んで `rescript -w` を実行する。内側の `concurrently` がないと、"
+"`dev` 実行中に `.res` ファイルを編集しても再コンパイルされず、古い `.res.mjs` を"
+"何時間も追いかけるはめになる —— 過去のテンプレートバージョンが踏んだ罠である。"
+
+#: ../../user/templates/monorepo.md:247
+msgid ""
+"**`packages/shared` does not have its own `rescript -w`** — the root "
+"`res:dev` covers it because ReScript walks the workspace from the project"
+" root. Each workspace also exposes `res:build`/`res:dev`/`res:clean` for "
+"when you want per-package control."
+msgstr ""
+"**`packages/shared` には独自の `rescript -w` はない** —— ReScript はプロジェクト"
+"ルートからワークスペースを巡回するため、ルートの `res:dev` が網羅する。"
+"パッケージ単位で制御したい場合に備えて、各ワークスペースも "
+"`res:build`/`res:dev`/`res:clean` を公開している。"
+
+#: ../../user/templates/monorepo.md:248
+msgid ""
+"**The vitest config pins `DATABASE_URL=:memory:`** so the smoke test does"
+" not try to open the real SQLite file. The committed `.env.example` shows"
+" the production-shape default (`file:./data/app.db`)."
+msgstr ""
+"**vitest 設定は `DATABASE_URL=:memory:` を固定する** ので、スモークテストは"
+"実際の SQLite ファイルを開こうとしない。コミット済みの `.env.example` は本番形の"
+"デフォルト（`file:./data/app.db`）を示している。"
+
+#: ../../user/templates/monorepo.md:249
+msgid ""
+"**Vite+ is pre-1.0.** If a future release breaks, swap `vite-plus` for "
+"plain `vite` in `packages/client/vite.config.mjs` and replace the `vp` "
+"scripts with `vite`. The classic Vite dep is already declared as a "
+"fallback."
+msgstr ""
+"**Vite+ は 1.0 以前のリリースである。** 将来のリリースで動かなくなった場合は、"
+"`packages/client/vite.config.mjs` の `vite-plus` を素の `vite` に置き換え、"
+"`vp` スクリプトを `vite` に置き換えること。クラシックな Vite 依存はすでに"
+"フォールバックとして宣言されている。"
+
+#: ../../user/templates/monorepo.md:250
+msgid ""
+"**`packages/server/data/`, `packages/*/dist/`, `.vite/`, `.env`** are "
+"gitignored; the SQLite file produced by `db:migrate` stays out of version"
+" control."
+msgstr ""
+"**`packages/server/data/`、`packages/*/dist/`、`.vite/`、`.env`** は "
+"gitignore 対象である。`db:migrate` が生成する SQLite ファイルはバージョン管理の"
+"対象外となる。"
+
+#: ../../user/templates/monorepo.md:251
+msgid ""
+"**CORS is off by default** because the Vite+ proxy keeps requests same-"
+"origin in dev. A ready-to-uncomment `Hono.cors(...)` block lives at the "
+"top of `packages/server/src/Server.res`. Pin an origin allowlist before "
+"deploying separately-hosted client and server."
+msgstr ""
+"**CORS はデフォルトで無効になっている。** Vite+ プロキシが dev 時にリクエストを"
+"同一オリジンに保つためである。コメント解除すればすぐ使える `Hono.cors(...)` ブロックが"
+" `packages/server/src/Server.res` の冒頭に置かれている。クライアントとサーバーを"
+"別ホスティングでデプロイする前に、オリジンの許可リストを固定すること。"
