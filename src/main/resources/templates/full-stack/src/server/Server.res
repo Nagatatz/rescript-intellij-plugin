@@ -25,6 +25,6 @@ app->Hono.get("/api/health", ctx => ctx->Hono.json({"status": "ok"}))
 Routes.Users.register(app)
 
 let start = () => {
-  HonoNodeServer.serve(app, {port: 3000})
+  HonoNodeServer.serve({fetch: app->HonoNodeServer.honoFetch, port: 3000})
   Console.log("Server on http://localhost:3000 — try /api/health")
 }

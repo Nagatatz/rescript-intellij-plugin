@@ -355,8 +355,16 @@ object ProjectFileBuilders {
      */
     fun honoNodeServerBindings(): String =
         buildString {
-            appendLine("type serveOptions = {port: int}")
+            appendLine("// `@hono/node-server` v1.x signature:")
+            appendLine("//   serve(options: {fetch, port?, hostname?, ...}, listeningListener?)")
+            appendLine("// The previous binding `serve(app, {port})` matched an older API and now")
+            appendLine("// causes `TypeError: listeningListener is not a function` because the second")
+            appendLine("// arg is treated as a callback, not options.")
+            appendLine("type serveOptions<'fetch> = {fetch: 'fetch, port: int}")
+            appendLine("@get external honoFetch: Hono.app => 'fetch = \"fetch\"")
             appendLine("")
-            append("@module(\"@hono/node-server\") external serve: (Hono.app, serveOptions) => unit = \"serve\"")
+            append(
+                "@module(\"@hono/node-server\") external serve: serveOptions<'fetch> => unit = \"serve\"",
+            )
         }
 }

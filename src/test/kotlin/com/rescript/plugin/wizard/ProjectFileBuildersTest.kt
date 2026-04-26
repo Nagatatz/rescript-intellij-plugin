@@ -215,6 +215,28 @@ class ProjectFileBuildersTest {
     }
 
     @Test
+    fun `honoNodeServerBindings matches the modern hono node-server v1 signature`() {
+        val code = ProjectFileBuilders.honoNodeServerBindings()
+        // v1 API: serve({fetch, port?, hostname?, ...}, listeningListener?).
+        // The previous binding `serve(app, {port})` matched a removed API
+        // and would TypeError at runtime ('listeningListener is not a function').
+        assertTrue(
+            code.contains("type serveOptions<'fetch> = {fetch: 'fetch, port: int}"),
+            "serveOptions must thread `fetch` so callers pass `app->honoFetch`",
+        )
+        assertTrue(
+            code.contains("external honoFetch: Hono.app => 'fetch"),
+            "honoFetch accessor is required so call sites can extract `app.fetch`",
+        )
+        assertTrue(
+            code.contains("external serve: serveOptions<'fetch> => unit = \"serve\""),
+            "serve takes a single options record; the second-arg listener is unused",
+        )
+        // Old shape must not creep back in.
+        assertFalse(code.contains("serve: (Hono.app, serveOptions)"))
+    }
+
+    @Test
     fun `viteConfigWithProxy includes proxy configuration`() {
         val config = ProjectFileBuilders.viteConfigWithProxy()
         assertTrue(config.contains("proxy"))

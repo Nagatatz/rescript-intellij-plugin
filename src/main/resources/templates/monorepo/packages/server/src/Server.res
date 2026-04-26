@@ -51,5 +51,7 @@ app->Hono.post("/api/users", async ctx => {
   }
 })
 
-HonoNodeServer.serve(app, {port: 3000})
-Console.log("Server running on http://localhost:3000")
+let start = () => {
+  HonoNodeServer.serve({fetch: app->HonoNodeServer.honoFetch, port: 3000})
+  Console.log("Server running on http://localhost:3000")
+}

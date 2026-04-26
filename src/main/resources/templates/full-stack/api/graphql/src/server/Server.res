@@ -40,6 +40,6 @@ app->Hono.get("/graphql", handleYoga)
 app->Hono.post("/graphql", handleYoga)
 
 let start = () => {
-  HonoNodeServer.serve(app, {port: 3000})
+  HonoNodeServer.serve({fetch: app->HonoNodeServer.honoFetch, port: 3000})
   Console.log("Server on http://localhost:3000 — GraphiQL at /graphql, health at /api/health")
 }

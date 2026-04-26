@@ -1,4 +1,5 @@
-// Top-level Hono app with logger middleware, Users routes, OpenAPI spec, and Scalar UI.
+// Hono app + routes. The HTTP server itself is started from `ServerMain.res`
+// so that test code can `import` this module without binding a port.
 let app = Hono.createApp()
 app->Hono.use(Logger.logger())
 
@@ -25,5 +26,7 @@ app->Hono.get("/openapi.json", ctx =>
 )
 app->Hono.get("/docs", Scalar.apiReference({"spec": {"url": "/openapi.json"}}))
 
-HonoNodeServer.serve(app, {port: 3000})
-Console.log("Server on http://localhost:3000 — docs at /docs")
+let start = () => {
+  HonoNodeServer.serve({fetch: app->HonoNodeServer.honoFetch, port: 3000})
+  Console.log("Server on http://localhost:3000 — docs at /docs")
+}

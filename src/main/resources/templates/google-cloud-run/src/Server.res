@@ -23,5 +23,7 @@ app->Hono.post("/echo", async ctx => {
   }
 })
 
-HonoNodeServer.serve(app, {port: port})
-Console.log(`Server running on http://localhost:${port->Int.toString}`)
+let start = () => {
+  HonoNodeServer.serve({fetch: app->HonoNodeServer.honoFetch, port})
+  Console.log(`Server running on http://localhost:${port->Int.toString}`)
+}
