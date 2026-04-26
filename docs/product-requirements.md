@@ -366,6 +366,8 @@ CI に月次の `verifyPlugin` ジョブを追加することを推奨する（`
 - LSP サーバーの異常終了時に IDE 全体に影響を与えない
 - 不正な ReScript コードに対してもレクサー・パーサーがクラッシュしない
 
+機能ごとの LSP 依存有無と非接続時の動作は [docs/lsp-fallback-matrix.md](lsp-fallback-matrix.md) を参照。
+
 ### NFR-05: ユーザビリティ
 
 - プラグインインストール後、追加設定なしでネイティブ機能が動作する
