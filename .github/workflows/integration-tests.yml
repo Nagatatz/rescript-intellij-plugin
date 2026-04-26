@@ -9,6 +9,22 @@ on:
   schedule:
     # Nightly at 03:00 UTC
     - cron: '0 3 * * *'
+  pull_request:
+    paths:
+      - 'src/main/kotlin/com/rescript/plugin/wizard/**'
+      - 'src/main/resources/templates/**'
+      - 'src/main/resources/META-INF/plugin.xml'
+      - 'src/test/kotlin/com/rescript/plugin/wizard/**'
+      - 'build.gradle.kts'
+      - 'gradle.properties'
+      - '.github/workflows/integration-tests.yml'
+
+concurrency:
+  group: integration-tests-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
 
 jobs:
   integration-test:
@@ -18,10 +34,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.event_name == 'pull_request' }}
 
       - uses: actions/setup-node@v6
         with:
@@ -36,14 +60,18 @@ jobs:
           version: 10
           run_install: false
 
-      - name: Cache Gradle packages
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store and bun cache
         uses: actions/cache@v5
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-
+            ${{ steps.pnpm-store.outputs.path }}
+            ~/.bun/install/cache
+          key: ${{ runner.os }}-pnpm-bun-${{ hashFiles('src/main/resources/templates/**/package.json', 'src/main/resources/templates/**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-pnpm-bun-
 
       - name: Run template integration tests
         run: ./gradlew integrationTest --info
