@@ -303,4 +303,14 @@ class FullStackTemplateFilesTest {
             HonoGraphqlTemplateFiles.generate(TemplateContext("hg", PackageManager.PNPM))["src/Yoga.res"]!!
         assertTrue(fullStackYoga == honoGraphqlYoga, "Yoga.res should be shared across templates")
     }
+
+    @Test
+    fun `vitest setup pins DATABASE_URL to in-memory libsql before module load`() {
+        val files = FullStackTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("vitest.config.mjs"))
+        assertTrue(files.containsKey("vitest.setup.mjs"))
+        assertTrue(files["vitest.config.mjs"]!!.contains("setupFiles"))
+        assertTrue(files["vitest.setup.mjs"]!!.contains("DATABASE_URL"))
+        assertTrue(files["vitest.setup.mjs"]!!.contains(":memory:"))
+    }
 }

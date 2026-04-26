@@ -138,6 +138,8 @@ internal object FullStackTemplateFiles {
             "src/server/Db.res" to TemplateResourceLoader.load("common/db/Db.res"),
             "src/server/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("full-stack/src/server/__tests__/Server.test.mjs"),
+            "vitest.config.mjs" to TemplateResourceLoader.load("full-stack/vitest.config.mjs"),
+            "vitest.setup.mjs" to TemplateResourceLoader.load("full-stack/vitest.setup.mjs"),
             ".nvmrc" to CommonFiles.nvmrc(ctx),
             "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
             ".github/dependabot.yml" to CommonFiles.dependabotYaml(),

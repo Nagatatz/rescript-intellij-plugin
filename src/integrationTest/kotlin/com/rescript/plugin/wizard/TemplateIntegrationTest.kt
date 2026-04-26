@@ -252,26 +252,12 @@ class TemplateIntegrationTest {
                 // surfaces it for the test command too.
                 ProjectTemplate.VITE_REACT,
                 ProjectTemplate.ELECTRON,
-                // The bundled smoke test does `import("../Server.res.mjs")`,
-                // which runs `Db.res`'s top-level `createClient(...)`. That
-                // tries to open `./data/app.db` and fails in the temp dir.
-                // Re-enable once smoke tests gain a vitest setup file that
-                // pins `DATABASE_URL` to `:memory:` before module load.
-                ProjectTemplate.HONO,
-                ProjectTemplate.HONO_GRAPHQL,
-                ProjectTemplate.MONOREPO,
-                ProjectTemplate.FULL_STACK,
-                // Server.res calls `HonoNodeServer.serve(...)` at module
-                // load. The smoke import therefore tries to bind a real port,
-                // and `@hono/node-server`'s current API ends up calling our
-                // options object as a `listeningListener`. Re-enable after
-                // splitting `Server.res` into a side-effect-free `app`
-                // definition + a separate entry-point that calls `serve`.
-                ProjectTemplate.GOOGLE_CLOUD_RUN,
-                // res-x's runtime imports `rescript-bun` / `rescript-x`,
-                // which reference the global `Bun` object. Vitest runs under
-                // Node where `Bun` is undefined. The smoke test would have
-                // to run under `bun test` instead.
+                // res-x's `test` script invokes `bun test` (its smoke test
+                // imports `Bun`-only globals via rescript-bun). The PNPM
+                // integration path runs `pnpm test`, which delegates to the
+                // template's script — that requires `bun` on PATH. Skip when
+                // testing through the pnpm path; the BUN parameterized test
+                // (`bunTemplate`) covers res-x natively when bun is installed.
                 ProjectTemplate.RES_X,
             )
     }
