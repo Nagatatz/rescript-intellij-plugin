@@ -20,6 +20,9 @@ ReScript 言語サポートを JetBrains IDE に提供する IntelliJ プラグ�
 
 # 開発用 IDE インスタンス起動
 ./gradlew runIde
+# サンドボックス内の古いプラグイン jar は prepareSandbox 時に自動で除去される
+# （pluginVersion バンプ後の stale jar 起因の PluginException を防ぐため）。
+# 完全クリーンが必要な場合のみ `./gradlew clean runIde` を使う。
 
 # UI テスト用 IDE 起動（Remote-Robot サーバー付き、ポート 8082）
 ./gradlew runIdeForUiTests

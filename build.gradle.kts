@@ -567,6 +567,35 @@ tasks {
         jvmArgs("-Xmx2G")
         autoReload = true
     }
+    // Purge stale plugin jars from the sandbox before each prepareSandbox run.
+    // Prevents the IDE from loading a previous build's jar (e.g. after a
+    // pluginVersion bump leaves rescript-intellij-plugin-<old>.jar behind),
+    // which can surface as "implementation class is not specified" or other
+    // PluginException failures from out-of-date plugin.xml entries.
+    matching {
+        it.name.startsWith("prepareSandbox") || it.name == "prepareTestSandbox"
+    }.configureEach {
+        val sandboxRoot = layout.projectDirectory.dir(".intellijPlatform/sandbox").asFile
+        val projectBaseDir = projectDir
+        doFirst {
+            if (sandboxRoot.exists()) {
+                sandboxRoot
+                    .walk()
+                    .filter {
+                        it.isDirectory && it.name == "lib" && it.parentFile?.name == "rescript-intellij-plugin"
+                    }.forEach { libDir ->
+                        libDir
+                            .listFiles()
+                            ?.filter {
+                                it.name.startsWith("rescript-intellij-plugin-") && it.name.endsWith(".jar")
+                            }?.forEach { jar ->
+                                logger.lifecycle("Removing stale sandbox jar: ${jar.relativeTo(projectBaseDir)}")
+                                jar.delete()
+                            }
+                    }
+            }
+        }
+    }
 }
 
 // Dokka configuration — generates Kotlin KDoc API reference into build/dokka/html.
