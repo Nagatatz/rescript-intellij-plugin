@@ -54,7 +54,7 @@
 
         <h3>Project Integration</h3>
         <ul>
-            <li>Project Wizard with 12 templates (Basic, Vite+React, Next.js, Electron, etc.)</li>
+            <li>Project Wizard with 16 templates (Basic, Vite+React, Next.js, Electron, etc.)</li>
             <li>One-click LSP auto-install with package manager detection</li>
             <li>Project View nesting (.resi under .res, compiled JS nested and grayed)</li>
             <li>.d.ts → ReScript binding generation, dependency diagram</li>

@@ -358,9 +358,9 @@ msgstr "プロジェクトウィザード"
 
 #: ../../user/features/index.md:71
 msgid ""
-"Creates new projects from 12 pre-configured templates. Generates all "
+"Creates new projects from 16 pre-configured templates. Generates all "
 "build files and starter code locally."
-msgstr "事前設定済みの 12 テンプレートから新しいプロジェクトを作成します。すべてのビルドファイルとスターターコードをローカルに生成します。"
+msgstr "事前設定済みの 16 テンプレートから新しいプロジェクトを作成します。すべてのビルドファイルとスターターコードをローカルに生成します。"
 
 #: ../../user/features/index.md
 msgid "Understanding Native Features"

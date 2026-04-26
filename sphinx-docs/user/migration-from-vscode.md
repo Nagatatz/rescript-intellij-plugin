@@ -123,7 +123,7 @@ The following features are available exclusively in the JetBrains ReScript plugi
 - Run/debug individual tests from gutter icons
 
 **Project Wizard**
-- Create new ReScript projects from 12 templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, and more)
+- Create new ReScript projects from 16 templates (Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers, and more)
 
 **Tool Windows**
 - **Module hierarchy** -- Visual module dependency tree

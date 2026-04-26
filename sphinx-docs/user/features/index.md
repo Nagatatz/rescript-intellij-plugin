@@ -98,7 +98,7 @@ Code Lens, Compiled JS Preview, Module Hierarchy, .d.ts Binding Generation, Proj
 | Code formatting | | Yes (via CLI) | Invokes `rescript format` through the language server to format the current file. |
 | Signature help | | Yes | Displays parameter information when typing function arguments. Requires type analysis. |
 | Code Lens | | Yes | Shows type annotations above functions via the CodeVision API. Requires type inference. |
-| Project Wizard | Yes | | Creates new projects from 12 pre-configured templates. Generates all build files and starter code locally. |
+| Project Wizard | Yes | | Creates new projects from 16 pre-configured templates. Generates all build files and starter code locally. |
 
 ::::{dropdown} Understanding Native Features
 :open:

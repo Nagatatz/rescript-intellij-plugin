@@ -676,9 +676,9 @@ msgstr "**Project Wizard**"
 
 #: ../../user/migration-from-vscode.md:126
 msgid ""
-"Create new ReScript projects from 12 templates (Basic, Vite+React, "
+"Create new ReScript projects from 16 templates (Basic, Vite+React, "
 "Next.js, Electron, Hono, Cloudflare Workers, and more)"
-msgstr "12 種のテンプレート（Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers など）から新規 ReScript プロジェクトを作成"
+msgstr "16 種のテンプレート（Basic, Vite+React, Next.js, Electron, Hono, Cloudflare Workers など）から新規 ReScript プロジェクトを作成"
 
 #: ../../user/migration-from-vscode.md:128
 msgid "**Tool Windows**"
