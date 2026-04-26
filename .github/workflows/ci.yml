@@ -109,28 +109,41 @@ jobs:
 
       - name: Add coverage to Job Summary
         if: always()
+        shell: python
         run: |
-          if [ -f build/reports/kover/report.xml ]; then
-            # Extract coverage from Kover XML report
-            LINE_COVERED=$(grep -o 'type="LINE"[^/]*covered="[0-9]*"' build/reports/kover/report.xml | head -1 | grep -o 'covered="[0-9]*"' | grep -o '[0-9]*')
-            LINE_MISSED=$(grep -o 'type="LINE"[^/]*missed="[0-9]*"' build/reports/kover/report.xml | head -1 | grep -o 'missed="[0-9]*"' | grep -o '[0-9]*')
-            if [ -n "$LINE_COVERED" ] && [ -n "$LINE_MISSED" ]; then
-              TOTAL=$((LINE_COVERED + LINE_MISSED))
-              if [ "$TOTAL" -gt 0 ]; then
-                PERCENTAGE=$((LINE_COVERED * 100 / TOTAL))
-                {
-                  echo "## 📊 Code Coverage"
-                  echo ""
-                  echo "| Metric | Value |"
-                  echo "|--------|-------|"
-                  echo "| Line Coverage | **${PERCENTAGE}%** |"
-                  echo "| Lines Covered | ${LINE_COVERED} / ${TOTAL} |"
-                  echo ""
-                  echo "📄 Full HTML report available in the **coverage-report** artifact."
-                } >> "$GITHUB_STEP_SUMMARY"
-              fi
-            fi
-          fi
+          import os
+          import pathlib
+          import xml.etree.ElementTree as ET
+
+          report = pathlib.Path("build/reports/kover/report.xml")
+          if not report.exists():
+              raise SystemExit(0)
+
+          root = ET.parse(report).getroot()
+          counter = root.find("./counter[@type='LINE']")
+          if counter is None:
+              raise SystemExit(0)
+
+          covered = int(counter.get("covered", "0"))
+          missed = int(counter.get("missed", "0"))
+          total = covered + missed
+          if total == 0:
+              raise SystemExit(0)
+
+          pct = covered * 100 // total
+          summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+          if not summary_path:
+              raise SystemExit(0)
+
+          with open(summary_path, "a", encoding="utf-8") as fh:
+              fh.write(
+                  "## 📊 Code Coverage\n\n"
+                  "| Metric | Value |\n"
+                  "|--------|-------|\n"
+                  f"| Line Coverage | **{pct}%** |\n"
+                  f"| Lines Covered | {covered} / {total} |\n\n"
+                  "📄 Full HTML report available in the **coverage-report** artifact.\n"
+              )
 
       - name: Verify plugin structure
         run: ./gradlew verifyPluginStructure
