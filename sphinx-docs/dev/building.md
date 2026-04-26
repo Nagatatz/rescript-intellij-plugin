@@ -21,6 +21,10 @@ myst:
 | `./gradlew verifyPluginProjectConfiguration` | Verify project configuration |
 | `./gradlew verifyPlugin` | Verify binary compatibility |
 
+:::{note}
+`./gradlew runIde` automatically removes stale `rescript-intellij-plugin-<old>.jar` files from the sandbox during `prepareSandbox`. This prevents `PluginException` failures caused by the IDE loading an outdated plugin jar after a `pluginVersion` bump. Use `./gradlew clean runIde` only when a full sandbox reset is required.
+:::
+
 ## JFlex Lexer Generation
 
 The JFlex lexer (`RescriptFlexLexer.java`) is auto-generated from `Rescript.flex` during the build:
