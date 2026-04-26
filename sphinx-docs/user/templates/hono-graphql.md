@@ -37,7 +37,7 @@ my-project/
 ├── README.md                    # Try It / Schema / Database / Project Layout
 ├── LICENSE                      # MIT, holder = project name
 ├── .env.example                 # documents DATABASE_URL
-├── .nvmrc                       # Node 22
+├── .nvmrc                       # Node 24
 ├── .gitignore                   # node_modules, data/, docs/schema.md, drizzle/, .env
 ├── .editorconfig                # 2-space indent, LF line endings
 └── .github/
@@ -311,5 +311,5 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 - **`Server.res` never calls `serve()` at module top level** — that work lives in `start()` and is invoked from `ServerMain.res`. Tests can therefore `import("../Server.res.mjs")` without binding port 4000.
 - **`failwith` in resolvers becomes a GraphQL error.** graphql-yoga catches the throw, walks the path, and emits an `errors[]` entry instead of a 500. Use `failwith` for client-visible validation; reserve `Hono.onError` for unexpected exceptions in non-yoga routes (the global handler returns a JSON 500).
 - **Defaults to a local SQLite file.** `DATABASE_URL=file:./data/app.db` is the out-of-the-box wiring. Swap it for a `libsql://` URL (Turso) without touching code — the libsql client speaks both protocols. `.env.example` documents the variable.
-- **Node 22 only.** `engines.node` is `>=22` and `.nvmrc` says `22`. Earlier majors are not exercised by CI.
+- **Node 24 only.** `engines.node` is `>=24` and `.nvmrc` says `24`. Earlier majors are not exercised by CI.
 - **Generated artifacts are gitignored:** `data/`, `drizzle/` (migration SQL), `docs/schema.md`, and `.env`.

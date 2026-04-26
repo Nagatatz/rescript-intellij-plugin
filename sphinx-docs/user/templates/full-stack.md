@@ -42,7 +42,7 @@ my-app/
 │       └── __tests__/Api.test.mjs
 ├── README.md                           # Architecture + Shared Types + Database + Layout sections
 ├── LICENSE                             # MIT, holder = project name
-├── .nvmrc                              # Node 22
+├── .nvmrc                              # Node 24
 ├── .gitignore                          # adds data/, dist/, .vite/, drizzle/, .env
 ├── .editorconfig
 └── .github/

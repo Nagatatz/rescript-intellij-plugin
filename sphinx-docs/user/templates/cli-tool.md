@@ -29,7 +29,7 @@ my-project/
 │       └── Args.test.mjs          # hasFlag + namedValue suites
 ├── README.md                      # script docs + Usage + Project Layout + Install Locally
 ├── LICENSE                        # MIT, holder = project name
-├── .nvmrc                         # Node 22
+├── .nvmrc                         # Node 24
 ├── .gitignore                     # node_modules + ReScript build artifacts
 ├── .editorconfig                  # 2-space indent, LF line endings
 └── .github/
@@ -237,7 +237,7 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 
 ## Notes
 
-- `node` engine is pinned to `>=22` and `.nvmrc` says `22`. Earlier majors are not exercised by CI.
+- `node` engine is pinned to `>=24` and `.nvmrc` says `24`. Earlier majors are not exercised by CI.
 - The `bin` key in `package.json` is the *project name*, so the binary is exposed as that name after `npm link` (or after publish + global install). Plan accordingly when picking the project name in the wizard — it ends up on user `$PATH`s.
 - `bin/cli.mjs` is intentionally a one-line `import` of the compiled ReScript output. Do *not* hand-edit it to add logic — extend `Cli.res` instead. The shim's only job is to provide the shebang and resolve the entry module.
 - To install the CLI globally for local testing: `pnpm build && npm link`. Then run the binary by its project name from anywhere. `npm unlink` reverses it.

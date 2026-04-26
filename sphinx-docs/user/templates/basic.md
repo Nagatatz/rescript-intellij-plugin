@@ -27,7 +27,7 @@ my-project/
 │   └── __tests__/App.test.mjs   # vitest smoke test that imports App.res.mjs
 ├── README.md                    # script docs + Project Layout + Run the App
 ├── LICENSE                      # MIT, holder = project name
-├── .nvmrc                       # Node 22
+├── .nvmrc                       # Node 24
 ├── .gitignore                   # node_modules + ReScript build artifacts
 ├── .editorconfig                # 2-space indent, LF line endings
 └── .github/
@@ -108,6 +108,6 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 
 ## Notes
 
-- `node` engine is pinned to `>=22` and `.nvmrc` says `22`. Earlier majors are not exercised by CI.
+- `node` engine is pinned to `>=24` and `.nvmrc` says `24`. Earlier majors are not exercised by CI.
 - The smoke test only verifies that `import("../App.res.mjs")` resolves — it does not exercise `Files.res` or `Validation.res`. Add domain-specific tests as you grow the project.
 - The `config.sample.json` filename is deliberate: `.gitignore` keeps `config.json` (the real, possibly-secret one) out of the repo while letting the *sample* travel with the source.

@@ -10,7 +10,7 @@ myst:
 
 A publishable npm package written in ReScript with first-class TypeScript bindings via `genType`. The template ships a small but realistic API surface — a synchronous greeting, an async `fetchWithTimeout` (AbortController), and two list helpers — so you have something to compile, test, and publish on day one.
 
-Pick this template when you intend to release the project to npm (public or private registry) and want JS/TS consumers to enjoy real `.d.ts` types generated from your ReScript sources. The template assumes ESM-only consumers; if you need CJS interop you can layer it on top, but the defaults target modern bundlers and Node 22+.
+Pick this template when you intend to release the project to npm (public or private registry) and want JS/TS consumers to enjoy real `.d.ts` types generated from your ReScript sources. The template assumes ESM-only consumers; if you need CJS interop you can layer it on top, but the defaults target modern bundlers and Node 24+.
 
 ## What You Get
 
@@ -30,7 +30,7 @@ my-project/
 │       └── Fetcher.test.mjs       # fetchWithTimeout with vi.stubGlobal("fetch")
 ├── README.md                      # script docs + API Surface table + Publish flow
 ├── LICENSE                        # MIT, holder = project name
-├── .nvmrc                         # Node 22
+├── .nvmrc                         # Node 24
 ├── .gitignore                     # node_modules + ReScript build artifacts
 ├── .editorconfig                  # 2-space indent, LF line endings
 └── .github/
@@ -251,7 +251,7 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 
 ## Notes
 
-- `node` engine is pinned to `>=22` and `.nvmrc` says `22`. Earlier majors are not exercised by CI.
+- `node` engine is pinned to `>=24` and `.nvmrc` says `24`. Earlier majors are not exercised by CI.
 - The Vitest suites import the *compiled* `.res.mjs` outputs, not the `.res` sources. CI runs `rescript` before `vitest run` to make sure the artifacts exist; locally, run `pnpm res:dev` in a side terminal so saves recompile and Vitest's watcher picks up the change.
 - `Fetcher.test.mjs` stubs the global `fetch` via `vi.stubGlobal` and uses `afterEach(() => vi.restoreAllMocks())`. When you add new fetch-driven modules, follow the same pattern so suites stay isolated.
 - `ListUtils.test.mjs` exercises the ReScript variant runtime tag (`{ TAG: "Ok", _0: ... }`) directly. That is the shape ReScript emits for polymorphic variants — keep it in mind if you write JS-side tests against ReScript-generated unions.

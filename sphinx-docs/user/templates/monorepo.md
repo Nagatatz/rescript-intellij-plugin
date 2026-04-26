@@ -53,7 +53,7 @@ my-monorepo/
 │           └── __tests__/ApiClient.test.mjs
 ├── README.md                          # workspaces note + Database + Vite+ + Networking sections
 ├── LICENSE                            # MIT, holder = project name
-├── .nvmrc                             # Node 22
+├── .nvmrc                             # Node 24
 ├── .gitignore                         # adds dist/, .vite/, packages/*/dist/, packages/*/data/, .env
 ├── .editorconfig
 └── .github/

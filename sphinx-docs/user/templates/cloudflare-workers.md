@@ -27,7 +27,7 @@ my-project/
 │   └── __tests__/Server.test.mjs # vitest smoke import
 ├── README.md                    # API / KV Setup / Deploy
 ├── LICENSE                      # MIT, holder = project name
-├── .nvmrc                       # Node 22 (for tooling — runtime is V8 isolates)
+├── .nvmrc                       # Node 24 (for tooling — runtime is V8 isolates)
 ├── .gitignore                   # node_modules, .wrangler/, dist/, .dev.vars
 ├── .editorconfig                # 2-space indent, LF line endings
 └── .github/
@@ -291,7 +291,7 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 
 ## Notes
 
-- **No Node runtime.** Cloudflare Workers run on V8 isolates, not Node. That's why the template ships only `hono` (no `@hono/node-server`) and the entry file ends with `%%raw("export default app")` — Workers invoke the default export's `fetch(request, env, ctx)`. `.nvmrc` still says `22` because **tooling** (wrangler, esbuild under the hood, vitest) runs on Node locally.
+- **No Node runtime.** Cloudflare Workers run on V8 isolates, not Node. That's why the template ships only `hono` (no `@hono/node-server`) and the entry file ends with `%%raw("export default app")` — Workers invoke the default export's `fetch(request, env, ctx)`. `.nvmrc` still says `24` because **tooling** (wrangler, esbuild under the hood, vitest) runs on Node locally.
 - **`wrangler.jsonc`, not `wrangler.toml`.** Cloudflare supports both. We chose JSONC because it lets us keep the KV setup walkthrough next to the binding it documents — no separate file to skim.
 - **Two KV namespaces, on purpose.** `id` (production) and `preview_id` (local) are kept distinct so `wrangler dev` never writes to production. If you omit `preview_id`, wrangler falls back to a one-off in-memory store that is wiped between sessions — fine for throwaway demos, brittle for anything you want to inspect later. Run `npx wrangler kv namespace create GREETINGS` and `... --preview` once and paste the IDs in.
 - **Bindings are typed by hand, not generated.** The template does not depend on `@cloudflare/workers-types`; the `env` shape lives in `Server.res` as `type env = {"GREETINGS": Kv.namespace}`. If you add bindings (Durable Objects, R2, queues), add a field to that type and a binding entry in `wrangler.jsonc`.

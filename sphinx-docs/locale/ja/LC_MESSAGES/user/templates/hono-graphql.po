@@ -671,9 +671,9 @@ msgstr "**ローカルの SQLite ファイルが既定。** `DATABASE_URL=file:.
 
 #: ../../user/templates/hono-graphql.md:314
 msgid ""
-"**Node 22 only.** `engines.node` is `>=22` and `.nvmrc` says `22`. "
+"**Node 24 only.** `engines.node` is `>=24` and `.nvmrc` says `24`. "
 "Earlier majors are not exercised by CI."
-msgstr "**Node 22 のみ対応。** `engines.node` は `>=22`、`.nvmrc` は `22` を指定している。これより古いメジャーバージョンは CI で検証していない。"
+msgstr "**Node 24 のみ対応。** `engines.node` は `>=24`、`.nvmrc` は `24` を指定している。これより古いメジャーバージョンは CI で検証していない。"
 
 #: ../../user/templates/hono-graphql.md:315
 msgid ""
