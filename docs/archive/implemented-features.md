@@ -43,7 +43,7 @@
 | インターフェースファイル生成 | `.res` から `.resi` を自動生成 | `RescriptCreateInterfaceAction` (LSP `textDocument/createInterface`) |
 | コンパイル済み JS を開く | `.res` に対応するコンパイル済み `.js` を開く (Alt+Shift+J) | `RescriptOpenCompiledJsAction` (LSP `textDocument/openCompiled`) |
 | ビルドステータス表示 | ステータスバーにコンパイル状態（成功/エラー/警告）表示 | `RescriptCompilerStatusWidgetFactory` (LSP `rescript/compilationStatus`) |
-| Quick Fix (LSP Code Actions) | LSP コードアクションによる自動修正（import 追加、型注釈追加等） | IntelliJ 2024.1+ LSP API で自動サポート |
+| Quick Fix (LSP Code Actions) | LSP コードアクション 9 種の自動受領（`simpleAddMissingCases` / `wrapInSome` / `unwrapOptional` / `addUndefinedRecordFields` / `simpleConversion` / `applyUncurried` / `didYouMean` / `removeUnusedCode` / `extractLocalModuleToFile` / `expandCatchAllPatterns`） | IntelliJ 2024.1+ LSP API のデフォルト `LspCodeActionsSupport` で自動サポート（`docs/lsp-fallback-matrix.md` §5 参照） |
 | Intention Actions | 式を Some/Ok/Error でラップ、@genType 追加 (Alt+Enter) | `RescriptWrapWithIntention` + `RescriptAddGenTypeIntention` |
 | Surround With | 選択コードを if/switch/try/block で囲む (Ctrl+Alt+T) | `RescriptSurroundDescriptor` |
 | Import Optimizer | 重複 open 文の自動削除 (Ctrl+Alt+O) | `RescriptImportOptimizer` |

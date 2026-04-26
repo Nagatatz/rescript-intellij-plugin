@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-04-27 02:30+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -916,7 +916,7 @@ msgstr ""
 "(コンパイラによるセマンティック分析が必要なため)"
 
 #: ../../user/features/code-analysis.md:435
-#: ../../user/features/code-analysis.md:484
+#: ../../user/features/code-analysis.md:488
 msgid "**Example:**"
 msgstr "**例:**"
 
@@ -925,9 +925,10 @@ msgid ""
 "After running the optimizer, a notification displays the result (e.g., "
 "\"Removed 2 duplicate open statement(s)\" or \"No duplicate open "
 "statements found\")."
-msgstr "オプティマイザ実行後、通知で結果が表示されます (例: "
-"オプティマイザの実行後、結果が通知として表示されます (例: \"Removed 2 duplicate open statement(s)\" "
-"または \"No duplicate open statements found\")。"
+msgstr ""
+"オプティマイザ実行後、通知で結果が表示されます (例: オプティマイザの実行後、結果が通知として表示されます (例: \"Removed 2 "
+"duplicate open statement(s)\" または \"No duplicate open statements "
+"found\")。"
 
 #: ../../user/features/code-analysis.md:459
 msgid ""
@@ -952,40 +953,93 @@ msgstr ""
 "コンパイラのセマンティック分析に基づいて動作し、ローカルインスペクションでは対応できない状況を処理できます。"
 
 #: ../../user/features/code-analysis.md:467
-msgid "Available quick fixes include:"
-msgstr "利用可能なクイックフィックスには以下が含まれます:"
+msgid ""
+"`@rescript/language-server` ships nine categories of quick fix that the "
+"plugin receives through the standard `textDocument/codeAction` flow:"
+msgstr ""
+"`@rescript/language-server` は標準の `textDocument/codeAction` "
+"を通じて以下の 9 種類のクイックフィックスをプラグインに提供します:"
 
 #: ../../user/features/code-analysis.md:469
 msgid ""
-"**Add missing type annotation** --- When the compiler suggests adding a "
-"type constraint to resolve ambiguity"
-msgstr "**不足している型注釈の追加** --- コンパイラが曖昧さを解消するために型制約の追加を提案する場合"
+"**Add missing pattern cases** --- Inserts unhandled constructors at the "
+"end of a `switch` block (`simpleAddMissingCases`)"
+msgstr ""
+"**不足しているパターンケースの追加** --- `switch` ブロックの末尾に未処理コンストラクタを挿入します "
+"(`simpleAddMissingCases`)"
 
 #: ../../user/features/code-analysis.md:470
 msgid ""
-"**Add missing open** --- Inserts an `open` statement for a module that "
-"contains the referenced value"
-msgstr "**不足している open の追加** --- 参照されている値を含むモジュールの `open` 文を挿入します"
+"**Wrap in `Some` / unwrap option** --- Wraps a value in `Some(...)` (or "
+"unwraps an option) when the surrounding context expects an `option` type "
+"(`wrapInSome`, `unwrapOptional`)"
+msgstr ""
+"**`Some` でラップ / option をアンラップ** --- 周囲のコンテキストが `option` 型を期待している場合に値を "
+"`Some(...)` で包む、または option を取り出します (`wrapInSome`, `unwrapOptional`)"
 
 #: ../../user/features/code-analysis.md:471
 msgid ""
-"**Fix type mismatch** --- Suggests corrections when types do not match "
-"(e.g., wrapping in `Some()` for option types)"
-msgstr "**型の不一致の修正** --- 型が一致しない場合に修正を提案します (例: option 型に対する `Some()` でのラップ)"
+"**Add missing record fields** --- Fills in fields that are required by "
+"the record type but absent from the literal (`addUndefinedRecordFields`)"
+msgstr ""
+"**不足しているレコードフィールドの追加** --- レコード型で必須にもかかわらずリテラルに含まれていないフィールドを補完します "
+"(`addUndefinedRecordFields`)"
 
 #: ../../user/features/code-analysis.md:472
 msgid ""
-"**Insert missing pattern** --- Adds unhandled cases to incomplete pattern"
-" matches"
-msgstr "**不足しているパターンの挿入** --- 不完全なパターンマッチに未処理のケースを追加します"
+"**Insert primitive conversion** --- Wraps an expression with "
+"`int_of_string`, `float_of_int`, etc. when an `int` / `float` / `string` "
+"mismatch is reported (`simpleConversion`)"
+msgstr ""
+"**プリミティブ変換の挿入** --- `int` / `float` / `string` の型不整合が報告された際に、式を "
+"`int_of_string` や `float_of_int` などで包みます (`simpleConversion`)"
 
 #: ../../user/features/code-analysis.md:473
 msgid ""
-"**Convert deprecated syntax** --- Updates old ReScript syntax to the "
-"current version"
-msgstr "**非推奨構文の変換** --- 古い ReScript 構文を現在のバージョンに更新します"
+"**Replace with suggested name** --- Replaces a misspelled identifier with"
+" the value the compiler suggested in *Did you mean ...?* (`didYouMean`)"
+msgstr ""
+"**提案された名前への置換** --- *Did you mean ...?* "
+"でコンパイラが提案した値に、誤記された識別子を置換します (`didYouMean`)"
+
+#: ../../user/features/code-analysis.md:474
+msgid ""
+"**Remove unused code** --- Deletes a declaration that reanalyze flagged "
+"as unused (`removeUnusedCode`; requires a `reanalyze` block in "
+"`rescript.json`)"
+msgstr ""
+"**未使用コードの削除** --- reanalyze が未使用と判定した宣言を削除します "
+"(`removeUnusedCode`; `rescript.json` の `reanalyze` ブロック有効化が必要)"
 
 #: ../../user/features/code-analysis.md:475
+#, python-brace-format
+msgid ""
+"**Extract local module to file** --- Moves a `module M = { ... }` "
+"declaration into a new `M.res` file at the project root "
+"(`extractLocalModuleToFile`)"
+msgstr ""
+"**ローカルモジュールをファイルに抽出** --- `module M = {{ ... }}` "
+"宣言をプロジェクトルート直下の新規 `M.res` ファイルへ移動します (`extractLocalModuleToFile`)"
+
+#: ../../user/features/code-analysis.md:476
+msgid ""
+"**Expand catch-all pattern** --- Replaces an explicit `_ =>` case with "
+"one branch per variant constructor (`expandCatchAllPatterns`)"
+msgstr ""
+"**catch-all パターンの展開** --- 明示的な `_ =>` ケースをバリアントコンストラクタごとの分岐に展開します "
+"(`expandCatchAllPatterns`)"
+
+#: ../../user/features/code-analysis.md:477
+msgid ""
+"**Apply uncurried** --- Converts a curried call site into the uncurried "
+"form `f(. x)` on legacy ReScript v10 / v11 codebases (`applyUncurried`; "
+"not emitted on uncurried-by-default builds)"
+msgstr ""
+"**uncurried への変換** --- 旧来の ReScript v10 / v11 のコードベースで、curried "
+"呼び出し箇所を uncurried 形式 `f(. x)` に変換します (`applyUncurried`; "
+"uncurried-by-default ビルドでは出力されません)"
+
+#: ../../user/features/code-analysis.md:479
 msgid ""
 "Quick fixes appear contextually based on the compiler diagnostic at the "
 "cursor position. Press `Alt+Enter` to see all available actions, or click"
@@ -994,31 +1048,31 @@ msgstr ""
 "クイックフィックスは、カーソル位置のコンパイラ診断に基づいてコンテキストに応じて表示されます。`Alt+Enter` "
 "を押してすべての利用可能なアクションを確認するか、エディタガターに表示される電球アイコンをクリックしてください。"
 
-#: ../../user/features/code-analysis.md:477
+#: ../../user/features/code-analysis.md:481
 msgid "Unresolved Reference Quick Fix"
 msgstr "未解決参照のクイックフィックス"
 
-#: ../../user/features/code-analysis.md:479
+#: ../../user/features/code-analysis.md:483
 msgid ""
 "When an identifier cannot be resolved, the plugin offers quick fixes to "
 "resolve it:"
 msgstr "識別子を解決できない場合、プラグインはそれを解決するためのクイックフィックスを提供します:"
 
-#: ../../user/features/code-analysis.md:481
+#: ../../user/features/code-analysis.md:485
 msgid ""
 "**Add `open` statement** — Insert an `open` statement for the module "
 "containing the referenced symbol"
 msgstr "**`open` 文の追加** — 参照されているシンボルを含むモジュールの `open` 文を挿入します"
 
-#: ../../user/features/code-analysis.md:482
+#: ../../user/features/code-analysis.md:486
 msgid "**Add module qualifier** — Prefix the identifier with its full module path"
 msgstr "**モジュール修飾子の追加** — 識別子にフルモジュールパスのプレフィックスを付加します"
 
-#: ../../user/features/code-analysis.md:498
+#: ../../user/features/code-analysis.md:502
 msgid "Generate Function from Usage"
 msgstr "使用箇所からの関数生成"
 
-#: ../../user/features/code-analysis.md:500
+#: ../../user/features/code-analysis.md:504
 msgid ""
 "When you call a function that does not exist yet, the plugin can generate"
 " a stub function definition. Press `Alt+Enter` on the unresolved function"
@@ -1035,11 +1089,11 @@ msgstr "Before"
 msgid "After (stub function generated)"
 msgstr "After (スタブ関数生成後)"
 
-#: ../../user/features/code-analysis.md:520
+#: ../../user/features/code-analysis.md:524
 msgid "Type Hole Quick Fix"
 msgstr "型ホールのクイックフィックス"
 
-#: ../../user/features/code-analysis.md:522
+#: ../../user/features/code-analysis.md:526
 msgid ""
 "When the compiler reports a type hole (`_` used as a type placeholder), "
 "the plugin suggests candidate types to fill in. Press `Alt+Enter` on the "
@@ -1052,13 +1106,13 @@ msgstr ""
 msgid "After (applying suggested type)"
 msgstr "After (提案された型の適用後)"
 
-#: ../../user/features/code-analysis.md:541
+#: ../../user/features/code-analysis.md:545
 msgid ""
 "The quick fix parses the compiler diagnostic to extract candidate types "
 "and offers them as replacement options."
 msgstr "クイックフィックスはコンパイラの診断を解析して候補型を抽出し、それらを置換オプションとして提供します。"
 
-#: ../../user/features/code-analysis.md:543
+#: ../../user/features/code-analysis.md:547
 msgid ""
 "LSP quick fixes turn compiler errors into one-click corrections, letting "
 "you resolve type mismatches, missing imports, and incomplete patterns "
@@ -1148,4 +1202,38 @@ msgstr ""
 
 #~ msgid "Fix common type errors"
 #~ msgstr "よくある型エラーを修正"
+
+#~ msgid "Available quick fixes include:"
+#~ msgstr "利用可能なクイックフィックスには以下が含まれます:"
+
+#~ msgid ""
+#~ "**Add missing type annotation** --- When"
+#~ " the compiler suggests adding a type"
+#~ " constraint to resolve ambiguity"
+#~ msgstr "**不足している型注釈の追加** --- コンパイラが曖昧さを解消するために型制約の追加を提案する場合"
+
+#~ msgid ""
+#~ "**Add missing open** --- Inserts an "
+#~ "`open` statement for a module that "
+#~ "contains the referenced value"
+#~ msgstr "**不足している open の追加** --- 参照されている値を含むモジュールの `open` 文を挿入します"
+
+#~ msgid ""
+#~ "**Fix type mismatch** --- Suggests "
+#~ "corrections when types do not match "
+#~ "(e.g., wrapping in `Some()` for option"
+#~ " types)"
+#~ msgstr "**型の不一致の修正** --- 型が一致しない場合に修正を提案します (例: option 型に対する `Some()` でのラップ)"
+
+#~ msgid ""
+#~ "**Insert missing pattern** --- Adds "
+#~ "unhandled cases to incomplete pattern "
+#~ "matches"
+#~ msgstr "**不足しているパターンの挿入** --- 不完全なパターンマッチに未処理のケースを追加します"
+
+#~ msgid ""
+#~ "**Convert deprecated syntax** --- Updates "
+#~ "old ReScript syntax to the current "
+#~ "version"
+#~ msgstr "**非推奨構文の変換** --- 古い ReScript 構文を現在のバージョンに更新します"
 

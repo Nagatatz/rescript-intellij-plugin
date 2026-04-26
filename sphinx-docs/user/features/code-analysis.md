@@ -464,13 +464,17 @@ Instead of manually scanning for and removing redundant `open` statements, a sin
 
 The Language Server provides automatic code fixes via `Alt+Enter` (or the light bulb icon in the gutter). These LSP-powered quick fixes operate on semantic analysis from the ReScript compiler and can handle situations that local inspections cannot.
 
-Available quick fixes include:
+`@rescript/language-server` ships nine categories of quick fix that the plugin receives through the standard `textDocument/codeAction` flow:
 
-- **Add missing type annotation** --- When the compiler suggests adding a type constraint to resolve ambiguity
-- **Add missing open** --- Inserts an `open` statement for a module that contains the referenced value
-- **Fix type mismatch** --- Suggests corrections when types do not match (e.g., wrapping in `Some()` for option types)
-- **Insert missing pattern** --- Adds unhandled cases to incomplete pattern matches
-- **Convert deprecated syntax** --- Updates old ReScript syntax to the current version
+- **Add missing pattern cases** --- Inserts unhandled constructors at the end of a `switch` block (`simpleAddMissingCases`)
+- **Wrap in `Some` / unwrap option** --- Wraps a value in `Some(...)` (or unwraps an option) when the surrounding context expects an `option` type (`wrapInSome`, `unwrapOptional`)
+- **Add missing record fields** --- Fills in fields that are required by the record type but absent from the literal (`addUndefinedRecordFields`)
+- **Insert primitive conversion** --- Wraps an expression with `int_of_string`, `float_of_int`, etc. when an `int` / `float` / `string` mismatch is reported (`simpleConversion`)
+- **Replace with suggested name** --- Replaces a misspelled identifier with the value the compiler suggested in *Did you mean ...?* (`didYouMean`)
+- **Remove unused code** --- Deletes a declaration that reanalyze flagged as unused (`removeUnusedCode`; requires a `reanalyze` block in `rescript.json`)
+- **Extract local module to file** --- Moves a `module M = { ... }` declaration into a new `M.res` file at the project root (`extractLocalModuleToFile`)
+- **Expand catch-all pattern** --- Replaces an explicit `_ =>` case with one branch per variant constructor (`expandCatchAllPatterns`)
+- **Apply uncurried** --- Converts a curried call site into the uncurried form `f(. x)` on legacy ReScript v10 / v11 codebases (`applyUncurried`; not emitted on uncurried-by-default builds)
 
 Quick fixes appear contextually based on the compiler diagnostic at the cursor position. Press `Alt+Enter` to see all available actions, or click the light bulb icon that appears in the editor gutter.
 

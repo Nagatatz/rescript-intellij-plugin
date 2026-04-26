@@ -71,7 +71,7 @@
 | Mutability 検出 | 不要 | 完全動作 |
 | Format check | 不要 | `rescript format` CLI 経由で完全動作（LSP 不要） |
 | reanalyze デッドコード分析 | 不要 | reanalyze バイナリで完全動作 |
-| LSP Code Actions（Quick Fix） | 必須 | 表示されない |
+| LSP Code Actions（Quick Fix） | 必須 | 表示されない（接続時の対応一覧は §5 を参照） |
 | 不解決参照 Quick Fix | 不要 | スタブインデックスベースで動作 |
 | Generate function from usage | 不要 | テンプレートベースで動作 |
 
@@ -139,3 +139,21 @@ jobs:
 ```
 
 `no-lsp` プロファイルでは `RescriptLspDetector` がモック化され、ネイティブ機能のみで全テストが通ることを確認する。ネイティブ機能のリグレッションを早期検出できる。
+
+## 5. LSP 接続時に提供される Quick Fix 一覧
+
+`@rescript/language-server` は `textDocument/codeAction` のレスポンスとして次の 9 種の `CodeAction` (kind=`QuickFix`, `WorkspaceEdit` 直挿入) を返す。本プラグインの `RescriptLspServerDescriptor.lspCustomization` は IntelliJ Platform 標準の `LspCodeActionsSupport`（`quickFixesSupport=true` / `intentionActionsSupport=true`）と `LspCommandsSupport` をデフォルトのまま採用しており、これらは Alt+Enter（および gutter の電球アイコン）から自動的に表示・適用される。
+
+| # | Code Action | トリガとなる診断 | 主な編集 | 補足 |
+|---|---|---|---|---|
+| 1 | `simpleAddMissingCases` | `You forgot to handle a possible case here, for example: (Foo\|Bar)` | switch ブロック末尾に未処理ケース行を挿入 | rescript-vscode `codeActions.ts` 由来 |
+| 2 | `wrapInSome` / `unwrapOptional` | option 型不整合 (`This has type X / Wanted option<X>` 等) | 値を `Some(...)` で包む / Belt.Option で剥がす | rescript-vscode `codeActions.ts` 由来 |
+| 3 | `addUndefinedRecordFields` (V10/V11) | `Record literal X is missing field Y` | record リテラルに欠落フィールドを補完 | バージョンごとに別実装。両方とも `WorkspaceEdit` 直挿入 |
+| 4 | `simpleConversion` | `int` / `float` / `string` 型不整合 | `int_of_string` 等の変換関数で式を包む | rescript-vscode `codeActions.ts` 由来 |
+| 5 | `didYouMean` | `The value X can't be found. Did you mean Y?` | 識別子 `X` を `Y` に置換 | rescript-vscode `codeActions.ts` 由来 |
+| 6 | `removeUnusedCode` | reanalyze の "unused" 警告 | 該当宣言行を削除 | `rescript.json` の `reanalyze` 有効化が必要 |
+| 7 | `extractLocalModuleToFile` | カーソルがローカル `module M = { ... }` 上 | `M.res` を新規作成して内容を移動（`WorkspaceEdit.documentChanges` の `CreateFile` 操作を含む） | `rescript-editor-analysis` バイナリ由来 |
+| 8 | `expandCatchAllPatterns` | カーソルが switch の `_ =>` ケース上 | `_` を全コンストラクタに展開 | `rescript-editor-analysis` バイナリ由来 |
+| 9 | `applyUncurried` | uncurried 関数の curried 呼び出し（v10/v11 系） | `f(x)` → `f(. x)` | ReScript v11+ uncurried-by-default では発火しない（N/A） |
+
+設定の追加オーバーライドは不要。`@rescript/language-server` がインストール済みであれば、本プラグインは API レベルで全 9 種を受領・適用できる前提条件を満たしている。実機での個別動作（特に `06_removeUnusedCode` の reanalyze 連動と `07_extractLocalModuleToFile` の `CreateFile` リソース操作）は `.steering/20260427-004-lsp-code-action-verification/next-steps.md` に runIde 検証タスクとして記録している。
