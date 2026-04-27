@@ -41,7 +41,7 @@ class RescriptExtractLocalModuleToFileIntention : RescriptBaseIntention() {
         if (moduleName.isBlank() || moduleName == "(anonymous)") return false
         if (!hasBraceBody(declaration.text)) return false
 
-        val parentDir = declaration.containingFile?.virtualFile?.parent ?: return false
+        val parentDir = declaration.containingFile.virtualFile?.parent ?: return false
         if (parentDir.findChild("$moduleName.res") != null) return false
 
         return true
@@ -55,7 +55,7 @@ class RescriptExtractLocalModuleToFileIntention : RescriptBaseIntention() {
         editor ?: return
         val declaration = findEnclosingTopLevelModuleDeclaration(element) ?: return
         val moduleName = declaration.getDeclarationName()
-        val containingFile = declaration.containingFile ?: return
+        val containingFile = declaration.containingFile
         val parentDir = containingFile.virtualFile?.parent ?: return
         val body = extractModuleBody(declaration.text) ?: return
 
