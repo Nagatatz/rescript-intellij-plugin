@@ -924,24 +924,30 @@ This helps maintain a consistent file structure across your project.
 
 Automatic rearrangement enforces a consistent declaration ordering across all files, so readers always know where to find types, modules, and functions without relying on individual developer habits.
 
-## Dependency Diagram
+## Module Dependency Diagram
 
 {bdg-success}`Native`
 
-Visualize module dependency relationships as an interactive graph diagram.
+Visualize module dependency relationships as a Mermaid graph that you can paste into any Mermaid renderer or export as Graphviz DOT.
 
-**Open:** **View** > **Tool Windows** > **Dependency Diagram**, or use **Analyze** > **Module Dependency Diagram**
+**Open:** **View** > **Tool Windows** > **ReScript Module Diagram**, or use **Tools** > **Show ReScript Module Diagram**
 
 ### How It Works
 
-The diagram provider scans all `.res` files in the project and builds a dependency graph based on `open` and `include` statements. Each module is represented as a node, and dependencies are shown as directed edges.
+The diagram provider scans every `.res` file in the project and builds a directed graph from `open` and `include` statements. Each module becomes a node; every `open ModuleName` or `include ModuleName` becomes an edge from the current module to the referenced one. The result is rendered as Mermaid `graph TD` syntax in the tool window.
 
-### Features
+### Tool Window Layout
 
-- **Interactive layout** — Drag nodes to rearrange the graph
-- **Zoom and pan** — Navigate large dependency graphs
-- **Click navigation** — Double-click a node to open the corresponding `.res` file
-- **Cycle detection** — Circular dependencies are highlighted visually
+- **Toolbar:** Refresh (rebuild the graph from current PSI), Copy as DOT, Copy as Mermaid
+- **Main area:** Read-only text panel with the Mermaid `graph TD` source
+- **Status bar:** Module count and edge count
+
+### Exporting
+
+- **Copy as Mermaid** — Puts the `graph TD` text on the clipboard. Paste into [Mermaid Live Editor](https://mermaid.live) or any Markdown file with Mermaid support to render the graph
+- **Copy as DOT** — Puts a Graphviz `digraph` on the clipboard. Pipe into `dot -Tpng` or paste into a `.dot` file for rendering with Graphviz
+
+Module names containing spaces, dots, or quotes are automatically escaped so the exported text is safe to feed into either renderer.
 
 ### Use Cases
 

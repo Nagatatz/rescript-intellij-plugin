@@ -71,7 +71,7 @@
 - **Goto Super** — Jump from `.res` declaration to matching `.resi` declaration (`Ctrl+U`)
 - **External documentation** — Open ReScript documentation for Belt/Js modules (`Shift+F1`)
 - **Type signature search** — Search functions by type signature in Search Everywhere (`Shift+Shift`)
-- **Dependency diagram** — Visualize module dependency graph
+- **Module dependency diagram** — Visualize `open`/`include` relationships in a tool window with Mermaid + Graphviz DOT export
 
 ### Editing Assistance
 

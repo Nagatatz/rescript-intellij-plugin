@@ -33,7 +33,7 @@ rescript-intellij-plugin/
 
 | パッケージ | 責務 | 代表クラス |
 |-----------|------|-----------|
-| (ルート) | Language / FileType / Icons 定義 | `RescriptLanguage`, `RescriptFileTypes`, `RescriptIcons` |
+| (ルート) | Language / FileType / Icons 定義、エラーレポート連携 | `RescriptLanguage`, `RescriptFileTypes`, `RescriptIcons`, `RescriptErrorReporter` |
 | `lang/` | レクサー、パーサー、トークン定義 | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes` |
 | `lang/psi/` | PSI 要素クラス、ユーティリティ | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils` |
 | `highlight/` | シンタックスハイライト、ブレースマッチング | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher` |
@@ -75,7 +75,7 @@ rescript-intellij-plugin/
 | `util/` | 共通ユーティリティ（セキュリティ、offset↔Position 変換、エディタ操作等） | `RescriptSecurityUtils`, `RescriptOffsetUtils`, `RescriptEditorUtils` |
 | `commenter/` | コメントトグル | `RescriptCommenter` |
 | `dependencies/` | パッケージ依存関係ツリー表示 | `RescriptDependenciesToolWindowFactory`, `RescriptDependenciesPanel` |
-| `diagram/` | モジュール依存関係ダイアグラム | `RescriptDependencyDiagramProvider`, `RescriptDependencyDiagramModel` |
+| `diagram/` | モジュール依存関係ダイアグラム（Mermaid + DOT エクスポート） | `RescriptDependencyDiagramToolWindowFactory`, `RescriptDependencyDiagramPanel`, `RescriptDependencyDiagramAction`, `RescriptDependencyDiagramExportAction`, `RescriptMermaidExporter`, `RescriptDependencyDiagramProvider`, `RescriptDependencyDiagramModel` |
 | `documentation/` | ドキュメントプロバイダ（Quick Doc、External Doc） | `RescriptDocumentationProvider` |
 | `grazie/` | Grazie テキスト抽出連携 | `RescriptGrazieTextExtractor` |
 | `navbar/` | ナビゲーションバー | `RescriptStructureAwareNavbar` |
