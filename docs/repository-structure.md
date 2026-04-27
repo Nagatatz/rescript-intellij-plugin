@@ -104,7 +104,7 @@ rescript-intellij-plugin/
 | `META-INF/rescript-debug.xml` | デバッグ統合（optional dep: `JavaScriptDebugger`） |
 | `META-INF/rescript-nodejs.xml` | Node.js 統合（optional dep: `NodeJS`） |
 | `colorSchemes/` | Darcula / Default テーマ用カラースキーム XML |
-| `liveTemplates/ReScript.xml` | 15 種類の Live Template スニペット |
+| `liveTemplates/ReScript.xml` | 21 種類の Live Template スニペット |
 | `fileTemplates/internal/` | ファイル作成テンプレート（Module / Interface / Component） |
 | `scripts/dts-to-json.js` | バンドル Node.js スクリプト（.d.ts パーサー） |
 | `schemas/rescript.schema.json` | rescript.json 用 JSON Schema |
