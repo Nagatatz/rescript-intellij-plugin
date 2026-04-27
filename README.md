@@ -76,7 +76,7 @@
 ### Editing Assistance
 
 - **Live Templates** — 21 code snippets with ReScript-aware context (`let`, `mod`, `sw`, `pipe`, `log`, `@module`, `@val`, `comp`, etc.)
-- **Postfix Completion** — `.switch`, `.pipe`, `.log`, `.promise`, `.await` and more
+- **Postfix Completion** — 9 postfix templates: `.switch`, `.pipe`, `.log`, `.some`, `.ok`, `.error`, `.ignore`, `.promise`, `.await`
 - **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, add `->ignore`, add `_` prefix, remove redundant braces, fix identifier case, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, convert to labeled args, remove unnecessary parentheses, remove redundant qualifier, expand destructuring, filter+map to filterMap, add type annotation, convert call to uncurried form, extract local module to file
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)

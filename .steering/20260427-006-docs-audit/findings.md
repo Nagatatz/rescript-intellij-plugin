@@ -31,12 +31,12 @@
 
 | 項目 | 性質 | 次のアクション |
 |---|---|---|
-| README.md `Postfix Completion` 行が 5 つ列挙して "and more" | 表記方針 | 列挙を全 9 個に統一するか、sphinx-docs/user/features/code-completion.md への参照に切り替えるか、別ステアリングで判断 |
 | 同種の機能リストが README / CLAUDE.md / sphinx-docs / docs/functional-design.md の 4 箇所に分散しドリフト管理が困難 | アーキテクチャ | `.claude/rules/documentation.md` の同期表で既にカバーされており、今のところ実害なし |
 | Setup 手順が README / CLAUDE.md / sphinx-docs/dev/setup.md の 3 箇所に分散 | 表記方針 | CLAUDE.md を master とし、他は短く参照する案。利用者向け（README）と開発者向け（CLAUDE.md）の分離方針が機能しているうちは触らない |
 | Architecture 説明が CLAUDE.md / docs/architecture.md / sphinx-docs/dev/architecture.md に重複 | 表記方針 | docs/architecture.md を master、他は要約＋参照、の整理は将来の大型リファクタとして温存 |
-| `plugin.xml` の `<version>` を直接編集される事故防止策が `.claude/rules/release.md` に明示なし | プロセス | release.md に「`<version>` は `gradle.properties` の `pluginVersion` から自動同期される。手動編集禁止」を 1 行追加（次回リリース steering で実施） |
-| LSP fallback matrix への CLAUDE.md / docs/architecture.md からの参照リンクなし | クロスリンク | CLAUDE.md「レイヤー 2: LSP 統合」末尾に `docs/lsp-fallback-matrix.md` への参照を 1 行追加（次回 LSP 関連変更時に併合） |
+| ~~`plugin.xml` の `<version>` を直接編集される事故防止策が `.claude/rules/release.md` に明示なし~~ | プロセス | **クローズ**: 2026-04-27 検証で `src/main/resources/META-INF/plugin.xml` に `<version>` タグが存在しないことを確認 (`grep -n '<version>' src/main/resources/META-INF/plugin.xml` が空)。`build.gradle.kts:101` の `intellijPlatform.pluginConfiguration.version = providers.gradleProperty("pluginVersion")` が build 時に injection するため、ソース側に編集対象が無い。新ルール追加は不要 |
+| ~~LSP fallback matrix への CLAUDE.md / docs/architecture.md からの参照リンクなし~~ | クロスリンク | **対応済み (2026-04-27)**: CLAUDE.md「レイヤー 2: LSP 統合」末尾に `docs/lsp-fallback-matrix.md` への参照を 1 行追加 |
+| ~~README.md `Postfix Completion` 行が 5 つ列挙して "and more"~~ | 表記方針 | **対応済み (2026-04-27)**: README の同行を 9 件全列挙 (`switch`/`pipe`/`log`/`some`/`ok`/`error`/`ignore`/`promise`/`await`) に書き換え |
 
 ## 結論
 

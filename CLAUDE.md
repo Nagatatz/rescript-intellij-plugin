@@ -76,6 +76,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **カスタム LSP リクエスト** (`RescriptLanguageServer.kt`) — `createInterface`, `openCompiled` 等の ReScript 固有リクエスト
 - **カスタム LSP 通知** (`RescriptLsp4jClient.kt`) — `rescript/compilationStatus` 通知受信
 - **Code Lens** (`RescriptCodeVisionProvider.kt`) — CodeVision API 経由で関数の型注釈を表示
+- LSP 未接続時の機能ごとの振る舞い（フル機能 / 部分機能 / 不可）は `docs/lsp-fallback-matrix.md` を参照
 
 ### レイヤー 3: IDE 統合機能
 
