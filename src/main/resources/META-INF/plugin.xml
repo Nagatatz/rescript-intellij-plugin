@@ -69,6 +69,47 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.13</h3>
+        <h4>New Features</h4>
+        <ul>
+            <li>Module Dependency Diagram tool window with Mermaid rendering and DOT export</li>
+            <li>Add res-x (HTMX on Bun) project wizard template</li>
+            <li>Add Validation Library selection (zod / sury) across all 16 wizard templates</li>
+            <li>Add Bun package manager option to the project wizard</li>
+            <li>Add Full-Stack GraphQL variant with graphql-yoga and rescript-relay</li>
+            <li>Add native PSI fallback intentions for extractLocalModuleToFile and applyUncurried</li>
+            <li>Demonstrate async Server Components and Suspense in the Next.js template</li>
+        </ul>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Fix latent ReScript build failures across multiple templates</li>
+            <li>Fix async event handler bindings in Vite, Next.js, and Electron templates</li>
+            <li>Fix Hono GraphQL, Routes, Full-Stack, and CLI Tool template module layouts</li>
+            <li>Fix Monorepo and Full-Stack dev scripts so res file edits trigger rebuilds</li>
+            <li>Fix React Native FlatList renderItem destructuring</li>
+            <li>Fix @hono/node-server binding signature</li>
+            <li>Declare sury in rescript.json dependencies</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Migrate RescriptConfigurable settings panel to a schema-driven architecture</li>
+            <li>Extract static template content from 10 wizard template files to bundled resources</li>
+            <li>Replace deprecated FloatingToolbarProvider.priority, ReadAction.compute, and StubBasedPsiElementBase.elementType APIs</li>
+            <li>Centralize year and Node version metadata on TemplateContext</li>
+            <li>Split res-x Server.res / ServerMain.res so smoke tests can import safely</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Add CodeQL SAST workflow, monthly plugin verifier workflow, and weekly multi-OS verification workflow</li>
+            <li>Auto-purge stale plugin jars from the prepareSandbox output to avoid version skew</li>
+            <li>Migrate from Dokka V1 to V2</li>
+            <li>Bump IntelliJ Platform 2.14.0, Kover 0.9.8, and template dependency floors (Node 24 LTS, pnpm 10, npm 11, TypeScript 6, vitest 4, zod 4, drizzle)</li>
+            <li>Add Bun setup, integration test trigger, and full quality gate to release workflow</li>
+            <li>Upload Trivy scan results as SARIF to the GitHub Security tab</li>
+            <li>Add concurrency, timeouts, and per-job permissions to ci.yml</li>
+            <li>Ship strict tsconfig for npm Library, Next.js, React Native (Expo), and React Native (CLI) templates</li>
+        </ul>
+
         <h3>0.1.12</h3>
         <h4>New Features</h4>
         <ul>
