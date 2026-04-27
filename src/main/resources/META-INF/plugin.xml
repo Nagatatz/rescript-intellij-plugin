@@ -930,6 +930,10 @@
         <toolWindow id="ReScript Dependencies" anchor="right" icon="AllIcons.Nodes.PpLib"
                 factoryClass="com.rescript.plugin.dependencies.RescriptDependenciesToolWindowFactory"/>
 
+        <!-- Module Dependency Diagram Tool Window (Mermaid + DOT export) -->
+        <toolWindow id="ReScript Module Diagram" anchor="right" icon="AllIcons.FileTypes.Diagram"
+                factoryClass="com.rescript.plugin.diagram.RescriptDependencyDiagramToolWindowFactory"/>
+
         <!-- Auto Import options in Settings > Editor > General > Auto Import -->
         <autoImportOptionsProvider
                 instance="com.rescript.plugin.imports.RescriptAutoImportOptionsProvider"/>
@@ -1253,6 +1257,12 @@
                 class="com.rescript.plugin.lsp.RescriptDumpLspStateAction"
                 text="Dump ReScript LSP State"
                 description="Show diagnostic information about the ReScript LSP server">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+        <action id="ReScript.ShowModuleDiagram"
+                class="com.rescript.plugin.diagram.RescriptDependencyDiagramAction"
+                text="Show ReScript Module Diagram"
+                description="Open the ReScript module dependency diagram tool window">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
