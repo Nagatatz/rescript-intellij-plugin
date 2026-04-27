@@ -695,6 +695,12 @@
             <className>com.rescript.plugin.intention.RescriptApplyUncurriedIntention</className>
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptExtractLocalModuleToFileIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
 
         <!-- Decorator/Attribute Completion -->
         <completion.contributor language="ReScript"
