@@ -68,7 +68,7 @@ object RescriptMermaidExporter {
 
 ### 4. `RescriptDependencyDiagramAction` (新規 Action)
 
-`AnAction` を実装。`Analyze` メニューと右クリックコンテキストメニューに登録（`<add-to-group group-id="AnalyzeMenu"/>`）。
+`AnAction` を実装。`ToolsMenu` に登録（`<add-to-group group-id="ToolsMenu"/>`）。`AnalyzeMenu` は IntelliJ Platform の標準 group ID として存在しないため、既存の `Restart ReScript Language Server` 等と同じ `ToolsMenu` を採用する。
 
 - アクション名: "Show ReScript Module Diagram"
 - 実行時: ToolWindow を `activate()`
@@ -98,7 +98,7 @@ DOT 形式 / Mermaid 形式を選択して **クリップボードへコピー**
         class="com.rescript.plugin.diagram.RescriptDependencyDiagramAction"
         text="Show ReScript Module Diagram"
         description="Open the ReScript module dependency diagram tool window">
-    <add-to-group group-id="AnalyzeMenu" anchor="last"/>
+    <add-to-group group-id="ToolsMenu" anchor="last"/>
 </action>
 ```
 
