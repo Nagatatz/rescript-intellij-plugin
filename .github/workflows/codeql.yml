@@ -62,8 +62,10 @@ jobs:
 
       - name: Compile Kotlin and Java
         # CodeQL needs to observe the build to extract Kotlin/Java sources.
-        # Use compileKotlin/compileJava (lighter than full buildPlugin).
-        run: ./gradlew compileKotlin compileJava
+        # --no-build-cache forces real compilation; otherwise FROM-CACHE hits
+        # bypass javac/kotlinc invocations and CodeQL's tracer sees nothing,
+        # producing "could not process any of it" at finalize.
+        run: ./gradlew compileKotlin compileJava --no-build-cache
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
