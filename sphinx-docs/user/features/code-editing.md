@@ -148,6 +148,8 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Remove redundant braces | Remove unnecessary `{ }` around single expressions |
 | Fix identifier case | Correct identifier casing (e.g., lowercase for values, uppercase for modules) |
 | Expand destructuring | Expand `let {a, b} = x` into individual `let` bindings |
+| Convert call to uncurried form | Rewrite `f(x)` to `f(. x)` when `f` is defined with the uncurried syntax `let f = (. x) => ...` |
+| Extract module to file | Move a top-level `module M = { ... }` declaration into a sibling `M.res` file |
 
 Intention actions turn common code transformations into one-click operations — instead of manually restructuring code, press `Alt+Enter` and let the IDE handle the mechanical changes while you focus on the logic.
 
@@ -570,6 +572,65 @@ let email = user.email
 ```
 :::
 ::::
+
+### Convert Call to Uncurried Form
+
+Rewrites a curried call site to the uncurried form `f(. x)` when the target function is defined with the legacy uncurried syntax `let f = (. x) => ...`. Provided as a native fallback for the LSP `applyUncurried` quick fix on ReScript v10 / v11 codebases.
+
+Place the caret on the call's identifier and press `Alt+Enter`, then choose **Convert call to uncurried form**.
+
+::::{tab-set}
+:::{tab-item} Before
+```rescript
+let add = (. x, y) => x + y
+let result = add(1, 2)
+```
+:::
+:::{tab-item} After
+```rescript
+let add = (. x, y) => x + y
+let result = add(. 1, 2)
+```
+:::
+::::
+
+The intention only inspects the first matching definition found in the stub index. The zero-argument form `f()` is rewritten to `f(.)`.
+
+### Extract Module to File
+
+Moves a top-level `module M = { ... }` declaration out of the current file and into a sibling `M.res` file. Provided as a native fallback for the LSP `extractLocalModuleToFile` code action when the language server's `WorkspaceEdit.CreateFile` operation is not honoured by the IDE.
+
+Place the caret on the module declaration's name and press `Alt+Enter`, then choose **Extract module to file**.
+
+::::{tab-set}
+:::{tab-item} Before (`Foo.res`)
+```rescript
+module Inner = {
+  let value = 42
+  let double = x => x * 2
+}
+
+let total = Inner.double(Inner.value)
+```
+:::
+:::{tab-item} After
+
+`Foo.res`:
+
+```rescript
+let total = Inner.double(Inner.value)
+```
+
+`Inner.res` (newly created):
+
+```rescript
+let value = 42
+let double = x => x * 2
+```
+:::
+::::
+
+The intention does not rewrite references to the extracted module elsewhere in the source file. When such references are detected, a warning balloon appears so you can adjust the call sites manually (e.g., add `open Inner` or update qualified paths). The intention is hidden when a sibling `Inner.res` file already exists.
 
 ## Surround With
 
