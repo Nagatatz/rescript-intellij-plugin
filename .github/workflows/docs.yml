@@ -18,6 +18,11 @@ permissions:
   pages: write
   id-token: write
 
+# Force JavaScript actions (incl. transitive actions/cache) onto Node.js 24
+# ahead of GitHub's June 2026 default switch.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -75,7 +80,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Build site
         run: make build-all
@@ -140,7 +145,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Build site
         run: make build-all

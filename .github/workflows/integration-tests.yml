@@ -26,6 +26,11 @@ concurrency:
 permissions:
   contents: read
 
+# Force JavaScript actions (incl. transitive actions/cache) onto Node.js 24
+# ahead of GitHub's June 2026 default switch.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   integration-test:
     name: Template integration tests
@@ -49,7 +54,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - uses: oven-sh/setup-bun@v2
         with:

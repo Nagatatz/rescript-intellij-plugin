@@ -18,6 +18,11 @@ concurrency:
 permissions:
   contents: read
 
+# Force JavaScript actions (incl. transitive actions/cache) onto Node.js 24
+# ahead of GitHub's June 2026 default switch.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   verify:
     strategy:
