@@ -43,6 +43,10 @@ object TemplateVersions {
     const val HONO_NODE_SERVER = "^2.0.0"
     const val NODE_TYPES = "^25.6.0"
 
+    // Hono + Inertia (server-driven SPA bridge). The 0.x range is alpha; bump together with INERTIA_REACT.
+    const val HONO_INERTIA = "^0.2.0"
+    const val INERTIA_REACT = "^3.0.3"
+
     // Next.js
     const val NEXTJS = "^16.2.4"
 

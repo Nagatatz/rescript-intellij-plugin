@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 
 class ProjectTemplateTest {
     @Test
-    fun `enum has 16 entries`() {
-        assertEquals(16, ProjectTemplate.entries.size)
+    fun `enum has 17 entries`() {
+        assertEquals(17, ProjectTemplate.entries.size)
     }
 
     @Test
@@ -367,6 +367,19 @@ class ProjectTemplateTest {
     }
 
     @Test
+    fun `HONO_INERTIA template surfaces the Inertia middleware and Vite+ scripts`() {
+        val files = ProjectTemplate.HONO_INERTIA.generateFiles("demo")
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"@hono/inertia\""))
+        assertTrue(pkg.contains("\"@inertiajs/react\""))
+        assertTrue(pkg.contains("\"vp dev\""))
+        val server = files["src/Server.res"]!!
+        assertTrue(server.contains("HonoInertia.inertia()"))
+        // Inertia template intentionally has no API routes returning JSON shells, so
+        // it does not need to surface CORS — the assertion above is sufficient.
+    }
+
+    @Test
     fun `React templates include jsx config`() {
         val reactTemplates =
             listOf(
@@ -375,6 +388,7 @@ class ProjectTemplateTest {
                 ProjectTemplate.ELECTRON,
                 ProjectTemplate.REACT_NATIVE,
                 ProjectTemplate.REACT_NATIVE_CLI,
+                ProjectTemplate.HONO_INERTIA,
             )
         reactTemplates.forEach {
             val rj = it.generateFiles("test")["rescript.json"]!!
