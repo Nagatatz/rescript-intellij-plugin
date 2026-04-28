@@ -128,7 +128,7 @@
 - [x] 🔧 Pin hook commands to `$CLAUDE_PROJECT_DIR`（独立した settings 修正、CWD ドリフトでフックが失敗していた件の根治）
 - [x] ✨ Add Hono + Inertia (React) project wizard template（Kotlin enum/object/versions + 全リソース + 新規/既存テスト = 27 ファイル）
 - [x] 📝 Document Hono + Inertia template across docs（CLAUDE/README/repo-structure/templates + sphinx 英 .md + ja .po 同期）
-- [ ] 📝 Add Hono + Inertia template steering documents（最終コミット、tasklist 完了状態を含む）
+- [x] 📝 Add Hono + Inertia template steering documents（最終コミット、tasklist 完了状態を含む）
 
 各コミット時:
 - [x] 個別ファイル名で `git add`（`-A` / `.` を使わない）
