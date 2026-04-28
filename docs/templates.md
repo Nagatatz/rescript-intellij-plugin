@@ -1,6 +1,6 @@
 # Project Wizard テンプレート一覧
 
-Project Wizard が提供する 16 種類のプロジェクトテンプレートの開発者向け参照資料。ユーザー向けのスクリーンショット・カード表示・ガイドは [sphinx-docs/user/templates/index.md](../sphinx-docs/user/templates/index.md) を参照。
+Project Wizard が提供する 17 種類のプロジェクトテンプレートの開発者向け参照資料。ユーザー向けのスクリーンショット・カード表示・ガイドは [sphinx-docs/user/templates/index.md](../sphinx-docs/user/templates/index.md) を参照。
 
 ## テンプレート一覧
 
@@ -16,12 +16,13 @@ Project Wizard が提供する 16 種類のプロジェクトテンプレート�
 | 8 | React Native (Community CLI) | Mobile | bare workflow RN | `android/` `ios/` ディレクトリ同梱、ネイティブコード直接編集可 |
 | 9 | Hono (Node.js) | Backend | REST API | Drizzle(SQLite) + Zod + `@hono/zod-openapi` + Scalar UI at `/docs` |
 | 10 | Hono GraphQL | Backend | GraphQL API | `graphql-yoga` + GraphiQL + Drizzle + `@graphql-markdown/cli` |
-| 11 | Cloudflare Workers | Serverless | エッジ関数 | `wrangler.jsonc`、KV バインディング（`src/Kv.res`） |
-| 12 | AWS Lambda | Serverless | Lambda 関数 | API Gateway ハンドラ、DynamoDB レシピ同梱 |
-| 13 | Google Cloud Run | Serverless | コンテナサービス | `Dockerfile`、Cloud SQL レシピ同梱 |
-| 14 | Monorepo | Full Stack | pnpm/npm/yarn workspace | `packages/{shared,server,client}`、workspace protocol 型共有 |
-| 15 | Full-Stack | Full Stack | 単一パッケージの統合構成 | `src/{shared,server,client}`、Hono + Drizzle + Vite+ React |
-| 16 | res-x (HTMX on Bun) | Full Stack | Bun + Vite + HTMX サーバドリブン SPA | `rescript-x` + `rescript-bun`、Counter + Todo フォーム、`Validation.res` (zod/sury) |
+| 11 | Hono + Inertia (React) | Full Stack | server-driven SPA | `@hono/inertia` + `@inertiajs/react` v3 + Vite+ (`vp dev` / `vp build` / `vp test` / `vp check`)、サンプル Home / About、JS シム経由の page resolver |
+| 12 | Cloudflare Workers | Serverless | エッジ関数 | `wrangler.jsonc`、KV バインディング（`src/Kv.res`） |
+| 13 | AWS Lambda | Serverless | Lambda 関数 | API Gateway ハンドラ、DynamoDB レシピ同梱 |
+| 14 | Google Cloud Run | Serverless | コンテナサービス | `Dockerfile`、Cloud SQL レシピ同梱 |
+| 15 | Monorepo | Full Stack | pnpm/npm/yarn workspace | `packages/{shared,server,client}`、workspace protocol 型共有 |
+| 16 | Full-Stack | Full Stack | 単一パッケージの統合構成 | `src/{shared,server,client}`、Hono + Drizzle + Vite+ React |
+| 17 | res-x (HTMX on Bun) | Full Stack | Bun + Vite + HTMX サーバドリブン SPA | `rescript-x` + `rescript-bun`、Counter + Todo フォーム、`Validation.res` (zod/sury) |
 
 テンプレート定義は `src/main/kotlin/com/rescript/plugin/wizard/ProjectTemplate.kt`、ファイル生成は `wizard/templates/` 配下。
 
@@ -39,11 +40,12 @@ Project Wizard が提供する 16 種類のプロジェクトテンプレート�
 
 | グループ | 追加要素 |
 |---|---|
-| Hono 系 4 テンプレ（9, 10, 11, 14 backend, 15 backend） | `app.onError` グローバルエラーハンドラ、`app.request()` ベースのルートテスト |
-| DB/PORT を使う 5 テンプレ（9, 10, 11, 14, 15） | `.env.example` |
+| Hono 系 テンプレ（9, 10, 11, 12, 15 backend, 16 backend） | `app.onError` グローバルエラーハンドラ、`app.request()` ベースのルートテスト |
+| DB/PORT を使う テンプレ（9, 10, 11, 15, 16） | `.env.example` |
 | Monorepo | workspace 横断テスト (`pnpm -r run test` 等) |
 | React Native 2 テンプレ（7, 8） | filesystem smoke test（JS ランタイム非依存） |
-| res-x（16） | `jsx.module=Hjsx` / `-open ResX.Globals` を `rescript.json` にプリ配線、HTMX CDN スクリプト |
+| Hono + Inertia (11) | `@hono/inertia` ミドルウェア配線、`InertiaBindings.res` (Link/usePage/createInertiaApp)、`pages.js` シム (`import.meta.glob`) |
+| res-x（17） | `jsx.module=Hjsx` / `-open ResX.Globals` を `rescript.json` にプリ配線、HTMX CDN スクリプト |
 
 ## バージョン管理
 
@@ -56,7 +58,7 @@ Project Wizard が提供する 16 種類のプロジェクトテンプレート�
 
 ## Vite+ (pre-1.0) 採用部分の注意点
 
-Vite+ ベースのテンプレート（4 Vite + React、14 Monorepo の client、15 Full-Stack の client）は `vite-plus` と `@voidzero-dev/vite-plus-core` を pre-1.0 バージョンでピン留めしている。アップグレードでコマンドが壊れた場合は、`vite.config.mjs` で `vite-plus` を `vite` に差し替え、`vp` スクリプトを `vite` に置換することでクラシック Vite にフォールバックできる（README にも記載）。
+Vite+ ベースのテンプレート（4 Vite + React、11 Hono + Inertia、15 Monorepo の client、16 Full-Stack の client）は `vite-plus` と `@voidzero-dev/vite-plus-core` を pre-1.0 バージョンでピン留めしている。アップグレードでコマンドが壊れた場合は、`vite.config.mjs` で `vite-plus` を `vite` に差し替え、`vp` スクリプトを `vite` に置換することでクラシック Vite にフォールバックできる（README にも記載）。
 
 ## 新規テンプレート追加手順
 
