@@ -6,7 +6,7 @@ myst:
 
 # Project Templates
 
-The plugin ships 16 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
+The plugin ships 20 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
 
 ## Opening the Wizard
 
@@ -90,6 +90,38 @@ Expo-managed app with an interactive todo list (`useState` + `TextInput` + `Butt
 Bare-workflow React Native template aimed at Android Studio / Xcode users. Ships only the JS/TS + ReScript surface plus a `metro.config.js` that resolves `.res.mjs`; native projects are produced by `@react-native-community/cli` after creation.
 
 {bdg-info}`Mobile` {bdg-warning}`Bare workflow`
+:::
+
+:::{grid-item-card} TanStack Start
+:link: tanstack-start
+:link-type: doc
+Type-safe full-stack React powered by TanStack Start (Vite-based). File-based routing through `@tanstack/react-router`, a sample Server Function written in ReScript, and `app/` as the source root.
+
+{bdg-success}`Full-stack` {bdg-primary}`Type-safe`
+:::
+
+:::{grid-item-card} Remix / React Router v7
+:link: remix-v7
+:link-type: doc
+React Router v7 in Framework mode (the next iteration of Remix). Loaders and components live under `app/`; ReScript provides both the home loader and the Greet component. SSR via `@react-router/serve`.
+
+{bdg-success}`SSR` {bdg-info}`Loaders / Actions`
+:::
+
+:::{grid-item-card} Astro
+:link: astro
+:link-type: doc
+Content-focused SSG/SSR with React Islands. The shipped page mixes a static `StaticGreeting` (zero JS) with a `Counter` Island hydrated through `client:load`. Both written in ReScript.
+
+{bdg-info}`Islands` {bdg-success}`SSG/SSR`
+:::
+
+:::{grid-item-card} Waku
+:link: waku
+:link-type: doc
+RSC-first React framework by Daishi Kato. ReScript Greet renders as a Server Component (zero JS); ReScript Counter ships through a thin TSX `"use client"` wrapper for the Client Component boundary.
+
+{bdg-primary}`RSC` {bdg-warning}`Pre-1.0`
 :::
 ::::
 
@@ -194,6 +226,10 @@ Server-driven web app built with `rescript-x` (JSX rendered on the server) and H
 | I want multiple packages sharing types (scales to more) | Monorepo |
 | I want one package with backend + frontend (simpler) | Full-Stack |
 | I want server-rendered HTML with HTMX on Bun | res-x (HTMX on Bun) |
+| I want a type-safe full-stack React app via Vite | TanStack Start |
+| I want SSR with the loader/action mental model | Remix / React Router v7 |
+| I'm building a content site with sprinkles of React | Astro |
+| I'm exploring React Server Components from scratch | Waku |
 
 ```{tip}
 Each row above links to a per-template detail page covering generated layout, dependencies, key files, npm scripts, and day-two extension pointers. Use the toctree at the bottom of the page (or the "Project Templates" section in the left sidebar) to jump straight to one.
@@ -232,4 +268,8 @@ google-cloud-run
 monorepo
 full-stack
 res-x
+tanstack-start
+remix-v7
+astro
+waku
 ```

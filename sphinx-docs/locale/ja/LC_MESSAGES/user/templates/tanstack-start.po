@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-29 12:43+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/tanstack-start.md
+msgid "templates, tanstack start, tanstack router, react, vite, server functions"
+msgstr "テンプレート, tanstack start, tanstack router, react, vite, server functions"
+
+#: ../../user/templates/tanstack-start.md:7
+msgid "TanStack Start"
+msgstr "TanStack Start"
+
+#: ../../user/templates/tanstack-start.md:9
+msgid ""
+"A type-safe full-stack React template powered by TanStack Start (Vite-"
+"based) with file-based routing through `@tanstack/react-router`. Sources "
+"live under `app/` to match the framework's convention; the validation "
+"library combo is hidden because TanStack Start ships its own data flow "
+"primitives."
+msgstr ""
+"TanStack Start (Vite ベース) を採用した型志向のフルスタック React テンプレートです。"
+"ファイルベースルーティングは `@tanstack/react-router` で配線され、ソースはフレームワーク慣習に従って "
+"`app/` 配下に置かれます。TanStack Start は独自のデータフロー原子を持つため、Validation library "
+"選択コンボは非表示になります。"
+
+#: ../../user/templates/tanstack-start.md:11
+msgid "Generated layout"
+msgstr "生成されるレイアウト"
+
+#: ../../user/templates/tanstack-start.md:31
+msgid "Key files"
+msgstr "主なファイル"
+
+#: ../../user/templates/tanstack-start.md:33
+msgid ""
+"`app/routes/__root.tsx` — Root layout, wraps `<html>` / `<body>` and "
+"renders `<Outlet />`."
+msgstr ""
+"`app/routes/__root.tsx` — ルートレイアウト。`<html>` / `<body>` をラップし、`<Outlet />` "
+"をレンダリングします。"
+
+#: ../../user/templates/tanstack-start.md:34
+msgid ""
+"`app/routes/index.tsx` — Home route (`/`) using `createFileRoute`. Loader"
+" greets via `Greet.greet`; the page rerenders with the new value when the"
+" button fires."
+msgstr ""
+"`app/routes/index.tsx` — `createFileRoute` を使ったホームルート (`/`)。Loader が "
+"`Greet.greet` で挨拶を返し、ボタン押下時には新しい値で再レンダリングされます。"
+
+#: ../../user/templates/tanstack-start.md:35
+msgid ""
+"`app/components/Greeting.res` — ReScript React component consumed from "
+"the home route via `Greeting.res.mjs`."
+msgstr ""
+"`app/components/Greeting.res` — ホームルートから `Greeting.res.mjs` 経由で参照される "
+"ReScript 製 React コンポーネント。"
+
+#: ../../user/templates/tanstack-start.md:36
+msgid ""
+"`app/server/Greet.res` — Server Function bound through `@tanstack/react-"
+"start`'s `createServerFn`."
+msgstr ""
+"`app/server/Greet.res` — `@tanstack/react-start` の `createServerFn` でバインドされた "
+"Server Function サンプル。"
+
+#: ../../user/templates/tanstack-start.md:37
+msgid ""
+"`vite.config.ts` — Wires `@tanstack/router-plugin` (route tree "
+"generation), `@tanstack/react-start/plugin/vite` (SSR pipeline), and "
+"`@vitejs/plugin-react` (Fast Refresh)."
+msgstr ""
+"`vite.config.ts` — `@tanstack/router-plugin` (ルートツリー生成)、"
+"`@tanstack/react-start/plugin/vite` (SSR パイプライン)、`@vitejs/plugin-react` "
+"(Fast Refresh) を配線します。"
+
+#: ../../user/templates/tanstack-start.md:39
+msgid "npm scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/tanstack-start.md
+msgid "Command"
+msgstr "コマンド"
+
+#: ../../user/templates/tanstack-start.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/tanstack-start.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/tanstack-start.md
+msgid "Start Vite dev server with `rescript -w`."
+msgstr "`rescript -w` と並行して Vite 開発サーバーを起動します。"
+
+#: ../../user/templates/tanstack-start.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/tanstack-start.md
+msgid "Compile ReScript and run `vite build`."
+msgstr "ReScript をコンパイルしてから `vite build` を実行します。"
+
+#: ../../user/templates/tanstack-start.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/tanstack-start.md
+msgid "Run the production server bundle from `.output/`."
+msgstr "`.output/` 配下の本番サーバーバンドルを起動します。"
+
+#: ../../user/templates/tanstack-start.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/tanstack-start.md
+msgid "Run Vitest."
+msgstr "Vitest を実行します。"
+
+#: ../../user/templates/tanstack-start.md:48
+msgid "Day-two pointers"
+msgstr "Day-two ポインタ"
+
+#: ../../user/templates/tanstack-start.md:50
+msgid ""
+"**Add routes** — drop a new `.tsx` file under `app/routes/`; the router "
+"plugin regenerates `app/routeTree.gen.ts` automatically."
+msgstr ""
+"**ルート追加** — `app/routes/` 配下に新しい `.tsx` を置けば、router プラグインが "
+"`app/routeTree.gen.ts` を自動再生成します。"
+
+#: ../../user/templates/tanstack-start.md:51
+msgid ""
+"**Add Server Functions** — define more `createServerFn(...)` thunks under"
+" `app/server/` and import them from any route or component."
+msgstr ""
+"**Server Function 追加** — `app/server/` 配下で `createServerFn(...)` のサンクを追加で定義し、"
+"任意のルートやコンポーネントから import します。"
+
+#: ../../user/templates/tanstack-start.md:52
+msgid ""
+"**Layer validation** — the wizard skips the zod/sury combo for this "
+"template; install whichever validator you want and call it inside your "
+"Server Function handlers."
+msgstr ""
+"**Validation を追加** — このテンプレートでは Wizard が zod/sury 選択をスキップします。好みの "
+"validator を別途インストールし、Server Function ハンドラ内で呼び出してください。"

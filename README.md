@@ -134,7 +134,7 @@
 ### Project & IDE Integration
 
 - **LSP auto-install** — One-click installation of `@rescript/language-server` with auto-detected package manager
-- **Project Wizard** — Create new projects from 16 production-shaped templates (Basic, npm Library, CLI Tool, Vite+ + React, Next.js, Electron, two React Native flavors, Hono REST/GraphQL, Cloudflare Workers, AWS Lambda, Google Cloud Run, Monorepo, Full-Stack, res-x (HTMX on Bun)) with selectable package manager (npm / yarn / pnpm / bun) and validation library (zod / sury). Each template ships "one step deeper" sample code, a Vitest smoke test, MIT `LICENSE`, `.nvmrc`, GitHub Actions CI, and Dependabot config. See [docs/templates.md](docs/templates.md) for the full matrix.
+- **Project Wizard** — Create new projects from 20 production-shaped templates (Basic, npm Library, CLI Tool, Vite+ + React, Next.js, Electron, two React Native flavors, Hono REST/GraphQL, Cloudflare Workers, AWS Lambda, Google Cloud Run, Monorepo, Full-Stack, res-x (HTMX on Bun), TanStack Start, Remix / React Router v7, Astro, Waku) with selectable package manager (npm / yarn / pnpm / bun). The validation library combo (zod / sury) is shown for the 16 original templates and hidden for the four React-framework templates that ship their own data layer. Each template includes "one step deeper" sample code, a Vitest smoke test, MIT `LICENSE`, `.nvmrc`, GitHub Actions CI, and Dependabot config. See [docs/templates.md](docs/templates.md) for the full matrix.
 - **Compiled JS preview** — Real-time preview of compiled JavaScript in a tool window
 - **Project View nesting** — `.resi` interface files nested under corresponding `.res` files
 - **rescript.json support** — Custom icon and JSON Schema for configuration files
