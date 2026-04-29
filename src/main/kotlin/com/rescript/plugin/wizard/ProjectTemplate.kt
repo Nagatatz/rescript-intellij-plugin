@@ -14,6 +14,7 @@ import com.rescript.plugin.wizard.templates.NextjsTemplateFiles
 import com.rescript.plugin.wizard.templates.NpmLibraryTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeCliTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeTemplateFiles
+import com.rescript.plugin.wizard.templates.RemixV7TemplateFiles
 import com.rescript.plugin.wizard.templates.ResXTemplateFiles
 import com.rescript.plugin.wizard.templates.TanstackStartTemplateFiles
 import com.rescript.plugin.wizard.templates.TemplateContext
@@ -355,6 +356,29 @@ enum class ProjectTemplate(
         sourceRoots = listOf("app"),
         supportsValidationSelection = false,
     ),
+    REMIX_RR_V7(
+        "Remix / React Router v7",
+        """
+        A React Router v7 app in Framework mode (the next iteration of Remix). Loaders
+        and components are organised under `app/`, ReScript provides the Greet component
+        and a typed loader, and @react-router/dev wires the SSR pipeline through Vite.
+
+        Includes:
+        • react-router + @react-router/dev (Framework mode, file-based routes)
+        • @rescript/react + React 19 with JSX enabled
+        • Sample loader written in ReScript and consumed from a TSX route
+        • @react-router/node + @react-router/serve for production
+        • Vitest + @vitest/coverage-v8
+
+        Validation library selection is disabled — React Router uses standard Web
+        FormData/Request primitives; layer zod, valibot, or sury where you need it.
+
+        Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.FRONTEND,
+        sourceRoots = listOf("app"),
+        supportsValidationSelection = false,
+    ),
     ;
 
     /**
@@ -386,6 +410,7 @@ enum class ProjectTemplate(
             FULL_STACK -> FullStackTemplateFiles.generate(ctx)
             RES_X -> ResXTemplateFiles.generate(ctx)
             TANSTACK_START -> TanstackStartTemplateFiles.generate(ctx)
+            REMIX_RR_V7 -> RemixV7TemplateFiles.generate(ctx)
         }
 
     /**
