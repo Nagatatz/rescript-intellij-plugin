@@ -20,6 +20,7 @@ import com.rescript.plugin.wizard.templates.ResXTemplateFiles
 import com.rescript.plugin.wizard.templates.TanstackStartTemplateFiles
 import com.rescript.plugin.wizard.templates.TemplateContext
 import com.rescript.plugin.wizard.templates.ViteReactTemplateFiles
+import com.rescript.plugin.wizard.templates.WakuTemplateFiles
 
 /**
  * Categories for grouping project templates in the wizard UI.
@@ -401,6 +402,28 @@ enum class ProjectTemplate(
         TemplateCategory.FRONTEND,
         supportsValidationSelection = false,
     ),
+    WAKU(
+        "Waku",
+        """
+        A minimal React Server Components app powered by Waku (by Daishi Kato). Server
+        Components render on the server with zero client-side JS; interactive Client
+        Components opt in via a `"use client"` boundary, and ReScript provides both.
+
+        Includes:
+        • waku (RSC-first React framework)
+        • @rescript/react + React 19 with JSX enabled
+        • Server Component (Greet.res) + Client Component (Counter.res via a thin
+          `"use client"` TSX wrapper)
+        • Vitest + @vitest/coverage-v8
+
+        Validation library selection is disabled — RSC boundaries typically validate
+        their own inputs; add zod or sury per server function as needed.
+
+        Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.FRONTEND,
+        supportsValidationSelection = false,
+    ),
     ;
 
     /**
@@ -434,6 +457,7 @@ enum class ProjectTemplate(
             TANSTACK_START -> TanstackStartTemplateFiles.generate(ctx)
             REMIX_RR_V7 -> RemixV7TemplateFiles.generate(ctx)
             ASTRO -> AstroTemplateFiles.generate(ctx)
+            WAKU -> WakuTemplateFiles.generate(ctx)
         }
 
     /**
