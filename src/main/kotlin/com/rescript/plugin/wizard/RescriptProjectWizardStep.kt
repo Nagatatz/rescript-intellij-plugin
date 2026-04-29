@@ -26,7 +26,9 @@ import javax.swing.border.EmptyBorder
  * Provides a template selection list grouped by [TemplateCategory],
  * a description panel showing details about the selected template,
  * a package manager combo box, and a validation library combo box.
- * Values are written back to [RescriptModuleBuilder] via [updateDataModel].
+ * The validation combo is hidden when the selected template opts out via
+ * [ProjectTemplate.supportsValidationSelection]. Values are written back to
+ * [RescriptModuleBuilder] via [updateDataModel].
  */
 class RescriptProjectWizardStep(
     private val builder: RescriptModuleBuilder,
@@ -50,6 +52,7 @@ class RescriptProjectWizardStep(
                 "HTTP input validation library used by server templates. " +
                 "zod is TS-first; sury is ReScript-native."
         }
+    private val validationLibraryLabel = JLabel("Validation library:")
     private val templateListModel = DefaultListModel<Any>()
     private val templateList = JBList(templateListModel)
     private val descriptionArea =
@@ -126,15 +129,17 @@ class RescriptProjectWizardStep(
         gbc.fill = GridBagConstraints.HORIZONTAL
         innerPanel.add(apiStrategyCombo, gbc)
 
-        // Validation library
+        // Validation library (hidden for templates that opt out via supportsValidationSelection = false)
         gbc.gridx = 0
         gbc.gridy = 4
         gbc.fill = GridBagConstraints.NONE
-        innerPanel.add(JLabel("Validation library:"), gbc)
+        innerPanel.add(validationLibraryLabel, gbc)
 
         gbc.gridx = 1
         gbc.fill = GridBagConstraints.HORIZONTAL
         innerPanel.add(validationLibraryCombo, gbc)
+
+        applyValidationVisibility(templateList.selectedValue as? ProjectTemplate)
 
         panel.add(innerPanel, BorderLayout.CENTER)
         return panel
@@ -183,6 +188,7 @@ class RescriptProjectWizardStep(
             val selected = templateList.selectedValue
             if (selected is ProjectTemplate) {
                 descriptionArea.text = selected.description
+                applyValidationVisibility(selected)
             } else if (selected is TemplateCategory) {
                 // Skip category headers — select the next template instead
                 val idx = templateList.selectedIndex
@@ -191,6 +197,19 @@ class RescriptProjectWizardStep(
                 }
             }
         }
+    }
+
+    /**
+     * Toggles the validation library combo and label visibility based on whether
+     * the selected template opts in to validation selection.
+     *
+     * Templates that ship their own data layer (TanStack Start, Remix, Astro, Waku)
+     * pass `supportsValidationSelection = false` to hide this UI.
+     */
+    private fun applyValidationVisibility(template: ProjectTemplate?) {
+        val supports = template?.supportsValidationSelection ?: true
+        validationLibraryLabel.isVisible = supports
+        validationLibraryCombo.isVisible = supports
     }
 
     /**

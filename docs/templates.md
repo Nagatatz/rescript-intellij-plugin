@@ -1,6 +1,6 @@
 # Project Wizard テンプレート一覧
 
-Project Wizard が提供する 17 種類のプロジェクトテンプレートの開発者向け参照資料。ユーザー向けのスクリーンショット・カード表示・ガイドは [sphinx-docs/user/templates/index.md](../sphinx-docs/user/templates/index.md) を参照。
+Project Wizard が提供する 21 種類のプロジェクトテンプレートの開発者向け参照資料。ユーザー向けのスクリーンショット・カード表示・ガイドは [sphinx-docs/user/templates/index.md](../sphinx-docs/user/templates/index.md) を参照。
 
 ## テンプレート一覧
 
@@ -23,8 +23,12 @@ Project Wizard が提供する 17 種類のプロジェクトテンプレート�
 | 15 | Monorepo | Full Stack | pnpm/npm/yarn workspace | `packages/{shared,server,client}`、workspace protocol 型共有 |
 | 16 | Full-Stack | Full Stack | 単一パッケージの統合構成 | `src/{shared,server,client}`、Hono + Drizzle + Vite+ React |
 | 17 | res-x (HTMX on Bun) | Full Stack | Bun + Vite + HTMX サーバドリブン SPA | `rescript-x` + `rescript-bun`、Counter + Todo フォーム、`Validation.res` (zod/sury) |
+| 18 | TanStack Start | Frontend | 型志向フルスタック React | `@tanstack/react-start` + `@tanstack/react-router`、Server Function サンプル、`src/` ソース |
+| 19 | Remix / React Router v7 | Frontend | SSR + loader/action モデル | `@react-router/dev` Vite プラグイン、ReScript loader、`app/` ソース |
+| 20 | Astro | Frontend | コンテンツ志向 SSG/SSR + React Islands | `@astrojs/react`、Static + Counter Island、`@astrojs/node` adapter |
+| 21 | Waku | Frontend | RSC-first React フレームワーク | Server Component + `"use client"` TSX ラッパー越しの Client Component |
 
-テンプレート定義は `src/main/kotlin/com/rescript/plugin/wizard/ProjectTemplate.kt`、ファイル生成は `wizard/templates/` 配下。
+テンプレート定義は `src/main/kotlin/com/rescript/plugin/wizard/ProjectTemplate.kt`、ファイル生成は `wizard/templates/` 配下。テンプレート 18–21 はフレームワーク自体がデータレイヤーを持つため Validation library 選択 UI を表示せず (`supportsValidationSelection = false`)、`Validation.res` も生成しない。
 
 ## 全テンプレート共通の同梱要素
 
@@ -58,7 +62,7 @@ Project Wizard が提供する 17 種類のプロジェクトテンプレート�
 
 ## Vite+ (pre-1.0) 採用部分の注意点
 
-Vite+ ベースのテンプレート（4 Vite + React、11 Hono + Inertia、15 Monorepo の client、16 Full-Stack の client）は `vite-plus` と `@voidzero-dev/vite-plus-core` を pre-1.0 バージョンでピン留めしている。アップグレードでコマンドが壊れた場合は、`vite.config.mjs` で `vite-plus` を `vite` に差し替え、`vp` スクリプトを `vite` に置換することでクラシック Vite にフォールバックできる（README にも記載）。
+Vite+ ベースのテンプレート（4 Vite + React、11 Hono + Inertia、15 Monorepo の client、16 Full-Stack の client）は `vite-plus` と `@voidzero-dev/vite-plus-core` を pre-1.0 バージョンでピン留めしている。アップグレードでコマンドが壊れた場合は、`vite.config.mjs` で `vite-plus` を `vite` に差し替え、`vp` スクリプトを `vite` に置換することでクラシック Vite にフォールバックできる（README にも記載）。テンプレート 18 (TanStack Start) と 19 (Remix RR v7) は標準の `vite` を直接利用し、Vite+ には依存しない。
 
 ## 新規テンプレート追加手順
 

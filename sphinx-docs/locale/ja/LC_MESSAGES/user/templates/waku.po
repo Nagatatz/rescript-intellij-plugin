@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Nagatatz
+# This file is distributed under the same license as the ReScript IntelliJ
+# Plugin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ReScript IntelliJ Plugin \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-29 12:43+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../user/templates/waku.md
+msgid "templates, waku, react server components, rsc, daishi kato"
+msgstr "テンプレート, waku, react server components, rsc, daishi kato"
+
+#: ../../user/templates/waku.md:7
+msgid "Waku"
+msgstr "Waku"
+
+#: ../../user/templates/waku.md:9
+msgid ""
+"A minimal React Server Components app powered by Waku (by Daishi Kato). "
+"The template ships both halves of the RSC boundary in ReScript: a Server "
+"Component (`Greet.res`, no JS shipped) and a Client Component "
+"(`Counter.res`, made client-side via a thin TSX `\"use client\"` "
+"wrapper)."
+msgstr ""
+"Daishi Kato 製の Waku を採用した最小構成の React Server Components アプリです。テンプレートは RSC 境界の "
+"両側を ReScript で提供します: Server Component (`Greet.res`、JS は配信されない) と "
+"Client Component (`Counter.res`、薄い TSX `\"use client\"` ラッパー越しにクライアント化)。"
+
+#: ../../user/templates/waku.md:11
+msgid "Generated layout"
+msgstr "生成されるレイアウト"
+
+#: ../../user/templates/waku.md:28
+msgid "Key files"
+msgstr "主なファイル"
+
+#: ../../user/templates/waku.md:30
+msgid ""
+"`src/pages/index.tsx` — Server Component (Waku's default for "
+"`src/pages/`). Imports the ReScript `Greet` directly and the "
+"`CounterClient` Client wrapper."
+msgstr ""
+"`src/pages/index.tsx` — Server Component (`src/pages/` 配下の Waku 既定)。ReScript の "
+"`Greet` を直接、`CounterClient` Client ラッパーを併せて import します。"
+
+#: ../../user/templates/waku.md:31
+msgid ""
+"`src/components/Greet.res` — Server Component body. Renders to HTML on "
+"the server; ships zero JS for itself."
+msgstr ""
+"`src/components/Greet.res` — Server Component の本体。サーバー側で HTML にレンダリングされ、"
+"このコンポーネントの JS は一切配信されません。"
+
+#: ../../user/templates/waku.md:32
+msgid ""
+"`src/components/Counter.res` — Client Component body, written in ReScript"
+" with `useState`."
+msgstr ""
+"`src/components/Counter.res` — `useState` を使った ReScript 製 Client Component の本体。"
+
+#: ../../user/templates/waku.md:33
+msgid ""
+"`src/components/CounterClient.tsx` — Thin TSX wrapper that owns the "
+"`\"use client\"` directive and re-exports the ReScript `make` function. "
+"ReScript cannot emit `\"use client\"` itself, so this small file is the "
+"canonical workaround."
+msgstr ""
+"`src/components/CounterClient.tsx` — `\"use client\"` ディレクティブを持ち、ReScript の `make` "
+"関数を再エクスポートする薄い TSX ラッパー。ReScript 自身は `\"use client\"` を出力できないため、"
+"この小さなファイルが正攻法のワークアラウンドになります。"
+
+#: ../../user/templates/waku.md:35
+msgid "npm scripts"
+msgstr "npm スクリプト"
+
+#: ../../user/templates/waku.md
+msgid "Command"
+msgstr "コマンド"
+
+#: ../../user/templates/waku.md
+msgid "Description"
+msgstr "説明"
+
+#: ../../user/templates/waku.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/waku.md
+msgid "Start `waku dev` with `rescript -w`."
+msgstr "`rescript -w` と並行して `waku dev` を起動します。"
+
+#: ../../user/templates/waku.md
+msgid "`build`"
+msgstr "`build`"
+
+#: ../../user/templates/waku.md
+msgid "Compile ReScript and run `waku build`."
+msgstr "ReScript をコンパイルしてから `waku build` を実行します。"
+
+#: ../../user/templates/waku.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/waku.md
+msgid "Run the production server."
+msgstr "本番サーバーを起動します。"
+
+#: ../../user/templates/waku.md
+msgid "`test`"
+msgstr "`test`"
+
+#: ../../user/templates/waku.md
+msgid "Run Vitest."
+msgstr "Vitest を実行します。"
+
+#: ../../user/templates/waku.md:44
+msgid "Day-two pointers"
+msgstr "Day-two ポインタ"
+
+#: ../../user/templates/waku.md:46
+msgid ""
+"**Add Server Components** — drop another `.res` file under "
+"`src/components/` and import it from any page or other Server Component. "
+"No client wrapper required."
+msgstr ""
+"**Server Component の追加** — `src/components/` 配下に新しい `.res` を追加し、ページや別の "
+"Server Component から import するだけで OK です。Client ラッパーは不要です。"
+
+#: ../../user/templates/waku.md:47
+msgid ""
+"**Add Client Components** — write the body in ReScript, then add a "
+"`<Name>Client.tsx` wrapper that begins with `\"use client\"` and re-"
+"exports `make`. Keep the wrapper as small as possible."
+msgstr ""
+"**Client Component の追加** — 本体を ReScript で書き、先頭が `\"use client\"` で始まり `make` "
+"を再エクスポートする `<Name>Client.tsx` ラッパーを追加します。ラッパーはできるだけ薄く保ってください。"
+
+#: ../../user/templates/waku.md:48
+msgid ""
+"**Server Functions** — when stable in your version of Waku, expose any "
+"function from a server file and call it from a Client Component; Waku "
+"rewires the call into an RPC at build time."
+msgstr ""
+"**Server Functions** — お使いの Waku バージョンで安定していれば、サーバーファイルから任意の関数をエクスポートして "
+"Client Component から呼び出します。Waku がビルド時に RPC へ変換します。"

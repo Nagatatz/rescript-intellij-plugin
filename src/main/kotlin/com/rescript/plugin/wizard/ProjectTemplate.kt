@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard
 
+import com.rescript.plugin.wizard.templates.AstroTemplateFiles
 import com.rescript.plugin.wizard.templates.AwsLambdaTemplateFiles
 import com.rescript.plugin.wizard.templates.BasicTemplateFiles
 import com.rescript.plugin.wizard.templates.CliToolTemplateFiles
@@ -15,9 +16,12 @@ import com.rescript.plugin.wizard.templates.NextjsTemplateFiles
 import com.rescript.plugin.wizard.templates.NpmLibraryTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeCliTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeTemplateFiles
+import com.rescript.plugin.wizard.templates.RemixV7TemplateFiles
 import com.rescript.plugin.wizard.templates.ResXTemplateFiles
+import com.rescript.plugin.wizard.templates.TanstackStartTemplateFiles
 import com.rescript.plugin.wizard.templates.TemplateContext
 import com.rescript.plugin.wizard.templates.ViteReactTemplateFiles
+import com.rescript.plugin.wizard.templates.WakuTemplateFiles
 
 /**
  * Categories for grouping project templates in the wizard UI.
@@ -51,6 +55,7 @@ enum class ProjectTemplate(
     val description: String,
     val category: TemplateCategory,
     val sourceRoots: List<String> = listOf("src"),
+    val supportsValidationSelection: Boolean = true,
 ) {
     BASIC(
         "Basic",
@@ -350,6 +355,95 @@ enum class ProjectTemplate(
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
     ),
+    TANSTACK_START(
+        "TanStack Start",
+        """
+        A type-safe full-stack React app powered by TanStack Start (Vite-based) with
+        ReScript components and a sample Server Function. File-based routing is wired
+        via @tanstack/react-router; the ReScript Greeting module is consumed from the
+        index route through genType-friendly interop.
+
+        Includes:
+        • @tanstack/react-start + @tanstack/react-router (file-based routing)
+        • Vite + @vitejs/plugin-react, vite.config.ts wires the TanStack plugin
+        • @rescript/react + React 19 with JSX enabled
+        • Sample Server Function reachable from the home route
+        • Vitest + @vitest/coverage-v8
+
+        Validation library selection is disabled — TanStack Start ships its own data
+        flow primitives, and consumers can layer zod or sury on top as needed.
+
+        Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.FRONTEND,
+        supportsValidationSelection = false,
+    ),
+    REMIX_RR_V7(
+        "Remix / React Router v7",
+        """
+        A React Router v7 app in Framework mode (the next iteration of Remix). Loaders
+        and components are organised under `app/`, ReScript provides the Greet component
+        and a typed loader, and @react-router/dev wires the SSR pipeline through Vite.
+
+        Includes:
+        • react-router + @react-router/dev (Framework mode, file-based routes)
+        • @rescript/react + React 19 with JSX enabled
+        • Sample loader written in ReScript and consumed from a TSX route
+        • @react-router/node + @react-router/serve for production
+        • Vitest + @vitest/coverage-v8
+
+        Validation library selection is disabled — React Router uses standard Web
+        FormData/Request primitives; layer zod, valibot, or sury where you need it.
+
+        Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.FRONTEND,
+        sourceRoots = listOf("app"),
+        supportsValidationSelection = false,
+    ),
+    ASTRO(
+        "Astro",
+        """
+        An Astro content site that mixes static markup with React Islands. Astro pages
+        are authored in `.astro`; interactive React components live alongside them as
+        ReScript modules and are hydrated on demand via `client:load` / `client:visible`.
+
+        Includes:
+        • astro + @astrojs/react integration + @astrojs/node adapter
+        • @rescript/react + React 19 with JSX enabled
+        • Static greeting + interactive Counter Island, both written in ReScript
+        • Vitest + @vitest/coverage-v8
+
+        Validation library selection is disabled — Astro pages typically validate input
+        per Action / endpoint with zod or sury; add the dependency where it's needed.
+
+        Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.FRONTEND,
+        supportsValidationSelection = false,
+    ),
+    WAKU(
+        "Waku",
+        """
+        A minimal React Server Components app powered by Waku (by Daishi Kato). Server
+        Components render on the server with zero client-side JS; interactive Client
+        Components opt in via a `"use client"` boundary, and ReScript provides both.
+
+        Includes:
+        • waku (RSC-first React framework)
+        • @rescript/react + React 19 with JSX enabled
+        • Server Component (Greet.res) + Client Component (Counter.res via a thin
+          `"use client"` TSX wrapper)
+        • Vitest + @vitest/coverage-v8
+
+        Validation library selection is disabled — RSC boundaries typically validate
+        their own inputs; add zod or sury per server function as needed.
+
+        Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.FRONTEND,
+        supportsValidationSelection = false,
+    ),
     ;
 
     /**
@@ -381,6 +475,10 @@ enum class ProjectTemplate(
             MONOREPO -> MonorepoTemplateFiles.generate(ctx)
             FULL_STACK -> FullStackTemplateFiles.generate(ctx)
             RES_X -> ResXTemplateFiles.generate(ctx)
+            TANSTACK_START -> TanstackStartTemplateFiles.generate(ctx)
+            REMIX_RR_V7 -> RemixV7TemplateFiles.generate(ctx)
+            ASTRO -> AstroTemplateFiles.generate(ctx)
+            WAKU -> WakuTemplateFiles.generate(ctx)
         }
 
     /**

@@ -69,6 +69,13 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>Unreleased</h3>
+        <h4>New Features</h4>
+        <ul>
+            <li>Add Hono + Inertia (React) project wizard template — server-driven SPA via @hono/inertia + @inertiajs/react v3 + Vite+ unified toolchain</li>
+            <li>Add four React framework project wizard templates: TanStack Start, Remix / React Router v7, Astro, and Waku (RSC-first)</li>
+            <li>Add per-template validation selection toggle so frameworks that ship their own data layer hide the zod/sury combo</li>
+        </ul>
         <h3>0.1.13</h3>
         <h4>New Features</h4>
         <ul>

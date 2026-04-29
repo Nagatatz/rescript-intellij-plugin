@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 
 class ProjectTemplateTest {
     @Test
-    fun `enum has 17 entries`() {
-        assertEquals(17, ProjectTemplate.entries.size)
+    fun `enum has 21 entries`() {
+        assertEquals(21, ProjectTemplate.entries.size)
     }
 
     @Test
@@ -389,6 +389,10 @@ class ProjectTemplateTest {
                 ProjectTemplate.REACT_NATIVE,
                 ProjectTemplate.REACT_NATIVE_CLI,
                 ProjectTemplate.HONO_INERTIA,
+                ProjectTemplate.TANSTACK_START,
+                ProjectTemplate.REMIX_RR_V7,
+                ProjectTemplate.ASTRO,
+                ProjectTemplate.WAKU,
             )
         reactTemplates.forEach {
             val rj = it.generateFiles("test")["rescript.json"]!!
@@ -411,6 +415,26 @@ class ProjectTemplateTest {
         nonReactTemplates.forEach {
             val rj = it.generateFiles("test")["rescript.json"] ?: return@forEach
             assertFalse(rj.contains("\"jsx\""), "${it.name} should not include jsx config")
+        }
+    }
+
+    @Test
+    fun `templates that opt out of validation selection are explicitly listed`() {
+        // Add a template here when its constructor sets supportsValidationSelection = false.
+        val optOuts =
+            setOf(
+                ProjectTemplate.TANSTACK_START,
+                ProjectTemplate.REMIX_RR_V7,
+                ProjectTemplate.ASTRO,
+                ProjectTemplate.WAKU,
+            )
+        ProjectTemplate.entries.forEach { template ->
+            val expected = template !in optOuts
+            assertEquals(
+                expected,
+                template.supportsValidationSelection,
+                "${template.name} supportsValidationSelection should be $expected",
+            )
         }
     }
 }
