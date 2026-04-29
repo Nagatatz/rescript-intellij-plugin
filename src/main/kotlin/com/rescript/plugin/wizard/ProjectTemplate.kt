@@ -50,6 +50,7 @@ enum class ProjectTemplate(
     val description: String,
     val category: TemplateCategory,
     val sourceRoots: List<String> = listOf("src"),
+    val supportsValidationSelection: Boolean = true,
 ) {
     BASIC(
         "Basic",

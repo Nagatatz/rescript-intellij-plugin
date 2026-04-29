@@ -399,4 +399,18 @@ class ProjectTemplateTest {
             assertFalse(rj.contains("\"jsx\""), "${it.name} should not include jsx config")
         }
     }
+
+    @Test
+    fun `templates that opt out of validation selection are explicitly listed`() {
+        // Add a template here when its constructor sets supportsValidationSelection = false.
+        val optOuts = setOf<ProjectTemplate>()
+        ProjectTemplate.entries.forEach { template ->
+            val expected = template !in optOuts
+            assertEquals(
+                expected,
+                template.supportsValidationSelection,
+                "${template.name} supportsValidationSelection should be $expected",
+            )
+        }
+    }
 }
