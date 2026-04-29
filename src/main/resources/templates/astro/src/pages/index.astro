@@ -1,0 +1,21 @@
+---
+import { make as Counter } from "../components/Counter.res.mjs";
+import { make as StaticGreeting } from "../components/StaticGreeting.res.mjs";
+
+const projectName = "{{projectName}}";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{projectName}</title>
+  </head>
+  <body style="font-family: system-ui, sans-serif; padding: 2rem;">
+    <!-- Static-rendered React component: ships zero JS to the browser. -->
+    <StaticGreeting name={projectName} />
+
+    <!-- Interactive Island: hydrated as soon as the page loads. -->
+    <Counter client:load initial={0} />
+  </body>
+</html>

@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard
 
+import com.rescript.plugin.wizard.templates.AstroTemplateFiles
 import com.rescript.plugin.wizard.templates.AwsLambdaTemplateFiles
 import com.rescript.plugin.wizard.templates.BasicTemplateFiles
 import com.rescript.plugin.wizard.templates.CliToolTemplateFiles
@@ -379,6 +380,27 @@ enum class ProjectTemplate(
         sourceRoots = listOf("app"),
         supportsValidationSelection = false,
     ),
+    ASTRO(
+        "Astro",
+        """
+        An Astro content site that mixes static markup with React Islands. Astro pages
+        are authored in `.astro`; interactive React components live alongside them as
+        ReScript modules and are hydrated on demand via `client:load` / `client:visible`.
+
+        Includes:
+        • astro + @astrojs/react integration + @astrojs/node adapter
+        • @rescript/react + React 19 with JSX enabled
+        • Static greeting + interactive Counter Island, both written in ReScript
+        • Vitest + @vitest/coverage-v8
+
+        Validation library selection is disabled — Astro pages typically validate input
+        per Action / endpoint with zod or sury; add the dependency where it's needed.
+
+        Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.FRONTEND,
+        supportsValidationSelection = false,
+    ),
     ;
 
     /**
@@ -411,6 +433,7 @@ enum class ProjectTemplate(
             RES_X -> ResXTemplateFiles.generate(ctx)
             TANSTACK_START -> TanstackStartTemplateFiles.generate(ctx)
             REMIX_RR_V7 -> RemixV7TemplateFiles.generate(ctx)
+            ASTRO -> AstroTemplateFiles.generate(ctx)
         }
 
     /**

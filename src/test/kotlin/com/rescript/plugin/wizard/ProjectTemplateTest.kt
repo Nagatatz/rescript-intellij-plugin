@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 
 class ProjectTemplateTest {
     @Test
-    fun `enum has 18 entries`() {
-        assertEquals(18, ProjectTemplate.entries.size)
+    fun `enum has 19 entries`() {
+        assertEquals(19, ProjectTemplate.entries.size)
     }
 
     @Test
@@ -377,6 +377,7 @@ class ProjectTemplateTest {
                 ProjectTemplate.REACT_NATIVE_CLI,
                 ProjectTemplate.TANSTACK_START,
                 ProjectTemplate.REMIX_RR_V7,
+                ProjectTemplate.ASTRO,
             )
         reactTemplates.forEach {
             val rj = it.generateFiles("test")["rescript.json"]!!
@@ -409,6 +410,7 @@ class ProjectTemplateTest {
             setOf(
                 ProjectTemplate.TANSTACK_START,
                 ProjectTemplate.REMIX_RR_V7,
+                ProjectTemplate.ASTRO,
             )
         ProjectTemplate.entries.forEach { template ->
             val expected = template !in optOuts
