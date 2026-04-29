@@ -9,6 +9,7 @@ import com.rescript.plugin.wizard.templates.ElectronTemplateFiles
 import com.rescript.plugin.wizard.templates.FullStackTemplateFiles
 import com.rescript.plugin.wizard.templates.GoogleCloudRunTemplateFiles
 import com.rescript.plugin.wizard.templates.HonoGraphqlTemplateFiles
+import com.rescript.plugin.wizard.templates.HonoInertiaTemplateFiles
 import com.rescript.plugin.wizard.templates.HonoTemplateFiles
 import com.rescript.plugin.wizard.templates.MonorepoTemplateFiles
 import com.rescript.plugin.wizard.templates.NextjsTemplateFiles
@@ -159,6 +160,26 @@ enum class ProjectTemplate(
         Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.BACKEND,
+    ),
+    HONO_INERTIA(
+        "Hono + Inertia (React)",
+        """
+        A server-driven SPA pairing a Hono backend with @inertiajs/react v3 — the
+        controller renders React pages directly with c.render(component, props),
+        so there is no separate REST/GraphQL layer to maintain.
+
+        Includes:
+        • Hono + @hono/inertia middleware (inertiaPages Vite plugin)
+        • @inertiajs/react v3 + React 19 + @rescript/react
+        • Vite+ unified toolchain (vp dev / build / test / check)
+        • Sample Home / About pages and a shared MainLayout
+        • SQLite via libsql + Drizzle ORM and zod or sury validation
+        • CSR only — server-side rendering is intentionally out of scope
+
+        Requires: Node.js 24+ (or Bun 1.3+ if Bun is selected).
+        """.trimIndent(),
+        TemplateCategory.FULL_STACK,
+        sourceRoots = listOf("src", "src/client"),
     ),
     CLOUDFLARE_WORKERS(
         "Cloudflare Workers",
@@ -444,6 +465,7 @@ enum class ProjectTemplate(
             ELECTRON -> ElectronTemplateFiles.generate(ctx)
             HONO -> HonoTemplateFiles.generate(ctx)
             HONO_GRAPHQL -> HonoGraphqlTemplateFiles.generate(ctx)
+            HONO_INERTIA -> HonoInertiaTemplateFiles.generate(ctx)
             CLOUDFLARE_WORKERS -> CloudflareWorkersTemplateFiles.generate(ctx)
             AWS_LAMBDA -> AwsLambdaTemplateFiles.generate(ctx)
             GOOGLE_CLOUD_RUN -> GoogleCloudRunTemplateFiles.generate(ctx)

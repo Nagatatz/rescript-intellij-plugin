@@ -470,7 +470,7 @@ flowchart TD
 | `com.intellij.toolWindow` | `RescriptCompiledJsPreviewToolWindowFactory` | コンパイル済み JS プレビュー | 実装済み |
 | `com.intellij.globalInspection` | `RescriptUnusedCodeInspection` | 未使用コード検出（reanalyze） | 実装済み |
 | `com.intellij.hierarchyProvider` | `RescriptModuleHierarchyProvider` | モジュール階層ビュー | 実装済み |
-| `com.intellij.moduleBuilder` | `RescriptModuleBuilder` | Project Wizard（20 テンプレート選択 UI） | 実装済み |
+| `com.intellij.moduleBuilder` | `RescriptModuleBuilder` | Project Wizard（21 テンプレート選択 UI） | 実装済み |
 | `<group>` | `RescriptGenerateGroup` | Code Generation（Generate メニュー） | 実装済み |
 | `com.intellij.editorFactoryListener` | `RescriptErrorLensEditorListener` | Error Lens（行末インライン診断表示） | 実装済み |
 | `com.intellij.configurationType` | `RescriptDebugConfigurationType` | デバッグ実行構成 | 実装済み |

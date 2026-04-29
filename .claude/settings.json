@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/validate-bash.sh"
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/validate-bash.sh"
           }
         ]
       },
@@ -39,11 +39,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/validate-file-edit.sh"
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/validate-file-edit.sh"
           },
           {
             "type": "command",
-            "command": ".claude/hooks/check-prohibition-language.sh"
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/check-prohibition-language.sh"
           }
         ]
       }
@@ -54,7 +54,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/format-kotlin.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/format-kotlin.sh",
             "timeout": 60
           }
         ]
@@ -66,7 +66,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/check-tasklist.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/check-tasklist.sh",
             "timeout": 10
           }
         ]
@@ -78,7 +78,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/pre-compact-save.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact-save.sh",
             "timeout": 10
           }
         ]
@@ -101,7 +101,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/session-info.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-info.sh",
             "timeout": 10
           }
         ]

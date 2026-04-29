@@ -6,7 +6,7 @@ myst:
 
 # Project Templates
 
-The plugin ships 20 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
+The plugin ships 21 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
 
 ## Opening the Wizard
 
@@ -205,6 +205,14 @@ Server-driven web app built with `rescript-x` (JSX rendered on the server) and H
 
 {bdg-warning}`Bun required` {bdg-info}`HTMX` {bdg-success}`Server-driven`
 :::
+
+:::{grid-item-card} Hono + Inertia (React)
+:link: hono-inertia
+:link-type: doc
+Server-driven SPA where Hono routes call `c.render(component, props)` through the `@hono/inertia` middleware and `@inertiajs/react` v3 mounts matching React pages on the client. Vite+ unifies dev / build / test / check (`vp dev` / `vp build` / `vp test` / `vp check`); CSR only.
+
+{bdg-info}`Inertia.js` {bdg-success}`Server-driven` {bdg-primary}`Vite+`
+:::
 ::::
 
 ## Which Template Should I Choose?
@@ -226,6 +234,7 @@ Server-driven web app built with `rescript-x` (JSX rendered on the server) and H
 | I want multiple packages sharing types (scales to more) | Monorepo |
 | I want one package with backend + frontend (simpler) | Full-Stack |
 | I want server-rendered HTML with HTMX on Bun | res-x (HTMX on Bun) |
+| I want a server-driven React SPA without writing a REST/GraphQL layer | Hono + Inertia (React) |
 | I want a type-safe full-stack React app via Vite | TanStack Start |
 | I want SSR with the loader/action mental model | Remix / React Router v7 |
 | I'm building a content site with sprinkles of React | Astro |
@@ -246,7 +255,7 @@ When you need to extend a generated project, these recipes pick up where the tem
 
 ## Notes on Vite+
 
-The Vite+ based templates (Vite+ + React, Monorepo client, Full-Stack) pin `vite-plus` and `@voidzero-dev/vite-plus-core` at pre-1.0 versions. If a command breaks after an upgrade, replace `vite-plus` with `vite` in `vite.config.mjs` and swap the `vp` scripts for `vite` to fall back to classic Vite.
+The Vite+ based templates (Vite+ + React, Hono + Inertia, Monorepo client, Full-Stack) pin `vite-plus` and `@voidzero-dev/vite-plus-core` at pre-1.0 versions. If a command breaks after an upgrade, replace `vite-plus` with `vite` in `vite.config.mjs` and swap the `vp` scripts for `vite` to fall back to classic Vite.
 
 ```{toctree}
 :hidden:
@@ -262,6 +271,7 @@ react-native
 react-native-cli
 hono
 hono-graphql
+hono-inertia
 cloudflare-workers
 aws-lambda
 google-cloud-run
