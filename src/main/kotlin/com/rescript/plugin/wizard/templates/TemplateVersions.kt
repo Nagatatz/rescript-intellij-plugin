@@ -127,4 +127,23 @@ object TemplateVersions {
 
     // Vitest coverage provider used by `test:coverage` scripts
     const val VITEST_COVERAGE_V8 = "^4.1.5"
+
+    // TanStack Start (full-stack React, Vite-based) and its router peer
+    const val TANSTACK_REACT_START = "^1.140.0"
+    const val TANSTACK_REACT_ROUTER = "^1.140.0"
+    const val TANSTACK_ROUTER_PLUGIN = "^1.140.0"
+
+    // React Router v7 (Framework mode — what was previously Remix)
+    const val REACT_ROUTER = "^7.10.0"
+    const val REACT_ROUTER_DEV = "^7.10.0"
+    const val REACT_ROUTER_NODE = "^7.10.0"
+    const val REACT_ROUTER_SERVE = "^7.10.0"
+
+    // Astro and the React integration
+    const val ASTRO = "^5.18.0"
+    const val ASTROJS_REACT = "^5.0.7"
+    const val ASTROJS_NODE = "^9.5.3"
+
+    // Waku (RSC-first React framework by Daishi Kato)
+    const val WAKU = "^0.27.0"
 }

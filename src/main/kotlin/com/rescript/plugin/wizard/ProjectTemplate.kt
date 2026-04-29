@@ -15,6 +15,7 @@ import com.rescript.plugin.wizard.templates.NpmLibraryTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeCliTemplateFiles
 import com.rescript.plugin.wizard.templates.ReactNativeTemplateFiles
 import com.rescript.plugin.wizard.templates.ResXTemplateFiles
+import com.rescript.plugin.wizard.templates.TanstackStartTemplateFiles
 import com.rescript.plugin.wizard.templates.TemplateContext
 import com.rescript.plugin.wizard.templates.ViteReactTemplateFiles
 
@@ -330,6 +331,30 @@ enum class ProjectTemplate(
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
     ),
+    TANSTACK_START(
+        "TanStack Start",
+        """
+        A type-safe full-stack React app powered by TanStack Start (Vite-based) with
+        ReScript components and a sample Server Function. File-based routing is wired
+        via @tanstack/react-router; the ReScript Greeting module is consumed from the
+        index route through genType-friendly interop.
+
+        Includes:
+        • @tanstack/react-start + @tanstack/react-router (file-based routing)
+        • Vite + @vitejs/plugin-react, vite.config.ts wires the TanStack plugin
+        • @rescript/react + React 19 with JSX enabled
+        • Sample Server Function reachable from the home route
+        • Vitest + @vitest/coverage-v8
+
+        Validation library selection is disabled — TanStack Start ships its own data
+        flow primitives, and consumers can layer zod or sury on top as needed.
+
+        Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.FRONTEND,
+        sourceRoots = listOf("app"),
+        supportsValidationSelection = false,
+    ),
     ;
 
     /**
@@ -360,6 +385,7 @@ enum class ProjectTemplate(
             MONOREPO -> MonorepoTemplateFiles.generate(ctx)
             FULL_STACK -> FullStackTemplateFiles.generate(ctx)
             RES_X -> ResXTemplateFiles.generate(ctx)
+            TANSTACK_START -> TanstackStartTemplateFiles.generate(ctx)
         }
 
     /**
