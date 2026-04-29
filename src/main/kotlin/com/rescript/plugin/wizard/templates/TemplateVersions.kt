@@ -143,11 +143,14 @@ object TemplateVersions {
     const val REACT_ROUTER_NODE = "^7.10.0"
     const val REACT_ROUTER_SERVE = "^7.10.0"
 
-    // Astro and the React integration
-    const val ASTRO = "^5.18.0"
-    const val ASTROJS_REACT = "^5.0.7"
-    const val ASTROJS_NODE = "^9.5.3"
+    // Astro and the React integration. astro 6.x is the active major;
+    // @astrojs/react 5.x and @astrojs/node 10.x are the matching adapters.
+    const val ASTRO = "^6.0.0"
+    const val ASTROJS_REACT = "^5.0.0"
+    const val ASTROJS_NODE = "^10.0.0"
 
-    // Waku (RSC-first React framework by Daishi Kato)
-    const val WAKU = "^0.27.0"
+    // Waku (RSC-first React framework by Daishi Kato). 1.0.0 is currently in
+    // alpha — pin to a known alpha to keep installs reproducible until 1.0
+    // ships. Bump together with the template README's RSC walkthrough.
+    const val WAKU = "1.0.0-alpha.8"
 }

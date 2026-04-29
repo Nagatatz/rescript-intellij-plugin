@@ -376,7 +376,6 @@ enum class ProjectTemplate(
         Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.FRONTEND,
-        sourceRoots = listOf("app"),
         supportsValidationSelection = false,
     ),
     REMIX_RR_V7(

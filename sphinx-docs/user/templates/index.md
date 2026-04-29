@@ -95,7 +95,7 @@ Bare-workflow React Native template aimed at Android Studio / Xcode users. Ships
 :::{grid-item-card} TanStack Start
 :link: tanstack-start
 :link-type: doc
-Type-safe full-stack React powered by TanStack Start (Vite-based). File-based routing through `@tanstack/react-router`, a sample Server Function written in ReScript, and `app/` as the source root.
+Type-safe full-stack React powered by TanStack Start (Vite-based). File-based routing through `@tanstack/react-router` and a sample Server Function written in ReScript.
 
 {bdg-success}`Full-stack` {bdg-primary}`Type-safe`
 :::

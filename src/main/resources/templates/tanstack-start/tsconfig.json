@@ -14,8 +14,8 @@
     "skipLibCheck": true,
     "types": ["node", "vite/client"],
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./src/*"]
     }
   },
-  "include": ["app", "vite.config.ts", "rescript-modules.d.ts"]
+  "include": ["src", "vite.config.ts", "rescript-modules.d.ts"]
 }

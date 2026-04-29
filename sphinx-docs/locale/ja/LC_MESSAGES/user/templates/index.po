@@ -232,11 +232,11 @@ msgstr "TanStack Start"
 #: ../../user/templates/index.md:98
 msgid ""
 "Type-safe full-stack React powered by TanStack Start (Vite-based). File-"
-"based routing through `@tanstack/react-router`, a sample Server Function "
-"written in ReScript, and `app/` as the source root."
+"based routing through `@tanstack/react-router` and a sample Server "
+"Function written in ReScript."
 msgstr ""
 "TanStack Start (Vite ベース) を採用した型志向のフルスタック React。`@tanstack/react-router` "
-"によるファイルベースルーティング、ReScript で書かれた Server Function サンプル、ソースルートは `app/`。"
+"によるファイルベースルーティングと、ReScript で書かれた Server Function サンプルを同梱。"
 
 #: ../../user/templates/index.md:100
 #, python-brace-format

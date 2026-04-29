@@ -8,7 +8,7 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  *
  * The template wires `@tanstack/react-start` (Vite-based full-stack React) with
  * `@tanstack/react-router` for file-based routing, and exposes a ReScript Greeting
- * component to the home route. A sample Server Function in `app/server/Greet.res`
+ * component to the home route. A sample Server Function in `src/server/Greet.res`
  * demonstrates how ReScript code can be invoked from TanStack's RPC layer. The
  * validation library combo is hidden in the wizard step because TanStack Start ships
  * its own data flow primitives.
@@ -26,13 +26,13 @@ internal object TanstackStartTemplateFiles {
                 ProjectFileBuilders.rescriptJson(
                     name = ctx.projectName,
                     bsDependencies = listOf("@rescript/core", "@rescript/react"),
-                    sources = appSources(),
                     includeJsx = true,
                 ),
             "package.json" to
                 ProjectFileBuilders.packageJson(
                     name = ctx.projectName,
                     isPrivate = true,
+                    type = "module",
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = tanstackDependencies(),
@@ -64,15 +64,15 @@ internal object TanstackStartTemplateFiles {
             "vite.config.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/vite.config.ts"),
             "tsconfig.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/tsconfig.json"),
             "rescript-modules.d.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/rescript-modules.d.ts"),
-            "app/router.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/app/router.tsx"),
-            "app/routes/__root.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/app/routes/__root.tsx"),
-            "app/routes/index.tsx" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/app/routes/index.tsx", projectVars),
-            "app/components/Greeting.res" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/app/components/Greeting.res"),
-            "app/server/Greet.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/app/server/Greet.res"),
-            "app/__tests__/Greeting.test.mjs" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/app/__tests__/Greeting.test.mjs"),
+            "src/router.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/router.tsx"),
+            "src/routes/__root.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/routes/__root.tsx"),
+            "src/routes/index.tsx" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/src/routes/index.tsx", projectVars),
+            "src/components/Greeting.res" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/src/components/Greeting.res"),
+            "src/server/Greet.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/server/Greet.res"),
+            "src/__tests__/Greeting.test.mjs" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Greeting.test.mjs"),
             "README.md" to
                 CommonFiles.readme(
                     ctx = ctx,
@@ -117,12 +117,6 @@ internal object TanstackStartTemplateFiles {
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
-
-    private fun appSources(): String =
-        "  \"sources\": {\n" +
-            "    \"dir\": \"app\",\n" +
-            "    \"subdirs\": true\n" +
-            "  },"
 
     private fun tanstackDependencies(): LinkedHashMap<String, String> {
         val deps = linkedMapOf<String, String>()

@@ -32,13 +32,13 @@ msgstr "TanStack Start"
 msgid ""
 "A type-safe full-stack React template powered by TanStack Start (Vite-"
 "based) with file-based routing through `@tanstack/react-router`. Sources "
-"live under `app/` to match the framework's convention; the validation "
+"live under `src/` to match the framework's convention; the validation "
 "library combo is hidden because TanStack Start ships its own data flow "
 "primitives."
 msgstr ""
 "TanStack Start (Vite ベース) を採用した型志向のフルスタック React テンプレートです。"
 "ファイルベースルーティングは `@tanstack/react-router` で配線され、ソースはフレームワーク慣習に従って "
-"`app/` 配下に置かれます。TanStack Start は独自のデータフロー原子を持つため、Validation library "
+"`src/` 配下に置かれます。TanStack Start は独自のデータフロー原子を持つため、Validation library "
 "選択コンボは非表示になります。"
 
 #: ../../user/templates/tanstack-start.md:11
@@ -51,35 +51,35 @@ msgstr "主なファイル"
 
 #: ../../user/templates/tanstack-start.md:33
 msgid ""
-"`app/routes/__root.tsx` — Root layout, wraps `<html>` / `<body>` and "
+"`src/routes/__root.tsx` — Root layout, wraps `<html>` / `<body>` and "
 "renders `<Outlet />`."
 msgstr ""
-"`app/routes/__root.tsx` — ルートレイアウト。`<html>` / `<body>` をラップし、`<Outlet />` "
+"`src/routes/__root.tsx` — ルートレイアウト。`<html>` / `<body>` をラップし、`<Outlet />` "
 "をレンダリングします。"
 
 #: ../../user/templates/tanstack-start.md:34
 msgid ""
-"`app/routes/index.tsx` — Home route (`/`) using `createFileRoute`. Loader"
+"`src/routes/index.tsx` — Home route (`/`) using `createFileRoute`. Loader"
 " greets via `Greet.greet`; the page rerenders with the new value when the"
 " button fires."
 msgstr ""
-"`app/routes/index.tsx` — `createFileRoute` を使ったホームルート (`/`)。Loader が "
+"`src/routes/index.tsx` — `createFileRoute` を使ったホームルート (`/`)。Loader が "
 "`Greet.greet` で挨拶を返し、ボタン押下時には新しい値で再レンダリングされます。"
 
 #: ../../user/templates/tanstack-start.md:35
 msgid ""
-"`app/components/Greeting.res` — ReScript React component consumed from "
+"`src/components/Greeting.res` — ReScript React component consumed from "
 "the home route via `Greeting.res.mjs`."
 msgstr ""
-"`app/components/Greeting.res` — ホームルートから `Greeting.res.mjs` 経由で参照される "
+"`src/components/Greeting.res` — ホームルートから `Greeting.res.mjs` 経由で参照される "
 "ReScript 製 React コンポーネント。"
 
 #: ../../user/templates/tanstack-start.md:36
 msgid ""
-"`app/server/Greet.res` — Server Function bound through `@tanstack/react-"
+"`src/server/Greet.res` — Server Function bound through `@tanstack/react-"
 "start`'s `createServerFn`."
 msgstr ""
-"`app/server/Greet.res` — `@tanstack/react-start` の `createServerFn` でバインドされた "
+"`src/server/Greet.res` — `@tanstack/react-start` の `createServerFn` でバインドされた "
 "Server Function サンプル。"
 
 #: ../../user/templates/tanstack-start.md:37
@@ -142,18 +142,18 @@ msgstr "Day-two ポインタ"
 
 #: ../../user/templates/tanstack-start.md:50
 msgid ""
-"**Add routes** — drop a new `.tsx` file under `app/routes/`; the router "
-"plugin regenerates `app/routeTree.gen.ts` automatically."
+"**Add routes** — drop a new `.tsx` file under `src/routes/`; the router "
+"plugin regenerates `src/routeTree.gen.ts` automatically."
 msgstr ""
-"**ルート追加** — `app/routes/` 配下に新しい `.tsx` を置けば、router プラグインが "
-"`app/routeTree.gen.ts` を自動再生成します。"
+"**ルート追加** — `src/routes/` 配下に新しい `.tsx` を置けば、router プラグインが "
+"`src/routeTree.gen.ts` を自動再生成します。"
 
 #: ../../user/templates/tanstack-start.md:51
 msgid ""
 "**Add Server Functions** — define more `createServerFn(...)` thunks under"
-" `app/server/` and import them from any route or component."
+" `src/server/` and import them from any route or component."
 msgstr ""
-"**Server Function 追加** — `app/server/` 配下で `createServerFn(...)` のサンクを追加で定義し、"
+"**Server Function 追加** — `src/server/` 配下で `createServerFn(...)` のサンクを追加で定義し、"
 "任意のルートやコンポーネントから import します。"
 
 #: ../../user/templates/tanstack-start.md:52

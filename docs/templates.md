@@ -23,7 +23,7 @@ Project Wizard が提供する 21 種類のプロジェクトテンプレート�
 | 15 | Monorepo | Full Stack | pnpm/npm/yarn workspace | `packages/{shared,server,client}`、workspace protocol 型共有 |
 | 16 | Full-Stack | Full Stack | 単一パッケージの統合構成 | `src/{shared,server,client}`、Hono + Drizzle + Vite+ React |
 | 17 | res-x (HTMX on Bun) | Full Stack | Bun + Vite + HTMX サーバドリブン SPA | `rescript-x` + `rescript-bun`、Counter + Todo フォーム、`Validation.res` (zod/sury) |
-| 18 | TanStack Start | Frontend | 型志向フルスタック React | `@tanstack/react-start` + `@tanstack/react-router`、Server Function サンプル、`app/` ソース |
+| 18 | TanStack Start | Frontend | 型志向フルスタック React | `@tanstack/react-start` + `@tanstack/react-router`、Server Function サンプル、`src/` ソース |
 | 19 | Remix / React Router v7 | Frontend | SSR + loader/action モデル | `@react-router/dev` Vite プラグイン、ReScript loader、`app/` ソース |
 | 20 | Astro | Frontend | コンテンツ志向 SSG/SSR + React Islands | `@astrojs/react`、Static + Counter Island、`@astrojs/node` adapter |
 | 21 | Waku | Frontend | RSC-first React フレームワーク | Server Component + `"use client"` TSX ラッパー越しの Client Component |

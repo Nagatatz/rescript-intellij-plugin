@@ -4,7 +4,7 @@
 @react.component
 let make = (~initial: int) => {
   let (count, setCount) = React.useState(_ => initial)
-  <div style={ReactDOM.Style.make(~marginTop="1rem", ())}>
+  <div className="counter-client">
     <h2> {React.string("Interactive Client Component")} </h2>
     <p> {React.string("Count: " ++ Belt.Int.toString(count))} </p>
     <button onClick={_ => setCount(prev => prev + 1)}>

@@ -36,15 +36,15 @@ class TanstackStartTemplateFilesTest {
     @Test
     fun `routes directory exposes a root layout and an index route`() {
         val files = TanstackStartTemplateFiles.generate(ctx)
-        assertTrue(files.containsKey("app/routes/__root.tsx"))
-        assertTrue(files.containsKey("app/routes/index.tsx"))
-        assertTrue(files["app/routes/__root.tsx"]!!.contains("createRootRoute"))
-        assertTrue(files["app/routes/index.tsx"]!!.contains("createFileRoute"))
+        assertTrue(files.containsKey("src/routes/__root.tsx"))
+        assertTrue(files.containsKey("src/routes/index.tsx"))
+        assertTrue(files["src/routes/__root.tsx"]!!.contains("createRootRoute"))
+        assertTrue(files["src/routes/index.tsx"]!!.contains("createFileRoute"))
     }
 
     @Test
     fun `index route reads the project name from the loader`() {
-        val index = TanstackStartTemplateFiles.generate(ctx)["app/routes/index.tsx"]!!
+        val index = TanstackStartTemplateFiles.generate(ctx)["src/routes/index.tsx"]!!
         // Loader greets with the project name baked into the loader call.
         assertTrue(index.contains("\"startapp\""))
     }
@@ -53,7 +53,7 @@ class TanstackStartTemplateFilesTest {
     fun `ReScript Greeting component is shipped under app components`() {
         val files = TanstackStartTemplateFiles.generate(ctx)
         val greeting =
-            files["app/components/Greeting.res"]
+            files["src/components/Greeting.res"]
                 ?: error("Greeting.res missing")
         assertTrue(greeting.contains("@react.component"))
         assertTrue(greeting.contains("let make"))
@@ -62,7 +62,7 @@ class TanstackStartTemplateFilesTest {
     @Test
     fun `Server Function sample uses createServerFn from TanStack Start`() {
         val server =
-            TanstackStartTemplateFiles.generate(ctx)["app/server/Greet.res"]
+            TanstackStartTemplateFiles.generate(ctx)["src/server/Greet.res"]
                 ?: error("Greet.res missing")
         assertTrue(server.contains("createServerFn"))
         assertTrue(server.contains("@module(\"@tanstack/react-start\")"))
@@ -77,9 +77,9 @@ class TanstackStartTemplateFilesTest {
     }
 
     @Test
-    fun `rescript json points sources at the app directory and enables JSX`() {
+    fun `rescript json points sources at the src directory and enables JSX`() {
         val rj = TanstackStartTemplateFiles.generate(ctx)["rescript.json"]!!
-        assertTrue(rj.contains("\"dir\": \"app\""))
+        assertTrue(rj.contains("\"dir\": \"src\""))
         assertTrue(rj.contains("\"jsx\""))
     }
 
