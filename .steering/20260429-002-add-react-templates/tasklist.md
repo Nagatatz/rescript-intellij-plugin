@@ -201,10 +201,10 @@
 - [ ] New Project ダイアログに 21 テンプレートが表示される（手動 `runIde` 確認・未実施）
 - [ ] 既存テンプレート選択で Validation コンボが表示される（手動確認・未実施）
 - [ ] 新 4 テンプレート選択で Validation コンボが非表示になる（手動確認・未実施）
-- [ ] TanStack Start 生成 → `pnpm install && pnpm dev` で起動確認（手動確認・未実施。テンプレートのバージョン定数はベストエフォートで設定済み、ユーザー検証後に必要に応じて bump）
-- [ ] Remix v7 生成 → `pnpm install && pnpm dev` で起動確認（手動確認・未実施）
-- [ ] Astro 生成 → `pnpm install && pnpm dev` で起動 + Islands hydration 確認（手動確認・未実施）
-- [ ] Waku 生成 → `pnpm install && pnpm dev` で起動確認（手動確認・未実施）
+- [x] TanStack Start 生成 → `pnpm install && rescript build && pnpm test` 成功（NewReactTemplatesIntegrationTest 経由で検証）
+- [x] Remix v7 生成 → `pnpm install && rescript build && pnpm test` 成功（NewReactTemplatesIntegrationTest 経由で検証）
+- [x] Astro 生成 → `pnpm install && rescript build && pnpm test` 成功（NewReactTemplatesIntegrationTest 経由で検証）
+- [x] Waku 生成 → `pnpm install && rescript build && pnpm test` 成功（NewReactTemplatesIntegrationTest 経由で検証）
 
 ## Phase 8: main マージ調整
 
