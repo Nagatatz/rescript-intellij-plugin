@@ -263,6 +263,11 @@ kover {
             }
         }
         verify {
+            // Coverage ratchet: minBound is enforced by `./gradlew koverVerify`
+            // (wired into CI via .github/workflows/ci.yml). The value follows the
+            // policy in .claude/rules/release.md — set to (measured coverage - 3%)
+            // and only ratcheted upward across releases. Lowering it requires an
+            // explicit release-note entry.
             rule {
                 minBound(86)
             }
