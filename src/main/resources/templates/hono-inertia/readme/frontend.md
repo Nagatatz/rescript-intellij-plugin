@@ -5,9 +5,9 @@
 3. Register a route in `src/Routes.res`:
 
    ```rescript
-   app->Hono.get("/the/path", async ctx => {
-     await ctx->HonoInertia.render("<Name>", { ... })
-   })
+   app->Hono.get("/the/path", ctx =>
+     ctx->HonoInertia.render("<Name>", { ... })
+   )
    ```
 
 `src/client/pages.js` discovers the new file automatically through

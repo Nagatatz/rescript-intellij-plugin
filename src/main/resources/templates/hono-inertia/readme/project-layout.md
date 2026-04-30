@@ -1,7 +1,6 @@
 ```
 .
-├── index.html              # Inertia HTML host page (Vite entry)
-├── vite.config.mjs         # Vite+ config (react + inertiaPages plugins)
+├── vite.config.mjs         # Vite+ config (@vitejs/plugin-react)
 ├── drizzle.config.ts       # Drizzle migration config
 ├── src/
 │   ├── Hono.res            # Hono framework bindings
@@ -32,3 +31,10 @@
 code can `import { app } from "../Server.res.mjs"` and exercise routes via
 `app.request(...)` without the side effect of starting an HTTP listener.
 `ServerMain.res` is the production entry point that calls `Server.start()`.
+
+### Where is the HTML host page?
+
+There is no static `index.html`. The `inertia({rootView})` middleware
+in `Server.res` returns a fresh HTML shell on every non-Inertia visit,
+embedding the page object into a `data-page` attribute that the Inertia
+client adapter reads on boot.
