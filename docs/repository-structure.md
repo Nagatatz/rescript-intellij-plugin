@@ -85,6 +85,7 @@ rescript-intellij-plugin/
 | `scratch/` | スクラッチファイル | `RescriptScratchRootType`, `RescriptScratchCreationHelper` |
 | `typeinfo/` | 型情報ツールウィンドウ | `RescriptTypeInfoToolWindowFactory`, `RescriptTypeInfoPanel` |
 | `worksheet/` | Worksheet モード（.resw） | `RescriptWorksheetFileType`, `RescriptWorksheetRunner` |
+| `analytics/` | Feature Usage Statistics (FUS) — IDE オプトイン下で wizard / toolwindow / intention の利用シグナルを記録 | `RescriptFeatureUsageCounter` |
 
 #### Java ソース (`src/main/java/com/rescript/plugin/lang/`)
 
