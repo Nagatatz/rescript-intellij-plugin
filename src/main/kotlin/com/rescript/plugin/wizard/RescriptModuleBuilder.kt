@@ -8,6 +8,7 @@ import com.intellij.openapi.module.ModuleTypeManager
 import com.intellij.openapi.roots.ModifiableRootModel
 import com.intellij.openapi.vfs.VfsUtil
 import com.rescript.plugin.RescriptIcons
+import com.rescript.plugin.analytics.RescriptFeatureUsageCounter
 import com.rescript.plugin.wizard.templates.TemplateContext
 import java.io.File
 import javax.swing.Icon
@@ -47,6 +48,8 @@ class RescriptModuleBuilder : ModuleBuilder() {
         val contentRoot = doAddContentEntry(modifiableRootModel) ?: return
         val rootPath = contentRoot.file?.path ?: return
         val projectName = modifiableRootModel.module.name
+
+        RescriptFeatureUsageCounter.WIZARD_TEMPLATE_SELECTED.log(selectedTemplate)
 
         val files =
             RescriptProjectGenerator.generateFiles(
