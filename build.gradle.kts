@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.kover)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.pitest)
 }
 
 repositories {
@@ -48,6 +49,50 @@ dependencies {
     testImplementation(libs.junit4)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.junit.jupiter)
+}
+
+// ── Mutation testing (PIT) ──
+//
+// Runs mutation analysis on a focused subset of packages where unit tests
+// already exist. The goal is to surface tests that pass even when the
+// underlying logic is mutated (e.g. boundary conditions changed, return
+// values negated). The CI integration runs this only on pull requests
+// because it is slow.
+//
+// Excludes IDE-coupled classes that cannot be exercised by JUnit alone
+// (parsers driven by PsiBuilder, generated lexer, PSI element types).
+
+pitest {
+    pitestVersion.set(libs.versions.pitest.asProvider())
+    junit5PluginVersion.set(libs.versions.pitest.junit5)
+    targetClasses.set(
+        listOf(
+            "com.rescript.plugin.util.*",
+            "com.rescript.plugin.lang.*",
+        ),
+    )
+    excludedClasses.set(
+        listOf(
+            "com.rescript.plugin.lang.RescriptFlexLexer*",
+            "com.rescript.plugin.lang.RescriptDeclarationParser*",
+            "com.rescript.plugin.lang.RescriptJsxParser*",
+            "com.rescript.plugin.lang.RescriptParserDefinition*",
+            "com.rescript.plugin.lang.RescriptFindUsagesProvider*",
+            "com.rescript.plugin.lang.RescriptUsageTypeProvider*",
+            "com.rescript.plugin.lang.RescriptElementDescriptionProvider*",
+            "com.rescript.plugin.lang.psi.*",
+        ),
+    )
+    targetTests.set(
+        listOf(
+            "com.rescript.plugin.util.*",
+            "com.rescript.plugin.lang.*",
+        ),
+    )
+    threads.set(2)
+    outputFormats.set(listOf("HTML", "XML"))
+    timestampedReports.set(false)
+    failWhenNoMutations.set(false)
 }
 
 // ── UI Test (Remote-Robot) source set ──
@@ -263,6 +308,11 @@ kover {
             }
         }
         verify {
+            // Coverage ratchet: minBound is enforced by `./gradlew koverVerify`
+            // (wired into CI via .github/workflows/ci.yml). The value follows the
+            // policy in .claude/rules/release.md — set to (measured coverage - 3%)
+            // and only ratcheted upward across releases. Lowering it requires an
+            // explicit release-note entry.
             rule {
                 minBound(86)
             }

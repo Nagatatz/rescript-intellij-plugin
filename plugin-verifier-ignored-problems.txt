@@ -18,6 +18,7 @@
 // The @Internal annotation remains in bytecode, so the verifier still flags it
 // even though JetBrains officially permits third-party usage.
 // Status: KEEP — annotation not yet removed from source.
+// Expires: 2027-04-29
 com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*
 
 // ── Deprecated overrides with no replacement API ───────────────────────
@@ -30,6 +31,7 @@ com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*
 // filtering of the ReScript editor floating toolbar.
 // Status: KEEP — no alternative API available.
 // Source: RescriptFloatingToolbarProvider.kt
+// Expires: 2027-04-29
 com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*isApplicable.*
 
 // CompletionConfidence.shouldSkipAutopopup() — deprecated with no
@@ -37,6 +39,7 @@ com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*isApplicable.*
 // string literals.
 // Status: KEEP — no alternative API available.
 // Source: RescriptCompletionConfidence.kt
+// Expires: 2027-04-29
 com\.rescript\.plugin:.*:.*CompletionConfidence.*shouldSkipAutopopup.*
 
 // ── Transitive deprecation from LSP4J ──────────────────────────────────
@@ -45,4 +48,5 @@ com\.rescript\.plugin:.*:.*CompletionConfidence.*shouldSkipAutopopup.*
 // (Either<List<Either<String, MarkedString>>, MarkupContent>).
 // Not directly used in plugin source; cannot be fixed without LSP4J update.
 // Status: KEEP — transitive dependency via IntelliJ Platform's bundled LSP4J.
+// Expires: 2027-04-29
 com\.rescript\.plugin:.*:.*MarkedString.*
