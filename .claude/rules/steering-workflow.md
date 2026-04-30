@@ -26,8 +26,9 @@ tasklist.md には以下のセクションを必ず含めること:
 
 1. **各機能の実装タスク** — コード + テスト + plugin.xml 登録
 2. **ドキュメント更新タスク** — CLAUDE.md, README.md, sphinx-docs, product-requirements.md
-3. **コミット前検証タスク** — `definition-of-done.md` Phase 3 の全項目を確認
-4. **マージタスク** — ビルド確認 + tasklist 完了確認 + main マージ
+
+コミット前検証とマージ手順は `.claude/rules/definition-of-done.md` Phase 3〜5 に従う。
+tasklist には作業固有の項目があれば追加してよいが、DoD と重複する記載は避けること。
 
 ## 実装完了後のマージ確認
 
