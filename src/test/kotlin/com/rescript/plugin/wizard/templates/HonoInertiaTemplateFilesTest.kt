@@ -40,17 +40,19 @@ class HonoInertiaTemplateFilesTest {
     }
 
     @Test
-    fun `template ships rescript, vite, drizzle, README, and CI scaffolding`() {
+    fun `template ships rescript, vite, drizzle, README, and CI scaffolding without a static index html`() {
         val files = HonoInertiaTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("rescript.json"))
         assertTrue(files.containsKey("vite.config.mjs"))
         assertTrue(files.containsKey("drizzle.config.ts"))
-        assertTrue(files.containsKey("index.html"))
         assertTrue(files.containsKey("README.md"))
         assertTrue(files.containsKey(".gitignore"))
         assertTrue(files.containsKey(".editorconfig"))
         assertTrue(files.containsKey(".github/workflows/ci.yml"))
         assertTrue(files.containsKey(".env.example"))
+        // The HTML host page is rendered server-side by inertia()'s rootView,
+        // so a static index.html is intentionally omitted.
+        assertFalse(files.containsKey("index.html"))
     }
 
     @Test
@@ -61,30 +63,66 @@ class HonoInertiaTemplateFilesTest {
     }
 
     @Test
-    fun `vite config uses Vite+ defineConfig and registers the inertiaPages plugin`() {
+    fun `vite config uses Vite+ defineConfig and does not register the inertiaPages plugin`() {
         val cfg = HonoInertiaTemplateFiles.generate(ctx)["vite.config.mjs"]!!
         assertTrue(cfg.contains("from \"vite-plus\""))
-        assertTrue(cfg.contains("inertiaPages"))
         assertTrue(cfg.contains("@vitejs/plugin-react"))
+        // inertiaPages() generates a TS-only `pages.gen.ts` that ReScript does
+        // not consume; including it confuses end users and wires up a plugin
+        // configured against `app/pages` defaults that don't match the layout.
+        assertFalse(cfg.contains("inertiaPages"))
+        assertFalse(cfg.contains("@hono/inertia/vite"))
     }
 
     @Test
-    fun `server wires the Inertia middleware before defining routes`() {
+    fun `server wires the Inertia middleware with a rootView before defining routes`() {
         val server = HonoInertiaTemplateFiles.generate(ctx)["src/Server.res"]!!
-        assertTrue(server.contains("HonoInertia.inertia()"))
+        assertTrue(server.contains("HonoInertia.inertia({rootView"))
         assertTrue(server.contains("Routes.Pages.register(app)"))
         // Middleware order is critical: inertia() must precede route registration.
-        val inertiaIdx = server.indexOf("HonoInertia.inertia()")
+        val inertiaIdx = server.indexOf("HonoInertia.inertia(")
         val routesIdx = server.indexOf("Routes.Pages.register(app)")
         assertTrue(inertiaIdx in 0 until routesIdx)
     }
 
     @Test
-    fun `routes call HonoInertia render with named pages and structured props`() {
+    fun `Server res defines a rootView that embeds the page JSON and the client entry`() {
+        val server = HonoInertiaTemplateFiles.generate(ctx)["src/Server.res"]!!
+        assertTrue(server.contains("let rootView: HonoInertia.rootView"))
+        assertTrue(server.contains("HonoInertia.serializePage"))
+        assertTrue(server.contains("data-page="))
+        assertTrue(server.contains("/src/client/Main.res.mjs"))
+        // Apostrophe escape is required since serializePage only escapes `/`.
+        assertTrue(server.contains("&#39;"))
+    }
+
+    @Test
+    fun `routes call HonoInertia render synchronously without await for GET handlers`() {
         val routes = HonoInertiaTemplateFiles.generate(ctx)["src/Routes.res"]!!
         assertTrue(routes.contains("HonoInertia.render(") && routes.contains("\"Home\""))
         assertTrue(routes.contains("\"About\""))
         assertTrue(routes.contains("Validation.parseGreetForm"))
+        // GET handlers must not await render: render returns a Hono Response
+        // synchronously per @hono/inertia v0.2 typings.
+        assertFalse(routes.contains("await ctx->HonoInertia.render"))
+    }
+
+    @Test
+    fun `HonoInertia bindings declare a non-promise render and serializePage`() {
+        val bindings = HonoInertiaTemplateFiles.generate(ctx)["src/HonoInertia.res"]!!
+        assertTrue(bindings.contains("@module(\"@hono/inertia\")"))
+        assertTrue(bindings.contains("external inertia: options =>"))
+        assertTrue(bindings.contains("type rootView"))
+        assertTrue(bindings.contains("external serializePage"))
+        // render must return the Response directly, not promise<Response>.
+        assertTrue(
+            bindings.contains("external render: (Hono.context, string, 'props) => 'response"),
+            "render binding must return the Response synchronously",
+        )
+        assertFalse(
+            bindings.contains("=> promise<'response>"),
+            "render binding must not wrap the response in a promise",
+        )
     }
 
     @Test
@@ -97,13 +135,15 @@ class HonoInertiaTemplateFilesTest {
     }
 
     @Test
-    fun `pages js shim uses import meta glob and re-exports under default`() {
+    fun `pages js shim resolves make and throws on missing exports`() {
         val shim = HonoInertiaTemplateFiles.generate(ctx)["src/client/pages.js"]!!
         assertTrue(shim.contains("import.meta.glob"))
         assertTrue(shim.contains("./Pages/"))
         // Inertia reads `.default`, ReScript exports `make` — the shim bridges them.
-        assertTrue(shim.contains("default"))
-        assertTrue(shim.contains("make"))
+        assertTrue(shim.contains("default: mod.make"))
+        // Missing `make` must surface an explicit error rather than silently
+        // returning an unrelated module export.
+        assertTrue(shim.contains("if (!mod.make)"))
     }
 
     @Test
@@ -115,13 +155,18 @@ class HonoInertiaTemplateFilesTest {
     }
 
     @Test
-    fun `ships sample Home and About pages plus a shared layout`() {
+    fun `ships sample Home and About pages plus a shared layout without redundant prop ascriptions`() {
         val files = HonoInertiaTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("src/client/MainLayout.res"))
         assertTrue(files.containsKey("src/client/Pages/Home.res"))
         assertTrue(files.containsKey("src/client/Pages/About.res"))
         assertTrue(files["src/client/MainLayout.res"]!!.contains("InertiaBindings.usePage"))
-        assertTrue(files["src/client/Pages/Home.res"]!!.contains("@react.component"))
+        val home = files["src/client/Pages/Home.res"]!!
+        assertTrue(home.contains("@react.component"))
+        // The dead `type props` + `let _ = ...` pair was a workaround that
+        // shadowed the PPX-synthesized props type; both must be gone.
+        assertFalse(home.contains("type props"))
+        assertFalse(home.contains("let _ = ("))
     }
 
     @Test

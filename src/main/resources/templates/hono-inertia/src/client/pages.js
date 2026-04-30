@@ -5,9 +5,9 @@
 // ReScript. Instead, we use Vite's `import.meta.glob` here in plain JS and
 // expose a typed lookup function that the ReScript entry imports.
 //
-// Inertia reads `.default` off whatever resolve returns; ReScript-compiled
-// modules expose their React component as `make`, so we re-export it under
-// `default` for Inertia to pick up.
+// Every page module is compiled from `@react.component let make = ...`, so
+// the resolved module exposes `make` as the React component. Inertia reads
+// `.default` off whatever `resolve` returns, so we re-export `make` there.
 const pages = import.meta.glob("./Pages/**/*.res.mjs");
 
 export async function resolvePage(name) {
@@ -17,5 +17,10 @@ export async function resolvePage(name) {
     throw new Error(`Inertia page not found: ${name}`);
   }
   const mod = await loader();
-  return { default: mod.make ?? mod.default ?? mod };
+  if (!mod.make) {
+    throw new Error(
+      `Inertia page module ${name} does not export 'make'; did you forget @react.component?`,
+    );
+  }
+  return { default: mod.make };
 }

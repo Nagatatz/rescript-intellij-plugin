@@ -70,11 +70,6 @@ internal object HonoInertiaTemplateFiles {
                                 "res:dev" to "rescript -w",
                             ),
                     ),
-                "index.html" to
-                    TemplateResourceLoader.load(
-                        "$RESOURCE_ROOT/index.html",
-                        mapOf("projectName" to ctx.projectName),
-                    ),
                 "vite.config.mjs" to TemplateResourceLoader.load("$RESOURCE_ROOT/vite.config.mjs"),
                 "drizzle.config.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/drizzle.config.ts"),
                 "src/Hono.res" to ProjectFileBuilders.honoBindings(),

@@ -1,14 +1,7 @@
-// Home page. Server hands a `{title, message}` object via `c->HonoInertia.render`
-// in `Routes.res`. The shape is checked at runtime through Inertia's protocol.
-type props = {
-  title: string,
-  message: string,
-}
-
+// Home page. Server hands `{title, message}` via `c->HonoInertia.render` in
+// `Routes.res`; the labeled args below double as the page's typed props.
 @react.component
-let make = (~title, ~message) => {
-  let _ = ({title, message}: props)
-
+let make = (~title, ~message) =>
   <MainLayout>
     <h1> {React.string(title)} </h1>
     <p> {React.string(message)} </p>
@@ -18,4 +11,3 @@ let make = (~title, ~message) => {
       </InertiaBindings.Link>
     </p>
   </MainLayout>
-}

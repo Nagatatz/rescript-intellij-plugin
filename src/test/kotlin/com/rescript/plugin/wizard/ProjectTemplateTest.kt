@@ -374,7 +374,9 @@ class ProjectTemplateTest {
         assertTrue(pkg.contains("\"@inertiajs/react\""))
         assertTrue(pkg.contains("\"vp dev\""))
         val server = files["src/Server.res"]!!
-        assertTrue(server.contains("HonoInertia.inertia()"))
+        // The middleware is registered with a rootView so non-Inertia visits
+        // receive a server-rendered HTML host page (no static index.html).
+        assertTrue(server.contains("HonoInertia.inertia({rootView"))
         // Inertia template intentionally has no API routes returning JSON shells, so
         // it does not need to surface CORS — the assertion above is sufficient.
     }
