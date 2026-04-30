@@ -47,6 +47,46 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Check ignored-problems expiry
+        # Surfaces expired `Expires: YYYY-MM-DD` entries in
+        # plugin-verifier-ignored-problems.txt as a CI step summary warning.
+        # Does not fail the build — keeps the monthly cadence as a soft
+        # reminder so deprecated API suppressions do not rot indefinitely.
+        shell: bash
+        run: |
+          set -euo pipefail
+          today="$(date -u +%Y-%m-%d)"
+          file="plugin-verifier-ignored-problems.txt"
+          if [ ! -f "$file" ]; then
+            echo "$file not found, skipping expiry check"
+            exit 0
+          fi
+          expired=()
+          while IFS= read -r line; do
+            if [[ "$line" =~ Expires:[[:space:]]*([0-9]{4}-[0-9]{2}-[0-9]{2}) ]]; then
+              exp="${BASH_REMATCH[1]}"
+              if [[ "$exp" < "$today" ]]; then
+                expired+=("$exp")
+              fi
+            fi
+          done < "$file"
+          if [ "${#expired[@]}" -gt 0 ]; then
+            {
+              echo "## ⚠️ Expired ignored-problems entries"
+              echo ""
+              echo "Today (UTC): $today"
+              echo ""
+              echo "Re-review the following entries in \`plugin-verifier-ignored-problems.txt\`:"
+              echo ""
+              for e in "${expired[@]}"; do
+                echo "- Expires: $e"
+              done
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning::${#expired[@]} ignored-problems entries are past their Expires date"
+          else
+            echo "No expired ignored-problems entries"
+          fi
+
       - name: Verify plugin against configured IDE versions
         run: ./gradlew verifyPlugin --info
 

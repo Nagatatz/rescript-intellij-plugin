@@ -27,6 +27,7 @@ globs: ["src/main/**/*.kt", "src/main/**/*.java"]
    - API 名と使用理由（代替 API なし、LSP4J transitive、etc.）
    - 対象ソースファイル名
    - `Status: KEEP` と `Reviewed: YYYY-MM-DD`
+   - `Expires: YYYY-MM-DD`（推奨: Reviewed の 12 ヶ月後）。月次 verifyPlugin ワークフローが期限切れエントリを Step Summary に警告として表示する
 4. 実装の PR 本文で「deprecated API を意図的に使用した理由」を説明する。
 
 ## IntelliJ Platform バージョンアップ時
