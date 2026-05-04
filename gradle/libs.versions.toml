@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.3.21"
-intellij-platform = "2.15.0"
+intellij-platform = "2.16.0"
 grammarkit = "2023.3.0.3"
 ktlint-gradle = "14.2.0"
 ktlint = "1.8.0"
