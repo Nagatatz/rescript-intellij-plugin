@@ -70,19 +70,29 @@ IntelliJ Platform の `com.intellij.codeInsight.hints.declarative.InlayHintsProv
 
 ### 3.2 RescriptSwitchArmCollector
 
-`RescriptParser` が生成する PSI の `RescriptSwitchExpression` / `RescriptSwitchArm` ノードを走査し、以下の情報を返す:
+**方針確認:** 既存の `RescriptParser` は switch 式を PSI として表現していない（`skipNonTopLevel` で素通り）。パーサーに switch 認識を追加すると影響範囲が大きく、既存テストへのリグレッションリスクが高い。本機能では **PSI を拡張せず、トークンウォーカー方式** を採る。
+
+`RescriptLexer` を直接走らせて `switch` キーワードとその後続の `{ ... }` ブロック内の `|` `=>` を構文的に検出し、以下の情報を返す:
 
 ```kotlin
 data class SwitchArm(
-    val armElement: PsiElement,
-    val patternOffset: Int,        // パターンの開始 offset
-    val arrowOffset: Int,          // `=>` の終了 offset（ヒント挿入点）
-    val scrutineeOffset: Int,      // switch (X) の X の offset
-    val patternSummary: String,    // "Some(_)" / "Ok(_)" 等
+    val scrutineeRange: TextRange,   // switch X の X の範囲（hover の対象）
+    val patternOffset: Int,          // | の直後（パターン開始 offset）
+    val arrowOffset: Int,            // => の終了 offset（ヒント挿入点）
+    val patternSummary: String,      // "Some(_)" / "Ok(_)" 等の表示用要約
 )
 ```
 
-**注意:** 現状の `RescriptParser` は switch 式の詳細な PSI を持たない可能性がある。その場合は `RescriptSwitchExpression` PSI クラスを新規追加し、軽量パーサーに switch arm 認識ロジックを追加する。**この変更は別 PR にせず、本機能の前提条件として同 PR に含める**。
+走査ロジック:
+
+1. `switch` トークンを検出
+2. 続く非空白トークン列をスクラティニーとして読み取り（`{` まで）
+3. `{` 内で `|` トークンを arm 区切りとして識別。ネスト `switch` は brace 深度で区別
+4. `=>` 直前までをパターン、`=>` 直後を arm body と認識
+5. 各 arm の `patternSummary` は最初の構成要素 + 末尾 `(_)` ヒューリスティックで生成
+
+**メリット:** PSI 変更不要。既存 PSI / パーサーへの影響ゼロ。テスト容易（純粋関数として `String → List<SwitchArm>`）。
+**デメリット:** PSI ベースのキャッシュ機構が使えない。代わりに `(VirtualFile, modCount)` 単位で結果をキャッシュする。
 
 ### 3.3 RescriptHoverTypeResolver
 
@@ -106,14 +116,13 @@ Hover レスポンスから型のみを抽出し、表示用に整形する。
 
 既存 `RescriptProjectSettings` に `narrowingHintsEnabled: Boolean = true` を追加する。`RescriptConfigurable` に対応するチェックボックスを追加。
 
-## 4. PSI 拡張（前提条件）
+## 4. パーサー拡張（不要）
 
-`RescriptParser.kt` を確認し、`switch` 式の PSI 表現を確認する。
+調査の結果、既存 `RescriptParser` は `switch` 式を素通りしており、PSI を介した arm 取得は不可能。本実装ではパーサーに手を入れず、`RescriptLexer` を `RescriptSwitchArmCollector` 内で直接インスタンス化して走らせる。これにより:
 
-- 既存で switch 式を `RescriptSwitchExpression` として認識している場合 → arm 抽出ロジックのみ追加
-- 認識していない場合 → 軽量パーサーに switch 認識を追加（既存方針に従い JSX 同様トップレベル + ブロック認識）
-
-**arm 抽出は構文ベース**（`|` `=>` の位置関係）で行い、複雑な式パースは LSP に委譲する。
+- 既存 PSI / パーサーテストへのリグレッションリスクをゼロにできる
+- `RescriptSwitchArmCollector` を純粋関数（入力: `String` → 出力: `List<SwitchArm>`）として実装でき、テスト容易性が高い
+- レクサーのみへの依存で、JFlex の変更も発生しない
 
 ## 5. パフォーマンス戦略
 

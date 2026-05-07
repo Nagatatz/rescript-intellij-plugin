@@ -4,14 +4,13 @@
 - [x] requirements.md 作成
 - [x] design.md 作成
 - [x] tasklist.md 作成
-- [ ] requirements / design / tasklist のユーザー承認
-- [ ] `EnterWorktree` で `narrowing-visualizer` worktree を作成
+- [x] requirements / design / tasklist のユーザー承認
+- [x] `EnterWorktree` で `narrowing-visualizer` worktree を作成
 
-## Phase 2: PSI 拡張（前提条件）
-- [ ] `RescriptParser.kt` の現状確認 — switch 式の PSI 表現があるか調査
-- [ ] 必要であれば `RescriptSwitchExpression` PSI クラスを追加
-- [ ] 軽量パーサーに switch arm 認識ロジックを追加（`|` `=>` のペア検出）
-- [ ] PSI 拡張のユニットテストを `lang/RescriptParserTest.kt` に追加
+## Phase 2: パーサー方針確認（PSI 拡張は不要と決定）
+- [x] `RescriptParser.kt` の現状確認 — switch 式は素通りされており PSI 表現なし
+- [x] 設計判断: PSI 拡張ではなくトークンウォーカー方式を採用（`RescriptLexer` を直接走らせる）
+- [x] design.md を方針変更に合わせて更新
 
 ## Phase 3: 実装
 - [ ] `narrowing/RescriptSwitchArmCollector.kt` を実装
@@ -45,10 +44,9 @@
 - [ ] `docs/lsp-fallback-matrix.md` に本機能の依存度を追加
 
 ## Phase 3: コミット
-- [ ] PSI 拡張のコミット（`✨ Add switch expression PSI for narrowing visualizer`）
-- [ ] Collector + Presenter + Resolver のコミット（`✨ Add switch arm analyzer for type narrowing`）
-- [ ] HintProvider 本体 + plugin.xml 登録のコミット（`✨ Add type narrowing inlay hints`）
-- [ ] 設定追加のコミット（`✨ Add settings toggle for narrowing hints`）
+- [ ] Collector のコミット（`✨ Add switch arm token walker for narrowing`）
+- [ ] HoverTypeResolver + Presenter のコミット（`✨ Add LSP hover resolver and presenter for narrowing`）
+- [ ] HintProvider + 設定 + plugin.xml 登録のコミット（`✨ Add type narrowing inlay hints`）
 - [ ] ドキュメント更新コミット（`📝 Document type narrowing visualizer`）
 - [ ] tasklist.md 全項目を `[x]` に更新するコミット（マージ前最終）
 
