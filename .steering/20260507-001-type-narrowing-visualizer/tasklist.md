@@ -15,9 +15,9 @@
 ## Phase 3: 実装
 - [x] `narrowing/RescriptSwitchArmCollector.kt` を実装
 - [x] `narrowing/RescriptSwitchArmCollectorTest.kt` を作成（option/result/list/polyvariant/custom variant + ネスト/or-pattern/when ガード/不完全/scrutinee/arrow offset の 12 ケース）
-- [ ] `narrowing/RescriptHoverTypeResolver.kt` を実装（LSP 結合のためテスト免除）
-- [ ] `narrowing/RescriptNarrowingPresenter.kt` を実装
-- [ ] `narrowing/RescriptNarrowingPresenterTest.kt` を作成
+- [x] `narrowing/RescriptHoverTypeResolver.kt` を実装（LSP 結合のためテスト免除）
+- [x] `narrowing/RescriptNarrowingPresenter.kt` を実装
+- [x] `narrowing/RescriptNarrowingPresenterTest.kt` を作成
 - [ ] `narrowing/RescriptNarrowingHintProvider.kt` を実装（InlayHintsProvider）
 - [ ] `narrowing/RescriptNarrowingHintProviderTest.kt` を作成（`buildHints` の純粋ロジックを検証。InlayHintsSink/PresentationFactory 統合は IntelliJ Platform fixture が必要のため免除）
 - [ ] `settings/RescriptProjectSettings.kt` に `narrowingHintsEnabled` を追加
