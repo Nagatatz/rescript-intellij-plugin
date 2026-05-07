@@ -1,6 +1,7 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ApiStrategy
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
 import com.rescript.plugin.wizard.ValidationLibrary
@@ -117,42 +118,64 @@ internal object FullStackTemplateFiles {
         variantKey: String,
     ): Map<String, String> {
         val nameVar = mapOf("projectName" to ctx.projectName)
-        return mapOf(
-            "index.html" to TemplateResourceLoader.load("full-stack/index.html", nameVar),
-            "vite.config.mjs" to
-                ProjectFileBuilders.viteConfigWithProxy(
-                    imports =
-                        listOf(
-                            """import { defineConfig } from "vite-plus";""",
-                            """import react from "@vitejs/plugin-react";""",
-                        ),
-                ),
-            "drizzle.config.ts" to TemplateResourceLoader.load("full-stack/drizzle.config.ts"),
-            "src/shared/Shared.res" to TemplateResourceLoader.load("full-stack/src/shared/Shared.res"),
-            "src/server/ServerMain.res" to TemplateResourceLoader.load("full-stack/src/server/ServerMain.res"),
-            "src/server/Hono.res" to ProjectFileBuilders.honoBindings(),
-            "src/server/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
-            "src/server/Schema.res" to TemplateResourceLoader.load("full-stack/src/server/Schema.res"),
-            "src/server/Validation.res" to
-                TemplateResourceLoader.load("full-stack/variants/$variantKey/src/server/Validation.res"),
-            "src/server/Db.res" to TemplateResourceLoader.load("common/db/Db.res"),
-            "src/server/__tests__/Server.test.mjs" to
-                TemplateResourceLoader.load("full-stack/src/server/__tests__/Server.test.mjs"),
-            "vitest.config.mjs" to TemplateResourceLoader.load("full-stack/vitest.config.mjs"),
-            "vitest.setup.mjs" to TemplateResourceLoader.load("full-stack/vitest.setup.mjs"),
-            ".nvmrc" to CommonFiles.nvmrc(ctx),
-            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
-            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".env.example" to
-                CommonFiles.envExample(
-                    listOf(
-                        "Local SQLite file (default) or a Turso libsql:// URL" to
-                            "DATABASE_URL=file:./data/app.db",
+        val (schemaPath, drizzleConfigPath) =
+            when (ctx.database) {
+                Database.LIBSQL -> {
+                    "full-stack/src/server/Schema.res" to "full-stack/drizzle.config.ts"
+                }
+
+                Database.POSTGRES -> {
+                    "full-stack/variants/postgres/src/server/Schema.res" to
+                        "full-stack/variants/postgres/drizzle.config.ts"
+                }
+
+                Database.MYSQL -> {
+                    "full-stack/variants/mysql/src/server/Schema.res" to
+                        "full-stack/variants/mysql/drizzle.config.ts"
+                }
+            }
+        val envComment =
+            when (ctx.database) {
+                Database.LIBSQL -> "Local SQLite file (default) or a Turso libsql:// URL"
+                Database.POSTGRES -> "Postgres connection string; matches the credentials in compose.yaml"
+                Database.MYSQL -> "MySQL connection string; matches the credentials in compose.yaml"
+            }
+        val files =
+            linkedMapOf(
+                "index.html" to TemplateResourceLoader.load("full-stack/index.html", nameVar),
+                "vite.config.mjs" to
+                    ProjectFileBuilders.viteConfigWithProxy(
+                        imports =
+                            listOf(
+                                """import { defineConfig } from "vite-plus";""",
+                                """import react from "@vitejs/plugin-react";""",
+                            ),
                     ),
-                ),
-            ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true),
-        )
+                "drizzle.config.ts" to TemplateResourceLoader.load(drizzleConfigPath),
+                "src/shared/Shared.res" to TemplateResourceLoader.load("full-stack/src/shared/Shared.res"),
+                "src/server/ServerMain.res" to TemplateResourceLoader.load("full-stack/src/server/ServerMain.res"),
+                "src/server/Hono.res" to ProjectFileBuilders.honoBindings(),
+                "src/server/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
+                "src/server/Schema.res" to TemplateResourceLoader.load(schemaPath),
+                "src/server/Validation.res" to
+                    TemplateResourceLoader.load("full-stack/variants/$variantKey/src/server/Validation.res"),
+                "src/server/Db.res" to TemplateResourceLoader.load(CommonFiles.sharedDbResPath(ctx.database)),
+                "src/server/__tests__/Server.test.mjs" to
+                    TemplateResourceLoader.load("full-stack/src/server/__tests__/Server.test.mjs"),
+                "vitest.config.mjs" to TemplateResourceLoader.load("full-stack/vitest.config.mjs"),
+                "vitest.setup.mjs" to TemplateResourceLoader.load("full-stack/vitest.setup.mjs"),
+                ".nvmrc" to CommonFiles.nvmrc(ctx),
+                "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
+                ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
+                ".env.example" to
+                    CommonFiles.envExample(
+                        listOf(envComment to CommonFiles.defaultDatabaseUrl(ctx.database)),
+                    ),
+                ".editorconfig" to CommonFiles.editorconfig(),
+                ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true),
+            )
+        CommonFiles.composeYaml(ctx.database)?.let { files["compose.yaml"] = it }
+        return files
     }
 
     private fun restRescriptJson(ctx: TemplateContext): String =
@@ -189,7 +212,7 @@ internal object FullStackTemplateFiles {
             type = "module",
             packageManager = ctx.packageManagerSpec(),
             engines = mapOf("node" to ctx.nodeEngine),
-            dependencies = restDependencies(ctx.validationLibrary),
+            dependencies = restDependencies(ctx),
             devDependencies = commonDevDependencies(),
             scripts =
                 linkedMapOf(
@@ -219,7 +242,7 @@ internal object FullStackTemplateFiles {
             type = "module",
             packageManager = ctx.packageManagerSpec(),
             engines = mapOf("node" to ctx.nodeEngine),
-            dependencies = graphqlDependencies(ctx.validationLibrary),
+            dependencies = graphqlDependencies(ctx),
             devDependencies =
                 commonDevDependencies() +
                     linkedMapOf(
@@ -246,20 +269,20 @@ internal object FullStackTemplateFiles {
                 ),
         )
 
-    private fun restDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
-        val deps = baseServerDependencies(validationLibrary)
+    private fun restDependencies(ctx: TemplateContext): LinkedHashMap<String, String> {
+        val deps = baseServerDependencies(ctx)
         return deps
     }
 
-    private fun graphqlDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
-        val deps = baseServerDependencies(validationLibrary)
+    private fun graphqlDependencies(ctx: TemplateContext): LinkedHashMap<String, String> {
+        val deps = baseServerDependencies(ctx)
         deps["graphql"] = TemplateVersions.GRAPHQL
         deps["graphql-yoga"] = TemplateVersions.GRAPHQL_YOGA
         deps["rescript-relay"] = TemplateVersions.RESCRIPT_RELAY
         return deps
     }
 
-    private fun baseServerDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+    private fun baseServerDependencies(ctx: TemplateContext): LinkedHashMap<String, String> {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
@@ -269,11 +292,12 @@ internal object FullStackTemplateFiles {
         deps["react-dom"] = TemplateVersions.REACT_DOM
         deps["hono"] = TemplateVersions.HONO
         deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
-        when (validationLibrary) {
+        when (ctx.validationLibrary) {
             ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
             ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
         }
-        deps["@libsql/client"] = TemplateVersions.LIBSQL_CLIENT
+        val (driverPkg, driverVer) = CommonFiles.databaseDriver(ctx.database)
+        deps[driverPkg] = driverVer
         deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM
         return deps
     }

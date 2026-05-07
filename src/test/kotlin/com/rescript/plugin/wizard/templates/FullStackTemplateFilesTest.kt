@@ -1,6 +1,7 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ApiStrategy
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -14,6 +15,8 @@ class FullStackTemplateFilesTest {
         TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.ZOD, ApiStrategy.GRAPHQL)
     private val graphqlSuryCtx =
         TemplateContext("fs-app", PackageManager.PNPM, ValidationLibrary.SURY, ApiStrategy.GRAPHQL)
+    private val postgresCtx = TemplateContext("fs-app", PackageManager.PNPM, database = Database.POSTGRES)
+    private val mysqlCtx = TemplateContext("fs-app", PackageManager.PNPM, database = Database.MYSQL)
 
     @Test
     fun `package json bundles server and client deps in one place`() {
@@ -312,5 +315,32 @@ class FullStackTemplateFilesTest {
         assertTrue(files["vitest.config.mjs"]!!.contains("setupFiles"))
         assertTrue(files["vitest.setup.mjs"]!!.contains("DATABASE_URL"))
         assertTrue(files["vitest.setup.mjs"]!!.contains(":memory:"))
+    }
+
+    @Test
+    fun `postgres variant swaps server schema, db, drizzle config, and ships compose yaml`() {
+        val files = FullStackTemplateFiles.generate(postgresCtx)
+        assertTrue(files["src/server/Schema.res"]!!.contains("pgTable"))
+        assertFalse(files["src/server/Schema.res"]!!.contains("sqliteTable"))
+        assertTrue(files["src/server/Db.res"]!!.contains("postgres-js"))
+        assertTrue(files["drizzle.config.ts"]!!.contains("dialect: \"postgresql\""))
+        assertTrue(files.containsKey("compose.yaml"))
+        assertTrue(files["package.json"]!!.contains("\"postgres\": \"${TemplateVersions.POSTGRES_JS}\""))
+        assertFalse(files["package.json"]!!.contains("\"@libsql/client\""))
+    }
+
+    @Test
+    fun `mysql variant swaps server schema, db, drizzle config, and ships compose yaml`() {
+        val files = FullStackTemplateFiles.generate(mysqlCtx)
+        assertTrue(files["src/server/Schema.res"]!!.contains("mysqlTable"))
+        assertTrue(files["src/server/Db.res"]!!.contains("mysql2"))
+        assertTrue(files["drizzle.config.ts"]!!.contains("dialect: \"mysql\""))
+        assertTrue(files.containsKey("compose.yaml"))
+        assertTrue(files["package.json"]!!.contains("\"mysql2\": \"${TemplateVersions.MYSQL2}\""))
+    }
+
+    @Test
+    fun `libsql variant does not ship a compose yaml`() {
+        assertFalse(FullStackTemplateFiles.generate(ctx).containsKey("compose.yaml"))
     }
 }
