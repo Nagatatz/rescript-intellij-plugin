@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
 import com.rescript.plugin.wizard.ValidationLibrary
@@ -136,11 +137,17 @@ internal object MonorepoTemplateFiles {
             put("packages/server/src/HonoNodeServer.res", ProjectFileBuilders.honoNodeServerBindings())
             put(
                 "packages/server/src/Schema.res",
-                TemplateResourceLoader.load("monorepo/packages/server/src/Schema.res"),
+                TemplateResourceLoader.load(
+                    when (ctx.database) {
+                        Database.LIBSQL -> "monorepo/packages/server/src/Schema.res"
+                        Database.POSTGRES -> "monorepo/variants/postgres/packages/server/src/Schema.res"
+                        Database.MYSQL -> "monorepo/variants/mysql/packages/server/src/Schema.res"
+                    },
+                ),
             )
             put(
                 "packages/server/src/Db.res",
-                TemplateResourceLoader.load("common/db/Db.res"),
+                TemplateResourceLoader.load(CommonFiles.sharedDbResPath(ctx.database)),
             )
             put(
                 "packages/server/src/Validation.res",
@@ -170,14 +177,31 @@ internal object MonorepoTemplateFiles {
             )
             put(
                 "packages/server/drizzle.config.ts",
-                TemplateResourceLoader.load("monorepo/packages/server/drizzle.config.ts"),
+                TemplateResourceLoader.load(
+                    when (ctx.database) {
+                        Database.LIBSQL -> "monorepo/packages/server/drizzle.config.ts"
+                        Database.POSTGRES -> "monorepo/variants/postgres/packages/server/drizzle.config.ts"
+                        Database.MYSQL -> "monorepo/variants/mysql/packages/server/drizzle.config.ts"
+                    },
+                ),
             )
             put(
                 "packages/server/.env.example",
                 CommonFiles.envExample(
                     listOf(
-                        "Local SQLite file (default) or a Turso libsql:// URL" to
-                            "DATABASE_URL=file:./data/app.db",
+                        when (ctx.database) {
+                            Database.LIBSQL -> {
+                                "Local SQLite file (default) or a Turso libsql:// URL"
+                            }
+
+                            Database.POSTGRES -> {
+                                "Postgres connection string; matches the credentials in compose.yaml"
+                            }
+
+                            Database.MYSQL -> {
+                                "MySQL connection string; matches the credentials in compose.yaml"
+                            }
+                        } to CommonFiles.defaultDatabaseUrl(ctx.database),
                     ),
                 ),
             )
@@ -302,6 +326,7 @@ internal object MonorepoTemplateFiles {
             )
             put(".editorconfig", CommonFiles.editorconfig())
             put(".github/workflows/ci.yml", CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true))
+            CommonFiles.composeYaml(ctx.database)?.let { put("compose.yaml", it) }
         }
     }
 
@@ -325,7 +350,8 @@ internal object MonorepoTemplateFiles {
             ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
             ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
         }
-        deps["@libsql/client"] = TemplateVersions.LIBSQL_CLIENT
+        val (driverPkg, driverVer) = CommonFiles.databaseDriver(ctx.database)
+        deps[driverPkg] = driverVer
         deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM
         return deps
     }

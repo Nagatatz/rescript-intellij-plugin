@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -290,5 +291,37 @@ class MonorepoTemplateFilesTest {
         assertTrue(files.containsKey("packages/server/vitest.setup.mjs"))
         assertTrue(files["packages/server/vitest.setup.mjs"]!!.contains("DATABASE_URL"))
         assertTrue(files["packages/server/vitest.setup.mjs"]!!.contains(":memory:"))
+    }
+
+    @Test
+    fun `postgres variant swaps server schema, db, drizzle config, and ships compose yaml`() {
+        val ctx = TemplateContext("app", PackageManager.PNPM, database = Database.POSTGRES)
+        val files = MonorepoTemplateFiles.generate(ctx)
+        assertTrue(files["packages/server/src/Schema.res"]!!.contains("pgTable"))
+        assertFalse(files["packages/server/src/Schema.res"]!!.contains("sqliteTable"))
+        assertTrue(files["packages/server/src/Db.res"]!!.contains("postgres-js"))
+        assertTrue(files["packages/server/drizzle.config.ts"]!!.contains("dialect: \"postgresql\""))
+        assertTrue(files.containsKey("compose.yaml"))
+        val serverPkg = files["packages/server/package.json"]!!
+        assertTrue(serverPkg.contains("\"postgres\": \"${TemplateVersions.POSTGRES_JS}\""))
+        assertFalse(serverPkg.contains("\"@libsql/client\""))
+    }
+
+    @Test
+    fun `mysql variant swaps server schema, db, drizzle config, and ships compose yaml`() {
+        val ctx = TemplateContext("app", PackageManager.PNPM, database = Database.MYSQL)
+        val files = MonorepoTemplateFiles.generate(ctx)
+        assertTrue(files["packages/server/src/Schema.res"]!!.contains("mysqlTable"))
+        assertTrue(files["packages/server/src/Db.res"]!!.contains("mysql2"))
+        assertTrue(files["packages/server/drizzle.config.ts"]!!.contains("dialect: \"mysql\""))
+        assertTrue(files.containsKey("compose.yaml"))
+        val serverPkg = files["packages/server/package.json"]!!
+        assertTrue(serverPkg.contains("\"mysql2\": \"${TemplateVersions.MYSQL2}\""))
+    }
+
+    @Test
+    fun `libsql variant does not ship a compose yaml`() {
+        val files = MonorepoTemplateFiles.generate(TemplateContext("app", PackageManager.PNPM))
+        assertFalse(files.containsKey("compose.yaml"))
     }
 }
