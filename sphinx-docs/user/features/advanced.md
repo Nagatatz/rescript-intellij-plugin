@@ -957,6 +957,63 @@ Module names containing spaces, dots, or quotes are automatically escaped so the
 
 The dependency diagram reveals your project's module structure visually, making it easy to spot circular dependencies, tightly coupled modules, and refactoring opportunities that are hard to see in code alone.
 
+## Variant Flow Diagram
+
+{bdg-success}`Native`
+
+Visualize the `switch` expression under the caret as a decision tree, so the structure of large or nested matches is obvious at a glance instead of having to scroll the source.
+
+**Open:** **View** > **Tool Windows** > **ReScript Switch Flow**, or use **Tools** > **Show Switch Flow Diagram**
+
+### How It Works
+
+The provider scans the file with the same syntactic switch arm collector that powers the type narrowing visualizer, picks the innermost `switch` containing the caret (the `switch` keyword itself counts), and emits a Mermaid `flowchart TD` node tree. The root node is the scrutinee; each arm becomes a child node whose edge label is the pattern summary (`Some(_)`, `Ok(_)`, …) and whose node label is the arm body's first non-blank line, capped at 40 characters. A nested `switch` inside an arm body expands recursively; depth past three levels is collapsed to a single "(deeper switch hidden)" leaf to keep the picture readable.
+
+The view re-renders 200 ms after each caret movement, so moving the cursor across a file scans through the project's `switch` expressions naturally.
+
+### Tool Window Layout
+
+- **Toolbar:** Refresh (rebuild the diagram), Copy Mermaid, Copy DOT
+- **Main area:** Read-only Mermaid source for the current `switch`
+- **Status bar:** Number of arms in the current diagram, or a placeholder when the caret is not inside a `switch`
+
+### Exporting
+
+- **Copy Mermaid** — Puts the `flowchart TD` text on the clipboard. Paste into [Mermaid Live Editor](https://mermaid.live) or any Markdown file with Mermaid support
+- **Copy DOT** — Puts a Graphviz `digraph` on the clipboard. Pipe into `dot -Tpng` or save to a `.dot` file for rendering
+
+Quotes, backslashes, and newlines inside arm bodies are escaped so the exported text is always safe to feed into either renderer.
+
+::::{tab-set}
+:::{tab-item} Source
+```rescript
+let describe = result =>
+  switch result {
+  | Ok(value) => value
+  | Error(_) => "fallback"
+  }
+```
+:::
+:::{tab-item} Mermaid Output
+```
+flowchart TD
+  root["switch result"]
+  n0["value"]
+  root -->|"Ok(_)"| n0
+  n1["fallback"]
+  root -->|"Error(_)"| n1
+```
+:::
+::::
+
+### Use Cases
+
+- **Reviewing exhaustive matches** — See every arm and its body preview side by side, even when the source spans many lines
+- **Sharing a code path** — Copy a Mermaid or DOT picture into a PR or design doc instead of pasting the whole `switch`
+- **Onboarding new contributors** — Help readers follow the variant logic without forcing them to keep large pattern trees in their head
+
+The flow diagram is purely syntactic, so it works even when the LSP server is not running.
+
 ## PPX Expansion View
 
 {bdg-primary}`LSP Required`

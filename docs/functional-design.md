@@ -534,6 +534,8 @@ flowchart TD
 | `com.intellij.grazie.textExtractor` | `RescriptGrazieTextExtractor` | Grazie 自然言語チェック対象抽出（optional: tanvd.grazi） | 実装済み |
 | `com.intellij.toolWindow` | `RescriptDependencyDiagramToolWindowFactory` | モジュール依存ダイアグラム ToolWindow（Mermaid + DOT エクスポート） | 実装済み |
 | `<action>` | `RescriptDependencyDiagramAction` | Tools > Show ReScript Module Diagram | 実装済み |
+| `com.intellij.toolWindow` | `RescriptVariantFlowToolWindowFactory` | Variant Flow Diagram ToolWindow（switch の decision tree、Mermaid + DOT エクスポート） | 実装済み |
+| `<action>` | `RescriptVariantFlowAction` | Tools > Show Switch Flow Diagram | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
