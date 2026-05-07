@@ -60,6 +60,7 @@ rescript-intellij-plugin/
 | `paste/` | Paste as JSON.t | `RescriptPasteAsJsonAction` |
 | `injection/` | 言語インジェクション（%raw JS、Markdown） | `RescriptRawJsInjector` |
 | `codevision/` | Code Lens（CodeVision） | `RescriptCodeVisionProvider` |
+| `narrowing/` | Type Narrowing Visualizer（switch arm の絞り込み型をインレイヒントで表示） | `RescriptNarrowingHintProvider`, `RescriptSwitchArmCollector`, `RescriptHoverTypeResolver`, `RescriptNarrowingPresenter` |
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
 | `imports/` | Import Optimizer、open 文ユーティリティ | `RescriptImportOptimizer`, `RescriptImportUtil` |

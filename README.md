@@ -46,6 +46,7 @@
 - **Name suggestions** — Type-based and filename-based name suggestions during rename
 - **Completion Weigher** — Context-based prioritization of completion candidates
 - **Pipe chain type hints** — Inline intermediate type display for `->` pipe chains
+- **Type narrowing visualizer** — Inline display of the narrowed type at each `switch` arm (so `Some(_)`, `None`, etc. show their refined type without hovering)
 - **Parameter Info** — Native parameter info popup for labeled arguments (`Ctrl+P`)
 - **Unresolved reference Quick Fix** — Add `open` or qualify unresolved references
 - **Generate function from usage** — Create stub functions from call sites

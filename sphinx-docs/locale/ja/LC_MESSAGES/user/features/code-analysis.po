@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 02:30+0900\n"
+"POT-Creation-Date: 2026-05-08 00:19+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -679,6 +679,7 @@ msgstr "**Info/Hints** --- グレー"
 
 #: ../../user/features/code-analysis.md:345
 #: ../../user/features/code-analysis.md:391
+#: ../../user/features/code-analysis.md:578
 msgid "Configuration"
 msgstr "設定"
 
@@ -957,8 +958,8 @@ msgid ""
 "`@rescript/language-server` ships nine categories of quick fix that the "
 "plugin receives through the standard `textDocument/codeAction` flow:"
 msgstr ""
-"`@rescript/language-server` は標準の `textDocument/codeAction` "
-"を通じて以下の 9 種類のクイックフィックスをプラグインに提供します:"
+"`@rescript/language-server` は標準の `textDocument/codeAction` を通じて以下の 9 "
+"種類のクイックフィックスをプラグインに提供します:"
 
 #: ../../user/features/code-analysis.md:469
 msgid ""
@@ -999,8 +1000,8 @@ msgid ""
 "**Replace with suggested name** --- Replaces a misspelled identifier with"
 " the value the compiler suggested in *Did you mean ...?* (`didYouMean`)"
 msgstr ""
-"**提案された名前への置換** --- *Did you mean ...?* "
-"でコンパイラが提案した値に、誤記された識別子を置換します (`didYouMean`)"
+"**提案された名前への置換** --- *Did you mean ...?* でコンパイラが提案した値に、誤記された識別子を置換します "
+"(`didYouMean`)"
 
 #: ../../user/features/code-analysis.md:474
 msgid ""
@@ -1008,8 +1009,8 @@ msgid ""
 "as unused (`removeUnusedCode`; requires a `reanalyze` block in "
 "`rescript.json`)"
 msgstr ""
-"**未使用コードの削除** --- reanalyze が未使用と判定した宣言を削除します "
-"(`removeUnusedCode`; `rescript.json` の `reanalyze` ブロック有効化が必要)"
+"**未使用コードの削除** --- reanalyze が未使用と判定した宣言を削除します (`removeUnusedCode`; "
+"`rescript.json` の `reanalyze` ブロック有効化が必要)"
 
 #: ../../user/features/code-analysis.md:475
 #, python-brace-format
@@ -1018,8 +1019,8 @@ msgid ""
 "declaration into a new `M.res` file at the project root "
 "(`extractLocalModuleToFile`)"
 msgstr ""
-"**ローカルモジュールをファイルに抽出** --- `module M = {{ ... }}` "
-"宣言をプロジェクトルート直下の新規 `M.res` ファイルへ移動します (`extractLocalModuleToFile`)"
+"**ローカルモジュールをファイルに抽出** --- `module M = {{ ... }}` 宣言をプロジェクトルート直下の新規 "
+"`M.res` ファイルへ移動します (`extractLocalModuleToFile`)"
 
 #: ../../user/features/code-analysis.md:476
 msgid ""
@@ -1035,9 +1036,9 @@ msgid ""
 "form `f(. x)` on legacy ReScript v10 / v11 codebases (`applyUncurried`; "
 "not emitted on uncurried-by-default builds)"
 msgstr ""
-"**uncurried への変換** --- 旧来の ReScript v10 / v11 のコードベースで、curried "
-"呼び出し箇所を uncurried 形式 `f(. x)` に変換します (`applyUncurried`; "
-"uncurried-by-default ビルドでは出力されません)"
+"**uncurried への変換** --- 旧来の ReScript v10 / v11 のコードベースで、curried 呼び出し箇所を "
+"uncurried 形式 `f(. x)` に変換します (`applyUncurried`; uncurried-by-default "
+"ビルドでは出力されません)"
 
 #: ../../user/features/code-analysis.md:479
 msgid ""
@@ -1120,6 +1121,82 @@ msgid ""
 msgstr ""
 "LSP "
 "クイックフィックスはコンパイラエラーをワンクリック修正に変換し、手動でコードを編集する代わりに、エラー箇所から直接型の不一致、不足しているインポート、不完全なパターンを解決できます。"
+
+#: ../../user/features/code-analysis.md:549
+msgid "Type Narrowing Visualizer"
+msgstr "型絞り込みビジュアライザ"
+
+#: ../../user/features/code-analysis.md:551
+msgid ""
+"ReScript narrows the scrutinee of a `switch` expression to a more "
+"specific type inside each arm. The plugin visualizes this narrowing "
+"inline so you can see the refined type without hovering on every arm."
+msgstr ""
+"ReScript は `switch` 式のスクラティニーを各 arm の中でより具体的な型に絞り込みます。"
+"プラグインはこの絞り込み結果をインラインで可視化し、毎 arm でホバーすることなく "
+"絞り込まれた型を確認できるようにします。"
+
+#: ../../user/features/code-analysis.md:553
+msgid ""
+"When the LSP server is running, an inlay hint is rendered immediately "
+"after each arm's `=>` showing the narrowed type. The hint reuses the same"
+" hover information that powers Quick Documentation, so it always agrees "
+"with what `textDocument/hover` returns at the scrutinee position."
+msgstr ""
+"LSP サーバーが起動しているとき、各 arm の `=>` 直後に絞り込まれた型を示すインレイヒントが "
+"表示されます。ヒントは Quick Documentation と同じホバー情報を再利用するため、"
+"スクラティニー位置で `textDocument/hover` が返す内容と常に一致します。"
+
+#: ../../user/features/code-analysis.md
+msgid "Without the hint"
+msgstr "ヒントなし"
+
+#: ../../user/features/code-analysis.md
+msgid "With the hint"
+msgstr "ヒントあり"
+
+#: ../../user/features/code-analysis.md:576
+msgid ""
+"The visualizer also handles or-patterns (`| Some(_) | None =>` is treated"
+" as a single arm), `when` guards, and nested `switch` expressions."
+msgstr ""
+"ビジュアライザは or パターン（`| Some(_) | None =>` は単一 arm として扱う）、"
+"`when` ガード、ネストした `switch` 式にも対応しています。"
+
+#: ../../user/features/code-analysis.md:580
+msgid ""
+"Toggle from **Settings > Editor > Inlay Hints > ReScript > Type narrowing"
+" in switch arms**."
+msgstr ""
+"**Settings > Editor > Inlay Hints > ReScript > Type narrowing in switch arms** "
+"から有効・無効を切り替えられます。"
+
+#: ../../user/features/code-analysis.md:581
+msgid ""
+"The project-level flag `narrowingHintsEnabled` (default on) is exposed on"
+" `RescriptProjectSettings` for projects that want to disable this hint "
+"without touching other inlay providers."
+msgstr ""
+"他のインレイ機能に影響を与えずにこのヒントだけを切りたいプロジェクト向けに、"
+"`RescriptProjectSettings` の `narrowingHintsEnabled`（既定 ON）を公開しています。"
+
+#: ../../user/features/code-analysis.md:582
+msgid ""
+"A 50-arm-per-file soft cap suppresses the hint on switch-heavy files to "
+"keep editor scrolling responsive."
+msgstr ""
+"1 ファイルあたり 50 arm を超える場合はヒントを抑制し、switch 多用ファイルでも "
+"エディタのスクロール応答性を保ちます。"
+
+#: ../../user/features/code-analysis.md:584
+msgid ""
+"When the LSP server is not running the visualizer is silent — it never "
+"displays a partial or stale type. Trivial types (`unit`, free type "
+"variables) are also suppressed because they convey no narrowing "
+"information."
+msgstr ""
+"LSP サーバーが起動していないときビジュアライザは沈黙し、部分的・古い型を表示することは "
+"ありません。`unit` や自由型変数のように絞り込み情報を持たない型も抑制されます。"
 
 #~ msgid "**Errors** — Shown with red underlines"
 #~ msgstr "**Errors** — 赤い下線で表示"

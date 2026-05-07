@@ -33,18 +33,18 @@
 - [ ] 1000 行サンプルでの体感遅延がないことを手動確認
 
 ## Phase 3: ドキュメント更新
-- [ ] `CLAUDE.md` レイヤー 3 に `narrowing/` パッケージを追加
-- [ ] `docs/repository-structure.md` パッケージ表に `narrowing/` を追加
-- [ ] `docs/functional-design.md` Extension Point マップに `RescriptNarrowingHintProvider` を追加
-- [ ] `README.md` Features セクションに「Type Narrowing Visualizer」追加
-- [ ] `sphinx-docs/user/features/code-analysis.md` に新セクション追加
-- [ ] `sphinx-docs/locale/ja/LC_MESSAGES/**/*.po` の `msgstr` を更新（`make update-po && make build-ja`）
-- [ ] `docs/lsp-fallback-matrix.md` に本機能の依存度を追加
+- [x] `CLAUDE.md` レイヤー 2: LSP 統合に「Type Narrowing Visualizer」エントリを追加
+- [x] `docs/repository-structure.md` パッケージ表に `narrowing/` を追加
+- [x] `docs/functional-design.md` Extension Point マップに `RescriptNarrowingHintProvider` を追加
+- [x] `README.md` Features セクションに「Type narrowing visualizer」追加
+- [x] `sphinx-docs/user/features/code-analysis.md` に Type Narrowing Visualizer セクションを追加
+- [x] `sphinx-docs/locale/ja/LC_MESSAGES/user/features/code-analysis.po` の `msgstr` を埋め、`make build-ja` 成功を確認
+- [x] `docs/lsp-fallback-matrix.md` に「Type Narrowing Visualizer」行を追加
 
 ## Phase 3: コミット
-- [ ] Collector のコミット（`✨ Add switch arm token walker for narrowing`）
-- [ ] HoverTypeResolver + Presenter のコミット（`✨ Add LSP hover resolver and presenter for narrowing`）
-- [ ] HintProvider + 設定 + plugin.xml 登録のコミット（`✨ Add type narrowing inlay hints`）
+- [x] Collector のコミット（`✨ Add switch arm token walker for narrowing`）
+- [x] HoverTypeResolver + Presenter のコミット（`✨ Add LSP hover resolver and presenter for narrowing`）
+- [x] HintProvider + 設定 + plugin.xml 登録のコミット（`✨ Add type narrowing inlay hints`）
 - [ ] ドキュメント更新コミット（`📝 Document type narrowing visualizer`）
 - [ ] tasklist.md 全項目を `[x]` に更新するコミット（マージ前最終）
 

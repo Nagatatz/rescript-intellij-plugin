@@ -529,6 +529,7 @@ flowchart TD
 | `com.intellij.scratch.creationHelper` | `RescriptScratchCreationHelper` | スクラッチファイル作成ヘルパー | 実装済み |
 | `com.intellij.codeInsight.inlayHintsProvider` | `RescriptPpxVisualizationProvider` | PPX アノテーション展開のインレイ表示 | 実装済み |
 | `com.intellij.codeInsight.inlayHintsProvider` | `RescriptCommentEvalProvider` | Worksheet モードのコメント評価結果表示 | 実装済み |
+| `com.intellij.codeInsight.inlayHintsProvider` | `RescriptNarrowingHintProvider` | Type Narrowing Visualizer（switch arm 絞り込み型表示） | 実装済み |
 | `com.intellij.searchEverywhereContributor` | `RescriptTypeSignatureSearchContributor$Factory` | 型シグネチャによる関数逆引き検索 | 実装済み |
 | `com.intellij.grazie.textExtractor` | `RescriptGrazieTextExtractor` | Grazie 自然言語チェック対象抽出（optional: tanvd.grazi） | 実装済み |
 | `com.intellij.toolWindow` | `RescriptDependencyDiagramToolWindowFactory` | モジュール依存ダイアグラム ToolWindow（Mermaid + DOT エクスポート） | 実装済み |

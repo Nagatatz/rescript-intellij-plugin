@@ -56,6 +56,7 @@
 | Quick Documentation (`Ctrl+Q`) | 部分的 | PSI ベースのフォールバックが動作 |
 | Expression Type | 必須 | 動作しない |
 | Pipe chain type hints | 必須 | 表示されない |
+| Type Narrowing Visualizer | 必須 | 表示されない |
 | 式の型表示 | 必須 | 動作しない |
 
 ### Code Analysis

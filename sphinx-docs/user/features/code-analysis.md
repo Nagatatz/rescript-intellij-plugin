@@ -545,3 +545,40 @@ let parse: string => JSON.t = jsonStr => {
 The quick fix parses the compiler diagnostic to extract candidate types and offers them as replacement options.
 
 LSP quick fixes turn compiler errors into one-click corrections, letting you resolve type mismatches, missing imports, and incomplete patterns directly from the error location instead of manually editing the code.
+
+## Type Narrowing Visualizer
+
+ReScript narrows the scrutinee of a `switch` expression to a more specific type inside each arm. The plugin visualizes this narrowing inline so you can see the refined type without hovering on every arm.
+
+When the LSP server is running, an inlay hint is rendered immediately after each arm's `=>` showing the narrowed type. The hint reuses the same hover information that powers Quick Documentation, so it always agrees with what `textDocument/hover` returns at the scrutinee position.
+
+::::{tab-set}
+:::{tab-item} Without the hint
+```rescript
+let describe = result =>
+  switch result {
+  | Ok(value) => value
+  | Error(_) => "fallback"
+  }
+```
+:::
+:::{tab-item} With the hint
+```rescript
+let describe = result =>
+  switch result {
+  | Ok(value) =>: result<string, error> value
+  | Error(_) =>: result<string, error> "fallback"
+  }
+```
+:::
+::::
+
+The visualizer also handles or-patterns (`| Some(_) | None =>` is treated as a single arm), `when` guards, and nested `switch` expressions.
+
+### Configuration
+
+- Toggle from **Settings > Editor > Inlay Hints > ReScript > Type narrowing in switch arms**.
+- The project-level flag `narrowingHintsEnabled` (default on) is exposed on `RescriptProjectSettings` for projects that want to disable this hint without touching other inlay providers.
+- A 50-arm-per-file soft cap suppresses the hint on switch-heavy files to keep editor scrolling responsive.
+
+When the LSP server is not running the visualizer is silent — it never displays a partial or stale type. Trivial types (`unit`, free type variables) are also suppressed because they convey no narrowing information.
