@@ -48,6 +48,7 @@
 - **Pipe chain type hints** — Inline intermediate type display for `->` pipe chains
 - **Type narrowing visualizer** — Inline display of the narrowed type at each `switch` arm (so `Some(_)`, `None`, etc. show their refined type without hovering)
 - **Variant flow diagram** — Tool window (`Tools > Show Switch Flow Diagram`) that draws the `switch` under the caret as a Mermaid `flowchart TD` decision tree, with Copy Mermaid / Copy DOT actions for sharing
+- **Type impact preview** — Tool window (`Tools > Show Type Impact`) that lists every project-wide reference to the `type` declaration under the caret, classified as type-ref / constructor / pattern / field-access; size the blast radius of a type change before you make it
 - **Parameter Info** — Native parameter info popup for labeled arguments (`Ctrl+P`)
 - **Unresolved reference Quick Fix** — Add `open` or qualify unresolved references
 - **Generate function from usage** — Create stub functions from call sites

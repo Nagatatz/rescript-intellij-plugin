@@ -90,6 +90,8 @@ IDE 統合機能の完全なカテゴリ一覧・パッケージ対応・Extensi
 
 Variant Flow Diagram (`flow/`) はカーソル位置の `switch` 式を decision tree として ToolWindow に Mermaid `flowchart TD` で可視化する純構文ベースの機能で、`narrowing/` の `RescriptSwitchArmCollector` を再利用しつつ LSP には依存しない。Copy Mermaid / Copy DOT のツールバーアクションで外部の Mermaid Live や graphviz `dot` に持ち出せる。
 
+Type Impact Preview (`impact/`) はカーソル位置の `type` 宣言に対するプロジェクト全体の参照箇所を ToolWindow に一覧表示し、型変更の波及範囲を事前に見積もれるようにする。`PsiSearchHelper` で word-index ベースの参照検索を行い、`RescriptReferenceClassifier` のトークン・ヒューリスティックで type-ref / constructor / pattern / field-access に分類する。LSP 不要・200 件のソフトキャップ付き。
+
 Project Wizard (`wizard/`) は Package Manager と Validation Library (`zod` / `sury`) の選択 UI を備える。21 テンプレートのうち既存 17 件 (hono-inertia を含む) は選択に応じて `Validation.res` を `variants/<key>/` から生成する。検証対象はテンプレートごとに異なる: サーバー系 10 テンプレート（hono / hono-graphql / hono-inertia / aws-lambda / cloudflare-workers / google-cloud-run / nextjs / full-stack / monorepo / res-x）は HTTP 入力、CLI Tool は `init` サブコマンドのオプション、npm Library は public API 引数、Basic は `config.json` の shape、Electron は IPC レスポンス、React Native (Expo / CLI) と Vite+React はフォーム入力を対象にする。res-x テンプレートは Bun + Vite + HTMX 前提で `package.json` の scripts に `bun` コマンドを直接書き込む。Hono + Inertia テンプレートは Hono バックエンド + `@inertiajs/react` v3 + Vite+ 統合 (`vp dev` / `vp build` / `vp test` / `vp check`) で server-driven SPA を提供する（CSR のみ、SSR は将来対応）。新規 4 テンプレート（TanStack Start / Remix RR v7 / Astro / Waku）はフレームワークが独自のデータレイヤーを持つため `ProjectTemplate.supportsValidationSelection = false` を宣言し、Wizard Step UI は Validation コンボを非表示にする。
 
 ## 開発規約

@@ -62,6 +62,7 @@ rescript-intellij-plugin/
 | `codevision/` | Code Lens（CodeVision） | `RescriptCodeVisionProvider` |
 | `narrowing/` | Type Narrowing Visualizer（switch arm の絞り込み型をインレイヒントで表示） | `RescriptNarrowingHintProvider`, `RescriptSwitchArmCollector`, `RescriptHoverTypeResolver`, `RescriptNarrowingPresenter` |
 | `flow/` | Variant Flow Diagram（switch の decision tree を ToolWindow で可視化、Mermaid + DOT エクスポート） | `RescriptVariantFlowToolWindowFactory`, `RescriptVariantFlowPanel`, `RescriptVariantFlowAction`, `RescriptVariantFlowModel`, `RescriptVariantFlowMermaidExporter`, `RescriptVariantFlowDotExporter` |
+| `impact/` | Type Impact Preview（カーソル位置の type 宣言に対するプロジェクト全体の参照を ToolWindow で一覧表示） | `RescriptTypeImpactToolWindowFactory`, `RescriptTypeImpactPanel`, `RescriptTypeImpactAction`, `RescriptTypeTargetResolver`, `RescriptTypeReferenceFinder`, `RescriptReferenceClassifier`, `RescriptTypeImpactModel` |
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
 | `imports/` | Import Optimizer、open 文ユーティリティ | `RescriptImportOptimizer`, `RescriptImportUtil` |

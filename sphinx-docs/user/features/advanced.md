@@ -1014,6 +1014,43 @@ flowchart TD
 
 The flow diagram is purely syntactic, so it works even when the LSP server is not running.
 
+## Type Impact Preview
+
+{bdg-success}`Native`
+
+Estimate the blast radius of a type change before you make it. Place the caret on a `type` declaration and the tool window lists every project-wide reference, each tagged with the role it plays (type annotation, variant constructor, pattern, field access).
+
+**Open:** **View** > **Tool Windows** > **ReScript Type Impact**, or use **Tools** > **Show Type Impact**
+
+### How It Works
+
+The provider walks PSI up from the caret to the enclosing `type` declaration and reconstructs a dotted module path (`Outer.Inner.t`). It then drives `PsiSearchHelper.processElementsWithWord` over the project scope to collect every occurrence of the type's local name. Each hit is classified by `RescriptReferenceClassifier`, a small token-based heuristic that inspects the immediately preceding non-whitespace character:
+
+- `:` → **type-ref** (e.g. `let x: t = ...`)
+- `.` → **field-access** (e.g. `user.t`)
+- `|` → **pattern** or **constructor** depending on whether the next identifier is uppercase and followed by `(`
+- otherwise → **constructor** for uppercase identifiers, **unknown** otherwise
+
+References that classify as `unknown` are still listed so the panel doesn't silently drop ambiguous hits.
+
+### Tool Window Layout
+
+- **Toolbar:** Refresh (re-scan references for the current type)
+- **Main area:** A list of `[kind] file.res:line  preview` entries; double-click navigates to the reference site
+- **Status bar:** `Type.name: N reference(s)` summary, with `(showing first 200)` appended when the result was truncated
+
+### Soft cap
+
+Up to 200 references are displayed per type. Beyond that, the truncation note appears in the status bar so authors know to either narrow their target type or rely on a more focused refactor.
+
+### Use Cases
+
+- **Sizing a type change** — Look at the kind distribution before renaming a field or removing a variant case
+- **Audit before refactor** — Confirm that a `type t = int` alias really only appears in a few well-defined places before swapping in a richer type
+- **Onboarding a codebase** — Use the panel as a navigable index of where each domain type is consumed
+
+The impact preview is purely syntactic, so it works without LSP. The token-based classifier cannot follow aliases or `open` statements, so treat the kind labels as a quick guide rather than a precise semantic answer.
+
 ## PPX Expansion View
 
 {bdg-primary}`LSP Required`
