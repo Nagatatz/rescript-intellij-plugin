@@ -9,6 +9,7 @@ package com.rescript.plugin.diagram
  * module names are preserved as bracketed labels.
  *
  * @see RescriptDependencyDiagramModel for the source data structure
+ * @see MermaidLabelEscaping for the shared id and label rules
  */
 object RescriptMermaidExporter {
     /**
@@ -23,13 +24,13 @@ object RescriptMermaidExporter {
      */
     fun toMermaid(model: RescriptDependencyDiagramModel): String {
         val nodes = model.getNodes()
-        val idMap = assignIds(nodes.map { it.name })
+        val idMap = MermaidLabelEscaping.assignIds(nodes.map { it.name })
 
         return buildString {
             appendLine("graph TD")
             for (node in nodes) {
                 val id = idMap.getValue(node.name)
-                appendLine("  $id[\"${escapeLabel(node.name)}\"]")
+                appendLine("  $id[\"${MermaidLabelEscaping.escapeLabel(node.name)}\"]")
             }
             for (edge in model.getEdges()) {
                 val from = idMap[edge.from] ?: continue
@@ -38,52 +39,4 @@ object RescriptMermaidExporter {
             }
         }
     }
-
-    /**
-     * Builds a stable, collision-free name → Mermaid-id map.
-     *
-     * Two distinct module names that sanitize to the same identifier are
-     * disambiguated by appending `_1`, `_2`, ... in iteration order.
-     *
-     * @param names module names in the order they should be rendered
-     * @return ordered mapping from original name to assigned id
-     */
-    private fun assignIds(names: List<String>): Map<String, String> {
-        val used = mutableSetOf<String>()
-        val map = linkedMapOf<String, String>()
-        for (name in names) {
-            val base = sanitize(name).ifEmpty { "n" }
-            var id = base
-            var i = 1
-            while (id in used) {
-                id = "${base}_$i"
-                i++
-            }
-            used.add(id)
-            map[name] = id
-        }
-        return map
-    }
-
-    /**
-     * Reduces an arbitrary module name to Mermaid's safe identifier alphabet
-     * (`A-Z`, `a-z`, `0-9`, `_`). Identifiers that would start with a digit
-     * are prefixed with `n_` so the result is always a valid Mermaid id.
-     */
-    private fun sanitize(name: String): String {
-        val sanitized = name.replace(NON_ID_CHARS, "_")
-        return if (sanitized.firstOrNull()?.isDigit() == true) "n_$sanitized" else sanitized
-    }
-
-    /**
-     * Escapes characters that would break the bracketed label syntax
-     * `id["Label"]`. Backslashes and quotes are encoded so that arbitrary
-     * module names cannot inject Mermaid directives.
-     */
-    private fun escapeLabel(name: String): String =
-        name
-            .replace("\\", "\\\\")
-            .replace("\"", "&quot;")
-
-    private val NON_ID_CHARS = Regex("[^A-Za-z0-9_]")
 }
