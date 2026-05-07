@@ -982,6 +982,10 @@
         <toolWindow id="ReScript Module Diagram" anchor="right" icon="AllIcons.FileTypes.Diagram"
                 factoryClass="com.rescript.plugin.diagram.RescriptDependencyDiagramToolWindowFactory"/>
 
+        <!-- Variant Flow Diagram Tool Window (per-switch decision tree, Mermaid + DOT export) -->
+        <toolWindow id="ReScript Switch Flow" anchor="right" icon="AllIcons.FileTypes.Diagram"
+                factoryClass="com.rescript.plugin.flow.RescriptVariantFlowToolWindowFactory"/>
+
         <!-- Auto Import options in Settings > Editor > General > Auto Import -->
         <autoImportOptionsProvider
                 instance="com.rescript.plugin.imports.RescriptAutoImportOptionsProvider"/>
@@ -1319,6 +1323,12 @@
                 class="com.rescript.plugin.diagram.RescriptDependencyDiagramAction"
                 text="Show ReScript Module Diagram"
                 description="Open the ReScript module dependency diagram tool window">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+        <action id="ReScript.ShowSwitchFlow"
+                class="com.rescript.plugin.flow.RescriptVariantFlowAction"
+                text="Show Switch Flow Diagram"
+                description="Open the ReScript variant flow diagram tool window">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
