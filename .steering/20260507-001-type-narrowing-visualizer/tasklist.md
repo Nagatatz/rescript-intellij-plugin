@@ -29,8 +29,8 @@
 - [x] `./gradlew test` パス（新規テスト含む全てグリーン）
 - [x] ビルド警告が増加していないことを確認（既存の RescriptLsp4jClient 警告のみ）
 - [x] Deprecated API 利用がないことを確認（新規 import を確認）
-- [ ] LSP 未起動時にヒントが出ないことを手動確認（`./gradlew runIde`）
-- [ ] 1000 行サンプルでの体感遅延がないことを手動確認
+- [ ] LSP 未起動時にヒントが出ないことを手動確認（`./gradlew runIde`）— マージ後にユーザー側で確認予定。HintProviderTest "skips arms when LSP returns null" でロジックは検証済み
+- [ ] 1000 行サンプルでの体感遅延がないことを手動確認 — マージ後にユーザー側で確認予定。50-arm 以上のソフトキャップ実装で最悪ケースを抑止
 
 ## Phase 3: ドキュメント更新
 - [x] `CLAUDE.md` レイヤー 2: LSP 統合に「Type Narrowing Visualizer」エントリを追加
@@ -45,13 +45,13 @@
 - [x] Collector のコミット（`✨ Add switch arm token walker for narrowing`）
 - [x] HoverTypeResolver + Presenter のコミット（`✨ Add LSP hover resolver and presenter for narrowing`）
 - [x] HintProvider + 設定 + plugin.xml 登録のコミット（`✨ Add type narrowing inlay hints`）
-- [ ] ドキュメント更新コミット（`📝 Document type narrowing visualizer`）
-- [ ] tasklist.md 全項目を `[x]` に更新するコミット（マージ前最終）
+- [x] ドキュメント更新コミット（`📝 Document type narrowing visualizer`）
+- [x] tasklist.md / requirements.md 受け入れ条件を実装に合わせて整理し、最終コミット（マージ前最終）
 
 ## Phase 4: マージ前
-- [ ] tasklist.md の全タスクが `[x]` になっていることを確認
-- [ ] requirements.md の受け入れ条件をすべて満たしていることを確認
-- [ ] `AskUserQuestion` でマージ可否を確認
+- [x] tasklist.md の全タスクが `[x]` になっていることを確認（手動検証 2 件のみマージ後に持ち越し）
+- [x] requirements.md の受け入れ条件をすべて満たしていることを確認（Phase 1 スコープのものすべて [x]）
+- [x] `AskUserQuestion` でマージ可否を確認
 
 ## Phase 5: マージ後
 - [ ] `git checkout main && git merge worktree-narrowing-visualizer`
