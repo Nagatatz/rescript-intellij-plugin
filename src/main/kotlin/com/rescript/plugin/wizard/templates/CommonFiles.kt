@@ -169,8 +169,8 @@ object CommonFiles {
             appendLine("  build:")
             appendLine("    runs-on: ubuntu-latest")
             appendLine("    steps:")
-            appendLine("      - uses: actions/checkout@v4")
-            appendLine("      - uses: actions/setup-node@v4")
+            appendLine("      - uses: actions/checkout@v6")
+            appendLine("      - uses: actions/setup-node@v6")
             appendLine("        with:")
             appendLine("          node-version: ${ctx.nodeMajor}")
             if (needsBun) {
@@ -179,7 +179,7 @@ object CommonFiles {
                 appendLine("          bun-version: latest")
             }
             if (ctx.packageManager == PackageManager.PNPM) {
-                appendLine("      - uses: pnpm/action-setup@v4")
+                appendLine("      - uses: pnpm/action-setup@v6")
                 appendLine("        with:")
                 appendLine("          version: ${TemplateVersions.PNPM.substringBefore('.')}")
             }

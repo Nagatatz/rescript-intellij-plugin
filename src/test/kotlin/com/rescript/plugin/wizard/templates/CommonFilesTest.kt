@@ -161,7 +161,7 @@ class CommonFilesTest {
     @Test
     fun `ci workflow installs with pnpm and pins pnpm action setup`() {
         val yaml = CommonFiles.ciWorkflow(pnpmCtx, hasBuild = true, hasTest = false)
-        assertTrue(yaml.contains("pnpm/action-setup@v4"))
+        assertTrue(yaml.contains("pnpm/action-setup@v6"))
         assertTrue(yaml.contains("pnpm install"))
         assertTrue(yaml.contains("pnpm exec rescript"))
         assertTrue(yaml.contains("pnpm build"))
