@@ -13,17 +13,15 @@
 - [x] design.md を方針変更に合わせて更新
 
 ## Phase 3: 実装
-- [ ] `narrowing/RescriptSwitchArmCollector.kt` を実装
-- [ ] `narrowing/RescriptSwitchArmCollectorTest.kt` を作成（5 種類のパターン: option, result, list, polyvariant, custom variant）
-- [ ] `narrowing/RescriptHoverTypeResolver.kt` を実装（LSP モック対応）
-- [ ] `narrowing/RescriptHoverTypeResolverTest.kt` を作成
+- [x] `narrowing/RescriptSwitchArmCollector.kt` を実装
+- [x] `narrowing/RescriptSwitchArmCollectorTest.kt` を作成（option/result/list/polyvariant/custom variant + ネスト/or-pattern/when ガード/不完全/scrutinee/arrow offset の 12 ケース）
+- [ ] `narrowing/RescriptHoverTypeResolver.kt` を実装（LSP 結合のためテスト免除）
 - [ ] `narrowing/RescriptNarrowingPresenter.kt` を実装
 - [ ] `narrowing/RescriptNarrowingPresenterTest.kt` を作成
 - [ ] `narrowing/RescriptNarrowingHintProvider.kt` を実装（InlayHintsProvider）
-- [ ] `narrowing/RescriptNarrowingHintProviderTest.kt` を作成（`testInlays` で表示位置・内容検証）
+- [ ] `narrowing/RescriptNarrowingHintProviderTest.kt` を作成（`buildHints` の純粋ロジックを検証。InlayHintsSink/PresentationFactory 統合は IntelliJ Platform fixture が必要のため免除）
 - [ ] `settings/RescriptProjectSettings.kt` に `narrowingHintsEnabled` を追加
-- [ ] `settings/RescriptConfigurable.kt` にチェックボックスを追加（UI のためテスト免除）
-- [ ] `plugin.xml` に `codeInsight.declarativeInlayProvider` を登録
+- [ ] `plugin.xml` に `codeInsight.inlayHintsProvider` を登録
 
 ## Phase 3: コミット前検証
 - [ ] `./gradlew ktlintCheck` パス
@@ -61,4 +59,5 @@
 - [ ] セッション終了で worktree を自動クリーンアップ
 
 ## テスト免除
-- `RescriptConfigurable` のチェックボックス追加分: Swing UI のためテスト免除（`testing.md` の免除カテゴリ「Swing UI コンポーネント」に該当）
+- `RescriptHoverTypeResolver`: LSP サーバー結合のためテスト免除（`testing.md` の免除カテゴリ「LSP サーバー結合必須」に該当）。中身は `RescriptLspUtils.getHoverType` への薄いラッパーであり、独立してロジックがない。テスト可能なロジックはすべて `RescriptNarrowingHintProvider.buildHints` 経由で `RescriptHoverTypeResolver` のスタブを注入してカバーしている。
+- `RescriptNarrowingHintProvider` の `getCollectorFor` / `InlayHintsCollector` 部分: IntelliJ Platform fixture が必要なためテスト免除。コア処理は `buildHints` に切り出してユニットテスト済み。
