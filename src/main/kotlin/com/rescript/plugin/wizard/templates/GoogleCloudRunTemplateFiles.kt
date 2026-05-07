@@ -53,8 +53,8 @@ internal object GoogleCloudRunTemplateFiles {
                             "res:dev" to "rescript -w",
                         ),
                 ),
-            "Dockerfile" to dockerfile(ctx),
-            ".dockerignore" to dockerignore(),
+            "Dockerfile" to CommonFiles.serverDockerfile(ctx, port = 8080),
+            ".dockerignore" to CommonFiles.dockerignore(),
             "src/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
             "src/Validation.res" to
@@ -118,94 +118,5 @@ internal object GoogleCloudRunTemplateFiles {
             ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
         }
         return deps
-    }
-
-    /**
-     * Returns a `.dockerignore` that prevents host-side artifacts (lockless caches, IDE state,
-     * git metadata, test fixtures) from inflating the build context.
-     */
-    private fun dockerignore(): String =
-        """
-        # VCS / IDE
-        .git
-        .github
-        .idea
-        .vscode
-
-        # Node / package manager state
-        node_modules
-        npm-debug.log*
-        yarn-debug.log*
-        yarn-error.log*
-        pnpm-debug.log*
-        bun-debug.log*
-
-        # ReScript build artifacts (regenerated inside the builder stage)
-        lib
-        .merlin
-
-        # Test artifacts
-        coverage
-        .nyc_output
-
-        # Local env / secrets — never bake into an image
-        .env
-        .env.*
-        !.env.example
-        """.trimIndent() + "\n"
-
-    /**
-     * Builds a multi-stage Dockerfile that compiles ReScript in a `builder` stage and ships
-     * only production deps + compiled `.mjs` output in the runtime stage. The runtime stage
-     * runs as a non-root user (Cloud Run best practice) and pins the Node major to
-     * [TemplateContext.nodeMajor] so the deployed runtime matches `.nvmrc` / `package.json`.
-     */
-    private fun dockerfile(ctx: TemplateContext): String {
-        val isBun = ctx.packageManager == PackageManager.BUN
-        val baseImage = if (isBun) "oven/bun:1-slim" else "node:${ctx.nodeMajor}-slim"
-        // `--ignore-scripts` blocks transitive lifecycle scripts (postinstall etc.) from
-        // running inside the Docker build, mitigating supply-chain attacks where a compromised
-        // dep would otherwise execute arbitrary code with build-time access. The res-x
-        // Dockerfile applies the same hardening.
-        val builderInstall =
-            when (ctx.packageManager) {
-                PackageManager.NPM -> "npm install --ignore-scripts"
-                PackageManager.PNPM -> "corepack enable && pnpm install --ignore-scripts"
-                PackageManager.YARN -> "corepack enable && yarn install --ignore-scripts"
-                PackageManager.BUN -> "bun install --ignore-scripts"
-            }
-        val runtimeInstall =
-            when (ctx.packageManager) {
-                PackageManager.NPM -> "npm install --omit=dev --ignore-scripts"
-                PackageManager.PNPM -> "corepack enable && pnpm install --prod --ignore-scripts"
-                PackageManager.YARN -> "corepack enable && yarn install --production --ignore-scripts"
-                PackageManager.BUN -> "bun install --production --ignore-scripts"
-            }
-        // Cloud Run best practice: run as a non-root user. The official node images ship a
-        // pre-created `node` user (uid 1000); oven/bun ships a `bun` user with the same uid.
-        val runtimeUser = if (isBun) "bun" else "node"
-        val runner = if (isBun) "bun" else "node"
-        return buildString {
-            appendLine("# syntax=docker/dockerfile:1.7")
-            appendLine()
-            appendLine("# --- Builder stage: install all deps + compile ReScript ---")
-            appendLine("FROM $baseImage AS builder")
-            appendLine("WORKDIR /app")
-            appendLine("COPY package*.json ./")
-            appendLine("RUN $builderInstall")
-            appendLine("COPY . .")
-            appendLine("RUN ${ctx.execCmd("rescript")}")
-            appendLine()
-            appendLine("# --- Runtime stage: prod deps + compiled output only ---")
-            appendLine("FROM $baseImage AS runtime")
-            appendLine("ENV NODE_ENV=production")
-            appendLine("WORKDIR /app")
-            appendLine("COPY package*.json ./")
-            appendLine("RUN $runtimeInstall")
-            appendLine("COPY --from=builder /app/src ./src")
-            appendLine("USER $runtimeUser")
-            appendLine("EXPOSE 8080")
-            append("CMD [\"$runner\", \"src/ServerMain.res.mjs\"]")
-        }
     }
 }

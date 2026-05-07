@@ -198,6 +198,107 @@ object CommonFiles {
         }
 
     /**
+     * Generates a multi-stage `Dockerfile` for Node-based backend templates.
+     *
+     * Produces a `builder` stage that installs all deps and runs `rescript`, plus a
+     * `runtime` stage that reinstalls production-only deps and copies the compiled
+     * `src/` from the builder. Runs as the unprivileged `node` (or `bun`) user that
+     * ships with the official base images. `--ignore-scripts` is passed to every
+     * install command so transitive lifecycle scripts cannot execute arbitrary code
+     * during the build.
+     *
+     * Suitable for templates whose runtime artifact is a compiled `.res.mjs` server
+     * file (no client bundling step). Templates with a Vite/Vite+ client build need
+     * a different multi-stage layout — see `res-x/Dockerfile` for an example.
+     *
+     * @param ctx template context (drives package manager + Node major)
+     * @param port port the server listens on (used for `EXPOSE`)
+     * @param entryPoint relative path to the compiled server entry, defaults to
+     *   `src/ServerMain.res.mjs` to match the convention used by Hono templates
+     */
+    fun serverDockerfile(
+        ctx: TemplateContext,
+        port: Int,
+        entryPoint: String = "src/ServerMain.res.mjs",
+    ): String {
+        val isBun = ctx.packageManager == PackageManager.BUN
+        val baseImage = if (isBun) "oven/bun:1-slim" else "node:${ctx.nodeMajor}-slim"
+        val builderInstall =
+            when (ctx.packageManager) {
+                PackageManager.NPM -> "npm install --ignore-scripts"
+                PackageManager.PNPM -> "corepack enable && pnpm install --ignore-scripts"
+                PackageManager.YARN -> "corepack enable && yarn install --ignore-scripts"
+                PackageManager.BUN -> "bun install --ignore-scripts"
+            }
+        val runtimeInstall =
+            when (ctx.packageManager) {
+                PackageManager.NPM -> "npm install --omit=dev --ignore-scripts"
+                PackageManager.PNPM -> "corepack enable && pnpm install --prod --ignore-scripts"
+                PackageManager.YARN -> "corepack enable && yarn install --production --ignore-scripts"
+                PackageManager.BUN -> "bun install --production --ignore-scripts"
+            }
+        val runtimeUser = if (isBun) "bun" else "node"
+        val runner = if (isBun) "bun" else "node"
+        return buildString {
+            appendLine("# syntax=docker/dockerfile:1.7")
+            appendLine()
+            appendLine("# --- Builder stage: install all deps + compile ReScript ---")
+            appendLine("FROM $baseImage AS builder")
+            appendLine("WORKDIR /app")
+            appendLine("COPY package*.json ./")
+            appendLine("RUN $builderInstall")
+            appendLine("COPY . .")
+            appendLine("RUN ${ctx.execCmd("rescript")}")
+            appendLine()
+            appendLine("# --- Runtime stage: prod deps + compiled output only ---")
+            appendLine("FROM $baseImage AS runtime")
+            appendLine("ENV NODE_ENV=production")
+            appendLine("WORKDIR /app")
+            appendLine("COPY package*.json ./")
+            appendLine("RUN $runtimeInstall")
+            appendLine("COPY --from=builder /app/src ./src")
+            appendLine("USER $runtimeUser")
+            appendLine("EXPOSE $port")
+            append("CMD [\"$runner\", \"$entryPoint\"]")
+        }
+    }
+
+    /**
+     * Generates a `.dockerignore` that prevents host-side artifacts (caches, IDE state,
+     * git metadata, test fixtures, secrets) from inflating the build context shipped to
+     * the daemon. Pairs with [serverDockerfile].
+     */
+    fun dockerignore(): String =
+        """
+        # VCS / IDE
+        .git
+        .github
+        .idea
+        .vscode
+
+        # Node / package manager state
+        node_modules
+        npm-debug.log*
+        yarn-debug.log*
+        yarn-error.log*
+        pnpm-debug.log*
+        bun-debug.log*
+
+        # ReScript build artifacts (regenerated inside the builder stage)
+        lib
+        .merlin
+
+        # Test artifacts
+        coverage
+        .nyc_output
+
+        # Local env / secrets — never bake into an image
+        .env
+        .env.*
+        !.env.example
+        """.trimIndent() + "\n"
+
+    /**
      * Generates a `.nvmrc` file pinning the Node.js major version used by the template.
      *
      * Pairs with the `engines.node` field in `package.json` so tools like nvm, fnm, and

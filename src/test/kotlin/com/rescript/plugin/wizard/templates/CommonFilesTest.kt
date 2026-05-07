@@ -201,6 +201,59 @@ class CommonFilesTest {
     }
 
     @Test
+    fun `serverDockerfile produces multi-stage Node image and exposes the supplied port`() {
+        val dockerfile = CommonFiles.serverDockerfile(pnpmCtx, port = 3000)
+        assertTrue(dockerfile.contains("FROM node:${pnpmCtx.nodeMajor}-slim AS builder"))
+        assertTrue(dockerfile.contains("FROM node:${pnpmCtx.nodeMajor}-slim AS runtime"))
+        assertTrue(dockerfile.contains("EXPOSE 3000"))
+        assertTrue(dockerfile.contains("USER node"))
+        assertTrue(dockerfile.contains("ENV NODE_ENV=production"))
+        assertTrue(dockerfile.contains("CMD [\"node\", \"src/ServerMain.res.mjs\"]"))
+    }
+
+    @Test
+    fun `serverDockerfile switches to oven-sh bun base when BUN is selected`() {
+        val dockerfile = CommonFiles.serverDockerfile(bunCtx, port = 3000)
+        assertTrue(dockerfile.contains("FROM oven/bun:1-slim AS builder"))
+        assertTrue(dockerfile.contains("FROM oven/bun:1-slim AS runtime"))
+        assertTrue(dockerfile.contains("USER bun"))
+        assertTrue(dockerfile.contains("CMD [\"bun\", \"src/ServerMain.res.mjs\"]"))
+    }
+
+    @Test
+    fun `serverDockerfile honours a custom entryPoint`() {
+        val dockerfile =
+            CommonFiles.serverDockerfile(npmCtx, port = 4000, entryPoint = "dist/server.mjs")
+        assertTrue(dockerfile.contains("CMD [\"node\", \"dist/server.mjs\"]"))
+        assertTrue(dockerfile.contains("EXPOSE 4000"))
+    }
+
+    @Test
+    fun `serverDockerfile install commands always pass --ignore-scripts`() {
+        for (pm in PackageManager.entries) {
+            val dockerfile = CommonFiles.serverDockerfile(TemplateContext("demo", pm), port = 3000)
+            val installLines = dockerfile.lines().filter { it.startsWith("RUN ") && it.contains(" install") }
+            assertTrue(installLines.size >= 2, "expected install lines in both stages for $pm")
+            installLines.forEach { line ->
+                assertTrue(
+                    line.contains("--ignore-scripts"),
+                    "Dockerfile RUN install line for $pm must pass --ignore-scripts: $line",
+                )
+            }
+        }
+    }
+
+    @Test
+    fun `dockerignore excludes secrets and rebuilt artifacts but keeps env example`() {
+        val content = CommonFiles.dockerignore()
+        assertTrue(content.contains("node_modules"))
+        assertTrue(content.contains(".env"))
+        assertTrue(content.contains("!.env.example"))
+        assertTrue(content.contains("lib"))
+        assertTrue(content.contains(".git"))
+    }
+
+    @Test
     fun `ci workflow setup-node version honors ctx nodeMajor (not a hardcoded value)`() {
         val customCtx = pnpmCtx.copy(nodeMajor = "24")
         val yaml = CommonFiles.ciWorkflow(customCtx)
