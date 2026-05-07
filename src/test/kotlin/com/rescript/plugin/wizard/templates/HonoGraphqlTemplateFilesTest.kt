@@ -28,6 +28,16 @@ class HonoGraphqlTemplateFilesTest {
     }
 
     @Test
+    fun `template ships a Dockerfile and dockerignore exposing port 4000`() {
+        val files = HonoGraphqlTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("Dockerfile"))
+        assertTrue(files.containsKey(".dockerignore"))
+        val dockerfile = files["Dockerfile"]!!
+        assertTrue(dockerfile.contains("EXPOSE 4000"))
+        assertTrue(dockerfile.contains("USER node"))
+    }
+
+    @Test
     fun `gitignore excludes data and generated graphql docs`() {
         val gitignore = HonoGraphqlTemplateFiles.generate(ctx)[".gitignore"]!!
         assertTrue(gitignore.contains("data/"))

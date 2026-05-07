@@ -125,6 +125,8 @@ internal object HonoTemplateFiles {
         files[".gitignore"] = CommonFiles.gitignore(extra = listOf("dist/", "data/", "drizzle/", ".env"))
         files[".editorconfig"] = CommonFiles.editorconfig()
         files[".github/workflows/ci.yml"] = CommonFiles.ciWorkflow(ctx, hasTest = true)
+        files["Dockerfile"] = CommonFiles.serverDockerfile(ctx, port = 3000)
+        files[".dockerignore"] = CommonFiles.dockerignore()
         return files
     }
 

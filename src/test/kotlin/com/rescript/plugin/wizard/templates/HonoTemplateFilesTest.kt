@@ -29,6 +29,17 @@ class HonoTemplateFilesTest {
     }
 
     @Test
+    fun `template ships a Dockerfile and dockerignore for container deploys`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("Dockerfile"))
+        assertTrue(files.containsKey(".dockerignore"))
+        val dockerfile = files["Dockerfile"]!!
+        assertTrue(dockerfile.contains("EXPOSE 3000"))
+        assertTrue(dockerfile.contains("USER node"))
+        assertTrue(dockerfile.contains("CMD [\"node\", \"src/ServerMain.res.mjs\"]"))
+    }
+
+    @Test
     fun `ships Drizzle schema, libsql client, and drizzle config`() {
         val files = HonoTemplateFiles.generate(ctx)
         assertTrue(files.containsKey("src/Schema.res"))

@@ -133,6 +133,8 @@ internal object HonoGraphqlTemplateFiles {
                 CommonFiles.gitignore(extra = listOf("data/", "docs/schema.md", "drizzle/", ".env")),
             ".editorconfig" to CommonFiles.editorconfig(),
             ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
+            "Dockerfile" to CommonFiles.serverDockerfile(ctx, port = 4000),
+            ".dockerignore" to CommonFiles.dockerignore(),
         )
     }
 
