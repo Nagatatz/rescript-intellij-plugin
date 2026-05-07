@@ -4,14 +4,14 @@
 - [x] requirements.md 作成
 - [x] design.md 作成
 - [x] tasklist.md 作成
-- [ ] requirements / design / tasklist のユーザー承認
-- [ ] `EnterWorktree variant-flow-diagram` で worktree 作成
+- [x] requirements / design / tasklist のユーザー承認
+- [x] `EnterWorktree variant-flow-diagram` で worktree 作成
 
 ## Phase 2: 既存資産の準備
-- [ ] `RescriptSwitchArm` に `bodyEndOffset` フィールドを追加し、collector 側で計算
-- [ ] `RescriptSwitchArmCollectorTest` に bodyEndOffset 検証ケースを追加
-- [ ] `MermaidLabelEscaping` を `diagram/` 配下に抽出（`RescriptMermaidExporter` から切り出し）
-- [ ] 既存 `RescriptMermaidExporterTest` がパスし続けることを確認
+- [x] `RescriptSwitchArm` に `bodyEndOffset` フィールドを追加し、collector 側で計算
+- [x] `RescriptSwitchArmCollectorTest` に bodyEndOffset 検証ケース 2 件を追加（合計 14 ケース、全 green）
+- [x] `MermaidLabelEscaping` を `diagram/` 配下に抽出（`RescriptMermaidExporter` から切り出し）
+- [x] 既存 `RescriptMermaidExporterTest` がパスし続けることを確認
 
 ## Phase 3: 実装（コアロジック）
 - [ ] `flow/RescriptVariantFlowModel.kt` を実装（FlowNode/FlowDiagram + buildAtOffset）

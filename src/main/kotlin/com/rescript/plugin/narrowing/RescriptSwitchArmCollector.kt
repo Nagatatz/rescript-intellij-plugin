@@ -7,15 +7,19 @@ import com.rescript.plugin.lang.RescriptLexer
 import com.rescript.plugin.lang.RescriptTokenTypes
 
 /**
- * Information about a single arm of a `switch` expression that the
- * type-narrowing visualizer needs in order to anchor an inlay hint
- * and resolve the narrowed type via LSP hover.
+ * Information about a single arm of a `switch` expression that
+ * downstream tools (type-narrowing visualizer, variant flow diagram)
+ * need to anchor visual elements and reason about the arm body.
  *
  * @property scrutineeRange text range of the expression being matched
  *   (the `X` in `switch X { ... }`); used as the LSP hover offset
  * @property patternOffset offset just after the leading `|` of this arm
  * @property arrowOffset offset just after the arm's `=>` token; the
  *   inlay hint is anchored here
+ * @property bodyEndOffset offset just before the next arm's `|` or
+ *   the closing `}` of the enclosing switch — i.e. the exclusive end
+ *   of this arm's body text; used by the flow diagram to render an
+ *   arm body preview
  * @property patternSummary short human-readable summary of the pattern
  *   (e.g. `Some(_)`, `None`, `[]`); used as a tooltip prefix
  */
@@ -23,6 +27,7 @@ data class SwitchArm(
     val scrutineeRange: TextRange,
     val patternOffset: Int,
     val arrowOffset: Int,
+    val bodyEndOffset: Int,
     val patternSummary: String,
 )
 
@@ -131,9 +136,15 @@ object RescriptSwitchArmCollector {
             TextRange(tokens[scrutineeStart].start, tokens[bodyBraceIdx - 1].end)
 
         // Walk the body, recognising arm boundaries on `|` and `=>`.
+        // `pendingArmIdx` points at the arm whose body we're currently
+        // accumulating: its bodyEndOffset is unknown until we see the
+        // next `|` (at brace depth 1) or the closing `}`. Tracking the
+        // index by hand also keeps nested-switch arms from corrupting
+        // the outer arm's end offset.
         i = bodyBraceIdx + 1
         var braceDepth = 1
         var armPipeOffset: Int? = null
+        var pendingArmIdx: Int? = null
         var armPatternTokens = mutableListOf<LexedToken>()
         while (i < tokens.size) {
             val t = tokens[i]
@@ -145,7 +156,12 @@ object RescriptSwitchArmCollector {
 
                 RescriptTokenTypes.RBRACE -> {
                     braceDepth--
-                    if (braceDepth == 0) return i + 1
+                    if (braceDepth == 0) {
+                        if (pendingArmIdx != null) {
+                            arms[pendingArmIdx] = arms[pendingArmIdx].copy(bodyEndOffset = t.start)
+                        }
+                        return i + 1
+                    }
                     armPatternTokens.addIfInArm(armPipeOffset, braceDepth, t)
                 }
 
@@ -157,6 +173,11 @@ object RescriptSwitchArmCollector {
 
                 RescriptTokenTypes.PIPE -> {
                     if (braceDepth == 1 && armPipeOffset == null) {
+                        // Close the previous outer arm (if any) before opening a new one.
+                        if (pendingArmIdx != null) {
+                            arms[pendingArmIdx] = arms[pendingArmIdx].copy(bodyEndOffset = t.start)
+                            pendingArmIdx = null
+                        }
                         armPipeOffset = t.end
                         armPatternTokens = mutableListOf()
                     } else {
@@ -171,9 +192,11 @@ object RescriptSwitchArmCollector {
                                 scrutineeRange = scrutineeRange,
                                 patternOffset = armPipeOffset,
                                 arrowOffset = t.end,
+                                bodyEndOffset = -1,
                                 patternSummary = summarize(armPatternTokens),
                             ),
                         )
+                        pendingArmIdx = arms.size - 1
                         armPipeOffset = null
                         armPatternTokens = mutableListOf()
                     } else {
@@ -186,6 +209,13 @@ object RescriptSwitchArmCollector {
                 }
             }
             i++
+        }
+        // Unterminated switch: drop any pending arm with no bodyEndOffset
+        // rather than emit a half-formed entry. We can't simply leave it
+        // with bodyEndOffset = -1 because consumers (flow diagram) assume
+        // a non-negative offset.
+        if (pendingArmIdx != null) {
+            arms.removeAt(pendingArmIdx)
         }
         return tokens.size
     }

@@ -182,4 +182,45 @@ class RescriptSwitchArmCollectorTest {
         // `=>` ends at position of the first character after the arrow.
         assertEquals("=>", source.substring(arm.arrowOffset - 2, arm.arrowOffset))
     }
+
+    @Test
+    fun `body end offset spans up to the next pipe or closing brace`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(v) => v + 1
+              | None => 0
+              }
+            """.trimIndent()
+        val arms = RescriptSwitchArmCollector.collect(source)
+        val firstBody = source.substring(arms[0].arrowOffset, arms[0].bodyEndOffset)
+        assertEquals("v + 1", firstBody.trim())
+        val secondBody = source.substring(arms[1].arrowOffset, arms[1].bodyEndOffset)
+        assertEquals("0", secondBody.trim())
+    }
+
+    @Test
+    fun `nested switch keeps outer arm body end at outer boundary`() {
+        val source =
+            """
+            let n = (a, b) =>
+              switch a {
+              | Some(_) =>
+                switch b {
+                | Ok(_) => 1
+                | Error(_) => 2
+                }
+              | None => 0
+              }
+            """.trimIndent()
+        val arms = RescriptSwitchArmCollector.collect(source)
+        val outerSomeArm = arms.first { it.patternSummary == "Some(_)" }
+        val outerSomeBody = source.substring(outerSomeArm.arrowOffset, outerSomeArm.bodyEndOffset)
+        // The Some(_) arm body must include the entire inner switch.
+        org.junit.jupiter.api.Assertions
+            .assertTrue(outerSomeBody.contains("switch b {"))
+        org.junit.jupiter.api.Assertions
+            .assertTrue(outerSomeBody.contains("Error(_) => 2"))
+    }
 }
