@@ -330,4 +330,19 @@ class RescriptProjectSettingsTest {
         assertEquals(100, settings.inlayHintsMaxLength)
         assertFalse(settings.compileStatusEnabled)
     }
+
+    @Test
+    fun `narrowingHintsEnabled defaults to true`() {
+        val state = RescriptProjectSettings.State()
+        assertTrue(state.narrowingHintsEnabled)
+    }
+
+    @Test
+    fun `narrowingHintsEnabled property delegates to state`() {
+        val settings = RescriptProjectSettings()
+        assertTrue(settings.narrowingHintsEnabled)
+        settings.narrowingHintsEnabled = false
+        assertFalse(settings.narrowingHintsEnabled)
+        assertFalse(settings.state.narrowingHintsEnabled)
+    }
 }

@@ -1036,6 +1036,10 @@
         <codeInsight.inlayHintsProvider language="ReScript"
                 implementationClass="com.rescript.plugin.lsp.RescriptPipeChainTypeHintsProvider"/>
 
+        <!-- Type narrowing inlay hints for switch arms -->
+        <codeInsight.inlayHintsProvider language="ReScript"
+                implementationClass="com.rescript.plugin.narrowing.RescriptNarrowingHintProvider"/>
+
         <!-- Mutability diagnostics (#103) -->
         <localInspection language="ReScript"
                          groupName="ReScript"

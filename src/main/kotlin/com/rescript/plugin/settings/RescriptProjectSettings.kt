@@ -36,6 +36,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var autoAddOpenStatements: Boolean = true
         var excludedModules: String = ""
         var pipeChainHintsEnabled: Boolean = true
+        var narrowingHintsEnabled: Boolean = true
         var formatCheckEnabled: Boolean = false
         var signatureHelpEnabled: Boolean = true
         var signatureHelpForConstructorPayloads: Boolean = true
@@ -140,6 +141,12 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.pipeChainHintsEnabled
         set(value) {
             state.pipeChainHintsEnabled = value
+        }
+
+    var narrowingHintsEnabled: Boolean
+        get() = state.narrowingHintsEnabled
+        set(value) {
+            state.narrowingHintsEnabled = value
         }
 
     var formatCheckEnabled: Boolean

@@ -18,17 +18,17 @@
 - [x] `narrowing/RescriptHoverTypeResolver.kt` を実装（LSP 結合のためテスト免除）
 - [x] `narrowing/RescriptNarrowingPresenter.kt` を実装
 - [x] `narrowing/RescriptNarrowingPresenterTest.kt` を作成
-- [ ] `narrowing/RescriptNarrowingHintProvider.kt` を実装（InlayHintsProvider）
-- [ ] `narrowing/RescriptNarrowingHintProviderTest.kt` を作成（`buildHints` の純粋ロジックを検証。InlayHintsSink/PresentationFactory 統合は IntelliJ Platform fixture が必要のため免除）
-- [ ] `settings/RescriptProjectSettings.kt` に `narrowingHintsEnabled` を追加
-- [ ] `plugin.xml` に `codeInsight.inlayHintsProvider` を登録
+- [x] `narrowing/RescriptNarrowingHintProvider.kt` を実装（InlayHintsProvider）
+- [x] `narrowing/RescriptNarrowingHintProviderTest.kt` を作成（`buildHints` の純粋ロジックを検証。InlayHintsSink/PresentationFactory 統合は IntelliJ Platform fixture が必要のため免除）
+- [x] `settings/RescriptProjectSettings.kt` に `narrowingHintsEnabled` を追加
+- [x] `plugin.xml` に `codeInsight.inlayHintsProvider` を登録
 
 ## Phase 3: コミット前検証
-- [ ] `./gradlew ktlintCheck` パス
-- [ ] `./gradlew clean buildPlugin` パス
-- [ ] `./gradlew test` パス（新規テスト含む全てグリーン）
-- [ ] ビルド警告が増加していないことを確認
-- [ ] Deprecated API 利用がないことを確認（新規 import を確認）
+- [x] `./gradlew ktlintCheck` パス
+- [x] `./gradlew clean buildPlugin` パス
+- [x] `./gradlew test` パス（新規テスト含む全てグリーン）
+- [x] ビルド警告が増加していないことを確認（既存の RescriptLsp4jClient 警告のみ）
+- [x] Deprecated API 利用がないことを確認（新規 import を確認）
 - [ ] LSP 未起動時にヒントが出ないことを手動確認（`./gradlew runIde`）
 - [ ] 1000 行サンプルでの体感遅延がないことを手動確認
 
