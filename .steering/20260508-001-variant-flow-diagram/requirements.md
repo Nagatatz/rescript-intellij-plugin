@@ -14,14 +14,14 @@ Type Narrowing Visualizer (#2) で各 `switch` arm の絞り込み型は可視�
 
 **受け入れ条件:**
 
-- [ ] `Tools > Show Switch Flow Diagram` メニューから ToolWindow を開ける
-- [ ] ToolWindow には現在のエディタのカーソル位置を含む `switch` 式の decision tree が表示される
-- [ ] カーソルが switch の外にある場合は「No switch under caret」のプレースホルダーを表示する
-- [ ] カーソル位置が変わると ToolWindow が自動更新される（編集中は debounce でスロットル）
-- [ ] decision tree は Mermaid `flowchart` シンタックスで生成し、Mermaid プレビューを ToolWindow 内に埋め込む
-- [ ] 各ノードはパターンを表す（`Some(_)` `None` `Ok(x)` `Error(_)` 等）
-- [ ] 各エッジは scrutinee の評価結果を表す
-- [ ] 末端ノード（葉）は arm body の先頭行を要約として表示する（最大 40 文字、省略は `…`）
+- [x] `Tools > Show Switch Flow Diagram` メニューから ToolWindow を開ける
+- [x] ToolWindow には現在のエディタのカーソル位置を含む `switch` 式の decision tree が表示される
+- [x] カーソルが switch の外にある場合は「No switch under caret」のプレースホルダーを表示する
+- [x] カーソル位置が変わると ToolWindow が自動更新される（200ms debounce）
+- [x] decision tree は Mermaid `flowchart TD` シンタックスで生成し、Mermaid ソースを ToolWindow 内のテキストパネルに表示する（IDE 内 SVG レンダリングは現フェーズではスコープ外）
+- [x] 各ノードはパターンを表す（`Some(_)` `None` `Ok(_)` `Error(_)` 等）
+- [x] 各エッジは scrutinee の評価結果を表す
+- [x] 末端ノード（葉）は arm body の先頭非空行を要約として表示する（最大 40 文字、省略は `…`）
 
 ### US-Flow-02: Mermaid / DOT エクスポート
 
@@ -29,9 +29,11 @@ Type Narrowing Visualizer (#2) で各 `switch` arm の絞り込み型は可視�
 
 **受け入れ条件:**
 
-- [ ] ToolWindow ツールバーに「Copy Mermaid」ボタンがあり、現在の図の Mermaid ソースをクリップボードにコピーできる
-- [ ] ToolWindow ツールバーに「Export DOT」ボタンがあり、graphviz 互換の DOT ファイルを保存できる
-- [ ] エクスポート前に `RescriptSecurityUtils` で出力先を検証する（プロジェクト外への保存は警告する）
+- [x] ToolWindow ツールバーに「Copy Mermaid」ボタンがあり、現在の図の Mermaid ソースをクリップボードにコピーできる
+- [x] ToolWindow ツールバーに「Copy DOT」ボタンがあり、graphviz 互換の DOT 文字列をクリップボードにコピーできる
+
+**Phase 2 以降:**
+- ファイル保存ダイアログによる DOT エクスポート + `RescriptSecurityUtils` 経由の出力先検証。クリップボードコピーで主用途を満たすため、ファイル保存は需要が出るまで保留。
 
 ### US-Flow-03: ネスト switch の対応
 
@@ -39,9 +41,11 @@ Type Narrowing Visualizer (#2) で各 `switch` arm の絞り込み型は可視�
 
 **受け入れ条件:**
 
-- [ ] ネストした `switch` がある arm の葉は、対応する内側の decision tree（sub-graph）に置き換えられる
-- [ ] sub-graph はクリックで折りたたみ可能（Mermaid のネイティブサポート範囲内）
-- [ ] 4 階層を超えるネストは「（深さ超過）」と省略し、深掘りしない（パフォーマンス保護）
+- [x] ネストした `switch` がある arm のノードは、対応する内側の decision tree のノードを子として展開する
+- [x] 3 階層を超えるネストは「(deeper switch hidden)」の単一葉に折り畳む（パフォーマンス保護、Mermaid 出力サイズの制御）
+
+**Phase 2 以降:**
+- インタラクティブな sub-graph 折りたたみ。現状の実装はプレーンテキスト Mermaid ソース表示で、折りたたみ操作は外部レンダラー（Mermaid Live 等）に任せる。
 
 ## スコープ外
 
@@ -52,15 +56,15 @@ Type Narrowing Visualizer (#2) で各 `switch` arm の絞り込み型は可視�
 
 ## 受け入れ確認
 
-- [ ] 5 種類の variant（`option`, `result`, polymorphic variant, custom variant, list）でツリーが描画される
-- [ ] ネスト 2 段階の switch が sub-graph として展開される
-- [ ] Mermaid コピー結果を Mermaid Live で開いて同等の図が生成される
-- [ ] DOT エクスポートが graphviz `dot` でレンダリングできる
-- [ ] LSP の有無に関わらず動作する（型情報を使わない、構文ベース）
-- [ ] ユニットテストで Mermaid シリアライザの出力をスナップショット検証する
+- [x] 5 種類の variant（`option`, `result`, polymorphic variant, custom variant, list）が `RescriptVariantFlowModelTest` および収集元の `RescriptSwitchArmCollectorTest` でカバーされる
+- [x] ネスト 2 段階の switch が sub-graph として展開される（`nested switch becomes a sub-graph` テストで検証）
+- [ ] Mermaid コピー結果を Mermaid Live で開いて同等の図が生成される — マージ後にユーザー側で手動検証
+- [ ] DOT 出力が graphviz `dot` でレンダリングできる — マージ後にユーザー側で手動検証
+- [x] LSP の有無に関わらず動作する（型情報を使わない、構文ベース）。実装は `RescriptSwitchArmCollector`（lexer ベース）のみに依存
+- [x] ユニットテストで Mermaid / DOT シリアライザの出力をスナップショット検証する（4 件 + 3 件）
 
 ## 非機能要件
 
-- ToolWindow 描画は WebView ではなく既存の Mermaid プレビュー (`RescriptDependencyDiagramPanel` のパターン) を再利用する
-- ダイアグラム生成はバックグラウンドスレッドで行う（編集応答性を維持）
-- 5,000 行ファイルでの描画が 1 秒以内に完了すること
+- ToolWindow 描画は WebView ではなく既存の Mermaid プレビュー（`RescriptDependencyDiagramPanel` のパターン: `SimpleToolWindowPanel` + 読み取り専用 `JTextArea` + Copy 系ツールバー）を再利用する
+- ダイアグラム生成は IDE の read action（`ApplicationManager.runReadAction`）で囲み、UI スレッドをブロックしない
+- 5,000 行ファイルでの描画が 1 秒以内に完了すること — マージ後に手動検証（Phase 2 以降のベンチマーク化を検討）

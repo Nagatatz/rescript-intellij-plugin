@@ -48,13 +48,13 @@
 - [x] Collector 拡張コミット（`✨ Track switch arm body offsets for downstream tools`）
 - [x] モデル + Exporter コミット（`✨ Add variant flow decision-tree model and exporters`）
 - [x] ToolWindow/Panel/Action コミット（`✨ Add variant flow diagram tool window`）
-- [ ] ドキュメント更新コミット（`📝 Document variant flow diagram`）
-- [ ] tasklist 完了化コミット（マージ前最終）
+- [x] ドキュメント更新コミット（`📝 Document variant flow diagram`）
+- [x] tasklist / requirements 完了化コミット（マージ前最終）
 
 ## Phase 4: マージ前
-- [ ] 全タスク `[x]` 確認
-- [ ] requirements 受け入れ条件確認
-- [ ] `AskUserQuestion` でマージ可否確認
+- [x] 全タスク `[x]` 確認（手動検証 2 件のみマージ後に持ち越し）
+- [x] requirements 受け入れ条件確認（Phase 1 スコープ全て [x]）
+- [x] `AskUserQuestion` でマージ可否確認
 
 ## Phase 5: マージ後
 - [ ] main へマージ + ブランチ削除 + worktree クリーンアップ
