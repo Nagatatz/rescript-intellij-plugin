@@ -60,6 +60,30 @@ class GoogleCloudRunTemplateFilesTest {
     }
 
     @Test
+    fun `Dockerfile install commands pass --ignore-scripts for every package manager`() {
+        // Locks in the supply-chain hardening: lifecycle scripts from transitive deps
+        // must not run during the Docker build for any selected package manager.
+        for (pm in PackageManager.entries) {
+            val dockerfile = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", pm))["Dockerfile"]!!
+            val installRunLines = dockerfile.lines().filter { it.startsWith("RUN ") && it.contains(" install") }
+            assertTrue(
+                installRunLines.isNotEmpty(),
+                "Dockerfile must contain at least one RUN install line for $pm",
+            )
+            installRunLines.forEach { line ->
+                assertTrue(
+                    line.contains("--ignore-scripts"),
+                    "Dockerfile RUN install line for $pm must pass --ignore-scripts: $line",
+                )
+            }
+            assertFalse(
+                dockerfile.contains("--frozen-lockfile=false"),
+                "Dockerfile for $pm must not disable lockfile enforcement",
+            )
+        }
+    }
+
+    @Test
     fun `Dockerfile pins base image to ctx nodeMajor instead of hardcoded 22`() {
         // ctx.nodeMajor defaults to TemplateVersions.NODE_MAJOR; verify the Dockerfile follows it.
         val files = GoogleCloudRunTemplateFiles.generate(TemplateContext("svc", PackageManager.PNPM))

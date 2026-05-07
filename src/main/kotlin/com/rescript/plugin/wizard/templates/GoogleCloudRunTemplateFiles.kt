@@ -163,19 +163,23 @@ internal object GoogleCloudRunTemplateFiles {
     private fun dockerfile(ctx: TemplateContext): String {
         val isBun = ctx.packageManager == PackageManager.BUN
         val baseImage = if (isBun) "oven/bun:1-slim" else "node:${ctx.nodeMajor}-slim"
+        // `--ignore-scripts` blocks transitive lifecycle scripts (postinstall etc.) from
+        // running inside the Docker build, mitigating supply-chain attacks where a compromised
+        // dep would otherwise execute arbitrary code with build-time access. The res-x
+        // Dockerfile applies the same hardening.
         val builderInstall =
             when (ctx.packageManager) {
-                PackageManager.NPM -> "npm install"
-                PackageManager.PNPM -> "corepack enable && pnpm install --frozen-lockfile=false"
-                PackageManager.YARN -> "corepack enable && yarn install"
-                PackageManager.BUN -> "bun install"
+                PackageManager.NPM -> "npm install --ignore-scripts"
+                PackageManager.PNPM -> "corepack enable && pnpm install --ignore-scripts"
+                PackageManager.YARN -> "corepack enable && yarn install --ignore-scripts"
+                PackageManager.BUN -> "bun install --ignore-scripts"
             }
         val runtimeInstall =
             when (ctx.packageManager) {
-                PackageManager.NPM -> "npm install --omit=dev"
-                PackageManager.PNPM -> "corepack enable && pnpm install --prod --frozen-lockfile=false"
-                PackageManager.YARN -> "corepack enable && yarn install --production"
-                PackageManager.BUN -> "bun install --production"
+                PackageManager.NPM -> "npm install --omit=dev --ignore-scripts"
+                PackageManager.PNPM -> "corepack enable && pnpm install --prod --ignore-scripts"
+                PackageManager.YARN -> "corepack enable && yarn install --production --ignore-scripts"
+                PackageManager.BUN -> "bun install --production --ignore-scripts"
             }
         // Cloud Run best practice: run as a non-root user. The official node images ship a
         // pre-created `node` user (uid 1000); oven/bun ships a `bun` user with the same uid.
