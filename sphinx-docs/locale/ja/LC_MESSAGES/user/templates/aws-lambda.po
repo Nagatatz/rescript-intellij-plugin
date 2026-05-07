@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 01:00+0900\n"
+"POT-Creation-Date: 2026-05-08 03:42+0900\n"
 "PO-Revision-Date: 2026-04-26 13:06+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "What You Get"
 msgstr "生成内容"
 
-#: ../../user/templates/aws-lambda.md:37
+#: ../../user/templates/aws-lambda.md:39
 msgid "Wizard Options"
 msgstr "ウィザードオプション"
 
@@ -119,7 +119,7 @@ msgstr ""
 "`zod` ↔ `sury`。`src/Validation.res` を選択し、対応する依存を追加する。両者は "
 "`parseCreateOrderPayload` を公開するため、ルートハンドラは分岐する必要がない"
 
-#: ../../user/templates/aws-lambda.md:45
+#: ../../user/templates/aws-lambda.md:47
 msgid "Key Dependencies"
 msgstr "主要な依存"
 
@@ -208,6 +208,21 @@ msgid "`TemplateVersions.ESBUILD`"
 msgstr "`TemplateVersions.ESBUILD`"
 
 #: ../../user/templates/aws-lambda.md
+msgid "`@hono/node-server` *(dev)*"
+msgstr "`@hono/node-server` *(dev)*"
+
+#: ../../user/templates/aws-lambda.md
+msgid ""
+"Powers `src/Local.res` for local-only invocation; never bundled into the "
+"Lambda artifact"
+msgstr ""
+"`src/Local.res` でのローカル専用起動に使う。Lambda アーティファクトには決してバンドルされない"
+
+#: ../../user/templates/aws-lambda.md
+msgid "`TemplateVersions.HONO_NODE_SERVER`"
+msgstr "`TemplateVersions.HONO_NODE_SERVER`"
+
+#: ../../user/templates/aws-lambda.md
 msgid "`vitest` *(dev)*"
 msgstr "`vitest` *(dev)*"
 
@@ -231,7 +246,7 @@ msgstr "`test:coverage` 向けのカバレッジプロバイダ"
 msgid "`TemplateVersions.VITEST_COVERAGE_V8`"
 msgstr "`TemplateVersions.VITEST_COVERAGE_V8`"
 
-#: ../../user/templates/aws-lambda.md:58
+#: ../../user/templates/aws-lambda.md:61
 msgid ""
 "The template does not pre-install `@types/aws-lambda` or `aws-lambda-"
 "ric`. Hono's adapter (`hono/aws-lambda`) returns a function whose "
@@ -245,15 +260,15 @@ msgstr ""
 "が期待するハンドラの形に合致するため、同梱のルートには別途のハンドラ型は不要である。`APIGatewayProxyEventV2` や "
 "`Context` を扱う手書きハンドラを書く場合は、後から `@types/aws-lambda` を追加するとよい。"
 
-#: ../../user/templates/aws-lambda.md:60
+#: ../../user/templates/aws-lambda.md:63
 msgid "Key Files"
 msgstr "主要なファイル"
 
-#: ../../user/templates/aws-lambda.md:62
+#: ../../user/templates/aws-lambda.md:65
 msgid "`src/Server.res`"
 msgstr "`src/Server.res`"
 
-#: ../../user/templates/aws-lambda.md:64
+#: ../../user/templates/aws-lambda.md:67
 msgid ""
 "The Hono app, plus the named `handler` export that AWS Lambda looks up at"
 " invocation time. Top-level `let` bindings become named ESM exports "
@@ -264,7 +279,7 @@ msgstr ""
 "バインディングは自動的に ESM の名前付きエクスポートになるため、`let handler = HonoLambda.handle(app)` "
 "は ReScript における `export const handler = ...` の等価物である:"
 
-#: ../../user/templates/aws-lambda.md:95
+#: ../../user/templates/aws-lambda.md:98
 #, python-format
 msgid ""
 "Doing it via a real `let` binding (rather than `%%raw`) ensures the "
@@ -274,11 +289,11 @@ msgstr ""
 "これを (`%%raw` ではなく) 実際の `let` バインディングで行うことで、ReScript コンパイラが `HonoLambda` の"
 " import を出力することが保証される — その上で esbuild が アダプターを `dist/index.mjs` にバンドルする。"
 
-#: ../../user/templates/aws-lambda.md:97
+#: ../../user/templates/aws-lambda.md:100
 msgid "`src/HonoLambda.res`"
 msgstr "`src/HonoLambda.res`"
 
-#: ../../user/templates/aws-lambda.md:99
+#: ../../user/templates/aws-lambda.md:102
 msgid ""
 "A two-line binding over the Hono adapter — small enough to read at a "
 "glance, but it captures the only piece of API Gateway knowledge the "
@@ -287,7 +302,7 @@ msgstr ""
 "Hono アダプターに対する 2 行のバインディング — 一目で読み切れる小ささだが、テンプレートが必要とする API Gateway "
 "関連の知識はこれですべてカバーできる:"
 
-#: ../../user/templates/aws-lambda.md:109
+#: ../../user/templates/aws-lambda.md:112
 msgid ""
 "The adapter accepts both REST API (v1) and HTTP API (v2) events from API "
 "Gateway and translates them into `fetch`-compatible requests Hono can "
@@ -296,11 +311,11 @@ msgstr ""
 "このアダプターは API Gateway からの REST API (v1) と HTTP API (v2) の両方のイベントを受け取り、Hono"
 " がルーティングできる `fetch` 互換のリクエストに変換する。"
 
-#: ../../user/templates/aws-lambda.md:111
+#: ../../user/templates/aws-lambda.md:114
 msgid "`src/Validation.res`"
 msgstr "`src/Validation.res`"
 
-#: ../../user/templates/aws-lambda.md:113
+#: ../../user/templates/aws-lambda.md:116
 msgid ""
 "Both variants expose `parseCreateOrderPayload: JSON.t => "
 "result<createOrderPayload, string>`. The route handler returns 400 on "
@@ -316,15 +331,15 @@ msgstr ""
 "to-openapi、hono/zod-openapi) を取りたいなら **zod** を、ReScript "
 "ネイティブの使い心地と小さいランタイムフットプリントを優先するなら **sury** を選ぶとよい。"
 
-#: ../../user/templates/aws-lambda.md:115
+#: ../../user/templates/aws-lambda.md:118
 msgid "`src/__tests__/Server.test.mjs`"
 msgstr "`src/__tests__/Server.test.mjs`"
 
-#: ../../user/templates/aws-lambda.md:117
+#: ../../user/templates/aws-lambda.md:120
 msgid "A one-line smoke test that asserts the module loads:"
 msgstr "モジュールがロードされることを検証する 1 行のスモークテスト:"
 
-#: ../../user/templates/aws-lambda.md:123
+#: ../../user/templates/aws-lambda.md:126
 msgid ""
 "It runs in CI alongside the bundle step so a broken handler fails fast. "
 "For real Lambda integration tests, drive the bundled `dist/index.mjs` "
@@ -335,7 +350,7 @@ msgstr ""
 "mock-context` や `sam local invoke` で合成した API Gateway イベントを使い、バンドル済みの "
 "`dist/index.mjs` を駆動する。"
 
-#: ../../user/templates/aws-lambda.md:125
+#: ../../user/templates/aws-lambda.md:128
 msgid "Endpoints"
 msgstr "エンドポイント"
 
@@ -384,15 +399,15 @@ msgstr "POST"
 msgid "Create an order from `{ productId, quantity }` (JSON body)"
 msgstr "`{ productId, quantity }` (JSON ボディ) からオーダーを作成する"
 
-#: ../../user/templates/aws-lambda.md:133
+#: ../../user/templates/aws-lambda.md:136
 msgid "Request and response shapes"
 msgstr "リクエスト/レスポンスの形状"
 
-#: ../../user/templates/aws-lambda.md:160
+#: ../../user/templates/aws-lambda.md:163
 msgid "A missing or invalid body produces a 400:"
 msgstr "ボディが欠落または不正な場合は 400 を返す:"
 
-#: ../../user/templates/aws-lambda.md:169
+#: ../../user/templates/aws-lambda.md:172
 msgid "npm Scripts"
 msgstr "npm スクリプト"
 
@@ -419,6 +434,22 @@ msgid ""
 msgstr ""
 "`esbuild src/Server.res.mjs --bundle --platform=node "
 "--outfile=dist/index.mjs --format=esm`"
+
+#: ../../user/templates/aws-lambda.md
+msgid "`dev`"
+msgstr "`dev`"
+
+#: ../../user/templates/aws-lambda.md
+msgid "`node --watch src/Local.res.mjs` — local Node server with file watching"
+msgstr "`node --watch src/Local.res.mjs` — ファイル監視付きでローカル Node サーバーを起動"
+
+#: ../../user/templates/aws-lambda.md
+msgid "`start`"
+msgstr "`start`"
+
+#: ../../user/templates/aws-lambda.md
+msgid "`node src/Local.res.mjs` — single local Node run"
+msgstr "`node src/Local.res.mjs` — ローカル Node を 1 回だけ実行"
 
 #: ../../user/templates/aws-lambda.md
 msgid "`test`"
@@ -460,7 +491,7 @@ msgstr "`res:clean`"
 msgid "`rescript clean` — remove generated `.res.mjs`"
 msgstr "`rescript clean` — 生成された `.res.mjs` を削除する"
 
-#: ../../user/templates/aws-lambda.md:181
+#: ../../user/templates/aws-lambda.md:186
 msgid ""
 "The `build` script chains the two steps with `&&` (the package-manager "
 "prefix is interpolated from your wizard choice). `dist/index.mjs` is the "
@@ -469,16 +500,15 @@ msgstr ""
 "`build` スクリプトは 2 つのステップを `&&` で連結する (パッケージマネージャのプレフィックスは "
 "ウィザードの選択から展開される)。アップロードするアーティファクトは `dist/index.mjs` である。"
 
-#: ../../user/templates/aws-lambda.md:183
+#: ../../user/templates/aws-lambda.md:188
 msgid "Deploy Walkthrough"
 msgstr "デプロイ手順"
 
-#: ../../user/templates/aws-lambda.md:185
+#: ../../user/templates/aws-lambda.md:190
 msgid "Build and upload"
 msgstr "ビルドとアップロード"
 
-#: ../../user/templates/aws-lambda.md:195
-#, fuzzy
+#: ../../user/templates/aws-lambda.md:200
 msgid ""
 "Set the function's *Handler* to `index.handler` and *Runtime* to `Node.js"
 " 24`. Use **API Gateway HTTP API** as the trigger unless you need a "
@@ -487,11 +517,11 @@ msgstr ""
 "関数の *Handler* を `index.handler` に、*Runtime* を `Node.js 24` に設定する。REST API"
 " でしか提供されない機能が必要でない限り、トリガーには **API Gateway HTTP API** を使う。"
 
-#: ../../user/templates/aws-lambda.md:197
+#: ../../user/templates/aws-lambda.md:202
 msgid "Bundle size escape hatches"
 msgstr "バンドルサイズの逃げ道"
 
-#: ../../user/templates/aws-lambda.md:199
+#: ../../user/templates/aws-lambda.md:204
 msgid ""
 "The default bundle inlines every dependency for low cold-start latency. "
 "When the artifact approaches the **50 MB direct-upload limit** (or 250 MB"
@@ -500,11 +530,11 @@ msgstr ""
 "デフォルトのバンドルは、コールドスタートのレイテンシを下げるためにすべての依存をインライン化する。アーティファクトが **50 MB "
 "の直接アップロード上限** (展開後 250 MB) に近づいてきたら、以下のいずれかを採用する:"
 
-#: ../../user/templates/aws-lambda.md:201
+#: ../../user/templates/aws-lambda.md:206
 msgid "Mark Lambda-provided deps as external"
 msgstr "Lambda 提供の依存を external としてマークする"
 
-#: ../../user/templates/aws-lambda.md:203
+#: ../../user/templates/aws-lambda.md:208
 msgid ""
 "The AWS SDK v3 (`@aws-sdk/*`) is preinstalled on the Node.js Lambda "
 "runtime. Excluding it saves several MB per command:"
@@ -512,7 +542,7 @@ msgstr ""
 "AWS SDK v3 (`@aws-sdk/*`) は Node.js Lambda "
 "ランタイムにプリインストールされている。これを除外するとコマンドあたり数 MB 削減できる:"
 
-#: ../../user/templates/aws-lambda.md:211
+#: ../../user/templates/aws-lambda.md:216
 msgid ""
 "Anything you mark `--external` must already exist at runtime — either "
 "because Lambda ships it, or because you publish it via a Lambda Layer."
@@ -520,27 +550,27 @@ msgstr ""
 "`--external` でマークするものは実行時にすでに存在している必要がある — Lambda が同梱しているか、Lambda Layer "
 "で公開しているかのいずれかである。"
 
-#: ../../user/templates/aws-lambda.md:213
+#: ../../user/templates/aws-lambda.md:218
 msgid "Lambda Layers"
 msgstr "Lambda Layers"
 
-#: ../../user/templates/aws-lambda.md:215
+#: ../../user/templates/aws-lambda.md:220
 msgid ""
 "For large native dependencies (Sharp, Prisma engines, custom binaries), "
 "publish them once as a Layer and exclude them from the bundle:"
 msgstr "大きなネイティブ依存 (Sharp、Prisma エンジン、カスタムバイナリ) は、Layer として一度公開し、バンドルから除外する:"
 
-#: ../../user/templates/aws-lambda.md:228
+#: ../../user/templates/aws-lambda.md:233
 msgid ""
 "Layers are cached per execution environment, so the cold-start cost is "
 "paid once per container instead of every invocation."
 msgstr "Layer は実行環境ごとにキャッシュされるため、コールドスタートのコストは呼び出しごとではなく コンテナごとに一度だけ発生する。"
 
-#: ../../user/templates/aws-lambda.md:230
+#: ../../user/templates/aws-lambda.md:235
 msgid "Tree-shaking and source maps"
 msgstr "Tree-shaking とソースマップ"
 
-#: ../../user/templates/aws-lambda.md:232
+#: ../../user/templates/aws-lambda.md:237
 msgid ""
 "Add `--tree-shaking=true --minify --sourcemap` for production builds. "
 "Source maps stay outside the deployment artifact (`dist/index.mjs.map`) —"
@@ -552,17 +582,17 @@ msgstr ""
 "を膨らませることなく、シンボリケート済みのスタックトレースのために APM (Datadog、Sentry、CloudWatch RUM) "
 "にアップロードできる。"
 
-#: ../../user/templates/aws-lambda.md:234
+#: ../../user/templates/aws-lambda.md:239
 msgid "DynamoDB Recipe (Quick Sketch)"
 msgstr "DynamoDB レシピ (簡易版)"
 
-#: ../../user/templates/aws-lambda.md:236
+#: ../../user/templates/aws-lambda.md:241
 msgid ""
 "The shipped README documents a full DynamoDB integration; the short "
 "version:"
 msgstr "同梱の README には完全な DynamoDB 統合が記載されている。短縮版は以下の通り:"
 
-#: ../../user/templates/aws-lambda.md:249
+#: ../../user/templates/aws-lambda.md:254
 msgid ""
 "Grant the Lambda IAM role `dynamodb:PutItem` / `dynamodb:GetItem` on the "
 "target table. If you stay on the Node runtime that preinstalls `@aws-"
@@ -572,41 +602,55 @@ msgstr ""
 "を付与する。`@aws-sdk/*` をプリインストールする Node ランタイムを使い続けるなら、これらを `--external` "
 "でマークしてアーティファクトをスリムに保つ。"
 
-#: ../../user/templates/aws-lambda.md:251
+#: ../../user/templates/aws-lambda.md:256
 msgid "Try It Locally"
 msgstr "ローカルで試す"
 
-#: ../../user/templates/aws-lambda.md:253
+#: ../../user/templates/aws-lambda.md:258
 msgid ""
-"The shipped routes are testable without an AWS account by booting Hono on"
-" Node and pretending it's a Lambda. Add a one-off entry file:"
+"The shipped routes are testable without an AWS account thanks to the "
+"bundled `src/Local.res` entry — a small file that boots the same "
+"`Server.app` on Node via `@hono/node-server`. Two terminals is the "
+"recommended setup:"
 msgstr ""
-"同梱のルートは、Hono を Node 上で起動し Lambda であるかのように振る舞わせることで、AWS "
-"アカウントなしでテスト可能である。使い捨てのエントリファイルを追加する:"
+"同梱のルートは、`@hono/node-server` を介して同じ `Server.app` を Node 上で起動する小さなエントリ"
+" `src/Local.res` のおかげで、AWS アカウントなしでもテスト可能である。推奨セットアップは 2 ターミナル構成である:"
 
-#: ../../user/templates/aws-lambda.md:260
-msgid ""
-"Run it with `node src/Local.res.mjs` and curl against "
-"`http://localhost:3000`:"
-msgstr "`node src/Local.res.mjs` で起動し、`http://localhost:3000` に curl をかける:"
-
-#: ../../user/templates/aws-lambda.md:272
+#: ../../user/templates/aws-lambda.md:268
 msgid ""
 "The Hono adapter you ship to Lambda (`hono/aws-lambda`) and the Node "
 "server you use locally (`@hono/node-server`) both wrap the same `app` "
 "instance, so behaviour is identical bar the runtime adapter at the edges."
-" This is the cheapest way to iterate on routes before paying the deploy "
-"round-trip."
+" `@hono/node-server` is a `devDependency` only and `src/Local.res` is "
+"never reached by the esbuild bundle (entry: `src/Server.res.mjs`), so the"
+" deploy artifact stays the same size."
 msgstr ""
 "Lambda に出荷する Hono アダプター (`hono/aws-lambda`) とローカルで使う Node サーバー (`@hono"
 "/node-server`) はどちらも同じ `app` インスタンスをラップしている。そのため、両端のランタイムアダプター以外は "
-"挙動が同じである。これはデプロイの往復コストを払う前にルートを反復改善する最も安上がりな方法である。"
+"挙動が同じである。`@hono/node-server` は `devDependency` 専用で、`src/Local.res` は "
+"esbuild バンドル (エントリは `src/Server.res.mjs`) に到達しないため、デプロイアーティファクトのサイズは変わらない。"
 
-#: ../../user/templates/aws-lambda.md:274
-msgid "For full Lambda fidelity, use AWS SAM:"
-msgstr "完全な Lambda 忠実度を得るには AWS SAM を使う:"
+#: ../../user/templates/aws-lambda.md:270
+msgid "Once both terminals are up, curl against `http://localhost:3000`:"
+msgstr "両方のターミナルが起動したら、`http://localhost:3000` に curl をかける:"
 
-#: ../../user/templates/aws-lambda.md:280
+#: ../../user/templates/aws-lambda.md:282
+msgid ""
+"This is the cheapest way to iterate on routes before paying the deploy "
+"round-trip. The shipped `src/Local.res` looks like this:"
+msgstr ""
+"デプロイの往復コストを払う前にルートを反復改善する最も安上がりな方法である。同梱の `src/Local.res` は以下の通り:"
+
+#: ../../user/templates/aws-lambda.md:291
+msgid ""
+"Plain `node` cannot reproduce API Gateway fields such as "
+"`event.requestContext`, IAM authorizer claims, or path stage prefixes. "
+"For full Lambda fidelity, use AWS SAM:"
+msgstr ""
+"素の `node` では `event.requestContext`、IAM オーソライザのクレーム、パスのステージプレフィックスといった"
+" API Gateway 由来のフィールドを再現できない。完全な Lambda 忠実度を得るには AWS SAM を使う:"
+
+#: ../../user/templates/aws-lambda.md:297
 msgid ""
 "`sam local invoke` shells the bundled `dist/index.mjs` inside a container"
 " that matches the production Lambda runtime, so cold-start behaviour, "
@@ -616,18 +660,18 @@ msgstr ""
 "`sam local invoke` は本番の Lambda ランタイムと一致するコンテナ内で、バンドル済みの `dist/index.mjs` "
 "を起動する。コールドスタートの挙動、環境変数、IAM のなりすましがすべてクラウドの動作に一致する。"
 
-#: ../../user/templates/aws-lambda.md:282
+#: ../../user/templates/aws-lambda.md:299
 msgid "Day-Two Recipes"
 msgstr "2日目以降のレシピ"
 
-#: ../../user/templates/aws-lambda.md:284
+#: ../../user/templates/aws-lambda.md:301
 #, python-brace-format
 msgid ""
 "{doc}`../recipes/add-hono-endpoint` — add another route alongside "
 "`/orders`"
 msgstr "{doc}`../recipes/add-hono-endpoint` — `/orders` と並行して別のルートを追加する"
 
-#: ../../user/templates/aws-lambda.md:285
+#: ../../user/templates/aws-lambda.md:302
 #, python-brace-format
 msgid ""
 "{doc}`../recipes/convert-from-typescript` — port an existing Lambda to "
@@ -636,25 +680,25 @@ msgstr ""
 "{doc}`../recipes/convert-from-typescript` — 既存の Lambda をモジュールごとに ReScript"
 " へ移植する"
 
-#: ../../user/templates/aws-lambda.md:286
+#: ../../user/templates/aws-lambda.md:303
 #, python-brace-format
 msgid ""
 "{doc}`../recipes/optimize-imports` — keep the bundle slim (cold-start "
 "latency matters)"
 msgstr "{doc}`../recipes/optimize-imports` — バンドルをスリムに保つ (コールドスタートのレイテンシが重要)"
 
-#: ../../user/templates/aws-lambda.md:288
+#: ../../user/templates/aws-lambda.md:305
 #, python-brace-format
 msgid ""
 "For ReScript-side editor workflows once the project is open, see the "
 "{doc}`../features/index`."
 msgstr "プロジェクトを開いた後の ReScript 側のエディタワークフローについては、{doc}`../features/index` を参照してほしい。"
 
-#: ../../user/templates/aws-lambda.md:290
+#: ../../user/templates/aws-lambda.md:307
 msgid "Notes"
 msgstr "補足"
 
-#: ../../user/templates/aws-lambda.md:292
+#: ../../user/templates/aws-lambda.md:309
 msgid ""
 "**API Gateway-friendly out of the box.** `hono/aws-lambda` accepts both "
 "REST API (v1) and HTTP API (v2) event shapes, so wiring the function to "
@@ -666,8 +710,7 @@ msgstr ""
 "(v2) 両方のイベント形状を受け付けるため、関数をどちらのトリガーに配線してもコード変更なしで動作する。HTTP API の方が安く高速である "
 "— REST API でしか得られない機能 (mTLS、ゲートウェイでのリクエスト検証など) が必要でない限り、こちらを選ぶ。"
 
-#: ../../user/templates/aws-lambda.md:293
-#, fuzzy
+#: ../../user/templates/aws-lambda.md:310
 msgid ""
 "**Single-artifact bundle.** `pnpm build` produces `dist/index.mjs` — "
 "every dependency inlined, ESM, Node target. Zip it (`cd dist && zip "
@@ -680,7 +723,7 @@ msgstr ""
 " `aws lambda update-function-code` でアップロードする。関数の *Handler* 設定は "
 "`index.handler`、*Runtime* は Node.js 24 である。"
 
-#: ../../user/templates/aws-lambda.md:294
+#: ../../user/templates/aws-lambda.md:311
 msgid ""
 "**Watch the 50 MB upload limit.** The default bundle inlines every "
 "dependency for low cold-start latency, but the artifact grows with each "
@@ -696,7 +739,7 @@ msgstr ""
 "ランタイムにプリインストール済み — 除外すれば数 MB 削減できる)、大きなネイティブ依存を Lambda Layer として公開する "
 "(Sharp、Prisma エンジン)、本番では tree-shaking + minify + sourcemap を有効にする。"
 
-#: ../../user/templates/aws-lambda.md:295
+#: ../../user/templates/aws-lambda.md:312
 msgid ""
 "**DynamoDB recipe is in the README.** The shipped *DynamoDB Recipe* "
 "section shows the minimal ReScript bindings over `@aws-sdk/lib-dynamodb` "
@@ -712,7 +755,7 @@ msgstr ""
 "を付与することを促している。`pnpm add @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb` "
 "でインストールする — プリインストールされていないランタイムを使っている場合は これらを `--external` に **しない** こと。"
 
-#: ../../user/templates/aws-lambda.md:296
+#: ../../user/templates/aws-lambda.md:313
 #, python-format
 msgid ""
 "**`handler` is a real `let` binding for a reason.** ReScript's compiler "
@@ -726,7 +769,7 @@ msgstr ""
 "HonoLambda.handle(app)` と定義することで import は生き残るが、`%%raw(\"export const "
 "handler = ...\")` に切り替えると、サイレントにバンドルから削除されてしまう。"
 
-#: ../../user/templates/aws-lambda.md:297
+#: ../../user/templates/aws-lambda.md:314
 msgid ""
 "**Smoke test only verifies module load.** `src/__tests__/Server.test.mjs`"
 " does `await import(\"../Server.res.mjs\")` and asserts it resolves. For "
@@ -739,7 +782,7 @@ msgstr ""
 "、`aws-lambda-mock-context` や SAM の `sam local invoke` で合成した API Gateway "
 "イベントを使い、バンドル済みの `dist/index.mjs` を駆動する。"
 
-#: ../../user/templates/aws-lambda.md:298
+#: ../../user/templates/aws-lambda.md:315
 msgid ""
 "**`dist/`, `*.zip`, and `.aws-sam/` are gitignored.** Build artifacts and"
 " SAM CLI working state never go in the repo."
@@ -747,8 +790,7 @@ msgstr ""
 "**`dist/`、`*.zip`、`.aws-sam/` は gitignore 済み。** ビルド成果物と SAM CLI "
 "の作業状態はリポジトリに入らない。"
 
-#: ../../user/templates/aws-lambda.md:299
-#, fuzzy
+#: ../../user/templates/aws-lambda.md:316
 msgid ""
 "**Node 24 is mandatory.** `engines.node` is `>=24`, `.nvmrc` says `24`, "
 "and the README's *Deploy* section pins the Lambda runtime to `Node.js "
@@ -761,7 +803,7 @@ msgstr ""
 "パブリッシュスニペットは同じソースから `nodejs24.x` を展開している — `TemplateVersions.NODE_MAJOR` "
 "を更新すれば 3 箇所すべてがアトミックに追従する。"
 
-#: ../../user/templates/aws-lambda.md:300
+#: ../../user/templates/aws-lambda.md:317
 msgid ""
 "**No reserved concurrency or provisioned concurrency configured.** The "
 "shipped template assumes on-demand. If your workload is latency-sensitive"
@@ -772,7 +814,7 @@ msgstr ""
 "オンデマンドを前提としている。プロビジョンドコンカレンシーを必要とするほどレイテンシに敏感なワークロードの場合は、Lambda コンソール "
 "(または SAM/CDK/Terraform) で設定する — これはバンドルには影響しない。"
 
-#: ../../user/templates/aws-lambda.md:301
+#: ../../user/templates/aws-lambda.md:318
 msgid ""
 "**Cold start matters.** ReScript's compiled output and Hono are both "
 "small (`hono` is ~14 KB minzipped), so a cold start is dominated by V8 "
@@ -786,20 +828,24 @@ msgstr ""
 "クライアントが支配する。SDK "
 "クライアントの構築はハンドラのクロージャの外に移し、同一コンテナ内の呼び出しを跨いで温かく保つ。一方、リクエストスコープの状態はハンドラ内に保持する。"
 
-#: ../../user/templates/aws-lambda.md:302
+#: ../../user/templates/aws-lambda.md:319
 msgid ""
 "**Bundling is intentional, not optional.** `node src/Server.res.mjs` "
 "directly will not work as a Lambda — Lambda invokes the named ESM export,"
 " and ReScript's compiler emits relative imports that break once "
 "`index.mjs` ships in isolation. Always upload the esbuild output, never "
-"raw `.res.mjs` files."
+"raw `.res.mjs` files. (The local `pnpm dev` flow runs "
+"`src/Local.res.mjs`, which boots Hono via `@hono/node-server` instead of "
+"the Lambda adapter — different entry, same `Server.app`.)"
 msgstr ""
 "**バンドリングは意図的であり、オプションではない。** `node src/Server.res.mjs` を直接実行しても Lambda "
 "としては動かない — Lambda は名前付き ESM エクスポートを呼び出し、ReScript コンパイラが出力する相対 import は "
 "`index.mjs` だけが切り出されてしまうと壊れる。常に esbuild の出力をアップロードし、生の `.res.mjs` "
-"ファイルをアップロードしてはならない。"
+"ファイルをアップロードしてはならない。(ローカルの `pnpm dev` フローは `src/Local.res.mjs` を実行し、Lambda"
+" アダプターではなく `@hono/node-server` 経由で Hono を起動する — エントリは異なるが、`Server.app`"
+" は同じである。)"
 
-#: ../../user/templates/aws-lambda.md:303
+#: ../../user/templates/aws-lambda.md:320
 msgid ""
 "**CI runs both build and test.** The shipped `.github/workflows/ci.yml` "
 "invokes `pnpm build` (which compiles ReScript and bundles esbuild) "
@@ -810,4 +856,16 @@ msgstr ""
 "**CI はビルドとテストの両方を実行する。** 同梱の `.github/workflows/ci.yml` は `pnpm build` "
 "(ReScript のコンパイルと esbuild のバンドルを実行) を呼び出した後、`pnpm test` を実行する。バンドルの失敗 (例:"
 " `@module(...)` バインディングの忘れ、依存の欠落) は マージをブロックする — 知りたいタイミングそのものである。"
+
+#~ msgid ""
+#~ "The shipped routes are testable without"
+#~ " an AWS account by booting Hono "
+#~ "on Node and pretending it's a "
+#~ "Lambda. Add a one-off entry file:"
+#~ msgstr ""
+#~ "同梱のルートは、Hono を Node 上で起動し Lambda "
+#~ "であるかのように振る舞わせることで、AWS アカウントなしでテスト可能である。使い捨てのエントリファイルを追加する:"
+
+#~ msgid "For full Lambda fidelity, use AWS SAM:"
+#~ msgstr "完全な Lambda 忠実度を得るには AWS SAM を使う:"
 

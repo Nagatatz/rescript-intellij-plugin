@@ -20,7 +20,9 @@ my-project/
 ├── package.json
 ├── src/
 │   ├── Server.res               # Hono app, exposes `let handler = HonoLambda.handle(app)`
+│   ├── Local.res                # `node --watch` entry — local dev only, never bundled
 │   ├── HonoLambda.res           # bindings over hono/aws-lambda's `handle`
+│   ├── HonoNodeServer.res       # bindings over @hono/node-server's `serve`
 │   ├── Hono.res                 # Hono bindings
 │   ├── Validation.res           # zod or sury — selected in the wizard
 │   └── __tests__/Server.test.mjs # vitest smoke import
@@ -52,6 +54,7 @@ my-project/
 | `hono` | HTTP router with `hono/aws-lambda` adapter | `TemplateVersions.HONO` |
 | `zod` *or* `sury` | Request body validation (chosen in the wizard) | `TemplateVersions.ZOD` / `SURY` |
 | `esbuild` *(dev)* | Bundles `src/Server.res.mjs` → `dist/index.mjs` | `TemplateVersions.ESBUILD` |
+| `@hono/node-server` *(dev)* | Powers `src/Local.res` for local-only invocation; never bundled into the Lambda artifact | `TemplateVersions.HONO_NODE_SERVER` |
 | `vitest` *(dev)* | Smoke test runner | `TemplateVersions.VITEST` |
 | `@vitest/coverage-v8` *(dev)* | Coverage provider for `test:coverage` | `TemplateVersions.VITEST_COVERAGE_V8` |
 
@@ -172,6 +175,8 @@ Content-Type: application/json
 | --- | --- |
 | `build` | `rescript && pnpm bundle` — compile ReScript then bundle |
 | `bundle` | `esbuild src/Server.res.mjs --bundle --platform=node --outfile=dist/index.mjs --format=esm` |
+| `dev` | `node --watch src/Local.res.mjs` — local Node server with file watching |
+| `start` | `node src/Local.res.mjs` — single local Node run |
 | `test` | `vitest run` — execute the smoke suite |
 | `test:coverage` | `vitest run --coverage` — same, with v8 coverage report |
 | `res:build` | `rescript` — one-shot compile |
@@ -250,14 +255,19 @@ Grant the Lambda IAM role `dynamodb:PutItem` / `dynamodb:GetItem` on the target 
 
 ## Try It Locally
 
-The shipped routes are testable without an AWS account by booting Hono on Node and pretending it's a Lambda. Add a one-off entry file:
+The shipped routes are testable without an AWS account thanks to the bundled `src/Local.res` entry — a small file that boots the same `Server.app` on Node via `@hono/node-server`. Two terminals is the recommended setup:
 
-```rescript
-// src/Local.res
-HonoNodeServer.serve({fetch: Server.app->HonoNodeServer.honoFetch, port: 3000})
+```bash
+# Terminal 1 — recompile on save
+pnpm res:dev
+
+# Terminal 2 — run the local server with file watching
+pnpm dev
 ```
 
-Run it with `node src/Local.res.mjs` and curl against `http://localhost:3000`:
+The Hono adapter you ship to Lambda (`hono/aws-lambda`) and the Node server you use locally (`@hono/node-server`) both wrap the same `app` instance, so behaviour is identical bar the runtime adapter at the edges. `@hono/node-server` is a `devDependency` only and `src/Local.res` is never reached by the esbuild bundle (entry: `src/Server.res.mjs`), so the deploy artifact stays the same size.
+
+Once both terminals are up, curl against `http://localhost:3000`:
 
 ```bash
 curl -X POST http://localhost:3000/orders \
@@ -269,9 +279,16 @@ curl http://localhost:3000/orders/ord_42
 # => 200 {"orderId":"ord_42","status":"pending"}
 ```
 
-The Hono adapter you ship to Lambda (`hono/aws-lambda`) and the Node server you use locally (`@hono/node-server`) both wrap the same `app` instance, so behaviour is identical bar the runtime adapter at the edges. This is the cheapest way to iterate on routes before paying the deploy round-trip.
+This is the cheapest way to iterate on routes before paying the deploy round-trip. The shipped `src/Local.res` looks like this:
 
-For full Lambda fidelity, use AWS SAM:
+```rescript
+// src/Local.res
+let port = 3000
+HonoNodeServer.serve({fetch: Server.app->HonoNodeServer.honoFetch, port})
+Console.log("Local Lambda preview on http://localhost:" ++ Int.toString(port))
+```
+
+Plain `node` cannot reproduce API Gateway fields such as `event.requestContext`, IAM authorizer claims, or path stage prefixes. For full Lambda fidelity, use AWS SAM:
 
 ```bash
 sam local invoke MyFunction -e events/post-order.json
@@ -299,5 +316,5 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 - **Node 24 is mandatory.** `engines.node` is `>=24`, `.nvmrc` says `24`, and the README's *Deploy* section pins the Lambda runtime to `Node.js 24`. The Layer publish snippet interpolates `nodejs24.x` from the same source — bumping `TemplateVersions.NODE_MAJOR` updates all three locations atomically.
 - **No reserved concurrency or provisioned concurrency configured.** The shipped template assumes on-demand. If your workload is latency-sensitive enough to need provisioned concurrency, configure it on the Lambda console (or via SAM/CDK/Terraform) — it doesn't affect the bundle.
 - **Cold start matters.** ReScript's compiled output and Hono are both small (`hono` is ~14 KB minzipped), so a cold start is dominated by V8 warm-up and any AWS SDK clients you instantiate at module load. Move SDK client construction outside the handler closure to keep it warm across invocations within the same container, but keep request-scoped state inside the handler.
-- **Bundling is intentional, not optional.** `node src/Server.res.mjs` directly will not work as a Lambda — Lambda invokes the named ESM export, and ReScript's compiler emits relative imports that break once `index.mjs` ships in isolation. Always upload the esbuild output, never raw `.res.mjs` files.
+- **Bundling is intentional, not optional.** `node src/Server.res.mjs` directly will not work as a Lambda — Lambda invokes the named ESM export, and ReScript's compiler emits relative imports that break once `index.mjs` ships in isolation. Always upload the esbuild output, never raw `.res.mjs` files. (The local `pnpm dev` flow runs `src/Local.res.mjs`, which boots Hono via `@hono/node-server` instead of the Lambda adapter — different entry, same `Server.app`.)
 - **CI runs both build and test.** The shipped `.github/workflows/ci.yml` invokes `pnpm build` (which compiles ReScript and bundles esbuild) followed by `pnpm test`. A bundle failure (e.g. forgotten `@module(...)` binding, missing dependency) blocks the merge — exactly when you want to know.

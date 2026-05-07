@@ -59,6 +59,10 @@ class TemplateResourcesSmokeTest {
             // aws-lambda/readme/deploy.md + bundling.md embed the Node major used by
             // the Lambda runtime (e.g. nodejs22.x), which now follows ctx.nodeMajor
             "nodeMajor",
+            // aws-lambda/readme/local.md instructs the user to run `pnpm dev`
+            // (or the package-manager-specific equivalent) for the local Hono
+            // entry — `cmdResDev` is already listed above.
+            "cmdDev",
         )
 
     @Test

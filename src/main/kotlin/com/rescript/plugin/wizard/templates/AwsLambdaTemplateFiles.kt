@@ -8,9 +8,10 @@ import com.rescript.plugin.wizard.ValidationLibrary
  * Generates project template files for an AWS Lambda Hono service.
  *
  * Uses esbuild to bundle the compiled ReScript output into a single ESM file deployable as
- * a Lambda handler. Ships README, .gitignore (`dist/`), .editorconfig, and a CI workflow.
- * Runtime HTTP body validation is provided by `Validation.res` (zod or sury, selected in
- * Wizard via [TemplateContext.validationLibrary]).
+ * a Lambda handler. Ships a local Node entry (`src/Local.res` + `@hono/node-server`) so
+ * developers can iterate without deploying, plus README, .gitignore (`dist/`), .editorconfig,
+ * and a CI workflow. Runtime HTTP body validation is provided by `Validation.res` (zod or
+ * sury, selected in Wizard via [TemplateContext.validationLibrary]).
  */
 internal object AwsLambdaTemplateFiles {
     private const val RESOURCE_ROOT = "aws-lambda"
@@ -30,6 +31,11 @@ internal object AwsLambdaTemplateFiles {
                 "projectName" to ctx.projectName,
                 "nodeMajor" to ctx.nodeMajor,
             )
+        val localVars =
+            mapOf(
+                "cmdDev" to ctx.runCmd("dev"),
+                "cmdResDev" to ctx.runCmd("res:dev"),
+            )
         val variantKey = ctx.validationLibrary.variantKey()
         return mapOf(
             "rescript.json" to
@@ -45,11 +51,16 @@ internal object AwsLambdaTemplateFiles {
                     packageManager = ctx.packageManagerSpec(),
                     engines = mapOf("node" to ctx.nodeEngine),
                     dependencies = awsLambdaDependencies(ctx.validationLibrary),
+                    // `@hono/node-server` powers `src/Local.res` only and is not
+                    // referenced from `src/Server.res`, so the esbuild bundle
+                    // (entry: Server.res.mjs) never pulls it in. Keeping it as a
+                    // devDependency makes that contract explicit.
                     devDependencies =
                         linkedMapOf(
                             "esbuild" to TemplateVersions.ESBUILD,
                             "vitest" to TemplateVersions.VITEST,
                             "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                            "@hono/node-server" to TemplateVersions.HONO_NODE_SERVER,
                         ),
                     scripts =
                         linkedMapOf(
@@ -57,6 +68,11 @@ internal object AwsLambdaTemplateFiles {
                                 "esbuild src/Server.res.mjs --bundle --platform=node " +
                                 "--outfile=dist/index.mjs --format=esm",
                             "build" to "rescript && ${ctx.runCmd("bundle")}",
+                            // `dev` / `start` invoke the local-only entry
+                            // (`src/Local.res`). The Lambda handler exported
+                            // from `src/Server.res` is unused on Node.
+                            "start" to "node src/Local.res.mjs",
+                            "dev" to "node --watch src/Local.res.mjs",
                             "test" to "vitest run",
                             "test:coverage" to "vitest run --coverage",
                             "res:build" to "rescript",
@@ -66,9 +82,11 @@ internal object AwsLambdaTemplateFiles {
                 ),
             "src/Hono.res" to ProjectFileBuilders.honoBindings(),
             "src/HonoLambda.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/HonoLambda.res"),
+            "src/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
             "src/Validation.res" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/Server.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Server.res"),
+            "src/Local.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Local.res"),
             "src/__tests__/Server.test.mjs" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Server.test.mjs"),
             "README.md" to
@@ -76,17 +94,22 @@ internal object AwsLambdaTemplateFiles {
                     ctx = ctx,
                     description =
                         "An AWS Lambda function powered by Hono and ReScript, bundled with esbuild. " +
-                            "Ships POST/GET endpoints and a DynamoDB integration recipe in the README.",
+                            "Ships POST/GET endpoints, a local Node entry for fast iteration, " +
+                            "and a DynamoDB integration recipe in the README.",
                     scripts =
                         listOf(
                             "build" to "Compile ReScript and bundle into dist/index.mjs",
                             "bundle" to "Run esbuild only",
+                            "dev" to "Run the local Node server with file watching",
+                            "start" to "Run the local Node server once",
                             "test" to "Run Vitest",
                             "res:dev" to "Watch ReScript sources",
                         ),
                     extraSections =
                         listOf(
                             "API" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/api.md"),
+                            "Local development" to
+                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/local.md", localVars),
                             "Deploy" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/deploy.md", deployVars),
                             "Bundling Strategy" to
                                 TemplateResourceLoader.load("$RESOURCE_ROOT/readme/bundling.md", bundlingVars),
