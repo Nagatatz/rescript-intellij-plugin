@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
 import com.rescript.plugin.wizard.ValidationLibrary
@@ -29,6 +30,22 @@ internal object HonoInertiaTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val variantKey = ctx.validationLibrary.variantKey()
+        val (schemaPath, drizzleConfigPath) =
+            when (ctx.database) {
+                Database.LIBSQL -> {
+                    "$RESOURCE_ROOT/src/Schema.res" to "$RESOURCE_ROOT/drizzle.config.ts"
+                }
+
+                Database.POSTGRES -> {
+                    "$RESOURCE_ROOT/variants/postgres/src/Schema.res" to
+                        "$RESOURCE_ROOT/variants/postgres/drizzle.config.ts"
+                }
+
+                Database.MYSQL -> {
+                    "$RESOURCE_ROOT/variants/mysql/src/Schema.res" to
+                        "$RESOURCE_ROOT/variants/mysql/drizzle.config.ts"
+                }
+            }
         val files =
             linkedMapOf(
                 "rescript.json" to
@@ -45,7 +62,7 @@ internal object HonoInertiaTemplateFiles {
                         type = "module",
                         packageManager = ctx.packageManagerSpec(),
                         engines = mapOf("node" to ctx.nodeEngine),
-                        dependencies = honoInertiaDependencies(ctx.validationLibrary),
+                        dependencies = honoInertiaDependencies(ctx),
                         devDependencies =
                             linkedMapOf(
                                 "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
@@ -71,14 +88,14 @@ internal object HonoInertiaTemplateFiles {
                             ),
                     ),
                 "vite.config.mjs" to TemplateResourceLoader.load("$RESOURCE_ROOT/vite.config.mjs"),
-                "drizzle.config.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/drizzle.config.ts"),
+                "drizzle.config.ts" to TemplateResourceLoader.load(drizzleConfigPath),
                 "src/Hono.res" to ProjectFileBuilders.honoBindings(),
                 "src/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
                 "src/HonoInertia.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/HonoInertia.res"),
                 "src/InertiaBindings.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/InertiaBindings.res"),
                 "src/Logger.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Logger.res"),
-                "src/Schema.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Schema.res"),
-                "src/Db.res" to TemplateResourceLoader.load("common/db/Db.res"),
+                "src/Schema.res" to TemplateResourceLoader.load(schemaPath),
+                "src/Db.res" to TemplateResourceLoader.load(CommonFiles.sharedDbResPath(ctx.database)),
                 "src/Validation.res" to
                     TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
                 "src/Routes.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Routes.res"),
@@ -98,7 +115,7 @@ internal object HonoInertiaTemplateFiles {
         files["README.md"] =
             CommonFiles.readme(
                 ctx = ctx,
-                description = honoInertiaDescription(ctx.validationLibrary),
+                description = honoInertiaDescription(ctx),
                 scripts =
                     listOf(
                         "dev" to "Run the Hono server and Vite+ dev server together",
@@ -106,7 +123,12 @@ internal object HonoInertiaTemplateFiles {
                         "test" to "Run the Vitest suite via Vite+",
                         "check" to "Lint, format-check, and typecheck via Vite+",
                         "db:generate" to "Generate Drizzle migration SQL from Schema.res",
-                        "db:migrate" to "Apply pending migrations to the SQLite file",
+                        "db:migrate" to
+                            when (ctx.database) {
+                                Database.LIBSQL -> "Apply pending migrations to the SQLite file"
+                                Database.POSTGRES -> "Apply pending migrations to the PostgreSQL database"
+                                Database.MYSQL -> "Apply pending migrations to the MySQL database"
+                            },
                         "res:dev" to "Watch ReScript sources",
                     ),
                 extraSections =
@@ -121,17 +143,21 @@ internal object HonoInertiaTemplateFiles {
         files[".nvmrc"] = CommonFiles.nvmrc(ctx)
         files["LICENSE"] = CommonFiles.mitLicense(ctx, holder = ctx.projectName)
         files[".github/dependabot.yml"] = CommonFiles.dependabotYaml()
+        val envComment =
+            when (ctx.database) {
+                Database.LIBSQL -> "Local SQLite file (default) or a Turso libsql:// URL"
+                Database.POSTGRES -> "Postgres connection string; matches the credentials in compose.yaml"
+                Database.MYSQL -> "MySQL connection string; matches the credentials in compose.yaml"
+            }
         files[".env.example"] =
             CommonFiles.envExample(
-                listOf(
-                    "Local SQLite file (default) or a Turso libsql:// URL" to
-                        "DATABASE_URL=file:./data/app.db",
-                ),
+                listOf(envComment to CommonFiles.defaultDatabaseUrl(ctx.database)),
             )
         files[".gitignore"] =
             CommonFiles.gitignore(extra = listOf("dist/", "data/", "drizzle/", ".env", ".vite/"))
         files[".editorconfig"] = CommonFiles.editorconfig()
         files[".github/workflows/ci.yml"] = CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true)
+        CommonFiles.composeYaml(ctx.database)?.let { files["compose.yaml"] = it }
         return files
     }
 
@@ -140,7 +166,7 @@ internal object HonoInertiaTemplateFiles {
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
 
-    private fun honoInertiaDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+    private fun honoInertiaDependencies(ctx: TemplateContext): LinkedHashMap<String, String> {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
@@ -152,23 +178,30 @@ internal object HonoInertiaTemplateFiles {
         deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
         deps["@hono/inertia"] = TemplateVersions.HONO_INERTIA
         deps["@inertiajs/react"] = TemplateVersions.INERTIA_REACT
-        when (validationLibrary) {
+        when (ctx.validationLibrary) {
             ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
             ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
         }
-        deps["@libsql/client"] = TemplateVersions.LIBSQL_CLIENT
+        val (driverPkg, driverVer) = CommonFiles.databaseDriver(ctx.database)
+        deps[driverPkg] = driverVer
         deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM
         return deps
     }
 
-    private fun honoInertiaDescription(validationLibrary: ValidationLibrary): String {
+    private fun honoInertiaDescription(ctx: TemplateContext): String {
         val validationBlurb =
-            when (validationLibrary) {
+            when (ctx.validationLibrary) {
                 ValidationLibrary.ZOD -> "zod validation"
                 ValidationLibrary.SURY -> "sury validation"
             }
+        val dbBlurb =
+            when (ctx.database) {
+                Database.LIBSQL -> "libSQL / SQLite"
+                Database.POSTGRES -> "PostgreSQL"
+                Database.MYSQL -> "MySQL"
+            }
         return "A server-driven SPA: Hono routes render React pages directly through " +
-            "@hono/inertia, with $validationBlurb on the server boundary and " +
-            "Vite+ unifying dev / build / test / check."
+            "@hono/inertia, with $validationBlurb and $dbBlurb (Drizzle) on the server " +
+            "and Vite+ unifying dev / build / test / check."
     }
 }

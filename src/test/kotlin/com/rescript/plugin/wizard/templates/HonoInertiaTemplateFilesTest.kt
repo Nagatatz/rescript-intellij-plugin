@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.Test
 class HonoInertiaTemplateFilesTest {
     private val ctx = TemplateContext("svc", PackageManager.PNPM)
     private val suryCtx = TemplateContext("svc", PackageManager.PNPM, ValidationLibrary.SURY)
+    private val postgresCtx = TemplateContext("svc", PackageManager.PNPM, database = Database.POSTGRES)
+    private val mysqlCtx = TemplateContext("svc", PackageManager.PNPM, database = Database.MYSQL)
 
     @Test
     fun `package json declares hono, inertia, react, and Vite+ trio`() {
@@ -241,5 +244,34 @@ class HonoInertiaTemplateFilesTest {
         assert(base == inertia) {
             "src/Hono.res must match HonoTemplateFiles output to share bindings"
         }
+    }
+
+    @Test
+    fun `postgres variant swaps Schema, Db, drizzle config, and ships compose yaml`() {
+        val files = HonoInertiaTemplateFiles.generate(postgresCtx)
+        assertTrue(files["src/Schema.res"]!!.contains("pgTable"))
+        assertFalse(files["src/Schema.res"]!!.contains("sqliteTable"))
+        assertTrue(files["src/Db.res"]!!.contains("postgres-js"))
+        assertTrue(files["drizzle.config.ts"]!!.contains("dialect: \"postgresql\""))
+        assertTrue(files.containsKey("compose.yaml"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"postgres\": \"${TemplateVersions.POSTGRES_JS}\""))
+        assertFalse(pkg.contains("\"@libsql/client\""))
+    }
+
+    @Test
+    fun `mysql variant swaps Schema, Db, drizzle config, and ships compose yaml`() {
+        val files = HonoInertiaTemplateFiles.generate(mysqlCtx)
+        assertTrue(files["src/Schema.res"]!!.contains("mysqlTable"))
+        assertTrue(files["src/Db.res"]!!.contains("mysql2"))
+        assertTrue(files["drizzle.config.ts"]!!.contains("dialect: \"mysql\""))
+        assertTrue(files.containsKey("compose.yaml"))
+        val pkg = files["package.json"]!!
+        assertTrue(pkg.contains("\"mysql2\": \"${TemplateVersions.MYSQL2}\""))
+    }
+
+    @Test
+    fun `libsql variant does not ship a compose yaml`() {
+        assertFalse(HonoInertiaTemplateFiles.generate(ctx).containsKey("compose.yaml"))
     }
 }
