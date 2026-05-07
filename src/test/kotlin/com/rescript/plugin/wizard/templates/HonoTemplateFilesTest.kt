@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.Test
 class HonoTemplateFilesTest {
     private val ctx = TemplateContext("svc", PackageManager.PNPM)
     private val suryCtx = TemplateContext("svc", PackageManager.PNPM, ValidationLibrary.SURY)
+    private val postgresCtx = TemplateContext("svc", PackageManager.PNPM, database = Database.POSTGRES)
+    private val mysqlCtx = TemplateContext("svc", PackageManager.PNPM, database = Database.MYSQL)
 
     @Test
     fun `package json declares hono and node-server pulled from TemplateVersions`() {
@@ -128,6 +131,63 @@ class HonoTemplateFilesTest {
         assertFalse(pkg.contains("\"zod\":"))
         assertFalse(pkg.contains("\"@hono/zod-openapi\""))
         assertTrue(pkg.contains("\"@scalar/hono-api-reference\""))
+    }
+
+    @Test
+    fun `postgres variant swaps Schema, Db, drizzle config, and ships compose yaml`() {
+        val files = HonoTemplateFiles.generate(postgresCtx)
+        assertTrue(files["src/Schema.res"]!!.contains("pgTable"))
+        assertFalse(files["src/Schema.res"]!!.contains("sqliteTable"))
+        assertTrue(files["src/Db.res"]!!.contains("postgres-js"))
+        assertTrue(files["drizzle.config.ts"]!!.contains("dialect: \"postgresql\""))
+        assertTrue(files.containsKey("compose.yaml"))
+        assertTrue(files["compose.yaml"]!!.contains("postgres:"))
+        assertTrue(files["compose.yaml"]!!.contains("5432:5432"))
+    }
+
+    @Test
+    fun `mysql variant swaps Schema, Db, drizzle config, and ships compose yaml`() {
+        val files = HonoTemplateFiles.generate(mysqlCtx)
+        assertTrue(files["src/Schema.res"]!!.contains("mysqlTable"))
+        assertFalse(files["src/Schema.res"]!!.contains("sqliteTable"))
+        assertTrue(files["src/Db.res"]!!.contains("mysql2"))
+        assertTrue(files["drizzle.config.ts"]!!.contains("dialect: \"mysql\""))
+        assertTrue(files.containsKey("compose.yaml"))
+        assertTrue(files["compose.yaml"]!!.contains("mysql:"))
+        assertTrue(files["compose.yaml"]!!.contains("3306:3306"))
+    }
+
+    @Test
+    fun `libsql variant does not ship a compose yaml`() {
+        val files = HonoTemplateFiles.generate(ctx)
+        assertFalse(files.containsKey("compose.yaml"))
+    }
+
+    @Test
+    fun `postgres package json declares postgres-js and drops libsql client`() {
+        val pkg = HonoTemplateFiles.generate(postgresCtx)["package.json"]!!
+        assertTrue(pkg.contains("\"postgres\": \"${TemplateVersions.POSTGRES_JS}\""))
+        assertFalse(pkg.contains("\"@libsql/client\""))
+        assertFalse(pkg.contains("\"mysql2\""))
+    }
+
+    @Test
+    fun `mysql package json declares mysql2 and drops libsql client`() {
+        val pkg = HonoTemplateFiles.generate(mysqlCtx)["package.json"]!!
+        assertTrue(pkg.contains("\"mysql2\": \"${TemplateVersions.MYSQL2}\""))
+        assertFalse(pkg.contains("\"@libsql/client\""))
+        assertFalse(pkg.contains("\"postgres\":"))
+    }
+
+    @Test
+    fun `env example documents the matching DATABASE_URL per database`() {
+        assertTrue(HonoTemplateFiles.generate(ctx)[".env.example"]!!.contains("file:./data/app.db"))
+        assertTrue(
+            HonoTemplateFiles.generate(postgresCtx)[".env.example"]!!.contains("postgres://app:dev@localhost:5432/app"),
+        )
+        assertTrue(
+            HonoTemplateFiles.generate(mysqlCtx)[".env.example"]!!.contains("mysql://root:dev@localhost:3306/app"),
+        )
     }
 
     @Test

@@ -20,6 +20,9 @@ class TemplateResourcesSmokeTest {
             // hono/readme/database.md, hono-graphql/readme/database.md
             "cmdDbGenerate",
             "cmdDbMigrate",
+            // hono/variants/{postgres,mysql}/readme/database.md instructs the user to
+            // run the dev server (e.g. `pnpm dev`) after `docker compose up -d`.
+            "cmdRunDev",
             // hono-graphql/readme/schema.md uses {{cmdDocsGraphql}} when documenting
             // how to regenerate the human-readable schema.md after editing SDL.
             "cmdDocsGraphql",

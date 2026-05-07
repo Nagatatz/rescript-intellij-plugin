@@ -1,5 +1,6 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 
 /**
@@ -262,6 +263,116 @@ object CommonFiles {
             append("CMD [\"$runner\", \"$entryPoint\"]")
         }
     }
+
+    /**
+     * Generates a `compose.yaml` (Compose Specification) that runs the development
+     * database for templates that target PostgreSQL or MySQL.
+     *
+     * The Compose file is intentionally minimal: it spins up the database only and
+     * leaves the application running on the host. This avoids the bind-mount I/O
+     * penalty that hurts HMR on macOS and Windows while still removing the host
+     * install requirement for the database. Returns null for [Database.LIBSQL]
+     * because libSQL is a file-based SQLite client with no service to run.
+     *
+     * Connection strings emitted by the template's `Db.res` and `.env.example`
+     * match the credentials and ports declared here so `pnpm dev` can reach the
+     * database without further configuration.
+     */
+    fun composeYaml(database: Database): String? =
+        when (database) {
+            Database.LIBSQL -> {
+                null
+            }
+
+            Database.POSTGRES -> {
+                """
+                # Local development database. Start with `docker compose up -d`, then
+                # run the app on the host (e.g. `pnpm dev`). The application
+                # connects to localhost:5432 — see Db.res for the URL.
+                services:
+                  db:
+                    image: ${TemplateVersions.POSTGRES_DOCKER_IMAGE}
+                    environment:
+                      POSTGRES_USER: app
+                      POSTGRES_PASSWORD: dev
+                      POSTGRES_DB: app
+                    ports:
+                      - "5432:5432"
+                    volumes:
+                      - pgdata:/var/lib/postgresql/data
+                    healthcheck:
+                      test: ["CMD", "pg_isready", "-U", "app"]
+                      interval: 5s
+                      timeout: 3s
+                      retries: 5
+
+                volumes:
+                  pgdata:
+                """.trimIndent() + "\n"
+            }
+
+            Database.MYSQL -> {
+                """
+                # Local development database. Start with `docker compose up -d`, then
+                # run the app on the host (e.g. `pnpm dev`). The application
+                # connects to localhost:3306 — see Db.res for the URL.
+                services:
+                  db:
+                    image: ${TemplateVersions.MYSQL_DOCKER_IMAGE}
+                    environment:
+                      MYSQL_ROOT_PASSWORD: dev
+                      MYSQL_DATABASE: app
+                    ports:
+                      - "3306:3306"
+                    volumes:
+                      - mysqldata:/var/lib/mysql
+                    healthcheck:
+                      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pdev"]
+                      interval: 5s
+                      timeout: 3s
+                      retries: 10
+
+                volumes:
+                  mysqldata:
+                """.trimIndent() + "\n"
+            }
+        }
+
+    /**
+     * Resource path under `src/main/resources/templates/` for the shared `Db.res`
+     * appropriate to the selected [database]. The libSQL path stays at the legacy
+     * `common/db/Db.res` so existing templates continue to work without a rename.
+     */
+    fun sharedDbResPath(database: Database): String =
+        when (database) {
+            Database.LIBSQL -> "common/db/Db.res"
+            Database.POSTGRES -> "common/db/postgres/Db.res"
+            Database.MYSQL -> "common/db/mysql/Db.res"
+        }
+
+    /**
+     * Returns the npm package name for the database driver associated with [database],
+     * along with the version string from [TemplateVersions]. Used by templates to
+     * compose `package.json#dependencies`.
+     */
+    fun databaseDriver(database: Database): Pair<String, String> =
+        when (database) {
+            Database.LIBSQL -> "@libsql/client" to TemplateVersions.LIBSQL_CLIENT
+            Database.POSTGRES -> "postgres" to TemplateVersions.POSTGRES_JS
+            Database.MYSQL -> "mysql2" to TemplateVersions.MYSQL2
+        }
+
+    /**
+     * Default DATABASE_URL value documented in `.env.example` for the selected database.
+     * Matches the credentials baked into [composeYaml] so the dev loop works without
+     * editing the env file.
+     */
+    fun defaultDatabaseUrl(database: Database): String =
+        when (database) {
+            Database.LIBSQL -> "DATABASE_URL=file:./data/app.db"
+            Database.POSTGRES -> "DATABASE_URL=postgres://app:dev@localhost:5432/app"
+            Database.MYSQL -> "DATABASE_URL=mysql://root:dev@localhost:3306/app"
+        }
 
     /**
      * Generates a `.dockerignore` that prevents host-side artifacts (caches, IDE state,

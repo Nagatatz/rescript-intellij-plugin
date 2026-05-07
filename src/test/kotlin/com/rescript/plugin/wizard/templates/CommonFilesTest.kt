@@ -1,7 +1,10 @@
 package com.rescript.plugin.wizard.templates
 
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -241,6 +244,47 @@ class CommonFilesTest {
                 )
             }
         }
+    }
+
+    @Test
+    fun `composeYaml returns null for libsql since the file-based DB has no service`() {
+        assertNull(CommonFiles.composeYaml(Database.LIBSQL))
+    }
+
+    @Test
+    fun `composeYaml emits a postgres service with healthcheck for POSTGRES`() {
+        val compose = CommonFiles.composeYaml(Database.POSTGRES)!!
+        assertTrue(compose.contains("services:"))
+        assertTrue(compose.contains(TemplateVersions.POSTGRES_DOCKER_IMAGE))
+        assertTrue(compose.contains("POSTGRES_USER: app"))
+        assertTrue(compose.contains("5432:5432"))
+        assertTrue(compose.contains("healthcheck:"))
+        assertTrue(compose.contains("pg_isready"))
+    }
+
+    @Test
+    fun `composeYaml emits a mysql service with healthcheck for MYSQL`() {
+        val compose = CommonFiles.composeYaml(Database.MYSQL)!!
+        assertTrue(compose.contains("services:"))
+        assertTrue(compose.contains(TemplateVersions.MYSQL_DOCKER_IMAGE))
+        assertTrue(compose.contains("MYSQL_DATABASE: app"))
+        assertTrue(compose.contains("3306:3306"))
+        assertTrue(compose.contains("healthcheck:"))
+        assertTrue(compose.contains("mysqladmin"))
+    }
+
+    @Test
+    fun `databaseDriver returns the right npm package for each backend`() {
+        assertEquals("@libsql/client", CommonFiles.databaseDriver(Database.LIBSQL).first)
+        assertEquals("postgres", CommonFiles.databaseDriver(Database.POSTGRES).first)
+        assertEquals("mysql2", CommonFiles.databaseDriver(Database.MYSQL).first)
+    }
+
+    @Test
+    fun `defaultDatabaseUrl matches the credentials baked into composeYaml`() {
+        assertTrue(CommonFiles.defaultDatabaseUrl(Database.LIBSQL).contains("file:./data/app.db"))
+        assertTrue(CommonFiles.defaultDatabaseUrl(Database.POSTGRES).contains("postgres://app:dev@localhost:5432/app"))
+        assertTrue(CommonFiles.defaultDatabaseUrl(Database.MYSQL).contains("mysql://root:dev@localhost:3306/app"))
     }
 
     @Test
