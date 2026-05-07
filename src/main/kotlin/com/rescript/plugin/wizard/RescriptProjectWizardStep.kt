@@ -53,6 +53,15 @@ class RescriptProjectWizardStep(
                 "zod is TS-first; sury is ReScript-native."
         }
     private val validationLibraryLabel = JLabel("Validation library:")
+    private val databaseCombo =
+        JComboBox(Database.entries.toTypedArray()).apply {
+            selectedItem = Database.LIBSQL
+            toolTipText =
+                "Database backend wired into server templates. libSQL/SQLite uses a " +
+                "local file; PostgreSQL and MySQL also produce a compose.yaml so " +
+                "`docker compose up` brings the database up locally."
+        }
+    private val databaseLabel = JLabel("Database:")
     private val templateListModel = DefaultListModel<Any>()
     private val templateList = JBList(templateListModel)
     private val descriptionArea =
@@ -139,7 +148,17 @@ class RescriptProjectWizardStep(
         gbc.fill = GridBagConstraints.HORIZONTAL
         innerPanel.add(validationLibraryCombo, gbc)
 
-        applyValidationVisibility(templateList.selectedValue as? ProjectTemplate)
+        // Database (only shown when supportsDatabaseSelection = true)
+        gbc.gridx = 0
+        gbc.gridy = 5
+        gbc.fill = GridBagConstraints.NONE
+        innerPanel.add(databaseLabel, gbc)
+
+        gbc.gridx = 1
+        gbc.fill = GridBagConstraints.HORIZONTAL
+        innerPanel.add(databaseCombo, gbc)
+
+        applyTemplateVisibility(templateList.selectedValue as? ProjectTemplate)
 
         panel.add(innerPanel, BorderLayout.CENTER)
         return panel
@@ -149,6 +168,7 @@ class RescriptProjectWizardStep(
         builder.packageManager = packageManagerCombo.selectedItem as PackageManager
         builder.apiStrategy = apiStrategyCombo.selectedItem as ApiStrategy
         builder.validationLibrary = validationLibraryCombo.selectedItem as ValidationLibrary
+        builder.database = databaseCombo.selectedItem as Database
         val selected = templateList.selectedValue
         if (selected is ProjectTemplate) {
             builder.selectedTemplate = selected
@@ -188,7 +208,7 @@ class RescriptProjectWizardStep(
             val selected = templateList.selectedValue
             if (selected is ProjectTemplate) {
                 descriptionArea.text = selected.description
-                applyValidationVisibility(selected)
+                applyTemplateVisibility(selected)
             } else if (selected is TemplateCategory) {
                 // Skip category headers — select the next template instead
                 val idx = templateList.selectedIndex
@@ -200,16 +220,19 @@ class RescriptProjectWizardStep(
     }
 
     /**
-     * Toggles the validation library combo and label visibility based on whether
-     * the selected template opts in to validation selection.
-     *
-     * Templates that ship their own data layer (TanStack Start, Remix, Astro, Waku)
-     * pass `supportsValidationSelection = false` to hide this UI.
+     * Toggles the validation-library and database combos based on the template's
+     * supports* flags. Templates that ship their own data layer (TanStack Start, Remix,
+     * Astro, Waku) hide the validation combo; templates without server-side persistence
+     * hide the database combo.
      */
-    private fun applyValidationVisibility(template: ProjectTemplate?) {
-        val supports = template?.supportsValidationSelection ?: true
-        validationLibraryLabel.isVisible = supports
-        validationLibraryCombo.isVisible = supports
+    private fun applyTemplateVisibility(template: ProjectTemplate?) {
+        val supportsValidation = template?.supportsValidationSelection ?: true
+        validationLibraryLabel.isVisible = supportsValidation
+        validationLibraryCombo.isVisible = supportsValidation
+
+        val supportsDatabase = template?.supportsDatabaseSelection ?: false
+        databaseLabel.isVisible = supportsDatabase
+        databaseCombo.isVisible = supportsDatabase
     }
 
     /**

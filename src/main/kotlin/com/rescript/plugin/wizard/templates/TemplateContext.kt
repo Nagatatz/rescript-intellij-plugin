@@ -1,6 +1,7 @@
 package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.ApiStrategy
+import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ValidationLibrary
 import java.time.Year
@@ -28,6 +29,7 @@ data class TemplateContext(
     val packageManager: PackageManager,
     val validationLibrary: ValidationLibrary = ValidationLibrary.ZOD,
     val apiStrategy: ApiStrategy = ApiStrategy.REST,
+    val database: Database = Database.LIBSQL,
     val year: Int = Year.now().value,
     val nodeMajor: String = TemplateVersions.NODE_MAJOR,
     val nodeEngine: String = TemplateVersions.NODE_ENGINE,

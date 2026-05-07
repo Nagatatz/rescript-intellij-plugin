@@ -94,6 +94,18 @@ object TemplateVersions {
     const val DRIZZLE_ORM = "^0.45.2"
     const val DRIZZLE_KIT = "^0.31.10"
 
+    // PostgreSQL: postgres-js (lighter than node-postgres, drizzle-recommended).
+    // Bumped together with DRIZZLE_ORM since the dialect adapter ships in drizzle-orm.
+    const val POSTGRES_JS = "^3.4.5"
+
+    // MySQL: mysql2 driver (drizzle-recommended).
+    const val MYSQL2 = "^3.13.0"
+
+    // Container image tags used by templates' compose.yaml for local Postgres / MySQL.
+    // Pinned to the current LTS image major; bump intentionally.
+    const val POSTGRES_DOCKER_IMAGE = "postgres:17-alpine"
+    const val MYSQL_DOCKER_IMAGE = "mysql:8.4"
+
     // Validation
     const val ZOD = "^4.3.6"
     const val SURY = "^10.0.0"

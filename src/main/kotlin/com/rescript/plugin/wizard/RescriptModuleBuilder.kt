@@ -27,6 +27,7 @@ class RescriptModuleBuilder : ModuleBuilder() {
     var packageManager: PackageManager = PackageManager.PNPM
     var validationLibrary: ValidationLibrary = ValidationLibrary.ZOD
     var apiStrategy: ApiStrategy = ApiStrategy.REST
+    var database: Database = Database.LIBSQL
     var selectedTemplate: ProjectTemplate = ProjectTemplate.BASIC
 
     override fun getModuleType(): ModuleType<*> = ModuleTypeManager.getInstance().defaultModuleType
@@ -54,7 +55,13 @@ class RescriptModuleBuilder : ModuleBuilder() {
         val files =
             RescriptProjectGenerator.generateFiles(
                 selectedTemplate,
-                TemplateContext(projectName, packageManager, validationLibrary, apiStrategy),
+                TemplateContext(
+                    projectName = projectName,
+                    packageManager = packageManager,
+                    validationLibrary = validationLibrary,
+                    apiStrategy = apiStrategy,
+                    database = database,
+                ),
             )
 
         // Write all generated files

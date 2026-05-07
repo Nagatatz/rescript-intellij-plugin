@@ -439,4 +439,27 @@ class ProjectTemplateTest {
             )
         }
     }
+
+    @Test
+    fun `templates that opt in to database selection are explicitly listed`() {
+        // Server-side templates with persistence are the only ones that should expose the
+        // Database combo. Frontend / mobile / desktop / library templates have no
+        // server-side DB to choose. Add to the set when a new server template lands.
+        val dbOptIns =
+            setOf(
+                ProjectTemplate.HONO,
+                ProjectTemplate.HONO_GRAPHQL,
+                ProjectTemplate.HONO_INERTIA,
+                ProjectTemplate.FULL_STACK,
+                ProjectTemplate.MONOREPO,
+            )
+        ProjectTemplate.entries.forEach { template ->
+            val expected = template in dbOptIns
+            assertEquals(
+                expected,
+                template.supportsDatabaseSelection,
+                "${template.name} supportsDatabaseSelection should be $expected",
+            )
+        }
+    }
 }

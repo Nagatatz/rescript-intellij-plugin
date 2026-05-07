@@ -56,6 +56,7 @@ enum class ProjectTemplate(
     val category: TemplateCategory,
     val sourceRoots: List<String> = listOf("src"),
     val supportsValidationSelection: Boolean = true,
+    val supportsDatabaseSelection: Boolean = false,
 ) {
     BASIC(
         "Basic",
@@ -132,15 +133,18 @@ enum class ProjectTemplate(
 
         Includes:
         • Hono + @hono/node-server
-        • SQLite via libsql + Drizzle ORM (schema, queries, drizzle-kit migrations)
+        • Drizzle ORM with libSQL / SQLite (default), PostgreSQL, or MySQL — selectable
         • Zod schemas for POST/PUT body validation
         • @hono/zod-openapi auto-generated OpenAPI 3 spec
         • Scalar UI mounted at /docs, raw spec at /openapi.json
         • Logger middleware + structured error handling
+        • Multi-stage Dockerfile + .dockerignore for container deploys
+        • compose.yaml when PostgreSQL / MySQL is selected
 
         Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.BACKEND,
+        supportsDatabaseSelection = true,
     ),
     HONO_GRAPHQL(
         "Hono GraphQL",
@@ -152,14 +156,17 @@ enum class ProjectTemplate(
         Includes:
         • Hono + @hono/node-server with graphql-yoga mounted at /graphql
         • GraphiQL playground at the same URL
-        • SQLite via libsql + Drizzle ORM
+        • Drizzle ORM with libSQL / SQLite (default), PostgreSQL, or MySQL — selectable
         • users query/mutation resolvers (users / user(id) / createUser / deleteUser)
         • `docs:graphql` script runs graphql-markdown against the schema
         • Vitest + coverage
+        • Multi-stage Dockerfile + .dockerignore for container deploys
+        • compose.yaml when PostgreSQL / MySQL is selected
 
         Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.BACKEND,
+        supportsDatabaseSelection = true,
     ),
     HONO_INERTIA(
         "Hono + Inertia (React)",
@@ -173,13 +180,15 @@ enum class ProjectTemplate(
         • @inertiajs/react v3 + React 19 + @rescript/react
         • Vite+ unified toolchain (vp dev / build / test / check)
         • Sample Home / About pages and a shared MainLayout
-        • SQLite via libsql + Drizzle ORM and zod or sury validation
+        • Drizzle ORM with libSQL / SQLite (default), PostgreSQL, or MySQL — selectable
+        • zod or sury validation
         • CSR only — server-side rendering is intentionally out of scope
 
         Requires: Node.js 24+ (or Bun 1.3+ if Bun is selected).
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("src", "src/client"),
+        supportsDatabaseSelection = true,
     ),
     CLOUDFLARE_WORKERS(
         "Cloudflare Workers",
@@ -309,15 +318,17 @@ enum class ProjectTemplate(
 
         Includes:
         • packages/shared — shared ReScript types
-        • packages/server — Hono + @hono/node-server + Drizzle SQLite
+        • packages/server — Hono + @hono/node-server + Drizzle (libSQL / Postgres / MySQL)
         • packages/client — React 19 + Vite+
         • pnpm-workspace.yaml (pnpm) or `workspaces` field (npm / yarn)
         • `concurrently` dev loop across packages
+        • Multi-stage Dockerfile + compose.yaml (when Postgres / MySQL is selected)
 
         Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("packages/shared/src", "packages/server/src", "packages/client/src"),
+        supportsDatabaseSelection = true,
     ),
     FULL_STACK(
         "Full-Stack (single package)",
@@ -327,16 +338,19 @@ enum class ProjectTemplate(
         than a workspace monorepo while still demonstrating the fetch → API → DB loop.
 
         Includes:
-        • Hono + @hono/node-server + libsql + Drizzle ORM (SQLite)
+        • Hono + @hono/node-server + Drizzle ORM
+        • Database choice: libSQL / SQLite (default), PostgreSQL, or MySQL
         • React 19 + @rescript/react + Vite+
         • drizzle-kit migrations (db:generate / db:migrate)
         • `concurrently` dev loop (server watch + vp dev)
+        • Multi-stage Dockerfile + compose.yaml (when Postgres / MySQL is selected)
         • Vitest + coverage
 
         Requires: Node.js 24+.
         """.trimIndent(),
         TemplateCategory.FULL_STACK,
         sourceRoots = listOf("src/shared", "src/server", "src/client"),
+        supportsDatabaseSelection = true,
     ),
     RES_X(
         "res-x (HTMX on Bun)",
