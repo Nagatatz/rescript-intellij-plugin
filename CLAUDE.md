@@ -96,6 +96,8 @@ Notebook 風 Worksheet (`notebook/`) は `.resnb` 拡張子の JSON ファイル
 
 JS Interop Risk Map (`interop/`) は `%raw` / `external` / `Obj.magic` / `@bs.*` などの「型システムから抜け出す」呼び出し箇所をプロジェクト全体でスキャンし、ToolWindow に一覧表示する。`RescriptInteropClassifier` のトークン・ヒューリスティックで `(kind, risk)` を判定し、HIGH → MEDIUM → LOW で並べ替え。`FileTypeIndex` ベースの project スコープ走査・LSP 不要・500 件のソフトキャップ付き。
 
+Reason → ReScript Migration Pilot (`migration/`) はプロジェクト内の `.re` / `.rei` ファイルを ToolWindow にチェックボックス付きで一覧表示し、選択した複数ファイルを `rescript convert` CLI 経由で `.res` / `.resi` に一括変換する。`FilenameIndex.getAllFilesByExt` でファイル列挙、`ProcessBuilder` でサブプロセス実行（タイムアウト 30 秒）、成功時は VFS write action でリネーム。LSP 不要・並列実行は将来検討。
+
 Project Wizard (`wizard/`) は Package Manager と Validation Library (`zod` / `sury`) の選択 UI を備える。21 テンプレートのうち既存 17 件 (hono-inertia を含む) は選択に応じて `Validation.res` を `variants/<key>/` から生成する。検証対象はテンプレートごとに異なる: サーバー系 10 テンプレート（hono / hono-graphql / hono-inertia / aws-lambda / cloudflare-workers / google-cloud-run / nextjs / full-stack / monorepo / res-x）は HTTP 入力、CLI Tool は `init` サブコマンドのオプション、npm Library は public API 引数、Basic は `config.json` の shape、Electron は IPC レスポンス、React Native (Expo / CLI) と Vite+React はフォーム入力を対象にする。res-x テンプレートは Bun + Vite + HTMX 前提で `package.json` の scripts に `bun` コマンドを直接書き込む。Hono + Inertia テンプレートは Hono バックエンド + `@inertiajs/react` v3 + Vite+ 統合 (`vp dev` / `vp build` / `vp test` / `vp check`) で server-driven SPA を提供する（CSR のみ、SSR は将来対応）。新規 4 テンプレート（TanStack Start / Remix RR v7 / Astro / Waku）はフレームワークが独自のデータレイヤーを持つため `ProjectTemplate.supportsValidationSelection = false` を宣言し、Wizard Step UI は Validation コンボを非表示にする。
 
 ## 開発規約

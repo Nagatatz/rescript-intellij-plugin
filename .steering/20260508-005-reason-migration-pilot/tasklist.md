@@ -4,44 +4,45 @@
 - [x] requirements.md 作成
 - [x] design.md 作成
 - [x] tasklist.md 作成
-- [ ] requirements / design / tasklist のユーザー承認
-- [ ] `EnterWorktree reason-migration-pilot` で worktree 作成
+- [x] requirements / design / tasklist のユーザー承認
+- [x] `EnterWorktree reason-migration-pilot` で worktree 作成
 
 ## Phase 2: 既存資産の確認
-- [ ] `FilenameIndex.getAllFilesByExt` の使い方を確認
-- [ ] `RescriptProjectSettings.rescriptBinaryPath` の読み出しパターンを確認
-- [ ] `RescriptSecurityUtils` のパス検証関数を確認
+- [x] `FilenameIndex.getAllFilesByExt` を採用（プロジェクトに既存利用なし、IntelliJ Platform 標準 API）
+- [x] `RescriptProjectSettings.rescriptBinaryPath` の読み出しパターンを確認（既存設定）
+- [x] `RescriptSecurityUtils` 経由の検証は将来検討（Phase 1 では `projectScope` で代替）
 
 ## Phase 3: 実装（コアロジック）
-- [ ] `migration/RescriptMigrationModel.kt` を実装（MigrationCandidate / ConversionStatus / ConversionResult）
-- [ ] `migration/RescriptMigrationFinder.kt` を実装（findCandidates + toCandidates pure helper）
-- [ ] `migration/RescriptMigrationFinderTest.kt` を作成（toCandidates の 4-5 ケース）
-- [ ] `migration/RescriptMigrationConverter.kt` を実装（convert + buildCommand pure helper）
-- [ ] `migration/RescriptMigrationConverterTest.kt` を作成（buildCommand の 3-4 ケース）
+- [x] `migration/RescriptMigrationModel.kt` を実装（MigrationCandidate / ConversionStatus / ConversionResult）
+- [x] `migration/RescriptMigrationFinder.kt` を実装（findCandidates + toCandidates pure helper）
+- [x] `migration/RescriptMigrationFinderTest.kt` を作成（5 ケース）
+- [x] `migration/RescriptMigrationConverter.kt` を実装（convert + buildCommand pure helper）
+- [x] `migration/RescriptMigrationConverterTest.kt` を作成（4 ケース）
 
 ## Phase 3: 実装（IDE 統合）
-- [ ] `migration/RescriptMigrationPanel.kt` を実装（チェックボックス付き JBList + Toolbar + 結果領域）
-- [ ] `migration/RescriptMigrationToolWindowFactory.kt` を実装
-- [ ] `migration/RescriptMigrationAction.kt` を実装
-- [ ] `plugin.xml` に ToolWindow と action を登録
+- [x] `migration/RescriptMigrationPanel.kt` を実装（チェックボックス付き JBList + Toolbar + 結果領域）
+- [x] `migration/RescriptMigrationToolWindowFactory.kt` を実装
+- [x] `migration/RescriptMigrationAction.kt` を実装
+- [x] `plugin.xml` に ToolWindow と action を登録
 
 ## Phase 3: コミット前検証
-- [ ] `./gradlew ktlintCheck` パス
-- [ ] `./gradlew clean buildPlugin` パス
-- [ ] `./gradlew test` パス
+- [x] `./gradlew ktlintCheck` パス
+- [x] `./gradlew clean buildPlugin` パス
+- [x] `./gradlew test` パス
+- [x] ビルド警告が増加していない（既存 RescriptLsp4jClient 警告のみ）
+- [x] Deprecated API なし
 
 ## Phase 3: ドキュメント更新
-- [ ] `CLAUDE.md` レイヤー 3 に `migration/` パッケージを追記
-- [ ] `docs/repository-structure.md` パッケージ表に `migration/` を追加
-- [ ] `docs/functional-design.md` Extension Point マップに ToolWindow + Action を追加
-- [ ] `README.md` Features セクションに「Reason → ReScript migration pilot」追加
-- [ ] `sphinx-docs/user/features/advanced.md` に新セクション
-- [ ] 日本語 `.po` 同時更新（`make build-ja` パス確認）
-- [ ] `docs/lsp-fallback-matrix.md` に行を追加
+- [x] `CLAUDE.md` レイヤー 3 に `migration/` パッケージを追記
+- [x] `docs/repository-structure.md` パッケージ表に `migration/` を追加
+- [x] `docs/functional-design.md` Extension Point マップに ToolWindow + Action を追加
+- [x] `README.md` Features セクションに「Reason → ReScript migration pilot」追加
+- [x] `sphinx-docs/user/features/advanced.md` に新セクション
+- [x] 日本語 `.po` 同時更新（`make build-ja` 成功）
+- [x] `docs/lsp-fallback-matrix.md` に「Reason → ReScript Migration Pilot」行を追加
 
 ## Phase 3: コミット
-- [ ] Model + Finder + Converter コミット（`✨ Add Reason migration finder and converter`）
-- [ ] ToolWindow/Panel/Action コミット（`✨ Add Reason migration pilot tool window`）
+- [x] 実装コミット（`✨ Add Reason migration pilot tool window` — model + finder + converter + UI を一括）
 - [ ] ドキュメント更新コミット（`📝 Document Reason migration pilot`）
 - [ ] tasklist 完了化コミット
 

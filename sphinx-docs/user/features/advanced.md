@@ -1137,6 +1137,42 @@ The list is sorted by descending risk, then by file path and line number for sta
 
 The risk map is purely syntactic, so it works without LSP. The line-based heuristic cannot tell whether a particular `external` is genuinely safe — it surfaces every match and lets reviewers decide.
 
+## Reason → ReScript Migration Pilot
+
+{bdg-success}`Native`
+
+Bulk-convert legacy Reason / OCaml-syntax sources (`.re` / `.rei`) to ReScript syntax (`.res` / `.resi`) with a single tool window. The plugin lists every Reason file in the project, lets you tick the ones you want, and runs `rescript convert` on each selection in turn — no shell juggling required.
+
+**Open:** **View** > **Tool Windows** > **ReScript Migration Pilot**, or use **Tools** > **Show Reason Migration Pilot**
+
+### How It Works
+
+`RescriptMigrationFinder` collects every `.re` and `.rei` file in `GlobalSearchScope.projectScope` through `FilenameIndex.getAllFilesByExt`, computes each candidate's project-relative path, and presents the result as a sortable, alphabetised list. When you press **Convert Selected**, `RescriptMigrationConverter` builds the argv:
+
+- If `RescriptProjectSettings.rescriptBinaryPath` is set, the binary is invoked directly (e.g. `/usr/local/bin/rescript convert /work/proj/src/Main.re`).
+- Otherwise the plugin falls through to `npx rescript convert <path>`, matching the project-local resolution used by the rest of the plugin.
+
+Each conversion runs in a `ProcessBuilder` subprocess with a 30-second timeout. On success the original file is rewritten with the converted text and renamed to `.res` / `.resi` inside a write action; on failure the source file is left untouched and the captured stderr appears in the results panel.
+
+### Tool Window Layout
+
+- **Toolbar:** Refresh / Select All / Clear Selection / Convert Selected
+- **Top list — Candidates:** `[ ] relative/path/to/file.re`. Single-click toggles the checkbox.
+- **Bottom list — Results:** `[ok] file.re` for successes; `[fail] file.re  message` for failures, with the first line of stderr inlined for quick scanning.
+- **Status bar:** `N candidate(s)` while idle, `Converting i/N…` during a run, and `Done — X succeeded, Y failed` after the run completes.
+
+### Use Cases
+
+- **One-shot codebase migration** — Tick everything, hit Convert, fix the inevitable handful of stragglers manually.
+- **Incremental migration** — Convert one directory at a time, run the test suite, commit, repeat.
+- **CI prep** — Use the pilot to identify the long tail of `.re` files that still ship in the repository before tightening a CI policy.
+
+### Limitations (Phase 1)
+
+- The plugin does not auto-update `import` paths or `bsconfig.json` after a rename — rely on Git diffs and the test suite to catch follow-up edits.
+- Conversion is sequential. A 200-file repository takes ~10 minutes worth of `rescript convert` invocations; parallel batching is on the Phase 2 list.
+- There is no built-in rollback. The intended workflow is "commit before converting" so Git is your safety net.
+
 ## PPX Expansion View
 
 {bdg-primary}`LSP Required`

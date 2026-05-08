@@ -65,6 +65,7 @@ rescript-intellij-plugin/
 | `impact/` | Type Impact Preview（カーソル位置の type 宣言に対するプロジェクト全体の参照を ToolWindow で一覧表示） | `RescriptTypeImpactToolWindowFactory`, `RescriptTypeImpactPanel`, `RescriptTypeImpactAction`, `RescriptTypeTargetResolver`, `RescriptTypeReferenceFinder`, `RescriptReferenceClassifier`, `RescriptTypeImpactModel` |
 | `notebook/` | Notebook 風 Worksheet（`.resnb` cell-based エディタ + Markdown エクスポート） | `RescriptNotebookFileType`, `RescriptNotebookFileEditorProvider`, `RescriptNotebookFileEditor`, `RescriptNotebookPanel`, `RescriptNotebookCellPanel`, `RescriptNotebookSerializer`, `RescriptNotebookMarkdownExporter`, `RescriptNotebookModel` |
 | `interop/` | JS Interop Risk Map（`%raw` / `external` / `Obj.magic` / `@bs.*` の使用箇所一覧 + 種別/リスクスコア） | `RescriptInteropRiskToolWindowFactory`, `RescriptInteropRiskPanel`, `RescriptInteropRiskAction`, `RescriptInteropClassifier`, `RescriptInteropScanner`, `RescriptInteropModel` |
+| `migration/` | Reason → ReScript Migration Pilot（`.re` / `.rei` の一括 `rescript convert` ToolWindow） | `RescriptMigrationToolWindowFactory`, `RescriptMigrationPanel`, `RescriptMigrationAction`, `RescriptMigrationFinder`, `RescriptMigrationConverter`, `RescriptMigrationModel` |
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
 | `imports/` | Import Optimizer、open 文ユーティリティ | `RescriptImportOptimizer`, `RescriptImportUtil` |
