@@ -19,13 +19,16 @@ type setupArgs = {
   props: pageProps,
 }
 
-type appOptions = {
-  resolve: string => promise<{..}>,
+// `'page` is the row-polymorphic shape returned by the page resolver. ReScript
+// requires record fields to bind their type variables, so we surface it as a
+// type parameter instead of writing `promise<{..}>` inline.
+type appOptions<'page> = {
+  resolve: string => promise<'page>,
   setup: setupArgs => unit,
 }
 
 @module("@inertiajs/react")
-external createInertiaApp: appOptions => unit = "createInertiaApp"
+external createInertiaApp: appOptions<'page> => unit = "createInertiaApp"
 
 module Link = {
   @module("@inertiajs/react") @react.component
