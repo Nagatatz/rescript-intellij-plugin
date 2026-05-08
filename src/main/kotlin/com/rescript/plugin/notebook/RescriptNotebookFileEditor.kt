@@ -32,7 +32,8 @@ class RescriptNotebookFileEditor(
 
     private var modified = false
 
-    private val panel: RescriptNotebookPanel
+    /** Exposed `internal` so package tests can drive the panel directly. */
+    internal val panel: RescriptNotebookPanel
 
     private val rootComponent: JComponent
 
