@@ -31,9 +31,15 @@ let rootView: HonoInertia.rootView = (page, _ctx) => {
 </html>`
 }
 
+// Inertia asset version. The client sends this back in `X-Inertia-Version`;
+// when it stops matching (after a deploy bumps assets), the middleware
+// answers with 409 to trigger a full reload. Bump this whenever the client
+// bundle changes in a way that breaks live page sessions.
+let inertiaVersion = "1"
+
 let app = Hono.createApp()
 app->Hono.use(Logger.logger())
-app->Hono.use(HonoInertia.inertia({rootView: rootView}))
+app->Hono.use(HonoInertia.inertia({rootView: rootView, version: Nullable.make(inertiaVersion)}))
 
 // Global error handler: converts uncaught exceptions into a JSON 500 response.
 app->Hono.onError((err, ctx) => {
