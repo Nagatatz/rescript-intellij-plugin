@@ -134,6 +134,8 @@ src/test/kotlin/com/rescript/plugin/
 
 テストは対象クラスと同じパッケージ構造に配置し、`<対象クラス名>Test.kt` と命名する。`perf/` と `cli/` は単一のプロダクションパッケージに紐付かず、複数モジュールにまたがる実行時間ガード / 外部 CLI 結合検証を集約する役割を持つ。`cli/` のテストは `Assumptions.assumeTrue` で対応 CLI の可用性をゲートし、ローカル不在時は skip、CI（`ci.yml` の build ジョブで `mmdc` / `graphviz` / `rescript` をインストール）では実行される。
 
+VFS write action のような「light fixture では駆動できない」挙動を要するテストは、`IntelliJPlatformExtensionWithContentRoot`（heavy fixture、`IdeaTestFixtureFactory.createFixtureBuilder` ベース）を使う。1 件あたり 3〜10 秒のセットアップコストがあるため、本当に必要なテスト（例: `RescriptMigrationConverterE2eTest`）に限定して使う。
+
 ## 3. ドキュメント
 
 ### 3.1 永続的ドキュメント (`docs/`)
