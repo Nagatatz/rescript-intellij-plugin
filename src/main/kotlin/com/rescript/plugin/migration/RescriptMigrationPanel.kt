@@ -153,6 +153,10 @@ class RescriptMigrationPanel(
         }
     }
 
+    /**
+     * Toolbar action that re-scans the project for `.re` / `.rei` migration
+     * candidates.
+     */
     private inner class RefreshAction :
         AnAction("Refresh", "Re-scan the project for `.re` / `.rei` files", AllIcons.Actions.Refresh) {
         override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
@@ -162,6 +166,9 @@ class RescriptMigrationPanel(
         }
     }
 
+    /**
+     * Toolbar action that marks every listed migration candidate as selected.
+     */
     private inner class SelectAllAction :
         AnAction("Select All", "Select every candidate", AllIcons.Actions.Selectall) {
         override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
@@ -173,6 +180,10 @@ class RescriptMigrationPanel(
         }
     }
 
+    /**
+     * Toolbar action that clears the current candidate selection without
+     * removing any rows from the list.
+     */
     private inner class ClearSelectionAction :
         AnAction("Clear Selection", "Deselect every candidate", AllIcons.Actions.Unselectall) {
         override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
@@ -183,6 +194,11 @@ class RescriptMigrationPanel(
         }
     }
 
+    /**
+     * Toolbar action that invokes `rescript convert` against every selected
+     * candidate, renames the resulting `.res` / `.resi` files in the VFS, and
+     * refreshes the list when the batch finishes.
+     */
     private inner class ConvertAction :
         AnAction("Convert Selected", "Run rescript convert on every checked file", AllIcons.Actions.Execute) {
         override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT

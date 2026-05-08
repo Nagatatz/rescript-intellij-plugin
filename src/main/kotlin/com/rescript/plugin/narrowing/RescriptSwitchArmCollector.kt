@@ -267,6 +267,11 @@ object RescriptSwitchArmCollector {
         }
     }
 
+    /**
+     * Lightweight lexer record produced by walking the JFlex tokens once and
+     * caching them; lets the collector iterate by index without re-running the
+     * lexer for every brace/comma lookup.
+     */
     private data class LexedToken(
         val type: IElementType,
         val start: Int,

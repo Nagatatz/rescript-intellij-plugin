@@ -102,6 +102,10 @@ class RescriptInteropRiskPanel(
         return " ${result.entries.size} interop site(s)$truncatedNote  $breakdown"
     }
 
+    /**
+     * Toolbar action that triggers an asynchronous re-scan of the project for
+     * JS interop call sites.
+     */
     private inner class RefreshAction :
         AnAction(
             "Refresh",

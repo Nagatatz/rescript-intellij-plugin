@@ -165,6 +165,10 @@ class RescriptTypeImpactPanel(
         statusLabel.text = " $message"
     }
 
+    /**
+     * Toolbar action that re-resolves the type target at the caret and
+     * re-scans the project for its references.
+     */
     private inner class RefreshAction :
         AnAction(
             "Refresh",

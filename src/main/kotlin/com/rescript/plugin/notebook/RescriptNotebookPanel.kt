@@ -109,6 +109,10 @@ class RescriptNotebookPanel(
         cellsContainer.repaint()
     }
 
+    /**
+     * Toolbar action that appends a new empty cell at the end of the notebook
+     * and rebuilds the cells container.
+     */
     private inner class AddCellAction : AnAction("Add Cell", "Append an empty cell", AllIcons.General.Add) {
         override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
 
@@ -119,6 +123,11 @@ class RescriptNotebookPanel(
         }
     }
 
+    /**
+     * Toolbar action that triggers each cell's Run button in order. Per-cell
+     * threading is delegated to the cell panels so this action does not block
+     * the EDT.
+     */
     private inner class RunAllAction :
         AnAction("Run All", "Run every cell in order", AllIcons.Actions.Execute) {
         override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
@@ -134,6 +143,10 @@ class RescriptNotebookPanel(
         }
     }
 
+    /**
+     * Toolbar action that serialises the current notebook snapshot to Markdown
+     * (via [RescriptNotebookMarkdownExporter]) and copies it to the clipboard.
+     */
     private inner class ExportMarkdownAction :
         AnAction(
             "Copy as Markdown",

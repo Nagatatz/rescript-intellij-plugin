@@ -164,6 +164,10 @@ class RescriptVariantFlowPanel(
         currentDiagram = null
     }
 
+    /**
+     * Snapshot of the active editor used to drive a refresh — file, full source
+     * text, and caret offset captured at the moment the toolbar action fires.
+     */
     private data class EditorContext(
         val file: VirtualFile,
         val source: String,
@@ -192,6 +196,10 @@ class RescriptVariantFlowPanel(
         DOT("Copy DOT", "Copy the current diagram as graphviz DOT"),
     }
 
+    /**
+     * Toolbar action that schedules a debounced rebuild of the variant flow
+     * diagram from the current editor state.
+     */
     private inner class RefreshAction :
         AnAction(
             "Refresh",
@@ -205,6 +213,11 @@ class RescriptVariantFlowPanel(
         }
     }
 
+    /**
+     * Toolbar action that exports the current diagram in the given [Format]
+     * (Mermaid or DOT) and copies the result to the system clipboard. Disabled
+     * when no diagram has been rendered yet.
+     */
     private inner class CopyAction(
         private val format: Format,
     ) : AnAction(
