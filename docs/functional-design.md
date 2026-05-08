@@ -540,6 +540,8 @@ flowchart TD
 | `<action>` | `RescriptTypeImpactAction` | Tools > Show Type Impact | 実装済み |
 | `com.intellij.fileType` | `RescriptNotebookFileType` | Notebook 風 Worksheet ファイル形式（`.resnb`） | 実装済み |
 | `com.intellij.fileEditorProvider` | `RescriptNotebookFileEditorProvider` | Notebook ファイル用カスタム FileEditor（cell-based UI） | 実装済み |
+| `com.intellij.toolWindow` | `RescriptInteropRiskToolWindowFactory` | JS Interop Risk Map ToolWindow（`%raw` / `external` / `Obj.magic` / `@bs.*` 一覧） | 実装済み |
+| `<action>` | `RescriptInteropRiskAction` | Tools > Show JS Interop Risk Map | 実装済み |
 
 ## 4. ファイル構成と依存関係
 

@@ -50,6 +50,7 @@
 - **Variant flow diagram** — Tool window (`Tools > Show Switch Flow Diagram`) that draws the `switch` under the caret as a Mermaid `flowchart TD` decision tree, with Copy Mermaid / Copy DOT actions for sharing
 - **Type impact preview** — Tool window (`Tools > Show Type Impact`) that lists every project-wide reference to the `type` declaration under the caret, classified as type-ref / constructor / pattern / field-access; size the blast radius of a type change before you make it
 - **Notebook-style worksheet** — Cell-based `.resnb` editor where each cell holds ReScript code and its last evaluation output; runs cells through the existing REPL backend, persists output to JSON, and exports the whole notebook as Markdown
+- **JS interop risk map** — Tool window (`Tools > Show JS Interop Risk Map`) that lists every `%raw` / `external` / `Obj.magic` / `@bs.*` site in the project with a coarse risk label, so reviewers can find the type-system escape hatches at a glance
 - **Parameter Info** — Native parameter info popup for labeled arguments (`Ctrl+P`)
 - **Unresolved reference Quick Fix** — Add `open` or qualify unresolved references
 - **Generate function from usage** — Create stub functions from call sites

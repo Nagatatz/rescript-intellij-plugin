@@ -1101,6 +1101,42 @@ Invalid JSON is reported with a small warning header; the rest of the editor fal
 - No syntax highlighting / completion in the cell editor (these would require wiring the cell into the LSP). Authors who want live diagnostics can still keep a regular `.res` file open beside the notebook.
 - No rich output (HTML, images). The output area is plain monospaced text.
 
+## JS Interop Risk Map
+
+{bdg-success}`Native`
+
+Survey every place where the project leaves the type system: `%raw` / `%%raw` blocks, `external` declarations, `Obj.magic` casts, and `@bs.*` decorators. Each entry is tagged with a coarse risk level so reviewers can prioritise where to look.
+
+**Open:** **View** > **Tool Windows** > **ReScript Interop Risk**, or use **Tools** > **Show JS Interop Risk Map**
+
+### How It Works
+
+`RescriptInteropScanner` walks every `.res` and `.resi` file in `GlobalSearchScope.projectScope` through `FileTypeIndex`, reads each one inside a read action, and feeds the lines to `RescriptInteropClassifier`. The classifier inspects each line in isolation:
+
+- `Obj.magic` anywhere → **HIGH** risk, kind `obj-magic`
+- `%raw` / `%%raw` → **HIGH** risk, kind `raw`
+- `external …` plus `@bs.*` / `@send` / `@module` / `@scope` / `@val` decorators → **MEDIUM** risk, kind `external`
+- Plain `external …` → **LOW** risk, kind `external`
+- Standalone `@bs.*` / `@send` etc. → **LOW** risk, kind `bs-attr`
+
+Soft caps keep the panel responsive: 50 entries per file, 500 entries total. When the cap fires, the status bar shows `(showing first 500)` so the result is never silently truncated.
+
+### Tool Window Layout
+
+- **Toolbar:** Refresh — re-runs the project-wide scan
+- **Main area:** A list of `[risk/kind] file.res:line  preview` entries; double-click navigates to the line
+- **Status bar:** Total count, optional truncation note, and per-kind breakdown (`raw=N  obj-magic=N  external=N  bs-attr=N`)
+
+The list is sorted by descending risk, then by file path and line number for stability.
+
+### Use Cases
+
+- **PR reviews** — Look at the high-risk rows first to scrutinise unsafe casts.
+- **Library migration** — Track every `@bs.*` site that needs to move to the new `@send` / `@module` syntax.
+- **Refactoring planning** — Find the small set of `%raw` blocks that gate a runtime upgrade.
+
+The risk map is purely syntactic, so it works without LSP. The line-based heuristic cannot tell whether a particular `external` is genuinely safe — it surfaces every match and lets reviewers decide.
+
 ## PPX Expansion View
 
 {bdg-primary}`LSP Required`

@@ -108,6 +108,7 @@
 | Variant Flow Diagram | 不要 | レクサーベースの switch 解析のみ。LSP 不要で完全動作 |
 | Type Impact Preview | 不要 | PsiSearchHelper の word index ベースの参照検索。LSP 不要で完全動作 |
 | Notebook 風 Worksheet (`.resnb`) | 不要 | セル評価は `RescriptReplExecutor`（rescript CLI + node）に委譲。LSP 不要で完全動作 |
+| JS Interop Risk Map | 不要 | FileTypeIndex + 行ベース・トークン分類器のみ。LSP 不要で完全動作 |
 | Type Info ツールウィンドウ | 必須 | `LSP hover` に依存。「LSP not available」プレースホルダーを表示 |
 | REPL ツールウィンドウ | 不要 | `rescript-tools` CLI に直接接続 |
 | Worksheet モード | 部分的 | コメント評価には ReScript runtime のみ必要。型注釈表示は LSP 必須 |
