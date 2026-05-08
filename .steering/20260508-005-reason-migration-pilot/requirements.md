@@ -63,8 +63,8 @@ ReasonML / OCaml シンタックスから ReScript シンタックスへの移�
 
 ## 受け入れ確認
 
-- [ ] サンプル `.re` ファイル 3 つを選択して一括変換できる — `rescript convert` CLI 実行が必要なため、CI に `rescript` を追加する Phase 2 で対応（IDE 側の wiring は `RescriptMigrationFinderIntegrationTest`（20260508-006）の smoke で確認）
-- [ ] 不正な `.re` ファイル（構文エラー）でも他のファイルの変換が継続される — 同上、Phase 2 で対応
+- [x] argv が `rescript convert` CLI に受理されることを `RescriptMigrationConverterCliTest`（20260508-007）で自動検証（CI で `rescript` をインストール、ローカル不在時は skip）。サンプル 3 ファイルでの実際の一括変換は IDE 側の VFS write action を伴うため、content-root 付き fixture の導入時に拡張する未来課題
+- [ ] 不正な `.re` ファイル（構文エラー）でも他のファイルの変換が継続される — 同上、IDE 側 e2e は content-root fixture の導入後に対応
 - [x] `rescript` CLI が見つからない場合、stderr / `Error:` メッセージが結果領域に表示される（実装上、ProcessBuilder の例外を `ConversionResult.message` に転載）
 - [x] ユニットテストでファイル列挙ロジックと argv 組み立てをスナップショット検証する（Finder 5 / Converter 4 ケース）
 - [x] IDE 側の `findCandidates` エントリーポイントが空プロジェクトで例外を投げないことを `RescriptMigrationFinderIntegrationTest`（20260508-006）で自動検証

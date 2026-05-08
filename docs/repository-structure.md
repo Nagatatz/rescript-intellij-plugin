@@ -128,10 +128,11 @@ src/test/kotlin/com/rescript/plugin/
 ├── lsp/                           # LSP 関連コンポーネントのテスト
 ├── ...                            # 各パッケージに対応するテストパッケージ
 ├── perf/                          # 純粋関数の smoke benchmark（collector / model / scanner / classifier）
+├── cli/                           # 外部 CLI 結合テスト（mmdc / graphviz dot / rescript convert、CLI 不在時は skip）
 └── wizard/templates/              # テンプレート依存バージョンのテスト
 ```
 
-テストは対象クラスと同じパッケージ構造に配置し、`<対象クラス名>Test.kt` と命名する。`perf/` だけは単一のプロダクションパッケージに紐付かず、複数モジュールの実行時間ガードを集約する役割を持つ。
+テストは対象クラスと同じパッケージ構造に配置し、`<対象クラス名>Test.kt` と命名する。`perf/` と `cli/` は単一のプロダクションパッケージに紐付かず、複数モジュールにまたがる実行時間ガード / 外部 CLI 結合検証を集約する役割を持つ。`cli/` のテストは `Assumptions.assumeTrue` で対応 CLI の可用性をゲートし、ローカル不在時は skip、CI（`ci.yml` の build ジョブで `mmdc` / `graphviz` / `rescript` をインストール）では実行される。
 
 ## 3. ドキュメント
 

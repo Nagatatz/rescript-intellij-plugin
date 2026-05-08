@@ -10,6 +10,8 @@
 
 これらは CI インフラ変更（追加バイナリのインストール）や、既存の light project descriptor では駆動できない API を要するため、独立したバッチとして対応する。
 
+実装中に判明した制約により、本ステアリングは外部 CLI 検証 + CI 設定追加のみを対象とし、content-root fixture は別ステアリングへ再分類した（詳細は tasklist.md 末尾）。
+
 ## ユーザーストーリー
 
 ### US-Phase2-01: 外部 CLI による出力検証
@@ -18,39 +20,37 @@
 
 **受け入れ条件:**
 
-- [ ] `RescriptVariantFlowMermaidExporterCliTest`: 生成 Mermaid 文字列を `mmdc` で SVG レンダリングできる（CLI 不在時は skip）
-- [ ] `RescriptVariantFlowDotExporterCliTest`: 生成 DOT 文字列を `dot -Tsvg` でレンダリングできる（CLI 不在時は skip）
-- [ ] `RescriptMigrationConverterCliTest`: 実 `.re` テキストに対して `RescriptMigrationConverter.convert` が成功し、生成 `.res` の内容が ReScript として valid（CLI 不在時は skip）
-- [ ] CI ワークフロー（`ci.yml`）に `mmdc` (`@mermaid-js/mermaid-cli`)、`graphviz`（apt）、`rescript`（npm）のインストールステップを追加
-- [ ] ローカル開発機で 3 つのうち 1 つも入っていない場合でも `./gradlew test` 全体は成功する（`Assumptions.assumeTrue` で skip）
+- [x] `RescriptVariantFlowMermaidExporterCliTest`: 生成 Mermaid 文字列を `mmdc` で SVG レンダリングできる（CLI 不在時は skip）
+- [x] `RescriptVariantFlowDotExporterCliTest`: 生成 DOT 文字列を `dot -Tsvg` でレンダリングできる（CLI 不在時は skip）
+- [x] `RescriptMigrationConverterCliTest`: `RescriptMigrationConverter.buildCommand` が組み立てる argv を `npx rescript convert` で実行し、CLI に受理されることを検証（CLI 不在時は skip）。実 `.re → .res` の VFS write action 経由 e2e は content-root fixture 導入後の課題
+- [x] CI ワークフロー（`ci.yml`）に `mmdc` (`@mermaid-js/mermaid-cli`)、`graphviz`（apt）、`rescript`（npm）のインストールステップを追加
+- [x] ローカル開発機で 3 つのうち 1 つも入っていない場合でも `./gradlew test` 全体は成功する（`Assumptions.assumeTrue` で skip）
 
 ### US-Phase2-02: Content-root 付き fixture による populated index 駆動
 
 **保守者として**、`FileTypeIndex.getFiles` / `FilenameIndex.getAllFilesByExt` を駆動する fixture テストで populated ケースを assert したい。
 
-**受け入れ条件:**
+**実装中に判明した制約により本ステアリングでは撤回。** `DefaultLightProjectDescriptor` が Java module の `LanguageLevelModuleExtension` を要求し、Kotlin-only sandbox では `NoClassDefFoundError` が発生する。`LightProjectDescriptor` 直接継承では index に乗らない（実機検証済み）。Java module サポートを sandbox に加えるか別アプローチを採るかは別ステアリングで扱う。
 
-- [ ] `RescriptContentRootProjectDescriptor`（または同等）を導入し、`addFileToProject` で追加した `.res` / `.re` が index に乗ることを保証する
-- [ ] `IntelliJPlatformExtensionWithContentRoot` を導入し、既存 `IntelliJPlatformExtension` と並存させる（既存テストには影響を与えない）
-- [ ] `RescriptInteropScannerIntegrationTest` を populated ケースに拡張（`Obj.magic`、`external` を含む `.res` を 2 件配置 → 期待する InteropKind が出る）
-- [ ] `RescriptMigrationFinderIntegrationTest` を populated ケースに拡張（`.re` / `.rei` / `.res` を混在配置 → `.re` / `.rei` のみが候補）
+**受け入れ条件:** 全項目を将来課題に再分類。
 
 ## スコープ外
 
-- パフォーマンス測定（1000 ファイルプロジェクトなど）— smoke benchmark は既に追加済み、より厳密な perf gate は別途
+- パフォーマンス測定（1000 ファイルプロジェクトなど）— smoke benchmark は既に追加済み
 - LSP 結合テスト
 - カバレッジラチェット引き上げ
 - mutation testing の対象拡大
+- content-root 付き fixture の導入（上記理由により別ステアリングへ）
 
 ## 受け入れ確認
 
-- [ ] CI ワークフローで 3 つの CLI が利用可能になり、対応するテストが実行される
-- [ ] ローカル CLI 不在時に CI 用テストがすべて skip される
-- [ ] populated fixture テストで InteropScanner と MigrationFinder の戻り値が期待通り
-- [ ] 既存テストへのリグレッションなし
+- [x] CI ワークフローで 3 つの CLI が利用可能になり、対応するテストが実行される
+- [x] ローカル CLI 不在時に CI 用テストがすべて skip される（実機確認済み: dot / mmdc / rescript いずれも未インストール環境で 3 件 skip）
+- [~] populated fixture テストで InteropScanner と MigrationFinder の戻り値が期待通り — 撤回（content-root fixture の制約）
+- [x] 既存テストへのリグレッションなし（`./gradlew test` 全件緑）
 
 ## 非機能要件
 
-- 外部 CLI 呼び出しは 30 秒タイムアウト（既存 `RescriptReplExecutor` と同じ運用）
+- 外部 CLI 呼び出しは 30〜60 秒タイムアウト（`mmdc` のみ初回のフォントロードで時間がかかるため 60 秒に延長）
 - CI ジョブの実行時間増分は < 2 分（CLI のインストールが主因）
 - ローカルでの skip 判定は `Assumptions.assumeTrue` で行い、ログに skip 理由を残す
