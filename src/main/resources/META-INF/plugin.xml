@@ -990,6 +990,10 @@
         <toolWindow id="ReScript Type Impact" anchor="right" icon="AllIcons.Actions.Find"
                 factoryClass="com.rescript.plugin.impact.RescriptTypeImpactToolWindowFactory"/>
 
+        <!-- JS Interop Risk Map Tool Window (project-wide %raw / external / Obj.magic / @bs.* sites) -->
+        <toolWindow id="ReScript Interop Risk" anchor="right" icon="AllIcons.General.Warning"
+                factoryClass="com.rescript.plugin.interop.RescriptInteropRiskToolWindowFactory"/>
+
         <!-- Auto Import options in Settings > Editor > General > Auto Import -->
         <autoImportOptionsProvider
                 instance="com.rescript.plugin.imports.RescriptAutoImportOptionsProvider"/>
@@ -1347,6 +1351,12 @@
                 class="com.rescript.plugin.impact.RescriptTypeImpactAction"
                 text="Show Type Impact"
                 description="Open the ReScript type impact preview tool window">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+        <action id="ReScript.ShowInteropRiskMap"
+                class="com.rescript.plugin.interop.RescriptInteropRiskAction"
+                text="Show JS Interop Risk Map"
+                description="Open the ReScript JS interop risk map tool window">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
