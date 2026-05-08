@@ -10,8 +10,8 @@ class RescriptSettingsSchemaTest {
         val fields = RescriptSettingsSchema.entries.filterIsInstance<SchemaEntry.Field<*>>()
         val separators = RescriptSettingsSchema.entries.filter { it === SchemaEntry.Separator }
 
-        assertEquals(19, fields.size, "should expose all 19 persisted settings")
-        assertEquals(5, separators.size, "should retain the 5 group separators from the legacy layout")
+        assertEquals(20, fields.size, "should expose all 20 persisted settings")
+        assertEquals(6, separators.size, "should retain the legacy group separators plus packageRoots boundary")
     }
 
     @Test
@@ -43,9 +43,10 @@ class RescriptSettingsSchemaTest {
     }
 
     @Test
-    fun `layout begins with the LSP path and ends with the log level`() {
+    fun `layout begins with package roots and ends with the log level`() {
         val fields = RescriptSettingsSchema.entries.filterIsInstance<SchemaEntry.Field<*>>()
-        assertEquals("lspServerPath", fields.first().descriptor.id)
+        assertEquals("packageRoots", fields.first().descriptor.id)
+        assertEquals("lspServerPath", fields[1].descriptor.id)
         assertEquals("logLevel", fields.last().descriptor.id)
     }
 

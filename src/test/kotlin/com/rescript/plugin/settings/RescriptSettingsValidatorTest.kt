@@ -164,6 +164,62 @@ class RescriptSettingsValidatorTest {
         RescriptSettingsValidator.validateRuntimePath(dir.absolutePath)
     }
 
+    // --- Package roots ---
+
+    @Test
+    fun `validatePackageRoots accepts empty list`() {
+        val issues = RescriptSettingsValidator.validatePackageRoots(tempDir, emptyList())
+        assertTrue(issues.isEmpty())
+    }
+
+    @Test
+    fun `validatePackageRoots accepts entries that are valid package roots`() {
+        val pkg = tempDir.resolve("packages/core")
+        pkg.toFile().mkdirs()
+        pkg.resolve("rescript.json").toFile().writeText("{}")
+
+        val issues = RescriptSettingsValidator.validatePackageRoots(tempDir, listOf("packages/core"))
+
+        assertTrue(issues.isEmpty())
+    }
+
+    @Test
+    fun `validatePackageRoots reports missing directory`() {
+        val issues =
+            RescriptSettingsValidator.validatePackageRoots(tempDir, listOf("packages/missing"))
+
+        assertEquals(1, issues.size)
+        assertEquals("packages/missing", issues[0].entry)
+        assertTrue(issues[0].message.contains("does not exist"))
+    }
+
+    @Test
+    fun `validatePackageRoots reports directory without config file`() {
+        val pkg = tempDir.resolve("packages/empty")
+        pkg.toFile().mkdirs()
+
+        val issues =
+            RescriptSettingsValidator.validatePackageRoots(tempDir, listOf("packages/empty"))
+
+        assertEquals(1, issues.size)
+        assertTrue(issues[0].message.contains("rescript.json or bsconfig.json"))
+    }
+
+    @Test
+    fun `validatePackageRoots reports path traversal escape`() {
+        val issues =
+            RescriptSettingsValidator.validatePackageRoots(tempDir, listOf("../../etc"))
+
+        assertEquals(1, issues.size)
+        assertTrue(issues[0].message.contains("escapes the project base"))
+    }
+
+    @Test
+    fun `validatePackageRoots returns empty for null base`() {
+        val issues = RescriptSettingsValidator.validatePackageRoots(null, listOf("packages/core"))
+        assertTrue(issues.isEmpty())
+    }
+
     private fun makeFile(
         name: String,
         executable: Boolean,

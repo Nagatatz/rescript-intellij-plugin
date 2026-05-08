@@ -4,6 +4,8 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.ui.components.JBScrollPane
+import com.intellij.ui.components.JBTextArea
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JCheckBox
 import javax.swing.JComponent
@@ -213,6 +215,54 @@ class IntSpinnerDescriptor(
 
             override fun setValue(value: Int) {
                 spinner.value = value
+            }
+        }
+    }
+}
+
+/**
+ * Multi-line text area whose persisted value is a list of newline-separated
+ * non-blank entries (typically relative file paths).
+ *
+ * Empty/whitespace lines are stripped on read and write, so users can format
+ * the input freely and the underlying list stays clean.
+ *
+ * @param id stable identifier (matches the persisted field name)
+ * @param rows visible row count for the text area
+ * @param getter reads the current persisted list of entries
+ * @param setter writes a new list of entries
+ */
+class StringListDescriptor(
+    override val id: String,
+    private val rows: Int,
+    private val getter: (RescriptProjectSettings) -> List<String>,
+    private val setter: (RescriptProjectSettings, List<String>) -> Unit,
+) : RescriptSettingDescriptor<List<String>>() {
+    override fun currentValue(settings: RescriptProjectSettings): List<String> = getter(settings)
+
+    override fun applyValue(
+        settings: RescriptProjectSettings,
+        value: List<String>,
+    ) = setter(settings, value)
+
+    override fun createComponent(project: Project): SettingComponent<List<String>> {
+        val area =
+            JBTextArea(rows, 32).apply {
+                lineWrap = false
+            }
+        val scroll = JBScrollPane(area)
+        return object : SettingComponent<List<String>> {
+            override val swing: JComponent = scroll
+
+            override fun getValue(): List<String> =
+                area.text
+                    .lineSequence()
+                    .map { it.trim() }
+                    .filter { it.isNotEmpty() }
+                    .toList()
+
+            override fun setValue(value: List<String>) {
+                area.text = value.joinToString("\n")
             }
         }
     }

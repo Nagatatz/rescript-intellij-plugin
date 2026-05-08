@@ -45,6 +45,7 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         var inlayHintsMaxLength: Int = 25
         var compileStatusEnabled: Boolean = true
         var reanalyzeServerEnabled: Boolean = true
+        var packageRoots: MutableList<String> = mutableListOf()
     }
 
     override fun getState(): State = state
@@ -195,6 +196,19 @@ class RescriptProjectSettings : PersistentStateComponent<RescriptProjectSettings
         get() = state.reanalyzeServerEnabled
         set(value) {
             state.reanalyzeServerEnabled = value
+        }
+
+    /**
+     * Manual override list for ReScript package roots, expressed as paths
+     * relative to the project base directory (e.g., `packages/core`).
+     *
+     * When non-empty, `RescriptWorkspaceDiscovery` skips auto-detection and
+     * uses these entries verbatim. An empty list activates auto-detection.
+     */
+    var packageRoots: List<String>
+        get() = state.packageRoots.toList()
+        set(value) {
+            state.packageRoots = value.toMutableList()
         }
 
     companion object {

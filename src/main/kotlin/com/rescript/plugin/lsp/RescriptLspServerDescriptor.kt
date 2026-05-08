@@ -154,11 +154,26 @@ class RescriptLspServerDescriptor(
 
     private fun findLanguageServer(): String? =
         findInProjectNodeModules()
+            ?: findInDetectedPackageRoots()
             ?: findInParentNodeModules()
             ?: findOnPath()
 
     /** Look in the project's own node_modules. */
     private fun findInProjectNodeModules(): String? = project.basePath?.let { findInNodeModules(Path.of(it)) }
+
+    /**
+     * Look inside every workspace package root discovered by
+     * [RescriptWorkspaceDiscovery]. Required for pnpm monorepos where the LSP
+     * binary lives under `packages/<name>/node_modules/.bin/` and is never
+     * hoisted to the workspace root.
+     */
+    private fun findInDetectedPackageRoots(): String? {
+        val layout = RescriptWorkspaceDiscovery.discover(project)
+        for (root in layout.packageRoots) {
+            findInNodeModules(root)?.let { return it }
+        }
+        return null
+    }
 
     /** Walk up directories for monorepo layouts. */
     private fun findInParentNodeModules(): String? {
