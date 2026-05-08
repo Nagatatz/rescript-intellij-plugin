@@ -1051,6 +1051,56 @@ Up to 200 references are displayed per type. Beyond that, the truncation note ap
 
 The impact preview is purely syntactic, so it works without LSP. The token-based classifier cannot follow aliases or `open` statements, so treat the kind labels as a quick guide rather than a precise semantic answer.
 
+## Notebook-Style Worksheet
+
+{bdg-success}`Native`
+
+A cell-based editor for `.resnb` files that sits between the existing whole-file `.resw` Worksheet and the line-by-line REPL. Each cell holds a snippet of ReScript code and the captured output of its last run, so explorations can be saved and re-opened with their results intact, and shared as Markdown for PR descriptions or design docs.
+
+**Open:** Create or open any file with the `.resnb` extension. The IDE substitutes a cell-based editor for the default JSON view.
+
+### How It Works
+
+A `.resnb` file is plain JSON of the form:
+
+```json
+{
+  "version": 1,
+  "cells": [
+    {"code": "let x = 41", "lastOutput": ""},
+    {"code": "Js.log(x + 1)", "lastOutput": "42"}
+  ]
+}
+```
+
+The custom `FileEditorProvider` parses this JSON into a `NotebookDocument`, hands it to `RescriptNotebookPanel`, and writes any change back through the in-memory document so the standard save lifecycle takes care of persistence. Cells run through the same `RescriptReplExecutor` used by the REPL tool window — each Run press wraps the cell's code in a temporary `.res` file, compiles it via `npx rescript build`, and executes the resulting JavaScript with `node`.
+
+Invalid JSON is reported with a small warning header; the rest of the editor falls back to an empty notebook so users do not lose access to the file.
+
+### Cell UI
+
+- **Top:** A `Cell` label plus three icon buttons — Move Up, Move Down, Delete.
+- **Code area:** A monospaced multi-line editor (no syntax highlighting yet — this is a Phase 1 trade-off).
+- **Run button + Output area:** Pressing Run disables the button, evaluates the cell on a pooled thread, and renders the captured stdout/stderr in the output area. Errors render in red.
+
+### Toolbar
+
+- **Add Cell** — Append a new empty cell.
+- **Run All** — Trigger every cell's Run action in order.
+- **Copy as Markdown** — Render the notebook as Markdown (`## Cell N` headings + `rescript` code fences + output fences) and place it on the clipboard for easy sharing.
+
+### Use Cases
+
+- **Investigations & POCs** — Keep code and observed output side by side instead of scrolling REPL history.
+- **Bug reports & PR descriptions** — Copy a multi-cell exploration as Markdown straight into a GitHub issue.
+- **Teaching & onboarding** — Author tutorials where the expected output is preserved alongside each example.
+
+### Limitations (Phase 1)
+
+- Cells are evaluated independently — the `let` from one cell is not visible in the next. State sharing is on the Phase 2 list.
+- No syntax highlighting / completion in the cell editor (these would require wiring the cell into the LSP). Authors who want live diagnostics can still keep a regular `.res` file open beside the notebook.
+- No rich output (HTML, images). The output area is plain monospaced text.
+
 ## PPX Expansion View
 
 {bdg-primary}`LSP Required`

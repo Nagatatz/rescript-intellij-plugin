@@ -538,6 +538,8 @@ flowchart TD
 | `<action>` | `RescriptVariantFlowAction` | Tools > Show Switch Flow Diagram | 実装済み |
 | `com.intellij.toolWindow` | `RescriptTypeImpactToolWindowFactory` | Type Impact Preview ToolWindow（カーソル位置の type に対するプロジェクト全体の参照表示） | 実装済み |
 | `<action>` | `RescriptTypeImpactAction` | Tools > Show Type Impact | 実装済み |
+| `com.intellij.fileType` | `RescriptNotebookFileType` | Notebook 風 Worksheet ファイル形式（`.resnb`） | 実装済み |
+| `com.intellij.fileEditorProvider` | `RescriptNotebookFileEditorProvider` | Notebook ファイル用カスタム FileEditor（cell-based UI） | 実装済み |
 
 ## 4. ファイル構成と依存関係
 
