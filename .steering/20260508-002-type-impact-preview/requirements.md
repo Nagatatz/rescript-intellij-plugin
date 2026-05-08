@@ -32,7 +32,7 @@ ReScript はノミナルな variant・record・polymorphic variant を多用す�
 
 - [x] 参照検索は IntelliJ Platform の `PsiSearchHelper.processElementsWithWord`（word index）を活用し、テキスト全文検索を避ける
 - [x] 200 件のソフトキャップで panel 描画を保護する
-- [ ] 1000 ファイルプロジェクトで 500ms 以内に結果が返る — マージ後にユーザー側で手動検証
+- [ ] 1000 ファイルプロジェクトで 500ms 以内に結果が返る — `IntelliJPlatformExtension` の light project は content root を持たず PsiSearchHelper の populated ケースを駆動できないため、Phase 2 で content-root 付き fixture を導入する案あり（pure helper のスループットは `RescriptInteropClassifierPerfTest` で間接的に確認）
 
 **Phase 2 以降:**
 - LSP `textDocument/references` フォールバック（精度向上のため）
@@ -58,10 +58,10 @@ ReScript はノミナルな variant・record・polymorphic variant を多用す�
 
 ## 受け入れ確認
 
-- [x] 5 種類の型定義（基本 alias、record、variant、polymorphic variant、abstract type）に対して PSI Resolver が動作する（Resolver は PSI fixture 経由のため Panel 経由 e2e 検証）
+- [x] 5 種類の型定義（基本 alias、record、variant、polymorphic variant、abstract type）に対して PSI Resolver が動作することを `RescriptTypeTargetResolverIntegrationTest`（20260508-006）で自動検証
 - [x] 参照ジャンプが該当行を開く（Panel の double-click navigation 実装で対応）
 - [x] LSP 未起動時、word-index ベースの検索で結果が返る
-- [ ] 1000 ファイルプロジェクトで 500ms 以内 — マージ後手動検証
+- [ ] 1000 ファイルプロジェクトで 500ms 以内 — content-root 付き fixture が必要なため Phase 2 で対応
 - [x] ユニットテストで参照分類ヒューリスティック（8 ケース）と lineAndPreview helper（5 ケース）の判定をスナップショット検証する
 
 ## 非機能要件

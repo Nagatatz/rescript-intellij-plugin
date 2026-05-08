@@ -58,10 +58,11 @@ Type Narrowing Visualizer (#2) で各 `switch` arm の絞り込み型は可視�
 
 - [x] 5 種類の variant（`option`, `result`, polymorphic variant, custom variant, list）が `RescriptVariantFlowModelTest` および収集元の `RescriptSwitchArmCollectorTest` でカバーされる
 - [x] ネスト 2 段階の switch が sub-graph として展開される（`nested switch becomes a sub-graph` テストで検証）
-- [ ] Mermaid コピー結果を Mermaid Live で開いて同等の図が生成される — マージ後にユーザー側で手動検証
-- [ ] DOT 出力が graphviz `dot` でレンダリングできる — マージ後にユーザー側で手動検証
+- [ ] Mermaid コピー結果を Mermaid Live で開いて同等の図が生成される — Phase 2 で `mmdc` (Mermaid CLI) を CI に追加して構文検証する案あり
+- [ ] DOT 出力が graphviz `dot` でレンダリングできる — Phase 2 で `dot -Tsvg` を CI に追加して構文検証する案あり
 - [x] LSP の有無に関わらず動作する（型情報を使わない、構文ベース）。実装は `RescriptSwitchArmCollector`（lexer ベース）のみに依存
 - [x] ユニットテストで Mermaid / DOT シリアライザの出力をスナップショット検証する（4 件 + 3 件）
+- [x] 大規模ファイル（5000 行ネスト switch）のレンダリングが 1 秒以内であることを `RescriptVariantFlowModelPerfTest`（20260508-006）で自動検証
 
 ## 非機能要件
 

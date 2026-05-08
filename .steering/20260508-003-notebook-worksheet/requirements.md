@@ -71,9 +71,9 @@ ReScript で「コードを試行錯誤する」用途では、現状 2 つの�
 
 ## 受け入れ確認
 
-- [ ] 空 Notebook を開いて 1 セル追加・評価・保存・再オープンが動作する — マージ後にユーザー側で手動検証
-- [ ] 3 セルの Notebook を Markdown エクスポートして外部に貼れる — マージ後にユーザー側で手動検証（Exporter のスナップショットテストはユニットテストでカバー）
-- [x] 不正な JSON ファイルを開いてもクラッシュしない（FileEditor の fallback メッセージ + Serializer の例外パスをユニットテスト）
+- [x] 空 Notebook を開いて 1 セル自動追加・round-trip が動作することを `RescriptNotebookFileEditorIntegrationTest`（20260508-006）で自動検証（評価部分は外部プロセス依存のため手動検証のまま）
+- [x] 3 セル相当の Notebook を Markdown エクスポートできる（Exporter のスナップショットテスト + integration test の round-trip でカバー）
+- [x] 不正な JSON ファイルを開いてもクラッシュしないことを `RescriptNotebookFileEditorIntegrationTest` で自動検証
 - [x] ユニットテストで JSON シリアライザ・パーサと Markdown エクスポータをスナップショット検証する（Serializer 8 / Markdown 4 ケース）
 
 ## 非機能要件

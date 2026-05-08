@@ -127,10 +127,11 @@ src/test/kotlin/com/rescript/plugin/
 ├── highlight/                     # ハイライト、ブレースマッチングのテスト
 ├── lsp/                           # LSP 関連コンポーネントのテスト
 ├── ...                            # 各パッケージに対応するテストパッケージ
+├── perf/                          # 純粋関数の smoke benchmark（collector / model / scanner / classifier）
 └── wizard/templates/              # テンプレート依存バージョンのテスト
 ```
 
-テストは対象クラスと同じパッケージ構造に配置し、`<対象クラス名>Test.kt` と命名する。
+テストは対象クラスと同じパッケージ構造に配置し、`<対象クラス名>Test.kt` と命名する。`perf/` だけは単一のプロダクションパッケージに紐付かず、複数モジュールの実行時間ガードを集約する役割を持つ。
 
 ## 3. ドキュメント
 

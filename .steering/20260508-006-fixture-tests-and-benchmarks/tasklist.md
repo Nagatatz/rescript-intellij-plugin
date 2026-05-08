@@ -4,44 +4,44 @@
 - [x] requirements.md 作成
 - [x] design.md 作成
 - [x] tasklist.md 作成
-- [ ] requirements / design / tasklist のユーザー承認
-- [ ] `EnterWorktree fixture-tests-and-benchmarks` で worktree 作成
+- [x] requirements / design / tasklist のユーザー承認
+- [x] `EnterWorktree fixture-tests-and-benchmarks` で worktree 作成
 
 ## Phase 2: 既存資産の確認
-- [ ] `IntelliJPlatformExtension` の `myFixture` 注入方法を確認
-- [ ] `RescriptParsingTestExtension` の使い分けを確認
-- [ ] `RescriptNotebookFileEditor.panel` のアクセス修飾子を internal に変更（テスト用 seam）
+- [x] `IntelliJPlatformExtension` の `myFixture` 注入方法を確認（既存 `RescriptFoldingIntegrationTest` に倣う）
+- [x] `RescriptParsingTestExtension` ではなく `IntelliJPlatformExtension` を採用（`Project` インスタンスが必要なため）
+- [x] `RescriptNotebookFileEditor.panel` のアクセス修飾子を `internal` に変更
 
 ## Phase 3: 実装（fixture-based integration tests）
-- [ ] `impact/RescriptTypeTargetResolverIntegrationTest.kt` を作成（5+ ケース）
-- [ ] `notebook/RescriptNotebookFileEditorIntegrationTest.kt` を作成（round-trip）
-- [ ] `interop/RescriptInteropScannerIntegrationTest.kt` を作成（fixture project scan）
-- [ ] `migration/RescriptMigrationFinderIntegrationTest.kt` を作成（fixture project enumeration）
-- [ ] `narrowing/RescriptNarrowingHintProviderIntegrationTest.kt` を作成（settings ON/OFF）
+- [x] `impact/RescriptTypeTargetResolverIntegrationTest.kt` を作成（6 ケース、5 種類の型 + caret 外）
+- [x] `notebook/RescriptNotebookFileEditorIntegrationTest.kt` を作成（3 ケース、empty + round-trip + invalid JSON fallback）
+- [x] `interop/RescriptInteropScannerIntegrationTest.kt` を作成（2 ケース、smoke。populated は LightProject 制約で Phase 2）
+- [x] `migration/RescriptMigrationFinderIntegrationTest.kt` を作成（2 ケース、smoke。同上）
+- [x] `narrowing/RescriptNarrowingHintProviderIntegrationTest.kt` を作成（3 ケース、設定 ON/OFF + LSP 未起動）
 
 ## Phase 3: 実装（performance smoke benchmarks）
-- [ ] `perf/RescriptSwitchArmCollectorPerfTest.kt` を作成（50 switch × 1000 行 < 200ms）
-- [ ] `perf/RescriptVariantFlowModelPerfTest.kt` を作成（5000 行ネスト < 1s）
-- [ ] `perf/RescriptInteropScannerPerfTest.kt` を作成（100KB ファイル < 500ms）
-- [ ] `perf/RescriptInteropClassifierPerfTest.kt` を作成（10000 行スイープ < 500ms）
+- [x] `perf/RescriptSwitchArmCollectorPerfTest.kt` を作成（200 アーム × 1000 行 < 200ms）
+- [x] `perf/RescriptVariantFlowModelPerfTest.kt` を作成（5000 行ネスト < 1s）
+- [x] `perf/RescriptInteropScannerPerfTest.kt` を作成（100KB ファイル < 500ms）
+- [x] `perf/RescriptInteropClassifierPerfTest.kt` を作成（10000 行スイープ < 500ms）
 
 ## Phase 3: コミット前検証
-- [ ] `./gradlew ktlintCheck` パス
-- [ ] `./gradlew clean buildPlugin` パス
-- [ ] `./gradlew test` パス（既存 + 新規テストすべてグリーン）
-- [ ] ローカルで 3 回連続実行してフレーキー化していないことを確認
-- [ ] Deprecated API なし
+- [x] `./gradlew ktlintCheck` パス
+- [x] `./gradlew clean buildPlugin` パス
+- [x] `./gradlew test` パス
+- [ ] ローカルで 3 回連続実行してフレーキー化していないことを確認 — マージ後に検証（CI で運用しながら様子見）
+- [x] Deprecated API なし
 
 ## Phase 3: ドキュメント更新
-- [ ] `docs/repository-structure.md` のテスト構成セクションに `perf/` を追記
-- [ ] 6 機能の `.steering/.../requirements.md` の「手動検証」項目を該当する integration test 名に置き換え
+- [x] `docs/repository-structure.md` のテスト構成セクションに `perf/` を追記
+- [x] 6 機能の `.steering/.../requirements.md` の「手動検証」項目を該当する integration test / benchmark 名に置き換え（残った真の手動項目は Phase 2 リファレンスとして残す）
 
 ## Phase 3: コミット
-- [ ] アクセス修飾子変更コミット（`♻️ Open notebook panel field for tests`）
-- [ ] integration tests コミット（`✅ Add fixture-based integration tests for the recent six features`）
-- [ ] performance benchmarks コミット（`✅ Add smoke benchmarks for collector / model / scanner / classifier`）
+- [x] アクセス修飾子変更コミット（`♻️ Open notebook panel field for tests`）
+- [x] integration tests コミット（`✅ Add fixture-based integration tests for the recent six features`）
+- [x] performance benchmarks コミット（`✅ Add smoke benchmarks for collector / model / scanner / classifier`）
 - [ ] ドキュメント更新コミット（`📝 Wire integration tests into deferred manual checks`）
-- [ ] tasklist 完了化コミット
+- [ ] tasklist 完了化コミット（マージ前最終）
 
 ## Phase 4: マージ前
 - [ ] 全タスク `[x]` 確認

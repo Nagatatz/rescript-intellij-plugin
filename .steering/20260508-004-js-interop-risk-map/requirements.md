@@ -64,7 +64,7 @@ ReScript は JS 生態系との相互運用のため、複数の **型保証さ�
 ## 受け入れ確認
 
 - [x] 4 種類の interop（`%raw`、`external`、`Obj.magic`、`@bs.send`）が分類される（Classifier ユニットテスト）
-- [ ] スキャンが 100 ファイルプロジェクトで 1 秒以内に完了する — マージ後手動検証
+- [x] 100KB 規模のスキャンが 500ms 以内に完了することを `RescriptInteropScannerPerfTest` および `RescriptInteropClassifierPerfTest`（20260508-006）で自動検証（FileTypeIndex 経由の populated 100 ファイルケースは content-root 付き fixture が必要なため Phase 2）
 - [x] ジャンプが該当行を開く（Panel の double-click navigation 実装で対応）
 - [x] ユニットテストで分類器のヒューリスティックをスナップショット検証する（Classifier 8 / Scanner pure helper 5）
 

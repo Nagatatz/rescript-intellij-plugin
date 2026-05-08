@@ -29,8 +29,8 @@
 - [x] `./gradlew test` パス（新規テスト含む全てグリーン）
 - [x] ビルド警告が増加していないことを確認（既存の RescriptLsp4jClient 警告のみ）
 - [x] Deprecated API 利用がないことを確認（新規 import を確認）
-- [ ] LSP 未起動時にヒントが出ないことを手動確認（`./gradlew runIde`）— マージ後にユーザー側で確認予定。HintProviderTest "skips arms when LSP returns null" でロジックは検証済み
-- [ ] 1000 行サンプルでの体感遅延がないことを手動確認 — マージ後にユーザー側で確認予定。50-arm 以上のソフトキャップ実装で最悪ケースを抑止
+- [x] LSP 未起動時にヒントが出ないことを `RescriptNarrowingHintProviderIntegrationTest`（20260508-006）で自動検証
+- [x] 大規模ファイルでの遅延がないことを `RescriptSwitchArmCollectorPerfTest`（20260508-006、200 アーム × 1000 行 < 200ms）で自動検証
 
 ## Phase 3: ドキュメント更新
 - [x] `CLAUDE.md` レイヤー 2: LSP 統合に「Type Narrowing Visualizer」エントリを追加
