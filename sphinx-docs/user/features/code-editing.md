@@ -387,6 +387,30 @@ switch option {
 :::
 ::::
 
+### Add Missing Switch Arms
+
+Fill in the variant constructors that are not yet covered by an existing `switch`. Place the caret on the `switch` keyword (or anywhere inside the scrutinee) of a partial switch and press `Alt+Enter`, then choose **Add missing switch arms**. The intention queries LSP hover for the scrutinee's type, computes the set difference between the variant's constructors and the arms already present, and inserts a skeleton arm for each missing constructor just before the closing `}`. The intention does not appear when the switch already contains a wildcard `_` arm or a bare lowercase binding pattern, because such arms make the switch exhaustive. Or-patterns (`| Foo | Bar => ...`) count both constructors as covered. In nested switches the innermost one containing the caret is targeted.
+
+::::{tab-set}
+:::{tab-item} Before
+```rescript
+let describe = (x: option<int>) =>
+  switch x {
+  | Some(v) => Belt.Int.toString(v)
+  }
+```
+:::
+:::{tab-item} After
+```rescript
+let describe = (x: option<int>) =>
+  switch x {
+  | Some(v) => Belt.Int.toString(v)
+  | None => todo
+  }
+```
+:::
+::::
+
 ### Convert to Labeled Arguments
 
 Convert positional function arguments to labeled arguments. Place the caret on a function call and press `Alt+Enter`.
