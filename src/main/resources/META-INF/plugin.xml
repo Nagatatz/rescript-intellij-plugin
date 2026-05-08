@@ -1111,6 +1111,14 @@
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
 
+        <!-- Intention: Add missing switch arms (#10) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptAddMissingSwitchArmsIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
         <!-- Intention: Convert to labeled arguments (#98) -->
         <intentionAction>
             <language>ReScript</language>
