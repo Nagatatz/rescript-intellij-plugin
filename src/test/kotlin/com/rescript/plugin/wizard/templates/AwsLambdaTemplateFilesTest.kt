@@ -135,4 +135,59 @@ class AwsLambdaTemplateFilesTest {
             "Deploy section must not mention the legacy Node.js 20 runtime",
         )
     }
+
+    @Test
+    fun `package json declares dev and start scripts pointing at Local res`() {
+        val pkg = AwsLambdaTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"dev\": \"node --watch src/Local.res.mjs\""))
+        assertTrue(pkg.contains("\"start\": \"node src/Local.res.mjs\""))
+    }
+
+    @Test
+    fun `hono node-server is a devDependency, not a runtime dependency`() {
+        val pkg = AwsLambdaTemplateFiles.generate(ctx)["package.json"]!!
+        // devDependencies entry must be present so `npm i` installs it for local dev
+        assertTrue(pkg.contains("\"@hono/node-server\": \"${TemplateVersions.HONO_NODE_SERVER}\""))
+        // Must not appear in `dependencies` block — keeps the esbuild Lambda
+        // bundle from accidentally pulling in the Node-only HTTP server.
+        val dependenciesBlock = pkg.substringAfter("\"dependencies\"").substringBefore("\"devDependencies\"")
+        assertFalse(
+            dependenciesBlock.contains("@hono/node-server"),
+            "@hono/node-server must live under devDependencies only",
+        )
+    }
+
+    @Test
+    fun `ships Local res entry that starts the Hono app on Node`() {
+        val files = AwsLambdaTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/Local.res"))
+        val local = files["src/Local.res"]!!
+        assertTrue(local.contains("Server.app"))
+        assertTrue(local.contains("HonoNodeServer.serve"))
+    }
+
+    @Test
+    fun `ships HonoNodeServer bindings module`() {
+        val files = AwsLambdaTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/HonoNodeServer.res"))
+        val bindings = files["src/HonoNodeServer.res"]!!
+        assertTrue(bindings.contains("@hono/node-server"))
+        assertTrue(bindings.contains("serve"))
+    }
+
+    @Test
+    fun `README has a Local development section that documents the two-terminal flow`() {
+        val readme = AwsLambdaTemplateFiles.generate(ctx)["README.md"]!!
+        assertTrue(readme.contains("## Local development"))
+        // Both watch loops must be advertised so users know to run them in parallel.
+        assertTrue(readme.contains("rescript -w") || readme.contains("res:dev"))
+        assertTrue(readme.contains("node --watch") || readme.contains("npm run dev") || readme.contains("pnpm dev"))
+    }
+
+    @Test
+    fun `Server res still exports the Lambda handler so deploy is unaffected`() {
+        val server = AwsLambdaTemplateFiles.generate(ctx)["src/Server.res"]!!
+        assertTrue(server.contains("HonoLambda.handle"))
+        assertTrue(server.contains("let handler"))
+    }
 }
