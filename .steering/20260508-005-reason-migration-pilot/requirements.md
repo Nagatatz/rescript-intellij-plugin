@@ -63,8 +63,9 @@ ReasonML / OCaml シンタックスから ReScript シンタックスへの移�
 
 ## 受け入れ確認
 
-- [x] argv が `rescript convert` CLI に受理されることを `RescriptMigrationConverterCliTest`（20260508-007）で自動検証（CI で `rescript` をインストール、ローカル不在時は skip）。サンプル 3 ファイルでの実際の一括変換は IDE 側の VFS write action を伴うため、content-root 付き fixture の導入時に拡張する未来課題
-- [ ] 不正な `.re` ファイル（構文エラー）でも他のファイルの変換が継続される — 同上、IDE 側 e2e は content-root fixture の導入後に対応
+- [x] argv が `rescript convert` CLI に受理されることを `RescriptMigrationConverterCliTest`（20260508-007）で自動検証（CI で `rescript` をインストール、ローカル不在時は skip）
+- [x] VFS write action 経由の `.re → .res` リネーム + 内容書き換えを `RescriptMigrationConverterE2eTest`（20260508-008、heavy fixture + CLI gated）で自動検証
+- [ ] 不正な `.re` ファイル（構文エラー）でも他のファイルの変換が継続される — `convert` の実装は単一ファイル単位で例外を捕捉する設計（`RescriptMigrationConverterTest` の argv テストでカバー済み）。複数ファイルのバッチ実行ループは Panel 側にあり、ループ中の継続性は IDE 統合の振る舞いとして手動確認に留める
 - [x] `rescript` CLI が見つからない場合、stderr / `Error:` メッセージが結果領域に表示される（実装上、ProcessBuilder の例外を `ConversionResult.message` に転載）
 - [x] ユニットテストでファイル列挙ロジックと argv 組み立てをスナップショット検証する（Finder 5 / Converter 4 ケース）
 - [x] IDE 側の `findCandidates` エントリーポイントが空プロジェクトで例外を投げないことを `RescriptMigrationFinderIntegrationTest`（20260508-006）で自動検証

@@ -56,3 +56,5 @@
 ## 撤回した作業（メモ）
 
 content-root fixture の追加は当初 Phase 2 のスコープに入っていたが、`DefaultLightProjectDescriptor` が `IdeaTestUtil.getMockJdk17` 経由で `LanguageLevelModuleExtension` を要求し、Kotlin-only sandbox では `NoClassDefFoundError` が発生する制約に遭遇した。`LightProjectDescriptor` 単独では index に乗らない（実機で確認）。Java module サポートを追加するか、または別アプローチ（実プロジェクトを参照する heavy fixture）を採るかは、より大きな設計変更になるため別ステアリングで対応する。
+
+**追補（20260508-008 で再挑戦した結果）:** heavy fixture（`IdeaTestFixtureFactory.createFixtureBuilder(name, path, false)`）による content root 付きプロジェクトを試したところ、ファイルは実 file system に書かれ file type も認識されるが、`addFileToProject` で追加したファイルが project module に bind されず `FileTypeIndex.getFiles(...).projectScope` が空のままだった（`inProjectScope=false` を実機ログで確認）。これは Java module による source root の自動構成が無いためで、populated index を駆動するには Java module 依存追加が引き続き必要。20260508-008 では populated index test は plugin 責務外（IntelliJ Platform の挙動）と再分類し、heavy fixture は VFS write action を要する e2e テスト（`RescriptMigrationConverterE2eTest`）に活用した。
