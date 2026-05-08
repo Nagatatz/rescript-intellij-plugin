@@ -94,6 +94,24 @@ jobs:
         with:
           cache-read-only: ${{ github.event_name == 'pull_request' }}
 
+      # External CLIs that back the cli/ test suite. Each is probed at
+      # runtime by ExternalCliAvailability; tests skip when the binary
+      # is missing, so this step exists purely to enable those gates
+      # in CI without breaking developer machines that lack them.
+      - name: Setup Node.js for CLI gates
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Install Mermaid CLI
+        run: npm install -g @mermaid-js/mermaid-cli
+
+      - name: Install graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Install ReScript CLI
+        run: npm install -g rescript
+
       - name: Run ktlint
         run: ./gradlew ktlintCheck
 
