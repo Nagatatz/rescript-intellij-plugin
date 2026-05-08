@@ -42,6 +42,21 @@ object RescriptSettingsSchema {
         listOf(
             SchemaEntry.Field(
                 descriptor =
+                    StringListDescriptor(
+                        id = "packageRoots",
+                        rows = 4,
+                        getter = { it.packageRoots },
+                        setter = { s, v -> s.packageRoots = v },
+                    ),
+                label = "Project package roots:",
+                tooltip =
+                    "One relative path per line (e.g., packages/core). " +
+                        "Leave empty to auto-detect from pnpm-workspace.yaml, " +
+                        "package.json#workspaces, or a depth-limited filesystem scan.",
+            ),
+            SchemaEntry.Separator,
+            SchemaEntry.Field(
+                descriptor =
                     PathDescriptor(
                         id = "lspServerPath",
                         kind = PathKind.File,

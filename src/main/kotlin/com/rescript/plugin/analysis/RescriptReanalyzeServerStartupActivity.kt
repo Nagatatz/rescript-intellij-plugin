@@ -27,13 +27,12 @@ class RescriptReanalyzeServerStartupActivity : ProjectActivity {
             return
         }
 
-        val basePath = project.basePath ?: return
-
-        if (!RescriptLspDetector.isRescriptProject(basePath)) {
+        if (!RescriptLspDetector.isRescriptProject(project)) {
             LOG.debug("Not a ReScript project, skipping reanalyze server start")
             return
         }
 
+        val basePath = project.basePath ?: return
         if (!RescriptReanalyzeVersionDetector.isServerModeSupported(basePath)) {
             LOG.debug("ReScript version does not support reanalyze-server mode")
             return

@@ -27,16 +27,14 @@ class RescriptLspStartupActivity : ProjectActivity {
         // Skip if already dismissed this session
         if (PropertiesComponent.getInstance(project).getBoolean(DISMISSED_KEY, false)) return
 
-        val basePath = project.basePath
-
-        // Only show for ReScript projects
-        if (!RescriptLspDetector.isRescriptProject(basePath)) return
+        // Only show for ReScript projects (monorepo-aware)
+        if (!RescriptLspDetector.isRescriptProject(project)) return
 
         // Skip if custom LSP path is configured
         if (RescriptLspDetector.isLspConfigured(project)) return
 
-        // Skip if LSP is already available
-        if (RescriptLspDetector.isLspAvailable(basePath)) return
+        // Skip if LSP is already available (any package root, hoisted, or parent)
+        if (RescriptLspDetector.isLspAvailable(project)) return
 
         showInstallNotification(project)
     }

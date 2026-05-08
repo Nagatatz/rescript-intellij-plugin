@@ -73,6 +73,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - IntelliJ Platform の LSP API (`com.intellij.platform.lsp`) を使用
 - `@rescript/language-server` を stdio 経由で起動
 - 補完、診断、定義ジャンプ、ホバー、参照検索、インレイヒント、Signature Help を提供
+- **モノレポ対応** (`RescriptWorkspaceDiscovery`) — `rescript.json` がルート直下にない pnpm/npm/yarn ワークスペース構成を自動検出する。優先度は「Settings の `packageRoots` 手動指定 → `pnpm-workspace.yaml` / `package.json#workspaces` の glob 展開 → depth ≤ 4 の再帰スキャン → 親方向走査」。Inspection・ステータスバー・LSP startup notification・LSP バイナリ探索のすべてがこの検出結果を共有する
 - **セマンティックトークンハイライト** (`RescriptSemanticTokensSupport.kt`) — LSP セマンティックトークンによる高精度な色分け
 - **カスタム LSP リクエスト** (`RescriptLanguageServer.kt`) — `createInterface`, `openCompiled` 等の ReScript 固有リクエスト
 - **カスタム LSP 通知** (`RescriptLsp4jClient.kt`) — `rescript/compilationStatus` 通知受信

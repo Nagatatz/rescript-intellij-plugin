@@ -24,8 +24,10 @@ object RescriptLspDetector {
     /**
      * Checks whether `@rescript/language-server` is available in node_modules.
      *
-     * Searches the project root directory and then walks up parent directories
-     * to support monorepo layouts.
+     * Walks up from [projectBasePath] so deeply-nested files can still locate a
+     * hoisted `node_modules`. For monorepo-aware detection that descends into
+     * workspace packages, prefer the [isLspAvailable] overload that takes a
+     * [Project].
      *
      * @param projectBasePath the project's base path, or null
      * @return true if the language server directory exists
@@ -33,16 +35,41 @@ object RescriptLspDetector {
     fun isLspAvailable(projectBasePath: String?): Boolean = findInAncestors(projectBasePath, ::hasLspInNodeModules)
 
     /**
+     * Monorepo-aware variant that consults [RescriptWorkspaceDiscovery] to
+     * inspect each detected package root in addition to the legacy upward walk.
+     *
+     * @param project the active IntelliJ project
+     * @return true if the language server directory exists in any candidate location
+     */
+    fun isLspAvailable(project: Project): Boolean {
+        val layout = RescriptWorkspaceDiscovery.discover(project)
+        if (layout.lspPackageDirs().any { Files.isDirectory(it) }) return true
+        return isLspAvailable(project.basePath)
+    }
+
+    /**
      * Checks whether the given path is a ReScript project by looking for
      * `rescript.json` or `bsconfig.json`.
      *
-     * Searches the project root directory and then walks up parent directories
-     * to support monorepo layouts.
+     * Walks up from the supplied path to support sub-directory opens. For
+     * monorepo layouts that only declare ReScript inside workspace packages,
+     * prefer the [isRescriptProject] overload that takes a [Project] so the
+     * workspace-aware discovery pipeline can be used.
      *
      * @param projectBasePath the project's base path, or null
      * @return true if a ReScript config file is found
      */
     fun isRescriptProject(projectBasePath: String?): Boolean = findInAncestors(projectBasePath, ::hasRescriptConfig)
+
+    /**
+     * Monorepo-aware variant that delegates to [RescriptWorkspaceDiscovery] so
+     * workspace-only ReScript projects (e.g., `packages/<name>/rescript.json`
+     * with no root-level config) are recognised.
+     *
+     * @param project the active IntelliJ project
+     * @return true if the project contains at least one ReScript package root
+     */
+    fun isRescriptProject(project: Project): Boolean = RescriptWorkspaceDiscovery.discover(project).isRescriptProject()
 
     /**
      * Walks from [projectBasePath] up through parent directories, returning true

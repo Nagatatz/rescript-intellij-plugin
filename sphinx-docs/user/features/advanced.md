@@ -8,6 +8,38 @@ myst:
 
 These features provide additional productivity tools for ReScript development.
 
+## Monorepo Support
+
+The plugin recognises ReScript projects even when `rescript.json` (or `bsconfig.json`) is not at the workspace root — typical of pnpm, npm, and yarn workspace setups where ReScript lives inside a sub-package.
+
+### Auto-Detection Pipeline
+
+The plugin walks the following layers in order, stopping at the first that yields at least one package root:
+
+1. **Manual override** — entries from `Settings > Languages & Frameworks > ReScript > Project package roots`.
+2. **Workspace files** — `packages:` from `pnpm-workspace.yaml`, then `workspaces` (array form) and `workspaces.packages` (yarn classic object form) from `package.json`.
+3. **Depth-limited scan** — recursive walk up to four directories deep, skipping `node_modules`, `.git`, `build`, `dist`, `.pnpm`, and similar non-source folders.
+4. **Parent walk** — fallback for opening a sub-directory whose ReScript config sits in an ancestor.
+
+Detection results feed every monorepo-aware behaviour: the missing-config inspection, the compile-status widget, the LSP startup notification, and the LSP binary search inside `node_modules/.bin/rescript-language-server`.
+
+### Manual Override
+
+Open `Settings > Languages & Frameworks > ReScript` and list one path per line under **Project package roots**, relative to the project base directory:
+
+```
+packages/core
+packages/server
+```
+
+Leaving the field empty restores auto-detection. Entries that do not exist or do not contain a ReScript configuration file are silently ignored, so you can iterate on the list without being blocked from saving.
+
+### Limitations
+
+- `!negation` glob entries and brace expansion are not interpreted in v1.
+- The depth-limited fallback caps at four directory levels; deeper layouts must be declared via the manual override or workspace file.
+- The LSP server itself receives the workspace root as its working directory; per-file project resolution is delegated to `@rescript/language-server`.
+
 ## Code Lens
 
 {bdg-primary}`LSP Required`

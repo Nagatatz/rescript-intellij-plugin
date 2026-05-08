@@ -1,19 +1,19 @@
 package com.rescript.plugin.statusbar
 
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.openapi.wm.StatusBar
 import com.intellij.openapi.wm.StatusBarWidget
 import com.intellij.openapi.wm.StatusBarWidgetFactory
 import com.rescript.plugin.lsp.RescriptCompilationStatusService
 import com.rescript.plugin.lsp.RescriptCompilationStatusService.CompilationStatus
-import com.rescript.plugin.util.RescriptPaths
+import com.rescript.plugin.lsp.RescriptWorkspaceDiscovery
 
 /**
  * Factory for the status bar widget that displays the ReScript compiler status.
  *
  * Shows compilation state (compiling, success, error count, warning count) in the
- * IDE's status bar. Only available in projects that contain a `rescript.json` file.
+ * IDE's status bar. Available whenever [RescriptWorkspaceDiscovery] reports at
+ * least one ReScript package root (single-package or monorepo).
  * Updates automatically via [RescriptCompilationStatusService] listeners.
  */
 class RescriptCompilerStatusWidgetFactory : StatusBarWidgetFactory {
@@ -25,11 +25,8 @@ class RescriptCompilerStatusWidgetFactory : StatusBarWidgetFactory {
 
     override fun getDisplayName(): String = "ReScript Compiler Status"
 
-    override fun isAvailable(project: Project): Boolean {
-        val basePath = project.basePath ?: return false
-        val vfm = VirtualFileManager.getInstance()
-        return vfm.findFileByUrl("file://$basePath/${RescriptPaths.RESCRIPT_JSON}") != null
-    }
+    override fun isAvailable(project: Project): Boolean =
+        RescriptWorkspaceDiscovery.discover(project).isRescriptProject()
 
     override fun createWidget(project: Project): StatusBarWidget = RescriptCompilerStatusWidget(project)
 

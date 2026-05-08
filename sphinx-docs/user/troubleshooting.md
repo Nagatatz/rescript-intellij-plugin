@@ -26,7 +26,19 @@ Common issues and their solutions.
 
 3. Restart the IDE after installing the Language Server
 
-4. Check that `rescript.json` exists in your project root
+4. Check that `rescript.json` exists in your project — either at the root or in a workspace sub-package such as `packages/core/`. The plugin auto-detects ReScript packages declared by `pnpm-workspace.yaml` or `package.json#workspaces` and falls back to a depth-limited scan; see [Monorepo Support](features/advanced.md#monorepo-support) for details.
+
+## "rescript.json not found in this project" Warning
+
+**Symptom:** The inspection reports that `rescript.json` is missing even though it exists somewhere inside the project.
+
+**Solutions:**
+
+1. Confirm the configuration file is named exactly `rescript.json` or `bsconfig.json` and is a regular file (not a directory).
+2. If it lives more than four directories deep from the project base, declare its parent in **Settings** → **Languages & Frameworks** → **ReScript** → **Project package roots** (one relative path per line, e.g. `packages/core`).
+3. For pnpm/npm/yarn workspaces, ensure the package directory is matched by `pnpm-workspace.yaml` or the `workspaces` field in `package.json`.
+
+This warning was previously raised whenever `rescript.json` was absent from the project root. Recent versions only raise it when no ReScript package root is detected anywhere in the workspace.
 
 ## No Syntax Highlighting
 

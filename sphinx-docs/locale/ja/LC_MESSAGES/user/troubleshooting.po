@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-16 20:59+0900\n"
+"POT-Creation-Date: 2026-05-08 21:41+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -42,9 +42,10 @@ msgid ""
 msgstr "**症状:** エディタ上部に Language Server が見つからないという通知バーが表示されます。"
 
 #: ../../user/troubleshooting.md:15 ../../user/troubleshooting.md:35
-#: ../../user/troubleshooting.md:45 ../../user/troubleshooting.md:59
-#: ../../user/troubleshooting.md:72 ../../user/troubleshooting.md:83
-#: ../../user/troubleshooting.md:99 ../../user/troubleshooting.md:110
+#: ../../user/troubleshooting.md:47 ../../user/troubleshooting.md:57
+#: ../../user/troubleshooting.md:71 ../../user/troubleshooting.md:84
+#: ../../user/troubleshooting.md:95 ../../user/troubleshooting.md:111
+#: ../../user/troubleshooting.md:122
 msgid "**Solutions:**"
 msgstr "**解決方法:**"
 
@@ -61,118 +62,176 @@ msgid "Restart the IDE after installing the Language Server"
 msgstr "Language Server をインストールした後、IDE を再起動します"
 
 #: ../../user/troubleshooting.md:29
-msgid "Check that `rescript.json` exists in your project root"
-msgstr "プロジェクトルートに `rescript.json` が存在することを確認します"
+msgid ""
+"Check that `rescript.json` exists in your project — either at the root or"
+" in a workspace sub-package such as `packages/core/`. The plugin auto-"
+"detects ReScript packages declared by `pnpm-workspace.yaml` or "
+"`package.json#workspaces` and falls back to a depth-limited scan; see "
+"[Monorepo Support](features/advanced.md#monorepo-support) for details."
+msgstr ""
+"プロジェクト内に `rescript.json` が存在することを確認します — "
+"ルート直下でも、`packages/core/` のようなワークスペースのサブパッケージでも構いません。"
+"プラグインは `pnpm-workspace.yaml` や `package.json#workspaces` で宣言された ReScript パッケージを"
+"自動検出し、見つからない場合は深さ制限スキャンにフォールバックします。詳細は "
+"[モノレポ対応](features/advanced.md#monorepo-support) を参照してください。"
 
 #: ../../user/troubleshooting.md:31
+msgid "\"rescript.json not found in this project\" Warning"
+msgstr "「rescript.json not found in this project」警告"
+
+#: ../../user/troubleshooting.md:33
+msgid ""
+"**Symptom:** The inspection reports that `rescript.json` is missing even "
+"though it exists somewhere inside the project."
+msgstr ""
+"**症状:** プロジェクトのどこかに `rescript.json` が存在するにも関わらず、"
+"Inspection が「設定が見つからない」と警告する。"
+
+#: ../../user/troubleshooting.md:37
+msgid ""
+"Confirm the configuration file is named exactly `rescript.json` or "
+"`bsconfig.json` and is a regular file (not a directory)."
+msgstr ""
+"設定ファイルの名前が正確に `rescript.json` または `bsconfig.json` であり、"
+"通常ファイル（ディレクトリではない）であることを確認します。"
+
+#: ../../user/troubleshooting.md:38
+msgid ""
+"If it lives more than four directories deep from the project base, "
+"declare its parent in **Settings** → **Languages & Frameworks** → "
+"**ReScript** → **Project package roots** (one relative path per line, "
+"e.g. `packages/core`)."
+msgstr ""
+"プロジェクトベースから 4 階層以上深い場所にある場合は、**Settings** → **Languages & Frameworks** "
+"→ **ReScript** → **Project package roots** に親パスを宣言します（1 行 1 つの相対パス、"
+"例: `packages/core`）。"
+
+#: ../../user/troubleshooting.md:39
+msgid ""
+"For pnpm/npm/yarn workspaces, ensure the package directory is matched by "
+"`pnpm-workspace.yaml` or the `workspaces` field in `package.json`."
+msgstr ""
+"pnpm / npm / yarn ワークスペースの場合、対象ディレクトリが `pnpm-workspace.yaml` または"
+" `package.json` の `workspaces` フィールドにマッチしているか確認してください。"
+
+#: ../../user/troubleshooting.md:41
+msgid ""
+"This warning was previously raised whenever `rescript.json` was absent "
+"from the project root. Recent versions only raise it when no ReScript "
+"package root is detected anywhere in the workspace."
+msgstr ""
+"以前のバージョンではプロジェクトルートに `rescript.json` が無いだけでこの警告が表示されていました。"
+"現行バージョンではワークスペース全体で ReScript パッケージルートが 1 つも見つからない場合にのみ表示されます。"
+
+#: ../../user/troubleshooting.md:43
 msgid "No Syntax Highlighting"
 msgstr "シンタックスハイライトが表示されない"
 
-#: ../../user/troubleshooting.md:33
+#: ../../user/troubleshooting.md:45
 msgid "**Symptom:** `.res` files appear as plain text without colors."
 msgstr "**症状:** `.res` ファイルが色なしのプレーンテキストとして表示されます。"
 
-#: ../../user/troubleshooting.md:37
+#: ../../user/troubleshooting.md:49
 msgid "Check that the file extension is `.res` or `.resi`"
 msgstr "ファイルの拡張子が `.res` または `.resi` であることを確認します"
 
-#: ../../user/troubleshooting.md:38
+#: ../../user/troubleshooting.md:50
 msgid ""
 "Verify the plugin is installed: **Settings** → **Plugins** → search for "
 "\"ReScript\""
 msgstr "プラグインがインストールされていることを確認します: **Settings** → **Plugins** → \"ReScript\" を検索"
 
-#: ../../user/troubleshooting.md:39
+#: ../../user/troubleshooting.md:51
 msgid "Try restarting the IDE"
 msgstr "IDE の再起動を試してください"
 
-#: ../../user/troubleshooting.md:41
+#: ../../user/troubleshooting.md:53
 msgid "Code Completion Not Working"
 msgstr "コード補完が動作しない"
 
-#: ../../user/troubleshooting.md:43
+#: ../../user/troubleshooting.md:55
 msgid "**Symptom:** No completion suggestions appear when typing."
 msgstr "**症状:** 入力時に補完候補が表示されません。"
 
-#: ../../user/troubleshooting.md:47
+#: ../../user/troubleshooting.md:59
 msgid "Ensure the Language Server is installed and detected (no notification bar)"
 msgstr "Language Server がインストールされ、検出されていることを確認します（通知バーが表示されていないこと）"
 
-#: ../../user/troubleshooting.md:48
+#: ../../user/troubleshooting.md:60
 msgid "Check that the ReScript project has been built at least once:"
 msgstr "ReScript プロジェクトが少なくとも1回ビルドされていることを確認します:"
 
-#: ../../user/troubleshooting.md:52
+#: ../../user/troubleshooting.md:64
 msgid ""
 "Wait a few seconds after opening a file — the Language Server needs time "
 "to initialize"
 msgstr "ファイルを開いた後、数秒待ってください — Language Server の初期化に時間がかかります"
 
-#: ../../user/troubleshooting.md:53
+#: ../../user/troubleshooting.md:65
 msgid "Try pressing `Cmd+Space` manually to trigger completion"
 msgstr "`Cmd+Space` を手動で押して補完をトリガーしてみてください"
 
-#: ../../user/troubleshooting.md:55
+#: ../../user/troubleshooting.md:67
 msgid "Formatting Not Working"
 msgstr "フォーマットが動作しない"
 
-#: ../../user/troubleshooting.md:57
+#: ../../user/troubleshooting.md:69
 msgid "**Symptom:** `Cmd+Option+L` does nothing or shows an error."
 msgstr "**症状:** `Cmd+Option+L` を押しても何も起こらないか、エラーが表示されます。"
 
-#: ../../user/troubleshooting.md:61
+#: ../../user/troubleshooting.md:73
 msgid "Ensure `rescript` is installed in your project:"
 msgstr "プロジェクトに `rescript` がインストールされていることを確認します:"
 
-#: ../../user/troubleshooting.md:65
+#: ../../user/troubleshooting.md:77
 msgid "Check that `rescript.json` exists in the project root"
 msgstr "プロジェクトルートに `rescript.json` が存在することを確認します"
 
-#: ../../user/troubleshooting.md:66
+#: ../../user/troubleshooting.md:78
 msgid "Verify the file has no syntax errors (formatting may fail on invalid code)"
 msgstr "ファイルに構文エラーがないことを確認します（不正なコードではフォーマットが失敗する場合があります）"
 
-#: ../../user/troubleshooting.md:68
+#: ../../user/troubleshooting.md:80
 msgid "Build Errors Not Showing"
 msgstr "ビルドエラーが表示されない"
 
-#: ../../user/troubleshooting.md:70
+#: ../../user/troubleshooting.md:82
 msgid "**Symptom:** No inline error annotations despite compilation errors."
 msgstr "**症状:** コンパイルエラーがあるにもかかわらず、インラインのエラー注釈が表示されません。"
 
-#: ../../user/troubleshooting.md:74
+#: ../../user/troubleshooting.md:86
 msgid "Ensure the Language Server is running (check status bar)"
 msgstr "Language Server が実行中であることを確認します（ステータスバーを確認）"
 
-#: ../../user/troubleshooting.md:75
+#: ../../user/troubleshooting.md:87
 msgid "Save the file — diagnostics update on save"
 msgstr "ファイルを保存します — 診断は保存時に更新されます"
 
-#: ../../user/troubleshooting.md:76
+#: ../../user/troubleshooting.md:88
 msgid "Check the **Problems** panel (`Alt+6`) for any listed issues"
 msgstr "**Problems** パネル（`Alt+6`）で一覧表示されている問題を確認します"
 
-#: ../../user/troubleshooting.md:77
+#: ../../user/troubleshooting.md:89
 msgid "Try restarting the Language Server: close and reopen the project"
 msgstr "Language Server の再起動を試みます: プロジェクトを閉じてから再度開きます"
 
-#: ../../user/troubleshooting.md:79
+#: ../../user/troubleshooting.md:91
 msgid "reanalyze Not Working"
 msgstr "reanalyze が動作しない"
 
-#: ../../user/troubleshooting.md:81
+#: ../../user/troubleshooting.md:93
 msgid "**Symptom:** No dead code warnings despite unused code."
 msgstr "**症状:** 未使用のコードがあるにもかかわらず、デッドコードの警告が表示されません。"
 
-#: ../../user/troubleshooting.md:85
+#: ../../user/troubleshooting.md:97
 msgid "Install reanalyze:"
 msgstr "reanalyze をインストールします:"
 
-#: ../../user/troubleshooting.md:89
+#: ../../user/troubleshooting.md:101
 msgid "Build the project first:"
 msgstr "先にプロジェクトをビルドします:"
 
-#: ../../user/troubleshooting.md:93
+#: ../../user/troubleshooting.md:105
 msgid ""
 "Check the reanalyze path in **Settings** → **Languages & Frameworks** → "
 "**ReScript**"
@@ -180,23 +239,23 @@ msgstr ""
 "**Settings** → **Languages & Frameworks** → **ReScript** で reanalyze "
 "のパスを確認します"
 
-#: ../../user/troubleshooting.md:95
+#: ../../user/troubleshooting.md:107
 msgid "High CPU or Memory Usage"
 msgstr "CPU またはメモリ使用率が高い"
 
-#: ../../user/troubleshooting.md:97
+#: ../../user/troubleshooting.md:109
 msgid "**Symptom:** IDE becomes slow when working with ReScript files."
 msgstr "**症状:** ReScript ファイルの作業中に IDE が遅くなります。"
 
-#: ../../user/troubleshooting.md:101
+#: ../../user/troubleshooting.md:113
 msgid "Close unused projects"
 msgstr "使用していないプロジェクトを閉じます"
 
-#: ../../user/troubleshooting.md:102
+#: ../../user/troubleshooting.md:114
 msgid "Increase IDE memory: **Help** → **Change Memory Settings**"
 msgstr "IDE のメモリを増やします: **Help** → **Change Memory Settings**"
 
-#: ../../user/troubleshooting.md:103
+#: ../../user/troubleshooting.md:115
 msgid ""
 "Disable unused inspections: **Settings** → **Editor** → **Inspections** →"
 " uncheck ReScript inspections you don't need"
@@ -204,133 +263,148 @@ msgstr ""
 "不要なインスペクションを無効にします: **Settings** → **Editor** → **Inspections** → 不要な "
 "ReScript インスペクションのチェックを外します"
 
-#: ../../user/troubleshooting.md:104
+#: ../../user/troubleshooting.md:116
 msgid "Check if the Language Server process is consuming excessive resources"
 msgstr "Language Server プロセスが過剰なリソースを消費していないか確認します"
 
-#: ../../user/troubleshooting.md:106
+#: ../../user/troubleshooting.md:118
 msgid "Plugin Conflicts"
 msgstr "プラグインの競合"
 
-#: ../../user/troubleshooting.md:108
+#: ../../user/troubleshooting.md:120
 msgid ""
 "**Symptom:** Unexpected behavior when other language plugins are "
 "installed."
 msgstr "**症状:** 他の言語プラグインがインストールされている場合に、予期しない動作が発生します。"
 
-#: ../../user/troubleshooting.md:112
+#: ../../user/troubleshooting.md:124
 msgid "Check if the old `reasonml-idea-plugin` is installed and disable it"
 msgstr "古い `reasonml-idea-plugin` がインストールされている場合は無効にします"
 
-#: ../../user/troubleshooting.md:113
+#: ../../user/troubleshooting.md:125
 msgid "Ensure there are no conflicting file type associations for `.res` files"
 msgstr "`.res` ファイルのファイルタイプ関連付けに競合がないことを確認します"
 
-#: ../../user/troubleshooting.md:115
+#: ../../user/troubleshooting.md:127
 msgid "Diagnostic Toolkit"
 msgstr "診断ツールキット"
 
-#: ../../user/troubleshooting.md:117
+#: ../../user/troubleshooting.md:129
 msgid ""
 "When quick fixes above don't resolve the issue, the following steps help "
 "you gather evidence and reset state before filing a bug."
 msgstr "上記の Quick Fix で解決しない場合、以下の手順で情報を収集し、状態をリセットしてからバグを報告してください。"
 
-#: ../../user/troubleshooting.md:119
+#: ../../user/troubleshooting.md:131
 msgid "Verify Node.js and the Language Server"
 msgstr "Node.js と Language Server を確認する"
 
-#: ../../user/troubleshooting.md:131
+#: ../../user/troubleshooting.md:143
 msgid ""
 "If Node.js works in your shell but the IDE reports it missing, the IDE "
 "may be launched without your shell's PATH. On macOS, launching the IDE "
 "from Terminal (`idea .` or `webstorm .`) propagates your shell "
 "environment; the Dock launcher may not."
-msgstr "シェルでは Node.js が動作するのに IDE が見つからないと報告する場合、IDE がシェルの PATH なしで起動されている可能性があります。macOS では Terminal から IDE を起動 (`idea .` または `webstorm .`) するとシェル環境が引き継がれますが、Dock のランチャーでは引き継がれないことがあります。"
+msgstr ""
+"シェルでは Node.js が動作するのに IDE が見つからないと報告する場合、IDE がシェルの PATH "
+"なしで起動されている可能性があります。macOS では Terminal から IDE を起動 (`idea .` または `webstorm "
+".`) するとシェル環境が引き継がれますが、Dock のランチャーでは引き継がれないことがあります。"
 
-#: ../../user/troubleshooting.md:133
+#: ../../user/troubleshooting.md:145
 msgid "Restart the Language Server"
 msgstr "Language Server を再起動する"
 
-#: ../../user/troubleshooting.md:135
+#: ../../user/troubleshooting.md:147
 msgid ""
 "**Tools → Restart ReScript LSP** — fully restarts the server without "
 "reopening the project. Use this after installing dependencies, switching "
 "branches, or when completion/diagnostics go silent."
-msgstr "**Tools → Restart ReScript LSP** — プロジェクトを再度開かずにサーバーを完全に再起動します。依存関係をインストールした後、ブランチを切り替えた後、補完/診断が無反応になったときに使用します。"
+msgstr ""
+"**Tools → Restart ReScript LSP** — "
+"プロジェクトを再度開かずにサーバーを完全に再起動します。依存関係をインストールした後、ブランチを切り替えた後、補完/診断が無反応になったときに使用します。"
 
-#: ../../user/troubleshooting.md:136
+#: ../../user/troubleshooting.md:148
 msgid ""
 "**Tools → Dump ReScript LSP State** — prints the server's internal "
 "request/response queues and initialization options to the Event Log. "
 "Attach the output when reporting bugs related to LSP behavior."
-msgstr "**Tools → Dump ReScript LSP State** — サーバーの内部リクエスト/レスポンスキューと初期化オプションを Event Log に出力します。LSP 挙動に関するバグ報告時に出力内容を添付してください。"
+msgstr ""
+"**Tools → Dump ReScript LSP State** — サーバーの内部リクエスト/レスポンスキューと初期化オプションを "
+"Event Log に出力します。LSP 挙動に関するバグ報告時に出力内容を添付してください。"
 
-#: ../../user/troubleshooting.md:138
+#: ../../user/troubleshooting.md:150
 msgid "Clear Caches"
 msgstr "キャッシュをクリアする"
 
-#: ../../user/troubleshooting.md:140
+#: ../../user/troubleshooting.md:152
 msgid ""
 "Stale indexes and caches are a frequent cause of wrong completions, "
 "missing references, or outdated diagnostics."
 msgstr "古くなったインデックスやキャッシュは、誤った補完・参照の欠落・古い診断の原因になります。"
 
-#: ../../user/troubleshooting.md:142
+#: ../../user/troubleshooting.md:154
 msgid ""
 "**File → Invalidate Caches** → check *Clear file system cache and Local "
 "History* → click *Invalidate and Restart*."
-msgstr "**File → Invalidate Caches** → *Clear file system cache and Local History* をチェック → *Invalidate and Restart* をクリック。"
+msgstr ""
+"**File → Invalidate Caches** → *Clear file system cache and Local "
+"History* をチェック → *Invalidate and Restart* をクリック。"
 
-#: ../../user/troubleshooting.md:143
+#: ../../user/troubleshooting.md:155
 msgid ""
 "Delete the ReScript build output when `rescript build` reports phantom "
 "errors:"
 msgstr "`rescript build` が幻のエラーを報告する場合は ReScript のビルド出力を削除します:"
 
-#: ../../user/troubleshooting.md:150
+#: ../../user/troubleshooting.md:162
 msgid "Inspect Logs"
 msgstr "ログを確認する"
 
-#: ../../user/troubleshooting.md:152
+#: ../../user/troubleshooting.md:164
 msgid ""
 "**Help → Show Log in Finder** (macOS) / **Show Log in Explorer** "
 "(Windows/Linux)."
-msgstr "**Help → Show Log in Finder** (macOS) / **Show Log in Explorer** (Windows/Linux)。"
+msgstr ""
+"**Help → Show Log in Finder** (macOS) / **Show Log in Explorer** "
+"(Windows/Linux)。"
 
-#: ../../user/troubleshooting.md:153
+#: ../../user/troubleshooting.md:165
 msgid ""
 "Open `idea.log` and filter for `ReScript`, `rescript-language-server`, or"
 " `com.rescript.plugin` to isolate plugin output."
-msgstr "`idea.log` を開き `ReScript`、`rescript-language-server`、または `com.rescript.plugin` でフィルタしてプラグインの出力を抽出します。"
+msgstr ""
+"`idea.log` を開き `ReScript`、`rescript-language-server`、または "
+"`com.rescript.plugin` でフィルタしてプラグインの出力を抽出します。"
 
-#: ../../user/troubleshooting.md:154
+#: ../../user/troubleshooting.md:166
 msgid ""
 "For reproducible issues, enable verbose logging: **Help → Diagnostic "
 "Tools → Debug Log Settings…** → add `#com.rescript.plugin:trace`."
-msgstr "再現可能な問題では詳細ログを有効化します: **Help → Diagnostic Tools → Debug Log Settings…** → `#com.rescript.plugin:trace` を追加。"
+msgstr ""
+"再現可能な問題では詳細ログを有効化します: **Help → Diagnostic Tools → Debug Log Settings…** →"
+" `#com.rescript.plugin:trace` を追加。"
 
-#: ../../user/troubleshooting.md:156
+#: ../../user/troubleshooting.md:168
 msgid "Reset Plugin Configuration"
 msgstr "プラグイン設定をリセットする"
 
-#: ../../user/troubleshooting.md:158
+#: ../../user/troubleshooting.md:170
 msgid "If settings appear corrupted, remove the plugin's persisted state:"
 msgstr "設定が壊れているように見える場合、プラグインの永続化状態を削除します:"
 
-#: ../../user/troubleshooting.md:171
+#: ../../user/troubleshooting.md:183
 msgid "Restart the IDE afterwards; a fresh default file is generated."
 msgstr "その後 IDE を再起動すると、デフォルト設定ファイルが新規生成されます。"
 
-#: ../../user/troubleshooting.md:173
+#: ../../user/troubleshooting.md:185
 msgid "Reporting Issues"
 msgstr "問題の報告"
 
-#: ../../user/troubleshooting.md:175
+#: ../../user/troubleshooting.md:187
 msgid "If you can't resolve the issue:"
 msgstr "問題が解決できない場合:"
 
-#: ../../user/troubleshooting.md:177
+#: ../../user/troubleshooting.md:189
 msgid ""
 "Check [existing issues](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/issues) on GitHub"
@@ -338,33 +412,36 @@ msgstr ""
 "GitHub で[既存の Issue](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/issues) を確認します"
 
-#: ../../user/troubleshooting.md:178
+#: ../../user/troubleshooting.md:190
 msgid "File a new issue with:"
 msgstr "以下の情報を含めて新しい Issue を作成します:"
 
-#: ../../user/troubleshooting.md:179
+#: ../../user/troubleshooting.md:191
 msgid "IDE version and OS"
 msgstr "IDE のバージョンと OS"
 
-#: ../../user/troubleshooting.md:180
+#: ../../user/troubleshooting.md:192
 msgid "Plugin version"
 msgstr "プラグインのバージョン"
 
-#: ../../user/troubleshooting.md:181
+#: ../../user/troubleshooting.md:193
 msgid "ReScript and Language Server versions"
 msgstr "ReScript と Language Server のバージョン"
 
-#: ../../user/troubleshooting.md:182
+#: ../../user/troubleshooting.md:194
 msgid "Steps to reproduce"
 msgstr "再現手順"
 
-#: ../../user/troubleshooting.md:183
+#: ../../user/troubleshooting.md:195
 msgid "Error logs (from **Help** → **Show Log in Finder/Explorer**)"
 msgstr "エラーログ（**Help** → **Show Log in Finder/Explorer** から取得）"
 
-#: ../../user/troubleshooting.md:184
+#: ../../user/troubleshooting.md:196
 msgid ""
 "Output of **Tools → Dump ReScript LSP State** if the issue involves LSP "
 "features"
 msgstr "LSP 機能に関する問題の場合は **Tools → Dump ReScript LSP State** の出力"
+
+#~ msgid "Check that `rescript.json` exists in your project root"
+#~ msgstr "プロジェクトルートに `rescript.json` が存在することを確認します"
 

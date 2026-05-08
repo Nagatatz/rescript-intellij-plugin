@@ -22,8 +22,8 @@ import com.rescript.plugin.lsp.RescriptLspDetector
  */
 class RescriptFileTypeRecoveryStartupActivity : ProjectActivity {
     override suspend fun execute(project: Project) {
-        // Only check for ReScript projects
-        if (!RescriptLspDetector.isRescriptProject(project.basePath)) return
+        // Only check for ReScript projects (monorepo-aware)
+        if (!RescriptLspDetector.isRescriptProject(project)) return
 
         val fileTypeManager = FileTypeManager.getInstance()
         val missingExtensions = mutableListOf<Pair<String, com.intellij.openapi.fileTypes.LanguageFileType>>()

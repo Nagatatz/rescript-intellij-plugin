@@ -1,8 +1,11 @@
 package com.rescript.plugin.settings
 
 import com.intellij.openapi.options.ConfigurationException
+import com.rescript.plugin.util.RescriptPaths
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
 
 /**
  * Validates user-provided ReScript settings paths before they are persisted.
@@ -120,4 +123,68 @@ object RescriptSettingsValidator {
             )
         }
     }
+
+    /**
+     * Categorises every entry in [packageRoots] against [base] without throwing.
+     *
+     * Used by tests and by future UI affordances (e.g., a notice strip in the
+     * settings panel). The Configurable itself does not block apply on
+     * validation failures — invalid entries are silently filtered at discovery
+     * time so the user can iterate without being locked out.
+     *
+     * @param base the project base directory entries are resolved against
+     * @param packageRoots relative paths supplied by the user
+     * @return one [PackageRootIssue] per problematic entry; an empty list when
+     *         every entry resolves to a valid ReScript package root
+     */
+    fun validatePackageRoots(
+        base: Path?,
+        packageRoots: List<String>,
+    ): List<PackageRootIssue> {
+        if (base == null) return emptyList()
+        val baseAbs = base.toAbsolutePath().normalize()
+        val issues = mutableListOf<PackageRootIssue>()
+        for (raw in packageRoots) {
+            val entry = raw.trim()
+            if (entry.isEmpty()) continue
+            val resolved =
+                try {
+                    baseAbs.resolve(entry).toAbsolutePath().normalize()
+                } catch (_: Exception) {
+                    issues.add(PackageRootIssue(entry, "Path is malformed"))
+                    continue
+                }
+            if (!resolved.startsWith(baseAbs)) {
+                issues.add(PackageRootIssue(entry, "Path escapes the project base directory"))
+                continue
+            }
+            if (!Files.isDirectory(resolved)) {
+                issues.add(PackageRootIssue(entry, "Directory does not exist"))
+                continue
+            }
+            val hasConfig =
+                RescriptPaths.CONFIG_FILE_NAMES.any { Files.isRegularFile(resolved.resolve(it)) }
+            if (!hasConfig) {
+                issues.add(
+                    PackageRootIssue(
+                        entry,
+                        "Directory does not contain rescript.json or bsconfig.json",
+                    ),
+                )
+            }
+        }
+        return issues
+    }
 }
+
+/**
+ * Issue raised by [RescriptSettingsValidator.validatePackageRoots] for a single
+ * misconfigured entry, suitable for diagnostic display or assertions.
+ *
+ * @param entry the offending raw entry as the user typed it
+ * @param message human-readable description of the problem
+ */
+data class PackageRootIssue(
+    val entry: String,
+    val message: String,
+)
