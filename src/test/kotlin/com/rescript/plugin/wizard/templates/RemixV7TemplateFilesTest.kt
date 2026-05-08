@@ -15,6 +15,7 @@ class RemixV7TemplateFilesTest {
         assertTrue(pkg.contains("\"@react-router/dev\": \"${TemplateVersions.REACT_ROUTER_DEV}\""))
         assertTrue(pkg.contains("\"@react-router/node\": \"${TemplateVersions.REACT_ROUTER_NODE}\""))
         assertTrue(pkg.contains("\"@react-router/serve\": \"${TemplateVersions.REACT_ROUTER_SERVE}\""))
+        assertTrue(pkg.contains("\"isbot\": \"${TemplateVersions.ISBOT}\""))
         assertTrue(pkg.contains("\"packageManager\""))
         assertTrue(pkg.contains("\"type\": \"module\""))
     }

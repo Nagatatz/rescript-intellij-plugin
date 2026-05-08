@@ -138,6 +138,7 @@ internal object RemixV7TemplateFiles {
         deps["react-router"] = TemplateVersions.REACT_ROUTER
         deps["@react-router/node"] = TemplateVersions.REACT_ROUTER_NODE
         deps["@react-router/serve"] = TemplateVersions.REACT_ROUTER_SERVE
+        deps["isbot"] = TemplateVersions.ISBOT
         return deps
     }
 }

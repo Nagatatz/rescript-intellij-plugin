@@ -155,6 +155,11 @@ object TemplateVersions {
     const val REACT_ROUTER_NODE = "^7.10.0"
     const val REACT_ROUTER_SERVE = "^7.10.0"
 
+    // Bot detection used by React Router v7's SSR entry. The dev plugin auto-
+    // injects this dependency on first run; pre-pinning it keeps `pnpm install
+    // --frozen-lockfile` valid for the generated project.
+    const val ISBOT = "^5.1.0"
+
     // Astro and the React integration. astro 6.x is the active major;
     // @astrojs/react 5.x and @astrojs/node 10.x are the matching adapters.
     const val ASTRO = "^6.0.0"
