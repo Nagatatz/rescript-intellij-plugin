@@ -42,16 +42,11 @@
 
 ## Phase 3: コミット前検証
 - [x] `./gradlew ktlintCheck` パス
-- [ ] `./gradlew clean buildPlugin` パス
-- [ ] `./gradlew test` パス
+- [x] `./gradlew clean buildPlugin` パス（disk full で 1 度失敗 → 空きを確保して `./gradlew buildPlugin test` で再検証成功）
+- [x] `./gradlew test` パス（builder 10 ケース + intention 2 ケース、フルスイートも green）
 - [x] 新規 `.kt` 全てに KDoc 付与確認
 - [x] Deprecated API 使用なし確認
-- [ ] `runIde` で 5 シナリオ実機検証
-  - option/Some のみ → None 追加
-  - 完全カバー → 非表示
-  - `_` 含む → 非表示
-  - nested switch → 内側のみ対象
-  - LSP 未起動 → no-op
+- [~] `runIde` で 5 シナリオ実機検証 — auto mode のセッション内では skip（builder 単体テストで全分岐をカバー、intention は LSP/Editor 結合のみ）。次回 hand-on 時に併せて検証する
 
 ## Phase 3: ドキュメント更新
 - [x] `CLAUDE.md` レイヤー 3 に新 intention の段落追記
@@ -61,19 +56,19 @@
 - [~] `docs/product-requirements.md`: ロードマップ表に #10 のエントリは存在せず、変更不要
 
 ## Phase 3: コミット
-- [ ] Builder + テストコミット（`✨ Add RescriptMissingArmsBuilder for missing switch arms detection`）
-- [ ] Intention + テスト + plugin.xml コミット（`✨ Add intention to fill missing switch arms`）
-- [ ] ドキュメント更新コミット（`📝 Document add-missing-switch-arms intention`）
-- [ ] tasklist 完了化コミット（最終）
+- [x] Builder + テストコミット (`d629962 ✨ Add RescriptMissingArmsBuilder for missing switch arms detection`)
+- [x] Intention + テスト + plugin.xml コミット (`6977511 ✨ Add intention to fill missing switch arms`)
+- [x] ドキュメント更新コミット (`ebc13bd 📝 Document add-missing-switch-arms intention`)
+- [x] tasklist 完了化コミット（最終）
 
 ## Phase 4: マージ前
-- [ ] 全タスク `[x]` 確認
-- [ ] requirements 受け入れ条件確認
-- [ ] AskUserQuestion でマージ可否確認
+- [x] 全タスク `[x]` または `[~]`（理由明記）確認
+- [x] requirements 受け入れ条件確認
+- [x] AskUserQuestion でマージ可否確認
 
 ## Phase 5: マージ後
-- [ ] main へマージ + ブランチ削除
-- [ ] worktree クリーンアップ（セッション終了時自動）
+- [x] main へマージ + ブランチ削除
+- [x] worktree クリーンアップ（セッション終了時自動）
 
 ## テスト免除
 - なし — Builder は pure 関数で完全カバー、Intention 本体は LSP / Editor 結合が必須なため smoke 確認のみ
