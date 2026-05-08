@@ -46,9 +46,23 @@ class RescriptVariantFlowMermaidExporterCliTest {
         try {
             val input = File(tmpDir, "diagram.mmd").also { it.writeText(mermaid) }
             val output = File(tmpDir, "diagram.svg")
+            // Ubuntu 23.10+ runners (used by GitHub Actions) disable
+            // unprivileged user namespaces, so Puppeteer's bundled Chromium
+            // crashes with "No usable sandbox!" unless we pass --no-sandbox.
+            // Locally this is a no-op since the flag is permitted regardless.
+            val puppeteerConfig =
+                File(tmpDir, "puppeteer.json")
+                    .also { it.writeText("""{"args": ["--no-sandbox"]}""") }
             val process =
-                ProcessBuilder("mmdc", "-i", input.path, "-o", output.path)
-                    .redirectErrorStream(true)
+                ProcessBuilder(
+                    "mmdc",
+                    "-i",
+                    input.path,
+                    "-o",
+                    output.path,
+                    "-p",
+                    puppeteerConfig.path,
+                ).redirectErrorStream(true)
                     .start()
             val finished = process.waitFor(60, TimeUnit.SECONDS)
             if (!finished) {
