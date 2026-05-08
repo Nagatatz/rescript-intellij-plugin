@@ -1226,6 +1226,14 @@
                   language="ReScript"
                   implementationClass="com.rescript.plugin.worksheet.RescriptWorksheetFileType"/>
 
+        <!-- Notebook-style worksheet file type (.resnb) -->
+        <fileType name="ReScript Notebook"
+                  extensions="resnb"
+                  fieldName="INSTANCE"
+                  implementationClass="com.rescript.plugin.notebook.RescriptNotebookFileType"/>
+        <fileEditorProvider
+                implementation="com.rescript.plugin.notebook.RescriptNotebookFileEditorProvider"/>
+
         <!-- Type Signature Search Everywhere (#108) -->
         <searchEverywhereContributor
                 implementation="com.rescript.plugin.navigation.RescriptTypeSignatureSearchContributor$Factory"/>
