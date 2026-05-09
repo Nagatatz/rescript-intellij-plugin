@@ -29,7 +29,8 @@
 - **Hover documentation** — Inline type information and docs on hover
 - **Find references** — Locate all usages of a symbol
 - **Find Usages** — Symbol indexing and usage search for ReScript identifiers
-- **Rename refactoring** — Safe project-wide renaming
+- **Rename refactoring** — Safe project-wide renaming (`Shift+F6`, LSP-driven)
+- **Rename variant constructor (no LSP)** — Alt+Enter intention that renames a variant constructor across the project using a token-shape classifier (CONSTRUCTOR / PATTERN / MODULE_QUALIFIED_TAIL); works even when the language server is offline, with a 500-occurrence cap that defers to `Shift+F6` for very common names
 - **Diagnostics** — Real-time error and warning display
 - **Inlay hints** — Type annotations displayed inline
 - **Signature help** — Parameter info for function calls

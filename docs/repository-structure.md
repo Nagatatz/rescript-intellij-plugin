@@ -70,7 +70,7 @@ rescript-intellij-plugin/
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
 | `imports/` | Import Optimizer、open 文ユーティリティ | `RescriptImportOptimizer`, `RescriptImportUtil` |
-| `intention/` | Intention Actions（Wrap with、@genType 追加等） | `RescriptWrapWithIntention` |
+| `intention/` | Intention Actions（Wrap with、@genType 追加、Rename variant constructor 等） | `RescriptWrapWithIntention`, `RescriptRenameVariantConstructorIntention`, `RescriptConstructorOccurrenceClassifier`, `RescriptConstructorOccurrenceFinder` |
 | `surround/` | Surround With | `RescriptSurroundDescriptor` |
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
 | `wizard/` | Project Wizard（新規プロジェクト作成、Package Manager / Validation Library 選択 UI） | `RescriptModuleBuilder`, `PackageManager`, `ValidationLibrary` |

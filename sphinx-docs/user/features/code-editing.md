@@ -150,6 +150,7 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Expand destructuring | Expand `let {a, b} = x` into individual `let` bindings |
 | Convert call to uncurried form | Rewrite `f(x)` to `f(. x)` when `f` is defined with the uncurried syntax `let f = (. x) => ...` |
 | Extract module to file | Move a top-level `module M = { ... }` declaration into a sibling `M.res` file |
+| Rename variant constructor (project-wide, no LSP) | Rename a variant constructor across every `.res` / `.resi` file in the project using a token-shape classifier; works without the language server |
 
 Intention actions turn common code transformations into one-click operations — instead of manually restructuring code, press `Alt+Enter` and let the IDE handle the mechanical changes while you focus on the logic.
 
@@ -1518,6 +1519,37 @@ let fn = (x) => x + 1
 For patterns not recognized above, the standard IDE join behavior is used.
 
 Smart join understands ReScript syntax — pipe chains join without spaces, let bindings preserve their `=`, and arrow functions stay readable, producing cleaner results than generic line joining.
+
+## Rename Variant Constructor (no LSP)
+
+{bdg-success}`Native`
+
+The standard `Shift+F6` rename routes through `textDocument/rename` on the language server, which gives the most accurate cross-file rewrite. When the language server isn't running — `node` not on `PATH`, `@rescript/language-server` not installed, network-restricted environments — that path is unavailable. This Alt+Enter intention provides a token-shape fallback that works everywhere.
+
+**Trigger:** place the caret on a UIDENT used as a variant constructor (an arm pattern like `| Foo(_) =>`, a `type` declaration arm `| Foo`, or a constructor invocation `Foo(x)`), press `Alt+Enter`, and pick **Rename variant constructor (project-wide, no LSP)**.
+
+### How It Works
+
+`RescriptConstructorOccurrenceClassifier` decides what each UIDENT in the project represents — `CONSTRUCTOR`, `PATTERN`, `MODULE_QUALIFIED_TAIL`, or `OTHER` — by looking at the previous and next non-trivia tokens:
+
+| Surrounding tokens | Verdict |
+|--------------------|---------|
+| `\| Foo` / `\| Foo(_)` | PATTERN (switch arm or `type` arm) |
+| `Module.Foo` | MODULE_QUALIFIED_TAIL (only the `Foo` half is renamed) |
+| `Foo(x)` | CONSTRUCTOR (constructor invocation) |
+| `let x = Foo`, `[Foo, …]`, `f(Foo)` | CONSTRUCTOR (zero-arity in expression position) |
+| `<Foo />`, `: Foo`, `module Foo = …` | OTHER (skipped) |
+| Tokens inside string literals or comments | OTHER (lexer handles this) |
+
+`RescriptConstructorOccurrenceFinder` then runs `PsiSearchHelper.processElementsWithWord` over `.res` and `.resi` files in the project, classifies each hit, and keeps the CONSTRUCTOR / PATTERN / MODULE_QUALIFIED_TAIL ones. Up to 500 occurrences are collected; beyond that the intention surfaces a "use Shift+F6 (LSP rename) or narrow the search" error so you don't accidentally produce an enormous diff.
+
+The actual rewrite happens in a single `WriteCommandAction`, so the entire project-wide change Undoes as one step.
+
+### Limitations
+
+- The classifier is purely syntactic. Two different variants with the same constructor name (e.g. `type a = | Foo` and `type b = | Foo`) are renamed together — use `Shift+F6` (LSP rename) when you need disambiguation by type.
+- Polymorphic variants (`#foo`) are not in scope for this intention.
+- Module-qualified call sites are renamed by their tail only; the leading `Module.` segment is never touched.
 
 ## Highlight Related Keywords
 
