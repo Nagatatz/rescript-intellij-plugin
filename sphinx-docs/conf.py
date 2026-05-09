@@ -121,10 +121,23 @@ html_additional_pages = {"search": "search.html"}
 
 # -- Open Graph (social sharing previews) -----------------------------------
 
+# `html_baseurl` and `ogp_site_url` are finalised in `setup(app)` below so
+# that `make build-ja` (which passes `-D language=ja`) routes OGP and sitemap
+# URLs to the `/ja/` prefix instead of the `/en/` prefix.
 html_baseurl = "https://nagatatz.github.io/rescript-intellij-plugin/en/"
 ogp_site_url = html_baseurl
 ogp_site_name = "ReScript IntelliJ Plugin"
 ogp_type = "website"
+
+# Augment automatic Open Graph tags with Twitter Card and theme metadata.
+# `og:locale` is appended per language in `setup(app)` below.
+ogp_custom_meta_tags = [
+    '<meta name="twitter:card" content="summary_large_image" />',
+    '<meta name="theme-color" content="#E6484F" />',
+]
+
+# Map Sphinx language codes to Open Graph locale identifiers (BCP 47 → POSIX).
+_OGP_LOCALES = {"en": "en_US", "ja": "ja_JP"}
 
 # -- Sitemap (SEO) -----------------------------------------------------------
 
@@ -178,3 +191,33 @@ linkcheck_ignore = [
     # npmjs.com returns 403 to the linkcheck bot's HEAD/GET requests.
     r"^https://www\.npmjs\.com/package/.*",
 ]
+
+
+# -- Locale-aware OGP wiring -------------------------------------------------
+
+
+def setup(app):  # noqa: D401
+    """Rewrite ``html_baseurl`` / ``ogp_site_url`` and append ``og:locale``.
+
+    Sphinx applies ``-D language=ja`` overrides *after* this module is loaded,
+    so we wait for the ``config-inited`` event before reading the resolved
+    language. This keeps Japanese builds (``make build-ja``) from emitting
+    ``/en/`` URLs in OGP / sitemap output and ensures Open Graph scrapers
+    receive the correct ``og:locale`` per language.
+    """
+
+    def _apply_locale_aware_ogp(_app, config):
+        lang = (config.language or "en").split("_")[0]
+        base = f"https://nagatatz.github.io/rescript-intellij-plugin/{lang}/"
+        config.html_baseurl = base
+        config.ogp_site_url = base
+        og_locale = _OGP_LOCALES.get(lang, "en_US")
+        og_locale_tag = f'<meta property="og:locale" content="{og_locale}" />'
+        if og_locale_tag not in config.ogp_custom_meta_tags:
+            config.ogp_custom_meta_tags = [
+                *config.ogp_custom_meta_tags,
+                og_locale_tag,
+            ]
+
+    app.connect("config-inited", _apply_locale_aware_ogp)
+    return {"parallel_read_safe": True, "parallel_write_safe": True}
