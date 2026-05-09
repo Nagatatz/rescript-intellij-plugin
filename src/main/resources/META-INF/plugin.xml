@@ -1123,6 +1123,14 @@
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
 
+        <!-- Intention: Rename variant constructor (project-wide, no LSP) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptRenameVariantConstructorIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
         <!-- Intention: Convert to labeled arguments (#98) -->
         <intentionAction>
             <language>ReScript</language>

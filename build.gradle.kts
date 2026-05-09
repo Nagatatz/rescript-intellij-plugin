@@ -287,6 +287,10 @@ kover {
                     "com.rescript.plugin.run.*",
                     // All settings classes
                     "com.rescript.plugin.settings.*",
+                    // Rename intention: shows IDE dialogs and runs a project-
+                    // wide WriteCommandAction; the classifier and finder it
+                    // delegates to are unit-tested separately.
+                    "com.rescript.plugin.intention.RescriptRenameVariantConstructorIntention*",
                     // All codestyle classes (IDE-coupled)
                     "com.rescript.plugin.codestyle.*",
                     // All generate action classes (IDE dialog coupling)
