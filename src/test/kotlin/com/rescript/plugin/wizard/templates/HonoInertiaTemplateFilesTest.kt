@@ -150,11 +150,37 @@ class HonoInertiaTemplateFilesTest {
     }
 
     @Test
-    fun `client Main wires resolvePage into createInertiaApp setup`() {
+    fun `client Main wires resolvePage into createInertiaApp setup with hydration`() {
         val main = HonoInertiaTemplateFiles.generate(ctx)["src/client/Main.res"]!!
         assertTrue(main.contains("@module(\"./pages.js\")"))
         assertTrue(main.contains("InertiaBindings.createInertiaApp"))
-        assertTrue(main.contains("ReactDOM.Client.createRoot"))
+        // SSR is the default; the entry must hydrate the server-rendered DOM
+        // rather than throwing it away with a fresh `createRoot` mount.
+        assertTrue(main.contains("hydrateRoot"))
+        assertFalse(main.contains("ReactDOM.Client.createRoot"))
+    }
+
+    @Test
+    fun `Ssr res is generated and registers Home and About in a sync switch`() {
+        val ssr = HonoInertiaTemplateFiles.generate(ctx)["src/Ssr.res"]!!
+        assertTrue(ssr.contains("@module(\"react-dom/server\")"))
+        assertTrue(ssr.contains("renderToString"))
+        // Both bundled pages must appear in the SSR switch so adding a page
+        // without registering it surfaces as a build error rather than a 500.
+        assertTrue(ssr.contains("\"Home\""))
+        assertTrue(ssr.contains("\"About\""))
+        // Pages call `usePage()` via MainLayout, so SSR must wrap them in
+        // Inertia's `<App>` to provide the provider context.
+        assertTrue(ssr.contains("@module(\"@inertiajs/react\")"))
+        assertTrue(ssr.contains("InertiaApp"))
+    }
+
+    @Test
+    fun `Server res rootView embeds the SSR-rendered body inside the mount point`() {
+        val server = HonoInertiaTemplateFiles.generate(ctx)["src/Server.res"]!!
+        assertTrue(server.contains("Ssr.renderInertia"))
+        // The SSR body must land inside `<div id=\"app\">`, not just appended.
+        assertTrue(server.contains("<div id=\"app\" data-page='\${pageJson}'>\${body}</div>"))
     }
 
     @Test

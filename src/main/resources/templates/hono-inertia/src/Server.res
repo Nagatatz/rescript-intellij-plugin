@@ -14,18 +14,24 @@ let escapeApostrophes = (s: string): string =>
   s->String.replaceAll("'", "&#39;")
 
 // HTML host page returned for non-Inertia visits. The Inertia client mounts
-// into `#app` and reads the page object from the `data-page` attribute.
+// into `#app`, reads the page object from the `data-page` attribute, and
+// hydrates the SSR-rendered markup that `Ssr.renderInertia` already wrote
+// into `#app` — so the first paint is the rendered page, not an empty div.
 let rootView: HonoInertia.rootView = (page, _ctx) => {
   let pageJson = page->HonoInertia.serializePage->escapeApostrophes
+  let rendered = Ssr.renderInertia(page)
+  let head = rendered.head->Array.join("\n    ")
+  let body = rendered.body
   `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hono Inertia</title>
+    ${head}
   </head>
   <body>
-    <div id="app" data-page='${pageJson}'></div>
+    <div id="app" data-page='${pageJson}'>${body}</div>
     <script type="module" src="/src/client/Main.res.mjs"></script>
   </body>
 </html>`

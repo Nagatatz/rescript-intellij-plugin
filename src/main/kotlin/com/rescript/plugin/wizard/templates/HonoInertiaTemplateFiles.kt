@@ -100,6 +100,7 @@ internal object HonoInertiaTemplateFiles {
                     TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
                 "src/Routes.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Routes.res"),
                 "src/Server.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Server.res"),
+                "src/Ssr.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Ssr.res"),
                 "src/ServerMain.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/ServerMain.res"),
                 "src/client/Main.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/client/Main.res"),
                 "src/client/pages.js" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/client/pages.js"),

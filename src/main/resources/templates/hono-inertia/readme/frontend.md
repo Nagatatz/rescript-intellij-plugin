@@ -10,8 +10,35 @@
    )
    ```
 
-`src/client/pages.js` discovers the new file automatically through
-`import.meta.glob`; no central registry needs editing.
+4. Add a switch arm to `src/Ssr.res` so the page can be server-rendered:
+
+   ```rescript
+   | "<Name>" =>
+     let props: {"prop1": string, "prop2": int} = castProps(page.props)
+     renderToString(<Name prop1={props["prop1"]} prop2={props["prop2"]} />)
+   ```
+
+`src/client/pages.js` already discovers the new component for the **client**
+side through `import.meta.glob` — but the **server** side renders synchronously
+and needs the page to be listed in `Ssr.res` explicitly. Forgetting Step 4
+turns into a build error rather than a runtime 500, so the type checker keeps
+the registry honest.
+
+### Server-side rendering
+
+Non-Inertia visits (the first request, search-engine crawlers, OGP fetchers)
+get a **fully rendered page** from the server: `Server.res`'s `rootView`
+delegates to `Ssr.renderInertia`, which calls `react-dom/server`'s
+`renderToString` on the matching page component and embeds the resulting HTML
+inside `<div id="app" data-page='…'>…</div>`. Subsequent Inertia visits
+(`X-Inertia: true`) keep their existing JSON-only behaviour — `@hono/inertia`
+short-circuits before `rootView` runs, so there is no SSR overhead on
+client-side navigation.
+
+The browser entry (`src/client/Main.res`) calls `hydrateRoot` to attach React
+to the SSR-rendered DOM rather than throwing it away with a fresh
+`createRoot`, so the first paint is the real page and the framework only adds
+event listeners on top.
 
 ### Navigating between pages
 
