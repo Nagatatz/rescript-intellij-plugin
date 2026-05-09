@@ -10,7 +10,7 @@ myst:
 
 A server-driven SPA in which Hono routes call `c.render(component, props)` through the **`@hono/inertia`** middleware, and **`@inertiajs/react`** v3 mounts the matching React page on the client. There is no separate REST/GraphQL layer — the controller hands props straight to the page component.
 
-The template uses **Vite+ (`vite-plus`)**, VoidZero's unified toolchain that collapses Vite, Vitest, Oxlint, Oxfmt, and Rolldown behind a single `vp` CLI. CSR only — server-side rendering is intentionally out of scope for the initial template (planned as a follow-up).
+The template uses **Vite+ (`vite-plus`)**, VoidZero's unified toolchain that collapses Vite, Vitest, Oxlint, Oxfmt, and Rolldown behind a single `vp` CLI. **SSR is on by default**: `src/Ssr.res` server-renders each page through `react-dom/server`'s `renderToString`, the rendered HTML is embedded in `<div id="app">…</div>`, and the browser entry hydrates with `hydrateRoot`. Subsequent Inertia visits (`X-Inertia: true`) return JSON only and bypass SSR.
 
 ## What You Get
 
@@ -181,14 +181,51 @@ Inertia reads `.default` off whatever `resolve` returns; ReScript-compiled modul
 @module("./pages.js")
 external resolvePage: string => promise<{..}> = "resolvePage"
 
+@module("react-dom/client")
+external hydrateRoot: (Dom.element, React.element) => unit = "hydrateRoot"
+
 InertiaBindings.createInertiaApp({
   resolve: resolvePage,
   setup: ({el, app, props}) => {
-    let root = ReactDOM.Client.createRoot(el)
-    root->ReactDOM.Client.Root.render(React.createElement(app, props))
+    hydrateRoot(el, React.createElement(app, props))
   },
 })
 ```
+
+### `src/Ssr.res`
+
+```rescript
+@module("react-dom/server")
+external renderToString: React.element => string = "renderToString"
+
+module InertiaApp = {
+  @module("@inertiajs/react") @react.component
+  external make: (
+    ~initialPage: HonoInertia.pageObject,
+    ~initialComponent: 'component,
+    ~resolveComponent: string => 'component,
+  ) => React.element = "App"
+}
+
+external castComponent: 'a => 'b = "%identity"
+
+let resolveComponent = (name: string) =>
+  switch name {
+  | "Home" => castComponent(Home.make)
+  | "About" => castComponent(About.make)
+  | other => Js.Exn.raiseError(`Inertia SSR: unknown page "${other}"`)
+  }
+
+let renderInertia = (page: HonoInertia.pageObject) => {
+  let initialComponent = resolveComponent(page.component)
+  let body = renderToString(
+    <InertiaApp initialPage=page initialComponent resolveComponent />,
+  )
+  {head: [], body}
+}
+```
+
+Pages render through Inertia's React `<App>` so `usePage()` (used by `MainLayout`) finds its provider context. `resolveComponent` runs synchronously, which keeps `renderToString` synchronous and `rootView` itself synchronous. Adding a new page requires updating this switch alongside `client/Pages/` and `Routes.res` — the explicit registry catches missing pages at compile time rather than as runtime 500s.
 
 ### `vite.config.mjs`
 

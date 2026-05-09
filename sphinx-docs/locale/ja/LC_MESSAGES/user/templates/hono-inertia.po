@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 05:50+0900\n"
+"POT-Creation-Date: 2026-05-09 18:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -38,8 +38,8 @@ msgid ""
 "{bdg-info}`Node.js / Bun` {bdg-primary}`Inertia.js` {bdg-success}`Server-"
 "driven` {bdg-warning}`Vite+ alpha`"
 msgstr ""
-"{bdg-info}`Node.js / Bun` {bdg-primary}`Inertia.js` {bdg-success}`サーバ駆動`"
-" {bdg-warning}`Vite+ alpha`"
+"{bdg-info}`Node.js / Bun` {bdg-primary}`Inertia.js` {bdg-success}`サーバ駆動` "
+"{bdg-warning}`Vite+ alpha`"
 
 #: ../../user/templates/hono-inertia.md:11
 msgid ""
@@ -50,20 +50,25 @@ msgid ""
 "straight to the page component."
 msgstr ""
 "Hono のルートが **`@hono/inertia`** ミドルウェア経由で `c.render(component, props)` "
-"を呼び出し、クライアント側では **`@inertiajs/react`** v3 が対応する React "
-"ページをマウントするサーバドリブン SPA。REST/GraphQL レイヤーは存在せず、コントローラがそのまま"
-"ページコンポーネントへ props を渡します。"
+"を呼び出し、クライアント側では **`@inertiajs/react`** v3 が対応する React ページをマウントするサーバドリブン "
+"SPA。REST/GraphQL レイヤーは存在せず、コントローラがそのままページコンポーネントへ props を渡します。"
 
 #: ../../user/templates/hono-inertia.md:13
 msgid ""
 "The template uses **Vite+ (`vite-plus`)**, VoidZero's unified toolchain "
 "that collapses Vite, Vitest, Oxlint, Oxfmt, and Rolldown behind a single "
-"`vp` CLI. CSR only — server-side rendering is intentionally out of scope "
-"for the initial template (planned as a follow-up)."
+"`vp` CLI. **SSR is on by default**: `src/Ssr.res` server-renders each "
+"page through `react-dom/server`'s `renderToString`, the rendered HTML is "
+"embedded in `<div id=\"app\">…</div>`, and the browser entry hydrates "
+"with `hydrateRoot`. Subsequent Inertia visits (`X-Inertia: true`) return "
+"JSON only and bypass SSR."
 msgstr ""
-"このテンプレートは **Vite+ (`vite-plus`)** を採用しています。これは VoidZero が公開した統合ツールチェーンで、"
-"Vite、Vitest、Oxlint、Oxfmt、Rolldown を単一の `vp` CLI に集約します。CSR のみ対応 — "
-"サーバサイドレンダリングは初版では意図的にスコープ外としています（フォローアップで対応予定）。"
+"このテンプレートは **Vite+ (`vite-plus`)** — VoidZero が提供する Vite / Vitest / Oxlint"
+" / Oxfmt / Rolldown を単一の `vp` CLI 配下にまとめた統合ツールチェイン — を使用します。**SSR "
+"がデフォルトでオン** で、`src/Ssr.res` が `react-dom/server` の `renderToString` "
+"を使って各ページをサーバ側でレンダリングし、生成された HTML を `<div id=\"app\">…</div>` "
+"の中に埋め込み、ブラウザ側エントリは `hydrateRoot` で hydration を行います。以降の Inertia ナビゲーション "
+"(`X-Inertia: true`) は JSON のみを返し、SSR を経由しません。"
 
 #: ../../user/templates/hono-inertia.md:15
 msgid "What You Get"
@@ -110,8 +115,8 @@ msgid ""
 "`zod` ↔ `sury`. Picks `src/Validation.res` and adds the matching "
 "dependency. Both expose the same `parseGreetForm` signature"
 msgstr ""
-"`zod` ↔ `sury` を切り替え。`src/Validation.res` の中身が選択肢に合わせて変わり、対応する依存も追加されます。"
-"どちらも同じ `parseGreetForm` シグネチャを公開します"
+"`zod` ↔ `sury` を切り替え。`src/Validation.res` "
+"の中身が選択肢に合わせて変わり、対応する依存も追加されます。どちらも同じ `parseGreetForm` シグネチャを公開します"
 
 #: ../../user/templates/hono-inertia.md:64
 msgid "Key Dependencies"
@@ -363,8 +368,8 @@ msgid ""
 "in `start()` and is invoked from `ServerMain.res`. Tests can therefore "
 "`import(\"../Server.res.mjs\")` without binding port 3000."
 msgstr ""
-"`Server.res` はモジュールのトップレベルで `serve()` を呼び出しません。実際の起動処理は "
-"`start()` の中にあり、`ServerMain.res` から呼び出されます。これによりテストはポート 3000 を bind せずに "
+"`Server.res` はモジュールのトップレベルで `serve()` を呼び出しません。実際の起動処理は `start()` "
+"の中にあり、`ServerMain.res` から呼び出されます。これによりテストはポート 3000 を bind せずに "
 "`import(\"../Server.res.mjs\")` できます。"
 
 #: ../../user/templates/hono-inertia.md:114
@@ -381,8 +386,8 @@ msgid ""
 " envelope; absent → the HTML host page (so deep links and address-bar "
 "typing work)."
 msgstr ""
-"Inertia はリクエストの `X-Inertia` ヘッダを見分けます: 付与あり → JSON ページエンベロープ、付与なし → "
-"HTML ホストページ (deep link やアドレスバー直打ちが動く)。"
+"Inertia はリクエストの `X-Inertia` ヘッダを見分けます: 付与あり → JSON ページエンベロープ、付与なし → HTML "
+"ホストページ (deep link やアドレスバー直打ちが動く)。"
 
 #: ../../user/templates/hono-inertia.md:129
 msgid "`src/HonoInertia.res`"
@@ -411,9 +416,9 @@ msgid ""
 "`<InertiaBindings.Link href=\"/about\">` instead of plain `<a>` tags so "
 "Inertia intercepts the click."
 msgstr ""
-"`MainLayout.res` は `usePage()` を呼び出して `page.url` を読み取ります。各ページでは "
-"プレーンな `<a>` タグの代わりに `<InertiaBindings.Link href=\"/about\">` を使うことで、"
-"Inertia がクリックをインターセプトできるようにします。"
+"`MainLayout.res` は `usePage()` を呼び出して `page.url` を読み取ります。各ページでは プレーンな "
+"`<a>` タグの代わりに `<InertiaBindings.Link href=\"/about\">` を使うことで、Inertia "
+"がクリックをインターセプトできるようにします。"
 
 #: ../../user/templates/hono-inertia.md:160
 msgid "`src/client/pages.js` — the JS shim"
@@ -427,9 +432,9 @@ msgid ""
 "loader table at build time, so we keep the resolver in plain JS:"
 msgstr ""
 "ReScript 12 の `Js.import` は import パスを **静的に** 解決します — "
-"`import(\"./Pages/\" ++ name + \".res.mjs\")` はコンパイラに拒否されます。"
-"`import.meta.glob` は Vite 専用の拡張で、ビルド時に遅延ローダーのテーブルを作ります。そのため、"
-"リゾルバは素の JS のまま残しています:"
+"`import(\"./Pages/\" ++ name + \".res.mjs\")` "
+"はコンパイラに拒否されます。`import.meta.glob` は Vite "
+"専用の拡張で、ビルド時に遅延ローダーのテーブルを作ります。そのため、リゾルバは素の JS のまま残しています:"
 
 #: ../../user/templates/hono-inertia.md:176
 msgid ""
@@ -437,30 +442,47 @@ msgid ""
 "compiled modules expose their React component as `make`, so the shim re-"
 "wraps it under `default`."
 msgstr ""
-"Inertia は `resolve` が返す値の `.default` を読み取ります。ReScript "
-"がコンパイルしたモジュールは React コンポーネントを `make` として公開するため、シムが `default` "
-"の下に再ラップします。"
+"Inertia は `resolve` が返す値の `.default` を読み取ります。ReScript がコンパイルしたモジュールは "
+"React コンポーネントを `make` として公開するため、シムが `default` の下に再ラップします。"
 
 #: ../../user/templates/hono-inertia.md:178
 msgid "`src/client/Main.res`"
 msgstr "`src/client/Main.res`"
 
-#: ../../user/templates/hono-inertia.md:193
+#: ../../user/templates/hono-inertia.md:195
+msgid "`src/Ssr.res`"
+msgstr "`src/Ssr.res`"
+
+#: ../../user/templates/hono-inertia.md:228
+msgid ""
+"Pages render through Inertia's React `<App>` so `usePage()` (used by "
+"`MainLayout`) finds its provider context. `resolveComponent` runs "
+"synchronously, which keeps `renderToString` synchronous and `rootView` "
+"itself synchronous. Adding a new page requires updating this switch "
+"alongside `client/Pages/` and `Routes.res` — the explicit registry "
+"catches missing pages at compile time rather than as runtime 500s."
+msgstr ""
+"ページは Inertia の React `<App>` を介してレンダリングされるため、`MainLayout` から呼ばれる "
+"`usePage()` が provider コンテキストを見つけられます。`resolveComponent` は同期で動くので、"
+"`renderToString` も `rootView` も同期のままで済みます。新しいページを追加する際は、`client/Pages/` "
+"と `Routes.res` だけでなくこの switch も更新する必要があります。明示的なレジストリにすることで、登録漏れが "
+"ランタイムの 500 ではなくコンパイル時のエラーとして検出されます。"
+
+#: ../../user/templates/hono-inertia.md:230
 msgid "`vite.config.mjs`"
 msgstr "`vite.config.mjs`"
 
-#: ../../user/templates/hono-inertia.md:213
+#: ../../user/templates/hono-inertia.md:250
 msgid ""
 "The proxy forwards Inertia GET/POST requests to the Hono server during "
 "dev; static assets and HMR continue to be served by Vite+ directly. In "
 "production the same Hono server serves `dist/` and the React bundle is "
 "just a static asset."
 msgstr ""
-"このプロキシは開発時に Inertia の GET/POST リクエストを Hono サーバへ転送します。静的アセットと HMR は "
-"Vite+ がそのまま提供します。本番では同じ Hono サーバが `dist/` を配信し、React バンドルは"
-"ただの静的アセットになります。"
+"このプロキシは開発時に Inertia の GET/POST リクエストを Hono サーバへ転送します。静的アセットと HMR は Vite+ "
+"がそのまま提供します。本番では同じ Hono サーバが `dist/` を配信し、React バンドルはただの静的アセットになります。"
 
-#: ../../user/templates/hono-inertia.md:215
+#: ../../user/templates/hono-inertia.md:252
 msgid "npm Scripts"
 msgstr "npm スクリプト"
 
@@ -483,8 +505,7 @@ msgid ""
 " you prefer one process)"
 msgstr ""
 "`vp dev` — Vite+ の dev サーバを起動 (別シェルで `node --watch "
-"src/ServerMain.res.mjs` を実行するか、1 プロセスにまとめたい場合は `concurrently` "
-"と組み合わせる)"
+"src/ServerMain.res.mjs` を実行するか、1 プロセスにまとめたい場合は `concurrently` と組み合わせる)"
 
 #: ../../user/templates/hono-inertia.md
 msgid "`build`"
@@ -566,57 +587,55 @@ msgstr "`res:clean`"
 msgid "`rescript clean`"
 msgstr "`rescript clean`"
 
-#: ../../user/templates/hono-inertia.md:231
+#: ../../user/templates/hono-inertia.md:268
 msgid "Adding a New Page"
 msgstr "新しいページの追加"
 
-#: ../../user/templates/hono-inertia.md:233
+#: ../../user/templates/hono-inertia.md:270
 msgid "Drop a new file under `src/client/Pages/<Name>.res`:"
 msgstr "`src/client/Pages/<Name>.res` に新しいファイルを置きます:"
 
-#: ../../user/templates/hono-inertia.md:240
+#: ../../user/templates/hono-inertia.md:277
 msgid "Register a route in `src/Routes.res`:"
 msgstr "`src/Routes.res` にルートを登録します:"
 
-#: ../../user/templates/hono-inertia.md:248
+#: ../../user/templates/hono-inertia.md:285
 msgid ""
 "`pages.js` discovers the new file automatically through "
 "`import.meta.glob` — no central registry to edit."
 msgstr ""
-"`pages.js` は `import.meta.glob` 経由で新しいファイルを自動的に発見します — 中央のレジストリを"
-"編集する必要はありません。"
+"`pages.js` は `import.meta.glob` 経由で新しいファイルを自動的に発見します — "
+"中央のレジストリを編集する必要はありません。"
 
-#: ../../user/templates/hono-inertia.md:250
+#: ../../user/templates/hono-inertia.md:287
 msgid "Caveats — Vite+ alpha"
 msgstr "注意点 — Vite+ alpha"
 
-#: ../../user/templates/hono-inertia.md:252
+#: ../../user/templates/hono-inertia.md:289
 msgid ""
 "Vite+ is currently shipping in alpha (`0.1.x` at the time of writing). "
 "The CLI and config surface are still in flux:"
-msgstr ""
-"Vite+ は現在 alpha リリース中です (執筆時点で `0.1.x`)。CLI と設定インターフェースはまだ流動的です:"
+msgstr "Vite+ は現在 alpha リリース中です (執筆時点で `0.1.x`)。CLI と設定インターフェースはまだ流動的です:"
 
-#: ../../user/templates/hono-inertia.md:254
+#: ../../user/templates/hono-inertia.md:291
 msgid ""
 "The `test` / `lint` / `fmt` configuration keys are not yet documented in "
 "`vite.config.mjs`. Defaults work; configuration may move."
 msgstr ""
-"`test` / `lint` / `fmt` の設定キーは `vite.config.mjs` ではまだ公開されていません。"
-"デフォルト設定で動作しますが、今後配置が変わる可能性があります。"
+"`test` / `lint` / `fmt` の設定キーは `vite.config.mjs` "
+"ではまだ公開されていません。デフォルト設定で動作しますが、今後配置が変わる可能性があります。"
 
-#: ../../user/templates/hono-inertia.md:255
+#: ../../user/templates/hono-inertia.md:292
 msgid "API changes between 0.1.x patch releases are possible."
 msgstr "0.1.x のパッチリリース間で API 変更が起こりえます。"
 
-#: ../../user/templates/hono-inertia.md:257
+#: ../../user/templates/hono-inertia.md:294
 msgid ""
 "If a Vite+ release breaks this template, you can fall back to plain Vite "
 "by:"
-msgstr ""
-"Vite+ のリリースでこのテンプレートが壊れた場合、以下の手順で素の Vite にフォールバックできます:"
+msgstr "Vite+ のリリースでこのテンプレートが壊れた場合、以下の手順で素の Vite にフォールバックできます:"
 
-#: ../../user/templates/hono-inertia.md:259
+#: ../../user/templates/hono-inertia.md:296
 #, python-brace-format
 msgid ""
 "Replacing `vite-plus` with `vite` in `vite.config.mjs` (`import { "
@@ -625,30 +644,29 @@ msgstr ""
 "`vite.config.mjs` の `vite-plus` を `vite` に置換 (`import { defineConfig } "
 "from \"vite\"`)。"
 
-#: ../../user/templates/hono-inertia.md:260
+#: ../../user/templates/hono-inertia.md:297
 msgid ""
 "Replacing the `vp ...` scripts in `package.json` with `vite` / `vitest "
 "run` directly."
-msgstr ""
-"`package.json` の `vp ...` スクリプトを `vite` / `vitest run` に直接置換。"
+msgstr "`package.json` の `vp ...` スクリプトを `vite` / `vitest run` に直接置換。"
 
-#: ../../user/templates/hono-inertia.md:261
+#: ../../user/templates/hono-inertia.md:298
 msgid ""
 "Adding `vitest`, `eslint`, `prettier` (and their plugins) as "
 "devDependencies to fill the gaps Vite+ used to cover."
 msgstr ""
-"Vite+ がカバーしていた領域を埋めるため、`vitest`、`eslint`、`prettier` "
-"(とそれらのプラグイン) を devDependencies として追加。"
+"Vite+ がカバーしていた領域を埋めるため、`vitest`、`eslint`、`prettier` (とそれらのプラグイン) を "
+"devDependencies として追加。"
 
-#: ../../user/templates/hono-inertia.md:263
+#: ../../user/templates/hono-inertia.md:300
 msgid "Hono, Inertia, and Drizzle do not depend on Vite+ and stay untouched."
 msgstr "Hono、Inertia、Drizzle は Vite+ に依存していないため、そのまま使えます。"
 
-#: ../../user/templates/hono-inertia.md:265
+#: ../../user/templates/hono-inertia.md:302
 msgid "Day-Two Recipes"
 msgstr "2日目以降のレシピ"
 
-#: ../../user/templates/hono-inertia.md:267
+#: ../../user/templates/hono-inertia.md:304
 #, python-brace-format
 msgid ""
 "{doc}`../recipes/add-hono-endpoint` — adding a REST route alongside "
@@ -657,86 +675,115 @@ msgstr ""
 "{doc}`../recipes/add-hono-endpoint` — Inertia ページと並べて REST ルートを追加 "
 "(webhook 受信、ヘルスチェックなど)"
 
-#: ../../user/templates/hono-inertia.md:268
+#: ../../user/templates/hono-inertia.md:305
 #, python-brace-format
 msgid ""
 "{doc}`../recipes/setup-drizzle` — Drizzle schema, migrations, and Turso "
 "swap"
-msgstr ""
-"{doc}`../recipes/setup-drizzle` — Drizzle スキーマ、マイグレーション、Turso への切り替え"
+msgstr "{doc}`../recipes/setup-drizzle` — Drizzle スキーマ、マイグレーション、Turso への切り替え"
 
-#: ../../user/templates/hono-inertia.md:270
+#: ../../user/templates/hono-inertia.md:307
 #, python-brace-format
 msgid ""
 "For ReScript-side editor workflows once the project is open, see the "
 "{doc}`../features/index`."
-msgstr ""
-"プロジェクトを開いた後の ReScript 側エディタワークフローは {doc}`../features/index` を参照してください。"
+msgstr "プロジェクトを開いた後の ReScript 側エディタワークフローは {doc}`../features/index` を参照してください。"
 
-#: ../../user/templates/hono-inertia.md:272
+#: ../../user/templates/hono-inertia.md:309
 msgid "Notes"
 msgstr "補足"
 
-#: ../../user/templates/hono-inertia.md:274
+#: ../../user/templates/hono-inertia.md:311
 msgid ""
 "**CSR only.** The template renders pages on the client; server-side "
 "rendering is planned as a follow-up. If you need first-paint SEO today, "
 "render a static skeleton in `index.html` or pre-render specific routes "
 "with `vite build --ssr`."
 msgstr ""
-"**CSR のみ。** このテンプレートはクライアント側でページをレンダリングします。サーバサイドレンダリングは"
-"フォローアップで予定しています。初回描画の SEO が今すぐ必要であれば、`index.html` "
-"に静的スケルトンを書くか、特定ルートだけ `vite build --ssr` で pre-render してください。"
+"**CSR のみ。** "
+"このテンプレートはクライアント側でページをレンダリングします。サーバサイドレンダリングはフォローアップで予定しています。初回描画の SEO "
+"が今すぐ必要であれば、`index.html` に静的スケルトンを書くか、特定ルートだけ `vite build --ssr` で pre-"
+"render してください。"
 
-#: ../../user/templates/hono-inertia.md:275
+#: ../../user/templates/hono-inertia.md:312
 msgid ""
 "**`Server.res` never calls `serve()` at module top level** — that work "
 "lives in `start()` and is invoked from `ServerMain.res`. Tests can "
 "therefore `import(\"../Server.res.mjs\")` without binding port 3000."
 msgstr ""
-"**`Server.res` はモジュールのトップレベルで `serve()` を呼び出しません** — その処理は "
-"`start()` の中にあり、`ServerMain.res` から呼び出されます。これによりテストはポート 3000 を bind せずに "
+"**`Server.res` はモジュールのトップレベルで `serve()` を呼び出しません** — その処理は `start()` "
+"の中にあり、`ServerMain.res` から呼び出されます。これによりテストはポート 3000 を bind せずに "
 "`import(\"../Server.res.mjs\")` できます。"
 
-#: ../../user/templates/hono-inertia.md:276
+#: ../../user/templates/hono-inertia.md:313
 msgid ""
 "**Inertia middleware order matters.** `HonoInertia.inertia()` must be "
 "registered before any route that calls `c->HonoInertia.render(...)`. The "
 "shipped `Server.res` enforces this with a comment."
 msgstr ""
-"**Inertia ミドルウェアの順序が重要。** `c->HonoInertia.render(...)` を呼ぶ"
-"ルートよりも前に `HonoInertia.inertia()` を登録する必要があります。同梱の `Server.res` "
-"はコメントでその制約を明示しています。"
+"**Inertia ミドルウェアの順序が重要。** `c->HonoInertia.render(...)` を呼ぶルートよりも前に "
+"`HonoInertia.inertia()` を登録する必要があります。同梱の `Server.res` はコメントでその制約を明示しています。"
 
-#: ../../user/templates/hono-inertia.md:277
+#: ../../user/templates/hono-inertia.md:314
 msgid ""
 "**The `pages.js` shim is intentional.** It is the smallest piece of JS we"
 " can ship — five lines around `import.meta.glob` — and lets the rest of "
 "the template stay pure ReScript."
 msgstr ""
-"**`pages.js` シムは意図的に同梱しています。** これは同梱できる最小限の JS "
-"(`import.meta.glob` 周りの 5 行) であり、これによりテンプレートの他の部分を純粋な ReScript "
-"のまま保てます。"
+"**`pages.js` シムは意図的に同梱しています。** これは同梱できる最小限の JS (`import.meta.glob` 周りの 5 "
+"行) であり、これによりテンプレートの他の部分を純粋な ReScript のまま保てます。"
 
-#: ../../user/templates/hono-inertia.md:278
+#: ../../user/templates/hono-inertia.md:315
 msgid ""
 "**Defaults to a local SQLite file.** `DATABASE_URL=file:./data/app.db`. "
 "Swap for a `libsql://` URL (Turso) without touching code."
 msgstr ""
-"**既定ではローカル SQLite ファイル。** `DATABASE_URL=file:./data/app.db`。コードに"
-"手を加えずに `libsql://` URL (Turso) に差し替えできます。"
+"**既定ではローカル SQLite ファイル。** `DATABASE_URL=file:./data/app.db`。コードに手を加えずに "
+"`libsql://` URL (Turso) に差し替えできます。"
 
-#: ../../user/templates/hono-inertia.md:279
+#: ../../user/templates/hono-inertia.md:316
 msgid ""
 "**React 19 is required.** `@inertiajs/react` v3 declares `react ^19` as a"
 " peer dependency. `@rescript/react` works with React 19."
 msgstr ""
-"**React 19 が必須。** `@inertiajs/react` v3 は `react ^19` を peer "
-"dependency として宣言しています。`@rescript/react` は React 19 で動作します。"
+"**React 19 が必須。** `@inertiajs/react` v3 は `react ^19` を peer dependency "
+"として宣言しています。`@rescript/react` は React 19 で動作します。"
 
-#: ../../user/templates/hono-inertia.md:280
+#: ../../user/templates/hono-inertia.md:317
 msgid ""
 "**Generated artifacts are gitignored:** `dist/`, `data/`, `drizzle/`, "
 "`.vite/`, `.env`."
-msgstr ""
-"**生成成果物は gitignore 済み:** `dist/`、`data/`、`drizzle/`、`.vite/`、`.env`。"
+msgstr "**生成成果物は gitignore 済み:** `dist/`、`data/`、`drizzle/`、`.vite/`、`.env`。"
+
+#~ msgid ""
+#~ "The template uses **Vite+ (`vite-"
+#~ "plus`)**, VoidZero's unified toolchain that"
+#~ " collapses Vite, Vitest, Oxlint, Oxfmt, "
+#~ "and Rolldown behind a single `vp` "
+#~ "CLI. CSR only — server-side "
+#~ "rendering is intentionally out of scope"
+#~ " for the initial template (planned as"
+#~ " a follow-up)."
+#~ msgstr ""
+#~ "このテンプレートは **Vite+ (`vite-plus`)** を採用しています。これは"
+#~ " VoidZero が公開した統合ツールチェーンで、Vite、Vitest、Oxlint、Oxfmt、Rolldown"
+#~ " を単一の `vp` CLI に集約します。CSR のみ対応 — "
+#~ "サーバサイドレンダリングは初版では意図的にスコープ外としています（フォローアップで対応予定）。"
+
+#~ msgid ""
+#~ "Adding a new page requires updating "
+#~ "both the client glob (handled "
+#~ "automatically by `pages.js`) **and** this "
+#~ "server-side switch — `react-dom/server`"
+#~ " only renders synchronously, so dynamic "
+#~ "resolution would force `rootView` to "
+#~ "become async. The explicit registry "
+#~ "catches missing pages at compile time"
+#~ " rather than as runtime 500s."
+#~ msgstr ""
+#~ "新しいページを追加する場合は、クライアント側の glob (`pages.js` が自動で拾う) "
+#~ "**だけでなく** サーバ側の この switch も更新する必要があります"
+#~ "。`react-dom/server` は同期レンダリング専用なので、動的解決にすると `rootView`"
+#~ " を async に変えなければならなくなります。明示的なレジストリにすることで、登録漏れがランタイムの"
+#~ " 500 ではなくコンパイル時のエラーとして検出されます。"
+
