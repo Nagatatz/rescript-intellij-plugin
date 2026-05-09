@@ -990,6 +990,10 @@
         <toolWindow id="ReScript Type Impact" anchor="right" icon="AllIcons.Actions.Find"
                 factoryClass="com.rescript.plugin.impact.RescriptTypeImpactToolWindowFactory"/>
 
+        <!-- Type Coverage Heat Map Tool Window (per-file annotated/inferred ratio across the project) -->
+        <toolWindow id="ReScript Type Coverage" anchor="bottom" icon="AllIcons.General.InspectionsEye"
+                factoryClass="com.rescript.plugin.coverage.RescriptTypeCoverageToolWindowFactory"/>
+
         <!-- JS Interop Risk Map Tool Window (project-wide %raw / external / Obj.magic / @bs.* sites) -->
         <toolWindow id="ReScript Interop Risk" anchor="right" icon="AllIcons.General.Warning"
                 factoryClass="com.rescript.plugin.interop.RescriptInteropRiskToolWindowFactory"/>

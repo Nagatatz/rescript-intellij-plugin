@@ -326,6 +326,8 @@ kover {
                     "com.rescript.plugin.notebook.RescriptNotebookCellPanel*",
                     "com.rescript.plugin.notebook.RescriptNotebookFileEditor*",
                     "com.rescript.plugin.notebook.RescriptNotebookFileType*",
+                    "com.rescript.plugin.coverage.RescriptTypeCoveragePanel*",
+                    "com.rescript.plugin.coverage.RescriptTypeCoverageToolWindowFactory*",
                     // Editor / Document write-action helpers. The body wraps
                     // WriteCommandAction (IDE write thread) which can't run
                     // outside a real IDE fixture; the existing test only
