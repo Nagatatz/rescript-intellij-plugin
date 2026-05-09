@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-08 21:41+0900\n"
+"POT-Creation-Date: 2026-05-09 16:33+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -43,9 +43,9 @@ msgid ""
 "`bsconfig.json`) is not at the workspace root — typical of pnpm, npm, and"
 " yarn workspace setups where ReScript lives inside a sub-package."
 msgstr ""
-"`rescript.json`（または `bsconfig.json`）がワークスペースのルート直下に無い場合でも、"
-"プラグインは ReScript プロジェクトを認識します。pnpm / npm / yarn のワークスペース構成で"
-"サブパッケージ配下に ReScript が存在するケースが典型例です。"
+"`rescript.json`（または `bsconfig.json`）がワークスペースのルート直下に無い場合でも、プラグインは ReScript"
+" プロジェクトを認識します。pnpm / npm / yarn のワークスペース構成でサブパッケージ配下に ReScript "
+"が存在するケースが典型例です。"
 
 #: ../../user/features/advanced.md:15
 msgid "Auto-Detection Pipeline"
@@ -55,16 +55,15 @@ msgstr "自動検出パイプライン"
 msgid ""
 "The plugin walks the following layers in order, stopping at the first "
 "that yields at least one package root:"
-msgstr ""
-"プラグインは次のレイヤーを順番に走査し、最初に 1 件以上のパッケージルートを返したレイヤーで打ち切ります。"
+msgstr "プラグインは次のレイヤーを順番に走査し、最初に 1 件以上のパッケージルートを返したレイヤーで打ち切ります。"
 
 #: ../../user/features/advanced.md:19
 msgid ""
 "**Manual override** — entries from `Settings > Languages & Frameworks > "
 "ReScript > Project package roots`."
 msgstr ""
-"**手動上書き** — `Settings > Languages & Frameworks > ReScript > Project package roots`"
-" で指定したエントリ。"
+"**手動上書き** — `Settings > Languages & Frameworks > ReScript > Project "
+"package roots` で指定したエントリ。"
 
 #: ../../user/features/advanced.md:20
 msgid ""
@@ -72,8 +71,8 @@ msgid ""
 "`workspaces` (array form) and `workspaces.packages` (yarn classic object "
 "form) from `package.json`."
 msgstr ""
-"**ワークスペースファイル** — `pnpm-workspace.yaml` の `packages:`、続いて `package.json` の"
-" `workspaces`（配列形式）および `workspaces.packages`（yarn classic のオブジェクト形式）。"
+"**ワークスペースファイル** — `pnpm-workspace.yaml` の `packages:`、続いて `package.json` "
+"の `workspaces`（配列形式）および `workspaces.packages`（yarn classic のオブジェクト形式）。"
 
 #: ../../user/features/advanced.md:21
 msgid ""
@@ -81,15 +80,15 @@ msgid ""
 "skipping `node_modules`, `.git`, `build`, `dist`, `.pnpm`, and similar "
 "non-source folders."
 msgstr ""
-"**深さ制限スキャン** — 最大 4 階層までを再帰的に走査します。`node_modules`、`.git`、`build`、"
-"`dist`、`.pnpm` などの非ソースディレクトリはスキップします。"
+"**深さ制限スキャン** — 最大 4 "
+"階層までを再帰的に走査します。`node_modules`、`.git`、`build`、`dist`、`.pnpm` "
+"などの非ソースディレクトリはスキップします。"
 
 #: ../../user/features/advanced.md:22
 msgid ""
 "**Parent walk** — fallback for opening a sub-directory whose ReScript "
 "config sits in an ancestor."
-msgstr ""
-"**親方向走査** — サブディレクトリを直接開いた場合に祖先の ReScript 設定を拾うためのフォールバック。"
+msgstr "**親方向走査** — サブディレクトリを直接開いた場合に祖先の ReScript 設定を拾うためのフォールバック。"
 
 #: ../../user/features/advanced.md:24
 msgid ""
@@ -98,9 +97,8 @@ msgid ""
 " the LSP binary search inside `node_modules/.bin/rescript-language-"
 "server`."
 msgstr ""
-"検出結果は monorepo 対応のすべての挙動で共有されます: 設定不足 Inspection、"
-"コンパイルステータスウィジェット、LSP 起動時の通知、`node_modules/.bin/rescript-language-server`"
-" の LSP バイナリ探索。"
+"検出結果は monorepo 対応のすべての挙動で共有されます: 設定不足 Inspection、コンパイルステータスウィジェット、LSP "
+"起動時の通知、`node_modules/.bin/rescript-language-server` の LSP バイナリ探索。"
 
 #: ../../user/features/advanced.md:26
 msgid "Manual Override"
@@ -112,8 +110,8 @@ msgid ""
 " line under **Project package roots**, relative to the project base "
 "directory:"
 msgstr ""
-"`Settings > Languages & Frameworks > ReScript` を開き、**Project package roots** に"
-"プロジェクトベースディレクトリからの相対パスを 1 行 1 つ列挙します。"
+"`Settings > Languages & Frameworks > ReScript` を開き、**Project package "
+"roots** にプロジェクトベースディレクトリからの相対パスを 1 行 1 つ列挙します。"
 
 #: ../../user/features/advanced.md:35
 msgid ""
@@ -122,11 +120,12 @@ msgid ""
 "ignored, so you can iterate on the list without being blocked from "
 "saving."
 msgstr ""
-"フィールドを空にすると自動検出に戻ります。存在しないパスや ReScript 設定ファイルを含まないエントリは"
-"暗黙に無視されるため、保存をブロックされることなくリストを編集できます。"
+"フィールドを空にすると自動検出に戻ります。存在しないパスや ReScript "
+"設定ファイルを含まないエントリは暗黙に無視されるため、保存をブロックされることなくリストを編集できます。"
 
 #: ../../user/features/advanced.md:37 ../../user/features/advanced.md:690
-#: ../../user/features/advanced.md:1453 ../../user/features/advanced.md:1550
+#: ../../user/features/advanced.md:1248 ../../user/features/advanced.md:1499
+#: ../../user/features/advanced.md:1596
 msgid "Limitations"
 msgstr "制限事項"
 
@@ -138,9 +137,7 @@ msgstr "`!否定` glob エントリやブレース展開は v1 ではサポー�
 msgid ""
 "The depth-limited fallback caps at four directory levels; deeper layouts "
 "must be declared via the manual override or workspace file."
-msgstr ""
-"深さ制限フォールバックは 4 階層までです。それより深いレイアウトは手動上書きか"
-"ワークスペースファイルで宣言してください。"
+msgstr "深さ制限フォールバックは 4 階層までです。それより深いレイアウトは手動上書きかワークスペースファイルで宣言してください。"
 
 #: ../../user/features/advanced.md:41
 msgid ""
@@ -148,8 +145,8 @@ msgid ""
 "directory; per-file project resolution is delegated to `@rescript"
 "/language-server`."
 msgstr ""
-"LSP サーバー自体はワークスペース root を作業ディレクトリとして受け取ります。"
-"ファイル単位のプロジェクト解決は `@rescript/language-server` 側に委譲されます。"
+"LSP サーバー自体はワークスペース root を作業ディレクトリとして受け取ります。ファイル単位のプロジェクト解決は `@rescript"
+"/language-server` 側に委譲されます。"
 
 #: ../../user/features/advanced.md:43
 msgid "Code Lens"
@@ -157,9 +154,9 @@ msgstr "Code Lens"
 
 #: ../../user/features/advanced.md:45 ../../user/features/advanced.md:207
 #: ../../user/features/advanced.md:746 ../../user/features/advanced.md:825
-#: ../../user/features/advanced.md:845 ../../user/features/advanced.md:1210
-#: ../../user/features/advanced.md:1266 ../../user/features/advanced.md:1294
-#: ../../user/features/advanced.md:1310 ../../user/features/advanced.md:1331
+#: ../../user/features/advanced.md:845 ../../user/features/advanced.md:1256
+#: ../../user/features/advanced.md:1312 ../../user/features/advanced.md:1340
+#: ../../user/features/advanced.md:1356 ../../user/features/advanced.md:1377
 #, python-brace-format
 msgid "{bdg-primary}`LSP Required`"
 msgstr "{bdg-primary}`LSP Required`"
@@ -178,7 +175,8 @@ msgstr ""
 #: ../../user/features/advanced.md:1000 ../../user/features/advanced.md:1057
 #: ../../user/features/advanced.md:1094 ../../user/features/advanced.md:1144
 #: ../../user/features/advanced.md:1180 ../../user/features/advanced.md:1216
-#: ../../user/features/advanced.md:1439 ../../user/features/advanced.md:1543
+#: ../../user/features/advanced.md:1262 ../../user/features/advanced.md:1485
+#: ../../user/features/advanced.md:1589
 msgid "How It Works"
 msgstr "仕組み"
 
@@ -247,8 +245,8 @@ msgstr ""
 #: ../../user/features/advanced.md:76 ../../user/features/advanced.md:321
 #: ../../user/features/advanced.md:364 ../../user/features/advanced.md:401
 #: ../../user/features/advanced.md:685 ../../user/features/advanced.md:863
-#: ../../user/features/advanced.md:910 ../../user/features/advanced.md:1448
-#: ../../user/features/advanced.md:1487
+#: ../../user/features/advanced.md:910 ../../user/features/advanced.md:1494
+#: ../../user/features/advanced.md:1533
 msgid "Requirements"
 msgstr "要件"
 
@@ -301,10 +299,11 @@ msgstr "コンパイル済み JavaScript プレビュー"
 #: ../../user/features/advanced.md:961 ../../user/features/advanced.md:994
 #: ../../user/features/advanced.md:1051 ../../user/features/advanced.md:1088
 #: ../../user/features/advanced.md:1138 ../../user/features/advanced.md:1174
-#: ../../user/features/advanced.md:1237 ../../user/features/advanced.md:1355
-#: ../../user/features/advanced.md:1367 ../../user/features/advanced.md:1381
-#: ../../user/features/advanced.md:1406 ../../user/features/advanced.md:1462
-#: ../../user/features/advanced.md:1496 ../../user/features/advanced.md:1523
+#: ../../user/features/advanced.md:1210 ../../user/features/advanced.md:1283
+#: ../../user/features/advanced.md:1401 ../../user/features/advanced.md:1413
+#: ../../user/features/advanced.md:1427 ../../user/features/advanced.md:1452
+#: ../../user/features/advanced.md:1508 ../../user/features/advanced.md:1542
+#: ../../user/features/advanced.md:1569
 #, python-brace-format
 msgid "{bdg-success}`Native`"
 msgstr "{bdg-success}`Native`"
@@ -402,7 +401,8 @@ msgstr ""
 #: ../../user/features/advanced.md:984 ../../user/features/advanced.md:1041
 #: ../../user/features/advanced.md:1078 ../../user/features/advanced.md:1124
 #: ../../user/features/advanced.md:1164 ../../user/features/advanced.md:1196
-#: ../../user/features/advanced.md:1227 ../../user/features/advanced.md:1345
+#: ../../user/features/advanced.md:1242 ../../user/features/advanced.md:1273
+#: ../../user/features/advanced.md:1391
 msgid "Use Cases"
 msgstr "ユースケース"
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "The dependency view lists:"
 msgstr "依存関係ビューには以下が表示されます:"
 
-#: ../../user/features/advanced.md:195 ../../user/features/advanced.md:1537
+#: ../../user/features/advanced.md:195 ../../user/features/advanced.md:1583
 msgid "Navigation"
 msgstr "ナビゲーション"
 
@@ -773,7 +773,7 @@ msgstr "`experimental-features`"
 msgid "Experimental compiler features (e.g., `LetUnwrap`)"
 msgstr "実験的なコンパイラ機能（例: `LetUnwrap`）"
 
-#: ../../user/features/advanced.md:286 ../../user/features/advanced.md:1512
+#: ../../user/features/advanced.md:286 ../../user/features/advanced.md:1558
 msgid "Features"
 msgstr "機能"
 
@@ -1822,9 +1822,9 @@ msgid ""
 msgstr "コンテキストメニューから、事前に記入されたボイラープレートコード付きの新しい ReScript ファイルを作成します。"
 
 #: ../../user/features/advanced.md:603 ../../user/features/advanced.md:647
-#: ../../user/features/advanced.md:1243 ../../user/features/advanced.md:1270
-#: ../../user/features/advanced.md:1412 ../../user/features/advanced.md:1466
-#: ../../user/features/advanced.md:1500
+#: ../../user/features/advanced.md:1289 ../../user/features/advanced.md:1316
+#: ../../user/features/advanced.md:1458 ../../user/features/advanced.md:1512
+#: ../../user/features/advanced.md:1546
 msgid "How to Use"
 msgstr "使い方"
 
@@ -2618,7 +2618,7 @@ msgstr ""
 "`@rescript/language-server` がインストールされていない ReScript "
 "プロジェクトを開くと、プラグインがワンクリックインストールボタン付きの通知を表示します。"
 
-#: ../../user/features/advanced.md:875 ../../user/features/advanced.md:1393
+#: ../../user/features/advanced.md:875 ../../user/features/advanced.md:1439
 msgid "Notification Actions"
 msgstr "通知アクション"
 
@@ -2877,7 +2877,7 @@ msgstr ""
 
 #: ../../user/features/advanced.md:971 ../../user/features/advanced.md:1006
 #: ../../user/features/advanced.md:1068 ../../user/features/advanced.md:1156
-#: ../../user/features/advanced.md:1189
+#: ../../user/features/advanced.md:1189 ../../user/features/advanced.md:1233
 msgid "Tool Window Layout"
 msgstr "ツールウィンドウのレイアウト"
 
@@ -3032,7 +3032,7 @@ msgid ""
 "exported text is always safe to feed into either renderer."
 msgstr "arm body 内の引用符・バックスラッシュ・改行はエスケープされるため、エクスポートしたテキストはどちらのレンダラーにも安全に渡せます。"
 
-#: ../../user/features/advanced.md
+#: ../../user/features/advanced.md ../../user/features/advanced.md:1030
 msgid "Source"
 msgstr "ソース"
 
@@ -3595,20 +3595,201 @@ msgid ""
 msgstr "ロールバック機能は組み込まれていません。想定ワークフローは「変換前にコミットする」ことで、Git をセーフティネットとして使います。"
 
 #: ../../user/features/advanced.md:1208
+msgid "Type Coverage Heat Map"
+msgstr "Type Coverage Heat Map（型カバレッジヒートマップ）"
+
+#: ../../user/features/advanced.md:1212
+msgid ""
+"A project-wide view of how many of your top-level `let` bindings carry an"
+" explicit type annotation versus how many fall through to inference. Use "
+"it to find the modules where adding a few `: int` / `: User.t` "
+"annotations would dramatically improve readability and review safety."
+msgstr ""
+"プロジェクト全体で、トップレベルの `let` 束縛のうちどれだけが明示的な型注釈を持ち、どれだけが推論に依存しているかを"
+"俯瞰するビューです。`: int` / `: User.t` のような数件の注釈を加えるだけで可読性とレビュー安全性が大きく向上する"
+"モジュールを発見するのに使います。"
+
+#: ../../user/features/advanced.md:1214
+msgid "**Open:** **View** > **Tool Windows** > **ReScript Type Coverage**"
+msgstr "**開き方:** **View** > **Tool Windows** > **ReScript Type Coverage**"
+
+#: ../../user/features/advanced.md:1218
+msgid ""
+"`RescriptTypeCoverageScanner` walks every `.res` file in "
+"`GlobalSearchScope.projectScope` (capped at 2,000 files), splits each "
+"source into top-level `let` declarations using a lexer-based depth "
+"tracker, and feeds each declaration to `RescriptTypeCoverageClassifier`."
+msgstr ""
+"`RescriptTypeCoverageScanner` は `GlobalSearchScope.projectScope` 内の `.res` ファイルを"
+"すべて走査し（2,000 ファイルでハードキャップ）、各ソースをレキサーベースの深さトラッカーでトップレベル `let` 宣言に"
+"分割して `RescriptTypeCoverageClassifier` に渡します。"
+
+#: ../../user/features/advanced.md:1220
+msgid ""
+"The classifier reports `ANNOTATED` when a `:` token appears at depth 0 "
+"between the binding name and the first depth-0 `=`. Parameter lists, "
+"record literals, and array literals push the depth counter, so `:` tokens"
+" inside them do not falsely register as annotations:"
+msgstr ""
+"束縛名と最初の depth-0 `=` の間に depth-0 の `:` トークンが現れたとき、classifier は `ANNOTATED` "
+"を返します。パラメータリスト、レコードリテラル、配列リテラルは depth カウンタを進めるので、それらの内部にある `:` "
+"トークンは誤って注釈として検出されません:"
+
+#: ../../user/features/advanced.md:1030
+msgid "Result"
+msgstr "判定結果"
+
+#: ../../user/features/advanced.md:1030
+msgid "`let x: int = 5`"
+msgstr "`let x: int = 5`"
+
+#: ../../user/features/advanced.md:1030
+msgid "ANNOTATED"
+msgstr "ANNOTATED"
+
+#: ../../user/features/advanced.md:1030
+msgid "`let f: (int, int) => int = (a, b) => a + b`"
+msgstr "`let f: (int, int) => int = (a, b) => a + b`"
+
+#: ../../user/features/advanced.md:1030
+#, python-brace-format
+msgid "`let user: {name: string} = {name: \"x\"}`"
+msgstr "`let user: {name: string} = {name: \"x\"}`"
+
+#: ../../user/features/advanced.md:1030
+msgid "`let x = 5`"
+msgstr "`let x = 5`"
+
+#: ../../user/features/advanced.md:1030
+msgid "INFERRED"
+msgstr "INFERRED"
+
+#: ../../user/features/advanced.md:1030
+msgid "`let f = (x: int) => x + 1`"
+msgstr "`let f = (x: int) => x + 1`"
+
+#: ../../user/features/advanced.md:1030
+msgid "INFERRED (annotation is param-only)"
+msgstr "INFERRED（注釈はパラメータのみ）"
+
+#: ../../user/features/advanced.md:1030
+msgid "`let f = (x): int => x + 1`"
+msgstr "`let f = (x): int => x + 1`"
+
+#: ../../user/features/advanced.md:1030
+msgid "INFERRED (annotation is return-only, after `=`)"
+msgstr "INFERRED（注釈は戻り値のみで `=` の後ろにある）"
+
+#: ../../user/features/advanced.md:1231
+msgid ""
+"A binding annotated only on its parameters or return type is "
+"intentionally classified as INFERRED in v1 — readers of the file still "
+"have to fall back to inference for the binding itself. A future revision "
+"may surface a separate \"param-annotated\" tier."
+msgstr ""
+"パラメータや戻り値のみに注釈が付いた束縛は、v1 では意図的に INFERRED に分類しています。ファイルの読者にとって、"
+"束縛そのものはやはり推論に依存するためです。将来のリビジョンで「param-annotated」という別ティアを切り出す"
+"可能性があります。"
+
+#: ../../user/features/advanced.md:1235
+msgid "**Toolbar:** Refresh."
+msgstr "**ツールバー:** Refresh。"
+
+#: ../../user/features/advanced.md:1236
+msgid ""
+"**Table:** one row per scanned file with columns *File*, *Total*, "
+"*Annotated*, *Inferred*, *Coverage %*. The *Coverage %* cell is colour-"
+"coded — red < 30%, yellow 30–69%, green ≥ 70%."
+msgstr ""
+"**テーブル:** 走査した各ファイルが 1 行で表示され、カラムは *File* / *Total* / *Annotated* / "
+"*Inferred* / *Coverage %* です。*Coverage %* セルは色分けされ、< 30% は赤、30〜69% は黄、"
+"≥ 70% は緑で表示されます。"
+
+#: ../../user/features/advanced.md:1237
+msgid ""
+"**Default sort:** ascending by Coverage %, so the files most in need of "
+"annotation float to the top. Click any column header to re-sort."
+msgstr ""
+"**デフォルトのソート:** Coverage % の昇順なので、最も注釈を足したいファイルが上に並びます。任意のカラム"
+"ヘッダをクリックして再ソートできます。"
+
+#: ../../user/features/advanced.md:1238
+msgid ""
+"**Status bar:** `<files> files, <bindings> bindings, <pct>% project "
+"coverage`. When the scanner hits the 2,000-file hard cap a `(truncated "
+"…)` note is appended."
+msgstr ""
+"**ステータスバー:** `<files> files, <bindings> bindings, <pct>% project coverage`。"
+"スキャナが 2,000 ファイルのハードキャップに到達すると `(truncated …)` の注記が追加されます。"
+
+#: ../../user/features/advanced.md:1240
+msgid "Double-click a row to jump to that file in the editor."
+msgstr "行をダブルクリックすると、そのファイルをエディタで開きます。"
+
+#: ../../user/features/advanced.md:1244
+msgid ""
+"**Public-API tightening** — Find library entry points or workspace "
+"boundaries that lean entirely on inference and add explicit signatures "
+"before publishing."
+msgstr ""
+"**公開 API の引き締め** — 推論に頼り切ったライブラリのエントリポイントやワークスペース境界を見つけ、公開前に"
+"明示的なシグネチャを足す。"
+
+#: ../../user/features/advanced.md:1245
+msgid ""
+"**Refactor preparation** — Before reshaping a domain module, raise its "
+"coverage so the next change has clear documentation in source."
+msgstr ""
+"**リファクタリングの下準備** — ドメインモジュールを再構成する前にカバレッジを引き上げ、次の変更が"
+"ソース上でドキュメント化された状態になるようにする。"
+
+#: ../../user/features/advanced.md:1246
+msgid ""
+"**Onboarding** — Hand a low-coverage file to a new contributor as a "
+"graspable, type-by-type annotation task."
+msgstr ""
+"**オンボーディング** — カバレッジの低いファイルを新規コントリビュータに渡し、型を 1 つずつ足す具体的な"
+"タスクとして担当してもらう。"
+
+#: ../../user/features/advanced.md:1250
+#, python-brace-format
+msgid ""
+"Module-internal `let`s (declarations inside `module M = { … }`) are not "
+"counted; only depth-0 file-top-level bindings contribute to the totals, "
+"mirroring what the lightweight PSI parser models."
+msgstr ""
+"モジュール内部の `let`（`module M = {{ … }}` の内側の宣言）はカウントしません。トータルに寄与するのは"
+"ファイルの depth-0 すなわち最上位の束縛のみで、軽量 PSI パーサがモデル化する範囲と一致します。"
+
+#: ../../user/features/advanced.md:1251
+msgid ""
+"The classifier is purely syntactic — it does not consult the language "
+"server, so very unusual formatting (e.g. annotations split across many "
+"lines with embedded comments) may occasionally misclassify. Double-check "
+"borderline rows by opening the file."
+msgstr ""
+"classifier は純粋に構文ベースで、言語サーバーには問い合わせません。そのため、コメントを挟みながら複数行に"
+"渡るような極端に異質なフォーマットでは稀に誤判定する可能性があります。境界事例の行は実ファイルを開いて確認してください。"
+
+#: ../../user/features/advanced.md:1252
+msgid "Files with zero `let` declarations report 100% (vacuously covered)."
+msgstr "`let` 宣言が 1 つも無いファイルは 100%（自明にカバーされた）として扱います。"
+
+#: ../../user/features/advanced.md:1254
 msgid "PPX Expansion View"
 msgstr "PPX 展開ビュー"
 
-#: ../../user/features/advanced.md:1212
+#: ../../user/features/advanced.md:1258
 msgid ""
 "A tool window that displays the expanded output of PPX macros applied to "
 "the current file."
 msgstr "現在のファイルに適用された PPX マクロの展開出力を表示するツールウィンドウです。"
 
-#: ../../user/features/advanced.md:1214
+#: ../../user/features/advanced.md:1260
 msgid "**Open:** **View** > **Tool Windows** > **PPX Expansion**"
 msgstr "**開き方:** **View** > **Tool Windows** > **PPX Expansion**"
 
-#: ../../user/features/advanced.md:1218
+#: ../../user/features/advanced.md:1264
 msgid ""
 "The PPX Expansion View runs the ReScript compiler's PPX preprocessor on "
 "the current file and displays the transformed AST output. This helps you "
@@ -3617,45 +3798,45 @@ msgstr ""
 "PPX 展開ビューは現在のファイルに対して ReScript コンパイラの PPX プリプロセッサを実行し、変換された AST "
 "出力を表示します。PPX が裏側で何のコードを生成するかを理解するのに役立ちます。"
 
-#: ../../user/features/advanced.md:1220
+#: ../../user/features/advanced.md:1266
 msgid "Supported PPX Attributes"
 msgstr "サポートされる PPX 属性"
 
-#: ../../user/features/advanced.md:1222
+#: ../../user/features/advanced.md:1268
 msgid ""
 "`@react.component` — Shows the generated `React.createElement` calls and "
 "component wrapper"
 msgstr "`@react.component` — 生成された `React.createElement` 呼び出しとコンポーネントラッパーを表示"
 
-#: ../../user/features/advanced.md:1223
+#: ../../user/features/advanced.md:1269
 msgid "`@deriving(json)` — Shows the generated `toJson` and `fromJson` functions"
 msgstr "`@deriving(json)` — 生成された `toJson` と `fromJson` 関数を表示"
 
-#: ../../user/features/advanced.md:1224
+#: ../../user/features/advanced.md:1270
 msgid "`@deriving(accessors)` — Shows the generated field accessor functions"
 msgstr "`@deriving(accessors)` — 生成されたフィールドアクセサ関数を表示"
 
-#: ../../user/features/advanced.md:1225
+#: ../../user/features/advanced.md:1271
 msgid "`@genType` — Shows the generated TypeScript type definitions"
 msgstr "`@genType` — 生成された TypeScript 型定義を表示"
 
-#: ../../user/features/advanced.md:1229
+#: ../../user/features/advanced.md:1275
 msgid ""
 "**Debugging PPX behavior** — Understand why generated code doesn't work "
 "as expected"
 msgstr "**PPX 動作のデバッグ** — 生成されたコードが期待通りに動作しない理由を理解"
 
-#: ../../user/features/advanced.md:1230
+#: ../../user/features/advanced.md:1276
 msgid "**Learning** — See how PPX attributes transform your source code"
 msgstr "**学習** — PPX 属性がソースコードをどのように変換するかを確認"
 
-#: ../../user/features/advanced.md:1231
+#: ../../user/features/advanced.md:1277
 msgid ""
 "**Optimization** — Review the generated output for performance "
 "considerations"
 msgstr "**最適化** — パフォーマンスの観点から生成された出力をレビュー"
 
-#: ../../user/features/advanced.md:1233
+#: ../../user/features/advanced.md:1279
 msgid ""
 "PPX macros generate code that you never see in your source files — this "
 "view makes the generated code visible, helping you debug PPX-related "
@@ -3664,17 +3845,17 @@ msgstr ""
 "PPX マクロはソースファイルには見えないコードを生成します — このビューにより生成されたコードが可視化され、PPX "
 "関連の問題のデバッグやコンパイラが実際に何を生成するかの理解に役立ちます。"
 
-#: ../../user/features/advanced.md:1235
+#: ../../user/features/advanced.md:1281
 msgid "Comment Code Evaluation"
 msgstr "コメント内コード評価"
 
-#: ../../user/features/advanced.md:1239
+#: ../../user/features/advanced.md:1285
 msgid ""
 "Evaluate ReScript code examples embedded in documentation comments "
 "directly from the editor."
 msgstr "ドキュメントコメントに埋め込まれた ReScript コード例をエディタから直接評価します。"
 
-#: ../../user/features/advanced.md:1241
+#: ../../user/features/advanced.md:1287
 msgid ""
 "When a `/** ... */` documentation comment contains a code block, the "
 "plugin can evaluate the code and display the result inline. This helps "
@@ -3683,64 +3864,64 @@ msgstr ""
 "`/** ... */` "
 "ドキュメントコメントにコードブロックが含まれている場合、プラグインはコードを評価し結果をインラインで表示できます。ドキュメント内のコード例が正しく最新であることの検証に役立ちます。"
 
-#: ../../user/features/advanced.md:1245
+#: ../../user/features/advanced.md:1291
 msgid "Write a code example inside a documentation comment"
 msgstr "ドキュメントコメント内にコード例を記述します"
 
-#: ../../user/features/advanced.md:1246
+#: ../../user/features/advanced.md:1292
 msgid "Place the caret inside the code block"
 msgstr "コードブロック内にキャレットを置きます"
 
-#: ../../user/features/advanced.md:1247
+#: ../../user/features/advanced.md:1293
 msgid "Use **Code** > **Evaluate Comment Code** (or the gutter action)"
 msgstr "**Code** > **Evaluate Comment Code** を使用します（またはガターアクション）"
 
-#: ../../user/features/advanced.md:1260
+#: ../../user/features/advanced.md:1306
 msgid ""
 "The plugin extracts the code block, compiles and runs it, and displays "
 "the result as an inline annotation."
 msgstr "プラグインはコードブロックを抽出してコンパイル・実行し、結果をインラインアノテーションとして表示します。"
 
-#: ../../user/features/advanced.md:1262
+#: ../../user/features/advanced.md:1308
 msgid ""
 "Comment code evaluation verifies that documentation examples are correct "
 "and up to date, catching stale or broken code samples before they mislead"
 " users."
 msgstr "コメント内コード評価によりドキュメントの例が正しく最新であることを検証し、ユーザーを誤解させる前に古い・壊れたコードサンプルをキャッチします。"
 
-#: ../../user/features/advanced.md:1264
+#: ../../user/features/advanced.md:1310
 msgid "Type Signature Search"
 msgstr "型シグネチャ検索"
 
-#: ../../user/features/advanced.md:1268
+#: ../../user/features/advanced.md:1314
 msgid ""
 "Search for functions by their type signature in the **Search Everywhere**"
 " dialog (`Shift+Shift`)."
 msgstr "**Search Everywhere** ダイアログ（`Shift+Shift`）で型シグネチャから関数を検索します。"
 
-#: ../../user/features/advanced.md:1272
+#: ../../user/features/advanced.md:1318
 msgid "Open Search Everywhere with `Shift+Shift`"
 msgstr "`Shift+Shift` で Search Everywhere を開きます"
 
-#: ../../user/features/advanced.md:1273
+#: ../../user/features/advanced.md:1319
 msgid "Switch to the **Types** tab"
 msgstr "**Types** タブに切り替えます"
 
-#: ../../user/features/advanced.md:1274
+#: ../../user/features/advanced.md:1320
 msgid ""
 "Enter a type signature query (e.g., `string => int`, `array<'a> => int`, "
 "`(int, int) => int`)"
 msgstr "型シグネチャクエリを入力します（例: `string => int`、`array<'a> => int`、`(int, int) => int`）"
 
-#: ../../user/features/advanced.md:1275
+#: ../../user/features/advanced.md:1321
 msgid "Matching functions from the project and dependencies are listed"
 msgstr "プロジェクトと依存関係からマッチする関数がリスト表示されます"
 
-#: ../../user/features/advanced.md:1277
+#: ../../user/features/advanced.md:1323
 msgid "Query Syntax"
 msgstr "クエリ構文"
 
-#: ../../user/features/advanced.md:1279
+#: ../../user/features/advanced.md:1325
 msgid "Type signature queries use standard ReScript type syntax:"
 msgstr "型シグネチャクエリは標準的な ReScript 型構文を使用します:"
 
@@ -3784,13 +3965,13 @@ msgstr "`option<'a> => 'a`"
 msgid "Functions unwrapping option values"
 msgstr "option 値をアンラップする関数"
 
-#: ../../user/features/advanced.md:1288
+#: ../../user/features/advanced.md:1334
 msgid ""
 "The search matches against function type signatures from the project's "
 "stub index, providing fast lookup without requiring the LSP server."
 msgstr "検索はプロジェクトのスタブインデックスの関数型シグネチャに対してマッチングを行い、LSP サーバーを必要とせずに高速な検索を提供します。"
 
-#: ../../user/features/advanced.md:1290
+#: ../../user/features/advanced.md:1336
 msgid ""
 "When you know what type of function you need but not its name, type "
 "signature search lets you discover the right function by its shape — a "
@@ -3799,11 +3980,11 @@ msgstr ""
 "必要な関数の型は分かっているが名前が分からない場合、型シグネチャ検索により関数の形状から正しい関数を発見できます — ReScript "
 "のような型推論言語に自然にフィットします。"
 
-#: ../../user/features/advanced.md:1292
+#: ../../user/features/advanced.md:1338
 msgid "Restart LSP Action"
 msgstr "LSP 再起動アクション"
 
-#: ../../user/features/advanced.md:1296
+#: ../../user/features/advanced.md:1342
 msgid ""
 "If the Language Server becomes unresponsive or you need to pick up "
 "configuration changes, you can restart it via **Tools > Restart ReScript "
@@ -3812,39 +3993,39 @@ msgstr ""
 "Language Server が応答しなくなった場合や設定変更を反映する必要がある場合、**Tools > Restart ReScript "
 "Language Server** で再起動できます。"
 
-#: ../../user/features/advanced.md:1298
+#: ../../user/features/advanced.md:1344
 msgid "When to Use"
 msgstr "使用するタイミング"
 
-#: ../../user/features/advanced.md:1300
+#: ../../user/features/advanced.md:1346
 msgid "After manually updating `@rescript/language-server`"
 msgstr "`@rescript/language-server` を手動で更新した後"
 
-#: ../../user/features/advanced.md:1301
+#: ../../user/features/advanced.md:1347
 msgid "When the LSP server stops responding"
 msgstr "LSP サーバーが応答しなくなった場合"
 
-#: ../../user/features/advanced.md:1302
+#: ../../user/features/advanced.md:1348
 msgid "After changing LSP-related settings that require a server restart"
 msgstr "サーバーの再起動が必要な LSP 関連の設定を変更した後"
 
-#: ../../user/features/advanced.md:1304
+#: ../../user/features/advanced.md:1350
 msgid ""
 "The action is only available when a project is open. It stops the current"
 " LSP server instance and starts a fresh one."
 msgstr "このアクションはプロジェクトが開いている場合にのみ利用可能です。現在の LSP サーバーインスタンスを停止し、新しいインスタンスを起動します。"
 
-#: ../../user/features/advanced.md:1306
+#: ../../user/features/advanced.md:1352
 msgid ""
 "A quick manual restart is the simplest fix when the Language Server gets "
 "into a bad state, avoiding the need to restart the entire IDE."
 msgstr "Language Server が不良状態になった場合、素早い手動再起動が最も簡単な修正であり、IDE 全体を再起動する必要を回避できます。"
 
-#: ../../user/features/advanced.md:1308
+#: ../../user/features/advanced.md:1354
 msgid "LSP Initialization Options"
 msgstr "LSP 初期化オプション"
 
-#: ../../user/features/advanced.md:1312
+#: ../../user/features/advanced.md:1358
 msgid ""
 "The plugin sends several initialization options to the ReScript Language "
 "Server, matching the settings available in the VSCode extension. "
@@ -3854,7 +4035,7 @@ msgstr ""
 "拡張で利用可能な設定と一致させます。**Settings > Languages & Frameworks > ReScript** "
 "で設定します。"
 
-#: ../../user/features/advanced.md:1314
+#: ../../user/features/advanced.md:1360
 msgid "Available Options"
 msgstr "利用可能なオプション"
 
@@ -3926,14 +4107,14 @@ msgstr "**コンパイルステータスを有効化**"
 msgid "Receive compile status notifications from the LSP server"
 msgstr "LSP サーバーからコンパイルステータス通知を受信"
 
-#: ../../user/features/advanced.md:1325
+#: ../../user/features/advanced.md:1371
 msgid ""
 "Changes to these settings take effect after the LSP server restarts "
 "(which happens automatically when you click **Apply** in the settings "
 "dialog)."
 msgstr "これらの設定の変更は LSP サーバーの再起動後に有効になります（設定ダイアログで **Apply** をクリックすると自動的に再起動されます）。"
 
-#: ../../user/features/advanced.md:1327
+#: ../../user/features/advanced.md:1373
 msgid ""
 "These initialization options give you the same configuration flexibility "
 "as the VSCode extension, so you can fine-tune LSP behavior like signature"
@@ -3942,11 +4123,11 @@ msgstr ""
 "これらの初期化オプションにより VSCode 拡張と同じ設定の柔軟性が得られ、シグネチャヘルプ、キャッシュ、インレイヒントなどの LSP "
 "動作を好みに合わせて微調整できます。"
 
-#: ../../user/features/advanced.md:1329
+#: ../../user/features/advanced.md:1375
 msgid "Dump LSP State"
 msgstr "LSP 状態のダンプ"
 
-#: ../../user/features/advanced.md:1333
+#: ../../user/features/advanced.md:1379
 msgid ""
 "The **Dump LSP State** action displays diagnostic information about the "
 "ReScript Language Server for troubleshooting."
@@ -3954,47 +4135,47 @@ msgstr ""
 "**Dump LSP State** アクションは、トラブルシューティング用に ReScript Language Server "
 "の診断情報を表示します。"
 
-#: ../../user/features/advanced.md:1335
+#: ../../user/features/advanced.md:1381
 msgid "**Access:** **Tools** > **Dump ReScript LSP State**"
 msgstr "**アクセス:** **Tools** > **Dump ReScript LSP State**"
 
-#: ../../user/features/advanced.md:1337
+#: ../../user/features/advanced.md:1383
 msgid "What It Shows"
 msgstr "表示内容"
 
-#: ../../user/features/advanced.md:1339
+#: ../../user/features/advanced.md:1385
 msgid "The action collects and displays:"
 msgstr "このアクションは以下の情報を収集して表示します:"
 
-#: ../../user/features/advanced.md:1341
+#: ../../user/features/advanced.md:1387
 msgid "LSP server status and count"
 msgstr "LSP サーバーのステータスと数"
 
-#: ../../user/features/advanced.md:1342
+#: ../../user/features/advanced.md:1388
 msgid "ReScript project detection information"
 msgstr "ReScript プロジェクト検出情報"
 
-#: ../../user/features/advanced.md:1343
+#: ../../user/features/advanced.md:1389
 msgid "Relevant plugin settings"
 msgstr "関連するプラグイン設定"
 
-#: ../../user/features/advanced.md:1347
+#: ../../user/features/advanced.md:1393
 msgid ""
 "**Troubleshooting LSP issues** — Verify the LSP server is running and "
 "configured correctly"
 msgstr "**LSP 問題のトラブルシューティング** — LSP サーバーが実行中で正しく設定されていることを確認"
 
-#: ../../user/features/advanced.md:1348
+#: ../../user/features/advanced.md:1394
 msgid ""
 "**Bug reports** — Include LSP state when reporting issues to plugin "
 "maintainers"
 msgstr "**バグレポート** — プラグインメンテナーに問題を報告する際に LSP 状態を含める"
 
-#: ../../user/features/advanced.md:1349
+#: ../../user/features/advanced.md:1395
 msgid "**Debugging** — Check what configuration the LSP server has loaded"
 msgstr "**デバッグ** — LSP サーバーがどの設定を読み込んだかを確認"
 
-#: ../../user/features/advanced.md:1351
+#: ../../user/features/advanced.md:1397
 msgid ""
 "Dump LSP State provides the diagnostic information needed to troubleshoot"
 " Language Server issues or include in bug reports, without manually "
@@ -4003,11 +4184,11 @@ msgstr ""
 "Dump LSP State は設定ファイルやログ出力を手動で検査することなく、Language Server "
 "の問題をトラブルシューティングしたりバグレポートに含めるために必要な診断情報を提供します。"
 
-#: ../../user/features/advanced.md:1353
+#: ../../user/features/advanced.md:1399
 msgid "Predefined Code Style"
 msgstr "定義済みコードスタイル"
 
-#: ../../user/features/advanced.md:1357
+#: ../../user/features/advanced.md:1403
 msgid ""
 "The plugin registers a \"ReScript Standard\" predefined code style that "
 "can be applied via **Settings** > **Editor** > **Code Style** > "
@@ -4018,14 +4199,14 @@ msgstr ""
 "from...** > **Predefined Style** > **ReScript Standard** で適用できる "
 "\"ReScript Standard\" 定義済みコードスタイルを登録します。"
 
-#: ../../user/features/advanced.md:1359
+#: ../../user/features/advanced.md:1405
 msgid ""
 "This provides a one-click way to configure indentation and formatting "
 "settings to match the standard ReScript conventions (2-space indentation,"
 " no tabs)."
 msgstr "これにより標準的な ReScript の規約（2 スペースインデント、タブなし）に合わせてインデントとフォーマット設定をワンクリックで構成できます。"
 
-#: ../../user/features/advanced.md:1361
+#: ../../user/features/advanced.md:1407
 msgid ""
 "For manual indentation and tab/space configuration, go to **Settings** > "
 "**Editor** > **Code Style** > **ReScript**."
@@ -4033,18 +4214,18 @@ msgstr ""
 "手動でインデントやタブ/スペースの設定を行うには、**Settings** > **Editor** > **Code Style** > "
 "**ReScript** に移動してください。"
 
-#: ../../user/features/advanced.md:1363
+#: ../../user/features/advanced.md:1409
 msgid ""
 "The predefined code style gives you correct ReScript formatting "
 "conventions in one click, so you do not need to configure indentation "
 "settings manually."
 msgstr "定義済みコードスタイルによりワンクリックで正しい ReScript フォーマット規約が適用され、インデント設定を手動で構成する必要がありません。"
 
-#: ../../user/features/advanced.md:1365
+#: ../../user/features/advanced.md:1411
 msgid "Element Descriptions"
 msgstr "要素の説明"
 
-#: ../../user/features/advanced.md:1369
+#: ../../user/features/advanced.md:1415
 msgid ""
 "The plugin provides human-readable descriptions of ReScript elements for "
 "use in IDE dialogs such as **Find Usages**, **Safe Delete**, and "
@@ -4053,17 +4234,17 @@ msgstr ""
 "プラグインは **Find Usages**、**Safe Delete**、リファクタリング確認などの IDE ダイアログで使用する "
 "ReScript 要素の人間が読みやすい説明を提供します。"
 
-#: ../../user/features/advanced.md:1371
+#: ../../user/features/advanced.md:1417
 msgid ""
 "For example, when using Safe Delete on a function, the confirmation "
 "dialog shows:"
 msgstr "例えば、関数に Safe Delete を使用すると、確認ダイアログには以下のように表示されます:"
 
-#: ../../user/features/advanced.md:1373
+#: ../../user/features/advanced.md:1419
 msgid "Delete function 'greet'?"
 msgstr "Delete function 'greet'?"
 
-#: ../../user/features/advanced.md:1375
+#: ../../user/features/advanced.md:1421
 msgid ""
 "rather than a generic \"Delete element\" message. This applies to `let` "
 "bindings, `type` declarations, `module` declarations, `external` "
@@ -4072,7 +4253,7 @@ msgstr ""
 "汎用的な \"Delete element\" メッセージではなく上記のように表示されます。これは `let` バインディング、`type` "
 "宣言、`module` 宣言、`external` 宣言、`exception` 宣言に適用されます。"
 
-#: ../../user/features/advanced.md:1377
+#: ../../user/features/advanced.md:1423
 msgid ""
 "Descriptive element names in IDE dialogs make refactoring confirmations "
 "clearer — you see \"Delete function 'greet'\" instead of a generic "
@@ -4081,11 +4262,11 @@ msgstr ""
 "IDE ダイアログでの記述的な要素名によりリファクタリングの確認が明確になります — 汎用メッセージではなく「関数 'greet' "
 "を削除」と表示され、偶発的な削除のリスクが減ります。"
 
-#: ../../user/features/advanced.md:1379
+#: ../../user/features/advanced.md:1425
 msgid "Build Watch Auto-Start Prompt"
 msgstr "ビルドウォッチ自動開始プロンプト"
 
-#: ../../user/features/advanced.md:1383
+#: ../../user/features/advanced.md:1429
 msgid ""
 "When you open a ReScript project, the plugin shows a one-time balloon "
 "notification offering to start the ReScript watch build (`rescript build "
@@ -4094,23 +4275,23 @@ msgstr ""
 "ReScript プロジェクトを開くと、プラグインが ReScript ウォッチビルド（`rescript build "
 "-w`）の開始を提案するバルーン通知を一度表示します。"
 
-#: ../../user/features/advanced.md:1385
+#: ../../user/features/advanced.md:1431
 msgid "When It Appears"
 msgstr "表示される条件"
 
-#: ../../user/features/advanced.md:1387
+#: ../../user/features/advanced.md:1433
 msgid "The prompt appears at project startup if:"
 msgstr "プロンプトはプロジェクト起動時に以下の条件を満たす場合に表示されます:"
 
-#: ../../user/features/advanced.md:1389
+#: ../../user/features/advanced.md:1435
 msgid "The project contains `rescript.json`"
 msgstr "プロジェクトに `rescript.json` が含まれている"
 
-#: ../../user/features/advanced.md:1390
+#: ../../user/features/advanced.md:1436
 msgid "The ReScript CLI (`rescript`) is found in `node_modules/.bin/`"
 msgstr "ReScript CLI（`rescript`）が `node_modules/.bin/` に見つかる"
 
-#: ../../user/features/advanced.md:1391
+#: ../../user/features/advanced.md:1437
 msgid "The prompt hasn't been dismissed for the current IDE session"
 msgstr "現在の IDE セッションでプロンプトがまだ非表示にされていない"
 
@@ -4130,114 +4311,114 @@ msgstr "**Don't ask again**"
 msgid "Dismisses the prompt for this IDE session"
 msgstr "この IDE セッションでプロンプトを非表示にします"
 
-#: ../../user/features/advanced.md:1400
+#: ../../user/features/advanced.md:1446
 msgid ""
 "Clicking **Start Build Watch** opens the Run tool window with a live-"
 "recompiling build process."
 msgstr "**Start Build Watch** をクリックすると、ライブリコンパイルビルドプロセス付きの Run ツールウィンドウが開きます。"
 
-#: ../../user/features/advanced.md:1402
+#: ../../user/features/advanced.md:1448
 msgid ""
 "The build watch prompt ensures you start getting live compilation "
 "feedback from the moment you open your project, without needing to "
 "remember to run the build command manually."
 msgstr "ビルドウォッチプロンプトにより、プロジェクトを開いた瞬間からライブコンパイルフィードバックを受け取り始めることができ、ビルドコマンドを手動で実行することを覚えておく必要がありません。"
 
-#: ../../user/features/advanced.md:1404
+#: ../../user/features/advanced.md:1450
 msgid "REPL"
 msgstr "REPL"
 
-#: ../../user/features/advanced.md:1408
+#: ../../user/features/advanced.md:1454
 msgid ""
 "An interactive read-eval-print loop for executing ReScript code snippets "
 "directly within the IDE."
 msgstr "IDE 内で直接 ReScript コードスニペットを実行するためのインタラクティブな Read-Eval-Print ループです。"
 
-#: ../../user/features/advanced.md:1410
+#: ../../user/features/advanced.md:1456
 msgid "**Open:** **View** > **Tool Windows** > **ReScript REPL**"
 msgstr "**開き方:** **View** > **Tool Windows** > **ReScript REPL**"
 
-#: ../../user/features/advanced.md:1414
+#: ../../user/features/advanced.md:1460
 msgid "Open the REPL tool window"
 msgstr "REPL ツールウィンドウを開きます"
 
-#: ../../user/features/advanced.md:1415
+#: ../../user/features/advanced.md:1461
 msgid "Type ReScript code in the input area at the bottom"
 msgstr "下部の入力エリアに ReScript コードを入力します"
 
-#: ../../user/features/advanced.md:1416
+#: ../../user/features/advanced.md:1462
 msgid "Click **Run** to execute"
 msgstr "**Run** をクリックして実行します"
 
-#: ../../user/features/advanced.md:1417
+#: ../../user/features/advanced.md:1463
 msgid "Output appears in the output area above"
 msgstr "上部の出力エリアに結果が表示されます"
 
-#: ../../user/features/advanced.md:1418
+#: ../../user/features/advanced.md:1464
 msgid "Click **Clear** to reset the output"
 msgstr "**Clear** をクリックして出力をリセットします"
 
-#: ../../user/features/advanced.md:1420
+#: ../../user/features/advanced.md:1466
 msgid "Expression Handling"
 msgstr "式の処理"
 
-#: ../../user/features/advanced.md:1422
+#: ../../user/features/advanced.md:1468
 msgid "The REPL automatically wraps simple expressions for output:"
 msgstr "REPL は出力のためにシンプルな式を自動的にラップします:"
 
-#: ../../user/features/advanced.md:1424
+#: ../../user/features/advanced.md:1470
 msgid ""
 "`let` bindings, `type`/`module` declarations, and `open` statements are "
 "used as-is"
 msgstr "`let` バインディング、`type`/`module` 宣言、`open` ステートメントはそのまま使用されます"
 
-#: ../../user/features/advanced.md:1425
+#: ../../user/features/advanced.md:1471
 msgid "Code already containing `Js.log` or `Console.log` is used as-is"
 msgstr "既に `Js.log` または `Console.log` を含むコードはそのまま使用されます"
 
-#: ../../user/features/advanced.md:1426
+#: ../../user/features/advanced.md:1472
 msgid ""
 "Simple expressions are automatically wrapped: `1 + 2` becomes `Js.log(1 +"
 " 2)`"
 msgstr "シンプルな式は自動的にラップされます: `1 + 2` は `Js.log(1 + 2)` になります"
 
-#: ../../user/features/advanced.md:1441
+#: ../../user/features/advanced.md:1487
 msgid "Each execution is isolated:"
 msgstr "各実行は分離されています:"
 
-#: ../../user/features/advanced.md:1443
+#: ../../user/features/advanced.md:1489
 msgid "Creates a temporary `.res` file with the user code"
 msgstr "ユーザーコードを含む一時的な `.res` ファイルを作成します"
 
-#: ../../user/features/advanced.md:1444
+#: ../../user/features/advanced.md:1490
 msgid "Compiles with `npx rescript build`"
 msgstr "`npx rescript build` でコンパイルします"
 
-#: ../../user/features/advanced.md:1445
+#: ../../user/features/advanced.md:1491
 msgid "Executes the compiled JavaScript with `node`"
 msgstr "コンパイルされた JavaScript を `node` で実行します"
 
-#: ../../user/features/advanced.md:1446
+#: ../../user/features/advanced.md:1492
 msgid "Displays stdout/stderr in the output area"
 msgstr "出力エリアに stdout/stderr を表示します"
 
-#: ../../user/features/advanced.md:1450 ../../user/features/advanced.md:1489
+#: ../../user/features/advanced.md:1496 ../../user/features/advanced.md:1535
 msgid "ReScript CLI (`rescript`) must be installed in the project"
 msgstr "ReScript CLI（`rescript`）がプロジェクトにインストールされている必要があります"
 
-#: ../../user/features/advanced.md:1451 ../../user/features/advanced.md:1490
+#: ../../user/features/advanced.md:1497 ../../user/features/advanced.md:1536
 msgid "Node.js must be available in PATH"
 msgstr "Node.js が PATH に存在する必要があります"
 
-#: ../../user/features/advanced.md:1455
+#: ../../user/features/advanced.md:1501
 msgid "No persistent state between executions (each run is isolated)"
 msgstr "実行間で永続的な状態はありません（各実行は分離されています）"
 
-#: ../../user/features/advanced.md:1456
+#: ../../user/features/advanced.md:1502
 msgid "30-second timeout for compilation and execution"
 msgstr "コンパイルと実行に 30 秒のタイムアウトがあります"
 
-#: ../../user/features/advanced.md:1458
+#: ../../user/features/advanced.md:1504
 msgid ""
 "The REPL provides an interactive feedback loop for testing expressions "
 "and exploring APIs without creating files, compiling, and running — ideal"
@@ -4246,35 +4427,35 @@ msgstr ""
 "REPL はファイルの作成、コンパイル、実行なしに式のテストや API の探索ができるインタラクティブなフィードバックループを提供します — "
 "ReScript の学習や素早い仮定の検証に最適です。"
 
-#: ../../user/features/advanced.md:1460
+#: ../../user/features/advanced.md:1506
 msgid "Worksheet Mode"
 msgstr "Worksheet モード"
 
-#: ../../user/features/advanced.md:1464
+#: ../../user/features/advanced.md:1510
 msgid ""
 "Worksheet files (`.resw`) allow you to write ReScript code and have each "
 "top-level expression evaluated with results displayed inline."
 msgstr "Worksheet ファイル（`.resw`）では ReScript コードを記述し、各トップレベル式が評価されて結果がインラインで表示されます。"
 
-#: ../../user/features/advanced.md:1468
+#: ../../user/features/advanced.md:1514
 msgid "Create a new file with the `.resw` extension"
 msgstr "`.resw` 拡張子で新しいファイルを作成します"
 
-#: ../../user/features/advanced.md:1469
+#: ../../user/features/advanced.md:1515
 msgid "Write ReScript code with top-level expressions"
 msgstr "トップレベル式を含む ReScript コードを記述します"
 
-#: ../../user/features/advanced.md:1470
+#: ../../user/features/advanced.md:1516
 msgid ""
 "Each expression is evaluated and the result is displayed as an inline "
 "comment"
 msgstr "各式が評価され、結果がインラインコメントとして表示されます"
 
-#: ../../user/features/advanced.md:1483
+#: ../../user/features/advanced.md:1529
 msgid "Expression Grouping"
 msgstr "式のグルーピング"
 
-#: ../../user/features/advanced.md:1485
+#: ../../user/features/advanced.md:1531
 msgid ""
 "The worksheet understands multi-line expressions by tracking brace and "
 "parenthesis depth. Empty lines, comments, type declarations, module "
@@ -4283,7 +4464,7 @@ msgstr ""
 "Worksheet は波括弧と括弧の深さを追跡することで複数行の式を理解します。空行、コメント、型宣言、モジュール宣言、`open` "
 "ステートメントは評価時にスキップされます。"
 
-#: ../../user/features/advanced.md:1492
+#: ../../user/features/advanced.md:1538
 msgid ""
 "Worksheets provide a notebook-like experience where you see every "
 "expression's result inline, making them ideal for prototyping algorithms,"
@@ -4292,77 +4473,77 @@ msgstr ""
 "Worksheet "
 "はすべての式の結果がインラインで表示されるノートブックのような体験を提供し、アルゴリズムのプロトタイピング、変換のテスト、ドキュメント例の検証に最適です。"
 
-#: ../../user/features/advanced.md:1494
+#: ../../user/features/advanced.md:1540
 msgid "Scratch Files"
 msgstr "スクラッチファイル"
 
-#: ../../user/features/advanced.md:1498
+#: ../../user/features/advanced.md:1544
 msgid ""
 "Create temporary ReScript files in the IDE's Scratches panel for quick "
 "experiments without adding files to your project."
 msgstr "プロジェクトにファイルを追加せずに、IDE の Scratches パネルで素早い実験用の一時的な ReScript ファイルを作成します。"
 
-#: ../../user/features/advanced.md:1502
+#: ../../user/features/advanced.md:1548
 msgid "Open **File** > **New** > **Scratch File** (or `Cmd+Shift+N` on macOS)"
 msgstr "**File** > **New** > **Scratch File** を開きます（macOS では `Cmd+Shift+N`）"
 
-#: ../../user/features/advanced.md:1503
+#: ../../user/features/advanced.md:1549
 msgid "Select **ReScript** from the language list"
 msgstr "言語リストから **ReScript** を選択します"
 
-#: ../../user/features/advanced.md:1504
+#: ../../user/features/advanced.md:1550
 msgid "A new scratch file opens with a default template:"
 msgstr "デフォルトテンプレート付きの新しいスクラッチファイルが開きます:"
 
-#: ../../user/features/advanced.md:1514
+#: ../../user/features/advanced.md:1560
 msgid "Full ReScript syntax highlighting and language support"
 msgstr "完全な ReScript シンタックスハイライトと言語サポート"
 
-#: ../../user/features/advanced.md:1515
+#: ../../user/features/advanced.md:1561
 msgid "Standalone files stored outside your project directory"
 msgstr "プロジェクトディレクトリ外に保存されるスタンドアロンファイル"
 
-#: ../../user/features/advanced.md:1516
+#: ../../user/features/advanced.md:1562
 msgid "Can be compiled and run like normal `.res` files"
 msgstr "通常の `.res` ファイルと同様にコンパイル・実行できます"
 
-#: ../../user/features/advanced.md:1517
+#: ../../user/features/advanced.md:1563
 msgid ""
 "Useful for prototyping, testing library functions, or learning ReScript "
 "syntax"
 msgstr "プロトタイピング、ライブラリ関数のテスト、ReScript 構文の学習に便利です"
 
-#: ../../user/features/advanced.md:1519
+#: ../../user/features/advanced.md:1565
 msgid ""
 "Scratch files give you a disposable workspace for quick experiments "
 "without adding files to your project or polluting your source tree."
 msgstr "スクラッチファイルはプロジェクトにファイルを追加したりソースツリーを汚すことなく、素早い実験のための使い捨てワークスペースを提供します。"
 
-#: ../../user/features/advanced.md:1521
+#: ../../user/features/advanced.md:1567
 msgid "Call Hierarchy"
 msgstr "Call Hierarchy"
 
-#: ../../user/features/advanced.md:1525
+#: ../../user/features/advanced.md:1571
 msgid ""
 "View the call graph around a function, showing both what calls it "
 "(Callers) and what it calls (Callees)."
 msgstr "関数の呼び出しグラフを表示し、何がその関数を呼び出すか（Callers）と、その関数が何を呼び出すか（Callees）の両方を表示します。"
 
-#: ../../user/features/advanced.md:1527
+#: ../../user/features/advanced.md:1573
 msgid ""
 "**Open:** Place the cursor on a function name and press `Ctrl+Alt+H` "
 "(`Cmd+Alt+H` on macOS)"
 msgstr "**開き方:** 関数名にカーソルを置き、`Ctrl+Alt+H`（macOS では `Cmd+Alt+H`）を押します"
 
-#: ../../user/features/advanced.md:1529
+#: ../../user/features/advanced.md:1575
 msgid "View Modes"
 msgstr "表示モード"
 
-#: ../../user/features/advanced.md:1531
+#: ../../user/features/advanced.md:1577
 msgid "The hierarchy browser provides two tabs:"
 msgstr "階層ブラウザには 2 つのタブがあります:"
 
-#: ../../user/features/advanced.md:1533
+#: ../../user/features/advanced.md:1579
 msgid ""
 "**Callers** (default) --- Shows all functions in the project that call "
 "the selected function. Discovery uses text-based search across the entire"
@@ -4371,55 +4552,55 @@ msgstr ""
 "**Callers**（デフォルト）--- "
 "選択した関数を呼び出すプロジェクト内のすべての関数を表示します。テキストベースの検索でプロジェクト全体を検索します。"
 
-#: ../../user/features/advanced.md:1535
+#: ../../user/features/advanced.md:1581
 msgid ""
 "**Callees** --- Shows all functions that the selected function calls. "
 "Discovery scans the function body within the same file."
 msgstr "**Callees** --- 選択した関数が呼び出すすべての関数を表示します。同じファイル内の関数本体をスキャンして検出します。"
 
-#: ../../user/features/advanced.md:1539
+#: ../../user/features/advanced.md:1585
 msgid "Double-click a node to navigate to the function source"
 msgstr "ノードをダブルクリックして関数のソースに移動します"
 
-#: ../../user/features/advanced.md:1540
+#: ../../user/features/advanced.md:1586
 msgid "Use Previous/Next buttons to navigate between functions"
 msgstr "Previous/Next ボタンを使用して関数間をナビゲートします"
 
-#: ../../user/features/advanced.md:1541
+#: ../../user/features/advanced.md:1587
 msgid "Nodes are sorted alphabetically"
 msgstr "ノードはアルファベット順にソートされます"
 
-#: ../../user/features/advanced.md:1545
+#: ../../user/features/advanced.md:1591
 msgid "The call hierarchy uses PSI-based text search rather than LSP:"
 msgstr "Call Hierarchy は LSP ではなく PSI ベースのテキスト検索を使用します:"
 
-#: ../../user/features/advanced.md:1547
+#: ../../user/features/advanced.md:1593
 msgid ""
 "**Callers:** Searches for text occurrences of the function name across "
 "all project files"
 msgstr "**Callers:** プロジェクト内のすべてのファイルで関数名のテキスト出現を検索します"
 
-#: ../../user/features/advanced.md:1548
+#: ../../user/features/advanced.md:1594
 msgid ""
 "**Callees:** Scans the function body for identifier tokens and cross-"
 "references them against declarations in the same file"
 msgstr "**Callees:** 関数本体の識別子トークンをスキャンし、同一ファイル内の宣言と相互参照します"
 
-#: ../../user/features/advanced.md:1552
+#: ../../user/features/advanced.md:1598
 msgid "Text-based matching --- aliased or module-qualified calls may not be found"
 msgstr "テキストベースのマッチング --- エイリアスやモジュール修飾された呼び出しは見つからない場合があります"
 
-#: ../../user/features/advanced.md:1553
+#: ../../user/features/advanced.md:1599
 msgid ""
 "Callees are detected within the same file only (no cross-file callee "
 "detection)"
 msgstr "Callees は同一ファイル内でのみ検出されます（ファイル間の Callee 検出はありません）"
 
-#: ../../user/features/advanced.md:1554
+#: ../../user/features/advanced.md:1600
 msgid "Works on `let` and `external` declarations in `.res` files"
 msgstr "`.res` ファイル内の `let` および `external` 宣言に対して動作します"
 
-#: ../../user/features/advanced.md:1556
+#: ../../user/features/advanced.md:1602
 msgid ""
 "Understanding the call chain of a function is essential when refactoring "
 "or debugging — this view reveals who calls a function and what it calls "

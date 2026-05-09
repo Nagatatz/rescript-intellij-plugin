@@ -52,6 +52,7 @@
 - **Notebook-style worksheet** — Cell-based `.resnb` editor where each cell holds ReScript code and its last evaluation output; runs cells through the existing REPL backend, persists output to JSON, and exports the whole notebook as Markdown
 - **JS interop risk map** — Tool window (`Tools > Show JS Interop Risk Map`) that lists every `%raw` / `external` / `Obj.magic` / `@bs.*` site in the project with a coarse risk label, so reviewers can find the type-system escape hatches at a glance
 - **Reason → ReScript migration pilot** — Tool window (`Tools > Show Reason Migration Pilot`) that lists every `.re` / `.rei` file with checkboxes and runs `rescript convert` on the selected subset, replacing each source with its `.res` / `.resi` equivalent
+- **Type coverage heat map** — Tool window (`View > Tool Windows > ReScript Type Coverage`) that lists every `.res` file with its annotated / inferred / total `let` counts and a colour-coded coverage percentage; sorted ascending so files in need of explicit types float to the top, double-click to jump
 - **Parameter Info** — Native parameter info popup for labeled arguments (`Ctrl+P`)
 - **Unresolved reference Quick Fix** — Add `open` or qualify unresolved references
 - **Generate function from usage** — Create stub functions from call sites

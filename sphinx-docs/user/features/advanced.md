@@ -1205,6 +1205,52 @@ Each conversion runs in a `ProcessBuilder` subprocess with a 30-second timeout. 
 - Conversion is sequential. A 200-file repository takes ~10 minutes worth of `rescript convert` invocations; parallel batching is on the Phase 2 list.
 - There is no built-in rollback. The intended workflow is "commit before converting" so Git is your safety net.
 
+## Type Coverage Heat Map
+
+{bdg-success}`Native`
+
+A project-wide view of how many of your top-level `let` bindings carry an explicit type annotation versus how many fall through to inference. Use it to find the modules where adding a few `: int` / `: User.t` annotations would dramatically improve readability and review safety.
+
+**Open:** **View** > **Tool Windows** > **ReScript Type Coverage**
+
+### How It Works
+
+`RescriptTypeCoverageScanner` walks every `.res` file in `GlobalSearchScope.projectScope` (capped at 2,000 files), splits each source into top-level `let` declarations using a lexer-based depth tracker, and feeds each declaration to `RescriptTypeCoverageClassifier`.
+
+The classifier reports `ANNOTATED` when a `:` token appears at depth 0 between the binding name and the first depth-0 `=`. Parameter lists, record literals, and array literals push the depth counter, so `:` tokens inside them do not falsely register as annotations:
+
+| Source | Result |
+|--------|--------|
+| `let x: int = 5` | ANNOTATED |
+| `let f: (int, int) => int = (a, b) => a + b` | ANNOTATED |
+| `let user: {name: string} = {name: "x"}` | ANNOTATED |
+| `let x = 5` | INFERRED |
+| `let f = (x: int) => x + 1` | INFERRED (annotation is param-only) |
+| `let f = (x): int => x + 1` | INFERRED (annotation is return-only, after `=`) |
+
+A binding annotated only on its parameters or return type is intentionally classified as INFERRED in v1 — readers of the file still have to fall back to inference for the binding itself. A future revision may surface a separate "param-annotated" tier.
+
+### Tool Window Layout
+
+- **Toolbar:** Refresh.
+- **Table:** one row per scanned file with columns *File*, *Total*, *Annotated*, *Inferred*, *Coverage %*. The *Coverage %* cell is colour-coded — red < 30%, yellow 30–69%, green ≥ 70%.
+- **Default sort:** ascending by Coverage %, so the files most in need of annotation float to the top. Click any column header to re-sort.
+- **Status bar:** `<files> files, <bindings> bindings, <pct>% project coverage`. When the scanner hits the 2,000-file hard cap a `(truncated …)` note is appended.
+
+Double-click a row to jump to that file in the editor.
+
+### Use Cases
+
+- **Public-API tightening** — Find library entry points or workspace boundaries that lean entirely on inference and add explicit signatures before publishing.
+- **Refactor preparation** — Before reshaping a domain module, raise its coverage so the next change has clear documentation in source.
+- **Onboarding** — Hand a low-coverage file to a new contributor as a graspable, type-by-type annotation task.
+
+### Limitations
+
+- Module-internal `let`s (declarations inside `module M = { … }`) are not counted; only depth-0 file-top-level bindings contribute to the totals, mirroring what the lightweight PSI parser models.
+- The classifier is purely syntactic — it does not consult the language server, so very unusual formatting (e.g. annotations split across many lines with embedded comments) may occasionally misclassify. Double-check borderline rows by opening the file.
+- Files with zero `let` declarations report 100% (vacuously covered).
+
 ## PPX Expansion View
 
 {bdg-primary}`LSP Required`

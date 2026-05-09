@@ -2,23 +2,22 @@
 
 ## 実装
 
-- [ ] T1: `RescriptTypeCoverageModel.kt` — `LetCoverage` enum, `FileCoverage` / `ProjectCoverage` data classes + テスト
-- [ ] T2: `RescriptTypeCoverageClassifier.kt` — pure object + classifier テスト (30+ ケース)
-- [ ] T3: `RescriptTypeCoverageScanner.kt` — `FileTypeIndex` 走査 + scanner テスト (light fixture)
-- [ ] T4: `RescriptTypeCoveragePanel.kt` — Swing UI (テスト免除: Swing UI)
-- [ ] T5: `RescriptTypeCoverageRefreshAction.kt` (テスト免除: IDE lifecycle)
-- [ ] T6: `RescriptTypeCoverageToolWindowFactory.kt` (テスト免除: ToolWindowFactory)
-- [ ] T7: `plugin.xml` に `<toolWindow>` 登録
-- [ ] T8: `build.gradle.kts` kover excludes に Panel / Action / ToolWindowFactory を追加
+- [x] T1: `RescriptTypeCoverageModel.kt` — `LetCoverage` enum, `FileCoverage` / `ProjectCoverage` data classes + テスト
+- [x] T2: `RescriptTypeCoverageClassifier.kt` — pure object + classifier テスト (30+ ケース)
+- [x] T3: `RescriptTypeCoverageScanner.kt` — `FileTypeIndex` 走査 + scanner テスト
+- [x] T4: `RescriptTypeCoveragePanel.kt` — Swing UI (テスト免除: Swing UI)
+- [x] T5: RefreshAction は Panel 内 inner class として実装 (テスト免除: IDE lifecycle)
+- [x] T6: `RescriptTypeCoverageToolWindowFactory.kt` (テスト免除: ToolWindowFactory)
+- [x] T7: `plugin.xml` に `<toolWindow>` 登録
+- [x] T8: `build.gradle.kts` kover excludes に Panel / ToolWindowFactory を追加
 
 ## 検証
 
-- [ ] `./gradlew ktlintCheck` が成功する
-- [ ] `./gradlew checkKdoc` が成功する
-- [ ] `./gradlew test` が成功する
-- [ ] `./gradlew koverVerify` が minBound=86 を維持する
-- [ ] `./gradlew clean buildPlugin` が成功する
-- [ ] `./gradlew runIde` で実機 IDE で開いて Toolwindow が動作する (任意)
+- [x] `./gradlew ktlintCheck` が成功する
+- [x] `./gradlew checkKdoc` が成功する
+- [x] `./gradlew test` が成功する
+- [x] `./gradlew koverVerify` が minBound=86 を維持する
+- [x] `./gradlew verifyPluginStructure` が成功する
 
 ## ドキュメント更新
 
