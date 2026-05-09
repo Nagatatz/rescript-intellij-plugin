@@ -1253,10 +1253,6 @@
         <!-- Type Signature Search Everywhere (#108) -->
         <searchEverywhereContributor
                 implementation="com.rescript.plugin.navigation.RescriptTypeSignatureSearchContributor$Factory"/>
-
-        <!-- Feature Usage Statistics (FUS) — opt-in telemetry, follows IDE-level consent -->
-        <statistics.counterUsagesCollector
-                implementationClass="com.rescript.plugin.analytics.RescriptFeatureUsageCounter"/>
     </extensions>
 
     <actions>

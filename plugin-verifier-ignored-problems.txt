@@ -50,18 +50,3 @@ com\.rescript\.plugin:.*:.*CompletionConfidence.*shouldSkipAutopopup.*
 // Status: KEEP — transitive dependency via IntelliJ Platform's bundled LSP4J.
 // Expires: 2027-04-29
 com\.rescript\.plugin:.*:.*MarkedString.*
-
-// ── FUS internal API ──────────────────────────────────────────────────
-//
-// CounterUsagesCollector and the com.intellij.internal.statistic.eventLog
-// .events.* classes are annotated @ApiStatus.Internal but have no public
-// alternative — JetBrains' own FUS tutorial directs third-party plugins to
-// extend CounterUsagesCollector and reference EventFields directly:
-// https://plugins.jetbrains.com/docs/intellij/feature-usage-statistics.html
-// verifier-cli 1.403 (pulled in via intellij-platform Gradle plugin 2.16.0)
-// flags these usages where 1.402 did not.
-// Status: KEEP — no alternative API available.
-// Source: RescriptFeatureUsageCounter.kt
-// Reviewed: 2026-05-09
-// Expires: 2027-05-09
-com\.rescript\.plugin:.*:.*com\.intellij\.internal\.statistic\..*
