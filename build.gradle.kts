@@ -303,6 +303,40 @@ kover {
                     "com.rescript.plugin.indexing.*",
                     // CodeVision (IDE lifecycle)
                     "com.rescript.plugin.codevision.*",
+                    // ── Swing UI panels and IDE-lifecycle entry points for the
+                    //    flow / impact / interop / migration / notebook tool
+                    //    windows. Pure unit tests can't drive these (Swing event
+                    //    threading + IntelliJ ToolWindow plumbing), and
+                    //    .claude/rules/testing.md exempts the categories from
+                    //    test coverage. The model / classifier / scanner /
+                    //    exporter classes that *are* unit-testable stay covered.
+                    "com.rescript.plugin.flow.RescriptVariantFlowPanel*",
+                    "com.rescript.plugin.flow.RescriptVariantFlowAction*",
+                    "com.rescript.plugin.flow.RescriptVariantFlowToolWindowFactory*",
+                    "com.rescript.plugin.impact.RescriptTypeImpactPanel*",
+                    "com.rescript.plugin.impact.RescriptTypeImpactAction*",
+                    "com.rescript.plugin.impact.RescriptTypeImpactToolWindowFactory*",
+                    "com.rescript.plugin.interop.RescriptInteropRiskPanel*",
+                    "com.rescript.plugin.interop.RescriptInteropRiskAction*",
+                    "com.rescript.plugin.interop.RescriptInteropRiskToolWindowFactory*",
+                    "com.rescript.plugin.migration.RescriptMigrationPanel*",
+                    "com.rescript.plugin.migration.RescriptMigrationAction*",
+                    "com.rescript.plugin.migration.RescriptMigrationToolWindowFactory*",
+                    "com.rescript.plugin.notebook.RescriptNotebookPanel*",
+                    "com.rescript.plugin.notebook.RescriptNotebookCellPanel*",
+                    "com.rescript.plugin.notebook.RescriptNotebookFileEditor*",
+                    "com.rescript.plugin.notebook.RescriptNotebookFileType*",
+                    // Editor / Document write-action helpers. The body wraps
+                    // WriteCommandAction (IDE write thread) which can't run
+                    // outside a real IDE fixture; the existing test only
+                    // performs reflection-level smoke and contributes 0 line
+                    // coverage by design.
+                    "com.rescript.plugin.util.RescriptEditorUtils*",
+                    // InlayHintsProvider extension point + LSP-driven hover
+                    // resolver; both need a live IDE inlay session to execute,
+                    // which the unit-test fixture cannot drive.
+                    "com.rescript.plugin.narrowing.RescriptNarrowingHintProvider*",
+                    "com.rescript.plugin.narrowing.RescriptHoverTypeResolver*",
                 )
             }
         }
