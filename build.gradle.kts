@@ -33,6 +33,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(kotlin("stdlib"))
     intellijPlatform {
         intellijIdea(providers.gradleProperty("platformVersion"))
         bundledModule("intellij.spellchecker")
@@ -81,18 +82,23 @@ pitest {
             "com.rescript.plugin.lang.RescriptUsageTypeProvider*",
             "com.rescript.plugin.lang.RescriptElementDescriptionProvider*",
             "com.rescript.plugin.lang.psi.*",
+            "com.rescript.plugin.util.RescriptEditorUtils*",
+            "com.rescript.plugin.util.RescriptProcessUtils*",
         ),
     )
     targetTests.set(
         listOf(
             "com.rescript.plugin.util.*",
-            "com.rescript.plugin.lang.*",
         ),
     )
     threads.set(2)
     outputFormats.set(listOf("HTML", "XML"))
     timestampedReports.set(false)
     failWhenNoMutations.set(false)
+    jvmArgs.set(listOf("-Xmx2G", "-Dsun.zip.disableMemoryMapping=true"))
+    useClasspathFile.set(true)
+    testSourceSets.set(listOf(sourceSets.test.get()))
+    mainSourceSets.set(listOf(sourceSets.main.get()))
 }
 
 // ── UI Test (Remote-Robot) source set ──
