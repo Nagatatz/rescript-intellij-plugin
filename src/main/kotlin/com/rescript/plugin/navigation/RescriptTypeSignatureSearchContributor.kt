@@ -4,13 +4,15 @@ import com.intellij.ide.actions.searcheverywhere.FoundItemDescriptor
 import com.intellij.ide.actions.searcheverywhere.SearchEverywhereContributor
 import com.intellij.ide.actions.searcheverywhere.SearchEverywhereContributorFactory
 import com.intellij.ide.actions.searcheverywhere.WeightedSearchEverywhereContributor
-import com.intellij.ide.util.gotoByName.GotoFileCellRenderer
-import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
+import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.Processor
 import com.rescript.plugin.RescriptFileType
@@ -20,19 +22,25 @@ import com.rescript.plugin.lang.psi.RescriptPsiUtils
 import javax.swing.ListCellRenderer
 
 /**
- * Search Everywhere contributor that enables searching by type signatures.
+ * Hoogle-style Search Everywhere contributor for ReScript type
+ * signatures. Users open Search Everywhere, switch to the
+ * "ReScript Types" tab, and type a structural query like
+ * `(int, string) => result<int, string>` or `=> option<'a>` to find
+ * declarations whose explicit type annotation matches.
  *
- * Users can search for functions by typing signatures like `string -> int`
- * or `option<'a> -> 'a`, and this contributor will match declarations whose
- * type annotations contain the queried pattern.
- *
- * @see WeightedSearchEverywhereContributor
- * @see RescriptSearchEverywhereContributor for symbol name search
+ * The contributor parses both the user query and each candidate's
+ * `: T` annotation through [RescriptTypeParser] and ranks the pair
+ * via [RescriptTypeUnifier]; only matches above [MatchScore.MISMATCH]
+ * reach the result list. Results render as `name: signature
+ * (relative/path:line)` so the user sees the full match before
+ * navigating, and the row is a [RescriptTypeSignatureSearchHit] —
+ * not a `NavigationItem` — so navigation lands on the binding
+ * name rather than the start of the file.
  */
 class RescriptTypeSignatureSearchContributor(
     event: AnActionEvent,
-) : WeightedSearchEverywhereContributor<Any> {
-    private val myProject = event.getData(CommonDataKeys.PROJECT)
+) : WeightedSearchEverywhereContributor<RescriptTypeSignatureSearchHit> {
+    private val myProject: Project? = event.getData(CommonDataKeys.PROJECT)
 
     override fun getSearchProviderId(): String = "RescriptTypeSignatureSearch"
 
@@ -47,19 +55,17 @@ class RescriptTypeSignatureSearchContributor(
     override fun fetchWeightedElements(
         pattern: String,
         progressIndicator: ProgressIndicator,
-        consumer: Processor<in FoundItemDescriptor<Any>>,
+        consumer: Processor<in FoundItemDescriptor<RescriptTypeSignatureSearchHit>>,
     ) {
-        if (pattern.isBlank() || !looksLikeTypeQuery(pattern)) return
-
+        val queryAst = RescriptTypeParser.parse(pattern.trim()) ?: return
         val project = myProject ?: return
         val scope = GlobalSearchScope.projectScope(project)
+        val basePath = project.basePath
         val psiManager = PsiManager.getInstance(project)
-        val queryTokens = tokenizeSignature(pattern)
 
         ApplicationManager.getApplication().runReadAction {
             for (fileType in listOf(RescriptFileType, RescriptInterfaceFileType)) {
-                for (vf in com.intellij.psi.search.FileTypeIndex
-                    .getFiles(fileType, scope)) {
+                for (vf in FileTypeIndex.getFiles(fileType, scope)) {
                     progressIndicator.checkCanceled()
                     val psiFile = psiManager.findFile(vf) as? RescriptFile ?: continue
 
@@ -68,13 +74,24 @@ class RescriptTypeSignatureSearchContributor(
                         if (elementType !in RescriptPsiUtils.NAVIGABLE_TYPES) continue
 
                         val text = child.text ?: continue
-                        val typeAnnotation = extractTypeAnnotation(text)
-                        if (typeAnnotation != null) {
-                            val weight = matchSignature(queryTokens, tokenizeSignature(typeAnnotation))
-                            if (weight > 0 && child is NavigationItem) {
-                                consumer.process(FoundItemDescriptor(child, weight))
-                            }
-                        }
+                        val parsed = parseDeclaration(text) ?: continue
+                        val candidateAst = RescriptTypeParser.parse(parsed.signatureText) ?: continue
+                        val score = RescriptTypeUnifier.match(queryAst, candidateAst)
+                        if (score == RescriptTypeUnifier.MatchScore.MISMATCH) continue
+
+                        val declarationOffset = child.textRange.startOffset + parsed.nameOffset
+                        val line = lineNumberAt(psiFile.text, declarationOffset)
+                        val relativePath = relativeOf(basePath, vf)
+                        val hit =
+                            RescriptTypeSignatureSearchHit(
+                                name = parsed.name,
+                                signatureDisplay = parsed.signatureText,
+                                file = vf,
+                                declarationOffset = declarationOffset,
+                                line = line,
+                                relativePath = relativePath,
+                            )
+                        consumer.process(FoundItemDescriptor(hit, score.weight))
                     }
                 }
             }
@@ -82,149 +99,155 @@ class RescriptTypeSignatureSearchContributor(
     }
 
     override fun processSelectedItem(
-        selected: Any,
+        selected: RescriptTypeSignatureSearchHit,
         modifiers: Int,
         searchText: String,
     ): Boolean {
-        if (selected is NavigationItem) {
-            selected.navigate(true)
-            return true
-        }
-        return false
+        val project = myProject ?: return false
+        OpenFileDescriptor(project, selected.file, selected.declarationOffset).navigate(true)
+        return true
     }
 
-    override fun getElementsRenderer(): ListCellRenderer<in Any> = GotoFileCellRenderer(0)
+    override fun getElementsRenderer(): ListCellRenderer<in RescriptTypeSignatureSearchHit> =
+        RescriptTypeSignatureCellRenderer()
 
     override fun getDataForItem(
-        element: Any,
+        element: RescriptTypeSignatureSearchHit,
         dataId: String,
     ): Any? = null
 
     override fun dispose() {}
 
-    companion object {
-        // Pattern to detect type-like queries (contains -> or has type-like keywords)
-        private val TYPE_QUERY_PATTERN = Regex("""->|=>|string|int|float|bool|option|array|result""")
-
-        // Pattern to extract type annotations from declarations
-        private val TYPE_ANNOTATION_PATTERN = Regex(""":\s*(.+?)\s*(?:=|$)""")
-
-        /** Pattern for splitting type signatures at arrows, parens, brackets, and whitespace. */
-        private val SIGNATURE_DELIMITER_PATTERN = Regex("""\s*(?:->|=>|[(),<>\[\]\s])\s*""")
-
-        /**
-         * Checks if the search pattern looks like a type query.
-         *
-         * @param pattern the search pattern
-         * @return true if it appears to be a type signature query
-         */
-        internal fun looksLikeTypeQuery(pattern: String): Boolean = TYPE_QUERY_PATTERN.containsMatchIn(pattern)
-
-        /**
-         * Tokenizes a type signature string into comparable tokens.
-         *
-         * Splits by delimiters (`->`, `=>`, `,`, `<`, `>`, spaces, parens)
-         * and normalizes each token to lowercase.
-         *
-         * @param signature the type signature string
-         * @return list of normalized type tokens
-         */
-        internal fun tokenizeSignature(signature: String): List<String> {
-            val tokens = mutableListOf<String>()
-
-            // First extract arrow operators as tokens
-            val remaining = signature.trim()
-
-            // Split on arrows and delimiters
-            val parts =
-                remaining
-                    .split(SIGNATURE_DELIMITER_PATTERN)
-                    .filter { it.isNotBlank() }
-                    .map { it.lowercase().trim() }
-
-            tokens.addAll(parts)
-
-            // Also add arrow direction info
-            if (signature.contains("->") || signature.contains("=>")) {
-                tokens.add("->")
-            }
-
-            return tokens
-        }
-
-        /**
-         * Matches a query token list against a candidate token list.
-         *
-         * Returns a score > 0 if the query tokens are found in the candidate,
-         * with higher scores for better matches.
-         *
-         * @param queryTokens the search query tokens
-         * @param candidateTokens the candidate declaration tokens
-         * @return match score (0 = no match, higher = better match)
-         */
-        internal fun matchSignature(
-            queryTokens: List<String>,
-            candidateTokens: List<String>,
-        ): Int {
-            if (queryTokens.isEmpty() || candidateTokens.isEmpty()) return 0
-
-            var matchCount = 0
-            for (qt in queryTokens) {
-                if (qt == "->") continue // Skip arrow tokens in matching
-                if (candidateTokens.any { it.contains(qt) || qt.contains(it) }) {
-                    matchCount++
-                }
-            }
-
-            val meaningfulQueryTokens = queryTokens.count { it != "->" }
-            if (meaningfulQueryTokens == 0) return 0
-
-            // Require at least half the query tokens to match
-            if (matchCount < (meaningfulQueryTokens + 1) / 2) return 0
-
-            return matchCount
-        }
-
-        /**
-         * Extracts the type annotation from a declaration text.
-         *
-         * @param declarationText the declaration source text
-         * @return the type annotation string, or null if not found
-         */
-        internal fun extractTypeAnnotation(declarationText: String): String? {
-            val firstLine = declarationText.lines().firstOrNull() ?: return null
-            val match = TYPE_ANNOTATION_PATTERN.find(firstLine) ?: return null
-            return match.groupValues[1].trim()
-        }
-
-        /**
-         * Ranks how well a match corresponds to the query.
-         *
-         * @param queryTokens the query tokens
-         * @param candidateTokens the candidate tokens
-         * @return rank score (higher = better)
-         */
-        internal fun rankMatch(
-            queryTokens: List<String>,
-            candidateTokens: List<String>,
-        ): Int {
-            val score = matchSignature(queryTokens, candidateTokens)
-            if (score == 0) return 0
-
-            // Bonus for exact token count match
-            val queryMeaningful = queryTokens.count { it != "->" }
-            val candidateMeaningful = candidateTokens.count { it != "->" }
-            val sizeBonus = if (queryMeaningful == candidateMeaningful) 2 else 0
-
-            return score + sizeBonus
-        }
+    /**
+     * Factory that the platform instantiates from the
+     * `<searchEverywhereContributor>` extension; produces one
+     * contributor per Search Everywhere session.
+     */
+    class Factory : SearchEverywhereContributorFactory<RescriptTypeSignatureSearchHit> {
+        override fun createContributor(
+            initEvent: AnActionEvent,
+        ): SearchEverywhereContributor<RescriptTypeSignatureSearchHit> =
+            RescriptTypeSignatureSearchContributor(initEvent)
     }
 
-    /**
-     * Factory for creating [RescriptTypeSignatureSearchContributor] instances.
-     */
-    class Factory : SearchEverywhereContributorFactory<Any> {
-        override fun createContributor(initEvent: AnActionEvent): SearchEverywhereContributor<Any> =
-            RescriptTypeSignatureSearchContributor(initEvent)
+    companion object {
+        /**
+         * Result of pulling the binding name and explicit `: T = …`
+         * annotation out of a top-level declaration's source text.
+         *
+         * @property name the binding name (e.g. `map`)
+         * @property nameOffset offset of [name] inside the declaration's
+         *   own source text — the contributor adds the parent's start
+         *   offset before navigating
+         * @property signatureText the trimmed signature text suitable
+         *   both for the AST parser and the renderer
+         */
+        internal data class ParsedDeclaration(
+            val name: String,
+            val nameOffset: Int,
+            val signatureText: String,
+        )
+
+        /**
+         * Pulls `let name: signature = …` / `external name: signature = …`
+         * apart so the contributor can feed [signatureText] into the
+         * type parser. Returns `null` when no `:` annotation is present
+         * (the candidate has only an inferred type) or the form doesn't
+         * fit the simple grammar.
+         */
+        internal fun parseDeclaration(declarationText: String): ParsedDeclaration? {
+            val headerMatch = DECLARATION_HEADER.find(declarationText) ?: return null
+            val name = headerMatch.groupValues[1]
+            val afterColon = declarationText.substring(headerMatch.range.last + 1)
+            val bindingEqualsOffset = findBindingEquals(afterColon)
+            val rawSignature =
+                if (bindingEqualsOffset >= 0) {
+                    afterColon.substring(0, bindingEqualsOffset)
+                } else {
+                    afterColon
+                }
+            val signatureText = rawSignature.trim()
+            if (signatureText.isEmpty()) return null
+            return ParsedDeclaration(
+                name = name,
+                nameOffset = headerMatch.range.first + headerMatch.value.indexOf(name),
+                signatureText = signatureText,
+            )
+        }
+
+        /**
+         * Matches the leading `let|external|type [rec] name:` portion;
+         * the signature is parsed separately so we can stop at the
+         * first **binding** `=` rather than the `=` that's part of `=>`.
+         */
+        private val DECLARATION_HEADER =
+            Regex(
+                """^(?:let|external|type)\s+(?:rec\s+)?(\w[\w']*)\s*:""",
+                RegexOption.MULTILINE,
+            )
+
+        /**
+         * Finds the offset of the first depth-0 binding `=` in [text]
+         * (i.e. an `=` that is not part of `=>` or `==` and is not
+         * inside parens / angles / braces / brackets). Returns -1 if
+         * no such `=` exists.
+         */
+        internal fun findBindingEquals(text: String): Int {
+            var depth = 0
+            var i = 0
+            while (i < text.length) {
+                val c = text[i]
+                when (c) {
+                    '(', '<', '{', '[' -> {
+                        depth++
+                    }
+
+                    ')', '>', '}', ']' -> {
+                        if (depth > 0) depth--
+                    }
+
+                    '=' -> {
+                        val next = if (i + 1 < text.length) text[i + 1] else ' '
+                        if (depth == 0 && next != '>' && next != '=') return i
+                    }
+
+                    '\n' -> {
+                        if (depth == 0) return i
+                    }
+
+                    else -> {
+                        Unit
+                    }
+                }
+                i++
+            }
+            return -1
+        }
+
+        @Suppress("ReturnCount")
+        internal fun lineNumberAt(
+            source: String,
+            offset: Int,
+        ): Int {
+            if (offset <= 0) return 1
+            var line = 1
+            val end = minOf(offset, source.length)
+            for (i in 0 until end) if (source[i] == '\n') line++
+            return line
+        }
+
+        internal fun relativeOf(
+            basePath: String?,
+            file: VirtualFile,
+        ): String {
+            val full = file.path
+            if (basePath != null && full.startsWith(basePath)) {
+                return full.removePrefix(basePath).removePrefix("/")
+            }
+            return full
+        }
+
+        @Suppress("unused")
+        private val DECLARATION_HEADER_NAME_GROUP = 1
     }
 }

@@ -1,110 +1,117 @@
 package com.rescript.plugin.navigation
 
+import com.intellij.mock.MockVirtualFile
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
+/**
+ * Unit tests for the helpers exposed on
+ * [RescriptTypeSignatureSearchContributor]'s companion. The end-to-end
+ * Search Everywhere flow needs an IntelliJ Platform fixture and is
+ * verified by hand in `runIde`; these cases lock down the small set
+ * of pure helpers that actually drive the signature extraction and
+ * display formatting.
+ */
 class RescriptTypeSignatureSearchContributorTest {
-    @Test
-    fun `looksLikeTypeQuery detects arrow type`() {
-        assertTrue(RescriptTypeSignatureSearchContributor.looksLikeTypeQuery("string -> int"))
-    }
+    // ── parseDeclaration ──
 
     @Test
-    fun `looksLikeTypeQuery detects type keywords`() {
-        assertTrue(RescriptTypeSignatureSearchContributor.looksLikeTypeQuery("option"))
-        assertTrue(RescriptTypeSignatureSearchContributor.looksLikeTypeQuery("string"))
-        assertTrue(RescriptTypeSignatureSearchContributor.looksLikeTypeQuery("array"))
-    }
-
-    @Test
-    fun `looksLikeTypeQuery rejects plain names`() {
-        assertFalse(RescriptTypeSignatureSearchContributor.looksLikeTypeQuery("myFunction"))
-    }
-
-    @Test
-    fun `tokenizeSignature splits arrow type`() {
-        val tokens = RescriptTypeSignatureSearchContributor.tokenizeSignature("string -> int")
-        assertTrue(tokens.contains("string"))
-        assertTrue(tokens.contains("int"))
-        assertTrue(tokens.contains("->"))
-    }
-
-    @Test
-    fun `tokenizeSignature splits complex type`() {
-        val tokens = RescriptTypeSignatureSearchContributor.tokenizeSignature("option<'a> -> 'a")
-        assertTrue(tokens.contains("option"))
-        assertTrue(tokens.contains("'a"))
-    }
-
-    @Test
-    fun `tokenizeSignature handles simple type`() {
-        val tokens = RescriptTypeSignatureSearchContributor.tokenizeSignature("string")
-        assertTrue(tokens.contains("string"))
-    }
-
-    @Test
-    fun `matchSignature returns positive for matching types`() {
-        val query = RescriptTypeSignatureSearchContributor.tokenizeSignature("string -> int")
-        val candidate = RescriptTypeSignatureSearchContributor.tokenizeSignature("string -> int")
-        val score = RescriptTypeSignatureSearchContributor.matchSignature(query, candidate)
-        assertTrue(score > 0)
-    }
-
-    @Test
-    fun `matchSignature returns zero for non-matching`() {
-        val query = RescriptTypeSignatureSearchContributor.tokenizeSignature("string -> int")
-        val candidate = RescriptTypeSignatureSearchContributor.tokenizeSignature("bool -> float")
-        val score = RescriptTypeSignatureSearchContributor.matchSignature(query, candidate)
-        assertEquals(0, score)
-    }
-
-    @Test
-    fun `matchSignature handles partial match`() {
-        val query = RescriptTypeSignatureSearchContributor.tokenizeSignature("string -> int")
-        val candidate = RescriptTypeSignatureSearchContributor.tokenizeSignature("string -> int -> bool")
-        val score = RescriptTypeSignatureSearchContributor.matchSignature(query, candidate)
-        assertTrue(score > 0)
-    }
-
-    @Test
-    fun `matchSignature returns zero for empty tokens`() {
-        val score = RescriptTypeSignatureSearchContributor.matchSignature(emptyList(), emptyList())
-        assertEquals(0, score)
-    }
-
-    @Test
-    fun `extractTypeAnnotation finds colon annotation`() {
-        val result =
-            RescriptTypeSignatureSearchContributor.extractTypeAnnotation(
+    fun `parseDeclaration finds let with arrow signature`() {
+        val parsed =
+            RescriptTypeSignatureSearchContributor.parseDeclaration(
                 "let add: (int, int) => int = (a, b) => a + b",
             )
-        assertNotNull(result)
-        assertTrue(result!!.contains("int"))
+        assertNotNull(parsed)
+        assertEquals("add", parsed!!.name)
+        assertEquals("(int, int) => int", parsed.signatureText)
     }
 
     @Test
-    fun `extractTypeAnnotation returns null for no annotation`() {
-        val result = RescriptTypeSignatureSearchContributor.extractTypeAnnotation("let x = 42")
-        assertNull(result)
+    fun `parseDeclaration finds let rec with annotation`() {
+        val parsed =
+            RescriptTypeSignatureSearchContributor.parseDeclaration(
+                "let rec loop: int => unit = n => loop(n - 1)",
+            )
+        assertNotNull(parsed)
+        assertEquals("loop", parsed!!.name)
+        assertEquals("int => unit", parsed.signatureText)
     }
 
     @Test
-    fun `rankMatch gives bonus for exact match`() {
-        val query = RescriptTypeSignatureSearchContributor.tokenizeSignature("string -> int")
-        val candidate = RescriptTypeSignatureSearchContributor.tokenizeSignature("string -> int")
-        val rank = RescriptTypeSignatureSearchContributor.rankMatch(query, candidate)
-        assertTrue(rank > 0)
+    fun `parseDeclaration finds external annotation`() {
+        val parsed =
+            RescriptTypeSignatureSearchContributor.parseDeclaration(
+                "external add: (int, int) => int = \"add\"",
+            )
+        assertNotNull(parsed)
+        assertEquals("add", parsed!!.name)
+        assertEquals("(int, int) => int", parsed.signatureText)
     }
 
     @Test
-    fun `rankMatch returns zero for no match`() {
-        val query = RescriptTypeSignatureSearchContributor.tokenizeSignature("string")
-        val candidate = RescriptTypeSignatureSearchContributor.tokenizeSignature("float")
-        val rank = RescriptTypeSignatureSearchContributor.rankMatch(query, candidate)
-        assertEquals(0, rank)
+    fun `parseDeclaration returns null when annotation is missing`() {
+        assertNull(RescriptTypeSignatureSearchContributor.parseDeclaration("let x = 42"))
+    }
+
+    @Test
+    fun `parseDeclaration returns null for unrelated declaration`() {
+        assertNull(RescriptTypeSignatureSearchContributor.parseDeclaration("module M = {}"))
+    }
+
+    @Test
+    fun `parseDeclaration captures generic type signature`() {
+        val parsed =
+            RescriptTypeSignatureSearchContributor.parseDeclaration(
+                "let map: (option<'a>, 'a => 'b) => option<'b> = (opt, f) => ...",
+            )
+        assertNotNull(parsed)
+        assertEquals("map", parsed!!.name)
+        assertEquals("(option<'a>, 'a => 'b) => option<'b>", parsed.signatureText)
+    }
+
+    @Test
+    fun `parseDeclaration handles type alias`() {
+        val parsed = RescriptTypeSignatureSearchContributor.parseDeclaration("type alias: int = ...")
+        assertNotNull(parsed)
+        assertEquals("alias", parsed!!.name)
+        assertEquals("int", parsed.signatureText)
+    }
+
+    // ── lineNumberAt ──
+
+    @Test
+    fun `line number is 1 at offset zero`() {
+        assertEquals(1, RescriptTypeSignatureSearchContributor.lineNumberAt("foo\nbar", 0))
+    }
+
+    @Test
+    fun `line number 2 after first newline`() {
+        assertEquals(2, RescriptTypeSignatureSearchContributor.lineNumberAt("foo\nbar", 4))
+    }
+
+    @Test
+    fun `line number clamped to source length`() {
+        val source = "foo\nbar\n"
+        assertEquals(3, RescriptTypeSignatureSearchContributor.lineNumberAt(source, source.length))
+    }
+
+    // ── relativeOf ──
+
+    @Test
+    fun `relativeOf strips a matching base path prefix`() {
+        val file = MockVirtualFile("Foo.res")
+        // MockVirtualFile path is the file's name (no base directory).
+        // Use the file's actual path as the base so the helper has
+        // something concrete to strip.
+        assertEquals("", RescriptTypeSignatureSearchContributor.relativeOf(file.path, file))
+    }
+
+    @Test
+    fun `relativeOf returns full path when base path missing`() {
+        val file = MockVirtualFile("Foo.res")
+        // path is unanchored — falls through to `file.path`.
+        assertEquals(file.path, RescriptTypeSignatureSearchContributor.relativeOf(null, file))
     }
 }
