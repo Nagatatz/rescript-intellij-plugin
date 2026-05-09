@@ -24,6 +24,7 @@
 | [flex-rules.md](flex-rules.md) | JFlex レクサー編集時の制約（`RescriptFlexLexer.java` は自動生成） |
 | [plugin-xml-rules.md](plugin-xml-rules.md) | Extension Point 登録の配置ルール |
 | [deprecated-api.md](deprecated-api.md) | Deprecated / scheduled-for-removal API の使用禁止と抑制手順 |
+| [audit-tasks.md](audit-tasks.md) | リポジトリ横断 audit / カバレッジ調査の二段検証プロセス |
 
 ## コミット・リリース時 — 公開する
 
@@ -46,6 +47,7 @@
 | ファイル | 用途 |
 |---|---|
 | [context-management.md](context-management.md) | `/compact` のタイミングやセッション分離の指針 |
+| [automation-playbooks.md](automation-playbooks.md) | Type Coverage 自動上昇ループ・テンプレート並列実装スワームの仕様書（実装は要発火指示） |
 
 ## 規約間の関係
 

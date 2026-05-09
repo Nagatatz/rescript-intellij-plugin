@@ -19,6 +19,9 @@ src/main/java/com/rescript/plugin/lang/RescriptFlexLexer.java
 .claude/settings.local.json
 .claude/session-state.md
 .claude/worktrees/
+# Local automation progress (see .claude/rules/automation-playbooks.md)
+.claude/coverage-progress.json
+.claude/steering-lock.json
 
 # OS
 .DS_Store

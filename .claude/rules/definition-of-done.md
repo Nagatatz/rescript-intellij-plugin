@@ -35,6 +35,16 @@
 
 `git commit` を実行する **前に** 以下をすべて検証する。1 つでも不合格ならコミットせず、先に修正すること。
 
+### リポジトリ状態の事前検証（DoD-owned）
+
+リポジトリの状態をユーザーに報告する前、または状態に基づいて意思決定する前に、必ず実コマンドで確認すること。**推測で発言してはならない**。
+
+- [ ] 「commit が pushed/unpushed」「branch が ahead/behind」を述べる前に `git status` と `git log --oneline origin/<branch>..HEAD` を実行し、その出力を返答内に引用する
+- [ ] 依存パッケージのバージョン・ロックファイル状態に言及する前に該当ファイル（`gradle.properties`, `package.json`, ロックファイル等）を `Read` で確認する
+- [ ] 「このコミットは既にある／ない」を述べる前に `git log --grep` または `git log --oneline -- <path>` で実証する
+
+**理由:** 過去に「unpushed と誤って報告」「`@types/node` の bump を未確定と誤認」など、未検証の状態主張による無駄な往復が発生している。**主張する前に検証する**。
+
 ### 自己検証（DoD-owned — CI ゲートの正本）
 
 - [ ] `./gradlew ktlintCheck` が成功する
