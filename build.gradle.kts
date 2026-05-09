@@ -1,4 +1,5 @@
 import org.jetbrains.grammarkit.tasks.GenerateLexerTask
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
@@ -38,7 +39,7 @@ dependencies {
         bundledPlugin("com.intellij.modules.json")
         bundledPlugin("org.intellij.plugins.markdown")
         bundledPlugin("tanvd.grazi")
-        pluginVerifier()
+        pluginVerifier("1.403")
         testFramework(TestFrameworkType.Platform)
     }
     testImplementation(libs.junit.jupiter)
@@ -150,7 +151,13 @@ intellijPlatform {
     buildSearchableOptions = false
     pluginVerification {
         ides {
-            recommended()
+            // Pinned explicitly instead of recommended() because verifier-cli
+            // 1.403 still chokes on the 2026.2 EAP IDE layout
+            // (ClosedFileSystemException during bundled-plugin dependency
+            // resolution). recommended() pulls in 2026.2 EAP automatically and
+            // breaks the build. Switch back to recommended() once a verifier
+            // release supports the 2026.2 layout.
+            create(IntelliJPlatformType.IntellijIdea, "2026.1.1")
         }
         // Suppresses known false-positive verifier warnings. See the file for
         // per-entry rationale and review dates.
