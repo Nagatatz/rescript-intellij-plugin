@@ -1309,16 +1309,16 @@ Comment code evaluation verifies that documentation examples are correct and up 
 
 ## Type Signature Search
 
-{bdg-primary}`LSP Required`
+{bdg-success}`Native`
 
-Search for functions by their type signature in the **Search Everywhere** dialog (`Shift+Shift`).
+Search for functions by their type signature in the **Search Everywhere** dialog (`Shift+Shift`). Both the user query and each candidate signature are parsed into a structural AST and compared by `RescriptTypeUnifier`, so only declarations whose annotated type actually fits the query — not just contains the same words — appear in the result list.
 
 ### How to Use
 
 1. Open Search Everywhere with `Shift+Shift`
-2. Switch to the **Types** tab
+2. Switch to the **ReScript Types** tab
 3. Enter a type signature query (e.g., `string => int`, `array<'a> => int`, `(int, int) => int`)
-4. Matching functions from the project and dependencies are listed
+4. Matching declarations from the project's `.res` and `.resi` files are listed as `name: signature  (relative/path:line)` and ordered by match strength
 
 ### Query Syntax
 
@@ -1326,12 +1326,28 @@ Type signature queries use standard ReScript type syntax:
 
 | Query | Matches |
 |-------|---------|
-| `string => int` | Functions taking a string and returning an int |
-| `array<'a> => int` | Functions taking any array and returning an int |
-| `(int, int) => int` | Functions taking two ints and returning an int |
-| `option<'a> => 'a` | Functions unwrapping option values |
+| `string => int` | Functions whose annotated type is exactly `string => int` |
+| `array<'a> => int` | Functions whose first arg is some `array` and that return `int` |
+| `(int, int) => int` | Two-int functions returning int |
+| `option<'a> => 'a` | Functions whose first arg is some `option` and whose return type matches that arg |
+| `=> result<int, string>` | "Returns T" mode — anything ending in that result, regardless of inputs |
 
-The search matches against function type signatures from the project's stub index, providing fast lookup without requiring the LSP server.
+### Match Tiers
+
+The unifier emits one of four scores per candidate; higher-score hits float to the top of the list.
+
+| Tier | When | Weight |
+|------|------|--------|
+| `EXACT` | Query and candidate have the same structure with identical type names | 100 |
+| `TVAR_MATCH` | Query type variable (`'a`) absorbed a concrete type in the candidate | 60 |
+| `PARTIAL` | "Returns T" query (`=> T`) matched the candidate's right-hand side | 30 |
+| `MISMATCH` | Structures cannot be reconciled (different ctors / arity / arrow vs. tuple / …) | 0 (filtered out) |
+
+### Limitations
+
+- **Annotation required.** The contributor only sees declarations carrying an explicit `: T = …` annotation. Inferred types (e.g. `let x = 5`) don't participate; rely on the language server (`Go to Symbol`, `Find Usages`) or use the Type Coverage Heat Map to find files in need of annotation.
+- **Subset of ReScript types.** Records (`{name: string}`), polymorphic variants (`[#Foo | #Bar]`), and labeled-argument signatures (`(~name: string) => unit`) are out of scope for the parser; those candidates simply don't appear in the result list.
+- **Concrete query against polymorphic candidate is a mismatch.** Searching `int` will not match `let id: 'a => 'a` — the query says "I want exactly `int`" and the candidate is polymorphic. Use type variables in the query side when you want the unifier to absorb concrete candidates.
 
 When you know what type of function you need but not its name, type signature search lets you discover the right function by its shape — a natural fit for a type-inferred language like ReScript.
 
