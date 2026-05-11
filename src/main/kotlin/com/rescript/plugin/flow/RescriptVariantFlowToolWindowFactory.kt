@@ -2,10 +2,9 @@ package com.rescript.plugin.flow
 
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
-import com.intellij.ui.content.ContentFactory
+import com.rescript.plugin.util.RescriptToolWindowContent
 
 /**
  * Factory that creates the ReScript Switch Flow tool window content.
@@ -17,6 +16,7 @@ import com.intellij.ui.content.ContentFactory
  *
  * @see ToolWindowFactory
  * @see RescriptVariantFlowPanel
+ * @see RescriptToolWindowContent for the shared install helper
  */
 class RescriptVariantFlowToolWindowFactory :
     ToolWindowFactory,
@@ -26,8 +26,6 @@ class RescriptVariantFlowToolWindowFactory :
         toolWindow: ToolWindow,
     ) {
         val panel = RescriptVariantFlowPanel(project)
-        val content = ContentFactory.getInstance().createContent(panel, "", false)
-        Disposer.register(content, panel)
-        toolWindow.contentManager.addContent(content)
+        RescriptToolWindowContent.install(toolWindow, panel, panel)
     }
 }
