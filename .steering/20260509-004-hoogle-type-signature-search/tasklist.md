@@ -33,6 +33,6 @@
 
 ## マージ
 
-- [ ] AskUserQuestion でマージ可否確認
-- [ ] main へ fast-forward マージ & origin に push
-- [ ] CI 緑を確認
+- [x] AskUserQuestion でマージ可否確認
+- [x] main へ fast-forward マージ & origin に push
+- [x] CI 緑を確認 (CodeQL / Docs / CI all green on edd3028)
