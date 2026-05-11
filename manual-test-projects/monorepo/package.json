@@ -1,0 +1,8 @@
+{
+  "name": "rescript-plugin-monorepo-fixture",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

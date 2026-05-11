@@ -37,6 +37,15 @@ src/uiTest/testData/sample-project/lib/
 # In-source compiled output (rescript.json has "in-source": true)
 src/uiTest/testData/sample-project/src/*.res.js
 
+# Manual test project artifacts (install / build locally)
+manual-test-projects/**/node_modules/
+manual-test-projects/**/lib/
+manual-test-projects/**/.merlin
+manual-test-projects/**/*.bs.js
+manual-test-projects/**/package-lock.json
+manual-test-projects/**/pnpm-lock.yaml
+manual-test-projects/**/yarn.lock
+
 # Sphinx documentation
 sphinx-docs/_build/
 sphinx-docs/.venv/

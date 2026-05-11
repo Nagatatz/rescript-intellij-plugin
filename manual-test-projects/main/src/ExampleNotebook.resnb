@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "cells": [
+    {
+      "kind": "markdown",
+      "source": "# Sample ReScript Notebook\n\nDouble-click `.resnb` files to open them in the cell-based editor. Each ReScript cell can be evaluated independently; the result is persisted into this file as `lastOutput`."
+    },
+    {
+      "kind": "code",
+      "source": "let x = 1 + 2\nJs.log(x)",
+      "lastOutput": ""
+    },
+    {
+      "kind": "code",
+      "source": "let greet = name => \"Hello, \" ++ name\nJs.log(greet(\"ReScript\"))",
+      "lastOutput": ""
+    },
+    {
+      "kind": "markdown",
+      "source": "## Export\n\nUse the toolbar action to export this notebook to Markdown for sharing in PRs or design docs."
+    }
+  ]
+}

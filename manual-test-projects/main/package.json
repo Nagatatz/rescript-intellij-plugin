@@ -1,0 +1,14 @@
+{
+  "name": "rescript-plugin-manual-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "rescript build",
+    "watch": "rescript build -w",
+    "clean": "rescript clean"
+  },
+  "devDependencies": {
+    "rescript": "^11.1.4",
+    "@rescript/language-server": "^1.62.0"
+  }
+}
