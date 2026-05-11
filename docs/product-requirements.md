@@ -244,10 +244,10 @@ CI に月次の `verifyPlugin` ジョブを追加することを推奨する（`
 
 **受け入れ条件:**
 - [x] New Project ダイアログに ReScript カテゴリが表示される
-- [x] 21 種類のテンプレート（Basic / Vite+React / Next.js / Hono / Hono GraphQL / Hono Inertia / Cloudflare Workers / AWS Lambda / Google Cloud Run / Electron / React Native (Expo) / React Native (CLI) / npm Library / CLI Tool / Monorepo / Full-Stack / ReS-X / TanStack Start / Remix RR v7 / Astro / Waku）が選択できる
+- [x] 22 種類のテンプレート（Basic / Vite+React / Next.js / Hono / Hono GraphQL / Hono Inertia / Cloudflare Workers / AWS Lambda / Google Cloud Run / Electron / Tauri / React Native (Expo) / React Native (CLI) / npm Library / CLI Tool / Monorepo / Full-Stack / ReS-X / TanStack Start / Remix RR v7 / Astro / Waku）が選択できる
 - [x] パッケージマネージャー（npm / yarn / pnpm / bun）と Validation ライブラリ（zod / sury）を選択できる。ただし TanStack Start / Remix RR v7 / Astro / Waku 選択時は Validation 選択 UI を非表示にする
 - [x] 生成されたプロジェクトはそのまま `<package-manager> install && rescript build` が通る
-- [x] 既存 17 テンプレートでは用途に合わせた `Validation.res` が `variants/<key>/` から書き出される
+- [x] 既存 18 テンプレートでは用途に合わせた `Validation.res` が `variants/<key>/` から書き出される
 
 ### US-12: Worksheet / REPL でのインタラクティブ評価
 

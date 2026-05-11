@@ -6,7 +6,7 @@ myst:
 
 # Project Templates
 
-The plugin ships 21 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
+The plugin ships 22 project templates that scaffold production-shaped ReScript apps — not just "Hello World". Each template is a working, buildable project with modern tooling (pnpm/npm/yarn support, ESM, Vite+ where applicable, GitHub Actions CI) and documentation that answers the common day-two question: *"How do I add the next thing?"*
 
 ## Opening the Wizard
 
@@ -74,6 +74,14 @@ App router with a Server Component (`app/page.tsx`), a Client Component (`app/cl
 Desktop app with `preload.cjs` + `contextBridge` + `ipcMain.handle`. `src/Electron.res` binds the exposed `electronAPI` so renderer-process ReScript code can query system info.
 
 {bdg-info}`Desktop`
+:::
+
+:::{grid-item-card} Tauri
+:link: tauri
+:link-type: doc
+Tauri 2.x desktop app pairing a Rust `src-tauri/` process with a Vite+/React renderer. `@rescript-tauri/core` wires `Core.Raw.invoke` over `#[tauri::command]` functions; renderer-side `Validation.res` parses payloads with zod or sury.
+
+{bdg-info}`Desktop` {bdg-primary}`Rust` {bdg-success}`Validation`
 :::
 
 :::{grid-item-card} React Native (Expo)
@@ -224,7 +232,8 @@ Server-driven SPA where Hono routes call `c.render(component, props)` through th
 | I'm building a CLI tool | CLI Tool |
 | I need a React SPA | Vite+ + React |
 | I need SSR / Server Components / SEO | Next.js |
-| I'm building a desktop app | Electron |
+| I'm building a desktop app with Node-style IPC | Electron |
+| I'm building a desktop app and want a Rust backend / small bundle | Tauri |
 | I'm building a mobile app | React Native |
 | I need a REST API with typed docs | Hono (REST) |
 | I need a GraphQL API | Hono + GraphQL |
@@ -255,7 +264,7 @@ When you need to extend a generated project, these recipes pick up where the tem
 
 ## Notes on Vite+
 
-The Vite+ based templates (Vite+ + React, Hono + Inertia, Monorepo client, Full-Stack) pin `vite-plus` and `@voidzero-dev/vite-plus-core` at pre-1.0 versions. If a command breaks after an upgrade, replace `vite-plus` with `vite` in `vite.config.mjs` and swap the `vp` scripts for `vite` to fall back to classic Vite.
+The Vite+ based templates (Vite+ + React, Electron, Tauri, Hono + Inertia, Monorepo client, Full-Stack) pin `vite-plus` and `@voidzero-dev/vite-plus-core` at pre-1.0 versions. If a command breaks after an upgrade, replace `vite-plus` with `vite` in `vite.config.mjs` and swap the `vp` scripts for `vite` to fall back to classic Vite.
 
 ```{toctree}
 :hidden:
@@ -267,6 +276,7 @@ cli-tool
 vite-react
 nextjs
 electron
+tauri
 react-native
 react-native-cli
 hono
