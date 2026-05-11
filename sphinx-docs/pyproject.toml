@@ -4,32 +4,32 @@ version = "0.1.0"
 description = "Sphinx documentation for the ReScript IntelliJ Plugin"
 requires-python = ">=3.12"
 dependencies = [
-    "Sphinx>=8.0,<10.0",
-    "furo>=2024.8,<2027.0",
-    "myst-parser>=4.0,<6.0",
-    "sphinx-intl>=2.3,<3.0",
-    "sphinx-copybutton>=0.5,<1.0",
-    "sphinx-design>=0.6,<1.0",
-    "sphinxext-opengraph>=0.9,<1.0",
-    "sphinx-sitemap>=2.6,<3.0",
-    "sphinx-notfound-page>=1.0,<2.0",
-    "sphinx-tippy>=0.4,<1.0",
-    "sphinx-last-updated-by-git>=0.3,<1.0",
-    "sphinx-llms-txt>=0.1",
-    "sphinxcontrib-budoux>=0.1",
-    "atsphinx-htmx-boost>=0.2",
-    "sphinxcontrib-mermaid>=1.0,<3.0",
+    "Sphinx>=9.1,<10.0",
+    "furo>=2025.12,<2027.0",
+    "myst-parser>=5.0,<6.0",
+    "sphinx-intl>=2.3.2,<3.0",
+    "sphinx-copybutton>=0.5.2,<1.0",
+    "sphinx-design>=0.7,<1.0",
+    "sphinxext-opengraph>=0.13,<1.0",
+    "sphinx-sitemap>=2.9,<3.0",
+    "sphinx-notfound-page>=1.1,<2.0",
+    "sphinx-tippy>=0.4.3,<1.0",
+    "sphinx-last-updated-by-git>=0.3.8,<1.0",
+    "sphinx-llms-txt>=0.7",
+    "sphinxcontrib-budoux>=0.1.6",
+    "atsphinx-htmx-boost>=0.3",
+    "sphinxcontrib-mermaid>=2.0.2,<3.0",
 ]
 
 [dependency-groups]
 dev = [
-    "ruff>=0.15",
-    "mypy>=1.20",
+    "ruff>=0.15.12",
+    "mypy>=2.0",
     "pytest>=9.0",
-    "pytest-cov>=7.0",
-    "sphinx-autobuild>=2024.0",
-    "translate-toolkit>=3.19",
-    "markdown-it-py>=4.0",
+    "pytest-cov>=7.1",
+    "sphinx-autobuild>=2025.8",
+    "translate-toolkit>=3.19.8",
+    "markdown-it-py>=4.2",
 ]
 
 [tool.hatch.build.targets.wheel]
