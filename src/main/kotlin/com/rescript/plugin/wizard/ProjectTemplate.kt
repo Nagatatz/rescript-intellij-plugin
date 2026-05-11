@@ -19,6 +19,7 @@ import com.rescript.plugin.wizard.templates.ReactNativeTemplateFiles
 import com.rescript.plugin.wizard.templates.RemixV7TemplateFiles
 import com.rescript.plugin.wizard.templates.ResXTemplateFiles
 import com.rescript.plugin.wizard.templates.TanstackStartTemplateFiles
+import com.rescript.plugin.wizard.templates.TauriTemplateFiles
 import com.rescript.plugin.wizard.templates.TemplateContext
 import com.rescript.plugin.wizard.templates.ViteReactTemplateFiles
 import com.rescript.plugin.wizard.templates.WakuTemplateFiles
@@ -122,6 +123,25 @@ enum class ProjectTemplate(
         • Vitest + coverage
 
         Requires: Node.js 24+.
+        """.trimIndent(),
+        TemplateCategory.DESKTOP,
+    ),
+    TAURI(
+        "Tauri",
+        """
+        A Tauri 2.x desktop application pairing a Rust process with a Vite+ renderer
+        written in ReScript + React. IPC is wired through @rescript-tauri/core.
+
+        Includes:
+        • Tauri 2.x (Rust `src-tauri/`) + @rescript/react + React 19 (renderer)
+        • @rescript-tauri/core bindings over `Core.Raw.invoke`
+        • Vite+ bundling for the renderer, snake_case `#[tauri::command]` examples
+        • IPC response validation via zod or sury (renderer side)
+        • Vitest + coverage
+        • CSP, allowlist, and "add a new command" walkthrough in the README
+
+        Requires: Node.js 24+, Rust toolchain (`rustup default stable`), and platform
+        build deps — see https://v2.tauri.app/start/prerequisites/.
         """.trimIndent(),
         TemplateCategory.DESKTOP,
     ),
@@ -476,6 +496,7 @@ enum class ProjectTemplate(
             VITE_REACT -> ViteReactTemplateFiles.generate(ctx)
             NEXTJS -> NextjsTemplateFiles.generate(ctx)
             ELECTRON -> ElectronTemplateFiles.generate(ctx)
+            TAURI -> TauriTemplateFiles.generate(ctx)
             HONO -> HonoTemplateFiles.generate(ctx)
             HONO_GRAPHQL -> HonoGraphqlTemplateFiles.generate(ctx)
             HONO_INERTIA -> HonoInertiaTemplateFiles.generate(ctx)

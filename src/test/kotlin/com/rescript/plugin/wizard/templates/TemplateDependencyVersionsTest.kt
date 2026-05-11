@@ -85,6 +85,22 @@ class TemplateDependencyVersionsTest {
     }
 
     @Test
+    fun `Tauri has secure dependency versions`() {
+        val files = ProjectTemplate.TAURI.generateFiles("test")
+        val pkg = files["package.json"]!!
+        assertMinVersion("react", extractVersion(pkg, "react"), 19, 0, 4)
+        assertMinVersion("react-dom", extractVersion(pkg, "react-dom"), 19, 0, 4)
+        assertMinVersion("@tauri-apps/api", extractVersion(pkg, "@tauri-apps/api"), 2, 0, 0)
+        assertMinVersion("@tauri-apps/cli", extractVersion(pkg, "@tauri-apps/cli"), 2, 0, 0)
+        // @rescript-tauri/core is a 0.x package; assert presence rather than a minimum floor.
+        assertTrue(
+            extractVersion(pkg, "@rescript-tauri/core") != null,
+            "@rescript-tauri/core should be present",
+        )
+        assertTrue(extractVersion(pkg, "vite-plus") != null, "vite-plus should be present")
+    }
+
+    @Test
     fun `ReactNative has secure dependency versions`() {
         val files = ProjectTemplate.REACT_NATIVE.generateFiles("test")
         val pkg = files["package.json"]!!

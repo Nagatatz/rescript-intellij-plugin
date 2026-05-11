@@ -170,4 +170,11 @@ object TemplateVersions {
     // alpha — pin to a known alpha to keep installs reproducible until 1.0
     // ships. Bump together with the template README's RSC walkthrough.
     const val WAKU = "1.0.0-alpha.8"
+
+    // Tauri 2.x desktop runtime. @rescript-tauri/core is a 0.x package, so we
+    // pin to ^0.1.x to follow patch updates without auto-adopting breaking
+    // 0.minor bumps. @tauri-apps/api / @tauri-apps/cli track Tauri 2.x.
+    const val RESCRIPT_TAURI_CORE = "^0.1.0"
+    const val TAURI_APPS_API = "^2.11.0"
+    const val TAURI_APPS_CLI = "^2.0.0"
 }

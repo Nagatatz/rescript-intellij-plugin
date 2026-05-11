@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 
 class ProjectTemplateTest {
     @Test
-    fun `enum has 21 entries`() {
-        assertEquals(21, ProjectTemplate.entries.size)
+    fun `enum has 22 entries`() {
+        assertEquals(22, ProjectTemplate.entries.size)
     }
 
     @Test
@@ -126,6 +126,16 @@ class ProjectTemplateTest {
         val files = ProjectTemplate.ELECTRON.generateFiles("test-project")
         assertTrue(files["package.json"]!!.contains("\"electron\""))
         assertTrue(files.containsKey("main.cjs"))
+    }
+
+    @Test
+    fun `TAURI template includes rescript-tauri core dep and src-tauri folder`() {
+        val files = ProjectTemplate.TAURI.generateFiles("test-project")
+        assertTrue(files["package.json"]!!.contains("\"@rescript-tauri/core\""))
+        assertTrue(files["package.json"]!!.contains("\"@tauri-apps/api\""))
+        assertTrue(files.containsKey("src-tauri/Cargo.toml"))
+        assertTrue(files.containsKey("src-tauri/src/main.rs"))
+        assertTrue(files.containsKey("src-tauri/tauri.conf.json"))
     }
 
     @Test
@@ -388,6 +398,7 @@ class ProjectTemplateTest {
                 ProjectTemplate.VITE_REACT,
                 ProjectTemplate.NEXTJS,
                 ProjectTemplate.ELECTRON,
+                ProjectTemplate.TAURI,
                 ProjectTemplate.REACT_NATIVE,
                 ProjectTemplate.REACT_NATIVE_CLI,
                 ProjectTemplate.HONO_INERTIA,
