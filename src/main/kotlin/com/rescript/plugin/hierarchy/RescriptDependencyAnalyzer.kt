@@ -1,25 +1,14 @@
 package com.rescript.plugin.hierarchy
 
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
-import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
  * Analyzes module dependencies from PSI elements.
- * Pure utility class for extracting module references and building module trees.
+ * Pure utility class for extracting module references from open/include statements.
  */
 data object RescriptDependencyAnalyzer {
-    /**
-     * Represents a module node in the hierarchy tree.
-     */
-    data class ModuleNode(
-        val name: String,
-        val element: PsiElement?,
-        val children: List<ModuleNode>,
-    )
-
     /**
      * Represents a module reference (open or include statement).
      */
@@ -94,36 +83,5 @@ data object RescriptDependencyAnalyzer {
                 }
             }
         return tokens.joinToString("")
-    }
-
-    /**
-     * Builds a tree of nested MODULE_DECLARATION elements from a file.
-     */
-    @Suppress("unused")
-    fun buildModuleTree(file: PsiFile): List<ModuleNode> = collectModuleNodes(file)
-
-    private fun collectModuleNodes(scope: PsiElement): List<ModuleNode> {
-        val nodes = mutableListOf<ModuleNode>()
-        for (child in scope.children) {
-            if (child.node?.elementType == RescriptElementTypes.MODULE_DECLARATION) {
-                val name = RescriptPsiUtils.extractName(child)
-                val children = collectModuleNodes(child)
-                nodes.add(ModuleNode(name, child, children))
-            }
-        }
-        return nodes
-    }
-
-    /**
-     * Gets all unique module names referenced by open/include statements in a file.
-     * Returns just the top-level module name (e.g., "Belt" from "Belt.Array").
-     */
-    @Suppress("unused")
-    fun getReferencedModuleNames(file: PsiFile): Set<String> {
-        val refs = extractModuleReferences(file)
-        return refs
-            .map { it.modulePath.substringBefore(".") }
-            .filter { it.isNotEmpty() }
-            .toSet()
     }
 }

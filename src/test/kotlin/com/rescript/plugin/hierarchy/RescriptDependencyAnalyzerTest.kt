@@ -39,51 +39,6 @@ class RescriptDependencyAnalyzerTest {
     }
 
     @Test
-    fun `ModuleNode data class holds correct values`() {
-        val node =
-            RescriptDependencyAnalyzer.ModuleNode(
-                name = "MyModule",
-                element = null,
-                children = emptyList(),
-            )
-        assertEquals("MyModule", node.name)
-        assertEquals(null, node.element)
-        assertTrue(node.children.isEmpty())
-    }
-
-    @Test
-    fun `ModuleNode supports nested children`() {
-        val child =
-            RescriptDependencyAnalyzer.ModuleNode(
-                name = "Child",
-                element = null,
-                children = emptyList(),
-            )
-        val parent =
-            RescriptDependencyAnalyzer.ModuleNode(
-                name = "Parent",
-                element = null,
-                children = listOf(child),
-            )
-        assertEquals(1, parent.children.size)
-        assertEquals("Child", parent.children[0].name)
-    }
-
-    @Test
-    fun `ModuleNode supports multiple levels of nesting`() {
-        val grandchild =
-            RescriptDependencyAnalyzer.ModuleNode("GrandChild", null, emptyList())
-        val child =
-            RescriptDependencyAnalyzer.ModuleNode("Child", null, listOf(grandchild))
-        val root =
-            RescriptDependencyAnalyzer.ModuleNode("Root", null, listOf(child))
-
-        assertEquals("Root", root.name)
-        assertEquals("Child", root.children[0].name)
-        assertEquals("GrandChild", root.children[0].children[0].name)
-    }
-
-    @Test
     fun `ReferenceKind has OPEN and INCLUDE values`() {
         assertEquals(2, RescriptDependencyAnalyzer.ReferenceKind.entries.size)
         assertEquals(
@@ -115,19 +70,6 @@ class RescriptDependencyAnalyzerTest {
         val path = "Belt.Map.String"
         val topLevel = path.substringBefore(".")
         assertEquals("Belt", topLevel)
-    }
-
-    @Test
-    fun `ModuleNode equality by data class`() {
-        val node1 = RescriptDependencyAnalyzer.ModuleNode("A", null, emptyList())
-        val node2 = RescriptDependencyAnalyzer.ModuleNode("A", null, emptyList())
-        assertEquals(node1, node2)
-    }
-
-    @Test
-    fun `empty module tree is empty list`() {
-        val nodes = emptyList<RescriptDependencyAnalyzer.ModuleNode>()
-        assertTrue(nodes.isEmpty())
     }
 
     // ── extractModulePath PSI stub tests ──────────────────────────────
@@ -214,7 +156,7 @@ class RescriptDependencyAnalyzerTest {
         assertEquals("Js.Promise", refs[1].modulePath)
     }
 
-    // ── getReferencedModuleNames tests ────────────────────────────────
+    // ── ModuleReference data class tests ──────────────────────────────
 
     @Test
     fun `ModuleReference data class properties`() {
