@@ -4,26 +4,26 @@
 
 helper と 6 ファクトリは互いに依存するため、1 コミットでまとめて提出する。
 
-- [ ] T1. `util/RescriptToolWindowContent.kt` を作成 (KDoc 付き object)
-- [ ] T2. `impact/RescriptTypeImpactToolWindowFactory` を helper 経由に書き換え
-- [ ] T3. `flow/RescriptVariantFlowToolWindowFactory` を helper 経由に書き換え
-- [ ] T4. `interop/RescriptInteropRiskToolWindowFactory` を helper 経由に書き換え
-- [ ] T5. `migration/RescriptMigrationToolWindowFactory` を helper 経由に書き換え
-- [ ] T6. `diagram/RescriptDependencyDiagramToolWindowFactory` を helper 経由に書き換え
-- [ ] T7. `coverage/RescriptTypeCoverageToolWindowFactory` を helper 経由に書き換え
-- [ ] T8. `./gradlew ktlintCheck` グリーン
-- [ ] T9. `./gradlew clean buildPlugin` グリーン
-- [ ] T10. `./gradlew test` グリーン
-- [ ] T11. 1 コミット (`♻️ Centralise single-content tool window installation`)
-- [ ] T12. main にマージ + worktree クリーンアップ
+- [x] T1. `util/RescriptToolWindowContent.kt` を作成 (KDoc 付き object)
+- [x] T2. `impact/RescriptTypeImpactToolWindowFactory` を helper 経由に書き換え
+- [x] T3. `flow/RescriptVariantFlowToolWindowFactory` を helper 経由に書き換え
+- [x] T4. `interop/RescriptInteropRiskToolWindowFactory` を helper 経由に書き換え
+- [x] T5. `migration/RescriptMigrationToolWindowFactory` を helper 経由に書き換え
+- [x] T6. `diagram/RescriptDependencyDiagramToolWindowFactory` を helper 経由に書き換え
+- [x] T7. `coverage/RescriptTypeCoverageToolWindowFactory` を helper 経由に書き換え
+- [x] T8. `./gradlew ktlintCheck` グリーン
+- [x] T9. `./gradlew clean buildPlugin` グリーン
+- [x] T10. `./gradlew test` グリーン
+- [x] T11. 1 コミット (`♻️ Centralise single-content tool window installation`) — 300d9a9
+- [x] T12. main にマージ + worktree クリーンアップ
 
 ## DoD チェック
 
-- [ ] tasklist.md のすべてが `[x]`
-- [ ] requirements.md の受け入れ条件をすべて満たした
-- [ ] ktlint / buildPlugin / test グリーン
-- [ ] 新規 KDoc 規約: `RescriptToolWindowContent` にクラス KDoc を付与
-- [ ] Pattern B factory（5 個）は触っていない
+- [x] tasklist.md のすべてが `[x]`
+- [x] requirements.md の受け入れ条件をすべて満たした
+- [x] ktlint / buildPlugin / test グリーン
+- [x] 新規 KDoc 規約: `RescriptToolWindowContent` にクラス KDoc を付与
+- [x] Pattern B factory（5 個）は触っていない
 
 ## テスト省略の理由（DoD-owned)
 
