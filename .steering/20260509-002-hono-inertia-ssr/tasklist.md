@@ -29,6 +29,6 @@
 ## マージ
 
 - [ ] 機能単位コミット粒度: (a) ReScript テンプレート変更 (Ssr.res 新規 + Server.res / Main.res / pageRegistry 経由) / (b) Kotlin generator + テスト + readme / (c) docs 更新
-- [ ] AskUserQuestion でマージ可否確認
-- [ ] main へ fast-forward マージ & origin に push
-- [ ] CI 緑を確認
+- [x] AskUserQuestion でマージ可否確認
+- [x] main へ fast-forward マージ & origin に push
+- [x] CI 緑を確認

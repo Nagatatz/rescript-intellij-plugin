@@ -56,5 +56,5 @@
 
 ## マージ
 
-- [ ] `AskUserQuestion` でマージ可否確認
-- [ ] main にマージ
+- [x] `AskUserQuestion` でマージ可否確認
+- [x] main にマージ

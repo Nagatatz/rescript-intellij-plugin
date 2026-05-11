@@ -57,7 +57,7 @@
 - [x] `AskUserQuestion` でマージ可否確認
 
 ## Phase 5: マージ後
-- [ ] main へマージ + ブランチ削除 + worktree クリーンアップ
+- [x] main へマージ + ブランチ削除 + worktree クリーンアップ
 
 ## テスト免除
 - `RescriptVariantFlowPanel`: Swing UI のためテスト免除

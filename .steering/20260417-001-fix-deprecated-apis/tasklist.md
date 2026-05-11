@@ -94,9 +94,9 @@ Skipped in this session due to lengthy `runIde` bootstrap and disk-space pressur
 - [x] Confirm Phase 3 verifications are `[x]`.
 - [x] Update this tasklist with final `[x]` state including this merge task.
 - [ ] Commit the tasklist update: `📝 Mark fix-deprecated-apis tasks complete`.
-- [ ] Run `AskUserQuestion` to confirm merge into `main`.
-- [ ] After approval: in the worktree, `git checkout main && git merge worktree-fix-deprecated-apis && git branch -d worktree-fix-deprecated-apis`.
+- [x] Run `AskUserQuestion` to confirm merge into `main`.
+- [x] After approval: in the worktree, `git checkout main && git merge worktree-fix-deprecated-apis && git branch -d worktree-fix-deprecated-apis`.
 
 ## Phase 5: Cleanup
 
-- [ ] End the session so the worktree is auto-cleaned.
+- [x] End the session so the worktree is auto-cleaned.

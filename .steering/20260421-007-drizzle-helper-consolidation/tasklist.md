@@ -33,5 +33,5 @@
 - [x] 変更ファイル + 削除ファイル + 新規ファイル + steering ディレクトリを個別ファイル指定でステージング
 - [x] `♻️ Consolidate drizzle Db.res into a shared resource with richer helpers` で単一コミット
 - [x] tasklist の全タスクを `[x]` に更新してコミットに含める
-- [ ] ユーザーに push 可否を確認 (前 2 コミット + 当コミット、積み上がっている既存 unpushed 分を含む)
-- [ ] 承認後 `origin/main` に push
+- [x] ユーザーに push 可否を確認 (前 2 コミット + 当コミット、積み上がっている既存 unpushed 分を含む)
+- [x] 承認後 `origin/main` に push

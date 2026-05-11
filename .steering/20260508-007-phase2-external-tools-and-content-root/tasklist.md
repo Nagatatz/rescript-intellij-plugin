@@ -45,10 +45,10 @@
 ## Phase 4: マージ前
 - [ ] 全タスク `[x]` 確認（content-root 部分は `[~]` で撤回理由を明記）
 - [ ] requirements 受け入れ条件確認（content-root 関連は将来課題に再分類）
-- [ ] `AskUserQuestion` でマージ可否確認
+- [x] `AskUserQuestion` でマージ可否確認
 
 ## Phase 5: マージ後
-- [ ] main へマージ + ブランチ削除 + worktree クリーンアップ
+- [x] main へマージ + ブランチ削除 + worktree クリーンアップ
 
 ## テスト免除
 - なし — 新規プロダクションコード追加なし、テストとインフラのみ

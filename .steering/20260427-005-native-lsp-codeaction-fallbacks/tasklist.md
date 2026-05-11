@@ -48,7 +48,7 @@
 
 - [x] tasklist.md の全タスクを `[x]` に更新（本コミットに含める）
 - [x] requirements.md の受け入れ条件をすべて満たしていることを確認
-- [ ] `AskUserQuestion` でマージ可否を確認
-- [ ] 承認後、main へマージ
-- [ ] worktree クリーンアップ
+- [x] `AskUserQuestion` でマージ可否を確認
+- [x] 承認後、main へマージ
+- [x] worktree クリーンアップ
 - [ ] 完了後、Task D（ドキュメント整理）に着手

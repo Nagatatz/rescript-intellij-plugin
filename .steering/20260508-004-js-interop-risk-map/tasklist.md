@@ -48,10 +48,10 @@
 ## Phase 4: マージ前
 - [ ] 全タスク `[x]` 確認
 - [ ] requirements 受け入れ条件確認
-- [ ] `AskUserQuestion` でマージ可否確認
+- [x] `AskUserQuestion` でマージ可否確認
 
 ## Phase 5: マージ後
-- [ ] main へマージ + ブランチ削除 + worktree クリーンアップ
+- [x] main へマージ + ブランチ削除 + worktree クリーンアップ
 
 ## テスト免除
 - `RescriptInteropRiskPanel`: Swing UI

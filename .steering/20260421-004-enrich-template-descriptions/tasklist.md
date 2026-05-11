@@ -23,5 +23,5 @@
 - [x] `ProjectTemplate.kt` + steering ディレクトリを個別ファイル指定でステージング
 - [x] `📝 Enrich project template descriptions` で単一コミット
 - [x] tasklist の全タスクを `[x]` に更新してコミットに含める
-- [ ] ユーザーにマージ可否を確認
-- [ ] 承認後 `main` にマージ
+- [x] ユーザーにマージ可否を確認
+- [x] 承認後 `main` にマージ

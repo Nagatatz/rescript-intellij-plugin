@@ -33,8 +33,8 @@
 
 - [x] `./gradlew clean buildPlugin ktlintCheck test koverVerify integrationTest` 成功確認（integration test は `--rerun-tasks` で再実行してバイトコードキャッシュ staleness を回避）
 - [x] `tasklist.md` を `[x]` に更新してコミット
-- [ ] ユーザーに `main` マージ可否を `AskUserQuestion` で確認
-- [ ] 承認後、`main` へマージ → 作業ブランチ削除 → worktree クリーンアップ
+- [x] ユーザーに `main` マージ可否を `AskUserQuestion` で確認
+- [x] 承認後、`main` へマージ → 作業ブランチ削除 → worktree クリーンアップ
 
 ## テスト省略の判断
 

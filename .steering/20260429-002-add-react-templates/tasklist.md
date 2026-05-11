@@ -219,7 +219,7 @@
 - [x] tasklist.md の全タスク `[x]` 化（このタスク自体を含む）してコミット
 - [x] `AskUserQuestion` で main マージ可否確認
 - [x] 承認後、worktree 内で main にマージ実行 (worktree が main を保持できないため `git -C <main-repo>` で main へ直接マージ)
-- [ ] セッション終了（worktree 自動クリーンアップ）
+- [x] セッション終了（worktree 自動クリーンアップ）
 
 ## 補足: テスト免除
 

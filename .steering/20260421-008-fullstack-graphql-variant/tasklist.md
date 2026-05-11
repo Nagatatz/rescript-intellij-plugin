@@ -48,5 +48,5 @@
 - [x] 変更ファイル + 削除ファイル + 新規ファイル + steering を個別ファイル指定でステージング
 - [x] `✨ Add FULL_STACK GraphQL variant (graphql-yoga + rescript-relay)` で単一コミット
 - [x] tasklist 全更新をコミットに含める
-- [ ] ユーザーに push 可否を確認 (累計 unpushed 15+ コミット)
-- [ ] 承認後 `origin/main` に push
+- [x] ユーザーに push 可否を確認 (累計 unpushed 15+ コミット)
+- [x] 承認後 `origin/main` に push

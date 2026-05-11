@@ -63,4 +63,4 @@
 ## Phase G: マージ確認
 
 - [ ] tasklist.md を全 [x] にして最終 commit
-- [ ] `AskUserQuestion` でマージ可否確認 → 承認後マージ
+- [x] `AskUserQuestion` でマージ可否確認 → 承認後マージ

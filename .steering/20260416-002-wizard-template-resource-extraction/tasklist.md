@@ -130,15 +130,15 @@
 - [x] `./gradlew test` 通過 (integrationTest は main でも pre-existing fail — 依存ドリフト/ReScript API 変更、byte-equivalence で無関係と確認)
 - [x] plugin zip の jar 内に `templates/hono/` 等のリソースが含まれていることを確認
 - [x] Kover line coverage 96.4% (minBound 85 を余裕でクリア)
-- [ ] `AskUserQuestion` でマージ可否を確認
+- [x] `AskUserQuestion` でマージ可否を確認
 
 ---
 
 ## Phase 5: マージ後
 
-- [ ] `git checkout main && git merge worktree-wizard-template-extract`
-- [ ] `git branch -d worktree-wizard-template-extract`
-- [ ] セッション終了で worktree 自動クリーンアップ
+- [x] `git checkout main && git merge worktree-wizard-template-extract`
+- [x] `git branch -d worktree-wizard-template-extract`
+- [x] セッション終了で worktree 自動クリーンアップ
 - [ ] 親セッションで Task #1 を `completed` に更新、Task #2 を `in_progress` に
 
 ---

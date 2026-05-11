@@ -54,9 +54,9 @@
 - [x] `AskUserQuestion` でマージ可否を確認
 
 ## Phase 5: マージ後
-- [ ] `git checkout main && git merge worktree-narrowing-visualizer`
-- [ ] `git branch -d worktree-narrowing-visualizer`
-- [ ] セッション終了で worktree を自動クリーンアップ
+- [x] `git checkout main && git merge worktree-narrowing-visualizer`
+- [x] `git branch -d worktree-narrowing-visualizer`
+- [x] セッション終了で worktree を自動クリーンアップ
 
 ## テスト免除
 - `RescriptHoverTypeResolver`: LSP サーバー結合のためテスト免除（`testing.md` の免除カテゴリ「LSP サーバー結合必須」に該当）。中身は `RescriptLspUtils.getHoverType` への薄いラッパーであり、独立してロジックがない。テスト可能なロジックはすべて `RescriptNarrowingHintProvider.buildHints` 経由で `RescriptHoverTypeResolver` のスタブを注入してカバーしている。

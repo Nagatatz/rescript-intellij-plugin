@@ -61,5 +61,5 @@
 
 - [x] 7-1. 機能コミット: `✨ Add TypeScript/JSX paste conversion support`
 - [x] 7-2. tasklist.md の全タスクを `[x]` に更新
-- [ ] 7-3. ユーザーにマージ可否を確認
-- [ ] 7-4. main にマージ、ブランチ削除
+- [x] 7-3. ユーザーにマージ可否を確認
+- [x] 7-4. main にマージ、ブランチ削除

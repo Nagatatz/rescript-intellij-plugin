@@ -52,4 +52,4 @@
 - [x] `AskUserQuestion` でマージ可否確認 → 承認
 - [x] 承認後、`git -C <main> merge worktree-template-deps-bump --no-ff` でマージ
 - [x] worktree ブランチ削除 (`git branch -d worktree-template-deps-bump`)
-- [ ] セッション終了 (worktree 自動クリーンアップ)
+- [x] セッション終了 (worktree 自動クリーンアップ)

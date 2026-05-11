@@ -129,10 +129,10 @@
 
 - [x] requirements.md の全受け入れ条件を満たしていることを確認
 - [x] tasklist.md のすべてのタスクが `[x]` になっている
-- [ ] `AskUserQuestion` でユーザーにマージ可否を確認
-- [ ] 承認後、worktree 内で `git checkout main && git merge <作業ブランチ>` を実行
-- [ ] 作業ブランチを `git branch -d` で削除
-- [ ] セッションを終了（worktree の自動クリーンアップを発動）
+- [x] `AskUserQuestion` でユーザーにマージ可否を確認
+- [x] 承認後、worktree 内で `git checkout main && git merge <作業ブランチ>` を実行
+- [x] 作業ブランチを `git branch -d` で削除
+- [x] セッションを終了（worktree の自動クリーンアップを発動）
 
 ## 免除対象の明記
 

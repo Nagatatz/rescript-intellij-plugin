@@ -91,9 +91,9 @@
 - [x] 全タスクが `[x]` になっていることを確認
 - [x] `./gradlew ktlintCheck test buildPlugin koverVerify` 実行（全 grean、カバレッジ閾値 OK、integration test もパス）
 - [x] `tasklist.md` の最終更新コミット
-- [ ] ユーザーに `main` マージ可否を `AskUserQuestion` で確認
-- [ ] 承認後、`git checkout main && git merge worktree-validation-library-all-templates` → `git branch -d`
-- [ ] セッション終了（worktree 自動クリーンアップ）
+- [x] ユーザーに `main` マージ可否を `AskUserQuestion` で確認
+- [x] 承認後、`git checkout main && git merge worktree-validation-library-all-templates` → `git branch -d`
+- [x] セッション終了（worktree 自動クリーンアップ）
 
 ## テスト省略判断
 

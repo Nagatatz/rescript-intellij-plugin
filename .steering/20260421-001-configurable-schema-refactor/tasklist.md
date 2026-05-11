@@ -167,7 +167,7 @@
 - [x] `./gradlew test` pass
 - [x] Kover 行カバレッジ minBound 85 を下回らない（`./gradlew koverVerify` pass）
 - [x] `./gradlew verifyPluginStructure` pass
-- [ ] `AskUserQuestion` でマージ可否をユーザーに確認
+- [x] `AskUserQuestion` でマージ可否をユーザーに確認
   - セキュリティ影響: なし（validator はロジック保存のみ、新規外部 I/O なし）
   - UI 手動確認: ユーザー側で `./gradlew runIde` 実施を推奨（Swing レイアウトは自動検証不能）
 - [x] tasklist.md のこのセクションを `[x]` に更新（マージ前最終コミット）
@@ -176,9 +176,9 @@
 
 ## Phase 5: マージ後
 
-- [ ] worktree 内で `git checkout main && git merge worktree-configurable-schema`
-- [ ] `git branch -d worktree-configurable-schema`
-- [ ] セッション終了で worktree 自動クリーンアップ
+- [x] worktree 内で `git checkout main && git merge worktree-configurable-schema`
+- [x] `git branch -d worktree-configurable-schema`
+- [x] セッション終了で worktree 自動クリーンアップ
 
 ---
 

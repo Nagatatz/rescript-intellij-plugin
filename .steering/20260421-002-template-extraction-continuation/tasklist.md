@@ -58,15 +58,15 @@
 - [x] Kover minBound 85 を下回らない（`koverVerify` pass）
 - [x] `verifyPluginStructure` pass
 - [x] CLAUDE.md / repository-structure.md の追加更新なし（前回 steering で対応済み）
-- [ ] `AskUserQuestion` でマージ可否をユーザーに確認
+- [x] `AskUserQuestion` でマージ可否をユーザーに確認
   - セキュリティ影響: なし（リソースのロード追加のみ、新規外部 I/O なし）
 
 ---
 
 ## Phase 5: マージ後
 
-- [ ] `git checkout main && git merge worktree-template-extract-cont`
-- [ ] ブランチ削除、worktree 自動クリーンアップ
+- [x] `git checkout main && git merge worktree-template-extract-cont`
+- [x] ブランチ削除、worktree 自動クリーンアップ
 
 ---
 

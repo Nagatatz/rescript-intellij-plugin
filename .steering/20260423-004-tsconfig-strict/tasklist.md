@@ -45,8 +45,8 @@
 
 - [x] `./gradlew clean buildPlugin ktlintCheck test koverVerify integrationTest` 成功確認（integration test で `@types/react-dom@^19.2.14` が npm 上に存在しないことを検出 → `^19.2.3` に修正する follow-up コミットを追加）
 - [x] `tasklist.md` を `[x]` に更新してコミット
-- [ ] ユーザーに `main` マージ可否を `AskUserQuestion` で確認
-- [ ] 承認後、`main` へマージ → ブランチ削除 → worktree クリーンアップ
+- [x] ユーザーに `main` マージ可否を `AskUserQuestion` で確認
+- [x] 承認後、`main` へマージ → ブランチ削除 → worktree クリーンアップ
 
 ## テスト省略の判断
 

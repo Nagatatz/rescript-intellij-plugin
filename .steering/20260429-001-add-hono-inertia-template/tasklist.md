@@ -148,11 +148,11 @@
 
 - [ ] requirements.md の全受け入れ条件を満たしていることを確認
 - [ ] tasklist.md の全タスクが `[x]` であることを確認（マージタスク自体を含む）
-- [ ] `AskUserQuestion` でユーザーにマージ可否を確認
+- [x] `AskUserQuestion` でユーザーにマージ可否を確認
 - [ ] セキュリティに影響する変更がある場合、その旨を明示
 
 ## Phase 10: マージ実行
 
-- [ ] worktree 内で `git checkout main && git merge feature/hono-inertia-template`
-- [ ] `git branch -d feature/hono-inertia-template`
-- [ ] セッション終了（worktree クリーンアップは自動）
+- [x] worktree 内で `git checkout main && git merge feature/hono-inertia-template`
+- [x] `git branch -d feature/hono-inertia-template`
+- [x] セッション終了（worktree クリーンアップは自動）

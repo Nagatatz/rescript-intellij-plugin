@@ -36,5 +36,5 @@
 - [ ] 変更ファイル + steering ディレクトリを個別ファイル指定でステージング
 - [ ] `✨ Expose hono/cors binding and document CORS across Hono templates` で単一コミット
 - [ ] tasklist の全タスクを `[x]` に更新してコミットに含める
-- [ ] ユーザーに push 可否を確認 (前コミット `ad268fb` と合わせて 2 コミットを push)
-- [ ] 承認後 `origin/main` に push
+- [x] ユーザーに push 可否を確認 (前コミット `ad268fb` と合わせて 2 コミットを push)
+- [x] 承認後 `origin/main` に push

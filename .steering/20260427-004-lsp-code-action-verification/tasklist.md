@@ -60,10 +60,10 @@
 
 - [x] tasklist.md の全タスクを `[x]` に更新（本コミット）
 - [x] requirements.md の受け入れ条件のうち、ランタイム検証由来項目以外を満たしていることを確認（runIde 検証は `next-steps.md` の独立タスクへ移管）
-- [ ] `AskUserQuestion` でマージ可否を確認
-- [ ] 承認後、worktree 内で `git checkout main && git merge worktree-lsp-code-action-verification`
-- [ ] 作業ブランチを削除
-- [ ] セッション終了（worktree 自動クリーンアップ）
+- [x] `AskUserQuestion` でマージ可否を確認
+- [x] 承認後、worktree 内で `git checkout main && git merge worktree-lsp-code-action-verification`
+- [x] 作業ブランチを削除
+- [x] セッション終了（worktree 自動クリーンアップ）
 
 ## Phase 9: 次の steering へ
 

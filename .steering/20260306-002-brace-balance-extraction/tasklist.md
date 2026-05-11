@@ -22,4 +22,4 @@
 
 - [x] `./gradlew clean buildPlugin` 成功確認
 - [x] コミット（♻️ Extract brace balance utilities into RescriptBraceBalanceUtil）
-- [ ] main にマージ
+- [x] main にマージ

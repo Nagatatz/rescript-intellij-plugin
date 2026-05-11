@@ -63,8 +63,8 @@
 - [x] 5ブランチすべてのビルド成功確認
 - [x] バッチブランチ `feature/p3-batch-vscode-gap` に順次マージ（plugin.xml 競合解決）
 - [x] マージ後 `./gradlew buildPlugin` 成功確認
-- [ ] git worktree クリーンアップ
+- [x] git worktree クリーンアップ
 - [x] ドキュメント一括更新（CLAUDE.md, product-requirements.md, functional-design.md）
 - [ ] コミット: `📝 Update docs for P3 vscode gap features`
-- [ ] バッチブランチを `main` にマージ
-- [ ] バッチブランチを削除
+- [x] バッチブランチを `main` にマージ
+- [x] バッチブランチを削除

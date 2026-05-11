@@ -26,5 +26,5 @@
 - [x] `CommonFiles.kt` + 新規 markdown + 両テスト + steering ディレクトリを個別ファイル指定でステージング
 - [x] `✨ Add Extending Bindings guide to template READMEs` で単一コミット
 - [x] tasklist の全タスクを `[x]` に更新してコミットに含める
-- [ ] ユーザーに push 可否を確認
-- [ ] 承認後 `origin/main` に push
+- [x] ユーザーに push 可否を確認
+- [x] 承認後 `origin/main` に push

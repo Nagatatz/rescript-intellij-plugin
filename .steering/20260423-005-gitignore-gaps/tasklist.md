@@ -18,8 +18,8 @@
 
 - [x] `./gradlew clean ktlintCheck buildPlugin test koverVerify` 成功確認
 - [x] `tasklist.md` を `[x]` に更新してコミット
-- [ ] ユーザーに `main` マージ可否を確認
-- [ ] 承認後、マージ → ブランチ削除 → worktree クリーンアップ
+- [x] ユーザーに `main` マージ可否を確認
+- [x] 承認後、マージ → ブランチ削除 → worktree クリーンアップ
 
 ## テスト省略の判断
 
