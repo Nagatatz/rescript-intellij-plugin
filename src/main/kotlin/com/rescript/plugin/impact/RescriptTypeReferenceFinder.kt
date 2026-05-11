@@ -7,6 +7,7 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.PsiSearchHelper
 import com.intellij.psi.search.UsageSearchContext
+import com.rescript.plugin.util.RescriptOffsetUtils
 
 /**
  * Finds project-wide references to a [TypeTarget] using IntelliJ
@@ -106,9 +107,7 @@ object RescriptTypeReferenceFinder {
         offset: Int,
     ): Pair<Int, String> {
         if (offset < 0 || offset > source.length) return 0 to ""
-        // Count newlines up to offset to derive 1-based line number.
-        var line = 1
-        for (i in 0 until offset) if (source[i] == '\n') line++
+        val line = RescriptOffsetUtils.lineNumberAt(source, offset)
         // Locate the line bounds.
         val lineStart = source.lastIndexOf('\n', offset - 1).let { if (it < 0) 0 else it + 1 }
         val lineEnd = source.indexOf('\n', offset).let { if (it < 0) source.length else it }

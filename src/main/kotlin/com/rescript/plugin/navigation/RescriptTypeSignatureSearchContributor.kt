@@ -19,6 +19,7 @@ import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
+import com.rescript.plugin.util.RescriptOffsetUtils
 import javax.swing.ListCellRenderer
 
 /**
@@ -80,7 +81,7 @@ class RescriptTypeSignatureSearchContributor(
                         if (score == RescriptTypeUnifier.MatchScore.MISMATCH) continue
 
                         val declarationOffset = child.textRange.startOffset + parsed.nameOffset
-                        val line = lineNumberAt(psiFile.text, declarationOffset)
+                        val line = RescriptOffsetUtils.lineNumberAt(psiFile.text, declarationOffset)
                         val relativePath = relativeOf(basePath, vf)
                         val hit =
                             RescriptTypeSignatureSearchHit(
@@ -222,17 +223,6 @@ class RescriptTypeSignatureSearchContributor(
                 i++
             }
             return -1
-        }
-
-        internal fun lineNumberAt(
-            source: String,
-            offset: Int,
-        ): Int {
-            if (offset <= 0) return 1
-            var line = 1
-            val end = minOf(offset, source.length)
-            for (i in 0 until end) if (source[i] == '\n') line++
-            return line
         }
 
         internal fun relativeOf(

@@ -83,6 +83,34 @@ class RescriptOffsetUtilsTest {
         assertEquals(targetOffset, result)
     }
 
+    // ── lineNumberAt ─────────────────────────────────────────────
+
+    @Test
+    fun `lineNumberAt returns 1 at offset zero`() {
+        assertEquals(1, RescriptOffsetUtils.lineNumberAt("foo\nbar", 0))
+    }
+
+    @Test
+    fun `lineNumberAt returns 2 right after the first newline`() {
+        assertEquals(2, RescriptOffsetUtils.lineNumberAt("foo\nbar", 4))
+    }
+
+    @Test
+    fun `lineNumberAt clamps to source length`() {
+        val source = "foo\nbar\n"
+        assertEquals(3, RescriptOffsetUtils.lineNumberAt(source, source.length))
+    }
+
+    @Test
+    fun `lineNumberAt returns 1 for a negative offset`() {
+        assertEquals(1, RescriptOffsetUtils.lineNumberAt("foo\nbar", -5))
+    }
+
+    @Test
+    fun `lineNumberAt returns 1 for a single-line source`() {
+        assertEquals(1, RescriptOffsetUtils.lineNumberAt("foo bar", 5))
+    }
+
     /**
      * Creates a Document proxy stub that computes line/offset information
      * from the given text content, without requiring Mockito.

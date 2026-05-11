@@ -79,24 +79,6 @@ class RescriptTypeSignatureSearchContributorTest {
         assertEquals("int", parsed.signatureText)
     }
 
-    // ── lineNumberAt ──
-
-    @Test
-    fun `line number is 1 at offset zero`() {
-        assertEquals(1, RescriptTypeSignatureSearchContributor.lineNumberAt("foo\nbar", 0))
-    }
-
-    @Test
-    fun `line number 2 after first newline`() {
-        assertEquals(2, RescriptTypeSignatureSearchContributor.lineNumberAt("foo\nbar", 4))
-    }
-
-    @Test
-    fun `line number clamped to source length`() {
-        val source = "foo\nbar\n"
-        assertEquals(3, RescriptTypeSignatureSearchContributor.lineNumberAt(source, source.length))
-    }
-
     // ── relativeOf ──
 
     @Test
