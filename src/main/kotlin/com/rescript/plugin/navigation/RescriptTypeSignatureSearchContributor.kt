@@ -224,7 +224,6 @@ class RescriptTypeSignatureSearchContributor(
             return -1
         }
 
-        @Suppress("ReturnCount")
         internal fun lineNumberAt(
             source: String,
             offset: Int,
@@ -246,8 +245,5 @@ class RescriptTypeSignatureSearchContributor(
             }
             return full
         }
-
-        @Suppress("unused")
-        private val DECLARATION_HEADER_NAME_GROUP = 1
     }
 }
