@@ -48,7 +48,7 @@ rescript-intellij-plugin/
 | `indexing/` | TODO インデクシング | `RescriptTodoIndexer` |
 | `editor/` | エディタ補助（引用符、通知バー、Smart Enter 等） | `RescriptQuoteHandler`, `RescriptSmartEnterProcessor` |
 | `formatter/` | 外部フォーマッタ連携 | `RescriptFormattingService` |
-| `navigation/` | ナビゲーション（Symbol、Related、Switch File、Hoogle-style 型シグネチャ検索 等） | `RescriptSymbolContributor`, `RescriptSwitchFileAction`, `RescriptTypeAst`, `RescriptTypeParser`, `RescriptTypeUnifier`, `RescriptTypeSignatureSearchContributor` |
+| `navigation/` | ナビゲーション（Symbol、Related、Switch File、Hoogle-style 型シグネチャ検索 等） | `RescriptSymbolContributor`, `RescriptSwitchFileAction`, `RescriptTypeAst`, `RescriptTypeParser`, `RescriptTypeUnifier`, `RescriptDeclarationSignatureExtractor`, `RescriptTypeSignatureSearchContributor` |
 | `template/` | ファイル作成テンプレート | `RescriptCreateFileAction` |
 | `spellcheck/` | スペルチェック | `RescriptSpellcheckingStrategy` |
 | `completion/` | Postfix Completion | `RescriptPostfixTemplateProvider` |
