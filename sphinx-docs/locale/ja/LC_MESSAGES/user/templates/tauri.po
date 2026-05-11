@@ -46,6 +46,7 @@ msgid ""
 "before assuming the shape. Drift between the Rust struct and the ReScript"
 " record surfaces as a UI error, not a `TypeError` deep inside React."
 msgstr ""
+"Vite+ でバンドルされた ReScript + React のレンダラーと、`src-tauri/` 配下の小さな Rust クレートを組み合わせて動作する Tauri 2.x デスクトップアプリです。同梱サンプルは「Hello World」止まりではなく、レンダラーと Rust の間のリクエスト/レスポンス全往復を示します: 文字列を返す `greet(name)` コマンドと、`Validation.res` (zod または sury) でレンダラー側がパースしてから形を仮定する struct を返す `get_info()` コマンドの 2 本。Rust の struct と ReScript の record の間の差分は、React の奥深くで起きる `TypeError` ではなく UI エラーとして浮かび上がります。"
 
 #: ../../user/templates/tauri.md:13
 msgid ""
@@ -56,6 +57,7 @@ msgid ""
 "knowledge transfers directly; the new ground is the Rust process plus the"
 " `tauri::generate_handler!` allowlist."
 msgstr ""
+"デスクトップアプリを出荷するつもりで、Tauri の CSP、snake_case コマンドのアローリスト、そして `Validation.res` の境界がすでに配線済みのスタックから始めたい場合はこのテンプレートを選んでください。レンダラーは **Vite + React** や **Electron** テンプレートと同じく Vite 駆動の React サーフェスなので React の知識はそのまま流用できます。新しく学ぶ部分は Rust プロセスと `tauri::generate_handler!` アローリストです。"
 
 #: ../../user/templates/tauri.md:15
 msgid "What You Get"
@@ -82,6 +84,7 @@ msgid ""
 "Becomes the npm `name`, the Cargo crate `name`, the Tauri `productName` +"
 " `identifier` + window title, and the LICENSE holder"
 msgstr ""
+"npm の `name`、Cargo クレートの `name`、Tauri の `productName` + `identifier` + ウィンドウタイトル、そして LICENSE のホルダーになります"
 
 #: ../../user/templates/tauri.md
 msgid "**Package manager**"
@@ -93,6 +96,7 @@ msgid ""
 "install/run snippets, the CI cache key, **and** the `beforeDevCommand` / "
 "`beforeBuildCommand` strings in `tauri.conf.json`"
 msgstr ""
+"npm / pnpm / yarn / bun。`packageManager` フィールド、README のインストール/実行スニペット、CI のキャッシュキー、**さらに** `tauri.conf.json` の `beforeDevCommand` / `beforeBuildCommand` 文字列に反映されます"
 
 #: ../../user/templates/tauri.md
 msgid "**Validation library**"
@@ -177,7 +181,7 @@ msgstr "`@rescript-tauri/core`"
 msgid ""
 "ReScript bindings over `@tauri-apps/api` (Core.Raw.invoke, Event, Window,"
 " …)"
-msgstr ""
+msgstr "`@tauri-apps/api` の ReScript バインディング (Core.Raw.invoke、Event、Window、…)"
 
 #: ../../user/templates/tauri.md
 msgid "`TemplateVersions.RESCRIPT_TAURI_CORE`"
@@ -309,6 +313,7 @@ msgid ""
 "build = \"2\"`, `serde`, and `serde_json` only — extend per command "
 "surface as needed."
 msgstr ""
+"Rust の依存 (`src-tauri/Cargo.toml`) は `tauri = \"2\"`、`tauri-build = \"2\"`、`serde`、`serde_json` のみを pin しています — コマンドサーフェスに応じて随時追加してください。"
 
 #: ../../user/templates/tauri.md:75
 msgid ""
@@ -317,6 +322,7 @@ msgid ""
 "etc. — published alongside `@rescript-tauri/core`) together with their "
 "Rust plugin crate when you need them."
 msgstr ""
+"`tauri-plugin-*` クレートはデフォルトでは含まれていません。必要になった時点で対応する ReScript バインディング (`@rescript-tauri/plugin-dialog`、`@rescript-tauri/plugin-fs` など、`@rescript-tauri/core` と並んで公開されています) と Rust プラグインクレートを合わせて追加してください。"
 
 #: ../../user/templates/tauri.md:77
 msgid "Key Files"
@@ -332,7 +338,7 @@ msgstr "Tauri のメインプロセス。2 つの `#[tauri::command]` 関数を�
 
 #: ../../user/templates/tauri.md:83
 msgid "`greet(name: &str) -> String` — plain RPC for the \"Say hello\" button"
-msgstr ""
+msgstr "`greet(name: &str) -> String` — 「Say hello」ボタン用のプレーンな RPC"
 
 #: ../../user/templates/tauri.md:84
 #, python-brace-format
@@ -340,6 +346,7 @@ msgid ""
 "`get_info() -> AppInfo` — returns `{ name, version, platform, arch }` "
 "serialised via `serde::Serialize`"
 msgstr ""
+"`get_info() -> AppInfo` — `serde::Serialize` でシリアライズされた `{ name, version, platform, arch }` を返します"
 
 #: ../../user/templates/tauri.md:86
 msgid "The `invoke_handler` macro registers both into the IPC allowlist:"
@@ -351,6 +358,7 @@ msgid ""
 "side. The command name shape is `snake_case` Rust function names — that "
 "is exactly what `Core.Raw.invoke` calls from JS."
 msgstr ""
+"新しいコマンドを定義してこのリストを更新しないと、JS 側で静かに 404 になります。コマンド名は Rust 関数名の `snake_case` のままで、`Core.Raw.invoke` が JS から呼ぶ名前と完全に一致します。"
 
 #: ../../user/templates/tauri.md:94
 msgid "`src-tauri/tauri.conf.json`"
@@ -368,6 +376,7 @@ msgid ""
 " runs the renderer dev server before opening the window; `tauri build` "
 "runs `vp build` first to produce `dist/`."
 msgstr ""
+"`build.beforeDevCommand` と `build.beforeBuildCommand` — スキャフォールド時にパッケージマネージャ固有の dev / build 起動 (`pnpm dev` / `npm run dev` / `yarn dev` / `bun run dev`) で置換されます。`tauri dev` はウィンドウを開く前にレンダラーの dev サーバを起動し、`tauri build` は先に `vp build` を走らせて `dist/` を生成します。"
 
 #: ../../user/templates/tauri.md:99
 msgid ""
@@ -375,12 +384,14 @@ msgid ""
 "`vite.config.mjs`'s `strictPort: true`. Change both together if you need "
 "a different port."
 msgstr ""
+"`build.devUrl: \"http://localhost:5173\"` — `vite.config.mjs` の `strictPort: true` と対になっています。別ポートが必要な場合は両方を一緒に変更してください。"
 
 #: ../../user/templates/tauri.md:100
 msgid ""
 "`build.frontendDist: \"../dist\"` — Tauri reads the Vite+ output from "
 "this path on `tauri build`."
 msgstr ""
+"`build.frontendDist: \"../dist\"` — `tauri build` 時に Tauri がこのパスから Vite+ の出力を読み込みます。"
 
 #: ../../user/templates/tauri.md:101
 msgid ""
@@ -390,6 +401,7 @@ msgid ""
 " **Production apps must define an explicit CSP** — see [Tauri's CSP "
 "guidance](https://v2.tauri.app/security/csp/)."
 msgstr ""
+"`app.security.csp` — `default-src 'self'` に加えて、`asset:` / `https://asset.localhost` (`Core.Raw.convertFileSrc` 用) と `ipc:` / `http://ipc.localhost` (Windows / macOS で Tauri の invoke トランスポート用) を許可しています。**本番アプリでは明示的な CSP を必ず定義してください** — [Tauri の CSP ガイド](https://v2.tauri.app/security/csp/) を参照。"
 
 #: ../../user/templates/tauri.md:102
 msgid ""
@@ -398,6 +410,7 @@ msgid ""
 "path/to/source.png` and add the produced list back when you're ready for "
 "`tauri build`."
 msgstr ""
+"`bundle.icon` — **意図的に省略しています**。アイコンソースなしのチェックアウトでも `tauri dev` が動作するためです。`tauri build` を実行する準備ができたら `tauri icon path/to/source.png` でアイコンを生成し、出来上がったリストを書き戻してください。"
 
 #: ../../user/templates/tauri.md:104
 msgid "`src/Tauri.res`"
@@ -409,6 +422,7 @@ msgid ""
 "are intentionally typed as `JSON.t` for `get_info` — *not* the eventual "
 "`info` record — because validation lives one layer further in:"
 msgstr ""
+"`@rescript-tauri/core` の薄い ReScript バインディング。同梱のラッパーは `get_info` を意図的に `JSON.t` 型として定義しています — 最終的な `info` レコードでは*ありません*。バリデーションは 1 つ深いレイヤーで行うためです:"
 
 #: ../../user/templates/tauri.md:116
 msgid ""
@@ -416,6 +430,7 @@ msgid ""
 "\"this value has *not* been validated yet\" so callers know they need to "
 "run it through `Validation.res` before destructuring."
 msgstr ""
+"`getInfoRaw` の `Raw` サフィックスは意図的な命名規約です: 「この値はまだバリデーション*されていない*」と示すことで、呼び出し側に分解前に `Validation.res` を通す必要があると伝えます。"
 
 #: ../../user/templates/tauri.md:118
 msgid "`src/Validation.res`"
@@ -437,6 +452,7 @@ msgid ""
 "side and forget to add it to `parseInfo`? The validator catches it as a "
 "parse error before React ever sees `undefined`."
 msgstr ""
+"なぜバリデーションするのか? レンダラーは Tauri のアローリストが*未知*のコマンドを拒否することは信頼できますが、Rust から戻ってくる*struct の形*は証明されるまでただの JSON です。Rust 側で `AppInfo` にフィールドを足して `parseInfo` への追加を忘れたら? React が `undefined` を見る前にバリデータがパースエラーとして検出します。"
 
 #: ../../user/templates/tauri.md:129
 msgid "`src/App.res`"
@@ -450,7 +466,7 @@ msgstr "インタラクティブなデモ。2 つのボタンを備えます:"
 msgid ""
 "**Say hello** runs `Tauri.greet(\"ReScript\")` and prints the returned "
 "string."
-msgstr ""
+msgstr "**Say hello** は `Tauri.greet(\"ReScript\")` を実行し、返ってきた文字列を表示します。"
 
 #: ../../user/templates/tauri.md:134
 msgid ""
@@ -458,6 +474,7 @@ msgid ""
 "either renders a `<dl>` of the typed record or a red `IPC validation "
 "error: ...` banner."
 msgstr ""
+"**Get app info** は `Tauri.getInfoRaw()` を実行し、結果をバリデーションした上で、型付きレコードの `<dl>` か、赤い `IPC validation error: ...` バナーのどちらかをレンダリングします。"
 
 #: ../../user/templates/tauri.md:136
 msgid ""
@@ -465,6 +482,7 @@ msgid ""
 "field, rename one, change a type — and you can watch the validator catch "
 "it without the React tree blowing up."
 msgstr ""
+"`main.rs` の `get_info` を書き換えて想定外のペイロード — フィールドの削除、名前変更、型変更 — を返すようにすると、React ツリーがクラッシュすることなくバリデータがそれを捕捉する様子を確認できます。"
 
 #: ../../user/templates/tauri.md:138
 msgid "`src/Main.res`"
@@ -475,6 +493,7 @@ msgid ""
 "The renderer entry the `index.html` `<script type=\"module\">` loads. "
 "Mounts `<App />` onto `#root`:"
 msgstr ""
+"`index.html` の `<script type=\"module\">` が読み込むレンダラーエントリ。`<App />` を `#root` にマウントします:"
 
 #: ../../user/templates/tauri.md:150
 msgid "`vite.config.mjs`"
@@ -490,6 +509,7 @@ msgid ""
 "5174 would leave `tauri.conf.json`'s `devUrl` pointing at the wrong "
 "place."
 msgstr ""
+"最小限の Vite+ 設定 — `vite` ではなく `vite-plus` から `defineConfig`、React プラグイン、`base: \"./\"`、`server.strictPort: true`、`server.port: 5173`、`clearScreen: false`。相対 `base` は Tauri が `file://` 経由で `dist/index.html` をロードしても本番バンドルが動くように保ちます。`strictPort` は 5173 番が埋まっていたときに Vite を即座に失敗させます — 黙って 5174 番にスライドすると `tauri.conf.json` の `devUrl` が誤った場所を指したままになるためです。"
 
 #: ../../user/templates/tauri.md:154
 msgid "npm Scripts"
@@ -512,6 +532,7 @@ msgid ""
 "`tauri dev` — full app: starts the renderer dev server (via "
 "`beforeDevCommand`) and launches the Tauri window"
 msgstr ""
+"`tauri dev` — フルアプリ: (`beforeDevCommand` 経由で) レンダラーの dev サーバを起動し、Tauri ウィンドウを開きます"
 
 #: ../../user/templates/tauri.md
 msgid "`tauri:build`"
@@ -522,6 +543,7 @@ msgid ""
 "`tauri build` — production binary, after running `beforeBuildCommand` to "
 "bundle the renderer (requires Rust + platform deps)"
 msgstr ""
+"`tauri build` — 本番バイナリ。`beforeBuildCommand` でレンダラーをバンドルしてから生成します (Rust + プラットフォーム依存が必要)"
 
 #: ../../user/templates/tauri.md
 msgid "`tauri`"
@@ -539,7 +561,7 @@ msgstr "`dev`"
 msgid ""
 "`vp dev` — Vite+ dev server only (open in a browser to iterate on UI "
 "without launching Tauri)"
-msgstr ""
+msgstr "`vp dev` — Vite+ dev サーバのみ (Tauri を起動せずブラウザで UI を反復したいときに利用)"
 
 #: ../../user/templates/tauri.md
 msgid "`build`"
@@ -600,6 +622,7 @@ msgid ""
 "any layer is silent (`\"command set_window_title not found\"` in the "
 "renderer)."
 msgstr ""
+"コマンド追加は常に 3 つのレイヤーに触れます — README に手順を載せているのと併せて、形を覚えておく価値があります。どこかを忘れると黙って失敗するためです (レンダラー側で `\"command set_window_title not found\"` になります)。"
 
 #: ../../user/templates/tauri.md:173
 msgid "**Define the command in `src-tauri/src/main.rs`**:"
@@ -619,6 +642,7 @@ msgid ""
 " the UI consumes. Fire-and-forget commands (`set_window_title` returns "
 "`()`) skip this step."
 msgstr ""
+"ハンドラが UI で消費するデータを返すなら、`Validation.res` で**レスポンスをバリデーション**します。fire-and-forget なコマンド (`set_window_title` は `()` を返す) はこのステップを省略できます。"
 
 #: ../../user/templates/tauri.md:194
 msgid "Production Bundling"
@@ -632,6 +656,7 @@ msgid ""
 "`webkit2gtk` + `libsoup`; Windows needs the MSVC C++ build tools; macOS "
 "needs Xcode CLI tools."
 msgstr ""
+"`tauri build` には Rust ツールチェイン (`rustup default stable`) と、プラットフォーム固有の依存が必要です — [Tauri 2 の前提条件ガイド](https://v2.tauri.app/start/prerequisites/) を参照してください。Linux は `webkit2gtk` + `libsoup`、Windows は MSVC C++ ビルドツール、macOS は Xcode CLI ツールが必要です。"
 
 #: ../../user/templates/tauri.md:198
 msgid "Before the first `tauri build`, generate the icon set:"
@@ -645,6 +670,7 @@ msgid ""
 "(Developer ID notarisation on macOS, `signtool` on Windows, the Tauri "
 "updater plugin)."
 msgstr ""
+"生成されたファイル名で `tauri.conf.json` の `bundle.icon` を再度有効化してください。署名と自動更新はスターターの範囲外です — レシピへのポインタ (macOS の Developer ID notarisation、Windows の `signtool`、Tauri updater プラグイン) は README の \"Production Bundling\" セクションを参照してください。"
 
 #: ../../user/templates/tauri.md:207
 msgid ""
@@ -652,6 +678,7 @@ msgid ""
 "per-OS runners plus signing identities, which varies wildly per project. "
 "Add the workflow yourself once your distribution strategy is settled."
 msgstr ""
+"このテンプレートでは CI で `tauri build` を走らせていません — OS ごとのランナーと署名情報が必要になり、プロジェクトごとに大きく異なるためです。配布戦略が固まったら自分でワークフローを追加してください。"
 
 #: ../../user/templates/tauri.md:209
 msgid "Day-Two Recipes"
@@ -670,13 +697,14 @@ msgid ""
 "{doc}`../recipes/optimize-imports` — keep `src/Tauri.res` and "
 "`src/Validation.res` tidy as the command surface grows"
 msgstr ""
+"{doc}`../recipes/optimize-imports` — コマンド表面が広がっても `src/Tauri.res` と `src/Validation.res` を整理された状態に保ちます"
 
 #: ../../user/templates/tauri.md:213
 #, python-brace-format
 msgid ""
 "{doc}`../recipes/find-dead-code` — useful for pruning commands no "
 "renderer still calls"
-msgstr ""
+msgstr "{doc}`../recipes/find-dead-code` — どのレンダラーからも呼ばれなくなったコマンドを刈り取るのに便利です"
 
 #: ../../user/templates/tauri.md:215
 #, python-brace-format
@@ -695,6 +723,7 @@ msgid ""
 "the JS call name — `greet`, `get_info`, `set_window_title`. The macros do"
 " not auto-translate to camelCase."
 msgstr ""
+"**Tauri コマンドは `snake_case` を使います。** Rust の関数名は JS の呼び出し名にそのままマップされます — `greet`、`get_info`、`set_window_title`。マクロは camelCase に自動変換しません。"
 
 #: ../../user/templates/tauri.md:220
 msgid ""
@@ -703,6 +732,7 @@ msgid ""
 "`generate_handler![...]`. Forgetting this is silent (the JS call rejects "
 "with \"command X not found\")."
 msgstr ""
+"**`invoke_handler` がアローリストです。** 関数に `#[tauri::command]` を付けるだけでは何も起きません — `generate_handler![...]` にも追加する必要があります。これを忘れると黙って失敗します (JS の呼び出しが \"command X not found\" で reject されます)。"
 
 #: ../../user/templates/tauri.md:221
 #, python-brace-format
@@ -713,6 +743,7 @@ msgid ""
 "find yourself wanting `import { invoke } from \"@tauri-apps/api\"`, you "
 "almost certainly want a new ReScript binding instead."
 msgstr ""
+"**レンダラーは `@tauri-apps/api` を直接 import しません。** すべての プロセス間呼び出しは `Tauri.res` → `RescriptTauriCore.Core.Raw.invoke(...)` → `#[tauri::command]` を通ります。`import { invoke } from \"@tauri-apps/api\"` を書きたくなったときは、ほぼ確実に新しい ReScript バインディングを足すべきです。"
 
 #: ../../user/templates/tauri.md:222
 msgid ""
@@ -720,6 +751,7 @@ msgid ""
 "Tauri serialises arguments and return values as JSON — primitives, owned "
 "strings, plain structs (`serde::Serialize`), arrays, and maps only."
 msgstr ""
+"**関数、クラスインスタンス、DOM ノードはブリッジを越えられません。** Tauri は引数と戻り値を JSON としてシリアライズするので、プリミティブ、owned な文字列、プレーンな struct (`serde::Serialize`)、配列、マップだけが対象です。"
 
 #: ../../user/templates/tauri.md:223
 msgid ""
@@ -727,6 +759,7 @@ msgid ""
 "Tauri's IPC uses its own `ipc:` and `http://ipc.localhost` origins — both"
 " are present in the shipped CSP. Don't remove them."
 msgstr ""
+"**CSP の `connect-src` ホワイトリストは `fetch`/XHR を制御するもので、`invoke` ではありません。** Tauri の IPC は専用の `ipc:` と `http://ipc.localhost` オリジンを使い、どちらも同梱の CSP に含まれています。削除しないでください。"
 
 #: ../../user/templates/tauri.md:224
 msgid ""
@@ -734,6 +767,7 @@ msgid ""
 "changes between releases until 1.0 ships. The version pin is `^0.1.x` so "
 "patch updates flow through without auto-adopting breaking 0.minor bumps."
 msgstr ""
+"**`@rescript-tauri/core` は pre-1.0 (0.1.x) です。** 1.0 が出るまでリリース間で軽い破壊的変更が入る可能性があります。バージョン pin は `^0.1.x` なので、破壊的な 0.minor 更新を自動採用することなく patch 更新だけが流入します。"
 
 #: ../../user/templates/tauri.md:225
 msgid ""
@@ -741,6 +775,7 @@ msgid ""
 "documents the swap-to-classic-Vite fallback if a release breaks the "
 "bundler workflow."
 msgstr ""
+"**`vite-plus` も pre-1.0 です。** バージョン pin は `^0.1.x`。リリースがバンドラのワークフローを壊した場合に備えて、クラシック Vite へのスワップ手順を README に記載しています。"
 
 #: ../../user/templates/tauri.md:226
 msgid ""
@@ -748,4 +783,5 @@ msgid ""
 "that `import(\"../App.res.mjs\")` resolves; it does not boot Tauri or "
 "exercise IPC. Add domain tests as you grow the renderer."
 msgstr ""
+"**スモークテストは意図的に小さくしています。** `App.test.mjs` は `import(\"../App.res.mjs\")` が resolve することだけを確認します — Tauri を起動したり IPC を動かしたりはしません。レンダラーが成長するにつれてドメイン固有のテストを追加してください。"
 
