@@ -104,13 +104,13 @@ jobs:
           node-version: '24'
 
       - name: Install Mermaid CLI
-        run: npm install -g @mermaid-js/mermaid-cli
+        run: npm install -g @mermaid-js/mermaid-cli@11.14.0
 
       - name: Install graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
 
       - name: Install ReScript CLI
-        run: npm install -g rescript
+        run: npm install -g rescript@12.2.0
 
       - name: Run ktlint
         run: ./gradlew ktlintCheck
