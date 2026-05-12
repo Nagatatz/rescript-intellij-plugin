@@ -51,7 +51,7 @@ object TemplateVersions {
     const val NEXTJS = "^16.2.4"
 
     // Electron
-    const val ELECTRON = "^41.3.0"
+    const val ELECTRON = "^42.0.1"
     const val ELECTRON_BUILDER = "^26.8.1"
 
     // Expo / React Native
@@ -65,7 +65,7 @@ object TemplateVersions {
     const val RN_TYPESCRIPT_CONFIG = "^0.85.2"
 
     // Cloudflare Workers
-    const val WRANGLER = "^4.85.0"
+    const val WRANGLER = "^4.90.0"
     const val CF_WORKERS_TYPES = "^4.20260426.1"
 
     // AWS Lambda
@@ -79,8 +79,8 @@ object TemplateVersions {
     const val TYPESCRIPT = "^6.0.3"
 
     // Package manager versions published via Corepack (`packageManager` field in package.json)
-    const val PNPM = "10.33.2"
-    const val NPM = "11.13.0"
+    const val PNPM = "11.1.0"
+    const val NPM = "11.14.1"
     const val YARN = "4.14.1"
 
     // Bun runtime + package manager. v1.2+ introduces the text-based `bun.lock`
@@ -99,11 +99,11 @@ object TemplateVersions {
     const val POSTGRES_JS = "^3.4.5"
 
     // MySQL: mysql2 driver (drizzle-recommended).
-    const val MYSQL2 = "^3.13.0"
+    const val MYSQL2 = "^3.22.3"
 
     // Container image tags used by templates' compose.yaml for local Postgres / MySQL.
     // Pinned to the current LTS image major; bump intentionally.
-    const val POSTGRES_DOCKER_IMAGE = "postgres:17-alpine"
+    const val POSTGRES_DOCKER_IMAGE = "postgres:18-alpine"
     const val MYSQL_DOCKER_IMAGE = "mysql:8.4"
 
     // Validation
@@ -145,15 +145,15 @@ object TemplateVersions {
     const val VITEST_COVERAGE_V8 = "^4.1.5"
 
     // TanStack Start (full-stack React, Vite-based) and its router peer
-    const val TANSTACK_REACT_START = "^1.140.0"
-    const val TANSTACK_REACT_ROUTER = "^1.140.0"
-    const val TANSTACK_ROUTER_PLUGIN = "^1.140.0"
+    const val TANSTACK_REACT_START = "^1.167.65"
+    const val TANSTACK_REACT_ROUTER = "^1.169.2"
+    const val TANSTACK_ROUTER_PLUGIN = "^1.167.35"
 
     // React Router v7 (Framework mode — what was previously Remix)
-    const val REACT_ROUTER = "^7.10.0"
-    const val REACT_ROUTER_DEV = "^7.10.0"
-    const val REACT_ROUTER_NODE = "^7.10.0"
-    const val REACT_ROUTER_SERVE = "^7.10.0"
+    const val REACT_ROUTER = "^7.15.0"
+    const val REACT_ROUTER_DEV = "^7.15.0"
+    const val REACT_ROUTER_NODE = "^7.15.0"
+    const val REACT_ROUTER_SERVE = "^7.15.0"
 
     // Bot detection used by React Router v7's SSR entry. The dev plugin auto-
     // injects this dependency on first run; pre-pinning it keeps `pnpm install
@@ -162,19 +162,19 @@ object TemplateVersions {
 
     // Astro and the React integration. astro 6.x is the active major;
     // @astrojs/react 5.x and @astrojs/node 10.x are the matching adapters.
-    const val ASTRO = "^6.0.0"
+    const val ASTRO = "^6.3.1"
     const val ASTROJS_REACT = "^5.0.0"
     const val ASTROJS_NODE = "^10.0.0"
 
     // Waku (RSC-first React framework by Daishi Kato). 1.0.0 is currently in
     // alpha — pin to a known alpha to keep installs reproducible until 1.0
     // ships. Bump together with the template README's RSC walkthrough.
-    const val WAKU = "1.0.0-alpha.8"
+    const val WAKU = "1.0.0-alpha.10"
 
     // Tauri 2.x desktop runtime. @rescript-tauri/core is a 0.x package, so we
     // pin to ^0.1.x to follow patch updates without auto-adopting breaking
     // 0.minor bumps. @tauri-apps/api / @tauri-apps/cli track Tauri 2.x.
     const val RESCRIPT_TAURI_CORE = "^0.1.0"
     const val TAURI_APPS_API = "^2.11.0"
-    const val TAURI_APPS_CLI = "^2.0.0"
+    const val TAURI_APPS_CLI = "^2.11.1"
 }
