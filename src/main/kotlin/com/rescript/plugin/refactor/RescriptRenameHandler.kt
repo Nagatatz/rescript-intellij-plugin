@@ -17,6 +17,7 @@ import com.intellij.refactoring.rename.RenameHandler
 import com.rescript.plugin.lsp.RescriptLspUtils
 import com.rescript.plugin.util.RescriptFileUtil
 import com.rescript.plugin.util.RescriptOffsetUtils
+import com.rescript.plugin.util.RescriptSecurityUtils
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.PrepareRenameParams
 import org.eclipse.lsp4j.RenameParams
@@ -226,6 +227,12 @@ class RescriptRenameHandler : RenameHandler {
                 val virtualFile = VirtualFileManager.getInstance().findFileByUrl(vfsUrl)
                 if (virtualFile == null) {
                     LOG.warn("Could not find file for URI: $uriString")
+                    continue
+                }
+                // Guard against a malicious or compromised LSP server returning
+                // file URIs outside the project (e.g. /etc/hosts, ~/.ssh/...).
+                if (!RescriptSecurityUtils.isWithinProject(project, virtualFile)) {
+                    LOG.warn("Rejected LSP rename edit outside project scope: $uriString")
                     continue
                 }
 
