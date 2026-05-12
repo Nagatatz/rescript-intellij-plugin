@@ -98,9 +98,9 @@ worktree 名: `add-tauri-project-template`
 
 ### 2.10 マージ確認とマージ
 
-- [ ] `AskUserQuestion` で main へのマージ可否を確認
-- [ ] 承認後、worktree 内で `git checkout main && git merge add-tauri-project-template`
-- [ ] 作業ブランチ `git branch -d add-tauri-project-template`
+- [x] `AskUserQuestion` で main へのマージ可否を確認 (Rust edition / MSRV / 翻訳完成度の追加要求も都度確認)
+- [x] 承認後、main 側 worktree (`git -C <main-repo> merge ...`) で fast-forward マージ (worktree 同士は同一ブランチを共有できないため、`git checkout main` 経路は使えなかった)
+- [ ] 作業ブランチ `worktree-add-tauri-project-template` の削除はセッション終了時の Claude Code worktree クリーンアップに委譲する
 - [ ] セッション終了 (worktree 自動クリーンアップ)
 
 ## DoD 確認
