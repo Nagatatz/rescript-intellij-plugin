@@ -136,24 +136,24 @@ class RescriptVariantFlowPanel(
     }
 
     private fun refresh() {
-        val (file, source, offset) =
-            currentEditorContext() ?: run {
-                renderEmpty("Open a ReScript file to see its switch flow.")
-                return
-            }
-        if (file.fileType != RescriptFileType && file.fileType != RescriptInterfaceFileType) {
-            renderEmpty("Open a ReScript file to see its switch flow.")
+        val ctx = currentEditorContext()
+        if (ctx == null) {
+            renderEmpty(RescriptVariantFlowHints.Reason.NO_EDITOR)
+            return
+        }
+        if (ctx.file.fileType != RescriptFileType && ctx.file.fileType != RescriptInterfaceFileType) {
+            renderEmpty(RescriptVariantFlowHints.Reason.NOT_RESCRIPT)
             return
         }
         val diagram =
             ApplicationManager.getApplication().runReadAction<FlowDiagram?> {
-                RescriptVariantFlowModel.buildAtOffset(source, offset)
+                RescriptVariantFlowModel.buildAtOffset(ctx.source, ctx.offset)
             }
         currentDiagram = diagram
         if (diagram == null) {
-            renderEmpty("No switch under caret.")
+            renderEmpty(RescriptVariantFlowHints.Reason.NO_SWITCH)
         } else {
-            currentJumpTarget = JumpTarget(file, offset)
+            currentJumpTarget = JumpTarget(ctx.file, ctx.offset)
             textArea.text = RescriptVariantFlowMermaidExporter.toMermaid(diagram)
             textArea.caretPosition = 0
             statusLabel.text = " Arms: ${countArms(diagram)}"
@@ -165,9 +165,9 @@ class RescriptVariantFlowPanel(
         return walk(diagram.arms)
     }
 
-    private fun renderEmpty(message: String) {
-        textArea.text = ""
-        statusLabel.text = " $message"
+    private fun renderEmpty(reason: RescriptVariantFlowHints.Reason) {
+        textArea.text = RescriptVariantFlowHints.emptyStateMessage(reason)
+        statusLabel.text = " ${RescriptVariantFlowHints.shortStatusLabel(reason)}"
         currentDiagram = null
         currentJumpTarget = null
     }
