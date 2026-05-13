@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Probes whether the external CLIs that back the Phase 2 verification
- * tests (`mmdc`, `dot`, `npx rescript`) are available on the host.
+ * tests (`mmdc`, `dot`) are available on the host.
  *
  * Each probe runs a short version-check command with a 5-second
  * timeout and treats any non-zero exit, missing binary, or
@@ -18,15 +18,6 @@ object ExternalCliAvailability {
 
     /** True iff `dot -V` runs and exits 0. */
     fun isDotAvailable(): Boolean = canRun(listOf("dot", "-V"))
-
-    /**
-     * True iff `npx rescript -h` runs and exits 0.
-     *
-     * Uses `npx` because the migration converter itself falls through
-     * to `npx rescript` when no explicit binary path is configured,
-     * so the probe matches the production resolution.
-     */
-    fun isRescriptCliAvailable(): Boolean = canRun(listOf("npx", "rescript", "-h"))
 
     private fun canRun(argv: List<String>): Boolean =
         try {

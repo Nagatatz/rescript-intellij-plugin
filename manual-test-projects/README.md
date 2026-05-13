@@ -23,8 +23,6 @@ manual-test-projects/
 │       ├── ImpactSamples.res           ← Type Impact Preview
 │       ├── CoverageSamples.res         ← Type Coverage Heat Map
 │       ├── InteropSamples.res          ← JS Interop Risk Map
-│       ├── LegacyReason.re             ← Reason migration source
-│       ├── LegacyReason.rei            ← Reason migration interface
 │       └── ExampleNotebook.resnb       ← ReScript Notebook
 └── monorepo/             ← open this root for monorepo detection
     ├── pnpm-workspace.yaml
@@ -66,7 +64,6 @@ sandbox (e.g. after bumping `pluginVersion`).
 | **Type Impact Preview** | `main/src/ImpactSamples.res` | Right tool window → **ReScript Type Impact** → place caret on the `user` type declaration → references list populates (typeRef + constructor + field-access classifications). |
 | **Type Coverage Heat Map** | `main/src/CoverageSamples.res` | Bottom tool window → **ReScript Type Coverage**. `CoverageSamples.res` should appear near the top of the "low coverage" sort because most `let`s are inferred. Color: red for < 30%. |
 | **JS Interop Risk Map** | `main/src/InteropSamples.res` | Right tool window → **ReScript Interop Risk**. Should list `%raw`, `external`, `Obj.magic`, `@module`, `@bs.module` with HIGH/MEDIUM/LOW colour-coded risk. |
-| **Reason Migration Pilot** | `main/src/LegacyReason.re` + `.rei` | Right tool window → **ReScript Migration Pilot** → checkbox the two files → Convert. Files should be rewritten to `.res` / `.resi`. Requires `rescript` CLI in `PATH` (e.g. via `npx`). |
 | **ReScript Notebook** | `main/src/ExampleNotebook.resnb` | Double-click in Project view to open. The cell-based editor should appear with a markdown cell + two code cells. Evaluate each cell; output is written back into the file. Toolbar → Export to Markdown. |
 | **Monorepo `rescript.json` detection** | `monorepo/` | Open `monorepo/` as the project root → ReScript status bar widget reports the workspace package(s). Settings → ReScript → confirm `packageRoots` was auto-populated from `pnpm-workspace.yaml`. |
 
