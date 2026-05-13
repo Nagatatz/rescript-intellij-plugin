@@ -19,12 +19,14 @@ class RescriptNarrowingHintProviderTest {
 
     @Test
     fun `produces a hint per arm when LSP returns a type`() {
+        // Use an or-pattern-free fixture with no bindings so we can
+        // assert exactly one hint per arm (the arrow-anchored hint).
         val source =
             """
             let f = x =>
               switch x {
-              | Some(v) => v
-              | None => 0
+              | "a" => 1
+              | _ => 0
               }
             """.trimIndent()
         val hints = RescriptNarrowingHintProvider.buildHints(source, resolverReturning("option<int>"))
@@ -99,6 +101,9 @@ class RescriptNarrowingHintProviderTest {
 
     @Test
     fun `anchors hints at arrow offsets reported by collector`() {
+        // Use a fixture with no bindings (only `_`) so each arm
+        // produces exactly the arrow hint and the comparison stays
+        // exact.
         val source =
             """
             let f = x =>
@@ -110,5 +115,75 @@ class RescriptNarrowingHintProviderTest {
         val arms = RescriptSwitchArmCollector.collect(source)
         val hints = RescriptNarrowingHintProvider.buildHints(source, resolverReturning("int"))
         assertEquals(arms.map { it.arrowOffset }, hints.map { it.offset })
+    }
+
+    // ── Phase 2: binding-anchored hints ────────────────────────────
+
+    @Test
+    fun `emits a binding hint after each pattern variable`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(v) => v
+              | None => 0
+              }
+            """.trimIndent()
+        val hints = RescriptNarrowingHintProvider.buildHints(source, resolverReturning("int"))
+        val arms = RescriptSwitchArmCollector.collect(source)
+        // Expected: 1 arrow hint per arm (2) + 1 binding hint for `v` = 3
+        assertEquals(3, hints.size)
+        val someArm = arms.first { it.patternSummary == "Some(_)" }
+        val bindingOffset = someArm.bindingOffsets.single()
+        assertTrue(
+            hints.any { it.offset == bindingOffset && it.displayText == "int" },
+            "expected a binding hint at offset $bindingOffset",
+        )
+    }
+
+    @Test
+    fun `binding hints are skipped when LSP returns a trivial type`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(v) => v
+              }
+            """.trimIndent()
+        // resolver returns unit for everything → both arrow and
+        // binding hints filtered by presenter
+        assertEquals(
+            emptyList<RescriptNarrowingHintProvider.HintEntry>(),
+            RescriptNarrowingHintProvider.buildHints(source, resolverReturning("unit")),
+        )
+    }
+
+    @Test
+    fun `multi-arg constructor produces one binding hint per binding`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Pair(left, right) => left + right
+              }
+            """.trimIndent()
+        val hints = RescriptNarrowingHintProvider.buildHints(source, resolverReturning("int"))
+        // 1 arrow hint + 2 binding hints
+        assertEquals(3, hints.size)
+    }
+
+    @Test
+    fun `bare LIDENT catch-all arm produces only an arrow hint`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(_) => 1
+              | other => 0
+              }
+            """.trimIndent()
+        val hints = RescriptNarrowingHintProvider.buildHints(source, resolverReturning("int"))
+        // Two arrow hints; no extra binding hint for `other`.
+        assertEquals(2, hints.size)
     }
 }

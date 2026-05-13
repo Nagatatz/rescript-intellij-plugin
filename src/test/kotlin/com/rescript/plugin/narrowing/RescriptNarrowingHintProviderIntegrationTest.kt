@@ -62,7 +62,11 @@ class RescriptNarrowingHintProviderIntegrationTest {
         RescriptProjectSettings.getInstance(project).narrowingHintsEnabled = true
         val resolver = RescriptHoverTypeResolver { _ -> "option<int>" }
         val hints = RescriptNarrowingHintProvider.buildHints(sample, resolver)
-        assertEquals(2, hints.size)
+        // Phase 2 surfaces a binding-anchored hint next to `v` in
+        // `Some(v)`, on top of the two arrow-anchored hints. The
+        // resolver returns the same type for every offset, so all
+        // three hints carry the same display text.
+        assertEquals(3, hints.size)
         for (hint in hints) assertEquals("option<int>", hint.displayText)
     }
 

@@ -22,6 +22,12 @@ import com.rescript.plugin.lang.RescriptTokenTypes
  *   arm body preview
  * @property patternSummary short human-readable summary of the pattern
  *   (e.g. `Some(_)`, `None`, `[]`); used as a tooltip prefix
+ * @property bindingOffsets offsets pointing at the *end* of each
+ *   lowercase identifier introduced by the pattern, in source order.
+ *   For `| Some(x)` the list is `[<offset right after `x`>]`; for
+ *   `| Loaded(payload, error)` it is two offsets. Empty for arms
+ *   without bindings (`| None`, `| Red`, `_`). Used by the type
+ *   narrowing visualiser to anchor inlay hints next to bindings.
  */
 data class SwitchArm(
     val scrutineeRange: TextRange,
@@ -29,6 +35,7 @@ data class SwitchArm(
     val arrowOffset: Int,
     val bodyEndOffset: Int,
     val patternSummary: String,
+    val bindingOffsets: List<Int> = emptyList(),
 )
 
 /**
@@ -194,6 +201,7 @@ object RescriptSwitchArmCollector {
                                 arrowOffset = t.end,
                                 bodyEndOffset = -1,
                                 patternSummary = summarize(armPatternTokens),
+                                bindingOffsets = collectBindingOffsets(armPatternTokens),
                             ),
                         )
                         pendingArmIdx = arms.size - 1
@@ -268,11 +276,52 @@ object RescriptSwitchArmCollector {
     }
 
     /**
+     * Collect the offsets just after each LIDENT introduced by the
+     * pattern tokens — these are the positions where the type narrowing
+     * inlay hint should appear next to the binding identifier.
+     *
+     * Rules:
+     * - Plain LIDENT tokens at any depth count as bindings (e.g.
+     *   `Some(x)` → after `x`; `Loaded(payload, error)` → after both
+     *   `payload` and `error`).
+     * - A bare standalone LIDENT (no preceding constructor + `(`) is
+     *   treated as a *catch-all* binding and is **skipped** so we don't
+     *   double-hint patterns like `| other => ...` where there's
+     *   nothing meaningful to narrow.
+     * - The `when` guard tail is excluded — bindings inside the guard
+     *   are part of the guard expression, not the structural pattern.
+     */
+    internal fun collectBindingOffsets(patternTokens: List<LexedToken>): List<Int> {
+        val effective = patternTokens.takeWhile { it.type != RescriptTokenTypes.WHEN }
+        if (effective.isEmpty()) return emptyList()
+        // Catch-all bare LIDENT (`| other =>`): the first non-trivial
+        // token is a LIDENT with no following `(`. We deliberately do
+        // not produce a binding hint for it because the narrowed type
+        // is identical to the scrutinee type — no information gained.
+        val firstNonTrivial =
+            effective.firstOrNull {
+                it.type != RescriptTokenTypes.LPAREN &&
+                    it.type != RescriptTokenTypes.RPAREN
+            }
+        if (firstNonTrivial != null &&
+            firstNonTrivial.type == RescriptTokenTypes.LIDENT &&
+            effective.indexOf(firstNonTrivial) == 0
+        ) {
+            return emptyList()
+        }
+        return effective
+            .asSequence()
+            .filter { it.type == RescriptTokenTypes.LIDENT }
+            .map { it.end }
+            .toList()
+    }
+
+    /**
      * Lightweight lexer record produced by walking the JFlex tokens once and
      * caching them; lets the collector iterate by index without re-running the
      * lexer for every brace/comma lookup.
      */
-    private data class LexedToken(
+    internal data class LexedToken(
         val type: IElementType,
         val start: Int,
         val end: Int,

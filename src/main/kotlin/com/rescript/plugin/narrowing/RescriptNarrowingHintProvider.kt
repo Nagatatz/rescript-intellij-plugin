@@ -132,8 +132,21 @@ class RescriptNarrowingHintProvider : InlayHintsProvider<NoSettings> {
             val out = mutableListOf<HintEntry>()
             for (arm in arms) {
                 val typeText = resolver.resolveAt(arm.scrutineeRange.startOffset)
-                val display = RescriptNarrowingPresenter.format(typeText, arm.patternSummary) ?: continue
-                out.add(HintEntry(arm.arrowOffset, display))
+                val display = RescriptNarrowingPresenter.format(typeText, arm.patternSummary)
+                if (display != null) {
+                    out.add(HintEntry(arm.arrowOffset, display))
+                }
+                // Phase 2: emit a separate hint for each pattern binding
+                // (`Some(x)` → after `x`) so the narrowed payload type
+                // is visible right next to the name the user just
+                // introduced. Resolved independently per binding so
+                // nested types (`Loaded(payload, error)`) get accurate
+                // hints for each binding.
+                for (bindingOffset in arm.bindingOffsets) {
+                    val bindingType = resolver.resolveAt(bindingOffset)
+                    val bindingDisplay = RescriptNarrowingPresenter.format(bindingType, arm.patternSummary) ?: continue
+                    out.add(HintEntry(bindingOffset, bindingDisplay))
+                }
             }
             return out
         }

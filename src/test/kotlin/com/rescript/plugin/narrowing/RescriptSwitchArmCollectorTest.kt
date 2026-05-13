@@ -223,4 +223,108 @@ class RescriptSwitchArmCollectorTest {
         org.junit.jupiter.api.Assertions
             .assertTrue(outerSomeBody.contains("Error(_) => 2"))
     }
+
+    // ── bindingOffsets ─────────────────────────────────────────────
+
+    @Test
+    fun `Some payload binding produces one binding offset after the identifier`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(value) => value
+              | None => 0
+              }
+            """.trimIndent()
+        val arms = RescriptSwitchArmCollector.collect(source)
+        val some = arms.first { it.patternSummary == "Some(_)" }
+        assertEquals(1, some.bindingOffsets.size, "expected one binding for Some(value)")
+        // The recorded offset must sit just after the binding identifier text.
+        val end = some.bindingOffsets.first()
+        assertEquals("value", source.substring(end - 5, end))
+    }
+
+    @Test
+    fun `None has no bindings`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(v) => v
+              | None => 0
+              }
+            """.trimIndent()
+        val arms = RescriptSwitchArmCollector.collect(source)
+        val none = arms.first { it.patternSummary == "None" }
+        assertTrue(none.bindingOffsets.isEmpty())
+    }
+
+    @Test
+    fun `multi-arg constructor produces a binding for each LIDENT`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Pair(left, right) => left + right
+              }
+            """.trimIndent()
+        val arms = RescriptSwitchArmCollector.collect(source)
+        val arm = arms.single()
+        assertEquals(2, arm.bindingOffsets.size, "expected bindings for left and right")
+        assertEquals("left", source.substring(arm.bindingOffsets[0] - 4, arm.bindingOffsets[0]))
+        assertEquals("right", source.substring(arm.bindingOffsets[1] - 5, arm.bindingOffsets[1]))
+    }
+
+    @Test
+    fun `wildcard and bare LIDENT catch-all arms have no binding offsets`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | _ => 0
+              | other => 1
+              }
+            """.trimIndent()
+        val arms = RescriptSwitchArmCollector.collect(source)
+        for (arm in arms) {
+            assertTrue(arm.bindingOffsets.isEmpty(), "no binding hint for ${arm.patternSummary}")
+        }
+    }
+
+    @Test
+    fun `or-pattern keeps the first arm's binding offsets only`() {
+        // The collector records arms as separate entries even when source
+        // syntactically chains them with `|`. Each entry carries the
+        // bindings introduced inside *its own* pattern; downstream
+        // consumers can decide what to do with subsequent arms.
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(v) | None => 0
+              }
+            """.trimIndent()
+        val arms = RescriptSwitchArmCollector.collect(source)
+        // The collector emits one logical arm for `Some(v) | None`; the
+        // binding from `Some(v)` should still be picked up.
+        val withBindings = arms.firstOrNull { it.bindingOffsets.isNotEmpty() }
+        assertTrue(withBindings != null, "expected at least one arm with a binding")
+    }
+
+    @Test
+    fun `when guard tokens are excluded from binding offsets`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(v) when v > 0 => v
+              | _ => 0
+              }
+            """.trimIndent()
+        val arms = RescriptSwitchArmCollector.collect(source)
+        val guarded = arms.first { it.patternSummary.startsWith("Some") }
+        // Only `v` from the structural pattern counts; the `v > 0`
+        // inside the guard does not produce an extra binding.
+        assertEquals(1, guarded.bindingOffsets.size)
+    }
 }
