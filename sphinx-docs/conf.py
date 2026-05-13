@@ -184,8 +184,10 @@ linkcheck_retries = 3
 # Endpoints that consistently time out or rate-limit CI runners. Keep this
 # list short and review it when upstream improves.
 linkcheck_ignore = [
-    # Intermittent read timeouts from reactnative.dev's legacy docs path.
-    r"^https://reactnative\.dev/docs/legacy/.*",
+    # reactnative.dev intermittently times out under the linkcheck bot
+    # (both the legacy docs path and the bare landing page have caused CI
+    # reds). Ignore the whole host since we only link to it for reference.
+    r"^https://reactnative\.dev(/.*)?$",
     # Local dev server URLs documented in template guides — unreachable from CI.
     r"^http://localhost(:\d+)?(/.*)?$",
     # npmjs.com returns 403 to the linkcheck bot's HEAD/GET requests.
