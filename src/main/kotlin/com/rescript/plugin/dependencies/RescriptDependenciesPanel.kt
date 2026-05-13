@@ -1,12 +1,16 @@
 package com.rescript.plugin.dependencies
 
 import com.intellij.openapi.diagnostic.logger
+import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.treeStructure.Tree
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.awt.BorderLayout
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.tree.DefaultMutableTreeNode
@@ -18,7 +22,8 @@ import javax.swing.tree.DefaultTreeModel
  * Reads `rescript.json` to extract `dependencies`, `dev-dependencies`, and
  * `pinned-dependencies` (plus the legacy `bs-` aliases for older projects),
  * then resolves each package's installed version from
- * `node_modules/<pkg>/package.json`.
+ * `node_modules/<pkg>/package.json`. Double-clicking a package node opens
+ * the package's `package.json` in the editor.
  *
  * @param project the current IntelliJ project
  */
@@ -36,6 +41,18 @@ class RescriptDependenciesPanel(
 
     init {
         panel.add(JBScrollPane(tree), BorderLayout.CENTER)
+        tree.addMouseListener(
+            object : MouseAdapter() {
+                override fun mouseClicked(e: MouseEvent) {
+                    if (e.clickCount != 2 || e.button != MouseEvent.BUTTON1) return
+                    val path = tree.getPathForLocation(e.x, e.y) ?: return
+                    val node = path.lastPathComponent as? DefaultMutableTreeNode ?: return
+                    val pkg = node.userObject as? PackageNode ?: return
+                    val file = pkg.packageJsonFile ?: return
+                    OpenFileDescriptor(project, file).navigate(true)
+                }
+            },
+        )
         loadDependencies()
     }
 
@@ -112,8 +129,9 @@ class RescriptDependenciesPanel(
             // Validate package name to prevent path traversal via crafted rescript.json
             if (!RescriptSecurityUtils.isValidPackageName(pkgName)) continue
             val version = resolveVersion(basePath, pkgName)
-            val label = if (version != null) "$pkgName ($version)" else pkgName
-            categoryNode.add(DefaultMutableTreeNode(label))
+            val pkgJsonFile = findPackageJson(basePath, pkgName)
+            val label = displayLabelFor(pkgName, version)
+            categoryNode.add(DefaultMutableTreeNode(PackageNode(pkgName, pkgJsonFile, label)))
         }
         rootNode.add(categoryNode)
     }
@@ -125,6 +143,19 @@ class RescriptDependenciesPanel(
             tree.expandRow(row)
             row++
         }
+    }
+
+    /**
+     * Tree node payload for a single dependency package. The tree renderer
+     * shows [displayLabel] via [toString] while [packageJsonFile] is used
+     * by the double-click handler to open the package's manifest.
+     */
+    internal data class PackageNode(
+        val pkgName: String,
+        val packageJsonFile: VirtualFile?,
+        val displayLabel: String,
+    ) {
+        override fun toString(): String = displayLabel
     }
 
     companion object {
@@ -154,5 +185,27 @@ class RescriptDependenciesPanel(
                 null
             }
         }
+
+        /**
+         * Locates the on-disk `node_modules/<pkg>/package.json` for [pkgName]
+         * under [basePath], returning `null` when the package isn't installed.
+         */
+        internal fun findPackageJson(
+            basePath: String,
+            pkgName: String,
+        ): VirtualFile? =
+            VirtualFileManager
+                .getInstance()
+                .findFileByUrl("file://$basePath/node_modules/$pkgName/package.json")
+
+        /**
+         * Formats the tree row label for a package. With a resolved version
+         * we render `pkg (version)`; otherwise just the package name so the
+         * `(missing)` tail doesn't visually fight with the real installs.
+         */
+        internal fun displayLabelFor(
+            pkgName: String,
+            version: String?,
+        ): String = if (version != null) "$pkgName ($version)" else pkgName
     }
 }

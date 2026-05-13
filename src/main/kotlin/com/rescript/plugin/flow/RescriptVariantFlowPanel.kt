@@ -13,6 +13,7 @@ import com.intellij.openapi.editor.event.EditorFactoryEvent
 import com.intellij.openapi.editor.event.EditorFactoryListener
 import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.openapi.fileEditor.FileEditorManager
+import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.ide.CopyPasteManager
 import com.intellij.openapi.project.Project
@@ -57,6 +58,9 @@ class RescriptVariantFlowPanel(
     @Volatile
     private var currentDiagram: FlowDiagram? = null
 
+    @Volatile
+    private var currentJumpTarget: JumpTarget? = null
+
     init {
         val centerPanel =
             JPanel(BorderLayout()).apply {
@@ -79,6 +83,8 @@ class RescriptVariantFlowPanel(
         val group =
             com.intellij.openapi.actionSystem.DefaultActionGroup().apply {
                 add(RefreshAction())
+                addSeparator()
+                add(JumpToSwitchAction())
                 addSeparator()
                 add(CopyAction(Format.MERMAID))
                 add(CopyAction(Format.DOT))
@@ -147,6 +153,7 @@ class RescriptVariantFlowPanel(
         if (diagram == null) {
             renderEmpty("No switch under caret.")
         } else {
+            currentJumpTarget = JumpTarget(file, offset)
             textArea.text = RescriptVariantFlowMermaidExporter.toMermaid(diagram)
             textArea.caretPosition = 0
             statusLabel.text = " Arms: ${countArms(diagram)}"
@@ -162,6 +169,7 @@ class RescriptVariantFlowPanel(
         textArea.text = ""
         statusLabel.text = " $message"
         currentDiagram = null
+        currentJumpTarget = null
     }
 
     /**
@@ -171,6 +179,16 @@ class RescriptVariantFlowPanel(
     private data class EditorContext(
         val file: VirtualFile,
         val source: String,
+        val offset: Int,
+    )
+
+    /**
+     * Editor location the `Jump to switch` toolbar action navigates to;
+     * captured every time a diagram is successfully rebuilt so the user
+     * can re-focus the source switch even after browsing other editors.
+     */
+    private data class JumpTarget(
+        val file: VirtualFile,
         val offset: Int,
     )
 
@@ -210,6 +228,29 @@ class RescriptVariantFlowPanel(
 
         override fun actionPerformed(e: AnActionEvent) {
             scheduleRefresh()
+        }
+    }
+
+    /**
+     * Toolbar action that returns the caret to the `switch` expression
+     * whose flow diagram is currently rendered. Disabled when no diagram
+     * has been rendered yet (or the source file has been closed).
+     */
+    private inner class JumpToSwitchAction :
+        AnAction(
+            "Jump to Switch",
+            "Move the caret to the switch expression for the rendered diagram",
+            AllIcons.Actions.EditSource,
+        ) {
+        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
+
+        override fun update(e: AnActionEvent) {
+            e.presentation.isEnabled = currentJumpTarget != null
+        }
+
+        override fun actionPerformed(e: AnActionEvent) {
+            val target = currentJumpTarget ?: return
+            OpenFileDescriptor(project, target.file, target.offset).navigate(true)
         }
     }
 
