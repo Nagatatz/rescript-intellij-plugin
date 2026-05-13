@@ -89,7 +89,7 @@ IDE 統合機能の完全なカテゴリ一覧・パッケージ対応・Extensi
 - パッケージ構成: `docs/repository-structure.md`
 - ユーザー向けサマリ: `README.md` の Features セクション
 
-Variant Flow Diagram (`flow/`) はカーソル位置の `switch` 式を decision tree として ToolWindow に表示する純構文ベースの機能で、`narrowing/` の `RescriptSwitchArmCollector` を再利用しつつ LSP には依存しない。ツールバーの **Visual / Source トグル** で表示モードを切替できる。Visual モードは `RescriptVariantFlowGraphView` (純粋な `computeLayout` + Java2D 描画) でルートとアームを赤系の角丸ボックスとオーソゴナル矢印で描く。Source モードは従来通り Mermaid `flowchart TD` ソーステキスト表示で、Copy Mermaid / Copy DOT のツールバーアクションで外部の Mermaid Live や graphviz `dot` に持ち出せる。
+Variant Flow Diagram (`flow/`) はカーソル位置の `switch` 式を decision tree として ToolWindow に表示する純構文ベースの機能で、`narrowing/` の `RescriptSwitchArmCollector` を再利用しつつ LSP には依存しない。ツールバーの **Visual / Source トグル** で表示モードを切替できる。Visual モードは `RescriptVariantFlowGraphView` (純粋な `computeLayout` + Java2D 描画) でルートとアームを赤系の角丸ボックスとオーソゴナル矢印で描く。ネストした `switch` のアームは親アーム box の下にサブツリーとして展開され、`RescriptVariantFlowModel.MAX_NESTING_DEPTH` (現状 3) の制限まで Mermaid / DOT exporter と同じ再帰で描画する (深さオーバーは `(deeper switch hidden)` プレースホルダー)。フラットな 1 階層 switch では狭い viewport で行ラッピングする従来挙動を維持する。Source モードは従来通り Mermaid `flowchart TD` ソーステキスト表示で、Copy Mermaid / Copy DOT のツールバーアクションで外部の Mermaid Live や graphviz `dot` に持ち出せる。
 
 Type Impact Preview (`impact/`) はカーソル位置の `type` 宣言に対するプロジェクト全体の参照箇所を ToolWindow に一覧表示し、型変更の波及範囲を事前に見積もれるようにする。`PsiSearchHelper` で word-index ベースの参照検索を行い、`RescriptReferenceClassifier` のトークン・ヒューリスティックで type-ref / constructor / pattern / field-access に分類する。LSP 不要・200 件のソフトキャップ付き。
 

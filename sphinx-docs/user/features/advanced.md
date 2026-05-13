@@ -1010,7 +1010,7 @@ The tool window has two display modes, selected from the toolbar:
 - **Visual** (default) — A self-contained Swing graph view paints the scrutinee and each arm as red-bordered rounded boxes connected by orthogonal arrows. The geometry is computed by a pure `computeLayout` helper, so the renderer needs no JCEF browser, no `mermaid.js`, and no external Graphviz binary.
 - **Source** — The original Mermaid `flowchart TD` text view, kept for copy-paste workflows. Toggle to this mode when you want to inspect or edit the diagram text before sharing it.
 
-Visual mode wraps arms onto multiple rows when the tool window is narrower than the row would need, so the diagram stays usable in any layout. Source mode never wraps — the underlying Mermaid text is the source of truth for both copy actions described below.
+Visual mode expands nested `switch` arms as sub-trees beneath their parent arm box, mirroring what the Mermaid and DOT exporters already emit and capped at the same `MAX_NESTING_DEPTH` (deeper branches collapse into a single "(deeper switch hidden)" leaf). For flat single-level matches it falls back to a row of arm boxes that wraps onto additional rows when the tool window is too narrow, so the diagram stays usable in any layout. Source mode never wraps — the underlying Mermaid text is the source of truth for both copy actions described below.
 
 ### Tool Window Layout
 

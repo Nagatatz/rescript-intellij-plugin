@@ -21,12 +21,12 @@
 
 ## セクション 2: ドキュメント同期 (1 コミット)
 
-- [ ] CLAUDE.md `flow/` 段落を更新 (Visual モードのネスト展開を明記)
-- [ ] sphinx-docs/user/features/advanced.md の Switch Flow セクションを更新
-- [ ] `cd sphinx-docs && make gettext && make update-po` 実行
-- [ ] `locale/ja/LC_MESSAGES/**/*.po` の対応 msgstr を日本語化
-- [ ] `cd sphinx-docs && make build-ja` 緑
-- [ ] コミット: `📝 Document Visual flow nested rendering`
+- [x] CLAUDE.md `flow/` 段落を更新 (Visual モードのネスト展開を明記)
+- [x] sphinx-docs/user/features/advanced.md の Switch Flow セクションを更新
+- [x] `cd sphinx-docs && make gettext && make update-po` 実行
+- [x] `locale/ja/LC_MESSAGES/**/*.po` の対応 msgstr を日本語化
+- [x] `cd sphinx-docs && make build-ja` 緑
+- [x] コミット: `📝 Document Visual flow nested rendering`
 
 ## セクション 3: マージ前検証 (本セクションは PR 不要、main 直マージ)
 
