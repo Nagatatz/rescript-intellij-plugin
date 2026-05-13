@@ -41,4 +41,4 @@
 
 - [x] このタスクリストのすべての `[ ]` を `[x]` に更新
 - [x] 単一の `🗑️ Remove Reason → ReScript Migration Pilot feature` コミットを作成
-- [ ] worktree から `main` に merge して branch を削除
+- [x] worktree から `main` に merge して branch を削除
