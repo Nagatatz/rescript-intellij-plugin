@@ -24,10 +24,12 @@ import javax.swing.JComponent
  * it can be unit-tested without a live UI, and the painting code
  * stays small enough to verify by eye.
  *
- * Only direct children of the top-level scrutinee node are drawn at
- * this stage — nested `switch` arms (a.k.a. [FlowNode.children]) are
- * intentionally collapsed into the parent arm's text, matching the
- * Mermaid exporter's depth-1 default.
+ * Nested `switch` arms (`FlowNode.children`) are expanded into a
+ * sub-tree drawn beneath the parent arm, so the visual mode follows
+ * the same recursion the Mermaid / DOT exporters already perform
+ * (capped by `RescriptVariantFlowModel.MAX_NESTING_DEPTH`). When no
+ * arm has children, the layout falls back to the original flat row
+ * that wraps onto additional rows in narrow viewports.
  */
 class RescriptVariantFlowGraphView : JComponent() {
     @Volatile
@@ -203,8 +205,12 @@ class RescriptVariantFlowGraphView : JComponent() {
          * conservative per-character estimate is used so the layout
          * remains deterministic.
          *
-         * @param diagram diagram to render; only `arms[*]` are drawn,
-         *   nested `children` are folded into the arm label
+         * When any top-level arm has nested children, a recursive tree
+         * layout is used (sub-trees grow downwards, the canvas grows
+         * horizontally so the enclosing scroll pane handles overflow).
+         * Otherwise the flat row layout with wrapping is used.
+         *
+         * @param diagram diagram to render
          * @param viewportWidth available width in CSS-like pixels
          * @param fm optional font metrics used for label width
          * @return geometric layout
@@ -213,6 +219,24 @@ class RescriptVariantFlowGraphView : JComponent() {
             diagram: FlowDiagram,
             viewportWidth: Int,
             fm: FontMetrics? = null,
+        ): Layout {
+            val hasNested = diagram.arms.any { it.children.isNotEmpty() }
+            return if (hasNested) {
+                computeTreeLayout(diagram, viewportWidth, fm)
+            } else {
+                computeFlatLayout(diagram, viewportWidth, fm)
+            }
+        }
+
+        /**
+         * Flat layout: a single row of arm boxes beneath the scrutinee
+         * root, wrapping onto additional rows when [viewportWidth] is
+         * too narrow to fit them side by side.
+         */
+        private fun computeFlatLayout(
+            diagram: FlowDiagram,
+            viewportWidth: Int,
+            fm: FontMetrics?,
         ): Layout {
             val rootLabel = "switch ${diagram.scrutineeText}"
             val rootWidth = nodeWidth(rootLabel, fm, ROOT_MIN_WIDTH, ARM_MAX_WIDTH)
@@ -281,6 +305,169 @@ class RescriptVariantFlowGraphView : JComponent() {
             )
         }
 
+        /**
+         * Tree layout: each top-level arm is laid out as its own
+         * sub-tree via [computeArmSubtree], and the sub-trees are
+         * placed side by side beneath the scrutinee root. The canvas
+         * grows as wide as needed; the enclosing scroll pane (set up
+         * in `RescriptVariantFlowPanel`) handles horizontal overflow.
+         */
+        private fun computeTreeLayout(
+            diagram: FlowDiagram,
+            viewportWidth: Int,
+            fm: FontMetrics?,
+        ): Layout {
+            val subtrees = diagram.arms.map { computeArmSubtree(it, fm) }
+            val armsTotalWidth =
+                subtrees.sumOf { it.width } + (subtrees.size - 1).coerceAtLeast(0) * H_GAP
+            val armsMaxHeight = subtrees.maxOfOrNull { it.height } ?: 0
+
+            val rootLabel = "switch ${diagram.scrutineeText}"
+            val rootWidth = nodeWidth(rootLabel, fm, ROOT_MIN_WIDTH, ARM_MAX_WIDTH)
+
+            val contentWidth = maxOf(rootWidth, armsTotalWidth)
+            val canvasWidth = (contentWidth + 2 * MARGIN).coerceAtLeast(viewportWidth)
+
+            val rootX = (canvasWidth - rootWidth) / 2
+            val rootY = MARGIN
+            val rootBox = Rectangle(rootX, rootY, rootWidth, ROOT_HEIGHT)
+
+            val armsStartX = (canvasWidth - armsTotalWidth) / 2
+            val armsY = rootY + ROOT_HEIGHT + V_GAP
+
+            val armBoxes = mutableListOf<Pair<Rectangle, String>>()
+            val edges = mutableListOf<List<Point>>()
+            val rootBottom = Point(rootBox.x + rootBox.width / 2, rootBox.y + rootBox.height)
+
+            var cursorX = armsStartX
+            for (subtree in subtrees) {
+                val dx = cursorX
+                val dy = armsY
+                for ((box, label) in subtree.armBoxes) {
+                    armBoxes.add(
+                        Rectangle(box.x + dx, box.y + dy, box.width, box.height) to label,
+                    )
+                }
+                for (polyline in subtree.edges) {
+                    edges.add(polyline.map { Point(it.x + dx, it.y + dy) })
+                }
+                val subRootTopX = subtree.rootBox.x + dx + subtree.rootBox.width / 2
+                val subRootTopY = subtree.rootBox.y + dy
+                val midY = rootBottom.y + (subRootTopY - rootBottom.y) / 2
+                edges.add(
+                    listOf(
+                        rootBottom,
+                        Point(rootBottom.x, midY),
+                        Point(subRootTopX, midY),
+                        Point(subRootTopX, subRootTopY),
+                    ),
+                )
+                cursorX += subtree.width + H_GAP
+            }
+
+            val canvasHeight = armsY + armsMaxHeight + MARGIN
+            return Layout(
+                rootBox = rootBox,
+                armBoxes = armBoxes,
+                edges = edges,
+                canvasSize = Dimension(canvasWidth, canvasHeight),
+            )
+        }
+
+        /**
+         * Result of laying out a single arm together with its (recursive)
+         * children. Coordinates are local to the sub-tree's bounding box
+         * — callers translate by `(dx, dy)` when placing the sub-tree on
+         * the canvas.
+         *
+         * @property rootBox bounds of the arm's own box, sub-tree-local
+         * @property armBoxes own box plus every descendant box, with
+         *   labels, in source order
+         * @property edges polylines for every parent→child connection
+         *   inside this sub-tree (does not include the edge from the
+         *   outer scrutinee root)
+         * @property width sub-tree's full horizontal footprint
+         * @property height sub-tree's full vertical footprint
+         */
+        private data class ArmSubtree(
+            val rootBox: Rectangle,
+            val armBoxes: List<Pair<Rectangle, String>>,
+            val edges: List<List<Point>>,
+            val width: Int,
+            val height: Int,
+        )
+
+        private fun computeArmSubtree(
+            node: FlowNode,
+            fm: FontMetrics?,
+        ): ArmSubtree {
+            val label = armLabel(node)
+            val ownWidth = nodeWidth(label, fm, ARM_MIN_WIDTH, ARM_MAX_WIDTH)
+
+            if (node.children.isEmpty()) {
+                val rect = Rectangle(0, 0, ownWidth, ARM_HEIGHT)
+                return ArmSubtree(
+                    rootBox = rect,
+                    armBoxes = listOf(rect to label),
+                    edges = emptyList(),
+                    width = ownWidth,
+                    height = ARM_HEIGHT,
+                )
+            }
+
+            val childSubtrees = node.children.map { computeArmSubtree(it, fm) }
+            val childrenWidth =
+                childSubtrees.sumOf { it.width } + (childSubtrees.size - 1).coerceAtLeast(0) * H_GAP
+            val width = maxOf(ownWidth, childrenWidth)
+            val maxChildHeight = childSubtrees.maxOf { it.height }
+            val height = ARM_HEIGHT + V_GAP + maxChildHeight
+
+            val ownX = (width - ownWidth) / 2
+            val ownBox = Rectangle(ownX, 0, ownWidth, ARM_HEIGHT)
+
+            val armBoxes = mutableListOf<Pair<Rectangle, String>>()
+            val edges = mutableListOf<List<Point>>()
+            armBoxes.add(ownBox to label)
+
+            val childrenStartX = (width - childrenWidth) / 2
+            var childX = childrenStartX
+            val childY = ARM_HEIGHT + V_GAP
+            val ownBottom = Point(ownBox.x + ownBox.width / 2, ownBox.y + ownBox.height)
+
+            for (child in childSubtrees) {
+                val dx = childX
+                val dy = childY
+                for ((box, lbl) in child.armBoxes) {
+                    armBoxes.add(
+                        Rectangle(box.x + dx, box.y + dy, box.width, box.height) to lbl,
+                    )
+                }
+                for (polyline in child.edges) {
+                    edges.add(polyline.map { Point(it.x + dx, it.y + dy) })
+                }
+                val childRootTopX = child.rootBox.x + dx + child.rootBox.width / 2
+                val childRootTopY = child.rootBox.y + dy
+                val midY = ownBottom.y + (childRootTopY - ownBottom.y) / 2
+                edges.add(
+                    listOf(
+                        ownBottom,
+                        Point(ownBottom.x, midY),
+                        Point(childRootTopX, midY),
+                        Point(childRootTopX, childRootTopY),
+                    ),
+                )
+                childX += child.width + H_GAP
+            }
+
+            return ArmSubtree(
+                rootBox = ownBox,
+                armBoxes = armBoxes,
+                edges = edges,
+                width = width,
+                height = height,
+            )
+        }
+
         private fun nodeWidth(
             label: String,
             fm: FontMetrics?,
@@ -298,7 +485,12 @@ class RescriptVariantFlowGraphView : JComponent() {
 
         private fun armLabel(node: FlowNode): String {
             val pattern = node.patternSummary.ifBlank { "(arm)" }
-            val body = node.bodyPreview.ifBlank { "" }
+            // When this arm has nested children, the children render
+            // the body visually below the arm box, so we drop the body
+            // preview from the label to avoid duplicating the same
+            // text both as a body string and as child boxes.
+            if (node.children.isNotEmpty()) return pattern
+            val body = node.bodyPreview
             return if (body.isBlank()) pattern else "$pattern\n$body"
         }
     }
