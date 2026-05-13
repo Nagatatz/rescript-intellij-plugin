@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-08 00:19+0900\n"
+"POT-Creation-Date: 2026-05-13 17:10+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -679,7 +679,7 @@ msgstr "**Info/Hints** --- グレー"
 
 #: ../../user/features/code-analysis.md:345
 #: ../../user/features/code-analysis.md:391
-#: ../../user/features/code-analysis.md:578
+#: ../../user/features/code-analysis.md:580
 msgid "Configuration"
 msgstr "設定"
 
@@ -1132,8 +1132,8 @@ msgid ""
 "specific type inside each arm. The plugin visualizes this narrowing "
 "inline so you can see the refined type without hovering on every arm."
 msgstr ""
-"ReScript は `switch` 式のスクラティニーを各 arm の中でより具体的な型に絞り込みます。"
-"プラグインはこの絞り込み結果をインラインで可視化し、毎 arm でホバーすることなく "
+"ReScript は `switch` 式のスクラティニーを各 arm "
+"の中でより具体的な型に絞り込みます。プラグインはこの絞り込み結果をインラインで可視化し、毎 arm でホバーすることなく "
 "絞り込まれた型を確認できるようにします。"
 
 #: ../../user/features/code-analysis.md:553
@@ -1143,9 +1143,23 @@ msgid ""
 " hover information that powers Quick Documentation, so it always agrees "
 "with what `textDocument/hover` returns at the scrutinee position."
 msgstr ""
-"LSP サーバーが起動しているとき、各 arm の `=>` 直後に絞り込まれた型を示すインレイヒントが "
-"表示されます。ヒントは Quick Documentation と同じホバー情報を再利用するため、"
-"スクラティニー位置で `textDocument/hover` が返す内容と常に一致します。"
+"LSP サーバーが起動しているとき、各 arm の `=>` 直後に絞り込まれた型を示すインレイヒントが 表示されます。ヒントは Quick "
+"Documentation と同じホバー情報を再利用するため、スクラティニー位置で `textDocument/hover` "
+"が返す内容と常に一致します。"
+
+#: ../../user/features/code-analysis.md:555
+msgid ""
+"Pattern bindings get an extra hint of their own. When an arm introduces a"
+" binding (`Some(x)`, `Loaded(payload, error)`, …), a second inlay is "
+"anchored right after each binding identifier showing that binding's own "
+"narrowed type. Bare lowercase catch-all arms like `| other => ...` are "
+"intentionally skipped because the binding's type is identical to the "
+"scrutinee — no information is gained."
+msgstr ""
+"pattern binding に対しても専用ヒントが表示されます。"
+"arm が `Some(x)` や `Loaded(payload, error)` のような binding を導入している場合、"
+"各 binding 識別子の直後に「その binding 自身の絞り込み後の型」を示すインレイヒントが追加で表示されます。"
+"`| other => ...` のような小文字キャッチオール arm は、binding の型が scrutinee と同じで情報量が無いため意図的にスキップされます。"
 
 #: ../../user/features/code-analysis.md
 msgid "Without the hint"
@@ -1155,48 +1169,46 @@ msgstr "ヒントなし"
 msgid "With the hint"
 msgstr "ヒントあり"
 
-#: ../../user/features/code-analysis.md:576
+#: ../../user/features/code-analysis.md:578
 msgid ""
 "The visualizer also handles or-patterns (`| Some(_) | None =>` is treated"
 " as a single arm), `when` guards, and nested `switch` expressions."
 msgstr ""
-"ビジュアライザは or パターン（`| Some(_) | None =>` は単一 arm として扱う）、"
-"`when` ガード、ネストした `switch` 式にも対応しています。"
+"ビジュアライザは or パターン（`| Some(_) | None =>` は単一 arm として扱う）、`when` ガード、ネストした "
+"`switch` 式にも対応しています。"
 
-#: ../../user/features/code-analysis.md:580
+#: ../../user/features/code-analysis.md:582
 msgid ""
 "Toggle from **Settings > Editor > Inlay Hints > ReScript > Type narrowing"
 " in switch arms**."
 msgstr ""
-"**Settings > Editor > Inlay Hints > ReScript > Type narrowing in switch arms** "
-"から有効・無効を切り替えられます。"
+"**Settings > Editor > Inlay Hints > ReScript > Type narrowing in switch "
+"arms** から有効・無効を切り替えられます。"
 
-#: ../../user/features/code-analysis.md:581
+#: ../../user/features/code-analysis.md:583
 msgid ""
 "The project-level flag `narrowingHintsEnabled` (default on) is exposed on"
 " `RescriptProjectSettings` for projects that want to disable this hint "
 "without touching other inlay providers."
 msgstr ""
-"他のインレイ機能に影響を与えずにこのヒントだけを切りたいプロジェクト向けに、"
-"`RescriptProjectSettings` の `narrowingHintsEnabled`（既定 ON）を公開しています。"
+"他のインレイ機能に影響を与えずにこのヒントだけを切りたいプロジェクト向けに、`RescriptProjectSettings` の "
+"`narrowingHintsEnabled`（既定 ON）を公開しています。"
 
-#: ../../user/features/code-analysis.md:582
+#: ../../user/features/code-analysis.md:584
 msgid ""
 "A 50-arm-per-file soft cap suppresses the hint on switch-heavy files to "
 "keep editor scrolling responsive."
-msgstr ""
-"1 ファイルあたり 50 arm を超える場合はヒントを抑制し、switch 多用ファイルでも "
-"エディタのスクロール応答性を保ちます。"
+msgstr "1 ファイルあたり 50 arm を超える場合はヒントを抑制し、switch 多用ファイルでも エディタのスクロール応答性を保ちます。"
 
-#: ../../user/features/code-analysis.md:584
+#: ../../user/features/code-analysis.md:586
 msgid ""
 "When the LSP server is not running the visualizer is silent — it never "
 "displays a partial or stale type. Trivial types (`unit`, free type "
 "variables) are also suppressed because they convey no narrowing "
 "information."
 msgstr ""
-"LSP サーバーが起動していないときビジュアライザは沈黙し、部分的・古い型を表示することは "
-"ありません。`unit` や自由型変数のように絞り込み情報を持たない型も抑制されます。"
+"LSP サーバーが起動していないときビジュアライザは沈黙し、部分的・古い型を表示することは ありません。`unit` "
+"や自由型変数のように絞り込み情報を持たない型も抑制されます。"
 
 #~ msgid "**Errors** — Shown with red underlines"
 #~ msgstr "**Errors** — 赤い下線で表示"

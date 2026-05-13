@@ -552,6 +552,8 @@ ReScript narrows the scrutinee of a `switch` expression to a more specific type 
 
 When the LSP server is running, an inlay hint is rendered immediately after each arm's `=>` showing the narrowed type. The hint reuses the same hover information that powers Quick Documentation, so it always agrees with what `textDocument/hover` returns at the scrutinee position.
 
+Pattern bindings get an extra hint of their own. When an arm introduces a binding (`Some(x)`, `Loaded(payload, error)`, …), a second inlay is anchored right after each binding identifier showing that binding's own narrowed type. Bare lowercase catch-all arms like `| other => ...` are intentionally skipped because the binding's type is identical to the scrutinee — no information is gained.
+
 ::::{tab-set}
 :::{tab-item} Without the hint
 ```rescript
@@ -566,7 +568,7 @@ let describe = result =>
 ```rescript
 let describe = result =>
   switch result {
-  | Ok(value) =>: result<string, error> value
+  | Ok(value: string) =>: result<string, error> value
   | Error(_) =>: result<string, error> "fallback"
   }
 ```

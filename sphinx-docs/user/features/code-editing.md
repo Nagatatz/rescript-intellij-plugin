@@ -392,6 +392,8 @@ switch option {
 
 Fill in the variant constructors that are not yet covered by an existing `switch`. Place the caret on the `switch` keyword (or anywhere inside the scrutinee) of a partial switch and press `Alt+Enter`, then choose **Add missing switch arms**. The intention queries LSP hover for the scrutinee's type, computes the set difference between the variant's constructors and the arms already present, and inserts a skeleton arm for each missing constructor just before the closing `}`. The intention does not appear when the switch already contains a wildcard `_` arm or a bare lowercase binding pattern, because such arms make the switch exhaustive. Or-patterns (`| Foo | Bar => ...`) count both constructors as covered. In nested switches the innermost one containing the caret is targeted.
 
+When the LSP hover returns just a bare type name (`color`, `status`) instead of an inline `| Red | Blue` body — which is what the ReScript LSP normally does for user-defined variants — the intention falls back to a project-wide stub-index lookup. The `RescriptNameIndex` is queried for a `type <name> = ...` declaration matching the hovered identifier, the right-hand side is re-parsed with the standard type declaration parser, and the resulting constructors feed back into the missing-arms set difference. The fallback runs silently and only when needed, so the intention now succeeds for the common case of "the variant is defined elsewhere in the project".
+
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript

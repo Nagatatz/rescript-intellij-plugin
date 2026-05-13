@@ -1003,10 +1003,19 @@ The provider scans the file with the same syntactic switch arm collector that po
 
 The view re-renders 200 ms after each caret movement, so moving the cursor across a file scans through the project's `switch` expressions naturally.
 
+### Visual vs Source Modes
+
+The tool window has two display modes, selected from the toolbar:
+
+- **Visual** (default) — A self-contained Swing graph view paints the scrutinee and each arm as red-bordered rounded boxes connected by orthogonal arrows. The geometry is computed by a pure `computeLayout` helper, so the renderer needs no JCEF browser, no `mermaid.js`, and no external Graphviz binary.
+- **Source** — The original Mermaid `flowchart TD` text view, kept for copy-paste workflows. Toggle to this mode when you want to inspect or edit the diagram text before sharing it.
+
+Visual mode wraps arms onto multiple rows when the tool window is narrower than the row would need, so the diagram stays usable in any layout. Source mode never wraps — the underlying Mermaid text is the source of truth for both copy actions described below.
+
 ### Tool Window Layout
 
-- **Toolbar:** Refresh (rebuild the diagram), Copy Mermaid, Copy DOT
-- **Main area:** Read-only Mermaid source for the current `switch`
+- **Toolbar:** Visual / Source toggles, Refresh (rebuild the diagram), Jump to Switch, Copy Mermaid, Copy DOT
+- **Main area:** The Visual graph view or the read-only Mermaid source, depending on the active toggle
 - **Status bar:** Number of arms in the current diagram, or a placeholder when the caret is not inside a `switch`
 
 ### Exporting
@@ -1185,6 +1194,12 @@ Bulk-convert legacy Reason / OCaml-syntax sources (`.re` / `.rei`) to ReScript s
 - Otherwise the plugin falls through to `npx rescript convert <path>`, matching the project-local resolution used by the rest of the plugin.
 
 Each conversion runs in a `ProcessBuilder` subprocess with a 30-second timeout. On success the original file is rewritten with the converted text and renamed to `.res` / `.resi` inside a write action; on failure the source file is left untouched and the captured stderr appears in the results panel.
+
+### ReScript 12 Requires Pinning Earlier
+
+The `rescript convert` subcommand only ships with the Node-based ReScript CLI through version 11. The Rust / `rewatch`-based CLI introduced in ReScript 12 dropped the subcommand entirely; attempting to invoke it produces a `unexpected argument 'src/Main.re' found` parser error from the new CLI.
+
+To keep that error from leaking out as a cryptic failure, the converter probes `rescript --version` before running each batch. When the major component is 12 or newer the run is refused immediately with the message **"ReScript &lt;version&gt; removed the `convert` subcommand. Pin `rescript@^11` in this project to use the Migration Pilot, or convert the file manually."** Downgrade the dev dependency to `"rescript": "^11"` in the affected project and re-run; the pilot resumes working without any plugin-side changes. The probe falls through silently when no `rescript` binary is reachable, so version 11 environments are unaffected.
 
 ### Tool Window Layout
 
