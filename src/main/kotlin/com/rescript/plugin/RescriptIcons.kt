@@ -14,4 +14,11 @@ object RescriptIcons {
     @JvmField val INTERFACE_FILE = IconLoader.getIcon("/icons/rescript-interface.svg", RescriptIcons::class.java)
 
     @JvmField val CONFIG_FILE = IconLoader.getIcon("/icons/rescript-config.svg", RescriptIcons::class.java)
+
+    /**
+     * 13×13 monochrome ReScript mark used on tool window stripes so the
+     * plugin's own diagram / flow tool windows are visually distinct from
+     * platform-provided diagram tool windows.
+     */
+    @JvmField val TOOL_WINDOW = IconLoader.getIcon("/icons/rescript-toolwindow.svg", RescriptIcons::class.java)
 }

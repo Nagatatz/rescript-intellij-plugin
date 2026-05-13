@@ -29,4 +29,11 @@ class RescriptIconsTest {
         assertNotNull(RescriptIcons.CONFIG_FILE)
         assertNotNull(RescriptIcons::class.java.getResource("/icons/rescript-config.svg"))
     }
+
+    @Test
+    fun `TOOL_WINDOW icon is non-null and both theme variants exist`() {
+        assertNotNull(RescriptIcons.TOOL_WINDOW)
+        assertNotNull(RescriptIcons::class.java.getResource("/icons/rescript-toolwindow.svg"))
+        assertNotNull(RescriptIcons::class.java.getResource("/icons/rescript-toolwindow_dark.svg"))
+    }
 }
