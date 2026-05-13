@@ -8,6 +8,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.vfs.VirtualFile
@@ -52,9 +53,15 @@ class RescriptMigrationPanel(
                         val idx = locationToIndex(e.point)
                         if (idx < 0) return
                         val candidate = candidatesModel.get(idx)
-                        if (candidate.file in
-                            selected
-                        ) {
+                        // Double-click opens the source file so the user
+                        // can inspect it before running the conversion.
+                        // Single-clicks continue to toggle the row's
+                        // selection checkbox.
+                        if (e.clickCount == 2 && e.button == MouseEvent.BUTTON1) {
+                            OpenFileDescriptor(project, candidate.file).navigate(true)
+                            return
+                        }
+                        if (candidate.file in selected) {
                             selected.remove(candidate.file)
                         } else {
                             selected.add(candidate.file)
