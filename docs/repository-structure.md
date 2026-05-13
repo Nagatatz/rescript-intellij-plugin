@@ -81,7 +81,7 @@ rescript-intellij-plugin/
 | `util/` | 共通ユーティリティ（セキュリティ、offset↔Position 変換、エディタ操作、ツールウィンドウ取り付け等） | `RescriptSecurityUtils`, `RescriptOffsetUtils`, `RescriptEditorUtils`, `RescriptToolWindowContent` |
 | `commenter/` | コメントトグル | `RescriptCommenter` |
 | `dependencies/` | パッケージ依存関係ツリー表示 | `RescriptDependenciesToolWindowFactory`, `RescriptDependenciesPanel` |
-| `diagram/` | モジュール依存関係ダイアグラム（Mermaid + DOT エクスポート） | `RescriptDependencyDiagramToolWindowFactory`, `RescriptDependencyDiagramPanel`, `RescriptDependencyDiagramAction`, `RescriptDependencyDiagramExportAction`, `RescriptMermaidExporter`, `RescriptDependencyDiagramProvider`, `RescriptDependencyDiagramModel` |
+| `diagram/` | モジュール依存関係ダイアグラム（Visual / Source トグル + Mermaid + DOT エクスポート） | `RescriptDependencyDiagramToolWindowFactory`, `RescriptDependencyDiagramPanel`, `RescriptDependencyDiagramAction`, `RescriptDependencyDiagramExportAction`, `RescriptDependencyDiagramGraphView`, `RescriptMermaidExporter`, `RescriptDependencyDiagramProvider`, `RescriptDependencyDiagramModel` |
 | `documentation/` | ドキュメントプロバイダ（Quick Doc、External Doc） | `RescriptDocumentationProvider` |
 | `grazie/` | Grazie テキスト抽出連携 | `RescriptGrazieTextExtractor` |
 | `navbar/` | ナビゲーションバー | `RescriptStructureAwareNavbar` |

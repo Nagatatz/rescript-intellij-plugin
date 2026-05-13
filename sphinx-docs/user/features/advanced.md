@@ -960,32 +960,42 @@ Automatic rearrangement enforces a consistent declaration ordering across all fi
 
 {bdg-success}`Native`
 
-Visualize module dependency relationships as a Mermaid graph that you can paste into any Mermaid renderer or export as Graphviz DOT.
+Visualize module dependency relationships as a top-down layered graph drawn inside the IDE, or as Mermaid / Graphviz DOT source text you can paste into an external renderer.
 
 **Open:** **View** > **Tool Windows** > **ReScript Module Diagram**, or use **Tools** > **Show ReScript Module Diagram**
 
 ### How It Works
 
-The diagram provider scans every `.res` file in the project and builds a directed graph from `open` and `include` statements. Each module becomes a node; every `open ModuleName` or `include ModuleName` becomes an edge from the current module to the referenced one. The result is rendered as Mermaid `graph TD` syntax in the tool window.
+The diagram provider scans every `.res` file in the project and builds a directed graph from `open` and `include` statements. Each module becomes a node; every `open ModuleName` or `include ModuleName` becomes an edge from the current module to the referenced one. The result is fed into both rendering modes simultaneously, so toggling between them does not rebuild the graph.
+
+### Visual vs Source Mode
+
+A **Visual / Source** toggle on the toolbar swaps between two rendering modes of the same graph:
+
+- **Visual mode** (default) — A Java2D-rendered top-down layered diagram. Layer assignment uses Kahn's BFS: modules with no incoming edges (typically entry points such as `Main`) sit on the top layer; each downstream dependency is pushed one layer lower. Modules that participate in a cycle land on a single extra layer beneath the rest, so they stay visible even though Kahn's algorithm cannot order them. Edges are drawn as orthogonal arrows from the source module's bottom edge to the target module's top edge. Self-loops are suppressed.
+- **Source mode** — A read-only text panel with the Mermaid `flowchart TD` source, intended for copy-paste into external renderers.
 
 ### Tool Window Layout
 
-- **Toolbar:** Refresh (rebuild the graph from current PSI), Copy as DOT, Copy as Mermaid
-- **Main area:** Read-only text panel with the Mermaid `graph TD` source
+- **Toolbar:** Visual / Source toggle, Refresh (rebuild the graph from current PSI), Copy as DOT, Copy as Mermaid
+- **Main area:** Visual graph or Mermaid source, swapped in place via `CardLayout`
 - **Status bar:** Module count and edge count
 
 ### Exporting
 
-- **Copy as Mermaid** — Puts the `graph TD` text on the clipboard. Paste into [Mermaid Live Editor](https://mermaid.live) or any Markdown file with Mermaid support to render the graph
+Both toolbar copy actions remain available in either mode:
+
+- **Copy as Mermaid** — Puts the `flowchart TD` text on the clipboard. Paste into [Mermaid Live Editor](https://mermaid.live) or any Markdown file with Mermaid support to render the graph
 - **Copy as DOT** — Puts a Graphviz `digraph` on the clipboard. Pipe into `dot -Tpng` or paste into a `.dot` file for rendering with Graphviz
 
 Module names containing spaces, dots, or quotes are automatically escaped so the exported text is safe to feed into either renderer.
 
 ### Use Cases
 
-- **Understanding project structure** — See how modules relate to each other at a glance
-- **Identifying tight coupling** — Spot modules with too many dependencies
-- **Refactoring planning** — Understand the impact of moving or splitting modules
+- **Understanding project structure** — See how modules relate to each other at a glance without leaving the IDE
+- **Identifying tight coupling** — Spot modules with too many dependencies in Visual mode
+- **Spotting cycles** — Cycle members appear together on the fallback layer, so a circular dependency is visually distinct from a clean DAG
+- **Refactoring planning** — Understand the impact of moving or splitting modules; switch to Source mode and copy to share findings in a PR or design doc
 
 The dependency diagram reveals your project's module structure visually, making it easy to spot circular dependencies, tightly coupled modules, and refactoring opportunities that are hard to see in code alone.
 
