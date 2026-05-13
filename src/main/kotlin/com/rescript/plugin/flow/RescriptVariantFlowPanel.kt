@@ -6,6 +6,7 @@ import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.ToggleAction
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.event.CaretEvent
 import com.intellij.openapi.editor.event.CaretListener
@@ -26,6 +27,7 @@ import com.intellij.util.Alarm
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import java.awt.BorderLayout
+import java.awt.CardLayout
 import java.awt.Font
 import java.awt.datatransfer.StringSelection
 import javax.swing.JPanel
@@ -51,6 +53,16 @@ class RescriptVariantFlowPanel(
             font = Font(Font.MONOSPACED, Font.PLAIN, font.size)
         }
 
+    private val graphView: RescriptVariantFlowGraphView = RescriptVariantFlowGraphView()
+
+    private val viewCards: CardLayout = CardLayout()
+
+    private val viewSwitcher: JPanel =
+        JPanel(viewCards).apply {
+            add(JBScrollPane(graphView), CARD_VISUAL)
+            add(JBScrollPane(textArea), CARD_SOURCE)
+        }
+
     private val statusLabel: JBLabel = JBLabel(" ")
 
     private val refreshAlarm: Alarm = Alarm(Alarm.ThreadToUse.SWING_THREAD, this)
@@ -61,15 +73,19 @@ class RescriptVariantFlowPanel(
     @Volatile
     private var currentJumpTarget: JumpTarget? = null
 
+    @Volatile
+    private var visualMode: Boolean = true
+
     init {
         val centerPanel =
             JPanel(BorderLayout()).apply {
-                add(JBScrollPane(textArea), BorderLayout.CENTER)
+                add(viewSwitcher, BorderLayout.CENTER)
                 add(statusLabel, BorderLayout.SOUTH)
             }
         setContent(centerPanel)
         setToolbar(buildToolbar())
         attachEditorListeners()
+        viewCards.show(viewSwitcher, CARD_VISUAL)
         scheduleRefresh()
     }
 
@@ -82,6 +98,9 @@ class RescriptVariantFlowPanel(
     private fun buildToolbar(): javax.swing.JComponent {
         val group =
             com.intellij.openapi.actionSystem.DefaultActionGroup().apply {
+                add(VisualModeAction())
+                add(SourceModeAction())
+                addSeparator()
                 add(RefreshAction())
                 addSeparator()
                 add(JumpToSwitchAction())
@@ -156,6 +175,7 @@ class RescriptVariantFlowPanel(
             currentJumpTarget = JumpTarget(ctx.file, ctx.offset)
             textArea.text = RescriptVariantFlowMermaidExporter.toMermaid(diagram)
             textArea.caretPosition = 0
+            graphView.setDiagram(diagram)
             statusLabel.text = " Arms: ${countArms(diagram)}"
         }
     }
@@ -168,8 +188,14 @@ class RescriptVariantFlowPanel(
     private fun renderEmpty(reason: RescriptVariantFlowHints.Reason) {
         textArea.text = RescriptVariantFlowHints.emptyStateMessage(reason)
         statusLabel.text = " ${RescriptVariantFlowHints.shortStatusLabel(reason)}"
+        graphView.setDiagram(null)
         currentDiagram = null
         currentJumpTarget = null
+    }
+
+    private fun switchView(toVisual: Boolean) {
+        visualMode = toVisual
+        viewCards.show(viewSwitcher, if (toVisual) CARD_VISUAL else CARD_SOURCE)
     }
 
     /**
@@ -283,8 +309,55 @@ class RescriptVariantFlowPanel(
         }
     }
 
+    /**
+     * Toolbar toggle that flips the central panel into the visual
+     * (Java2D) rendering of the variant flow diagram. Mutually
+     * exclusive with [SourceModeAction] — exactly one is selected.
+     */
+    private inner class VisualModeAction :
+        ToggleAction(
+            "Visual",
+            "Render the diagram as a top-down graph",
+            AllIcons.Toolwindows.ToolWindowHierarchy,
+        ) {
+        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.EDT
+
+        override fun isSelected(e: AnActionEvent): Boolean = visualMode
+
+        override fun setSelected(
+            e: AnActionEvent,
+            state: Boolean,
+        ) {
+            if (state) switchView(true)
+        }
+    }
+
+    /**
+     * Toolbar toggle that flips the central panel into the textual
+     * Mermaid `flowchart TD` source for copy-paste workflows.
+     */
+    private inner class SourceModeAction :
+        ToggleAction(
+            "Source",
+            "Show the Mermaid flowchart source text",
+            AllIcons.FileTypes.Text,
+        ) {
+        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.EDT
+
+        override fun isSelected(e: AnActionEvent): Boolean = !visualMode
+
+        override fun setSelected(
+            e: AnActionEvent,
+            state: Boolean,
+        ) {
+            if (state) switchView(false)
+        }
+    }
+
     private companion object {
         const val TOOLBAR_PLACE = "ReScriptVariantFlowToolbar"
         const val REFRESH_DEBOUNCE_MS = 200
+        const val CARD_VISUAL = "visual"
+        const val CARD_SOURCE = "source"
     }
 }
