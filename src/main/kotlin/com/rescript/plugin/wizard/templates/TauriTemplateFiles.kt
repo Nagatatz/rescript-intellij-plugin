@@ -25,6 +25,19 @@ internal object TauriTemplateFiles {
         gen/
         """.trimIndent() + "\n"
 
+    // ReScript bindings to the @rescript-tauri/plugin-* packages the
+    // sample exercises. Mirrored in the package.json + rescript.json
+    // dependency lists below.
+    private val PLUGIN_RESCRIPT_DEPS =
+        listOf(
+            "@rescript-tauri/plugin-os",
+            "@rescript-tauri/plugin-fs",
+            "@rescript-tauri/plugin-dialog",
+            "@rescript-tauri/plugin-clipboard-manager",
+            "@rescript-tauri/plugin-notification",
+            "@rescript-tauri/plugin-log",
+        )
+
     /**
      * Generates Tauri template files using the supplied [TemplateContext].
      *
@@ -47,6 +60,7 @@ internal object TauriTemplateFiles {
                     name = ctx.projectName,
                     bsDependencies =
                         listOf("@rescript/core", "@rescript/react", "@rescript-tauri/core") +
+                            PLUGIN_RESCRIPT_DEPS +
                             ctx.validationBsDeps(),
                     includeJsx = true,
                 ),
@@ -87,6 +101,10 @@ internal object TauriTemplateFiles {
             "src/Main.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Main.res"),
             "src/App.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/App.res"),
             "src/Tauri.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Tauri.res"),
+            "src/SystemInfo.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/SystemInfo.res"),
+            "src/HexInspector.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/HexInspector.res"),
+            "src/Progress.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Progress.res"),
+            "src/WindowEvents.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/WindowEvents.res"),
             "src/Validation.res" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
             "src/__tests__/App.test.mjs" to
@@ -95,8 +113,11 @@ internal object TauriTemplateFiles {
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/Cargo.toml", projectVars),
             "src-tauri/build.rs" to TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/build.rs"),
             "src-tauri/src/main.rs" to TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/src/main.rs"),
+            "src-tauri/src/lib.rs" to TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/src/lib.rs"),
             "src-tauri/tauri.conf.json" to
                 TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/tauri.conf.json", tauriConfVars),
+            "src-tauri/capabilities/default.json" to
+                TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/capabilities/default.json"),
             // .gitignore content is inlined rather than loaded from resources because
             // Gradle's default resources include rule filters out dotfile basenames.
             "src-tauri/.gitignore" to SRC_TAURI_GITIGNORE,
@@ -162,7 +183,22 @@ internal object TauriTemplateFiles {
         deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
         deps["@rescript/react"] = TemplateVersions.RESCRIPT_REACT
         deps["@rescript-tauri/core"] = TemplateVersions.RESCRIPT_TAURI_CORE
+        // rescript-tauri plugin bindings — paired with the matching
+        // tauri-plugin-* crates registered in src-tauri/src/lib.rs.
+        deps["@rescript-tauri/plugin-os"] = TemplateVersions.RESCRIPT_TAURI_PLUGIN_OS
+        deps["@rescript-tauri/plugin-fs"] = TemplateVersions.RESCRIPT_TAURI_PLUGIN_FS
+        deps["@rescript-tauri/plugin-dialog"] = TemplateVersions.RESCRIPT_TAURI_PLUGIN_DIALOG
+        deps["@rescript-tauri/plugin-clipboard-manager"] = TemplateVersions.RESCRIPT_TAURI_PLUGIN_CLIPBOARD_MANAGER
+        deps["@rescript-tauri/plugin-notification"] = TemplateVersions.RESCRIPT_TAURI_PLUGIN_NOTIFICATION
+        deps["@rescript-tauri/plugin-log"] = TemplateVersions.RESCRIPT_TAURI_PLUGIN_LOG
         deps["@tauri-apps/api"] = TemplateVersions.TAURI_APPS_API
+        // @tauri-apps/plugin-* peer deps of the @rescript-tauri/plugin-* bindings.
+        deps["@tauri-apps/plugin-os"] = TemplateVersions.TAURI_APPS_PLUGIN_OS
+        deps["@tauri-apps/plugin-fs"] = TemplateVersions.TAURI_APPS_PLUGIN_FS
+        deps["@tauri-apps/plugin-dialog"] = TemplateVersions.TAURI_APPS_PLUGIN_DIALOG
+        deps["@tauri-apps/plugin-clipboard-manager"] = TemplateVersions.TAURI_APPS_PLUGIN_CLIPBOARD_MANAGER
+        deps["@tauri-apps/plugin-notification"] = TemplateVersions.TAURI_APPS_PLUGIN_NOTIFICATION
+        deps["@tauri-apps/plugin-log"] = TemplateVersions.TAURI_APPS_PLUGIN_LOG
         deps["react"] = TemplateVersions.REACT
         deps["react-dom"] = TemplateVersions.REACT_DOM
         when (validationLibrary) {

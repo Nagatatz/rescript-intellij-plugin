@@ -18,6 +18,38 @@ class TauriTemplateFilesTest {
     }
 
     @Test
+    fun `package json declares the six rescript-tauri plugin bindings + tauri-apps peers`() {
+        val pkg = TauriTemplateFiles.generate(ctx)["package.json"]!!
+        listOf(
+            "@rescript-tauri/plugin-os",
+            "@rescript-tauri/plugin-fs",
+            "@rescript-tauri/plugin-dialog",
+            "@rescript-tauri/plugin-clipboard-manager",
+            "@rescript-tauri/plugin-notification",
+            "@rescript-tauri/plugin-log",
+            "@tauri-apps/plugin-os",
+            "@tauri-apps/plugin-fs",
+            "@tauri-apps/plugin-dialog",
+            "@tauri-apps/plugin-clipboard-manager",
+            "@tauri-apps/plugin-notification",
+            "@tauri-apps/plugin-log",
+        ).forEach { dep -> assertTrue(pkg.contains("\"$dep\""), "package.json should include $dep") }
+    }
+
+    @Test
+    fun `rescript json picks up each rescript-tauri plugin binding`() {
+        val rj = TauriTemplateFiles.generate(ctx)["rescript.json"]!!
+        listOf(
+            "@rescript-tauri/plugin-os",
+            "@rescript-tauri/plugin-fs",
+            "@rescript-tauri/plugin-dialog",
+            "@rescript-tauri/plugin-clipboard-manager",
+            "@rescript-tauri/plugin-notification",
+            "@rescript-tauri/plugin-log",
+        ).forEach { dep -> assertTrue(rj.contains("\"$dep\""), "rescript.json should list $dep") }
+    }
+
+    @Test
     fun `rescript json lists rescript-tauri core under dependencies`() {
         val rj = TauriTemplateFiles.generate(ctx)["rescript.json"]!!
         assertTrue(rj.contains("\"@rescript-tauri/core\""))
@@ -41,11 +73,71 @@ class TauriTemplateFilesTest {
         assertTrue(files.containsKey("src-tauri/Cargo.toml"))
         assertTrue(files.containsKey("src-tauri/build.rs"))
         assertTrue(files.containsKey("src-tauri/src/main.rs"))
+        assertTrue(files.containsKey("src-tauri/src/lib.rs"))
         assertTrue(files.containsKey("src-tauri/tauri.conf.json"))
         assertTrue(files.containsKey("src-tauri/.gitignore"))
         assertTrue(files["src-tauri/Cargo.toml"]!!.contains("tauri-build"))
-        assertTrue(files["src-tauri/src/main.rs"]!!.contains("#[tauri::command]"))
-        assertTrue(files["src-tauri/src/main.rs"]!!.contains("generate_handler![greet, get_info]"))
+        // Commands now live in `lib.rs` (re-entered from `main.rs` via `app_lib::run()`).
+        assertTrue(files["src-tauri/src/main.rs"]!!.contains("app_lib::run()"))
+        val lib = files["src-tauri/src/lib.rs"]!!
+        assertTrue(lib.contains("#[tauri::command]"))
+        assertTrue(lib.contains("generate_handler![greet, get_info, count_with_progress]"))
+    }
+
+    @Test
+    fun `cargo toml pulls in the tauri-plugin-* crates`() {
+        val cargo = TauriTemplateFiles.generate(ctx)["src-tauri/Cargo.toml"]!!
+        listOf(
+            "tauri-plugin-os",
+            "tauri-plugin-fs",
+            "tauri-plugin-dialog",
+            "tauri-plugin-clipboard-manager",
+            "tauri-plugin-notification",
+            "tauri-plugin-log",
+        ).forEach { crate -> assertTrue(cargo.contains(crate), "Cargo.toml should mention $crate") }
+    }
+
+    @Test
+    fun `lib rs registers every tauri-plugin-* crate it depends on`() {
+        val lib = TauriTemplateFiles.generate(ctx)["src-tauri/src/lib.rs"]!!
+        listOf(
+            "tauri_plugin_os::init()",
+            "tauri_plugin_fs::init()",
+            "tauri_plugin_dialog::init()",
+            "tauri_plugin_clipboard_manager::init()",
+            "tauri_plugin_notification::init()",
+            "tauri_plugin_log::Builder::new()",
+        ).forEach { call -> assertTrue(lib.contains(call), "lib.rs should call $call") }
+    }
+
+    @Test
+    fun `streaming Channel command exposes Started Tick Finished variants`() {
+        val lib = TauriTemplateFiles.generate(ctx)["src-tauri/src/lib.rs"]!!
+        assertTrue(lib.contains("Channel<ProgressEvent>"))
+        assertTrue(lib.contains("Started"))
+        assertTrue(lib.contains("Tick"))
+        assertTrue(lib.contains("Finished"))
+        // `tag = "kind"` + camelCase keeps the ReScript decoder readable.
+        assertTrue(lib.contains("tag = \"kind\""))
+        assertTrue(lib.contains("rename_all = \"camelCase\""))
+    }
+
+    @Test
+    fun `capabilities default json grants the plugin permissions used by the sample`() {
+        val caps = TauriTemplateFiles.generate(ctx)["src-tauri/capabilities/default.json"]!!
+        listOf(
+            "core:default",
+            "core:event:default",
+            "core:window:allow-set-title",
+            "os:default",
+            "fs:default",
+            "dialog:default",
+            "clipboard-manager:default",
+            "notification:default",
+            "log:default",
+        ).forEach { permission ->
+            assertTrue(caps.contains("\"$permission\""), "capabilities should grant $permission")
+        }
     }
 
     @Test
@@ -124,12 +216,46 @@ class TauriTemplateFilesTest {
     fun `App res wires Tauri invoke through Validation parseInfo`() {
         val files = TauriTemplateFiles.generate(ctx)
         val tauriBindings = files["src/Tauri.res"]!!
-        assertTrue(tauriBindings.contains("RescriptTauriCore.Core.Raw.invoke"))
+        assertTrue(tauriBindings.contains("Core.Raw.invoke"))
         assertTrue(tauriBindings.contains("getInfoRaw"))
+        assertTrue(tauriBindings.contains("countWithProgress"))
+        assertTrue(tauriBindings.contains("Core.Channel.make"))
         val app = files["src/App.res"]!!
         assertTrue(app.contains("Tauri.getInfoRaw"))
         assertTrue(app.contains("Validation.parseInfo"))
         assertTrue(app.contains("Tauri.greet"))
+        // Each plugin panel is mounted from App.res so users can see all
+        // five panels stack on first run.
+        assertTrue(app.contains("<SystemInfo />"))
+        assertTrue(app.contains("<HexInspector />"))
+        assertTrue(app.contains("<Progress />"))
+        assertTrue(app.contains("<WindowEvents />"))
+    }
+
+    @Test
+    fun `plugin panels each ship as their own ReScript module`() {
+        val files = TauriTemplateFiles.generate(ctx)
+        assertTrue(files.containsKey("src/SystemInfo.res"))
+        assertTrue(files.containsKey("src/HexInspector.res"))
+        assertTrue(files.containsKey("src/Progress.res"))
+        assertTrue(files.containsKey("src/WindowEvents.res"))
+        assertTrue(files["src/SystemInfo.res"]!!.contains("RescriptTauriPluginOs"))
+        val hex = files["src/HexInspector.res"]!!
+        assertTrue(hex.contains("RescriptTauriPluginDialog"))
+        assertTrue(hex.contains("RescriptTauriPluginFs"))
+        assertTrue(hex.contains("RescriptTauriPluginClipboardManager"))
+        assertTrue(hex.contains("RescriptTauriPluginNotification"))
+        assertTrue(hex.contains("RescriptTauriPluginLog"))
+        assertTrue(files["src/Progress.res"]!!.contains("Tauri.countWithProgress"))
+        assertTrue(files["src/WindowEvents.res"]!!.contains("Event.listen"))
+        assertTrue(files["src/WindowEvents.res"]!!.contains("Window.setTitle"))
+    }
+
+    @Test
+    fun `Main res forwards frontend logs to the console via attachConsole`() {
+        val main = TauriTemplateFiles.generate(ctx)["src/Main.res"]!!
+        assertTrue(main.contains("RescriptTauriPluginLog"))
+        assertTrue(main.contains("attachConsole"))
     }
 
     @Test
@@ -139,9 +265,14 @@ class TauriTemplateFilesTest {
         assertTrue(readme.contains("Production Bundling"))
         assertTrue(readme.contains("invoke_handler"))
         assertTrue(readme.contains("Adding a new Tauri command"))
+        assertTrue(readme.contains("Adding a new Tauri plugin"))
         assertTrue(readme.contains("tauri icon"))
         // Prerequisites must mention Rust + platform deps.
         assertTrue(readme.contains("Rust toolchain"))
+        // The IPC section now references the streaming Channel demo and
+        // the capability-driven permission model.
+        assertTrue(readme.contains("Core.Channel"))
+        assertTrue(readme.contains("capabilities/default.json"))
     }
 
     @Test

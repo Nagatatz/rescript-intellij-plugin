@@ -24,17 +24,17 @@ object TemplateVersions {
     // Build tools
     // Raw Vite pin used when templates need a direct `vite` dep (fallback away
     // from Vite+). Vite+ bundles its own vite under the hood.
-    const val VITE = "^8.0.10"
+    const val VITE = "^8.0.12"
 
     // Vite+ (vite-plus) is pre-1.0; templates pin to the 0.1.x range until a stable release.
-    const val VITE_PLUS = "^0.1.19"
-    const val VITE_PLUS_CORE = "^0.1.19"
+    const val VITE_PLUS = "^0.1.21"
+    const val VITE_PLUS_CORE = "^0.1.21"
     const val VITEJS_PLUGIN_REACT = "^6.0.1"
-    const val VITEST = "^4.1.5"
+    const val VITEST = "^4.1.6"
 
     // React
-    const val REACT = "^19.2.5"
-    const val REACT_DOM = "^19.2.5"
+    const val REACT = "^19.2.6"
+    const val REACT_DOM = "^19.2.6"
     const val REACT_TYPES = "^19.2.14"
     const val REACT_DOM_TYPES = "^19.2.3"
 
@@ -107,8 +107,8 @@ object TemplateVersions {
     const val MYSQL_DOCKER_IMAGE = "mysql:8.4"
 
     // Validation
-    const val ZOD = "^4.3.6"
-    const val SURY = "^10.0.0"
+    const val ZOD = "^4.4.3"
+    const val SURY = "^10.0.4"
 
     // OpenAPI / Hono ecosystem
     // @hono/zod-openapi v1 requires zod v4; they must be bumped together.
@@ -142,7 +142,7 @@ object TemplateVersions {
     const val NODE_MAJOR = "24"
 
     // Vitest coverage provider used by `test:coverage` scripts
-    const val VITEST_COVERAGE_V8 = "^4.1.5"
+    const val VITEST_COVERAGE_V8 = "^4.1.6"
 
     // TanStack Start (full-stack React, Vite-based) and its router peer
     const val TANSTACK_REACT_START = "^1.167.65"
@@ -177,4 +177,25 @@ object TemplateVersions {
     const val RESCRIPT_TAURI_CORE = "^0.1.0"
     const val TAURI_APPS_API = "^2.11.0"
     const val TAURI_APPS_CLI = "^2.11.1"
+
+    // rescript-tauri plugin bindings — one matching package per
+    // `tauri-plugin-*` Rust crate the template registers. All currently
+    // ship at 0.1.x; bump them together as the rescript-tauri monorepo
+    // progresses.
+    const val RESCRIPT_TAURI_PLUGIN_OS = "^0.1.0"
+    const val RESCRIPT_TAURI_PLUGIN_FS = "^0.1.0"
+    const val RESCRIPT_TAURI_PLUGIN_DIALOG = "^0.1.0"
+    const val RESCRIPT_TAURI_PLUGIN_CLIPBOARD_MANAGER = "^0.1.0"
+    const val RESCRIPT_TAURI_PLUGIN_NOTIFICATION = "^0.1.0"
+    const val RESCRIPT_TAURI_PLUGIN_LOG = "^0.1.0"
+
+    // @tauri-apps/plugin-* JS SDKs (peer deps of the rescript-tauri
+    // bindings above). The bindings declare 2.x peer ranges, so we pin
+    // to the latest minor of each plugin's 2.x line.
+    const val TAURI_APPS_PLUGIN_OS = "^2.3.2"
+    const val TAURI_APPS_PLUGIN_FS = "^2.5.1"
+    const val TAURI_APPS_PLUGIN_DIALOG = "^2.7.1"
+    const val TAURI_APPS_PLUGIN_CLIPBOARD_MANAGER = "^2.3.2"
+    const val TAURI_APPS_PLUGIN_NOTIFICATION = "^2.3.3"
+    const val TAURI_APPS_PLUGIN_LOG = "^2.8.0"
 }
