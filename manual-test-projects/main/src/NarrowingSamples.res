@@ -17,7 +17,7 @@ let label = (s: loadState) =>
   | Failed(e) => "error: " ++ e
   }
 
-type expr =
+type rec expr =
   | Num(int)
   | Add(expr, expr)
 
