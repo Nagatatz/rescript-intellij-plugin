@@ -69,13 +69,63 @@
     ]]></description>
 
     <change-notes><![CDATA[
-        <h3>Unreleased</h3>
+        <h3>0.1.14</h3>
         <h4>New Features</h4>
         <ul>
-            <li>Add Hono + Inertia (React) project wizard template — server-driven SPA via @hono/inertia + @inertiajs/react v3 + Vite+ unified toolchain</li>
-            <li>Add four React framework project wizard templates: TanStack Start, Remix / React Router v7, Astro, and Waku (RSC-first)</li>
-            <li>Add per-template validation selection toggle so frameworks that ship their own data layer hide the zod/sury combo</li>
+            <li><b>Type Narrowing Visualizer</b> — inlay hints showing the narrowed scrutinee type at each <code>switch</code> arm, plus narrowed types for pattern bindings (<code>| Some(x) =&gt; …</code>)</li>
+            <li><b>Switch Flow Diagram</b> — visualize a <code>switch</code> as a decision tree in a tool window with Visual / Source toggle, Mermaid + DOT export, and nested-switch sub-tree rendering</li>
+            <li><b>Module Dependency Diagram — Visual mode</b> — Java2D graph view with Kahn-BFS layering, toggleable with the existing Source mode</li>
+            <li><b>Type Impact Preview</b> — tool window listing project-wide references for the <code>type</code> declaration under the caret, classified into type-ref / constructor / pattern / field-access</li>
+            <li><b>Notebook Worksheet</b> (<code>.resnb</code>) — cell-based ReScript notebook editor with per-cell REPL evaluation and Markdown export</li>
+            <li><b>JS Interop Risk Map</b> — tool window listing <code>%raw</code> / <code>external</code> / <code>Obj.magic</code> / <code>@bs.*</code> call sites with kind &amp; risk classification</li>
+            <li><b>Type Coverage Heat Map</b> — tool window showing per-file type-annotation coverage with sortable columns and color-coded percentages</li>
+            <li><b>Add Missing Switch Arms intention</b> — Alt+Enter intention powered by LSP hover + stub-index fallback for bare type names</li>
+            <li><b>Rename Variant Constructor intention</b> — LSP-free Alt+Enter rename for variant constructors via word-index occurrence collection</li>
+            <li><b>Hoogle-style Type Signature Search</b> — new "ReScript Types" tab in Search Everywhere with structural AST + unifier matching against <code>let</code> / <code>external</code> / <code>type</code> annotations</li>
+            <li><b>Monorepo workspace detection</b> — auto-detect ReScript packages in pnpm / npm / yarn workspaces, with manual override in Settings</li>
+            <li><b>Tauri project template</b> — Tauri 2.x + Vite+React + <code>@rescript-tauri/core</code></li>
+            <li><b>TanStack Start, Remix / React Router v7, Astro, and Waku</b> project templates (4 React frameworks; Validation selector hidden when the framework ships its own data layer)</li>
+            <li><b>Hono + Inertia project template</b> with SSR — <code>@hono/inertia</code> v0.2 + <code>@inertiajs/react</code> v3 + Vite+; non-Inertia visits render via <code>react-dom/server</code> and hydrate on the client</li>
+            <li><b>Database axis</b> in Project Wizard — libSQL / Postgres / MySQL wired into Hono, Hono GraphQL, Hono+Inertia, Full-Stack, and Monorepo templates</li>
+            <li>Resolve variant constructors via stub index when LSP hover returns a bare type name</li>
+            <li>Editor navigation from Migration / Variant Flow / Dependencies tool window entries</li>
+            <li>Variant Flow Diagram empty-state how-to hints</li>
+            <li>ReScript-red gradient tool window icons</li>
+            <li>AWS Lambda template ships with a local Hono dev server entry</li>
+            <li>Production Dockerfile shipped with Hono and Hono GraphQL templates</li>
         </ul>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Reject LSP rename edits that escape the project scope</li>
+            <li>Surface diagnostics when Add Missing Switch Arms cannot apply</li>
+            <li>Render nested switch arms as a sub-tree in Visual Flow view</li>
+            <li>Render tuple patterns like <code>(Some(i), _)</code> with meaningful summaries in Switch Flow Diagram and the narrowing visualizer</li>
+            <li>Configure Inertia asset version on the Hono server</li>
+            <li>Parameterize Inertia <code>appOptions</code> to bind the row variable</li>
+            <li>Realign Hono + Inertia template with <code>@hono/inertia</code> v0.2 API</li>
+            <li>Pin <code>isbot</code> dependency in the React Router v7 template</li>
+            <li>Pass <code>--no-sandbox</code> to mmdc's bundled Chromium so Mermaid renders work on hosted CI</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Migrate ReScript run configurations from <code>build -w</code> to <code>watch</code> (ReScript 12 CLI)</li>
+            <li>Centralise single-content tool window installation</li>
+            <li>Extract declaration signature parser to its own pure object</li>
+            <li>Consolidate 1-based line counting in <code>RescriptOffsetUtils</code></li>
+            <li>Extract Mermaid label escaping for reuse</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Bump IntelliJ Platform to 2026.1.1 and pin verifier-cli 1.403; verifier IDE list explicitly pins 2026.1.1 until 2026.2 EAP is supported</li>
+            <li>Bump IntelliJ Platform Gradle plugin 2.15.0 → 2.16.0, Kotlin 2.3.21, Gradle wrapper 9.5.0</li>
+            <li>Add pitest mutation testing for <code>util/</code> and <code>lang/</code> (PR-only job)</li>
+            <li>Pin third-party GitHub Actions to commit SHA; pin CI <code>npm install -g</code> versions</li>
+            <li>Add Trivy secret-scan step uploading SARIF to the GitHub Security tab</li>
+            <li>Refresh Cloudflare Workers <code>compatibility_date</code> to 2026-04-01</li>
+            <li>Bump Tauri template Rust edition to 2024 (MSRV 1.95)</li>
+            <li>Add Expires field to <code>plugin-verifier-ignored-problems.txt</code> with monthly-verify warning</li>
+        </ul>
+
         <h3>0.1.13</h3>
         <h4>New Features</h4>
         <ul>
