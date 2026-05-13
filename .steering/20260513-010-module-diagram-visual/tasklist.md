@@ -28,10 +28,10 @@
 
 ## セクション D: 仕上げとマージ
 
-- [ ] `./gradlew ktlintCheck buildPlugin test koverHtmlReport verifyPluginStructure` が緑
-- [ ] DoD Phase 3 のチェック項目を確認（KDoc、deprecated API、セキュリティ）
-- [ ] 本ファイルのすべてのチェックボックスを `[x]` に更新してコミット
-- [ ] `AskUserQuestion` でマージ可否を確認
+- [x] `./gradlew ktlintCheck buildPlugin test koverHtmlReport verifyPluginStructure` が緑
+- [x] DoD Phase 3 のチェック項目を確認（KDoc、deprecated API、セキュリティ）
+- [x] 本ファイルのすべてのチェックボックスを `[x]` に更新してコミット
+- [x] `AskUserQuestion` でマージ可否を確認
 - [ ] 承認後: `git checkout main && git merge worktree-20260513-010-module-diagram-visual && git branch -d worktree-20260513-010-module-diagram-visual`
 - [ ] セッション終了（worktree 自動クリーンアップ）
 
