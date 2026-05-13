@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+  <!-- ReScript mark for tool window stripes: a vertical bar plus a dot
+       echoing the FileType icon's geometry. `currentColor` lets IntelliJ
+       theme the icon for both light and dark stripe backgrounds. -->
+  <rect x="3" y="2.5" width="2" height="8" rx="0.5" fill="currentColor"/>
+  <circle cx="9" cy="3.5" r="1.5" fill="currentColor"/>
+</svg>

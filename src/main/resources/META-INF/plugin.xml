@@ -979,11 +979,11 @@
                 factoryClass="com.rescript.plugin.dependencies.RescriptDependenciesToolWindowFactory"/>
 
         <!-- Module Dependency Diagram Tool Window (Mermaid + DOT export) -->
-        <toolWindow id="ReScript Module Diagram" anchor="right" icon="AllIcons.FileTypes.Diagram"
+        <toolWindow id="ReScript Module Diagram" anchor="right" icon="/icons/rescript-toolwindow.svg"
                 factoryClass="com.rescript.plugin.diagram.RescriptDependencyDiagramToolWindowFactory"/>
 
         <!-- Variant Flow Diagram Tool Window (per-switch decision tree, Mermaid + DOT export) -->
-        <toolWindow id="ReScript Switch Flow" anchor="right" icon="AllIcons.FileTypes.Diagram"
+        <toolWindow id="ReScript Switch Flow" anchor="right" icon="/icons/rescript-toolwindow.svg"
                 factoryClass="com.rescript.plugin.flow.RescriptVariantFlowToolWindowFactory"/>
 
         <!-- Type Impact Preview Tool Window (project-wide references for the type under caret) -->
