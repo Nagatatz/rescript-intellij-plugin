@@ -31,7 +31,11 @@ object RescriptMigrationConverter {
         candidate: MigrationCandidate,
     ): ConversionResult {
         val settings = RescriptProjectSettings.getInstance(project)
-        val command = buildCommand(settings.rescriptBinaryPath, candidate.file.path)
+        // `rescript convert` resolves its argument relative to its cwd
+        // (which we pin to the project base path), so we must pass the
+        // project-relative path here. Passing the absolute path causes
+        // the CLI to reject the file with `don't know what to do with`.
+        val command = buildCommand(settings.rescriptBinaryPath, candidate.relativePath)
         val workingDir = project.basePath?.let(::File) ?: File(System.getProperty("user.dir"))
         return try {
             val process =
@@ -69,7 +73,9 @@ object RescriptMigrationConverter {
      * elsewhere in the plugin.
      *
      * @param rescriptBinaryPath value of `RescriptProjectSettings.rescriptBinaryPath`
-     * @param sourcePath absolute path of the `.re` / `.rei` file to convert
+     * @param sourcePath project-relative path of the `.re` / `.rei`
+     *   file to convert. `rescript convert` resolves this against its
+     *   cwd, so absolute paths are rejected by the CLI.
      */
     internal fun buildCommand(
         rescriptBinaryPath: String,
