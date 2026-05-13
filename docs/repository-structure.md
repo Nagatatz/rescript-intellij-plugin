@@ -65,7 +65,6 @@ rescript-intellij-plugin/
 | `impact/` | Type Impact Preview（カーソル位置の type 宣言に対するプロジェクト全体の参照を ToolWindow で一覧表示） | `RescriptTypeImpactToolWindowFactory`, `RescriptTypeImpactPanel`, `RescriptTypeImpactAction`, `RescriptTypeTargetResolver`, `RescriptTypeReferenceFinder`, `RescriptReferenceClassifier`, `RescriptTypeImpactModel` |
 | `notebook/` | Notebook 風 Worksheet（`.resnb` cell-based エディタ + Markdown エクスポート） | `RescriptNotebookFileType`, `RescriptNotebookFileEditorProvider`, `RescriptNotebookFileEditor`, `RescriptNotebookPanel`, `RescriptNotebookCellPanel`, `RescriptNotebookSerializer`, `RescriptNotebookMarkdownExporter`, `RescriptNotebookModel` |
 | `interop/` | JS Interop Risk Map（`%raw` / `external` / `Obj.magic` / `@bs.*` の使用箇所一覧 + 種別/リスクスコア） | `RescriptInteropRiskToolWindowFactory`, `RescriptInteropRiskPanel`, `RescriptInteropRiskAction`, `RescriptInteropClassifier`, `RescriptInteropScanner`, `RescriptInteropModel` |
-| `migration/` | Reason → ReScript Migration Pilot（`.re` / `.rei` の一括 `rescript convert` ToolWindow） | `RescriptMigrationToolWindowFactory`, `RescriptMigrationPanel`, `RescriptMigrationAction`, `RescriptMigrationFinder`, `RescriptMigrationConverter`, `RescriptMigrationModel` |
 | `coverage/` | Type Coverage Heat Map（`.res` ファイルごとの annotated/inferred 比率を表形式で可視化、color-coded sortable table） | `RescriptTypeCoverageToolWindowFactory`, `RescriptTypeCoveragePanel`, `RescriptTypeCoverageScanner`, `RescriptTypeCoverageClassifier`, `RescriptTypeCoverageModel` |
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
@@ -132,9 +131,9 @@ src/test/kotlin/com/rescript/plugin/
 └── wizard/templates/              # テンプレート依存バージョンのテスト
 ```
 
-テストは対象クラスと同じパッケージ構造に配置し、`<対象クラス名>Test.kt` と命名する。`perf/` と `cli/` は単一のプロダクションパッケージに紐付かず、複数モジュールにまたがる実行時間ガード / 外部 CLI 結合検証を集約する役割を持つ。`cli/` のテストは `Assumptions.assumeTrue` で対応 CLI の可用性をゲートし、ローカル不在時は skip、CI（`ci.yml` の build ジョブで `mmdc` / `graphviz` / `rescript` をインストール）では実行される。
+テストは対象クラスと同じパッケージ構造に配置し、`<対象クラス名>Test.kt` と命名する。`perf/` と `cli/` は単一のプロダクションパッケージに紐付かず、複数モジュールにまたがる実行時間ガード / 外部 CLI 結合検証を集約する役割を持つ。`cli/` のテストは `Assumptions.assumeTrue` で対応 CLI の可用性をゲートし、ローカル不在時は skip、CI（`ci.yml` の build ジョブで `mmdc` / `graphviz` をインストール）では実行される。
 
-VFS write action のような「light fixture では駆動できない」挙動を要するテストは、`IntelliJPlatformExtensionWithContentRoot`（heavy fixture、`IdeaTestFixtureFactory.createFixtureBuilder` ベース）を使う。1 件あたり 3〜10 秒のセットアップコストがあるため、本当に必要なテスト（例: `RescriptMigrationConverterE2eTest`）に限定して使う。
+VFS write action のような「light fixture では駆動できない」挙動を要するテストは、`IntelliJPlatformExtensionWithContentRoot`（heavy fixture、`IdeaTestFixtureFactory.createFixtureBuilder` ベース）を使う。1 件あたり 3〜10 秒のセットアップコストがあるため、本当に必要なテストに限定して使う。
 
 ## 3. ドキュメント
 

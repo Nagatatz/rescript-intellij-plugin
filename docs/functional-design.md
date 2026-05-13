@@ -542,8 +542,6 @@ flowchart TD
 | `com.intellij.fileEditorProvider` | `RescriptNotebookFileEditorProvider` | Notebook ファイル用カスタム FileEditor（cell-based UI） | 実装済み |
 | `com.intellij.toolWindow` | `RescriptInteropRiskToolWindowFactory` | JS Interop Risk Map ToolWindow（`%raw` / `external` / `Obj.magic` / `@bs.*` 一覧） | 実装済み |
 | `<action>` | `RescriptInteropRiskAction` | Tools > Show JS Interop Risk Map | 実装済み |
-| `com.intellij.toolWindow` | `RescriptMigrationToolWindowFactory` | Reason → ReScript Migration Pilot ToolWindow（`.re` / `.rei` の一括 `rescript convert`） | 実装済み |
-| `<action>` | `RescriptMigrationAction` | Tools > Show Reason Migration Pilot | 実装済み |
 
 ## 4. ファイル構成と依存関係
 

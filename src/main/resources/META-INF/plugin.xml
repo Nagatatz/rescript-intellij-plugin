@@ -998,10 +998,6 @@
         <toolWindow id="ReScript Interop Risk" anchor="right" icon="/icons/rescript-interop.svg"
                 factoryClass="com.rescript.plugin.interop.RescriptInteropRiskToolWindowFactory"/>
 
-        <!-- Reason → ReScript Migration Pilot Tool Window (bulk `rescript convert`) -->
-        <toolWindow id="ReScript Migration Pilot" anchor="right" icon="/icons/rescript-migration.svg"
-                factoryClass="com.rescript.plugin.migration.RescriptMigrationToolWindowFactory"/>
-
         <!-- Auto Import options in Settings > Editor > General > Auto Import -->
         <autoImportOptionsProvider
                 instance="com.rescript.plugin.imports.RescriptAutoImportOptionsProvider"/>
@@ -1377,12 +1373,6 @@
                 class="com.rescript.plugin.interop.RescriptInteropRiskAction"
                 text="Show JS Interop Risk Map"
                 description="Open the ReScript JS interop risk map tool window">
-            <add-to-group group-id="ToolsMenu" anchor="last"/>
-        </action>
-        <action id="ReScript.ShowMigrationPilot"
-                class="com.rescript.plugin.migration.RescriptMigrationAction"
-                text="Show Reason Migration Pilot"
-                description="Open the Reason to ReScript migration pilot tool window">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
