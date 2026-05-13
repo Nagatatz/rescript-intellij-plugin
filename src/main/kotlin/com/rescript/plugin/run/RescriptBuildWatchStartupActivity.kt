@@ -12,7 +12,7 @@ import com.intellij.openapi.startup.ProjectActivity
 import com.rescript.plugin.lsp.RescriptLspDetector
 
 /**
- * Prompts the user to start `rescript build -w` when a ReScript project is opened.
+ * Prompts the user to start `rescript watch` when a ReScript project is opened.
  *
  * Displays a balloon notification with a "Start Build Watch" action if the project
  * is a ReScript project and the CLI is available. The user can dismiss the notification
@@ -60,7 +60,7 @@ class RescriptBuildWatchStartupActivity : ProjectActivity {
     }
 
     /**
-     * Creates and executes a "ReScript: build -w" run configuration.
+     * Creates and executes a "ReScript: watch" run configuration.
      *
      * @param project the current project
      */
@@ -69,7 +69,7 @@ class RescriptBuildWatchStartupActivity : ProjectActivity {
         val configType = RescriptRunConfigurationType()
         val factory = configType.configurationFactories.first()
 
-        val settings = runManager.createConfiguration("ReScript: build -w", factory)
+        val settings = runManager.createConfiguration("ReScript: watch", factory)
         val config = settings.configuration as RescriptRunConfiguration
         config.command = RescriptCommand.BUILD_WATCH.id
 

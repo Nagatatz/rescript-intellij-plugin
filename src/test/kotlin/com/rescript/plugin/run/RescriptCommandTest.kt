@@ -35,8 +35,8 @@ class RescriptCommandTest {
     }
 
     @Test
-    fun `BUILD_WATCH args contains build and -w`() {
-        assertEquals(listOf("build", "-w"), RescriptCommand.BUILD_WATCH.args)
+    fun `BUILD_WATCH args contains watch`() {
+        assertEquals(listOf("watch"), RescriptCommand.BUILD_WATCH.args)
     }
 
     @Test
@@ -60,7 +60,7 @@ class RescriptCommandTest {
     }
 
     @Test
-    fun `BUILD_WATCH displayName is Build Watch`() {
-        assertEquals("Build (Watch)", RescriptCommand.BUILD_WATCH.displayName)
+    fun `BUILD_WATCH displayName is Watch`() {
+        assertEquals("Watch", RescriptCommand.BUILD_WATCH.displayName)
     }
 }

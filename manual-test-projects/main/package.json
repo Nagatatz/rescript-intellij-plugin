@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rescript build",
-    "watch": "rescript build -w",
+    "watch": "rescript watch",
     "clean": "rescript clean"
   },
   "devDependencies": {

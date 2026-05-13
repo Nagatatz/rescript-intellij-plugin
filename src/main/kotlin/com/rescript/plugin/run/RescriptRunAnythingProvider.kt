@@ -75,7 +75,7 @@ class RescriptRunAnythingProvider : RunAnythingProviderBase<String>() {
         private val COMMANDS =
             listOf(
                 "rescript build",
-                "rescript build -w",
+                "rescript watch",
                 "rescript clean",
                 "rescript format",
             )

@@ -12,7 +12,7 @@ enum class RescriptCommand(
     val args: List<String>,
 ) {
     BUILD("build", "Build", listOf("build")),
-    BUILD_WATCH("build-watch", "Build (Watch)", listOf("build", "-w")),
+    BUILD_WATCH("build-watch", "Watch", listOf("watch")),
     CLEAN("clean", "Clean", listOf("clean")),
     ;
 
