@@ -24,7 +24,7 @@ Debug ReScript code by setting breakpoints in the compiled JavaScript output and
 Start a ReScript build in watch mode so that compiled JS files stay up to date:
 
 - Use the **Run Configuration** for ReScript Build, or
-- Run `rescript build -w` from the terminal
+- Run `rescript watch` from the terminal
 
 The status bar widget at the bottom shows the current build status (success/error/warning).
 

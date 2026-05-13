@@ -189,7 +189,7 @@ Bug fixes only (EDT threading, GenerateGroup, testCreator extension point).
 | Run configuration | ReScript build execution via rescript.json |
 | Gutter run icons | Run icons in `.res` file gutter |
 | Build status widget | Compiler status in status bar |
-| Build auto-start prompt | `rescript build -w` suggestion on project open |
+| Build auto-start prompt | `rescript watch` suggestion on project open |
 | Console filter | Clickable file:line links in compiler output |
 | Compiled JS preview | Real-time preview of compiled JavaScript |
 | Open compiled JS | Open corresponding `.js` file ({kbd}`Alt+Shift+J`) |

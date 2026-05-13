@@ -136,7 +136,7 @@
 - **Scratch file** — Run ReScript scratch files for quick experimentation
 - **REPL** — Interactive ReScript execution environment in a tool window
 - **Worksheet mode** — Interactively evaluate entire `.resw` files with inline results
-- **Build watch prompt** — Suggestion balloon at project open to start `rescript build -w`
+- **Build watch prompt** — Suggestion balloon at project open to start `rescript watch`
 
 ### Project & IDE Integration
 
