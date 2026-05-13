@@ -1,4 +1,4 @@
-# 20260513-008 タスクリスト
+# 20260513-009 タスクリスト
 
 ## セクション 1: コア実装 (1 コミット)
 
@@ -30,12 +30,12 @@
 
 ## セクション 3: マージ前検証 (本セクションは PR 不要、main 直マージ)
 
-- [ ] `git fetch origin && git log --oneline origin/main..HEAD` で push 待ち本数を再確認
-- [ ] tasklist の全項目が `[x]` であることを確認
-- [ ] AskUserQuestion でマージ可否を確認
-- [ ] 承認後、worktree 内で `git checkout main && git merge worktree-fix+switch-flow-recursion`
-- [ ] `git branch -d worktree-fix+switch-flow-recursion`
-- [ ] セッション終了 (worktree 自動クリーンアップ発動)
+- [x] `git fetch origin && git log --oneline origin/main..HEAD` で push 待ち本数を再確認
+- [x] tasklist の全項目が `[x]` であることを確認
+- [x] AskUserQuestion でマージ可否を確認
+- [x] 承認後、worktree 内で `git checkout main && git merge worktree-fix+switch-flow-recursion`
+- [x] `git branch -d worktree-fix+switch-flow-recursion`
+- [x] セッション終了 (worktree 自動クリーンアップ発動)
 
 ## マージ依存
 

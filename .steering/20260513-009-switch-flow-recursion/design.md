@@ -1,4 +1,4 @@
-# 20260513-008 設計: Visual GraphView の再帰ツリー化
+# 20260513-009 設計: Visual GraphView の再帰ツリー化
 
 ## 影響範囲
 
