@@ -37,7 +37,7 @@ rescript-intellij-plugin/
 | `lang/` | レクサー、パーサー、トークン定義 | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes` |
 | `lang/psi/` | PSI 要素クラス、ユーティリティ | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils` |
 | `highlight/` | シンタックスハイライト、ブレースマッチング | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher` |
-| `lsp/` | LSP サーバー管理、カスタムプロトコル、LSP ユーティリティ | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor`, `RescriptLspUtils` |
+| `lsp/` | LSP サーバー管理、カスタムプロトコル、LSP ユーティリティ、variant 型の bare-name 解決 | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor`, `RescriptLspUtils`, `RescriptVariantTypeResolver` |
 | `codestyle/` | コードスタイル、インデント設定 | `RescriptCodeStyleSettingsProvider` |
 | `config/` | rescript.json アイコン、JSON Schema | `RescriptJsonIconProvider`, `RescriptJsonSchemaProviderFactory` |
 | `run/` | 実行構成（ReScript ビルド）、実行共通ユーティリティ | `RescriptRunConfigurationType`, `RescriptRunConfiguration`, `RescriptRunUtils` |
@@ -45,7 +45,7 @@ rescript-intellij-plugin/
 | `debug/` | デバッグ実行構成 | `RescriptDebugConfigurationType` |
 | `settings/` | プロジェクト設定 UI・永続化（スキーマ駆動） | `RescriptConfigurable`, `RescriptProjectSettings`, `RescriptSettingsSchema`, `RescriptSettingDescriptor`, `RescriptSettingsValidator` |
 | `structure/` | ストラクチャービュー | `RescriptStructureViewFactory` |
-| `indexing/` | TODO インデクシング | `RescriptTodoIndexer` |
+| `indexing/` | PSI スタブインデックス（5 種の宣言型: let / type / module / external / exception）、`open` 文インデックス、識別子の名前インデックス、TODO インデクシング | `RescriptIndexPatternBuilder`, `RescriptModuleIndex`, `RescriptNameIndex`, `RescriptOpenStatementIndex`, `RescriptTodoIndexer` |
 | `editor/` | エディタ補助（引用符、通知バー、Smart Enter 等） | `RescriptQuoteHandler`, `RescriptSmartEnterProcessor` |
 | `formatter/` | 外部フォーマッタ連携 | `RescriptFormattingService` |
 | `navigation/` | ナビゲーション（Symbol、Related、Switch File、Hoogle-style 型シグネチャ検索 等） | `RescriptSymbolContributor`, `RescriptSwitchFileAction`, `RescriptTypeAst`, `RescriptTypeParser`, `RescriptTypeUnifier`, `RescriptDeclarationSignatureExtractor`, `RescriptTypeSignatureSearchContributor` |
@@ -61,7 +61,7 @@ rescript-intellij-plugin/
 | `injection/` | 言語インジェクション（%raw JS、Markdown） | `RescriptRawJsInjector` |
 | `codevision/` | Code Lens（CodeVision） | `RescriptCodeVisionProvider` |
 | `narrowing/` | Type Narrowing Visualizer（switch arm の絞り込み型をインレイヒントで表示） | `RescriptNarrowingHintProvider`, `RescriptSwitchArmCollector`, `RescriptHoverTypeResolver`, `RescriptNarrowingPresenter` |
-| `flow/` | Variant Flow Diagram（switch の decision tree を ToolWindow で可視化、Mermaid + DOT エクスポート） | `RescriptVariantFlowToolWindowFactory`, `RescriptVariantFlowPanel`, `RescriptVariantFlowAction`, `RescriptVariantFlowModel`, `RescriptVariantFlowMermaidExporter`, `RescriptVariantFlowDotExporter` |
+| `flow/` | Variant Flow Diagram（switch の decision tree を ToolWindow で可視化、Visual / Source トグル、Mermaid + DOT エクスポート） | `RescriptVariantFlowToolWindowFactory`, `RescriptVariantFlowPanel`, `RescriptVariantFlowAction`, `RescriptVariantFlowModel`, `RescriptVariantFlowGraphView`, `RescriptVariantFlowHints`, `RescriptVariantFlowMermaidExporter`, `RescriptVariantFlowDotExporter` |
 | `impact/` | Type Impact Preview（カーソル位置の type 宣言に対するプロジェクト全体の参照を ToolWindow で一覧表示） | `RescriptTypeImpactToolWindowFactory`, `RescriptTypeImpactPanel`, `RescriptTypeImpactAction`, `RescriptTypeTargetResolver`, `RescriptTypeReferenceFinder`, `RescriptReferenceClassifier`, `RescriptTypeImpactModel` |
 | `notebook/` | Notebook 風 Worksheet（`.resnb` cell-based エディタ + Markdown エクスポート） | `RescriptNotebookFileType`, `RescriptNotebookFileEditorProvider`, `RescriptNotebookFileEditor`, `RescriptNotebookPanel`, `RescriptNotebookCellPanel`, `RescriptNotebookSerializer`, `RescriptNotebookMarkdownExporter`, `RescriptNotebookModel` |
 | `interop/` | JS Interop Risk Map（`%raw` / `external` / `Obj.magic` / `@bs.*` の使用箇所一覧 + 種別/リスクスコア） | `RescriptInteropRiskToolWindowFactory`, `RescriptInteropRiskPanel`, `RescriptInteropRiskAction`, `RescriptInteropClassifier`, `RescriptInteropScanner`, `RescriptInteropModel` |
@@ -74,7 +74,7 @@ rescript-intellij-plugin/
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
 | `wizard/` | Project Wizard（新規プロジェクト作成、Package Manager / Validation Library 選択 UI） | `RescriptModuleBuilder`, `PackageManager`, `ValidationLibrary` |
 | `wizard/templates/` | 22 種類のプロジェクトテンプレートファイル生成（既存 18 件は zod/sury の `Validation.res` を variants/<key>/ から選択。TanStack Start / Remix RR v7 / Astro / Waku は Validation 選択を無効化） | `BasicTemplateFiles`, `ViteReactTemplateFiles`, `HonoInertiaTemplateFiles`, `TauriTemplateFiles`, `TanstackStartTemplateFiles`, `RemixV7TemplateFiles`, `AstroTemplateFiles`, `WakuTemplateFiles` 等 |
-| `generate/` | Code Generation（Generate メニュー） | `RescriptGenerateGroup` |
+| `generate/` | Code Generation（Generate メニュー）、型宣言 RHS の再パース | `RescriptGenerateGroup`, `RescriptTypeDeclarationParser` |
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
 | `refactor/` | リネーム、識別子バリデーション | `RescriptRenameHandler` |
