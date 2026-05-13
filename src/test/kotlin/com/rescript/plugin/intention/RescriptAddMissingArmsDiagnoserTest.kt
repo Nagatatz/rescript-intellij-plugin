@@ -1,5 +1,6 @@
 package com.rescript.plugin.intention
 
+import com.rescript.plugin.lsp.RescriptLspSignatureParser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
@@ -180,5 +181,111 @@ class RescriptAddMissingArmsDiagnoserTest {
             )!!
         assertTrue(message.contains("LSP"))
         assertTrue(message.contains("Start"))
+    }
+
+    // ── 2nd-pass: bare type name resolved via project-wide lookup ──
+
+    // Fixtures need at least one arm because the underlying switch-arm
+    // collector keys off `|`; a literal empty `switch x { }` produces
+    // no arms and the diagnoser would short-circuit before reaching the
+    // resolver. The fixtures below carry a single arm so the diagnoser
+    // walks all the way through and we can observe the resolver call.
+
+    @Test
+    fun `bare type-name hover triggers resolver fallback`() {
+        val source =
+            """
+            let f = x => switch x {
+            | Red => "red"
+            }
+            """.trimIndent()
+        val offset = source.indexOf("switch")
+        var resolverArg: String? = null
+        val outcome =
+            RescriptAddMissingArmsDiagnoser.diagnose(
+                source = source,
+                offset = offset,
+                lspServerAvailable = true,
+                hoverProbe = { "color" },
+                resolveByTypeName = { name ->
+                    resolverArg = name
+                    listOf(
+                        RescriptLspSignatureParser.VariantInfo("Red", false),
+                        RescriptLspSignatureParser.VariantInfo("Blue", false),
+                    )
+                },
+            )
+        assertEquals("color", resolverArg)
+        assertTrue(outcome is ArmsOutcome.Ready, "expected Ready, got $outcome")
+    }
+
+    @Test
+    fun `resolver is not consulted when hover already yields constructors`() {
+        val source =
+            """
+            let f = x => switch x {
+            | Red => "red"
+            }
+            """.trimIndent()
+        val offset = source.indexOf("switch")
+        var resolverInvoked = false
+        RescriptAddMissingArmsDiagnoser.diagnose(
+            source = source,
+            offset = offset,
+            lspServerAvailable = true,
+            hoverProbe = { "option<int>" },
+            resolveByTypeName = {
+                resolverInvoked = true
+                emptyList()
+            },
+        )
+        assertTrue(!resolverInvoked, "resolver must not be queried when hover already yields constructors")
+    }
+
+    @Test
+    fun `bare type-name hover with empty resolver falls back to NotVariant`() {
+        val source =
+            """
+            let f = x => switch x {
+            | Red => "red"
+            }
+            """.trimIndent()
+        val offset = source.indexOf("switch")
+        val outcome =
+            RescriptAddMissingArmsDiagnoser.diagnose(
+                source = source,
+                offset = offset,
+                lspServerAvailable = true,
+                hoverProbe = { "unknownType" },
+                resolveByTypeName = { emptyList() },
+            )
+        assertTrue(outcome is ArmsOutcome.NotVariant, "expected NotVariant, got $outcome")
+    }
+
+    @Test
+    fun `type application hover bypasses resolver fallback`() {
+        // option<int> should be handled by the existing hardcoded path,
+        // not delegated to the project-wide resolver.
+        val source =
+            """
+            let f = x => switch x {
+            | Some(v) => v
+            }
+            """.trimIndent()
+        val offset = source.indexOf("switch")
+        var resolverInvoked = false
+        val outcome =
+            RescriptAddMissingArmsDiagnoser.diagnose(
+                source = source,
+                offset = offset,
+                lspServerAvailable = true,
+                hoverProbe = { "option<int>" },
+                resolveByTypeName = {
+                    resolverInvoked = true
+                    emptyList()
+                },
+            )
+        assertTrue(!resolverInvoked)
+        assertTrue(outcome is ArmsOutcome.Ready)
     }
 }

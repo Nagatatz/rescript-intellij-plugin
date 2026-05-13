@@ -5,7 +5,9 @@ import com.intellij.notification.NotificationType
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.rescript.plugin.lsp.RescriptLspSignatureParser
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.lsp.RescriptVariantTypeResolver
 import com.rescript.plugin.util.RescriptEditorUtils.insertInWriteAction
 
 /**
@@ -60,12 +62,19 @@ internal object RescriptAddMissingArmsDiagnoser {
      * @param hoverProbe pulls the hover type string for an offset; this is
      *   the same contract as `RescriptLspUtils.getHoverType`, but injected
      *   so tests can substitute a constant lambda
+     * @param resolveByTypeName second-pass fallback used when the LSP
+     *   hover returns just a bare type name (e.g. `"color"`) instead of
+     *   the inline `| A | B` variant body. Production wires this to a
+     *   stub-index lookup; tests can substitute a constant lambda.
+     *   Default of `{ _ -> emptyList() }` preserves existing test
+     *   call-sites that diagnose with hover text only.
      */
     fun diagnose(
         source: String,
         offset: Int,
         lspServerAvailable: Boolean,
         hoverProbe: (Int) -> String?,
+        resolveByTypeName: (String) -> List<RescriptLspUtils.VariantInfo> = { emptyList() },
     ): ArmsOutcome {
         if (!RescriptMissingArmsBuilder.isInsideSwitch(source, offset)) return ArmsOutcome.NotInSwitch
         if (!lspServerAvailable) return ArmsOutcome.LspUnavailable
@@ -73,7 +82,16 @@ internal object RescriptAddMissingArmsDiagnoser {
             RescriptMissingArmsBuilder.scrutineeOffset(source, offset)
                 ?: return ArmsOutcome.NoScrutinee
         val typeText = hoverProbe(scrutineeOffset) ?: return ArmsOutcome.HoverEmpty
-        val constructors = RescriptLspUtils.parseVariantConstructors(typeText)
+        var constructors = RescriptLspUtils.parseVariantConstructors(typeText)
+        if (constructors.isEmpty()) {
+            // Second pass: LSP hover sometimes returns the bare type
+            // name (`color`) instead of the inline variant body. Look
+            // up the declaration via the stub index and parse its RHS.
+            val bareName = RescriptLspSignatureParser.extractBareTypeName(typeText)
+            if (bareName != null) {
+                constructors = resolveByTypeName(bareName)
+            }
+        }
         if (constructors.isEmpty()) return ArmsOutcome.NotVariant(typeText.trim())
         val result =
             RescriptMissingArmsBuilder.computeMissing(source, offset, constructors)
@@ -162,6 +180,7 @@ class RescriptAddMissingSwitchArmsIntention : RescriptBaseIntention() {
                 offset = offset,
                 lspServerAvailable = RescriptLspUtils.getServer(project) != null,
                 hoverProbe = { ofs -> RescriptLspUtils.getHoverType(project, virtualFile, ofs) },
+                resolveByTypeName = { name -> RescriptVariantTypeResolver.resolve(project, name) ?: emptyList() },
             )
 
         if (outcome is ArmsOutcome.Ready) {

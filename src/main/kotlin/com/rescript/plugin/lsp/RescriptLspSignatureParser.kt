@@ -115,6 +115,40 @@ object RescriptLspSignatureParser {
         return results
     }
 
+    // Lowercase identifier — the canonical shape for a bare type-name
+    // reference returned by LSP hover (`color`, `myStatus`). We exclude
+    // anything containing brackets or dots so type applications and
+    // module-qualified paths fall through to other code paths instead
+    // of being mis-routed into the stub-index lookup.
+    private val BARE_TYPE_NAME_PATTERN = Regex("""^([a-z_][A-Za-z0-9_']*)$""")
+
+    /**
+     * Returns the type name when [typeText] is a bare lowercase
+     * identifier (e.g. `"color"`, `"myStatus"`) and `null` otherwise.
+     *
+     * Multi-line hover output is trimmed; anything containing `<`,
+     * `>`, `(`, `.`, or whitespace inside the identifier returns null
+     * because the caller cannot meaningfully look up a `type ...`
+     * declaration for such inputs — they need either the hardcoded
+     * `option`/`result` paths or a richer parser.
+     *
+     * @param typeText raw type text from an LSP hover response
+     * @return the bare type name, or null when the text is not a
+     *   single lowercase identifier
+     */
+    fun extractBareTypeName(typeText: String): String? {
+        val trimmed = typeText.trim()
+        if (trimmed.isEmpty()) return null
+        val firstLine =
+            trimmed
+                .lineSequence()
+                .firstOrNull()
+                ?.trim()
+                .orEmpty()
+        val match = BARE_TYPE_NAME_PATTERN.matchEntire(firstLine) ?: return null
+        return match.groupValues[1]
+    }
+
     // ── Internal helpers ──────────────────────────────────────────────
 
     /** Extracts content between the first ( and its matching ). */

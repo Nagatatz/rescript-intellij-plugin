@@ -336,4 +336,53 @@ class RescriptLspSignatureParserTest {
         val b = RescriptLspSignatureParser.VariantInfo("Some", true)
         assertEquals(a, b)
     }
+
+    // ══════════════════════════════════════════════════════════════════
+    // extractBareTypeName
+    // ══════════════════════════════════════════════════════════════════
+
+    @Test
+    fun `extractBareTypeName recognises a single lowercase identifier`() {
+        assertEquals("color", RescriptLspSignatureParser.extractBareTypeName("color"))
+    }
+
+    @Test
+    fun `extractBareTypeName recognises camelCase identifier`() {
+        assertEquals("myStatus", RescriptLspSignatureParser.extractBareTypeName("myStatus"))
+    }
+
+    @Test
+    fun `extractBareTypeName trims whitespace`() {
+        assertEquals("color", RescriptLspSignatureParser.extractBareTypeName("  color  "))
+    }
+
+    @Test
+    fun `extractBareTypeName picks the first line of a multi-line hover`() {
+        assertEquals("color", RescriptLspSignatureParser.extractBareTypeName("color\n\nfrom Module"))
+    }
+
+    @Test
+    fun `extractBareTypeName rejects type applications`() {
+        assertNull(RescriptLspSignatureParser.extractBareTypeName("option<int>"))
+    }
+
+    @Test
+    fun `extractBareTypeName rejects module-qualified paths`() {
+        assertNull(RescriptLspSignatureParser.extractBareTypeName("Module.t"))
+    }
+
+    @Test
+    fun `extractBareTypeName rejects uppercase identifiers`() {
+        assertNull(RescriptLspSignatureParser.extractBareTypeName("Color"))
+    }
+
+    @Test
+    fun `extractBareTypeName rejects inline variant body`() {
+        assertNull(RescriptLspSignatureParser.extractBareTypeName("| A | B"))
+    }
+
+    @Test
+    fun `extractBareTypeName rejects empty input`() {
+        assertNull(RescriptLspSignatureParser.extractBareTypeName(""))
+    }
 }
