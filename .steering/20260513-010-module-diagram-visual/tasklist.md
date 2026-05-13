@@ -19,12 +19,12 @@
 
 ## セクション C: ドキュメント更新（EN + JA 同時）
 
-- [ ] `CLAUDE.md` レイヤー 3 — `diagram/` 段落に Visual / Source トグルの言及を追記
-- [ ] `README.md` Features の Module Dependency Diagram 行に「Visual / Source toggle (Java2D)」追加
-- [ ] `docs/repository-structure.md` の `diagram/` 行に `RescriptDependencyDiagramGraphView` を追加
-- [ ] `sphinx-docs/user/features/advanced.md` の該当セクションに Visual モード説明を追記
-- [ ] `cd sphinx-docs && make gettext && make update-po && make build-ja` を実行し、新規 / 変更 `msgid` の日本語 `msgstr` を埋める
-- [ ] コミット: `📝 Document Visual mode for module dependency diagram`
+- [x] `CLAUDE.md` レイヤー 3 — `diagram/` 段落に Visual / Source トグルの言及を追記
+- [x] `README.md` Features の Module Dependency Diagram 行に「Visual / Source toggle (Java2D)」追加
+- [x] `docs/repository-structure.md` の `diagram/` 行に `RescriptDependencyDiagramGraphView` を追加
+- [x] `sphinx-docs/user/features/advanced.md` の該当セクションに Visual モード説明を追記
+- [x] `cd sphinx-docs && make gettext && make update-po && make build-ja` を実行し、新規 / 変更 `msgid` の日本語 `msgstr` を埋める
+- [x] コミット: `📝 Document Visual mode for module dependency diagram`
 
 ## セクション D: 仕上げとマージ
 

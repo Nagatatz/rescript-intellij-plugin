@@ -79,7 +79,7 @@
 - **Goto Super** — Jump from `.res` declaration to matching `.resi` declaration (`Ctrl+U`)
 - **External documentation** — Open ReScript documentation for Belt/Js modules (`Shift+F1`)
 - **Type signature search (Hoogle-style)** — Search Everywhere "ReScript Types" tab parses both the user query and each candidate's `: T` annotation into a structural AST and matches them with a unifier (EXACT / TVAR_MATCH / PARTIAL); supports `=> T` return-type mode and `'a` wildcards, ranks by match strength, and renders `name: signature  (path:line)` so the right hit is obvious before navigating
-- **Module dependency diagram** — Visualize `open`/`include` relationships in a tool window with Mermaid + Graphviz DOT export
+- **Module dependency diagram** — Visualize `open`/`include` relationships in a tool window with a **Visual / Source toggle**. Visual mode renders a top-down layered graph (Java2D) where entry-point modules sit on top and downstream dependencies are pushed lower; Source mode shows the Mermaid `flowchart TD` text. Both modes share Copy Mermaid / Copy DOT toolbar actions for external rendering
 
 ### Editing Assistance
 

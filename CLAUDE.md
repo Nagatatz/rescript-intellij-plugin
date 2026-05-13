@@ -91,6 +91,8 @@ IDE 統合機能の完全なカテゴリ一覧・パッケージ対応・Extensi
 
 Variant Flow Diagram (`flow/`) はカーソル位置の `switch` 式を decision tree として ToolWindow に表示する純構文ベースの機能で、`narrowing/` の `RescriptSwitchArmCollector` を再利用しつつ LSP には依存しない。ツールバーの **Visual / Source トグル** で表示モードを切替できる。Visual モードは `RescriptVariantFlowGraphView` (純粋な `computeLayout` + Java2D 描画) でルートとアームを赤系の角丸ボックスとオーソゴナル矢印で描く。Source モードは従来通り Mermaid `flowchart TD` ソーステキスト表示で、Copy Mermaid / Copy DOT のツールバーアクションで外部の Mermaid Live や graphviz `dot` に持ち出せる。
 
+Module Dependency Diagram (`diagram/`) は `open` / `include` 関係を辿ってプロジェクト内の `.res` モジュールから有向依存グラフを組み立て、ToolWindow に表示する LSP 非依存の機能。ツールバーの **Visual / Source トグル** で表示モードを切替できる。Visual モードは `RescriptDependencyDiagramGraphView` (純粋な `computeLayout` + Java2D 描画) でモジュールを赤系の角丸ボックス、依存方向をオーソゴナル矢印で描く。レイヤー割当は Kahn の BFS で、in-degree 0 のモジュール（誰からも依存されていないエントリポイント候補）が一番上の layer 0 に置かれ、下流の依存が下に積まれる。サイクル内のノードは Kahn の残ノードとして最下位の追加 layer にまとめて描かれる。Source モードは従来通り Mermaid `flowchart TD` ソーステキスト表示で、Copy Mermaid / Copy DOT のツールバーアクションを両モードから利用できる。
+
 Type Impact Preview (`impact/`) はカーソル位置の `type` 宣言に対するプロジェクト全体の参照箇所を ToolWindow に一覧表示し、型変更の波及範囲を事前に見積もれるようにする。`PsiSearchHelper` で word-index ベースの参照検索を行い、`RescriptReferenceClassifier` のトークン・ヒューリスティックで type-ref / constructor / pattern / field-access に分類する。LSP 不要・200 件のソフトキャップ付き。
 
 Notebook 風 Worksheet (`notebook/`) は `.resnb` 拡張子の JSON ファイルを cell-based エディタで開き、各セルを独立に評価できるようにする。既存 `repl/RescriptReplExecutor` をセル評価のバックエンドとして再利用し、評価結果を `cell.lastOutput` としてファイルに persist する。Markdown エクスポートで PR / 設計書への共有も可能。LSP 不要。
