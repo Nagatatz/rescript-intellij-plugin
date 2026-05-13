@@ -8,7 +8,7 @@
     "clean": "rescript clean"
   },
   "devDependencies": {
-    "rescript": "^11.1.4",
-    "@rescript/language-server": "^1.62.0"
+    "rescript": "^12.2.0",
+    "@rescript/language-server": "^1.72.0"
   }
 }
