@@ -574,13 +574,15 @@ msgstr "トップレベルの `module M = {{ ... }}` 宣言を、隣接する `M
 
 #: ../../user/features/code-editing.md:62
 msgid "Rename variant constructor (project-wide, no LSP)"
-msgstr ""
+msgstr "variant constructor のリネーム（プロジェクト全体、LSP 不要）"
 
 #: ../../user/features/code-editing.md:62
 msgid ""
 "Rename a variant constructor across every `.res` / `.resi` file in the "
 "project using a token-shape classifier; works without the language server"
 msgstr ""
+"トークン形状分類器を使ってプロジェクト内のすべての `.res` / `.resi` ファイル"
+"にまたがって variant constructor をリネームします。language server なしでも動作します"
 
 #: ../../user/features/code-editing.md:155
 msgid ""
