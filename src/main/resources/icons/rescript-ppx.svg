@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="-25 -25 300 300" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="124.999" y1="0" x2="215.066" y2="241.846" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E6484F"/>
+      <stop offset=".409" stop-color="#DB4646"/>
+      <stop offset=".999" stop-color="#CB3939"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#bg)" d="M0 80.086C0 46.72 0 30.044 8.496 18.342a44.557 44.557 0 0 1 9.846-9.847C30.032 0 46.719 0 80.082 0h89.83c33.368 0 50.042 0 61.745 8.495a44.452 44.452 0 0 1 9.841 9.847c8.5 11.695 8.5 28.377 8.5 61.744v89.828c0 33.367 0 50.042-8.5 61.744a44.32 44.32 0 0 1-9.841 9.841C219.961 250 203.28 250 169.912 250h-89.83c-33.363 0-50.043 0-61.74-8.501a44.428 44.428 0 0 1-9.846-9.841C0 219.963 0 203.281 0 169.914V80.086Z"/>
+  <!-- curly braces suggesting macro/PPX expansion -->
+  <path fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"
+        d="M90 60 Q60 60 60 90 L60 115 Q60 125 50 125 Q60 125 60 135 L60 160 Q60 190 90 190"/>
+  <path fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"
+        d="M160 60 Q190 60 190 90 L190 115 Q190 125 200 125 Q190 125 190 135 L190 160 Q190 190 160 190"/>
+</svg>

@@ -975,31 +975,31 @@
                 implementation="com.rescript.plugin.paste.RescriptPasteAsJsxProcessor"/>
 
         <!-- Package Dependencies Tool Window (rescript.json) -->
-        <toolWindow id="ReScript Dependencies" anchor="right" icon="AllIcons.Nodes.PpLib"
+        <toolWindow id="ReScript Dependencies" anchor="right" icon="/icons/rescript-dependencies.svg"
                 factoryClass="com.rescript.plugin.dependencies.RescriptDependenciesToolWindowFactory"/>
 
         <!-- Module Dependency Diagram Tool Window (Mermaid + DOT export) -->
-        <toolWindow id="ReScript Module Diagram" anchor="right" icon="/icons/rescript-toolwindow.svg"
+        <toolWindow id="ReScript Module Diagram" anchor="right" icon="/icons/rescript-diagram.svg"
                 factoryClass="com.rescript.plugin.diagram.RescriptDependencyDiagramToolWindowFactory"/>
 
         <!-- Variant Flow Diagram Tool Window (per-switch decision tree, Mermaid + DOT export) -->
-        <toolWindow id="ReScript Switch Flow" anchor="right" icon="/icons/rescript-toolwindow.svg"
+        <toolWindow id="ReScript Switch Flow" anchor="right" icon="/icons/rescript-flow.svg"
                 factoryClass="com.rescript.plugin.flow.RescriptVariantFlowToolWindowFactory"/>
 
         <!-- Type Impact Preview Tool Window (project-wide references for the type under caret) -->
-        <toolWindow id="ReScript Type Impact" anchor="right" icon="AllIcons.Actions.Find"
+        <toolWindow id="ReScript Type Impact" anchor="right" icon="/icons/rescript-impact.svg"
                 factoryClass="com.rescript.plugin.impact.RescriptTypeImpactToolWindowFactory"/>
 
         <!-- Type Coverage Heat Map Tool Window (per-file annotated/inferred ratio across the project) -->
-        <toolWindow id="ReScript Type Coverage" anchor="bottom" icon="AllIcons.General.InspectionsEye"
+        <toolWindow id="ReScript Type Coverage" anchor="bottom" icon="/icons/rescript-coverage.svg"
                 factoryClass="com.rescript.plugin.coverage.RescriptTypeCoverageToolWindowFactory"/>
 
         <!-- JS Interop Risk Map Tool Window (project-wide %raw / external / Obj.magic / @bs.* sites) -->
-        <toolWindow id="ReScript Interop Risk" anchor="right" icon="AllIcons.General.Warning"
+        <toolWindow id="ReScript Interop Risk" anchor="right" icon="/icons/rescript-interop.svg"
                 factoryClass="com.rescript.plugin.interop.RescriptInteropRiskToolWindowFactory"/>
 
         <!-- Reason → ReScript Migration Pilot Tool Window (bulk `rescript convert`) -->
-        <toolWindow id="ReScript Migration Pilot" anchor="right" icon="AllIcons.Actions.Refresh"
+        <toolWindow id="ReScript Migration Pilot" anchor="right" icon="/icons/rescript-migration.svg"
                 factoryClass="com.rescript.plugin.migration.RescriptMigrationToolWindowFactory"/>
 
         <!-- Auto Import options in Settings > Editor > General > Auto Import -->
@@ -1231,7 +1231,7 @@
                 implementation="com.rescript.plugin.refactor.RescriptInlineHandler"/>
 
         <!-- PPX Expansion View Tool Window (#87) -->
-        <toolWindow id="ReScript PPX" anchor="right" icon="AllIcons.Nodes.Plugin"
+        <toolWindow id="ReScript PPX" anchor="right" icon="/icons/rescript-ppx.svg"
                 factoryClass="com.rescript.plugin.ppx.RescriptPpxViewToolWindowFactory"/>
 
         <!-- Type Hole Quick Fix inspection (#105) -->
