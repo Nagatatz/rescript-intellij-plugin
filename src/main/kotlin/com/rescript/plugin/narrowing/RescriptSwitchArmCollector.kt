@@ -252,27 +252,119 @@ object RescriptSwitchArmCollector {
         val effective = patternTokens.takeWhile { it.type != RescriptTokenTypes.WHEN }
         if (effective.isEmpty()) return patternTokens.first().text.trim()
 
-        val head = effective.first()
-        val needsCallShape =
-            effective.size > 1 && effective[1].type == RescriptTokenTypes.LPAREN
-
-        val raw =
-            when (head.type) {
-                RescriptTokenTypes.UIDENT,
-                RescriptTokenTypes.SOME,
-                RescriptTokenTypes.NONE,
-                RescriptTokenTypes.LIDENT,
-                RescriptTokenTypes.UNDERSCORE,
-                RescriptTokenTypes.POLY_VARIANT,
-                -> if (needsCallShape) "${head.text}(_)" else head.text
-
-                else -> head.text.trim()
-            }
+        val raw = summarizePattern(effective)
         return if (raw.length <= PATTERN_SUMMARY_MAX_LENGTH) {
             raw
         } else {
             raw.substring(0, PATTERN_SUMMARY_MAX_LENGTH - 1) + "…"
         }
+    }
+
+    /**
+     * Build a single-line, recursive summary of a structural pattern.
+     *
+     * Handles tuple patterns (`(Some(i), _)` → `(Some(_), _)`) by
+     * splitting on top-level commas and summarizing each component,
+     * and constructor patterns (`Some(i)` → `Some(_)`) by collapsing
+     * the argument list to `(_)`.
+     */
+    private fun summarizePattern(tokens: List<LexedToken>): String {
+        if (tokens.isEmpty()) return ""
+        val head = tokens.first()
+        if (head.type == RescriptTokenTypes.LPAREN) {
+            val matchingRparen = findMatchingRparen(tokens, 0)
+            if (matchingRparen > 0) {
+                val inner = tokens.subList(1, matchingRparen)
+                val components = splitComponentsByComma(inner)
+                if (components.size >= 2) {
+                    // True tuple: render every component.
+                    return components.joinToString(
+                        separator = ", ",
+                        prefix = "(",
+                        postfix = ")",
+                    ) { summarizePattern(it) }
+                }
+                // Parenthesised single pattern (`(Some(x))`): unwrap.
+                if (components.size == 1) return summarizePattern(components.first())
+            }
+            return head.text.trim()
+        }
+        val needsCallShape =
+            tokens.size > 1 && tokens[1].type == RescriptTokenTypes.LPAREN
+        return when (head.type) {
+            RescriptTokenTypes.UIDENT,
+            RescriptTokenTypes.SOME,
+            RescriptTokenTypes.NONE,
+            RescriptTokenTypes.LIDENT,
+            RescriptTokenTypes.UNDERSCORE,
+            RescriptTokenTypes.POLY_VARIANT,
+            -> if (needsCallShape) "${head.text}(_)" else head.text
+
+            else -> head.text.trim()
+        }
+    }
+
+    /**
+     * Locate the index of the `)` that closes the `(` at [lparenIdx].
+     * Returns `-1` when the pattern is unbalanced (e.g. while typing).
+     */
+    private fun findMatchingRparen(
+        tokens: List<LexedToken>,
+        lparenIdx: Int,
+    ): Int {
+        var depth = 0
+        for (i in lparenIdx until tokens.size) {
+            when (tokens[i].type) {
+                RescriptTokenTypes.LPAREN -> {
+                    depth++
+                }
+
+                RescriptTokenTypes.RPAREN -> {
+                    depth--
+                    if (depth == 0) return i
+                }
+            }
+        }
+        return -1
+    }
+
+    /**
+     * Split a flat token list into tuple components by commas that sit
+     * at paren depth 0. Nested parentheses are kept intact inside each
+     * component.
+     */
+    private fun splitComponentsByComma(tokens: List<LexedToken>): List<List<LexedToken>> {
+        val result = mutableListOf<List<LexedToken>>()
+        var current = mutableListOf<LexedToken>()
+        var depth = 0
+        for (token in tokens) {
+            when (token.type) {
+                RescriptTokenTypes.LPAREN -> {
+                    depth++
+                    current.add(token)
+                }
+
+                RescriptTokenTypes.RPAREN -> {
+                    depth--
+                    current.add(token)
+                }
+
+                RescriptTokenTypes.COMMA -> {
+                    if (depth == 0) {
+                        result.add(current)
+                        current = mutableListOf()
+                    } else {
+                        current.add(token)
+                    }
+                }
+
+                else -> {
+                    current.add(token)
+                }
+            }
+        }
+        if (current.isNotEmpty()) result.add(current)
+        return result
     }
 
     /**

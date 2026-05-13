@@ -166,4 +166,22 @@ class RescriptVariantFlowModelTest {
         assertEquals(1, current.children.size)
         assertEquals("(deeper switch hidden)", current.children.single().patternSummary)
     }
+
+    @Test
+    fun `tuple scrutinee produces tuple pattern summaries`() {
+        val source =
+            """
+            let render = (info, error) =>
+              switch (info, error) {
+              | (Some(i), _) => i.name
+              | (None, Some(message)) => message
+              | (None, None) => ""
+              }
+            """.trimIndent()
+        val diagram = RescriptVariantFlowModel.buildAtOffset(source, offsetOf(source, "switch"))!!
+        assertEquals(
+            listOf("(Some(_), _)", "(None, Some(_))", "(None, None)"),
+            diagram.arms.map { it.patternSummary },
+        )
+    }
 }

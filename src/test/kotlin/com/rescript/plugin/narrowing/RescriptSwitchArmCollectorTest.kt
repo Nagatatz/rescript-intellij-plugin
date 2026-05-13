@@ -327,4 +327,53 @@ class RescriptSwitchArmCollectorTest {
         // inside the guard does not produce an extra binding.
         assertEquals(1, guarded.bindingOffsets.size)
     }
+
+    // ── tuple patterns ────────────────────────────────────────────
+
+    @Test
+    fun `tuple pattern of two constructors renders both components`() {
+        val source =
+            """
+            let f = (info, error) =>
+              switch (info, error) {
+              | (Some(i), _) => i
+              | (None, Some(message)) => message
+              | (None, None) => ""
+              }
+            """.trimIndent()
+        assertEquals(
+            listOf("(Some(_), _)", "(None, Some(_))", "(None, None)"),
+            summaries(source),
+        )
+    }
+
+    @Test
+    fun `tuple pattern with three components is summarized`() {
+        val source =
+            """
+            let f = (a, b, c) =>
+              switch (a, b, c) {
+              | (true, _, _) => 0
+              | (_, _, _) => 1
+              }
+            """.trimIndent()
+        val summaries = summaries(source)
+        // `true` is not a UIDENT/SOME/NONE/LIDENT/UNDERSCORE/POLY_VARIANT,
+        // so it falls through to head.text — verify the wrapper shape.
+        assertTrue(summaries[0].startsWith("(") && summaries[0].endsWith(")"))
+        assertEquals("(_, _, _)", summaries[1])
+    }
+
+    @Test
+    fun `parenthesised single pattern is unwrapped`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | (Some(v)) => v
+              | None => 0
+              }
+            """.trimIndent()
+        assertEquals(listOf("Some(_)", "None"), summaries(source))
+    }
 }
