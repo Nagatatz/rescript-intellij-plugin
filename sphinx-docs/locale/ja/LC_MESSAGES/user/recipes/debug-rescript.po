@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-05-13 21:27+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -40,9 +40,7 @@ msgstr "目標"
 msgid ""
 "Debug ReScript code by setting breakpoints in the compiled JavaScript "
 "output and stepping through execution."
-msgstr ""
-"コンパイル済み JavaScript にブレークポイントを設定し、実行をステップ実行することで "
-"ReScript コードをデバッグします。"
+msgstr "コンパイル済み JavaScript にブレークポイントを設定し、実行をステップ実行することで ReScript コードをデバッグします。"
 
 #: ../../user/recipes/debug-rescript.md:15
 msgid "Prerequisites"
@@ -73,24 +71,21 @@ msgstr "1. ビルドが実行中であることを確認する"
 msgid ""
 "Start a ReScript build in watch mode so that compiled JS files stay up to"
 " date:"
-msgstr ""
-"コンパイル済み JS ファイルを最新の状態に保つため、ReScript ビルドを watch モードで"
-"開始します:"
+msgstr "コンパイル済み JS ファイルを最新の状態に保つため、ReScript ビルドを watch モードで開始します:"
 
 #: ../../user/recipes/debug-rescript.md:26
 msgid "Use the **Run Configuration** for ReScript Build, or"
 msgstr "ReScript Build の **Run Configuration** を使用するか、"
 
 #: ../../user/recipes/debug-rescript.md:27
-msgid "Run `rescript build -w` from the terminal"
-msgstr "ターミナルから `rescript build -w` を実行する"
+msgid "Run `rescript watch` from the terminal"
+msgstr "ターミナルから `rescript watch` を実行する"
 
 #: ../../user/recipes/debug-rescript.md:29
 msgid ""
 "The status bar widget at the bottom shows the current build status "
 "(success/error/warning)."
-msgstr ""
-"下部のステータスバーウィジェットに現在のビルド状態（成功/エラー/警告）が表示されます。"
+msgstr "下部のステータスバーウィジェットに現在のビルド状態（成功/エラー/警告）が表示されます。"
 
 #: ../../user/recipes/debug-rescript.md:31
 msgid "2. Open the compiled JavaScript"
@@ -103,9 +98,8 @@ msgid ""
 "ReScript > Open Compiled JS**) to open the corresponding compiled "
 "JavaScript file in a split editor."
 msgstr ""
-"`.res` ファイルを開いた状態で、{kbd}`Alt+Shift+J` を押すか（または **Tools > "
-"ReScript > Open Compiled JS** を使用して）、対応するコンパイル済み JavaScript "
-"ファイルを分割エディタで開きます。"
+"`.res` ファイルを開いた状態で、{kbd}`Alt+Shift+J` を押すか（または **Tools > ReScript > Open "
+"Compiled JS** を使用して）、対応するコンパイル済み JavaScript ファイルを分割エディタで開きます。"
 
 #: ../../user/recipes/debug-rescript.md:35
 msgid "This lets you see exactly what code will execute at runtime."
@@ -139,8 +133,7 @@ msgstr "**Node.js の場合**: JavaScript ファイルのパスを設定する�
 msgid ""
 "**For browser**: Set the URL of your dev server (e.g., "
 "`http://localhost:5173`)"
-msgstr ""
-"**ブラウザの場合**: 開発サーバーの URL を設定する（例: `http://localhost:5173`）"
+msgstr "**ブラウザの場合**: 開発サーバーの URL を設定する（例: `http://localhost:5173`）"
 
 #: ../../user/recipes/debug-rescript.md:45
 msgid "4. Set breakpoints in the compiled JS"
@@ -152,9 +145,8 @@ msgid ""
 "breakpoints. The compiled JS closely mirrors the ReScript source "
 "structure, making it straightforward to find the corresponding code."
 msgstr ""
-"コンパイル済みの `.res.js` ファイルを開き、ガターをクリックしてブレークポイントを設定"
-"します。コンパイル済み JS は ReScript のソース構造を忠実に反映しているため、対応する"
-"コードを簡単に見つけることができます。"
+"コンパイル済みの `.res.js` ファイルを開き、ガターをクリックしてブレークポイントを設定します。コンパイル済み JS は ReScript"
+" のソース構造を忠実に反映しているため、対応するコードを簡単に見つけることができます。"
 
 #: ../../user/recipes/debug-rescript.md:59
 msgid "5. Run the debug configuration"
@@ -166,8 +158,8 @@ msgid ""
 "Press {kbd}`Shift+F9` (or click the **Debug** button) to start debugging."
 " The debugger will pause at your breakpoints, and you can:"
 msgstr ""
-"{kbd}`Shift+F9` を押して（または **Debug** ボタンをクリックして）デバッグを開始します。"
-"デバッガはブレークポイントで停止し、以下の操作が可能です:"
+"{kbd}`Shift+F9` を押して（または **Debug** "
+"ボタンをクリックして）デバッグを開始します。デバッガはブレークポイントで停止し、以下の操作が可能です:"
 
 #: ../../user/recipes/debug-rescript.md:63
 #, python-brace-format
@@ -188,8 +180,7 @@ msgstr "**Evaluate Expression**（{kbd}`Alt+F8`）--- 実行時の値を検査�
 msgid ""
 "**View Variables** --- See local and closure variables in the **Debug** "
 "panel"
-msgstr ""
-"**View Variables** --- **Debug** パネルでローカル変数とクロージャ変数を確認する"
+msgstr "**View Variables** --- **Debug** パネルでローカル変数とクロージャ変数を確認する"
 
 #: ../../user/recipes/debug-rescript.md:68
 msgid "Expected Result"
@@ -199,9 +190,7 @@ msgstr "期待される結果"
 msgid ""
 "You can pause execution at breakpoints in the compiled JavaScript, "
 "inspect variable values, and step through the code to diagnose issues."
-msgstr ""
-"コンパイル済み JavaScript のブレークポイントで実行を一時停止し、変数の値を検査し、"
-"コードをステップ実行して問題を診断できます。"
+msgstr "コンパイル済み JavaScript のブレークポイントで実行を一時停止し、変数の値を検査し、コードをステップ実行して問題を診断できます。"
 
 #: ../../user/recipes/debug-rescript.md:72
 msgid "Tips"
@@ -211,24 +200,23 @@ msgstr "ヒント"
 msgid ""
 "The compiled JS preserves ReScript function and variable names, so the "
 "mapping is intuitive"
-msgstr ""
-"コンパイル済み JS は ReScript の関数名と変数名を保持しているため、対応関係が直感的です"
+msgstr "コンパイル済み JS は ReScript の関数名と変数名を保持しているため、対応関係が直感的です"
 
 #: ../../user/recipes/debug-rescript.md:75
 msgid ""
 "Use the **JS Preview** tool window (**View > Tool Windows > ReScript JS "
 "Preview**) for a live side-by-side view without opening a separate file"
 msgstr ""
-"**JS Preview** ツールウィンドウ（**View > Tool Windows > ReScript JS Preview**）を"
-"使用すると、別ファイルを開かずにリアルタイムの横並びビューを表示できます"
+"**JS Preview** ツールウィンドウ（**View > Tool Windows > ReScript JS "
+"Preview**）を使用すると、別ファイルを開かずにリアルタイムの横並びビューを表示できます"
 
 #: ../../user/recipes/debug-rescript.md:76
 msgid ""
 "Source maps are not currently generated by the ReScript compiler, so "
 "breakpoints must be set in the compiled JS rather than the `.res` source"
 msgstr ""
-"現在 ReScript コンパイラはソースマップを生成しないため、ブレークポイントは `.res` "
-"ソースではなくコンパイル済み JS に設定する必要があります"
+"現在 ReScript コンパイラはソースマップを生成しないため、ブレークポイントは `.res` ソースではなくコンパイル済み JS "
+"に設定する必要があります"
 
 #: ../../user/recipes/debug-rescript.md:78
 msgid "Related Features"
@@ -238,16 +226,15 @@ msgstr "関連機能"
 msgid ""
 "[Open Compiled JS](../features/advanced.md) --- Quickly view compiled "
 "output"
-msgstr ""
-"[Open Compiled JS](../features/advanced.md) --- コンパイル済み出力の素早い表示"
+msgstr "[Open Compiled JS](../features/advanced.md) --- コンパイル済み出力の素早い表示"
 
 #: ../../user/recipes/debug-rescript.md:81
 msgid ""
 "[JS Preview](../features/advanced.md) --- Real-time compiled JS preview "
 "tool window"
-msgstr ""
-"[JS Preview](../features/advanced.md) --- コンパイル済み JS のリアルタイムプレビューツールウィンドウ"
+msgstr "[JS Preview](../features/advanced.md) --- コンパイル済み JS のリアルタイムプレビューツールウィンドウ"
 
 #: ../../user/recipes/debug-rescript.md:82
 msgid "[Run & Build](../features/run-build.md) --- Build configuration and status"
 msgstr "[Run & Build](../features/run-build.md) --- ビルド構成とステータス"
+

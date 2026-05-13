@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-05-13 21:27+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -87,12 +87,12 @@ msgid "One-shot compilation of the entire project"
 msgstr "プロジェクト全体のワンショットコンパイル"
 
 #: ../../user/features/run-build.md
-msgid "**Build (Watch)**"
-msgstr "**Build (Watch)**"
+msgid "**Watch**"
+msgstr "**Watch**"
 
 #: ../../user/features/run-build.md ../../user/features/run-build.md:208
-msgid "`rescript build -w`"
-msgstr "`rescript build -w`"
+msgid "`rescript watch`"
+msgstr "`rescript watch`"
 
 #: ../../user/features/run-build.md
 msgid "Continuous compilation with file watching"
@@ -152,14 +152,20 @@ msgid "Example output structure after a successful build:"
 msgstr "ビルド成功後の出力構造の例:"
 
 #: ../../user/features/run-build.md:48
-msgid "Build (Watch)"
-msgstr "Build (Watch)"
+msgid "Watch"
+msgstr "Watch"
 
 #: ../../user/features/run-build.md:50
 msgid ""
-"The **Build (Watch)** command starts the compiler in watch mode, which "
-"monitors your source files for changes and automatically recompiles them."
-msgstr "**Build (Watch)** コマンドは、コンパイラをウォッチモードで起動し、ソースファイルの変更を監視して自動的に再コンパイルします。"
+"The **Watch** command starts the compiler in watch mode, which monitors "
+"your source files for changes and automatically recompiles them. ReScript"
+" 12.0 promoted `rescript watch` to a first-class subcommand and "
+"deprecated the older `rescript build -w` flag — the plugin invokes the "
+"new form so the compiler does not emit deprecation warnings."
+msgstr ""
+"**Watch** コマンドは、コンパイラをウォッチモードで起動し、ソースファイルの変更を監視して自動的に再コンパイルします。"
+"ReScript 12.0 では `rescript watch` が一級サブコマンドに昇格し、従来の `rescript build -w` "
+"フラグは非推奨化されました — プラグインは新形式で呼び出すため、コンパイラから非推奨警告が出ません。"
 
 #: ../../user/features/run-build.md:52
 msgid ""
@@ -195,11 +201,11 @@ msgstr "ウォッチモードはアクティブな開発に最適で、コード
 
 #: ../../user/features/run-build.md:59
 msgid ""
-"You can keep a Build (Watch) run configuration running alongside your "
-"editor session. Compilation errors will appear both in the Run panel "
-"console and as LSP diagnostics (red underlines) in the editor."
+"You can keep a Watch run configuration running alongside your editor "
+"session. Compilation errors will appear both in the Run panel console and"
+" as LSP diagnostics (red underlines) in the editor."
 msgstr ""
-"Build (Watch) 実行構成をエディタセッションと並行して実行し続けることができます。コンパイルエラーは Run "
+"Watch 実行構成をエディタセッションと並行して実行し続けることができます。コンパイルエラーは Run "
 "パネルのコンソールと、エディタ内の LSP 診断（赤い下線）の両方に表示されます。"
 
 #: ../../user/features/run-build.md:62
@@ -249,8 +255,8 @@ msgstr ""
 "を見つけ、コンパイラプロセスの作業ディレクトリとして使用します。"
 
 #: ../../user/features/run-build.md:74
-msgid "**Command** -- Build, Build (Watch), or Clean."
-msgstr "**Command** -- Build、Build (Watch)、または Clean です。"
+msgid "**Command** -- Build, Watch, or Clean."
+msgstr "**Command** -- Build、Watch、または Clean です。"
 
 #: ../../user/features/run-build.md:75
 msgid ""
@@ -289,9 +295,9 @@ msgid ""
 "If the CLI is not found, the run configuration displays an error: "
 "*\"Cannot find 'rescript' CLI. Ensure it is installed via npm in the "
 "project.\"*"
-msgstr "CLI が見つからない場合、実行構成はエラーを表示します: "
-"CLI が見つからない場合、実行構成にエラーが表示されます: *\"Cannot find 'rescript' CLI. Ensure it "
-"is installed via npm in the project.\"*"
+msgstr ""
+"CLI が見つからない場合、実行構成はエラーを表示します: CLI が見つからない場合、実行構成にエラーが表示されます: *\"Cannot "
+"find 'rescript' CLI. Ensure it is installed via npm in the project.\"*"
 
 #: ../../user/features/run-build.md:87
 msgid ""
@@ -1042,4 +1048,17 @@ msgstr ""
 #~ "directly to the error location in "
 #~ "your source code."
 #~ msgstr ""
+
+#~ msgid "`rescript build -w`"
+#~ msgstr "`rescript build -w`"
+
+#~ msgid "Build (Watch)"
+#~ msgstr "Build (Watch)"
+
+#~ msgid ""
+#~ "The **Build (Watch)** command starts the"
+#~ " compiler in watch mode, which "
+#~ "monitors your source files for changes"
+#~ " and automatically recompiles them."
+#~ msgstr "**Build (Watch)** コマンドは、コンパイラをウォッチモードで起動し、ソースファイルの変更を監視して自動的に再コンパイルします。"
 

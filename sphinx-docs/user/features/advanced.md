@@ -1425,7 +1425,7 @@ Descriptive element names in IDE dialogs make refactoring confirmations clearer 
 
 {bdg-success}`Native`
 
-When you open a ReScript project, the plugin shows a one-time balloon notification offering to start the ReScript watch build (`rescript build -w`).
+When you open a ReScript project, the plugin shows a one-time balloon notification offering to start the ReScript watch build (`rescript watch`).
 
 ### When It Appears
 
@@ -1439,7 +1439,7 @@ The prompt appears at project startup if:
 
 | Action | Description |
 |--------|-------------|
-| **Start Build Watch** | Launches `rescript build -w` via a Run Configuration |
+| **Start Build Watch** | Launches `rescript watch` via a Run Configuration |
 | **Don't ask again** | Dismisses the prompt for this IDE session |
 
 Clicking **Start Build Watch** opens the Run tool window with a live-recompiling build process.
