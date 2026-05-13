@@ -11,11 +11,11 @@
 
 ## セクション B: Panel への Visual/Source トグル組み込み
 
-- [ ] `RescriptDependencyDiagramPanel.kt` を `CardLayout` 構成に変更し `VisualModeAction` / `SourceModeAction` を追加
-- [ ] `refresh()` で graphView と textArea の両方を更新
-- [ ] 既存テストが通る or 必要に応じて更新（既存 `RescriptDependencyDiagramPanelTest` の動作確認）
-- [ ] `./gradlew clean buildPlugin test` が緑
-- [ ] コミット: `✨ Wire Visual/Source toggle into module dependency diagram tool window`
+- [x] `RescriptDependencyDiagramPanel.kt` を `CardLayout` 構成に変更し `VisualModeAction` / `SourceModeAction` を追加
+- [x] `refresh()` で graphView と textArea の両方を更新
+- [x] 既存テストが通る or 必要に応じて更新（既存 `RescriptDependencyDiagramPanelTest` の動作確認）
+- [x] `./gradlew ktlintCheck buildPlugin test` が緑
+- [x] コミット: `✨ Wire Visual/Source toggle into module dependency diagram tool window`
 
 ## セクション C: ドキュメント更新（EN + JA 同時）
 
