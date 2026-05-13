@@ -44,4 +44,34 @@ class RescriptMigrationConverterTest {
             RescriptMigrationConverter.buildCommand("", "src/My Folder/Main.re"),
         )
     }
+
+    @Test
+    fun `parseRescriptMajorVersion picks up bare v12 banner`() {
+        assertEquals(12, RescriptMigrationConverter.parseRescriptMajorVersion("12.2.0"))
+    }
+
+    @Test
+    fun `parseRescriptMajorVersion picks up v11 prefixed banner`() {
+        assertEquals(11, RescriptMigrationConverter.parseRescriptMajorVersion("rescript 11.1.4"))
+    }
+
+    @Test
+    fun `parseRescriptMajorVersion handles build metadata trail`() {
+        assertEquals(11, RescriptMigrationConverter.parseRescriptMajorVersion("rescript 11.1.4 (build abc)"))
+    }
+
+    @Test
+    fun `parseRescriptMajorVersion returns null when no version triplet present`() {
+        assertEquals(null, RescriptMigrationConverter.parseRescriptMajorVersion("unrecognised output"))
+    }
+
+    @Test
+    fun `parseRescriptMajorVersion returns null on empty line`() {
+        assertEquals(null, RescriptMigrationConverter.parseRescriptMajorVersion(""))
+    }
+
+    @Test
+    fun `parseRescriptMajorVersion accepts two-component version`() {
+        assertEquals(10, RescriptMigrationConverter.parseRescriptMajorVersion("10.1"))
+    }
 }

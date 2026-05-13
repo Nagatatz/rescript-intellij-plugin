@@ -20,6 +20,13 @@ import java.util.concurrent.TimeUnit
 object RescriptMigrationConverter {
     private val LOG = logger<RescriptMigrationConverter>()
     private const val TIMEOUT_SECONDS = 30L
+    private const val VERSION_PROBE_TIMEOUT_SECONDS = 5L
+
+    // ReScript 12 (the rewatch-based Rust CLI) removed the `convert`
+    // subcommand entirely. Trying to run it surfaces a clap parser
+    // error like `unexpected argument 'src/Main.re' found`, which is
+    // confusing for users. We refuse early instead.
+    private const val FIRST_UNSUPPORTED_MAJOR = 12
 
     /**
      * Runs `rescript convert` against [candidate]. Must be invoked
@@ -31,12 +38,27 @@ object RescriptMigrationConverter {
         candidate: MigrationCandidate,
     ): ConversionResult {
         val settings = RescriptProjectSettings.getInstance(project)
+        val workingDir = project.basePath?.let(::File) ?: File(System.getProperty("user.dir"))
+
+        // Refuse early on rescript@12+: the `convert` subcommand was
+        // removed and any further work would just produce a cryptic
+        // clap error from the rewatch CLI.
+        val major = probeMajorVersion(settings.rescriptBinaryPath, workingDir)
+        if (major != null && major >= FIRST_UNSUPPORTED_MAJOR) {
+            return ConversionResult(
+                candidate,
+                ConversionStatus.FAILED,
+                "ReScript $major removed the `convert` subcommand. " +
+                    "Pin `rescript@^11` in this project to use the Migration Pilot, " +
+                    "or convert the file manually.",
+            )
+        }
+
         // `rescript convert` resolves its argument relative to its cwd
         // (which we pin to the project base path), so we must pass the
         // project-relative path here. Passing the absolute path causes
         // the CLI to reject the file with `don't know what to do with`.
         val command = buildCommand(settings.rescriptBinaryPath, candidate.relativePath)
-        val workingDir = project.basePath?.let(::File) ?: File(System.getProperty("user.dir"))
         return try {
             val process =
                 ProcessBuilder(command)
@@ -63,6 +85,77 @@ object RescriptMigrationConverter {
             LOG.warn("rescript convert failed for ${candidate.file.path}: ${e.message}")
             ConversionResult(candidate, ConversionStatus.FAILED, e.message ?: e.javaClass.simpleName)
         }
+    }
+
+    /**
+     * Spawns `rescript --version` in [workingDir] and returns the
+     * major component of the first line. Returns `null` if the CLI
+     * cannot be invoked or the output cannot be parsed — in that case
+     * the caller should fall through to the regular `convert` path so
+     * the user still gets the CLI's own error message.
+     *
+     * @param rescriptBinaryPath value of `RescriptProjectSettings.rescriptBinaryPath`;
+     *   when blank the probe falls back to `npx rescript`.
+     * @param workingDir cwd for the probe so node_modules-local
+     *   binaries resolve the same way they do for the actual convert.
+     * @return parsed major version, or null on probe failure
+     */
+    internal fun probeMajorVersion(
+        rescriptBinaryPath: String,
+        workingDir: File,
+    ): Int? {
+        val argv =
+            if (rescriptBinaryPath.isBlank()) {
+                listOf("npx", "rescript", "--version")
+            } else {
+                listOf(rescriptBinaryPath, "--version")
+            }
+        return try {
+            val process =
+                ProcessBuilder(argv)
+                    .directory(workingDir)
+                    .redirectErrorStream(true)
+                    .start()
+            val finished = process.waitFor(VERSION_PROBE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            if (!finished) {
+                process.destroyForcibly()
+                return null
+            }
+            val firstLine =
+                process.inputStream
+                    .bufferedReader()
+                    .readText()
+                    .lineSequence()
+                    .firstOrNull()
+                    .orEmpty()
+            parseRescriptMajorVersion(firstLine)
+        } catch (e: Exception) {
+            LOG.info("rescript --version probe failed: ${e.message}")
+            null
+        }
+    }
+
+    /**
+     * Extracts the major version integer from a `rescript --version`
+     * output line. Accepts both the bare `<major>.<minor>.<patch>`
+     * format (v12 rewatch CLI) and the `rescript <major>.<minor>.<patch>`
+     * format (older Node CLI). Returns `null` if no `digits.digits`
+     * pattern matches anywhere in the line.
+     *
+     * @param versionLine first stdout line of `rescript --version`
+     * @return parsed major version, or null when the line carries no
+     *   recognisable version triplet
+     */
+    internal fun parseRescriptMajorVersion(versionLine: String): Int? {
+        // Optional leading "rescript " banner, then digits.digits(.digits)?
+        // The regex is anchored loosely so both "12.2.0" and
+        // "rescript 11.1.4 (some build)" parse correctly.
+        val pattern = Regex("""(?:^|\s)(\d+)\.(\d+)(?:\.(\d+))?""")
+        return pattern
+            .find(versionLine)
+            ?.groupValues
+            ?.get(1)
+            ?.toIntOrNull()
     }
 
     /**
