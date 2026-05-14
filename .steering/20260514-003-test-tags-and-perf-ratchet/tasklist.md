@@ -21,7 +21,7 @@
 ## セクション 3: ドキュメント更新
 
 - [x] `CLAUDE.md` のビルドコマンド表に `test -Pscope=fast|perf|cli` を追加
-- [x] `README.md` の Quick reference に `test -Pscope=fast` を追加 (steering 003 と同時に取り込み)
+- [x] `README.md` の Quick reference に `test -Pscope=fast` を追加 (steering 004 と同時に取り込み)
 - [x] コミット: `📝 Document test -Pscope filter in CLAUDE.md`
 
 ## セクション 4: マージ

@@ -2,7 +2,7 @@
 
 ## 背景
 
-本ステアリングは **実装ステアリングではない**。本セッション (`worktree-v1-followups-20260514`) で steering 002 / 003 を実装した後の、フォローアップで実装すべき 4 項目をスコープ化するための文書。CLAUDE.md / docs/product-requirements.md / README.md の現状を読み、各機能の「v1 制限事項」として明示されている部分の解消を計画する。
+本ステアリングは **実装ステアリングではない**。本セッション (`worktree-v1-followups-20260514`) で steering 003 / 004 (元 002 / 003 — 並列セッションの 002-visual-color-brushup と番号衝突したため rebase 時に renumber) を実装した後の、フォローアップで実装すべき 4 項目をスコープ化するための文書。CLAUDE.md / docs/product-requirements.md / README.md の現状を読み、各機能の「v1 制限事項」として明示されている部分の解消を計画する。
 
 各項目は独立したセッションで実装する想定で、それぞれ専用の `.steering/[新日付]-NNN-*` ディレクトリを切ること。
 
