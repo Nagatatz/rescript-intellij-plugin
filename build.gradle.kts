@@ -660,6 +660,44 @@ tasks {
     }
     test {
         useJUnitPlatform()
+        // Opt-in test slicing via -Pscope=<fast|perf|cli>.
+        // `fast` skips long-running suites for tight PR feedback;
+        // `perf` and `cli` isolate the smoke benchmarks and the
+        // mmdc/dot CLI tests that ship in their own packages.
+        // No -Pscope flag → full default behaviour (every test runs),
+        // which is what CI continues to use.
+        val scope = providers.gradleProperty("scope").orNull
+        when (scope) {
+            "fast" -> {
+                filter {
+                    excludeTestsMatching("*PerfTest")
+                    excludeTestsMatching("*IntegrationTest")
+                    excludeTestsMatching("com.rescript.plugin.cli.*")
+                }
+            }
+
+            "perf" -> {
+                filter {
+                    includeTestsMatching("com.rescript.plugin.perf.*")
+                }
+            }
+
+            "cli" -> {
+                filter {
+                    includeTestsMatching("com.rescript.plugin.cli.*")
+                }
+            }
+
+            null -> {
+                // default: no filter
+            }
+
+            else -> {
+                throw GradleException(
+                    "Unknown -Pscope=$scope. Supported values: fast | perf | cli (or omit -Pscope for the full suite).",
+                )
+            }
+        }
     }
     runIde {
         systemProperty("idea.is.internal", true)
