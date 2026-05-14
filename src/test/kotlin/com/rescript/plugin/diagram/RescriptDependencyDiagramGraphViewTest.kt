@@ -165,4 +165,44 @@ class RescriptDependencyDiagramGraphViewTest {
         assertEquals(bottomBox.y, polyline.last().y)
         assertNotNull(polyline.last())
     }
+
+    @Test
+    fun `LayoutNode carries the role from classifyNodes`() {
+        // App -> Utils: App is ENTRY_POINT, Utils is LEAF.
+        val model =
+            RescriptDependencyDiagramModel().apply {
+                addModule("App", listOf("Utils"))
+            }
+        val layout = RescriptDependencyDiagramGraphView.computeLayout(model, viewport)
+        val appNode = layout.nodes.single { it.name == "App" }
+        val utilsNode = layout.nodes.single { it.name == "Utils" }
+        assertEquals(NodeRole.ENTRY_POINT, appNode.role)
+        assertEquals(NodeRole.LEAF, utilsNode.role)
+    }
+
+    @Test
+    fun `cycle members get CYCLE_MEMBER role in layout`() {
+        // A -> B -> A. Both nodes should be flagged as CYCLE_MEMBER.
+        val model =
+            RescriptDependencyDiagramModel().apply {
+                addModule("A", listOf("B"))
+                addModule("B", listOf("A"))
+            }
+        val layout = RescriptDependencyDiagramGraphView.computeLayout(model, viewport)
+        for (node in layout.nodes) {
+            assertEquals(NodeRole.CYCLE_MEMBER, node.role)
+        }
+    }
+
+    @Test
+    fun `palette assigns a distinct fill colour to each NodeRole`() {
+        val fillRgbs = RescriptDependencyDiagramGraphView.PALETTE.values.map { it.first.rgb }
+        assertEquals(NodeRole.entries.size, fillRgbs.distinct().size)
+    }
+
+    @Test
+    fun `palette assigns a distinct border colour to each NodeRole`() {
+        val borderRgbs = RescriptDependencyDiagramGraphView.PALETTE.values.map { it.second.rgb }
+        assertEquals(NodeRole.entries.size, borderRgbs.distinct().size)
+    }
 }

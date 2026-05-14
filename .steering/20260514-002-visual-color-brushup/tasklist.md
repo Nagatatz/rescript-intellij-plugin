@@ -19,18 +19,18 @@
 
 ## セクション B: Module Dependency Visual の Kahn 分類色分け
 
-- [ ] `RescriptDependencyDiagramModel.kt` に `NodeRole` enum 追加
-- [ ] 純関数 `classifyNodes(nodes, edges): Map<String, NodeRole>` 追加 (Kahn BFS)
-- [ ] `RescriptDependencyDiagramGraphView.kt` の `LayoutNode` に `role: NodeRole` フィールド追加
-- [ ] 単色 palette を `Map<NodeRole, Pair<Color, Color>>` に置換
-- [ ] `computeLayout` で `classifyNodes` を呼び各 `LayoutNode.role` を埋める
-- [ ] `assignLayers` の in-degree カウンタを `classifyNodes` から再利用 (DRY)
-- [ ] `paintLegend` で canvas 下部に 4 種の凡例 (`Entry point`, `Intermediate`, `Leaf`, `Cycle`)
-- [ ] `canvasSize.height` を `LEGEND_HEIGHT` 分加算
-- [ ] `RescriptDependencyDiagramModelTest.kt` に `classifyNodes` の 5 ケース追加
-- [ ] `RescriptDependencyDiagramGraphViewTest.kt` に role 整合性 + palette 一意性 assertion 追加
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.diagram.*"` が緑
-- [ ] コミット: `🎨 Add NodeRole classification and colour-coded Module Dependency visual`
+- [x] `RescriptDependencyDiagramModel.kt` に `NodeRole` enum 追加
+- [x] 純関数 `classifyNodes(nodes, edges): Map<String, NodeRole>` 追加 (Kahn BFS)
+- [x] `RescriptDependencyDiagramGraphView.kt` の `LayoutNode` に `role: NodeRole` フィールド追加
+- [x] 単色 palette を `Map<NodeRole, Pair<Color, Color>>` に置換
+- [x] `computeLayout` で `classifyNodes` を呼び各 `LayoutNode.role` を埋める
+- [x] `assignLayers` の in-degree カウンタを `classifyNodes` から再利用 (DRY)
+- [x] `paintLegend` で canvas 下部に 4 種の凡例 (`Entry point`, `Intermediate`, `Leaf`, `Cycle`)
+- [x] `canvasSize.height` を `LEGEND_HEIGHT` 分加算
+- [x] `RescriptDependencyDiagramModelTest.kt` に `classifyNodes` の 5 ケース追加
+- [x] `RescriptDependencyDiagramGraphViewTest.kt` に role 整合性 + palette 一意性 assertion 追加
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.diagram.*"` が緑
+- [x] コミット: `🎨 Add NodeRole classification and colour-coded Module Dependency visual`
 
 ## セクション C: Interop Risk panel の RiskLevel 色帯
 
