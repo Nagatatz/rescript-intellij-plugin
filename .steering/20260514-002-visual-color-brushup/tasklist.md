@@ -50,10 +50,10 @@
 
 ## セクション E: Notebook cell の `JBColor` 化バグ修正
 
-- [ ] `RescriptNotebookCellPanel.kt` の 3 つのハードコード `Color` を `JBColor` 化 (`ERROR_FOREGROUND`, `BORDER_COLOR`, `OUTPUT_BACKGROUND`)
-- [ ] 他のハードコード `Color` も発見次第 `JBColor` 化
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.notebook.*"` が緑
-- [ ] コミット: `🎨 Migrate Notebook cell colours to JBColor for Dark theme support`
+- [x] `RescriptNotebookCellPanel.kt` の 3 つのハードコード `Color` を `JBColor` 化 (`ERROR_FOREGROUND`, `BORDER_COLOR`, `OUTPUT_BACKGROUND`)
+- [x] 他のハードコード `Color` も発見次第 `JBColor` 化 (`Color.GRAY` → `JBColor.GRAY`)
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.notebook.*"` が緑
+- [x] コミット: `🎨 Migrate Notebook cell colours to JBColor for Dark theme support`
 
 ## セクション F: ドキュメント同期
 
