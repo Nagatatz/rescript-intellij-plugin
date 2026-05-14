@@ -295,4 +295,69 @@ class RescriptVariantFlowGraphViewTest {
         val trueBox = layout.armBoxes.first { it.second.startsWith("true") }.first
         assertTrue(trueBox.y > yellowBox.y + yellowBox.height)
     }
+
+    @Test
+    fun `armKinds list has one entry per armBox in a flat layout`() {
+        val diagram =
+            FlowDiagram(
+                scrutineeText = "x",
+                arms =
+                    listOf(
+                        makeArm("a", "Some(_)").copy(kind = ArmKind.CONSTRUCTOR),
+                        makeArm("b", "_").copy(kind = ArmKind.WILDCARD),
+                    ),
+            )
+        val layout = RescriptVariantFlowGraphView.computeLayout(diagram, viewportWidth = 600)
+        assertEquals(layout.armBoxes.size, layout.armKinds.size)
+        assertEquals(listOf(ArmKind.CONSTRUCTOR, ArmKind.WILDCARD), layout.armKinds)
+    }
+
+    @Test
+    fun `armKinds list has one entry per armBox in a nested layout`() {
+        val nestedParent =
+            makeArmWithChildren(
+                id = "p",
+                pattern = "Yellow",
+                body = "switch blink {",
+                children =
+                    listOf(
+                        makeArm("p_0", "true", body = "Red").copy(kind = ArmKind.CONSTRUCTOR),
+                        makeArm("p_1", "false", body = "todo").copy(kind = ArmKind.TODO_PLACEHOLDER),
+                    ),
+            ).copy(kind = ArmKind.NESTED_SWITCH)
+        val diagram =
+            FlowDiagram(
+                scrutineeText = "light",
+                arms = listOf(nestedParent),
+            )
+        val layout = RescriptVariantFlowGraphView.computeLayout(diagram, viewportWidth = 800)
+        // 1 parent + 2 children = 3 boxes / 3 kinds
+        assertEquals(3, layout.armBoxes.size)
+        assertEquals(3, layout.armKinds.size)
+        // Order: parent (Yellow), child[0] (true), child[1] (false)
+        assertEquals(
+            listOf(ArmKind.NESTED_SWITCH, ArmKind.CONSTRUCTOR, ArmKind.TODO_PLACEHOLDER),
+            layout.armKinds,
+        )
+    }
+
+    @Test
+    fun `palette assigns a distinct fill colour to each ArmKind`() {
+        // Use the active-theme delegate RGB so JBColor's lack of equals
+        // override doesn't cause false positives.
+        val fillRgbs = RescriptVariantFlowGraphView.PALETTE.values.map { it.first.rgb }
+        assertEquals(ArmKind.entries.size, fillRgbs.distinct().size)
+    }
+
+    @Test
+    fun `palette assigns a distinct border colour to each ArmKind`() {
+        val borderRgbs = RescriptVariantFlowGraphView.PALETTE.values.map { it.second.rgb }
+        // CONSTRUCTOR and NESTED_SWITCH may share a border tint, so we
+        // allow up to one duplicate; the fill colour is the primary
+        // visual differentiator and is tested separately.
+        assertTrue(
+            borderRgbs.distinct().size >= ArmKind.entries.size - 1,
+            "expected at least ${ArmKind.entries.size - 1} distinct border colours, got $borderRgbs",
+        )
+    }
 }
