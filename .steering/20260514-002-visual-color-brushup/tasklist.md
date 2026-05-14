@@ -34,11 +34,11 @@
 
 ## セクション C: Interop Risk panel の RiskLevel 色帯
 
-- [ ] `RescriptInteropModel.kt` に `internal val COLOR_BY_RISK: Map<RiskLevel, JBColor>` 追加
-- [ ] `RescriptInteropRiskPanel.kt` の `EntryRenderer` を `JPanel(BorderLayout)` 構成に変更 (WEST: 4px 色帯、CENTER: 既存ラベル)
-- [ ] `RescriptInteropModelTest.kt` に `COLOR_BY_RISK` の網羅性 + 一意性 assertion 追加
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.interop.*"` が緑
-- [ ] コミット: `🎨 Add RiskLevel colour band to Interop Risk Map rows`
+- [x] `RescriptInteropModel.kt` に `internal val COLOR_BY_RISK: Map<RiskLevel, JBColor>` 追加
+- [x] `RescriptInteropRiskPanel.kt` の `EntryRenderer` を `JPanel(BorderLayout)` 構成に変更 (WEST: 4px 色帯、CENTER: 既存ラベル)
+- [x] `RescriptInteropModelTest.kt` に `COLOR_BY_RISK` の網羅性 + 一意性 assertion 追加
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.interop.*"` が緑
+- [x] コミット: `🎨 Add RiskLevel colour band to Interop Risk Map rows`
 
 ## セクション D: Type Impact panel の TypeRefKind 色ラベル
 
