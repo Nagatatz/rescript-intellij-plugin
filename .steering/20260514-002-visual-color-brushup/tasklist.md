@@ -57,13 +57,13 @@
 
 ## セクション F: ドキュメント同期
 
-- [ ] `CLAUDE.md` レイヤー 3 — `flow/` `diagram/` `interop/` `impact/` `notebook/` 段落に色分け言及追記
-- [ ] `README.md` Features の該当機能行に色分け追記
-- [ ] `docs/repository-structure.md` に新 enum (`ArmKind`, `NodeRole`) を追加
-- [ ] `sphinx-docs/user/features/advanced.md` に該当セクションの色凡例説明
-- [ ] `cd sphinx-docs && make gettext && make update-po && make build-ja` 実行
-- [ ] 新規/変更 `msgid` の日本語 `msgstr` を埋める
-- [ ] コミット: `📝 Update CLAUDE.md/README/sphinx-docs for visual color brushup`
+- [x] `CLAUDE.md` レイヤー 3 — `flow/` `diagram/` `interop/` `impact/` `notebook/` 段落に色分け言及追記
+- [x] `README.md` Features の該当機能行に色分け追記
+- [x] `docs/repository-structure.md` に新 enum (`ArmKind`, `NodeRole`) を追加
+- [x] `sphinx-docs/user/features/advanced.md` に該当セクションの色凡例説明
+- [x] `cd sphinx-docs && make gettext && make update-po && make build-ja` 実行
+- [x] 新規/変更 `msgid` の日本語 `msgstr` を埋める
+- [x] コミット: `📝 Update CLAUDE.md/README/sphinx-docs for visual color brushup`
 
 ## セクション G: 仕上げとマージ
 

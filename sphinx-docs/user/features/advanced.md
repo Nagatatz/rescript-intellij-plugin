@@ -975,6 +975,19 @@ A **Visual / Source** toggle on the toolbar swaps between two rendering modes of
 - **Visual mode** (default) — A Java2D-rendered top-down layered diagram. Layer assignment uses Kahn's BFS: modules with no incoming edges (typically entry points such as `Main`) sit on the top layer; each downstream dependency is pushed one layer lower. Modules that participate in a cycle land on a single extra layer beneath the rest, so they stay visible even though Kahn's algorithm cannot order them. Edges are drawn as orthogonal arrows from the source module's bottom edge to the target module's top edge. Self-loops are suppressed.
 - **Source mode** — A read-only text panel with the Mermaid `flowchart TD` source, intended for copy-paste into external renderers.
 
+### Node Colour Coding
+
+Visual mode classifies every module into one of four **structural roles** based on its position in the dependency graph, and paints the box with a role-specific colour. A legend strip at the bottom of the canvas spells out the mapping.
+
+| Role | Definition | What it tells you |
+|------|------------|-------------------|
+| Entry point | in-degree 0, not part of a cycle | A module nothing else depends on — typically `Main`, app entry, or a top-level binary |
+| Intermediate | both in-degree and out-degree are positive | A transit module: depends on others and is depended on by others |
+| Leaf | out-degree 0, not part of a cycle | A pure sink: opens / includes no other modules in the project (often a primitive utility) |
+| Cycle | Kahn's BFS cannot drain it | A member of a strongly connected component — a circular dependency that needs untangling |
+
+Cycle members are coloured distinctly so they jump out even when they sit on the fallback layer. The palette is built from `JBColor(light, dark)` pairs so both Light and Dark IDE themes get readable contrast.
+
 ### Tool Window Layout
 
 - **Toolbar:** Visual / Source toggle, Refresh (rebuild the graph from current PSI), Copy as DOT, Copy as Mermaid
@@ -1017,10 +1030,24 @@ The view re-renders 200 ms after each caret movement, so moving the cursor acros
 
 The tool window has two display modes, selected from the toolbar:
 
-- **Visual** (default) — A self-contained Swing graph view paints the scrutinee and each arm as red-bordered rounded boxes connected by orthogonal arrows. The geometry is computed by a pure `computeLayout` helper, so the renderer needs no JCEF browser, no `mermaid.js`, and no external Graphviz binary.
+- **Visual** (default) — A self-contained Swing graph view paints the scrutinee and each arm as rounded boxes connected by orthogonal arrows. The geometry is computed by a pure `computeLayout` helper, so the renderer needs no JCEF browser, no `mermaid.js`, and no external Graphviz binary.
 - **Source** — The original Mermaid `flowchart TD` text view, kept for copy-paste workflows. Toggle to this mode when you want to inspect or edit the diagram text before sharing it.
 
 Visual mode expands nested `switch` arms as sub-trees beneath their parent arm box, mirroring what the Mermaid and DOT exporters already emit and capped at the same `MAX_NESTING_DEPTH` (deeper branches collapse into a single "(deeper switch hidden)" leaf). For flat single-level matches it falls back to a row of arm boxes that wraps onto additional rows when the tool window is too narrow, so the diagram stays usable in any layout. Source mode never wraps — the underlying Mermaid text is the source of truth for both copy actions described below.
+
+### Arm Colour Coding
+
+Visual mode classifies every arm into one of five **arm kinds** and paints the box with a kind-specific colour. A legend strip at the bottom of the canvas spells out the mapping so the picture is self-describing.
+
+| Arm kind | Trigger | When you see it |
+|----------|---------|-----------------|
+| Constructor | Pattern starts with an uppercase identifier (e.g. `Some(_)`, `Ok(value)`, `Red`) | Variant or polymorphic-variant constructor arms |
+| Wildcard | Pattern is exactly `_` | Catch-all arms that match anything without binding |
+| Binding | Pattern is a single lowercase identifier (e.g. `| other =>`) | Catch-all arms that bind the scrutinee |
+| Todo | Body text starts with the `todo` literal | Unimplemented arms inserted by the Add Missing Switch Arms intention or written by hand |
+| Nested | The arm contains another `switch` and renders a sub-tree | Multi-level pattern matches |
+
+The palette is built from `JBColor(light, dark)` pairs so both Light and Dark IDE themes get readable contrast. Use the colours to spot incomplete arms (the yellow `Todo` row jumps out in a long match) or to follow the structural shape of nested switches without reading the labels.
 
 ### Tool Window Layout
 
@@ -1087,7 +1114,7 @@ References that classify as `unknown` are still listed so the panel doesn't sile
 ### Tool Window Layout
 
 - **Toolbar:** Refresh (re-scan references for the current type)
-- **Main area:** A list of `[kind] file.res:line  preview` entries; double-click navigates to the reference site
+- **Main area:** A list of `[kind] file.res:line  preview` entries; double-click navigates to the reference site. The `[kind]` prefix is rendered in a kind-specific bold colour — type-ref (blue), constructor (purple), pattern (green), field-access (amber), unknown (grey) — so you can spot which flavour of reference dominates the list at a glance
 - **Status bar:** `Type.name: N reference(s)` summary, with `(showing first 200)` appended when the result was truncated
 
 ### Soft cap
@@ -1132,7 +1159,7 @@ Invalid JSON is reported with a small warning header; the rest of the editor fal
 
 - **Top:** A `Cell` label plus three icon buttons — Move Up, Move Down, Delete.
 - **Code area:** A monospaced multi-line editor (no syntax highlighting yet — this is a Phase 1 trade-off).
-- **Run button + Output area:** Pressing Run disables the button, evaluates the cell on a pooled thread, and renders the captured stdout/stderr in the output area. Errors render in red.
+- **Run button + Output area:** Pressing Run disables the button, evaluates the cell on a pooled thread, and renders the captured stdout/stderr in the output area. Errors render in red. All cell colours (border, output background, error / running-state foreground) use `JBColor(light, dark)` pairs, so both Light and Dark IDE themes give the cell adequate contrast.
 
 ### Toolbar
 
@@ -1175,7 +1202,7 @@ Soft caps keep the panel responsive: 50 entries per file, 500 entries total. Whe
 ### Tool Window Layout
 
 - **Toolbar:** Refresh — re-runs the project-wide scan
-- **Main area:** A list of `[risk/kind] file.res:line  preview` entries; double-click navigates to the line
+- **Main area:** A list of `[risk/kind] file.res:line  preview` entries; double-click navigates to the line. Each row carries a 4 px-wide left-edge colour band that mirrors the risk level — **HIGH** red, **MEDIUM** amber, **LOW** grey — so severity is readable at a glance without parsing the `[risk/kind]` prefix
 - **Status bar:** Total count, optional truncation note, and per-kind breakdown (`raw=N  obj-magic=N  external=N  bs-attr=N`)
 
 The list is sorted by descending risk, then by file path and line number for stability.
