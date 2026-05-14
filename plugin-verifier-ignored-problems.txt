@@ -1,5 +1,5 @@
 // ── Overview ──────────────────────────────────────────────────────────
-// Reviewed: 2026-04-17 | Target: IntelliJ 2025.3+
+// Reviewed: 2026-05-14 | Target: IntelliJ 2025.3+
 //
 // The Kotlin compiler option `-jvm-default=no-compatibility` (see
 // build.gradle.kts) removes the DefaultImpls bridge methods that used to
@@ -21,32 +21,25 @@
 // Expires: 2027-04-29
 com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*
 
-// ── Deprecated overrides with no replacement API ───────────────────────
+// ── Deprecated overrides with no replacement API on the compile target ──
 //
-// These methods are explicitly overridden in source with @Suppress
-// annotations. The verifier operates on bytecode and still reports them.
+// These methods are deprecated on Marketplace-side verifiers running newer
+// IDEs, but the replacement APIs (`isApplicableAsync`, `acceptFile(IndexedFile)`)
+// do not yet exist in IntelliJ Platform 2026.1.1 (our compile target). The
+// overrides are explicitly annotated with @Suppress("DEPRECATION") in source;
+// the verifier still reports them at bytecode level. Re-evaluate when the
+// platformVersion is bumped to a release that ships the async/IndexedFile
+// variants.
 
-// FloatingToolbarProvider.isApplicable(DataContext) — deprecated, but no
-// replacement API exists yet in IntelliJ 2025.3. Required for file-type
-// filtering of the ReScript editor floating toolbar.
-// Status: KEEP — no alternative API available.
+// FloatingToolbarProvider.isApplicable(DataContext)
+// Status: KEEP — `isApplicableAsync` not yet available in 2026.1.1.
 // Source: RescriptFloatingToolbarProvider.kt
-// Expires: 2027-04-29
+// Reviewed: 2026-05-14 | Expires: 2027-05-14
 com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*isApplicable.*
 
-// CompletionConfidence.shouldSkipAutopopup() — deprecated with no
-// replacement. Required to suppress the autopopup inside comments and
-// string literals.
-// Status: KEEP — no alternative API available.
-// Source: RescriptCompletionConfidence.kt
-// Expires: 2027-04-29
-com\.rescript\.plugin:.*:.*CompletionConfidence.*shouldSkipAutopopup.*
-
-// ── Transitive deprecation from LSP4J ──────────────────────────────────
-//
-// MarkedString is referenced only via LSP4J's Hover response type
-// (Either<List<Either<String, MarkedString>>, MarkupContent>).
-// Not directly used in plugin source; cannot be fixed without LSP4J update.
-// Status: KEEP — transitive dependency via IntelliJ Platform's bundled LSP4J.
-// Expires: 2027-04-29
-com\.rescript\.plugin:.*:.*MarkedString.*
+// FileIncludeProvider.acceptFile(VirtualFile)
+// Status: KEEP — `acceptFile(IndexedFile)` not yet available in 2026.1.1;
+// the VirtualFile overload remains abstract and must be overridden.
+// Source: RescriptFileIncludeProvider.kt
+// Reviewed: 2026-05-14 | Expires: 2027-05-14
+com\.rescript\.plugin:.*:.*FileIncludeProvider.*acceptFile.*
