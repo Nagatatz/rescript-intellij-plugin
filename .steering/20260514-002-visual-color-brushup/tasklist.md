@@ -42,11 +42,11 @@
 
 ## セクション D: Type Impact panel の TypeRefKind 色ラベル
 
-- [ ] `RescriptTypeImpactModel.kt` に `internal fun colorForKind(kind: TypeRefKind): JBColor` 追加
-- [ ] `RescriptTypeImpactPanel.kt` の `EntryRenderer` を `ColoredListCellRenderer<ReferenceEntry>` に変換
-- [ ] `RescriptTypeImpactModelTest.kt` を新規作成 (`colorForKind` の網羅性 + 一意性 assertion)
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.impact.*"` が緑
-- [ ] コミット: `🎨 Add TypeRefKind colour coding to Type Impact references`
+- [x] `RescriptTypeImpactModel.kt` に `internal fun colorForKind(kind: TypeRefKind): JBColor` 追加
+- [x] `RescriptTypeImpactPanel.kt` の `EntryRenderer` を `ColoredListCellRenderer<ReferenceEntry>` に変換
+- [x] `RescriptTypeImpactModelTest.kt` に `colorForKind` の網羅性 + 一意性 assertion 追加
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.impact.*"` が緑
+- [x] コミット: `🎨 Add TypeRefKind colour coding to Type Impact references`
 
 ## セクション E: Notebook cell の `JBColor` 化バグ修正
 

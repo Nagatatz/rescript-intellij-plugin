@@ -18,6 +18,8 @@ import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.psi.PsiManager
+import com.intellij.ui.ColoredListCellRenderer
+import com.intellij.ui.SimpleTextAttributes
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
@@ -25,13 +27,11 @@ import com.intellij.util.Alarm
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import java.awt.BorderLayout
-import java.awt.Component
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.DefaultListModel
 import javax.swing.JList
 import javax.swing.JPanel
-import javax.swing.ListCellRenderer
 
 /**
  * Tool window UI for the type impact preview.
@@ -184,28 +184,31 @@ class RescriptTypeImpactPanel(
 
     /**
      * List cell renderer for [ReferenceEntry] rows. Layout:
-     * `[KIND] file:line  preview…`
+     * `[kind] file:line  preview…`
+     *
+     * The `[kind]` prefix is rendered in bold using [colorForKind] so
+     * the kind is scannable by colour. The rest of the row uses the
+     * standard list foreground / GRAY palette.
      */
-    private class EntryRenderer : ListCellRenderer<ReferenceEntry> {
-        private val delegate =
-            com.intellij.ui.components
-                .JBLabel()
-
-        override fun getListCellRendererComponent(
+    private class EntryRenderer : ColoredListCellRenderer<ReferenceEntry>() {
+        override fun customizeCellRenderer(
             list: JList<out ReferenceEntry>,
             value: ReferenceEntry?,
             index: Int,
-            isSelected: Boolean,
-            cellHasFocus: Boolean,
-        ): Component {
-            value ?: return delegate.also { it.text = "" }
-            val kind = value.kind.name.lowercase()
-            val name = value.file.name
-            delegate.text = "[$kind] $name:${value.lineNumber}  ${value.previewLine}"
-            delegate.background = if (isSelected) list.selectionBackground else list.background
-            delegate.foreground = if (isSelected) list.selectionForeground else list.foreground
-            delegate.isOpaque = true
-            return delegate
+            selected: Boolean,
+            hasFocus: Boolean,
+        ) {
+            if (value == null) return
+            val kindLabel = value.kind.name.lowercase()
+            append(
+                "[$kindLabel] ",
+                SimpleTextAttributes(SimpleTextAttributes.STYLE_BOLD, colorForKind(value.kind)),
+            )
+            append(
+                "${value.file.name}:${value.lineNumber}  ",
+                SimpleTextAttributes.REGULAR_ATTRIBUTES,
+            )
+            append(value.previewLine, SimpleTextAttributes.GRAYED_ATTRIBUTES)
         }
     }
 

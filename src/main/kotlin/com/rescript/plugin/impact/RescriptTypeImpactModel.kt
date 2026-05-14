@@ -1,6 +1,8 @@
 package com.rescript.plugin.impact
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.JBColor
+import java.awt.Color
 
 /**
  * Identifies a single ReScript `type` declaration that the impact
@@ -62,3 +64,19 @@ data class ReferenceEntry(
     val previewLine: String,
     val kind: TypeRefKind,
 )
+
+/**
+ * Returns a [JBColor] for each [TypeRefKind], used by the Type Impact
+ * panel to bold-tint the `[kind]` prefix in every reference row. The
+ * mapping is exhaustive (every enum value has a colour) so the panel
+ * can read it without an exhaustive `when` and so unit tests can
+ * assert palette completeness and uniqueness.
+ */
+internal fun colorForKind(kind: TypeRefKind): JBColor =
+    when (kind) {
+        TypeRefKind.TYPE_REF -> JBColor(Color(0x3E72C2), Color(0x6B9CE6))
+        TypeRefKind.CONSTRUCTOR -> JBColor(Color(0x8C56C2), Color(0xB07AE0))
+        TypeRefKind.PATTERN -> JBColor(Color(0x3E9E3E), Color(0x68C268))
+        TypeRefKind.FIELD_ACCESS -> JBColor(Color(0xC79A2B), Color(0xE6BC55))
+        TypeRefKind.UNKNOWN -> JBColor(Color(0x9A9A9A), Color(0x6F6F6F))
+    }
