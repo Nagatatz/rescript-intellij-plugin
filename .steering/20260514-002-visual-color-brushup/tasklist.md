@@ -67,10 +67,10 @@
 
 ## セクション G: 仕上げとマージ
 
-- [ ] `./gradlew ktlintCheck buildPlugin test koverHtmlReport verifyPluginStructure` が緑
-- [ ] DoD Phase 3 自己検証 (KDoc、deprecated API、セキュリティ)
-- [ ] 手動 visual verification (`./gradlew runIde` で Light/Dark テーマ両方)
-- [ ] 本ファイルのすべてのチェックボックスを `[x]` に更新してコミット
+- [x] `./gradlew ktlintCheck buildPlugin test koverHtmlReport verifyPluginStructure` が緑
+- [x] DoD Phase 3 自己検証 (KDoc 全クラスに付与済み、deprecated API 不使用、palette はテスト可能 model 側、外部入力なし)
+- [ ] 手動 visual verification (`./gradlew runIde` で Light/Dark テーマ両方) — ユーザー実施
+- [x] 本ファイルのすべてのチェックボックスを `[x]` に更新してコミット
 - [ ] `AskUserQuestion` でマージ可否を確認
 - [ ] 承認後: `git checkout main && git merge worktree-20260514-002-visual-color-brushup && git branch -d worktree-20260514-002-visual-color-brushup`
 - [ ] セッション終了 (worktree 自動クリーンアップ)
