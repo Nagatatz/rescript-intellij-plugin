@@ -4,6 +4,37 @@ import com.rescript.plugin.narrowing.RescriptSwitchArmCollector
 import com.rescript.plugin.narrowing.SwitchArm
 
 /**
+ * Structural classification of a [FlowNode] used by the visual view
+ * to colour arm boxes by their semantic role. The classification is
+ * derived from the arm's pattern summary, body preview, and whether
+ * it carries nested-switch children.
+ */
+enum class ArmKind {
+    /** Synthetic root that represents the scrutinee of the outer switch. */
+    ROOT,
+
+    /** Variant constructor arm such as `Some(_)`, `Ok(_)`, or `Red`. */
+    CONSTRUCTOR,
+
+    /** Bare wildcard `_` pattern matching anything. */
+    WILDCARD,
+
+    /** Lowercase identifier pattern that binds the scrutinee (`| other =>`). */
+    PATTERN_BINDING,
+
+    /**
+     * Arm whose body is a `todo` placeholder, typically inserted by the
+     * Add Missing Switch Arms intention. Only matches the literal `todo`
+     * token at the start of the body — broader heuristics such as
+     * `failwith` are intentionally excluded to keep false positives at zero.
+     */
+    TODO_PLACEHOLDER,
+
+    /** Arm whose body contains another `switch`, expanded as a sub-tree. */
+    NESTED_SWITCH,
+}
+
+/**
  * One node in the variant-flow decision tree: a single arm of a
  * `switch` expression, optionally with nested arms that come from a
  * `switch` inside this arm's body.
@@ -15,12 +46,15 @@ import com.rescript.plugin.narrowing.SwitchArm
  *   meaningful body text (e.g. nested switch with no other code)
  * @property children child nodes for a nested `switch` inside this
  *   arm's body, or empty when the arm body is leaf code
+ * @property kind semantic classification used by the visual view to
+ *   colour-code arm boxes; defaults to [ArmKind.CONSTRUCTOR]
  */
 data class FlowNode(
     val id: String,
     val patternSummary: String,
     val bodyPreview: String,
     val children: List<FlowNode>,
+    val kind: ArmKind = ArmKind.CONSTRUCTOR,
 )
 
 /**
@@ -120,6 +154,7 @@ object RescriptVariantFlowModel {
                             patternSummary = "(deeper switch hidden)",
                             bodyPreview = "",
                             children = emptyList(),
+                            kind = ArmKind.NESTED_SWITCH,
                         ),
                     )
                 }
@@ -136,7 +171,41 @@ object RescriptVariantFlowModel {
             patternSummary = arm.patternSummary,
             bodyPreview = bodyPreview,
             children = children,
+            kind = classifyArm(arm.patternSummary, bodyPreview, children.isNotEmpty()),
         )
+    }
+
+    /**
+     * Classifies an arm based on its pattern summary, body preview, and
+     * whether it has nested-switch children. The classification drives
+     * colour coding in the visual view.
+     *
+     * Order of precedence:
+     * 1. arms with children → [ArmKind.NESTED_SWITCH]
+     * 2. bare `_` pattern → [ArmKind.WILDCARD]
+     * 3. lowercase-leading pattern → [ArmKind.PATTERN_BINDING]
+     * 4. body starts with `todo` literal → [ArmKind.TODO_PLACEHOLDER]
+     * 5. anything else → [ArmKind.CONSTRUCTOR]
+     *
+     * @param patternSummary the arm's textual pattern label
+     * @param bodyPreview first non-blank line of the arm body, trimmed
+     * @param hasChildren whether the arm has nested-switch sub-arms
+     * @return the matched [ArmKind]
+     */
+    internal fun classifyArm(
+        patternSummary: String,
+        bodyPreview: String,
+        hasChildren: Boolean,
+    ): ArmKind {
+        val trimmedPattern = patternSummary.trim()
+        val trimmedBody = bodyPreview.trim()
+        return when {
+            hasChildren -> ArmKind.NESTED_SWITCH
+            trimmedPattern == "_" -> ArmKind.WILDCARD
+            trimmedPattern.firstOrNull()?.isLowerCase() == true -> ArmKind.PATTERN_BINDING
+            trimmedBody == "todo" || trimmedBody.startsWith("todo ") -> ArmKind.TODO_PLACEHOLDER
+            else -> ArmKind.CONSTRUCTOR
+        }
     }
 
     /**

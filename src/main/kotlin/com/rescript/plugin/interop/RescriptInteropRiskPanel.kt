@@ -14,8 +14,10 @@ import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
 import java.awt.Component
+import java.awt.Dimension
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.DefaultListModel
@@ -121,10 +123,26 @@ class RescriptInteropRiskPanel(
 
     /**
      * List cell renderer for [InteropEntry] rows. Layout:
-     * `[risk/kind] file:line  preview…`
+     * `[colour band] [risk/kind] file:line  preview…`
+     *
+     * The 4 px-wide left band is filled with [COLOR_BY_RISK]'s entry for
+     * the row's [RiskLevel], so HIGH/MEDIUM/LOW are scannable without
+     * reading the text.
      */
     private class EntryRenderer : ListCellRenderer<InteropEntry> {
-        private val delegate = JBLabel()
+        private val text = JBLabel()
+        private val band =
+            JPanel().apply {
+                preferredSize = Dimension(BAND_WIDTH, 1)
+                isOpaque = true
+            }
+        private val row =
+            JPanel(BorderLayout()).apply {
+                add(band, BorderLayout.WEST)
+                add(text, BorderLayout.CENTER)
+                border = JBUI.Borders.emptyLeft(2)
+                isOpaque = true
+            }
 
         override fun getListCellRendererComponent(
             list: JList<out InteropEntry>,
@@ -133,17 +151,28 @@ class RescriptInteropRiskPanel(
             isSelected: Boolean,
             cellHasFocus: Boolean,
         ): Component {
-            value ?: return delegate.also { it.text = "" }
+            if (value == null) {
+                text.text = ""
+                return row
+            }
             val risk = value.risk.name.lowercase()
             val kind =
                 value.kind.name
                     .lowercase()
                     .replace('_', '-')
-            delegate.text = "[$risk/$kind] ${value.file.name}:${value.lineNumber}  ${value.previewLine}"
-            delegate.background = if (isSelected) list.selectionBackground else list.background
-            delegate.foreground = if (isSelected) list.selectionForeground else list.foreground
-            delegate.isOpaque = true
-            return delegate
+            text.text = "[$risk/$kind] ${value.file.name}:${value.lineNumber}  ${value.previewLine}"
+            band.background = COLOR_BY_RISK.getValue(value.risk)
+            val bg = if (isSelected) list.selectionBackground else list.background
+            val fg = if (isSelected) list.selectionForeground else list.foreground
+            row.background = bg
+            text.background = bg
+            text.foreground = fg
+            text.isOpaque = true
+            return row
+        }
+
+        private companion object {
+            private const val BAND_WIDTH = 4
         }
     }
 

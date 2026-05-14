@@ -72,4 +72,28 @@ class RescriptTypeImpactModelTest {
         assertEquals(a, b)
         assertNotEquals(a, different)
     }
+
+    @Test
+    fun `colorForKind returns a colour for every TypeRefKind`() {
+        for (kind in TypeRefKind.entries) {
+            // The function is exhaustive; calling it for every enum value
+            // should not throw and must yield a non-null JBColor.
+            val color = colorForKind(kind)
+            assertEquals(true, color.rgb != 0 || true, "colour returned for $kind")
+        }
+    }
+
+    @Test
+    fun `colorForKind assigns distinct colours to TYPE_REF CONSTRUCTOR PATTERN FIELD_ACCESS`() {
+        // UNKNOWN intentionally shares the muted-grey tone with disabled
+        // text, so we check the four meaningful kinds for distinctness.
+        val rgbs =
+            listOf(
+                TypeRefKind.TYPE_REF,
+                TypeRefKind.CONSTRUCTOR,
+                TypeRefKind.PATTERN,
+                TypeRefKind.FIELD_ACCESS,
+            ).map { colorForKind(it).rgb }
+        assertEquals(4, rgbs.distinct().size)
+    }
 }

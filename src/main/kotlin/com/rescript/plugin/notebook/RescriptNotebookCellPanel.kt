@@ -2,6 +2,7 @@ package com.rescript.plugin.notebook
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.rescript.plugin.repl.RescriptReplExecutor
@@ -110,7 +111,7 @@ class RescriptNotebookCellPanel(
         val code = codeArea.text
         runButton.isEnabled = false
         runButton.text = "Running…"
-        outputArea.foreground = Color.GRAY
+        outputArea.foreground = JBColor.GRAY
         outputArea.text = "(running)"
         ApplicationManager.getApplication().executeOnPooledThread {
             val output = RescriptReplExecutor.execute(code, projectPath)
@@ -118,7 +119,7 @@ class RescriptNotebookCellPanel(
                 runButton.isEnabled = true
                 runButton.text = "Run"
                 outputArea.foreground =
-                    if (output.startsWith("Error")) Color(0xCC0000) else null
+                    if (output.startsWith("Error")) ERROR_FOREGROUND else null
                 outputArea.text = output
                 onChanged()
             }
@@ -126,8 +127,12 @@ class RescriptNotebookCellPanel(
     }
 
     private companion object {
-        val BORDER_COLOR: Color = Color(0xC0C0C0)
-        val OUTPUT_BACKGROUND: Color = Color(0xF5F5F5)
+        // JBColor pairs (light, dark) so the panel adapts to the active
+        // IDE theme. Previous Color(0x…) literals only worked on the
+        // light theme, leaving the cell border invisible in dark mode.
+        val BORDER_COLOR: JBColor = JBColor(Color(0xC0C0C0), Color(0x3C3C3C))
+        val OUTPUT_BACKGROUND: JBColor = JBColor(Color(0xF5F5F5), Color(0x2B2B2B))
+        val ERROR_FOREGROUND: JBColor = JBColor(Color(0xCC0000), Color(0xE74C3C))
     }
 }
 

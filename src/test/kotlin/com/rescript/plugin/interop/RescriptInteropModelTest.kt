@@ -56,4 +56,19 @@ class RescriptInteropModelTest {
         assertEquals(a, b)
         assertNotEquals(a, differentRisk)
     }
+
+    @Test
+    fun `COLOR_BY_RISK has an entry for every RiskLevel`() {
+        for (level in RiskLevel.entries) {
+            assertEquals(true, COLOR_BY_RISK.containsKey(level), "missing colour for $level")
+        }
+    }
+
+    @Test
+    fun `COLOR_BY_RISK assigns distinct light-theme colours per level`() {
+        // Compare by RGB of the active-theme delegate; JBColor lacks
+        // its own equals override so plain `!=` checks are unreliable.
+        val rgbs = RiskLevel.entries.map { COLOR_BY_RISK.getValue(it).rgb }
+        assertEquals(RiskLevel.entries.size, rgbs.distinct().size)
+    }
 }

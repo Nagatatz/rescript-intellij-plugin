@@ -1,6 +1,8 @@
 package com.rescript.plugin.interop
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.JBColor
+import java.awt.Color
 
 /**
  * Coarse classification of a JS interop call site, used by the
@@ -50,3 +52,16 @@ data class InteropEntry(
     val kind: InteropKind,
     val risk: RiskLevel,
 )
+
+/**
+ * JBColor for each [RiskLevel] used by the Risk Map panel to render
+ * a left-edge colour band per row. The mapping is keyed by enum so the
+ * renderer can read it via `getValue(entry.risk)` without an exhaustive
+ * `when` and so unit tests can assert palette completeness/uniqueness.
+ */
+internal val COLOR_BY_RISK: Map<RiskLevel, JBColor> =
+    mapOf(
+        RiskLevel.HIGH to JBColor(Color(0xCC3333), Color(0xFF6666)),
+        RiskLevel.MEDIUM to JBColor(Color(0xCC8800), Color(0xFFCC44)),
+        RiskLevel.LOW to JBColor(Color(0x808080), Color(0xA0A0A0)),
+    )

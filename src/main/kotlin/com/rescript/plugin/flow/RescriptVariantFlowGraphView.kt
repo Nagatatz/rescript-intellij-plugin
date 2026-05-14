@@ -64,13 +64,38 @@ class RescriptVariantFlowGraphView : JComponent() {
             g2.fillRect(0, 0, width, height)
             val current = diagram ?: return
             val layout = computeLayout(current, width.coerceAtLeast(MIN_VIEW_WIDTH), g2.fontMetrics)
-            paintNode(g2, layout.rootBox, current.scrutineeText, ROOT_FILL, ROOT_BORDER)
-            for ((box, label) in layout.armBoxes) {
-                paintNode(g2, box, label, ARM_FILL, ARM_BORDER)
+            val (rootFill, rootBorder) = PALETTE.getValue(ArmKind.ROOT)
+            paintNode(g2, layout.rootBox, current.scrutineeText, rootFill, rootBorder)
+            for (idx in layout.armBoxes.indices) {
+                val (box, label) = layout.armBoxes[idx]
+                val kind = layout.armKinds[idx]
+                val (fill, border) = PALETTE.getValue(kind)
+                paintNode(g2, box, label, fill, border)
             }
             paintEdges(g2, layout.edges)
+            paintLegend(g2, layout.canvasSize.height - LEGEND_HEIGHT)
         } finally {
             g2.dispose()
+        }
+    }
+
+    private fun paintLegend(
+        g: Graphics2D,
+        baseY: Int,
+    ) {
+        val fm = g.fontMetrics
+        val items = LEGEND_ITEMS
+        var x = MARGIN
+        val y = baseY + 4
+        for ((label, kind) in items) {
+            val (fill, border) = PALETTE.getValue(kind)
+            g.color = fill
+            g.fillRoundRect(x, y, LEGEND_SWATCH_SIZE, LEGEND_SWATCH_SIZE, 4, 4)
+            g.color = border
+            g.drawRoundRect(x, y, LEGEND_SWATCH_SIZE, LEGEND_SWATCH_SIZE, 4, 4)
+            g.color = JBColor.foreground()
+            g.drawString(label, x + LEGEND_SWATCH_SIZE + 4, y + fm.ascent)
+            x += LEGEND_SWATCH_SIZE + 6 + fm.stringWidth(label) + LEGEND_ITEM_GAP
         }
     }
 
@@ -160,15 +185,18 @@ class RescriptVariantFlowGraphView : JComponent() {
      * @property rootBox bounds of the scrutinee node
      * @property armBoxes pairs of (bounds, display label) for each
      *   first-level arm, in source order
+     * @property armKinds [ArmKind] for each arm in [armBoxes] (same size
+     *   and order), used by the view to pick a palette entry per box
      * @property edges polylines connecting the root to each arm; each
      *   polyline has 4 vertices for a clean orthogonal route
      *   (root-bottom → midline → arm-top-x → arm-top)
      * @property canvasSize total size required to contain all nodes
-     *   and edges, including padding
+     *   and edges, including padding and the legend strip
      */
     data class Layout(
         val rootBox: Rectangle,
         val armBoxes: List<Pair<Rectangle, String>>,
+        val armKinds: List<ArmKind>,
         val edges: List<List<Point>>,
         val canvasSize: Dimension,
     )
@@ -191,10 +219,52 @@ class RescriptVariantFlowGraphView : JComponent() {
         private const val ARROW_HEIGHT = 8
         private const val DEFAULT_CHAR_WIDTH = 7
 
-        private val ROOT_FILL: Color = JBColor(Color(0xFFE7E8), Color(0x7A2226))
-        private val ROOT_BORDER: Color = JBColor(Color(0xCB3939), Color(0xE6484F))
-        private val ARM_FILL: Color = JBColor(Color(0xFFF3F4), Color(0x4A1518))
-        private val ARM_BORDER: Color = JBColor(Color(0xCB3939), Color(0xE6484F))
+        /** Height in pixels reserved at the bottom of the canvas for the legend strip. */
+        internal const val LEGEND_HEIGHT = 28
+        private const val LEGEND_SWATCH_SIZE = 14
+        private const val LEGEND_ITEM_GAP = 12
+
+        /**
+         * Ordered list of (label, kind) pairs rendered in the legend strip.
+         * `ROOT` is excluded — it is always the scrutinee, not an arm
+         * category that benefits from a legend entry.
+         */
+        private val LEGEND_ITEMS: List<Pair<String, ArmKind>> =
+            listOf(
+                "Constructor" to ArmKind.CONSTRUCTOR,
+                "Wildcard" to ArmKind.WILDCARD,
+                "Binding" to ArmKind.PATTERN_BINDING,
+                "Todo" to ArmKind.TODO_PLACEHOLDER,
+                "Nested" to ArmKind.NESTED_SWITCH,
+            )
+
+        private val ROOT_FILL = JBColor(Color(0xFFE7E8), Color(0x7A2226))
+        private val ROOT_BORDER = JBColor(Color(0xCB3939), Color(0xE6484F))
+        private val CONSTRUCTOR_FILL = JBColor(Color(0xE7F0FF), Color(0x223A6E))
+        private val CONSTRUCTOR_BORDER = JBColor(Color(0x3E72C2), Color(0x6B9CE6))
+        private val WILDCARD_FILL = JBColor(Color(0xEEEEEE), Color(0x3C3C3C))
+        private val WILDCARD_BORDER = JBColor(Color(0x9A9A9A), Color(0x6F6F6F))
+        private val PATTERN_BINDING_FILL = JBColor(Color(0xE7FBE7), Color(0x254B25))
+        private val PATTERN_BINDING_BORDER = JBColor(Color(0x3E9E3E), Color(0x68C268))
+        private val TODO_PLACEHOLDER_FILL = JBColor(Color(0xFFF6D9), Color(0x6E4F12))
+        private val TODO_PLACEHOLDER_BORDER = JBColor(Color(0xC79A2B), Color(0xE6BC55))
+        private val NESTED_SWITCH_FILL = JBColor(Color(0xF1E7FB), Color(0x4A2A6B))
+        private val NESTED_SWITCH_BORDER = JBColor(Color(0x8C56C2), Color(0xB07AE0))
+
+        /**
+         * Fill/border colour pair for each [ArmKind]. Colours are
+         * `JBColor(light, dark)` so the palette adapts to the active
+         * IDE theme without per-call branching.
+         */
+        internal val PALETTE: Map<ArmKind, Pair<Color, Color>> =
+            mapOf(
+                ArmKind.ROOT to (ROOT_FILL to ROOT_BORDER),
+                ArmKind.CONSTRUCTOR to (CONSTRUCTOR_FILL to CONSTRUCTOR_BORDER),
+                ArmKind.WILDCARD to (WILDCARD_FILL to WILDCARD_BORDER),
+                ArmKind.PATTERN_BINDING to (PATTERN_BINDING_FILL to PATTERN_BINDING_BORDER),
+                ArmKind.TODO_PLACEHOLDER to (TODO_PLACEHOLDER_FILL to TODO_PLACEHOLDER_BORDER),
+                ArmKind.NESTED_SWITCH to (NESTED_SWITCH_FILL to NESTED_SWITCH_BORDER),
+            )
         private val EDGE_COLOR: Color = JBColor(Color(0xCB3939), Color(0xE6484F))
 
         /**
@@ -289,17 +359,21 @@ class RescriptVariantFlowGraphView : JComponent() {
                 )
             }
 
-            val canvasHeight =
+            val baseCanvasHeight =
                 if (armBoxes.isEmpty()) {
                     rootY + ROOT_HEIGHT + MARGIN
                 } else {
                     val lastBox = armBoxes.last().first
                     lastBox.y + lastBox.height + MARGIN
                 }
+            val canvasHeight = baseCanvasHeight + LEGEND_HEIGHT
 
             return Layout(
                 rootBox = rootBox,
                 armBoxes = armBoxes,
+                // Flat layout draws one box per top-level arm in source
+                // order, so kinds map 1:1 to the arms.
+                armKinds = diagram.arms.map { it.kind },
                 edges = edges,
                 canvasSize = Dimension(canvasWidth, canvasHeight),
             )
@@ -336,6 +410,7 @@ class RescriptVariantFlowGraphView : JComponent() {
             val armsY = rootY + ROOT_HEIGHT + V_GAP
 
             val armBoxes = mutableListOf<Pair<Rectangle, String>>()
+            val armKinds = mutableListOf<ArmKind>()
             val edges = mutableListOf<List<Point>>()
             val rootBottom = Point(rootBox.x + rootBox.width / 2, rootBox.y + rootBox.height)
 
@@ -348,6 +423,7 @@ class RescriptVariantFlowGraphView : JComponent() {
                         Rectangle(box.x + dx, box.y + dy, box.width, box.height) to label,
                     )
                 }
+                armKinds.addAll(subtree.armKinds)
                 for (polyline in subtree.edges) {
                     edges.add(polyline.map { Point(it.x + dx, it.y + dy) })
                 }
@@ -365,10 +441,11 @@ class RescriptVariantFlowGraphView : JComponent() {
                 cursorX += subtree.width + H_GAP
             }
 
-            val canvasHeight = armsY + armsMaxHeight + MARGIN
+            val canvasHeight = armsY + armsMaxHeight + MARGIN + LEGEND_HEIGHT
             return Layout(
                 rootBox = rootBox,
                 armBoxes = armBoxes,
+                armKinds = armKinds,
                 edges = edges,
                 canvasSize = Dimension(canvasWidth, canvasHeight),
             )
@@ -383,6 +460,8 @@ class RescriptVariantFlowGraphView : JComponent() {
          * @property rootBox bounds of the arm's own box, sub-tree-local
          * @property armBoxes own box plus every descendant box, with
          *   labels, in source order
+         * @property armKinds [ArmKind] for each entry in [armBoxes], same
+         *   size and order, so the view can pick a palette colour per box
          * @property edges polylines for every parent→child connection
          *   inside this sub-tree (does not include the edge from the
          *   outer scrutinee root)
@@ -392,6 +471,7 @@ class RescriptVariantFlowGraphView : JComponent() {
         private data class ArmSubtree(
             val rootBox: Rectangle,
             val armBoxes: List<Pair<Rectangle, String>>,
+            val armKinds: List<ArmKind>,
             val edges: List<List<Point>>,
             val width: Int,
             val height: Int,
@@ -409,6 +489,7 @@ class RescriptVariantFlowGraphView : JComponent() {
                 return ArmSubtree(
                     rootBox = rect,
                     armBoxes = listOf(rect to label),
+                    armKinds = listOf(node.kind),
                     edges = emptyList(),
                     width = ownWidth,
                     height = ARM_HEIGHT,
@@ -426,8 +507,10 @@ class RescriptVariantFlowGraphView : JComponent() {
             val ownBox = Rectangle(ownX, 0, ownWidth, ARM_HEIGHT)
 
             val armBoxes = mutableListOf<Pair<Rectangle, String>>()
+            val armKinds = mutableListOf<ArmKind>()
             val edges = mutableListOf<List<Point>>()
             armBoxes.add(ownBox to label)
+            armKinds.add(node.kind)
 
             val childrenStartX = (width - childrenWidth) / 2
             var childX = childrenStartX
@@ -442,6 +525,7 @@ class RescriptVariantFlowGraphView : JComponent() {
                         Rectangle(box.x + dx, box.y + dy, box.width, box.height) to lbl,
                     )
                 }
+                armKinds.addAll(child.armKinds)
                 for (polyline in child.edges) {
                     edges.add(polyline.map { Point(it.x + dx, it.y + dy) })
                 }
@@ -462,6 +546,7 @@ class RescriptVariantFlowGraphView : JComponent() {
             return ArmSubtree(
                 rootBox = ownBox,
                 armBoxes = armBoxes,
+                armKinds = armKinds,
                 edges = edges,
                 width = width,
                 height = height,

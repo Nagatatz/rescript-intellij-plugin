@@ -139,4 +139,67 @@ class RescriptDependencyDiagramModelTest {
         val dot = model.toDot()
         assertTrue(dot.contains("App\\\\Path"))
     }
+
+    @Test
+    fun `classifyNodes marks in-degree-0 module as ENTRY_POINT`() {
+        // App -> Utils, App has no incoming deps so it is the entry point.
+        val model = RescriptDependencyDiagramModel()
+        model.addModule("App", listOf("Utils"))
+        val roles =
+            RescriptDependencyDiagramModel.classifyNodes(model.getNodes(), model.getEdges())
+        assertEquals(NodeRole.ENTRY_POINT, roles["App"])
+    }
+
+    @Test
+    fun `classifyNodes marks out-degree-0 module as LEAF`() {
+        val model = RescriptDependencyDiagramModel()
+        model.addModule("App", listOf("Utils"))
+        val roles =
+            RescriptDependencyDiagramModel.classifyNodes(model.getNodes(), model.getEdges())
+        assertEquals(NodeRole.LEAF, roles["Utils"])
+    }
+
+    @Test
+    fun `classifyNodes marks middle module as INTERMEDIATE`() {
+        // App -> Utils -> Core. Utils has both an incoming and outgoing edge.
+        val model = RescriptDependencyDiagramModel()
+        model.addModule("App", listOf("Utils"))
+        model.addModule("Utils", listOf("Core"))
+        val roles =
+            RescriptDependencyDiagramModel.classifyNodes(model.getNodes(), model.getEdges())
+        assertEquals(NodeRole.INTERMEDIATE, roles["Utils"])
+    }
+
+    @Test
+    fun `classifyNodes marks Kahn-undrainable nodes as CYCLE_MEMBER`() {
+        // A -> B -> A: pure cycle, both nodes are CYCLE_MEMBER.
+        val model = RescriptDependencyDiagramModel()
+        model.addModule("A", listOf("B"))
+        model.addModule("B", listOf("A"))
+        val roles =
+            RescriptDependencyDiagramModel.classifyNodes(model.getNodes(), model.getEdges())
+        assertEquals(NodeRole.CYCLE_MEMBER, roles["A"])
+        assertEquals(NodeRole.CYCLE_MEMBER, roles["B"])
+    }
+
+    @Test
+    fun `classifyNodes returns empty map for empty model`() {
+        val roles =
+            RescriptDependencyDiagramModel.classifyNodes(emptyList(), emptyList())
+        assertTrue(roles.isEmpty())
+    }
+
+    @Test
+    fun `classifyNodes ignores self-loops when classifying`() {
+        // A -> A is a self-loop. The classifier's edge handling should still
+        // mark A as ENTRY_POINT/LEAF rather than CYCLE_MEMBER since the view
+        // strips self-loops before drawing. We accept either classification
+        // here (the visual view filters them out anyway); the contract is
+        // that the function does not throw.
+        val model = RescriptDependencyDiagramModel()
+        model.addModule("A", listOf("A"))
+        val roles =
+            RescriptDependencyDiagramModel.classifyNodes(model.getNodes(), model.getEdges())
+        assertTrue(roles.containsKey("A"))
+    }
 }
