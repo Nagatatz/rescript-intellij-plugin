@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test
  *
  * Generates ~5000 lines of ReScript, places the caret on the
  * outermost switch, and asserts the diagram builder completes within
- * a generous upper bound.
+ * `BASELINE_MS * SLACK_FACTOR`. Ratchet BASELINE_MS downward over
+ * time; raise it only with an explicit justification.
  */
 class RescriptVariantFlowModelPerfTest {
     private val switchBlocks = 500
-    private val timeLimitMs = 1000L
 
     @Test
     fun `buildAtOffset on a 5000-line file finishes within bound`() {
@@ -22,11 +22,29 @@ class RescriptVariantFlowModelPerfTest {
         // Place the caret at the first `switch` keyword we emit.
         val offset = source.indexOf("switch ")
         require(offset >= 0)
+        // Warmup: classloader + JIT compilation otherwise dominates the
+        // first invocation and would mask real algorithmic regressions.
+        RescriptVariantFlowModel.buildAtOffset(source, offset)
         val started = System.nanoTime()
         val diagram = RescriptVariantFlowModel.buildAtOffset(source, offset)
         val elapsedMs = (System.nanoTime() - started) / 1_000_000
+        val ratio = elapsedMs.toDouble() / BASELINE_MS
+        println(
+            "perf[RescriptVariantFlowModelPerfTest] elapsed=${elapsedMs}ms " +
+                "baseline=${BASELINE_MS}ms ratio=${"%.2f".format(ratio)} limit=${TIME_LIMIT_MS}ms",
+        )
         assertNotNull(diagram, "buildAtOffset returned null for caret on 'switch'")
-        assertTrue(elapsedMs < timeLimitMs, "buildAtOffset took ${elapsedMs}ms (limit ${timeLimitMs}ms)")
+        assertTrue(
+            elapsedMs < TIME_LIMIT_MS,
+            "elapsed=${elapsedMs}ms exceeded baseline*slack=${TIME_LIMIT_MS}ms " +
+                "(baseline=${BASELINE_MS}ms, slack=${SLACK_FACTOR}x)",
+        )
+    }
+
+    companion object {
+        private const val BASELINE_MS = 400L
+        private const val SLACK_FACTOR = 2.5
+        private const val TIME_LIMIT_MS = (BASELINE_MS * SLACK_FACTOR).toLong()
     }
 
     private fun generateLargeSource(): String =
