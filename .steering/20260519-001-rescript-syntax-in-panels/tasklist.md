@@ -12,11 +12,11 @@
 
 ## セクション B: Type Info panel の `EditorTextField` 化
 
-- [ ] `RescriptTypeInfoPanel.kt` の `JBLabel` を `EditorTextField` (viewer) に置換
-- [ ] `RescriptFileType` + Project 接続、設定 (`isLineNumbersShown` 等) 調整
-- [ ] `showMessage` を `editorField.text = text` に変更
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.typeinfo.*"` が緑
-- [ ] コミット: `✨ Apply ReScript syntax highlighting to Type Info panel`
+- [x] `RescriptTypeInfoPanel.kt` の `JBLabel` を `EditorTextField` (viewer) に置換
+- [x] `RescriptFileType` + Project 接続、設定 (`isLineNumbersShown` 等) 調整
+- [x] `showMessage` を `editorField.text = text` に変更
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.typeinfo.*"` が緑
+- [x] コミット: `✨ Apply ReScript syntax highlighting to Type Info panel`
 
 ## セクション C: PPX View panel の `@annotation` 色付け
 
