@@ -48,11 +48,10 @@
 
 ## セクション F: 仕上げとマージ
 
-- [ ] `./gradlew ktlintCheck buildPlugin test koverHtmlReport verifyPluginStructure` が緑
-- [ ] DoD Phase 3 自己検証 (KDoc、deprecated API、セキュリティ)
-- [ ] 本ファイルの全チェックボックスを `[x]` に更新してコミット
-- [ ] `AskUserQuestion` でマージ可否確認
-- [ ] 承認後: `git merge worktree-20260519-001-rescript-syntax-in-panels` (main 側で)
+- [x] `./gradlew ktlintCheck buildPlugin test koverHtmlReport koverVerify verifyPluginStructure` が緑
+- [x] DoD Phase 3 自己検証 (KDoc 全クラスに付与、deprecated API 不使用、tokenizer は internal のみ)
+- [x] 本ファイルの全チェックボックスを `[x]` に更新してコミット
+- [ ] マージ実行 (ユーザー承認後、Steering C と一括で進める方針)
 - [ ] Steering C 着手準備
 
 ## テスト省略の理由
