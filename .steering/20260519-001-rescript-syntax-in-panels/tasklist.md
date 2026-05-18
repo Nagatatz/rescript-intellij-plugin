@@ -38,13 +38,13 @@
 
 ## セクション E: ドキュメント同期
 
-- [ ] `CLAUDE.md` レイヤー 3 — `navigation/`、`typeinfo/`、`ppx/`、`notebook/` 段落にハイライト言及追加
-- [ ] `README.md` Features の該当機能行に追記
-- [ ] `docs/repository-structure.md` に `RescriptSignatureTokenColorizer` を追加
-- [ ] `sphinx-docs/user/features/` の該当ページに syntax highlighting の説明
-- [ ] `cd sphinx-docs && make gettext && make update-po && make build-ja` 実行
-- [ ] 新規/変更 `msgid` の日本語 `msgstr` を埋める
-- [ ] コミット: `📝 Document syntax highlighting in Hoogle / Type Info / PPX / Notebook panels`
+- [x] `CLAUDE.md` レイヤー 3 — Notebook 段落 / Hoogle 段落にハイライト言及追加
+- [x] `README.md` Features の該当機能行に追記 (Notebook / Type Signature Search / Type Info / PPX View)
+- [x] `docs/repository-structure.md` に `RescriptSignatureTokenColorizer` を追加し typeinfo / ppx / notebook 行も更新
+- [x] `sphinx-docs/user/features/advanced.md` の該当セクションに syntax highlighting の説明
+- [x] `cd sphinx-docs && make gettext && make update-po && make build-ja` 実行
+- [x] 新規/変更 `msgid` の日本語 `msgstr` を埋める (17 件 + 1 fuzzy 修正)
+- [x] コミット: `📝 Document syntax highlighting in Hoogle / Type Info / PPX / Notebook panels`
 
 ## セクション F: 仕上げとマージ
 

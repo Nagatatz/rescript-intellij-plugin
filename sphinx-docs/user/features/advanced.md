@@ -854,6 +854,10 @@ A persistent tool window that continuously displays the inferred type of the exp
 2. The response is debounced to avoid excessive requests during rapid navigation
 3. The inferred type is displayed in the tool window panel, updating in real time
 
+### Syntax Highlighting
+
+The type string is rendered through an `EditorTextField` bound to the ReScript file type, so keywords, type constructors, operators and type variables receive the same colours the editor scheme assigns inside an open `.res` file. Switching to a different IDE colour scheme refreshes the panel automatically — no separate theme configuration is needed.
+
 ### Use Cases
 
 - **Exploring unfamiliar code** --- See types continuously without pressing any shortcut
@@ -1158,7 +1162,7 @@ Invalid JSON is reported with a small warning header; the rest of the editor fal
 ### Cell UI
 
 - **Top:** A `Cell` label plus three icon buttons — Move Up, Move Down, Delete.
-- **Code area:** A monospaced multi-line editor (no syntax highlighting yet — this is a Phase 1 trade-off).
+- **Code area:** An `EditorTextField` bound to the ReScript file type, so each cell receives the same syntax highlighting, code completion, and folding affordances as the REPL input field — keywords, type constructors, operators and string literals all pick up the editor scheme's colours.
 - **Run button + Output area:** Pressing Run disables the button, evaluates the cell on a pooled thread, and renders the captured stdout/stderr in the output area. Errors render in red. All cell colours (border, output background, error / running-state foreground) use `JBColor(light, dark)` pairs, so both Light and Dark IDE themes give the cell adequate contrast.
 
 ### Toolbar
@@ -1176,7 +1180,7 @@ Invalid JSON is reported with a small warning header; the rest of the editor fal
 ### Limitations (Phase 1)
 
 - Cells are evaluated independently — the `let` from one cell is not visible in the next. State sharing is on the Phase 2 list.
-- No syntax highlighting / completion in the cell editor (these would require wiring the cell into the LSP). Authors who want live diagnostics can still keep a regular `.res` file open beside the notebook.
+- The cell editor offers ReScript syntax highlighting, but live LSP diagnostics inside a cell still require the standard editor. Authors who want red squigglies on every keystroke can keep a regular `.res` file open beside the notebook.
 - No rich output (HTML, images). The output area is plain monospaced text.
 
 ## JS Interop Risk Map
@@ -1286,6 +1290,10 @@ The PPX Expansion View runs the ReScript compiler's PPX preprocessor on the curr
 - **Learning** — See how PPX attributes transform your source code
 - **Optimization** — Review the generated output for performance considerations
 
+### Annotation Highlighting
+
+The panel renders its summary as HTML through a `JEditorPane`. Every `@annotation` token (e.g. `@react.component`, `@deriving`, `@module`) is wrapped in a bold `<span>` whose colour is sourced from the editor scheme's annotation attribute, so the annotation names jump out against the surrounding English description text. Switching IDE theme refreshes the colour automatically — re-open the tool window to re-render.
+
 PPX macros generate code that you never see in your source files — this view makes the generated code visible, helping you debug PPX-related issues and understand what the compiler actually produces.
 
 ## Comment Code Evaluation
@@ -1358,6 +1366,10 @@ The unifier emits one of four scores per candidate; higher-score hits float to t
 - **Annotation required.** The contributor only sees declarations carrying an explicit `: T = …` annotation. Inferred types (e.g. `let x = 5`) don't participate; rely on the language server (`Go to Symbol`, `Find Usages`) or use the Type Coverage Heat Map to find files in need of annotation.
 - **Subset of ReScript types.** Records (`{name: string}`), polymorphic variants (`[#Foo | #Bar]`), and labeled-argument signatures (`(~name: string) => unit`) are out of scope for the parser; those candidates simply don't appear in the result list.
 - **Concrete query against polymorphic candidate is a mismatch.** Searching `int` will not match `let id: 'a => 'a` — the query says "I want exactly `int`" and the candidate is polymorphic. Use type variables in the query side when you want the unifier to absorb concrete candidates.
+
+### Result Highlighting
+
+Result rows are rendered as `name: signature  (path:line)`. The `signature` portion is tokenised through `RescriptLexer` and each token is coloured via the editor scheme — keywords, type constructors, operators, type variables and punctuation pick up the same attributes they would inside an open `.res` file, so the list reads like editor source rather than one grey-italic blob.
 
 When you know what type of function you need but not its name, type signature search lets you discover the right function by its shape — a natural fit for a type-inferred language like ReScript.
 
