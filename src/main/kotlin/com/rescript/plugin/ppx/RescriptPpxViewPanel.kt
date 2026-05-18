@@ -2,6 +2,7 @@ package com.rescript.plugin.ppx
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.EditorFactory
+import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.editor.event.CaretEvent
 import com.intellij.openapi.editor.event.CaretListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -9,12 +10,14 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
+import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
 import com.rescript.plugin.util.RescriptFileUtil
 import java.awt.BorderLayout
+import java.awt.Color
 import java.awt.Font
 import javax.swing.JComponent
+import javax.swing.JEditorPane
 import javax.swing.JPanel
-import javax.swing.JTextArea
 
 /**
  * Swing panel for the PPX expansion view tool window.
@@ -32,11 +35,11 @@ class RescriptPpxViewPanel(
     parentDisposable: Disposable,
 ) {
     private val infoArea =
-        JTextArea().apply {
+        JEditorPane().apply {
+            contentType = "text/html"
             isEditable = false
+            putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true)
             font = Font(Font.MONOSPACED, Font.PLAIN, 13)
-            lineWrap = true
-            wrapStyleWord = true
             border = JBUI.Borders.empty(8)
         }
 
@@ -74,21 +77,23 @@ class RescriptPpxViewPanel(
 
     private fun updatePpxInfo(sourceText: String) {
         val annotations = findPpxAnnotations(sourceText)
-        if (annotations.isEmpty()) {
-            infoArea.text = "No PPX annotations found in this file."
-            return
-        }
+        infoArea.text = renderHtml(annotations, annotationColorHex())
+    }
 
-        val info =
-            buildString {
-                for ((annotation, line) in annotations) {
-                    val expansion = getPpxExpansionInfo(annotation)
-                    appendLine("Line $line: $annotation")
-                    appendLine("  → $expansion")
-                    appendLine()
-                }
-            }
-        infoArea.text = info
+    /**
+     * Reads the foreground colour the editor scheme assigns to
+     * [RescriptSyntaxHighlighter.ANNOTATION] and returns it as a CSS
+     * `#RRGGBB` literal. Falls back to a neutral grey when the scheme
+     * has no foreground configured (e.g. inside test fixtures).
+     */
+    private fun annotationColorHex(): String {
+        val attributes =
+            EditorColorsManager
+                .getInstance()
+                .globalScheme
+                .getAttributes(RescriptSyntaxHighlighter.ANNOTATION)
+        val color: Color = attributes?.foregroundColor ?: return DEFAULT_ANNOTATION_HEX
+        return String.format("#%02X%02X%02X", color.red, color.green, color.blue)
     }
 
     companion object {
@@ -97,6 +102,53 @@ class RescriptPpxViewPanel(
 
         /** Pattern extracting the PPX name from an annotation string (e.g., `@react.component`). */
         private val PPX_NAME_PATTERN = Regex("""@(\w+(?:\.\w+)*)""")
+
+        /** CSS hex used when the editor scheme has no annotation foreground configured. */
+        internal const val DEFAULT_ANNOTATION_HEX = "#888888"
+
+        /**
+         * Builds the HTML payload rendered by the panel's `JEditorPane`.
+         * Pure function over the annotation list and the chosen
+         * annotation colour so the rendering can be unit-tested without
+         * a live Swing fixture.
+         *
+         * @param annotations annotation matches in source order
+         * @param colorHex CSS `#RRGGBB` literal applied to every
+         *   `@annotation` token
+         * @return HTML document body wrapped in `<html><body>` tags
+         */
+        internal fun renderHtml(
+            annotations: List<Pair<String, Int>>,
+            colorHex: String,
+        ): String {
+            if (annotations.isEmpty()) {
+                return "<html><body style='font-family:monospace'>" +
+                    "No PPX annotations found in this file." +
+                    "</body></html>"
+            }
+            return buildString {
+                append("<html><body style='font-family:monospace;white-space:pre'>")
+                for ((annotation, line) in annotations) {
+                    val expansion = getPpxExpansionInfo(annotation)
+                    val coloredAnnotation =
+                        "<span style='color:$colorHex;font-weight:bold'>" +
+                            escapeHtml(annotation) +
+                            "</span>"
+                    append("Line ").append(line).append(": ")
+                    append(coloredAnnotation).append("<br>")
+                    append("&nbsp;&nbsp;&rarr; ").append(escapeHtml(expansion)).append("<br><br>")
+                }
+                append("</body></html>")
+            }
+        }
+
+        /** Minimal HTML escape for the literal text we drop into the rendered body. */
+        private fun escapeHtml(s: String): String =
+            s
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
 
         /**
          * Finds all PPX annotations in the source text.

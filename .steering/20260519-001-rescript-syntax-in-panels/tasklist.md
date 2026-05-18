@@ -20,12 +20,12 @@
 
 ## セクション C: PPX View panel の `@annotation` 色付け
 
-- [ ] `RescriptPpxViewPanel.kt` の `JTextArea` を `JEditorPane` (HTML) に置換
-- [ ] `renderHtml(annotations, color): String` を internal 抽出
-- [ ] `annotationColorHex()` で `RescriptSyntaxHighlighter.ANNOTATION` の前景色を取得
-- [ ] `RescriptPpxViewPanelTest` (既存があれば) に `renderHtml` の構造テスト追加
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.ppx.*"` が緑
-- [ ] コミット: `✨ Highlight @annotation tokens in PPX View panel`
+- [x] `RescriptPpxViewPanel.kt` の `JTextArea` を `JEditorPane` (HTML) に置換
+- [x] `renderHtml(annotations, color): String` を internal 抽出
+- [x] `annotationColorHex()` で `RescriptSyntaxHighlighter.ANNOTATION` の前景色を取得
+- [x] `RescriptPpxViewPanelTest` に `renderHtml` の構造テスト 4 件追加
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.ppx.*"` が緑
+- [x] コミット: `✨ Highlight @annotation tokens in PPX View panel`
 
 ## セクション D: Notebook cell 入力の `EditorTextField` 化
 
