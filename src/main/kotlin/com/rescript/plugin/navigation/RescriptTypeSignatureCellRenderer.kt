@@ -9,10 +9,13 @@ import javax.swing.JList
  * [RescriptTypeSignatureSearchHit] per row as
  * `name: signatureDisplay  (relativePath:line)`.
  *
- * `name` uses the regular foreground colour, the signature renders
- * grey-italic so the structural match itself stands out, and the
- * file location uses the standard "secondary information" grey so
- * results stay scannable even when many candidates share a signature.
+ * `name` uses the regular foreground colour. The signature is
+ * tokenised through [RescriptSignatureTokenColorizer] so each token
+ * (keyword, type constructor, operator, type variable, …) receives
+ * the same colour it would inside an open `.res` editor — the match
+ * structure is visible at a glance instead of being one grey-italic
+ * blob. The file location stays in the standard "secondary
+ * information" grey so the list remains scannable.
  */
 class RescriptTypeSignatureCellRenderer : ColoredListCellRenderer<RescriptTypeSignatureSearchHit>() {
     override fun customizeCellRenderer(
@@ -24,10 +27,9 @@ class RescriptTypeSignatureCellRenderer : ColoredListCellRenderer<RescriptTypeSi
     ) {
         if (value == null) return
         append("${value.name}: ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
-        append(
-            value.signatureDisplay,
-            SimpleTextAttributes.GRAY_ITALIC_ATTRIBUTES,
-        )
+        for (token in RescriptSignatureTokenColorizer.tokenize(value.signatureDisplay)) {
+            append(token.text, token.attributes)
+        }
         append(
             "  (${value.relativePath}:${value.line})",
             SimpleTextAttributes.GRAYED_ATTRIBUTES,

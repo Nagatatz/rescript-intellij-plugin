@@ -2,9 +2,15 @@ package com.rescript.plugin.notebook
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.EditorFactory
+import com.intellij.openapi.editor.event.DocumentEvent
+import com.intellij.openapi.editor.event.DocumentListener
+import com.intellij.openapi.project.Project
+import com.intellij.ui.EditorTextField
 import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
+import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.repl.RescriptReplExecutor
 import java.awt.BorderLayout
 import java.awt.Color
@@ -21,12 +27,15 @@ import javax.swing.JTextArea
  * Swing panel for one [NotebookCell]: a code editor on top, a Run
  * button, and a read-only output area below.
  *
- * Cells are intentionally simple — there is no syntax highlighting
- * (the JTextArea uses a monospace font instead) and no LSP wiring.
- * The Run action delegates to [RescriptReplExecutor] for evaluation
- * so behaviour stays consistent with the existing REPL tool window.
+ * The code area uses [EditorTextField] bound to [RescriptFileType] so
+ * cells get the same syntax highlighting as the REPL input field; the
+ * output area stays as a plain [JTextArea] because evaluation output
+ * is unstructured stdout/stderr. The Run action delegates to
+ * [RescriptReplExecutor] for evaluation so behaviour stays consistent
+ * with the existing REPL tool window.
  */
 class RescriptNotebookCellPanel(
+    project: Project,
     initialCell: NotebookCell,
     private val projectPath: String,
     private val onChanged: () -> Unit,
@@ -34,12 +43,31 @@ class RescriptNotebookCellPanel(
     private val onMoveUp: (RescriptNotebookCellPanel) -> Unit,
     private val onMoveDown: (RescriptNotebookCellPanel) -> Unit,
 ) : JPanel(BorderLayout()) {
-    private val codeArea: JTextArea =
-        JTextArea(initialCell.code).apply {
-            font = Font(Font.MONOSPACED, Font.PLAIN, font.size)
-            rows = 4
-            tabSize = 2
-            document.addDocumentListener(SimpleDocumentListener { onChanged() })
+    private val codeArea: EditorTextField =
+        EditorTextField(
+            EditorFactory.getInstance().createDocument(initialCell.code),
+            project,
+            RescriptFileType,
+            false,
+            false,
+        ).apply {
+            // Approx 4 visible rows at the editor scheme's font size; the
+            // surrounding JBScrollPane handles overflow if the user types
+            // more.
+            preferredSize = Dimension(0, CODE_AREA_PREFERRED_HEIGHT)
+            addSettingsProvider { editor ->
+                editor.settings.isLineNumbersShown = false
+                editor.settings.isFoldingOutlineShown = false
+                editor.settings.isRightMarginShown = false
+                editor.settings.isUseSoftWraps = true
+            }
+            addDocumentListener(
+                object : DocumentListener {
+                    override fun documentChanged(event: DocumentEvent) {
+                        onChanged()
+                    }
+                },
+            )
         }
 
     private val outputArea: JTextArea =
@@ -59,7 +87,9 @@ class RescriptNotebookCellPanel(
                 BorderFactory.createEmptyBorder(4, 6, 4, 6),
             )
         add(buildHeader(), BorderLayout.NORTH)
-        add(JBScrollPane(codeArea), BorderLayout.CENTER)
+        // EditorTextField already provides its own scrolling and gutter,
+        // so wrap only in a thin container to keep BorderLayout happy.
+        add(codeArea, BorderLayout.CENTER)
         add(buildFooter(), BorderLayout.SOUTH)
         runButton.addActionListener { runCell() }
     }
@@ -133,20 +163,8 @@ class RescriptNotebookCellPanel(
         val BORDER_COLOR: JBColor = JBColor(Color(0xC0C0C0), Color(0x3C3C3C))
         val OUTPUT_BACKGROUND: JBColor = JBColor(Color(0xF5F5F5), Color(0x2B2B2B))
         val ERROR_FOREGROUND: JBColor = JBColor(Color(0xCC0000), Color(0xE74C3C))
+
+        /** Initial vertical pixel budget for the code area: about four editor rows. */
+        const val CODE_AREA_PREFERRED_HEIGHT = 80
     }
-}
-
-/**
- * Tiny [javax.swing.event.DocumentListener] adapter that fires the
- * same callback for any change. Used by the cell panel so any code
- * edit marks the notebook as modified.
- */
-private class SimpleDocumentListener(
-    private val callback: () -> Unit,
-) : javax.swing.event.DocumentListener {
-    override fun insertUpdate(e: javax.swing.event.DocumentEvent?) = callback()
-
-    override fun removeUpdate(e: javax.swing.event.DocumentEvent?) = callback()
-
-    override fun changedUpdate(e: javax.swing.event.DocumentEvent?) = callback()
 }

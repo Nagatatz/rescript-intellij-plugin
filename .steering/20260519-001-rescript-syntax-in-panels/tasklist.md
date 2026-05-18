@@ -1,0 +1,59 @@
+# ReScript Syntax-Based Coloring — タスクリスト
+
+各セクションは「実装 + テスト + (該当する) ドキュメント = マージ可能 1 単位」の粒度。
+
+## セクション A: Hoogle 検索結果のシグネチャ色付け
+
+- [x] `navigation/RescriptSignatureTokenColorizer.kt` を新規作成 (tokenize + 属性解決)
+- [x] `RescriptTypeSignatureCellRenderer` を tokenize 呼出に変更
+- [x] `navigation/RescriptSignatureTokenColorizerTest.kt` を新規作成 (5 ケース)
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.navigation.*"` が緑
+- [x] コミット: `✨ Tokenise Hoogle signature cells via RescriptSyntaxHighlighter`
+
+## セクション B: Type Info panel の `EditorTextField` 化
+
+- [x] `RescriptTypeInfoPanel.kt` の `JBLabel` を `EditorTextField` (viewer) に置換
+- [x] `RescriptFileType` + Project 接続、設定 (`isLineNumbersShown` 等) 調整
+- [x] `showMessage` を `editorField.text = text` に変更
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.typeinfo.*"` が緑
+- [x] コミット: `✨ Apply ReScript syntax highlighting to Type Info panel`
+
+## セクション C: PPX View panel の `@annotation` 色付け
+
+- [x] `RescriptPpxViewPanel.kt` の `JTextArea` を `JEditorPane` (HTML) に置換
+- [x] `renderHtml(annotations, color): String` を internal 抽出
+- [x] `annotationColorHex()` で `RescriptSyntaxHighlighter.ANNOTATION` の前景色を取得
+- [x] `RescriptPpxViewPanelTest` に `renderHtml` の構造テスト 4 件追加
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.ppx.*"` が緑
+- [x] コミット: `✨ Highlight @annotation tokens in PPX View panel`
+
+## セクション D: Notebook cell 入力の `EditorTextField` 化
+
+- [x] `RescriptNotebookCellPanel` のコンストラクタに `project: Project` を追加
+- [x] `RescriptNotebookPanel` 側の生成箇所を更新
+- [x] `JTextArea` (codeArea) を `EditorTextField` に置換 (REPL input パターン踏襲)
+- [x] DocumentListener を `EditorTextField.addDocumentListener` に差し替え
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.notebook.*"` が緑
+- [x] コミット: `✨ Apply ReScript syntax highlighting to Notebook cell input`
+
+## セクション E: ドキュメント同期
+
+- [x] `CLAUDE.md` レイヤー 3 — Notebook 段落 / Hoogle 段落にハイライト言及追加
+- [x] `README.md` Features の該当機能行に追記 (Notebook / Type Signature Search / Type Info / PPX View)
+- [x] `docs/repository-structure.md` に `RescriptSignatureTokenColorizer` を追加し typeinfo / ppx / notebook 行も更新
+- [x] `sphinx-docs/user/features/advanced.md` の該当セクションに syntax highlighting の説明
+- [x] `cd sphinx-docs && make gettext && make update-po && make build-ja` 実行
+- [x] 新規/変更 `msgid` の日本語 `msgstr` を埋める (17 件 + 1 fuzzy 修正)
+- [x] コミット: `📝 Document syntax highlighting in Hoogle / Type Info / PPX / Notebook panels`
+
+## セクション F: 仕上げとマージ
+
+- [x] `./gradlew ktlintCheck buildPlugin test koverHtmlReport koverVerify verifyPluginStructure` が緑
+- [x] DoD Phase 3 自己検証 (KDoc 全クラスに付与、deprecated API 不使用、tokenizer は internal のみ)
+- [x] 本ファイルの全チェックボックスを `[x]` に更新してコミット
+- [ ] マージ実行 (ユーザー承認後、Steering C と一括で進める方針)
+- [ ] Steering C 着手準備
+
+## テスト省略の理由
+
+- `RescriptTypeInfoPanel` / `RescriptPpxViewPanel` / `RescriptNotebookCellPanel` 自体は Swing UI コンポーネントで UI 免除。トークン化ロジックは別ヘルパーに抽出してユニットテスト可能にする

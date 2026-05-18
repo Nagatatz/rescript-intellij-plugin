@@ -50,7 +50,7 @@
 - **Type narrowing visualizer** — Inline display of the narrowed type at each `switch` arm (so `Some(_)`, `None`, etc. show their refined type without hovering)
 - **Variant flow diagram** — Tool window (`Tools > Show Switch Flow Diagram`) that draws the `switch` under the caret as a decision tree, with Copy Mermaid / Copy DOT actions for sharing. The Visual mode colour-codes each arm by kind (constructor / wildcard / pattern binding / todo placeholder / nested switch) with a legend strip at the bottom, so missing constructors and unimplemented `todo` arms stand out at a glance
 - **Type impact preview** — Tool window (`Tools > Show Type Impact`) that lists every project-wide reference to the `type` declaration under the caret, classified as type-ref / constructor / pattern / field-access. The `[kind]` prefix on each row is rendered in a kind-specific bold colour so the reference flavour is scannable while sizing the blast radius of a type change
-- **Notebook-style worksheet** — Cell-based `.resnb` editor where each cell holds ReScript code and its last evaluation output; runs cells through the existing REPL backend, persists output to JSON, and exports the whole notebook as Markdown. Cell borders, output backgrounds, and error highlights use `JBColor` pairs so both Light and Dark themes look right
+- **Notebook-style worksheet** — Cell-based `.resnb` editor where each cell holds ReScript code and its last evaluation output; runs cells through the existing REPL backend, persists output to JSON, and exports the whole notebook as Markdown. Cell code areas use `EditorTextField` bound to the ReScript file type, giving each cell full syntax highlighting and editor affordances. Cell borders, output backgrounds, and error highlights use `JBColor` pairs so both Light and Dark themes look right
 - **JS interop risk map** — Tool window (`Tools > Show JS Interop Risk Map`) that lists every `%raw` / `external` / `Obj.magic` / `@bs.*` site in the project with a coarse risk label. Each row carries a 4 px left-edge colour band (red / amber / grey) keyed to the risk level so reviewers can sort the type-system escape hatches by severity without reading the text
 - **Type coverage heat map** — Tool window (`View > Tool Windows > ReScript Type Coverage`) that lists every `.res` file with its annotated / inferred / total `let` counts and a colour-coded coverage percentage; sorted ascending so files in need of explicit types float to the top, double-click to jump
 - **Parameter Info** — Native parameter info popup for labeled arguments (`Ctrl+P`)
@@ -77,7 +77,7 @@
 - **File include navigation** — Navigate from `open` statements to their module files
 - **Goto Super** — Jump from `.res` declaration to matching `.resi` declaration (`Ctrl+U`)
 - **External documentation** — Open ReScript documentation for Belt/Js modules (`Shift+F1`)
-- **Type signature search (Hoogle-style)** — Search Everywhere "ReScript Types" tab parses both the user query and each candidate's `: T` annotation into a structural AST and matches them with a unifier (EXACT / TVAR_MATCH / PARTIAL); supports `=> T` return-type mode and `'a` wildcards, ranks by match strength, and renders `name: signature  (path:line)` so the right hit is obvious before navigating
+- **Type signature search (Hoogle-style)** — Search Everywhere "ReScript Types" tab parses both the user query and each candidate's `: T` annotation into a structural AST and matches them with a unifier (EXACT / TVAR_MATCH / PARTIAL); supports `=> T` return-type mode and `'a` wildcards, ranks by match strength, and renders `name: signature  (path:line)` so the right hit is obvious before navigating. The signature itself is tokenised through `RescriptLexer` and coloured with the editor scheme, so keywords, type constructors, operators and type variables look exactly like they do inside an open `.res` file
 - **Module dependency diagram** — Visualize `open`/`include` relationships in a tool window with a **Visual / Source toggle**. Visual mode renders a top-down layered graph (Java2D) where entry-point modules sit on top and downstream dependencies are pushed lower; nodes are colour-coded by structural role (entry-point / intermediate / leaf / cycle member) with a legend strip at the bottom so circular dependencies and entry points pop out. Source mode shows the Mermaid `flowchart TD` text. Both modes share Copy Mermaid / Copy DOT toolbar actions for external rendering
 
 ### Editing Assistance
@@ -148,14 +148,14 @@
 - **rescript.json support** — Custom icon and JSON Schema for configuration files
 - **`%raw()` JS injection** — JavaScript syntax highlighting inside `%raw()` blocks
 - **`%re()` RegExp injection** — Regular expression highlighting and validation inside `%re()` blocks
-- **Type Info tool window** — Always-visible panel showing inferred type at caret position
+- **Type Info tool window** — Always-visible panel showing inferred type at caret position; the type string is rendered through an `EditorTextField` bound to the ReScript file type so it picks up the editor scheme's syntax colours instead of staying a plain monospace label
 - **Markdown code fence** — ReScript syntax highlighting in Markdown code blocks
 - **Color settings** — Customizable highlighting colors (Settings > Editor > Color Scheme > ReScript)
 - **Code style settings** — Indentation configuration for ReScript files
 - **Code rearranger** — Automatic declaration ordering (open → type → exception → module → external → let)
 - **Framework detector** — Automatic ReScript project detection via `rescript.json`
 - **PPX annotation hints** — Inline descriptions of PPX attribute effects
-- **PPX expansion view** — View PPX macro expansion results in a tool window
+- **PPX expansion view** — View PPX macro expansion results in a tool window; `@annotation` tokens are rendered in the editor scheme's annotation colour so they stand out against the surrounding English description
 - **Comment code evaluation** — Evaluate code examples in documentation comments
 - **TODO indexing** — Track TODO/FIXME comments in ReScript files
 - **Editor notification** — Guidance banner when LSP server is not detected

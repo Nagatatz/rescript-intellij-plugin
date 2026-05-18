@@ -48,7 +48,7 @@ rescript-intellij-plugin/
 | `indexing/` | PSI スタブインデックス（5 種の宣言型: let / type / module / external / exception）、`open` 文インデックス、識別子の名前インデックス、TODO インデクシング | `RescriptIndexPatternBuilder`, `RescriptModuleIndex`, `RescriptNameIndex`, `RescriptOpenStatementIndex`, `RescriptTodoIndexer` |
 | `editor/` | エディタ補助（引用符、通知バー、Smart Enter 等） | `RescriptQuoteHandler`, `RescriptSmartEnterProcessor` |
 | `formatter/` | 外部フォーマッタ連携 | `RescriptFormattingService` |
-| `navigation/` | ナビゲーション（Symbol、Related、Switch File、Hoogle-style 型シグネチャ検索 等） | `RescriptSymbolContributor`, `RescriptSwitchFileAction`, `RescriptTypeAst`, `RescriptTypeParser`, `RescriptTypeUnifier`, `RescriptDeclarationSignatureExtractor`, `RescriptTypeSignatureSearchContributor` |
+| `navigation/` | ナビゲーション（Symbol、Related、Switch File、Hoogle-style 型シグネチャ検索、シグネチャトークン色付け 等） | `RescriptSymbolContributor`, `RescriptSwitchFileAction`, `RescriptTypeAst`, `RescriptTypeParser`, `RescriptTypeUnifier`, `RescriptDeclarationSignatureExtractor`, `RescriptTypeSignatureSearchContributor`, `RescriptSignatureTokenColorizer` |
 | `template/` | ファイル作成テンプレート | `RescriptCreateFileAction` |
 | `spellcheck/` | スペルチェック | `RescriptSpellcheckingStrategy` |
 | `completion/` | Postfix Completion | `RescriptPostfixTemplateProvider` |
@@ -63,7 +63,7 @@ rescript-intellij-plugin/
 | `narrowing/` | Type Narrowing Visualizer（switch arm の絞り込み型をインレイヒントで表示） | `RescriptNarrowingHintProvider`, `RescriptSwitchArmCollector`, `RescriptHoverTypeResolver`, `RescriptNarrowingPresenter` |
 | `flow/` | Variant Flow Diagram（switch の decision tree を ToolWindow で可視化、Visual / Source トグル、arm 種別カラーパレット (`ArmKind`)、Mermaid + DOT エクスポート） | `RescriptVariantFlowToolWindowFactory`, `RescriptVariantFlowPanel`, `RescriptVariantFlowAction`, `RescriptVariantFlowModel`, `ArmKind`, `RescriptVariantFlowGraphView`, `RescriptVariantFlowHints`, `RescriptVariantFlowMermaidExporter`, `RescriptVariantFlowDotExporter` |
 | `impact/` | Type Impact Preview（カーソル位置の type 宣言に対するプロジェクト全体の参照を ToolWindow で一覧表示、`[kind]` ラベルを `colorForKind` で色付き bold 表示） | `RescriptTypeImpactToolWindowFactory`, `RescriptTypeImpactPanel`, `RescriptTypeImpactAction`, `RescriptTypeTargetResolver`, `RescriptTypeReferenceFinder`, `RescriptReferenceClassifier`, `RescriptTypeImpactModel` |
-| `notebook/` | Notebook 風 Worksheet（`.resnb` cell-based エディタ + Markdown エクスポート、border / output 背景 / エラー前景は `JBColor` で Light/Dark 両対応） | `RescriptNotebookFileType`, `RescriptNotebookFileEditorProvider`, `RescriptNotebookFileEditor`, `RescriptNotebookPanel`, `RescriptNotebookCellPanel`, `RescriptNotebookSerializer`, `RescriptNotebookMarkdownExporter`, `RescriptNotebookModel` |
+| `notebook/` | Notebook 風 Worksheet（`.resnb` cell-based エディタ + Markdown エクスポート、cell input は `EditorTextField` + `RescriptFileType` でフルハイライト、border / output 背景 / エラー前景は `JBColor` で Light/Dark 両対応） | `RescriptNotebookFileType`, `RescriptNotebookFileEditorProvider`, `RescriptNotebookFileEditor`, `RescriptNotebookPanel`, `RescriptNotebookCellPanel`, `RescriptNotebookSerializer`, `RescriptNotebookMarkdownExporter`, `RescriptNotebookModel` |
 | `interop/` | JS Interop Risk Map（`%raw` / `external` / `Obj.magic` / `@bs.*` の使用箇所一覧 + 種別/リスクスコア、各行に `COLOR_BY_RISK` 由来の左端色帯） | `RescriptInteropRiskToolWindowFactory`, `RescriptInteropRiskPanel`, `RescriptInteropRiskAction`, `RescriptInteropClassifier`, `RescriptInteropScanner`, `RescriptInteropModel` |
 | `coverage/` | Type Coverage Heat Map（`.res` ファイルごとの annotated/inferred 比率を表形式で可視化、color-coded sortable table） | `RescriptTypeCoverageToolWindowFactory`, `RescriptTypeCoveragePanel`, `RescriptTypeCoverageScanner`, `RescriptTypeCoverageClassifier`, `RescriptTypeCoverageModel` |
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
@@ -85,11 +85,11 @@ rescript-intellij-plugin/
 | `documentation/` | ドキュメントプロバイダ（Quick Doc、External Doc） | `RescriptDocumentationProvider` |
 | `grazie/` | Grazie テキスト抽出連携 | `RescriptGrazieTextExtractor` |
 | `navbar/` | ナビゲーションバー | `RescriptStructureAwareNavbar` |
-| `ppx/` | PPX 展開ビューツールウィンドウ | `RescriptPpxViewToolWindowFactory`, `RescriptPpxViewPanel` |
+| `ppx/` | PPX 展開ビューツールウィンドウ（`@annotation` を `RescriptSyntaxHighlighter.ANNOTATION` の色で `JEditorPane` HTML レンダリング） | `RescriptPpxViewToolWindowFactory`, `RescriptPpxViewPanel` |
 | `projectview/` | Project View ネスト表示・装飾 | `RescriptTreeStructureProvider`, `RescriptProjectViewNodeDecorator` |
 | `repl/` | REPL ツールウィンドウ | `RescriptReplToolWindowFactory`, `RescriptReplPanel` |
 | `scratch/` | スクラッチファイル | `RescriptScratchRootType`, `RescriptScratchCreationHelper` |
-| `typeinfo/` | 型情報ツールウィンドウ | `RescriptTypeInfoToolWindowFactory`, `RescriptTypeInfoPanel` |
+| `typeinfo/` | 型情報ツールウィンドウ（hover 由来の型シグネチャを `EditorTextField` + `RescriptFileType` の viewer モードで表示し、エディタと同じ色付け） | `RescriptTypeInfoToolWindowFactory`, `RescriptTypeInfoPanel` |
 | `worksheet/` | Worksheet モード（.resw） | `RescriptWorksheetFileType`, `RescriptWorksheetRunner` |
 
 #### Java ソース (`src/main/java/com/rescript/plugin/lang/`)

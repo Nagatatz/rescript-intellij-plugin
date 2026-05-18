@@ -5,7 +5,6 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
-import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.editor.event.CaretEvent
 import com.intellij.openapi.editor.event.CaretListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -13,16 +12,15 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.FileEditorManagerEvent
 import com.intellij.openapi.fileEditor.FileEditorManagerListener
 import com.intellij.openapi.project.Project
-import com.intellij.ui.components.JBLabel
+import com.intellij.ui.EditorTextField
 import com.intellij.util.Alarm
 import com.intellij.util.ui.JBUI
+import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.lsp.RescriptLspUtils
 import com.rescript.plugin.util.RescriptFileUtil
 import java.awt.BorderLayout
-import java.awt.Font
 import javax.swing.JComponent
 import javax.swing.JPanel
-import javax.swing.SwingConstants
 
 /**
  * Panel that displays the inferred type of the expression at the current caret position.
@@ -39,7 +37,30 @@ class RescriptTypeInfoPanel(
     parentDisposable: Disposable,
 ) {
     private val mainPanel = JPanel(BorderLayout())
-    private val typeLabel = JBLabel(NO_RESCRIPT_FILE, SwingConstants.LEFT)
+
+    /**
+     * Read-only single-line editor field that displays the hover type for
+     * the caret position. Using `EditorTextField(..., RescriptFileType,
+     * isViewer = true, oneLineMode = true)` instead of a `JBLabel` gives
+     * the type string the same syntax highlighting the editor uses,
+     * matching the user's colour scheme automatically.
+     */
+    private val typeField: EditorTextField =
+        EditorTextField(
+            EditorFactory.getInstance().createDocument(NO_RESCRIPT_FILE),
+            project,
+            RescriptFileType,
+            true,
+            true,
+        ).apply {
+            border = JBUI.Borders.empty(8)
+            addSettingsProvider { editor ->
+                editor.settings.isLineNumbersShown = false
+                editor.settings.isFoldingOutlineShown = false
+                editor.settings.isRightMarginShown = false
+                editor.settings.isCaretRowShown = false
+            }
+        }
 
     // UnstableApiUsage: Alarm(ThreadToUse.POOLED_THREAD) — review on platform upgrade
     @Suppress("UnstableApiUsage")
@@ -49,12 +70,7 @@ class RescriptTypeInfoPanel(
         get() = mainPanel
 
     init {
-        // Use editor font for consistent type display
-        val editorScheme = EditorColorsManager.getInstance().globalScheme
-        typeLabel.font = Font(editorScheme.editorFontName, Font.PLAIN, editorScheme.editorFontSize)
-        typeLabel.border = JBUI.Borders.empty(8)
-
-        mainPanel.add(typeLabel, BorderLayout.NORTH)
+        mainPanel.add(typeField, BorderLayout.NORTH)
 
         // Listen for caret position changes across all editors
         val caretListener =
@@ -121,7 +137,7 @@ class RescriptTypeInfoPanel(
 
     private fun showMessage(text: String) {
         ApplicationManager.getApplication().invokeLater({
-            typeLabel.text = text
+            typeField.text = text
         }, ModalityState.any())
     }
 

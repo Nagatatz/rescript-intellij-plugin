@@ -98,4 +98,54 @@ class RescriptPpxViewPanelTest {
         assertEquals(1, annotations.size)
         assertEquals(3, annotations[0].second)
     }
+
+    @Test
+    fun `renderHtml returns empty-state message when no annotations`() {
+        val html = RescriptPpxViewPanel.renderHtml(emptyList(), "#888888")
+        assertTrue(html.startsWith("<html>"), "expected HTML wrapper")
+        assertTrue(html.contains("No PPX annotations found"), "expected empty-state copy in $html")
+    }
+
+    @Test
+    fun `renderHtml wraps each annotation token in a coloured span`() {
+        val html =
+            RescriptPpxViewPanel.renderHtml(
+                listOf("@react.component" to 5),
+                "#3E72C2",
+            )
+        assertTrue(html.contains("color:#3E72C2"), "expected colour attribute in $html")
+        assertTrue(html.contains("font-weight:bold"), "expected bold annotation in $html")
+        assertTrue(html.contains("@react.component"), "annotation text must appear")
+        assertTrue(html.contains("Line 5"), "line number must appear")
+    }
+
+    @Test
+    fun `renderHtml emits one entry per annotation in source order`() {
+        val html =
+            RescriptPpxViewPanel.renderHtml(
+                listOf(
+                    "@genType" to 1,
+                    "@react.component" to 2,
+                ),
+                "#3E72C2",
+            )
+        val genTypePos = html.indexOf("@genType")
+        val componentPos = html.indexOf("@react.component")
+        assertTrue(genTypePos in 0 until componentPos, "annotations must appear in source order")
+    }
+
+    @Test
+    fun `renderHtml escapes HTML metacharacters in expansion text`() {
+        // The "@string" expansion text contains the literal "<" inside
+        // "string enum values for polymorphic variants" — no escaping
+        // needed there, but we cover the escape path by checking the
+        // annotation token does not break the HTML structure.
+        val html =
+            RescriptPpxViewPanel.renderHtml(
+                listOf("@module(\"react-dom\")" to 1),
+                "#888888",
+            )
+        // " characters inside the annotation text must be escaped to &quot;
+        assertTrue(html.contains("&quot;react-dom&quot;"), "quotes must be escaped in $html")
+    }
 }
