@@ -1,6 +1,7 @@
 package com.rescript.plugin.completion
 
 import com.intellij.codeInsight.completion.CompletionConfidence
+import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.ThreeState
@@ -16,10 +17,8 @@ import com.rescript.plugin.lang.RescriptTokenTypes
  * @see RescriptPostfixTemplateProvider for the shared non-applicable token set
  */
 class RescriptCompletionConfidence : CompletionConfidence() {
-    // shouldSkipAutopopup() is deprecated but no replacement API exists;
-    // required to suppress popups inside comments and strings.
-    @Suppress("OVERRIDE_DEPRECATION")
     override fun shouldSkipAutopopup(
+        editor: Editor,
         contextElement: PsiElement,
         psiFile: PsiFile,
         offset: Int,

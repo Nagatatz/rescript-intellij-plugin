@@ -69,18 +69,32 @@ class RescriptDependencyDiagramGraphView : JComponent() {
             val current = model ?: return
             val layout = computeLayout(current, width.coerceAtLeast(MIN_VIEW_WIDTH), g2.fontMetrics)
             for (node in layout.nodes) {
-                val isRoot = node.layer == 0
-                paintNode(
-                    g2,
-                    node.box,
-                    node.name,
-                    if (isRoot) ROOT_FILL else NODE_FILL,
-                    if (isRoot) ROOT_BORDER else NODE_BORDER,
-                )
+                val (fill, border) = PALETTE.getValue(node.role)
+                paintNode(g2, node.box, node.name, fill, border)
             }
             paintEdges(g2, layout.edges)
+            paintLegend(g2, layout.canvasSize.height - LEGEND_HEIGHT)
         } finally {
             g2.dispose()
+        }
+    }
+
+    private fun paintLegend(
+        g: Graphics2D,
+        baseY: Int,
+    ) {
+        val fm = g.fontMetrics
+        var x = MARGIN
+        val y = baseY + 4
+        for ((label, role) in LEGEND_ITEMS) {
+            val (fill, border) = PALETTE.getValue(role)
+            g.color = fill
+            g.fillRoundRect(x, y, LEGEND_SWATCH_SIZE, LEGEND_SWATCH_SIZE, 4, 4)
+            g.color = border
+            g.drawRoundRect(x, y, LEGEND_SWATCH_SIZE, LEGEND_SWATCH_SIZE, 4, 4)
+            g.color = JBColor.foreground()
+            g.drawString(label, x + LEGEND_SWATCH_SIZE + 4, y + fm.ascent)
+            x += LEGEND_SWATCH_SIZE + 6 + fm.stringWidth(label) + LEGEND_ITEM_GAP
         }
     }
 
@@ -161,11 +175,15 @@ class RescriptDependencyDiagramGraphView : JComponent() {
      * @property name module name displayed as the label
      * @property layer 0-based layer index, 0 = topmost (entry points)
      * @property box absolute rectangle inside the canvas
+     * @property role structural classification (entry-point / intermediate /
+     *   leaf / cycle member) used by the view to pick a palette colour;
+     *   computed by [RescriptDependencyDiagramModel.classifyNodes]
      */
     data class LayoutNode(
         val name: String,
         val layer: Int,
         val box: Rectangle,
+        val role: NodeRole,
     )
 
     /**
@@ -199,10 +217,42 @@ class RescriptDependencyDiagramGraphView : JComponent() {
         private const val ARROW_HEIGHT = 8
         private const val DEFAULT_CHAR_WIDTH = 7
 
-        private val NODE_FILL: Color = JBColor(Color(0xFFF3F4), Color(0x4A1518))
-        private val NODE_BORDER: Color = JBColor(Color(0xCB3939), Color(0xE6484F))
-        private val ROOT_FILL: Color = JBColor(Color(0xFFE7E8), Color(0x7A2226))
-        private val ROOT_BORDER: Color = JBColor(Color(0xCB3939), Color(0xE6484F))
+        /** Height in pixels reserved at the bottom of the canvas for the legend strip. */
+        internal const val LEGEND_HEIGHT = 28
+        private const val LEGEND_SWATCH_SIZE = 14
+        private const val LEGEND_ITEM_GAP = 12
+
+        private val ENTRY_FILL = JBColor(Color(0xE7F0FF), Color(0x223A6E))
+        private val ENTRY_BORDER = JBColor(Color(0x3E72C2), Color(0x6B9CE6))
+        private val INTERMEDIATE_FILL = JBColor(Color(0xFFF3F4), Color(0x4A1518))
+        private val INTERMEDIATE_BORDER = JBColor(Color(0xCB3939), Color(0xE6484F))
+        private val LEAF_FILL = JBColor(Color(0xE7FBE7), Color(0x254B25))
+        private val LEAF_BORDER = JBColor(Color(0x3E9E3E), Color(0x68C268))
+        private val CYCLE_FILL = JBColor(Color(0xFFE0B3), Color(0x5A3A12))
+        private val CYCLE_BORDER = JBColor(Color(0xD2691E), Color(0xE89E55))
+
+        /**
+         * Fill/border colour pair for each [NodeRole]. Colours are
+         * `JBColor(light, dark)` so the palette adapts to the active
+         * IDE theme without per-call branching.
+         */
+        internal val PALETTE: Map<NodeRole, Pair<Color, Color>> =
+            mapOf(
+                NodeRole.ENTRY_POINT to (ENTRY_FILL to ENTRY_BORDER),
+                NodeRole.INTERMEDIATE to (INTERMEDIATE_FILL to INTERMEDIATE_BORDER),
+                NodeRole.LEAF to (LEAF_FILL to LEAF_BORDER),
+                NodeRole.CYCLE_MEMBER to (CYCLE_FILL to CYCLE_BORDER),
+            )
+
+        /** Legend strip rows: (label, role) drawn left-to-right at the bottom. */
+        private val LEGEND_ITEMS: List<Pair<String, NodeRole>> =
+            listOf(
+                "Entry point" to NodeRole.ENTRY_POINT,
+                "Intermediate" to NodeRole.INTERMEDIATE,
+                "Leaf" to NodeRole.LEAF,
+                "Cycle" to NodeRole.CYCLE_MEMBER,
+            )
+
         private val EDGE_COLOR: Color = JBColor(Color(0xCB3939), Color(0xE6484F))
 
         /**
@@ -247,6 +297,8 @@ class RescriptDependencyDiagramGraphView : JComponent() {
                     .getEdges()
                     .filter { it.from != it.to && it.from in nodeSet && it.to in nodeSet }
 
+            val roleByName =
+                RescriptDependencyDiagramModel.classifyNodes(model.getNodes(), edges)
             val layerByName = assignLayers(nodeNames, edges)
 
             // Group node names by layer, sorted alphabetically within each layer
@@ -284,7 +336,8 @@ class RescriptDependencyDiagramGraphView : JComponent() {
                     val w = nodeWidthByName.getValue(name)
                     val box = Rectangle(x, y, w, NODE_HEIGHT)
                     boxByName[name] = box
-                    placedNodes.add(LayoutNode(name, layerIdx, box))
+                    val role = roleByName[name] ?: NodeRole.INTERMEDIATE
+                    placedNodes.add(LayoutNode(name, layerIdx, box, role))
                     x += w + H_GAP
                 }
             }
@@ -312,7 +365,8 @@ class RescriptDependencyDiagramGraphView : JComponent() {
                 } else {
                     orderedLayers.size * NODE_HEIGHT + (orderedLayers.size - 1) * V_GAP
                 }
-            val canvasHeight = (MARGIN + rowsHeight + MARGIN).coerceAtLeast(MIN_VIEW_HEIGHT)
+            val canvasHeight =
+                (MARGIN + rowsHeight + MARGIN).coerceAtLeast(MIN_VIEW_HEIGHT) + LEGEND_HEIGHT
 
             return Layout(
                 nodes = placedNodes,

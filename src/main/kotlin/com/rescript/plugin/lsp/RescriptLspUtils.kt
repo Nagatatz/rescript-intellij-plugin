@@ -116,10 +116,16 @@ object RescriptLspUtils {
 
             val content = hoverResult.contents ?: return null
             return when {
+                // Only handle the plain-string branch of the legacy
+                // Either<List<Either<String, MarkedString>>, MarkupContent>
+                // payload. The MarkedString branch is deprecated and
+                // unused by rescript-language-server (which always
+                // returns MarkupContent on the right).
                 content.isLeft -> {
                     content.left
                         .firstOrNull()
-                        ?.let { if (it.isLeft) it.left else it.right.value }
+                        ?.takeIf { it.isLeft }
+                        ?.left
                 }
 
                 content.isRight -> {

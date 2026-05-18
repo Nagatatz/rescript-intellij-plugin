@@ -184,4 +184,80 @@ class RescriptVariantFlowModelTest {
             diagram.arms.map { it.patternSummary },
         )
     }
+
+    @Test
+    fun `classifyArm returns CONSTRUCTOR for uppercase variant pattern`() {
+        assertEquals(
+            ArmKind.CONSTRUCTOR,
+            RescriptVariantFlowModel.classifyArm("Some(_)", "v + 1", hasChildren = false),
+        )
+    }
+
+    @Test
+    fun `classifyArm returns WILDCARD for bare underscore`() {
+        assertEquals(
+            ArmKind.WILDCARD,
+            RescriptVariantFlowModel.classifyArm("_", "0", hasChildren = false),
+        )
+    }
+
+    @Test
+    fun `classifyArm returns PATTERN_BINDING for lowercase identifier pattern`() {
+        assertEquals(
+            ArmKind.PATTERN_BINDING,
+            RescriptVariantFlowModel.classifyArm("other", "other + 1", hasChildren = false),
+        )
+    }
+
+    @Test
+    fun `classifyArm returns TODO_PLACEHOLDER for todo body`() {
+        assertEquals(
+            ArmKind.TODO_PLACEHOLDER,
+            RescriptVariantFlowModel.classifyArm("Loaded(_)", "todo", hasChildren = false),
+        )
+    }
+
+    @Test
+    fun `classifyArm rejects todoItem identifier as TODO_PLACEHOLDER`() {
+        // bodyPreview "todoItem" must not match — `startsWith("todo")` is too
+        // loose and would catch real identifiers. Only `todo` exactly and
+        // `todo` followed by a space (e.g. `todo // remember`) qualify.
+        assertEquals(
+            ArmKind.CONSTRUCTOR,
+            RescriptVariantFlowModel.classifyArm("Some(_)", "todoItem", hasChildren = false),
+        )
+    }
+
+    @Test
+    fun `classifyArm returns NESTED_SWITCH when arm has children`() {
+        assertEquals(
+            ArmKind.NESTED_SWITCH,
+            RescriptVariantFlowModel.classifyArm("Some(_)", "switch v {", hasChildren = true),
+        )
+    }
+
+    @Test
+    fun `classifyArm precedence puts NESTED_SWITCH above WILDCARD and TODO_PLACEHOLDER`() {
+        // hasChildren wins over the rest, so a `_` pattern that nests a switch
+        // is NESTED_SWITCH rather than WILDCARD.
+        assertEquals(
+            ArmKind.NESTED_SWITCH,
+            RescriptVariantFlowModel.classifyArm("_", "todo", hasChildren = true),
+        )
+    }
+
+    @Test
+    fun `buildAtOffset populates kind on resulting FlowNode`() {
+        val source =
+            """
+            let f = x =>
+              switch x {
+              | Some(_) => 1
+              | None => todo
+              }
+            """.trimIndent()
+        val diagram = RescriptVariantFlowModel.buildAtOffset(source, offsetOf(source, "switch"))!!
+        assertEquals(ArmKind.CONSTRUCTOR, diagram.arms[0].kind)
+        assertEquals(ArmKind.TODO_PLACEHOLDER, diagram.arms[1].kind)
+    }
 }
