@@ -68,6 +68,7 @@ class RescriptNotebookPanel(
     private fun addCellInternal(cell: NotebookCell) {
         val panel =
             RescriptNotebookCellPanel(
+                project = project,
                 initialCell = cell,
                 projectPath = projectPath,
                 onChanged = { onModified() },

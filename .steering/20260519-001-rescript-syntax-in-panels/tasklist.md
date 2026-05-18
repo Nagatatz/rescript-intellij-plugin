@@ -29,12 +29,12 @@
 
 ## セクション D: Notebook cell 入力の `EditorTextField` 化
 
-- [ ] `RescriptNotebookCellPanel` のコンストラクタに `project: Project` を追加
-- [ ] `RescriptNotebookPanel` 側の生成箇所を更新
-- [ ] `JTextArea` (codeArea) を `EditorTextField` に置換 (REPL input パターン踏襲)
-- [ ] DocumentListener を `EditorTextField.addDocumentListener` に差し替え
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.notebook.*"` が緑
-- [ ] コミット: `✨ Apply ReScript syntax highlighting to Notebook cell input`
+- [x] `RescriptNotebookCellPanel` のコンストラクタに `project: Project` を追加
+- [x] `RescriptNotebookPanel` 側の生成箇所を更新
+- [x] `JTextArea` (codeArea) を `EditorTextField` に置換 (REPL input パターン踏襲)
+- [x] DocumentListener を `EditorTextField.addDocumentListener` に差し替え
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.notebook.*"` が緑
+- [x] コミット: `✨ Apply ReScript syntax highlighting to Notebook cell input`
 
 ## セクション E: ドキュメント同期
 
