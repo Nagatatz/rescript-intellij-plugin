@@ -74,7 +74,36 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 ### 将来機能（ロードマップ）
 
-現時点で計画中の機能はない。3 回の機能調査で収集された 109 件の機能候補はすべて実装完了している。
+直近 (`.steering/20260514-001-feature-discovery/` / `.steering/20260519-004-maintenance-cleanup/`) の発掘調査・監査で抽出された残候補をここに登録する。優先度は ROI (既存資産の再利用度) と「単独セッションで完結可能か」で評価。
+
+#### 新機能候補
+
+| # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
+|---|------|----------|------|--------|--------|
+| 110 | Pipeline Hints | InlayHints | `->` パイプ各段の中間型を LSP hover 経由で InlayHint 表示 (F# Ionide 由来) | 中 | A |
+| 111 | Test Code Lens | その他 | `describe` / `it` / `test` 行に Run / Debug の CodeVision を表示し既存 `RescriptTestRunConfigurationType` に橋渡し | 中 | A |
+| 112 | `open` qualifier 展開 intention | Intention | `open Belt` を `Belt.Array.map` 形に書き戻す Alt+Enter (HLS importLens / rust-analyzer 由来) | 中 | A |
+| 113 | doc コメント内評価 | その他 | `// > expr` 形式コメントを `RescriptReplExecutor` で評価し inline 注釈で結果表示 (HLS Eval plugin 由来) | 中 | B |
+| 114 | ネスト switch 平坦化 intention | Intention | `switch x { \| Some(y) => switch y ... }` を 1 階層に統合 (Gleam LS 由来) | 中 | B |
+| 115 | Wingman 風 type hole 補完 | 補完 | 型穴 `_` を target type と local binding から自動充填、case split サポート | 中〜高 | B |
+| 116 | record / variant placeholder 補完 | 補完 | record literal 生成時に全フィールドを `_` で雛形化、variant matching wrapper も同様 | 中 | B |
+| 117 | inferred 型注釈の一括挿入 quick fix | Quick Fix | Type Coverage Heat Map で低 coverage と判定された file の全 `let` に LSP hover 由来の `: T` を一括挿入 | 中 | B |
+| 118 | Call Hierarchy ToolWindow | ナビゲーション | LSP `callHierarchy/incomingCalls` / `outgoingCalls` を ToolWindow に表示 (要 LSP サポート確認) | 中 | B |
+| 119 | Build Console 専用 ToolWindow | ToolWindow | `rescript build --watch` の stdout を構造化表示し、エラー行クリックで該当箇所へジャンプ | 中〜高 | B |
+| 120 | 追加 stub index | インデキシング | variant constructor / record field / object field / parameter の 4 種を stub index 化し Find Usages とリネームを高速化 | 中 | B |
+| 121 | `.cmt` / `.cmti` バイナリ読取 | 分析 | LSP 非依存のホバー型表示 (NFR-04 強化、reasonml-idea-plugin の目玉機能を移植) | 高 | B |
+| 122 | `if/match` 相互変換 intention | Intention | `if Option.isSome(x)` ⇔ `switch x { Some/None }` を Alt+Enter で相互変換 (rust-analyzer 由来) | 中 | C |
+| 123 | Structural Search and Replace | リファクタリング | `switch $x { \| Some($y) => $y \| None => $z }` のような AST ワイルドカード一括置換 (rust-analyzer 由来) | 非常に高 | C |
+
+#### リファクタリング候補
+
+| # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
+|---|------|----------|------|--------|--------|
+| 124 | CardLayout Visual/Source toggle 抽象化 | リファクタリング | Variant Flow / Module Dependency に共通する Visual ↔ Source 切替パターンを `ui/DualViewToolWindowPanel` 基盤クラスに集約 | 中 | B |
+| 125 | GraphView paint helpers 抽出 | リファクタリング | `paintEdges` / `paintArrowHead` / `truncateToWidth` を `ui/GraphViewPaintHelpers` に統合 (Variant Flow と Module Dependency で重複) | 中 | B |
+| 126 | EditorTextField factory | リファクタリング | REPL / Notebook / Type Info の `addSettingsProvider` 定型 (`isLineNumbersShown = false` 等) を `util/EditorTextFieldFactory` に集約 | 中 | B |
+| 127 | SimpleToolWindowPanel ベース化 | リファクタリング | 6 panel で繰り返される `buildToolbar` + `RefreshAction` の定型を抽象クラスにテンプレートメソッド化 | 低〜中 | C |
+| 128 | Alarm → coroutines 移行 | リファクタリング | `RescriptTypeInfoPanel` の `Alarm(POOLED_THREAD)` (`@ApiStatus.Internal`) を `CoroutineScope` + `parentDisposable` ベースに置換し `@Suppress("UnstableApiUsage")` を排除 | 中〜高 | C |
 
 新規機能の提案は GitHub Issues で受け付ける。ロードマップの表記方法は `.claude/rules/roadmap-format.md` を参照。
 
