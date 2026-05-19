@@ -11,6 +11,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
+import com.rescript.plugin.util.RescriptColorUtils
 import com.rescript.plugin.util.RescriptFileUtil
 import java.awt.BorderLayout
 import java.awt.Color
@@ -93,7 +94,7 @@ class RescriptPpxViewPanel(
                 .globalScheme
                 .getAttributes(RescriptSyntaxHighlighter.ANNOTATION)
         val color: Color = attributes?.foregroundColor ?: return DEFAULT_ANNOTATION_HEX
-        return String.format("#%02X%02X%02X", color.red, color.green, color.blue)
+        return RescriptColorUtils.colorToHexString(color)
     }
 
     companion object {
