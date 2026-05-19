@@ -977,7 +977,7 @@ The diagram provider scans every `.res` file in the project and builds a directe
 A **Visual / Source** toggle on the toolbar swaps between two rendering modes of the same graph:
 
 - **Visual mode** (default) — A Java2D-rendered top-down layered diagram. Layer assignment uses Kahn's BFS: modules with no incoming edges (typically entry points such as `Main`) sit on the top layer; each downstream dependency is pushed one layer lower. Modules that participate in a cycle land on a single extra layer beneath the rest, so they stay visible even though Kahn's algorithm cannot order them. Edges are drawn as orthogonal arrows from the source module's bottom edge to the target module's top edge. Self-loops are suppressed.
-- **Source mode** — A read-only text panel with the Mermaid `flowchart TD` source, intended for copy-paste into external renderers.
+- **Source mode** — A read-only `JEditorPane` displaying the Mermaid `flowchart TD` source. Tokens are colour-coded by `MermaidSourceColorizer` (`flowchart` / `graph` / `TD` / `LR` / `subgraph` / `end` in keyword colour; `-->` / `---` / `-.->` / `==>` in operator colour; `"…"` node labels in string colour; `%%` comments in comment colour), so the source view reads like code rather than monochrome plain text. Copy-as-Mermaid still exports the raw text.
 
 ### Node Colour Coding
 
@@ -1035,9 +1035,9 @@ The view re-renders 200 ms after each caret movement, so moving the cursor acros
 The tool window has two display modes, selected from the toolbar:
 
 - **Visual** (default) — A self-contained Swing graph view paints the scrutinee and each arm as rounded boxes connected by orthogonal arrows. The geometry is computed by a pure `computeLayout` helper, so the renderer needs no JCEF browser, no `mermaid.js`, and no external Graphviz binary.
-- **Source** — The original Mermaid `flowchart TD` text view, kept for copy-paste workflows. Toggle to this mode when you want to inspect or edit the diagram text before sharing it.
+- **Source** — A read-only `JEditorPane` displaying the Mermaid `flowchart TD` source with token colouring from `MermaidSourceColorizer` (keywords / arrows / quoted node labels / `%%` comments) so the source view reads like code. Toggle to this mode when you want to inspect the diagram text before sharing it; Copy-as-Mermaid still exports the raw text.
 
-Visual mode expands nested `switch` arms as sub-trees beneath their parent arm box, mirroring what the Mermaid and DOT exporters already emit and capped at the same `MAX_NESTING_DEPTH` (deeper branches collapse into a single "(deeper switch hidden)" leaf). For flat single-level matches it falls back to a row of arm boxes that wraps onto additional rows when the tool window is too narrow, so the diagram stays usable in any layout. Source mode never wraps — the underlying Mermaid text is the source of truth for both copy actions described below.
+Visual mode expands nested `switch` arms as sub-trees beneath their parent arm box, mirroring what the Mermaid and DOT exporters already emit and capped at the same `MAX_NESTING_DEPTH` (deeper branches collapse into a single "(deeper switch hidden)" leaf). For flat single-level matches it falls back to a row of arm boxes that wraps onto additional rows when the tool window is too narrow, so the diagram stays usable in any layout. Source mode renders the Mermaid text with line-aware highlighting and keeps the underlying Mermaid string as the source of truth for both copy actions described below.
 
 ### Arm Colour Coding
 

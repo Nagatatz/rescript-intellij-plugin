@@ -18,13 +18,13 @@
 
 ## セクション C: ドキュメント同期
 
-- [ ] `CLAUDE.md` `flow/` `diagram/` 段落に Mermaid colorizer 言及追加
-- [ ] `README.md` Features の該当機能行
-- [ ] `docs/repository-structure.md` の `flow/` 行に `MermaidSourceColorizer` を追加
-- [ ] `sphinx-docs/user/features/advanced.md` の Variant Flow / Module Dependency セクションに Source mode 色付けの説明
-- [ ] `cd sphinx-docs && make gettext && make update-po && make build-ja` 実行
-- [ ] 新規/変更 `msgid` の日本語 `msgstr` を埋める
-- [ ] コミット: `📝 Document Mermaid source mode colourisation`
+- [x] `CLAUDE.md` `flow/` `diagram/` 段落に Mermaid colorizer 言及追加
+- [x] `README.md` Features の該当機能行
+- [x] `docs/repository-structure.md` の `flow/` 行に `MermaidSourceColorizer` を追加、`diagram/` 行にも言及
+- [x] `sphinx-docs/user/features/advanced.md` の Variant Flow / Module Dependency セクションに Source mode 色付けの説明
+- [x] `cd sphinx-docs && make gettext && make update-po && make build-ja` 実行
+- [x] 新規/変更 `msgid` の日本語 `msgstr` を埋める (3 件、`make build-ja` 成功)
+- [x] コミット: `📝 Document Mermaid source mode colourisation`
 
 ## セクション D: 仕上げとマージ
 
