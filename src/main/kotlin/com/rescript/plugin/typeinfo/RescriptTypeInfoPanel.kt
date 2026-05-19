@@ -62,7 +62,14 @@ class RescriptTypeInfoPanel(
             }
         }
 
-    // UnstableApiUsage: Alarm(ThreadToUse.POOLED_THREAD) — review on platform upgrade
+    // UnstableApiUsage: Alarm(ThreadToUse.POOLED_THREAD).
+    // Reviewed 2026-05-19 against IntelliJ Platform 2026.1.2. The enum
+    // value is annotated @ApiStatus.Internal, but the simple "cancel +
+    // re-schedule" debounce pattern used here has no straightforward
+    // replacement in 2026.1.x; migrating to coroutines would force a
+    // different lifecycle model (CoroutineScope tied to the parent
+    // Disposable) and is out of scope for this maintenance pass.
+    // Re-evaluate on the next major platform bump.
     @Suppress("UnstableApiUsage")
     private val alarm = Alarm(Alarm.ThreadToUse.POOLED_THREAD, parentDisposable)
 

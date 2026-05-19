@@ -26,9 +26,9 @@
 
 ## セクション D: Alarm UnstableApiUsage review date 更新
 
-- [ ] `src/main/kotlin/com/rescript/plugin/typeinfo/RescriptTypeInfoPanel.kt:44` の inline コメントを最新の review date と stable replacement 不在の根拠で更新
-- [ ] `./gradlew ktlintCheck buildPlugin` が緑
-- [ ] コミット: `🔧 Re-document Alarm UnstableApiUsage suppression for 2026.1.2`
+- [x] `RescriptTypeInfoPanel.kt:65` の inline コメントを 2026-05-19 review date / 2026.1.2 / stable replacement 不在の根拠で更新
+- [x] `./gradlew ktlintCheck buildPlugin` が緑
+- [x] コミット: `🔧 Re-document Alarm UnstableApiUsage suppression for 2026.1.2`
 
 ## セクション E: UNCHECKED_CAST helper 集約
 
