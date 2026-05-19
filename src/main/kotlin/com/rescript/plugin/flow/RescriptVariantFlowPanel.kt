@@ -26,6 +26,7 @@ import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.Alarm
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
+import com.rescript.plugin.util.HtmlEditorPaneFactory
 import java.awt.BorderLayout
 import java.awt.CardLayout
 import java.awt.Font
@@ -55,13 +56,7 @@ class RescriptVariantFlowPanel(
      * [currentMermaidSource] so the Copy Mermaid toolbar action
      * exports plain text rather than the rendered HTML.
      */
-    private val textArea: JEditorPane =
-        JEditorPane().apply {
-            contentType = "text/html"
-            isEditable = false
-            putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true)
-            font = Font(Font.MONOSPACED, Font.PLAIN, font.size)
-        }
+    private val textArea: JEditorPane = HtmlEditorPaneFactory.createReadOnlyHtmlPane()
 
     @Volatile
     private var currentMermaidSource: String = ""

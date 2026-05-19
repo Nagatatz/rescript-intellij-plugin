@@ -18,13 +18,13 @@
 
 ## セクション C: JEditorPane factory
 
-- [ ] `util/HtmlEditorPaneFactory.kt` を新規作成 (createReadOnlyHtmlPane)
-- [ ] `util/HtmlEditorPaneFactoryTest.kt` を新規作成 (3 ケース)
-- [ ] `ppx/RescriptPpxViewPanel.kt` を factory 呼出に差し替え
-- [ ] `flow/RescriptVariantFlowPanel.kt` を factory 呼出に差し替え
-- [ ] `diagram/RescriptDependencyDiagramPanel.kt` を factory 呼出に差し替え
-- [ ] `./gradlew ktlintCheck buildPlugin test` が緑
-- [ ] コミット: `♻️ Extract HtmlEditorPaneFactory and use across PPX / flow / diagram panels`
+- [x] `util/HtmlEditorPaneFactory.kt` を新規作成 (createReadOnlyHtmlPane)
+- [x] `util/HtmlEditorPaneFactoryTest.kt` を新規作成 (6 ケース)
+- [x] `ppx/RescriptPpxViewPanel.kt` を factory 呼出に差し替え
+- [x] `flow/RescriptVariantFlowPanel.kt` を factory 呼出に差し替え
+- [x] `diagram/RescriptDependencyDiagramPanel.kt` を factory 呼出に差し替え
+- [x] `./gradlew ktlintCheck buildPlugin test` が緑
+- [x] コミット: `♻️ Extract HtmlEditorPaneFactory and use across PPX / flow / diagram panels`
 
 ## セクション D: ドキュメント同期
 

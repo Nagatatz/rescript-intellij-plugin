@@ -11,6 +11,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
+import com.rescript.plugin.util.HtmlEditorPaneFactory
 import com.rescript.plugin.util.RescriptColorUtils
 import com.rescript.plugin.util.RescriptFileUtil
 import com.rescript.plugin.util.RescriptSecurityUtils
@@ -36,14 +37,7 @@ class RescriptPpxViewPanel(
     private val project: Project,
     parentDisposable: Disposable,
 ) {
-    private val infoArea =
-        JEditorPane().apply {
-            contentType = "text/html"
-            isEditable = false
-            putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true)
-            font = Font(Font.MONOSPACED, Font.PLAIN, 13)
-            border = JBUI.Borders.empty(8)
-        }
+    private val infoArea = HtmlEditorPaneFactory.createReadOnlyHtmlPane(borderInset = 8)
 
     @Suppress("DialogTitleCapitalization") // "PPX" is an acronym
     private val headerLabel =
