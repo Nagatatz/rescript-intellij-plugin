@@ -64,8 +64,7 @@ class RescriptConfigurable(
         // original "abort-on-first-failure" order from the legacy apply() flow.
         val pathSnapshot =
             RescriptSettingsSchema.pathDescriptorIds.associateWith { id ->
-                @Suppress("UNCHECKED_CAST")
-                (components[id] as SettingComponent<String>).getValue()
+                pathComponent(id).getValue()
             }
         RescriptSettingsValidator.validateLspPath(pathSnapshot.getValue("lspServerPath"))
         RescriptSettingsValidator.validateNodePath(pathSnapshot.getValue("nodePath"))
@@ -110,30 +109,44 @@ class RescriptConfigurable(
     private fun fieldEntries(): List<SchemaEntry.Field<*>> =
         RescriptSettingsSchema.entries.filterIsInstance<SchemaEntry.Field<*>>()
 
+    /**
+     * Type-safe accessor for the heterogeneous [components] map. The cast
+     * is safe by construction: each field entry was registered into the
+     * map under `entry.descriptor.id` with a matching
+     * `SettingComponent<T>` during `createComponent()`, so retrieving by
+     * the same entry guarantees the runtime type lines up with the
+     * declared `T`.
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun <T> componentFor(entry: SchemaEntry.Field<T>): SettingComponent<T> =
+        components[entry.descriptor.id] as SettingComponent<T>
+
+    /**
+     * String-typed accessor used by the path-validation block in
+     * [apply]. Path descriptor ids come from
+     * [RescriptSettingsSchema.pathDescriptorIds], which only lists
+     * `String`-valued descriptors, so the cast is invariant-checked at
+     * registration time rather than at the call site.
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun pathComponent(id: String): SettingComponent<String> = components[id] as SettingComponent<String>
+
     private fun <T> entryIsModified(
         entry: SchemaEntry.Field<T>,
         settings: RescriptProjectSettings,
-    ): Boolean {
-        @Suppress("UNCHECKED_CAST")
-        val component = components[entry.descriptor.id] as SettingComponent<T>
-        return component.getValue() != entry.descriptor.currentValue(settings)
-    }
+    ): Boolean = componentFor(entry).getValue() != entry.descriptor.currentValue(settings)
 
     private fun <T> applyEntry(
         entry: SchemaEntry.Field<T>,
         settings: RescriptProjectSettings,
     ) {
-        @Suppress("UNCHECKED_CAST")
-        val component = components[entry.descriptor.id] as SettingComponent<T>
-        entry.descriptor.applyValue(settings, component.getValue())
+        entry.descriptor.applyValue(settings, componentFor(entry).getValue())
     }
 
     private fun <T> resetEntry(
         entry: SchemaEntry.Field<T>,
         settings: RescriptProjectSettings,
     ) {
-        @Suppress("UNCHECKED_CAST")
-        val component = components[entry.descriptor.id] as SettingComponent<T>
-        component.setValue(entry.descriptor.currentValue(settings))
+        componentFor(entry).setValue(entry.descriptor.currentValue(settings))
     }
 }

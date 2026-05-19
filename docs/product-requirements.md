@@ -8,7 +8,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 ### 目的
 
-- 既存の reasonml-idea-plugin がメンテナンス停止状態にあるため、ReScript 専用のクリーンな代替プラグインを提供する
+- 既存の reasonml-idea-plugin は 2025-09-01 の v0.131 リリース以降コードコミットが README 更新と dependabot bump 中心になり低頻度メンテに移行しているため、ReScript 専用のクリーンな代替プラグインを提供する
 - JFlex レクサーによる高速なネイティブ機能と、rescript-language-server（LSP）による意味解析機能のハイブリッドアーキテクチャにより、軽量かつ高機能な開発体験を実現する
 - VSCode 拡張と同等の LSP 機能を JetBrains IDE で利用可能にする
 
@@ -28,7 +28,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 ### 課題
 
-1. **代替手段の不在** — 既存プラグインがメンテナンス停止状態で、最新の ReScript バージョンに対応していない
+1. **活発な代替手段の不在** — 既存プラグイン (reasonml-idea-plugin) は 2025-09 を最後にコードリリースが停滞しており、最新の ReScript バージョンへの追従が遅い
 2. **IDE 分断** — ReScript 開発のためだけに VSCode に切り替える必要がある
 3. **開発効率の低下** — シンタックスハイライトやコード補完がない環境での ReScript 開発は非効率
 
@@ -140,7 +140,7 @@ JetBrains IDE は年 3 回（春・夏・秋）メジャーバージョンをリ
 
 **現在の既知ブロッカー**:
 
-- IntelliJ Platform **2026.2 EAP** への自動互換性検証は、`verifier-cli` 1.403 がまだ 2026.2 の bundled-plugin layout を解釈できず `ClosedFileSystemException` で落ちるため保留。`build.gradle.kts` の `pluginVerification.ides` は `recommended()` を使わず `IntellijIdea 2026.1.1` を明示 pin している。新しい `verifier-cli` リリースが 2026.2 layout に対応したら `recommended()` に戻す。
+- IntelliJ Platform **2026.2 EAP** への自動互換性検証は、`verifier-cli` 1.403 がまだ 2026.2 の bundled-plugin layout を解釈できず `ClosedFileSystemException` で落ちるため保留。`build.gradle.kts` の `pluginVerification.ides` は `recommended()` を使わず `IntellijIdea 2026.1.2` を明示 pin している。新しい `verifier-cli` リリースが 2026.2 layout に対応したら `recommended()` に戻す。
 
 #### 月次互換性検証
 

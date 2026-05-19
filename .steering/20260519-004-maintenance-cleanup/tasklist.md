@@ -1,0 +1,53 @@
+# Maintenance Cleanup — タスクリスト
+
+## セクション A: Gradle wrapper 9.5.1
+
+- [x] `gradle/wrapper/gradle-wrapper.properties` の `distributionUrl` を 9.5.0 → 9.5.1
+- [x] `./gradlew --version` で 9.5.1 が起動することを確認
+- [x] `./gradlew ktlintCheck buildPlugin` が緑
+- [x] コミット: `🔧 Bump Gradle wrapper to 9.5.1`
+
+## セクション B: IntelliJ Platform 2026.1.2
+
+- [x] `gradle.properties` の `platformVersion` を 2026.1.1 → 2026.1.2
+- [x] `build.gradle.kts` の `pluginVerification.ides` の pin を 2026.1.2 に
+- [x] `./gradlew verifyPlugin` が緑 (1 件の既存 `MarkedString` deprecation のみ、新規なし)
+- [x] `docs/product-requirements.md` の Verifier ブロッカー記述を 2026.1.2 に同期
+- [x] memory の `project_platform_2026_1_blocked.md` の現バージョン記述を 2026.1.2 に更新
+- [x] コミット: `⬆ Bump IntelliJ Platform to 2026.1.2`
+
+## セクション C: reasonml-idea-plugin 記述補正
+
+- [x] `docs/product-requirements.md:11` の「メンテナンス停止」→「2025-09 を最後に低頻度メンテ」
+- [x] `docs/product-requirements.md:31` の「メンテナンス停止状態」→「コードリリースが停滞」
+- [x] `docs/ideas/concept.md:7` も同様に更新 (追加で発見)
+- [x] `grep -rn "メンテナンス停止" .` で他に残っていないことを確認
+- [x] コミット: `📝 Correct reasonml-idea-plugin maintenance status in product requirements`
+
+## セクション D: Alarm UnstableApiUsage review date 更新
+
+- [x] `RescriptTypeInfoPanel.kt:65` の inline コメントを 2026-05-19 review date / 2026.1.2 / stable replacement 不在の根拠で更新
+- [x] `./gradlew ktlintCheck buildPlugin` が緑
+- [x] コミット: `🔧 Re-document Alarm UnstableApiUsage suppression for 2026.1.2`
+
+## セクション E: UNCHECKED_CAST helper 集約
+
+- [x] `RescriptConfigurable` に `componentFor<T>` と `pathComponent` ヘルパーを追加
+- [x] 既存 4 箇所の `@Suppress("UNCHECKED_CAST")` を helper 呼出に差し替え (結果: 4 → 2 @Suppress)
+- [x] settings パッケージのテスト緑 (apply/reset/isModified の挙動不変)
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.settings.*"` が緑
+- [x] コミット: `♻️ Consolidate UNCHECKED_CAST into componentFor helpers in RescriptConfigurable`
+
+## セクション F: 仕上げとマージ
+
+- [x] `./gradlew ktlintCheck buildPlugin test koverHtmlReport koverVerify verifyPluginStructure` 全緑 (個別実行、4 タスクすべて BUILD SUCCESSFUL)
+- [x] DoD Phase 3 自己検証 (KDoc 完備、deprecated API 利用なし、verifyPlugin で MarkedString のみ既存)
+- [x] 本ファイルの全チェックボックスを `[x]` に更新してコミット
+- [ ] `AskUserQuestion` でマージ可否確認、承認後 main にマージ
+
+## テスト省略の理由
+
+- P1/P2 は設定ファイル変更のみ (`./gradlew --version` と verifyPlugin で実証)
+- F21 はドキュメント変更のみ
+- D は inline コメント更新のみ (動作変化ゼロ、テスト不要)
+- E は型システム上等価な refactor (動作変化ゼロ)。既存 `RescriptConfigurable` 自体は `Configurable` インターフェースで UI 免除カテゴリだが、ヘルパー部分は将来的にユニットテスト対象になり得る
