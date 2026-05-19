@@ -162,7 +162,7 @@ intellijPlatform {
             // resolution). recommended() pulls in 2026.2 EAP automatically and
             // breaks the build. Switch back to recommended() once a verifier
             // release supports the 2026.2 layout.
-            create(IntelliJPlatformType.IntellijIdea, "2026.1.1")
+            create(IntelliJPlatformType.IntellijIdea, "2026.1.2")
         }
         // Suppresses known false-positive verifier warnings. See the file for
         // per-entry rationale and review dates.

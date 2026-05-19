@@ -140,7 +140,7 @@ JetBrains IDE は年 3 回（春・夏・秋）メジャーバージョンをリ
 
 **現在の既知ブロッカー**:
 
-- IntelliJ Platform **2026.2 EAP** への自動互換性検証は、`verifier-cli` 1.403 がまだ 2026.2 の bundled-plugin layout を解釈できず `ClosedFileSystemException` で落ちるため保留。`build.gradle.kts` の `pluginVerification.ides` は `recommended()` を使わず `IntellijIdea 2026.1.1` を明示 pin している。新しい `verifier-cli` リリースが 2026.2 layout に対応したら `recommended()` に戻す。
+- IntelliJ Platform **2026.2 EAP** への自動互換性検証は、`verifier-cli` 1.403 がまだ 2026.2 の bundled-plugin layout を解釈できず `ClosedFileSystemException` で落ちるため保留。`build.gradle.kts` の `pluginVerification.ides` は `recommended()` を使わず `IntellijIdea 2026.1.2` を明示 pin している。新しい `verifier-cli` リリースが 2026.2 layout に対応したら `recommended()` に戻す。
 
 #### 月次互換性検証
 

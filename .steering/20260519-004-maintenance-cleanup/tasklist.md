@@ -9,12 +9,12 @@
 
 ## セクション B: IntelliJ Platform 2026.1.2
 
-- [ ] `gradle.properties` の `platformVersion` を 2026.1.1 → 2026.1.2
-- [ ] `build.gradle.kts` の `pluginVerification.ides` の pin を 2026.1.2 に
-- [ ] `./gradlew verifyPlugin` が緑 (新規 deprecated 警告なし)
-- [ ] 新規警告があれば `plugin-verifier-ignored-problems.txt` に追記または該当ソース修正
-- [ ] memory の `project_platform_2026_1_blocked.md` の現バージョン記述を 2026.1.2 に更新
-- [ ] コミット: `⬆ Bump IntelliJ Platform to 2026.1.2`
+- [x] `gradle.properties` の `platformVersion` を 2026.1.1 → 2026.1.2
+- [x] `build.gradle.kts` の `pluginVerification.ides` の pin を 2026.1.2 に
+- [x] `./gradlew verifyPlugin` が緑 (1 件の既存 `MarkedString` deprecation のみ、新規なし)
+- [x] `docs/product-requirements.md` の Verifier ブロッカー記述を 2026.1.2 に同期
+- [x] memory の `project_platform_2026_1_blocked.md` の現バージョン記述を 2026.1.2 に更新
+- [x] コミット: `⬆ Bump IntelliJ Platform to 2026.1.2`
 
 ## セクション C: reasonml-idea-plugin 記述補正
 
