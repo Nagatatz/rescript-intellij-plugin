@@ -28,10 +28,10 @@
 
 ## セクション D: 仕上げとマージ
 
-- [ ] `./gradlew ktlintCheck buildPlugin test koverHtmlReport koverVerify verifyPluginStructure` が緑
-- [ ] DoD Phase 3 自己検証
-- [ ] 本ファイルの全チェックボックスを `[x]` に更新してコミット
-- [ ] マージ実行
+- [x] `./gradlew ktlintCheck buildPlugin test koverHtmlReport koverVerify verifyPluginStructure` が緑 (タスクを個別に実行)
+- [x] DoD Phase 3 自己検証 (KDoc 完備、deprecated API 不使用、colorizer は internal で外部入力を escape)
+- [x] 本ファイルの全チェックボックスを `[x]` に更新してコミット
+- [ ] マージ実行 (ユーザー承認後)
 
 ## テスト省略の理由
 
