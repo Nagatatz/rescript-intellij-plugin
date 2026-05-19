@@ -32,11 +32,11 @@
 
 ## セクション E: UNCHECKED_CAST helper 集約
 
-- [ ] `RescriptConfigurable` に `componentFor<T>` と `pathComponent` ヘルパーを追加
-- [ ] 既存 4 箇所の `@Suppress("UNCHECKED_CAST")` を helper 呼出に差し替え
-- [ ] 既存テスト (`RescriptConfigurableTest` または `RescriptProjectSettingsTest`) があれば緑のまま、なければ動作不変の手動検証 (apply/reset/isModified)
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.settings.*"` が緑
-- [ ] コミット: `♻️ Consolidate UNCHECKED_CAST into componentFor helpers in RescriptConfigurable`
+- [x] `RescriptConfigurable` に `componentFor<T>` と `pathComponent` ヘルパーを追加
+- [x] 既存 4 箇所の `@Suppress("UNCHECKED_CAST")` を helper 呼出に差し替え (結果: 4 → 2 @Suppress)
+- [x] settings パッケージのテスト緑 (apply/reset/isModified の挙動不変)
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.settings.*"` が緑
+- [x] コミット: `♻️ Consolidate UNCHECKED_CAST into componentFor helpers in RescriptConfigurable`
 
 ## セクション F: 仕上げとマージ
 
