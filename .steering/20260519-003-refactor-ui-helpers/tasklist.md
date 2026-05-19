@@ -28,9 +28,9 @@
 
 ## セクション D: ドキュメント同期
 
-- [ ] `docs/repository-structure.md` の `util/` 行に `RescriptColorUtils`, `HtmlEditorPaneFactory` を追加
-- [ ] CLAUDE.md / README.md / sphinx-docs は更新不要 (実装詳細のみの変更、ユーザー視点で挙動変化なし)
-- [ ] コミット: `📝 List RescriptColorUtils and HtmlEditorPaneFactory in repository-structure`
+- [x] `docs/repository-structure.md` の `util/` 行に `RescriptColorUtils`, `HtmlEditorPaneFactory` を追加
+- [x] CLAUDE.md / README.md / sphinx-docs は更新不要 (実装詳細のみの変更、ユーザー視点で挙動変化なし)
+- [x] コミット: `📝 List RescriptColorUtils and HtmlEditorPaneFactory in repository-structure`
 
 ## セクション E: 仕上げとマージ
 
