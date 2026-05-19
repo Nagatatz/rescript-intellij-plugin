@@ -13,11 +13,12 @@ import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.rescript.plugin.diagram.RescriptDependencyDiagramExportAction.Format
+import com.rescript.plugin.flow.MermaidSourceColorizer
 import java.awt.BorderLayout
 import java.awt.CardLayout
 import java.awt.Font
+import javax.swing.JEditorPane
 import javax.swing.JPanel
-import javax.swing.JTextArea
 
 /**
  * Tool window UI for the ReScript module dependency diagram.
@@ -36,9 +37,19 @@ class RescriptDependencyDiagramPanel(
     private val project: Project,
 ) : SimpleToolWindowPanel(true, true),
     Disposable {
-    private val textArea: JTextArea =
-        JTextArea().apply {
+    /**
+     * Read-only HTML pane displaying the Mermaid source. The HTML
+     * payload is produced by [MermaidSourceColorizer] so keywords,
+     * arrows, quoted node labels and `%%` comments pick up the editor
+     * scheme's colours. Copy-as-Mermaid still exports the raw string
+     * because it regenerates it through [RescriptMermaidExporter],
+     * never reading the rendered pane.
+     */
+    private val textArea: JEditorPane =
+        JEditorPane().apply {
+            contentType = "text/html"
             isEditable = false
+            putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true)
             font = Font(Font.MONOSPACED, Font.PLAIN, font.size)
         }
 
@@ -87,7 +98,7 @@ class RescriptDependencyDiagramPanel(
 
     private fun refresh() {
         val model = RescriptDependencyDiagramProvider.buildDiagram(project)
-        textArea.text = RescriptMermaidExporter.toMermaid(model)
+        textArea.text = MermaidSourceColorizer.render(RescriptMermaidExporter.toMermaid(model))
         textArea.caretPosition = 0
         graphView.setModel(model)
         statusLabel.text = " Modules: ${model.moduleCount()}   Edges: ${model.edgeCount()}"

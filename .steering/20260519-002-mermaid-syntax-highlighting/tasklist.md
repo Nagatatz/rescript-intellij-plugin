@@ -11,10 +11,10 @@
 
 ## セクション B: Module Dependency Source モード
 
-- [ ] `RescriptDependencyDiagramPanel.kt` の `JTextArea` を `JEditorPane` に置換
-- [ ] Copy Mermaid action が生ソースを保持していることを確認
-- [ ] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.diagram.*"` が緑
-- [ ] コミット: `✨ Apply Mermaid colorizer to Module Dependency source mode`
+- [x] `RescriptDependencyDiagramPanel.kt` の `JTextArea` を `JEditorPane` に置換
+- [x] Copy Mermaid action は `RescriptMermaidExporter.toMermaid()` を直接呼ぶため raw text のまま (既存ロジック維持)
+- [x] `./gradlew ktlintCheck buildPlugin test --tests "com.rescript.plugin.diagram.*"` が緑
+- [x] コミット: `✨ Apply Mermaid colorizer to Module Dependency source mode`
 
 ## セクション C: ドキュメント同期
 
