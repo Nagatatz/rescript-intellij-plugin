@@ -30,8 +30,8 @@ import java.awt.BorderLayout
 import java.awt.CardLayout
 import java.awt.Font
 import java.awt.datatransfer.StringSelection
+import javax.swing.JEditorPane
 import javax.swing.JPanel
-import javax.swing.JTextArea
 
 /**
  * Tool window UI for the variant flow diagram.
@@ -47,11 +47,24 @@ class RescriptVariantFlowPanel(
     private val project: Project,
 ) : SimpleToolWindowPanel(true, true),
     Disposable {
-    private val textArea: JTextArea =
-        JTextArea().apply {
+    /**
+     * Read-only HTML pane displaying the Mermaid source. The HTML
+     * payload is produced by [MermaidSourceColorizer] so keywords,
+     * arrows, quoted labels and `%%` comments pick up the editor
+     * scheme's colours. The raw Mermaid string is preserved in
+     * [currentMermaidSource] so the Copy Mermaid toolbar action
+     * exports plain text rather than the rendered HTML.
+     */
+    private val textArea: JEditorPane =
+        JEditorPane().apply {
+            contentType = "text/html"
             isEditable = false
+            putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true)
             font = Font(Font.MONOSPACED, Font.PLAIN, font.size)
         }
+
+    @Volatile
+    private var currentMermaidSource: String = ""
 
     private val graphView: RescriptVariantFlowGraphView = RescriptVariantFlowGraphView()
 
@@ -173,7 +186,9 @@ class RescriptVariantFlowPanel(
             renderEmpty(RescriptVariantFlowHints.Reason.NO_SWITCH)
         } else {
             currentJumpTarget = JumpTarget(ctx.file, ctx.offset)
-            textArea.text = RescriptVariantFlowMermaidExporter.toMermaid(diagram)
+            val mermaid = RescriptVariantFlowMermaidExporter.toMermaid(diagram)
+            currentMermaidSource = mermaid
+            textArea.text = MermaidSourceColorizer.render(mermaid)
             textArea.caretPosition = 0
             graphView.setDiagram(diagram)
             statusLabel.text = " Arms: ${countArms(diagram)}"
@@ -186,7 +201,12 @@ class RescriptVariantFlowPanel(
     }
 
     private fun renderEmpty(reason: RescriptVariantFlowHints.Reason) {
-        textArea.text = RescriptVariantFlowHints.emptyStateMessage(reason)
+        val message = RescriptVariantFlowHints.emptyStateMessage(reason)
+        currentMermaidSource = message
+        // Empty-state messages are not Mermaid source, but rendering them
+        // through the colorizer guarantees the HTML wrapper / escaping is
+        // consistent with the highlighted code path.
+        textArea.text = MermaidSourceColorizer.render(message)
         statusLabel.text = " ${RescriptVariantFlowHints.shortStatusLabel(reason)}"
         graphView.setDiagram(null)
         currentDiagram = null
