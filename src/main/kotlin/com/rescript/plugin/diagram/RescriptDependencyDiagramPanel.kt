@@ -14,6 +14,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.rescript.plugin.diagram.RescriptDependencyDiagramExportAction.Format
 import com.rescript.plugin.flow.MermaidSourceColorizer
+import com.rescript.plugin.util.HtmlEditorPaneFactory
 import java.awt.BorderLayout
 import java.awt.CardLayout
 import java.awt.Font
@@ -45,13 +46,7 @@ class RescriptDependencyDiagramPanel(
      * because it regenerates it through [RescriptMermaidExporter],
      * never reading the rendered pane.
      */
-    private val textArea: JEditorPane =
-        JEditorPane().apply {
-            contentType = "text/html"
-            isEditable = false
-            putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true)
-            font = Font(Font.MONOSPACED, Font.PLAIN, font.size)
-        }
+    private val textArea: JEditorPane = HtmlEditorPaneFactory.createReadOnlyHtmlPane()
 
     private val graphView: RescriptDependencyDiagramGraphView = RescriptDependencyDiagramGraphView()
 

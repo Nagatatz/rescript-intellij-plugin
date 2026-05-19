@@ -3,6 +3,8 @@ package com.rescript.plugin.flow
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
+import com.rescript.plugin.util.RescriptColorUtils
+import com.rescript.plugin.util.RescriptSecurityUtils
 
 /**
  * Renders a Mermaid `flowchart TD` source string as HTML with each
@@ -101,12 +103,12 @@ internal object MermaidSourceColorizer {
         commentHex: String,
     ): String {
         if (line.trimStart().startsWith("%%")) {
-            return span(escapeHtml(line), commentHex)
+            return span(RescriptSecurityUtils.escapeHtml(line), commentHex)
         }
         val sb = StringBuilder()
         var last = 0
         for (m in TOKEN_REGEX.findAll(line)) {
-            sb.append(escapeHtml(line.substring(last, m.range.first)))
+            sb.append(RescriptSecurityUtils.escapeHtml(line.substring(last, m.range.first)))
             val tok = m.value
             val hex =
                 when {
@@ -114,10 +116,10 @@ internal object MermaidSourceColorizer {
                     tok.startsWith("-") || tok.startsWith("=") -> operatorHex
                     else -> keywordHex
                 }
-            sb.append(span(escapeHtml(tok), hex))
+            sb.append(span(RescriptSecurityUtils.escapeHtml(tok), hex))
             last = m.range.last + 1
         }
-        sb.append(escapeHtml(line.substring(last)))
+        sb.append(RescriptSecurityUtils.escapeHtml(line.substring(last)))
         return sb.toString()
     }
 
@@ -133,14 +135,6 @@ internal object MermaidSourceColorizer {
                 .globalScheme
                 .getAttributes(key)
         val color = attributes?.foregroundColor ?: return DEFAULT_HEX
-        return String.format("#%02X%02X%02X", color.red, color.green, color.blue)
+        return RescriptColorUtils.colorToHexString(color)
     }
-
-    /** Minimal HTML escape covering characters that would break the rendered document. */
-    private fun escapeHtml(s: String): String =
-        s
-            .replace("&", "&amp;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;")
-            .replace("\"", "&quot;")
 }

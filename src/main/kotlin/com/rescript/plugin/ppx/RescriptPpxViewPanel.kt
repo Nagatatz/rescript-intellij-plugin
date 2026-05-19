@@ -11,7 +11,10 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
+import com.rescript.plugin.util.HtmlEditorPaneFactory
+import com.rescript.plugin.util.RescriptColorUtils
 import com.rescript.plugin.util.RescriptFileUtil
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Font
@@ -34,14 +37,7 @@ class RescriptPpxViewPanel(
     private val project: Project,
     parentDisposable: Disposable,
 ) {
-    private val infoArea =
-        JEditorPane().apply {
-            contentType = "text/html"
-            isEditable = false
-            putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true)
-            font = Font(Font.MONOSPACED, Font.PLAIN, 13)
-            border = JBUI.Borders.empty(8)
-        }
+    private val infoArea = HtmlEditorPaneFactory.createReadOnlyHtmlPane(borderInset = 8)
 
     @Suppress("DialogTitleCapitalization") // "PPX" is an acronym
     private val headerLabel =
@@ -93,7 +89,7 @@ class RescriptPpxViewPanel(
                 .globalScheme
                 .getAttributes(RescriptSyntaxHighlighter.ANNOTATION)
         val color: Color = attributes?.foregroundColor ?: return DEFAULT_ANNOTATION_HEX
-        return String.format("#%02X%02X%02X", color.red, color.green, color.blue)
+        return RescriptColorUtils.colorToHexString(color)
     }
 
     companion object {
@@ -132,23 +128,15 @@ class RescriptPpxViewPanel(
                     val expansion = getPpxExpansionInfo(annotation)
                     val coloredAnnotation =
                         "<span style='color:$colorHex;font-weight:bold'>" +
-                            escapeHtml(annotation) +
+                            RescriptSecurityUtils.escapeHtml(annotation) +
                             "</span>"
                     append("Line ").append(line).append(": ")
                     append(coloredAnnotation).append("<br>")
-                    append("&nbsp;&nbsp;&rarr; ").append(escapeHtml(expansion)).append("<br><br>")
+                    append("&nbsp;&nbsp;&rarr; ").append(RescriptSecurityUtils.escapeHtml(expansion)).append("<br><br>")
                 }
                 append("</body></html>")
             }
         }
-
-        /** Minimal HTML escape for the literal text we drop into the rendered body. */
-        private fun escapeHtml(s: String): String =
-            s
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;")
 
         /**
          * Finds all PPX annotations in the source text.

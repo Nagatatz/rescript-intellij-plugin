@@ -78,7 +78,7 @@ rescript-intellij-plugin/
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
 | `refactor/` | リネーム、識別子バリデーション | `RescriptRenameHandler` |
-| `util/` | 共通ユーティリティ（セキュリティ、offset↔Position 変換、エディタ操作、ツールウィンドウ取り付け等） | `RescriptSecurityUtils`, `RescriptOffsetUtils`, `RescriptEditorUtils`, `RescriptToolWindowContent` |
+| `util/` | 共通ユーティリティ（セキュリティ、offset↔Position 変換、エディタ操作、ツールウィンドウ取り付け等、色 hex 変換、HTML エディタ pane factory） | `RescriptSecurityUtils`, `RescriptOffsetUtils`, `RescriptEditorUtils`, `RescriptToolWindowContent`, `RescriptColorUtils`, `HtmlEditorPaneFactory` |
 | `commenter/` | コメントトグル | `RescriptCommenter` |
 | `dependencies/` | パッケージ依存関係ツリー表示 | `RescriptDependenciesToolWindowFactory`, `RescriptDependenciesPanel` |
 | `diagram/` | モジュール依存関係ダイアグラム（Visual / Source トグル + Mermaid + DOT エクスポート、`NodeRole` 別ノード色分けと凡例、Source モードは `flow/MermaidSourceColorizer` でトークン色付け） | `RescriptDependencyDiagramToolWindowFactory`, `RescriptDependencyDiagramPanel`, `RescriptDependencyDiagramAction`, `RescriptDependencyDiagramExportAction`, `RescriptDependencyDiagramGraphView`, `RescriptMermaidExporter`, `RescriptDependencyDiagramProvider`, `RescriptDependencyDiagramModel`, `NodeRole` |
