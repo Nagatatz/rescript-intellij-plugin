@@ -11,10 +11,10 @@
 
 ## セクション B: escapeHtml の統一
 
-- [ ] `ppx/RescriptPpxViewPanel.kt` の private `escapeHtml` を削除し `RescriptSecurityUtils.escapeHtml` に差し替え
-- [ ] `flow/MermaidSourceColorizer.kt` の private `escapeHtml` を削除し同様に差し替え
-- [ ] 既存テスト (`RescriptPpxViewPanelTest`, `MermaidSourceColorizerTest`) が緑のまま
-- [ ] コミット: `♻️ Replace local escapeHtml fallbacks with RescriptSecurityUtils.escapeHtml`
+- [x] `ppx/RescriptPpxViewPanel.kt` の private `escapeHtml` を削除し `RescriptSecurityUtils.escapeHtml` に差し替え
+- [x] `flow/MermaidSourceColorizer.kt` の private `escapeHtml` を削除し同様に差し替え
+- [x] 既存テスト (`RescriptPpxViewPanelTest`, `MermaidSourceColorizerTest`) が緑のまま
+- [x] コミット: `♻️ Replace local escapeHtml fallbacks with RescriptSecurityUtils.escapeHtml`
 
 ## セクション C: JEditorPane factory
 

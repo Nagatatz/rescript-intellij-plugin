@@ -13,6 +13,7 @@ import com.intellij.util.ui.JBUI
 import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
 import com.rescript.plugin.util.RescriptColorUtils
 import com.rescript.plugin.util.RescriptFileUtil
+import com.rescript.plugin.util.RescriptSecurityUtils
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Font
@@ -133,23 +134,15 @@ class RescriptPpxViewPanel(
                     val expansion = getPpxExpansionInfo(annotation)
                     val coloredAnnotation =
                         "<span style='color:$colorHex;font-weight:bold'>" +
-                            escapeHtml(annotation) +
+                            RescriptSecurityUtils.escapeHtml(annotation) +
                             "</span>"
                     append("Line ").append(line).append(": ")
                     append(coloredAnnotation).append("<br>")
-                    append("&nbsp;&nbsp;&rarr; ").append(escapeHtml(expansion)).append("<br><br>")
+                    append("&nbsp;&nbsp;&rarr; ").append(RescriptSecurityUtils.escapeHtml(expansion)).append("<br><br>")
                 }
                 append("</body></html>")
             }
         }
-
-        /** Minimal HTML escape for the literal text we drop into the rendered body. */
-        private fun escapeHtml(s: String): String =
-            s
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;")
 
         /**
          * Finds all PPX annotations in the source text.
