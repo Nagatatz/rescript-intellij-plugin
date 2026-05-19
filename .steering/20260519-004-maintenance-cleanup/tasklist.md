@@ -18,10 +18,11 @@
 
 ## セクション C: reasonml-idea-plugin 記述補正
 
-- [ ] `docs/product-requirements.md:11` の「メンテナンス停止」→「2025-09 を最後に低頻度メンテ」
-- [ ] `docs/product-requirements.md:31` の「メンテナンス停止状態」→「活発度が低下」
-- [ ] `grep -rn "メンテナンス停止" .` で他に残っていないことを確認
-- [ ] コミット: `📝 Correct reasonml-idea-plugin maintenance status in product requirements`
+- [x] `docs/product-requirements.md:11` の「メンテナンス停止」→「2025-09 を最後に低頻度メンテ」
+- [x] `docs/product-requirements.md:31` の「メンテナンス停止状態」→「コードリリースが停滞」
+- [x] `docs/ideas/concept.md:7` も同様に更新 (追加で発見)
+- [x] `grep -rn "メンテナンス停止" .` で他に残っていないことを確認
+- [x] コミット: `📝 Correct reasonml-idea-plugin maintenance status in product requirements`
 
 ## セクション D: Alarm UnstableApiUsage review date 更新
 

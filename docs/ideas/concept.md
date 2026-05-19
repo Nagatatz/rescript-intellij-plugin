@@ -4,7 +4,7 @@
 
 [ReScript](https://rescript-lang.org) の言語サポートを JetBrains IDE に提供するプラグインです。
 
-既存の [reasonml-idea-plugin](https://github.com/reasonml-editor/reasonml-idea-plugin) がメンテナンス停止状態にあるため、フルスクラッチで新規に開発しています。ReScript/Reason/OCaml の3言語共有アーキテクチャを捨て、ReScript 専用のクリーンな設計を採用しました。
+既存の [reasonml-idea-plugin](https://github.com/reasonml-editor/reasonml-idea-plugin) は 2025-09 を最後にコードリリースが停滞し低頻度メンテに移行しているため、ReScript 専用のクリーンな設計をフルスクラッチで新規に開発しています。ReScript/Reason/OCaml の3言語共有アーキテクチャを捨て、ReScript 専用のクリーンな設計を採用しました。
 
 ## 特徴
 
