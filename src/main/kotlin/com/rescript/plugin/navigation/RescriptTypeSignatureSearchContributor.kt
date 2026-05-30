@@ -112,11 +112,6 @@ class RescriptTypeSignatureSearchContributor(
     override fun getElementsRenderer(): ListCellRenderer<in RescriptTypeSignatureSearchHit> =
         RescriptTypeSignatureCellRenderer()
 
-    override fun getDataForItem(
-        element: RescriptTypeSignatureSearchHit,
-        dataId: String,
-    ): Any? = null
-
     override fun dispose() {}
 
     /**

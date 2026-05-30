@@ -81,11 +81,6 @@ class RescriptSearchEverywhereContributor(
 
     override fun getElementsRenderer(): ListCellRenderer<in Any> = GotoFileCellRenderer(0)
 
-    override fun getDataForItem(
-        element: Any,
-        dataId: String,
-    ): Any? = null
-
     override fun dispose() {}
 
     private fun collectMatchingElements(
