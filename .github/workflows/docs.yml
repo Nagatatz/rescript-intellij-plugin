@@ -160,6 +160,12 @@ jobs:
         # Pinned to a specific version for reproducibility. Bump manually
         # when checking against a newer release; Dependabot does not track
         # ad-hoc npx invocations.
+        # pa11y-ci 4.x bundles puppeteer-core, which by design does not
+        # auto-download Chrome and instead probes ~/.cache/puppeteer for a
+        # version-pinned binary. Point it at the runner's pre-installed Chrome
+        # so the a11y gate doesn't fail with "Could not find Chrome".
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
         run: npx --yes pa11y-ci@4.1.0 --config .pa11yci.json
 
   deploy:

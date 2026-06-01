@@ -125,6 +125,12 @@ jobs:
         run: ./gradlew buildPlugin
 
       - name: Run tests with coverage
+        # mmdc 11.x and pa11y 4.x bundle puppeteer-core, which by design does
+        # not auto-download Chrome and instead probes ~/.cache/puppeteer for a
+        # version-pinned binary. Point it at the runner's pre-installed Chrome
+        # so the cli/ Mermaid gate doesn't fail with "Could not find Chrome".
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
         run: ./gradlew test koverVerify koverXmlReport koverHtmlReport
 
       - name: Add coverage report to PR
