@@ -28,13 +28,13 @@
 - [x] `interop/RescriptInteropScanner.scan` のループを置換 (公開シグネチャ不変)
 - [x] 既存 scanner テスト + interop IntegrationTest が**無変更で** green であることを確認
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `♻️ Extract RescriptProjectFileScanner for shared file scan loop`
+- [x] コミット: `♻️ Extract RescriptProjectFileScanner for shared file scan loop` (588daf1)
 
 ## セクション 3: ドキュメント同期
 
-- [ ] `docs/repository-structure.md` の util/ 行に EditorTextFieldFactory / RescriptProjectFileScanner を追記
-- [ ] `docs/product-requirements.md` の #126 を将来機能テーブルから削除 (実装済み扱い)
-- [ ] sphinx-docs: 更新なしの確認のみ (機能不変)
+- [x] `docs/repository-structure.md` の util/ 行に EditorTextFieldFactory / RescriptProjectFileScanner を追記
+- [x] `docs/product-requirements.md` の #126 を将来機能テーブルから削除 (実装済み扱い)
+- [x] sphinx-docs: 更新なしの確認のみ (機能不変・ユーザー向け挙動変更なし)
 - [ ] コミット: `📝 Sync docs for Phase 1 util extractions`
 
 ## マージ前検証 (DoD Phase 3〜4)

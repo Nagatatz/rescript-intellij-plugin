@@ -101,7 +101,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 |---|------|----------|------|--------|--------|
 | 124 | CardLayout Visual/Source toggle 抽象化 | リファクタリング | Variant Flow / Module Dependency に共通する Visual ↔ Source 切替パターンを `ui/DualViewToolWindowPanel` 基盤クラスに集約 | 中 | B |
 | 125 | GraphView paint helpers 抽出 | リファクタリング | `paintEdges` / `paintArrowHead` / `truncateToWidth` を `ui/GraphViewPaintHelpers` に統合 (Variant Flow と Module Dependency で重複) | 中 | B |
-| 🚧 126 | EditorTextField factory | リファクタリング | REPL / Notebook / Type Info の `addSettingsProvider` 定型 (`isLineNumbersShown = false` 等) を `util/EditorTextFieldFactory` に集約 | 中 | B |
 | 127 | SimpleToolWindowPanel ベース化 | リファクタリング | 6 panel で繰り返される `buildToolbar` + `RefreshAction` の定型を抽象クラスにテンプレートメソッド化 | 低〜中 | C |
 | 128 | Alarm → coroutines 移行 | リファクタリング | `RescriptTypeInfoPanel` の `Alarm(POOLED_THREAD)` (`@ApiStatus.Internal`) を `CoroutineScope` + `parentDisposable` ベースに置換し `@Suppress("UnstableApiUsage")` を排除 | 中〜高 | C |
 
