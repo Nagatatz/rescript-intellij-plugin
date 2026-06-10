@@ -5,18 +5,18 @@
 
 ## セクション 0: セットアップ
 
-- [ ] `git fetch origin` + main の ahead/behind 確認
-- [ ] `EnterWorktree` で worktree 作成、`pwd` / `git rev-parse --show-toplevel` で編集パス確認
-- [ ] `docs/product-requirements.md` の #124 / #125 / #127 に 🚧 マーク (最初のコミットに含める)
+- [x] `git fetch origin` + main の ahead/behind 確認 (0/0)
+- [x] `EnterWorktree` で worktree 作成、`pwd` / `git rev-parse --show-toplevel` で編集パス確認
+- [x] `docs/product-requirements.md` の #124 / #125 / #127 に 🚧 マーク (最初のコミットに含める)
 
 ## セクション 1: GraphViewPaintHelpers (#125)
 
-- [ ] `ui/GraphViewPaintHelpers.kt` 新規作成 (KDoc 付き、paintEdges / paintArrowHead / truncateToWidth / paintLegend / LegendItem / 共有定数)
-- [ ] `ui/GraphViewPaintHelpersTest.kt` 新規作成 (BufferedImage 描画 + truncateToWidth assert)
-- [ ] `flow/RescriptVariantFlowGraphView.kt` から重複メソッド・定数を削除して helper 呼び出しに置換
-- [ ] `diagram/RescriptDependencyDiagramGraphView.kt` 同上
-- [ ] 既存両 GraphViewTest が無変更 green
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `ui/GraphViewPaintHelpers.kt` 新規作成 (KDoc 付き、paintEdges / paintArrowHead / truncateToWidth / paintLegend / LegendItem / 共有定数)
+- [x] `ui/GraphViewPaintHelpersTest.kt` 新規作成 (BufferedImage 描画 + ピクセル検証 + truncateToWidth assert)
+- [x] `flow/RescriptVariantFlowGraphView.kt` から重複メソッド・定数を削除して helper 呼び出しに置換 (LEGEND_ITEMS は PALETTE 依存のため companion 初期化順を考慮して PALETTE の後に移動)
+- [x] `diagram/RescriptDependencyDiagramGraphView.kt` 同上
+- [x] 既存両 GraphViewTest が無変更 green
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `♻️ Extract GraphViewPaintHelpers shared by flow and diagram views`
 
 ## セクション 2: RescriptToolWindowPanelBase (#127)

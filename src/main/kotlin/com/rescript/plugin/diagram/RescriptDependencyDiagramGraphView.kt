@@ -1,6 +1,7 @@
 package com.rescript.plugin.diagram
 
 import com.intellij.ui.JBColor
+import com.rescript.plugin.ui.GraphViewPaintHelpers
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Dimension
@@ -8,7 +9,6 @@ import java.awt.FontMetrics
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.Point
-import java.awt.Polygon
 import java.awt.Rectangle
 import java.awt.RenderingHints
 import javax.swing.JComponent
@@ -72,29 +72,15 @@ class RescriptDependencyDiagramGraphView : JComponent() {
                 val (fill, border) = PALETTE.getValue(node.role)
                 paintNode(g2, node.box, node.name, fill, border)
             }
-            paintEdges(g2, layout.edges)
-            paintLegend(g2, layout.canvasSize.height - LEGEND_HEIGHT)
+            GraphViewPaintHelpers.paintEdges(g2, layout.edges)
+            GraphViewPaintHelpers.paintLegend(
+                g2,
+                layout.canvasSize.height - LEGEND_HEIGHT,
+                LEGEND_ITEMS,
+                MARGIN,
+            )
         } finally {
             g2.dispose()
-        }
-    }
-
-    private fun paintLegend(
-        g: Graphics2D,
-        baseY: Int,
-    ) {
-        val fm = g.fontMetrics
-        var x = MARGIN
-        val y = baseY + 4
-        for ((label, role) in LEGEND_ITEMS) {
-            val (fill, border) = PALETTE.getValue(role)
-            g.color = fill
-            g.fillRoundRect(x, y, LEGEND_SWATCH_SIZE, LEGEND_SWATCH_SIZE, 4, 4)
-            g.color = border
-            g.drawRoundRect(x, y, LEGEND_SWATCH_SIZE, LEGEND_SWATCH_SIZE, 4, 4)
-            g.color = JBColor.foreground()
-            g.drawString(label, x + LEGEND_SWATCH_SIZE + 4, y + fm.ascent)
-            x += LEGEND_SWATCH_SIZE + 6 + fm.stringWidth(label) + LEGEND_ITEM_GAP
         }
     }
 
@@ -112,61 +98,10 @@ class RescriptDependencyDiagramGraphView : JComponent() {
         g.drawRoundRect(box.x, box.y, box.width, box.height, ROUND_RADIUS, ROUND_RADIUS)
         g.color = JBColor.foreground()
         val fm = g.fontMetrics
-        val trimmed = truncateToWidth(label, fm, box.width - 2 * NODE_PADDING_X)
+        val trimmed = GraphViewPaintHelpers.truncateToWidth(label, fm, box.width - 2 * NODE_PADDING_X)
         val textX = box.x + (box.width - fm.stringWidth(trimmed)) / 2
         val textY = box.y + (box.height - fm.height) / 2 + fm.ascent
         g.drawString(trimmed, textX, textY)
-    }
-
-    private fun paintEdges(
-        g: Graphics2D,
-        edges: List<List<Point>>,
-    ) {
-        g.color = EDGE_COLOR
-        g.stroke = BasicStroke(1.5f)
-        for (polyline in edges) {
-            for (i in 0 until polyline.size - 1) {
-                val a = polyline[i]
-                val b = polyline[i + 1]
-                g.drawLine(a.x, a.y, b.x, b.y)
-            }
-            if (polyline.size >= 2) {
-                paintArrowHead(g, polyline[polyline.size - 2], polyline.last())
-            }
-        }
-    }
-
-    private fun paintArrowHead(
-        g: Graphics2D,
-        from: Point,
-        to: Point,
-    ) {
-        val arrow = Polygon()
-        if (to.y >= from.y) {
-            arrow.addPoint(to.x, to.y)
-            arrow.addPoint(to.x - ARROW_HALF_WIDTH, to.y - ARROW_HEIGHT)
-            arrow.addPoint(to.x + ARROW_HALF_WIDTH, to.y - ARROW_HEIGHT)
-        } else {
-            arrow.addPoint(to.x, to.y)
-            arrow.addPoint(to.x - ARROW_HALF_WIDTH, to.y + ARROW_HEIGHT)
-            arrow.addPoint(to.x + ARROW_HALF_WIDTH, to.y + ARROW_HEIGHT)
-        }
-        g.fillPolygon(arrow)
-    }
-
-    private fun truncateToWidth(
-        text: String,
-        fm: FontMetrics,
-        maxWidth: Int,
-    ): String {
-        if (fm.stringWidth(text) <= maxWidth) return text
-        val ellipsis = "…"
-        val ellipsisWidth = fm.stringWidth(ellipsis)
-        var endIndex = text.length
-        while (endIndex > 0 && fm.stringWidth(text.substring(0, endIndex)) + ellipsisWidth > maxWidth) {
-            endIndex--
-        }
-        return text.substring(0, endIndex.coerceAtLeast(0)) + ellipsis
     }
 
     /**
@@ -213,14 +148,10 @@ class RescriptDependencyDiagramGraphView : JComponent() {
         private const val MARGIN = 12
         private const val NODE_MIN_WIDTH = 100
         private const val NODE_MAX_WIDTH = 240
-        private const val ARROW_HALF_WIDTH = 5
-        private const val ARROW_HEIGHT = 8
         private const val DEFAULT_CHAR_WIDTH = 7
 
         /** Height in pixels reserved at the bottom of the canvas for the legend strip. */
-        internal const val LEGEND_HEIGHT = 28
-        private const val LEGEND_SWATCH_SIZE = 14
-        private const val LEGEND_ITEM_GAP = 12
+        internal const val LEGEND_HEIGHT = GraphViewPaintHelpers.LEGEND_HEIGHT
 
         private val ENTRY_FILL = JBColor(Color(0xE7F0FF), Color(0x223A6E))
         private val ENTRY_BORDER = JBColor(Color(0x3E72C2), Color(0x6B9CE6))
@@ -244,16 +175,21 @@ class RescriptDependencyDiagramGraphView : JComponent() {
                 NodeRole.CYCLE_MEMBER to (CYCLE_FILL to CYCLE_BORDER),
             )
 
-        /** Legend strip rows: (label, role) drawn left-to-right at the bottom. */
-        private val LEGEND_ITEMS: List<Pair<String, NodeRole>> =
+        /**
+         * Legend strip rows resolved through [PALETTE], drawn
+         * left-to-right at the bottom. Declared after [PALETTE] because
+         * companion properties initialise in source order.
+         */
+        private val LEGEND_ITEMS: List<GraphViewPaintHelpers.LegendItem> =
             listOf(
                 "Entry point" to NodeRole.ENTRY_POINT,
                 "Intermediate" to NodeRole.INTERMEDIATE,
                 "Leaf" to NodeRole.LEAF,
                 "Cycle" to NodeRole.CYCLE_MEMBER,
-            )
-
-        private val EDGE_COLOR: Color = JBColor(Color(0xCB3939), Color(0xE6484F))
+            ).map { (label, role) ->
+                val (fill, border) = PALETTE.getValue(role)
+                GraphViewPaintHelpers.LegendItem(label, fill, border)
+            }
 
         /**
          * Lays out [model] inside a viewport of width [viewportWidth].

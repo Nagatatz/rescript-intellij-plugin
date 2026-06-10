@@ -1,6 +1,7 @@
 package com.rescript.plugin.flow
 
 import com.intellij.ui.JBColor
+import com.rescript.plugin.ui.GraphViewPaintHelpers
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Dimension
@@ -8,7 +9,6 @@ import java.awt.FontMetrics
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.Point
-import java.awt.Polygon
 import java.awt.Rectangle
 import java.awt.RenderingHints
 import javax.swing.JComponent
@@ -72,30 +72,15 @@ class RescriptVariantFlowGraphView : JComponent() {
                 val (fill, border) = PALETTE.getValue(kind)
                 paintNode(g2, box, label, fill, border)
             }
-            paintEdges(g2, layout.edges)
-            paintLegend(g2, layout.canvasSize.height - LEGEND_HEIGHT)
+            GraphViewPaintHelpers.paintEdges(g2, layout.edges)
+            GraphViewPaintHelpers.paintLegend(
+                g2,
+                layout.canvasSize.height - LEGEND_HEIGHT,
+                LEGEND_ITEMS,
+                MARGIN,
+            )
         } finally {
             g2.dispose()
-        }
-    }
-
-    private fun paintLegend(
-        g: Graphics2D,
-        baseY: Int,
-    ) {
-        val fm = g.fontMetrics
-        val items = LEGEND_ITEMS
-        var x = MARGIN
-        val y = baseY + 4
-        for ((label, kind) in items) {
-            val (fill, border) = PALETTE.getValue(kind)
-            g.color = fill
-            g.fillRoundRect(x, y, LEGEND_SWATCH_SIZE, LEGEND_SWATCH_SIZE, 4, 4)
-            g.color = border
-            g.drawRoundRect(x, y, LEGEND_SWATCH_SIZE, LEGEND_SWATCH_SIZE, 4, 4)
-            g.color = JBColor.foreground()
-            g.drawString(label, x + LEGEND_SWATCH_SIZE + 4, y + fm.ascent)
-            x += LEGEND_SWATCH_SIZE + 6 + fm.stringWidth(label) + LEGEND_ITEM_GAP
         }
     }
 
@@ -117,65 +102,11 @@ class RescriptVariantFlowGraphView : JComponent() {
         val totalTextHeight = fm.height * lines.size
         var textY = box.y + (box.height - totalTextHeight) / 2 + fm.ascent
         for (line in lines) {
-            val trimmed = truncateToWidth(line, fm, box.width - 2 * NODE_PADDING_X)
+            val trimmed = GraphViewPaintHelpers.truncateToWidth(line, fm, box.width - 2 * NODE_PADDING_X)
             val textX = box.x + (box.width - fm.stringWidth(trimmed)) / 2
             g.drawString(trimmed, textX, textY)
             textY += fm.height
         }
-    }
-
-    private fun paintEdges(
-        g: Graphics2D,
-        edges: List<List<Point>>,
-    ) {
-        g.color = EDGE_COLOR
-        g.stroke = BasicStroke(1.5f)
-        for (polyline in edges) {
-            for (i in 0 until polyline.size - 1) {
-                val a = polyline[i]
-                val b = polyline[i + 1]
-                g.drawLine(a.x, a.y, b.x, b.y)
-            }
-            // Draw an arrow head on the final segment, pointing from
-            // the second-to-last vertex toward the last vertex.
-            if (polyline.size >= 2) {
-                paintArrowHead(g, polyline[polyline.size - 2], polyline.last())
-            }
-        }
-    }
-
-    private fun paintArrowHead(
-        g: Graphics2D,
-        from: Point,
-        to: Point,
-    ) {
-        // Always vertical arrows (TD layout); paint a simple triangle.
-        val arrow = Polygon()
-        if (to.y > from.y) {
-            arrow.addPoint(to.x, to.y)
-            arrow.addPoint(to.x - ARROW_HALF_WIDTH, to.y - ARROW_HEIGHT)
-            arrow.addPoint(to.x + ARROW_HALF_WIDTH, to.y - ARROW_HEIGHT)
-        } else {
-            arrow.addPoint(to.x, to.y)
-            arrow.addPoint(to.x - ARROW_HALF_WIDTH, to.y + ARROW_HEIGHT)
-            arrow.addPoint(to.x + ARROW_HALF_WIDTH, to.y + ARROW_HEIGHT)
-        }
-        g.fillPolygon(arrow)
-    }
-
-    private fun truncateToWidth(
-        text: String,
-        fm: FontMetrics,
-        maxWidth: Int,
-    ): String {
-        if (fm.stringWidth(text) <= maxWidth) return text
-        val ellipsis = "…"
-        val ellipsisWidth = fm.stringWidth(ellipsis)
-        var endIndex = text.length
-        while (endIndex > 0 && fm.stringWidth(text.substring(0, endIndex)) + ellipsisWidth > maxWidth) {
-            endIndex--
-        }
-        return text.substring(0, endIndex.coerceAtLeast(0)) + ellipsis
     }
 
     /**
@@ -215,28 +146,10 @@ class RescriptVariantFlowGraphView : JComponent() {
         private const val ROOT_MIN_WIDTH = 180
         private const val ARM_MIN_WIDTH = 110
         private const val ARM_MAX_WIDTH = 240
-        private const val ARROW_HALF_WIDTH = 5
-        private const val ARROW_HEIGHT = 8
         private const val DEFAULT_CHAR_WIDTH = 7
 
         /** Height in pixels reserved at the bottom of the canvas for the legend strip. */
-        internal const val LEGEND_HEIGHT = 28
-        private const val LEGEND_SWATCH_SIZE = 14
-        private const val LEGEND_ITEM_GAP = 12
-
-        /**
-         * Ordered list of (label, kind) pairs rendered in the legend strip.
-         * `ROOT` is excluded — it is always the scrutinee, not an arm
-         * category that benefits from a legend entry.
-         */
-        private val LEGEND_ITEMS: List<Pair<String, ArmKind>> =
-            listOf(
-                "Constructor" to ArmKind.CONSTRUCTOR,
-                "Wildcard" to ArmKind.WILDCARD,
-                "Binding" to ArmKind.PATTERN_BINDING,
-                "Todo" to ArmKind.TODO_PLACEHOLDER,
-                "Nested" to ArmKind.NESTED_SWITCH,
-            )
+        internal const val LEGEND_HEIGHT = GraphViewPaintHelpers.LEGEND_HEIGHT
 
         private val ROOT_FILL = JBColor(Color(0xFFE7E8), Color(0x7A2226))
         private val ROOT_BORDER = JBColor(Color(0xCB3939), Color(0xE6484F))
@@ -265,7 +178,25 @@ class RescriptVariantFlowGraphView : JComponent() {
                 ArmKind.TODO_PLACEHOLDER to (TODO_PLACEHOLDER_FILL to TODO_PLACEHOLDER_BORDER),
                 ArmKind.NESTED_SWITCH to (NESTED_SWITCH_FILL to NESTED_SWITCH_BORDER),
             )
-        private val EDGE_COLOR: Color = JBColor(Color(0xCB3939), Color(0xE6484F))
+
+        /**
+         * Ordered legend strip entries resolved through [PALETTE].
+         * `ROOT` is excluded — it is always the scrutinee, not an arm
+         * category that benefits from a legend entry. Declared after
+         * [PALETTE] because companion properties initialise in source
+         * order.
+         */
+        private val LEGEND_ITEMS: List<GraphViewPaintHelpers.LegendItem> =
+            listOf(
+                "Constructor" to ArmKind.CONSTRUCTOR,
+                "Wildcard" to ArmKind.WILDCARD,
+                "Binding" to ArmKind.PATTERN_BINDING,
+                "Todo" to ArmKind.TODO_PLACEHOLDER,
+                "Nested" to ArmKind.NESTED_SWITCH,
+            ).map { (label, kind) ->
+                val (fill, border) = PALETTE.getValue(kind)
+                GraphViewPaintHelpers.LegendItem(label, fill, border)
+            }
 
         /**
          * Lays out [diagram] inside a viewport of width [viewportWidth].
