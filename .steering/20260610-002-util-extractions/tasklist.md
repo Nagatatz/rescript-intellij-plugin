@@ -52,8 +52,8 @@ DoD フルチェーン検証中に main 既存のバグを発見したため修�
 - [x] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green
 - [x] `koverHtmlReport` で util/ 新クラスのカバレッジ確認 (EditorTextFieldFactory / RescriptProjectFileScanner とも 100%、minBound 86 維持)
 - [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
-- [ ] `AskUserQuestion` でマージ可否確認
-- [ ] main へマージ → ブランチ削除 → push
+- [x] `AskUserQuestion` でマージ可否確認 (承認済み)
+- [x] main へマージ (fast-forward 8f44b1f) → ブランチ削除 → push
 
 ## テスト免除の記載
 
