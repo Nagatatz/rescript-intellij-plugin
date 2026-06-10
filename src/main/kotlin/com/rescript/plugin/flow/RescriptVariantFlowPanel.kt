@@ -1,11 +1,10 @@
 package com.rescript.plugin.flow
 
 import com.intellij.icons.AllIcons
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.ToggleAction
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.event.CaretEvent
@@ -18,18 +17,13 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.ide.CopyPasteManager
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.SimpleToolWindowPanel
-import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
-import com.intellij.util.Alarm
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
+import com.rescript.plugin.ui.RescriptToolWindowPanelBase
 import com.rescript.plugin.util.HtmlEditorPaneFactory
-import java.awt.BorderLayout
 import java.awt.CardLayout
-import java.awt.Font
 import java.awt.datatransfer.StringSelection
 import javax.swing.JEditorPane
 import javax.swing.JPanel
@@ -43,11 +37,11 @@ import javax.swing.JPanel
  * for sharing the current diagram externally.
  *
  * @see RescriptVariantFlowToolWindowFactory which creates instances of this panel
+ * @see RescriptToolWindowPanelBase for the shared toolbar / status / refresh scaffold
  */
 class RescriptVariantFlowPanel(
     private val project: Project,
-) : SimpleToolWindowPanel(true, true),
-    Disposable {
+) : RescriptToolWindowPanelBase(TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
     /**
      * Read-only HTML pane displaying the Mermaid source. The HTML
      * payload is produced by [MermaidSourceColorizer] so keywords,
@@ -71,10 +65,6 @@ class RescriptVariantFlowPanel(
             add(JBScrollPane(textArea), CARD_SOURCE)
         }
 
-    private val statusLabel: JBLabel = JBLabel(" ")
-
-    private val refreshAlarm: Alarm = Alarm(Alarm.ThreadToUse.SWING_THREAD, this)
-
     @Volatile
     private var currentDiagram: FlowDiagram? = null
 
@@ -85,40 +75,23 @@ class RescriptVariantFlowPanel(
     private var visualMode: Boolean = true
 
     init {
-        val centerPanel =
-            JPanel(BorderLayout()).apply {
-                add(viewSwitcher, BorderLayout.CENTER)
-                add(statusLabel, BorderLayout.SOUTH)
-            }
-        setContent(centerPanel)
-        setToolbar(buildToolbar())
-        attachEditorListeners()
-        viewCards.show(viewSwitcher, CARD_VISUAL)
-        scheduleRefresh()
-    }
-
-    override fun dispose() {
-        // Alarm is registered as a child disposable of `this`, so it
-        // tears down automatically. EditorFactory listeners receive
-        // their own parent disposable and clean up the same way.
-    }
-
-    private fun buildToolbar(): javax.swing.JComponent {
-        val group =
-            com.intellij.openapi.actionSystem.DefaultActionGroup().apply {
+        installUi(
+            viewSwitcher,
+            DefaultActionGroup().apply {
                 add(VisualModeAction())
                 add(SourceModeAction())
                 addSeparator()
-                add(RefreshAction())
+                add(createRefreshAction("Rebuild the variant flow diagram"))
                 addSeparator()
                 add(JumpToSwitchAction())
                 addSeparator()
                 add(CopyAction(Format.MERMAID))
                 add(CopyAction(Format.DOT))
-            }
-        val toolbar = ActionManager.getInstance().createActionToolbar(TOOLBAR_PLACE, group, true)
-        toolbar.targetComponent = this
-        return toolbar.component
+            },
+        )
+        attachEditorListeners()
+        viewCards.show(viewSwitcher, CARD_VISUAL)
+        scheduleRefresh()
     }
 
     /**
@@ -157,12 +130,7 @@ class RescriptVariantFlowPanel(
         )
     }
 
-    private fun scheduleRefresh() {
-        refreshAlarm.cancelAllRequests()
-        refreshAlarm.addRequest({ refresh() }, REFRESH_DEBOUNCE_MS)
-    }
-
-    private fun refresh() {
+    override fun doRefresh() {
         val ctx = currentEditorContext()
         if (ctx == null) {
             renderEmpty(RescriptVariantFlowHints.Reason.NO_EDITOR)
@@ -253,23 +221,6 @@ class RescriptVariantFlowPanel(
     ) {
         MERMAID("Copy Mermaid", "Copy the current diagram as Mermaid flowchart syntax"),
         DOT("Copy DOT", "Copy the current diagram as graphviz DOT"),
-    }
-
-    /**
-     * Toolbar action that schedules a debounced rebuild of the variant flow
-     * diagram from the current editor state.
-     */
-    private inner class RefreshAction :
-        AnAction(
-            "Refresh",
-            "Rebuild the variant flow diagram",
-            AllIcons.Actions.Refresh,
-        ) {
-        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
-
-        override fun actionPerformed(e: AnActionEvent) {
-            scheduleRefresh()
-        }
     }
 
     /**

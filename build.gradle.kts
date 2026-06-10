@@ -344,6 +344,11 @@ kover {
                     "com.rescript.plugin.notebook.RescriptNotebookFileType*",
                     "com.rescript.plugin.coverage.RescriptTypeCoveragePanel*",
                     "com.rescript.plugin.coverage.RescriptTypeCoverageToolWindowFactory*",
+                    // Abstract Swing scaffold shared by the tool window panels
+                    // above (toolbar / status label / Alarm debounce). Same
+                    // SimpleToolWindowPanel + IDE UI coupling as its concrete
+                    // subclasses, so the same testing.md exemption applies.
+                    "com.rescript.plugin.ui.RescriptToolWindowPanelBase*",
                     // Editor / Document write-action helpers. The body wraps
                     // WriteCommandAction (IDE write thread) which can't run
                     // outside a real IDE fixture; the existing test only

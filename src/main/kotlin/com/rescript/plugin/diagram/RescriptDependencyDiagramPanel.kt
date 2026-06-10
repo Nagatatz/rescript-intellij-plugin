@@ -1,23 +1,17 @@
 package com.rescript.plugin.diagram
 
 import com.intellij.icons.AllIcons
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionUpdateThread
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.ToggleAction
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.SimpleToolWindowPanel
-import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.rescript.plugin.diagram.RescriptDependencyDiagramExportAction.Format
 import com.rescript.plugin.flow.MermaidSourceColorizer
+import com.rescript.plugin.ui.RescriptToolWindowPanelBase
 import com.rescript.plugin.util.HtmlEditorPaneFactory
-import java.awt.BorderLayout
 import java.awt.CardLayout
-import java.awt.Font
 import javax.swing.JEditorPane
 import javax.swing.JPanel
 
@@ -33,11 +27,11 @@ import javax.swing.JPanel
  * module and edge counts.
  *
  * @see RescriptDependencyDiagramToolWindowFactory which creates instances of this panel
+ * @see RescriptToolWindowPanelBase for the shared toolbar / status / refresh scaffold
  */
 class RescriptDependencyDiagramPanel(
     private val project: Project,
-) : SimpleToolWindowPanel(true, true),
-    Disposable {
+) : RescriptToolWindowPanelBase(TOOLBAR_PLACE) {
     /**
      * Read-only HTML pane displaying the Mermaid source. The HTML
      * payload is produced by [MermaidSourceColorizer] so keywords,
@@ -58,40 +52,27 @@ class RescriptDependencyDiagramPanel(
             add(JBScrollPane(textArea), CARD_SOURCE)
         }
 
-    private val statusLabel: JBLabel = JBLabel(" ")
-
     @Volatile
     private var visualMode: Boolean = true
 
     init {
-        val centerPanel =
-            JPanel(BorderLayout()).apply {
-                add(viewSwitcher, BorderLayout.CENTER)
-                add(statusLabel, BorderLayout.SOUTH)
-            }
-        setContent(centerPanel)
-        setToolbar(buildToolbar())
-        viewCards.show(viewSwitcher, CARD_VISUAL)
-        refresh()
-    }
-
-    private fun buildToolbar(): javax.swing.JComponent {
-        val group =
+        installUi(
+            viewSwitcher,
             DefaultActionGroup().apply {
                 add(VisualModeAction())
                 add(SourceModeAction())
                 addSeparator()
-                add(RefreshAction())
+                add(createRefreshAction("Rebuild the dependency graph"))
                 addSeparator()
                 add(RescriptDependencyDiagramExportAction(Format.DOT))
                 add(RescriptDependencyDiagramExportAction(Format.MERMAID))
-            }
-        val toolbar = ActionManager.getInstance().createActionToolbar(TOOLBAR_PLACE, group, true)
-        toolbar.targetComponent = this
-        return toolbar.component
+            },
+        )
+        viewCards.show(viewSwitcher, CARD_VISUAL)
+        scheduleRefresh()
     }
 
-    private fun refresh() {
+    override fun doRefresh() {
         val model = RescriptDependencyDiagramProvider.buildDiagram(project)
         textArea.text = MermaidSourceColorizer.render(RescriptMermaidExporter.toMermaid(model))
         textArea.caretPosition = 0
@@ -102,24 +83,6 @@ class RescriptDependencyDiagramPanel(
     private fun switchView(toVisual: Boolean) {
         visualMode = toVisual
         viewCards.show(viewSwitcher, if (toVisual) CARD_VISUAL else CARD_SOURCE)
-    }
-
-    override fun dispose() {
-        // Children are disposed via Swing GC. No external resources to release.
-    }
-
-    /** Toolbar action that rebuilds the dependency graph from the current PSI state. */
-    private inner class RefreshAction :
-        AnAction(
-            "Refresh",
-            "Rebuild the dependency graph",
-            AllIcons.Actions.Refresh,
-        ) {
-        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
-
-        override fun actionPerformed(e: AnActionEvent) {
-            refresh()
-        }
     }
 
     /**

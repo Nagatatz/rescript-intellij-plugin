@@ -1,20 +1,14 @@
 package com.rescript.plugin.interop
 
-import com.intellij.icons.AllIcons
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.actionSystem.ActionManager
-import com.intellij.openapi.actionSystem.ActionUpdateThread
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
+import com.rescript.plugin.ui.RescriptToolWindowPanelBase
 import java.awt.BorderLayout
 import java.awt.Component
 import java.awt.Dimension
@@ -34,11 +28,11 @@ import javax.swing.ListCellRenderer
  * the initial scan kicks off in `init`.
  *
  * @see RescriptInteropRiskToolWindowFactory which creates instances of this panel
+ * @see RescriptToolWindowPanelBase for the shared toolbar / status / refresh scaffold
  */
 class RescriptInteropRiskPanel(
     private val project: Project,
-) : SimpleToolWindowPanel(true, true),
-    Disposable {
+) : RescriptToolWindowPanelBase(TOOLBAR_PLACE) {
     private val listModel = DefaultListModel<InteropEntry>()
     private val list: JBList<InteropEntry> =
         JBList(listModel).apply {
@@ -55,31 +49,17 @@ class RescriptInteropRiskPanel(
             )
         }
 
-    private val statusLabel: JBLabel = JBLabel(" ")
-
     init {
-        val centerPanel =
-            JPanel(BorderLayout()).apply {
-                add(JBScrollPane(list), BorderLayout.CENTER)
-                add(statusLabel, BorderLayout.SOUTH)
-            }
-        setContent(centerPanel)
-        setToolbar(buildToolbar())
-        refreshAsync()
+        installUi(
+            JBScrollPane(list),
+            DefaultActionGroup().apply {
+                add(createRefreshAction("Re-scan the project for JS interop call sites"))
+            },
+        )
+        scheduleRefresh()
     }
 
-    override fun dispose() {
-        // No external listeners to release.
-    }
-
-    private fun buildToolbar(): javax.swing.JComponent {
-        val group = DefaultActionGroup().apply { add(RefreshAction()) }
-        val toolbar = ActionManager.getInstance().createActionToolbar(TOOLBAR_PLACE, group, true)
-        toolbar.targetComponent = this
-        return toolbar.component
-    }
-
-    private fun refreshAsync() {
+    override fun doRefresh() {
         statusLabel.text = " Scanning…"
         ApplicationManager.getApplication().executeOnPooledThread {
             val result = RescriptInteropScanner.scan(project)
@@ -102,23 +82,6 @@ class RescriptInteropRiskPanel(
             ).joinToString(" ")
         val truncatedNote = if (result.truncated) " (showing first ${RescriptInteropScanner.MAX_TOTAL})" else ""
         return " ${result.entries.size} interop site(s)$truncatedNote  $breakdown"
-    }
-
-    /**
-     * Toolbar action that triggers an asynchronous re-scan of the project for
-     * JS interop call sites.
-     */
-    private inner class RefreshAction :
-        AnAction(
-            "Refresh",
-            "Re-scan the project for JS interop call sites",
-            AllIcons.Actions.Refresh,
-        ) {
-        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
-
-        override fun actionPerformed(e: AnActionEvent) {
-            refreshAsync()
-        }
     }
 
     /**

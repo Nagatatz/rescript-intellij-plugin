@@ -1,25 +1,16 @@
 package com.rescript.plugin.coverage
 
-import com.intellij.icons.AllIcons
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.actionSystem.ActionManager
-import com.intellij.openapi.actionSystem.ActionUpdateThread
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.JBColor
-import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.table.JBTable
-import java.awt.BorderLayout
+import com.rescript.plugin.ui.RescriptToolWindowPanelBase
 import java.awt.Component
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import javax.swing.JPanel
 import javax.swing.JTable
 import javax.swing.RowSorter
 import javax.swing.SortOrder
@@ -38,11 +29,11 @@ import javax.swing.table.TableRowSorter
  * Double-clicking a row opens that file at offset 0.
  *
  * @see RescriptTypeCoverageToolWindowFactory which creates instances of this panel
+ * @see RescriptToolWindowPanelBase for the shared toolbar / status / refresh scaffold
  */
 class RescriptTypeCoveragePanel(
     private val project: Project,
-) : SimpleToolWindowPanel(true, true),
-    Disposable {
+) : RescriptToolWindowPanelBase(TOOLBAR_PLACE) {
     private val tableModel = CoverageTableModel()
     private val table: JBTable =
         JBTable(tableModel).apply {
@@ -76,31 +67,17 @@ class RescriptTypeCoveragePanel(
             )
         }
 
-    private val statusLabel: JBLabel = JBLabel(" ")
-
     init {
-        val centerPanel =
-            JPanel(BorderLayout()).apply {
-                add(JBScrollPane(table), BorderLayout.CENTER)
-                add(statusLabel, BorderLayout.SOUTH)
-            }
-        setContent(centerPanel)
-        setToolbar(buildToolbar())
-        refreshAsync()
+        installUi(
+            JBScrollPane(table),
+            DefaultActionGroup().apply {
+                add(createRefreshAction("Re-scan the project for type coverage"))
+            },
+        )
+        scheduleRefresh()
     }
 
-    override fun dispose() {
-        // No persistent listeners attached.
-    }
-
-    private fun buildToolbar(): javax.swing.JComponent {
-        val group = DefaultActionGroup().apply { add(RefreshAction()) }
-        val toolbar = ActionManager.getInstance().createActionToolbar(TOOLBAR_PLACE, group, true)
-        toolbar.targetComponent = this
-        return toolbar.component
-    }
-
-    private fun refreshAsync() {
+    override fun doRefresh() {
         statusLabel.text = " Scanning…"
         ApplicationManager.getApplication().executeOnPooledThread {
             val result = RescriptTypeCoverageScanner.scan(project)
@@ -116,18 +93,6 @@ class RescriptTypeCoveragePanel(
             if (result.truncated) " (truncated at ${RescriptTypeCoverageScanner.MAX_FILES} files)" else ""
         return " ${result.files.size} files, ${result.totalLets} bindings, " +
             "%.1f%%".format(result.coveragePercent) + " project coverage" + truncationNote
-    }
-
-    /**
-     * Toolbar action that re-scans the project for type-coverage data.
-     */
-    private inner class RefreshAction :
-        AnAction("Refresh", "Re-scan the project for type coverage", AllIcons.Actions.Refresh) {
-        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
-
-        override fun actionPerformed(e: AnActionEvent) {
-            refreshAsync()
-        }
     }
 
     /**

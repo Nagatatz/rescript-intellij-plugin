@@ -21,12 +21,13 @@
 
 ## セクション 2: RescriptToolWindowPanelBase (#127)
 
-- [ ] `ui/RescriptToolWindowPanelBase.kt` 新規作成 (KDoc 付き、installUi / scheduleRefresh / createRefreshAction / Alarm 集約 + `@Suppress` 1 箇所化)
-- [ ] flow / impact (debounce 200)、diagram / coverage / interop (debounce 0) の 5 panel を基盤継承に書き換え
-- [ ] notebook が対象外であることを実装時に再確認し、判断を本 tasklist に記録
-- [ ] build.gradle.kts に kover クラス除外 `ui.RescriptToolWindowPanelBase*` を理由コメント付きで追加
-- [ ] テスト省略 (基盤クラス): Swing UI コンポーネント免除 — toolbar / CardLayout / Alarm は IDE UI 結合のためヘッドレス検証不可。スモークで担保
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `ui/RescriptToolWindowPanelBase.kt` 新規作成 (KDoc 付き、installUi / scheduleRefresh / createRefreshAction / Alarm 集約)
+  - 補足: `@Suppress("UnstableApiUsage")` は不要と判明 — Internal なのは typeinfo の `POOLED_THREAD` のみで、基盤が使う `SWING_THREAD` は flow/impact でも suppress なしで使用していた
+- [x] flow / impact (debounce 200)、diagram / coverage / interop (debounce 0) の 5 panel を基盤継承に書き換え (refresh/refreshAsync → doRefresh override、inner RefreshAction → createRefreshAction、未使用 Font import の残骸も削除)
+- [x] notebook が対象外であることを再確認: `RescriptNotebookCellPanel` は `JPanel(BorderLayout())` ベースの cell コンポーネントで SimpleToolWindowPanel 構造を持たない → 対象外で確定
+- [x] build.gradle.kts に kover クラス除外 `ui.RescriptToolWindowPanelBase*` を理由コメント付きで追加
+- [x] テスト省略 (基盤クラス): Swing UI コンポーネント免除 — toolbar / Alarm は IDE UI 結合のためヘッドレス検証不可。スモークで担保
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `♻️ Add RescriptToolWindowPanelBase and migrate five tool window panels`
 
 ## セクション 3: DualViewToolWindowPanel (#124)

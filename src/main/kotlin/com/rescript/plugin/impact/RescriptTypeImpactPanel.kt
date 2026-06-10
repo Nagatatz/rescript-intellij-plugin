@@ -1,11 +1,5 @@
 package com.rescript.plugin.impact
 
-import com.intellij.icons.AllIcons
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.actionSystem.ActionManager
-import com.intellij.openapi.actionSystem.ActionUpdateThread
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.event.CaretEvent
@@ -16,22 +10,18 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.psi.PsiManager
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
-import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
-import com.intellij.util.Alarm
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
-import java.awt.BorderLayout
+import com.rescript.plugin.ui.RescriptToolWindowPanelBase
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.DefaultListModel
 import javax.swing.JList
-import javax.swing.JPanel
 
 /**
  * Tool window UI for the type impact preview.
@@ -42,11 +32,11 @@ import javax.swing.JPanel
  * reference site.
  *
  * @see RescriptTypeImpactToolWindowFactory which creates instances of this panel
+ * @see RescriptToolWindowPanelBase for the shared toolbar / status / refresh scaffold
  */
 class RescriptTypeImpactPanel(
     private val project: Project,
-) : SimpleToolWindowPanel(true, true),
-    Disposable {
+) : RescriptToolWindowPanelBase(TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
     private val listModel = DefaultListModel<ReferenceEntry>()
     private val list: JBList<ReferenceEntry> =
         JBList(listModel).apply {
@@ -63,35 +53,15 @@ class RescriptTypeImpactPanel(
             )
         }
 
-    private val statusLabel: JBLabel = JBLabel(" ")
-
-    private val refreshAlarm: Alarm = Alarm(Alarm.ThreadToUse.SWING_THREAD, this)
-
     init {
-        val centerPanel =
-            JPanel(BorderLayout()).apply {
-                add(JBScrollPane(list), BorderLayout.CENTER)
-                add(statusLabel, BorderLayout.SOUTH)
-            }
-        setContent(centerPanel)
-        setToolbar(buildToolbar())
+        installUi(
+            JBScrollPane(list),
+            DefaultActionGroup().apply {
+                add(createRefreshAction("Re-scan references for the type under the caret"))
+            },
+        )
         attachEditorListeners()
         scheduleRefresh()
-    }
-
-    override fun dispose() {
-        // Alarm is a child disposable of this panel; editor factory
-        // listeners are bound to the same parent disposable.
-    }
-
-    private fun buildToolbar(): javax.swing.JComponent {
-        val group =
-            DefaultActionGroup().apply {
-                add(RefreshAction())
-            }
-        val toolbar = ActionManager.getInstance().createActionToolbar(TOOLBAR_PLACE, group, true)
-        toolbar.targetComponent = this
-        return toolbar.component
     }
 
     private fun attachEditorListeners() {
@@ -121,12 +91,7 @@ class RescriptTypeImpactPanel(
         )
     }
 
-    private fun scheduleRefresh() {
-        refreshAlarm.cancelAllRequests()
-        refreshAlarm.addRequest({ refresh() }, REFRESH_DEBOUNCE_MS)
-    }
-
-    private fun refresh() {
+    override fun doRefresh() {
         val fileEditor = FileEditorManager.getInstance(project).selectedEditor as? TextEditor
         if (fileEditor == null) {
             renderEmpty("Open a ReScript file to see type impact.")
@@ -163,23 +128,6 @@ class RescriptTypeImpactPanel(
     private fun renderEmpty(message: String) {
         listModel.clear()
         statusLabel.text = " $message"
-    }
-
-    /**
-     * Toolbar action that re-resolves the type target at the caret and
-     * re-scans the project for its references.
-     */
-    private inner class RefreshAction :
-        AnAction(
-            "Refresh",
-            "Re-scan references for the type under the caret",
-            AllIcons.Actions.Refresh,
-        ) {
-        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
-
-        override fun actionPerformed(e: AnActionEvent) {
-            scheduleRefresh()
-        }
     }
 
     /**
