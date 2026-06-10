@@ -202,7 +202,9 @@ For the full architecture overview — layers, Extension Points, and class-level
 
 ## Contributing
 
-Developer-facing documentation lives in:
+Start with [CONTRIBUTING.md](CONTRIBUTING.md) for the English-language workflow summary, then browse [docs/good-first-issues.md](docs/good-first-issues.md) for contributor-friendly tasks.
+
+Deeper references:
 
 - [CLAUDE.md](CLAUDE.md) — build commands, architecture layers, development conventions
 - [docs/](docs/) — permanent design documents (architecture, functional design, repository structure)
@@ -212,10 +214,11 @@ Developer-facing documentation lives in:
 Quick reference:
 
 ```bash
-./gradlew buildPlugin     # build the plugin
-./gradlew runIde          # launch a sandbox IDE for manual testing
-./gradlew test            # run unit tests
-./gradlew ktlintCheck     # verify Kotlin formatting
+./gradlew buildPlugin           # build the plugin
+./gradlew runIde                # launch a sandbox IDE for manual testing
+./gradlew test                  # run unit tests
+./gradlew test -Pscope=fast     # tight loop: skip perf / integration / cli suites
+./gradlew ktlintCheck           # verify Kotlin formatting
 ```
 
 ## License

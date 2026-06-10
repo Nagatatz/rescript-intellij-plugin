@@ -11,22 +11,40 @@ import org.junit.jupiter.api.Test
  *
  * Builds a synthetic ~100KB ReScript file (1000 lines × ~100 chars)
  * laced with interop matches and asserts the line walker completes
- * within a generous upper bound.
+ * within `BASELINE_MS * SLACK_FACTOR`. Ratchet BASELINE_MS downward
+ * over time; only raise it with an explicit justification.
  */
 class RescriptInteropScannerPerfTest {
     private val lineCount = 1000
-    private val timeLimitMs = 500L
 
     @Test
     fun `collectEntriesFromText on a 100KB file finishes within bound`() {
         val source = generateSource()
         val file = LightVirtualFile("Bench.res")
+        // Warmup: classloader + JIT compilation otherwise dominates the
+        // first invocation and would mask real algorithmic regressions.
+        RescriptInteropScanner.collectEntriesFromText(file, source, maxEntries = Int.MAX_VALUE)
         val started = System.nanoTime()
         val entries: List<InteropEntry> =
             RescriptInteropScanner.collectEntriesFromText(file, source, maxEntries = Int.MAX_VALUE)
         val elapsedMs = (System.nanoTime() - started) / 1_000_000
-        assertTrue(elapsedMs < timeLimitMs, "collectEntriesFromText took ${elapsedMs}ms (limit ${timeLimitMs}ms)")
+        val ratio = elapsedMs.toDouble() / BASELINE_MS
+        println(
+            "perf[RescriptInteropScannerPerfTest] elapsed=${elapsedMs}ms " +
+                "baseline=${BASELINE_MS}ms ratio=${"%.2f".format(ratio)} limit=${TIME_LIMIT_MS}ms",
+        )
+        assertTrue(
+            elapsedMs < TIME_LIMIT_MS,
+            "elapsed=${elapsedMs}ms exceeded baseline*slack=${TIME_LIMIT_MS}ms " +
+                "(baseline=${BASELINE_MS}ms, slack=${SLACK_FACTOR}x)",
+        )
         assertTrue(entries.isNotEmpty(), "expected at least some interop matches in the synthetic source")
+    }
+
+    companion object {
+        private const val BASELINE_MS = 200L
+        private const val SLACK_FACTOR = 2.5
+        private const val TIME_LIMIT_MS = (BASELINE_MS * SLACK_FACTOR).toLong()
     }
 
     private fun generateSource(): String =
