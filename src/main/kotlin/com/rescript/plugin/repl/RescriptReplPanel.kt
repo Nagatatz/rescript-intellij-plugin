@@ -17,6 +17,7 @@ import com.intellij.openapi.util.SystemInfo
 import com.intellij.ui.EditorTextField
 import com.intellij.ui.OnePixelSplitter
 import com.rescript.plugin.RescriptFileType
+import com.rescript.plugin.util.EditorTextFieldFactory
 import java.awt.BorderLayout
 import java.awt.event.InputEvent
 import java.awt.event.KeyEvent
@@ -81,10 +82,7 @@ class RescriptReplPanel(
             false, // oneLineMode
         ).apply {
             setPlaceholder("Enter ReScript code here... (⌘+Enter to run)")
-            addSettingsProvider { editor ->
-                editor.settings.isLineNumbersShown = false
-                editor.settings.isFoldingOutlineShown = false
-                editor.settings.isRightMarginShown = false
+            EditorTextFieldFactory.applyPanelDefaults(this) { editor ->
                 editor.contentComponent.isFocusable = true
             }
         }

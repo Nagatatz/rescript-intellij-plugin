@@ -17,6 +17,7 @@ import com.intellij.util.Alarm
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.util.EditorTextFieldFactory
 import com.rescript.plugin.util.RescriptFileUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
@@ -54,10 +55,7 @@ class RescriptTypeInfoPanel(
             true,
         ).apply {
             border = JBUI.Borders.empty(8)
-            addSettingsProvider { editor ->
-                editor.settings.isLineNumbersShown = false
-                editor.settings.isFoldingOutlineShown = false
-                editor.settings.isRightMarginShown = false
+            EditorTextFieldFactory.applyPanelDefaults(this) { editor ->
                 editor.settings.isCaretRowShown = false
             }
         }

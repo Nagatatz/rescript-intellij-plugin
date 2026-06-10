@@ -12,6 +12,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.repl.RescriptReplExecutor
+import com.rescript.plugin.util.EditorTextFieldFactory
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension
@@ -55,10 +56,7 @@ class RescriptNotebookCellPanel(
             // surrounding JBScrollPane handles overflow if the user types
             // more.
             preferredSize = Dimension(0, CODE_AREA_PREFERRED_HEIGHT)
-            addSettingsProvider { editor ->
-                editor.settings.isLineNumbersShown = false
-                editor.settings.isFoldingOutlineShown = false
-                editor.settings.isRightMarginShown = false
+            EditorTextFieldFactory.applyPanelDefaults(this) { editor ->
                 editor.settings.isUseSoftWraps = true
             }
             addDocumentListener(

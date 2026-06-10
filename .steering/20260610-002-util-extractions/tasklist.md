@@ -5,17 +5,17 @@
 
 ## セクション 0: セットアップ
 
-- [ ] `git fetch origin` + main の ahead/behind 確認
-- [ ] `EnterWorktree` で worktree 作成、`pwd` / `git rev-parse --show-toplevel` で編集パス確認
-- [ ] `docs/product-requirements.md` の #126 に 🚧 マーク (最初のコミットに含める)
+- [x] `git fetch origin` + main の ahead/behind 確認
+- [x] `EnterWorktree` で worktree 作成、`pwd` / `git rev-parse --show-toplevel` で編集パス確認
+- [x] `docs/product-requirements.md` の #126 に 🚧 マーク (最初のコミットに含める)
 
 ## セクション 1: EditorTextFieldFactory (#126)
 
-- [ ] `util/EditorTextFieldFactory.kt` 新規作成 (KDoc 付き)
-- [ ] `util/EditorTextFieldFactoryTest.kt` 新規作成
-- [ ] `repl/RescriptReplPanel.kt` の addSettingsProvider を置換
-- [ ] `notebook/RescriptNotebookCellPanel.kt` の addSettingsProvider を置換
-- [ ] `typeinfo/RescriptTypeInfoPanel.kt` の addSettingsProvider を置換
+- [x] `util/EditorTextFieldFactory.kt` 新規作成 (KDoc 付き)
+- [x] `util/EditorTextFieldFactoryTest.kt` 新規作成
+- [x] `repl/RescriptReplPanel.kt` の addSettingsProvider を置換
+- [x] `notebook/RescriptNotebookCellPanel.kt` の addSettingsProvider を置換
+- [x] `typeinfo/RescriptTypeInfoPanel.kt` の addSettingsProvider を置換
 - [ ] `./gradlew ktlintCheck test` green
 - [ ] コミット: `♻️ Extract EditorTextFieldFactory for shared panel editor settings`
 
