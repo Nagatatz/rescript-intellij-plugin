@@ -35,13 +35,23 @@
 - [x] `docs/repository-structure.md` の util/ 行に EditorTextFieldFactory / RescriptProjectFileScanner を追記
 - [x] `docs/product-requirements.md` の #126 を将来機能テーブルから削除 (実装済み扱い)
 - [x] sphinx-docs: 更新なしの確認のみ (機能不変・ユーザー向け挙動変更なし)
-- [ ] コミット: `📝 Sync docs for Phase 1 util extractions`
+- [x] コミット: `📝 Sync docs for Phase 1 util extractions` (cfd68e8)
+
+## 追加セクション (スコープ外バグ修正): sandbox jar purge の範囲限定
+
+DoD フルチェーン検証中に main 既存のバグを発見したため修正 (リファクタ起因ではない):
+
+- [x] `build.gradle.kts` の stale-jar 除去フックが sandbox root 全体を walk しており、`buildPlugin test` の同一呼び出しで `prepareSandbox` が `plugins-test/` の現行 jar を削除 → `:test` が NoClassDefFoundError (junit-vintage discovery 失敗) になるタスク順序依存の flake を確認
+- [x] 各 `prepareSandbox*` タスクの purge を自身の `Sync.destinationDir` 配下に限定する修正
+- [x] 修正後フルチェーン 2 回連続 green を確認
+- [x] コミット: `🐛 Scope sandbox jar purge to each prepareSandbox task's own destination` (bc89bcd)
+- テスト省略の理由: Gradle ビルドスクリプトの変更でありユニットテスト対象外。検証はフルチェーンの再現実行で実施
 
 ## マージ前検証 (DoD Phase 3〜4)
 
-- [ ] `./gradlew ktlintCheck clean buildPlugin test koverVerify` green
-- [ ] `koverHtmlReport` で util/ 新クラスのカバレッジ確認 (minBound 86 維持)
-- [ ] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
+- [x] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green
+- [x] `koverHtmlReport` で util/ 新クラスのカバレッジ確認 (EditorTextFieldFactory / RescriptProjectFileScanner とも 100%、minBound 86 維持)
+- [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
 - [ ] `AskUserQuestion` でマージ可否確認
 - [ ] main へマージ → ブランチ削除 → push
 
