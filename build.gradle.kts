@@ -711,28 +711,27 @@ tasks {
     // pluginVersion bump leaves rescript-intellij-plugin-<old>.jar behind),
     // which can surface as "implementation class is not specified" or other
     // PluginException failures from out-of-date plugin.xml entries.
+    //
+    // Each task only purges its own destination sandbox (plugins/ vs
+    // plugins-test/). Sweeping the whole sandbox root from here used to
+    // delete the test sandbox's jar after prepareTestSandbox had already
+    // run, making a chained `buildPlugin test` invocation fail with
+    // NoClassDefFoundError during test discovery.
     matching {
         it.name.startsWith("prepareSandbox") || it.name == "prepareTestSandbox"
     }.configureEach {
-        val sandboxRoot = layout.projectDirectory.dir(".intellijPlatform/sandbox").asFile
         val projectBaseDir = projectDir
         doFirst {
-            if (sandboxRoot.exists()) {
-                sandboxRoot
-                    .walk()
-                    .filter {
-                        it.isDirectory && it.name == "lib" && it.parentFile?.name == "rescript-intellij-plugin"
-                    }.forEach { libDir ->
-                        libDir
-                            .listFiles()
-                            ?.filter {
-                                it.name.startsWith("rescript-intellij-plugin-") && it.name.endsWith(".jar")
-                            }?.forEach { jar ->
-                                logger.lifecycle("Removing stale sandbox jar: ${jar.relativeTo(projectBaseDir)}")
-                                jar.delete()
-                            }
-                    }
-            }
+            val sandboxPluginsDir = (this as? Sync)?.destinationDir ?: return@doFirst
+            sandboxPluginsDir
+                .resolve("rescript-intellij-plugin/lib")
+                .listFiles()
+                ?.filter {
+                    it.name.startsWith("rescript-intellij-plugin-") && it.name.endsWith(".jar")
+                }?.forEach { jar ->
+                    logger.lifecycle("Removing stale sandbox jar: ${jar.relativeTo(projectBaseDir)}")
+                    jar.delete()
+                }
         }
     }
 }
