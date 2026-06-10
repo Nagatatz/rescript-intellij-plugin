@@ -1,12 +1,10 @@
 package com.rescript.plugin.interop
 
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.search.FileTypeIndex
-import com.intellij.psi.search.GlobalSearchScope
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
+import com.rescript.plugin.util.RescriptProjectFileScanner
 
 /**
  * Walks every ReScript source file in [Project] and produces an
@@ -31,35 +29,22 @@ object RescriptInteropScanner {
     )
 
     /**
-     * Returns interop entries from every `.res` and `.resi` file in
-     * [GlobalSearchScope.projectScope]. Must be called off the EDT —
-     * the scan reads file contents through [VirtualFile.contentsToByteArray]
-     * inside a read action.
+     * Returns interop entries from every `.res` and `.resi` file in the
+     * project. Iteration and safe file reading are delegated to
+     * [RescriptProjectFileScanner]. Must be called off the EDT — the
+     * scan reads file contents inside a read action.
      */
     fun scan(project: Project): Result {
         val collected = mutableListOf<InteropEntry>()
-        var truncated = false
-        ApplicationManager.getApplication().runReadAction {
-            val scope = GlobalSearchScope.projectScope(project)
-            val files =
-                FileTypeIndex.getFiles(RescriptFileType, scope) +
-                    FileTypeIndex.getFiles(RescriptInterfaceFileType, scope)
-            for (file in files) {
-                if (collected.size >= MAX_TOTAL) {
-                    truncated = true
-                    break
-                }
-                val text =
-                    try {
-                        String(file.contentsToByteArray(), file.charset)
-                    } catch (_: Exception) {
-                        continue
-                    }
+        val truncated =
+            RescriptProjectFileScanner.scanFiles(
+                project = project,
+                fileTypes = listOf(RescriptFileType, RescriptInterfaceFileType),
+                shouldContinue = { collected.size < MAX_TOTAL },
+            ) { file, text ->
                 val perFileBudget = (MAX_TOTAL - collected.size).coerceAtMost(MAX_PER_FILE)
-                val entries = collectEntriesFromText(file, text, perFileBudget)
-                collected.addAll(entries)
+                collected.addAll(collectEntriesFromText(file, text, perFileBudget))
             }
-        }
         // Sort by risk severity (HIGH first), then file path for stable display.
         val sorted =
             collected.sortedWith(

@@ -1,15 +1,13 @@
 package com.rescript.plugin.coverage
 
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.TokenType
-import com.intellij.psi.search.FileTypeIndex
-import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.tree.IElementType
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.lang.RescriptLexer
 import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.util.RescriptProjectFileScanner
 
 /**
  * Walks every `.res` file in the project, splits its source into
@@ -31,32 +29,21 @@ object RescriptTypeCoverageScanner {
     const val MAX_FILES = 2_000
 
     /**
-     * Scans every `.res` file in the project under
-     * [GlobalSearchScope.projectScope] and produces a
-     * [ProjectCoverage]. Must be called off the EDT — file contents
-     * are read via [VirtualFile.contentsToByteArray] inside a read
-     * action.
+     * Scans every `.res` file in the project and produces a
+     * [ProjectCoverage]. Iteration and safe file reading are delegated
+     * to [RescriptProjectFileScanner]. Must be called off the EDT —
+     * file contents are read inside a read action.
      */
     fun scan(project: Project): ProjectCoverage {
         val perFile = mutableListOf<FileCoverage>()
-        var truncated = false
-        ApplicationManager.getApplication().runReadAction {
-            val scope = GlobalSearchScope.projectScope(project)
-            val files = FileTypeIndex.getFiles(RescriptFileType, scope)
-            for (file in files) {
-                if (perFile.size >= MAX_FILES) {
-                    truncated = true
-                    break
-                }
-                val text =
-                    try {
-                        String(file.contentsToByteArray(), file.charset)
-                    } catch (_: Exception) {
-                        continue
-                    }
+        val truncated =
+            RescriptProjectFileScanner.scanFiles(
+                project = project,
+                fileTypes = listOf(RescriptFileType),
+                shouldContinue = { perFile.size < MAX_FILES },
+            ) { file, text ->
                 perFile.add(analyzeSource(file, text))
             }
-        }
         return ProjectCoverage(files = perFile, truncated = truncated)
     }
 

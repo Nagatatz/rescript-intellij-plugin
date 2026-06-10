@@ -16,17 +16,18 @@
 - [x] `repl/RescriptReplPanel.kt` の addSettingsProvider を置換
 - [x] `notebook/RescriptNotebookCellPanel.kt` の addSettingsProvider を置換
 - [x] `typeinfo/RescriptTypeInfoPanel.kt` の addSettingsProvider を置換
-- [ ] `./gradlew ktlintCheck test` green
-- [ ] コミット: `♻️ Extract EditorTextFieldFactory for shared panel editor settings`
+- [x] `./gradlew ktlintCheck test` green
+- [x] コミット: `♻️ Extract EditorTextFieldFactory for shared panel editor settings` (d2f6be4)
 
 ## セクション 2: RescriptProjectFileScanner
 
-- [ ] `util/RescriptProjectFileScanner.kt` 新規作成 (KDoc 付き)
-- [ ] `util/RescriptProjectFileScannerTest.kt` 新規作成 (全件走査 / truncated / 複数 fileTypes)
-- [ ] `coverage/RescriptTypeCoverageScanner.scan` のループを置換 (公開シグネチャ不変)
-- [ ] `interop/RescriptInteropScanner.scan` のループを置換 (公開シグネチャ不変)
-- [ ] 既存 scanner テスト + interop IntegrationTest が**無変更で** green であることを確認
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `util/RescriptProjectFileScanner.kt` 新規作成 (KDoc 付き)
+- [x] `util/RescriptProjectFileScannerTest.kt` 新規作成 (全件走査 / truncated / 読取不能 skip / 空プロジェクト smoke)
+  - 設計変更: light fixture は content root を持たず FileTypeIndex にファイルが載らないため、走査ループを `visitFiles(files, ...)` internal ヘルパに分離して LightVirtualFile でテストする方式に変更 (既存 scanner の「pure helper を internal 公開」パターンに準拠)。「複数 fileTypes」のインデックス結合は flatMap 1 行のため空プロジェクト smoke + 既存 interop テストで担保
+- [x] `coverage/RescriptTypeCoverageScanner.scan` のループを置換 (公開シグネチャ不変)
+- [x] `interop/RescriptInteropScanner.scan` のループを置換 (公開シグネチャ不変)
+- [x] 既存 scanner テスト + interop IntegrationTest が**無変更で** green であることを確認
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `♻️ Extract RescriptProjectFileScanner for shared file scan loop`
 
 ## セクション 3: ドキュメント同期
