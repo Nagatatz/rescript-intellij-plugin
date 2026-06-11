@@ -1,6 +1,6 @@
 package com.rescript.plugin.intention
 
-import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.lsp.RescriptLspSignatureParser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test
 class RescriptMissingArmsBuilderTest {
     private val optionConstructors =
         listOf(
-            RescriptLspUtils.VariantInfo("Some", hasPayload = true),
-            RescriptLspUtils.VariantInfo("None", hasPayload = false),
+            RescriptLspSignatureParser.VariantInfo("Some", hasPayload = true),
+            RescriptLspSignatureParser.VariantInfo("None", hasPayload = false),
         )
     private val resultConstructors =
         listOf(
-            RescriptLspUtils.VariantInfo("Ok", hasPayload = true),
-            RescriptLspUtils.VariantInfo("Error", hasPayload = true),
+            RescriptLspSignatureParser.VariantInfo("Ok", hasPayload = true),
+            RescriptLspSignatureParser.VariantInfo("Error", hasPayload = true),
         )
     private val rgbConstructors =
         listOf(
-            RescriptLspUtils.VariantInfo("Red", hasPayload = false),
-            RescriptLspUtils.VariantInfo("Green", hasPayload = false),
-            RescriptLspUtils.VariantInfo("Blue", hasPayload = false),
+            RescriptLspSignatureParser.VariantInfo("Red", hasPayload = false),
+            RescriptLspSignatureParser.VariantInfo("Green", hasPayload = false),
+            RescriptLspSignatureParser.VariantInfo("Blue", hasPayload = false),
         )
 
     @Test

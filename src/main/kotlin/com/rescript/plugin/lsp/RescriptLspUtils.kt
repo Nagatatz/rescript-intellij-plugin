@@ -14,14 +14,14 @@ import org.eclipse.lsp4j.TextDocumentIdentifier
 import java.net.URI
 
 /**
- * Shared utility functions for interacting with the ReScript LSP server.
- *
- * Provides hover-based type retrieval and signature parsing used by
- * multiple A-priority features (pipe chain hints, labeled args insertion,
+ * Shared utility functions for talking to the ReScript LSP server:
+ * server lookup, URI conversion, and hover-based type retrieval used
+ * by multiple features (pipe chain hints, labeled args insertion,
  * case split, and argument conversion).
  *
- * Signature parsing is delegated to [RescriptLspSignatureParser] and
- * diagnostic parsing to [RescriptLspDiagnosticParser].
+ * Parsing of hover/diagnostic payloads lives in
+ * [RescriptLspSignatureParser] and [RescriptLspDiagnosticParser];
+ * callers reference those parsers directly.
  *
  * @see RescriptLspServerSupportProvider
  * @see RescriptExpressionTypeProvider
@@ -142,53 +142,4 @@ object RescriptLspUtils {
             return null
         }
     }
-
-    /** Type alias for [RescriptLspSignatureParser.LabeledParam]. */
-    typealias LabeledParam = RescriptLspSignatureParser.LabeledParam
-
-    /**
-     * Parses labeled parameters from a ReScript function signature string.
-     *
-     * Handles signatures like `(~name: string, ~age: int=?, unit) => person`.
-     *
-     * @param signature the function signature text
-     * @return list of labeled parameters found in the signature
-     */
-    fun parseSignatureLabels(signature: String): List<LabeledParam> =
-        RescriptLspSignatureParser.parseSignatureLabels(signature)
-
-    /** Type alias for [RescriptLspSignatureParser.VariantInfo]. */
-    typealias VariantInfo = RescriptLspSignatureParser.VariantInfo
-
-    /**
-     * Parses variant constructors from a type hover result.
-     *
-     * Used by case split to expand a variable into all constructors.
-     *
-     * @param typeText the type text from LSP hover (e.g., "option<int>" or "color")
-     * @return list of constructor names with optional payload indicator, or empty if not a variant
-     */
-    fun parseVariantConstructors(typeText: String): List<VariantInfo> =
-        RescriptLspSignatureParser.parseVariantConstructors(typeText)
-
-    /**
-     * Parses a diagnostic message to extract diagnostic details.
-     *
-     * @param message the diagnostic message text
-     * @return parsed diagnostic info, or null if the message format is not recognized
-     */
-    fun parseDiagnosticMessage(message: String): DiagnosticInfo? =
-        RescriptLspDiagnosticParser.parseDiagnosticMessage(message)
-
-    /** Type alias for [RescriptLspDiagnosticParser.DiagnosticKind]. */
-    typealias DiagnosticKind = RescriptLspDiagnosticParser.DiagnosticKind
-
-    /** Type alias for [RescriptLspDiagnosticParser.DiagnosticInfo]. */
-    typealias DiagnosticInfo = RescriptLspDiagnosticParser.DiagnosticInfo
-
-    /** Extracts content between the first ( and its matching ). */
-    internal fun extractParenContent(text: String): String? = RescriptLspSignatureParser.extractParenContent(text)
-
-    /** Splits text by comma, respecting nested parentheses and angle brackets. */
-    internal fun splitByComma(text: String): List<String> = RescriptLspSignatureParser.splitByComma(text)
 }

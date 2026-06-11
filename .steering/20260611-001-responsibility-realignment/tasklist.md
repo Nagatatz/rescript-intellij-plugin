@@ -17,11 +17,11 @@
 
 ## セクション 2: RescriptLspUtils facade 解体 (#129)
 
-- [ ] `RescriptLspUtilsTest` のパース系 16 ケースをパーサーテスト側と 1 件ずつ突合 (入力文字列 grep)、欠落分を移設
-- [ ] intention 5 ファイル + `RescriptMissingArmsBuilderTest` をパーサー直接参照に書き換え
-- [ ] `RescriptLspUtils` から委譲メソッド・typealias (L146-193) を削除、KDoc 調整
-- [ ] `RescriptLspUtilsTest` からパース系 16 ケースを削除 (URI 変換 4 ケースは残す)
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `RescriptLspUtilsTest` のパース系 16 ケースをパーサーテスト側と 1 件ずつ突合 — 全件に等価または上位ケースを確認 (例: `(~name, ~age, unit)` 複合は「multiple labeled」+「skips non-labeled」の 2 ケースで被覆、`Some(int) | None` は `Loading | Success(data) | Error(string)` + `| A | B(int)` で被覆)。**移設不要**
+- [x] intention 5 ファイル + `RescriptMissingArmsBuilderTest` をパーサー直接参照に書き換え (KDoc の @see も同時更新)
+- [x] `RescriptLspUtils` から委譲メソッド・typealias (旧 L146-193) を削除、KDoc を LSP 通信専任の記述に調整 (~194 → 146 行)
+- [x] `RescriptLspUtilsTest` からパース系 16 ケースを削除 (URI 変換 4 ケースは残し、KDoc でパーサーテストへ誘導)
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `♻️ Dissolve RescriptLspUtils parse facade into direct parser references`
 
 ## セクション 3: RescriptTypeDeclarationParser の lang/ 移動 (#130)

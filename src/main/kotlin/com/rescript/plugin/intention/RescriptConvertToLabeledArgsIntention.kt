@@ -4,6 +4,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.lsp.RescriptLspSignatureParser
 import com.rescript.plugin.lsp.RescriptLspUtils
 import com.rescript.plugin.util.RescriptBraceBalanceUtil
 import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
@@ -21,7 +22,7 @@ import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
  * Triggered via Alt+Enter > "Convert to labeled arguments".
  *
  * @see RescriptInsertLabeledArgsIntention
- * @see RescriptLspUtils.parseSignatureLabels
+ * @see RescriptLspSignatureParser.parseSignatureLabels
  */
 class RescriptConvertToLabeledArgsIntention : RescriptBaseIntention() {
     override fun getText(): String = "Convert to labeled arguments"
@@ -43,7 +44,7 @@ class RescriptConvertToLabeledArgsIntention : RescriptBaseIntention() {
         if (!afterIdent.startsWith("(")) return false
 
         // Check that arguments don't already have labels
-        val parenContent = RescriptLspUtils.extractParenContent(text.substring(endOffset))
+        val parenContent = RescriptLspSignatureParser.extractParenContent(text.substring(endOffset))
         if (parenContent.isNullOrBlank()) return false
 
         return !parenContent.contains("~")
@@ -62,7 +63,7 @@ class RescriptConvertToLabeledArgsIntention : RescriptBaseIntention() {
 
         // Get function signature from LSP hover
         val typeText = RescriptLspUtils.getHoverType(project, file, offset) ?: return
-        val labels = RescriptLspUtils.parseSignatureLabels(typeText)
+        val labels = RescriptLspSignatureParser.parseSignatureLabels(typeText)
         if (labels.isEmpty()) return
 
         // Find the argument list
@@ -73,7 +74,7 @@ class RescriptConvertToLabeledArgsIntention : RescriptBaseIntention() {
         val parenEnd = RescriptBraceBalanceUtil.findMatchingParen(text, parenStart) ?: return
 
         val argsText = text.substring(parenStart + 1, parenEnd)
-        val args = RescriptLspUtils.splitByComma(argsText)
+        val args = RescriptLspSignatureParser.splitByComma(argsText)
 
         // Match arguments with labels
         val labeledArgs =

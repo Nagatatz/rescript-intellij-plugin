@@ -3,7 +3,7 @@ package com.rescript.plugin.intention
 import com.intellij.psi.TokenType
 import com.rescript.plugin.lang.RescriptLexer
 import com.rescript.plugin.lang.RescriptTokenTypes
-import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.lsp.RescriptLspSignatureParser
 import com.rescript.plugin.narrowing.RescriptSwitchArmCollector
 import com.rescript.plugin.narrowing.SwitchArm
 
@@ -34,7 +34,7 @@ data class MissingArmsResult(
  * hover results into this builder and applies the result via a write action.
  *
  * @see RescriptSwitchArmCollector for the underlying lexer-based arm walker
- * @see RescriptLspUtils.parseVariantConstructors for the constructor parser
+ * @see RescriptLspSignatureParser.parseVariantConstructors for the constructor parser
  */
 object RescriptMissingArmsBuilder {
     /** Result of scanning existing arm patterns for already-covered constructor names. */
@@ -63,7 +63,7 @@ object RescriptMissingArmsBuilder {
     fun computeMissing(
         source: String,
         offset: Int,
-        constructors: List<RescriptLspUtils.VariantInfo>,
+        constructors: List<RescriptLspSignatureParser.VariantInfo>,
     ): MissingArmsResult? {
         if (constructors.isEmpty()) return null
         val arms = findEnclosingSwitchArms(source, offset) ?: return null
@@ -274,7 +274,7 @@ object RescriptMissingArmsBuilder {
     internal fun buildInsertion(
         source: String,
         arms: List<SwitchArm>,
-        missing: List<RescriptLspUtils.VariantInfo>,
+        missing: List<RescriptLspSignatureParser.VariantInfo>,
     ): String {
         val firstArm = arms.first()
         // patternOffset points just after the leading `|`, so the `|` itself

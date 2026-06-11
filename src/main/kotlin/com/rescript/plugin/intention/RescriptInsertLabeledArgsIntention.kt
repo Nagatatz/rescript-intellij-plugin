@@ -4,6 +4,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.lsp.RescriptLspSignatureParser
 import com.rescript.plugin.lsp.RescriptLspUtils
 import com.rescript.plugin.util.RescriptBraceBalanceUtil
 
@@ -16,7 +17,7 @@ import com.rescript.plugin.util.RescriptBraceBalanceUtil
  *
  * Triggered via Alt+Enter > "Insert labeled arguments".
  *
- * @see RescriptLspUtils.parseSignatureLabels
+ * @see RescriptLspSignatureParser.parseSignatureLabels
  */
 class RescriptInsertLabeledArgsIntention : RescriptBaseIntention() {
     override fun getText(): String = "Insert labeled arguments"
@@ -42,7 +43,7 @@ class RescriptInsertLabeledArgsIntention : RescriptBaseIntention() {
 
         // Get function signature from LSP hover
         val typeText = RescriptLspUtils.getHoverType(project, file, offset) ?: return
-        val labels = RescriptLspUtils.parseSignatureLabels(typeText)
+        val labels = RescriptLspSignatureParser.parseSignatureLabels(typeText)
         if (labels.isEmpty()) return
 
         // Build the argument string

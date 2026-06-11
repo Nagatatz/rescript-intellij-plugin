@@ -4,6 +4,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
+import com.rescript.plugin.lsp.RescriptLspSignatureParser
 import com.rescript.plugin.lsp.RescriptLspUtils
 import com.rescript.plugin.util.RescriptEditorUtils.getLineRangeAt
 import com.rescript.plugin.util.RescriptEditorUtils.getLineTextAt
@@ -24,7 +25,7 @@ import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
  *
  * Triggered via Alt+Enter > "Split into constructor cases".
  *
- * @see RescriptLspUtils.parseVariantConstructors
+ * @see RescriptLspSignatureParser.parseVariantConstructors
  */
 class RescriptCaseSplitIntention : RescriptBaseIntention() {
     override fun getText(): String = "Split into constructor cases"
@@ -54,7 +55,7 @@ class RescriptCaseSplitIntention : RescriptBaseIntention() {
 
         // Get the type of the variable from LSP
         val typeText = RescriptLspUtils.getHoverType(project, file, offset) ?: return
-        val constructors = RescriptLspUtils.parseVariantConstructors(typeText)
+        val constructors = RescriptLspSignatureParser.parseVariantConstructors(typeText)
         if (constructors.isEmpty()) return
 
         // Find the case line containing this variable

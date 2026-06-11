@@ -74,7 +74,7 @@ internal object RescriptAddMissingArmsDiagnoser {
         offset: Int,
         lspServerAvailable: Boolean,
         hoverProbe: (Int) -> String?,
-        resolveByTypeName: (String) -> List<RescriptLspUtils.VariantInfo> = { emptyList() },
+        resolveByTypeName: (String) -> List<RescriptLspSignatureParser.VariantInfo> = { emptyList() },
     ): ArmsOutcome {
         if (!RescriptMissingArmsBuilder.isInsideSwitch(source, offset)) return ArmsOutcome.NotInSwitch
         if (!lspServerAvailable) return ArmsOutcome.LspUnavailable
@@ -82,7 +82,7 @@ internal object RescriptAddMissingArmsDiagnoser {
             RescriptMissingArmsBuilder.scrutineeOffset(source, offset)
                 ?: return ArmsOutcome.NoScrutinee
         val typeText = hoverProbe(scrutineeOffset) ?: return ArmsOutcome.HoverEmpty
-        var constructors = RescriptLspUtils.parseVariantConstructors(typeText)
+        var constructors = RescriptLspSignatureParser.parseVariantConstructors(typeText)
         if (constructors.isEmpty()) {
             // Second pass: LSP hover sometimes returns the bare type
             // name (`color`) instead of the inline variant body. Look
@@ -145,7 +145,7 @@ internal object RescriptAddMissingArmsDiagnoser {
  *
  * @see RescriptMissingArmsBuilder
  * @see RescriptAddMissingArmsDiagnoser
- * @see RescriptLspUtils.parseVariantConstructors
+ * @see RescriptLspSignatureParser.parseVariantConstructors
  */
 class RescriptAddMissingSwitchArmsIntention : RescriptBaseIntention() {
     override fun getText(): String = "Add missing switch arms"
