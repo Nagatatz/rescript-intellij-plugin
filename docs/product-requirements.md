@@ -99,8 +99,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|----------|------|--------|--------|
-| 🚧 129 | RescriptLspUtils facade 解体 | リファクタリング | パース系委譲メソッド・typealias を削除し呼び出し側をパーサー直接参照に書き換え (実体は分離済み) | 低 | B |
-| 🚧 130 | TypeDeclarationParser の lang/ 移動 | リファクタリング | lsp→generate / util→generate の逆方向依存を解消し型宣言パースを言語基盤に配置 | 低〜中 | B |
 | 128 | Alarm → coroutines 移行 | リファクタリング | `RescriptTypeInfoPanel` の `Alarm(POOLED_THREAD)` (`@ApiStatus.Internal`) を `CoroutineScope` + `parentDisposable` ベースに置換し `@Suppress("UnstableApiUsage")` を排除 | 中〜高 | C |
 
 新規機能の提案は GitHub Issues で受け付ける。ロードマップの表記方法は `.claude/rules/roadmap-format.md` を参照。

@@ -34,10 +34,10 @@
 
 ## セクション 4: ドキュメント同期
 
-- [ ] `docs/repository-structure.md`: lang/ 行に追記、generate/ 行から再パース言及を削除
-- [ ] CLAUDE.md: `RescriptTypeDeclarationParser` 言及箇所の変更要否を確認
-- [ ] `docs/product-requirements.md`: #129 / #130 を削除
-- [ ] sphinx-docs: 更新なしの確認のみ (機能不変)
+- [x] `docs/repository-structure.md`: lang/ 行に `RescriptTypeDeclarationParser` 追記、generate/ 行から再パース言及を削除 (代表クラスを実在のものに差し替え)
+- [x] CLAUDE.md: Add Missing Switch Arms 段落の `RescriptLspUtils.parseVariantConstructors` を `RescriptLspSignatureParser.parseVariantConstructors` に更新 (facade 解体の追従)。`RescriptTypeDeclarationParser` 言及はパッケージ非依存のため変更不要
+- [x] `docs/product-requirements.md`: #129 / #130 を削除 (リファクタリング候補は残り #128 のみ)
+- [x] sphinx-docs: 更新なしの確認のみ (機能不変)
 - [ ] コミット: `📝 Sync docs for Phase 3 responsibility realignment`
 
 ## マージ前検証 (DoD Phase 3〜4)

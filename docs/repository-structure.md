@@ -34,7 +34,7 @@ rescript-intellij-plugin/
 | パッケージ | 責務 | 代表クラス |
 |-----------|------|-----------|
 | (ルート) | Language / FileType / Icons 定義、エラーレポート連携 | `RescriptLanguage`, `RescriptFileTypes`, `RescriptIcons`, `RescriptErrorReporter` |
-| `lang/` | レクサー、パーサー、トークン定義 | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes` |
+| `lang/` | レクサー、パーサー、トークン定義、型宣言 RHS の再パース | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes`, `RescriptTypeDeclarationParser` |
 | `lang/psi/` | PSI 要素クラス、ユーティリティ | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils` |
 | `highlight/` | シンタックスハイライト、ブレースマッチング | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher` |
 | `lsp/` | LSP サーバー管理、カスタムプロトコル、LSP ユーティリティ、variant 型の bare-name 解決 | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor`, `RescriptLspUtils`, `RescriptVariantTypeResolver` |
@@ -74,7 +74,7 @@ rescript-intellij-plugin/
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
 | `wizard/` | Project Wizard（新規プロジェクト作成、Package Manager / Validation Library 選択 UI） | `RescriptModuleBuilder`, `PackageManager`, `ValidationLibrary` |
 | `wizard/templates/` | 22 種類のプロジェクトテンプレートファイル生成（既存 18 件は zod/sury の `Validation.res` を variants/<key>/ から選択。TanStack Start / Remix RR v7 / Astro / Waku は Validation 選択を無効化） | `BasicTemplateFiles`, `ViteReactTemplateFiles`, `HonoInertiaTemplateFiles`, `TauriTemplateFiles`, `TanstackStartTemplateFiles`, `RemixV7TemplateFiles`, `AstroTemplateFiles`, `WakuTemplateFiles` 等 |
-| `generate/` | Code Generation（Generate メニュー）、型宣言 RHS の再パース | `RescriptGenerateGroup`, `RescriptTypeDeclarationParser` |
+| `generate/` | Code Generation（Generate メニュー） | `RescriptGenerateGroup`, `RescriptGenerateSwitchAction`, `RescriptJsonCodeGenerator` |
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
 | `refactor/` | リネーム、識別子バリデーション | `RescriptRenameHandler` |
