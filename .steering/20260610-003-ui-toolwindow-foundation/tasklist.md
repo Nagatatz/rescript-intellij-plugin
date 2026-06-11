@@ -54,14 +54,14 @@
 - [x] `docs/product-requirements.md` の #124 / #125 / #127 を将来機能テーブルから削除 (リファクタリング候補は残り #128 のみ)
 - [x] CLAUDE.md: 変更不要を確認 — レイヤー 3 の Variant Flow / Module Dependency 記述は機能説明でクラス名・挙動とも不変
 - [x] sphinx-docs: 更新なしの確認のみ (機能不変)
-- [ ] コミット: `📝 Sync docs for Phase 2 ui foundation`
+- [x] コミット: `📝 Sync docs for Phase 2 ui foundation` (8cf680a)
 
 ## マージ前検証 (DoD Phase 3〜4)
 
-- [ ] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green (minBound 86 維持)
-- [ ] `koverHtmlReport` で GraphViewPaintHelpers / RescriptEditorCaretTracker のカバレッジ確認
-- [ ] `./gradlew runIde` で design.md の手動スモークチェックリストを実施し結果を記録
-- [ ] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
+- [x] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green (8m08s、minBound 86 維持)
+- [x] `koverHtmlReport` で確認: GraphViewPaintHelpers 100% line / 93.8% branch、RescriptEditorCaretTracker 100%
+- [x] `./gradlew runIde` で design.md の手動スモークチェックリスト 5 項目を実施 — ユーザー確認で**全項目 OK** (Variant Flow / Module Dependency のトグル・Refresh・Copy、3 list panel の表示・Refresh、凡例・矢印・ラベル省略の描画、クローズ時例外なし)
+- [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
 - [ ] `AskUserQuestion` でマージ可否確認
 - [ ] main へマージ → ブランチ削除 → push
 
