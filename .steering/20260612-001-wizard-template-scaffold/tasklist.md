@@ -17,14 +17,14 @@
 - [x] golden ファイル群 74 件を `src/test/testData/wizard-golden/` に生成
 - [x] 2 回連続実行 + Fable 検収再実行で golden 不変を確認 (year は 2026 固定、他の非決定値なしを grep 確認)
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `✅ Add golden characterization tests for all 22 wizard templates`
+- [x] コミット: `✅ Add golden characterization tests for all 22 wizard templates`
 
 ## セクション 2: scaffold 基盤 (Fable 実装)
 
-- [ ] `wizard/templates/TemplateScaffold.kt` (commonTail / resourceFiles / validationVariant / standardDependencies、KDoc 付き)
-- [ ] common tail の書き出し順依存の有無を確認 (ProjectTemplate 利用箇所)
-- [ ] `TemplateScaffoldTest.kt` 単体テスト
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `wizard/templates/TemplateScaffold.kt` (commonTail / resourceFiles / validationVariant / validationDependency / standardDependencies、KDoc 付き)
+- [x] 書き出し順依存なしを確認: 消費側は RescriptProjectGenerator → RescriptModuleBuilder の VFS 書き込みのみで、Map 順序は成果物に影響しない。golden もソート比較
+- [x] `TemplateScaffoldTest.kt` 単体テスト (tail キー順 / フラグ転送 / リソース解決 / variant / 依存切替の 6 ケース)
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `✨ Add TemplateScaffold shared frame for wizard templates`
 
 ## セクション 3: バッチ A 移行 (sonnet subagent → Fable 検収)
