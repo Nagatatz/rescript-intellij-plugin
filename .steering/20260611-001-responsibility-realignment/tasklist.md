@@ -22,7 +22,7 @@
 - [x] `RescriptLspUtils` から委譲メソッド・typealias (旧 L146-193) を削除、KDoc を LSP 通信専任の記述に調整 (~194 → 146 行)
 - [x] `RescriptLspUtilsTest` からパース系 16 ケースを削除 (URI 変換 4 ケースは残し、KDoc でパーサーテストへ誘導)
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `♻️ Dissolve RescriptLspUtils parse facade into direct parser references`
+- [x] コミット: `♻️ Dissolve RescriptLspUtils parse facade into direct parser references` (a0d60f5)
 
 ## セクション 3: RescriptTypeDeclarationParser の lang/ 移動 (#130)
 
@@ -30,7 +30,7 @@
 - [x] import 書き換え — 実態は設計時見積りより広く、**generate パッケージ内の同一パッケージ参照に import 追加が必要**: main 7 + test 7 ファイルに `lang.{RescriptTypeDeclarationParser,TypeShape,VariantConstructor,RecordField}` を使用シンボルに応じて追加。`lsp/RescriptVariantTypeResolver` は import 切替 (lsp→generate 依存解消)、`util/RescriptRegexPatterns` は KDoc @see のみ更新 (実依存ではなかった)
 - [x] build.gradle.kts の kover 除外確認: `com.rescript.plugin.generate.*` の丸ごと除外であり個別行なし → 変更不要 (lang 移動で自動的にカバレッジ対象化)。PIT は明示クラスリスト (RescriptPaths/RescriptRegexPatterns のみ) のため影響なし
 - [x] `./gradlew ktlintCheck` green。`--tests` フィルタ付き実行では koverVerify が「フィルタ分のカバレッジしかない」状態で誤って落ちることを確認 — カバレッジ検証はフルテスト実行とセットでのみ意味を持つ (マージ前フルチェーンで実施)
-- [ ] コミット: `♻️ Move RescriptTypeDeclarationParser from generate to lang`
+- [x] コミット: `♻️ Move RescriptTypeDeclarationParser from generate to lang` (344c683)
 
 ## セクション 4: ドキュメント同期
 
@@ -45,8 +45,8 @@
 - [x] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green。build cache 由来の短絡を疑い `test --rerun` でフルスイートの実実行 (1m17s) も確認 — green
 - [x] `koverHtmlReport` で実測: `lang/RescriptTypeDeclarationParser` line 96.2% / branch 81.8%、総合 minBound 86 維持 (koverVerify 通過)
 - [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
-- [ ] `AskUserQuestion` でマージ可否確認
-- [ ] main へマージ → ブランチ削除 → push
+- [x] `AskUserQuestion` でマージ可否確認 (スコープ変更 1 件を明示のうえ承認済み)
+- [x] main へマージ (fast-forward f9fda3b) → ブランチ削除 → push
 
 ## セクション 2 コミット記録
 
