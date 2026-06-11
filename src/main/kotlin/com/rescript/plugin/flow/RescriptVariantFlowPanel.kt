@@ -5,7 +5,6 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
-import com.intellij.openapi.actionSystem.ToggleAction
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.event.CaretEvent
 import com.intellij.openapi.editor.event.CaretListener
@@ -18,15 +17,12 @@ import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.ide.CopyPasteManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.ui.components.JBScrollPane
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
-import com.rescript.plugin.ui.RescriptToolWindowPanelBase
+import com.rescript.plugin.ui.DualViewToolWindowPanel
 import com.rescript.plugin.util.HtmlEditorPaneFactory
-import java.awt.CardLayout
 import java.awt.datatransfer.StringSelection
 import javax.swing.JEditorPane
-import javax.swing.JPanel
 
 /**
  * Tool window UI for the variant flow diagram.
@@ -37,11 +33,11 @@ import javax.swing.JPanel
  * for sharing the current diagram externally.
  *
  * @see RescriptVariantFlowToolWindowFactory which creates instances of this panel
- * @see RescriptToolWindowPanelBase for the shared toolbar / status / refresh scaffold
+ * @see DualViewToolWindowPanel for the shared Visual / Source scaffold
  */
 class RescriptVariantFlowPanel(
     private val project: Project,
-) : RescriptToolWindowPanelBase(TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
+) : DualViewToolWindowPanel(TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
     /**
      * Read-only HTML pane displaying the Mermaid source. The HTML
      * payload is produced by [MermaidSourceColorizer] so keywords,
@@ -57,29 +53,18 @@ class RescriptVariantFlowPanel(
 
     private val graphView: RescriptVariantFlowGraphView = RescriptVariantFlowGraphView()
 
-    private val viewCards: CardLayout = CardLayout()
-
-    private val viewSwitcher: JPanel =
-        JPanel(viewCards).apply {
-            add(JBScrollPane(graphView), CARD_VISUAL)
-            add(JBScrollPane(textArea), CARD_SOURCE)
-        }
-
     @Volatile
     private var currentDiagram: FlowDiagram? = null
 
     @Volatile
     private var currentJumpTarget: JumpTarget? = null
 
-    @Volatile
-    private var visualMode: Boolean = true
-
     init {
         installUi(
-            viewSwitcher,
+            buildDualView(visual = graphView, source = textArea),
             DefaultActionGroup().apply {
-                add(VisualModeAction())
-                add(SourceModeAction())
+                add(createVisualModeAction("Render the diagram as a top-down graph"))
+                add(createSourceModeAction("Show the Mermaid flowchart source text"))
                 addSeparator()
                 add(createRefreshAction("Rebuild the variant flow diagram"))
                 addSeparator()
@@ -90,7 +75,6 @@ class RescriptVariantFlowPanel(
             },
         )
         attachEditorListeners()
-        viewCards.show(viewSwitcher, CARD_VISUAL)
         scheduleRefresh()
     }
 
@@ -174,11 +158,6 @@ class RescriptVariantFlowPanel(
         graphView.setDiagram(null)
         currentDiagram = null
         currentJumpTarget = null
-    }
-
-    private fun switchView(toVisual: Boolean) {
-        visualMode = toVisual
-        viewCards.show(viewSwitcher, if (toVisual) CARD_VISUAL else CARD_SOURCE)
     }
 
     /**
@@ -275,55 +254,8 @@ class RescriptVariantFlowPanel(
         }
     }
 
-    /**
-     * Toolbar toggle that flips the central panel into the visual
-     * (Java2D) rendering of the variant flow diagram. Mutually
-     * exclusive with [SourceModeAction] — exactly one is selected.
-     */
-    private inner class VisualModeAction :
-        ToggleAction(
-            "Visual",
-            "Render the diagram as a top-down graph",
-            AllIcons.Toolwindows.ToolWindowHierarchy,
-        ) {
-        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.EDT
-
-        override fun isSelected(e: AnActionEvent): Boolean = visualMode
-
-        override fun setSelected(
-            e: AnActionEvent,
-            state: Boolean,
-        ) {
-            if (state) switchView(true)
-        }
-    }
-
-    /**
-     * Toolbar toggle that flips the central panel into the textual
-     * Mermaid `flowchart TD` source for copy-paste workflows.
-     */
-    private inner class SourceModeAction :
-        ToggleAction(
-            "Source",
-            "Show the Mermaid flowchart source text",
-            AllIcons.FileTypes.Text,
-        ) {
-        override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.EDT
-
-        override fun isSelected(e: AnActionEvent): Boolean = !visualMode
-
-        override fun setSelected(
-            e: AnActionEvent,
-            state: Boolean,
-        ) {
-            if (state) switchView(false)
-        }
-    }
-
     private companion object {
         const val TOOLBAR_PLACE = "ReScriptVariantFlowToolbar"
         const val REFRESH_DEBOUNCE_MS = 200
-        const val CARD_VISUAL = "visual"
-        const val CARD_SOURCE = "source"
     }
 }

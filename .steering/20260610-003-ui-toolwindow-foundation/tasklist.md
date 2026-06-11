@@ -28,15 +28,15 @@
 - [x] build.gradle.kts に kover クラス除外 `ui.RescriptToolWindowPanelBase*` を理由コメント付きで追加
 - [x] テスト省略 (基盤クラス): Swing UI コンポーネント免除 — toolbar / Alarm は IDE UI 結合のためヘッドレス検証不可。スモークで担保
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `♻️ Add RescriptToolWindowPanelBase and migrate five tool window panels`
+- [x] コミット: `♻️ Add RescriptToolWindowPanelBase and migrate five tool window panels` (14dfa0d)
 
 ## セクション 3: DualViewToolWindowPanel (#124)
 
-- [ ] `ui/DualViewToolWindowPanel.kt` 新規作成 (KDoc 付き、buildDualView / switchView / Visual・Source ToggleAction / CARD 定数)
-- [ ] flow / diagram の 2 panel から CardLayout / トグル定型を削除して基盤利用に書き換え
-- [ ] build.gradle.kts に kover クラス除外 `ui.DualViewToolWindowPanel*` を理由コメント付きで追加
-- [ ] テスト省略 (基盤クラス): 同上 Swing UI 免除。トグル相互排他はヘッドレス assert を試み、不可ならスモーク担保
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `ui/DualViewToolWindowPanel.kt` 新規作成 (KDoc 付き、buildDualView / switchView / createVisualModeAction / createSourceModeAction / CARD 定数)
+- [x] flow / diagram の 2 panel から CardLayout / トグル定型を削除して基盤利用に書き換え
+- [x] build.gradle.kts に kover クラス除外 `ui.DualViewToolWindowPanel*` を理由コメント付きで追加
+- [x] テスト省略 (基盤クラス): 同上 Swing UI 免除 (ToggleAction の isSelected は AnActionEvent が必要でヘッドレス単体 assert は不成立 → スモーク 1・2 のトグル往復で担保)
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `♻️ Add DualViewToolWindowPanel for the Visual/Source card toggle`
 
 ## セクション 4: RescriptEditorCaretTracker
