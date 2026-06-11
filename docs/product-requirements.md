@@ -95,12 +95,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | 122 | `if/match` 相互変換 intention | Intention | `if Option.isSome(x)` ⇔ `switch x { Some/None }` を Alt+Enter で相互変換 (rust-analyzer 由来) | 中 | C |
 | 123 | Structural Search and Replace | リファクタリング | `switch $x { \| Some($y) => $y \| None => $z }` のような AST ワイルドカード一括置換 (rust-analyzer 由来) | 非常に高 | C |
 
-#### リファクタリング候補
-
-| # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
-|---|------|----------|------|--------|--------|
-| 🚧 128 | Alarm → coroutines 移行 | リファクタリング | `RescriptTypeInfoPanel` の `Alarm(POOLED_THREAD)` (`@ApiStatus.Internal`) を `CoroutineScope` + `parentDisposable` ベースに置換し `@Suppress("UnstableApiUsage")` を排除 | 中〜高 | C |
-
 新規機能の提案は GitHub Issues で受け付ける。ロードマップの表記方法は `.claude/rules/roadmap-format.md` を参照。
 
 ## 4. 成功の定義

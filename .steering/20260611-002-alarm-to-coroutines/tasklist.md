@@ -48,10 +48,10 @@
 
 ## セクション 5: ドキュメント同期
 
-- [ ] `docs/product-requirements.md`: #128 を削除
-- [ ] `docs/repository-structure.md`: util/ 行に debouncer 追記、ui/ 行の Alarm 言及を調整
-- [ ] CLAUDE.md: 変更要否確認
-- [ ] sphinx-docs: 更新なしの確認のみ
+- [x] `docs/product-requirements.md`: #128 を削除。リファクタリング候補テーブルが空になったため見出しごと削除 (新規候補が出たら roadmap-format.md に従い再作成)
+- [x] `docs/repository-structure.md`: util/ 行に `RescriptCoroutineDebouncer` 追記。ui/ 行は「debounce 付き refresh」の記述で Alarm 非言及のため変更不要
+- [x] CLAUDE.md: Alarm / デバウンス機構への言及なしのため変更不要を確認
+- [x] sphinx-docs: 更新なしの確認のみ (機能不変)
 - [ ] コミット: `📝 Sync docs for Phase 4 coroutine migration`
 
 ## マージ前検証 (DoD Phase 3〜4)
