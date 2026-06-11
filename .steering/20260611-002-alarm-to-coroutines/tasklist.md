@@ -21,7 +21,7 @@
 - [x] テスト免除の記録: `RescriptCoroutineScopeService` は IDE ライフサイクル依存 (platform の scope 注入) のため免除
 - [x] kover: scope service を理由コメント付きでクラス除外に追加 (ロジックなしのホルダー)
 - [x] `./gradlew ktlintCheck test` green (新規 deprecation 警告なし)
-- [ ] コミット: `✨ Add project-scoped coroutine debouncer infrastructure`
+- [x] コミット: `✨ Add project-scoped coroutine debouncer infrastructure` (1ae2807)
 
 ## セクション 2: PanelBase の Alarm 置換
 
@@ -44,7 +44,7 @@
 - [x] typeinfo を multicaster → tracker に移行 (FileEditorManagerListener は messageBus 由来で project スコープ済みのため現状維持)
 - [x] ppx を multicaster → tracker に移行 (file 判定ロジックは不変)
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `♻️ Route Type Info and PPX caret tracking through RescriptEditorCaretTracker`
+- [x] コミット: `♻️ Route Type Info and PPX caret tracking through RescriptEditorCaretTracker` (6d59f50)
 
 ## セクション 5: ドキュメント同期
 
@@ -60,8 +60,8 @@
 - [x] `koverHtmlReport`: `RescriptCoroutineDebouncer` line 100% / branch 75%、minBound 86 維持
 - [x] `./gradlew runIde` スモーク — ユーザー確認で**全項目 OK** (Type Info のデバウンス・追従、Variant Flow / Type Impact の追従、PPX の caret 追従、クローズ/再オープンで例外なし、2 プロジェクト同時起動でクロスプロジェクト更新なし)
 - [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
-- [ ] `AskUserQuestion` でマージ可否確認
-- [ ] main へマージ → ブランチ削除 → push
+- [x] `AskUserQuestion` でマージ可否確認 (挙動変更を明示のうえ承認済み)
+- [x] main へマージ (fast-forward a10145c) → ブランチ削除 → push
 
 ## テスト免除の記載
 
