@@ -70,7 +70,7 @@ class RescriptVariantFlowPanel(
                 add(CopyAction(Format.DOT))
             },
         )
-        RescriptEditorCaretTracker.install(project, this) { scheduleRefresh() }
+        RescriptEditorCaretTracker.install(project, this) { _ -> scheduleRefresh() }
         scheduleRefresh()
     }
 

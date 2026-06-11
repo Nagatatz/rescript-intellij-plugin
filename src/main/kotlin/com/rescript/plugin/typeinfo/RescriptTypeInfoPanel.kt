@@ -6,8 +6,6 @@ import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
-import com.intellij.openapi.editor.event.CaretEvent
-import com.intellij.openapi.editor.event.CaretListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.FileEditorManagerEvent
@@ -18,6 +16,7 @@ import com.intellij.ui.EditorTextField
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.lsp.RescriptLspUtils
+import com.rescript.plugin.ui.RescriptEditorCaretTracker
 import com.rescript.plugin.util.EditorTextFieldFactory
 import com.rescript.plugin.util.RescriptCoroutineDebouncer
 import com.rescript.plugin.util.RescriptCoroutineScopeService
@@ -84,14 +83,10 @@ class RescriptTypeInfoPanel(
         // away before the project does.
         Disposer.register(parentDisposable) { debouncer.cancel() }
 
-        // Listen for caret position changes across all editors
-        val caretListener =
-            object : CaretListener {
-                override fun caretPositionChanged(event: CaretEvent) {
-                    scheduleUpdate(event.editor)
-                }
-            }
-        EditorFactory.getInstance().eventMulticaster.addCaretListener(caretListener, parentDisposable)
+        // Listen for caret position changes in this project's editors.
+        RescriptEditorCaretTracker.install(project, parentDisposable) { editor ->
+            scheduleUpdate(editor)
+        }
 
         // Listen for active file changes
         project.messageBus

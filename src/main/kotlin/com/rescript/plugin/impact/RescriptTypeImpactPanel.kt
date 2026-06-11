@@ -57,7 +57,7 @@ class RescriptTypeImpactPanel(
                 add(createRefreshAction("Re-scan references for the type under the caret"))
             },
         )
-        RescriptEditorCaretTracker.install(project, this) { scheduleRefresh() }
+        RescriptEditorCaretTracker.install(project, this) { _ -> scheduleRefresh() }
         scheduleRefresh()
     }
 

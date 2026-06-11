@@ -7,6 +7,7 @@ import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.rescript.plugin.IntelliJPlatformExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -32,9 +33,14 @@ class RescriptEditorCaretTrackerTest {
         val disposable = Disposer.newDisposable()
         try {
             var calls = 0
-            RescriptEditorCaretTracker.install(project, disposable) { calls++ }
+            var movedEditor: com.intellij.openapi.editor.Editor? = null
+            RescriptEditorCaretTracker.install(project, disposable) { e ->
+                calls++
+                movedEditor = e
+            }
             editor.caretModel.moveToOffset(3)
             assertTrue(calls >= 1, "expected at least one caret callback, got $calls")
+            assertSame(editor, movedEditor)
         } finally {
             Disposer.dispose(disposable)
             factory.releaseEditor(editor)
@@ -48,7 +54,7 @@ class RescriptEditorCaretTrackerTest {
         var editor: com.intellij.openapi.editor.Editor? = null
         try {
             var calls = 0
-            RescriptEditorCaretTracker.install(project, disposable) { calls++ }
+            RescriptEditorCaretTracker.install(project, disposable) { _ -> calls++ }
             editor = factory.createEditor(factory.createDocument("let y = 2"), project)
             val before = calls
             editor.caretModel.moveToOffset(4)
@@ -67,7 +73,7 @@ class RescriptEditorCaretTrackerTest {
         try {
             assertFalse(RescriptEditorCaretTracker.shouldTrack(editor, project))
             var calls = 0
-            RescriptEditorCaretTracker.install(project, disposable) { calls++ }
+            RescriptEditorCaretTracker.install(project, disposable) { _ -> calls++ }
             editor.caretModel.moveToOffset(2)
             assertEquals(0, calls, "project-less editors must not fire the callback")
         } finally {

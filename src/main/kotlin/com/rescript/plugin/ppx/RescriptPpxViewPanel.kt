@@ -1,16 +1,14 @@
 package com.rescript.plugin.ppx
 
 import com.intellij.openapi.Disposable
-import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.colors.EditorColorsManager
-import com.intellij.openapi.editor.event.CaretEvent
-import com.intellij.openapi.editor.event.CaretListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
+import com.rescript.plugin.ui.RescriptEditorCaretTracker
 import com.rescript.plugin.util.HtmlEditorPaneFactory
 import com.rescript.plugin.util.RescriptColorUtils
 import com.rescript.plugin.util.RescriptFileUtil
@@ -56,19 +54,13 @@ class RescriptPpxViewPanel(
         get() = mainPanel
 
     init {
-        EditorFactory.getInstance().eventMulticaster.addCaretListener(
-            object : CaretListener {
-                override fun caretPositionChanged(event: CaretEvent) {
-                    val editor = event.editor
-                    val document = editor.document
-                    val file = FileDocumentManager.getInstance().getFile(document) ?: return
-                    if (!RescriptFileUtil.isRescriptFileName(file.name)) return
-
-                    updatePpxInfo(document.text)
-                }
-            },
-            parentDisposable,
-        )
+        RescriptEditorCaretTracker.install(project, parentDisposable) { editor ->
+            val document = editor.document
+            val file = FileDocumentManager.getInstance().getFile(document)
+            if (file != null && RescriptFileUtil.isRescriptFileName(file.name)) {
+                updatePpxInfo(document.text)
+            }
+        }
     }
 
     private fun updatePpxInfo(sourceText: String) {

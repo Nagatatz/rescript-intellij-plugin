@@ -30,12 +30,12 @@ internal object RescriptEditorCaretTracker {
      *
      * @param project only editors belonging to this project are tracked
      * @param parentDisposable owner for the caret and factory listeners
-     * @param onCaretMoved callback invoked on the event thread per caret move
+     * @param onCaretMoved invoked on the event thread per caret move with the editor that moved
      */
     fun install(
         project: Project,
         parentDisposable: Disposable,
-        onCaretMoved: () -> Unit,
+        onCaretMoved: (Editor) -> Unit,
     ) {
         val editorFactory = EditorFactory.getInstance()
         for (editor in editorFactory.allEditors) {
@@ -65,13 +65,13 @@ internal object RescriptEditorCaretTracker {
         editor: Editor,
         project: Project,
         parentDisposable: Disposable,
-        onCaretMoved: () -> Unit,
+        onCaretMoved: (Editor) -> Unit,
     ) {
         if (!shouldTrack(editor, project)) return
         editor.caretModel.addCaretListener(
             object : CaretListener {
                 override fun caretPositionChanged(event: CaretEvent) {
-                    onCaretMoved()
+                    onCaretMoved(editor)
                 }
             },
             parentDisposable,

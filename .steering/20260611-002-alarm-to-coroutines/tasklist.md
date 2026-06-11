@@ -36,14 +36,14 @@
 - [x] 早期 return 経路の `debouncer.cancel()`、parentDisposable への cancel 接続 (`Disposer.register`)
 - [x] `src/main` から `com.intellij.util.Alarm` import が消えたことを grep で確認 (0 件)
 - [x] `./gradlew ktlintCheck test` green (新規 deprecation 警告なし)
-- [ ] コミット: `♻️ Replace the Type Info POOLED_THREAD Alarm with a coroutine debouncer`
+- [x] コミット: `♻️ Replace the Type Info POOLED_THREAD Alarm with a coroutine debouncer` (0bb5b7c)
 
 ## セクション 4: caret listener の tracker 統一
 
-- [ ] `RescriptEditorCaretTracker` の callback を `(Editor) -> Unit` に変更、flow / impact / tracker テストを追従
-- [ ] typeinfo を multicaster → tracker に移行 (FileEditorManagerListener は現状維持)
-- [ ] ppx を multicaster → tracker に移行
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `RescriptEditorCaretTracker` の callback を `(Editor) -> Unit` に変更、flow / impact / tracker テストを追従 (テストに「移動したエディタが渡される」assert を追加)
+- [x] typeinfo を multicaster → tracker に移行 (FileEditorManagerListener は messageBus 由来で project スコープ済みのため現状維持)
+- [x] ppx を multicaster → tracker に移行 (file 判定ロジックは不変)
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `♻️ Route Type Info and PPX caret tracking through RescriptEditorCaretTracker`
 
 ## セクション 5: ドキュメント同期
