@@ -1,5 +1,8 @@
 package com.rescript.plugin.generate
 
+import com.rescript.plugin.lang.RecordField
+import com.rescript.plugin.lang.TypeShape
+import com.rescript.plugin.lang.VariantConstructor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull

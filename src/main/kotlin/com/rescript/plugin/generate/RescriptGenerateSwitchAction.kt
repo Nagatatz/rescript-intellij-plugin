@@ -3,6 +3,9 @@ package com.rescript.plugin.generate
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.command.WriteCommandAction
+import com.rescript.plugin.lang.RescriptTypeDeclarationParser
+import com.rescript.plugin.lang.TypeShape
+import com.rescript.plugin.lang.VariantConstructor
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 
 /**

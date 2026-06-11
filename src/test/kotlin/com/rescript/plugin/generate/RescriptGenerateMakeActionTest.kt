@@ -1,6 +1,7 @@
 package com.rescript.plugin.generate
 
 import com.intellij.openapi.actionSystem.ActionUpdateThread
+import com.rescript.plugin.lang.RecordField
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

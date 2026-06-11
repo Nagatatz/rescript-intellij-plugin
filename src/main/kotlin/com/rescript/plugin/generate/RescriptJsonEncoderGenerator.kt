@@ -1,4 +1,7 @@
 package com.rescript.plugin.generate
+import com.rescript.plugin.lang.RecordField
+import com.rescript.plugin.lang.TypeShape
+import com.rescript.plugin.lang.VariantConstructor
 
 /**
  * Generates JSON encoder functions for ReScript record and variant types.

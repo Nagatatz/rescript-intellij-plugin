@@ -1,4 +1,8 @@
 package com.rescript.plugin.generate
+import com.rescript.plugin.lang.RecordField
+import com.rescript.plugin.lang.RescriptTypeDeclarationParser
+import com.rescript.plugin.lang.TypeShape
+import com.rescript.plugin.lang.VariantConstructor
 
 /**
  * Generates JSON encoder and decoder functions from ReScript type declarations.

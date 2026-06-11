@@ -1,4 +1,4 @@
-package com.rescript.plugin.generate
+package com.rescript.plugin.lang
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse

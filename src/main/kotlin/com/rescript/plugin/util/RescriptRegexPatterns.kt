@@ -9,7 +9,7 @@ package com.rescript.plugin.util
  *
  * @see com.rescript.plugin.refactor.RescriptNamesValidator
  * @see com.rescript.plugin.refactor.RescriptExtractVariableUtil
- * @see com.rescript.plugin.generate.RescriptTypeDeclarationParser
+ * @see com.rescript.plugin.lang.RescriptTypeDeclarationParser
  * @see com.rescript.plugin.lsp.RescriptLspSignatureParser
  */
 object RescriptRegexPatterns {

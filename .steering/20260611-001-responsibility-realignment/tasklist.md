@@ -26,10 +26,10 @@
 
 ## セクション 3: RescriptTypeDeclarationParser の lang/ 移動 (#130)
 
-- [ ] `git mv` で main + test を `lang/` へ移動、package 行修正
-- [ ] 参照 7 main + 2 test ファイルの import 書き換え
-- [ ] build.gradle.kts の kover 除外に当該クラスが含まれるか確認し、含まれていれば該当行を削除
-- [ ] `./gradlew ktlintCheck test koverVerify` green
+- [x] `git mv` で main + test を `lang/` へ移動、package 行修正
+- [x] import 書き換え — 実態は設計時見積りより広く、**generate パッケージ内の同一パッケージ参照に import 追加が必要**: main 7 + test 7 ファイルに `lang.{RescriptTypeDeclarationParser,TypeShape,VariantConstructor,RecordField}` を使用シンボルに応じて追加。`lsp/RescriptVariantTypeResolver` は import 切替 (lsp→generate 依存解消)、`util/RescriptRegexPatterns` は KDoc @see のみ更新 (実依存ではなかった)
+- [x] build.gradle.kts の kover 除外確認: `com.rescript.plugin.generate.*` の丸ごと除外であり個別行なし → 変更不要 (lang 移動で自動的にカバレッジ対象化)。PIT は明示クラスリスト (RescriptPaths/RescriptRegexPatterns のみ) のため影響なし
+- [x] `./gradlew ktlintCheck` green。`--tests` フィルタ付き実行では koverVerify が「フィルタ分のカバレッジしかない」状態で誤って落ちることを確認 — カバレッジ検証はフルテスト実行とセットでのみ意味を持つ (マージ前フルチェーンで実施)
 - [ ] コミット: `♻️ Move RescriptTypeDeclarationParser from generate to lang`
 
 ## セクション 4: ドキュメント同期

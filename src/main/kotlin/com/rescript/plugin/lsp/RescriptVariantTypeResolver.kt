@@ -4,9 +4,9 @@ import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.stubs.StubIndex
-import com.rescript.plugin.generate.RescriptTypeDeclarationParser
-import com.rescript.plugin.generate.TypeShape
 import com.rescript.plugin.indexing.RescriptNameIndex
+import com.rescript.plugin.lang.RescriptTypeDeclarationParser
+import com.rescript.plugin.lang.TypeShape
 import com.rescript.plugin.lang.psi.RescriptDeclarationPsiElement
 
 /**
