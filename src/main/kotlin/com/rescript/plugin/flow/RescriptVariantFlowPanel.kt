@@ -6,11 +6,6 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.editor.event.CaretEvent
-import com.intellij.openapi.editor.event.CaretListener
-import com.intellij.openapi.editor.event.EditorFactoryEvent
-import com.intellij.openapi.editor.event.EditorFactoryListener
-import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.fileEditor.TextEditor
@@ -20,6 +15,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import com.rescript.plugin.ui.DualViewToolWindowPanel
+import com.rescript.plugin.ui.RescriptEditorCaretTracker
 import com.rescript.plugin.util.HtmlEditorPaneFactory
 import java.awt.datatransfer.StringSelection
 import javax.swing.JEditorPane
@@ -74,44 +70,8 @@ class RescriptVariantFlowPanel(
                 add(CopyAction(Format.DOT))
             },
         )
-        attachEditorListeners()
+        RescriptEditorCaretTracker.install(project, this) { scheduleRefresh() }
         scheduleRefresh()
-    }
-
-    /**
-     * Subscribes to editor caret events for every existing and
-     * future ReScript editor in the project so the panel can react
-     * to caret motion without holding strong references to specific
-     * files.
-     */
-    private fun attachEditorListeners() {
-        val editorFactory =
-            com.intellij.openapi.editor.EditorFactory
-                .getInstance()
-        for (editor in editorFactory.allEditors) {
-            attachCaretListener(editor)
-        }
-        editorFactory.addEditorFactoryListener(
-            object : EditorFactoryListener {
-                override fun editorCreated(event: EditorFactoryEvent) {
-                    attachCaretListener(event.editor)
-                }
-            },
-            this,
-        )
-    }
-
-    private fun attachCaretListener(editor: com.intellij.openapi.editor.Editor) {
-        if (editor.project != project) return
-        if (editor !is EditorEx) return
-        editor.caretModel.addCaretListener(
-            object : CaretListener {
-                override fun caretPositionChanged(event: CaretEvent) {
-                    scheduleRefresh()
-                }
-            },
-            this,
-        )
     }
 
     override fun doRefresh() {

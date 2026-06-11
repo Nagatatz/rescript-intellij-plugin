@@ -2,10 +2,6 @@ package com.rescript.plugin.impact
 
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.editor.event.CaretEvent
-import com.intellij.openapi.editor.event.CaretListener
-import com.intellij.openapi.editor.event.EditorFactoryEvent
-import com.intellij.openapi.editor.event.EditorFactoryListener
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.fileEditor.TextEditor
@@ -17,6 +13,7 @@ import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
+import com.rescript.plugin.ui.RescriptEditorCaretTracker
 import com.rescript.plugin.ui.RescriptToolWindowPanelBase
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
@@ -60,35 +57,8 @@ class RescriptTypeImpactPanel(
                 add(createRefreshAction("Re-scan references for the type under the caret"))
             },
         )
-        attachEditorListeners()
+        RescriptEditorCaretTracker.install(project, this) { scheduleRefresh() }
         scheduleRefresh()
-    }
-
-    private fun attachEditorListeners() {
-        val editorFactory =
-            com.intellij.openapi.editor.EditorFactory
-                .getInstance()
-        for (editor in editorFactory.allEditors) attachCaretListener(editor)
-        editorFactory.addEditorFactoryListener(
-            object : EditorFactoryListener {
-                override fun editorCreated(event: EditorFactoryEvent) {
-                    attachCaretListener(event.editor)
-                }
-            },
-            this,
-        )
-    }
-
-    private fun attachCaretListener(editor: com.intellij.openapi.editor.Editor) {
-        if (editor.project != project) return
-        editor.caretModel.addCaretListener(
-            object : CaretListener {
-                override fun caretPositionChanged(event: CaretEvent) {
-                    scheduleRefresh()
-                }
-            },
-            this,
-        )
     }
 
     override fun doRefresh() {

@@ -37,15 +37,15 @@
 - [x] build.gradle.kts に kover クラス除外 `ui.DualViewToolWindowPanel*` を理由コメント付きで追加
 - [x] テスト省略 (基盤クラス): 同上 Swing UI 免除 (ToggleAction の isSelected は AnActionEvent が必要でヘッドレス単体 assert は不成立 → スモーク 1・2 のトグル往復で担保)
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `♻️ Add DualViewToolWindowPanel for the Visual/Source card toggle`
+- [x] コミット: `♻️ Add DualViewToolWindowPanel for the Visual/Source card toggle` (8eb304d)
 
 ## セクション 4: RescriptEditorCaretTracker
 
-- [ ] `ui/RescriptEditorCaretTracker.kt` 新規作成 (KDoc 付き、install / shouldTrack)
-- [ ] `ui/RescriptEditorCaretTrackerTest.kt` 新規作成 (fixture でエディタ作成 → caret 移動 → callback 発火、不可なら shouldTrack 述語テスト + 免除理由記載)
-- [ ] flow / impact の attachEditorListeners / attachCaretListener を置換 (flow の不活性 EditorEx ガードは削除)
-- [ ] typeinfo / ppx の multicaster 統一はスモーク観察後に判断 (統一しない場合は残課題として記録)
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `ui/RescriptEditorCaretTracker.kt` 新規作成 (KDoc 付き、install / shouldTrack)
+- [x] `ui/RescriptEditorCaretTrackerTest.kt` 新規作成 (fixture でエディタ作成 → caret 移動 → callback 発火 / 後から作られたエディタの追跡 / project なしエディタの除外、の 4 ケース — install 経路を実フィクスチャで検証できたため免除不要)
+- [x] flow / impact の attachEditorListeners / attachCaretListener を置換 (flow の不活性 EditorEx ガードは削除 — listener 本体が EditorEx API 非依存のため)
+- [x] typeinfo / ppx の multicaster 統一: **本フェーズでは統一せず現状維持で確定**。multicaster 方式は全 project のイベントを受けて callback 内で project フィルタする別セマンティクスであり、観察だけで等価性を保証できない。typeinfo は Phase 4 (Alarm 置換) で必ず触るため、そこで再評価する
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `♻️ Extract RescriptEditorCaretTracker for caret-driven panels`
 
 ## セクション 5: ドキュメント同期
