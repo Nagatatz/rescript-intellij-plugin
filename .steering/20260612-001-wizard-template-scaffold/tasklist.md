@@ -7,16 +7,16 @@
 ## セクション 0: セットアップ
 
 - [x] go/no-go 調査 (sonnet ×3 並列) + Fable 判定「go (scaffold 形式)」+ ユーザー承認 (2026-06-12)
-- [ ] `git fetch origin` + main の ahead/behind 確認
-- [ ] `EnterWorktree` で worktree 作成、編集パス確認
-- [ ] `docs/product-requirements.md` に #131 (wizard scaffold 化) を 🚧 付きで追補 (最初のコミットに含める)
+- [x] `git fetch origin` + main の ahead/behind 確認 (0/0)
+- [x] `EnterWorktree` で worktree 作成、編集パス確認
+- [x] `docs/product-requirements.md` に #131 (wizard scaffold 化) を 🚧 付きで追補 (最初のコミットに含める)
 
 ## セクション 1: golden テスト整備 (opus subagent → Fable 検収)
 
-- [ ] `TemplateGoldenTest.kt` + golden 生成モードの実装 (design.md の ctx マトリクス ~74 combo)
-- [ ] golden ファイル群を `src/test/testData/wizard-golden/` に生成・コミット
-- [ ] 2 回連続実行で golden が揺れないことを確認 (非決定値の排除確認)
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `TemplateGoldenTest.kt` + golden 生成モードの実装 (74 combo: 22×2 PM + 18 sury + 5×2 DB + graphql + npm-workspace。opus 実装、enum プロパティからマトリクスをプログラム的に構築)
+- [x] golden ファイル群 74 件を `src/test/testData/wizard-golden/` に生成
+- [x] 2 回連続実行 + Fable 検収再実行で golden 不変を確認 (year は 2026 固定、他の非決定値なしを grep 確認)
+- [x] `./gradlew ktlintCheck test` green
 - [ ] コミット: `✅ Add golden characterization tests for all 22 wizard templates`
 
 ## セクション 2: scaffold 基盤 (Fable 実装)
