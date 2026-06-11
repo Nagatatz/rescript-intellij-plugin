@@ -50,10 +50,10 @@
 
 ## セクション 5: ドキュメント同期
 
-- [ ] `docs/repository-structure.md` に `ui/` パッケージ行を追加
-- [ ] `docs/product-requirements.md` の #124 / #125 / #127 を将来機能テーブルから削除
-- [ ] CLAUDE.md: 変更要否を確認 (実装クラス名不変のため原則不要)
-- [ ] sphinx-docs: 更新なしの確認のみ (機能不変)
+- [x] `docs/repository-structure.md` に `ui/` パッケージ行を追加
+- [x] `docs/product-requirements.md` の #124 / #125 / #127 を将来機能テーブルから削除 (リファクタリング候補は残り #128 のみ)
+- [x] CLAUDE.md: 変更不要を確認 — レイヤー 3 の Variant Flow / Module Dependency 記述は機能説明でクラス名・挙動とも不変
+- [x] sphinx-docs: 更新なしの確認のみ (機能不変)
 - [ ] コミット: `📝 Sync docs for Phase 2 ui foundation`
 
 ## マージ前検証 (DoD Phase 3〜4)
