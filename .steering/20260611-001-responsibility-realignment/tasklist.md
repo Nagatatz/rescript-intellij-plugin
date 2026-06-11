@@ -38,15 +38,21 @@
 - [x] CLAUDE.md: Add Missing Switch Arms 段落の `RescriptLspUtils.parseVariantConstructors` を `RescriptLspSignatureParser.parseVariantConstructors` に更新 (facade 解体の追従)。`RescriptTypeDeclarationParser` 言及はパッケージ非依存のため変更不要
 - [x] `docs/product-requirements.md`: #129 / #130 を削除 (リファクタリング候補は残り #128 のみ)
 - [x] sphinx-docs: 更新なしの確認のみ (機能不変)
-- [ ] コミット: `📝 Sync docs for Phase 3 responsibility realignment`
+- [x] コミット: `📝 Sync docs for Phase 3 responsibility realignment` (02d9861)
 
 ## マージ前検証 (DoD Phase 3〜4)
 
-- [ ] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green (minBound 86 維持)
-- [ ] `koverHtmlReport` で `lang/RescriptTypeDeclarationParser` のカバレッジ実測確認
-- [ ] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
+- [x] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green。build cache 由来の短絡を疑い `test --rerun` でフルスイートの実実行 (1m17s) も確認 — green
+- [x] `koverHtmlReport` で実測: `lang/RescriptTypeDeclarationParser` line 96.2% / branch 81.8%、総合 minBound 86 維持 (koverVerify 通過)
+- [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
 - [ ] `AskUserQuestion` でマージ可否確認
 - [ ] main へマージ → ブランチ削除 → push
+
+## セクション 2 コミット記録
+
+- セクション 0+1: `📝 Register roadmap items 129-130 and cancel dead-code deletion` (bb291a0)
+- セクション 2: `♻️ Dissolve RescriptLspUtils parse facade into direct parser references` (a0d60f5)
+- セクション 3: `♻️ Move RescriptTypeDeclarationParser from generate to lang` (直前コミット参照)
 
 ## テスト免除の記載
 
