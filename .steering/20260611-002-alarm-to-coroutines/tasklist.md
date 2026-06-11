@@ -5,19 +5,22 @@
 
 ## セクション 0: セットアップ
 
-- [ ] `git fetch origin` + main の ahead/behind 確認
-- [ ] `EnterWorktree` で worktree 作成、`pwd` / `git rev-parse --show-toplevel` で編集パス確認
-- [ ] `docs/product-requirements.md` の #128 に 🚧 (最初のコミットに含める)
-- [ ] **`Dispatchers.EDT` と light service の CoroutineScope 注入が deprecated / `@ApiStatus.Internal` でないことをソース jar で確認し、結果をここに記録** (NG なら設計を見直してから進む)
+- [x] `git fetch origin` + main の ahead/behind 確認 (0/0)
+- [x] `EnterWorktree` で worktree 作成、`pwd` / `git rev-parse --show-toplevel` で編集パス確認
+- [x] `docs/product-requirements.md` の #128 に 🚧 (最初のコミットに含める)
+- [x] **API 安定性確認の記録** (2026.1.2 の `intellij.platform.core.jar` を javap で検査 + intellij-community 261 ブランチのソース照合):
+  - `Dispatchers.EDT` の getter (`CoroutinesKt.getEDT`) に JVM Deprecated 属性・`@ApiStatus.Internal`/`Experimental` **なし**。261 ブランチの `coroutines.kt` でも EDT は無 annotation (KDoc は「Platform model に触る EDT 作業はこれを使う」)。property-annotation holder (`getEDT$annotations`) にのみ Deprecated 属性が残るが (2025.2 で deprecate → 撤回された経緯の残骸)、Plugin Verifier が見る getter 呼び出しは無印。**コンパイル時の deprecation 警告ゼロを各セクションの確認項目に追加**して EDT を採用
+  - `Dispatchers.UiWithModelAccess` は `@get:Internal`、`EdtImmediate` 等は `@get:Experimental` のため**不採用**
+  - light service の `CoroutineScope` コンストラクタ注入は Platform 公式パターン (annotation なし) — 採用
 
 ## セクション 1: coroutine 基盤 (util/)
 
-- [ ] `util/RescriptCoroutineScopeService.kt` 新規 (KDoc 付き)
-- [ ] `util/RescriptCoroutineDebouncer.kt` 新規 (KDoc 付き)
-- [ ] `util/RescriptCoroutineDebouncerTest.kt` 新規 (発火 / cancel-and-restart / cancel 後不発火)
-- [ ] テスト免除の記録: `RescriptCoroutineScopeService` は IDE ライフサイクル依存 (platform の scope 注入) のため免除
-- [ ] kover: scope service のクラス除外要否を確認 (util は対象パッケージ)
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `util/RescriptCoroutineScopeService.kt` 新規 (KDoc 付き)
+- [x] `util/RescriptCoroutineDebouncer.kt` 新規 (KDoc 付き)
+- [x] `util/RescriptCoroutineDebouncerTest.kt` 新規 (発火 / cancel-and-restart で最後の 1 件のみ / cancel 後不発火 / scope cancel で不発火 — coroutines-test 依存を増やさず実 dispatcher + CountDownLatch 方式)
+- [x] テスト免除の記録: `RescriptCoroutineScopeService` は IDE ライフサイクル依存 (platform の scope 注入) のため免除
+- [x] kover: scope service を理由コメント付きでクラス除外に追加 (ロジックなしのホルダー)
+- [x] `./gradlew ktlintCheck test` green (新規 deprecation 警告なし)
 - [ ] コミット: `✨ Add project-scoped coroutine debouncer infrastructure`
 
 ## セクション 2: PanelBase の Alarm 置換

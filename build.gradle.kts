@@ -357,6 +357,10 @@ kover {
                     // performs reflection-level smoke and contributes 0 line
                     // coverage by design.
                     "com.rescript.plugin.util.RescriptEditorUtils*",
+                    // Logic-free holder for the platform-injected project
+                    // CoroutineScope; only the IDE container exercises its
+                    // constructor (testing.md IDE-lifecycle exemption).
+                    "com.rescript.plugin.util.RescriptCoroutineScopeService*",
                     // InlayHintsProvider extension point + LSP-driven hover
                     // resolver; both need a live IDE inlay session to execute,
                     // which the unit-test fixture cannot drive.
