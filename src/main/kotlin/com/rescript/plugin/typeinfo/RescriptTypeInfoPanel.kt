@@ -3,6 +3,7 @@ package com.rescript.plugin.typeinfo
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ModalityState
+import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.event.CaretEvent
@@ -12,13 +13,16 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.FileEditorManagerEvent
 import com.intellij.openapi.fileEditor.FileEditorManagerListener
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Disposer
 import com.intellij.ui.EditorTextField
-import com.intellij.util.Alarm
 import com.intellij.util.ui.JBUI
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.lsp.RescriptLspUtils
 import com.rescript.plugin.util.EditorTextFieldFactory
+import com.rescript.plugin.util.RescriptCoroutineDebouncer
+import com.rescript.plugin.util.RescriptCoroutineScopeService
 import com.rescript.plugin.util.RescriptFileUtil
+import kotlinx.coroutines.Dispatchers
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -60,22 +64,25 @@ class RescriptTypeInfoPanel(
             }
         }
 
-    // UnstableApiUsage: Alarm(ThreadToUse.POOLED_THREAD).
-    // Reviewed 2026-05-19 against IntelliJ Platform 2026.1.2. The enum
-    // value is annotated @ApiStatus.Internal, but the simple "cancel +
-    // re-schedule" debounce pattern used here has no straightforward
-    // replacement in 2026.1.x; migrating to coroutines would force a
-    // different lifecycle model (CoroutineScope tied to the parent
-    // Disposable) and is out of scope for this maintenance pass.
-    // Re-evaluate on the next major platform bump.
-    @Suppress("UnstableApiUsage")
-    private val alarm = Alarm(Alarm.ThreadToUse.POOLED_THREAD, parentDisposable)
+    // Background debounce for LSP hover queries; Dispatchers.Default
+    // matches the old Alarm(POOLED_THREAD) threading. Pending work dies
+    // with the project scope, and earlier with parentDisposable below.
+    private val debouncer =
+        RescriptCoroutineDebouncer(
+            project.service<RescriptCoroutineScopeService>().scope,
+            DEBOUNCE_MS,
+            Dispatchers.Default,
+        )
 
     val component: JComponent
         get() = mainPanel
 
     init {
         mainPanel.add(typeField, BorderLayout.NORTH)
+
+        // Drop any pending hover query when the tool window content goes
+        // away before the project does.
+        Disposer.register(parentDisposable) { debouncer.cancel() }
 
         // Listen for caret position changes across all editors
         val caretListener =
@@ -122,7 +129,7 @@ class RescriptTypeInfoPanel(
      * @param editor the editor whose caret position changed
      */
     private fun scheduleUpdate(editor: Editor) {
-        alarm.cancelAllRequests()
+        debouncer.cancel()
 
         // Capture offset and file on EDT before scheduling background work.
         // Caret model access requires EDT or read action — capturing here avoids
@@ -134,10 +141,10 @@ class RescriptTypeInfoPanel(
             return
         }
 
-        alarm.addRequest({
+        debouncer.schedule {
             val typeText = RescriptLspUtils.getHoverType(project, file, offset)
             showMessage(typeText ?: NO_TYPE)
-        }, DEBOUNCE_MS)
+        }
     }
 
     private fun showMessage(text: String) {
@@ -147,7 +154,7 @@ class RescriptTypeInfoPanel(
     }
 
     companion object {
-        private const val DEBOUNCE_MS = 300
+        private const val DEBOUNCE_MS = 300L
         private const val NO_RESCRIPT_FILE = "No ReScript file selected"
         private const val NO_TYPE = "No type information"
     }

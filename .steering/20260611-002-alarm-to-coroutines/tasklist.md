@@ -28,14 +28,14 @@
 - [x] `RescriptToolWindowPanelBase` のコンストラクタに `project` 追加、Alarm → debouncer (Dispatchers.EDT)、dispose で cancel
 - [x] `DualViewToolWindowPanel` + 5 panel (flow / diagram / coverage / impact / interop) の super 呼び出しを追従
 - [x] `./gradlew ktlintCheck test` green (新規 deprecation 警告なし — `Dispatchers.EDT` 採用の安全性を裏付け)
-- [ ] コミット: `♻️ Replace the panel base Alarm debounce with coroutines`
+- [x] コミット: `♻️ Replace the panel base Alarm debounce with coroutines` (a433bd8)
 
 ## セクション 3: TypeInfoPanel の Alarm 置換 (#128 本体)
 
-- [ ] `Alarm(POOLED_THREAD)` + `@Suppress("UnstableApiUsage")` + 理由コメントを削除し debouncer (Dispatchers.Default) に置換
-- [ ] 早期 return 経路の `debouncer.cancel()`、parentDisposable への cancel 接続
-- [ ] `src/main` から `com.intellij.util.Alarm` import が消えたことを grep で確認
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `Alarm(POOLED_THREAD)` + `@Suppress("UnstableApiUsage")` + 理由コメントを削除し debouncer (Dispatchers.Default) に置換
+- [x] 早期 return 経路の `debouncer.cancel()`、parentDisposable への cancel 接続 (`Disposer.register`)
+- [x] `src/main` から `com.intellij.util.Alarm` import が消えたことを grep で確認 (0 件)
+- [x] `./gradlew ktlintCheck test` green (新規 deprecation 警告なし)
 - [ ] コミット: `♻️ Replace the Type Info POOLED_THREAD Alarm with a coroutine debouncer`
 
 ## セクション 4: caret listener の tracker 統一
