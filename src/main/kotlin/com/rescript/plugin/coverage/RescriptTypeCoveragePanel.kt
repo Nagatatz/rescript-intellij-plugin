@@ -33,7 +33,7 @@ import javax.swing.table.TableRowSorter
  */
 class RescriptTypeCoveragePanel(
     private val project: Project,
-) : RescriptToolWindowPanelBase(TOOLBAR_PLACE) {
+) : RescriptToolWindowPanelBase(project, TOOLBAR_PLACE) {
     private val tableModel = CoverageTableModel()
     private val table: JBTable =
         JBTable(tableModel).apply {

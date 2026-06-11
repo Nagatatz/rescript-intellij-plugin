@@ -25,9 +25,9 @@
 
 ## セクション 2: PanelBase の Alarm 置換
 
-- [ ] `RescriptToolWindowPanelBase` のコンストラクタに `project` 追加、Alarm → debouncer (Dispatchers.EDT)、dispose で cancel
-- [ ] `DualViewToolWindowPanel` + 5 panel (flow / diagram / coverage / impact / interop) の super 呼び出しを追従
-- [ ] `./gradlew ktlintCheck test` green
+- [x] `RescriptToolWindowPanelBase` のコンストラクタに `project` 追加、Alarm → debouncer (Dispatchers.EDT)、dispose で cancel
+- [x] `DualViewToolWindowPanel` + 5 panel (flow / diagram / coverage / impact / interop) の super 呼び出しを追従
+- [x] `./gradlew ktlintCheck test` green (新規 deprecation 警告なし — `Dispatchers.EDT` 採用の安全性を裏付け)
 - [ ] コミット: `♻️ Replace the panel base Alarm debounce with coroutines`
 
 ## セクション 3: TypeInfoPanel の Alarm 置換 (#128 本体)

@@ -33,7 +33,7 @@ import javax.swing.JList
  */
 class RescriptTypeImpactPanel(
     private val project: Project,
-) : RescriptToolWindowPanelBase(TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
+) : RescriptToolWindowPanelBase(project, TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
     private val listModel = DefaultListModel<ReferenceEntry>()
     private val list: JBList<ReferenceEntry> =
         JBList(listModel).apply {

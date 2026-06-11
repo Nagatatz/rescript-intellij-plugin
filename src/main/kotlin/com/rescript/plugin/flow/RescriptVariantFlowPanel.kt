@@ -33,7 +33,7 @@ import javax.swing.JEditorPane
  */
 class RescriptVariantFlowPanel(
     private val project: Project,
-) : DualViewToolWindowPanel(TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
+) : DualViewToolWindowPanel(project, TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
     /**
      * Read-only HTML pane displaying the Mermaid source. The HTML
      * payload is produced by [MermaidSourceColorizer] so keywords,

@@ -4,6 +4,7 @@ import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.ToggleAction
+import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBScrollPane
 import java.awt.CardLayout
 import javax.swing.JComponent
@@ -21,9 +22,10 @@ import javax.swing.JPanel
  * toolbar group. The visual card is selected initially.
  */
 abstract class DualViewToolWindowPanel(
+    project: Project,
     toolbarPlace: String,
     debounceMs: Int = 0,
-) : RescriptToolWindowPanelBase(toolbarPlace, debounceMs) {
+) : RescriptToolWindowPanelBase(project, toolbarPlace, debounceMs) {
     private val viewCards: CardLayout = CardLayout()
 
     private val viewSwitcher: JPanel = JPanel(viewCards)

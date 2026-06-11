@@ -7,9 +7,14 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
+import com.intellij.openapi.application.EDT
+import com.intellij.openapi.components.service
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.components.JBLabel
-import com.intellij.util.Alarm
+import com.rescript.plugin.util.RescriptCoroutineDebouncer
+import com.rescript.plugin.util.RescriptCoroutineScopeService
+import kotlinx.coroutines.Dispatchers
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -21,27 +26,33 @@ import javax.swing.JPanel
  * Extends [SimpleToolWindowPanel] with the layout and refresh plumbing
  * every panel used to repeat: a status label docked under the centre
  * component, an [ActionManager]-built toolbar wired to `this`, a
- * standard Refresh action, and an optional [Alarm]-based debounce in
- * front of [doRefresh]. Subclasses build their action group (keeping
- * control over separators and extra actions) and call [installUi] from
- * their `init`.
- *
- * The debounce deliberately stays on [Alarm] for now so behaviour is
- * unchanged; migrating it to coroutines is roadmap #128 and will touch
- * only this class.
+ * standard Refresh action, and an optional coroutine debounce in front
+ * of [doRefresh] (dispatched on [Dispatchers.EDT], matching the old
+ * `Alarm(SWING_THREAD)` behaviour). Subclasses build their action group
+ * (keeping control over separators and extra actions) and call
+ * [installUi] from their `init`.
  */
 abstract class RescriptToolWindowPanelBase(
+    project: Project,
     private val toolbarPlace: String,
-    private val debounceMs: Int = 0,
+    debounceMs: Int = 0,
 ) : SimpleToolWindowPanel(true, true),
     Disposable {
     /** Status line shown beneath the centre component. */
     protected val statusLabel: JBLabel = JBLabel(" ")
 
-    // Registered as a child disposable of the panel, so it tears down
-    // automatically when the tool window content is disposed.
-    private val refreshAlarm: Alarm? =
-        if (debounceMs > 0) Alarm(Alarm.ThreadToUse.SWING_THREAD, this) else null
+    // Pending work dies with the project scope; dispose() additionally
+    // drops it when the tool window content goes away first.
+    private val debouncer: RescriptCoroutineDebouncer? =
+        if (debounceMs > 0) {
+            RescriptCoroutineDebouncer(
+                project.service<RescriptCoroutineScopeService>().scope,
+                debounceMs.toLong(),
+                Dispatchers.EDT,
+            )
+        } else {
+            null
+        }
 
     /**
      * Installs the shared panel chrome: [center] above [statusLabel]
@@ -68,19 +79,12 @@ abstract class RescriptToolWindowPanelBase(
 
     /**
      * Requests a refresh. With a positive debounce the pending request
-     * is cancelled and re-armed ([Alarm] cancel-and-restart); with no
-     * debounce [doRefresh] runs immediately on the calling thread,
-     * matching the panels that refreshed directly before this base
-     * class existed.
+     * is cancelled and re-armed; with no debounce [doRefresh] runs
+     * immediately on the calling thread, matching the panels that
+     * refreshed directly before this base class existed.
      */
     protected fun scheduleRefresh() {
-        val alarm = refreshAlarm
-        if (alarm == null) {
-            doRefresh()
-        } else {
-            alarm.cancelAllRequests()
-            alarm.addRequest({ doRefresh() }, debounceMs)
-        }
+        debouncer?.schedule { doRefresh() } ?: doRefresh()
     }
 
     /** Rebuilds the panel's content from the current project state. */
@@ -102,7 +106,8 @@ abstract class RescriptToolWindowPanelBase(
         }
 
     override fun dispose() {
-        // The Alarm (when present) is a child disposable of this panel;
-        // subclasses with extra resources override and call super.
+        // Drop any pending refresh; subclasses with extra resources
+        // override and call super.
+        debouncer?.cancel()
     }
 }

@@ -32,7 +32,7 @@ import javax.swing.ListCellRenderer
  */
 class RescriptInteropRiskPanel(
     private val project: Project,
-) : RescriptToolWindowPanelBase(TOOLBAR_PLACE) {
+) : RescriptToolWindowPanelBase(project, TOOLBAR_PLACE) {
     private val listModel = DefaultListModel<InteropEntry>()
     private val list: JBList<InteropEntry> =
         JBList(listModel).apply {

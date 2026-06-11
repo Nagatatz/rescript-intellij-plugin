@@ -22,7 +22,7 @@ import javax.swing.JEditorPane
  */
 class RescriptDependencyDiagramPanel(
     private val project: Project,
-) : DualViewToolWindowPanel(TOOLBAR_PLACE) {
+) : DualViewToolWindowPanel(project, TOOLBAR_PLACE) {
     /**
      * Read-only HTML pane displaying the Mermaid source. The HTML
      * payload is produced by [MermaidSourceColorizer] so keywords,
