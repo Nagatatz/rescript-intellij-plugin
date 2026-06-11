@@ -2,7 +2,6 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
-import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates files for the CLI Tool template.
@@ -33,96 +32,77 @@ internal object CliToolTemplateFiles {
                 "cmdBuild" to ctx.runCmd("build"),
                 "projectName" to ctx.projectName,
             )
-        val variantKey = ctx.validationLibrary.variantKey()
-        return mapOf(
-            "rescript.json" to
-                ProjectFileBuilders.rescriptJson(
-                    name = ctx.projectName,
-                    bsDependencies = listOf("@rescript/core") + ctx.validationBsDeps(),
-                ),
-            "package.json" to
-                ProjectFileBuilders.packageJson(
-                    name = ctx.projectName,
-                    type = "module",
-                    // Object form so projects can expose multiple executables later
-                    // (e.g. add a sibling entry and a new bin/<name>.mjs wrapper).
-                    bin = linkedMapOf(ctx.projectName to "./bin/cli.mjs"),
-                    packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to ctx.nodeEngine),
-                    dependencies = cliToolDependencies(ctx.validationLibrary),
-                    devDependencies =
-                        linkedMapOf(
-                            "vitest" to TemplateVersions.VITEST,
-                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
-                        ),
-                    scripts =
-                        linkedMapOf(
-                            "build" to "rescript",
-                            "start" to "node bin/cli.mjs",
-                            "test" to "vitest run",
-                            "test:coverage" to "vitest run --coverage",
-                            "res:build" to "rescript",
-                            "res:clean" to "rescript clean",
-                            "res:dev" to "rescript -w",
-                        ),
-                ),
-            "bin/cli.mjs" to TemplateResourceLoader.load("$RESOURCE_ROOT/bin/cli.mjs", projectVars),
-            "src/Args.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Args.res"),
-            "src/Cli.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Cli.res", projectVars),
-            "src/Commands.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Commands.res", projectVars),
-            "src/Validation.res" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
-            "src/__tests__/Args.test.mjs" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Args.test.mjs"),
-            "README.md" to
-                CommonFiles.readme(
-                    ctx = ctx,
-                    description =
-                        "A ReScript CLI with a subcommand dispatcher, flag parsing helpers, " +
-                            "runtime option validation via ${ctx.validationLibrary.displayName}, " +
-                            "and Vitest coverage — ready to extend with new commands.",
-                    scripts =
-                        listOf(
-                            "build" to "Compile ReScript sources",
-                            "start" to "Run the CLI once",
-                            "test" to "Run Vitest",
-                            "res:dev" to "Watch ReScript sources",
-                        ),
-                    extraSections =
-                        listOf(
-                            "Usage" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/usage.md", readmeVars),
-                            "Project Layout" to
-                                TemplateResourceLoader.load(
-                                    "$RESOURCE_ROOT/readme/project-layout.md",
-                                    mapOf("validationLibrary" to ctx.validationLibrary.displayName),
-                                ),
-                            "Install Locally" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/install-locally.md", installVars),
-                        ),
-                ),
-            ".nvmrc" to CommonFiles.nvmrc(ctx),
-            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
-            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to CommonFiles.gitignore(),
-            ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
-        )
+        val readme =
+            CommonFiles.readme(
+                ctx = ctx,
+                description =
+                    "A ReScript CLI with a subcommand dispatcher, flag parsing helpers, " +
+                        "runtime option validation via ${ctx.validationLibrary.displayName}, " +
+                        "and Vitest coverage — ready to extend with new commands.",
+                scripts =
+                    listOf(
+                        "build" to "Compile ReScript sources",
+                        "start" to "Run the CLI once",
+                        "test" to "Run Vitest",
+                        "res:dev" to "Watch ReScript sources",
+                    ),
+                extraSections =
+                    listOf(
+                        "Usage" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/usage.md", readmeVars),
+                        "Project Layout" to
+                            TemplateResourceLoader.load(
+                                "$RESOURCE_ROOT/readme/project-layout.md",
+                                mapOf("validationLibrary" to ctx.validationLibrary.displayName),
+                            ),
+                        "Install Locally" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/install-locally.md", installVars),
+                    ),
+            )
+        val files = linkedMapOf<String, String>()
+        files["rescript.json"] =
+            ProjectFileBuilders.rescriptJson(
+                name = ctx.projectName,
+                bsDependencies = listOf("@rescript/core") + ctx.validationBsDeps(),
+            )
+        files["package.json"] =
+            ProjectFileBuilders.packageJson(
+                name = ctx.projectName,
+                type = "module",
+                // Object form so projects can expose multiple executables later
+                // (e.g. add a sibling entry and a new bin/<name>.mjs wrapper).
+                bin = linkedMapOf(ctx.projectName to "./bin/cli.mjs"),
+                packageManager = ctx.packageManagerSpec(),
+                engines = mapOf("node" to ctx.nodeEngine),
+                dependencies = TemplateScaffold.standardDependencies(ctx),
+                devDependencies =
+                    linkedMapOf(
+                        "vitest" to TemplateVersions.VITEST,
+                        "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                    ),
+                scripts =
+                    linkedMapOf(
+                        "build" to "rescript",
+                        "start" to "node bin/cli.mjs",
+                        "test" to "vitest run",
+                        "test:coverage" to "vitest run --coverage",
+                        "res:build" to "rescript",
+                        "res:clean" to "rescript clean",
+                        "res:dev" to "rescript -w",
+                    ),
+            )
+        files["bin/cli.mjs"] = TemplateResourceLoader.load("$RESOURCE_ROOT/bin/cli.mjs", projectVars)
+        files["src/Args.res"] = TemplateResourceLoader.load("$RESOURCE_ROOT/src/Args.res")
+        files["src/Cli.res"] = TemplateResourceLoader.load("$RESOURCE_ROOT/src/Cli.res", projectVars)
+        files["src/Commands.res"] = TemplateResourceLoader.load("$RESOURCE_ROOT/src/Commands.res", projectVars)
+        files += TemplateScaffold.validationVariant(ctx, RESOURCE_ROOT)
+        files["src/__tests__/Args.test.mjs"] =
+            TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Args.test.mjs")
+        files.putAll(TemplateScaffold.commonTail(ctx, readme = readme, ciHasBuild = true, ciHasTest = true))
+        return files
     }
 
     /**
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
-
-    private fun cliToolDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
-        val deps = linkedMapOf<String, String>()
-        deps["rescript"] = TemplateVersions.RESCRIPT
-        deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
-        deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
-        when (validationLibrary) {
-            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
-            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
-        }
-        return deps
-    }
 }

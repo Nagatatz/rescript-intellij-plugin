@@ -25,13 +25,13 @@
 - [x] 書き出し順依存なしを確認: 消費側は RescriptProjectGenerator → RescriptModuleBuilder の VFS 書き込みのみで、Map 順序は成果物に影響しない。golden もソート比較
 - [x] `TemplateScaffoldTest.kt` 単体テスト (tail キー順 / フラグ転送 / リソース解決 / variant / 依存切替の 6 ケース)
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `✨ Add TemplateScaffold shared frame for wizard templates`
+- [x] コミット: `✨ Add TemplateScaffold shared frame for wizard templates`
 
 ## セクション 3: バッチ A 移行 (sonnet subagent → Fable 検収)
 
-- [ ] basic / vite-react / electron / cli-tool / npm-library / react-native を scaffold 化
-- [ ] golden テスト + 既存 *TemplateFilesTest 無変更 green
-- [ ] Fable diff レビュー
+- [x] basic / vite-react / electron / cli-tool / npm-library / react-native を scaffold 化 (sonnet。+479/-551。cli-tool の vars 混在 load と react 系の依存順は適切に個別残し)
+- [x] golden テスト + 既存 *TemplateFilesTest 無変更 green (Fable 再実行で確認)
+- [x] Fable diff レビュー (BasicTemplateFiles 代表確認 + golden 0 差分)
 - [ ] コミット: `♻️ Migrate batch A templates to TemplateScaffold`
 
 ## セクション 4: バッチ B 移行 (sonnet subagent → Fable 検収)
