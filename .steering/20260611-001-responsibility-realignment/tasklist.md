@@ -5,17 +5,15 @@
 
 ## セクション 0: セットアップ
 
-- [ ] `git fetch origin` + main の ahead/behind 確認
-- [ ] `EnterWorktree` で worktree 作成、`pwd` / `git rev-parse --show-toplevel` で編集パス確認
-- [ ] `docs/product-requirements.md` に #129 / #130 を 🚧 付きで追補 (最初のコミットに含める)
+- [x] `git fetch origin` + main の ahead/behind 確認 (0/0)
+- [x] `EnterWorktree` で worktree 作成、`pwd` / `git rev-parse --show-toplevel` で編集パス確認
+- [x] `docs/product-requirements.md` に #129 / #130 を 🚧 付きで追補 (B 優先度のため #128 (C) より上に配置)
 
-## セクション 1: dead code 削除
+## セクション 1: dead code 削除 → **中止 (実装時判断)**
 
-- [ ] 削除直前に grep で `IntelliJPlatformExtensionWithContentRoot` の参照 0 を再確認
-- [ ] `src/test/kotlin/com/rescript/plugin/IntelliJPlatformExtensionWithContentRoot.kt` を削除
-- [ ] `docs/repository-structure.md` §2.2 の heavy fixture 言及を削除
-- [ ] `./gradlew test` green
-- [ ] コミット: `🗑️ Remove unused IntelliJPlatformExtensionWithContentRoot test fixture`
+- [x] 削除直前の grep で**新事実を発見**: コード参照は 0 だが、`docs/good-first-issues.md` Issue #9 (Phase 0 で v1-followups からマージ、2026-06-10) が「`RescriptWorkspaceDiscovery` の heavy-fixture テストをこの fixture で書く」コントリビュータタスクとして本クラスを明示参照している
+- [x] **削除を中止**: 文書化された将来の利用予定があり、削除すると準備済みの good-first-issue を壊す。repository-structure.md の heavy fixture 言及も従って維持
+- [x] 記録: 一次調査の「参照 0 = dead code」判定はコード走査のみに基づき、good-first-issues.md (調査当時は未マージブランチ上) を見ていなかった。削除前の再 grep を docs/ まで広げたことで検出 — audit-tasks.md の二段検証が機能した事例
 
 ## セクション 2: RescriptLspUtils facade 解体 (#129)
 

@@ -45,3 +45,7 @@
 - `RescriptLspSignatureParser` / `RescriptLspDiagnosticParser` 自体の lang/ 移動 (LSP 応答のパースなので lsp 所属で正当)
 - typeinfo の Alarm 置換 (Phase 4)
 - runIde 手動スモーク (UI 変更なし・コンパイラとテストで担保できるため不要)
+
+## 実装時のスコープ変更 (2026-06-11 追記)
+
+要求 3 (`IntelliJPlatformExtensionWithContentRoot.kt` の削除) は**中止**した。削除直前の再 grep を docs/ まで広げたところ、`docs/good-first-issues.md` Issue #9 が本 fixture を使う heavy-fixture テスト追加をコントリビュータタスクとして明示参照していることが判明 (Phase 0 で v1-followups からマージされた文書)。コード参照 0 だが文書化された利用予定があるため dead code ではない。詳細は tasklist.md セクション 1 を参照。
