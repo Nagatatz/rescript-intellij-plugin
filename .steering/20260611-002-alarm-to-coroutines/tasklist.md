@@ -52,14 +52,14 @@
 - [x] `docs/repository-structure.md`: util/ 行に `RescriptCoroutineDebouncer` 追記。ui/ 行は「debounce 付き refresh」の記述で Alarm 非言及のため変更不要
 - [x] CLAUDE.md: Alarm / デバウンス機構への言及なしのため変更不要を確認
 - [x] sphinx-docs: 更新なしの確認のみ (機能不変)
-- [ ] コミット: `📝 Sync docs for Phase 4 coroutine migration`
+- [x] コミット: `📝 Sync docs for Phase 4 coroutine migration` (e0a1f8f)
 
 ## マージ前検証 (DoD Phase 3〜4)
 
-- [ ] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green (test は実実行を確認)
-- [ ] `koverHtmlReport` で debouncer のカバレッジ確認
-- [ ] `./gradlew runIde` で design.md のスモークチェックリスト実施・結果記録
-- [ ] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
+- [x] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green (10m14s) + `test --rerun` でフルスイート実実行 (1m42s) green。新規 deprecation 警告なし
+- [x] `koverHtmlReport`: `RescriptCoroutineDebouncer` line 100% / branch 75%、minBound 86 維持
+- [x] `./gradlew runIde` スモーク — ユーザー確認で**全項目 OK** (Type Info のデバウンス・追従、Variant Flow / Type Impact の追従、PPX の caret 追従、クローズ/再オープンで例外なし、2 プロジェクト同時起動でクロスプロジェクト更新なし)
+- [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
 - [ ] `AskUserQuestion` でマージ可否確認
 - [ ] main へマージ → ブランチ削除 → push
 
