@@ -17,7 +17,7 @@
 - [x] `diagram/RescriptDependencyDiagramGraphView.kt` 同上
 - [x] 既存両 GraphViewTest が無変更 green
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `♻️ Extract GraphViewPaintHelpers shared by flow and diagram views`
+- [x] コミット: `♻️ Extract GraphViewPaintHelpers shared by flow and diagram views` (bbae3f9)
 
 ## セクション 2: RescriptToolWindowPanelBase (#127)
 
@@ -46,7 +46,7 @@
 - [x] flow / impact の attachEditorListeners / attachCaretListener を置換 (flow の不活性 EditorEx ガードは削除 — listener 本体が EditorEx API 非依存のため)
 - [x] typeinfo / ppx の multicaster 統一: **本フェーズでは統一せず現状維持で確定**。multicaster 方式は全 project のイベントを受けて callback 内で project フィルタする別セマンティクスであり、観察だけで等価性を保証できない。typeinfo は Phase 4 (Alarm 置換) で必ず触るため、そこで再評価する
 - [x] `./gradlew ktlintCheck test` green
-- [ ] コミット: `♻️ Extract RescriptEditorCaretTracker for caret-driven panels`
+- [x] コミット: `♻️ Extract RescriptEditorCaretTracker for caret-driven panels` (4097907)
 
 ## セクション 5: ドキュメント同期
 
@@ -62,8 +62,8 @@
 - [x] `koverHtmlReport` で確認: GraphViewPaintHelpers 100% line / 93.8% branch、RescriptEditorCaretTracker 100%
 - [x] `./gradlew runIde` で design.md の手動スモークチェックリスト 5 項目を実施 — ユーザー確認で**全項目 OK** (Variant Flow / Module Dependency のトグル・Refresh・Copy、3 list panel の表示・Refresh、凡例・矢印・ラベル省略の描画、クローズ時例外なし)
 - [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
-- [ ] `AskUserQuestion` でマージ可否確認
-- [ ] main へマージ → ブランチ削除 → push
+- [x] `AskUserQuestion` でマージ可否確認 (承認済み)
+- [x] main へマージ (fast-forward ca21271) → ブランチ削除 → push
 
 ## テスト免除の記載
 
