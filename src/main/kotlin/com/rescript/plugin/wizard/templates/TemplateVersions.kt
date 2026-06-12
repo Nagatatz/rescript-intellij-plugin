@@ -73,7 +73,7 @@ object TemplateVersions {
     const val ESBUILD = "^0.28.0"
 
     // Monorepo tooling
-    const val CONCURRENTLY = "^9.2.1"
+    const val CONCURRENTLY = "^10.0.3"
 
     // TypeScript (used as devDependency where interop is needed)
     const val TYPESCRIPT = "^6.0.3"
