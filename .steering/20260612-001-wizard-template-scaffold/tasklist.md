@@ -56,11 +56,11 @@
 
 - [x] repository-structure.md の wizard/templates/ 行に `TemplateScaffold` 追記
 - [x] product-requirements.md の #131 を削除 (候補テーブルは再び空のため見出しごと削除)
-- [ ] コミット: `📝 Sync docs for Phase 5 wizard scaffold`
-- [ ] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green + `test --rerun` 実実行
+- [x] コミット: `📝 Sync docs for Phase 5 wizard scaffold`
+- [x] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green (11m27s) + `test --rerun` 実実行 green
 - [x] 純減行数の実測: **+39 行で目標未達** (既存 22 クラス −111 / scaffold +150)。requirements.md「実装結果の評価」に分析を追記し、マージ確認で明示する
-- [ ] `./gradlew runIde` スモーク: New Project から Basic / Hono / Tauri を実生成
-- [ ] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
+- [x] スモーク (ユーザー指示で ui-smoke-test スキル方式に変更、subagent はクレジット制約のため Fable 直接実行): `runIdeForUiTests` + Remote-Robot の /js/execute で deploy 済み jar 上の `ProjectTemplate.generateFiles` を BASIC/HONO/TAURI に対し実行 — 全 PASS (15/27/27 ファイル、キーファイル存在、idea.log にプラグイン例外なし)
+- [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
 - [ ] `AskUserQuestion` でマージ可否確認
 - [ ] main へマージ → ブランチ削除 → push
 
