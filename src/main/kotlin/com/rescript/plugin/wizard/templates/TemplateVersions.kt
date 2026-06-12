@@ -48,7 +48,7 @@ object TemplateVersions {
     const val INERTIA_REACT = "^3.0.3"
 
     // Next.js
-    const val NEXTJS = "^16.2.4"
+    const val NEXTJS = "^16.2.9"
 
     // Electron
     const val ELECTRON = "^42.0.1"
