@@ -21,12 +21,12 @@
 
 ## セクション 2: DEFECT 2 — Type Impact (🐛 1 コミット)
 
-- [ ] `RescriptTypeImpactPanel.doRefresh` を EDT 前段（caret 捕捉）+
+- [x] `RescriptTypeImpactPanel.doRefresh` を EDT 前段（caret 捕捉）+
       pooled thread（target 解決 + findReferences）+ invokeLater（UI 更新）
       に分割
-- [ ] `refreshGeneration` による stale 結果破棄ガードを追加
-- [ ] `./gradlew ktlintCheck buildPlugin test` 緑
-- [ ] コミット 🐛
+- [x] `refreshGeneration` による stale 結果破棄ガードを追加
+- [x] `./gradlew ktlintCheck buildPlugin test` 緑
+- [x] コミット 🐛
 
 ### テスト省略理由（セクション 2）
 

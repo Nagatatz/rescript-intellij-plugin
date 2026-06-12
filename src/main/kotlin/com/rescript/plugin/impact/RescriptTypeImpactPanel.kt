@@ -35,6 +35,11 @@ class RescriptTypeImpactPanel(
     private val project: Project,
 ) : RescriptToolWindowPanelBase(project, TOOLBAR_PLACE, REFRESH_DEBOUNCE_MS) {
     private val listModel = DefaultListModel<ReferenceEntry>()
+
+    // Incremented on every refresh; pooled results whose generation is stale
+    // (a newer caret-driven refresh has started) are discarded on the EDT.
+    @Volatile private var refreshGeneration = 0
+
     private val list: JBList<ReferenceEntry> =
         JBList(listModel).apply {
             cellRenderer = EntryRenderer()
@@ -62,6 +67,7 @@ class RescriptTypeImpactPanel(
     }
 
     override fun doRefresh() {
+        // EDT: lightweight prechecks and caret capture (caretModel.offset is EDT-only).
         val fileEditor = FileEditorManager.getInstance(project).selectedEditor as? TextEditor
         if (fileEditor == null) {
             renderEmpty("Open a ReScript file to see type impact.")
@@ -73,26 +79,35 @@ class RescriptTypeImpactPanel(
             return
         }
         val offset = fileEditor.editor.caretModel.offset
+        val generation = ++refreshGeneration
 
-        val target =
-            ApplicationManager.getApplication().runReadAction<TypeTarget?> {
-                val psiFile = PsiManager.getInstance(project).findFile(virtualFile)
-                if (psiFile == null) null else RescriptTypeTargetResolver.resolveAt(psiFile, offset)
+        // Pooled thread: target resolution (read action) + word-index reference
+        // search must not run on the EDT (SlowOperations / ThreadingAssertions).
+        ApplicationManager.getApplication().executeOnPooledThread {
+            val target =
+                ApplicationManager.getApplication().runReadAction<TypeTarget?> {
+                    val psiFile = PsiManager.getInstance(project).findFile(virtualFile)
+                    if (psiFile == null) null else RescriptTypeTargetResolver.resolveAt(psiFile, offset)
+                }
+            val result = target?.let { RescriptTypeReferenceFinder.findReferences(project, it) }
+            ApplicationManager.getApplication().invokeLater {
+                // Discard stale results superseded by a newer caret-driven refresh.
+                if (generation != refreshGeneration) return@invokeLater
+                if (target == null || result == null) {
+                    renderEmpty("No type declaration under caret.")
+                    return@invokeLater
+                }
+                listModel.clear()
+                for (entry in result.entries) listModel.addElement(entry)
+                val truncationNote =
+                    if (result.truncated) {
+                        " (showing first ${RescriptTypeReferenceFinder.MAX_REFERENCES})"
+                    } else {
+                        ""
+                    }
+                statusLabel.text = " ${target.name}: ${result.entries.size} reference(s)$truncationNote"
             }
-        if (target == null) {
-            renderEmpty("No type declaration under caret.")
-            return
         }
-        val result = RescriptTypeReferenceFinder.findReferences(project, target)
-        listModel.clear()
-        for (entry in result.entries) listModel.addElement(entry)
-        val truncationNote =
-            if (result.truncated) {
-                " (showing first ${RescriptTypeReferenceFinder.MAX_REFERENCES})"
-            } else {
-                ""
-            }
-        statusLabel.text = " ${target.name}: ${result.entries.size} reference(s)$truncationNote"
     }
 
     private fun renderEmpty(message: String) {
