@@ -32,12 +32,12 @@
 - [x] basic / vite-react / electron / cli-tool / npm-library / react-native を scaffold 化 (sonnet。+479/-551。cli-tool の vars 混在 load と react 系の依存順は適切に個別残し)
 - [x] golden テスト + 既存 *TemplateFilesTest 無変更 green (Fable 再実行で確認)
 - [x] Fable diff レビュー (BasicTemplateFiles 代表確認 + golden 0 差分)
-- [ ] コミット: `♻️ Migrate batch A templates to TemplateScaffold`
+- [x] コミット: `♻️ Migrate batch A templates to TemplateScaffold`
 
 ## セクション 4: バッチ B 移行 (sonnet subagent → Fable 検収)
 
-- [ ] nextjs / react-native-cli / aws-lambda / cloudflare-workers / google-cloud-run を scaffold 化
-- [ ] golden + 既存テスト green、Fable diff レビュー
+- [x] nextjs / react-native-cli / aws-lambda / cloudflare-workers / google-cloud-run を scaffold 化 (sonnet。+499/-511。Hono バインディング混在部と CommonFiles ビルダー由来は適切に個別残し)
+- [x] golden + 既存テスト green (Fable 再実行確認)、Fable diff レビュー
 - [ ] コミット: `♻️ Migrate batch B templates to TemplateScaffold`
 
 ## セクション 5: バッチ C 移行 (sonnet subagent → Fable 検収)
