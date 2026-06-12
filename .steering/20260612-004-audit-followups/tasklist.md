@@ -2,23 +2,23 @@
 
 ## セクション 1: pitest バンプ
 
-- [ ] `libs.versions.toml` pitest 1.20.4 → 1.25.4
-- [ ] `./gradlew pitest` 実行で互換検証 (targetClasses は RescriptPaths/RescriptRegexPatterns の 2 クラスのみ)
-- [ ] コミット: `⬆ Bump pitest to 1.25.4`
+- [x] `libs.versions.toml` pitest 1.20.4 → 1.25.4
+- [x] `./gradlew pitest` 実行で互換検証 — 1.25.4 と 1.20.4 (stash でベースライン比較) の両方で「No mutations found」= **バンプによる退行なし**。ただし PIT が以前から no-op だったことを発見 (failWhenNoMutations=false で green に見えていた)。**別課題として記録** — 原因調査 (instrumentCode との classes ディレクトリ不整合疑い) は本 steering のスコープ外
+- [x] コミット: `⬆ Bump pitest to 1.25.4`
 
 ## セクション 2: Expo SDK 56
 
-- [ ] `TemplateVersions.kt` EXPO → `^56.0.11` (REACT_NATIVE 等は据え置き = SDK 56 同梱の RN 0.85 と整合)
-- [ ] `compileTestKotlin --rerun` (const val stale インライン対策) → golden 再生成 → 差分が REACT_NATIVE テンプレート 3 件のみ確認
-- [ ] wizard テスト green
-- [ ] コミット: `⬆ Move the Expo template to SDK 56`
+- [x] `TemplateVersions.kt` EXPO → `^56.0.11` (REACT_NATIVE 等は据え置き = SDK 56 同梱の RN 0.85 と整合)
+- [x] `compileTestKotlin --rerun` → golden 再生成 → 差分は REACT_NATIVE の 3 件のみ
+- [x] wizard テスト green
+- [x] コミット: `⬆ Move the Expo template to SDK 56`
 
 ## セクション 3: TemplateVersions の CVE 照合自動化
 
-- [ ] `.github/scripts/audit-template-versions.mjs` 新規 (TemplateVersions.kt の `const val X = "^1.2.3"` を正規表現抽出 → 定数名→npm パッケージ名のマッピングで package.json 生成 → 呼び出し側で npm audit)
-- [ ] ローカル実行で全 npm 定数の抽出と npm audit 動作を確認
-- [ ] `monthly-verify.yml` に template-versions-audit ジョブ追加 (npm i --package-lock-only → npm audit --audit-level=high)
-- [ ] CLAUDE.md の CI 表 (Monthly Verify 行) と `.claude/rules/release.md` の前提条件に反映
+- [x] `.github/scripts/audit-template-versions.mjs` 新規 — マッピングは手書きせず **Kotlin ソースの `"pkg" to TemplateVersions.X` パターンから抽出** (74 パッケージ)。小文字限定の正規表現でテンプレート変数キー (htmxVersion 等) を除外、抽出数 <30 で fail する自己診断付き
+- [x] ローカル実行で検証 — **即座に critical 2 件 (concurrently 9.x → shell-quote GHSA-w7jw-789q-3m8p) を検出**し、CONCURRENTLY を ^10.0.3 にバンプして解消 (golden 26 件再生成、🐛 コミット)。残る moderate 21 件は最新ピンの transitive 依存で上流待ち (audit-level=high のため fail しない)
+- [x] `monthly-verify.yml` に template-versions-audit ジョブ追加 (--legacy-peer-deps で lock 生成 — 全テンプレート混載の peer 衝突回避。actionlint OK)。生成物ディレクトリを .gitignore に追加
+- [x] CLAUDE.md の CI 表 (Monthly Verify 行) と `.claude/rules/release.md` の前提条件に反映 (ローカル再現コマンド付き)
 - [ ] コミット: `🔧 Audit template npm versions monthly via generated package.json`
 
 ## マージ前検証

@@ -97,3 +97,42 @@ jobs:
           name: plugin-verifier-report
           path: build/reports/pluginVerifier/
           retention-days: 30
+
+  template-versions-audit:
+    # The npm versions the wizard templates write into user projects live in
+    # TemplateVersions.kt, which Dependabot cannot see. Generate a synthetic
+    # package.json from those constants and run npm audit against it so new
+    # advisories surface on the monthly cadence. Fails on high/critical;
+    # moderate findings are visible in the log without failing the run.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Generate manifest from TemplateVersions.kt
+        run: node .github/scripts/audit-template-versions.mjs .github/scripts/template-audit
+
+      - name: Resolve lockfile
+        working-directory: .github/scripts/template-audit
+        # --legacy-peer-deps: the synthetic manifest mixes every template's
+        # dependencies, so cross-template peer ranges may conflict; audit
+        # only needs a resolved tree, not a valid peer graph.
+        run: npm install --package-lock-only --legacy-peer-deps --no-audit --no-fund
+
+      - name: npm audit (fail on high/critical)
+        working-directory: .github/scripts/template-audit
+        run: npm audit --audit-level=high
+
+      - name: Upload audit manifest
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: template-versions-audit
+          path: .github/scripts/template-audit/
+          retention-days: 30

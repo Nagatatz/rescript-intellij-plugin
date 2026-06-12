@@ -47,7 +47,7 @@ GitHub Actions で 4 つのワークフローを運用:
 | CI | `ci.yml` | Push/PR to `main` | ビルド、テスト、ktlint、カバレッジ（`koverVerify` で minBound 強制）、プラグイン検証。PR 時のみ `mutation-test` ジョブで PIT を `util/` `lang/` に対し実行 |
 | Release | `release.yml` | Tag `v*.*.*` | GitHub Release 作成 |
 | Docs | `docs.yml` | Push/PR to `main` (`sphinx-docs/` 変更時) | Sphinx ドキュメントのビルド・デプロイ |
-| Monthly Verify | `monthly-verify.yml` | Cron（毎月 1 日） | `verifyPlugin` の実行と `plugin-verifier-ignored-problems.txt` の `Expires:` 期限切れエントリの警告 |
+| Monthly Verify | `monthly-verify.yml` | Cron（毎月 1 日） | `verifyPlugin` の実行、`plugin-verifier-ignored-problems.txt` の `Expires:` 期限切れエントリの警告、`TemplateVersions.kt` の npm 定数から生成した package.json への `npm audit`（high/critical で fail。dependabot の死角対策） |
 
 ```bash
 # ローカルで CI を再現

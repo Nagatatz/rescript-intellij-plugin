@@ -9,6 +9,7 @@
 - `main` ブランチが最新であること（`git pull origin main`）
 - すべての CI チェックがパスしていること
 - リリース対象のコミットが `main` に含まれていること
+- 直近の Monthly Verify の `template-versions-audit` ジョブが green であること（fail している場合は `TemplateVersions.kt` の該当ピンを引き上げてから。ローカル再現: `node .github/scripts/audit-template-versions.mjs /tmp/ta && cd /tmp/ta && npm i --package-lock-only --legacy-peer-deps && npm audit --audit-level=high`）
 
 ## 手順
 
