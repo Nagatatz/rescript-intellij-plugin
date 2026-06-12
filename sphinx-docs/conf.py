@@ -192,6 +192,9 @@ linkcheck_ignore = [
     r"^http://localhost(:\d+)?(/.*)?$",
     # npmjs.com returns 403 to the linkcheck bot's HEAD/GET requests.
     r"^https://www\.npmjs\.com/package/.*",
+    # v2.tauri.app intermittently times out from CI runners (200 OK locally);
+    # verified 2026-06-12.
+    r"^https://v2\.tauri\.app(/.*)?$",
 ]
 
 
