@@ -3,7 +3,6 @@ package com.rescript.plugin.wizard.templates
 import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
-import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a full-stack monorepo (Hono backend + Vite+ React frontend).
@@ -31,7 +30,6 @@ internal object MonorepoTemplateFiles {
         val devCommand = devScript(pm)
         val workspaceField = if (pm == PackageManager.PNPM) null else listOf("packages/*")
         val nameVar = mapOf("projectName" to name)
-        val variantKey = ctx.validationLibrary.variantKey()
 
         return buildMap {
             put(
@@ -149,12 +147,13 @@ internal object MonorepoTemplateFiles {
                 "packages/server/src/Db.res",
                 TemplateResourceLoader.load(CommonFiles.sharedDbResPath(ctx.database)),
             )
-            put(
-                "packages/server/src/Validation.res",
-                TemplateResourceLoader.load(
-                    "monorepo/variants/$variantKey/packages/server/src/Validation.res",
-                ),
-            )
+            val (validationTarget, validationContent) =
+                TemplateScaffold.validationVariant(
+                    ctx,
+                    "monorepo",
+                    targetPath = "packages/server/src/Validation.res",
+                )
+            put(validationTarget, validationContent)
             put(
                 "packages/server/src/Server.res",
                 TemplateResourceLoader.load("monorepo/packages/server/src/Server.res", nameVar),
@@ -285,8 +284,7 @@ internal object MonorepoTemplateFiles {
                 "packages/client/src/__tests__/ApiClient.test.mjs",
                 TemplateResourceLoader.load("monorepo/packages/client/src/__tests__/ApiClient.test.mjs"),
             )
-            put(
-                "README.md",
+            val readme =
                 CommonFiles.readme(
                     ctx = ctx,
                     description =
@@ -313,19 +311,15 @@ internal object MonorepoTemplateFiles {
                             "About Vite+" to TemplateResourceLoader.load("monorepo/readme/vite-plus.md"),
                             "Networking" to TemplateResourceLoader.load("monorepo/readme/networking.md"),
                         ),
+                )
+            putAll(
+                TemplateScaffold.commonTail(
+                    ctx,
+                    readme = readme,
+                    gitignoreExtra = listOf("dist/", ".vite/", "packages/*/dist/", "packages/*/data/", ".env"),
+                    ciHasTest = true,
                 ),
             )
-            put(".nvmrc", CommonFiles.nvmrc(ctx))
-            put("LICENSE", CommonFiles.mitLicense(ctx, holder = name))
-            put(".github/dependabot.yml", CommonFiles.dependabotYaml())
-            put(
-                ".gitignore",
-                CommonFiles.gitignore(
-                    extra = listOf("dist/", ".vite/", "packages/*/dist/", "packages/*/data/", ".env"),
-                ),
-            )
-            put(".editorconfig", CommonFiles.editorconfig())
-            put(".github/workflows/ci.yml", CommonFiles.ciWorkflow(ctx, hasBuild = false, hasTest = true))
             CommonFiles.composeYaml(ctx.database)?.let { put("compose.yaml", it) }
         }
     }
@@ -346,10 +340,7 @@ internal object MonorepoTemplateFiles {
         deps["@$name/shared"] = workspaceDep(ctx.packageManager)
         deps["hono"] = TemplateVersions.HONO
         deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
-        when (ctx.validationLibrary) {
-            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
-            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
-        }
+        TemplateScaffold.validationDependency(ctx).let { (pkg, version) -> deps[pkg] = version }
         val (driverPkg, driverVer) = CommonFiles.databaseDriver(ctx.database)
         deps[driverPkg] = driverVer
         deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM

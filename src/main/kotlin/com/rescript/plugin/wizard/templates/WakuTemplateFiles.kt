@@ -20,6 +20,28 @@ internal object WakuTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val projectVars = mapOf("projectName" to ctx.projectName)
+        val readme =
+            CommonFiles.readme(
+                ctx = ctx,
+                description =
+                    "A Waku app demonstrating the React Server Components boundary with " +
+                        "ReScript on both sides — a Greet Server Component plus a Counter " +
+                        "Client Component wrapped by a thin \"use client\" TSX file.",
+                scripts =
+                    listOf(
+                        "dev" to "Start Waku dev server with the ReScript watcher",
+                        "build" to "Compile ReScript and run waku build",
+                        "start" to "Run the production server",
+                        "test" to "Run Vitest",
+                    ),
+                extraSections =
+                    listOf(
+                        "Server vs Client Components" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/server-vs-client.md"),
+                        "RSC Basics" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/rsc-basics.md"),
+                    ),
+            )
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -57,55 +79,36 @@ internal object WakuTemplateFiles {
                             "@types/node" to TemplateVersions.NODE_TYPES,
                         ),
                 ),
-            "tsconfig.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/tsconfig.json"),
-            "rescript-modules.d.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/rescript-modules.d.ts"),
-            "src/pages/index.tsx" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/pages/index.tsx", projectVars),
-            "src/components/Greet.res" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/components/Greet.res"),
-            "src/components/Counter.res" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/components/Counter.res"),
-            "src/components/CounterClient.tsx" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/components/CounterClient.tsx"),
-            "src/__tests__/Greet.test.mjs" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Greet.test.mjs"),
-            "README.md" to
-                CommonFiles.readme(
-                    ctx = ctx,
-                    description =
-                        "A Waku app demonstrating the React Server Components boundary with " +
-                            "ReScript on both sides — a Greet Server Component plus a Counter " +
-                            "Client Component wrapped by a thin \"use client\" TSX file.",
-                    scripts =
-                        listOf(
-                            "dev" to "Start Waku dev server with the ReScript watcher",
-                            "build" to "Compile ReScript and run waku build",
-                            "start" to "Run the production server",
-                            "test" to "Run Vitest",
-                        ),
-                    extraSections =
-                        listOf(
-                            "Server vs Client Components" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/server-vs-client.md"),
-                            "RSC Basics" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/rsc-basics.md"),
-                        ),
+        ) +
+            TemplateScaffold.resourceFiles(
+                RESOURCE_ROOT,
+                listOf("tsconfig.json", "rescript-modules.d.ts"),
+            ) +
+            mapOf(
+                "src/pages/index.tsx" to
+                    TemplateResourceLoader.load("$RESOURCE_ROOT/src/pages/index.tsx", projectVars),
+            ) +
+            TemplateScaffold.resourceFiles(
+                RESOURCE_ROOT,
+                listOf(
+                    "src/components/Greet.res",
+                    "src/components/Counter.res",
+                    "src/components/CounterClient.tsx",
+                    "src/__tests__/Greet.test.mjs",
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(ctx),
-            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
-            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to
-                CommonFiles.gitignore(
-                    extra =
-                        listOf(
-                            ".waku/",
-                            "dist/",
-                            ".env*.local",
-                        ),
-                ),
-            ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
-        )
+            ) +
+            TemplateScaffold.commonTail(
+                ctx,
+                readme = readme,
+                gitignoreExtra =
+                    listOf(
+                        ".waku/",
+                        "dist/",
+                        ".env*.local",
+                    ),
+                ciHasBuild = true,
+                ciHasTest = true,
+            )
     }
 
     /**

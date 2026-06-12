@@ -3,7 +3,6 @@ package com.rescript.plugin.wizard.templates
 import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
-import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a Hono + GraphQL Yoga + Drizzle SQLite project.
@@ -24,11 +23,12 @@ import com.rescript.plugin.wizard.ValidationLibrary
  * [TemplateContext.validationLibrary].
  */
 internal object HonoGraphqlTemplateFiles {
+    private const val RESOURCE_ROOT = "hono-graphql"
+
     /**
      * Generates Hono GraphQL template files using the supplied [TemplateContext].
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
-        val variantKey = ctx.validationLibrary.variantKey()
         val (schemaPath, drizzleConfigPath) =
             when (ctx.database) {
                 Database.LIBSQL -> {
@@ -102,8 +102,7 @@ internal object HonoGraphqlTemplateFiles {
                 "src/Hono.res" to ProjectFileBuilders.honoBindings(),
                 "src/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
                 "src/Schema.res" to TemplateResourceLoader.load(schemaPath),
-                "src/Validation.res" to
-                    TemplateResourceLoader.load("hono-graphql/variants/$variantKey/src/Validation.res"),
+                TemplateScaffold.validationVariant(ctx, RESOURCE_ROOT),
                 "src/Db.res" to TemplateResourceLoader.load(CommonFiles.sharedDbResPath(ctx.database)),
                 "src/Yoga.res" to TemplateResourceLoader.load("common/graphql/Yoga.res"),
                 "src/GraphqlSchema.res" to TemplateResourceLoader.load("hono-graphql/src/GraphqlSchema.res"),
@@ -116,59 +115,60 @@ internal object HonoGraphqlTemplateFiles {
                     TemplateResourceLoader.load("hono-graphql/src/__tests__/Server.test.mjs"),
                 "vitest.config.mjs" to TemplateResourceLoader.load("hono-graphql/vitest.config.mjs"),
                 "vitest.setup.mjs" to TemplateResourceLoader.load("hono-graphql/vitest.setup.mjs"),
-                "README.md" to
-                    CommonFiles.readme(
-                        ctx = ctx,
-                        description = honoGraphqlDescription(ctx),
-                        scripts =
-                            listOf(
-                                "dev" to "Run the GraphQL server with file watching",
-                                "start" to "Run the server once",
-                                "test" to "Run Vitest",
-                                "docs:graphql" to "Generate docs/schema.md from src/schema.graphql",
-                                "db:generate" to "Generate Drizzle migration SQL",
-                                "db:migrate" to
-                                    when (ctx.database) {
-                                        Database.LIBSQL -> "Apply pending migrations to the SQLite file"
-                                        Database.POSTGRES -> "Apply pending migrations to the PostgreSQL database"
-                                        Database.MYSQL -> "Apply pending migrations to the MySQL database"
-                                    },
-                                "res:dev" to "Watch ReScript sources",
-                            ),
-                        extraSections =
-                            run {
-                                val dbVars =
-                                    mapOf(
-                                        "cmdDbGenerate" to ctx.runCmd("db:generate"),
-                                        "cmdDbMigrate" to ctx.runCmd("db:migrate"),
-                                        "cmdDocsGraphql" to ctx.runCmd("docs:graphql"),
-                                    )
-                                listOf(
-                                    "Try It" to TemplateResourceLoader.load("hono-graphql/readme/try-it.md"),
-                                    "Schema" to
-                                        TemplateResourceLoader.load("hono-graphql/readme/schema.md", dbVars),
-                                    "Database" to
-                                        TemplateResourceLoader.load(databaseReadmePath, dbVars),
-                                    "Project Layout" to
-                                        TemplateResourceLoader.load("hono-graphql/readme/project-layout.md"),
-                                )
-                            },
-                    ),
-                ".nvmrc" to CommonFiles.nvmrc(ctx),
-                "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
-                ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-                ".env.example" to
-                    CommonFiles.envExample(
-                        listOf(envComment to CommonFiles.defaultDatabaseUrl(ctx.database)),
-                    ),
-                ".gitignore" to
-                    CommonFiles.gitignore(extra = listOf("data/", "docs/schema.md", "drizzle/", ".env")),
-                ".editorconfig" to CommonFiles.editorconfig(),
-                ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasTest = true),
-                "Dockerfile" to CommonFiles.serverDockerfile(ctx, port = 4000),
-                ".dockerignore" to CommonFiles.dockerignore(),
             ),
         )
+        val readme =
+            CommonFiles.readme(
+                ctx = ctx,
+                description = honoGraphqlDescription(ctx),
+                scripts =
+                    listOf(
+                        "dev" to "Run the GraphQL server with file watching",
+                        "start" to "Run the server once",
+                        "test" to "Run Vitest",
+                        "docs:graphql" to "Generate docs/schema.md from src/schema.graphql",
+                        "db:generate" to "Generate Drizzle migration SQL",
+                        "db:migrate" to
+                            when (ctx.database) {
+                                Database.LIBSQL -> "Apply pending migrations to the SQLite file"
+                                Database.POSTGRES -> "Apply pending migrations to the PostgreSQL database"
+                                Database.MYSQL -> "Apply pending migrations to the MySQL database"
+                            },
+                        "res:dev" to "Watch ReScript sources",
+                    ),
+                extraSections =
+                    run {
+                        val dbVars =
+                            mapOf(
+                                "cmdDbGenerate" to ctx.runCmd("db:generate"),
+                                "cmdDbMigrate" to ctx.runCmd("db:migrate"),
+                                "cmdDocsGraphql" to ctx.runCmd("docs:graphql"),
+                            )
+                        listOf(
+                            "Try It" to TemplateResourceLoader.load("hono-graphql/readme/try-it.md"),
+                            "Schema" to
+                                TemplateResourceLoader.load("hono-graphql/readme/schema.md", dbVars),
+                            "Database" to
+                                TemplateResourceLoader.load(databaseReadmePath, dbVars),
+                            "Project Layout" to
+                                TemplateResourceLoader.load("hono-graphql/readme/project-layout.md"),
+                        )
+                    },
+            )
+        files.putAll(
+            TemplateScaffold.commonTail(
+                ctx,
+                readme = readme,
+                gitignoreExtra = listOf("data/", "docs/schema.md", "drizzle/", ".env"),
+                ciHasTest = true,
+            ),
+        )
+        files[".env.example"] =
+            CommonFiles.envExample(
+                listOf(envComment to CommonFiles.defaultDatabaseUrl(ctx.database)),
+            )
+        files["Dockerfile"] = CommonFiles.serverDockerfile(ctx, port = 4000)
+        files[".dockerignore"] = CommonFiles.dockerignore()
         CommonFiles.composeYaml(ctx.database)?.let { files["compose.yaml"] = it }
         return files
     }
@@ -198,10 +198,7 @@ internal object HonoGraphqlTemplateFiles {
         deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
         deps["graphql"] = TemplateVersions.GRAPHQL
         deps["graphql-yoga"] = TemplateVersions.GRAPHQL_YOGA
-        when (ctx.validationLibrary) {
-            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
-            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
-        }
+        TemplateScaffold.validationDependency(ctx).let { (name, version) -> deps[name] = version }
         val (driverPkg, driverVer) = CommonFiles.databaseDriver(ctx.database)
         deps[driverPkg] = driverVer
         deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM

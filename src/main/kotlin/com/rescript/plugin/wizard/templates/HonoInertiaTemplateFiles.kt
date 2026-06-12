@@ -29,7 +29,6 @@ internal object HonoInertiaTemplateFiles {
      * Generates Hono + Inertia template files using the supplied [TemplateContext].
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
-        val variantKey = ctx.validationLibrary.variantKey()
         val (schemaPath, drizzleConfigPath) =
             when (ctx.database) {
                 Database.LIBSQL -> {
@@ -96,8 +95,7 @@ internal object HonoInertiaTemplateFiles {
                 "src/Logger.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Logger.res"),
                 "src/Schema.res" to TemplateResourceLoader.load(schemaPath),
                 "src/Db.res" to TemplateResourceLoader.load(CommonFiles.sharedDbResPath(ctx.database)),
-                "src/Validation.res" to
-                    TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
+                TemplateScaffold.validationVariant(ctx, RESOURCE_ROOT),
                 "src/Routes.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Routes.res"),
                 "src/Server.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Server.res"),
                 "src/Ssr.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Ssr.res"),
@@ -113,7 +111,7 @@ internal object HonoInertiaTemplateFiles {
                 "src/__tests__/Server.test.mjs" to
                     TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Server.test.mjs"),
             )
-        files["README.md"] =
+        val readme =
             CommonFiles.readme(
                 ctx = ctx,
                 description = honoInertiaDescription(ctx),
@@ -141,9 +139,15 @@ internal object HonoInertiaTemplateFiles {
                         "About Vite+" to TemplateResourceLoader.load("$RESOURCE_ROOT/readme/viteplus.md"),
                     ),
             )
-        files[".nvmrc"] = CommonFiles.nvmrc(ctx)
-        files["LICENSE"] = CommonFiles.mitLicense(ctx, holder = ctx.projectName)
-        files[".github/dependabot.yml"] = CommonFiles.dependabotYaml()
+        files.putAll(
+            TemplateScaffold.commonTail(
+                ctx,
+                readme = readme,
+                gitignoreExtra = listOf("dist/", "data/", "drizzle/", ".env", ".vite/"),
+                ciHasBuild = true,
+                ciHasTest = true,
+            ),
+        )
         val envComment =
             when (ctx.database) {
                 Database.LIBSQL -> "Local SQLite file (default) or a Turso libsql:// URL"
@@ -154,10 +158,6 @@ internal object HonoInertiaTemplateFiles {
             CommonFiles.envExample(
                 listOf(envComment to CommonFiles.defaultDatabaseUrl(ctx.database)),
             )
-        files[".gitignore"] =
-            CommonFiles.gitignore(extra = listOf("dist/", "data/", "drizzle/", ".env", ".vite/"))
-        files[".editorconfig"] = CommonFiles.editorconfig()
-        files[".github/workflows/ci.yml"] = CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true)
         CommonFiles.composeYaml(ctx.database)?.let { files["compose.yaml"] = it }
         return files
     }
@@ -179,10 +179,7 @@ internal object HonoInertiaTemplateFiles {
         deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
         deps["@hono/inertia"] = TemplateVersions.HONO_INERTIA
         deps["@inertiajs/react"] = TemplateVersions.INERTIA_REACT
-        when (ctx.validationLibrary) {
-            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
-            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
-        }
+        TemplateScaffold.validationDependency(ctx).let { (name, version) -> deps[name] = version }
         val (driverPkg, driverVer) = CommonFiles.databaseDriver(ctx.database)
         deps[driverPkg] = driverVer
         deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM

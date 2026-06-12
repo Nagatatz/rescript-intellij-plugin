@@ -21,6 +21,27 @@ internal object TanstackStartTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val projectVars = mapOf("projectName" to ctx.projectName)
+        val readme =
+            CommonFiles.readme(
+                ctx = ctx,
+                description =
+                    "A TanStack Start app with file-based routing, a sample Server Function, " +
+                        "and ReScript components consumed from TSX routes.",
+                scripts =
+                    listOf(
+                        "dev" to "Start Vite dev server with the ReScript watcher",
+                        "build" to "Compile ReScript and build the app for production",
+                        "start" to "Run the production server bundle",
+                        "test" to "Run Vitest",
+                    ),
+                extraSections =
+                    listOf(
+                        "Server Functions" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/server-functions.md"),
+                        "File-based Routing" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/file-routing.md"),
+                    ),
+            )
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -61,56 +82,43 @@ internal object TanstackStartTemplateFiles {
                             "@types/node" to TemplateVersions.NODE_TYPES,
                         ),
                 ),
-            "vite.config.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/vite.config.ts"),
-            "tsconfig.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/tsconfig.json"),
-            "rescript-modules.d.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/rescript-modules.d.ts"),
-            "src/router.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/router.tsx"),
-            "src/routes/__root.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/routes/__root.tsx"),
-            "src/routes/index.tsx" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/routes/index.tsx", projectVars),
-            "src/components/Greeting.res" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/components/Greeting.res"),
-            "src/server/Greet.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/server/Greet.res"),
-            "src/__tests__/Greeting.test.mjs" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/Greeting.test.mjs"),
-            "README.md" to
-                CommonFiles.readme(
-                    ctx = ctx,
-                    description =
-                        "A TanStack Start app with file-based routing, a sample Server Function, " +
-                            "and ReScript components consumed from TSX routes.",
-                    scripts =
-                        listOf(
-                            "dev" to "Start Vite dev server with the ReScript watcher",
-                            "build" to "Compile ReScript and build the app for production",
-                            "start" to "Run the production server bundle",
-                            "test" to "Run Vitest",
-                        ),
-                    extraSections =
-                        listOf(
-                            "Server Functions" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/server-functions.md"),
-                            "File-based Routing" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/file-routing.md"),
-                        ),
+        ) +
+            TemplateScaffold.resourceFiles(
+                RESOURCE_ROOT,
+                listOf(
+                    "vite.config.ts",
+                    "tsconfig.json",
+                    "rescript-modules.d.ts",
+                    "src/router.tsx",
+                    "src/routes/__root.tsx",
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(ctx),
-            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
-            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to
-                CommonFiles.gitignore(
-                    extra =
-                        listOf(
-                            ".tanstack/",
-                            ".output/",
-                            ".nitro/",
-                            "dist/",
-                            ".env*.local",
-                        ),
+            ) +
+            mapOf(
+                "src/routes/index.tsx" to
+                    TemplateResourceLoader.load("$RESOURCE_ROOT/src/routes/index.tsx", projectVars),
+            ) +
+            TemplateScaffold.resourceFiles(
+                RESOURCE_ROOT,
+                listOf(
+                    "src/components/Greeting.res",
+                    "src/server/Greet.res",
+                    "src/__tests__/Greeting.test.mjs",
                 ),
-            ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
-        )
+            ) +
+            TemplateScaffold.commonTail(
+                ctx,
+                readme = readme,
+                gitignoreExtra =
+                    listOf(
+                        ".tanstack/",
+                        ".output/",
+                        ".nitro/",
+                        "dist/",
+                        ".env*.local",
+                    ),
+                ciHasBuild = true,
+                ciHasTest = true,
+            )
     }
 
     /**

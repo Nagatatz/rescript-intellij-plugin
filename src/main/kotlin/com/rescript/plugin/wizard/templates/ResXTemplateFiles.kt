@@ -2,7 +2,6 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
-import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a res-x application running on Bun + Vite.
@@ -35,11 +34,42 @@ internal object ResXTemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val variantKey = ctx.validationLibrary.variantKey()
-        val validationLabel =
-            when (ctx.validationLibrary) {
-                ValidationLibrary.ZOD -> "zod"
-                ValidationLibrary.SURY -> "sury"
-            }
+        val readme =
+            CommonFiles.readme(
+                ctx = ctx,
+                description = resXDescription(variantKey),
+                scripts =
+                    listOf(
+                        "dev" to "Run ReScript and the Bun server together in watch mode",
+                        "start" to "Run the compiled Bun server once",
+                        "build" to "Build client assets with Vite",
+                        "compile" to "Compile the Bun server into a standalone binary at dist/app",
+                        "test" to "Run bun test",
+                        "res:dev" to "Watch ReScript sources",
+                    ),
+                extraSections =
+                    listOf(
+                        "Application" to
+                            TemplateResourceLoader.load(
+                                "res-x/readme/app.md",
+                                mapOf("validationLib" to variantKey),
+                            ),
+                        "HTMX" to
+                            TemplateResourceLoader.load(
+                                "res-x/readme/htmx.md",
+                                mapOf("htmxVersion" to TemplateVersions.HTMX_CDN),
+                            ),
+                        "Project Layout" to
+                            TemplateResourceLoader.load(
+                                "res-x/readme/project-layout.md",
+                                mapOf("validationLib" to variantKey),
+                            ),
+                        "Deploy" to TemplateResourceLoader.load("res-x/readme/deploy.md"),
+                        "Persistence" to
+                            TemplateResourceLoader.load("res-x/readme/persistence.md"),
+                    ),
+                extraPrerequisites = listOf("Bun 1.3 or later (install from https://bun.sh)"),
+            )
         val files =
             linkedMapOf(
                 "rescript.json" to
@@ -60,7 +90,7 @@ internal object ResXTemplateFiles {
                         type = "module",
                         packageManager = ctx.packageManagerSpec(),
                         engines = mapOf("node" to ctx.nodeEngine),
-                        dependencies = resXDependencies(ctx.validationLibrary),
+                        dependencies = resXDependencies(ctx),
                         // res-x uses Bun's built-in test runner instead of vitest because
                         // the compiled output dereferences the global `Bun` object via
                         // rescript-bun — vitest under Node would crash with `Bun is not
@@ -84,72 +114,40 @@ internal object ResXTemplateFiles {
                                 "res:dev" to "rescript -w",
                             ),
                     ),
-                "src/App.res" to TemplateResourceLoader.load("res-x/src/App.res"),
-                "src/Handler.res" to TemplateResourceLoader.load("res-x/src/Handler.res"),
-                "src/Layout.res" to
-                    TemplateResourceLoader.load(
-                        "res-x/src/Layout.res",
-                        mapOf("htmxVersion" to TemplateVersions.HTMX_CDN),
-                    ),
-                "src/Counter.res" to TemplateResourceLoader.load("res-x/src/Counter.res"),
-                "src/TodoForm.res" to
-                    TemplateResourceLoader.load(
-                        "res-x/src/TodoForm.res",
-                        mapOf("validationLib" to validationLabel),
-                    ),
-                "src/Validation.res" to
-                    TemplateResourceLoader.load("res-x/variants/$variantKey/src/Validation.res"),
-                "src/__tests__/App.test.mjs" to
-                    TemplateResourceLoader.load("res-x/src/__tests__/App.test.mjs"),
-                "vite.config.js" to TemplateResourceLoader.load("res-x/vite.config.js"),
-                "Dockerfile" to TemplateResourceLoader.load("res-x/Dockerfile"),
             )
-        files["README.md"] =
-            CommonFiles.readme(
-                ctx = ctx,
-                description = resXDescription(ctx.validationLibrary),
-                scripts =
-                    listOf(
-                        "dev" to "Run ReScript and the Bun server together in watch mode",
-                        "start" to "Run the compiled Bun server once",
-                        "build" to "Build client assets with Vite",
-                        "compile" to "Compile the Bun server into a standalone binary at dist/app",
-                        "test" to "Run bun test",
-                        "res:dev" to "Watch ReScript sources",
-                    ),
-                extraSections =
-                    listOf(
-                        "Application" to
-                            TemplateResourceLoader.load(
-                                "res-x/readme/app.md",
-                                mapOf("validationLib" to validationLabel),
-                            ),
-                        "HTMX" to
-                            TemplateResourceLoader.load(
-                                "res-x/readme/htmx.md",
-                                mapOf("htmxVersion" to TemplateVersions.HTMX_CDN),
-                            ),
-                        "Project Layout" to
-                            TemplateResourceLoader.load(
-                                "res-x/readme/project-layout.md",
-                                mapOf("validationLib" to validationLabel),
-                            ),
-                        "Deploy" to TemplateResourceLoader.load("res-x/readme/deploy.md"),
-                        "Persistence" to
-                            TemplateResourceLoader.load("res-x/readme/persistence.md"),
-                    ),
-                extraPrerequisites = listOf("Bun 1.3 or later (install from https://bun.sh)"),
+        files.putAll(TemplateScaffold.resourceFiles("res-x", listOf("src/App.res", "src/Handler.res")))
+        files["src/Layout.res"] =
+            TemplateResourceLoader.load(
+                "res-x/src/Layout.res",
+                mapOf("htmxVersion" to TemplateVersions.HTMX_CDN),
             )
-        files[".nvmrc"] = CommonFiles.nvmrc(ctx)
-        files["LICENSE"] = CommonFiles.mitLicense(ctx, holder = ctx.projectName)
-        files[".github/dependabot.yml"] = CommonFiles.dependabotYaml()
-        files[".gitignore"] =
-            CommonFiles.gitignore(
-                extra = listOf("dist/", "build/", ".env", ".res-x-cache/"),
+        files["src/Counter.res"] = TemplateResourceLoader.load("res-x/src/Counter.res")
+        files["src/TodoForm.res"] =
+            TemplateResourceLoader.load(
+                "res-x/src/TodoForm.res",
+                mapOf("validationLib" to variantKey),
             )
-        files[".editorconfig"] = CommonFiles.editorconfig()
-        files[".github/workflows/ci.yml"] =
-            CommonFiles.ciWorkflow(ctx, hasTest = true, setupBun = true)
+        val (validationTarget, validationContent) = TemplateScaffold.validationVariant(ctx, "res-x")
+        files[validationTarget] = validationContent
+        files.putAll(
+            TemplateScaffold.resourceFiles(
+                "res-x",
+                listOf(
+                    "src/__tests__/App.test.mjs",
+                    "vite.config.js",
+                    "Dockerfile",
+                ),
+            ),
+        )
+        files.putAll(
+            TemplateScaffold.commonTail(
+                ctx,
+                readme = readme,
+                gitignoreExtra = listOf("dist/", "build/", ".env", ".res-x-cache/"),
+                ciHasTest = true,
+                ciSetupBun = true,
+            ),
+        )
         return files
     }
 
@@ -158,28 +156,20 @@ internal object ResXTemplateFiles {
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
 
-    private fun resXDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+    private fun resXDependencies(ctx: TemplateContext): LinkedHashMap<String, String> {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
         deps["@rescript/runtime"] = TemplateVersions.RESCRIPT_RUNTIME
         deps["rescript-x"] = TemplateVersions.RESCRIPT_X
         deps["rescript-bun"] = TemplateVersions.RESCRIPT_BUN
-        when (validationLibrary) {
-            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
-            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
-        }
+        val (name, version) = TemplateScaffold.validationDependency(ctx)
+        deps[name] = version
         return deps
     }
 
-    private fun resXDescription(validationLibrary: ValidationLibrary): String {
-        val validationBlurb =
-            when (validationLibrary) {
-                ValidationLibrary.ZOD -> "zod"
-                ValidationLibrary.SURY -> "sury"
-            }
-        return "A server-driven web application on Bun + Vite using res-x. " +
+    private fun resXDescription(validationBlurb: String): String =
+        "A server-driven web application on Bun + Vite using res-x. " +
             "Ships a counter and a todo form that demonstrate HTMX partials, " +
             "JSX on the server, and $validationBlurb-validated form input."
-    }
 }
