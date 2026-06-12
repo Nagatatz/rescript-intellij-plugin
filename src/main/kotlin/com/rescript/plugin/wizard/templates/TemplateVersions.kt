@@ -55,7 +55,7 @@ object TemplateVersions {
     const val ELECTRON_BUILDER = "^26.8.1"
 
     // Expo / React Native
-    const val EXPO = "^55.0.17"
+    const val EXPO = "^56.0.11"
     const val REACT_NATIVE = "^0.85.2"
 
     // React Native Community CLI (bare workflow)
