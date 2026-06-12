@@ -4,7 +4,6 @@ import com.rescript.plugin.wizard.ApiStrategy
 import com.rescript.plugin.wizard.Database
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
-import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a single-package full-stack ReScript app.
@@ -30,25 +29,20 @@ internal object FullStackTemplateFiles {
     /**
      * Generates Full-Stack template files using the supplied [TemplateContext].
      */
-    fun generate(ctx: TemplateContext): Map<String, String> {
-        val variantKey = ctx.validationLibrary.variantKey()
-        return when (ctx.apiStrategy) {
-            ApiStrategy.REST -> restFiles(ctx, variantKey)
-            ApiStrategy.GRAPHQL -> graphqlFiles(ctx, variantKey)
+    fun generate(ctx: TemplateContext): Map<String, String> =
+        when (ctx.apiStrategy) {
+            ApiStrategy.REST -> restFiles(ctx)
+            ApiStrategy.GRAPHQL -> graphqlFiles(ctx)
         }
-    }
 
     /**
      * Back-compatible entry point used by tests and any external callers.
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
 
-    private fun restFiles(
-        ctx: TemplateContext,
-        variantKey: String,
-    ): Map<String, String> {
+    private fun restFiles(ctx: TemplateContext): Map<String, String> {
         val nameVar = mapOf("projectName" to ctx.projectName)
-        return commonFiles(ctx, variantKey) +
+        return commonFiles(ctx) +
             mapOf(
                 "rescript.json" to restRescriptJson(ctx),
                 "package.json" to restPackageJson(ctx),
@@ -67,11 +61,8 @@ internal object FullStackTemplateFiles {
             )
     }
 
-    private fun graphqlFiles(
-        ctx: TemplateContext,
-        variantKey: String,
-    ): Map<String, String> =
-        commonFiles(ctx, variantKey) +
+    private fun graphqlFiles(ctx: TemplateContext): Map<String, String> =
+        commonFiles(ctx) +
             mapOf(
                 "rescript.json" to graphqlRescriptJson(ctx),
                 "package.json" to graphqlPackageJson(ctx),
@@ -113,10 +104,7 @@ internal object FullStackTemplateFiles {
      * shared types, CI, license, and other infrastructure pieces that do not change
      * between REST and GraphQL.
      */
-    private fun commonFiles(
-        ctx: TemplateContext,
-        variantKey: String,
-    ): Map<String, String> {
+    private fun commonFiles(ctx: TemplateContext): Map<String, String> {
         val nameVar = mapOf("projectName" to ctx.projectName)
         val (schemaPath, drizzleConfigPath) =
             when (ctx.database) {
@@ -157,8 +145,7 @@ internal object FullStackTemplateFiles {
                 "src/server/Hono.res" to ProjectFileBuilders.honoBindings(),
                 "src/server/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
                 "src/server/Schema.res" to TemplateResourceLoader.load(schemaPath),
-                "src/server/Validation.res" to
-                    TemplateResourceLoader.load("full-stack/variants/$variantKey/src/server/Validation.res"),
+                TemplateScaffold.validationVariant(ctx, "full-stack", targetPath = "src/server/Validation.res"),
                 "src/server/Db.res" to TemplateResourceLoader.load(CommonFiles.sharedDbResPath(ctx.database)),
                 "src/server/__tests__/Server.test.mjs" to
                     TemplateResourceLoader.load("full-stack/src/server/__tests__/Server.test.mjs"),
@@ -292,10 +279,7 @@ internal object FullStackTemplateFiles {
         deps["react-dom"] = TemplateVersions.REACT_DOM
         deps["hono"] = TemplateVersions.HONO
         deps["@hono/node-server"] = TemplateVersions.HONO_NODE_SERVER
-        when (ctx.validationLibrary) {
-            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
-            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
-        }
+        TemplateScaffold.validationDependency(ctx).let { (pkg, version) -> deps[pkg] = version }
         val (driverPkg, driverVer) = CommonFiles.databaseDriver(ctx.database)
         deps[driverPkg] = driverVer
         deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM

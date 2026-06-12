@@ -44,12 +44,12 @@
 
 - [x] tanstack-start / remix-v7 / astro / waku / res-x / tauri を scaffold 化 (sonnet。初回は命令形書き換えで modern 4 種が +9〜+11 行純増 → Fable レビューで差し戻し、式スタイル (`mapOf + scaffold + commonTail`) に手直しして +3〜+8 に収束。ResX の不要な README 順序トリックも除去 (-10)。tauri の Rust 連携・remix の appSources・res-x の rescript.json 特殊形は維持)
 - [x] golden + 既存テスト green (Fable 再実行確認)、Fable diff レビュー (1 回差し戻し)
-- [ ] コミット: `♻️ Migrate batch C templates to TemplateScaffold`
+- [x] コミット: `♻️ Migrate batch C templates to TemplateScaffold`
 
 ## セクション 6: バッチ D 移行 (opus subagent → Fable 検収)
 
-- [ ] hono / hono-graphql / hono-inertia / monorepo / full-stack の標準フレーム部分のみ scaffold 化 (DB 分岐 / apiStrategy / PM ヘルパは現状維持)
-- [ ] golden + 既存テスト green、Fable diff レビュー
+- [x] hono / hono-graphql / hono-inertia / monorepo / full-stack の標準フレーム部分のみ scaffold 化 (opus。+106/-137。FullStack は README/.gitignore がブランチ側のため commonTail を規約どおり不適用、validationVariant/validationDependency のみ。interleave した load 群は現状維持を選択)
+- [x] golden (DB/GraphQL combo 含む全 74 件) + 既存テスト green (Fable 再実行確認)、Fable diff レビュー
 - [ ] コミット: `♻️ Migrate batch D templates to TemplateScaffold`
 
 ## セクション 7: docs + マージ前検証

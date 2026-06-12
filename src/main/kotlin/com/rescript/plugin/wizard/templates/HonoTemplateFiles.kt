@@ -25,11 +25,12 @@ import com.rescript.plugin.wizard.ValidationLibrary
  * selected by [TemplateContext.validationLibrary].
  */
 internal object HonoTemplateFiles {
+    private const val RESOURCE_ROOT = "hono"
+
     /**
      * Generates Hono template files using the supplied [TemplateContext].
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
-        val variantKey = ctx.validationLibrary.variantKey()
         val (schemaPath, drizzleConfigPath) =
             when (ctx.database) {
                 Database.LIBSQL -> {
@@ -85,7 +86,7 @@ internal object HonoTemplateFiles {
                 "src/HonoNodeServer.res" to ProjectFileBuilders.honoNodeServerBindings(),
                 "src/Logger.res" to TemplateResourceLoader.load("hono/src/Logger.res"),
                 "src/Schema.res" to TemplateResourceLoader.load(schemaPath),
-                "src/Validation.res" to TemplateResourceLoader.load("hono/variants/$variantKey/src/Validation.res"),
+                TemplateScaffold.validationVariant(ctx, RESOURCE_ROOT),
                 "src/Db.res" to TemplateResourceLoader.load(CommonFiles.sharedDbResPath(ctx.database)),
                 "src/Scalar.res" to TemplateResourceLoader.load("hono/src/Scalar.res"),
                 "src/Routes.res" to TemplateResourceLoader.load("hono/src/Routes.res"),
@@ -111,7 +112,7 @@ internal object HonoTemplateFiles {
                 Database.POSTGRES -> "PostgreSQL database"
                 Database.MYSQL -> "MySQL database"
             }
-        files["README.md"] =
+        val readme =
             CommonFiles.readme(
                 ctx = ctx,
                 description = honoDescription(ctx),
@@ -140,9 +141,14 @@ internal object HonoTemplateFiles {
                         "Project Layout" to TemplateResourceLoader.load("hono/readme/project-layout.md"),
                     ),
             )
-        files[".nvmrc"] = CommonFiles.nvmrc(ctx)
-        files["LICENSE"] = CommonFiles.mitLicense(ctx, holder = ctx.projectName)
-        files[".github/dependabot.yml"] = CommonFiles.dependabotYaml()
+        files.putAll(
+            TemplateScaffold.commonTail(
+                ctx,
+                readme = readme,
+                gitignoreExtra = listOf("dist/", "data/", "drizzle/", ".env"),
+                ciHasTest = true,
+            ),
+        )
         val envComment =
             when (ctx.database) {
                 Database.LIBSQL -> "Local SQLite file (default) or a Turso libsql:// URL"
@@ -153,9 +159,6 @@ internal object HonoTemplateFiles {
             CommonFiles.envExample(
                 listOf(envComment to CommonFiles.defaultDatabaseUrl(ctx.database)),
             )
-        files[".gitignore"] = CommonFiles.gitignore(extra = listOf("dist/", "data/", "drizzle/", ".env"))
-        files[".editorconfig"] = CommonFiles.editorconfig()
-        files[".github/workflows/ci.yml"] = CommonFiles.ciWorkflow(ctx, hasTest = true)
         files["Dockerfile"] = CommonFiles.serverDockerfile(ctx, port = 3000)
         files[".dockerignore"] = CommonFiles.dockerignore()
         CommonFiles.composeYaml(ctx.database)?.let { files["compose.yaml"] = it }
@@ -178,10 +181,7 @@ internal object HonoTemplateFiles {
             deps["@hono/zod-openapi"] = TemplateVersions.HONO_ZOD_OPENAPI
         }
         deps["@scalar/hono-api-reference"] = TemplateVersions.SCALAR_HONO_API_REFERENCE
-        when (ctx.validationLibrary) {
-            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
-            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
-        }
+        TemplateScaffold.validationDependency(ctx).let { (name, version) -> deps[name] = version }
         val (driverPkg, driverVer) = CommonFiles.databaseDriver(ctx.database)
         deps[driverPkg] = driverVer
         deps["drizzle-orm"] = TemplateVersions.DRIZZLE_ORM
