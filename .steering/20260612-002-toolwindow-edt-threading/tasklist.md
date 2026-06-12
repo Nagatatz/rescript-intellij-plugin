@@ -2,14 +2,14 @@
 
 ## セクション 1: DEFECT 1 — Module Dependency Diagram (🐛 1 コミット)
 
-- [ ] `RescriptDependencyDiagramProvider.buildDiagram` の index/PSI 走査を
+- [x] `RescriptDependencyDiagramProvider.buildDiagram` の index/PSI 走査を
       `runReadAction` でラップ、KDoc に off-EDT 契約を追記
-- [ ] `@Suppress("unused")` を削除（パネルから使用されているため）
-- [ ] `RescriptDependencyDiagramPanel.doRefresh` を
+- [x] `@Suppress("unused")` を削除（パネルから使用されているため）
+- [x] `RescriptDependencyDiagramPanel.doRefresh` を
       `executeOnPooledThread { build } + invokeLater { UI }` に変更
-- [ ] 既存 `RescriptDependencyDiagramProviderTest` が緑であることを確認
-- [ ] `./gradlew ktlintCheck buildPlugin test` 緑
-- [ ] コミット 🐛
+- [x] 既存 `RescriptDependencyDiagramProviderTest` が緑であることを確認
+- [x] `./gradlew ktlintCheck buildPlugin test` 緑
+- [x] コミット 🐛
 
 ### テスト省略理由（セクション 1）
 

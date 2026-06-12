@@ -1,6 +1,7 @@
 package com.rescript.plugin.diagram
 
 import com.intellij.openapi.actionSystem.DefaultActionGroup
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.rescript.plugin.diagram.RescriptDependencyDiagramExportAction.Format
 import com.rescript.plugin.flow.MermaidSourceColorizer
@@ -52,11 +53,18 @@ class RescriptDependencyDiagramPanel(
     }
 
     override fun doRefresh() {
-        val model = RescriptDependencyDiagramProvider.buildDiagram(project)
-        textArea.text = MermaidSourceColorizer.render(RescriptMermaidExporter.toMermaid(model))
-        textArea.caretPosition = 0
-        graphView.setModel(model)
-        statusLabel.text = " Modules: ${model.moduleCount()}   Edges: ${model.edgeCount()}"
+        statusLabel.text = " Building…"
+        // Build off the EDT: buildDiagram walks the file-type index and PSI
+        // trees, which must not run a read action on the EDT (ThreadingAssertions).
+        ApplicationManager.getApplication().executeOnPooledThread {
+            val model = RescriptDependencyDiagramProvider.buildDiagram(project)
+            ApplicationManager.getApplication().invokeLater {
+                textArea.text = MermaidSourceColorizer.render(RescriptMermaidExporter.toMermaid(model))
+                textArea.caretPosition = 0
+                graphView.setModel(model)
+                statusLabel.text = " Modules: ${model.moduleCount()}   Edges: ${model.edgeCount()}"
+            }
+        }
     }
 
     private companion object {

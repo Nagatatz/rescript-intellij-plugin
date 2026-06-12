@@ -1,5 +1,6 @@
 package com.rescript.plugin.diagram
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiManager
 import com.rescript.plugin.RescriptFileType
@@ -19,25 +20,29 @@ object RescriptDependencyDiagramProvider {
     /**
      * Builds a dependency graph for all ReScript modules in the project.
      *
+     * Must be invoked off the EDT; performs a read action internally to access
+     * the file-type index and PSI trees.
+     *
      * @param project the IntelliJ project
      * @return the dependency diagram model
      */
-    @Suppress("unused") // Public API for diagram tool window consumers
     fun buildDiagram(project: Project): RescriptDependencyDiagramModel {
         val model = RescriptDependencyDiagramModel()
         val psiManager = PsiManager.getInstance(project)
 
-        com.intellij.psi.search.FileTypeIndex
-            .getFiles(
-                RescriptFileType,
-                com.intellij.psi.search.GlobalSearchScope
-                    .projectScope(project),
-            ).forEach { file ->
-                val psiFile = psiManager.findFile(file) as? RescriptFile ?: return@forEach
-                val moduleName = file.nameWithoutExtension
-                val dependencies = extractDependencies(psiFile.text)
-                model.addModule(moduleName, dependencies)
-            }
+        ApplicationManager.getApplication().runReadAction {
+            com.intellij.psi.search.FileTypeIndex
+                .getFiles(
+                    RescriptFileType,
+                    com.intellij.psi.search.GlobalSearchScope
+                        .projectScope(project),
+                ).forEach { file ->
+                    val psiFile = psiManager.findFile(file) as? RescriptFile ?: return@forEach
+                    val moduleName = file.nameWithoutExtension
+                    val dependencies = extractDependencies(psiFile.text)
+                    model.addModule(moduleName, dependencies)
+                }
+        }
 
         return model
     }
