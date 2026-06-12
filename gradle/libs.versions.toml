@@ -12,7 +12,7 @@ junit4 = "4.13.2"
 mockito = "5.23.0"
 dokka = "2.2.0"
 pitest-gradle = "1.19.0"
-pitest = "1.20.4"
+pitest = "1.25.4"
 pitest-junit5 = "1.2.3"
 
 [libraries]
