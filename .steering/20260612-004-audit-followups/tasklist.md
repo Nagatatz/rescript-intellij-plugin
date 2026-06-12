@@ -19,12 +19,12 @@
 - [x] ローカル実行で検証 — **即座に critical 2 件 (concurrently 9.x → shell-quote GHSA-w7jw-789q-3m8p) を検出**し、CONCURRENTLY を ^10.0.3 にバンプして解消 (golden 26 件再生成、🐛 コミット)。残る moderate 21 件は最新ピンの transitive 依存で上流待ち (audit-level=high のため fail しない)
 - [x] `monthly-verify.yml` に template-versions-audit ジョブ追加 (--legacy-peer-deps で lock 生成 — 全テンプレート混載の peer 衝突回避。actionlint OK)。生成物ディレクトリを .gitignore に追加
 - [x] CLAUDE.md の CI 表 (Monthly Verify 行) と `.claude/rules/release.md` の前提条件に反映 (ローカル再現コマンド付き)
-- [ ] コミット: `🔧 Audit template npm versions monthly via generated package.json`
+- [x] コミット: `🔧 Audit template npm versions monthly via a generated manifest`
 
 ## マージ前検証
 
-- [ ] `./gradlew ktlintCheck test --rerun` green
-- [ ] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
+- [x] `./gradlew ktlintCheck test --rerun` green
+- [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
 - [ ] `AskUserQuestion` でマージ可否確認 → main マージ → push
 
 ## テスト免除の記載
