@@ -38,11 +38,13 @@
 
 ## セクション 3: 仕上げ
 
-- [ ] スモークテスト再実行（runIde → 両ツールウィンドウ起動 →
+- [x] スモークテスト再実行（runIde → 両ツールウィンドウ起動 →
       idea.log に ThreadingAssertions / SlowOperations SEVERE が出ない）
-- [ ] tasklist 全項目 `[x]` 化（マージ前最終コミット）
-- [ ] マージ可否を AskUserQuestion で確認
-- [ ] main へマージ、worktree クリーンアップ
+      → 両パネルが pooled thread で実描画（Module Diagram: "Modules: 3
+      Edges: 0" / Type Impact: "role: 17 reference(s)"）、新規 SEVERE 0 件
+- [x] tasklist 全項目 `[x]` 化（マージ前最終コミット）
+- [x] マージ可否を AskUserQuestion で確認
+- [x] main へマージ、worktree クリーンアップ
 
 ## ドキュメント
 
