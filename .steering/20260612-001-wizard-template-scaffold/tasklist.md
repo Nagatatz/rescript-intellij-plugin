@@ -50,15 +50,15 @@
 
 - [x] hono / hono-graphql / hono-inertia / monorepo / full-stack の標準フレーム部分のみ scaffold 化 (opus。+106/-137。FullStack は README/.gitignore がブランチ側のため commonTail を規約どおり不適用、validationVariant/validationDependency のみ。interleave した load 群は現状維持を選択)
 - [x] golden (DB/GraphQL combo 含む全 74 件) + 既存テスト green (Fable 再実行確認)、Fable diff レビュー
-- [ ] コミット: `♻️ Migrate batch D templates to TemplateScaffold`
+- [x] コミット: `♻️ Migrate batch D templates to TemplateScaffold`
 
 ## セクション 7: docs + マージ前検証
 
-- [ ] repository-structure.md の wizard/templates/ 行に `TemplateScaffold` 追記
-- [ ] product-requirements.md の #131 を削除
+- [x] repository-structure.md の wizard/templates/ 行に `TemplateScaffold` 追記
+- [x] product-requirements.md の #131 を削除 (候補テーブルは再び空のため見出しごと削除)
 - [ ] コミット: `📝 Sync docs for Phase 5 wizard scaffold`
 - [ ] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green + `test --rerun` 実実行
-- [ ] 純減行数の実測記録 (目標 ~800 行以上)
+- [x] 純減行数の実測: **+39 行で目標未達** (既存 22 クラス −111 / scaffold +150)。requirements.md「実装結果の評価」に分析を追記し、マージ確認で明示する
 - [ ] `./gradlew runIde` スモーク: New Project から Basic / Hono / Tauri を実生成
 - [ ] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
 - [ ] `AskUserQuestion` でマージ可否確認

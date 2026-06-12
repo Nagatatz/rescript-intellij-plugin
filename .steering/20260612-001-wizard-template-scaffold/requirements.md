@@ -34,7 +34,7 @@ Fable が大枠 (設計・バッチ分割・レビュー・検証) を担当し�
 
 - [ ] golden テストが移行前に整備され、全バッチで **golden hash 不変** (= 生成内容のバイト等価)
 - [ ] 22 クラスすべてが scaffold を利用し、重複の common tail 列挙・リソース load 定型・依存切替複製が解消されている
-- [ ] wizard/templates の純減 ~800 行以上
+- [ ] wizard/templates の純減 ~800 行以上 → **未達 (実測 +39 行: 既存 22 クラス −111、scaffold 本体 +150)**。見積り誤りの分析と価値の再評価は「実装結果の評価 (2026-06-12 追記)」を参照
 - [ ] 新基盤に KDoc + ユニットテスト (golden テストとは別に scaffold 単体の検証)
 - [ ] `./gradlew ktlintCheck clean buildPlugin test koverVerify verifyPluginStructure` green
 - [ ] runIde スモーク: New Project ウィザードから代表 2〜3 テンプレートを実生成し、生成物が従来どおりであること
@@ -45,3 +45,13 @@ Fable が大枠 (設計・バッチ分割・レビュー・検証) を担当し�
 - 生成内容の変更・改善 (バイト等価が原則。気付いた改善候補は記録のみ)
 - 静的リソース (resources/templates/) の再編成
 - ProjectTemplate enum / Wizard UI の変更
+
+## 実装結果の評価 (2026-06-12 追記)
+
+行数削減目標は未達。原因は go/no-go 調査時の見積り誤り — 静的内容のリソース外出しと CommonFiles 集約が過去に完了しており、残存定型は各クラス十数行 (tail 7 行 + load 数行 + when 4 行) しかなかった。バイト等価制約と ktlint の 120 桁改行がさらに削減を圧縮した。
+
+実際に得られた価値:
+- golden キャラクタリゼーションテスト 74 combo — テンプレート出力の恒久回帰網 (従来は部分文字列 assert のみ)
+- 単一情報源化: common tail 22 箇所 → 1、validation 依存切替 18 箇所 → 1、variant パス解決 18 箇所 → 1。第 8 の tail ファイル追加や第 3 の validation ライブラリ追加が 1 ファイル編集になる
+
+マージ可否はこの再評価を明示してユーザーに確認する。

@@ -73,7 +73,7 @@ rescript-intellij-plugin/
 | `surround/` | Surround With | `RescriptSurroundDescriptor` |
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
 | `wizard/` | Project Wizard（新規プロジェクト作成、Package Manager / Validation Library 選択 UI） | `RescriptModuleBuilder`, `PackageManager`, `ValidationLibrary` |
-| `wizard/templates/` | 22 種類のプロジェクトテンプレートファイル生成（既存 18 件は zod/sury の `Validation.res` を variants/<key>/ から選択。TanStack Start / Remix RR v7 / Astro / Waku は Validation 選択を無効化） | `BasicTemplateFiles`, `ViteReactTemplateFiles`, `HonoInertiaTemplateFiles`, `TauriTemplateFiles`, `TanstackStartTemplateFiles`, `RemixV7TemplateFiles`, `AstroTemplateFiles`, `WakuTemplateFiles` 等 |
+| `wizard/templates/` | 22 種類のプロジェクトテンプレートファイル生成（既存 18 件は zod/sury の `Validation.res` を variants/<key>/ から選択。TanStack Start / Remix RR v7 / Astro / Waku は Validation 選択を無効化） | `TemplateScaffold`, `BasicTemplateFiles`, `ViteReactTemplateFiles`, `HonoInertiaTemplateFiles`, `TauriTemplateFiles`, `TanstackStartTemplateFiles`, `RemixV7TemplateFiles`, `AstroTemplateFiles`, `WakuTemplateFiles` 等 |
 | `generate/` | Code Generation（Generate メニュー） | `RescriptGenerateGroup`, `RescriptGenerateSwitchAction`, `RescriptJsonCodeGenerator` |
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
