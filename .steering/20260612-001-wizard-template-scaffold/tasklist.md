@@ -38,12 +38,12 @@
 
 - [x] nextjs / react-native-cli / aws-lambda / cloudflare-workers / google-cloud-run を scaffold 化 (sonnet。+499/-511。Hono バインディング混在部と CommonFiles ビルダー由来は適切に個別残し)
 - [x] golden + 既存テスト green (Fable 再実行確認)、Fable diff レビュー
-- [ ] コミット: `♻️ Migrate batch B templates to TemplateScaffold`
+- [x] コミット: `♻️ Migrate batch B templates to TemplateScaffold`
 
 ## セクション 5: バッチ C 移行 (sonnet subagent → Fable 検収)
 
-- [ ] tanstack-start / remix-v7 / astro / waku / res-x / tauri を scaffold 化
-- [ ] golden + 既存テスト green、Fable diff レビュー
+- [x] tanstack-start / remix-v7 / astro / waku / res-x / tauri を scaffold 化 (sonnet。初回は命令形書き換えで modern 4 種が +9〜+11 行純増 → Fable レビューで差し戻し、式スタイル (`mapOf + scaffold + commonTail`) に手直しして +3〜+8 に収束。ResX の不要な README 順序トリックも除去 (-10)。tauri の Rust 連携・remix の appSources・res-x の rescript.json 特殊形は維持)
+- [x] golden + 既存テスト green (Fable 再実行確認)、Fable diff レビュー (1 回差し戻し)
 - [ ] コミット: `♻️ Migrate batch C templates to TemplateScaffold`
 
 ## セクション 6: バッチ D 移行 (opus subagent → Fable 検収)

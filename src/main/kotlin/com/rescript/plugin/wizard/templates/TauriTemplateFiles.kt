@@ -2,7 +2,6 @@ package com.rescript.plugin.wizard.templates
 
 import com.rescript.plugin.wizard.PackageManager
 import com.rescript.plugin.wizard.ProjectFileBuilders
-import com.rescript.plugin.wizard.ValidationLibrary
 
 /**
  * Generates project template files for a Tauri 2.x desktop application powered by ReScript and Vite+.
@@ -53,122 +52,132 @@ internal object TauriTemplateFiles {
                 "cmdRunDev" to ctx.runCmd("dev"),
                 "cmdBuild" to ctx.runCmd("build"),
             )
-        val variantKey = ctx.validationLibrary.variantKey()
-        return mapOf(
-            "rescript.json" to
-                ProjectFileBuilders.rescriptJson(
-                    name = ctx.projectName,
-                    bsDependencies =
-                        listOf("@rescript/core", "@rescript/react", "@rescript-tauri/core") +
-                            PLUGIN_RESCRIPT_DEPS +
-                            ctx.validationBsDeps(),
-                    includeJsx = true,
+        val readme =
+            CommonFiles.readme(
+                ctx = ctx,
+                description =
+                    "A Tauri 2.x desktop app with a ReScript + React renderer bundled by Vite+. " +
+                        "IPC payloads from Rust are validated in the renderer via " +
+                        "${ctx.validationLibrary.displayName} before they reach UI code.",
+                scripts =
+                    listOf(
+                        "tauri:dev" to "Run the Tauri app (compiles Rust + starts the renderer)",
+                        "tauri:build" to "Bundle a production binary (requires Rust + signing setup)",
+                        "dev" to "Start the Vite+ dev server for the renderer only",
+                        "build" to "Bundle the renderer for production",
+                        "test" to "Run Vitest via Vite+",
+                        "res:dev" to "Watch ReScript sources",
+                    ),
+                extraPrerequisites =
+                    listOf(
+                        "Rust toolchain (`rustup default stable`) — needed for `tauri dev` / `tauri build`",
+                        "Platform build deps for Tauri — see https://v2.tauri.app/start/prerequisites/",
+                    ),
+                extraSections =
+                    listOf(
+                        "Renderer ↔ Rust IPC" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/ipc.md"),
+                        "Production Bundling" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/production.md"),
+                    ),
+            )
+        val files = linkedMapOf<String, String>()
+        files["rescript.json"] =
+            ProjectFileBuilders.rescriptJson(
+                name = ctx.projectName,
+                bsDependencies =
+                    listOf("@rescript/core", "@rescript/react", "@rescript-tauri/core") +
+                        PLUGIN_RESCRIPT_DEPS +
+                        ctx.validationBsDeps(),
+                includeJsx = true,
+            )
+        files["package.json"] =
+            ProjectFileBuilders.packageJson(
+                name = ctx.projectName,
+                isPrivate = true,
+                type = "module",
+                packageManager = ctx.packageManagerSpec(),
+                engines = mapOf("node" to ctx.nodeEngine),
+                dependencies = tauriDependencies(ctx),
+                devDependencies =
+                    linkedMapOf(
+                        "@tauri-apps/cli" to TemplateVersions.TAURI_APPS_CLI,
+                        "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
+                        "vite" to TemplateVersions.VITE,
+                        "vite-plus" to TemplateVersions.VITE_PLUS,
+                        "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
+                        "vitest" to TemplateVersions.VITEST,
+                        "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+                    ),
+                scripts =
+                    linkedMapOf(
+                        "dev" to "vp dev",
+                        "build" to "vp build",
+                        "tauri" to "tauri",
+                        "tauri:dev" to "tauri dev",
+                        "tauri:build" to "tauri build",
+                        "test" to "vp test",
+                        "test:coverage" to "vp test --coverage",
+                        "res:build" to "rescript",
+                        "res:clean" to "rescript clean",
+                        "res:dev" to "rescript -w",
+                    ),
+            )
+        files["index.html"] = TemplateResourceLoader.load("$RESOURCE_ROOT/index.html", projectVars)
+        files.putAll(
+            TemplateScaffold.resourceFiles(
+                RESOURCE_ROOT,
+                listOf(
+                    "vite.config.mjs",
+                    "src/Main.res",
+                    "src/App.res",
+                    "src/Tauri.res",
+                    "src/SystemInfo.res",
+                    "src/HexInspector.res",
+                    "src/Progress.res",
+                    "src/WindowEvents.res",
                 ),
-            "package.json" to
-                ProjectFileBuilders.packageJson(
-                    name = ctx.projectName,
-                    isPrivate = true,
-                    type = "module",
-                    packageManager = ctx.packageManagerSpec(),
-                    engines = mapOf("node" to ctx.nodeEngine),
-                    dependencies = tauriDependencies(ctx.validationLibrary),
-                    devDependencies =
-                        linkedMapOf(
-                            "@tauri-apps/cli" to TemplateVersions.TAURI_APPS_CLI,
-                            "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
-                            "vite" to TemplateVersions.VITE,
-                            "vite-plus" to TemplateVersions.VITE_PLUS,
-                            "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
-                            "vitest" to TemplateVersions.VITEST,
-                            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
-                        ),
-                    scripts =
-                        linkedMapOf(
-                            "dev" to "vp dev",
-                            "build" to "vp build",
-                            "tauri" to "tauri",
-                            "tauri:dev" to "tauri dev",
-                            "tauri:build" to "tauri build",
-                            "test" to "vp test",
-                            "test:coverage" to "vp test --coverage",
-                            "res:build" to "rescript",
-                            "res:clean" to "rescript clean",
-                            "res:dev" to "rescript -w",
-                        ),
-                ),
-            "index.html" to TemplateResourceLoader.load("$RESOURCE_ROOT/index.html", projectVars),
-            "vite.config.mjs" to TemplateResourceLoader.load("$RESOURCE_ROOT/vite.config.mjs"),
-            "src/Main.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Main.res"),
-            "src/App.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/App.res"),
-            "src/Tauri.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Tauri.res"),
-            "src/SystemInfo.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/SystemInfo.res"),
-            "src/HexInspector.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/HexInspector.res"),
-            "src/Progress.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/Progress.res"),
-            "src/WindowEvents.res" to TemplateResourceLoader.load("$RESOURCE_ROOT/src/WindowEvents.res"),
-            "src/Validation.res" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/variants/$variantKey/src/Validation.res"),
-            "src/__tests__/App.test.mjs" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src/__tests__/App.test.mjs"),
-            "src-tauri/Cargo.toml" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/Cargo.toml", projectVars),
-            "src-tauri/build.rs" to TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/build.rs"),
-            "src-tauri/src/main.rs" to TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/src/main.rs"),
-            "src-tauri/src/lib.rs" to TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/src/lib.rs"),
-            "src-tauri/tauri.conf.json" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/tauri.conf.json", tauriConfVars),
-            "src-tauri/capabilities/default.json" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/capabilities/default.json"),
-            // .gitignore content is inlined rather than loaded from resources because
-            // Gradle's default resources include rule filters out dotfile basenames.
-            "src-tauri/.gitignore" to SRC_TAURI_GITIGNORE,
-            "README.md" to
-                CommonFiles.readme(
-                    ctx = ctx,
-                    description =
-                        "A Tauri 2.x desktop app with a ReScript + React renderer bundled by Vite+. " +
-                            "IPC payloads from Rust are validated in the renderer via " +
-                            "${ctx.validationLibrary.displayName} before they reach UI code.",
-                    scripts =
-                        listOf(
-                            "tauri:dev" to "Run the Tauri app (compiles Rust + starts the renderer)",
-                            "tauri:build" to "Bundle a production binary (requires Rust + signing setup)",
-                            "dev" to "Start the Vite+ dev server for the renderer only",
-                            "build" to "Bundle the renderer for production",
-                            "test" to "Run Vitest via Vite+",
-                            "res:dev" to "Watch ReScript sources",
-                        ),
-                    extraPrerequisites =
-                        listOf(
-                            "Rust toolchain (`rustup default stable`) — needed for `tauri dev` / `tauri build`",
-                            "Platform build deps for Tauri — see https://v2.tauri.app/start/prerequisites/",
-                        ),
-                    extraSections =
-                        listOf(
-                            "Renderer ↔ Rust IPC" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/ipc.md"),
-                            "Production Bundling" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/production.md"),
-                        ),
-                ),
-            ".nvmrc" to CommonFiles.nvmrc(ctx),
-            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
-            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to
-                CommonFiles.gitignore(
-                    extra =
-                        listOf(
-                            "dist/",
-                            ".vite/",
-                            // Rust build output also lives in src-tauri/.gitignore, but listing
-                            // it here keeps a top-level checkout clean even if the inner
-                            // .gitignore is removed.
-                            "src-tauri/target/",
-                            "src-tauri/gen/",
-                        ),
-                ),
-            ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
+            ),
         )
+        val (validationTarget, validationContent) = TemplateScaffold.validationVariant(ctx, RESOURCE_ROOT)
+        files[validationTarget] = validationContent
+        files.putAll(TemplateScaffold.resourceFiles(RESOURCE_ROOT, listOf("src/__tests__/App.test.mjs")))
+        files["src-tauri/Cargo.toml"] = TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/Cargo.toml", projectVars)
+        files.putAll(
+            TemplateScaffold.resourceFiles(
+                RESOURCE_ROOT,
+                listOf(
+                    "src-tauri/build.rs",
+                    "src-tauri/src/main.rs",
+                    "src-tauri/src/lib.rs",
+                ),
+            ),
+        )
+        files["src-tauri/tauri.conf.json"] =
+            TemplateResourceLoader.load("$RESOURCE_ROOT/src-tauri/tauri.conf.json", tauriConfVars)
+        files.putAll(TemplateScaffold.resourceFiles(RESOURCE_ROOT, listOf("src-tauri/capabilities/default.json")))
+        // .gitignore content is inlined rather than loaded from resources because
+        // Gradle's default resources include rule filters out dotfile basenames.
+        files["src-tauri/.gitignore"] = SRC_TAURI_GITIGNORE
+        files.putAll(
+            TemplateScaffold.commonTail(
+                ctx,
+                readme = readme,
+                gitignoreExtra =
+                    listOf(
+                        "dist/",
+                        ".vite/",
+                        // Rust build output also lives in src-tauri/.gitignore, but listing
+                        // it here keeps a top-level checkout clean even if the inner
+                        // .gitignore is removed.
+                        "src-tauri/target/",
+                        "src-tauri/gen/",
+                    ),
+                ciHasBuild = true,
+                ciHasTest = true,
+            ),
+        )
+        return files
     }
 
     /**
@@ -176,7 +185,7 @@ internal object TauriTemplateFiles {
      */
     fun generate(projectName: String): Map<String, String> = generate(TemplateContext(projectName, PackageManager.PNPM))
 
-    private fun tauriDependencies(validationLibrary: ValidationLibrary): LinkedHashMap<String, String> {
+    private fun tauriDependencies(ctx: TemplateContext): LinkedHashMap<String, String> {
         val deps = linkedMapOf<String, String>()
         deps["rescript"] = TemplateVersions.RESCRIPT
         deps["@rescript/core"] = TemplateVersions.RESCRIPT_CORE
@@ -201,10 +210,8 @@ internal object TauriTemplateFiles {
         deps["@tauri-apps/plugin-log"] = TemplateVersions.TAURI_APPS_PLUGIN_LOG
         deps["react"] = TemplateVersions.REACT
         deps["react-dom"] = TemplateVersions.REACT_DOM
-        when (validationLibrary) {
-            ValidationLibrary.ZOD -> deps["zod"] = TemplateVersions.ZOD
-            ValidationLibrary.SURY -> deps["sury"] = TemplateVersions.SURY
-        }
+        val (name, version) = TemplateScaffold.validationDependency(ctx)
+        deps[name] = version
         return deps
     }
 }

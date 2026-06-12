@@ -21,6 +21,28 @@ internal object RemixV7TemplateFiles {
      */
     fun generate(ctx: TemplateContext): Map<String, String> {
         val projectVars = mapOf("projectName" to ctx.projectName)
+        val readme =
+            CommonFiles.readme(
+                ctx = ctx,
+                description =
+                    "A React Router v7 (Framework mode) app with ReScript components and a " +
+                        "ReScript loader, served through @react-router/dev's Vite SSR pipeline.",
+                scripts =
+                    listOf(
+                        "dev" to "Start React Router dev server with the ReScript watcher",
+                        "build" to "Compile ReScript and run react-router build",
+                        "start" to "Run the production bundle via @react-router/serve",
+                        "typecheck" to "Generate route types and run tsc --noEmit",
+                        "test" to "Run Vitest",
+                    ),
+                extraSections =
+                    listOf(
+                        "Loaders and Actions" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/loaders-actions.md"),
+                        "File-based Routing" to
+                            TemplateResourceLoader.load("$RESOURCE_ROOT/readme/file-routing.md"),
+                    ),
+            )
         return mapOf(
             "rescript.json" to
                 ProjectFileBuilders.rescriptJson(
@@ -62,58 +84,42 @@ internal object RemixV7TemplateFiles {
                             "@types/node" to TemplateVersions.NODE_TYPES,
                         ),
                 ),
-            "vite.config.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/vite.config.ts"),
-            "react-router.config.ts" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/react-router.config.ts"),
-            "tsconfig.json" to TemplateResourceLoader.load("$RESOURCE_ROOT/tsconfig.json"),
-            "rescript-modules.d.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/rescript-modules.d.ts"),
-            "app/root.tsx" to TemplateResourceLoader.load("$RESOURCE_ROOT/app/root.tsx"),
-            "app/routes.ts" to TemplateResourceLoader.load("$RESOURCE_ROOT/app/routes.ts"),
-            "app/routes/home.tsx" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/app/routes/home.tsx", projectVars),
-            "app/components/Greet.res" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/app/components/Greet.res"),
-            "app/loaders/HomeLoader.res" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/app/loaders/HomeLoader.res"),
-            "app/__tests__/Greet.test.mjs" to
-                TemplateResourceLoader.load("$RESOURCE_ROOT/app/__tests__/Greet.test.mjs"),
-            "README.md" to
-                CommonFiles.readme(
-                    ctx = ctx,
-                    description =
-                        "A React Router v7 (Framework mode) app with ReScript components and a " +
-                            "ReScript loader, served through @react-router/dev's Vite SSR pipeline.",
-                    scripts =
-                        listOf(
-                            "dev" to "Start React Router dev server with the ReScript watcher",
-                            "build" to "Compile ReScript and run react-router build",
-                            "start" to "Run the production bundle via @react-router/serve",
-                            "typecheck" to "Generate route types and run tsc --noEmit",
-                            "test" to "Run Vitest",
-                        ),
-                    extraSections =
-                        listOf(
-                            "Loaders and Actions" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/loaders-actions.md"),
-                            "File-based Routing" to
-                                TemplateResourceLoader.load("$RESOURCE_ROOT/readme/file-routing.md"),
-                        ),
+        ) +
+            TemplateScaffold.resourceFiles(
+                RESOURCE_ROOT,
+                listOf(
+                    "vite.config.ts",
+                    "react-router.config.ts",
+                    "tsconfig.json",
+                    "rescript-modules.d.ts",
+                    "app/root.tsx",
+                    "app/routes.ts",
                 ),
-            ".nvmrc" to CommonFiles.nvmrc(ctx),
-            "LICENSE" to CommonFiles.mitLicense(ctx, holder = ctx.projectName),
-            ".github/dependabot.yml" to CommonFiles.dependabotYaml(),
-            ".gitignore" to
-                CommonFiles.gitignore(
-                    extra =
-                        listOf(
-                            ".react-router/",
-                            "build/",
-                            ".env*.local",
-                        ),
+            ) +
+            mapOf(
+                "app/routes/home.tsx" to
+                    TemplateResourceLoader.load("$RESOURCE_ROOT/app/routes/home.tsx", projectVars),
+            ) +
+            TemplateScaffold.resourceFiles(
+                RESOURCE_ROOT,
+                listOf(
+                    "app/components/Greet.res",
+                    "app/loaders/HomeLoader.res",
+                    "app/__tests__/Greet.test.mjs",
                 ),
-            ".editorconfig" to CommonFiles.editorconfig(),
-            ".github/workflows/ci.yml" to CommonFiles.ciWorkflow(ctx, hasBuild = true, hasTest = true),
-        )
+            ) +
+            TemplateScaffold.commonTail(
+                ctx,
+                readme = readme,
+                gitignoreExtra =
+                    listOf(
+                        ".react-router/",
+                        "build/",
+                        ".env*.local",
+                    ),
+                ciHasBuild = true,
+                ciHasTest = true,
+            )
     }
 
     /**
