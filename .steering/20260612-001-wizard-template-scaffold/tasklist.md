@@ -61,8 +61,8 @@
 - [x] 純減行数の実測: **+39 行で目標未達** (既存 22 クラス −111 / scaffold +150)。requirements.md「実装結果の評価」に分析を追記し、マージ確認で明示する
 - [x] スモーク (ユーザー指示で ui-smoke-test スキル方式に変更、subagent はクレジット制約のため Fable 直接実行): `runIdeForUiTests` + Remote-Robot の /js/execute で deploy 済み jar 上の `ProjectTemplate.generateFiles` を BASIC/HONO/TAURI に対し実行 — 全 PASS (15/27/27 ファイル、キーファイル存在、idea.log にプラグイン例外なし)
 - [x] tasklist 全項目 `[x]` 更新をマージ前最終コミットに含める
-- [ ] `AskUserQuestion` でマージ可否確認
-- [ ] main へマージ → ブランチ削除 → push
+- [x] `AskUserQuestion` でマージ可否確認 (受け入れ条件未達 1 件を明示のうえ「マージする」を承認)
+- [x] main へマージ (merge commit e20df1c) → ブランチ削除 → push
 
 ## テスト免除の記載
 
