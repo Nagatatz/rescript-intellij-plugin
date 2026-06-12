@@ -30,7 +30,7 @@ const outDir = resolve(process.argv[2] ?? join(repoRoot, ".github/scripts/templa
 // 1. Constant name -> version string, from TemplateVersions.kt.
 const versions = {};
 for (const m of readFileSync(versionsFile, "utf8").matchAll(
-  /const val ([A-Z0-9_]+) = "([^"]+)"/g,
+  /(?:const )?val ([A-Z0-9_]+) = "([^"]+)"/g,
 )) {
   versions[m[1]] = m[2];
 }
