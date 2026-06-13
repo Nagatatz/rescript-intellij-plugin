@@ -69,6 +69,29 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.15</h3>
+        <h4>New Features</h4>
+        <ul>
+            <li><b>Editor-grade highlighting in tool windows</b> — Type Info, Notebook cells, Hoogle-style signature search results, and PPX annotations now render with the same ReScript syntax colours as the editor; Variant Flow and Module Dependency source modes colorize Mermaid syntax</li>
+            <li><b>Colour-coded diagram semantics</b> — Variant Flow arms (constructor / wildcard / binding / todo / nested), Module Dependency node roles (entry / intermediate / leaf / cycle), Interop Risk severity bands, and Type Impact reference kinds each get a Light/Dark-aware palette with legends</li>
+        </ul>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Module Dependency diagram building and Type Impact reference resolution moved off the UI thread, keeping the IDE responsive on large projects</li>
+            <li>Type Info and PPX panels no longer react to caret movement in other open projects</li>
+            <li>Project templates raise vulnerable dependency floors: Next.js to ^16.2.9 (GHSA-26hh-7cqf-hhc6) and concurrently to ^10.0.3 (shell-quote advisory)</li>
+            <li>Added missing intention description resources flagged by plugin verification</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Tool window panels share a common scaffold (toolbar, status bar, debounced refresh) and the debounce now uses platform coroutines instead of the internal Alarm API</li>
+            <li>Wizard templates generate through a shared frame, guarded by golden characterization tests covering all 22 templates across 74 configuration combos</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>IntelliJ Platform 2026.1.2; project templates move to Expo SDK 56</li>
+            <li>Template npm versions are audited monthly against the npm advisory database</li>
+        </ul>
         <h3>0.1.14</h3>
         <h4>New Features</h4>
         <ul>
