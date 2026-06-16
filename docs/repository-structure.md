@@ -41,7 +41,7 @@ rescript-intellij-plugin/
 | `codestyle/` | コードスタイル、インデント設定 | `RescriptCodeStyleSettingsProvider` |
 | `config/` | rescript.json アイコン、JSON Schema | `RescriptJsonIconProvider`, `RescriptJsonSchemaProviderFactory` |
 | `run/` | 実行構成（ReScript ビルド）、実行共通ユーティリティ | `RescriptRunConfigurationType`, `RescriptRunConfiguration`, `RescriptRunUtils` |
-| `test/` | テスト実行構成（jest/vitest） | `RescriptTestRunConfigurationType` |
+| `test/` | テスト実行構成（jest/vitest）、describe/it/test 行の Run/Debug ガターマーカーと `-t` フィルタ検出 | `RescriptTestRunConfigurationType`, `RescriptTestRunLineMarkerContributor`, `RescriptTestCallDetector` |
 | `debug/` | デバッグ実行構成 | `RescriptDebugConfigurationType` |
 | `settings/` | プロジェクト設定 UI・永続化（スキーマ駆動） | `RescriptConfigurable`, `RescriptProjectSettings`, `RescriptSettingsSchema`, `RescriptSettingDescriptor`, `RescriptSettingsValidator` |
 | `structure/` | ストラクチャービュー（宣言 + JSX 要素 / フラグメント。表示判定は `RescriptPsiUtils.STRUCTURE_VIEW_TYPES` = `NAVIGABLE_TYPES` + JSX 要素 / フラグメント。self-closing は除外） | `RescriptStructureViewFactory` |

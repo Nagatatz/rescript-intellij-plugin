@@ -467,7 +467,8 @@ flowchart TD
 | `com.intellij.qualifiedNameProvider` | `RescriptQualifiedNameProvider` | 完全修飾名コピー (Cmd+Shift+Alt+C) | 実装済み |
 | `com.intellij.lang.smartEnterProcessor` | `RescriptSmartEnterProcessor` | Smart Enter (Shift+Enter) | 実装済み |
 | `com.intellij.configurationType` | `RescriptTestRunConfigurationType` | テスト実行構成（jest/vitest） | 実装済み |
-| `com.intellij.runConfigurationProducer` | `RescriptTestConfigurationProducer` | テスト自動構成生成 | 実装済み |
+| `com.intellij.runConfigurationProducer` | `RescriptTestConfigurationProducer` | テスト自動構成生成（describe/it/test の `-t` フィルタ含む） | 実装済み |
+| `com.intellij.runLineMarkerContributor` | `RescriptTestRunLineMarkerContributor` | describe/it/test 行への Run/Debug ガターアイコン (#111) | 実装済み |
 | `com.intellij.toolWindow` | `RescriptCompiledJsPreviewToolWindowFactory` | コンパイル済み JS プレビュー | 実装済み |
 | `com.intellij.globalInspection` | `RescriptUnusedCodeInspection` | 未使用コード検出（reanalyze） | 実装済み |
 | `com.intellij.hierarchyProvider` | `RescriptModuleHierarchyProvider` | モジュール階層ビュー | 実装済み |

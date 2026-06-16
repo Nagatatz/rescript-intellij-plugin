@@ -131,6 +131,7 @@
 - **Expression type** — Show inferred type at caret position (`Ctrl+Shift+P`)
 - **Completion confidence** — Suppress auto-popup in comments and string literals
 - **Test runner** — Run tests with auto-detected jest/vitest (SMTRunner test tree)
+- **Test gutter markers** — Run/Debug icons on `describe` / `it` / `test` lines in test files; clicking runs only that case via a `-t <name>` filter
 - **Debugger integration** — Debug compiled JavaScript via Node.js (`Alt+Shift+D`)
 - **Compiler status** — Real-time build status in the status bar
 - **Console links** — Clickable `file:line` links in compiler output

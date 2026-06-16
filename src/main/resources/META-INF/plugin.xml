@@ -885,6 +885,9 @@
                 implementation="com.rescript.plugin.test.RescriptTestRunConfigurationType"/>
         <runConfigurationProducer
                 implementation="com.rescript.plugin.test.RescriptTestConfigurationProducer"/>
+        <!-- Run/Debug gutter markers on describe/it/test calls (#111) -->
+        <runLineMarkerContributor language="ReScript"
+                                   implementationClass="com.rescript.plugin.test.RescriptTestRunLineMarkerContributor"/>
 
         <!-- Compiled JS Preview Tool Window -->
         <toolWindow id="ReScript JS" anchor="right" icon="AllIcons.FileTypes.JavaScript"

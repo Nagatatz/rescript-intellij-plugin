@@ -111,6 +111,23 @@ Key points for the Vitest configuration:
 2. Right-click on a test function
 3. Select **Run** to execute the test
 
+### From Gutter Markers
+
+{bdg-success}`Native`
+
+In a test file (a `.res`/`.resi` whose name ends with `_test`, `Test`, `_spec`, or `Spec`), a Run gutter icon appears in the editor margin next to every `describe`, `it`, and `test` call:
+
+```rescript
+// src/test/Math_test.res
+describe("Math utilities", () => {  // ◀ Run icon here
+  test("addition", () => {          // ◀ Run icon here
+    expect(MathUtils.add(1, 2))->toBe(3)
+  })
+})
+```
+
+Clicking the icon offers **Run** and **Debug** for that specific case. The plugin extracts the string name from the call and passes it to the test runner as a `-t <name>` filter, so only the selected `describe`/`it`/`test` block executes rather than the whole file. The icons appear only in files matching the test naming convention, and only on calls whose first argument is a string literal.
+
 ### From Run Configurations
 
 1. **Run** → **Edit Configurations** → **+** → **ReScript Test**

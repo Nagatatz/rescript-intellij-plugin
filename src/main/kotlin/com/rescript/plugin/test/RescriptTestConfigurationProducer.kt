@@ -36,7 +36,16 @@ class RescriptTestConfigurationProducer : LazyRunConfigurationProducer<RescriptT
 
         configuration.framework = framework
         configuration.workingDirectory = project.basePath
-        configuration.name = "Test: ${file.nameWithoutExtension}"
+
+        // When the context lands on a specific describe/it/test call, narrow the run with a -t filter.
+        val testName = resolveTestName(context)
+        if (testName != null) {
+            configuration.testName = testName
+            configuration.name = configurationName(file.nameWithoutExtension, testName)
+        } else {
+            configuration.testName = ""
+            configuration.name = configurationName(file.nameWithoutExtension, null)
+        }
 
         return true
     }
@@ -46,10 +55,48 @@ class RescriptTestConfigurationProducer : LazyRunConfigurationProducer<RescriptT
         context: ConfigurationContext,
     ): Boolean {
         val file = context.location?.virtualFile ?: return false
-        return configuration.name == "Test: ${file.nameWithoutExtension}"
+        val testName = resolveTestName(context)
+        return configuration.name == configurationName(file.nameWithoutExtension, testName)
+    }
+
+    /**
+     * Resolves the test name for the call at the context's caret position, if any.
+     *
+     * Maps the offset of the context's PSI element onto a [RescriptTestCallDetector] result so a
+     * gutter run on a single `describe` / `it` / `test` line produces a `-t <name>`-filtered run.
+     *
+     * @param context the run configuration context (caret / element location)
+     * @return the matched test name, or null when the context is not on a recognized call
+     */
+    private fun resolveTestName(context: ConfigurationContext): String? {
+        val element = context.psiLocation ?: return null
+        val file = element.containingFile ?: return null
+        if (file.fileType != com.rescript.plugin.RescriptFileType) return null
+        val offset = element.textRange?.startOffset ?: return null
+        return RescriptTestCallDetector
+            .detect(file.text)
+            .firstOrNull { it.callOffset == offset }
+            ?.testName
     }
 
     companion object {
+        /**
+         * Builds the configuration display name, optionally scoped to a single test.
+         *
+         * @param fileNameWithoutExtension the test file name without its extension
+         * @param testName the specific test name, or null for a whole-file run
+         * @return the display name used for both creation and context matching
+         */
+        internal fun configurationName(
+            fileNameWithoutExtension: String,
+            testName: String?,
+        ): String =
+            if (testName.isNullOrBlank()) {
+                "Test: $fileNameWithoutExtension"
+            } else {
+                "Test: $fileNameWithoutExtension > $testName"
+            }
+
         /**
          * Checks whether a file name (without extension) matches a test file naming convention.
          *

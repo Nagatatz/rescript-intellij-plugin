@@ -8,19 +8,25 @@
 - [x] `git fetch origin` で同期確認（6 ahead / 0 behind を確認）
 - [x] worktree 内に feature ブランチ `worktree-test-codelens-open-expand` を作成（HEAD=9d206d72、JSX 取込済み）
 - [x] steering ディレクトリ `20260616-004-test-codelens-open-expand` を worktree 内に作成し steering 3 ファイルを書き出す
-- [ ] steering ディレクトリをコミット
+- [x] steering ディレクトリをコミット（f1ee290f）
 
 ## セクション 1: #111 Test Code Lens
 
-- [ ] `test/RescriptTestCallDetector.kt` を新設（`TestCall` data class + `detect`、純ロジック、英語 KDoc）
-- [ ] `test/RescriptTestCodeVisionProvider.kt` を新設（`DaemonBoundCodeVisionProvider`、id `rescript.testCodeLens`、`RescriptTestSourcesFilter` ゲート、`ExecutorAction.getActions(0)` 配線、英語 KDoc）
-- [ ] `test/RescriptTestConfigurationProducer.kt` を拡張（offset が TestCall に合致したら `-t <name>` フィルタ設定、無ければファイル単位フォールバック）
-- [ ] CodeVision の Run/Debug 配線を検証（期待どおりでなければ `RunLineMarkerContributor` へフォールバック検討）
-- [ ] plugin.xml に `daemonBoundCodeVisionProvider` を登録
-- [ ] `test/RescriptTestCallDetectorTest.kt` を新設（describe/it/test 検出 / ネスト / 補間テンプレートスキップ / 非対象呼び出し / 複数引数）
-- [ ] producer の testName マッチを light fixture でテスト（駆動困難なら免除を tasklist に明記）
-- [ ] docs: README(その他/Advanced) / sphinx advanced.md(EN) + JA .po / functional-design.md(EP マップ) / repository-structure.md（CLAUDE.md layer3 は前例に倣い functional-design.md に委譲）
-- [ ] `./gradlew ktlintCheck test` 緑を確認し `✨ Add test code vision with run/debug actions` でコミット
+> **設計変更（design.md:54-58 のフォールバックを発動）:** CodeVision (`DaemonBoundCodeVisionProvider`) ではなく
+> `RunLineMarkerContributor`（ガター実行アイコン）で実装する。`javap` 調査で `TextCodeVisionEntry` の
+> 第 6 引数は context-menu の extra action であり click handler ではないこと、`ClickableTextCodeVisionEntry` は
+> Kotlin `Function2` onClick が必要で Java/Kotlin から実行構成へ橋渡しする platform 前例が無いことを確認した。
+> ガターマーカーは DataContext を自動供給するため `ExecutorAction.getActions(0)` → `ConfigurationContext` →
+> producer に綺麗に橋渡しでき、実 Run/Debug を提供できる（既存 `RescriptRunLineMarkerContributor` が前例）。
+
+- [x] `test/RescriptTestCallDetector.kt` を新設（`TestCall` data class + `detect`、純ロジック、英語 KDoc）
+- [x] `test/RescriptTestRunLineMarkerContributor.kt` を新設（`RunLineMarkerContributor`、テストファイル + 検出済み test-call の関数名 LIDENT leaf にのみ Run/Debug ガター、`ExecutorAction.getActions(0)` 配線、英語 KDoc）
+- [x] `test/RescriptTestConfigurationProducer.kt` を拡張（context offset が TestCall に合致したら `-t <name>` フィルタ設定、無ければファイル単位フォールバック。`configurationName` を internal 化して純ロジックテスト可能に）
+- [x] plugin.xml に `<runLineMarkerContributor language="ReScript">` を登録
+- [x] `test/RescriptTestCallDetectorTest.kt` を新設（describe/it/test 検出 / ネスト / 補間テンプレートスキップ / 非対象呼び出し / 複数引数）
+- [x] producer は実行構成 UI 結合のため本体は免除（testing.md 免除区分）。`configurationName`（file-scoped / test-scoped 命名）の純ロジックを `RescriptTestConfigurationProducerTest` で 4 本テスト。offset→TestCall マッチは detector 側で全網羅
+- [x] docs: README(その他) / sphinx `testing.md`(EN) + JA .po（advanced.md ではなく専用ページ testing.md が正） / functional-design.md(EP マップ) / repository-structure.md（CLAUDE.md layer3 は前例に倣い functional-design.md に委譲）
+- [x] `./gradlew ktlintCheck test` 緑を確認し `✨ Add test run/debug gutter markers` でコミット
 
 ## セクション 2: #112 open qualifier 展開 intention
 

@@ -1,5 +1,6 @@
 package com.rescript.plugin.test
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -88,5 +89,39 @@ class RescriptTestConfigurationProducerTest {
     @Test
     fun testIsTestFileNameUtilsFile() {
         assertFalse(RescriptTestConfigurationProducer.isTestFileName("TestUtils"))
+    }
+
+    // ── configurationName ────────────────────────────────────────────────
+
+    @Test
+    fun testConfigurationNameWithNullTestNameIsFileScoped() {
+        assertEquals(
+            "Test: MyModule_test",
+            RescriptTestConfigurationProducer.configurationName("MyModule_test", null),
+        )
+    }
+
+    @Test
+    fun testConfigurationNameWithBlankTestNameIsFileScoped() {
+        assertEquals(
+            "Test: MyModule_test",
+            RescriptTestConfigurationProducer.configurationName("MyModule_test", "   "),
+        )
+    }
+
+    @Test
+    fun testConfigurationNameWithTestNameIsTestScoped() {
+        assertEquals(
+            "Test: MyModule_test > renders correctly",
+            RescriptTestConfigurationProducer.configurationName("MyModule_test", "renders correctly"),
+        )
+    }
+
+    @Test
+    fun testConfigurationNameWithEmptyTestNameIsFileScoped() {
+        assertEquals(
+            "Test: MyModule_test",
+            RescriptTestConfigurationProducer.configurationName("MyModule_test", ""),
+        )
     }
 }
