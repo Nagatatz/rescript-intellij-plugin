@@ -159,7 +159,7 @@ JetBrains IDE は年 3 回（春・夏・秋）メジャーバージョンをリ
 
 **現在の既知ブロッカー**:
 
-- IntelliJ Platform **2026.2 EAP** への自動互換性検証は、`verifier-cli` 1.403 がまだ 2026.2 の bundled-plugin layout を解釈できず `ClosedFileSystemException` で落ちるため保留。`build.gradle.kts` の `pluginVerification.ides` は `recommended()` を使わず `IntellijIdea 2026.1.2` を明示 pin している。新しい `verifier-cli` リリースが 2026.2 layout に対応したら `recommended()` に戻す。
+- なし。IntelliJ Platform **2026.2 EAP** への互換性検証は解消済み（2026-06-16）。`verifier-cli` 1.405 が 2026.2 EAP の bundled-plugin layout を解釈できるようになったため、`build.gradle.kts` の `pluginVerification.ides` を `recommended()`（2025.3 / 2026.1 / 2026.2 EAP を含む）に戻した。あわせて 2026.2 で顕在化した 2 件の非互換も修正済み: ナビゲーションバーを削除された `StructureAwareNavBarModelExtension` から存続する `AbstractNavBarModelExtension` へ移行し、`@Internal` 化されたプラグイン記述子取得 API（`PluginManagerCore.getPlugin` / `PluginManager.findEnabledPlugin` / `getPluginByClass` のいずれも 2026.2 で internal）への依存を、ビルド時生成リソース `plugin-version.properties` の読み取りに置き換えた。
 
 #### 月次互換性検証
 
