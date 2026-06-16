@@ -6,6 +6,17 @@ myst:
 
 # Changelog
 
+## 0.1.16 (2026-06-16)
+
+### Bug Fixes
+
+- IntelliJ Platform 2026.2 EAP compatibility — migrate the navigation bar to `AbstractNavBarModelExtension`, replace 2026.2-internal plugin-descriptor lookups with a build-generated version resource, and pass an explicit timeout to `sendRequestSync` so the plugin loads cleanly on 2026.2 EAP
+- Suppress a deprecation warning on the `FileIncludeProvider.acceptFile` override surfaced by plugin verification on 2026.2
+
+### Infrastructure
+
+- Adopt verifier-cli 1.405 and restore `recommended()` verification IDEs (2025.3 / 2026.1 / 2026.2 EAP)
+
 ## 0.1.15 (2026-06-13)
 
 ### Features

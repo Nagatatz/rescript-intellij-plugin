@@ -12,7 +12,7 @@ This page provides IDE compatibility information and a per-version breakdown of 
 
 | Plugin Version | IntelliJ Platform | JDK | ReScript | Language Server |
 |----------------|-------------------|-----|----------|-----------------|
-| 0.1.2 -- 0.1.15 | 2025.3+ | 21+ | v11+ | `@rescript/language-server` 1.0.0+ (latest stable recommended) |
+| 0.1.2 -- 0.1.16 | 2025.3+ | 21+ | v11+ | `@rescript/language-server` 1.0.0+ (latest stable recommended) |
 
 :::{note}
 Native features (syntax highlighting, code folding, brace matching, etc.) work without the language server.
@@ -22,6 +22,15 @@ LSP-powered features (completion, diagnostics, definition jump, etc.) require `@
 ## Features by Version
 
 ::::{tab-set}
+
+:::{tab-item} 0.1.16
+**Released 2026-06-16**
+
+| Feature | Category |
+|---------|----------|
+| IntelliJ Platform 2026.2 EAP compatibility (navbar, plugin-descriptor lookup, sendRequestSync) | Bug Fix |
+| verifier-cli 1.405 + `recommended()` verification IDEs | Infrastructure |
+:::
 
 :::{tab-item} 0.1.15
 **Released 2026-06-13**
