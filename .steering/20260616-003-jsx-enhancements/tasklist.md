@@ -47,12 +47,13 @@
 
 ## セクション D: 構造ビュー JSX ノード
 
-- [ ] `lang/psi/RescriptPsiUtils.kt` の `NAVIGABLE_TYPES` に `JSX_ELEMENT` / `JSX_FRAGMENT` を追加（self-closing は葉ノードのため除外）
-- [ ] `extractName`（開きタグ名、fragment は `<>`、`RescriptJsxTagPairUtil` 再利用）/ `getIcon`（`AllIcons.Nodes.Tag`）/ `getElementDescription` に JSX 分岐を追加
-- [ ] `lang/psi/RescriptPsiUtilsTest.kt` に JSX ノードの `extractName` / `getElementDescription` / `NAVIGABLE_TYPES` 包含テストを追加
-- [ ] breadcrumb / navbar への波及（過剰ノードでの可読性）を runIde で確認し、ノイズ過多なら fragment 除外を検討
-- [ ] docs: CLAUDE.md(layer3 ナビ系) / README(Navigation) / sphinx navigation.md or advanced.md(EN) + JA .po
-- [ ] `./gradlew ktlintCheck test` 緑を確認し `✨ Show JSX elements in structure view` でコミット
+- [x] **設計変更（承認済み tasklist からの逸脱）**: `NAVIGABLE_TYPES` には JSX を追加せず、構造ビュー専用のスーパーセット `STRUCTURE_VIEW_TYPES = NAVIGABLE_TYPES + {JSX_ELEMENT, JSX_FRAGMENT}` を新設。理由: `NAVIGABLE_TYPES` は Find Usages / Safe Delete / Search Everywhere / qualified-name copy / breadcrumb / navbar 等 ~14 の宣言指向機能を駆動しており、`<div>` を宣言扱いにすると誤って Find Usages / Safe Delete の対象になる。JSX を構造ビューに限定することで下流 3 テスト（QualifiedNameProvider / Breadcrumbs / StructureAwareNavbar）も無改変で緑のまま
+- [x] `RescriptStructureViewElement.getChildren` のフィルタを `STRUCTURE_VIEW_TYPES` に切替（self-closing は葉ノードのため除外）
+- [x] `extractName`（開きタグ名、fragment は `<>`、`RescriptJsxTagPairUtil` 再利用）/ `getIcon`（`AllIcons.Nodes.Tag`）/ `getElementDescription` に JSX 分岐を追加
+- [x] `lang/psi/RescriptPsiUtilsTest.kt` に JSX ノードの `extractName` / `getElementDescription` / `STRUCTURE_VIEW_TYPES` 包含テストと `NAVIGABLE_TYPES` に JSX が漏れない退行テストを追加
+- [x] breadcrumb / navbar への波及を設計判断で評価: `STRUCTURE_VIEW_TYPES` 分離により JSX は宣言指向機能へ波及しない。self-closing は構造ビューでも除外しノイズ抑制（runIde GUI 検証はヘッドレス環境のため未実施）
+- [x] docs: README(Navigation) / sphinx navigation.md(EN) + JA .po / functional-design.md + repository-structure.md。CLAUDE.md layer3 は C/E/B/A の前例に倣い機能列挙を docs/functional-design.md に委譲（layer3 行追加なし）
+- [x] `./gradlew ktlintCheck test` 緑を確認し `✨ Show JSX elements in structure view` でコミット
 
 ## セクション Z: マージ
 

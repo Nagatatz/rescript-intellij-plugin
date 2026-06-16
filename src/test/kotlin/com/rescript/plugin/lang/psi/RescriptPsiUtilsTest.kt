@@ -188,13 +188,31 @@ class RescriptPsiUtilsTest {
     // --- NAVIGABLE_TYPES ---
 
     @Test
-    fun `NAVIGABLE_TYPES contains all 5 declaration types`() {
+    fun `NAVIGABLE_TYPES contains 5 declaration types and no JSX nodes`() {
         assertEquals(5, RescriptPsiUtils.NAVIGABLE_TYPES.size)
         assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.LET_DECLARATION))
         assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.TYPE_DECLARATION))
         assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.MODULE_DECLARATION))
         assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.EXTERNAL_DECLARATION))
         assertTrue(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.EXCEPTION_DECLARATION))
+        // JSX nodes are scoped to STRUCTURE_VIEW_TYPES; they must not leak into navigation features.
+        assertFalse(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.JSX_ELEMENT))
+        assertFalse(RescriptPsiUtils.NAVIGABLE_TYPES.contains(RescriptElementTypes.JSX_FRAGMENT))
+    }
+
+    // --- STRUCTURE_VIEW_TYPES ---
+
+    @Test
+    fun `STRUCTURE_VIEW_TYPES is NAVIGABLE_TYPES plus 2 JSX node types`() {
+        assertEquals(7, RescriptPsiUtils.STRUCTURE_VIEW_TYPES.size)
+        assertTrue(RescriptPsiUtils.STRUCTURE_VIEW_TYPES.containsAll(RescriptPsiUtils.NAVIGABLE_TYPES))
+        assertTrue(RescriptPsiUtils.STRUCTURE_VIEW_TYPES.contains(RescriptElementTypes.JSX_ELEMENT))
+        assertTrue(RescriptPsiUtils.STRUCTURE_VIEW_TYPES.contains(RescriptElementTypes.JSX_FRAGMENT))
+    }
+
+    @Test
+    fun `STRUCTURE_VIEW_TYPES excludes self-closing JSX elements`() {
+        assertFalse(RescriptPsiUtils.STRUCTURE_VIEW_TYPES.contains(RescriptElementTypes.JSX_SELF_CLOSING_ELEMENT))
     }
 
     // --- BINDING_TYPES ---
@@ -358,5 +376,69 @@ class RescriptPsiUtilsTest {
                 else -> null
             }
         } as PsiElement
+    }
+
+    /**
+     * JSX node tests for [RescriptPsiUtils.extractName], [RescriptPsiUtils.getIcon] and
+     * [RescriptPsiUtils.getElementDescription].
+     *
+     * Uses [com.rescript.plugin.RescriptParsingTestExtension] to drive the real lexer+parser
+     * pipeline so that `extractName` can resolve tag names via genuine PSI children with offsets,
+     * matching how the structure view exercises these helpers.
+     */
+    @org.junit.jupiter.api.Nested
+    @org.junit.jupiter.api.extension.ExtendWith(com.rescript.plugin.RescriptParsingTestExtension::class)
+    inner class JsxNodes {
+        private lateinit var parsingHelper: com.rescript.plugin.ParsingTestHelper
+
+        private fun firstElement(
+            code: String,
+            type: IElementType,
+        ): PsiElement {
+            val file = parsingHelper.parseCode(code)
+            return parsingHelper.findElements(file, type).first().psi
+        }
+
+        @Test
+        fun `extractName for JSX_ELEMENT returns opening tag name`() {
+            val element = firstElement("let x = <div></div>", RescriptElementTypes.JSX_ELEMENT)
+            assertEquals("div", RescriptPsiUtils.extractName(element))
+        }
+
+        @Test
+        fun `extractName for JSX_ELEMENT returns component name`() {
+            val element = firstElement("let x = <MyComponent></MyComponent>", RescriptElementTypes.JSX_ELEMENT)
+            assertEquals("MyComponent", RescriptPsiUtils.extractName(element))
+        }
+
+        @Test
+        fun `extractName for JSX_FRAGMENT returns fragment marker`() {
+            val element = firstElement("let x = <> </>", RescriptElementTypes.JSX_FRAGMENT)
+            assertEquals("<>", RescriptPsiUtils.extractName(element))
+        }
+
+        @Test
+        fun `getIcon for JSX_ELEMENT returns Tag icon`() {
+            val element = firstElement("let x = <div></div>", RescriptElementTypes.JSX_ELEMENT)
+            assertEquals(AllIcons.Nodes.Tag, RescriptPsiUtils.getIcon(element))
+        }
+
+        @Test
+        fun `getIcon for JSX_FRAGMENT returns Tag icon`() {
+            val element = firstElement("let x = <> </>", RescriptElementTypes.JSX_FRAGMENT)
+            assertEquals(AllIcons.Nodes.Tag, RescriptPsiUtils.getIcon(element))
+        }
+
+        @Test
+        fun `getElementDescription for JSX_ELEMENT`() {
+            val element = firstElement("let x = <div></div>", RescriptElementTypes.JSX_ELEMENT)
+            assertEquals("JSX element", RescriptPsiUtils.getElementDescription(element))
+        }
+
+        @Test
+        fun `getElementDescription for JSX_FRAGMENT`() {
+            val element = firstElement("let x = <> </>", RescriptElementTypes.JSX_FRAGMENT)
+            assertEquals("JSX fragment", RescriptPsiUtils.getElementDescription(element))
+        }
     }
 }

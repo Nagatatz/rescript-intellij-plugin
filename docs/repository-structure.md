@@ -44,7 +44,7 @@ rescript-intellij-plugin/
 | `test/` | テスト実行構成（jest/vitest） | `RescriptTestRunConfigurationType` |
 | `debug/` | デバッグ実行構成 | `RescriptDebugConfigurationType` |
 | `settings/` | プロジェクト設定 UI・永続化（スキーマ駆動） | `RescriptConfigurable`, `RescriptProjectSettings`, `RescriptSettingsSchema`, `RescriptSettingDescriptor`, `RescriptSettingsValidator` |
-| `structure/` | ストラクチャービュー | `RescriptStructureViewFactory` |
+| `structure/` | ストラクチャービュー（宣言 + JSX 要素 / フラグメント。表示判定は `RescriptPsiUtils.STRUCTURE_VIEW_TYPES` = `NAVIGABLE_TYPES` + JSX 要素 / フラグメント。self-closing は除外） | `RescriptStructureViewFactory` |
 | `indexing/` | PSI スタブインデックス（5 種の宣言型: let / type / module / external / exception）、`open` 文インデックス、識別子の名前インデックス、TODO インデクシング | `RescriptIndexPatternBuilder`, `RescriptModuleIndex`, `RescriptNameIndex`, `RescriptOpenStatementIndex`, `RescriptTodoIndexer` |
 | `editor/` | エディタ補助（引用符、通知バー、Smart Enter、JSX 開閉タグ同期リネーム 等） | `RescriptQuoteHandler`, `RescriptSmartEnterProcessor`, `RescriptTypedHandler`, `RescriptBackspaceHandler` |
 | `formatter/` | 外部フォーマッタ連携 | `RescriptFormattingService` |

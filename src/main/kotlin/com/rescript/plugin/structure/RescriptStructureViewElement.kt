@@ -33,7 +33,7 @@ class RescriptStructureViewElement(
 
     override fun getChildren(): Array<TreeElement> =
         element.children
-            .filter { it.node?.elementType in RescriptPsiUtils.NAVIGABLE_TYPES }
+            .filter { it.node?.elementType in RescriptPsiUtils.STRUCTURE_VIEW_TYPES }
             .mapNotNull { it as? NavigatablePsiElement }
             .map { RescriptStructureViewElement(it) }
             .toTypedArray()

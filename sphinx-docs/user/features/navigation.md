@@ -51,8 +51,9 @@ Press `Alt+7` (`Cmd+7` on macOS) to open the Structure panel, which shows an out
 - Type definitions
 - External declarations
 - Exception declarations
+- JSX elements (`<div>`, `<MyComponent>`) and fragments (`<>`)
 
-This gives you a bird's-eye view of a file's structure at a glance, so you can quickly locate a specific declaration without scrolling through hundreds of lines.
+This gives you a bird's-eye view of a file's structure at a glance, so you can quickly locate a specific declaration without scrolling through hundreds of lines. JSX elements appear as nested nodes that mirror the markup tree, making it easy to navigate large component trees; self-closing elements are omitted to keep the outline focused on container tags.
 
 :::{seealso}
 [Code Editing](code-editing.md) provides code folding to collapse declarations shown in the Structure View.

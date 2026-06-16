@@ -407,7 +407,7 @@ flowchart TD
 | `com.intellij.lang.braceMatcher` | `RescriptBraceMatcher` | ブレースマッチング登録 | 実装済み |
 | `com.intellij.lang.commenter` | `RescriptCommenter` | コメントトグル登録 | 実装済み |
 | `com.intellij.lang.foldingBuilder` | `RescriptFoldingBuilder` | コード折りたたみ登録 | 実装済み |
-| `com.intellij.lang.psiStructureViewFactory` | `RescriptStructureViewFactory` | ストラクチャービュー登録 | 実装済み |
+| `com.intellij.lang.psiStructureViewFactory` | `RescriptStructureViewFactory` | ストラクチャービュー登録（宣言 + JSX 要素 / フラグメント、self-closing は除外） | 実装済み |
 | `com.intellij.colorSettingsPage` | `RescriptColorSettingsPage` | ハイライト色設定 UI | 実装済み |
 | `com.intellij.additionalTextAttributes` | `RescriptDarcula.xml` / `RescriptDefault.xml` | テーマ別カラースキーム | 実装済み |
 | `com.intellij.iconProvider` | `RescriptJsonIconProvider` | rescript.json アイコン表示 | 実装済み |

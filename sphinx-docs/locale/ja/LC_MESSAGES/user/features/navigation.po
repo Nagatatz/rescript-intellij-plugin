@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-16 16:57+0900\n"
+"POT-Creation-Date: 2026-06-16 21:33+0900\n"
 "PO-Revision-Date: 2026-03-17 17:00+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -40,8 +40,8 @@ msgid "Go to Definition"
 msgstr "定義へ移動"
 
 #: ../../user/features/navigation.md:13 ../../user/features/navigation.md:27
-#: ../../user/features/navigation.md:135 ../../user/features/navigation.md:143
-#: ../../user/features/navigation.md:291
+#: ../../user/features/navigation.md:136 ../../user/features/navigation.md:144
+#: ../../user/features/navigation.md:292
 #, python-brace-format
 msgid "{bdg-primary}`LSP Required`"
 msgstr "{bdg-primary}`LSP Required`"
@@ -103,13 +103,13 @@ msgid "Go to Symbol"
 msgstr "シンボルへ移動"
 
 #: ../../user/features/navigation.md:35 ../../user/features/navigation.md:45
-#: ../../user/features/navigation.md:63 ../../user/features/navigation.md:71
-#: ../../user/features/navigation.md:92 ../../user/features/navigation.md:106
-#: ../../user/features/navigation.md:118 ../../user/features/navigation.md:151
-#: ../../user/features/navigation.md:159 ../../user/features/navigation.md:178
-#: ../../user/features/navigation.md:206 ../../user/features/navigation.md:227
-#: ../../user/features/navigation.md:248 ../../user/features/navigation.md:256
-#: ../../user/features/navigation.md:299 ../../user/features/navigation.md:312
+#: ../../user/features/navigation.md:64 ../../user/features/navigation.md:72
+#: ../../user/features/navigation.md:93 ../../user/features/navigation.md:107
+#: ../../user/features/navigation.md:119 ../../user/features/navigation.md:152
+#: ../../user/features/navigation.md:160 ../../user/features/navigation.md:179
+#: ../../user/features/navigation.md:207 ../../user/features/navigation.md:228
+#: ../../user/features/navigation.md:249 ../../user/features/navigation.md:257
+#: ../../user/features/navigation.md:300 ../../user/features/navigation.md:313
 #, python-brace-format
 msgid "{bdg-success}`Native`"
 msgstr "{bdg-success}`Native`"
@@ -167,14 +167,24 @@ msgstr "External 宣言"
 msgid "Exception declarations"
 msgstr "例外宣言"
 
-#: ../../user/features/navigation.md:55
+#: ../../user/features/navigation.md:54
+msgid "JSX elements (`<div>`, `<MyComponent>`) and fragments (`<>`)"
+msgstr "JSX 要素（`<div>`、`<MyComponent>`）とフラグメント（`<>`）"
+
+#: ../../user/features/navigation.md:56
 msgid ""
 "This gives you a bird's-eye view of a file's structure at a glance, so "
 "you can quickly locate a specific declaration without scrolling through "
-"hundreds of lines."
-msgstr "ファイルの構造を一目で俯瞰でき、何百行もスクロールすることなく目的の宣言をすばやく見つけられます。"
+"hundreds of lines. JSX elements appear as nested nodes that mirror the "
+"markup tree, making it easy to navigate large component trees; self-"
+"closing elements are omitted to keep the outline focused on container "
+"tags."
+msgstr ""
+"ファイルの構造を一目で俯瞰でき、何百行もスクロールすることなく目的の宣言をすばやく見つけられます。JSX 要素は"
+"マークアップツリーを反映したネストノードとして表示されるため、大きなコンポーネントツリーも簡単にたどれます。"
+"self-closing 要素はアウトラインをコンテナタグに絞るため除外されます。"
 
-#: ../../user/features/navigation.md:58
+#: ../../user/features/navigation.md:59
 msgid ""
 "[Code Editing](code-editing.md) provides code folding to collapse "
 "declarations shown in the Structure View."
@@ -182,17 +192,17 @@ msgstr ""
 "[Code Editing](code-editing.md) "
 "では、ストラクチャービューに表示される宣言を折りたたむコード折りたたみ機能を提供しています。"
 
-#: ../../user/features/navigation.md:61
+#: ../../user/features/navigation.md:62
 msgid "File Switching (.res ↔ .resi)"
 msgstr "ファイル切り替え（.res ↔ .resi）"
 
-#: ../../user/features/navigation.md:65
+#: ../../user/features/navigation.md:66
 msgid ""
 "Press `Alt+O` to switch between a ReScript source file (`.res`) and its "
 "interface file (`.resi`)."
 msgstr "`Alt+O` を押すと、ReScript ソースファイル（`.res`）とそのインターフェースファイル（`.resi`）を切り替えられます。"
 
-#: ../../user/features/navigation.md:67
+#: ../../user/features/navigation.md:68
 msgid ""
 "When working with module interfaces, you frequently need to switch "
 "between the implementation and its public API. This one-keystroke "
@@ -202,11 +212,11 @@ msgstr ""
 "モジュールインターフェースを扱う際、実装と公開 API "
 "の間を頻繁に行き来する必要があります。このワンキーショートカットにより、プロジェクトツリーで対応ファイルを探す手間がなくなります。"
 
-#: ../../user/features/navigation.md:69
+#: ../../user/features/navigation.md:70
 msgid "Go to Implementation"
 msgstr "実装へ移動"
 
-#: ../../user/features/navigation.md:73
+#: ../../user/features/navigation.md:74
 msgid ""
 "Press `Ctrl+Alt+B` (`Cmd+Alt+B` on macOS) to jump from an interface "
 "declaration in a `.resi` file to the corresponding implementation in the "
@@ -215,29 +225,29 @@ msgstr ""
 "`Ctrl+Alt+B`（macOS では `Cmd+Alt+B`）を押すと、`.resi` ファイルのインターフェース宣言から、対応する "
 "`.res` ファイルの実装にジャンプします。"
 
-#: ../../user/features/navigation.md:75
+#: ../../user/features/navigation.md:76
 msgid ""
 "This is the reverse of **Goto Super** (described below): while Goto Super"
 " goes from implementation to interface, Go to Implementation goes from "
 "interface to implementation."
 msgstr ""
-"**Goto Super**（後述）の逆方向の操作です。Goto Super "
-"が実装からインターフェースへ移動するのに対し、Go to Implementation はインターフェースから実装へ移動します。"
+"**Goto Super**（後述）の逆方向の操作です。Goto Super が実装からインターフェースへ移動するのに対し、Go to "
+"Implementation はインターフェースから実装へ移動します。"
 
-#: ../../user/features/navigation.md:77 ../../user/features/navigation.md:122
-#: ../../user/features/navigation.md:165 ../../user/features/navigation.md:233
-#: ../../user/features/navigation.md:267
+#: ../../user/features/navigation.md:78 ../../user/features/navigation.md:123
+#: ../../user/features/navigation.md:166 ../../user/features/navigation.md:234
+#: ../../user/features/navigation.md:268
 msgid "**Example:**"
 msgstr "**例:**"
 
-#: ../../user/features/navigation.md:86
+#: ../../user/features/navigation.md:87
 msgid ""
 "The plugin matches declarations by name and type (`let`, `type`, "
 "`module`, `external`, `exception`), including one level of nested module "
 "declarations."
 msgstr "プラグインは宣言を名前と種別（`let`、`type`、`module`、`external`、`exception`）で照合します。ネストされたモジュール宣言も1階層まで対応しています。"
 
-#: ../../user/features/navigation.md:88
+#: ../../user/features/navigation.md:89
 msgid ""
 "When reviewing a `.resi` interface and you want to see how a function is "
 "actually implemented, this takes you directly to the implementation body "
@@ -246,37 +256,37 @@ msgstr ""
 "`.resi` "
 "インターフェースをレビュー中に関数の実際の実装を確認したい場合、ファイルを開いて手動で検索する代わりに、実装本体に直接ジャンプできます。"
 
-#: ../../user/features/navigation.md:90
+#: ../../user/features/navigation.md:91
 msgid "Search Everywhere"
 msgstr "どこでも検索"
 
-#: ../../user/features/navigation.md:94
+#: ../../user/features/navigation.md:95
 msgid ""
 "Press `Shift` twice (double-tap `Shift`) to open the **Search "
 "Everywhere** dialog, which provides unified search across:"
 msgstr "`Shift` を2回押す（ダブルタップ）と **Search Everywhere** ダイアログが開き、以下を横断的に検索できます:"
 
-#: ../../user/features/navigation.md:96
+#: ../../user/features/navigation.md:97
 msgid "**Files** — Find `.res` and `.resi` files by name"
 msgstr "**Files** — `.res` および `.resi` ファイルを名前で検索"
 
-#: ../../user/features/navigation.md:97
+#: ../../user/features/navigation.md:98
 msgid ""
 "**Symbols** — Search for functions, types, modules, and other "
 "declarations (stub-indexed for fast lookup)"
 msgstr "**Symbols** — 関数、型、モジュール、その他の宣言を検索（スタブインデックスによる高速検索）"
 
-#: ../../user/features/navigation.md:98
+#: ../../user/features/navigation.md:99
 msgid "**Actions** — Search for IDE actions and plugin commands"
 msgstr "**Actions** — IDE アクションやプラグインコマンドを検索"
 
-#: ../../user/features/navigation.md:100
+#: ../../user/features/navigation.md:101
 msgid ""
 "ReScript files and symbols appear alongside results from other languages "
 "in the search dialog. Use the tab bar at the top to filter by category."
 msgstr "検索ダイアログでは、ReScript のファイルやシンボルが他の言語の結果と一緒に表示されます。上部のタブバーでカテゴリを絞り込めます。"
 
-#: ../../user/features/navigation.md:102
+#: ../../user/features/navigation.md:103
 msgid ""
 "This is the fastest way to find anything in your project — instead of "
 "remembering which menu or shortcut to use, a single double-tap of `Shift`"
@@ -285,51 +295,51 @@ msgstr ""
 "プロジェクト内で何かを見つける最も速い方法です。どのメニューやショートカットを使うか覚える必要はなく、`Shift` "
 "のダブルタップだけでファイル、シンボル、アクションを一度に検索できます。"
 
-#: ../../user/features/navigation.md:104
+#: ../../user/features/navigation.md:105
 msgid "Go to Related"
 msgstr "関連ファイルへ移動"
 
-#: ../../user/features/navigation.md:108
+#: ../../user/features/navigation.md:109
 msgid "Use **Navigate** → **Related Symbol** to jump between related files:"
 msgstr "**Navigate** → **Related Symbol** を使用して関連ファイル間を移動します:"
 
-#: ../../user/features/navigation.md:110
+#: ../../user/features/navigation.md:111
 msgid "`.res` → `.resi` (interface)"
 msgstr "`.res` → `.resi`（インターフェース）"
 
-#: ../../user/features/navigation.md:111
+#: ../../user/features/navigation.md:112
 msgid "`.res` → `.js` (compiled output)"
 msgstr "`.res` → `.js`（コンパイル出力）"
 
-#: ../../user/features/navigation.md:112
+#: ../../user/features/navigation.md:113
 msgid "`.resi` → `.res` (implementation)"
 msgstr "`.resi` → `.res`（実装）"
 
-#: ../../user/features/navigation.md:114
+#: ../../user/features/navigation.md:115
 msgid ""
 "This provides a unified view of all files associated with a module — its "
 "interface, implementation, and compiled output — letting you quickly "
 "switch between different representations of the same code."
 msgstr "モジュールに関連するすべてのファイル（インターフェース、実装、コンパイル出力）を統一的に表示し、同じコードの異なる表現をすばやく切り替えられます。"
 
-#: ../../user/features/navigation.md:116
+#: ../../user/features/navigation.md:117
 msgid "File Include Navigation"
 msgstr "ファイルインクルードナビゲーション"
 
-#: ../../user/features/navigation.md:120
+#: ../../user/features/navigation.md:121
 msgid ""
 "The plugin resolves `open` statements to their corresponding module "
 "files, enabling navigation from `open` declarations to the referenced "
 "file."
 msgstr "プラグインは `open` 文を対応するモジュールファイルに解決し、`open` 宣言から参照先ファイルへのナビゲーションを可能にします。"
 
-#: ../../user/features/navigation.md:129
+#: ../../user/features/navigation.md:130
 msgid ""
 "Module names are converted to filenames by replacing `.` with `_` (e.g., "
 "`Belt.Array` → `Belt_Array.res`)."
 msgstr "モジュール名は `.` を `_` に置換してファイル名に変換されます（例: `Belt.Array` → `Belt_Array.res`）。"
 
-#: ../../user/features/navigation.md:131
+#: ../../user/features/navigation.md:132
 msgid ""
 "Instead of guessing which file an `open` statement refers to, you can "
 "`Ctrl+click` directly on it to navigate to the module source, making "
@@ -338,11 +348,11 @@ msgstr ""
 "`open` 文がどのファイルを指しているか推測する代わりに、直接 `Ctrl+クリック` "
 "でモジュールのソースに移動でき、依存関係の追跡が容易になります。"
 
-#: ../../user/features/navigation.md:133
+#: ../../user/features/navigation.md:134
 msgid "Create Interface File"
 msgstr "インターフェースファイルの作成"
 
-#: ../../user/features/navigation.md:137
+#: ../../user/features/navigation.md:138
 msgid ""
 "With a `.res` file open, use **Navigate** → **Create Interface File** to "
 "auto-generate a `.resi` interface file from the Language Server."
@@ -350,7 +360,7 @@ msgstr ""
 "`.res` ファイルを開いた状態で、**Navigate** → **Create Interface File** "
 "を使用すると、Language Server から `.resi` インターフェースファイルを自動生成できます。"
 
-#: ../../user/features/navigation.md:139
+#: ../../user/features/navigation.md:140
 msgid ""
 "Writing a `.resi` file by hand requires copying every public declaration "
 "and removing the bodies. This command generates an accurate interface "
@@ -359,11 +369,11 @@ msgstr ""
 "`.resi` "
 "ファイルを手書きするには、すべての公開宣言をコピーして本体を削除する必要があります。このコマンドは正確なインターフェースを自動生成し、大幅な時間の節約とコピー＆ペーストのミス防止を実現します。"
 
-#: ../../user/features/navigation.md:141
+#: ../../user/features/navigation.md:142
 msgid "Open Compiled JavaScript"
 msgstr "コンパイル済み JavaScript を開く"
 
-#: ../../user/features/navigation.md:145
+#: ../../user/features/navigation.md:146
 msgid ""
 "Press `Alt+Shift+J` to open the compiled JavaScript output for the "
 "current `.res` file. The plugin asks the Language Server for the compiled"
@@ -372,7 +382,7 @@ msgstr ""
 "`Alt+Shift+J` を押すと、現在の `.res` ファイルのコンパイル済み JavaScript 出力を開きます。プラグインは "
 "Language Server にコンパイル済みファイルのパスを問い合わせ、エディタで開きます。"
 
-#: ../../user/features/navigation.md:147
+#: ../../user/features/navigation.md:148
 msgid ""
 "When debugging runtime behavior or checking what code ReScript actually "
 "generates, this lets you instantly view the compiled output without "
@@ -381,11 +391,11 @@ msgstr ""
 "ランタイムの挙動をデバッグしたり、ReScript "
 "が実際に生成するコードを確認したい場合、ビルドディレクトリを手動で辿ることなく、コンパイル出力を即座に表示できます。"
 
-#: ../../user/features/navigation.md:149
+#: ../../user/features/navigation.md:150
 msgid "Qualified Name Copy"
 msgstr "完全修飾名のコピー"
 
-#: ../../user/features/navigation.md:153
+#: ../../user/features/navigation.md:154
 msgid ""
 "Press `Cmd+Shift+Alt+C` to copy the fully qualified name of the symbol at"
 " the cursor (e.g., `Module.SubModule.functionName`)."
@@ -393,18 +403,18 @@ msgstr ""
 "`Cmd+Shift+Alt+C` を押すと、カーソル位置のシンボルの完全修飾名（例: "
 "`Module.SubModule.functionName`）をコピーします。"
 
-#: ../../user/features/navigation.md:155
+#: ../../user/features/navigation.md:156
 msgid ""
 "This is useful when referencing a symbol in documentation, issue "
 "trackers, or code reviews — you get the exact qualified path without "
 "manually constructing it from the module hierarchy."
 msgstr "ドキュメント、イシュートラッカー、コードレビューでシンボルを参照する際に便利です。モジュール階層から手動で組み立てる必要なく、正確な修飾パスが得られます。"
 
-#: ../../user/features/navigation.md:157
+#: ../../user/features/navigation.md:158
 msgid "Goto Super (.res ↔ .resi)"
 msgstr "Goto Super（.res ↔ .resi）"
 
-#: ../../user/features/navigation.md:161
+#: ../../user/features/navigation.md:162
 msgid ""
 "Press `Ctrl+U` (`Cmd+U` on macOS) to jump from a declaration in a `.res` "
 "file to the corresponding declaration in the `.resi` interface file, or "
@@ -413,7 +423,7 @@ msgstr ""
 "`Ctrl+U`（macOS では `Cmd+U`）を押すと、`.res` ファイルの宣言から対応する `.resi` "
 "インターフェースファイルの宣言へジャンプできます。逆方向も同様です。"
 
-#: ../../user/features/navigation.md:163
+#: ../../user/features/navigation.md:164
 msgid ""
 "The plugin matches declarations by name and type (`let`, `type`, "
 "`module`, `external`, `exception`), including one level of nested module "
@@ -421,7 +431,7 @@ msgid ""
 "is opened at the beginning."
 msgstr "プラグインは宣言を名前と種別（`let`、`type`、`module`、`external`、`exception`）で照合します。ネストされたモジュール宣言も1階層まで対応しています。一致する宣言が見つからない場合は、対応ファイルの先頭が開かれます。"
 
-#: ../../user/features/navigation.md:174
+#: ../../user/features/navigation.md:175
 msgid ""
 "When editing a function, you can instantly check its public API signature"
 " in the interface file, helping you verify that the implementation "
@@ -430,75 +440,75 @@ msgstr ""
 "関数を編集中に、インターフェースファイルの公開 API "
 "シグネチャを即座に確認でき、実装が公開されたコントラクトと一致しているか検証するのに役立ちます。"
 
-#: ../../user/features/navigation.md:176
+#: ../../user/features/navigation.md:177
 msgid "Go to Test"
 msgstr "テストへ移動"
 
-#: ../../user/features/navigation.md:180
+#: ../../user/features/navigation.md:181
 msgid ""
 "Press `Ctrl+Shift+T` (`Cmd+Shift+T` on macOS) to navigate between an "
 "implementation file and its test file."
 msgstr "`Ctrl+Shift+T`（macOS では `Cmd+Shift+T`）を押すと、実装ファイルとそのテストファイル間を移動できます。"
 
-#: ../../user/features/navigation.md:182
+#: ../../user/features/navigation.md:183
 msgid "Naming Conventions"
 msgstr "命名規則"
 
-#: ../../user/features/navigation.md:184
+#: ../../user/features/navigation.md:185
 msgid "The plugin searches for test files using these naming conventions:"
 msgstr "プラグインは以下の命名規則でテストファイルを検索します:"
 
-#: ../../user/features/navigation.md:57
+#: ../../user/features/navigation.md:58
 msgid "Implementation"
 msgstr "実装ファイル"
 
-#: ../../user/features/navigation.md:57
+#: ../../user/features/navigation.md:58
 msgid "Test File"
 msgstr "テストファイル"
 
-#: ../../user/features/navigation.md:57
+#: ../../user/features/navigation.md:58
 msgid "`Foo.res`"
 msgstr "`Foo.res`"
 
-#: ../../user/features/navigation.md:57
+#: ../../user/features/navigation.md:58
 msgid "`Foo_test.res`"
 msgstr "`Foo_test.res`"
 
-#: ../../user/features/navigation.md:57
+#: ../../user/features/navigation.md:58
 msgid "`Foo.test.res`"
 msgstr "`Foo.test.res`"
 
-#: ../../user/features/navigation.md:57
+#: ../../user/features/navigation.md:58
 msgid "`__tests__/Foo_test.res`"
 msgstr "`__tests__/Foo_test.res`"
 
-#: ../../user/features/navigation.md:192
+#: ../../user/features/navigation.md:193
 msgid "Creating Test Files"
 msgstr "テストファイルの作成"
 
-#: ../../user/features/navigation.md:194
+#: ../../user/features/navigation.md:195
 msgid ""
 "If no test file exists, the plugin offers to create one with framework-"
 "specific boilerplate:"
 msgstr "テストファイルが存在しない場合、プラグインはフレームワーク固有のボイラープレートを含むテストファイルの作成を提案します:"
 
-#: ../../user/features/navigation.md:196
+#: ../../user/features/navigation.md:197
 msgid "**Vitest** --- `open Vitest` with `describe`/`test`/`expect`"
 msgstr "**Vitest** --- `open Vitest` と `describe`/`test`/`expect`"
 
-#: ../../user/features/navigation.md:197
+#: ../../user/features/navigation.md:198
 msgid "**Jest** --- `open Jest` with `describe`/`test`/`expect`"
 msgstr "**Jest** --- `open Jest` と `describe`/`test`/`expect`"
 
-#: ../../user/features/navigation.md:198
+#: ../../user/features/navigation.md:199
 msgid "**No framework** --- Simple `Js.log` boilerplate"
 msgstr "**フレームワークなし** --- シンプルな `Js.log` ボイラープレート"
 
-#: ../../user/features/navigation.md:200
+#: ../../user/features/navigation.md:201
 msgid "The test framework is auto-detected from your `package.json` dependencies."
 msgstr "テストフレームワークは `package.json` の依存関係から自動検出されます。"
 
-#: ../../user/features/navigation.md:202
+#: ../../user/features/navigation.md:203
 msgid ""
 "This eliminates the friction of switching between implementation and "
 "tests. You can jump to the test file with one shortcut, and if it doesn't"
@@ -506,11 +516,11 @@ msgid ""
 "test framework."
 msgstr "実装とテストの切り替えの手間を解消します。ショートカット1つでテストファイルにジャンプでき、まだ存在しない場合はテストフレームワークに合った適切なボイラープレート付きでプラグインが作成します。"
 
-#: ../../user/features/navigation.md:204
+#: ../../user/features/navigation.md:205
 msgid "Context Info"
 msgstr "コンテキスト情報"
 
-#: ../../user/features/navigation.md:208
+#: ../../user/features/navigation.md:209
 msgid ""
 "When you scroll inside a long declaration body, the IDE displays the "
 "declaration header as a sticky line at the top of the editor, so you "
@@ -519,7 +529,7 @@ msgstr ""
 "長い宣言の本体内をスクロールすると、IDE "
 "がエディタの上部に宣言ヘッダーを固定行として表示するため、現在どの関数やモジュール内にいるかを常に把握できます。"
 
-#: ../../user/features/navigation.md:210
+#: ../../user/features/navigation.md:211
 msgid ""
 "**Trigger:** `Alt+Q` (`Ctrl+Shift+Q` on macOS) or **View** > **Context "
 "Info**. Also appears automatically when scrolling through long "
@@ -528,7 +538,7 @@ msgstr ""
 "**トリガー:** `Alt+Q`（macOS では `Ctrl+Shift+Q`）または **View** > **Context "
 "Info**。長い宣言内をスクロールすると自動的に表示されます。"
 
-#: ../../user/features/navigation.md:221
+#: ../../user/features/navigation.md:222
 msgid ""
 "Works for top-level declarations: `let`, `type`, `module`, `external`, "
 "`open`, `include`, and `exception`."
@@ -536,24 +546,24 @@ msgstr ""
 "トップレベル宣言に対応: "
 "`let`、`type`、`module`、`external`、`open`、`include`、`exception`。"
 
-#: ../../user/features/navigation.md:223
+#: ../../user/features/navigation.md:224
 msgid ""
 "In large files with long function bodies, it's easy to lose track of "
 "which declaration you're editing. The sticky header keeps you oriented "
 "without needing to scroll back up to check."
 msgstr "長い関数本体を持つ大きなファイルでは、どの宣言を編集しているか見失いがちです。固定ヘッダーにより、上にスクロールして確認する必要なく、常に現在位置を把握できます。"
 
-#: ../../user/features/navigation.md:225
+#: ../../user/features/navigation.md:226
 msgid "External Documentation"
 msgstr "外部ドキュメント"
 
-#: ../../user/features/navigation.md:229
+#: ../../user/features/navigation.md:230
 msgid ""
 "Press `Shift+F1` to open the rescript-lang.org API documentation page for"
 " the standard library module at the cursor."
 msgstr "`Shift+F1` を押すと、カーソル位置の標準ライブラリモジュールの rescript-lang.org API ドキュメントページを開きます。"
 
-#: ../../user/features/navigation.md:231
+#: ../../user/features/navigation.md:232
 msgid ""
 "Supported modules include all `Belt.*` submodules (Belt.Array, Belt.Map, "
 "Belt.Option, etc.) and all `Js.*` submodules (Js.Promise, Js.String, "
@@ -562,7 +572,7 @@ msgstr ""
 "対応モジュールは、すべての `Belt.*` サブモジュール（Belt.Array、Belt.Map、Belt.Option 等）およびすべての "
 "`Js.*` サブモジュール（Js.Promise、Js.String、Js.Array 等）です。"
 
-#: ../../user/features/navigation.md:241
+#: ../../user/features/navigation.md:242
 msgid ""
 "External documentation URLs are only available for `Belt.*` and `Js.*` "
 "standard library modules. For other modules, Shift+F1 has no effect."
@@ -570,7 +580,7 @@ msgstr ""
 "外部ドキュメント URL は `Belt.*` および `Js.*` 標準ライブラリモジュールでのみ利用可能です。その他のモジュールでは "
 "Shift+F1 は動作しません。"
 
-#: ../../user/features/navigation.md:244
+#: ../../user/features/navigation.md:245
 msgid ""
 "When you need detailed API documentation beyond what the hover tooltip "
 "provides, this takes you directly to the official docs page without "
@@ -579,11 +589,11 @@ msgstr ""
 "ホバーツールチップでは足りない詳細な API "
 "ドキュメントが必要な場合、ウェブサイトを自分で検索する必要なく、公式ドキュメントページに直接アクセスできます。"
 
-#: ../../user/features/navigation.md:246
+#: ../../user/features/navigation.md:247
 msgid "Breadcrumb Navigation"
 msgstr "パンくずナビゲーション"
 
-#: ../../user/features/navigation.md:250
+#: ../../user/features/navigation.md:251
 msgid ""
 "The editor shows a breadcrumb trail at the top, displaying your current "
 "scope path (file → module → function). Click any segment to navigate to "
@@ -592,18 +602,18 @@ msgstr ""
 "エディタの上部にパンくずが表示され、現在のスコープパス（ファイル → モジュール → "
 "関数）を示します。任意のセグメントをクリックすると、そのスコープに移動できます。"
 
-#: ../../user/features/navigation.md:252
+#: ../../user/features/navigation.md:253
 msgid ""
 "When working inside deeply nested modules, the breadcrumb trail shows "
 "exactly where you are in the hierarchy and lets you jump to any parent "
 "scope with a single click."
 msgstr "深くネストされたモジュール内で作業する際、パンくずが階層内の正確な位置を示し、ワンクリックで任意の親スコープにジャンプできます。"
 
-#: ../../user/features/navigation.md:254
+#: ../../user/features/navigation.md:255
 msgid "Call Hierarchy"
 msgstr "コール階層"
 
-#: ../../user/features/navigation.md:258
+#: ../../user/features/navigation.md:259
 msgid ""
 "Press `Ctrl+Alt+H` (`Cmd+Alt+H` on macOS) to open the **Call Hierarchy** "
 "window for the function at the caret."
@@ -611,21 +621,21 @@ msgstr ""
 "`Ctrl+Alt+H`（macOS では `Cmd+Alt+H`）を押すと、カーソル位置の関数の **Call Hierarchy** "
 "ウィンドウが開きます。"
 
-#: ../../user/features/navigation.md:260
+#: ../../user/features/navigation.md:261
 msgid "The Call Hierarchy view shows two perspectives:"
 msgstr "Call Hierarchy ビューは2つの視点を提供します:"
 
-#: ../../user/features/navigation.md:262
+#: ../../user/features/navigation.md:263
 msgid "**Callers** — Functions that call the selected function (who calls me?)"
 msgstr "**Callers** — 選択した関数を呼び出している関数（誰が私を呼ぶ？）"
 
-#: ../../user/features/navigation.md:263
+#: ../../user/features/navigation.md:264
 msgid ""
 "**Callees** — Functions called within the selected function body (who do "
 "I call?)"
 msgstr "**Callees** — 選択した関数の本体内で呼び出されている関数（私は誰を呼ぶ？）"
 
-#: ../../user/features/navigation.md:265
+#: ../../user/features/navigation.md:266
 msgid ""
 "Use the toolbar buttons in the Call Hierarchy tool window to switch "
 "between Callers and Callees views. The tree can be expanded to explore "
@@ -634,7 +644,7 @@ msgstr ""
 "Call Hierarchy ツールウィンドウのツールバーボタンで Callers ビューと Callees "
 "ビューを切り替えられます。ツリーを展開して、より深い呼び出しチェーンを探索できます。"
 
-#: ../../user/features/navigation.md:284
+#: ../../user/features/navigation.md:285
 msgid ""
 "Call Hierarchy uses PSI-based text search to discover call relationships."
 " It works within the project scope and matches identifiers by name. For "
@@ -644,18 +654,18 @@ msgstr ""
 "ベースのテキスト検索で呼び出し関係を検出します。プロジェクトスコープ内で動作し、識別子を名前で照合します。最良の結果を得るには、`let` および"
 " `external` 宣言で使用してください。"
 
-#: ../../user/features/navigation.md:287
+#: ../../user/features/navigation.md:288
 msgid ""
 "Understanding the call chain of a function — who calls it and what it "
 "calls — is essential when refactoring or debugging. This view reveals the"
 " full call graph without manually tracing through the code."
 msgstr "関数の呼び出しチェーン（誰が呼び出し、何を呼び出すか）を理解することは、リファクタリングやデバッグ時に不可欠です。このビューにより、コードを手動でトレースすることなく完全なコールグラフを把握できます。"
 
-#: ../../user/features/navigation.md:289
+#: ../../user/features/navigation.md:290
 msgid "Type Signature Search"
 msgstr "型シグネチャ検索"
 
-#: ../../user/features/navigation.md:293
+#: ../../user/features/navigation.md:294
 msgid ""
 "Search for functions by their type signature in the Search Everywhere "
 "dialog. See [Advanced Features — Type Signature Search](advanced.md#type-"
@@ -664,7 +674,7 @@ msgstr ""
 "Search Everywhere ダイアログで型シグネチャによる関数検索ができます。詳細は[高度な機能 — "
 "型シグネチャ検索](advanced.md#type-signature-search)を参照してください。"
 
-#: ../../user/features/navigation.md:295
+#: ../../user/features/navigation.md:296
 msgid ""
 "When you know what type of function you need (e.g., `string => int`) but "
 "not its name, this lets you discover the right function by searching its "
@@ -674,33 +684,33 @@ msgstr ""
 "int`）は分かっているが名前が分からない場合、型の形で検索して適切な関数を発見できます。型推論を特徴とする ReScript "
 "のような言語に自然にフィットする機能です。"
 
-#: ../../user/features/navigation.md:297
+#: ../../user/features/navigation.md:298
 msgid "Usage Type Classification"
 msgstr "使用タイプの分類"
 
-#: ../../user/features/navigation.md:301
+#: ../../user/features/navigation.md:302
 msgid ""
 "The plugin classifies how ReScript symbols are used in Find Usages "
 "results, grouping them by usage context:"
 msgstr "プラグインは Find Usages の結果で ReScript シンボルの使用方法を分類し、使用コンテキストごとにグループ化します:"
 
-#: ../../user/features/navigation.md:303
+#: ../../user/features/navigation.md:304
 msgid "**Read access** — Reading a variable or field value"
 msgstr "**Read access** — 変数やフィールド値の読み取り"
 
-#: ../../user/features/navigation.md:304
+#: ../../user/features/navigation.md:305
 msgid "**Write access** — Assigning to a mutable reference"
 msgstr "**Write access** — ミュータブル参照への代入"
 
-#: ../../user/features/navigation.md:305
+#: ../../user/features/navigation.md:306
 msgid "**Import / Open** — Referenced in an `open` statement"
 msgstr "**Import / Open** — `open` 文での参照"
 
-#: ../../user/features/navigation.md:306
+#: ../../user/features/navigation.md:307
 msgid "**Type reference** — Used as a type annotation"
 msgstr "**Type reference** — 型注釈としての使用"
 
-#: ../../user/features/navigation.md:308
+#: ../../user/features/navigation.md:309
 msgid ""
 "This helps you quickly filter and understand usage patterns when "
 "reviewing references to a symbol. Without this classification, all usages"
@@ -708,11 +718,11 @@ msgid ""
 "writes, imports, and type references."
 msgstr "シンボルへの参照をレビューする際に、使用パターンをすばやくフィルタリングして理解するのに役立ちます。この分類がないと、すべての使用箇所がフラットなリストで表示され、読み取り、書き込み、インポート、型参照を区別しにくくなります。"
 
-#: ../../user/features/navigation.md:310
+#: ../../user/features/navigation.md:311
 msgid "Navigation Bar"
 msgstr "ナビゲーションバー"
 
-#: ../../user/features/navigation.md:314
+#: ../../user/features/navigation.md:315
 msgid ""
 "The navigation bar at the top of the editor displays the structure-aware "
 "hierarchy of your current cursor position. It shows top-level "
@@ -723,7 +733,7 @@ msgstr ""
 "エディタ上部のナビゲーションバーは、現在のカーソル位置の構造認識型階層を表示します。既存の Structure View "
 "モデルを活用して、トップレベル宣言（`let`、`type`、`module`、`external`、`exception`）をアイコン付きで表示し、正確なナビゲーションを提供します。"
 
-#: ../../user/features/navigation.md:316
+#: ../../user/features/navigation.md:317
 msgid ""
 "This provides a compact, always-visible alternative to the Structure View"
 " panel, letting you see and navigate the file's declaration hierarchy "

@@ -15,7 +15,15 @@ import javax.swing.Icon
  * top-level declarations. Used by structure view, breadcrumbs, and navigation features.
  */
 object RescriptPsiUtils {
-    /** Element types that represent navigable declarations in structure view and breadcrumbs. */
+    /**
+     * Element types that represent navigable declarations.
+     *
+     * This set drives many declaration-oriented features: breadcrumbs, navbar, Find Usages,
+     * Safe Delete, Search Everywhere, qualified-name copy, Goto Super and the interface
+     * intentions. JSX nodes are deliberately *not* included here — a `<div>` is not a
+     * declaration and must not become a Find Usages or Safe Delete target. The structure view,
+     * which does want JSX, uses the wider [STRUCTURE_VIEW_TYPES] instead.
+     */
     val NAVIGABLE_TYPES: Set<IElementType> =
         setOf(
             RescriptElementTypes.LET_DECLARATION,
@@ -24,6 +32,22 @@ object RescriptPsiUtils {
             RescriptElementTypes.EXTERNAL_DECLARATION,
             RescriptElementTypes.EXCEPTION_DECLARATION,
         )
+
+    /**
+     * Element types shown in the structure view outline.
+     *
+     * Superset of [NAVIGABLE_TYPES] that additionally includes JSX elements and fragments so the
+     * outline mirrors the markup tree. Self-closing elements are intentionally excluded because
+     * they are leaf nodes that would only add noise. Scoped to the structure view so JSX nodes
+     * do not leak into declaration-oriented features (Find Usages, Safe Delete, qualified-name
+     * copy, etc.) that key off [NAVIGABLE_TYPES].
+     */
+    val STRUCTURE_VIEW_TYPES: Set<IElementType> =
+        NAVIGABLE_TYPES +
+            setOf(
+                RescriptElementTypes.JSX_ELEMENT,
+                RescriptElementTypes.JSX_FRAGMENT,
+            )
 
     /** Element types for value bindings (let, external). Used by AddIgnore, AddUnderscore. */
     val BINDING_TYPES: Set<IElementType> =
@@ -94,10 +118,19 @@ object RescriptPsiUtils {
      * Walks through child AST nodes to find the first identifier token after a
      * top-level keyword (e.g., `let`, `type`, `module`), skipping `rec` keywords.
      *
+     * For JSX nodes the name is the opening tag name (e.g., `div`, `MyComponent`);
+     * fragments are rendered as `<>` since they have no tag name.
+     *
      * @return the declared name, or "(anonymous)" if no identifier is found
      */
     fun extractName(element: PsiElement): String {
         if (element is RescriptFile) return element.name
+
+        val elementType = element.node?.elementType
+        if (elementType == RescriptElementTypes.JSX_ELEMENT) {
+            return RescriptJsxTagPairUtil.extractTagNames(element).openName ?: "(jsx)"
+        }
+        if (elementType == RescriptElementTypes.JSX_FRAGMENT) return "<>"
 
         val node = element.node ?: return "(unknown)"
         var child = node.firstChildNode
@@ -125,6 +158,8 @@ object RescriptPsiUtils {
             RescriptElementTypes.MODULE_DECLARATION -> AllIcons.Nodes.Module
             RescriptElementTypes.EXTERNAL_DECLARATION -> AllIcons.Nodes.PluginJB
             RescriptElementTypes.EXCEPTION_DECLARATION -> AllIcons.Nodes.ExceptionClass
+            RescriptElementTypes.JSX_ELEMENT -> AllIcons.Nodes.Tag
+            RescriptElementTypes.JSX_FRAGMENT -> AllIcons.Nodes.Tag
             else -> null
         }
     }
@@ -137,6 +172,8 @@ object RescriptPsiUtils {
             RescriptElementTypes.MODULE_DECLARATION -> "module declaration"
             RescriptElementTypes.EXTERNAL_DECLARATION -> "external declaration"
             RescriptElementTypes.EXCEPTION_DECLARATION -> "exception declaration"
+            RescriptElementTypes.JSX_ELEMENT -> "JSX element"
+            RescriptElementTypes.JSX_FRAGMENT -> "JSX fragment"
             else -> null
         }
 }
