@@ -2,19 +2,30 @@ package com.rescript.plugin.navbar
 
 import com.intellij.icons.AllIcons
 import com.intellij.lang.ASTNode
+import com.intellij.lang.Language
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
+import com.rescript.plugin.RescriptLanguage
+import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Test
 
 class RescriptStructureAwareNavbarTest {
     private val navbar = RescriptStructureAwareNavbar()
 
-    private fun stubElement(type: IElementType): PsiElement {
+    /** A non-ReScript language used to exercise the language guard. */
+    private object OtherLanguage : Language("NavbarTestOther")
+
+    private fun stubElement(
+        type: IElementType,
+        parent: PsiElement? = null,
+        language: Language? = RescriptLanguage,
+    ): PsiElement {
         val node =
             java.lang.reflect.Proxy.newProxyInstance(
                 ASTNode::class.java.classLoader,
@@ -37,6 +48,8 @@ class RescriptStructureAwareNavbarTest {
         ) { _, method, _ ->
             when (method.name) {
                 "getNode" -> node
+                "getParent" -> parent
+                "getLanguage" -> language
                 "getChildren" -> emptyArray<PsiElement>()
                 "toString" -> "StubPsiElement($type)"
                 "hashCode" -> System.identityHashCode(type)
@@ -83,9 +96,16 @@ class RescriptStructureAwareNavbarTest {
     }
 
     @Test
+    fun testGetPresentableTextReturnsNullForNonRescriptLanguage() {
+        // Language guard: a navigable element type from another language is ignored.
+        val element = stubElement(RescriptElementTypes.LET_DECLARATION, language = OtherLanguage)
+        assertNull(navbar.getPresentableText(element))
+    }
+
+    @Test
     fun testGetPresentableTextAcceptsAllNavigableTypes() {
         for (type in RescriptPsiUtils.NAVIGABLE_TYPES) {
-            assertNotNull("$type should return presentable text", navbar.getPresentableText(stubElement(type)))
+            assertNotNull(navbar.getPresentableText(stubElement(type)), "$type should return presentable text")
         }
     }
 
@@ -116,5 +136,27 @@ class RescriptStructureAwareNavbarTest {
     fun testGetIconReturnsNullForNonNavigableType() {
         val element = stubElement(RescriptElementTypes.OPEN_STATEMENT)
         assertNull(navbar.getIcon(element))
+    }
+
+    @Test
+    fun testGetIconReturnsNullForNonRescriptLanguage() {
+        val element = stubElement(RescriptElementTypes.MODULE_DECLARATION, language = OtherLanguage)
+        assertNull(navbar.getIcon(element))
+    }
+
+    @Test
+    fun testGetParentReturnsEnclosingModuleDeclaration() {
+        // module M { let inner = ... } — getParent(inner) climbs to the module.
+        val module = stubElement(RescriptElementTypes.MODULE_DECLARATION)
+        val inner = stubElement(RescriptElementTypes.LET_DECLARATION, parent = module)
+        assertSame(module, navbar.getParent(inner))
+    }
+
+    @Test
+    fun testGetParentClimbsPastNonDeclarationLeaf() {
+        // A leaf token inside a let resolves to the enclosing let declaration.
+        val letDecl = stubElement(RescriptElementTypes.LET_DECLARATION)
+        val leaf = stubElement(RescriptTokenTypes.LIDENT, parent = letDecl)
+        assertSame(letDecl, navbar.getParent(leaf))
     }
 }
