@@ -48,11 +48,11 @@
 
 ## セクション Z: マージ
 
-- [ ] 全セクション緑、`./gradlew clean buildPlugin test` 成功を確認
-- [ ] requirements.md の受け入れ条件をすべて満たしていることを確認
-- [ ] このファイルの全タスクを `[x]` 更新（マージ前最終コミットに同梱）
-- [ ] `AskUserQuestion` でマージ可否を確認
-- [ ] 承認後 worktree 内で `main` にマージ → 作業ブランチ削除 → セッション終了（worktree 自動クリーンアップ）
+- [x] 全セクション緑、`./gradlew clean buildPlugin test` 成功を確認
+- [x] requirements.md の受け入れ条件をすべて満たしていることを確認
+- [x] このファイルの全タスクを `[x]` 更新（マージ前最終コミットに同梱）
+- [x] `AskUserQuestion` でマージ可否を確認
+- [x] 承認後 worktree 内で `main` にマージ → 作業ブランチ削除 → セッション終了（worktree 自動クリーンアップ）
 
 ## テスト免除メモ
 
