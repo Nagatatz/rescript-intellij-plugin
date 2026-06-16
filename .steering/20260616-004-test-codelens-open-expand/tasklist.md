@@ -30,16 +30,16 @@
 
 ## セクション 2: #112 open qualifier 展開 intention
 
-- [ ] `imports/RescriptModuleMemberExtractor.kt` を新設（`extractTopLevelNames`、depth-0 let/type/module/external/exception、純ロジック、英語 KDoc）
-- [ ] `imports/RescriptOpenExpansionPlanner.kt` を新設（`ExpansionPlan` + `plan`、修飾済みスキップ / 非メンバスキップ / 保守的シャドウ除外、純ロジック、英語 KDoc）
-- [ ] `intention/RescriptExpandOpenQualifierIntention.kt` を新設（`RescriptBaseIntention` 継承、FilenameIndex で M.res/M.resi 確認、Messages 件数確認、単一 WriteCommandAction reverse-offset 挿入 + open 削除、英語 KDoc）
-- [ ] plugin.xml に `<intentionAction>` を登録
-- [ ] `src/main/resources/intentionDescriptions/RescriptExpandOpenQualifierIntention/description.html` を新設
-- [ ] `imports/RescriptModuleMemberExtractorTest.kt`（let/let rec/type/module/external/exception 抽出 / ネスト内除外 / 空）
-- [ ] `imports/RescriptOpenExpansionPlannerTest.kt`（基本展開 / 修飾済みスキップ / 非メンバスキップ / シャドウ除外 / 二重修飾防止 / open 削除範囲）
-- [ ] `intention/RescriptExpandOpenQualifierIntentionTest.kt`（light fixture: availability on/off / ライブラリモジュール非表示 / 展開結果）
-- [ ] docs: README(Code Editing) / sphinx code-editing.md(EN) + JA .po / functional-design.md(intentionAction EP マップ) / repository-structure.md
-- [ ] `./gradlew ktlintCheck test` 緑を確認し `✨ Add expand-open-qualifier intention` でコミット
+- [x] `imports/RescriptModuleMemberExtractor.kt` を新設（`extractTopLevelNames`、depth-0 let/type/module/external/exception、純ロジック、英語 KDoc）
+- [x] `imports/RescriptOpenExpansionPlanner.kt` を新設（`ExpansionPlan` + `plan`、修飾済みスキップ / 非メンバスキップ / 保守的シャドウ除外、純ロジック、英語 KDoc）
+- [x] `intention/RescriptExpandOpenQualifierIntention.kt` を新設（`RescriptBaseIntention` 継承、FilenameIndex で M.res/M.resi 確認、Messages 件数確認、単一 WriteCommandAction reverse-offset 挿入 + open 削除、英語 KDoc）
+- [x] plugin.xml に `<intentionAction>` を登録
+- [x] `src/main/resources/intentionDescriptions/RescriptExpandOpenQualifierIntention/description.html` を新設
+- [x] `imports/RescriptModuleMemberExtractorTest.kt`（let/let rec/type/module/external/exception 抽出 / ネスト内除外 / 空）
+- [x] `imports/RescriptOpenExpansionPlannerTest.kt`（基本展開 / 修飾済みスキップ / 非メンバスキップ / シャドウ除外 / 二重修飾防止 / open 削除範囲）
+- [x] `intention/RescriptExpandOpenQualifierIntentionTest.kt`（light fixture: availability on/off / ライブラリモジュール非表示 / 展開結果）
+- [x] docs: README(Code Editing) / sphinx code-editing.md(EN) + JA .po / functional-design.md(intentionAction EP マップ) / repository-structure.md
+- [x] `./gradlew ktlintCheck test` 緑を確認し `✨ Add expand-open-qualifier intention` でコミット
 
 ## セクション 3: ロードマップ更新
 

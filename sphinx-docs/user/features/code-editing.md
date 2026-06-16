@@ -141,6 +141,7 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Convert to labeled arguments | Convert positional arguments to labeled arguments |
 | Remove unnecessary parentheses | Remove redundant parentheses around expressions |
 | Remove redundant qualifier | Remove unnecessary module path qualifiers |
+| Expand open into qualified references | Rewrite members introduced by a project-local `open M` back into explicit `M.name` form and remove the `open` |
 | Convert filter+map to filterMap | Convert `->Array.filter(f)->Array.map(g)` to `->Array.filterMap(...)` |
 | Add type annotation | Add explicit type annotation to a `let` binding using LSP hover info |
 | Add `->ignore` | Append `->ignore` to discard the expression's return value |
@@ -463,6 +464,27 @@ Belt.Array.map(arr, fn)
 ```rescript
 open Belt.Array
 map(arr, fn)
+```
+:::
+::::
+
+### Expand Open into Qualified References
+
+The inverse of *Remove Redundant Qualifier*: rewrite the members introduced by an `open M` back into explicit `M.name` references and delete the now-redundant `open` statement. Place the caret on the `open M` line and press `Alt+Enter`.
+
+This works purely on syntax and does not require the language server. It is available only when `M` resolves to a source file (`M.res` / `M.resi`) **inside your project** — the members to qualify are taken from that file's top-level declarations. Library modules such as `Belt` (resolved from `node_modules`) are out of scope, so the intention is not offered for them. References that are already qualified, and members that are shadowed by a later local binding, are left untouched.
+
+::::{tab-set}
+:::{tab-item} Before
+```rescript
+open M
+
+let x = foo(bar)
+```
+:::
+:::{tab-item} After
+```rescript
+let x = M.foo(M.bar)
 ```
 :::
 ::::

@@ -1,0 +1,7 @@
+<html>
+<body>
+<p>Expands a project-local <code>open M</code> back into explicit <code>M.name</code> references and removes the now-redundant <code>open</code> statement. Available only when the module resolves to an in-project source file.</p>
+<pre><code>open M
+let x = foo(bar)   →   let x = M.foo(M.bar)</code></pre>
+</body>
+</html>

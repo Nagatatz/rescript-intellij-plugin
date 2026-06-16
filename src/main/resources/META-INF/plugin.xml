@@ -1244,6 +1244,14 @@
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
 
+        <!-- Intention: Expand open into qualified references (#112) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptExpandOpenQualifierIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
         <!-- Intention: Expand destructuring (#82) -->
         <intentionAction>
             <language>ReScript</language>
