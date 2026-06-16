@@ -669,6 +669,8 @@ Select code and press `Ctrl+Alt+T` to surround it with:
 - `switch` expression
 - `try` / `catch` block
 - Block scope `{ ... }`
+- JSX element `<div>...</div>`
+- JSX fragment `<>...</>`
 
 ### if expression
 
@@ -754,6 +756,50 @@ process(temp)
   let temp = calculate()
   process(temp)
 }
+```
+:::
+::::
+
+### JSX element <div>...</div>
+
+Wraps the selected markup in a `<div>` element. The cursor selects the opening tag name `div` so you can immediately rename it to the desired element.
+
+Select `<Greeting name />`, then:
+
+::::{tab-set}
+:::{tab-item} Before
+```rescript
+<Greeting name />
+```
+:::
+:::{tab-item} After
+```rescript
+<div>
+  <Greeting name />
+</div>
+```
+:::
+::::
+
+### JSX fragment <>...</>
+
+Wraps the selected markup in a JSX fragment `<>...</>`, which groups sibling elements without introducing an extra DOM node.
+
+Select the two lines, then:
+
+::::{tab-set}
+:::{tab-item} Before
+```rescript
+<Header />
+<Body />
+```
+:::
+:::{tab-item} After
+```rescript
+<>
+  <Header />
+<Body />
+</>
 ```
 :::
 ::::

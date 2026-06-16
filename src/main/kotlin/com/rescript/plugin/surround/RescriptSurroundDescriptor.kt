@@ -13,7 +13,8 @@ import com.rescript.plugin.lang.psi.RescriptFile
 /**
  * Provides "Surround With" templates for ReScript code (Ctrl+Alt+T).
  *
- * Available surrounders: `if (...)`, `switch ...`, `try ... catch`, and `{ }`.
+ * Available surrounders: `if (...)`, `switch ...`, `try ... catch`, `{ }`,
+ * `<div>...</div>`, and `<>...</>`.
  * Determines the elements to surround by finding the common PSI parent
  * of the selection range.
  */
@@ -24,6 +25,8 @@ class RescriptSurroundDescriptor : SurroundDescriptor {
             RescriptSwitchSurrounder(),
             RescriptTrySurrounder(),
             RescriptBlockSurrounder(),
+            RescriptJsxElementSurrounder(),
+            RescriptJsxFragmentSurrounder(),
         )
 
     override fun getElementsToSurround(
@@ -125,6 +128,37 @@ class RescriptBlockSurrounder : RescriptBaseSurrounder("{ }") {
 
     override fun getCursorRange(generatedText: String): TextRange {
         val pos = generatedText.lastIndexOf("}")
+        return TextRange(pos, pos)
+    }
+}
+
+/**
+ * Surrounds selected JSX/markup with a `<div>...</div>` element.
+ *
+ * The caret is placed on the opening tag name (`div`) so the user can
+ * immediately type the desired element name.
+ */
+class RescriptJsxElementSurrounder : RescriptBaseSurrounder("<div></div>") {
+    override fun generateTemplate(selectedText: String): String = "<div>\n  $selectedText\n</div>"
+
+    override fun getCursorRange(generatedText: String): TextRange {
+        // Place the caret on the opening tag name so it can be renamed right away.
+        val start = generatedText.indexOf("div")
+        return TextRange(start, start + "div".length)
+    }
+}
+
+/**
+ * Surrounds selected JSX/markup with a JSX fragment `<>...</>`.
+ *
+ * The caret is placed just after the generated fragment, since a fragment has
+ * no tag name to edit.
+ */
+class RescriptJsxFragmentSurrounder : RescriptBaseSurrounder("<></>") {
+    override fun generateTemplate(selectedText: String): String = "<>\n  $selectedText\n</>"
+
+    override fun getCursorRange(generatedText: String): TextRange {
+        val pos = generatedText.length
         return TextRange(pos, pos)
     }
 }

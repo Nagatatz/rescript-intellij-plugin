@@ -9,9 +9,9 @@ class RescriptSurroundDescriptorTest {
     private val descriptor = RescriptSurroundDescriptor()
 
     @Test
-    fun testGetSurroundersReturnsFourSurrounders() {
+    fun testGetSurroundersReturnsSixSurrounders() {
         val surrounders = descriptor.surrounders
-        assertEquals(4, surrounders.size)
+        assertEquals(6, surrounders.size)
     }
 
     @Test
@@ -21,6 +21,8 @@ class RescriptSurroundDescriptorTest {
         assertTrue(surrounders[1] is RescriptSwitchSurrounder)
         assertTrue(surrounders[2] is RescriptTrySurrounder)
         assertTrue(surrounders[3] is RescriptBlockSurrounder)
+        assertTrue(surrounders[4] is RescriptJsxElementSurrounder)
+        assertTrue(surrounders[5] is RescriptJsxFragmentSurrounder)
     }
 
     @Test
@@ -231,6 +233,87 @@ class RescriptSurroundDescriptorTest {
         val surrounder = RescriptIfSurrounder()
         val result = surrounder.generateTemplate("")
         assertEquals("if (condition) {\n  \n}", result)
+    }
+
+    // -- JSX element surrounder tests --
+
+    @Test
+    fun testJsxElementSurrounderDescription() {
+        assertEquals("<div></div>", RescriptJsxElementSurrounder().templateDescription)
+    }
+
+    @Test
+    fun testJsxElementSurrounderGeneratesCorrectTemplate() {
+        val surrounder = RescriptJsxElementSurrounder()
+        val result = surrounder.generateTemplate("<Child />")
+        assertEquals("<div>\n  <Child />\n</div>", result)
+    }
+
+    @Test
+    fun testJsxElementSurrounderCursorOnTagName() {
+        val surrounder = RescriptJsxElementSurrounder()
+        val template = surrounder.generateTemplate("<Child />")
+        val cursorRange = surrounder.getCursorRange(template)
+        // Caret sits on the opening tag name "div" (first occurrence).
+        assertEquals("div", template.substring(cursorRange.startOffset, cursorRange.endOffset))
+        assertEquals(template.indexOf("div"), cursorRange.startOffset)
+    }
+
+    @Test
+    fun testJsxElementSurrounderWithEmptyContent() {
+        val surrounder = RescriptJsxElementSurrounder()
+        val result = surrounder.generateTemplate("")
+        assertEquals("<div>\n  \n</div>", result)
+    }
+
+    @Test
+    fun testJsxElementSurrounderWithMultilineSelection() {
+        val surrounder = RescriptJsxElementSurrounder()
+        val result = surrounder.generateTemplate("<A />\n<B />")
+        assertEquals("<div>\n  <A />\n<B />\n</div>", result)
+    }
+
+    // -- JSX fragment surrounder tests --
+
+    @Test
+    fun testJsxFragmentSurrounderDescription() {
+        assertEquals("<></>", RescriptJsxFragmentSurrounder().templateDescription)
+    }
+
+    @Test
+    fun testJsxFragmentSurrounderGeneratesCorrectTemplate() {
+        val surrounder = RescriptJsxFragmentSurrounder()
+        val result = surrounder.generateTemplate("<Child />")
+        assertEquals("<>\n  <Child />\n</>", result)
+    }
+
+    @Test
+    fun testJsxFragmentSurrounderCursorAtEnd() {
+        val surrounder = RescriptJsxFragmentSurrounder()
+        val template = surrounder.generateTemplate("<Child />")
+        val cursorRange = surrounder.getCursorRange(template)
+        // Fragment has no tag name to edit; caret collapses at the very end.
+        assertEquals(cursorRange.startOffset, cursorRange.endOffset)
+        assertEquals(template.length, cursorRange.startOffset)
+    }
+
+    @Test
+    fun testJsxFragmentSurrounderWithEmptyContent() {
+        val surrounder = RescriptJsxFragmentSurrounder()
+        val result = surrounder.generateTemplate("")
+        assertEquals("<>\n  \n</>", result)
+    }
+
+    @Test
+    fun testJsxElementSurrounderIsApplicableEmpty() {
+        val surrounder = RescriptJsxElementSurrounder()
+        assertFalse(surrounder.isApplicable(emptyArray()))
+    }
+
+    @Test
+    fun testJsxFragmentSurrounderIsApplicableEmpty() {
+        val surrounder = RescriptJsxFragmentSurrounder()
+        assertFalse(surrounder.isApplicable(emptyArray()))
     }
 
     private fun stubProject(): com.intellij.openapi.project.Project =
