@@ -51,7 +51,10 @@ class RescriptCreateInterfaceAction : AnAction() {
         val uri = RescriptLspUtils.toLspUri(file)
 
         server
-            .sendRequestSync { languageServer ->
+            // Explicit 10s timeout (the platform default). Omitting it emits
+            // the synthetic sendRequestSync$default, which 2026.2 relocated to
+            // the new LspClient super-interface and no longer resolves here.
+            .sendRequestSync(10_000) { languageServer ->
                 (languageServer as RescriptLanguageServer).createInterface(TextDocumentIdentifier(uri))
             }?.let { response ->
                 val resultUrl = RescriptLspUtils.lspUriToVfsUrl(response.uri)

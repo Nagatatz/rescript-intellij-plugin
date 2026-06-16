@@ -110,7 +110,10 @@ object RescriptLspUtils {
                 )
 
             val hoverResult =
-                server.sendRequestSync { languageServer ->
+                // Explicit 10s timeout (the platform default). Omitting it emits
+                // the synthetic sendRequestSync$default, which 2026.2 relocated to
+                // the new LspClient super-interface and no longer resolves here.
+                server.sendRequestSync(10_000) { languageServer ->
                     languageServer.textDocumentService.hover(params)
                 } ?: return null
 
