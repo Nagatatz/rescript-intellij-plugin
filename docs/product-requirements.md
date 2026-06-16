@@ -80,8 +80,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|----------|------|--------|--------|
-| 111 | Test Code Lens | その他 | `describe` / `it` / `test` 行に Run / Debug の CodeVision を表示し既存 `RescriptTestRunConfigurationType` に橋渡し | 中 | A |
-| 112 | `open` qualifier 展開 intention | Intention | `open Belt` を `Belt.Array.map` 形に書き戻す Alt+Enter (HLS importLens / rust-analyzer 由来) | 中 | A |
 | 113 | doc コメント内評価 | その他 | `// > expr` 形式コメントを `RescriptReplExecutor` で評価し inline 注釈で結果表示 (HLS Eval plugin 由来) | 中 | B |
 | 114 | ネスト switch 平坦化 intention | Intention | `switch x { \| Some(y) => switch y ... }` を 1 階層に統合 (Gleam LS 由来) | 中 | B |
 | 115 | Wingman 風 type hole 補完 | 補完 | 型穴 `_` を target type と local binding から自動充填、case split サポート | 中〜高 | B |

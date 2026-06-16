@@ -43,8 +43,8 @@
 
 ## セクション 3: ロードマップ更新
 
-- [ ] `docs/product-requirements.md` の「新機能候補」テーブルから #111 / #112 の行を削除
-- [ ] `📝 Remove implemented #111/#112 from roadmap` でコミット
+- [x] `docs/product-requirements.md` の「新機能候補」テーブルから #111 / #112 の行を削除
+- [x] `📝 Remove implemented #111/#112 from roadmap` でコミット
 
 ## セクション Z: マージ
 
