@@ -172,3 +172,5 @@
 | Intention 基底クラス抽出 | 20 Intention の `getFamilyName()` / `RescriptFile` ガードを共通基底クラスに集約 | `RescriptBaseIntention` |
 | Generate Action 基底クラス抽出 | 6 Generate Action の `ActionUpdateThread.BGT` ポリシーを共通基底クラスに集約 | `RescriptBaseGenerateAction` |
 | エディタユーティリティ抽出 | `WriteCommandAction` ラッパーと `Document` 行アクセスヘルパーの共通化 | `RescriptEditorUtils` |
+| Pipeline Hints | `->` パイプ各段の中間型を LSP hover 経由で InlayHint 表示（ロードマップ #110） | `RescriptPipeChainTypeHintsProvider` |
+| Call Hierarchy ToolWindow | 関数の呼び出し元・呼び出し先を階層ツリーで表示（PSI ベース実装、Ctrl+Alt+H。ロードマップ #118） | `RescriptCallHierarchyProvider` + `RescriptCallAnalyzer` |

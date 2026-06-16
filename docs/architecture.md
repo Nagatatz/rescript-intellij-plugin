@@ -6,10 +6,10 @@
 
 | 技術 | バージョン | 用途 |
 |------|-----------|------|
-| Kotlin | 2.3.10 | プラグインの主要実装言語 |
-| JFlex | GrammarKit 2023.3.0.2 | レクサー定義・自動生成 |
+| Kotlin | 2.3.21 | プラグインの主要実装言語 |
+| JFlex | GrammarKit 2023.3.0.3 | レクサー定義・自動生成 |
 | Java | 21+ (Temurin) | JFlex 生成コードのコンパイルターゲット |
-| IntelliJ Platform SDK | 2025.3.2 | プラグイン基盤 API |
+| IntelliJ Platform SDK | 2026.1.2 | プラグイン基盤 API |
 | LSP4J | IntelliJ Platform 内蔵 | LSP クライアント実装 |
 
 ### ビルド・品質ツール

@@ -80,7 +80,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|----------|------|--------|--------|
-| 110 | Pipeline Hints | InlayHints | `->` パイプ各段の中間型を LSP hover 経由で InlayHint 表示 (F# Ionide 由来) | 中 | A |
 | 111 | Test Code Lens | その他 | `describe` / `it` / `test` 行に Run / Debug の CodeVision を表示し既存 `RescriptTestRunConfigurationType` に橋渡し | 中 | A |
 | 112 | `open` qualifier 展開 intention | Intention | `open Belt` を `Belt.Array.map` 形に書き戻す Alt+Enter (HLS importLens / rust-analyzer 由来) | 中 | A |
 | 113 | doc コメント内評価 | その他 | `// > expr` 形式コメントを `RescriptReplExecutor` で評価し inline 注釈で結果表示 (HLS Eval plugin 由来) | 中 | B |
@@ -88,7 +87,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | 115 | Wingman 風 type hole 補完 | 補完 | 型穴 `_` を target type と local binding から自動充填、case split サポート | 中〜高 | B |
 | 116 | record / variant placeholder 補完 | 補完 | record literal 生成時に全フィールドを `_` で雛形化、variant matching wrapper も同様 | 中 | B |
 | 117 | inferred 型注釈の一括挿入 quick fix | Quick Fix | Type Coverage Heat Map で低 coverage と判定された file の全 `let` に LSP hover 由来の `: T` を一括挿入 | 中 | B |
-| 118 | Call Hierarchy ToolWindow | ナビゲーション | LSP `callHierarchy/incomingCalls` / `outgoingCalls` を ToolWindow に表示 (要 LSP サポート確認) | 中 | B |
 | 119 | Build Console 専用 ToolWindow | ToolWindow | `rescript build --watch` の stdout を構造化表示し、エラー行クリックで該当箇所へジャンプ | 中〜高 | B |
 | 120 | 追加 stub index | インデキシング | variant constructor / record field / object field / parameter の 4 種を stub index 化し Find Usages とリネームを高速化 | 中 | B |
 | 121 | `.cmt` / `.cmti` バイナリ読取 | 分析 | LSP 非依存のホバー型表示 (NFR-04 強化、reasonml-idea-plugin の目玉機能を移植) | 高 | B |

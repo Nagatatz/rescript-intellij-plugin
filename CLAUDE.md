@@ -82,7 +82,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 - **セマンティックトークンハイライト** (`RescriptSemanticTokensSupport.kt`) — LSP セマンティックトークンによる高精度な色分け
 - **カスタム LSP リクエスト** (`RescriptLanguageServer.kt`) — `createInterface`, `openCompiled` 等の ReScript 固有リクエスト
 - **カスタム LSP 通知** (`RescriptLsp4jClient.kt`) — `rescript/compilationStatus` 通知受信
-- **Code Lens** (`RescriptCodeVisionProvider.kt`) — CodeVision API 経由で関数の型注釈を表示
+- **Code Lens** (`RescriptCodeVisionProvider.java`) — CodeVision API 経由で関数の型注釈を表示
 - **Type Narrowing Visualizer** (`narrowing/`) — `switch` の各 arm でスクラティニーがどの型に絞り込まれたかを LSP hover の結果に基づいてインレイヒントで表示。さらに pattern binding (`| Some(x) =>` の `x` 等) の直後にも、その binding 単体の narrowing 後の型を別ヒントとして出す
 - LSP 未接続時の機能ごとの振る舞い（フル機能 / 部分機能 / 不可）は `docs/lsp-fallback-matrix.md` を参照
 
