@@ -25,20 +25,20 @@ com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*
 //
 // These methods are deprecated on Marketplace-side verifiers running newer
 // IDEs, but the replacement APIs (`isApplicableAsync`, `acceptFile(IndexedFile)`)
-// do not yet exist in IntelliJ Platform 2026.1.1 (our compile target). The
+// do not yet exist in IntelliJ Platform 2026.1.2 (our compile target). The
 // overrides are explicitly annotated with @Suppress("DEPRECATION") in source;
 // the verifier still reports them at bytecode level. Re-evaluate when the
 // platformVersion is bumped to a release that ships the async/IndexedFile
 // variants.
 
 // FloatingToolbarProvider.isApplicable(DataContext)
-// Status: KEEP — `isApplicableAsync` not yet available in 2026.1.1.
+// Status: KEEP — `isApplicableAsync` not yet available in 2026.1.2.
 // Source: RescriptFloatingToolbarProvider.kt
 // Reviewed: 2026-05-14 | Expires: 2027-05-14
 com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*isApplicable.*
 
 // FileIncludeProvider.acceptFile(VirtualFile)
-// Status: KEEP — `acceptFile(IndexedFile)` not yet available in 2026.1.1;
+// Status: KEEP — `acceptFile(IndexedFile)` not yet available in 2026.1.2;
 // the VirtualFile overload remains abstract and must be overridden.
 // Source: RescriptFileIncludeProvider.kt
 // Reviewed: 2026-05-14 | Expires: 2027-05-14
