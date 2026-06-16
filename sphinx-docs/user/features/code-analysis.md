@@ -72,6 +72,17 @@ module Helpers = {
 
 The warning appears on the empty module declaration, prompting you to either add content or remove the empty module.
 
+### Mismatched JSX Closing Tag
+
+Warns when a JSX element's closing tag name does not match its opening tag name. Such mismatches usually result from renaming a tag and forgetting to update the matching side.
+
+```rescript
+let view = <div> {React.string("hello")} </span>
+// Warning: Closing tag 'span' does not match opening tag 'div'
+```
+
+The warning is highlighted on the closing tag name, so you can spot and fix the mismatch immediately. Fragments (`<> ... </>`) and self-closing elements (`<input />`) are never flagged, and correctly nested elements sharing the same name are left untouched.
+
 ### Missing Configuration
 
 When no `rescript.json` (or legacy `bsconfig.json`) is found in the project root, the plugin displays an editor notification bar at the top of ReScript files. This configuration file is essential for:

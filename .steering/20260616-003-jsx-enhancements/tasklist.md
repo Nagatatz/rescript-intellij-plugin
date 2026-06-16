@@ -19,13 +19,13 @@
 
 ## セクション E: 閉じタグ不一致 Inspection（共有ヘルパ新設）
 
-- [ ] `lang/psi/RescriptJsxTagPairUtil.kt` を新設: `JsxTagNames` data class / `TagSide` enum / `findEnclosingJsxElement` / `extractTagNames` / `sideAt`（英語 KDoc 全付与）
-- [ ] `inspection/RescriptMismatchedJsxTagInspection.kt`（`LocalInspectionTool`）を新設、`openName != closeName` の閉じタグ範囲に WARNING 登録
-- [ ] plugin.xml に `localInspection` を既存 inspection 群の並びに従って登録
-- [ ] `lang/psi/RescriptJsxTagPairUtilTest.kt`: 名前抽出 / dotted path / fragment / self-closing / 閉じ欠落 / sideAt を網羅
-- [ ] `inspection/RescriptMismatchedJsxTagInspectionTest.kt`: `<div></span>` 検出 / `<Foo></Bar>` 検出 / `<div></div>` 非検出 / ネスト同名 非検出 / fragment 非検出 / self-closing 非検出
-- [ ] docs: CLAUDE.md(layer3 分析系) / README(Code Analysis) / sphinx code-analysis.md(EN) + JA .po / repository-structure.md にヘルパ・Inspection クラス追記
-- [ ] `./gradlew ktlintCheck test` 緑を確認し `✨ Add mismatched JSX close-tag inspection` でコミット
+- [x] `lang/psi/RescriptJsxTagPairUtil.kt` を新設: `JsxTagNames` data class / `TagSide` enum / `findEnclosingJsxElement` / `extractTagNames` / `sideAt`（英語 KDoc 全付与）
+- [x] `inspection/RescriptMismatchedJsxTagInspection.kt`（`LocalInspectionTool`）を新設、`openName != closeName` の閉じタグ範囲に WARNING 登録
+- [x] plugin.xml に `localInspection` を既存 inspection 群の並びに従って登録
+- [x] `lang/psi/RescriptJsxTagPairUtilTest.kt`: 名前抽出 / dotted path / fragment / self-closing / 閉じ欠落 / sideAt を網羅
+- [x] `inspection/RescriptMismatchedJsxTagInspectionTest.kt`: `<div></span>` 検出 / `<Foo></Bar>` 検出 / `<div></div>` 非検出 / ネスト同名 非検出 / fragment 非検出 / self-closing 非検出
+- [x] docs: README(Code Analysis) / sphinx code-analysis.md(EN) + JA .po / repository-structure.md / functional-design.md(localInspection EP マップ) にヘルパ・Inspection クラス追記（CLAUDE.md は C と同様 layer3 分析系に個別 inspection を列挙せず functional-design.md へ委譲のため変更不要）
+- [x] `./gradlew ktlintCheck test` 緑を確認し `✨ Add mismatched JSX close-tag inspection` でコミット
 
 ## セクション B: タグペアハイライト（E のヘルパ依存）
 

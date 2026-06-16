@@ -114,6 +114,7 @@
 - **Dead code analysis** — Detect unused code via `reanalyze` integration with server mode acceleration (ReScript >= 12.1.0)
 - **Duplicate open detection** — Warn on duplicate `open` statements
 - **Empty module detection** — Warn on empty module declarations
+- **Mismatched JSX close-tag detection** — Warn when a JSX element's closing tag name differs from its opening tag (e.g. `<div></span>`)
 - **Missing rescript.json** — Warn when configuration file is absent
 - **Highlight usages** — Highlight related keywords (switch/if/try and matching control flow keywords)
 - **Problem filter** — Suppress highlighting in `node_modules/`, `lib/bs/`, `lib/ocaml/`

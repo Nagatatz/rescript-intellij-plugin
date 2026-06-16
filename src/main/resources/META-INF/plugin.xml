@@ -687,6 +687,13 @@
                          implementationClass="com.rescript.plugin.inspection.RescriptEmptyModuleInspection"/>
         <localInspection language="ReScript"
                          groupName="ReScript"
+                         shortName="RescriptMismatchedJsxTag"
+                         displayName="Mismatched JSX closing tag"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.rescript.plugin.inspection.RescriptMismatchedJsxTagInspection"/>
+        <localInspection language="ReScript"
+                         groupName="ReScript"
                          shortName="RescriptMissingConfig"
                          displayName="Missing rescript.json configuration"
                          enabledByDefault="true"
