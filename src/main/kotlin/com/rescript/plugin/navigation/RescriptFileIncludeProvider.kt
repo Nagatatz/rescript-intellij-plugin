@@ -48,6 +48,10 @@ class RescriptFileIncludeProvider : FileIncludeProvider() {
 
     override fun getId(): String = "rescript"
 
+    // acceptFile(VirtualFile) is deprecated on newer IDEs (2026.2 EAP) in favour of
+    // acceptFile(IndexedFile), which does not yet exist on our 2026.1.2 compile target.
+    // The VirtualFile overload remains abstract and must be overridden.
+    @Suppress("DEPRECATION")
     override fun acceptFile(file: VirtualFile): Boolean = RescriptFileUtil.isRescriptFile(file)
 
     override fun registerFileTypesUsedForIndexing(fileTypeSink: Consumer<in FileType>) {
