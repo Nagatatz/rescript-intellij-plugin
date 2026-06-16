@@ -1,5 +1,6 @@
 package com.rescript.plugin.lang.psi
 
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.util.PsiTreeUtil
 import com.rescript.plugin.ParsingTestHelper
 import com.rescript.plugin.RescriptParsingTestExtension
@@ -112,5 +113,89 @@ class RescriptJsxTagPairUtilTest {
         val file = parsingHelper.parseCode("let x = 1")
         val leaf = PsiTreeUtil.getDeepestFirst(file)
         assertNull(RescriptJsxTagPairUtil.findEnclosingJsxElement(leaf))
+    }
+
+    @Test
+    fun testComputeSyncEditOpenToClose() {
+        // Open side was edited from "div" to "divx"; the close side still reads the pre-edit "div".
+        val names =
+            JsxTagNames(
+                openName = "divx",
+                openRange = TextRange(0, 4),
+                closeName = "div",
+                closeRange = TextRange(10, 13),
+            )
+        val edit = RescriptJsxTagPairUtil.computeSyncEdit(names, TagSide.OPEN, "div")
+        assertNotNull(edit)
+        assertEquals(TextRange(10, 13), edit!!.range)
+        assertEquals("divx", edit.replacement)
+    }
+
+    @Test
+    fun testComputeSyncEditCloseToOpen() {
+        // Close side was edited from "div" to "span"; mirror back onto the open side.
+        val names =
+            JsxTagNames(
+                openName = "div",
+                openRange = TextRange(0, 3),
+                closeName = "span",
+                closeRange = TextRange(10, 14),
+            )
+        val edit = RescriptJsxTagPairUtil.computeSyncEdit(names, TagSide.CLOSE, "div")
+        assertNotNull(edit)
+        assertEquals(TextRange(0, 3), edit!!.range)
+        assertEquals("span", edit.replacement)
+    }
+
+    @Test
+    fun testComputeSyncEditPreEditMismatchReturnsNull() {
+        // The two sides did not match before the edit, so a deliberate mismatch must be preserved.
+        val names =
+            JsxTagNames(
+                openName = "divx",
+                openRange = TextRange(0, 4),
+                closeName = "span",
+                closeRange = TextRange(10, 14),
+            )
+        assertNull(RescriptJsxTagPairUtil.computeSyncEdit(names, TagSide.OPEN, "div"))
+    }
+
+    @Test
+    fun testComputeSyncEditAlreadyInSyncReturnsNull() {
+        // Both sides already equal: nothing to mirror.
+        val names =
+            JsxTagNames(
+                openName = "div",
+                openRange = TextRange(0, 3),
+                closeName = "div",
+                closeRange = TextRange(8, 11),
+            )
+        assertNull(RescriptJsxTagPairUtil.computeSyncEdit(names, TagSide.OPEN, "div"))
+    }
+
+    @Test
+    fun testComputeSyncEditSelfClosingReturnsNull() {
+        // Self-closing: no close name/range to mirror onto.
+        val names =
+            JsxTagNames(
+                openName = "br",
+                openRange = TextRange(0, 2),
+                closeName = null,
+                closeRange = null,
+            )
+        assertNull(RescriptJsxTagPairUtil.computeSyncEdit(names, TagSide.OPEN, "b"))
+    }
+
+    @Test
+    fun testComputeSyncEditFragmentReturnsNull() {
+        // Fragment: neither side has a name, so there is nothing to mirror.
+        val names =
+            JsxTagNames(
+                openName = null,
+                openRange = null,
+                closeName = null,
+                closeRange = null,
+            )
+        assertNull(RescriptJsxTagPairUtil.computeSyncEdit(names, TagSide.OPEN, null))
     }
 }

@@ -88,6 +88,7 @@
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block, or in a JSX `<div>` element / `<>` fragment
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
 - **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
+- **JSX paired-tag rename** — Editing a JSX tag name live-mirrors the change onto its matching opening/closing tag, undoable in one step
 - **Generate actions** — Generate switch arms, module types, make functions, record values, JSON encoder/decoder, and module type implementation (`Cmd+N`)
 - **Statement mover** — Move declarations up/down (`Alt+Shift+Up/Down`)
 - **Smart Enter** — Insert new line with correct indentation (`Shift+Enter`)

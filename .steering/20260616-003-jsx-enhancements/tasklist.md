@@ -38,12 +38,12 @@
 
 ## セクション A: ペアタグ同期リネーム（E のヘルパ依存）
 
-- [ ] `RescriptJsxTagPairUtil` に `computeSyncEdit(names, editedSide, preEditEditedName): SyncEdit?` と `SyncEdit` data class を追加（編集前同期時のみミラー、英語 KDoc）
-- [ ] `RescriptTypedHandler` / `RescriptBackspaceHandler` に JSX タグ名同期 wiring を追加（同一 WriteCommandAction で Undo 1 ステップ）
-- [ ] `RescriptJsxTagPairUtilTest.kt` に `computeSyncEdit` 網羅テスト（open→close / close→open / 編集前不一致 null / self-closing null / fragment null）
-- [ ] heavy fixture でタイピング同期スモーク 1 本（`<div>` の `div` 編集 → `</div>` 追従 / Undo 1 ステップ）。**wiring 自体は editor 結合のためスモーク 1 本に限定（理由: TypedHandlerDelegate の charTyped は light fixture で安定駆動できないため）**
-- [ ] docs: CLAUDE.md(layer3 編集系) / README(Code Editing) / sphinx code-editing.md(EN) + JA .po
-- [ ] `./gradlew ktlintCheck test` 緑を確認し `✨ Add paired JSX tag synchronized rename` でコミット
+- [x] `RescriptJsxTagPairUtil` に `computeSyncEdit(names, editedSide, preEditEditedName): SyncEdit?` と `SyncEdit` data class を追加（編集前同期時のみミラー、英語 KDoc）
+- [x] `RescriptTypedHandler` / `RescriptBackspaceHandler` に JSX タグ名同期 wiring を追加（同一 WriteCommandAction で Undo 1 ステップ）
+- [x] `RescriptJsxTagPairUtilTest.kt` に `computeSyncEdit` 網羅テスト（open→close / close→open / 編集前不一致 null / self-closing null / fragment null）
+- [x] heavy fixture でタイピング同期スモーク 1 本（`<div>` の `div` 編集 → `</div>` 追従 / Undo 1 ステップ）。**wiring 自体は editor 結合のためスモーク 1 本に限定（理由: TypedHandlerDelegate の charTyped は light fixture で安定駆動できないため）**
+- [x] docs: README(Code Editing) / functional-design.md(typedHandler + backspaceHandler 行) / repository-structure.md(lang/psi + editor/ 行) / sphinx code-editing.md(EN) + JA .po（CLAUDE.md は C/E/B 同様、機能列挙を functional-design.md に委譲するため per-feature 追記なし）
+- [x] `./gradlew ktlintCheck test` 緑を確認し `✨ Add paired JSX tag synchronized rename` でコミット
 
 ## セクション D: 構造ビュー JSX ノード
 

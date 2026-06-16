@@ -482,7 +482,7 @@ flowchart TD
 | `com.intellij.declarationRangeHandler` | `RescriptDeclarationRangeHandler` | Context Info（宣言ヘッダー固定表示） | 実装済み |
 | `com.intellij.lang.findUsagesProvider` | `RescriptFindUsagesProvider` | Find Usages + WordsScanner | 実装済み |
 | `com.intellij.lang.unwrapDescriptor` | `RescriptUnwrapDescriptor` | Unwrap/Remove (Ctrl+Shift+Delete) | 実装済み |
-| `com.intellij.typedHandler` | `RescriptTypedHandler` | JSX 閉じタグ自動挿入 | 実装済み |
+| `com.intellij.typedHandler` | `RescriptTypedHandler` | JSX 閉じタグ自動挿入 + 開閉タグ名の同期リネーム（`RescriptJsxTagPairUtil` 共有） | 実装済み |
 | `com.intellij.testCreator` | `RescriptTestCreator` | Go to Test / Create Test (Ctrl+Shift+T) | 実装済み |
 | `com.intellij.treeStructureProvider` | `RescriptTreeStructureProvider` | Project View .resi ネスト表示 | 実装済み |
 | `com.intellij.projectViewNestingRulesProvider` | `RescriptFileNestingProvider` | .res.js を .res の子にネスト表示 | 実装済み |
@@ -507,7 +507,7 @@ flowchart TD
 | `com.intellij.readerModeMatcher` | `RescriptReaderModeMatcher` | node_modules リーダーモード | 実装済み |
 | `com.intellij.lookup.charFilter` | `RescriptLookupCharFilter` | 補完文字フィルタ | 実装済み |
 | `com.intellij.lang.inspectionSuppressor` | `RescriptInspectionSuppressor` | noinspection コメント抑制 | 実装済み |
-| `com.intellij.backspaceHandlerDelegate` | `RescriptBackspaceHandler` | JSX タグペア削除 | 実装済み |
+| `com.intellij.backspaceHandlerDelegate` | `RescriptBackspaceHandler` | JSX タグペア削除 + 開閉タグ名の同期リネーム（`RescriptJsxTagPairUtil` 共有） | 実装済み |
 | `com.intellij.colorProvider` | `RescriptColorProvider` | カラープレビュースウォッチ | 実装済み |
 | `com.intellij.vcs.codeVisionLanguageContext` | `RescriptVcsCodeVisionContext` | VCS Code Vision アノテーション | 実装済み |
 | `com.intellij.projectViewNodeDecorator` | `RescriptProjectViewNodeDecorator` | Project View ノード装飾 | 実装済み |

@@ -2,6 +2,7 @@ package com.rescript.plugin.lang.psi
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.RescriptTokenTypes
 
 /**
@@ -31,6 +32,19 @@ data class JsxTagNames(
     val openRange: TextRange?,
     val closeName: String?,
     val closeRange: TextRange?,
+)
+
+/**
+ * A single document replacement that mirrors an edit made to one JSX tag name onto
+ * its paired counterpart.
+ *
+ * @see RescriptJsxTagPairUtil.computeSyncEdit
+ */
+data class SyncEdit(
+    /** The absolute document range to overwrite (the counterpart tag's name). */
+    val range: TextRange,
+    /** The new text to write into [range] (the edited side's current name). */
+    val replacement: String,
 )
 
 /**
@@ -71,6 +85,32 @@ object RescriptJsxTagPairUtil {
                 return current
             }
             current = current.parent
+        }
+        return null
+    }
+
+    /**
+     * Resolves the `JSX_ELEMENT` enclosing the given document [offset] within [file].
+     *
+     * Probes the leaf at [offset] and, as a fallback, the leaf just before it, so a caret
+     * sitting exactly at the trailing edge of a tag name still resolves the element.
+     *
+     * @param file the PSI file to search
+     * @param offset an absolute document offset
+     * @return the enclosing `JSX_ELEMENT`, or `null` if the offset is not inside one
+     */
+    fun findEnclosingJsxElementAt(
+        file: PsiFile,
+        offset: Int,
+    ): PsiElement? {
+        val candidates =
+            listOfNotNull(
+                file.findElementAt(offset),
+                if (offset > 0) file.findElementAt(offset - 1) else null,
+            )
+        for (candidate in candidates) {
+            val jsx = findEnclosingJsxElement(candidate)
+            if (jsx != null) return jsx
         }
         return null
     }
@@ -164,5 +204,52 @@ object RescriptJsxTagPairUtil {
         if (names.openRange?.containsOffset(offset) == true) return TagSide.OPEN
         if (names.closeRange?.containsOffset(offset) == true) return TagSide.CLOSE
         return null
+    }
+
+    /**
+     * Computes the edit needed to mirror a just-applied tag-name change onto the paired tag.
+     *
+     * Mirroring is intentionally conservative: it fires only when the two tag names matched
+     * *before* the edit ([preEditEditedName] equals the unchanged counterpart name), so an
+     * intentional open/close mismatch (e.g. while fixing a typo on one side) is never
+     * clobbered. Returns `null` when there is no counterpart to mirror to (fragments,
+     * self-closing or unterminated elements), when the sides did not match pre-edit, or when
+     * both sides are already in sync.
+     *
+     * @param names the post-edit tag names and ranges extracted from the element
+     * @param editedSide which side the user just edited
+     * @param preEditEditedName the edited side's name *before* the keystroke, or `null` if unknown
+     * @return the replacement to apply to the counterpart tag, or `null` if no mirror is needed
+     */
+    fun computeSyncEdit(
+        names: JsxTagNames,
+        editedSide: TagSide,
+        preEditEditedName: String?,
+    ): SyncEdit? {
+        val editedName: String?
+        val otherName: String?
+        val otherRange: TextRange?
+        when (editedSide) {
+            TagSide.OPEN -> {
+                editedName = names.openName
+                otherName = names.closeName
+                otherRange = names.closeRange
+            }
+
+            TagSide.CLOSE -> {
+                editedName = names.closeName
+                otherName = names.openName
+                otherRange = names.openRange
+            }
+        }
+
+        // No counterpart tag to mirror onto (fragment / self-closing / unterminated).
+        if (otherName == null || otherRange == null) return null
+        // Only mirror when the two sides matched before the edit; preserve deliberate mismatches.
+        if (preEditEditedName == null || preEditEditedName != otherName) return null
+        // Nothing to do when the edited side is empty or already equals the counterpart.
+        if (editedName == null || editedName == otherName) return null
+
+        return SyncEdit(otherRange, editedName)
     }
 }

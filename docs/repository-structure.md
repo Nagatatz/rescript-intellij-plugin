@@ -35,7 +35,7 @@ rescript-intellij-plugin/
 |-----------|------|-----------|
 | (ルート) | Language / FileType / Icons 定義、エラーレポート連携 | `RescriptLanguage`, `RescriptFileTypes`, `RescriptIcons`, `RescriptErrorReporter` |
 | `lang/` | レクサー、パーサー、トークン定義、型宣言 RHS の再パース | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes`, `RescriptTypeDeclarationParser` |
-| `lang/psi/` | PSI 要素クラス、ユーティリティ | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils` |
+| `lang/psi/` | PSI 要素クラス、ユーティリティ、JSX 開閉タグペア解決 | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils`, `RescriptJsxTagPairUtil` |
 | `highlight/` | シンタックスハイライト、ブレースマッチング、使用箇所ハイライト（キーワード / JSX 開閉タグペア） | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher`, `RescriptHighlightUsagesHandlerFactory`, `RescriptJsxTagHighlightHandler` |
 | `lsp/` | LSP サーバー管理、カスタムプロトコル、LSP ユーティリティ、variant 型の bare-name 解決 | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor`, `RescriptLspUtils`, `RescriptVariantTypeResolver` |
 | `codestyle/` | コードスタイル、インデント設定 | `RescriptCodeStyleSettingsProvider` |
@@ -46,7 +46,7 @@ rescript-intellij-plugin/
 | `settings/` | プロジェクト設定 UI・永続化（スキーマ駆動） | `RescriptConfigurable`, `RescriptProjectSettings`, `RescriptSettingsSchema`, `RescriptSettingDescriptor`, `RescriptSettingsValidator` |
 | `structure/` | ストラクチャービュー | `RescriptStructureViewFactory` |
 | `indexing/` | PSI スタブインデックス（5 種の宣言型: let / type / module / external / exception）、`open` 文インデックス、識別子の名前インデックス、TODO インデクシング | `RescriptIndexPatternBuilder`, `RescriptModuleIndex`, `RescriptNameIndex`, `RescriptOpenStatementIndex`, `RescriptTodoIndexer` |
-| `editor/` | エディタ補助（引用符、通知バー、Smart Enter 等） | `RescriptQuoteHandler`, `RescriptSmartEnterProcessor` |
+| `editor/` | エディタ補助（引用符、通知バー、Smart Enter、JSX 開閉タグ同期リネーム 等） | `RescriptQuoteHandler`, `RescriptSmartEnterProcessor`, `RescriptTypedHandler`, `RescriptBackspaceHandler` |
 | `formatter/` | 外部フォーマッタ連携 | `RescriptFormattingService` |
 | `navigation/` | ナビゲーション（Symbol、Related、Switch File、Hoogle-style 型シグネチャ検索、シグネチャトークン色付け 等） | `RescriptSymbolContributor`, `RescriptSwitchFileAction`, `RescriptTypeAst`, `RescriptTypeParser`, `RescriptTypeUnifier`, `RescriptDeclarationSignatureExtractor`, `RescriptTypeSignatureSearchContributor`, `RescriptSignatureTokenColorizer` |
 | `template/` | ファイル作成テンプレート | `RescriptCreateFileAction` |

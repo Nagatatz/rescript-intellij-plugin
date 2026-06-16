@@ -1647,6 +1647,25 @@ For an unterminated element (no closing tag yet) only the opening name is highli
 
 Paired-tag highlighting reveals where a JSX element opens and closes at a glance — place your caret on a tag name and instantly see its counterpart, even when several same-named tags are nested.
 
+## JSX Paired Tag Rename
+
+{bdg-success}`Native`
+
+When you edit a JSX tag name, the change is mirrored live onto its matching tag on the other side of the element, so the opening and closing names never drift apart. Typing or deleting characters in `<div>` keeps the trailing `</div>` in sync as you go, and the whole synchronized edit Undoes in a single step.
+
+**Example:**
+
+```rescript
+// Caret right after "div" in the opening tag; type "x"
+<div></div>
+// Result — both names update together
+<divx></divx>
+```
+
+The mirror only fires while the two names still match (the side you are editing matched the other side before the keystroke), so it never overwrites an intentionally different closing name. It does nothing for self-closing tags (`<br />`) or fragments (`<>...</>`), which have no second name to keep in sync.
+
+Synchronized renaming removes the manual step of fixing the closing tag after changing the opening one — rename in place and the counterpart follows, with a single Undo to back it all out.
+
 ## Word Selection (Extend/Shrink)
 
 {bdg-success}`Native`

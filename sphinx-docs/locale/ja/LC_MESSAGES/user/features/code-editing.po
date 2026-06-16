@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 20:56+0900\n"
+"POT-Creation-Date: 2026-06-16 21:18+0900\n"
 "PO-Revision-Date: 2026-02-19 18:14+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -72,8 +72,9 @@ msgstr "コード折りたたみ"
 #: ../../user/features/code-editing.md:1604
 #: ../../user/features/code-editing.md:1633
 #: ../../user/features/code-editing.md:1652
-#: ../../user/features/code-editing.md:1673
-#: ../../user/features/code-editing.md:1686
+#: ../../user/features/code-editing.md:1671
+#: ../../user/features/code-editing.md:1692
+#: ../../user/features/code-editing.md:1705
 #, python-brace-format
 msgid "{bdg-success}`Native`"
 msgstr "{bdg-success}`Native`"
@@ -2072,6 +2073,7 @@ msgstr "`expr`"
 #: ../../user/features/code-editing.md:1409
 #: ../../user/features/code-editing.md:1619
 #: ../../user/features/code-editing.md:1637
+#: ../../user/features/code-editing.md:1656
 msgid "**Example:**"
 msgstr "**例:**"
 
@@ -2468,8 +2470,8 @@ msgid ""
 "highlighted, making the boundaries of the element obvious even in deeply "
 "nested markup."
 msgstr ""
-"JSX タグ名（開きタグ・閉じタグのどちらでも）にカーソルを置くと、要素の反対側にある対応するタグ名がハイライトされ、"
-"深くネストしたマークアップでも要素の境界が一目で分かります。"
+"JSX "
+"タグ名（開きタグ・閉じタグのどちらでも）にカーソルを置くと、要素の反対側にある対応するタグ名がハイライトされ、深くネストしたマークアップでも要素の境界が一目で分かります。"
 
 #: ../../user/features/code-editing.md:1646
 msgid ""
@@ -2478,8 +2480,8 @@ msgid ""
 " highlighted. When tags of the same name are nested, the highlight "
 "resolves to the pair of the element enclosing the caret."
 msgstr ""
-"閉じられていない要素（閉じタグがまだない場合）では開きタグ名のみがハイライトされます。JSX フラグメント（`<>...</>`）には"
-"タグ名がないため何もハイライトされません。同名のタグがネストしている場合は、カーソルを含む要素のペアに解決されます。"
+"閉じられていない要素（閉じタグがまだない場合）では開きタグ名のみがハイライトされます。JSX "
+"フラグメント（`<>...</>`）にはタグ名がないため何もハイライトされません。同名のタグがネストしている場合は、カーソルを含む要素のペアに解決されます。"
 
 #: ../../user/features/code-editing.md:1648
 msgid ""
@@ -2487,14 +2489,50 @@ msgid ""
 " glance — place your caret on a tag name and instantly see its "
 "counterpart, even when several same-named tags are nested."
 msgstr ""
-"ペアタグハイライトにより JSX 要素がどこで開きどこで閉じるかが一目で分かります — タグ名にカーソルを置けば、"
-"同名のタグが複数ネストしていても、その対応するタグが即座に分かります。"
+"ペアタグハイライトにより JSX 要素がどこで開きどこで閉じるかが一目で分かります — "
+"タグ名にカーソルを置けば、同名のタグが複数ネストしていても、その対応するタグが即座に分かります。"
 
 #: ../../user/features/code-editing.md:1650
+msgid "JSX Paired Tag Rename"
+msgstr "JSX 開閉タグの同期リネーム"
+
+#: ../../user/features/code-editing.md:1654
+msgid ""
+"When you edit a JSX tag name, the change is mirrored live onto its "
+"matching tag on the other side of the element, so the opening and closing"
+" names never drift apart. Typing or deleting characters in `<div>` keeps "
+"the trailing `</div>` in sync as you go, and the whole synchronized edit "
+"Undoes in a single step."
+msgstr ""
+"JSX タグ名を編集すると、その変更が要素の反対側にある対応タグへ即座に反映され、開きタグと閉じタグの名前がずれることがありません。"
+"`<div>` で文字を入力・削除すると末尾の `</div>` がその場で追従し、同期された編集全体が 1 ステップで Undo できます。"
+
+#: ../../user/features/code-editing.md:1665
+msgid ""
+"The mirror only fires while the two names still match (the side you are "
+"editing matched the other side before the keystroke), so it never "
+"overwrites an intentionally different closing name. It does nothing for "
+"self-closing tags (`<br />`) or fragments (`<>...</>`), which have no "
+"second name to keep in sync."
+msgstr ""
+"ミラーリングは 2 つの名前がまだ一致している間（キー入力前に編集中の側が反対側と一致していた場合）にのみ発火するため、"
+"意図的に別名にした閉じタグを上書きすることはありません。同期する 2 つ目の名前を持たない自己終了タグ（`<br />`）や"
+"フラグメント（`<>...</>`）では何も行いません。"
+
+#: ../../user/features/code-editing.md:1667
+msgid ""
+"Synchronized renaming removes the manual step of fixing the closing tag "
+"after changing the opening one — rename in place and the counterpart "
+"follows, with a single Undo to back it all out."
+msgstr ""
+"同期リネームは、開きタグを変更した後に閉じタグを手作業で直す手間をなくします。その場でリネームすれば対応する側が追従し、"
+"1 回の Undo ですべて元に戻せます。"
+
+#: ../../user/features/code-editing.md:1669
 msgid "Word Selection (Extend/Shrink)"
 msgstr "ワード選択（拡大/縮小）"
 
-#: ../../user/features/code-editing.md:1654
+#: ../../user/features/code-editing.md:1673
 msgid ""
 "Use `Ctrl+W` (`Alt+Up` on macOS) to extend the selection and "
 "`Ctrl+Shift+W` (`Alt+Down` on macOS) to shrink it, with ReScript-aware "
@@ -2503,11 +2541,11 @@ msgstr ""
 "`Ctrl+W`（macOS では `Alt+Up`）で選択を拡大、`Ctrl+Shift+W`（macOS では "
 "`Alt+Down`）で選択を縮小します。ReScript に適した境界を認識します。"
 
-#: ../../user/features/code-editing.md:1656
+#: ../../user/features/code-editing.md:1675
 msgid "Selection Boundaries"
 msgstr "選択境界"
 
-#: ../../user/features/code-editing.md:1658
+#: ../../user/features/code-editing.md:1677
 msgid ""
 "The word selector recognizes the following ReScript-specific boundaries "
 "for extend/shrink selection:"
@@ -2553,13 +2591,13 @@ msgstr "行コメント `// ...` 内"
 msgid "Comment text → Entire comment line"
 msgstr "コメントテキスト → コメント行全体"
 
-#: ../../user/features/code-editing.md:1667
+#: ../../user/features/code-editing.md:1686
 msgid ""
 "This provides more natural selection behavior than the default word "
 "selector when working with ReScript code structures."
 msgstr "ReScript のコード構造を扱う際に、デフォルトのワードセレクターよりも自然な選択動作を提供します。"
 
-#: ../../user/features/code-editing.md:1669
+#: ../../user/features/code-editing.md:1688
 msgid ""
 "ReScript-aware selection boundaries make it easy to select exactly the "
 "content you need — string contents without quotes, block comment text "
@@ -2568,17 +2606,17 @@ msgstr ""
 "ReScript "
 "対応の選択境界により、標準の拡大/縮小ショートカットを使って、引用符なしの文字列内容やデリミタなしのブロックコメントテキストなど、必要なコンテンツを正確に選択できます。"
 
-#: ../../user/features/code-editing.md:1671
+#: ../../user/features/code-editing.md:1690
 msgid "Paste as JSX"
 msgstr "JSX として貼り付け"
 
-#: ../../user/features/code-editing.md:1675
+#: ../../user/features/code-editing.md:1694
 msgid ""
 "When pasting HTML content into a ReScript file, it is automatically "
 "converted to JSX syntax:"
 msgstr "HTML コンテンツを ReScript ファイルに貼り付けると、自動的に JSX 構文に変換されます:"
 
-#: ../../user/features/code-editing.md:1676
+#: ../../user/features/code-editing.md:1695
 msgid ""
 "HTML attributes (`class`, `for`, `onclick`) are renamed to JSX "
 "equivalents (`className`, `htmlFor`, `onClick`)"
@@ -2586,25 +2624,25 @@ msgstr ""
 "HTML 属性（`class`、`for`、`onclick`）が JSX "
 "の同等属性（`className`、`htmlFor`、`onClick`）にリネームされます"
 
-#: ../../user/features/code-editing.md:1677
+#: ../../user/features/code-editing.md:1696
 msgid "Void elements (`<br>`, `<img>`, `<input>`) are self-closed (`<br />`)"
 msgstr "Void 要素（`<br>`、`<img>`、`<input>`）が自己閉じタグ（`<br />`）に変換されます"
 
-#: ../../user/features/code-editing.md:1678
+#: ../../user/features/code-editing.md:1697
 msgid "Inline `style` strings are converted to ReScript style objects"
 msgstr "インライン `style` 文字列が ReScript のスタイルオブジェクトに変換されます"
 
-#: ../../user/features/code-editing.md:1679
+#: ../../user/features/code-editing.md:1698
 msgid ""
 "Boolean attributes (e.g., `disabled`, `checked`) are preserved as JSX "
 "boolean props"
 msgstr "Boolean 属性（例: `disabled`、`checked`）が JSX の boolean props として保持されます"
 
-#: ../../user/features/code-editing.md:1680
+#: ../../user/features/code-editing.md:1699
 msgid "`data-*` and `aria-*` attributes are preserved as-is"
 msgstr "`data-*` および `aria-*` 属性はそのまま保持されます"
 
-#: ../../user/features/code-editing.md:1682
+#: ../../user/features/code-editing.md:1701
 msgid ""
 "Paste as JSX converts HTML to ReScript JSX automatically — instead of "
 "manually renaming `class` to `className` and self-closing void elements, "
@@ -2613,11 +2651,11 @@ msgstr ""
 "Paste as JSX は HTML を ReScript JSX に自動変換します — `class` を `className` "
 "に手動でリネームしたり void 要素を自己終了させたりする代わりに、ペースト時に変換が行われます。"
 
-#: ../../user/features/code-editing.md:1684
+#: ../../user/features/code-editing.md:1703
 msgid "Paste as ReScript"
 msgstr "ReScript として貼り付け"
 
-#: ../../user/features/code-editing.md:1688
+#: ../../user/features/code-editing.md:1707
 #, python-brace-format
 msgid ""
 "This conversion is triggered automatically when you paste JavaScript or "
@@ -2630,7 +2668,7 @@ msgstr ""
 "TypeScript コードを `.res` ファイルに貼り付けると自動的にトリガーされます。別途メニューアクションは不要です — "
 "プラグインがクリップボード内の JavaScript/TypeScript パターンを検出し、その場で変換します。"
 
-#: ../../user/features/code-editing.md:1690
+#: ../../user/features/code-editing.md:1709
 msgid ""
 "When pasting JavaScript or TypeScript code into a ReScript file, it is "
 "automatically converted to ReScript syntax:"
@@ -2638,68 +2676,68 @@ msgstr ""
 "JavaScript または TypeScript コードを ReScript ファイルに貼り付けると、自動的に ReScript "
 "構文に変換されます:"
 
-#: ../../user/features/code-editing.md:1692
+#: ../../user/features/code-editing.md:1711
 msgid "JavaScript conversions"
 msgstr "JavaScript の変換"
 
-#: ../../user/features/code-editing.md:1694
+#: ../../user/features/code-editing.md:1713
 msgid "`const`/`let`/`var` declarations are converted to `let` bindings"
 msgstr "`const`/`let`/`var` 宣言が `let` バインディングに変換されます"
 
-#: ../../user/features/code-editing.md:1695
+#: ../../user/features/code-editing.md:1714
 #, python-brace-format
 msgid "Arrow functions `(x) => { return x }` are simplified to `(x) => x`"
 msgstr "アロー関数 `(x) => { return x }` が `(x) => x` に簡素化されます"
 
-#: ../../user/features/code-editing.md:1696
+#: ../../user/features/code-editing.md:1715
 msgid "`===` / `!==` are converted to `==` / `!=`"
 msgstr "`===` / `!==` が `==` / `!=` に変換されます"
 
-#: ../../user/features/code-editing.md:1697
+#: ../../user/features/code-editing.md:1716
 msgid "`console.log(x)` is converted to `Js.log(x)`"
 msgstr "`console.log(x)` が `Js.log(x)` に変換されます"
 
-#: ../../user/features/code-editing.md:1698
+#: ../../user/features/code-editing.md:1717
 msgid "`null` / `undefined` are converted to `None`"
 msgstr "`null` / `undefined` が `None` に変換されます"
 
-#: ../../user/features/code-editing.md:1699
+#: ../../user/features/code-editing.md:1718
 msgid "Template literals remain as-is (ReScript uses the same syntax)"
 msgstr "テンプレートリテラルはそのまま維持されます（ReScript は同じ構文を使用）"
 
-#: ../../user/features/code-editing.md:1701
+#: ../../user/features/code-editing.md:1720
 msgid "TypeScript type stripping"
 msgstr "TypeScript 型の除去"
 
-#: ../../user/features/code-editing.md:1703
+#: ../../user/features/code-editing.md:1722
 msgid "Variable type annotations (`const x: string = ...`) are removed"
 msgstr "変数の型注釈（`const x: string = ...`）が除去されます"
 
-#: ../../user/features/code-editing.md:1704
+#: ../../user/features/code-editing.md:1723
 msgid "Function parameter type annotations (`(a: number, b: string)`) are removed"
 msgstr "関数パラメータの型注釈（`(a: number, b: string)`）が除去されます"
 
-#: ../../user/features/code-editing.md:1705
+#: ../../user/features/code-editing.md:1724
 msgid "Return type annotations (`): boolean {`) are removed"
 msgstr "戻り値の型注釈（`): boolean {`）が除去されます"
 
-#: ../../user/features/code-editing.md:1706
+#: ../../user/features/code-editing.md:1725
 msgid "Type assertions (`value as string`) are removed"
 msgstr "型アサーション（`value as string`）が除去されます"
 
-#: ../../user/features/code-editing.md:1707
+#: ../../user/features/code-editing.md:1726
 msgid "`interface` and `enum` declarations are commented out"
 msgstr "`interface` および `enum` 宣言がコメントアウトされます"
 
-#: ../../user/features/code-editing.md:1708
+#: ../../user/features/code-editing.md:1727
 msgid "`export type` / `export interface` / `export enum` are commented out"
 msgstr "`export type` / `export interface` / `export enum` がコメントアウトされます"
 
-#: ../../user/features/code-editing.md:1710
+#: ../../user/features/code-editing.md:1729
 msgid "JSX/TSX pattern conversion"
 msgstr "JSX/TSX パターンの変換"
 
-#: ../../user/features/code-editing.md:1712
+#: ../../user/features/code-editing.md:1731
 #, python-brace-format
 msgid ""
 "Conditional rendering `{condition && <expr>}` is converted to `{condition"
@@ -2708,13 +2746,13 @@ msgstr ""
 "条件付きレンダリング `{condition && <expr>}` が `{condition ? <expr> : React.null}` "
 "に変換されます"
 
-#: ../../user/features/code-editing.md:1713
+#: ../../user/features/code-editing.md:1732
 msgid ""
 "Array methods (`.map()`, `.filter()`, `.forEach()`) are converted to "
 "pipe-first style (`->Array.map()`)"
 msgstr "配列メソッド（`.map()`、`.filter()`、`.forEach()`）がパイプファーストスタイル（`->Array.map()`）に変換されます"
 
-#: ../../user/features/code-editing.md:1714
+#: ../../user/features/code-editing.md:1733
 #, python-brace-format
 msgid ""
 "JSX spread `{...props}` gets a warning comment (not supported in ReScript"
@@ -2729,7 +2767,7 @@ msgstr "変更前（クリップボード内の TypeScript）"
 msgid "After (pasted into `.res` file)"
 msgstr "変更後（`.res` ファイルに貼り付け後）"
 
-#: ../../user/features/code-editing.md:1735
+#: ../../user/features/code-editing.md:1754
 msgid ""
 "Paste as ReScript bridges the gap between JavaScript/TypeScript and "
 "ReScript — copy code from documentation, Stack Overflow, or existing "
@@ -2740,7 +2778,7 @@ msgstr ""
 "ドキュメント、Stack Overflow、既存の JS/TS ファイルからコードをコピーし、自動構文変換付きで `.res` "
 "ファイルに直接ペーストできます。"
 
-#: ../../user/features/code-editing.md:1737
+#: ../../user/features/code-editing.md:1756
 #, python-brace-format
 msgid ""
 "Note that React JSX/TSX code (containing `className=`, `{expression}` "

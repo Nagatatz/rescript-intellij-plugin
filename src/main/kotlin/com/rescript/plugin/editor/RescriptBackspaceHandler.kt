@@ -2,29 +2,55 @@ package com.rescript.plugin.editor
 
 import com.intellij.codeInsight.editorActions.BackspaceHandlerDelegate
 import com.intellij.openapi.editor.Editor
+import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.lang.psi.RescriptJsxTagPairUtil
+import com.rescript.plugin.lang.psi.TagSide
 
 /**
  * Custom backspace handler for ReScript files.
  *
  * When the caret is positioned between an empty JSX tag pair like `<div>|</div>`,
  * pressing backspace deletes both the opening `>` and the entire closing tag.
+ * Additionally keeps paired JSX tag names in sync: deleting a character from one
+ * side of a matched `<div>...</div>` pair mirrors the deletion onto the other side
+ * within the same delete command, so the whole edit undoes in a single step.
  *
- * @see RescriptTypedHandler for the complementary auto-close behavior
+ * @see RescriptTypedHandler for the complementary auto-close and rename behavior
  */
 class RescriptBackspaceHandler : BackspaceHandlerDelegate() {
+    // Captured pre-edit state (side + name) carried from beforeCharDeleted to charDeleted on
+    // the EDT for a single keystroke; null when the keystroke does not edit a tag name.
+    private var pendingSync: Pair<TagSide, String>? = null
+
     override fun beforeCharDeleted(
         c: Char,
         file: PsiFile,
         editor: Editor,
     ) {
+        pendingSync = null
+
         // Only handle in ReScript files
         if (file !is RescriptFile) return
 
         val offset = editor.caretModel.offset
         val document = editor.document
         val text = document.charsSequence
+
+        // Capture pre-edit tag-name state when deleting a name-continuing character so the
+        // paired tag can be mirrored in charDeleted (after the deletion has been applied).
+        if (c.isLetterOrDigit() || c == '_') {
+            val jsx = RescriptJsxTagPairUtil.findEnclosingJsxElementAt(file, offset)
+            if (jsx != null) {
+                val side = RescriptJsxTagPairUtil.sideAt(jsx, offset)
+                if (side != null) {
+                    val names = RescriptJsxTagPairUtil.extractTagNames(jsx)
+                    val preEditName = if (side == TagSide.OPEN) names.openName else names.closeName
+                    if (preEditName != null) pendingSync = side to preEditName
+                }
+            }
+        }
 
         // Check if we're deleting '>' and there's a closing tag right after
         if (offset < 1 || offset >= text.length) return
@@ -46,7 +72,21 @@ class RescriptBackspaceHandler : BackspaceHandlerDelegate() {
         c: Char,
         file: PsiFile,
         editor: Editor,
-    ): Boolean = false
+    ): Boolean {
+        val (side, preEditName) = pendingSync ?: return false
+        pendingSync = null
+        if (file !is RescriptFile) return false
+
+        val document = editor.document
+        val project = file.project
+        PsiDocumentManager.getInstance(project).commitDocument(document)
+        val offset = editor.caretModel.offset
+        val jsx = RescriptJsxTagPairUtil.findEnclosingJsxElementAt(file, offset) ?: return false
+        val names = RescriptJsxTagPairUtil.extractTagNames(jsx)
+        val edit = RescriptJsxTagPairUtil.computeSyncEdit(names, side, preEditName) ?: return false
+        document.replaceString(edit.range.startOffset, edit.range.endOffset, edit.replacement)
+        return false
+    }
 
     /**
      * Extracts the JSX tag name by scanning backward from the `>` character.
