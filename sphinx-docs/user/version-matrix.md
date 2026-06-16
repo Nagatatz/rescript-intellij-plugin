@@ -12,7 +12,7 @@ This page provides IDE compatibility information and a per-version breakdown of 
 
 | Plugin Version | IntelliJ Platform | JDK | ReScript | Language Server |
 |----------------|-------------------|-----|----------|-----------------|
-| 0.1.2 -- 0.1.12 | 2025.3+ | 21+ | v11+ | `@rescript/language-server` 1.0.0+ (latest stable recommended) |
+| 0.1.2 -- 0.1.15 | 2025.3+ | 21+ | v11+ | `@rescript/language-server` 1.0.0+ (latest stable recommended) |
 
 :::{note}
 Native features (syntax highlighting, code folding, brace matching, etc.) work without the language server.
@@ -23,8 +23,64 @@ LSP-powered features (completion, diagnostics, definition jump, etc.) require `@
 
 ::::{tab-set}
 
+:::{tab-item} 0.1.15
+**Released 2026-06-13**
+
+| Feature | Category |
+|---------|----------|
+| Editor-grade syntax highlighting in tool windows (Type Info, Notebook, signature search, PPX) | Improvement |
+| Colour-coded diagram semantics (Variant Flow arms, Dependency node roles, Interop risk bands) | Improvement |
+| Off-UI-thread dependency diagram & type impact resolution | Bug Fix |
+| Tool window panel scaffold + coroutine debounce | Refactoring |
+| IntelliJ Platform 2026.1.2; Expo SDK 56 | Infrastructure |
+:::
+
+:::{tab-item} 0.1.14
+**Released 2026-05-13**
+
+| Feature | Category |
+|---------|----------|
+| Type Narrowing Visualizer (per-arm narrowed types) | InlayHints |
+| Switch Flow Diagram (Visual / Source toggle, Mermaid + DOT) | ToolWindow |
+| Module Dependency Diagram — Visual mode | ToolWindow |
+| Type Impact Preview | ToolWindow |
+| Notebook Worksheet (`.resnb`) | ToolWindow |
+| JS Interop Risk Map | ToolWindow |
+| Type Coverage Heat Map | ToolWindow |
+| Add Missing Switch Arms intention | Intention |
+| Rename Variant Constructor intention | Intention |
+| Hoogle-style Type Signature Search | Navigation |
+| Monorepo workspace detection | Improvement |
+| Tauri / TanStack Start / Remix RR v7 / Astro / Waku / Hono+Inertia templates | Wizard |
+:::
+
+:::{tab-item} 0.1.13
+**Released 2026-04-27**
+
+| Feature | Category |
+|---------|----------|
+| Module Dependency Diagram (Mermaid + DOT export) | ToolWindow |
+| res-x (HTMX on Bun) project template | Wizard |
+| Validation Library selection (zod / sury) | Wizard |
+| Bun package manager option | Wizard |
+| Full-Stack GraphQL variant | Wizard |
+| Schema-driven settings panel | Refactoring |
+:::
+
+:::{tab-item} 0.1.12
+**Released 2026-04-17**
+
+| Feature | Category |
+|---------|----------|
+| React Native (Community CLI) template | Wizard |
+| Full-Stack project template | Wizard |
+| Hono GraphQL template (yoga, GraphiQL, Drizzle) | Wizard |
+| vitest smoke tests across all templates | Infrastructure |
+| PackageManager selection in wizard | Wizard |
+:::
+
 :::{tab-item} 0.1.11
-**Unreleased**
+**Released 2026-04-01**
 
 | Feature | Category |
 |---------|----------|

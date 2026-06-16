@@ -12,6 +12,11 @@ project = "ReScript IntelliJ Plugin"
 copyright = "2026, Nagatatz"
 author = "Claude Code with Nagatatz"
 
+# The short X.Y version and the full version, kept in sync with
+# gradle.properties `pluginVersion`.
+version = "0.1.15"
+release = "0.1.15"
+
 # -- General configuration ---------------------------------------------------
 
 extensions = [

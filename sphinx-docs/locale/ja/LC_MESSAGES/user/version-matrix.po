@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-16 21:03+0900\n"
+"POT-Creation-Date: 2026-06-16 17:27+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -36,11 +36,9 @@ msgid ""
 "reference](https://github.com/Nagatatz/rescript-intellij-"
 "plugin/blob/main/docs/versions.md)."
 msgstr ""
-"このページでは IDE の互換性情報と、ReScript IntelliJ Plugin の各バージョンで追加された機能の一覧を提供します。"
-"バージョニング方針・リリース手順・各バージョン情報の信頼できる情報源については、"
-"[開発者向けバージョン参照ドキュメント]"
-"(https://github.com/Nagatatz/rescript-intellij-plugin/blob/main/docs/versions.md)"
-"を参照してください。"
+"このページでは IDE の互換性情報と、ReScript IntelliJ Plugin "
+"の各バージョンで追加された機能の一覧を提供します。バージョニング方針・リリース手順・各バージョン情報の信頼できる情報源については、[開発者向けバージョン参照ドキュメント](https://github.com/Nagatatz"
+"/rescript-intellij-plugin/blob/main/docs/versions.md)を参照してください。"
 
 #: ../../user/version-matrix.md:11
 msgid "IDE Compatibility"
@@ -67,8 +65,8 @@ msgid "Language Server"
 msgstr "Language Server"
 
 #: ../../user/version-matrix.md
-msgid "0.1.2 -- 0.1.12"
-msgstr "0.1.2 -- 0.1.12"
+msgid "0.1.2 -- 0.1.15"
+msgstr "0.1.2 -- 0.1.15"
 
 #: ../../user/version-matrix.md
 msgid "2025.3+"
@@ -96,29 +94,61 @@ msgid ""
 "(`rescript/compilationStatus`, `textDocument/createInterface`, "
 "`textDocument/openCompiled`, semantic tokens) introduced in 1.x."
 msgstr ""
-"ネイティブ機能（シンタックスハイライト、コード折りたたみ、ブレースマッチングなど）は Language Server なしで動作します。"
-"LSP ベースの機能（補完、診断、定義ジャンプなど）を使用するには、プロジェクトに `@rescript/language-server` "
-"1.0.0 以降をインストールする必要があります。0.x 系は本プラグインが使用する LSP 拡張プロトコル"
-"（`rescript/compilationStatus`、`textDocument/createInterface`、"
-"`textDocument/openCompiled`、Semantic Tokens）に対応しないためサポート対象外です。"
+"ネイティブ機能（シンタックスハイライト、コード折りたたみ、ブレースマッチングなど）は Language Server なしで動作します。LSP "
+"ベースの機能（補完、診断、定義ジャンプなど）を使用するには、プロジェクトに `@rescript/language-server` 1.0.0 "
+"以降をインストールする必要があります。0.x 系は本プラグインが使用する LSP "
+"拡張プロトコル（`rescript/compilationStatus`、`textDocument/createInterface`、`textDocument/openCompiled`、Semantic"
+" Tokens）に対応しないためサポート対象外です。"
 
 #: ../../user/version-matrix.md:22
 msgid "Features by Version"
 msgstr "バージョン別機能一覧"
 
 #: ../../user/version-matrix.md
+msgid "0.1.15"
+msgstr "0.1.15"
+
+#: ../../user/version-matrix.md:28
+msgid "**Released 2026-06-13**"
+msgstr "**2026-06-13 リリース**"
+
+#: ../../user/version-matrix.md
+msgid "0.1.14"
+msgstr "0.1.14"
+
+#: ../../user/version-matrix.md:40
+msgid "**Released 2026-05-13**"
+msgstr "**2026-05-13 リリース**"
+
+#: ../../user/version-matrix.md
+msgid "0.1.13"
+msgstr "0.1.13"
+
+#: ../../user/version-matrix.md:59
+msgid "**Released 2026-04-27**"
+msgstr "**2026-04-27 リリース**"
+
+#: ../../user/version-matrix.md
+msgid "0.1.12"
+msgstr "0.1.12"
+
+#: ../../user/version-matrix.md:72
+msgid "**Released 2026-04-17**"
+msgstr "**2026-04-17 リリース**"
+
+#: ../../user/version-matrix.md
 msgid "0.1.11"
 msgstr "0.1.11"
 
-#: ../../user/version-matrix.md:28
-msgid "**Unreleased**"
-msgstr "**未リリース**"
+#: ../../user/version-matrix.md:84
+msgid "**Released 2026-04-01**"
+msgstr "**2026-04-01 リリース**"
 
 #: ../../user/version-matrix.md
 msgid "0.1.10"
 msgstr "0.1.10"
 
-#: ../../user/version-matrix.md:40
+#: ../../user/version-matrix.md:96
 msgid "**Released 2026-03-19**"
 msgstr "**2026-03-19 リリース**"
 
@@ -126,7 +156,7 @@ msgstr "**2026-03-19 リリース**"
 msgid "0.1.9"
 msgstr "0.1.9"
 
-#: ../../user/version-matrix.md:52
+#: ../../user/version-matrix.md:108
 msgid "**Released 2026-03-16**"
 msgstr "**2026-03-16 リリース**"
 
@@ -134,7 +164,7 @@ msgstr "**2026-03-16 リリース**"
 msgid "0.1.8"
 msgstr "0.1.8"
 
-#: ../../user/version-matrix.md:60
+#: ../../user/version-matrix.md:116
 msgid "**Released 2026-03-12**"
 msgstr "**2026-03-12 リリース**"
 
@@ -142,11 +172,11 @@ msgstr "**2026-03-12 リリース**"
 msgid "0.1.7"
 msgstr "0.1.7"
 
-#: ../../user/version-matrix.md:70
+#: ../../user/version-matrix.md:126
 msgid "**Released 2026-03-11**"
 msgstr "**2026-03-11 リリース**"
 
-#: ../../user/version-matrix.md:72
+#: ../../user/version-matrix.md:128
 msgid "Bug fixes only (threading fixes, icon attribute fix, version string fix)."
 msgstr "バグ修正のみ（スレッド修正、アイコン属性修正、バージョン文字列修正）。"
 
@@ -154,11 +184,11 @@ msgstr "バグ修正のみ（スレッド修正、アイコン属性修正、バ
 msgid "0.1.6"
 msgstr "0.1.6"
 
-#: ../../user/version-matrix.md:76 ../../user/version-matrix.md:82
+#: ../../user/version-matrix.md:132 ../../user/version-matrix.md:138
 msgid "**Released 2026-03-10**"
 msgstr "**2026-03-10 リリース**"
 
-#: ../../user/version-matrix.md:78
+#: ../../user/version-matrix.md:134
 msgid ""
 "Bug fixes only (EDT threading, GenerateGroup, testCreator extension "
 "point)."
@@ -172,7 +202,7 @@ msgstr "0.1.5"
 msgid "0.1.4"
 msgstr "0.1.4"
 
-#: ../../user/version-matrix.md:93
+#: ../../user/version-matrix.md:149
 msgid "**Released 2026-03-06**"
 msgstr "**2026-03-06 リリース**"
 
@@ -180,7 +210,7 @@ msgstr "**2026-03-06 リリース**"
 msgid "0.1.3"
 msgstr "0.1.3"
 
-#: ../../user/version-matrix.md:101
+#: ../../user/version-matrix.md:157
 msgid "**Released 2026-03-05**"
 msgstr "**2026-03-05 リリース**"
 
@@ -188,39 +218,39 @@ msgstr "**2026-03-05 リリース**"
 msgid "0.1.2"
 msgstr "0.1.2"
 
-#: ../../user/version-matrix.md:110
+#: ../../user/version-matrix.md:166
 msgid "**Released 2026-03-03 -- Initial release with 109 features**"
 msgstr "**2026-03-03 リリース -- 109 機能を搭載した初回リリース**"
 
-#: ../../user/version-matrix.md:112
+#: ../../user/version-matrix.md:168
 msgid "Syntax"
 msgstr "シンタックス"
 
-#: ../../user/version-matrix.md:126
+#: ../../user/version-matrix.md:182
 msgid "Completion"
 msgstr "補完"
 
-#: ../../user/version-matrix.md:140
+#: ../../user/version-matrix.md:196
 msgid "Navigation"
 msgstr "ナビゲーション"
 
-#: ../../user/version-matrix.md:160
+#: ../../user/version-matrix.md:216
 msgid "Editing"
 msgstr "編集"
 
-#: ../../user/version-matrix.md:186
+#: ../../user/version-matrix.md:242
 msgid "Run & Build"
 msgstr "実行とビルド"
 
-#: ../../user/version-matrix.md:205
+#: ../../user/version-matrix.md:261
 msgid "Testing"
 msgstr "テスト"
 
-#: ../../user/version-matrix.md:212
+#: ../../user/version-matrix.md:268
 msgid "Analysis"
 msgstr "分析"
 
-#: ../../user/version-matrix.md:234
+#: ../../user/version-matrix.md:290
 msgid "Advanced"
 msgstr "高度な機能"
 
@@ -230,4 +260,7 @@ msgstr "高度な機能"
 #~ " of features added to the ReScript"
 #~ " IntelliJ Plugin."
 #~ msgstr "このページでは、IDE の互換性情報と、ReScript IntelliJ Plugin の各バージョンで追加された機能の一覧を提供します。"
+
+#~ msgid "**Unreleased**"
+#~ msgstr "**未リリース**"
 

@@ -4,7 +4,6 @@
 # Plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
@@ -29,7 +28,6 @@ msgid "TanStack Start"
 msgstr "TanStack Start"
 
 #: ../../user/templates/tanstack-start.md:9
-#, fuzzy
 msgid ""
 "A type-safe full-stack React template powered by TanStack Start (Vite-"
 "based) with file-based routing through `@tanstack/react-router`. Sources "
