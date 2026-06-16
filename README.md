@@ -116,7 +116,7 @@
 - **Empty module detection** — Warn on empty module declarations
 - **Mismatched JSX close-tag detection** — Warn when a JSX element's closing tag name differs from its opening tag (e.g. `<div></span>`)
 - **Missing rescript.json** — Warn when configuration file is absent
-- **Highlight usages** — Highlight related keywords (switch/if/try and matching control flow keywords)
+- **Highlight usages** — Highlight related keywords (switch/if/try and matching control flow keywords); on a JSX tag name, highlights the paired opening/closing tag
 - **Problem filter** — Suppress highlighting in `node_modules/`, `lib/bs/`, `lib/ocaml/`
 - **Inspection suppressor** — Suppress inspections with `// noinspection` comments
 - **Format check** — Highlight unformatted files with quick-fix to format (opt-in via Settings)

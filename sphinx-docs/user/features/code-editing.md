@@ -1628,6 +1628,25 @@ switch value {
 
 Keyword highlighting reveals the full structure of a control-flow construct at a glance — place your caret on `switch` and see all its arms, or on `if` and see the entire `if`/`else` chain.
 
+## Highlight Paired JSX Tags
+
+{bdg-success}`Native`
+
+When the caret is placed on a JSX tag name — either the opening or the closing one — the matching tag name on the other side of the element is highlighted, making the boundaries of the element obvious even in deeply nested markup.
+
+**Example:**
+
+```rescript
+// Place caret on either "div": both the opening and closing tag names highlight
+<div>
+  <span> {React.string("hi")} </span>
+</div>
+```
+
+For an unterminated element (no closing tag yet) only the opening name is highlighted. JSX fragments (`<>...</>`) have no tag names, so nothing is highlighted. When tags of the same name are nested, the highlight resolves to the pair of the element enclosing the caret.
+
+Paired-tag highlighting reveals where a JSX element opens and closes at a glance — place your caret on a tag name and instantly see its counterpart, even when several same-named tags are nested.
+
 ## Word Selection (Extend/Shrink)
 
 {bdg-success}`Native`

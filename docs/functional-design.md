@@ -497,7 +497,7 @@ flowchart TD
 | `com.intellij.extendWordSelectionHandler` | `RescriptStringSelectionHandler` | 文字列選択拡大 | 実装済み |
 | `com.intellij.extendWordSelectionHandler` | `RescriptBracketSelectionHandler` | 括弧選択拡大 | 実装済み |
 | `com.intellij.extendWordSelectionHandler` | `RescriptCommentSelectionHandler` | コメント選択拡大 | 実装済み |
-| `com.intellij.highlightUsagesHandlerFactory` | `RescriptHighlightUsagesHandlerFactory` | switch/if/try キーワードハイライト | 実装済み |
+| `com.intellij.highlightUsagesHandlerFactory` | `RescriptHighlightUsagesHandlerFactory` | switch/if/try キーワードハイライト + JSX 開閉タグペアハイライト (`RescriptJsxTagHighlightHandler`) | 実装済み |
 | `com.intellij.codeInsight.gotoSuper` | `RescriptGotoSuperHandler` | .res → .resi 宣言ジャンプ | 実装済み |
 | `com.intellij.lang.documentationProvider` | `RescriptDocumentationProvider` | 外部ドキュメント URL + Quick Documentation フォールバック | 実装済み |
 | `com.intellij.runAnything` | `RescriptRunAnythingProvider` | Run Anything CLI コマンド | 実装済み |

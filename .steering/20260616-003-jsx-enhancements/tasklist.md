@@ -29,12 +29,12 @@
 
 ## セクション B: タグペアハイライト（E のヘルパ依存）
 
-- [ ] `highlight/RescriptHighlightUsagesHandlerFactory.kt` の `createHighlightUsagesHandler` 冒頭に「caret token が JSX_TAG_NAME / JSX_COMPONENT_NAME なら JSX ハンドラを返す」分岐を追加
-- [ ] `highlight/RescriptJsxTagHighlightHandler.kt`（`HighlightUsagesHandlerBase`）を新設、`extractTagNames` で開き/閉じ両範囲をハイライト（英語 KDoc）
-- [ ] `highlight/RescriptJsxTagHighlightHandlerTest.kt`: 開きタグ名 caret → 2 範囲 / 閉じタグ名 caret → 2 範囲 / 閉じ欠落 → 1 範囲 / ネスト同名で正しい対応
-- [ ] plugin.xml は既存 `highlightUsagesHandlerFactory` 登録で足りることを確認
-- [ ] docs: CLAUDE.md(layer3 編集系) / README(Code Editing) / sphinx code-editing.md(EN) + JA .po / repository-structure.md にハンドラ追記
-- [ ] `./gradlew ktlintCheck test` 緑を確認し `✨ Add JSX tag-pair highlighting` でコミット
+- [x] `highlight/RescriptHighlightUsagesHandlerFactory.kt` の `createHighlightUsagesHandler` 冒頭に「caret token が JSX_TAG_NAME / JSX_COMPONENT_NAME なら JSX ハンドラを返す」分岐を追加
+- [x] `highlight/RescriptJsxTagHighlightHandler.kt`（`HighlightUsagesHandlerBase`）を新設、`extractTagNames` で開き/閉じ両範囲をハイライト（英語 KDoc）
+- [x] `highlight/RescriptJsxTagHighlightHandlerTest.kt`: 開きタグ名 caret → 2 範囲 / 閉じタグ名 caret → 2 範囲 / 閉じ欠落 → 1 範囲 / ネスト同名で正しい対応
+- [x] plugin.xml は既存 `highlightUsagesHandlerFactory` 登録で足りることを確認
+- [x] docs: README(Code Editing) / sphinx code-editing.md(EN) + JA .po / functional-design.md(EP マップ) / repository-structure.md にハンドラ追記（CLAUDE.md layer3 は C/E と同じく functional-design.md へ委譲）
+- [x] `./gradlew ktlintCheck test` 緑を確認し `✨ Add JSX tag-pair highlighting` でコミット
 
 ## セクション A: ペアタグ同期リネーム（E のヘルパ依存）
 

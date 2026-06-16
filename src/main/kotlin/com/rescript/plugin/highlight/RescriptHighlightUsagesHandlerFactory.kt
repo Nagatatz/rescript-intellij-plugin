@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.Consumer
 import com.rescript.plugin.RescriptLanguage
+import com.rescript.plugin.lang.psi.RescriptJsxTagPairUtil
 import com.rescript.plugin.util.RescriptBraceBalanceUtil
 import com.rescript.plugin.lang.RescriptTokenTypes as T
 
@@ -28,6 +29,14 @@ class RescriptHighlightUsagesHandlerFactory : HighlightUsagesHandlerFactory {
         val element = file.findElementAt(offset) ?: return null
         val tokenType = element.node?.elementType ?: return null
 
+        // When the caret sits on a JSX tag name, highlight the paired opening/closing tag.
+        if (tokenType in JSX_NAME_TOKENS) {
+            val jsxElement = RescriptJsxTagPairUtil.findEnclosingJsxElement(element)
+            if (jsxElement != null) {
+                return RescriptJsxTagHighlightHandler(editor, file, jsxElement)
+            }
+        }
+
         val kind = KEYWORD_MAPPING[tokenType] ?: return null
         return RescriptKeywordHighlightHandler(editor, file, element, kind)
     }
@@ -43,6 +52,9 @@ class RescriptHighlightUsagesHandlerFactory : HighlightUsagesHandlerFactory {
                 T.CATCH to KeywordKind.CATCH,
                 T.ELSE to KeywordKind.ELSE,
             )
+
+        // Tag-name token types that trigger paired JSX tag highlighting
+        private val JSX_NAME_TOKENS = setOf(T.JSX_TAG_NAME, T.JSX_COMPONENT_NAME)
     }
 }
 
