@@ -30,6 +30,23 @@ class RescriptErrorReporterTest {
     }
 
     @Test
+    fun testBuildBodyReadsPluginVersionFromGeneratedResource() {
+        // pluginVersion() reads the build-generated plugin-version.properties
+        // (replacing the @Internal PluginManager lookup). On the test classpath
+        // the resource must resolve to a real version, not the "unknown" fallback.
+        val body = RescriptErrorReporter.buildBody(null, null)
+        val versionLine = body.lineSequence().first { it.contains("Plugin version:") }
+        assertFalse(
+            versionLine.contains("unknown"),
+            "version should come from the generated resource, not the fallback",
+        )
+        assertTrue(
+            Regex("""\d+\.\d+""").containsMatchIn(versionLine),
+            "version should look like a semver: $versionLine",
+        )
+    }
+
+    @Test
     fun testBuildBodyWithAdditionalInfo() {
         val body = RescriptErrorReporter.buildBody(null, "User description of the problem")
         assertTrue(body.contains("## Additional Information"))

@@ -175,12 +175,17 @@ class RescriptErrorReporter : ErrorReportSubmitter() {
 
         private fun pluginVersion(): String =
             try {
-                val pluginManager =
-                    com.intellij.ide.plugins.PluginManagerCore.getPlugin(
-                        com.intellij.openapi.extensions.PluginId
-                            .getId("com.rescript.plugin"),
-                    )
-                pluginManager?.version ?: "unknown"
+                // Read the version from a build-generated resource rather than the
+                // PluginManager descriptor-lookup APIs (getPlugin / findEnabledPlugin /
+                // getPluginByClass), all of which 2026.2 marked @Internal. The resource
+                // is produced by the generatePluginVersionProperties Gradle task.
+                RescriptErrorReporter::class.java
+                    .getResourceAsStream("/com/rescript/plugin/plugin-version.properties")
+                    ?.use { stream ->
+                        val props = java.util.Properties()
+                        props.load(stream)
+                        props.getProperty("version")
+                    } ?: "unknown"
             } catch (e: Exception) {
                 LOG.trace(e)
                 "unknown"
