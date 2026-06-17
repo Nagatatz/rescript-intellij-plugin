@@ -51,7 +51,7 @@ rescript-intellij-plugin/
 | `navigation/` | ナビゲーション（Symbol、Related、Switch File、Hoogle-style 型シグネチャ検索、シグネチャトークン色付け 等） | `RescriptSymbolContributor`, `RescriptSwitchFileAction`, `RescriptTypeAst`, `RescriptTypeParser`, `RescriptTypeUnifier`, `RescriptDeclarationSignatureExtractor`, `RescriptTypeSignatureSearchContributor`, `RescriptSignatureTokenColorizer` |
 | `template/` | ファイル作成テンプレート | `RescriptCreateFileAction` |
 | `spellcheck/` | スペルチェック | `RescriptSpellcheckingStrategy` |
-| `completion/` | Postfix Completion | `RescriptPostfixTemplateProvider` |
+| `completion/` | Postfix Completion、Record/Variant Placeholder 補完（型注釈付き値位置でリテラル雛形を提示、純ロジック 3 分離） | `RescriptPostfixTemplateProvider`, `RescriptPlaceholderCompletionContributor`, `RescriptTypeAnnotationContext`, `RescriptPlaceholderTypeResolver`, `RescriptPlaceholderBuilder` |
 | `analysis/` | reanalyze デッドコード分析 | `RescriptReanalyzeAnnotator` |
 | `inspection/` | コードインスペクション（重複 open、空モジュール、JSX 開閉タグ不一致、シグネチャ同期等） | `RescriptDuplicateOpenInspection`, `RescriptMismatchedJsxTagInspection`, `RescriptSignatureSyncInspection` |
 | `quickfix/` | クイックフィックス（未解決参照、関数生成等） | `RescriptAddOpenQuickFix`, `RescriptGenerateFunctionQuickFix` |

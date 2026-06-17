@@ -237,6 +237,66 @@ Postfix templates let you transform expressions without moving the cursor back t
 [Code Editing](code-editing.md) offers Intention Actions and Surround With for more code transformation patterns.
 :::
 
+## Record/Variant Placeholder Completion
+
+{bdg-success}`Native`
+
+At a type-annotated value position, the completion popup offers a fully scaffolded literal for the expected type, so you do not have to remember and type every field or constructor by hand.
+
+The expected type is detected **purely syntactically** — the lexer scans backwards from the caret for a `let name: TypeName = ` shape — and resolved through the stub index (plus the built-in `option` and `result` types). It therefore works without the LSP. On acceptance, the caret parks on the first `_` hole so you can fill the placeholders left to right.
+
+### Record types
+
+Given a record declaration:
+
+```rescript
+type person = {name: string, age: int}
+```
+
+typing the annotated value position offers a single fully expanded literal:
+
+```rescript
+let p: person =
+//              completion popup offers: { name: _, age: _ }
+```
+
+Accepting it inserts `{ name: _, age: _ }` with the caret on the first `_`. If you have already typed the opening brace (`let p: person = {`), the popup offers only the inner `name: _, age: _` so the literal is not doubled.
+
+### Variant types
+
+Given a variant declaration:
+
+```rescript
+type shape = Circle(float) | Rect(float, float) | Empty
+```
+
+the popup offers one entry per constructor, each as its own placeholder:
+
+```rescript
+let s: shape =
+//             Circle(_)   Rect(_)   Empty
+```
+
+Constructors that carry a payload insert `Ctor(_)` (caret on the `_`); payload-less constructors insert the bare `Ctor`.
+
+### Built-in types
+
+The built-in `option` and `result` types are resolved without any declaration in your project:
+
+| Type | Offered placeholders |
+|------|----------------------|
+| `option<_>` | `Some(_)`, `None` |
+| `result<_, _>` | `Ok(_)`, `Error(_)` |
+
+```rescript
+let value: option<int> =
+//                       Some(_)   None
+```
+
+:::{note}
+Detection is anchored on a single-identifier head type. Function types (`a => b`), tuple types, and dotted module-qualified types are intentionally skipped to avoid noisy suggestions.
+:::
+
 ## Live Templates
 
 {bdg-success}`Native`

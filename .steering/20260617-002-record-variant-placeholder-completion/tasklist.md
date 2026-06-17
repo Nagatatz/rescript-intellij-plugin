@@ -33,13 +33,13 @@
 
 ## セクション 4: ドキュメント更新
 
-- [ ] `CLAUDE.md` レイヤー 3 に機能エントリ追加
-- [ ] `README.md` Features (補完カテゴリ) に追加
-- [ ] `sphinx-docs/user/features/code-completion.md` に説明 + 変換例追加
-- [ ] 対応する `.po` (`sphinx-docs/locale/ja/LC_MESSAGES/`) を同一コミットで更新 (`make gettext && make update-po` → msgstr 充填 → `make build-ja`)
-- [ ] `docs/repository-structure.md` の completion パッケージ代表クラスを更新
-- [ ] `docs/product-requirements.md` ロードマップから #116 行を削除
-- [ ] コミット `📝 Document record/variant placeholder completion`
+- [x] `CLAUDE.md` レイヤー 3 に機能エントリ追加
+- [x] `README.md` Features (補完カテゴリ) に追加
+- [x] `sphinx-docs/user/features/code-completion.md` に説明 + 変換例追加
+- [x] 対応する `.po` (`sphinx-docs/locale/ja/LC_MESSAGES/`) を同一コミットで更新 (`make gettext && make update-po` → msgstr 充填 → `make build-ja`)
+- [x] `docs/repository-structure.md` の completion パッケージ代表クラスを更新
+- [x] `docs/product-requirements.md` ロードマップから #116 行を削除
+- [x] コミット `📝 Document record/variant placeholder completion`
 
 ## セクション 5: マージ
 
