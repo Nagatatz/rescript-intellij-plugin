@@ -49,4 +49,4 @@
 - [x] 全タスク `[x]` 確認、`./gradlew clean buildPlugin test` 緑
 - [x] tasklist の全項目 `[x]` 更新をマージ前最終コミットに含める
 - [x] AskUserQuestion でマージ可否確認
-- [ ] worktree 内で main にマージ → 作業ブランチ削除 → セッション終了
+- [x] worktree 内で main にマージ → 作業ブランチ削除 → セッション終了
