@@ -5,25 +5,25 @@
 
 ## セクション 1: 純ロジック (RescriptNestedSwitchFlattener) + テスト
 
-- [ ] `intention/RescriptNestedSwitchFlattener.kt` を作成
-  - [ ] lexer 走査ユーティリティ（空白/改行/コメント除去のトークン列）
-  - [ ] キャレットを含む switch・アームの特定
-  - [ ] 適用可能性判定 5 条件（when なし / 束縛 1 個 / 本体が内側 switch のみ / scrutinee 一致 / 内側 or-pattern・when なし）
-  - [ ] 束縛位置でのパターン置換 + 置換テキスト生成（インデント踏襲・body verbatim）
-  - [ ] `FlattenPlan` データクラス + KDoc（英語）
-- [ ] `test/.../intention/RescriptNestedSwitchFlattenerTest.kt` を作成
-  - [ ] option ネスト → replacementText 文字列一致
-  - [ ] result ネスト
-  - [ ] bare 束縛
-  - [ ] 束縛 0 / 2 個 → null
-  - [ ] scrutinee 不一致 → null
-  - [ ] 内側 or-pattern → null
-  - [ ] 内側 when / 外側 when → null
-  - [ ] 本体に他式混在 → null
-  - [ ] インデント踏襲
-  - [ ] replaceStart/replaceEnd が外側アームの範囲を指す
-- [ ] `./gradlew ktlintCheck test` 緑を確認
-- [ ] コミット: `✨ Add nested switch flattener logic`
+- [x] `intention/RescriptNestedSwitchFlattener.kt` を作成
+  - [x] lexer 走査ユーティリティ（空白/改行/コメント除去のトークン列）
+  - [x] キャレットを含む switch・アームの特定
+  - [x] 適用可能性判定 5 条件（when なし / 束縛 1 個 / 本体が内側 switch のみ / scrutinee 一致 / 内側 or-pattern・when なし）
+  - [x] 束縛位置でのパターン置換 + 置換テキスト生成（インデント踏襲・body verbatim）
+  - [x] `FlattenPlan` データクラス + KDoc（英語）
+- [x] `test/.../intention/RescriptNestedSwitchFlattenerTest.kt` を作成
+  - [x] option ネスト → replacementText 文字列一致
+  - [x] result ネスト
+  - [x] bare 束縛
+  - [x] 束縛 0 / 2 個 → null
+  - [x] scrutinee 不一致 → null
+  - [x] 内側 or-pattern → null
+  - [x] 内側 when / 外側 when → null
+  - [x] 本体に他式混在 → null
+  - [x] インデント踏襲
+  - [x] replaceStart/replaceEnd が外側アームの範囲を指す
+- [x] `./gradlew ktlintCheck test` 緑を確認
+- [x] コミット: `✨ Add nested switch flattener logic`
 
 ## セクション 2: Intention ラッパー + plugin.xml 登録 + 結線テスト
 
