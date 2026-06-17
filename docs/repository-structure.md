@@ -69,7 +69,7 @@ rescript-intellij-plugin/
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
 | `imports/` | Import Optimizer、open 文ユーティリティ、open 展開プランナ / モジュールメンバ抽出 | `RescriptImportOptimizer`, `RescriptImportUtil`, `RescriptOpenExpansionPlanner`, `RescriptModuleMemberExtractor` |
-| `intention/` | Intention Actions（Wrap with、@genType 追加、Rename variant constructor、Expand open qualifier 等） | `RescriptWrapWithIntention`, `RescriptRenameVariantConstructorIntention`, `RescriptConstructorOccurrenceClassifier`, `RescriptConstructorOccurrenceFinder`, `RescriptExpandOpenQualifierIntention` |
+| `intention/` | Intention Actions（Wrap with、@genType 追加、Rename variant constructor、Expand open qualifier、Flatten nested switch 等） | `RescriptWrapWithIntention`, `RescriptRenameVariantConstructorIntention`, `RescriptConstructorOccurrenceClassifier`, `RescriptConstructorOccurrenceFinder`, `RescriptExpandOpenQualifierIntention`, `RescriptFlattenNestedSwitchIntention`, `RescriptNestedSwitchFlattener` |
 | `surround/` | Surround With | `RescriptSurroundDescriptor` |
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
 | `wizard/` | Project Wizard（新規プロジェクト作成、Package Manager / Validation Library 選択 UI） | `RescriptModuleBuilder`, `PackageManager`, `ValidationLibrary` |

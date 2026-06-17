@@ -81,7 +81,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 | # | 機能 | カテゴリ | 説明 | 難易度 | 優先度 |
 |---|------|----------|------|--------|--------|
 | 113 | doc コメント内評価 | その他 | `// > expr` 形式コメントを `RescriptReplExecutor` で評価し inline 注釈で結果表示 (HLS Eval plugin 由来) | 中 | B |
-| 114 | ネスト switch 平坦化 intention | Intention | `switch x { \| Some(y) => switch y ... }` を 1 階層に統合 (Gleam LS 由来) | 中 | B |
 | 115 | Wingman 風 type hole 補完 | 補完 | 型穴 `_` を target type と local binding から自動充填、case split サポート | 中〜高 | B |
 | 116 | record / variant placeholder 補完 | 補完 | record literal 生成時に全フィールドを `_` で雛形化、variant matching wrapper も同様 | 中 | B |
 | 117 | inferred 型注釈の一括挿入 quick fix | Quick Fix | Type Coverage Heat Map で低 coverage と判定された file の全 `let` に LSP hover 由来の `: T` を一括挿入 | 中 | B |

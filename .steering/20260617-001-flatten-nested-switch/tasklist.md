@@ -36,13 +36,13 @@
 
 ## セクション 3: ドキュメント更新
 
-- [ ] `CLAUDE.md` レイヤー 3 Intention 一覧に追記
-- [ ] `docs/repository-structure.md` の `intention/` 行に代表クラス追記
-- [ ] `README.md` Features（Intention カテゴリ）に追記
-- [ ] `sphinx-docs/user/features/code-editing.md` に変換例つきで追記
-- [ ] `sphinx-docs` の JA `.po` 同期（make gettext / update-po / 翻訳 / build-ja）
-- [ ] `docs/product-requirements.md` 将来機能テーブルから #114 行削除
-- [ ] コミット: `📝 Document flatten nested switch intention`
+- [x] `CLAUDE.md` レイヤー 3 Intention 一覧に追記
+- [x] `docs/repository-structure.md` の `intention/` 行に代表クラス追記
+- [x] `README.md` Features（Intention カテゴリ）に追記
+- [x] `sphinx-docs/user/features/code-editing.md` に変換例つきで追記
+- [x] `sphinx-docs` の JA `.po` 同期（make gettext / update-po / 翻訳 / build-ja）
+- [x] `docs/product-requirements.md` 将来機能テーブルから #114 行削除
+- [x] コミット: `📝 Document flatten nested switch intention`
 
 ## セクション 4: マージ
 

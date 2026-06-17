@@ -137,6 +137,7 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Unpublish from interface | Remove a declaration from the `.resi` interface file |
 | Insert labeled arguments | Insert all labeled arguments for a function call |
 | Merge switch cases | Merge switch cases with identical bodies into `\| A \| B => body` |
+| Flatten nested switch | Collapse a `switch` arm whose body is solely a nested `switch` over the arm binding into single-level arms |
 | Case split | Expand a pattern variable into all constructor cases |
 | Convert to labeled arguments | Convert positional arguments to labeled arguments |
 | Remove unnecessary parentheses | Remove redundant parentheses around expressions |
@@ -366,6 +367,36 @@ switch status {
 ```
 :::
 ::::
+
+### Flatten Nested Switch
+
+When a `switch` arm binds a value and its body is solely another `switch` over that same binding, the two levels can be collapsed into one. Place the caret on the outer arm and press `Alt+Enter`, then choose **Flatten nested switch**. Each inner pattern is folded into the binding position of the outer pattern, so `| Some(y) => switch y { ... }` produces one flattened arm per inner case.
+
+::::{tab-set}
+:::{tab-item} Before
+```rescript
+switch outer {
+| Some(y) =>
+  switch y {
+  | Some(z) => use(z)
+  | None => fallback
+  }
+| None => empty
+}
+```
+:::
+:::{tab-item} After
+```rescript
+switch outer {
+| Some(Some(z)) => use(z)
+| Some(None) => fallback
+| None => empty
+}
+```
+:::
+::::
+
+The intention is purely syntactic and works without the language server. It is offered only when the outer arm has exactly one binding, the body is nothing but the inner `switch` over that binding, and neither switch uses `when` guards or inner or-patterns.
 
 ### Case Split
 
