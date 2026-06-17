@@ -16,11 +16,11 @@
 
 ## セクション 2: 型リゾルバ
 
-- [ ] `completion/RescriptPlaceholderTypeResolver.kt` を作成 (built-in option/result ハードコード + stub index → `RescriptTypeDeclarationParser.parse` で `TypeShape` 解決)
-- [ ] `RescriptPlaceholderTypeResolverTest.kt` を作成 (built-in option/result の解決、Unknown 経路。stub index 部は built-in 中心に検証)
-- [ ] KDoc 付与
-- [ ] `./gradlew ktlintCheck test` グリーン確認
-- [ ] コミット `✨ Add placeholder type resolver`
+- [x] `completion/RescriptPlaceholderTypeResolver.kt` を作成 (built-in option/result ハードコード + stub index → `RescriptTypeDeclarationParser.parse` で `TypeShape` 解決)
+- [x] `RescriptPlaceholderTypeResolverTest.kt` を作成 (built-in option/result の解決、Unknown 経路。stub index 部は built-in 中心に検証)
+- [x] KDoc 付与
+- [x] `./gradlew ktlintCheck test` グリーン確認
+- [x] コミット `✨ Add placeholder type resolver`
 
 ## セクション 3: CompletionContributor + plugin.xml 登録
 
