@@ -43,10 +43,10 @@
 
 ## セクション 5: マージ
 
-- [ ] 全セクション `[x]` 確認、`./gradlew clean buildPlugin test` 最終グリーン
-- [ ] tasklist の全項目 `[x]` 更新をマージ前最終コミットに含める
-- [ ] `AskUserQuestion` でマージ可否確認
-- [ ] 承認後 `main` にマージ、作業ブランチ削除、セッション終了
+- [x] 全セクション `[x]` 確認、`./gradlew clean buildPlugin test` 最終グリーン
+- [x] tasklist の全項目 `[x]` 更新をマージ前最終コミットに含める
+- [x] `AskUserQuestion` でマージ可否確認
+- [x] 承認後 `main` にマージ、作業ブランチ削除、セッション終了
 
 ## テスト免除
 
