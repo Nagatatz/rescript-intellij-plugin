@@ -1,0 +1,5 @@
+<html>
+<body>
+<p>Flattens a <code>switch</code> arm whose body is solely a nested <code>switch</code> over the arm's binding into a single level, folding each inner pattern into the binding position. For example <code>| Some(y) =&gt; switch y { | Some(z) =&gt; a | None =&gt; b }</code> becomes <code>| Some(Some(z)) =&gt; a</code> and <code>| Some(None) =&gt; b</code>.</p>
+</body>
+</html>

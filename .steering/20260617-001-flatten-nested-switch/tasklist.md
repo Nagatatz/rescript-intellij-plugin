@@ -27,11 +27,12 @@
 
 ## セクション 2: Intention ラッパー + plugin.xml 登録 + 結線テスト
 
-- [ ] `intention/RescriptFlattenNestedSwitchIntention.kt` を作成（`RescriptBaseIntention` 派生、KDoc 英語）
-- [ ] `plugin.xml` に `<intentionAction>` を既存 Intention の並びに従い登録
-- [ ] `test/.../intention/RescriptFlattenNestedSwitchIntentionTest.kt`（light fixture で isAvailable true/false + invoke 後ドキュメント 1〜2 ケース）
-- [ ] `./gradlew ktlintCheck clean buildPlugin test` 緑を確認
-- [ ] コミット: `✨ Add flatten nested switch intention`
+- [x] `intention/RescriptFlattenNestedSwitchIntention.kt` を作成（`RescriptBaseIntention` 派生、KDoc 英語）
+- [x] `plugin.xml` に `<intentionAction>` を既存 Intention の並びに従い登録
+- [x] `intentionDescriptions/RescriptFlattenNestedSwitchIntention/description.html` を作成（`RescriptIntentionDescriptionTest` の要求）
+- [x] `test/.../intention/RescriptFlattenNestedSwitchIntentionTest.kt`（既存 wrapper テストに倣い text/familyName を検証。invoke/isAvailable のロジックは flattener テストでカバー）
+- [x] `./gradlew ktlintCheck clean buildPlugin test` 緑を確認
+- [x] コミット: `✨ Add flatten nested switch intention`
 
 ## セクション 3: ドキュメント更新
 

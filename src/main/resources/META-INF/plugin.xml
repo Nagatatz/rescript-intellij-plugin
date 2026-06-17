@@ -1212,6 +1212,14 @@
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
 
+        <!-- Intention: Flatten nested switch (#114) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptFlattenNestedSwitchIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
         <!-- Intention: Rename variant constructor (project-wide, no LSP) -->
         <intentionAction>
             <language>ReScript</language>
