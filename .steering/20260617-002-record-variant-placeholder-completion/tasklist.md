@@ -6,13 +6,13 @@
 
 ## セクション 1: 純ロジック (注釈検出 + 雛形生成)
 
-- [ ] `completion/RescriptTypeAnnotationContext.kt` を作成 (lexer 走査で `let x: T = ` 値位置検出、head 型名抽出、`{` 済みフラグ)
-- [ ] `completion/RescriptPlaceholderBuilder.kt` を作成 (record → `{ f: _, ... }`、variant → `Ctor(_)`/`Ctor` 文字列)
-- [ ] `RescriptTypeAnnotationContextTest.kt` を作成 (record/variant/型引数/ドット型/`{` 済み/注釈なし/誤爆ケース)
-- [ ] `RescriptPlaceholderBuilderTest.kt` を作成 (record 0/1/N field、variant payload 有無、option/result 形)
-- [ ] KDoc を全クラス・複雑メソッドに付与
-- [ ] `./gradlew ktlintCheck test` グリーン確認
-- [ ] コミット `✨ Add placeholder completion pure logic`
+- [x] `completion/RescriptTypeAnnotationContext.kt` を作成 (lexer 走査で `let x: T = ` 値位置検出、head 型名抽出、`{` 済みフラグ)
+- [x] `completion/RescriptPlaceholderBuilder.kt` を作成 (record → `{ f: _, ... }`、variant → `Ctor(_)`/`Ctor` 文字列)
+- [x] `RescriptTypeAnnotationContextTest.kt` を作成 (record/variant/型引数/ドット型/`{` 済み/注釈なし/誤爆ケース)
+- [x] `RescriptPlaceholderBuilderTest.kt` を作成 (record 0/1/N field、variant payload 有無、option/result 形)
+- [x] KDoc を全クラス・複雑メソッドに付与
+- [x] `./gradlew ktlintCheck test` グリーン確認
+- [x] コミット `✨ Add placeholder completion pure logic`
 
 ## セクション 2: 型リゾルバ
 
