@@ -24,12 +24,12 @@
 
 ## セクション 3: CompletionContributor + plugin.xml 登録
 
-- [ ] `completion/RescriptPlaceholderCompletionContributor.kt` を作成 (orchestrator: detection → resolve → build → addElement)
-- [ ] `plugin.xml` に `completion.contributor` を登録 (既存 Decorator 近傍、アルファベット順)
-- [ ] contributor のテスト免除を本 tasklist に明記 (下記「テスト免除」参照)
-- [ ] KDoc 付与 (実装する `CompletionContributor` インターフェースに言及)
-- [ ] `./gradlew ktlintCheck clean buildPlugin test verifyPluginStructure` グリーン確認
-- [ ] コミット `✨ Add record/variant placeholder completion contributor`
+- [x] `completion/RescriptPlaceholderCompletionContributor.kt` を作成 (orchestrator: detection → resolve → build → addElement)
+- [x] `plugin.xml` に `completion.contributor` を登録 (既存 Decorator 近傍、アルファベット順)
+- [x] contributor のテスト免除を本 tasklist に明記 (下記「テスト免除」参照)
+- [x] KDoc 付与 (実装する `CompletionContributor` インターフェースに言及)
+- [x] `./gradlew ktlintCheck clean buildPlugin test verifyPluginStructure` グリーン確認
+- [x] コミット `✨ Add record/variant placeholder completion contributor`
 
 ## セクション 4: ドキュメント更新
 

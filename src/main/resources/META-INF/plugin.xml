@@ -844,6 +844,10 @@
         <completion.contributor language="ReScript"
                                 implementationClass="com.rescript.plugin.completion.RescriptDecoratorCompletionContributor"/>
 
+        <!-- Record/Variant Placeholder Completion -->
+        <completion.contributor language="ReScript"
+                                implementationClass="com.rescript.plugin.completion.RescriptPlaceholderCompletionContributor"/>
+
         <!-- Surround With -->
         <lang.surroundDescriptor language="ReScript"
                                  implementationClass="com.rescript.plugin.surround.RescriptSurroundDescriptor"/>
