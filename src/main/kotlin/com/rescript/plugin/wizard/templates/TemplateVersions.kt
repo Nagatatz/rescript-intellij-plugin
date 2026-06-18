@@ -10,7 +10,7 @@ package com.rescript.plugin.wizard.templates
  */
 object TemplateVersions {
     // ReScript core
-    val RESCRIPT = "^12.2.0"
+    val RESCRIPT = "^12.3.0"
     val RESCRIPT_CORE = "^1.6.1"
     val RESCRIPT_REACT = "^0.15.0"
 
@@ -19,7 +19,7 @@ object TemplateVersions {
     // of the `rescript` compiler, but pnpm's strict layout hides transitive
     // deps from user code — so every template declares it as a direct
     // dependency to keep the runtime accessible to vitest / node / browsers.
-    val RESCRIPT_RUNTIME = "^12.2.0"
+    val RESCRIPT_RUNTIME = "^12.3.0"
 
     // Build tools
     // Raw Vite pin used when templates need a direct `vite` dep (fallback away
