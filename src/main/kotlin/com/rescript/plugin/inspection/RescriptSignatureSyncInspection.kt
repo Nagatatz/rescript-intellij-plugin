@@ -68,6 +68,9 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
     private class RegenerateInterfaceQuickFix : LocalQuickFix {
         override fun getFamilyName(): String = "Regenerate interface file"
 
+        // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
+        // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+        @Suppress("DEPRECATION")
         override fun applyFix(
             project: Project,
             descriptor: ProblemDescriptor,

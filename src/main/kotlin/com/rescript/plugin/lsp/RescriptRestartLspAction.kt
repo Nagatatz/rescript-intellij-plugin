@@ -16,8 +16,9 @@ import com.intellij.platform.lsp.api.LspServerManager
 class RescriptRestartLspAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
-        // UnstableApiUsage: LspServerManager — review on platform upgrade
-        @Suppress("UnstableApiUsage")
+        // LspServerManager is deprecated in 2026.2 EAP; the replacement LspClientDescriptor
+        // API does not exist on the 2026.1.2 compile target. UnstableApiUsage kept too.
+        @Suppress("UnstableApiUsage", "DEPRECATION")
         LspServerManager
             .getInstance(project)
             .stopAndRestartIfNeeded(RescriptLspServerSupportProvider::class.java)

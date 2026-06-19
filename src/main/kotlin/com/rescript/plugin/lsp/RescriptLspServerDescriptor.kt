@@ -19,6 +19,9 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 
+// ProjectWideLspServerDescriptor and its overridden members are deprecated in 2026.2 EAP;
+// the replacement ProjectWideLspClientDescriptor API does not exist on the 2026.1.2 compile target.
+
 /**
  * Descriptor for the ReScript Language Server.
  *
@@ -29,6 +32,7 @@ import java.nio.file.Path
  *
  * Launches with `--stdio` for LSP communication.
  */
+@Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
 class RescriptLspServerDescriptor(
     project: Project,
 ) : ProjectWideLspServerDescriptor(project, "ReScript") {

@@ -79,6 +79,9 @@ public class RescriptCodeVisionProvider implements DaemonBoundCodeVisionProvider
     // In Java, unoverridden default methods do not appear in the class bytecode,
     // avoiding the reference to the @Internal CodeVisionPlaceholderCollector type.
 
+    // LspServer / LspServerState / sendRequestSync are deprecated in 2026.2 EAP; the replacement
+    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+    @SuppressWarnings("deprecation")
     @NotNull
     @Override
     public List<Pair<TextRange, CodeVisionEntry>> computeForEditor(
