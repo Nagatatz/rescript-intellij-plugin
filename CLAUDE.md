@@ -40,14 +40,17 @@ JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タス
 
 ## CI/CD
 
-GitHub Actions で 4 つのワークフローを運用:
+GitHub Actions で 7 つのワークフローを運用:
 
 | ワークフロー | ファイル | トリガー | 内容 |
 |-------------|---------|---------|------|
-| CI | `ci.yml` | Push/PR to `main` | ビルド、テスト、ktlint、カバレッジ（`koverVerify` で minBound 強制）、プラグイン検証。PR 時のみ `mutation-test` ジョブで PIT を `util/` `lang/` に対し実行 |
-| Release | `release.yml` | Tag `v*.*.*` | GitHub Release 作成 |
-| Docs | `docs.yml` | Push/PR to `main` (`sphinx-docs/` 変更時) | Sphinx ドキュメントのビルド・デプロイ |
-| Monthly Verify | `monthly-verify.yml` | Cron（毎月 1 日） | `verifyPlugin` の実行、`plugin-verifier-ignored-problems.txt` の `Expires:` 期限切れエントリの警告、`TemplateVersions.kt` の npm 定数から生成した package.json への `npm audit`（high/critical で fail。dependabot の死角対策） |
+| CI | `ci.yml` | Push/PR to `main` | `actionlint` / Trivy(fs + secret スキャン) / ビルド・テスト・ktlint・KDoc・EP 登録チェック・カバレッジ（`koverVerify` で minBound 強制）・プラグイン検証・テンプレート結合テストをジョブ分割で実行。PR 時のみ `mutation-test` ジョブで PIT を実行 |
+| Release | `release.yml` | Tag `v*.*.*` | バージョン整合チェック → フル品質ゲート（ktlint / KDoc / test / koverVerify / verifyPlugin など）+ テンプレート結合テスト → GitHub Release 作成 → `require-ci-green`（対象コミットの CI が success であることを必須）通過後に JetBrains Marketplace へ publish |
+| Docs | `docs.yml` | Push/PR to `main` (`sphinx-docs/` / `src/main/kotlin/` 等変更時) | Sphinx ドキュメントのビルド・lint・翻訳チェック・a11y・Dokka API リファレンス生成・GitHub Pages デプロイ |
+| CodeQL | `codeql.yml` | Push/PR to `main`、週次（月曜 05:00 UTC） | Java/Kotlin ソースの CodeQL 静的解析。結果は Security タブにアップロード |
+| Integration Tests | `integration-tests.yml` | wizard/templates 関連 PR、夜次（03:00 UTC）、手動 | `./gradlew integrationTest`（全テンプレートの生成 + 依存インストール + ReScript ビルド検証）。Node.js + pnpm + bun を要するため CI 本体から分離 |
+| OS Matrix Verify | `os-matrix.yml` | 週次（月曜 02:00 UTC）、手動 | Linux / macOS / Windows で `buildPlugin` + `verifyPlugin` を実行し OS 固有のリグレッションを検出 |
+| Monthly Verify | `monthly-verify.yml` | Cron（毎月 1 日）、手動 | `verifyPlugin` の実行、`plugin-verifier-ignored-problems.txt` の `Expires:` 期限切れエントリの警告、`TemplateVersions.kt` の npm 定数から生成した package.json への `npm audit`（high/critical で fail。dependabot の死角対策） |
 
 ```bash
 # ローカルで CI を再現

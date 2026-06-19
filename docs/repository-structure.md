@@ -207,9 +207,15 @@ sphinx-docs/
 ```
 .github/
 ├── workflows/
-│   ├── ci.yml                # CI（ビルド、テスト、カバレッジ）
-│   ├── release.yml           # リリース（タグベース）
-│   └── docs.yml              # Sphinx ドキュメントビルド・デプロイ
+│   ├── ci.yml                # CI（actionlint / Trivy / ビルド・テスト・カバレッジ・検証）
+│   ├── release.yml           # リリース（タグベース、require-ci-green 通過後に Marketplace publish）
+│   ├── docs.yml              # Sphinx ドキュメントビルド・デプロイ
+│   ├── codeql.yml            # CodeQL 静的解析（Push/PR + 週次）
+│   ├── integration-tests.yml # テンプレート結合テスト（wizard 変更時 + 夜次）
+│   ├── os-matrix.yml         # Linux/macOS/Windows ビルド・検証（週次）
+│   └── monthly-verify.yml    # 月次 verifyPlugin + テンプレート npm audit
+├── scripts/
+│   └── audit-template-versions.mjs  # TemplateVersions.kt から package.json を生成（npm audit 用）
 └── dependabot.yml            # Dependabot 設定
 ```
 
