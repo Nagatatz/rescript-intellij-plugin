@@ -23,8 +23,8 @@
 
 ## セクション 4: 検証・マージ
 
-- [ ] feature ブランチを push し CI を起動
-- [ ] CI の `verifyPlugin` が green になることを確認(EAP 含む 3 IDE で INTERNAL_API_USAGES ゼロ)
-- [ ] CI 全ジョブ green を確認
+- [x] feature ブランチを push し PR #42 で CI を起動
+- [x] CI の `verifyPlugin`(Verify plugin (binary compatibility))が green になることを確認(EAP 含む 3 IDE で INTERNAL_API_USAGES ゼロ)
+- [x] CI 全ジョブ green を確認(build / mutation-test / security / actionlint / template-integration、Docs / CodeQL も success)
 - [ ] ユーザーにマージ可否を確認
 - [ ] `main` にマージしブランチ削除
