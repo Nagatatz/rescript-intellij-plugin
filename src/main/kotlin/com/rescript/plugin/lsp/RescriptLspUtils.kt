@@ -31,6 +31,9 @@ import java.net.URI
 object RescriptLspUtils {
     private val LOG = logger<RescriptLspUtils>()
 
+    // LspServer / LspServerManager are deprecated in 2026.2 EAP; the replacement
+    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+
     /**
      * Returns the first ReScript LSP server for the given project, or null if unavailable.
      *
@@ -39,7 +42,7 @@ object RescriptLspUtils {
      *
      * @return the first available LSP server, or null
      */
-    @Suppress("UnstableApiUsage")
+    @Suppress("UnstableApiUsage", "DEPRECATION")
     fun getServer(project: Project): LspServer? =
         LspServerManager
             .getInstance(project)
@@ -77,6 +80,9 @@ object RescriptLspUtils {
             uri
         }
 
+    // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
+    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+
     /**
      * Retrieves the type string for a given position via LSP hover.
      *
@@ -85,6 +91,7 @@ object RescriptLspUtils {
      * @param offset the character offset in the document
      * @return the type string extracted from the hover response, or null if unavailable
      */
+    @Suppress("DEPRECATION")
     fun getHoverType(
         project: Project,
         file: VirtualFile,

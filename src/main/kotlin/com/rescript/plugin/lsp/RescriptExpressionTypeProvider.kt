@@ -17,6 +17,9 @@ import org.eclipse.lsp4j.TextDocumentIdentifier
  * @see RescriptLspServerDescriptor for LSP server configuration
  */
 class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
+    // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
+    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+    @Suppress("DEPRECATION")
     override fun getInformationHint(element: PsiElement): String {
         val file = element.containingFile ?: return NO_TYPE
         val project = file.project
@@ -50,9 +53,14 @@ class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
             val typeText =
                 when {
                     content.isLeft -> {
+                        // Legacy hover format List<Either<String, MarkedString>>: only the
+                        // plain-string variant is consumed. The MarkedString variant (deprecated
+                        // in lsp4j) is intentionally dropped — rescript-language-server returns
+                        // MarkupContent (the isRight branch below).
                         content.left
                             .firstOrNull()
-                            ?.let { if (it.isLeft) it.left else it.right.value }
+                            ?.takeIf { it.isLeft }
+                            ?.left
                     }
 
                     content.isRight -> {
