@@ -82,7 +82,6 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 |---|------|----------|------|--------|--------|
 | 113 | doc コメント内評価 | その他 | `// > expr` 形式コメントを `RescriptReplExecutor` で評価し inline 注釈で結果表示 (HLS Eval plugin 由来) | 中 | B |
 | 115 | Wingman 風 type hole 補完 | 補完 | 型穴 `_` を target type と local binding から自動充填、case split サポート | 中〜高 | B |
-| 117 | inferred 型注釈の一括挿入 quick fix | Quick Fix | Type Coverage Heat Map で低 coverage と判定された file の全 `let` に LSP hover 由来の `: T` を一括挿入 | 中 | B |
 | 119 | Build Console 専用 ToolWindow | ToolWindow | `rescript build --watch` の stdout を構造化表示し、エラー行クリックで該当箇所へジャンプ | 中〜高 | B |
 | 120 | 追加 stub index | インデキシング | variant constructor / record field / object field / parameter の 4 種を stub index 化し Find Usages とリネームを高速化 | 中 | B |
 | 121 | `.cmt` / `.cmti` バイナリ読取 | 分析 | LSP 非依存のホバー型表示 (NFR-04 強化、reasonml-idea-plugin の目玉機能を移植) | 高 | B |

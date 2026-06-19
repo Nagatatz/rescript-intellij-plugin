@@ -457,6 +457,7 @@ flowchart TD
 | `com.intellij.intentionAction` | `RescriptRemoveRedundantBracesIntention` | Remove redundant braces (冗長ブロック削除) | 実装済み |
 | `com.intellij.intentionAction` | `RescriptFixIdentifierCaseIntention` | Fix identifier case (PascalCase/camelCase 変換) | 実装済み |
 | `com.intellij.intentionAction` | `RescriptExpandOpenQualifierIntention` | Expand open into qualified references (#112) | 実装済み |
+| `com.intellij.intentionAction` | `RescriptBatchInsertInferredTypesIntention` | Batch-insert inferred type annotations into all un-annotated top-level `let`s via LSP hover (#117) | 実装済み |
 | `com.intellij.completion.contributor` | `RescriptDecoratorCompletionContributor` | デコレータ補完 (@genType, @module 等) | 実装済み |
 | `com.intellij.lang.surroundDescriptor` | `RescriptSurroundDescriptor` | Surround With (if/switch/try/block) | 実装済み |
 | `com.intellij.runLineMarkerContributor` | `RescriptRunLineMarkerContributor` | ガター実行アイコン | 実装済み |

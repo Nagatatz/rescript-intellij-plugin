@@ -145,6 +145,7 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Expand open into qualified references | Rewrite members introduced by a project-local `open M` back into explicit `M.name` form and remove the `open` |
 | Convert filter+map to filterMap | Convert `->Array.filter(f)->Array.map(g)` to `->Array.filterMap(...)` |
 | Add type annotation | Add explicit type annotation to a `let` binding using LSP hover info |
+| Insert inferred type annotations | Batch-insert inferred type annotations into every un-annotated top-level `let` in the file using LSP hover info |
 | Add `->ignore` | Append `->ignore` to discard the expression's return value |
 | Add `_` prefix | Add underscore prefix to suppress unused variable warnings |
 | Remove redundant braces | Remove unnecessary `{ }` around single expressions |
@@ -561,6 +562,31 @@ let name: string = "Alice"
 ```
 :::
 ::::
+
+### Insert Inferred Type Annotations
+
+Annotate every un-annotated top-level `let` in the current file in one pass, rather than invoking **Add type annotation** binding by binding. Place the caret anywhere in the file and press `Alt+Enter`, then choose **Insert inferred type annotations**. The IDE resolves each inferred type from the LSP hover and applies all insertions in a single undoable step.
+
+The same action is also available from the [Type Coverage Heat Map](advanced.md) tool window: select a low-coverage file in the table and click the **Insert Inferred Types** toolbar button to annotate it without opening it first.
+
+::::{tab-set}
+:::{tab-item} Before
+```rescript
+let greeting = "hello"
+let count = 42
+let double = x => x * 2
+```
+:::
+:::{tab-item} After
+```rescript
+let greeting: string = "hello"
+let count: int = 42
+let double: int => int = x => x * 2
+```
+:::
+::::
+
+Bindings that already carry an annotation are left untouched. Types the language server cannot express as a stable annotation — weak type variables such as `'_a`, or hover text that still contains Markdown residue — are skipped, and the result balloon reports how many bindings were annotated and how many were skipped. The action requires a running language server.
 
 ### Add ->ignore
 

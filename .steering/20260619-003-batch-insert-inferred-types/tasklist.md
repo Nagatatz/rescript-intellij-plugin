@@ -36,10 +36,12 @@
 
 ## セクション5: ドキュメント同期
 
-- [ ] CLAUDE.md レイヤー3（`intention/`）に本機能を追記
-- [ ] README Features に追記
-- [ ] sphinx `user/features/code-editing.md`（EN）+ `.po`（JA）に変換例つきで追記、`make build-ja` 確認
-- [ ] `docs/product-requirements.md` のロードマップ #117 行を削除
+- [x] `docs/repository-structure.md` のパッケージ表に代表クラス追記（`intention/` + `coverage/` 行）
+- [x] `docs/functional-design.md` の EP マップに本 Intention を追記
+- [x] README Features に追記
+- [x] sphinx `user/features/code-editing.md`（EN）+ `.po`（JA）に変換例つきで追記、build-ja 確認
+- [x] `docs/product-requirements.md` のロードマップ #117 行を削除
+- [x] CLAUDE.md は更新不要（既存 `intention/` カテゴリで新カテゴリではないため。documentation.md の「新カテゴリ追加時のみ」に該当せず）
 - [ ] コミット `📝 Document batch insert inferred types feature`
 
 ## セクション6: マージ
