@@ -21,6 +21,18 @@
 // Expires: 2027-04-29
 com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*
 
+// SmartElementDescriptor.getPsiElement() — reclassified as @ApiStatus.Internal
+// in a 2026.2 EAP build (IU-262.8117.x); it is still public/usable on our
+// compile target (2026.1.2). Invoked by the module/call hierarchy node
+// descriptors and tree structures, which have no non-internal element accessor
+// on 2026.1.2. recommended() floats to the EAP, so the verifier flags it at
+// bytecode level. Re-evaluate when platformVersion bumps to a release that
+// ships a public replacement.
+// Status: KEEP — no replacement API on 2026.1.2.
+// Source: hierarchy/RescriptModuleHierarchyNodeDescriptor.kt and others in hierarchy/
+// Reviewed: 2026-06-19 | Expires: 2027-06-19
+com\.rescript\.plugin:.*:.*SmartElementDescriptor\.getPsiElement.*
+
 // ── Deprecated overrides with no replacement API on the compile target ──
 //
 // These methods are deprecated on Marketplace-side verifiers running newer
