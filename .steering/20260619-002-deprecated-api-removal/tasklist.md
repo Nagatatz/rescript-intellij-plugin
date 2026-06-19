@@ -49,8 +49,8 @@
       カバー済み。verdict は "Compatible. 33 usages of deprecated API."
 - [x] steering 3 文書をコミット `📝 Add steering docs for deprecated-API removal/suppression`
 - [x] requirements の受け入れ条件を全チェック
-- [ ] `AskUserQuestion` でマージ可否を確認
-- [ ] 承認後マージ
+- [x] `AskUserQuestion` でマージ可否を確認（セキュリティ注記付きで提示・承認取得）
+- [x] 承認後マージ
 
 ## テスト省略の理由（testing.md 準拠の明記）
 
