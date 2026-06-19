@@ -1,0 +1,5 @@
+<html>
+<body>
+<p>Inserts inferred type annotations into every un-annotated top-level <code>let</code> binding in the current file at once, using the types reported by the language server. For example <code>let add = (a, b) =&gt; a + b</code> becomes <code>let add: (int, int) =&gt; int = (a, b) =&gt; a + b</code>. Bindings that already have an annotation, or whose inferred type cannot be expressed as a stable annotation (weak type variables, raw types), are skipped. Useful for raising the coverage of files flagged by the Type Coverage Heat Map.</p>
+</body>
+</html>
