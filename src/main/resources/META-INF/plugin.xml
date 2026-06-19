@@ -69,6 +69,11 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.16.1</h3>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Republished without author-side archive signing to work around a "plugin archive file cannot be extracted" error on JetBrains Marketplace; the plugin is still signed by Marketplace itself, so distribution integrity is unaffected</li>
+        </ul>
         <h3>0.1.16</h3>
         <h4>Bug Fixes</h4>
         <ul>
