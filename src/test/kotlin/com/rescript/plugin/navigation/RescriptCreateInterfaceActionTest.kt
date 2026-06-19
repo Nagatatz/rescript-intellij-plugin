@@ -1,5 +1,6 @@
 package com.rescript.plugin.navigation
 
+import com.intellij.openapi.actionSystem.ActionUiKind
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -74,7 +75,6 @@ class RescriptCreateInterfaceActionTest {
             builder.add(CommonDataKeys.VIRTUAL_FILE, file)
         }
         val context = builder.build()
-        @Suppress("DEPRECATION")
-        return AnActionEvent.createFromDataContext("test", Presentation(), context)
+        return AnActionEvent.createEvent(context, Presentation(), "test", ActionUiKind.NONE, null)
     }
 }

@@ -93,14 +93,7 @@ class RescriptModuleHierarchyProviderTest {
     @Test
     fun testGetTargetReturnsNullForEmptyDataContext() {
         val provider = RescriptModuleHierarchyProvider()
-        val emptyContext =
-            object : com.intellij.openapi.actionSystem.DataContext {
-                override fun <T : Any?> getData(key: com.intellij.openapi.actionSystem.DataKey<T>): T? = null
-
-                @Deprecated("Use typed getData", ReplaceWith("getData(key)"))
-                override fun getData(dataId: String): Any? = null
-            }
-        assertNull(provider.getTarget(emptyContext))
+        assertNull(provider.getTarget(com.intellij.openapi.actionSystem.DataContext.EMPTY_CONTEXT))
     }
 
     @Test

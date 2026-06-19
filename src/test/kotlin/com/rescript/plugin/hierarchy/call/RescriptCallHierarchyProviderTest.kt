@@ -1,5 +1,6 @@
 package com.rescript.plugin.hierarchy.call
 
+import com.intellij.openapi.actionSystem.DataContext
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -15,8 +16,7 @@ class RescriptCallHierarchyProviderTest {
     @Test
     fun `getTarget returns null for empty DataContext`() {
         val provider = RescriptCallHierarchyProvider()
-        val emptyContext = EmptyDataContext()
-        val target = provider.getTarget(emptyContext)
+        val target = provider.getTarget(DataContext.EMPTY_CONTEXT)
         assertNull(target)
     }
 
@@ -38,17 +38,5 @@ class RescriptCallHierarchyProviderTest {
     @Test
     fun `callers and callees types are distinct`() {
         assertTrue(RescriptCallHierarchyBrowser.CALLERS_TYPE != RescriptCallHierarchyBrowser.CALLEES_TYPE)
-    }
-
-    /**
-     * Minimal DataContext that returns null for all keys.
-     */
-    private class EmptyDataContext : com.intellij.openapi.actionSystem.DataContext {
-        override fun <T : Any?> getData(key: com.intellij.openapi.actionSystem.DataKey<T>): T? = null
-
-        // Override retained because the platform still routes some lookups through
-        // the string-keyed overload despite its deprecation.
-        @Suppress("OVERRIDE_DEPRECATION")
-        override fun getData(dataId: String): Any? = null
     }
 }
