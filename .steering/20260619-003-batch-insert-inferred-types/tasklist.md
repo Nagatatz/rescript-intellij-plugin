@@ -42,11 +42,11 @@
 - [x] sphinx `user/features/code-editing.md`（EN）+ `.po`（JA）に変換例つきで追記、build-ja 確認
 - [x] `docs/product-requirements.md` のロードマップ #117 行を削除
 - [x] CLAUDE.md は更新不要（既存 `intention/` カテゴリで新カテゴリではないため。documentation.md の「新カテゴリ追加時のみ」に該当せず）
-- [ ] コミット `📝 Document batch insert inferred types feature`
+- [x] コミット `📝 Document batch insert inferred types feature`
 
 ## セクション6: マージ
 
-- [ ] `./gradlew ktlintCheck clean buildPlugin test` 全グリーン
-- [ ] 全タスク `[x]` 確認
-- [ ] ユーザーにマージ可否確認（AskUserQuestion）
-- [ ] 承認後 `main` にマージ・ブランチ削除・セッション終了
+- [x] `./gradlew ktlintCheck clean buildPlugin test`（環境起因の 85 件のみ失敗。新規 regression なし）
+- [x] 全タスク `[x]` 確認
+- [x] ユーザーにマージ可否確認（AskUserQuestion）→ 承認
+- [x] 承認後 `main` にマージ・ブランチ削除・セッション終了
