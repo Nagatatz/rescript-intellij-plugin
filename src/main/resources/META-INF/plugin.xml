@@ -69,6 +69,15 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.16.2</h3>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Module and Call Hierarchy no longer depend on <code>SmartElementDescriptor.getPsiElement()</code>, which was reclassified as an internal API in 2026.2; the hierarchy descriptors now use their own smart pointer, restoring forward compatibility with upcoming IDE builds</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>The release pipeline now gates the Marketplace publish on the tagged commit's CI being green, so a red build can no longer be published</li>
+        </ul>
         <h3>0.1.16.1</h3>
         <h4>Infrastructure</h4>
         <ul>
