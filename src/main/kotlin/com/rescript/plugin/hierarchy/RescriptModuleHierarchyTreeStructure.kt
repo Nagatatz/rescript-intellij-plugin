@@ -19,7 +19,7 @@ class RescriptModuleHierarchyTreeStructure(
         RescriptModuleHierarchyNodeDescriptor(project, null, element, true),
     ) {
     override fun buildChildren(descriptor: HierarchyNodeDescriptor): Array<Any> {
-        val element = descriptor.psiElement ?: return emptyArray()
+        val element = (descriptor as? RescriptModuleHierarchyNodeDescriptor)?.rescriptElement ?: return emptyArray()
 
         val children =
             element.children.filter {
@@ -50,7 +50,7 @@ class RescriptModuleDependencyTreeStructure(
         RescriptModuleHierarchyNodeDescriptor(project, null, element, true),
     ) {
     override fun buildChildren(descriptor: HierarchyNodeDescriptor): Array<Any> {
-        val element = descriptor.psiElement ?: return emptyArray()
+        val element = (descriptor as? RescriptModuleHierarchyNodeDescriptor)?.rescriptElement ?: return emptyArray()
 
         // Only expand the root level (the file itself)
         if (element !is RescriptFile) return emptyArray()

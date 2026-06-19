@@ -61,8 +61,8 @@ class RescriptCallHierarchyNodeDescriptorTest {
         val parent = RescriptCallHierarchyNodeDescriptor(project, null, letDecl, true)
         val child = RescriptCallHierarchyNodeDescriptor(project, parent, letDecl, false)
         // Both descriptors should construct cleanly with the parent reference set.
-        assertNotNull(parent.psiElement)
-        assertNotNull(child.psiElement)
+        assertNotNull(parent.rescriptElement)
+        assertNotNull(child.rescriptElement)
     }
 
     private fun findFirst(

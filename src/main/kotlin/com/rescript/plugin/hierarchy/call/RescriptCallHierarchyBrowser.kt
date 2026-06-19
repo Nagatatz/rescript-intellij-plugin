@@ -54,7 +54,8 @@ class RescriptCallHierarchyBrowser(
             else -> null
         }
 
-    override fun getElementFromDescriptor(descriptor: HierarchyNodeDescriptor): PsiElement? = descriptor.psiElement
+    override fun getElementFromDescriptor(descriptor: HierarchyNodeDescriptor): PsiElement? =
+        (descriptor as? RescriptCallHierarchyNodeDescriptor)?.rescriptElement
 
     override fun getPrevOccurenceActionNameImpl(): String = "Previous Function"
 

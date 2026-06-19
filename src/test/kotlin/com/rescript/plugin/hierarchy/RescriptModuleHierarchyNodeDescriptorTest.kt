@@ -52,8 +52,8 @@ class RescriptModuleHierarchyNodeDescriptorTest {
         val baseDescriptor = RescriptModuleHierarchyNodeDescriptor(project, null, file, true)
         val nonBaseDescriptor = RescriptModuleHierarchyNodeDescriptor(project, baseDescriptor, file, false)
         // Both descriptors should be constructible — isBase only affects internal display state
-        assertNotNull(baseDescriptor.psiElement)
-        assertNotNull(nonBaseDescriptor.psiElement)
+        assertNotNull(baseDescriptor.rescriptElement)
+        assertNotNull(nonBaseDescriptor.rescriptElement)
     }
 
     private fun findFirst(

@@ -19,7 +19,7 @@ class RescriptCalleeTreeStructure(
         RescriptCallHierarchyNodeDescriptor(project, null, element, true),
     ) {
     override fun buildChildren(descriptor: HierarchyNodeDescriptor): Array<Any> {
-        val element = descriptor.psiElement ?: return emptyArray()
+        val element = (descriptor as? RescriptCallHierarchyNodeDescriptor)?.rescriptElement ?: return emptyArray()
 
         val callees = RescriptCallAnalyzer.findCallees(element, myProject)
 

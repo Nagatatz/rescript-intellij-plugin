@@ -56,7 +56,8 @@ class RescriptModuleHierarchyBrowser(
             else -> null
         }
 
-    override fun getElementFromDescriptor(descriptor: HierarchyNodeDescriptor): PsiElement? = descriptor.psiElement
+    override fun getElementFromDescriptor(descriptor: HierarchyNodeDescriptor): PsiElement? =
+        (descriptor as? RescriptModuleHierarchyNodeDescriptor)?.rescriptElement
 
     override fun getPrevOccurenceActionNameImpl(): String = "Previous Module"
 
