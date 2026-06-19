@@ -67,14 +67,21 @@ CI/CD は GitHub Actions で 7 ワークフロー（CI / Release / Docs / CodeQL
 
 ### 常時適用される規約 (rules)
 
-以下は全セッションで `@import` され常に適用される。
+以下は全セッションで `@import` され常に適用される（実装中に継続的に効く規約のみ）。
 
 @.claude/rules/testing.md
 @.claude/rules/code-comments.md
 @.claude/rules/deprecated-api.md
 @.claude/rules/git-conventions.md
-@.claude/rules/steering-workflow.md
-@.claude/rules/definition-of-done.md
+
+### フェーズ起動時に必ず Read する規約（遅延ロード）
+
+以下はワークフローの**特定フェーズでのみ**必要なため、常時 `@import` せず該当フェーズの直前に必ず Read すること。トリガーは強制であり、詳細チェックリストの本文は都度参照する（常時ロードのコンテキスト肥大を防ぐため）。
+
+| トリガー | 必ず Read する規約 |
+|---------|------------------|
+| **コード変更を伴う指示を受けたら、1 行も書く前に** | `.claude/rules/steering-workflow.md`（`.steering/` 作成・requirements/design/tasklist 承認・worktree） |
+| **コミット / マージの直前** | `.claude/rules/definition-of-done.md`（Phase 1〜5 の全チェック索引。`definition-of-done-check` スキルでも代替可） |
 
 ### 状況依存で参照する規約・スキル
 
@@ -109,6 +116,16 @@ CI/CD は GitHub Actions で 7 ワークフロー（CI / Release / Docs / CodeQL
 - 発生したビルドエラー・テスト失敗の内容
 
 Task ツール（サブエージェント）使用時、`run_in_background` は **明示的に指示された場合のみ** 使用する。
+
+### ビルド/テスト出力の抑制（コンテキスト保全）
+
+`./gradlew buildPlugin` / `test` / `koverHtmlReport` 等は数千〜数万トークンの出力を生み、長セッションでコンテキストを急速に消費しコンパクションを早める。以下を徹底すること:
+
+- 結果の成否だけ知りたい場合は、出力をファイルにリダイレクトし末尾のみ読む:
+  `./gradlew test > /tmp/gradle-test.log 2>&1; tail -40 /tmp/gradle-test.log`
+- 失敗時のみ詳細を追う。成功時は `tail` の数行で確認を終える
+- 全テストではなくスコープを絞る（`./gradlew test -Pscope=fast`）
+- 大量出力が予想されるコマンドは原則 `tail` / `grep` で必要箇所だけを取り込み、全文を会話に流し込まない
 
 ## セキュリティ
 
