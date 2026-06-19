@@ -1307,6 +1307,14 @@
             <skipBeforeAfter>true</skipBeforeAfter>
         </intentionAction>
 
+        <!-- Intention: Batch-insert inferred type annotations (#117) -->
+        <intentionAction>
+            <language>ReScript</language>
+            <category>ReScript</category>
+            <className>com.rescript.plugin.intention.RescriptBatchInsertInferredTypesIntention</className>
+            <skipBeforeAfter>true</skipBeforeAfter>
+        </intentionAction>
+
         <!-- Quick Fix: Add open statement (#49) -->
         <intentionAction>
             <language>ReScript</language>
