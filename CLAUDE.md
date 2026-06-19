@@ -1,5 +1,9 @@
 # CLAUDE.md
 
+## 強制的な行動指示
+
+本ファイルおよび `@import` で読み込まれるルール、`.claude/skills/` 配下のスキル本文に書かれている規約は **すべて強制** であり、ユーザーから明示的に解除されない限り例外なく従うこと。違反した場合は即座に修正する。
+
 ## プロジェクト概要
 
 ReScript 言語サポートを JetBrains IDE に提供する IntelliJ プラグイン。JFlex レクサーによるシンタックスハイライトと、rescript-language-server (LSP) による意味解析のハイブリッドアーキテクチャを採用。
@@ -12,163 +16,103 @@ ReScript 言語サポートを JetBrains IDE に提供する IntelliJ プラグ�
 ## ビルド・実行コマンド
 
 ```bash
-# ビルド
+# ビルド / クリーンビルド
 ./gradlew buildPlugin
-
-# クリーンビルド
 ./gradlew clean buildPlugin
 
-# 開発用 IDE インスタンス起動
+# 開発用 IDE インスタンス起動（古い jar は prepareSandbox 時に自動除去。完全クリーンは clean runIde）
 ./gradlew runIde
-# サンドボックス内の古いプラグイン jar は prepareSandbox 時に自動で除去される
-# （pluginVersion バンプ後の stale jar 起因の PluginException を防ぐため）。
-# 完全クリーンが必要な場合のみ `./gradlew clean runIde` を使う。
 
-# UI テスト用 IDE 起動（Remote-Robot サーバー付き、ポート 8082）
+# UI テスト（runIdeForUiTests で IDE 起動 → 別ターミナルで uiTest、Remote-Robot ポート 8082）
 ./gradlew runIdeForUiTests
-
-# UI テスト実行（別ターミナルで、IDE 起動後に実行）
 ./gradlew uiTest
 
 # テストスイートの切り出し（PR フィードバック高速化用）
 ./gradlew test -Pscope=fast    # perf / *IntegrationTest / cli/ を除外した unit test 集合
 ./gradlew test -Pscope=perf    # perf/ 配下のスモークベンチマークのみ
 ./gradlew test -Pscope=cli     # cli/ 配下の mmdc / dot 結合テストのみ（CLI 不在時は skip）
-```
 
-JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タスクで自動生成される（`compileJava` / `compileKotlin` の依存タスク）。生成ファイルは `.gitignore` に含まれており、手動生成は不要。
-
-## CI/CD
-
-GitHub Actions で 7 つのワークフローを運用:
-
-| ワークフロー | ファイル | トリガー | 内容 |
-|-------------|---------|---------|------|
-| CI | `ci.yml` | Push/PR to `main` | `actionlint` / Trivy(fs + secret スキャン) / ビルド・テスト・ktlint・KDoc・EP 登録チェック・カバレッジ（`koverVerify` で minBound 強制）・プラグイン検証・テンプレート結合テストをジョブ分割で実行。PR 時のみ `mutation-test` ジョブで PIT を実行 |
-| Release | `release.yml` | Tag `v*.*.*` | バージョン整合チェック → フル品質ゲート（ktlint / KDoc / test / koverVerify / verifyPlugin など）+ テンプレート結合テスト → GitHub Release 作成 → `require-ci-green`（対象コミットの CI が success であることを必須）通過後に JetBrains Marketplace へ publish |
-| Docs | `docs.yml` | Push/PR to `main` (`sphinx-docs/` / `src/main/kotlin/` 等変更時) | Sphinx ドキュメントのビルド・lint・翻訳チェック・a11y・Dokka API リファレンス生成・GitHub Pages デプロイ |
-| CodeQL | `codeql.yml` | Push/PR to `main`、週次（月曜 05:00 UTC） | Java/Kotlin ソースの CodeQL 静的解析。結果は Security タブにアップロード |
-| Integration Tests | `integration-tests.yml` | wizard/templates 関連 PR、夜次（03:00 UTC）、手動 | `./gradlew integrationTest`（全テンプレートの生成 + 依存インストール + ReScript ビルド検証）。Node.js + pnpm + bun を要するため CI 本体から分離 |
-| OS Matrix Verify | `os-matrix.yml` | 週次（月曜 02:00 UTC）、手動 | Linux / macOS / Windows で `buildPlugin` + `verifyPlugin` を実行し OS 固有のリグレッションを検出 |
-| Monthly Verify | `monthly-verify.yml` | Cron（毎月 1 日）、手動 | `verifyPlugin` の実行、`plugin-verifier-ignored-problems.txt` の `Expires:` 期限切れエントリの警告、`TemplateVersions.kt` の npm 定数から生成した package.json への `npm audit`（high/critical で fail。dependabot の死角対策） |
-
-```bash
-# ローカルで CI を再現
+# ローカルで CI を再現 / テスト + カバレッジ（build/reports/kover/html/index.html）
 ./gradlew ktlintCheck buildPlugin test koverHtmlReport verifyPluginStructure
-
-# テスト + カバレッジ
-./gradlew test koverHtmlReport
-# レポート: build/reports/kover/html/index.html
 
 # ドキュメント（sphinx-docs/ 内で実行）
 cd sphinx-docs && uv sync && make build-all && make serve
 ```
 
-## プロジェクト構成
+JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タスクで自動生成される（`.gitignore` 対象・手動生成不要・直接編集禁止）。`Rescript.flex` を編集すること。
 
-@docs/repository-structure.md
+CI/CD は GitHub Actions で 7 ワークフロー（CI / Release / Docs / CodeQL / Integration Tests / OS Matrix / Monthly Verify）を運用。詳細は `.github/workflows/` と `docs/repository-structure.md` を参照。
 
 ## アーキテクチャ
 
-### レイヤー 1: 言語基盤 (プラグイン内蔵)
-- **JFlex レクサー** (`Rescript.flex`) — トークン分解、シンタックスハイライト
-- **軽量パーサー** (`RescriptParser.kt`) — トップレベル宣言 (`let`, `type`, `module`, `external`, `open`, `include`, `exception`) と JSX 構造 (`JSX_ELEMENT`, `JSX_SELF_CLOSING_ELEMENT`, `JSX_FRAGMENT`) を認識
-- **PSI ツリー** — コード折りたたみ、ストラクチャービュー、JSX 構造認識向け
-- **PSI Stub Index** (`indexing/`) — 5種の宣言型（let, type, module, external, exception）のスタブベースインデックスによる高速シンボル検索
-- **ストラクチャービュー** (`structure/`) — モジュール・関数・型宣言のツリー表示
+3 レイヤーのハイブリッド構成。完全な機能カタログ・パッケージ対応・Extension Point マップは必要時に以下を参照する（常時ロードしない）:
 
-### レイヤー 2: LSP 統合
-- IntelliJ Platform の LSP API (`com.intellij.platform.lsp`) を使用
-- `@rescript/language-server` を stdio 経由で起動
-- 補完、診断、定義ジャンプ、ホバー、参照検索、インレイヒント、Signature Help を提供
-- **モノレポ対応** (`RescriptWorkspaceDiscovery`) — `rescript.json` がルート直下にない pnpm/npm/yarn ワークスペース構成を自動検出する。優先度は「Settings の `packageRoots` 手動指定 → `pnpm-workspace.yaml` / `package.json#workspaces` の glob 展開 → depth ≤ 4 の再帰スキャン → 親方向走査」。Inspection・ステータスバー・LSP startup notification・LSP バイナリ探索のすべてがこの検出結果を共有する
-- **セマンティックトークンハイライト** (`RescriptSemanticTokensSupport.kt`) — LSP セマンティックトークンによる高精度な色分け
-- **カスタム LSP リクエスト** (`RescriptLanguageServer.kt`) — `createInterface`, `openCompiled` 等の ReScript 固有リクエスト
-- **カスタム LSP 通知** (`RescriptLsp4jClient.kt`) — `rescript/compilationStatus` 通知受信
-- **Code Lens** (`RescriptCodeVisionProvider.java`) — CodeVision API 経由で関数の型注釈を表示
-- **Type Narrowing Visualizer** (`narrowing/`) — `switch` の各 arm でスクラティニーがどの型に絞り込まれたかを LSP hover の結果に基づいてインレイヒントで表示。さらに pattern binding (`| Some(x) =>` の `x` 等) の直後にも、その binding 単体の narrowing 後の型を別ヒントとして出す
-- LSP 未接続時の機能ごとの振る舞い（フル機能 / 部分機能 / 不可）は `docs/lsp-fallback-matrix.md` を参照
+- パッケージ構成と各機能の責務: `docs/repository-structure.md`
+- 機能カテゴリ別の設計解説と EP マップ: `docs/functional-design.md`
+- ユーザー向け機能サマリ: `README.md` の Features セクション
+- LSP 非接続時の機能別フォールバック: `docs/lsp-fallback-matrix.md`
 
-### レイヤー 3: IDE 統合機能
-
-IDE 統合機能の完全なカテゴリ一覧・パッケージ対応・Extension Point 対応は以下を参照:
-
-- 機能カテゴリ別の解説: `docs/functional-design.md`
-- パッケージ構成: `docs/repository-structure.md`
-- ユーザー向けサマリ: `README.md` の Features セクション
-
-Variant Flow Diagram (`flow/`) はカーソル位置の `switch` 式を decision tree として ToolWindow に表示する純構文ベースの機能で、`narrowing/` の `RescriptSwitchArmCollector` を再利用しつつ LSP には依存しない。ツールバーの **Visual / Source トグル** で表示モードを切替できる。Visual モードは `RescriptVariantFlowGraphView` (純粋な `computeLayout` + Java2D 描画) でルートとアームを角丸ボックスとオーソゴナル矢印で描く。各 arm は `RescriptVariantFlowModel.classifyArm` が決める `ArmKind` (`CONSTRUCTOR` / `WILDCARD` / `PATTERN_BINDING` / `TODO_PLACEHOLDER` / `NESTED_SWITCH`) に応じた色で塗られ、canvas 下部に英語ラベルの凡例が描かれる (Light/Dark 両対応の `JBColor` パレット)。`TODO_PLACEHOLDER` は body が `todo` リテラルから始まる arm — `RescriptMissingArmsBuilder` が生成する未実装アームを視覚的に識別できる。ネストした `switch` のアームは親アーム box の下にサブツリーとして展開され、`RescriptVariantFlowModel.MAX_NESTING_DEPTH` (現状 3) の制限まで Mermaid / DOT exporter と同じ再帰で描画する (深さオーバーは `(deeper switch hidden)` プレースホルダー)。フラットな 1 階層 switch では狭い viewport で行ラッピングする従来挙動を維持する。Source モードは Mermaid `flowchart TD` ソーステキストを `MermaidSourceColorizer` でトークン色付けして `JEditorPane` (HTML) に描画する (キーワード / アロー / 引用ラベル / `%%` コメントを `RescriptSyntaxHighlighter` のキー経由で色付け)。Copy Mermaid / Copy DOT のツールバーアクションは生のソース文字列を clipboard に渡すため、外部の Mermaid Live や graphviz `dot` に持ち出せる。
-
-Module Dependency Diagram (`diagram/`) は `open` / `include` 関係を辿ってプロジェクト内の `.res` モジュールから有向依存グラフを組み立て、ToolWindow に表示する LSP 非依存の機能。ツールバーの **Visual / Source トグル** で表示モードを切替できる。Visual モードは `RescriptDependencyDiagramGraphView` (純粋な `computeLayout` + Java2D 描画) でモジュールを角丸ボックス、依存方向をオーソゴナル矢印で描く。各ノードは `RescriptDependencyDiagramModel.classifyNodes` が Kahn の BFS で決める `NodeRole` (`ENTRY_POINT` / `INTERMEDIATE` / `LEAF` / `CYCLE_MEMBER`) に応じた色で塗られ、canvas 下部に英語ラベルの凡例が描かれる。レイヤー割当も Kahn の BFS で、in-degree 0 のモジュール (エントリポイント候補) が layer 0 に置かれて下流の依存が下に積まれる。サイクル内のノードは Kahn の残ノードとして最下位の追加 layer にまとめられ、`CYCLE_MEMBER` 色で強調される。Source モードは Variant Flow と同じ `MermaidSourceColorizer` でトークン色付けして `JEditorPane` (HTML) に描画する。Copy Mermaid / Copy DOT のツールバーアクションは生のソース文字列を clipboard に渡し、両モードから利用できる。
-
-Type Impact Preview (`impact/`) はカーソル位置の `type` 宣言に対するプロジェクト全体の参照箇所を ToolWindow に一覧表示し、型変更の波及範囲を事前に見積もれるようにする。`PsiSearchHelper` で word-index ベースの参照検索を行い、`RescriptReferenceClassifier` のトークン・ヒューリスティックで type-ref / constructor / pattern / field-access に分類する。各行の `[kind]` ラベルは `colorForKind` のパレットで色付けされた bold で描画され、kind 別の出現箇所を視覚的にスキャンできる。LSP 不要・200 件のソフトキャップ付き。
-
-Notebook 風 Worksheet (`notebook/`) は `.resnb` 拡張子の JSON ファイルを cell-based エディタで開き、各セルを独立に評価できるようにする。既存 `repl/RescriptReplExecutor` をセル評価のバックエンドとして再利用し、評価結果を `cell.lastOutput` としてファイルに persist する。各セルのコード入力エリアは `EditorTextField` + `RescriptFileType` で構成されているので、REPL 入力と同じ ReScript シンタックスハイライト・補完・折りたたみが効く。セルの border・output 背景・エラー出力色は `JBColor` 化されているので Light/Dark 両テーマで読みやすい。Markdown エクスポートで PR / 設計書への共有も可能。LSP 不要。
-
-JS Interop Risk Map (`interop/`) は `%raw` / `external` / `Obj.magic` / `@bs.*` などの「型システムから抜け出す」呼び出し箇所をプロジェクト全体でスキャンし、ToolWindow に一覧表示する。`RescriptInteropClassifier` のトークン・ヒューリスティックで `(kind, risk)` を判定し、HIGH → MEDIUM → LOW で並べ替え。各行の左端には `COLOR_BY_RISK` のパレットに基づく 4 px 幅の色帯が描画され、severity をテキストを読まずに識別できる。`FileTypeIndex` ベースの project スコープ走査・LSP 不要・500 件のソフトキャップ付き。
-
-Type Coverage Heat Map (`coverage/`) はプロジェクト内の `.res` ファイルごとに「トップレベル `let` 宣言のうち、どれだけが明示的に型注釈を持っているか」を表形式で可視化する。`RescriptTypeCoverageClassifier` の depth-0 `:` ヒューリスティック (パラメータリストや record literal 内の `:` は無視) でアノテーション有無を判定し、ToolWindow にファイル / 総数 / Annotated / Inferred / Coverage % をソート可能なテーブルで表示。デフォルトは coverage % 昇順なので「型を足したいファイル」が上に並ぶ。色分け: < 30% 赤 / 30〜69% 黄 / ≥ 70% 緑。`FileTypeIndex` ベースの project スコープ走査・LSP 不要・2,000 ファイルのハードキャップ付き。パラメータ単位の annotated 判定や LSP hover ベースの精度向上は将来検討。
-
-Add Missing Switch Arms Intention (`intention/RescriptAddMissingSwitchArmsIntention`) は書きかけの `switch` 式に対して LSP hover でスクラティニーの型を取得し、`RescriptLspSignatureParser.parseVariantConstructors` の constructor 集合と既存アームの差集合を `RescriptMissingArmsBuilder` で算出して、不足アーム (`| Name(_) => todo` / `| Name => todo`) を閉じ `}` 直前に挿入する Alt+Enter Intention。`_` ワイルドカードや LIDENT 単独 binding を含む switch では非表示。or-pattern (`| Foo | Bar`) は両 constructor をカバー済として認識し、ネストした switch ではカーソル位置の最内 switch のみが対象になる。LSP hover が `color` のような **bare type name** だけを返した場合は、`RescriptVariantTypeResolver` が `RescriptNameIndex` 経由でプロジェクト内の `type <name> = | ...` 宣言を検索し、`RescriptTypeDeclarationParser` で RHS を再パースする 2nd-pass で constructor 集合を補完する。
-
-Rename Variant Constructor Intention (`intention/RescriptRenameVariantConstructorIntention`) は variant constructor (UIDENT) にキャレットを置いた状態の Alt+Enter で起動する LSP 非依存のリネーム機能。`RescriptConstructorOccurrenceClassifier` がトークンの前後関係から `CONSTRUCTOR` / `PATTERN` / `MODULE_QUALIFIED_TAIL` / `OTHER` を判定し、`RescriptConstructorOccurrenceFinder` が `PsiSearchHelper` の word-index 経由でプロジェクト全体の出現箇所を集めて分類器でフィルタする。出現件数とファイル数を確認ダイアログで提示してから単一の `WriteCommandAction` で一括リネームするので Undo も 1 ステップ。500 件のハードキャップを超えた場合は「Shift+F6 (LSP rename) を使うか対象を絞ってください」のメッセージで中止する。Shift+F6 の `RescriptRenameHandler` (LSP rename) と独立して動き、LSP 未起動環境でも動作する。
-
-Expand Open Qualifier Intention (`intention/RescriptExpandOpenQualifierIntention`) は `open M` 文にキャレットを置いた状態の Alt+Enter で、その `open` が導入したメンバ参照を `M.foo` 形に書き戻して `open` 文自体を削除する Rename Variant Constructor とは逆方向の LSP 非依存 Intention。`Remove Redundant Qualifier` の対称機能で、`PsiElementBaseIntentionAction` を継承する。対象は **プロジェクト内に `M.res` / `M.resi` が存在する単一セグメントの `open M`** のみ (Belt など node_modules のライブラリモジュールは v1 対象外で、解決できない場合は Intention 自体を非表示)。`FilenameIndex` でモジュールファイルを解決し、`imports/RescriptModuleMemberExtractor` がそのファイルの brace-depth-0 宣言名 (let / type / module / external / exception) を抽出。`imports/RescriptOpenExpansionPlanner` が純構文ベースで、`open` 文以降に現れる該当メンバの LIDENT / UIDENT トークンのうち (1) 既に `.` で修飾されているもの (2) `open` 以降で `let` 再束縛されてローカルにシャドウされたものを除外して prefix 挿入オフセットを算出し、`open` 文の削除レンジ (末尾改行込み) とともに返す。確認ダイアログ後、単一の `WriteCommandAction` で挿入 (降順オフセットで後続のずれを防止) と削除を一括適用するので Undo も 1 ステップ。
-
-Flatten Nested Switch Intention (`intention/RescriptFlattenNestedSwitchIntention`) は外側アームの本体がそのアームの単一束縛に対する `switch` のみで構成されている箇所にキャレットを置いた状態の Alt+Enter で、2 階層の `switch` を 1 階層に畳み込む LSP 非依存の Intention (Gleam LS 由来)。例えば `| Some(y) => switch y { | Some(z) => a | None => b }` を `| Some(Some(z)) => a` / `| Some(None) => b` に展開する。判定とテキスト生成は純ロジックの `RescriptNestedSwitchFlattener.plan` に委譲し、Intention クラスはその `FlattenPlan` をエディタドキュメントへ適用するだけ。`RescriptLexer` のトークン列を直接走査して (1) 外側アームの束縛が 1 個 (2) 本体が内側 `switch` のみ (3) 内側 scrutinee が外側束縛と一致 (4) 内側 or-pattern なし (5) 内側・外側ともに `when` ガードなし、の 5 条件を満たすときのみ適用可能と判定し、満たさない場合は Intention 自体を非表示にする。インデントは外側アームのものを踏襲し、内側 body は verbatim でコピーする。
-
-Hoogle-style Type Signature Search (`navigation/RescriptTypeSignatureSearchContributor`) は Search Everywhere の "ReScript Types" タブで、ユーザーが入力した型シグネチャ (`(int, string) => result<int, string>` や `=> option<'a>` など) をプロジェクト全体の `let` / `external` / `type` の `: T` 注釈と **構造的に** 照合する。`RescriptDeclarationSignatureExtractor` が候補ソースから binding 名と `: T` 注釈テキストを抽出し、`RescriptTypeParser` がクエリと候補の双方を `RescriptTypeAst` に変換し、`RescriptTypeUnifier` が EXACT / TVAR_MATCH / PARTIAL / MISMATCH を判定して `MISMATCH` 以外を結果リストに表示する。先頭が `=>` のクエリは "返り値 T を持つ関数" の検索モード (`PARTIAL` スコア)、クエリ側の `'a` は具体型に対応するワイルドカード (`TVAR_MATCH` スコア)。`RescriptTypeSignatureCellRenderer` が `name: signature  (path:line)` で結果を描画し、選択時に binding 位置にジャンプする。signature は `RescriptSignatureTokenColorizer` が `RescriptLexer` でトークン分解し `RescriptSyntaxHighlighter` の `TextAttributesKey` を通じてエディタと同じカラースキームで色付けされる (キーワード / 型構築子 / 演算子 / 型変数を区別)。レコード型・ポリモーフィックバリアント・ラベル引数は v1 ではパースしない。LSP 不要。
-
-Record/Variant Placeholder Completion (`completion/RescriptPlaceholderCompletionContributor`) は `let x: person = ` のような型注釈付き値位置で、その型に対応するリテラル雛形を補完候補として提示する LSP 非依存の `CompletionContributor`。判定・解決・生成を 3 つの純ロジックに分離する: (1) `RescriptTypeAnnotationContext.detectExpectedType` が `RescriptLexer` のトークン列を走査して、キャレット直前が `let [rec] <name>: <T> = ` の値位置かを構文的に判定し、期待型の head 名 (`option<int>` → `option`、`Belt.Map.t` → `Belt`) と `{` 入力済みフラグを返す (関数型・タプル型は誤爆回避のため reject)。(2) `RescriptPlaceholderTypeResolver.resolve` が built-in の `option` / `result` をハードコードで、それ以外を `RescriptNameIndex` stub index 経由で引いて `RescriptTypeDeclarationParser.parse` で `TypeShape` (Record / Variant / Unknown) に解決する (`matchesTypeHead` で `type colors` vs `color` の prefix 衝突を排除)。(3) `RescriptPlaceholderBuilder` が Record を `{ field1: _, field2: _ }`、Variant を constructor ごとの `Ctor(_)` / `Ctor` に整形する。挿入時はキャレットを最初の `_` 穴に移動する。`{` 入力済みなら record は外側ブレースを剥がし、variant は `{` が record リテラル開始のため提示しない。
-
-Project Wizard (`wizard/`) は Package Manager と Validation Library (`zod` / `sury`) の選択 UI を備える。22 テンプレートのうち既存 18 件 (hono-inertia と tauri を含む) は選択に応じて `Validation.res` を `variants/<key>/` から生成する。検証対象はテンプレートごとに異なる: サーバー系 10 テンプレート（hono / hono-graphql / hono-inertia / aws-lambda / cloudflare-workers / google-cloud-run / nextjs / full-stack / monorepo / res-x）は HTTP 入力、CLI Tool は `init` サブコマンドのオプション、npm Library は public API 引数、Basic は `config.json` の shape、Electron / Tauri は IPC レスポンス、React Native (Expo / CLI) と Vite+React はフォーム入力を対象にする。res-x テンプレートは Bun + Vite + HTMX 前提で `package.json` の scripts に `bun` コマンドを直接書き込む。Hono + Inertia テンプレートは Hono バックエンド + `@inertiajs/react` v3 + Vite+ 統合 (`vp dev` / `vp build` / `vp test` / `vp check`) で server-driven SPA を提供する。SSR がデフォルト: 非 Inertia 訪問 (初回 GET / 検索ボット / OGP) では `src/Ssr.res` が `react-dom/server` の `renderToString` で React コンポーネントを事前レンダリングして `<div id="app">` に埋め込み、ブラウザ側 `Main.res` は `hydrateRoot` で hydration する。Inertia ナビゲーション (`X-Inertia: true`) は middleware が JSON で返すため SSR を迂回する。Tauri テンプレートは Tauri 2.x + Vite+ React renderer + `@rescript-tauri/core` で IPC を組み立て、`tauri.conf.json` の `beforeDevCommand` / `beforeBuildCommand` を選択された package manager (`pnpm dev` / `npm run dev` / `yarn dev` / `bun run dev`) に応じて書き出す。Rust 側は `src-tauri/` に `greet` と `get_info` の 2 つの `#[tauri::command]` を含む最小骨組みを生成する。新規 4 テンプレート（TanStack Start / Remix RR v7 / Astro / Waku）はフレームワークが独自のデータレイヤーを持つため `ProjectTemplate.supportsValidationSelection = false` を宣言し、Wizard Step UI は Validation コンボを非表示にする。
+- **レイヤー 1: 言語基盤（内蔵）** — JFlex レクサー (`Rescript.flex`)、軽量パーサー (`RescriptParser.kt`、トップレベル宣言 + JSX 構造のみ認識)、PSI ツリー、PSI Stub Index (`indexing/`)、ストラクチャービュー (`structure/`)。
+- **レイヤー 2: LSP 統合** — IntelliJ Platform LSP API 経由で `@rescript/language-server` を stdio 起動。補完・診断・定義ジャンプ・ホバー・参照検索・インレイヒント・Signature Help・セマンティックトークン。モノレポ対応は `RescriptWorkspaceDiscovery`。カスタムリクエスト/通知は `RescriptLanguageServer.kt` / `RescriptLsp4jClient.kt`。
+- **レイヤー 3: IDE 統合機能** — Intention / Inspection / 補完 / ナビゲーション / 各種 ToolWindow（Variant Flow・Module Dependency Diagram・Type Impact・Notebook・Interop Risk・Type Coverage 等）/ Project Wizard（22 テンプレート）。個々の機能の実装詳細は `docs/repository-structure.md` のパッケージ表を参照。
 
 ## 開発規約
 
-- パッケージ: `com.rescript.plugin.*`
-- プラグイン ID: `com.rescript.plugin`
-- extension point の登録は `plugin.xml` で行う（オプション依存は `META-INF/rescript-*.xml` に分離）
-- 新しい言語機能を追加する場合は、既存のファイル構成（highlight/, lang/, lsp/ 等）に従う
+- パッケージ: `com.rescript.plugin.*` / プラグイン ID: `com.rescript.plugin`
+- Extension Point の登録は `plugin.xml`（オプション依存は `META-INF/rescript-*.xml` に分離）
+- 新機能は既存のファイル構成（`highlight/`, `lang/`, `lsp/` 等）に従う
 - レクサーにトークンを追加する場合は `Rescript.flex` と `RescriptTokenTypes.kt` の両方を更新する
 - テストは `src/test/` に配置する
-- **コミットは最低でも機能単位で分割する**（複数の独立した機能を1コミットにまとめることは禁止）
+- **コミットは最低でも機能単位で分割する**（複数の独立した機能を 1 コミットにまとめることは禁止）
 
-詳細な規約:
+### 常時適用される規約 (rules)
+
+以下は全セッションで `@import` され常に適用される。
 
 @.claude/rules/testing.md
 @.claude/rules/code-comments.md
 @.claude/rules/deprecated-api.md
 @.claude/rules/git-conventions.md
 @.claude/rules/steering-workflow.md
-@.claude/rules/documentation.md
-@.claude/rules/roadmap-format.md
 @.claude/rules/definition-of-done.md
-@.claude/rules/release.md
+
+### 状況依存で参照する規約・スキル
+
+以下は常時ロードせず、該当作業時に参照する（`.claude/rules/` を Read、または対応スキルが自動発火する）。索引は `.claude/rules/README.md`。
+
+| 領域 | 参照先 |
+|------|--------|
+| ドキュメント同期・日本語訳 | `.claude/rules/documentation.md` / `docs-lint` / `sphinx-po-ja-sync` スキル |
+| ロードマップ表のフォーマット | `.claude/rules/roadmap-format.md` |
+| リリース手順 | `.claude/rules/release.md` / `intellij-release-flow` スキル |
+| 図表作成 | `.claude/rules/diagram-rules.md` |
+| GitHub Actions ピン留め | `.claude/rules/github-actions-pinning.md` |
+| audit / カバレッジ調査の二段検証 | `.claude/rules/audit-tasks.md` |
+| 英語/日本語の使い分け | `.claude/rules/language.md` |
+| コンテキスト管理・自動化レシピ | `.claude/rules/context-management.md` / `automation-playbooks.md` |
 
 ## 重要な注意事項
 
-- `RescriptFlexLexer.java` は自動生成ファイル。直接編集せず、`Rescript.flex` を編集すること
+- `RescriptFlexLexer.java` は自動生成ファイル。直接編集せず `Rescript.flex` を編集する
 - LSP 機能は `@rescript/language-server` が利用可能な環境でのみ動作する
 - `pluginSinceBuild` は `gradle.properties` で管理（`pluginUntilBuild` は前方互換性のため意図的に未設定）
 - Gradle Configuration Cache が有効化されている
+- ロードマップ（将来機能一覧）は `docs/product-requirements.md` を参照
 
 ## コンテキスト管理
 
 コンパクション時は常に以下を保持すること:
+
 - 現在の作業ブランチと worktree のパス
 - 現在アクティブな `.steering/` ディレクトリのパスと `tasklist.md` の進捗
 - 現在のセッション内で変更・新規作成したファイルの一覧
 - 発生したビルドエラー・テスト失敗の内容
 
-Task ツール（サブエージェント）を使用する場合、`run_in_background` は **明示的に指示された場合のみ** 使用すること。
+Task ツール（サブエージェント）使用時、`run_in_background` は **明示的に指示された場合のみ** 使用する。
 
 ## セキュリティ
 
-- 外部入力（LSP サーバーレスポンス、ファイルシステムパス、JSON 設定のパース結果）はすべて検証すること
-- 外部プロセスの実行には `ProcessBuilder` に明示的な引数リストを渡すこと。ユーザー入力をコマンド文字列に連結してはならない
-- ユーザー向け UI 要素やエラーメッセージに絶対パスを露出させないこと
-- LSP レスポンス由来のファイルパスは、ファイル操作に利用する前にサニタイズすること
-
-## ロードマップ
-
-@docs/product-requirements.md
+- 外部入力（LSP サーバーレスポンス、ファイルシステムパス、JSON 設定のパース結果）はすべて検証する
+- 外部プロセスの実行には `ProcessBuilder` に明示的な引数リストを渡す。ユーザー入力をコマンド文字列に連結しない
+- ユーザー向け UI 要素やエラーメッセージに絶対パスを露出させない
+- LSP レスポンス由来のファイルパスは、ファイル操作前にサニタイズする

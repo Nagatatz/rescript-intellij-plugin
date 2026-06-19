@@ -21,7 +21,7 @@
   },
   "env": {
     "BASH_DEFAULT_TIMEOUT_MS": "120000",
-    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "60"
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
   },
   "hooks": {
     "PreToolUse": [
