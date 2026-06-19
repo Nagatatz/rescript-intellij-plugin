@@ -41,6 +41,9 @@ class RescriptOpenCompiledJsAction : AnAction() {
         }
     }
 
+    // LspServer / getDocumentIdentifier / sendRequestSync are deprecated in 2026.2 EAP; the
+    // replacement LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+    @Suppress("DEPRECATION")
     private fun tryOpenViaLsp(
         project: Project,
         file: VirtualFile,

@@ -43,3 +43,25 @@ com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*isApplicable.*
 // Source: RescriptFileIncludeProvider.kt
 // Reviewed: 2026-06-19 | Expires: 2027-06-19
 com\.rescript\.plugin:.*:.*FileIncludeProvider.*acceptFile.*
+
+// ── LSP API (com.intellij.platform.lsp.api.*) deprecated in 2026.2 EAP ──
+//
+// The entire LSP integration API (LspServer, LspServerManager,
+// LspServerSupportProvider, LspServerDescriptor, ProjectWideLspServerDescriptor,
+// and members such as getDocumentIdentifier / sendRequestSync) was deprecated in
+// the 2026.2 EAP in favour of the new LspClientDescriptor /
+// ProjectWideLspClientDescriptor / LspClientSupportProvider API. That replacement
+// API does NOT exist in IntelliJ Platform 2026.1.2 (our compile target), so the
+// usages cannot be migrated without compiling against an EAP build (against
+// project policy). Every call site carries @Suppress("DEPRECATION") (plus
+// "OVERRIDE_DEPRECATION" for overrides on deprecated supertypes); the verifier
+// still reports them at bytecode level. Re-evaluate when platformVersion is
+// bumped to a release that ships the LspClientDescriptor API.
+// Source: RescriptLspServerSupportProvider.kt, RescriptLspServerDescriptor.kt,
+//   RescriptLspUtils.kt, RescriptDumpLspStateAction.kt, RescriptLspInstaller.kt,
+//   RescriptRestartLspAction.kt, RescriptExpressionTypeProvider.kt,
+//   RescriptCodeVisionProvider.java, RescriptSignatureSyncInspection.kt,
+//   RescriptOpenCompiledJsAction.kt, RescriptCreateInterfaceAction.kt,
+//   RescriptRenameHandler.kt, RescriptConfigurable.kt
+// Status: KEEP  Reviewed: 2026-06-19  Expires: 2027-06-19
+com\.rescript\.plugin:.*:.*com\.intellij\.platform\.lsp\.api.*

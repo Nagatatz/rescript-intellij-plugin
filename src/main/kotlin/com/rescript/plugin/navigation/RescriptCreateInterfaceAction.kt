@@ -22,6 +22,9 @@ import org.eclipse.lsp4j.TextDocumentIdentifier
  * rescript-language-server and opens the generated interface file in the editor.
  */
 class RescriptCreateInterfaceAction : AnAction() {
+    // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
+    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+    @Suppress("DEPRECATION")
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return

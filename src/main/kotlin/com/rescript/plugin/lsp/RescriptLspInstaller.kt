@@ -123,9 +123,10 @@ object RescriptLspInstaller {
     }
 
     private fun onInstallSuccess(project: Project) {
-        // Restart LSP server so it picks up the newly installed language server
-        // UnstableApiUsage: LspServerManager — review on platform upgrade
-        @Suppress("UnstableApiUsage")
+        // Restart LSP server so it picks up the newly installed language server.
+        // LspServerManager is deprecated in 2026.2 EAP; the replacement LspClientDescriptor
+        // API does not exist on the 2026.1.2 compile target. UnstableApiUsage kept too.
+        @Suppress("UnstableApiUsage", "DEPRECATION")
         LspServerManager.getInstance(project).stopAndRestartIfNeeded(RescriptLspServerSupportProvider::class.java)
 
         // Update editor notifications to remove the warning bar

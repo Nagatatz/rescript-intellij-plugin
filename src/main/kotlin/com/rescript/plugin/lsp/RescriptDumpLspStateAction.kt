@@ -40,6 +40,9 @@ class RescriptDumpLspStateAction : AnAction() {
 
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
 
+    // LspServerManager / LspServer are deprecated in 2026.2 EAP; the replacement
+    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+
     /**
      * Collects diagnostic information about the LSP server and project configuration.
      *
@@ -48,7 +51,7 @@ class RescriptDumpLspStateAction : AnAction() {
      *
      * @return formatted diagnostic string
      */
-    @Suppress("UnstableApiUsage")
+    @Suppress("UnstableApiUsage", "DEPRECATION")
     internal fun collectLspState(project: Project): String {
         val settings = RescriptProjectSettings.getInstance(project)
         val basePath = project.basePath
