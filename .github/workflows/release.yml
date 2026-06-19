@@ -118,9 +118,49 @@ jobs:
           generate_release_notes: true
           prerelease: ${{ contains(github.ref_name, '-') }}
 
+  require-ci-green:
+    # Gate the Marketplace publish on the CI workflow being green for the exact
+    # commit this tag points at. The tag and its commit are pushed together
+    # (see .claude/rules/release.md), so CI runs on `main` in parallel with this
+    # Release run; we poll until that CI run completes and require `success`.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read  # gh api reads workflow run conclusions
+    steps:
+      - name: Wait for CI workflow to succeed for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          deadline=$(( SECONDS + 1500 ))  # ~25 min budget; job timeout is the hard cap
+          while true; do
+            run=$(gh api "repos/$REPO/actions/workflows/ci.yml/runs?head_sha=$SHA" \
+              --jq '[.workflow_runs[] | select(.event == "push")] | sort_by(.run_started_at) | last')
+            status=$(echo "$run" | jq -r '.status // "missing"')
+            conclusion=$(echo "$run" | jq -r '.conclusion // ""')
+            echo "CI run for $SHA: status=$status conclusion=$conclusion"
+            if [ "$status" = "completed" ]; then
+              if [ "$conclusion" = "success" ]; then
+                echo "CI is green for $SHA — proceeding to publish."
+                exit 0
+              fi
+              echo "::error::CI for $SHA completed with '$conclusion' (must be 'success'). Refusing to publish."
+              exit 1
+            fi
+            if [ "$SECONDS" -ge "$deadline" ]; then
+              echo "::error::Timed out waiting for CI to complete for $SHA. Refusing to publish."
+              exit 1
+            fi
+            sleep 30
+          done
+
   publish:
     runs-on: ubuntu-latest
-    needs: validate-and-build
+    needs: [validate-and-build, require-ci-green]
     environment: marketplace
     timeout-minutes: 15
     permissions:
