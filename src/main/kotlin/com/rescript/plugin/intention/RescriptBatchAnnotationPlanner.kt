@@ -70,7 +70,11 @@ object RescriptBatchAnnotationPlanner {
     )
 
     /** Internal lexer token record used for index-based look-ahead. */
-    private data class Tok(val type: IElementType, val start: Int, val end: Int)
+    private data class Tok(
+        val type: IElementType,
+        val start: Int,
+        val end: Int,
+    )
 
     /**
      * Enumerates every un-annotated file-top-level `let` binding in [text].

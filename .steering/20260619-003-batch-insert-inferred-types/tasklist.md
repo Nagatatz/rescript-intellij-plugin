@@ -12,12 +12,12 @@
 
 ## セクション2: 実行グルー RescriptBatchAnnotationRunner
 
-- [ ] `RescriptBatchAnnotationRunner` 作成（background hover 解決 → modificationStamp ガード → 単一 WriteCommandAction → 結果 balloon）
-- [ ] 通知・ダイアログは `file.name` のみ（絶対パス露出禁止）
-- [ ] KDoc 付与（クラス責務 + planner との関係）
-- [ ] テスト免除（理由: LSP 結合 + IDE スレッド + write action。light fixture で駆動不可）
-- [ ] `./gradlew test` グリーン確認
-- [ ] コミット `✨ Add batch annotation runner for inferred types`
+- [x] `RescriptBatchAnnotationRunner` 作成（background hover 解決 → modificationStamp ガード → 単一 WriteCommandAction → 結果 balloon）
+- [x] 通知・ダイアログは `file.name` のみ（絶対パス露出禁止）
+- [x] KDoc 付与（クラス責務 + planner との関係）
+- [x] テスト免除（理由: LSP 結合 + IDE スレッド + write action。light fixture で駆動不可）
+- [x] `./gradlew test` グリーン確認
+- [x] コミット `✨ Add batch annotation runner for inferred types`
 
 ## セクション3: エディタ Intention + 登録
 
