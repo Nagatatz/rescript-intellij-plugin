@@ -171,13 +171,41 @@ object RescriptBatchAnnotationPlanner {
     }
 
     /**
+     * Decides whether a normalized type string is safe to splice into source
+     * as a `: T` annotation.
+     *
+     * [normalizeType] already guarantees a non-blank, length-capped,
+     * control-char-free single line. This filter additionally rejects type
+     * texts that would not form valid ReScript syntax when inlined, because
+     * hover responses occasionally surface non-type residue:
+     *
+     * - weak type variables (`'_weak`, `'_a`) — the compiler emits these for
+     *   not-yet-generalized inference state; splicing them is rejected by the
+     *   parser and they are unstable across compilations
+     * - markdown / documentation residue from a hover that returned prose
+     *   rather than a bare type (backticks, headings `#`, list bullets `*`,
+     *   emphasis `_word_` runs, fenced-code leftovers)
+     *
+     * @param type a [normalizeType] result
+     * @return true when [type] is structurally insertable as an annotation
+     */
+    fun isInsertableType(type: String): Boolean {
+        // Weak type variables: `'_` followed by the rest of the var name.
+        if (WEAK_TYPE_VAR.containsMatchIn(type)) return false
+        // Markdown / hover prose residue that cannot appear in a bare type.
+        if (type.any { it in MARKDOWN_RESIDUE_CHARS }) return false
+        return true
+    }
+
+    /**
      * Builds an annotation [Plan] for [text] using [resolver] to obtain a
      * type for each inferred binding.
      *
      * [resolver] is called once per binding with that binding's name-start
      * offset and should return the raw type text (or null when unknown). A
-     * null/blank resolver result, or a type that fails [normalizeType],
-     * counts toward [Plan.skippedCount]; otherwise an insertion is emitted.
+     * null/blank resolver result, a type that fails [normalizeType], or a
+     * normalized type rejected by [isInsertableType] counts toward
+     * [Plan.skippedCount]; otherwise an insertion is emitted.
      *
      * @param text the ReScript source to annotate
      * @param resolver maps a binding name-start offset to its raw type text
@@ -197,7 +225,7 @@ object RescriptBatchAnnotationPlanner {
                 continue
             }
             val type = normalizeType(raw)
-            if (type == null) {
+            if (type == null || !isInsertableType(type)) {
                 skipped++
                 continue
             }
@@ -246,4 +274,19 @@ object RescriptBatchAnnotationPlanner {
 
     /** Matches one or more whitespace characters for collapsing. */
     private val WHITESPACE_RUN = Regex("\\s+")
+
+    /**
+     * Matches a weak type variable: a single quote, an underscore, then the
+     * rest of the variable name (e.g. `'_weak`, `'_a`). The compiler prints
+     * these for not-yet-generalized inference state; they are not valid in a
+     * written annotation and are unstable across compilations.
+     */
+    private val WEAK_TYPE_VAR = Regex("'_\\w")
+
+    /**
+     * Characters that never occur in a bare ReScript type but do appear in
+     * markdown / prose residue from a hover response (backtick, heading,
+     * bullet/emphasis, fenced-code pipe-table leftovers).
+     */
+    private val MARKDOWN_RESIDUE_CHARS = setOf('`', '#', '*')
 }
