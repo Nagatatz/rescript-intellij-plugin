@@ -1,12 +1,18 @@
 package com.rescript.plugin.coverage
 
+import com.intellij.icons.AllIcons
+import com.intellij.openapi.actionSystem.ActionUpdateThread
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.table.JBTable
+import com.rescript.plugin.intention.RescriptBatchAnnotationRunner
 import com.rescript.plugin.ui.RescriptToolWindowPanelBase
 import java.awt.Component
 import java.awt.event.MouseAdapter
@@ -72,10 +78,50 @@ class RescriptTypeCoveragePanel(
             JBScrollPane(table),
             DefaultActionGroup().apply {
                 add(createRefreshAction("Re-scan the project for type coverage"))
+                add(createAnnotateAction())
             },
         )
         scheduleRefresh()
     }
+
+    /**
+     * Returns the [FileCoverage] for the currently selected table row, or
+     * `null` when nothing is selected. Must be called on the EDT.
+     */
+    private fun selectedFileCoverage(): FileCoverage? {
+        val viewRow = table.selectedRow
+        if (viewRow < 0) return null
+        return tableModel.row(table.convertRowIndexToModel(viewRow))
+    }
+
+    /**
+     * Builds the toolbar action that batch-inserts inferred type annotations
+     * into the selected file. Opens the file (so the change is visible and
+     * undoable in its editor) and funnels through the shared
+     * [RescriptBatchAnnotationRunner], which performs the LSP hover resolution
+     * off the EDT. Disabled when no row is selected.
+     */
+    private fun createAnnotateAction(): AnAction =
+        object : AnAction(
+            "Insert Inferred Types",
+            "Insert inferred type annotations into the selected file's un-annotated top-level lets",
+            AllIcons.Actions.Annotate,
+        ) {
+            override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.EDT
+
+            override fun update(e: AnActionEvent) {
+                e.presentation.isEnabled = selectedFileCoverage() != null
+            }
+
+            override fun actionPerformed(e: AnActionEvent) {
+                val fc = selectedFileCoverage() ?: return
+                // Open the file first so the mutation lands in a live editor and
+                // is undoable there; then resolve types and apply via the runner.
+                OpenFileDescriptor(project, fc.file).navigate(true)
+                val document = FileDocumentManager.getInstance().getDocument(fc.file) ?: return
+                RescriptBatchAnnotationRunner.run(project, document, fc.file)
+            }
+        }
 
     override fun doRefresh() {
         statusLabel.text = " Scanning…"

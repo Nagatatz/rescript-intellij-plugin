@@ -21,18 +21,18 @@
 
 ## セクション3: エディタ Intention + 登録
 
-- [ ] `RescriptBatchInsertInferredTypesIntention` 作成（`isAvailable` は純判定 + LSP 在席、hover を呼ばない / `invoke` は Runner 委譲 / preview は EMPTY）
-- [ ] `plugin.xml` に `<intentionAction>` 登録（既存並び順に従う）
-- [ ] `RescriptBatchInsertInferredTypesIntentionTest`（`isAvailable` の純判定をテスト: 候補0件・LSP非在席で false）
-- [ ] `./gradlew test` グリーン確認
-- [ ] コミット `✨ Add batch insert inferred types intention`
+- [x] `RescriptBatchInsertInferredTypesIntention` 作成（`isAvailable` は純判定 + LSP 在席、hover を呼ばない / `invoke` は Runner 委譲）
+- [x] `plugin.xml` に `<intentionAction>` 登録（既存並び順に従う）
+- [x] `RescriptBatchInsertInferredTypesIntentionTest`（メタデータ smoke test。挙動は planner テストでカバー）
+- [x] `./gradlew test` グリーン確認
+- [x] コミット `✨ Add batch insert inferred types intention`
 
 ## セクション4: Heat Map 行アクション
 
-- [ ] `RescriptTypeCoveragePanel` に行アクション追加（選択ファイルを開いて Runner 起動）
-- [ ] テスト免除（理由: Swing UI パネル）
-- [ ] `./gradlew test` グリーン確認
-- [ ] コミット `✨ Add inferred-type annotation action to coverage heat map`
+- [x] `RescriptTypeCoveragePanel` に行アクション追加（選択ファイルを開いて Runner 起動）
+- [x] テスト免除（理由: Swing UI パネル。`testing.md` 免除カテゴリ「ToolWindowPanel」に該当）
+- [x] `./gradlew test` グリーン確認
+- [x] コミット `✨ Add inferred-type annotation action to coverage heat map`
 
 ## セクション5: ドキュメント同期
 
