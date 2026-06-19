@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 17:44+0900\n"
+"POT-Creation-Date: 2026-06-19 22:14+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -28,19 +28,86 @@ msgid "Changelog"
 msgstr "変更履歴"
 
 #: ../../user/changelog.md:9
-msgid "0.1.16 (2026-06-16)"
-msgstr "0.1.16 (2026-06-16)"
+msgid "0.1.16.3 (2026-06-19)"
+msgstr "0.1.16.3 (2026-06-19)"
 
-#: ../../user/changelog.md:11 ../../user/changelog.md:27
-#: ../../user/changelog.md:62 ../../user/changelog.md:98
-#: ../../user/changelog.md:130 ../../user/changelog.md:160
-#: ../../user/changelog.md:198 ../../user/changelog.md:226
-#: ../../user/changelog.md:239 ../../user/changelog.md:266
-#: ../../user/changelog.md:274 ../../user/changelog.md:299
+#: ../../user/changelog.md:11 ../../user/changelog.md:21
+#: ../../user/changelog.md:27 ../../user/changelog.md:38
+#: ../../user/changelog.md:61 ../../user/changelog.md:100
+#: ../../user/changelog.md:133 ../../user/changelog.md:164
+#: ../../user/changelog.md:196 ../../user/changelog.md:236
+#: ../../user/changelog.md:255 ../../user/changelog.md:276
+#: ../../user/changelog.md:314 ../../user/changelog.md:330
+msgid "Infrastructure"
+msgstr "インフラ"
+
+#: ../../user/changelog.md:13
+msgid ""
+"2026.2 EAP deprecated-API cleanup — dispose of every deprecated platform-"
+"API usage flagged by the 2026.2 EAP plugin verifier: remove the obsolete "
+"lsp4j `MarkedString` branch from the hover type provider, and suppress "
+"the LSP-API deprecations whose replacement `LspClient` interfaces do not "
+"yet exist on the 2025.3/2026.1 compile targets, keeping the plugin "
+"forward-compatible without breaking current builds"
+msgstr ""
+"2026.2 EAP の非推奨 API の一掃 — 2026.2 EAP プラグイン検証が検出した非推奨プラットフォーム API "
+"の利用箇所をすべて整理した。ホバー型プロバイダから廃止された lsp4j `MarkedString` 分岐を削除し、代替の "
+"`LspClient` インターフェースがまだ 2025.3/2026.1 のコンパイル対象に存在しない LSP API "
+"の非推奨警告を抑制することで、現行ビルドを壊さずにプラグインの前方互換性を維持した"
+
+#: ../../user/changelog.md:15
+msgid "0.1.16.2 (2026-06-19)"
+msgstr "0.1.16.2 (2026-06-19)"
+
+#: ../../user/changelog.md:17 ../../user/changelog.md:33
+#: ../../user/changelog.md:49 ../../user/changelog.md:84
+#: ../../user/changelog.md:120 ../../user/changelog.md:152
+#: ../../user/changelog.md:182 ../../user/changelog.md:220
+#: ../../user/changelog.md:248 ../../user/changelog.md:261
+#: ../../user/changelog.md:288 ../../user/changelog.md:296
+#: ../../user/changelog.md:321
 msgid "Bug Fixes"
 msgstr "バグ修正"
 
-#: ../../user/changelog.md:13
+#: ../../user/changelog.md:19
+msgid ""
+"Module and Call Hierarchy no longer depend on "
+"`SmartElementDescriptor.getPsiElement()`, which was reclassified as an "
+"internal API in 2026.2; the hierarchy descriptors now use their own smart"
+" pointer, restoring forward compatibility with upcoming IDE builds"
+msgstr ""
+"Module Hierarchy と Call Hierarchy が、2026.2 で internal API に再分類された "
+"`SmartElementDescriptor.getPsiElement()` に依存しないようにした。階層ディスクリプタが独自の "
+"smart pointer を使うようになり、今後の IDE ビルドとの前方互換性を回復した"
+
+#: ../../user/changelog.md:23
+msgid ""
+"The release pipeline now gates the Marketplace publish on the tagged "
+"commit's CI being green, so a red build can no longer be published"
+msgstr ""
+"リリースパイプラインが、タグ付けされたコミットの CI がグリーンであることを Marketplace "
+"への publish の条件とするようになり、レッドのビルドが publish されることがなくなった"
+
+#: ../../user/changelog.md:25
+msgid "0.1.16.1 (2026-06-19)"
+msgstr "0.1.16.1 (2026-06-19)"
+
+#: ../../user/changelog.md:29
+msgid ""
+"Republish without author-side archive signing to work around a \"plugin "
+"archive file cannot be extracted\" error on JetBrains Marketplace; the "
+"plugin is still signed by Marketplace itself, so distribution integrity "
+"is unaffected"
+msgstr ""
+"JetBrains Marketplace の \"plugin archive file cannot be extracted\" "
+"エラーを回避するため、作者側のアーカイブ署名なしで再 publish した。プラグインは "
+"Marketplace 自身によって引き続き署名されるため、配布物の完全性に影響はない"
+
+#: ../../user/changelog.md:31
+msgid "0.1.16 (2026-06-16)"
+msgstr "0.1.16 (2026-06-16)"
+
+#: ../../user/changelog.md:35
 msgid ""
 "IntelliJ Platform 2026.2 EAP compatibility — migrate the navigation bar "
 "to `AbstractNavBarModelExtension`, replace 2026.2-internal plugin-"
@@ -50,46 +117,37 @@ msgid ""
 msgstr ""
 "IntelliJ Platform 2026.2 EAP 互換性 — ナビゲーションバーを "
 "`AbstractNavBarModelExtension` へ移行し、2026.2 で internal 化されたプラグイン記述子取得 API "
-"をビルド時生成のバージョンリソースの読み取りに置き換え、`sendRequestSync` に明示的なタイムアウトを渡すことで、"
-"2026.2 EAP 上でプラグインが正常にロードされるようにした"
+"をビルド時生成のバージョンリソースの読み取りに置き換え、`sendRequestSync` に明示的なタイムアウトを渡すことで、2026.2 "
+"EAP 上でプラグインが正常にロードされるようにした"
 
-#: ../../user/changelog.md:14
+#: ../../user/changelog.md:36
 msgid ""
 "Suppress a deprecation warning on the `FileIncludeProvider.acceptFile` "
 "override surfaced by plugin verification on 2026.2"
 msgstr ""
-"プラグイン検証が 2026.2 で検出した `FileIncludeProvider.acceptFile` の "
-"override に対する非推奨警告を抑制した"
+"プラグイン検証が 2026.2 で検出した `FileIncludeProvider.acceptFile` の override "
+"に対する非推奨警告を抑制した"
 
-#: ../../user/changelog.md:16 ../../user/changelog.md:39
-#: ../../user/changelog.md:78 ../../user/changelog.md:111
-#: ../../user/changelog.md:142 ../../user/changelog.md:174
-#: ../../user/changelog.md:214 ../../user/changelog.md:233
-#: ../../user/changelog.md:254 ../../user/changelog.md:292
-#: ../../user/changelog.md:308
-msgid "Infrastructure"
-msgstr "インフラ"
-
-#: ../../user/changelog.md:18
+#: ../../user/changelog.md:40
 msgid ""
 "Adopt verifier-cli 1.405 and restore `recommended()` verification IDEs "
 "(2025.3 / 2026.1 / 2026.2 EAP)"
 msgstr ""
-"verifier-cli 1.405 を採用し、`recommended()` の検証対象 IDE "
-"(2025.3 / 2026.1 / 2026.2 EAP) を復帰させた"
+"verifier-cli 1.405 を採用し、`recommended()` の検証対象 IDE (2025.3 / 2026.1 / "
+"2026.2 EAP) を復帰させた"
 
-#: ../../user/changelog.md:20
+#: ../../user/changelog.md:42
 msgid "0.1.15 (2026-06-13)"
 msgstr "0.1.15 (2026-06-13)"
 
-#: ../../user/changelog.md:22 ../../user/changelog.md:46
-#: ../../user/changelog.md:89 ../../user/changelog.md:120
-#: ../../user/changelog.md:151 ../../user/changelog.md:193
-#: ../../user/changelog.md:222 ../../user/changelog.md:325
+#: ../../user/changelog.md:44 ../../user/changelog.md:68
+#: ../../user/changelog.md:111 ../../user/changelog.md:142
+#: ../../user/changelog.md:173 ../../user/changelog.md:215
+#: ../../user/changelog.md:244 ../../user/changelog.md:347
 msgid "Features"
 msgstr "機能"
 
-#: ../../user/changelog.md:24
+#: ../../user/changelog.md:46
 msgid ""
 "Editor-grade highlighting in tool windows — Type Info, Notebook cells, "
 "Hoogle-style signature search results, and PPX annotations render with "
@@ -100,7 +158,7 @@ msgstr ""
 "注釈がエディタと同じ ReScript の配色で描画され、Variant Flow と Module Dependency の Source "
 "モードは Mermaid 構文を色付けする"
 
-#: ../../user/changelog.md:25
+#: ../../user/changelog.md:47
 msgid ""
 "Colour-coded diagram semantics — Variant Flow arms (constructor / "
 "wildcard / binding / todo / nested), Module Dependency node roles (entry "
@@ -112,7 +170,7 @@ msgstr ""
 "cycle）、Interop Risk の重大度バンド、Type Impact の参照種別がそれぞれ Light/Dark "
 "対応のパレットと凡例を持つ"
 
-#: ../../user/changelog.md:29
+#: ../../user/changelog.md:51
 msgid ""
 "Move Module Dependency diagram building and Type Impact reference "
 "resolution off the UI thread, keeping the IDE responsive on large "
@@ -121,13 +179,13 @@ msgstr ""
 "Module Dependency ダイアグラムの構築と Type Impact の参照解決を UI スレッド外へ移し、大規模プロジェクトでも "
 "IDE の応答性を維持"
 
-#: ../../user/changelog.md:30
+#: ../../user/changelog.md:52
 msgid ""
 "Stop Type Info and PPX panels from reacting to caret movement in other "
 "open projects"
 msgstr "Type Info と PPX パネルが他の開いているプロジェクトのキャレット移動に反応しないように修正"
 
-#: ../../user/changelog.md:31
+#: ../../user/changelog.md:53
 msgid ""
 "Raise vulnerable dependency floors in project templates: Next.js to "
 "^16.2.9 (GHSA-26hh-7cqf-hhc6) and concurrently to ^10.0.3 (shell-quote "
@@ -136,18 +194,18 @@ msgstr ""
 "プロジェクトテンプレートの脆弱な依存の下限を引き上げ: Next.js を ^16.2.9 (GHSA-26hh-7cqf-"
 "hhc6)、concurrently を ^10.0.3 (shell-quote advisory) に"
 
-#: ../../user/changelog.md:32
+#: ../../user/changelog.md:54
 msgid "Add missing intention description resources flagged by plugin verification"
 msgstr "プラグイン検証で指摘された不足している intention 説明リソースを追加"
 
-#: ../../user/changelog.md:34 ../../user/changelog.md:71
-#: ../../user/changelog.md:105 ../../user/changelog.md:135
-#: ../../user/changelog.md:169 ../../user/changelog.md:205
-#: ../../user/changelog.md:282 ../../user/changelog.md:304
+#: ../../user/changelog.md:56 ../../user/changelog.md:93
+#: ../../user/changelog.md:127 ../../user/changelog.md:157
+#: ../../user/changelog.md:191 ../../user/changelog.md:227
+#: ../../user/changelog.md:304 ../../user/changelog.md:326
 msgid "Refactoring"
 msgstr "リファクタリング"
 
-#: ../../user/changelog.md:36
+#: ../../user/changelog.md:58
 msgid ""
 "Share a common scaffold (toolbar, status bar, debounced refresh) across "
 "tool window panels; the debounce now uses platform coroutines instead of "
@@ -156,7 +214,7 @@ msgstr ""
 "ツールウィンドウパネル間で共通の土台（ツールバー、ステータスバー、デバウンス付きリフレッシュ）を共有し、デバウンスは内部 Alarm API "
 "ではなくプラットフォームの coroutine を使用するように変更"
 
-#: ../../user/changelog.md:37
+#: ../../user/changelog.md:59
 msgid ""
 "Generate wizard templates through a shared frame, guarded by golden "
 "characterization tests covering all 22 templates across 74 configuration "
@@ -165,19 +223,19 @@ msgstr ""
 "ウィザードテンプレートを共通フレーム経由で生成し、全 22 テンプレート・74 構成の組み合わせを golden characterization"
 " テストで保護"
 
-#: ../../user/changelog.md:41
+#: ../../user/changelog.md:63
 msgid "Bump IntelliJ Platform to 2026.1.2; move project templates to Expo SDK 56"
 msgstr "IntelliJ Platform を 2026.1.2 に更新し、プロジェクトテンプレートを Expo SDK 56 へ移行"
 
-#: ../../user/changelog.md:42
+#: ../../user/changelog.md:64
 msgid "Audit template npm versions monthly against the npm advisory database"
 msgstr "テンプレートの npm バージョンを npm advisory データベースに対して毎月監査"
 
-#: ../../user/changelog.md:44
+#: ../../user/changelog.md:66
 msgid "0.1.14 (2026-05-13)"
 msgstr "0.1.14 (2026-05-13)"
 
-#: ../../user/changelog.md:48
+#: ../../user/changelog.md:70
 msgid ""
 "Type Narrowing Visualizer — inlay hints showing the narrowed scrutinee "
 "type at each `switch` arm, plus narrowed types for pattern bindings"
@@ -185,7 +243,7 @@ msgstr ""
 "Type Narrowing Visualizer — 各 `switch` "
 "アームで絞り込まれたスクラティニー型をインレイヒント表示し、パターンバインディングの絞り込み型も表示"
 
-#: ../../user/changelog.md:49
+#: ../../user/changelog.md:71
 msgid ""
 "Switch Flow Diagram — visualize a `switch` as a decision tree in a tool "
 "window with Visual / Source toggle, Mermaid + DOT export, and nested-"
@@ -194,19 +252,19 @@ msgstr ""
 "Switch Flow Diagram — `switch` を decision tree としてツールウィンドウに可視化（Visual / "
 "Source トグル、Mermaid + DOT エクスポート、ネスト switch のサブツリー描画）"
 
-#: ../../user/changelog.md:50
+#: ../../user/changelog.md:72
 msgid ""
 "Module Dependency Diagram — Visual mode with Java2D graph view and Kahn-"
 "BFS layering"
 msgstr "Module Dependency Diagram — Java2D グラフビューと Kahn-BFS レイヤリングによる Visual モード"
 
-#: ../../user/changelog.md:51
+#: ../../user/changelog.md:73
 msgid ""
 "Type Impact Preview — tool window listing project-wide references for the"
 " `type` declaration under the caret"
 msgstr "Type Impact Preview — キャレット位置の `type` 宣言に対するプロジェクト全体の参照を一覧するツールウィンドウ"
 
-#: ../../user/changelog.md:52
+#: ../../user/changelog.md:74
 msgid ""
 "Notebook Worksheet (`.resnb`) — cell-based ReScript notebook editor with "
 "per-cell REPL evaluation and Markdown export"
@@ -214,7 +272,7 @@ msgstr ""
 "Notebook Worksheet (`.resnb`) — セル単位の REPL 評価と Markdown エクスポートを備えた cell "
 "ベースの ReScript ノートブックエディタ"
 
-#: ../../user/changelog.md:53
+#: ../../user/changelog.md:75
 #, python-format
 msgid ""
 "JS Interop Risk Map — tool window listing `%raw` / `external` / "
@@ -223,13 +281,13 @@ msgstr ""
 "JS Interop Risk Map — `%raw` / `external` / `Obj.magic` / `@bs.*` "
 "の呼び出し箇所を種別・リスク分類して一覧するツールウィンドウ"
 
-#: ../../user/changelog.md:54
+#: ../../user/changelog.md:76
 msgid ""
 "Type Coverage Heat Map — tool window showing per-file type-annotation "
 "coverage with sortable columns"
 msgstr "Type Coverage Heat Map — ファイルごとの型注釈カバレッジをソート可能な列で表示するツールウィンドウ"
 
-#: ../../user/changelog.md:55
+#: ../../user/changelog.md:77
 msgid ""
 "Add Missing Switch Arms intention — Alt+Enter intention powered by LSP "
 "hover + stub-index fallback"
@@ -237,7 +295,7 @@ msgstr ""
 "Add Missing Switch Arms intention — LSP hover + スタブインデックスのフォールバックによる "
 "Alt+Enter intention"
 
-#: ../../user/changelog.md:56
+#: ../../user/changelog.md:78
 msgid ""
 "Rename Variant Constructor intention — LSP-free Alt+Enter rename via "
 "word-index occurrence collection"
@@ -245,7 +303,7 @@ msgstr ""
 "Rename Variant Constructor intention — word-index の出現箇所収集による LSP 非依存の "
 "Alt+Enter リネーム"
 
-#: ../../user/changelog.md:57
+#: ../../user/changelog.md:79
 msgid ""
 "Hoogle-style Type Signature Search — new \"ReScript Types\" tab in Search"
 " Everywhere with structural AST + unifier matching"
@@ -253,13 +311,13 @@ msgstr ""
 "Hoogle 風 Type Signature Search — Search Everywhere に構造的 AST + unifier "
 "マッチングによる新しい \"ReScript Types\" タブを追加"
 
-#: ../../user/changelog.md:58
+#: ../../user/changelog.md:80
 msgid ""
 "Monorepo workspace detection for pnpm / npm / yarn workspaces, with "
 "manual override in Settings"
 msgstr "pnpm / npm / yarn ワークスペースの Monorepo 構成を自動検出（Settings で手動上書き可）"
 
-#: ../../user/changelog.md:59
+#: ../../user/changelog.md:81
 msgid ""
 "Tauri, TanStack Start, Remix / React Router v7, Astro, Waku, and Hono + "
 "Inertia (SSR) project templates"
@@ -267,7 +325,7 @@ msgstr ""
 "Tauri、TanStack Start、Remix / React Router v7、Astro、Waku、Hono + Inertia "
 "(SSR) のプロジェクトテンプレート"
 
-#: ../../user/changelog.md:60
+#: ../../user/changelog.md:82
 msgid ""
 "Database axis in Project Wizard — libSQL / Postgres / MySQL wired into "
 "Hono, Hono GraphQL, Hono+Inertia, Full-Stack, and Monorepo templates"
@@ -275,57 +333,57 @@ msgstr ""
 "Project Wizard の Database 軸 — libSQL / Postgres / MySQL を Hono、Hono "
 "GraphQL、Hono+Inertia、Full-Stack、Monorepo テンプレートに配線"
 
-#: ../../user/changelog.md:64
+#: ../../user/changelog.md:86
 msgid "Reject LSP rename edits that escape the project scope"
 msgstr "プロジェクトスコープを逸脱する LSP リネーム編集を拒否"
 
-#: ../../user/changelog.md:65
+#: ../../user/changelog.md:87
 msgid "Surface diagnostics when Add Missing Switch Arms cannot apply"
 msgstr "Add Missing Switch Arms が適用できない場合に診断を表示"
 
-#: ../../user/changelog.md:66
+#: ../../user/changelog.md:88
 msgid "Render nested switch arms as a sub-tree in Visual Flow view"
 msgstr "Visual Flow ビューでネストした switch アームをサブツリーとして描画"
 
-#: ../../user/changelog.md:67
+#: ../../user/changelog.md:89
 msgid ""
 "Render tuple patterns with meaningful summaries in Switch Flow Diagram "
 "and the narrowing visualizer"
 msgstr "Switch Flow Diagram と narrowing visualizer でタプルパターンを意味のある要約で描画"
 
-#: ../../user/changelog.md:68
+#: ../../user/changelog.md:90
 msgid "Realign Hono + Inertia template with the `@hono/inertia` v0.2 API"
 msgstr "Hono + Inertia テンプレートを `@hono/inertia` v0.2 API に合わせて修正"
 
-#: ../../user/changelog.md:69
+#: ../../user/changelog.md:91
 msgid ""
 "Pass `--no-sandbox` to mmdc's bundled Chromium so Mermaid renders work on"
 " hosted CI"
 msgstr "mmdc の同梱 Chromium に `--no-sandbox` を渡し、ホスト型 CI でも Mermaid 描画が動作するように修正"
 
-#: ../../user/changelog.md:73
+#: ../../user/changelog.md:95
 msgid ""
 "Migrate ReScript run configurations from `build -w` to `watch` (ReScript "
 "12 CLI)"
 msgstr "ReScript 実行構成を `build -w` から `watch` (ReScript 12 CLI) へ移行"
 
-#: ../../user/changelog.md:74
+#: ../../user/changelog.md:96
 msgid "Centralise single-content tool window installation"
 msgstr "単一コンテンツのツールウィンドウ取り付けを共通化"
 
-#: ../../user/changelog.md:75
+#: ../../user/changelog.md:97
 msgid "Extract declaration signature parser to its own pure object"
 msgstr "宣言シグネチャパーサーを独立した純粋オブジェクトに抽出"
 
-#: ../../user/changelog.md:76
+#: ../../user/changelog.md:98
 msgid "Consolidate 1-based line counting in `RescriptOffsetUtils`"
 msgstr "1 始まりの行カウントを `RescriptOffsetUtils` に集約"
 
-#: ../../user/changelog.md:80
+#: ../../user/changelog.md:102
 msgid "Bump IntelliJ Platform to 2026.1.1 and pin verifier-cli 1.403"
 msgstr "IntelliJ Platform を 2026.1.1 に更新し、verifier-cli 1.403 を固定"
 
-#: ../../user/changelog.md:81
+#: ../../user/changelog.md:103
 msgid ""
 "Bump IntelliJ Platform Gradle plugin to 2.16.0, Kotlin 2.3.21, Gradle "
 "wrapper 9.5.0"
@@ -333,21 +391,21 @@ msgstr ""
 "IntelliJ Platform Gradle プラグインを 2.16.0、Kotlin を 2.3.21、Gradle wrapper を "
 "9.5.0 に更新"
 
-#: ../../user/changelog.md:82
+#: ../../user/changelog.md:104
 msgid "Add pitest mutation testing for `util/` and `lang/` (PR-only job)"
 msgstr "`util/` と `lang/` に対する pitest ミューテーションテストを追加（PR 限定ジョブ）"
 
-#: ../../user/changelog.md:83
+#: ../../user/changelog.md:105
 msgid ""
 "Pin third-party GitHub Actions to commit SHA; pin CI `npm install -g` "
 "versions"
 msgstr "サードパーティ GitHub Actions を commit SHA に固定し、CI の `npm install -g` バージョンを固定"
 
-#: ../../user/changelog.md:84
+#: ../../user/changelog.md:106
 msgid "Add Trivy secret-scan step uploading SARIF to the GitHub Security tab"
 msgstr "SARIF を GitHub Security タブにアップロードする Trivy シークレットスキャンステップを追加"
 
-#: ../../user/changelog.md:85
+#: ../../user/changelog.md:107
 msgid ""
 "Add `Expires` field to `plugin-verifier-ignored-problems.txt` with "
 "monthly-verify warning"
@@ -355,67 +413,67 @@ msgstr ""
 "`plugin-verifier-ignored-problems.txt` に `Expires` フィールドを追加し、monthly-"
 "verify で警告"
 
-#: ../../user/changelog.md:87
+#: ../../user/changelog.md:109
 msgid "0.1.13 (2026-04-27)"
 msgstr "0.1.13 (2026-04-27)"
 
-#: ../../user/changelog.md:91
+#: ../../user/changelog.md:113
 msgid ""
 "Module Dependency Diagram tool window with Mermaid rendering and DOT "
 "export"
 msgstr "Mermaid レンダリングと DOT エクスポートを備えた Module Dependency Diagram ツールウィンドウ"
 
-#: ../../user/changelog.md:92
+#: ../../user/changelog.md:114
 msgid "Add res-x (HTMX on Bun) project wizard template"
 msgstr "res-x (HTMX on Bun) プロジェクトウィザードテンプレートを追加"
 
-#: ../../user/changelog.md:93
+#: ../../user/changelog.md:115
 msgid "Add Validation Library selection (zod / sury) across all wizard templates"
 msgstr "全ウィザードテンプレートに Validation ライブラリ選択 (zod / sury) を追加"
 
-#: ../../user/changelog.md:94
+#: ../../user/changelog.md:116
 msgid "Add Bun package manager option to the project wizard"
 msgstr "プロジェクトウィザードに Bun パッケージマネージャーの選択肢を追加"
 
-#: ../../user/changelog.md:95
+#: ../../user/changelog.md:117
 msgid "Add Full-Stack GraphQL variant with graphql-yoga and rescript-relay"
 msgstr "graphql-yoga と rescript-relay を用いた Full-Stack GraphQL バリアントを追加"
 
-#: ../../user/changelog.md:96
+#: ../../user/changelog.md:118
 msgid ""
 "Add native PSI fallback intentions for extractLocalModuleToFile and "
 "applyUncurried"
 msgstr "extractLocalModuleToFile と applyUncurried のネイティブ PSI フォールバック intention を追加"
 
-#: ../../user/changelog.md:100
+#: ../../user/changelog.md:122
 msgid "Fix latent ReScript build failures across multiple templates"
 msgstr "複数テンプレートに潜在していた ReScript ビルド失敗を修正"
 
-#: ../../user/changelog.md:101
+#: ../../user/changelog.md:123
 msgid "Fix async event handler bindings in Vite, Next.js, and Electron templates"
 msgstr "Vite、Next.js、Electron テンプレートの非同期イベントハンドラバインディングを修正"
 
-#: ../../user/changelog.md:102
+#: ../../user/changelog.md:124
 msgid "Fix Monorepo and Full-Stack dev scripts so res file edits trigger rebuilds"
 msgstr "Monorepo と Full-Stack の dev スクリプトを修正し、res ファイル編集で再ビルドが走るように"
 
-#: ../../user/changelog.md:103
+#: ../../user/changelog.md:125
 msgid "Declare sury in rescript.json dependencies"
 msgstr "rescript.json の依存に sury を宣言"
 
-#: ../../user/changelog.md:107
+#: ../../user/changelog.md:129
 msgid ""
 "Migrate `RescriptConfigurable` settings panel to a schema-driven "
 "architecture"
 msgstr "`RescriptConfigurable` 設定パネルをスキーマ駆動アーキテクチャへ移行"
 
-#: ../../user/changelog.md:108
+#: ../../user/changelog.md:130
 msgid ""
 "Extract static template content from 10 wizard template files to bundled "
 "resources"
 msgstr "10 個のウィザードテンプレートファイルの静的コンテンツを同梱リソースに抽出"
 
-#: ../../user/changelog.md:109
+#: ../../user/changelog.md:131
 msgid ""
 "Replace deprecated FloatingToolbarProvider.priority, ReadAction.compute, "
 "and StubBasedPsiElementBase.elementType APIs"
@@ -424,411 +482,411 @@ msgstr ""
 "FloatingToolbarProvider.priority、ReadAction.compute、StubBasedPsiElementBase.elementType"
 " API を置き換え"
 
-#: ../../user/changelog.md:113
+#: ../../user/changelog.md:135
 msgid ""
 "Add CodeQL SAST workflow, monthly plugin verifier workflow, and weekly "
 "multi-OS verification workflow"
 msgstr "CodeQL SAST ワークフロー、月次プラグイン検証ワークフロー、週次マルチ OS 検証ワークフローを追加"
 
-#: ../../user/changelog.md:114
+#: ../../user/changelog.md:136
 msgid ""
 "Auto-purge stale plugin jars from the prepareSandbox output to avoid "
 "version skew"
 msgstr "バージョン不整合を防ぐため prepareSandbox 出力から stale なプラグイン jar を自動除去"
 
-#: ../../user/changelog.md:115
+#: ../../user/changelog.md:137
 msgid "Migrate from Dokka V1 to V2"
 msgstr "Dokka V1 から V2 へ移行"
 
-#: ../../user/changelog.md:116
+#: ../../user/changelog.md:138
 msgid "Bump IntelliJ Platform 2.14.0, Kover 0.9.8, and template dependency floors"
 msgstr "IntelliJ Platform 2.14.0、Kover 0.9.8、テンプレート依存の下限を更新"
 
-#: ../../user/changelog.md:118
+#: ../../user/changelog.md:140
 msgid "0.1.12 (2026-04-17)"
 msgstr "0.1.12 (2026-04-17)"
 
-#: ../../user/changelog.md:122
+#: ../../user/changelog.md:144
 msgid "Add React Native (Community CLI) project template"
 msgstr "React Native (Community CLI) プロジェクトテンプレートを追加"
 
-#: ../../user/changelog.md:123
+#: ../../user/changelog.md:145
 msgid "Add Full-Stack project template (single package)"
 msgstr "Full-Stack プロジェクトテンプレート（単一パッケージ）を追加"
 
-#: ../../user/changelog.md:124
+#: ../../user/changelog.md:146
 msgid "Add Hono GraphQL template with yoga, GraphiQL, and Drizzle"
 msgstr "yoga、GraphiQL、Drizzle を用いた Hono GraphQL テンプレートを追加"
 
-#: ../../user/changelog.md:125
+#: ../../user/changelog.md:147
 msgid "Upgrade Hono template with SQLite/Drizzle and OpenAPI/Scalar UI"
 msgstr "Hono テンプレートを SQLite/Drizzle と OpenAPI/Scalar UI で強化"
 
-#: ../../user/changelog.md:126
+#: ../../user/changelog.md:148
 msgid "Add vitest smoke tests across all 14 project templates"
 msgstr "全 14 プロジェクトテンプレートに vitest スモークテストを追加"
 
-#: ../../user/changelog.md:127
+#: ../../user/changelog.md:149
 msgid "Add PackageManager selection through to template generation"
 msgstr "テンプレート生成まで PackageManager 選択を反映"
 
-#: ../../user/changelog.md:128
+#: ../../user/changelog.md:150
 msgid "Add TemplateResourceLoader for static template content extraction"
 msgstr "静的テンプレートコンテンツ抽出のための TemplateResourceLoader を追加"
 
-#: ../../user/changelog.md:132
+#: ../../user/changelog.md:154
 msgid "Fix broken tests with unreachable assertions (null early-return pattern)"
 msgstr "到達不能なアサーション（null early-return パターン）を持つ壊れたテストを修正"
 
-#: ../../user/changelog.md:133
+#: ../../user/changelog.md:155
 msgid "Fix flaky integration test exec and preserve interrupt flag"
 msgstr "不安定な結合テストの実行を修正し、interrupt フラグを保持"
 
-#: ../../user/changelog.md:137
+#: ../../user/changelog.md:159
 msgid "Extract static template content from 5 template files to resources"
 msgstr "5 個のテンプレートファイルの静的コンテンツをリソースに抽出"
 
-#: ../../user/changelog.md:138
+#: ../../user/changelog.md:160
 msgid "Extract common paste processor base class"
 msgstr "共通のペーストプロセッサ基底クラスを抽出"
 
-#: ../../user/changelog.md:139
+#: ../../user/changelog.md:161
 msgid "Extract process execution logic to RescriptProcessUtils"
 msgstr "プロセス実行ロジックを RescriptProcessUtils に抽出"
 
-#: ../../user/changelog.md:140
+#: ../../user/changelog.md:162
 msgid "Replace deprecated AnActionEvent.createFromDataContext API"
 msgstr "非推奨の AnActionEvent.createFromDataContext API を置き換え"
 
-#: ../../user/changelog.md:144
+#: ../../user/changelog.md:166
 msgid "Add integration test harness for template generation"
 msgstr "テンプレート生成の結合テストハーネスを追加"
 
-#: ../../user/changelog.md:145
+#: ../../user/changelog.md:167
 msgid "Add pa11y-ci accessibility audit and pofilter translation check to CI"
 msgstr "CI に pa11y-ci アクセシビリティ監査と pofilter 翻訳チェックを追加"
 
-#: ../../user/changelog.md:146
+#: ../../user/changelog.md:168
 msgid "Ratchet kover minBound to 86%"
 msgstr "kover minBound を 86% にラチェット"
 
-#: ../../user/changelog.md:147
+#: ../../user/changelog.md:169
 msgid "Add 11 new test classes for improved test coverage"
 msgstr "テストカバレッジ向上のため 11 個の新規テストクラスを追加"
 
-#: ../../user/changelog.md:149
+#: ../../user/changelog.md:171
 msgid "0.1.11 (2026-04-01)"
 msgstr "0.1.11 (2026-04-01)"
 
-#: ../../user/changelog.md:153
+#: ../../user/changelog.md:175
 msgid "Add TypeScript/JSX paste conversion support"
 msgstr "TypeScript/JSX ペースト変換サポートを追加"
 
-#: ../../user/changelog.md:154
+#: ../../user/changelog.md:176
 msgid "Add dedicated REPL icon and improve input area"
 msgstr "REPL 専用アイコンを追加し入力エリアを改善"
 
-#: ../../user/changelog.md:155
+#: ../../user/changelog.md:177
 msgid ""
 "Improve REPL UX: resizable split, auto-scroll, history navigation, "
 "executor fixes"
 msgstr "REPL UX を改善: リサイズ可能な分割、自動スクロール、履歴ナビゲーション、エグゼキュータ修正"
 
-#: ../../user/changelog.md:156
+#: ../../user/changelog.md:178
 msgid "Enable syntax highlighting in REPL input area"
 msgstr "REPL 入力エリアのシンタックスハイライトを有効化"
 
-#: ../../user/changelog.md:157
+#: ../../user/changelog.md:179
 msgid ""
 "Add UI test framework with Remote-Robot for automated Marketplace "
 "screenshots"
 msgstr "Marketplace スクリーンショット自動化のための Remote-Robot UI テストフレームワークを追加"
 
-#: ../../user/changelog.md:158
+#: ../../user/changelog.md:180
 msgid "Add JSX state-based highlighting to Sphinx documentation lexer"
 msgstr "Sphinx ドキュメントレクサーに JSX 状態ベースのハイライトを追加"
 
-#: ../../user/changelog.md:162
+#: ../../user/changelog.md:184
 msgid "Add missing process timeout to RescriptUnusedCodeInspection"
 msgstr "RescriptUnusedCodeInspection に不足していたプロセスタイムアウトを追加"
 
-#: ../../user/changelog.md:163
+#: ../../user/changelog.md:185
 msgid "Improve error handling across 4 files"
 msgstr "4 ファイルにわたるエラーハンドリングを改善"
 
-#: ../../user/changelog.md:164
+#: ../../user/changelog.md:186
 msgid "Fix UI test failures on JDK 24 and improve test lifecycle"
 msgstr "JDK 24 での UI テスト失敗を修正しテストライフサイクルを改善"
 
-#: ../../user/changelog.md:165
+#: ../../user/changelog.md:187
 msgid ""
 "Fix screenshot quality: IDE-only capture, reliable file open, "
 "notification dismissal"
 msgstr "スクリーンショット品質を修正: IDE のみのキャプチャ、確実なファイル開き、通知の非表示"
 
-#: ../../user/changelog.md:166
+#: ../../user/changelog.md:188
 msgid "Fix REPL input area being read-only in tool window"
 msgstr "ツールウィンドウで REPL 入力エリアが読み取り専用になる問題を修正"
 
-#: ../../user/changelog.md:167
+#: ../../user/changelog.md:189
 msgid "Fix compiled JS file nesting in Project View"
 msgstr "Project View でのコンパイル済み JS ファイルのネスト表示を修正"
 
-#: ../../user/changelog.md:171
+#: ../../user/changelog.md:193
 msgid "Modernize Kotlin: convert to data object and serviceOrNull"
 msgstr "Kotlin のモダナイズ: data object と serviceOrNull への変換"
 
-#: ../../user/changelog.md:172
+#: ../../user/changelog.md:194
 msgid "Clean up REPL code for Qodana compliance"
 msgstr "Qodana 準拠のための REPL コードクリーンアップ"
 
-#: ../../user/changelog.md:176
+#: ../../user/changelog.md:198
 msgid "Introduce Gradle version catalog for dependency management"
 msgstr "依存関係管理のための Gradle バージョンカタログを導入"
 
-#: ../../user/changelog.md:177
+#: ../../user/changelog.md:199
 msgid "Sync version catalog with latest dependency versions"
 msgstr "最新の依存関係バージョンとバージョンカタログを同期"
 
-#: ../../user/changelog.md:178
+#: ../../user/changelog.md:200
 msgid "Update Kover, ktlint, Gradle wrapper, and fix Trivy action tag"
 msgstr "Kover、ktlint、Gradle wrapper を更新し、Trivy アクションタグを修正"
 
-#: ../../user/changelog.md:179
+#: ../../user/changelog.md:201
 msgid "Update dependencies per Dependabot suggestions"
 msgstr "Dependabot の提案に基づき依存関係を更新"
 
-#: ../../user/changelog.md:180
+#: ../../user/changelog.md:202
 msgid "Introduce parameterized tests for lexer keyword and literal tests"
 msgstr "レクサーのキーワード・リテラルテストにパラメータ化テストを導入"
 
-#: ../../user/changelog.md:181
+#: ../../user/changelog.md:203
 msgid "Add branch coverage tests for ProcessUtils and FileUtil"
 msgstr "ProcessUtils と FileUtil のブランチカバレッジテストを追加"
 
-#: ../../user/changelog.md:182
+#: ../../user/changelog.md:204
 msgid "Add missing KDoc to ProcessResult data class"
 msgstr "ProcessResult データクラスに不足していた KDoc を追加"
 
-#: ../../user/changelog.md:184
+#: ../../user/changelog.md:206
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#: ../../user/changelog.md:186
+#: ../../user/changelog.md:208
 msgid "Add glossary and FAQ pages to Sphinx docs"
 msgstr "Sphinx ドキュメントに用語集と FAQ ページを追加"
 
-#: ../../user/changelog.md:187
+#: ../../user/changelog.md:209
 msgid "Add tab-sets and dropdowns to Sphinx feature docs"
 msgstr "Sphinx 機能ドキュメントにタブセットとドロップダウンを追加"
 
-#: ../../user/changelog.md:188
+#: ../../user/changelog.md:210
 msgid "Add cross-references and improve admonitions in Sphinx docs"
 msgstr "Sphinx ドキュメントに相互参照を追加しアドモニションを改善"
 
-#: ../../user/changelog.md:189
+#: ../../user/changelog.md:211
 msgid "Add Sphinx extensions for SEO, UX, and developer experience"
 msgstr "SEO、UX、開発者体験のための Sphinx 拡張機能を追加"
 
-#: ../../user/changelog.md:191
+#: ../../user/changelog.md:213
 msgid "0.1.10 (2026-03-19)"
 msgstr "0.1.10 (2026-03-19)"
 
-#: ../../user/changelog.md:195
+#: ../../user/changelog.md:217
 msgid "Add benefit descriptions to all Sphinx feature documentation pages"
 msgstr "すべての Sphinx 機能ドキュメントページにメリットの説明を追加"
 
-#: ../../user/changelog.md:196
+#: ../../user/changelog.md:218
 msgid "Complete Japanese translations for all Sphinx documentation"
 msgstr "すべての Sphinx ドキュメントの日本語翻訳を完了"
 
-#: ../../user/changelog.md:200
+#: ../../user/changelog.md:222
 msgid "Add project scope validation and safe path construction"
 msgstr "プロジェクトスコープのバリデーションと安全なパス構築を追加"
 
-#: ../../user/changelog.md:201
+#: ../../user/changelog.md:223
 msgid "Fix REPL tool window keyboard input not working"
 msgstr "REPL ツールウィンドウのキーボード入力が動作しない問題を修正"
 
-#: ../../user/changelog.md:202
+#: ../../user/changelog.md:224
 msgid "Fix ktlint violations from ktlint 14.1.0 upgrade"
 msgstr "ktlint 14.1.0 アップグレードによる ktlint 違反を修正"
 
-#: ../../user/changelog.md:203
+#: ../../user/changelog.md:225
 msgid "Fix CI build and Qodana failures"
 msgstr "CI ビルドと Qodana の失敗を修正"
 
-#: ../../user/changelog.md:207
+#: ../../user/changelog.md:229
 msgid "Extract RescriptReanalyzeHealthChecker from RescriptReanalyzeServerService"
 msgstr "RescriptReanalyzeServerService から RescriptReanalyzeHealthChecker を抽出"
 
-#: ../../user/changelog.md:208
+#: ../../user/changelog.md:230
 msgid "Deduplicate weigh logic in RescriptCompletionWeigher"
 msgstr "RescriptCompletionWeigher の重み付けロジックを重複排除"
 
-#: ../../user/changelog.md:209
+#: ../../user/changelog.md:231
 msgid "Extract common ancestor traversal in RescriptLspDetector"
 msgstr "RescriptLspDetector の共通祖先走査を抽出"
 
-#: ../../user/changelog.md:210
+#: ../../user/changelog.md:232
 msgid "Consolidate hardcoded paths to RescriptPaths utility object"
 msgstr "ハードコードされたパスを RescriptPaths ユーティリティオブジェクトに集約"
 
-#: ../../user/changelog.md:211
+#: ../../user/changelog.md:233
 msgid "Extract magic numbers to named constants in RescriptUnwrapDescriptor"
 msgstr "RescriptUnwrapDescriptor のマジックナンバーを名前付き定数に抽出"
 
-#: ../../user/changelog.md:212
+#: ../../user/changelog.md:234
 msgid "Remove junit-vintage-engine and upgrade to JUnit 6.0.3"
 msgstr "junit-vintage-engine を削除し JUnit 6.0.3 にアップグレード"
 
-#: ../../user/changelog.md:216
+#: ../../user/changelog.md:238
 msgid "Add unit tests for 13 classes (parsers, handlers, view models, stub types)"
 msgstr "13 クラス（パーサー、ハンドラー、ビューモデル、スタブタイプ）のユニットテストを追加"
 
-#: ../../user/changelog.md:217
+#: ../../user/changelog.md:239
 msgid "Update Gradle plugin versions and wrapper"
 msgstr "Gradle プラグインバージョンとラッパーを更新"
 
-#: ../../user/changelog.md:218
+#: ../../user/changelog.md:240
 msgid "Add *.hprof to .gitignore"
 msgstr "*.hprof を .gitignore に追加"
 
-#: ../../user/changelog.md:220
+#: ../../user/changelog.md:242
 msgid "0.1.9 (2026-03-16)"
 msgstr "0.1.9 (2026-03-16)"
 
-#: ../../user/changelog.md:224
+#: ../../user/changelog.md:246
 msgid "Add file type recovery startup activity for .res/.resi files"
 msgstr ".res/.resi ファイルのファイルタイプ復旧スタートアップアクティビティを追加"
 
-#: ../../user/changelog.md:228
+#: ../../user/changelog.md:250
 msgid "Fix plugin descriptor registration for liveTemplate context and Grazie"
 msgstr "liveTemplate コンテキストと Grazie のプラグイン記述子登録を修正"
 
-#: ../../user/changelog.md:229
+#: ../../user/changelog.md:251
 msgid "Add missing getDisplayName override to WorksheetFileType"
 msgstr "WorksheetFileType に不足していた getDisplayName オーバーライドを追加"
 
-#: ../../user/changelog.md:230
+#: ../../user/changelog.md:252
 msgid "Add null safety for LSP notification params"
 msgstr "LSP 通知パラメータの null 安全性を追加"
 
-#: ../../user/changelog.md:231
+#: ../../user/changelog.md:253
 msgid "Fix empty string crash in completion weigher"
 msgstr "補完ウェイターでの空文字列によるクラッシュを修正"
 
-#: ../../user/changelog.md:235
+#: ../../user/changelog.md:257
 msgid "Bump project template dependency versions"
 msgstr "プロジェクトテンプレートの依存関係バージョンを更新"
 
-#: ../../user/changelog.md:237
+#: ../../user/changelog.md:259
 msgid "0.1.8 (2026-03-12)"
 msgstr "0.1.8 (2026-03-12)"
 
-#: ../../user/changelog.md:241
+#: ../../user/changelog.md:263
 msgid "Add explicit ModalityState to invokeLater calls"
 msgstr "invokeLater 呼び出しに明示的な ModalityState を追加"
 
-#: ../../user/changelog.md:242
+#: ../../user/changelog.md:264
 msgid "Use CopyOnWriteArrayList for thread-safe listener lists"
 msgstr "スレッドセーフなリスナーリストに CopyOnWriteArrayList を使用"
 
-#: ../../user/changelog.md:243
+#: ../../user/changelog.md:265
 msgid "Add getActionUpdateThread() to AnAction subclasses"
 msgstr "AnAction サブクラスに getActionUpdateThread() を追加"
 
-#: ../../user/changelog.md:244
+#: ../../user/changelog.md:266
 msgid "Add remediation guidance to user-facing error messages"
 msgstr "ユーザー向けエラーメッセージに対処方法のガイダンスを追加"
 
-#: ../../user/changelog.md:245
+#: ../../user/changelog.md:267
 msgid "Replace broad catch(Exception) with specific exception types in analysis/"
 msgstr "analysis/ の広範な catch(Exception) を具体的な例外型に置換"
 
-#: ../../user/changelog.md:246
+#: ../../user/changelog.md:268
 msgid "Fix thread leak in RescriptFormatCheckAnnotator"
 msgstr "RescriptFormatCheckAnnotator のスレッドリークを修正"
 
-#: ../../user/changelog.md:247
+#: ../../user/changelog.md:269
 msgid "Suppress duplicate \"Start a build\" prompts from LSP server"
 msgstr "LSP サーバーからの重複する \"Start a build\" プロンプトを抑制"
 
-#: ../../user/changelog.md:249 ../../user/changelog.md:317
+#: ../../user/changelog.md:271 ../../user/changelog.md:339
 msgid "Improvements"
 msgstr "改善"
 
-#: ../../user/changelog.md:251
+#: ../../user/changelog.md:273
 msgid ""
 "Add missing keyboard shortcuts, settings, and intention actions to "
 "documentation"
 msgstr "ドキュメントに不足していたキーボードショートカット、設定、Intention Actions を追加"
 
-#: ../../user/changelog.md:252
+#: ../../user/changelog.md:274
 msgid "Add undocumented features to Sphinx advanced docs"
 msgstr "未ドキュメントの機能を Sphinx 上級ドキュメントに追加"
 
-#: ../../user/changelog.md:256
+#: ../../user/changelog.md:278
 msgid "Add KDoc check, EP registration check, and Trivy vulnerability scan to CI"
 msgstr "CI に KDoc チェック、EP 登録チェック、Trivy 脆弱性スキャンを追加"
 
-#: ../../user/changelog.md:257
+#: ../../user/changelog.md:279
 msgid "Add quality check Gradle tasks and raise coverage threshold"
 msgstr "品質チェック Gradle タスクを追加しカバレッジ閾値を引き上げ"
 
-#: ../../user/changelog.md:258
+#: ../../user/changelog.md:280
 msgid "Add version consistency check and publish approval gate"
 msgstr "バージョン整合性チェックと公開承認ゲートを追加"
 
-#: ../../user/changelog.md:259
+#: ../../user/changelog.md:281
 msgid "Remove Qodana Dependabot bypass and add fail threshold"
 msgstr "Qodana Dependabot バイパスを削除し失敗閾値を追加"
 
-#: ../../user/changelog.md:260
+#: ../../user/changelog.md:282
 msgid "Add performance benchmark and headless IDE smoke tests"
 msgstr "パフォーマンスベンチマークとヘッドレス IDE スモークテストを追加"
 
-#: ../../user/changelog.md:261
+#: ../../user/changelog.md:283
 msgid "Expand test fixtures from 4 to 22 files"
 msgstr "テストフィクスチャを 4 ファイルから 22 ファイルに拡充"
 
-#: ../../user/changelog.md:262
+#: ../../user/changelog.md:284
 msgid "Add missing KDoc comments to 43 class/object declarations"
 msgstr "43 のクラス/オブジェクト宣言に不足していた KDoc コメントを追加"
 
-#: ../../user/changelog.md:264
+#: ../../user/changelog.md:286
 msgid "0.1.7 (2026-03-11)"
 msgstr "0.1.7 (2026-03-11)"
 
-#: ../../user/changelog.md:268
+#: ../../user/changelog.md:290
 msgid "Fix read-action threading violation in getHoverType"
 msgstr "getHoverType の read-action スレッド違反を修正"
 
-#: ../../user/changelog.md:269
+#: ../../user/changelog.md:291
 msgid "Add icon attribute to fileType registration for .res/.resi"
 msgstr ".res/.resi の fileType 登録にアイコン属性を追加"
 
-#: ../../user/changelog.md:270
+#: ../../user/changelog.md:292
 msgid "Remove platform version suffix from plugin version string"
 msgstr "プラグインバージョン文字列からプラットフォームバージョンサフィックスを削除"
 
-#: ../../user/changelog.md:272
+#: ../../user/changelog.md:294
 msgid "0.1.6 (2026-03-10)"
 msgstr "0.1.6 (2026-03-10)"
 
-#: ../../user/changelog.md:276
+#: ../../user/changelog.md:298
 msgid ""
 "Fix EDT threading violation in TypeInfoPanel when accessing caret offset "
 "from pooled thread"
 msgstr "TypeInfoPanel でプールスレッドからキャレットオフセットにアクセスする際の EDT スレッド違反を修正"
 
-#: ../../user/changelog.md:277
+#: ../../user/changelog.md:299
 msgid ""
 "Fix GenerateGroup to extend DefaultActionGroup for proper child action "
 "support"
 msgstr "GenerateGroup が DefaultActionGroup を継承するよう修正し、子アクションを正しくサポート"
 
-#: ../../user/changelog.md:278
+#: ../../user/changelog.md:300
 msgid ""
 "Fix testCreator extension point attribute name (`implementation` → "
 "`implementationClass`)"
@@ -836,23 +894,23 @@ msgstr ""
 "testCreator Extension Point の属性名を修正（`implementation` → "
 "`implementationClass`）"
 
-#: ../../user/changelog.md:280
+#: ../../user/changelog.md:302
 msgid "0.1.5 (2026-03-10)"
 msgstr "0.1.5 (2026-03-10)"
 
-#: ../../user/changelog.md:284
+#: ../../user/changelog.md:306
 msgid "Migrate test suite from JUnit 4 to JUnit 5 (Jupiter)"
 msgstr "テストスイートを JUnit 4 から JUnit 5 (Jupiter) に移行"
 
-#: ../../user/changelog.md:285
+#: ../../user/changelog.md:307
 msgid "Centralize regex patterns into RescriptRegexPatterns"
 msgstr "正規表現パターンを RescriptRegexPatterns に集約"
 
-#: ../../user/changelog.md:286
+#: ../../user/changelog.md:308
 msgid "Extract brace balance utilities into RescriptBraceBalanceUtil"
 msgstr "括弧バランスユーティリティを RescriptBraceBalanceUtil に抽出"
 
-#: ../../user/changelog.md:287
+#: ../../user/changelog.md:309
 msgid ""
 "Extract common patterns: quick fix in StyleLintInspection, Gson "
 "deserialization, region search in UnwrapDescriptor"
@@ -860,255 +918,255 @@ msgstr ""
 "共通パターンの抽出: StyleLintInspection の Quick Fix、Gson "
 "デシリアライゼーション、UnwrapDescriptor のリージョン検索"
 
-#: ../../user/changelog.md:288
+#: ../../user/changelog.md:310
 msgid "Reduce postfix template boilerplate with data-driven approach"
 msgstr "データ駆動アプローチにより Postfix テンプレートのボイラープレートを削減"
 
-#: ../../user/changelog.md:289
+#: ../../user/changelog.md:311
 msgid ""
 "Remove redundant Elvis operator, duplicate type wrappers, unnecessary "
 "companion object shims"
 msgstr "冗長な Elvis 演算子、重複する型ラッパー、不要な companion object シムを削除"
 
-#: ../../user/changelog.md:290
+#: ../../user/changelog.md:312
 msgid ""
 "Replace inline regex with string matching in SignatureSyncInspection and "
 "isModuleOpened"
 msgstr "SignatureSyncInspection と isModuleOpened でインライン正規表現を文字列マッチングに置換"
 
-#: ../../user/changelog.md:294
+#: ../../user/changelog.md:316
 msgid "Remove unused LOG fields in DtsNodeDetector and RescriptReplExecutor"
 msgstr "DtsNodeDetector と RescriptReplExecutor の未使用 LOG フィールドを削除"
 
-#: ../../user/changelog.md:295
+#: ../../user/changelog.md:317
 msgid "Restore Kover coverage verification above 54% threshold"
 msgstr "Kover カバレッジ検証の 54% 閾値を復元"
 
-#: ../../user/changelog.md:297
+#: ../../user/changelog.md:319
 msgid "0.1.4 (2026-03-06)"
 msgstr "0.1.4 (2026-03-06)"
 
-#: ../../user/changelog.md:301
+#: ../../user/changelog.md:323
 msgid "Rewrite CodeVisionProvider in Java to avoid internal API reference"
 msgstr "内部 API 参照を回避するため CodeVisionProvider を Java で書き直し"
 
-#: ../../user/changelog.md:302
+#: ../../user/changelog.md:324
 msgid "Add exception logging and fix InterruptedException handling"
 msgstr "例外ログの追加と InterruptedException 処理の修正"
 
-#: ../../user/changelog.md:306
+#: ../../user/changelog.md:328
 msgid "Extract RescriptProcessUtils for shared process execution"
 msgstr "共通プロセス実行のため RescriptProcessUtils を抽出"
 
-#: ../../user/changelog.md:310
+#: ../../user/changelog.md:332
 msgid "Optimize CI by merging verify job and reordering Kover tasks"
 msgstr "verify ジョブの統合と Kover タスクの並べ替えにより CI を最適化"
 
-#: ../../user/changelog.md:311
+#: ../../user/changelog.md:333
 msgid "Add Kover exclusions and unit tests for coverage improvement"
 msgstr "カバレッジ向上のため Kover 除外設定とユニットテストを追加"
 
-#: ../../user/changelog.md:312
+#: ../../user/changelog.md:334
 msgid ""
 "Add medium-difficulty tests for StringLiteral, DtsParserProcess, and "
 "GenerateActionUtil"
 msgstr "StringLiteral、DtsParserProcess、GenerateActionUtil の中難度テストを追加"
 
-#: ../../user/changelog.md:313
+#: ../../user/changelog.md:335
 msgid "Expand plugin description and fix changelog versioning"
 msgstr "プラグインの説明を拡充し、変更履歴のバージョニングを修正"
 
-#: ../../user/changelog.md:315
+#: ../../user/changelog.md:337
 msgid "0.1.3 (2026-03-05)"
 msgstr "0.1.3 (2026-03-05)"
 
-#: ../../user/changelog.md:319
+#: ../../user/changelog.md:341
 msgid "Add plugin icon for JetBrains Marketplace display"
 msgstr "JetBrains Marketplace 表示用のプラグインアイコンを追加"
 
-#: ../../user/changelog.md:320
+#: ../../user/changelog.md:342
 msgid "Fix plugin verifier deprecated API warnings"
 msgstr "Plugin Verifier の非推奨 API 警告を修正"
 
-#: ../../user/changelog.md:321
+#: ../../user/changelog.md:343
 msgid "Update docs to reflect current implementation state"
 msgstr "現在の実装状態を反映するようドキュメントを更新"
 
-#: ../../user/changelog.md:323
+#: ../../user/changelog.md:345
 msgid "0.1.2 (2026-03-03)"
 msgstr "0.1.2 (2026-03-03)"
 
-#: ../../user/changelog.md:327
+#: ../../user/changelog.md:349
 msgid "Initial release submitted to JetBrains Marketplace with 109 features:"
 msgstr "109 機能を搭載し JetBrains Marketplace に初回リリースを申請:"
 
-#: ../../user/changelog.md:329
+#: ../../user/changelog.md:351
 msgid "Full syntax highlighting via JFlex lexer"
 msgstr "JFlex レクサーによる完全なシンタックスハイライト"
 
-#: ../../user/changelog.md:330
+#: ../../user/changelog.md:352
 msgid "LSP integration with `@rescript/language-server`"
 msgstr "`@rescript/language-server` との LSP 統合"
 
-#: ../../user/changelog.md:331
+#: ../../user/changelog.md:353
 msgid "Semantic highlighting via LSP semantic tokens"
 msgstr "LSP セマンティックトークンによるセマンティックハイライト"
 
-#: ../../user/changelog.md:332
+#: ../../user/changelog.md:354
 msgid "Code completion, Go to Definition, Hover, Find Usages"
 msgstr "コード補完、定義へ移動、ホバー、使用箇所の検索"
 
-#: ../../user/changelog.md:333
+#: ../../user/changelog.md:355
 msgid "Code folding (modules, declarations, comments, custom regions)"
 msgstr "コード折りたたみ（モジュール、宣言、コメント、カスタムリージョン）"
 
-#: ../../user/changelog.md:334
+#: ../../user/changelog.md:356
 msgid "Brace matching and smart quotes"
 msgstr "括弧の対応付けとスマート引用符"
 
-#: ../../user/changelog.md:335
+#: ../../user/changelog.md:357
 msgid "Structure view"
 msgstr "ストラクチャービュー"
 
-#: ../../user/changelog.md:336
+#: ../../user/changelog.md:358
 msgid "Code formatting via `rescript format` CLI"
 msgstr "`rescript format` CLI によるコードフォーマット"
 
-#: ../../user/changelog.md:337
+#: ../../user/changelog.md:359
 msgid "Run configurations (Build, Build Watch, Clean)"
 msgstr "実行構成（Build、Build Watch、Clean）"
 
-#: ../../user/changelog.md:338
+#: ../../user/changelog.md:360
 msgid "Test runner integration (Jest/Vitest)"
 msgstr "テストランナー統合（Jest/Vitest）"
 
-#: ../../user/changelog.md:339
+#: ../../user/changelog.md:361
 msgid ""
 "Code inspections (duplicate open, empty module, missing config, signature"
 " sync, style linting)"
 msgstr "コードインスペクション（重複 open、空モジュール、設定ファイルの欠落、シグネチャ同期、スタイルリンティング）"
 
-#: ../../user/changelog.md:340
+#: ../../user/changelog.md:362
 msgid "Dead code analysis via reanalyze with server mode"
 msgstr "reanalyze によるデッドコード分析（サーバーモード対応）"
 
-#: ../../user/changelog.md:341
+#: ../../user/changelog.md:363
 msgid "Import optimization"
 msgstr "インポートの最適化"
 
-#: ../../user/changelog.md:342
+#: ../../user/changelog.md:364
 msgid ""
 "20+ Intention actions (Wrap with, unwrap, pipe conversion, case split, "
 "labeled args, etc.)"
 msgstr "20 以上の Intention Actions（Wrap with、Unwrap、パイプ変換、ケース分割、ラベル付き引数など）"
 
-#: ../../user/changelog.md:343
+#: ../../user/changelog.md:365
 msgid "Surround with (if/switch/try/block)"
 msgstr "Surround with（if/switch/try/block）"
 
-#: ../../user/changelog.md:344
+#: ../../user/changelog.md:366
 msgid "Postfix completion (.switch, .pipe, .log, .promise, .await, etc.)"
 msgstr "Postfix 補完（.switch、.pipe、.log、.promise、.await など）"
 
-#: ../../user/changelog.md:345
+#: ../../user/changelog.md:367
 msgid "Live templates (21 snippets including FFI bindings and React component)"
 msgstr "Live Templates（FFI バインディングと React コンポーネントを含む 21 スニペット）"
 
-#: ../../user/changelog.md:346
+#: ../../user/changelog.md:368
 msgid "File templates (Module, Interface, Component)"
 msgstr "ファイルテンプレート（Module、Interface、Component）"
 
-#: ../../user/changelog.md:347
+#: ../../user/changelog.md:369
 msgid "Go to Symbol, Go to Related, File switching (.res/.resi)"
 msgstr "シンボルへ移動、関連ファイルへ移動、ファイル切り替え（.res/.resi）"
 
-#: ../../user/changelog.md:348
+#: ../../user/changelog.md:370
 msgid "Search Everywhere with stub-indexed symbols"
 msgstr "スタブインデックスによるシンボルの Search Everywhere"
 
-#: ../../user/changelog.md:349
+#: ../../user/changelog.md:371
 msgid "Create interface file, Open compiled JavaScript"
 msgstr "インターフェースファイルの作成、コンパイル済み JavaScript を開く"
 
-#: ../../user/changelog.md:350
+#: ../../user/changelog.md:372
 msgid "Code Lens (type annotations), Inlay hints"
 msgstr "Code Lens（型注釈）、Inlay Hints"
 
-#: ../../user/changelog.md:351
+#: ../../user/changelog.md:373
 msgid "Compiled JS Preview tool window"
 msgstr "コンパイル済み JS プレビューツールウィンドウ"
 
-#: ../../user/changelog.md:352
+#: ../../user/changelog.md:374
 msgid "Module Hierarchy and Call Hierarchy views"
 msgstr "モジュール階層ビューと Call Hierarchy ビュー"
 
-#: ../../user/changelog.md:353
+#: ../../user/changelog.md:375
 msgid "Build status in status bar, Error Lens inline diagnostics"
 msgstr "ステータスバーのビルドステータス、Error Lens インライン診断"
 
-#: ../../user/changelog.md:354
+#: ../../user/changelog.md:376
 msgid "Signature Help, Parameter Info"
 msgstr "Signature Help、Parameter Info"
 
-#: ../../user/changelog.md:355
+#: ../../user/changelog.md:377
 msgid "Statement up/down mover, Smart Enter"
 msgstr "ステートメントの上下移動、Smart Enter"
 
-#: ../../user/changelog.md:356
+#: ../../user/changelog.md:378
 msgid "Extract Variable/Function, Inline, Introduce Constant, Change Signature"
 msgstr "Extract Variable/Function、Inline、Introduce Constant、Change Signature"
 
-#: ../../user/changelog.md:357
+#: ../../user/changelog.md:379
 msgid "React component extraction, Safe Delete"
 msgstr "React コンポーネントの抽出、Safe Delete"
 
-#: ../../user/changelog.md:358
+#: ../../user/changelog.md:380
 msgid "Unresolved reference Quick Fix (add open/qualifier)"
 msgstr "未解決参照の Quick Fix（open 追加/修飾子付加）"
 
-#: ../../user/changelog.md:359
+#: ../../user/changelog.md:381
 msgid "Generate function from usage, Type hole Quick Fix"
 msgstr "使用箇所からの関数生成、型ホールの Quick Fix"
 
-#: ../../user/changelog.md:360
+#: ../../user/changelog.md:382
 msgid ""
 "Generate actions (switch arms, module type, make, record value, JSON "
 "encoder/decoder)"
 msgstr "Generate アクション（switch arms、module type、make、record value、JSON エンコーダ/デコーダ）"
 
-#: ../../user/changelog.md:361
+#: ../../user/changelog.md:383
 msgid ".d.ts to ReScript binding generation"
 msgstr ".d.ts から ReScript バインディングの生成"
 
-#: ../../user/changelog.md:362
+#: ../../user/changelog.md:384
 msgid "Project Wizard with 12 templates"
 msgstr "12 テンプレート対応の Project Wizard"
 
-#: ../../user/changelog.md:363
+#: ../../user/changelog.md:385
 msgid "LSP auto-install with package manager detection"
 msgstr "パッケージマネージャ自動検出による LSP 自動インストール"
 
-#: ../../user/changelog.md:364
+#: ../../user/changelog.md:386
 msgid "REPL, Worksheet mode (.resw), Scratch files"
 msgstr "REPL、Worksheet モード（.resw）、スクラッチファイル"
 
-#: ../../user/changelog.md:365
+#: ../../user/changelog.md:387
 msgid "Dependency diagram, PPX expansion view"
 msgstr "依存関係ダイアグラム、PPX 展開ビュー"
 
-#: ../../user/changelog.md:366
+#: ../../user/changelog.md:388
 msgid "Type signature search, Type Info tool window"
 msgstr "型シグネチャ検索、Type Info ツールウィンドウ"
 
-#: ../../user/changelog.md:367
+#: ../../user/changelog.md:389
 msgid "Editor floating toolbar, framework detector"
 msgstr "エディタフローティングツールバー、フレームワーク検出"
 
-#: ../../user/changelog.md:368
+#: ../../user/changelog.md:390
 msgid "GitHub error reporter"
 msgstr "GitHub エラーレポーター"
 
-#: ../../user/changelog.md:369
+#: ../../user/changelog.md:391
 msgid "And many more IDE integrations"
 msgstr "その他多数の IDE 統合機能"
 

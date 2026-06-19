@@ -6,6 +6,28 @@ myst:
 
 # Changelog
 
+## 0.1.16.3 (2026-06-19)
+
+### Infrastructure
+
+- 2026.2 EAP deprecated-API cleanup — dispose of every deprecated platform-API usage flagged by the 2026.2 EAP plugin verifier: remove the obsolete lsp4j `MarkedString` branch from the hover type provider, and suppress the LSP-API deprecations whose replacement `LspClient` interfaces do not yet exist on the 2025.3/2026.1 compile targets, keeping the plugin forward-compatible without breaking current builds
+
+## 0.1.16.2 (2026-06-19)
+
+### Bug Fixes
+
+- Module and Call Hierarchy no longer depend on `SmartElementDescriptor.getPsiElement()`, which was reclassified as an internal API in 2026.2; the hierarchy descriptors now use their own smart pointer, restoring forward compatibility with upcoming IDE builds
+
+### Infrastructure
+
+- The release pipeline now gates the Marketplace publish on the tagged commit's CI being green, so a red build can no longer be published
+
+## 0.1.16.1 (2026-06-19)
+
+### Infrastructure
+
+- Republish without author-side archive signing to work around a "plugin archive file cannot be extracted" error on JetBrains Marketplace; the plugin is still signed by Marketplace itself, so distribution integrity is unaffected
+
 ## 0.1.16 (2026-06-16)
 
 ### Bug Fixes
