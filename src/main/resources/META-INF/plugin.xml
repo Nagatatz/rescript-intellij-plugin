@@ -69,6 +69,11 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.16.3</h3>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li><b>2026.2 EAP deprecated-API cleanup</b> — disposed of every deprecated platform-API usage flagged by the 2026.2 EAP plugin verifier: removed the obsolete lsp4j <code>MarkedString</code> branch from the hover type provider, and suppressed the LSP-API deprecations whose replacement <code>LspClient</code> interfaces do not yet exist on the 2025.3/2026.1 compile targets, keeping the plugin forward-compatible without breaking current builds</li>
+        </ul>
         <h3>0.1.16.2</h3>
         <h4>Bug Fixes</h4>
         <ul>
