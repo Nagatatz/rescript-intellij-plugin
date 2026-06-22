@@ -28,7 +28,7 @@ jobs:
       pull-requests: write  # reviewdog posts PR review comments
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Run actionlint
         # Pinned to commit SHA per .claude/rules/github-actions-pinning.md.
@@ -45,7 +45,7 @@ jobs:
       security-events: write  # upload SARIF to Code Scanning
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Run Trivy vulnerability scanner
         # aquasecurity is the upstream Trivy maintainer and a recognised
@@ -78,7 +78,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@v6
@@ -224,7 +224,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@v6
@@ -262,7 +262,7 @@ jobs:
     # resolution issues, broken smoke tests — before they reach a user.
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup JDK 21
         uses: actions/setup-java@v5
