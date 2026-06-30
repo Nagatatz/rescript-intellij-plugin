@@ -1,0 +1,70 @@
+name: Template Versions Outdated
+
+# Notify-only currency check for the npm versions the wizard templates write
+# into user projects. Those versions live as Kotlin constants in
+# TemplateVersions.kt, so Dependabot cannot bump them. monthly-verify.yml
+# already runs `npm audit` over a synthetic manifest for *security*; this job
+# reuses the same generator to run `npm outdated` for *currency*, and reports
+# to the run summary. It never opens a PR and never fails the build.
+#
+# When something is outdated here, bump the matching constant in
+# src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateVersions.kt.
+
+on:
+  schedule:
+    # 05:00 UTC every Monday.
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  outdated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Generate manifest from TemplateVersions.kt
+        run: node .github/scripts/audit-template-versions.mjs .github/scripts/template-outdated
+
+      - name: Resolve lockfile
+        working-directory: .github/scripts/template-outdated
+        # --legacy-peer-deps: the synthetic manifest mixes every template's
+        # dependencies, so cross-template peer ranges may conflict; we only
+        # need a resolved tree to diff versions, not a valid peer graph.
+        run: npm install --package-lock-only --legacy-peer-deps --no-audit --no-fund
+
+      - name: npm outdated (report to summary)
+        working-directory: .github/scripts/template-outdated
+        shell: bash
+        run: |
+          set -uo pipefail
+          # npm outdated exits non-zero when anything is outdated — expected.
+          out="$(npm outdated --long || true)"
+          if [ -z "$out" ]; then
+            echo "✅ All template versions are current." >> "$GITHUB_STEP_SUMMARY"
+            echo "All template versions are current."
+            exit 0
+          fi
+          {
+            echo "## ⚠️ Template versions with newer releases"
+            echo
+            echo "Bump the matching constant in"
+            echo "\`src/main/kotlin/com/rescript/plugin/wizard/templates/TemplateVersions.kt\`."
+            echo
+            echo '```'
+            echo "$out"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning::Template npm versions are outdated — see the run summary."

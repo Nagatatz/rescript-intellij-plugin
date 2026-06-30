@@ -1,0 +1,141 @@
+name: IntelliJ Platform Watch
+
+# Notify-only upstream tracker for the IntelliJ Platform dependency.
+#
+# `platformVersion` in gradle.properties is a plain Gradle property string,
+# so Dependabot's gradle ecosystem cannot bump it, and EAP/snapshot builds
+# are not on the public releases feed at all. This job reads the authoritative
+# maven-metadata.xml from the JetBrains IntelliJ repository (the same source
+# `defaultRepositories()` resolves from) for both the stable release channel
+# and the EAP snapshot channel, compares them against the current pin, and
+# maintains a single tracking issue. It never opens a PR and never fails the
+# build — it only files / refreshes the issue (which emails issue watchers).
+#
+# Stable bumps -> the plugin can move `platformVersion` forward.
+# EAP bumps    -> early signal to run verifyPlugin against the next major
+#                 (see monthly-verify.yml + NFR-02 Verifier triage).
+
+on:
+  schedule:
+    # 05:00 UTC every Monday. EAP candidates land roughly weekly.
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: intellij-platform-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+# Mirror monthly-verify.yml: force JS actions (checkout) onto Node 24 ahead
+# of GitHub's June 2026 default switch.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # IDEA Ultimate; build numbers and year.major.minor version strings are
+  # shared with Community, so this is a faithful signal for either edition.
+  ARTIFACT: ideaIU
+  ISSUE_TITLE: 'IntelliJ Platform: upstream updates available'
+  ISSUE_LABEL: upstream
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Compare platformVersion against JetBrains metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          pin="$(sed -n 's/^[[:space:]]*platformVersion[[:space:]]*=[[:space:]]*//p' gradle.properties | head -1)"
+          if [ -z "$pin" ]; then
+            echo "::error::could not read platformVersion from gradle.properties"
+            exit 1
+          fi
+
+          base="https://www.jetbrains.com/intellij-repository"
+          path="com/jetbrains/intellij/idea/${ARTIFACT}/maven-metadata.xml"
+          meta() { curl -sSL --retry 3 "$base/$1/$path"; }
+          latest_of() { grep -oE '<release>[^<]+' | sed 's/<release>//' | head -1; }
+
+          rel="$(meta releases  | latest_of || true)"
+          eap="$(meta snapshots | latest_of || true)"
+          echo "pin=$pin  latest_release=$rel  latest_eap=$eap"
+
+          # Stable is newer when the highest of {pin, rel} is rel and they differ.
+          newer_stable=false
+          if [ -n "$rel" ] && [ "$rel" != "$pin" ] && \
+             [ "$(printf '%s\n%s\n' "$pin" "$rel" | sort -V | tail -1)" = "$rel" ]; then
+            newer_stable=true
+          fi
+
+          # Locate the existing tracker (any state) by exact title + label.
+          existing="$(gh issue list --state all --label "$ISSUE_LABEL" \
+            --search "\"$ISSUE_TITLE\" in:title" \
+            --json number,state,body --jq '.[0] // empty')"
+          num="$(jq -r '.number // empty' <<<"$existing")"
+          state="$(jq -r '.state // empty' <<<"$existing")"
+          oldbody="$(jq -r '.body // empty' <<<"$existing")"
+          last_rel="$(grep -oE 'watch:rel=[^ ]+' <<<"$oldbody" | sed 's/watch:rel=//' | head -1 || true)"
+          last_eap="$(grep -oE 'watch:eap=[^ ]+' <<<"$oldbody" | sed 's/watch:eap=//' | head -1 || true)"
+
+          # "News" = a newer stable, or either channel changed since last report.
+          news=false
+          [ "$newer_stable" = true ] && news=true
+          [ -n "$rel" ] && [ "$rel" != "$last_rel" ] && news=true
+          [ -n "$eap" ] && [ "$eap" != "$last_eap" ] && news=true
+
+          stable_line="up to date (pinned $pin)"
+          [ "$newer_stable" = true ] && stable_line="**newer stable available: $rel** (pinned $pin)"
+
+          body="$RUNNER_TEMP/intellij-platform-watch.md"
+          {
+            echo "Automated upstream tracker — see \`.github/workflows/intellij-platform-watch.yml\`."
+            echo "This issue is notify-only; nothing here opens a PR."
+            echo
+            echo "| Channel | Current pin | Latest upstream |"
+            echo "| --- | --- | --- |"
+            echo "| Stable (\`$ARTIFACT\` releases) | \`$pin\` | \`$rel\` |"
+            echo "| EAP (\`$ARTIFACT\` snapshots) | — | \`$eap\` |"
+            echo
+            echo "- Stable: $stable_line"
+            echo "- EAP: latest snapshot is \`$eap\`. Run \`./gradlew verifyPlugin\` against the next major early (see monthly-verify.yml / NFR-02)."
+            echo
+            echo "To move the stable pin, edit \`platformVersion\` in \`gradle.properties\`."
+            echo
+            echo "Sources:"
+            echo "- https://www.jetbrains.com/intellij-repository/releases (stable)"
+            echo "- https://www.jetbrains.com/intellij-repository/snapshots (EAP)"
+            echo
+            echo "<!-- watch:rel=$rel watch:eap=$eap -->"
+          } > "$body"
+
+          if [ -z "$num" ]; then
+            if [ "$news" = true ]; then
+              gh label create "$ISSUE_LABEL" -c FBCA04 \
+                -d "Upstream dependency updates" 2>/dev/null || true
+              gh issue create --title "$ISSUE_TITLE" --label "$ISSUE_LABEL" --body-file "$body"
+              echo "Created tracker issue."
+            else
+              echo "No tracker and no news; nothing to do."
+            fi
+            exit 0
+          fi
+
+          # Issue exists: always refresh the body so the table stays current.
+          gh issue edit "$num" --body-file "$body"
+          if [ "$news" = true ]; then
+            [ "$state" = "CLOSED" ] && gh issue reopen "$num" || true
+            gh issue comment "$num" --body \
+              "Upstream change detected — stable \`$rel\` (pin \`$pin\`), EAP \`$eap\`."
+            echo "Refreshed and pinged tracker #$num."
+          else
+            echo "Refreshed tracker #$num (no new versions)."
+          fi
