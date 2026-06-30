@@ -1,0 +1,58 @@
+name: Dependabot Discord Notify
+
+# Posts a message to Discord whenever Dependabot opens a PR.
+#
+# Uses pull_request_target so the DISCORD_WEBHOOK_URL Actions secret is
+# available: Dependabot-triggered `pull_request` runs get a read-only token
+# and CANNOT read Actions secrets. This job never checks out the PR head and
+# only reads event metadata, so pull_request_target is safe here.
+#
+# Setup (one-time, per repo or as a shared secret):
+#   gh secret set DISCORD_WEBHOOK_URL -R <owner>/<repo>
+#   (value = a Discord channel webhook URL)
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Notify Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${DISCORD_WEBHOOK_URL:-}" ]; then
+            echo "::warning::DISCORD_WEBHOOK_URL secret is not set; skipping notification."
+            exit 0
+          fi
+          # jq builds the JSON so PR titles with quotes/backticks can't break it.
+          payload="$(jq -n \
+            --arg title "$PR_TITLE" \
+            --arg url "$PR_URL" \
+            --arg repo "$REPO" \
+            --arg num "$PR_NUMBER" \
+            '{
+              username: "Dependabot",
+              embeds: [{
+                title: $title,
+                url: $url,
+                description: ("📦 Dependabot opened PR #" + $num + " in `" + $repo + "`"),
+                color: 222934
+              }]
+            }')"
+          curl -fsS -X POST -H "Content-Type: application/json" \
+            -d "$payload" "$DISCORD_WEBHOOK_URL"
+          echo "Notified Discord for PR #$PR_NUMBER."
