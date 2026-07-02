@@ -41,7 +41,7 @@ cd sphinx-docs && uv sync && make build-all && make serve
 
 JFlex レクサー (`RescriptFlexLexer.java`) は `generateRescriptLexer` タスクで自動生成される（`.gitignore` 対象・手動生成不要・直接編集禁止）。`Rescript.flex` を編集すること。
 
-CI/CD は GitHub Actions で 7 ワークフロー（CI / Release / Docs / CodeQL / Integration Tests / OS Matrix / Monthly Verify）を運用。詳細は `.github/workflows/` と `docs/repository-structure.md` を参照。
+CI/CD は GitHub Actions で 10 ワークフロー（CI / Release / Docs / CodeQL / Integration Tests / OS Matrix / Monthly Verify / IntelliJ Platform Watch / Template Versions Outdated / Dependabot Discord Notify）を運用。詳細は `.github/workflows/` と `docs/repository-structure.md` を参照。
 
 ## アーキテクチャ
 

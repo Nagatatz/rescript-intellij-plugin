@@ -59,7 +59,7 @@
 
 ### Git コミット
 
-→ `.claude/rules/git-conventions.md`（絵文字プレフィックス / 機能単位の粒度 / 個別ファイル指定 / ステアリング同梱）
+→ `.claude/rules/git-conventions.md`（絵文字プレフィックス / 機能単位の粒度 / ブランチ運用）
 
 ### セキュリティ
 
