@@ -15,12 +15,12 @@
 - [x] テスト: `findPipePositions`（`->` のみ・cap）、narrowing counting resolver で 80 上限 assert
 - [x] 緑 → マージ
 
-## CP3 — JFlex lexer 状態修正（rank 8,9,17, A）
-- [ ] `Rescript.flex:15` カスタムフィールドを getState() 符号化
-- [ ] `Rescript.flex:304` 奇数 quote latch 修正
-- [ ] `Rescript.flex:283` IN_TEMPLATE EOL ギャップ処理
-- [ ] テスト: state-restart + コメント/テンプレート回帰
-- [ ] 緑 → マージ
+## CP3 — JFlex lexer 状態修正（rank 9,17, A）※ :15 は分離
+- [x] `Rescript.flex:304` 奇数 quote latch 修正（`inCommentString` 除去、C/JS 系コメント意味論に統一）
+- [x] `Rescript.flex:283` IN_TEMPLATE EOL ギャップ処理（`{EOL}` を STRING_VALUE 化）
+- [x] テスト: 奇数 quote 回帰 + テンプレ全文字カバレッジ回帰
+- [x] 緑 → マージ
+- [~] **分離**: `Rescript.flex:15` getState() 符号化（ネストコメント深度が有限状態化不可 → RestartableLexer 再設計。ハイライト回帰リスク大のため専用ステアリングに残置。ユーザー承認済み分離）
 
 ## CP4 — switch-arm tokenizer 抽出 + intention 修正（rank 5-7, A）
 - [ ] 共有 tokenizer（tokenize/isIgnorable/LexedToken）抽出 + 単体テスト
