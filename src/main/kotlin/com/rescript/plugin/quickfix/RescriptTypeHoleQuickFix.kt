@@ -110,16 +110,31 @@ class RescriptTypeHoleQuickFix : LocalInspectionTool() {
         /**
          * Detects type holes (`_` in type positions) in source text.
          *
+         * Line-start offsets are precomputed once as a running sum so that
+         * per-match offset lookups are O(1) rather than O(n) each, giving
+         * overall O(lines + matches) instead of O(lines × matches).
+         *
          * @param sourceText the ReScript source code
          * @return list of detected type holes with their positions
          */
         internal fun detectTypeHoles(sourceText: String): List<TypeHole> {
             val holes = mutableListOf<TypeHole>()
+            val lines = sourceText.lines()
 
-            for ((lineNum, line) in sourceText.lines().withIndex()) {
+            // Precompute the absolute offset of the first character of each line.
+            // lineStartOffsets[i] = sum of (length + 1) for all lines before i.
+            val lineStartOffsets = IntArray(lines.size)
+            var runningOffset = 0
+            for (i in lines.indices) {
+                lineStartOffsets[i] = runningOffset
+                runningOffset += lines[i].length + 1 // +1 for the line separator
+            }
+
+            for ((lineNum, line) in lines.withIndex()) {
+                val lineOffset = lineStartOffsets[lineNum]
+
                 // Check for `: _` pattern (type annotation holes)
                 for (match in TYPE_HOLE_PATTERN.findAll(line)) {
-                    val lineOffset = sourceText.lines().take(lineNum).sumOf { it.length + 1 }
                     // Find the offset of `_` within the match
                     val underscoreIndex = match.value.indexOf('_')
                     holes.add(
@@ -133,7 +148,6 @@ class RescriptTypeHoleQuickFix : LocalInspectionTool() {
 
                 // Check for `type t = _` pattern
                 for (match in TYPE_DECL_HOLE_PATTERN.findAll(line)) {
-                    val lineOffset = sourceText.lines().take(lineNum).sumOf { it.length + 1 }
                     val underscoreIndex = match.value.lastIndexOf('_')
                     // Only add if not already captured by the first pattern
                     val candidateOffset = lineOffset + match.range.first + underscoreIndex
