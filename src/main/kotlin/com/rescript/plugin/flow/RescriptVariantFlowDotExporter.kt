@@ -1,5 +1,7 @@
 package com.rescript.plugin.flow
 
+import com.rescript.plugin.diagram.DotLabelEscaping
+
 /**
  * Renders a [FlowDiagram] as graphviz DOT (`digraph`) suitable for
  * the "Export DOT" tool window action. The output is plain text that
@@ -20,7 +22,7 @@ object RescriptVariantFlowDotExporter {
         buildString {
             appendLine("digraph SwitchFlow {")
             appendLine("  rankdir=TB;")
-            appendLine("  $ROOT_ID [label=\"${escape("switch ${diagram.scrutineeText}")}\"];")
+            appendLine("  $ROOT_ID [label=\"${DotLabelEscaping.escapeDotLabel("switch ${diagram.scrutineeText}")}\"];")
             for (arm in diagram.arms) {
                 renderNode(this, parentId = ROOT_ID, node = arm)
             }
@@ -34,22 +36,12 @@ object RescriptVariantFlowDotExporter {
     ) {
         val nodeId = sanitiseDotId(node.id)
         val label = node.bodyPreview.ifEmpty { node.patternSummary }
-        out.appendLine("  $nodeId [label=\"${escape(label)}\"];")
-        out.appendLine("  $parentId -> $nodeId [label=\"${escape(node.patternSummary)}\"];")
+        out.appendLine("  $nodeId [label=\"${DotLabelEscaping.escapeDotLabel(label)}\"];")
+        out.appendLine("  $parentId -> $nodeId [label=\"${DotLabelEscaping.escapeDotLabel(node.patternSummary)}\"];")
         for (child in node.children) {
             renderNode(out, parentId = nodeId, node = child)
         }
     }
-
-    /**
-     * Escapes characters that would terminate or corrupt a DOT label
-     * literal: backslashes, double quotes, and newlines.
-     */
-    private fun escape(text: String): String =
-        text
-            .replace("\\", "\\\\")
-            .replace("\"", "\\\"")
-            .replace("\n", "\\n")
 
     /**
      * DOT identifier rules differ slightly from Mermaid: we accept

@@ -2,7 +2,6 @@ package com.rescript.plugin.flow
 
 import com.intellij.ui.JBColor
 import com.rescript.plugin.ui.GraphViewPaintHelpers
-import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.FontMetrics
@@ -65,12 +64,26 @@ class RescriptVariantFlowGraphView : JComponent() {
             val current = diagram ?: return
             val layout = computeLayout(current, width.coerceAtLeast(MIN_VIEW_WIDTH), g2.fontMetrics)
             val (rootFill, rootBorder) = PALETTE.getValue(ArmKind.ROOT)
-            paintNode(g2, layout.rootBox, current.scrutineeText, rootFill, rootBorder)
+            GraphViewPaintHelpers.paintNode(
+                g2,
+                layout.rootBox,
+                current.scrutineeText,
+                rootFill,
+                rootBorder,
+                maxLines = 2,
+            )
             for (idx in layout.armBoxes.indices) {
                 val (box, label) = layout.armBoxes[idx]
                 val kind = layout.armKinds[idx]
                 val (fill, border) = PALETTE.getValue(kind)
-                paintNode(g2, box, label, fill, border)
+                GraphViewPaintHelpers.paintNode(
+                    g2,
+                    box,
+                    label,
+                    fill,
+                    border,
+                    maxLines = 2,
+                )
             }
             GraphViewPaintHelpers.paintEdges(g2, layout.edges)
             GraphViewPaintHelpers.paintLegend(
@@ -81,31 +94,6 @@ class RescriptVariantFlowGraphView : JComponent() {
             )
         } finally {
             g2.dispose()
-        }
-    }
-
-    private fun paintNode(
-        g: Graphics2D,
-        box: Rectangle,
-        label: String,
-        fill: Color,
-        border: Color,
-    ) {
-        g.color = fill
-        g.fillRoundRect(box.x, box.y, box.width, box.height, ROUND_RADIUS, ROUND_RADIUS)
-        g.color = border
-        g.stroke = BasicStroke(1.5f)
-        g.drawRoundRect(box.x, box.y, box.width, box.height, ROUND_RADIUS, ROUND_RADIUS)
-        g.color = JBColor.foreground()
-        val fm = g.fontMetrics
-        val lines = label.split('\n').take(2)
-        val totalTextHeight = fm.height * lines.size
-        var textY = box.y + (box.height - totalTextHeight) / 2 + fm.ascent
-        for (line in lines) {
-            val trimmed = GraphViewPaintHelpers.truncateToWidth(line, fm, box.width - 2 * NODE_PADDING_X)
-            val textX = box.x + (box.width - fm.stringWidth(trimmed)) / 2
-            g.drawString(trimmed, textX, textY)
-            textY += fm.height
         }
     }
 
@@ -135,11 +123,9 @@ class RescriptVariantFlowGraphView : JComponent() {
     companion object {
         private const val MIN_VIEW_WIDTH = 420
         private const val MIN_VIEW_HEIGHT = 160
-        private const val NODE_PADDING_X = 16
         private const val NODE_PADDING_Y = 8
         private const val ROOT_HEIGHT = 36
         private const val ARM_HEIGHT = 48
-        private const val ROUND_RADIUS = 12
         private const val V_GAP = 32
         private const val H_GAP = 16
         private const val MARGIN = 12
@@ -494,7 +480,7 @@ class RescriptVariantFlowGraphView : JComponent() {
                 label.split('\n').maxOfOrNull { line ->
                     fm?.stringWidth(line) ?: (line.length * DEFAULT_CHAR_WIDTH)
                 } ?: minWidth
-            return (widestLine + 2 * NODE_PADDING_X)
+            return (widestLine + 2 * GraphViewPaintHelpers.NODE_PADDING_X)
                 .coerceAtLeast(minWidth)
                 .coerceAtMost(maxWidth)
         }
