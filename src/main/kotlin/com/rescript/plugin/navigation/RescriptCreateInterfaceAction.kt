@@ -7,6 +7,9 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.fileEditor.FileEditorManager
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.Task
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.rescript.plugin.lsp.RescriptLanguageServer
@@ -22,9 +25,6 @@ import org.eclipse.lsp4j.TextDocumentIdentifier
  * rescript-language-server and opens the generated interface file in the editor.
  */
 class RescriptCreateInterfaceAction : AnAction() {
-    // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
-    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-    @Suppress("DEPRECATION")
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
@@ -53,25 +53,52 @@ class RescriptCreateInterfaceAction : AnAction() {
 
         val uri = RescriptLspUtils.toLspUri(file)
 
-        server
-            // Explicit 10s timeout (the platform default). Omitting it emits
-            // the synthetic sendRequestSync$default, which 2026.2 relocated to
-            // the new LspClient super-interface and no longer resolves here.
-            .sendRequestSync(10_000) { languageServer ->
-                (languageServer as RescriptLanguageServer).createInterface(TextDocumentIdentifier(uri))
-            }?.let { response ->
-                val resultUrl = RescriptLspUtils.lspUriToVfsUrl(response.uri)
-                ApplicationManager.getApplication().invokeLater {
-                    VirtualFileManager.getInstance().refreshAndFindFileByUrl(resultUrl)?.let { vf ->
-                        // Validate the resolved file is within the project directory
-                        if (!RescriptSecurityUtils.isWithinProject(project, vf)) {
-                            LOG.warn("LSP createInterface returned a file outside the project scope, ignoring")
-                            return@invokeLater
+        // The synchronous LSP request can block for up to 10s, so run it on a
+        // background task with a cancellable indicator instead of freezing the EDT.
+        ProgressManagerRunner.run(project, server, uri)
+    }
+
+    /**
+     * Runs the createInterface request off the EDT and opens the result.
+     *
+     * Kept as a nested object so the deprecated LSP call sites are contained
+     * under a single documented [Suppress].
+     */
+    private object ProgressManagerRunner {
+        // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
+        // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
+        @Suppress("DEPRECATION")
+        fun run(
+            project: Project,
+            server: com.intellij.platform.lsp.api.LspServer,
+            uri: String,
+        ) {
+            object : Task.Backgroundable(project, "Creating ReScript interface file", true) {
+                override fun run(indicator: ProgressIndicator) {
+                    indicator.isIndeterminate = true
+                    val response =
+                        // Explicit 10s timeout (the platform default). Omitting it emits
+                        // the synthetic sendRequestSync$default, which 2026.2 relocated to
+                        // the new LspClient super-interface and no longer resolves here.
+                        server.sendRequestSync(10_000) { languageServer ->
+                            (languageServer as RescriptLanguageServer).createInterface(TextDocumentIdentifier(uri))
+                        } ?: return
+
+                    val resultUrl = RescriptLspUtils.lspUriToVfsUrl(response.uri)
+                    // Write actions / editor opening must run back on the EDT.
+                    ApplicationManager.getApplication().invokeLater {
+                        VirtualFileManager.getInstance().refreshAndFindFileByUrl(resultUrl)?.let { vf ->
+                            // Validate the resolved file is within the project directory
+                            if (!RescriptSecurityUtils.isWithinProject(project, vf)) {
+                                LOG.warn("LSP createInterface returned a file outside the project scope, ignoring")
+                                return@invokeLater
+                            }
+                            FileEditorManager.getInstance(project).openFile(vf, true)
                         }
-                        FileEditorManager.getInstance(project).openFile(vf, true)
                     }
                 }
-            }
+            }.queue()
+        }
     }
 
     override fun update(e: AnActionEvent) {
