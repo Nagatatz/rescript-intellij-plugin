@@ -137,8 +137,13 @@ class RescriptTypeInfoPanel(
         }
 
         debouncer.schedule {
-            val typeText = RescriptLspUtils.getHoverType(project, file, offset)
-            showMessage(typeText ?: NO_TYPE)
+            // Distinguish "language server not connected" from "no type at this
+            // position" — both previously showed the same NO_TYPE message, so a
+            // user without the server saw "No type information" and could not
+            // tell the server was simply missing.
+            val serverConnected = RescriptLspUtils.getServer(project) != null
+            val typeText = if (serverConnected) RescriptLspUtils.getHoverType(project, file, offset) else null
+            showMessage(selectMessage(serverConnected, typeText))
         }
     }
 
@@ -152,5 +157,24 @@ class RescriptTypeInfoPanel(
         private const val DEBOUNCE_MS = 300L
         private const val NO_RESCRIPT_FILE = "No ReScript file selected"
         private const val NO_TYPE = "No type information"
+        private const val LSP_NOT_CONNECTED = "ReScript Language Server not connected"
+
+        /**
+         * Chooses the status text for the type panel, disambiguating a missing
+         * language server from a position that simply has no type.
+         *
+         * @param serverConnected whether the ReScript LSP server is available
+         * @param typeText the hover type resolved from LSP, or null
+         * @return the message to display in the panel
+         */
+        internal fun selectMessage(
+            serverConnected: Boolean,
+            typeText: String?,
+        ): String =
+            when {
+                !serverConnected -> LSP_NOT_CONNECTED
+                typeText != null -> typeText
+                else -> NO_TYPE
+            }
     }
 }
