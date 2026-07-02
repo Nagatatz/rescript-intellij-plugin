@@ -46,7 +46,7 @@
 tasklist.md の更新タイミングと方法は `definition-of-done.md` Phase 2「tasklist.md リアルタイム更新」に従うこと。追加ルール:
 
 - マージタスクは `[x]` 更新をマージ前の最終コミットに含める
-- ドキュメント更新（CLAUDE.md, README.md, docs/, sphinx-docs/）は該当コードのコミットに含める
+- ドキュメント更新（CLAUDE.md, README.md, docs/, sphinx-docs/）は該当コードのコミットに含めるか、全機能実装後に1つのドキュメント更新コミットとしてまとめる（`.claude/rules/git-conventions.md` の「コミット粒度」参照）
 
 ## tasklist.md の必須セクション
 
