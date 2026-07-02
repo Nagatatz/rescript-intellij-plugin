@@ -84,4 +84,21 @@ class RescriptTypeHoleQuickFixTest {
         val inspection: Any = RescriptTypeHoleQuickFix()
         assertTrue(inspection is com.intellij.codeInspection.LocalInspectionTool)
     }
+
+    @Test
+    fun `detectTypeHoles produces correct offsets for multi-line multi-hole source`() {
+        // "let x: _ = 42\nlet y: _ = 0"
+        // line 0: "let x: _ = 42"  (length 13, '\n' at index 13)
+        //   `: _ =` matches at line index 5; `_` is at match offset 2 → absolute offset 7
+        // line 1: "let y: _ = 0"  starts at absolute offset 14 (13 + 1 for '\n')
+        //   `: _ =` matches at line index 5; `_` is at match offset 2 → absolute offset 21
+        val source = "let x: _ = 42\nlet y: _ = 0"
+        val holes = RescriptTypeHoleQuickFix.detectTypeHoles(source)
+        assertEquals(2, holes.size)
+        assertEquals(7, holes[0].offset)
+        assertEquals(21, holes[1].offset)
+        // Sanity-check: the character at each offset really is `_`
+        assertEquals('_', source[holes[0].offset])
+        assertEquals('_', source[holes[1].offset])
+    }
 }
