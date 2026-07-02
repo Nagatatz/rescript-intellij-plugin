@@ -1,5 +1,12 @@
 package com.rescript.plugin.refactor
 
+import org.eclipse.lsp4j.Position
+import org.eclipse.lsp4j.Range
+import org.eclipse.lsp4j.TextDocumentEdit
+import org.eclipse.lsp4j.TextEdit
+import org.eclipse.lsp4j.VersionedTextDocumentIdentifier
+import org.eclipse.lsp4j.WorkspaceEdit
+import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
@@ -161,5 +168,40 @@ class RescriptRenameHandlerTest {
     fun testExtractWordFromTextDigitsInIdentifier() {
         val text = "let foo123bar = 0"
         assertEquals("foo123bar", RescriptRenameHandler.extractWordFromText(text, 6))
+    }
+
+    // ── collectEdits (WorkspaceEdit normalization) ──────────────────────
+
+    private fun edit(): TextEdit = TextEdit(Range(Position(0, 4), Position(0, 7)), "bar")
+
+    @Test
+    fun `collectEdits reads the legacy changes map form`() {
+        val uri = "file:///a.res"
+        val workspaceEdit = WorkspaceEdit(mapOf(uri to listOf(edit())))
+
+        val result = RescriptRenameHandler().collectEdits(workspaceEdit)
+
+        assertEquals(setOf(uri), result?.keys)
+        assertEquals(1, result?.get(uri)?.size)
+    }
+
+    @Test
+    fun `collectEdits falls back to the documentChanges form`() {
+        val uri = "file:///b.res"
+        val documentEdit = TextDocumentEdit(VersionedTextDocumentIdentifier(uri, 1), listOf(edit()))
+        val workspaceEdit =
+            WorkspaceEdit().apply {
+                documentChanges = listOf(Either.forLeft(documentEdit))
+            }
+
+        val result = RescriptRenameHandler().collectEdits(workspaceEdit)
+
+        assertEquals(setOf(uri), result?.keys)
+        assertEquals("bar", result?.get(uri)?.first()?.newText)
+    }
+
+    @Test
+    fun `collectEdits returns null when the edit carries no textual changes`() {
+        assertNull(RescriptRenameHandler().collectEdits(WorkspaceEdit()))
     }
 }

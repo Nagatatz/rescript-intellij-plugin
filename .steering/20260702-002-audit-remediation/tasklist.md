@@ -3,11 +3,11 @@
 各セクション = 1 マージ可能チェックポイント。着手時に即 `[x]` 更新（DoD Phase 2）。
 
 ## CP1 — LSP position/edit 堅牢化（rank 1-3, S）
-- [ ] `util/RescriptOffsetUtils.positionToOffset` に character の lineEnd/textLength クランプ
-- [ ] `refactor/RescriptRenameHandler:262` に start<=end / start<=textLength ガード
-- [ ] `refactor/RescriptRenameHandler:226` に documentChanges 分岐
-- [ ] テスト: `RescriptOffsetUtilsTest`（範囲外 position）、`RescriptRenameHandlerTest`（両 WorkspaceEdit 形式・範囲外レンジ）
-- [ ] ktlint/build/test 緑 → コミット → main マージ
+- [x] `util/RescriptOffsetUtils.positionToOffset` に character の lineEnd/textLength クランプ
+- [x] `refactor/RescriptRenameHandler:262` に start<=end / start<=textLength ガード
+- [x] `refactor/RescriptRenameHandler:226` に documentChanges 分岐（`collectEdits` 抽出）
+- [x] テスト: `RescriptOffsetUtilsTest`（範囲外/負 character・clamp）、`RescriptRenameHandlerTest`（changes/documentChanges 両形式・空）
+- [x] ktlint/build/test 緑 → コミット → main マージ
 
 ## CP2 — inlay hint LSP 予算化（rank 4,10, S/A）
 - [ ] `lsp/RescriptPipeChainTypeHintsProvider:80` に request-cap + per-pass cache + cancel
