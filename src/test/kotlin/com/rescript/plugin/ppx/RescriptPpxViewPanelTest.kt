@@ -32,6 +32,18 @@ class RescriptPpxViewPanelTest {
     }
 
     @Test
+    fun `findPpxAnnotations finds two annotations on a single line`() {
+        val source = "@genType @react.component"
+        val annotations = RescriptPpxViewPanel.findPpxAnnotations(source)
+        assertEquals(2, annotations.size)
+        assertEquals("@genType", annotations[0].first)
+        assertEquals("@react.component", annotations[1].first)
+        // Both share the same (first) line number.
+        assertEquals(1, annotations[0].second)
+        assertEquals(1, annotations[1].second)
+    }
+
+    @Test
     fun `findPpxAnnotations finds annotation with arguments`() {
         val source =
             """
