@@ -10,10 +10,10 @@
 - [x] ktlint/build/test 緑 → コミット → main マージ
 
 ## CP2 — inlay hint LSP 予算化（rank 4,10, S/A）
-- [ ] `lsp/RescriptPipeChainTypeHintsProvider:80` に request-cap + per-pass cache + cancel
-- [ ] `narrowing/RescriptNarrowingHintProvider:134` に同一ポリシー
-- [ ] テスト: counting stub で request 数 assert
-- [ ] 緑 → マージ
+- [x] `lsp/RescriptPipeChainTypeHintsProvider`: トークン `ARROW`→`RIGHT_ARROW` 修正（pipe 誤マッチ是正）+ MAX_PIPE_CHAIN_HINTS cap + PresentationFactory ループ外へ
+- [x] `narrowing/RescriptNarrowingHintProvider`: MAX_HOVER_REQUESTS_PER_FILE 予算で総 hover 呼出を上限化
+- [x] テスト: `findPipePositions`（`->` のみ・cap）、narrowing counting resolver で 80 上限 assert
+- [x] 緑 → マージ
 
 ## CP3 — JFlex lexer 状態修正（rank 8,9,17, A）
 - [ ] `Rescript.flex:15` カスタムフィールドを getState() 符号化

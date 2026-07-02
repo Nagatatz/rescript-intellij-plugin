@@ -110,6 +110,14 @@ class RescriptNarrowingHintProvider : InlayHintsProvider<NoSettings> {
         internal const val MAX_ARMS_PER_FILE = 50
 
         /**
+         * Hard budget on the total number of LSP hover requests issued per
+         * inlay pass. The arm cap alone still allows 50 × (1 + N bindings)
+         * synchronous round-trips; this ceiling bounds the worst case
+         * regardless of how many bindings each arm introduces.
+         */
+        internal const val MAX_HOVER_REQUESTS_PER_FILE = 80
+
+        /**
          * Pure logic that drives a single inlay pass: collect switch
          * arms in [text], resolve their narrowed types via [resolver],
          * format each result, and return the inlay anchor points to
@@ -130,8 +138,12 @@ class RescriptNarrowingHintProvider : InlayHintsProvider<NoSettings> {
             val arms = RescriptSwitchArmCollector.collect(text)
             if (arms.size > MAX_ARMS_PER_FILE) return emptyList()
             val out = mutableListOf<HintEntry>()
+            // Bound the total hover round-trips per pass (see MAX_HOVER_REQUESTS_PER_FILE).
+            var hoverBudget = MAX_HOVER_REQUESTS_PER_FILE
             for (arm in arms) {
+                if (hoverBudget <= 0) break
                 val typeText = resolver.resolveAt(arm.scrutineeRange.startOffset)
+                hoverBudget--
                 val display = RescriptNarrowingPresenter.format(typeText, arm.patternSummary)
                 if (display != null) {
                     out.add(HintEntry(arm.arrowOffset, display))
@@ -143,7 +155,9 @@ class RescriptNarrowingHintProvider : InlayHintsProvider<NoSettings> {
                 // nested types (`Loaded(payload, error)`) get accurate
                 // hints for each binding.
                 for (bindingOffset in arm.bindingOffsets) {
+                    if (hoverBudget <= 0) break
                     val bindingType = resolver.resolveAt(bindingOffset)
+                    hoverBudget--
                     val bindingDisplay = RescriptNarrowingPresenter.format(bindingType, arm.patternSummary) ?: continue
                     out.add(HintEntry(bindingOffset, bindingDisplay))
                 }
