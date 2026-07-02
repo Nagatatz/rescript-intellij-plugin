@@ -23,11 +23,11 @@
 - [~] **分離**: `Rescript.flex:15` getState() 符号化（ネストコメント深度が有限状態化不可 → RestartableLexer 再設計。ハイライト回帰リスク大のため専用ステアリングに残置。ユーザー承認済み分離）
 
 ## CP4 — switch-arm tokenizer 抽出 + intention 修正（rank 5-7, A）
-- [ ] 共有 tokenizer（tokenize/isIgnorable/LexedToken）抽出 + 単体テスト
-- [ ] `intention/RescriptMergeSwitchCasesIntention:74` を token 認識分割へ
-- [ ] `intention/RescriptCaseSplitIntention:69` を full-arm extent へ
-- [ ] テスト: `|>`/`||`/nested/multi-line 回帰
-- [ ] 緑 → マージ
+- [x] 共有 `lang/RescriptTokenScanner`（tokenize/isIgnorable/LexedToken）抽出、Collector/Flattener を rebase + 単体テスト
+- [x] `intention/RescriptMergeSwitchCasesIntention` を token 認識分割へ（`|>`/`||`/nested/or-pattern を区別）
+- [x] `intention/RescriptCaseSplitIntention` を full-arm extent（`findSplitTarget`）へ
+- [x] テスト: `|>`/`||`/nested/multi-line/**単一行 or-pattern** 回帰（or-pattern 脱落回帰はレビューで検出し修正）
+- [x] 緑 → マージ
 
 ## CP5 — EDT 応答性（rank 11-12, A/B）
 - [ ] `navigation/RescriptCreateInterfaceAction:60` を Task.Backgroundable 化（progress+cancel）

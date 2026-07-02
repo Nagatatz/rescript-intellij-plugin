@@ -29,6 +29,105 @@ class RescriptMergeSwitchCasesIntentionTest {
     }
 
     @Test
+    fun `parseSwitchCases does not split on pipe-forward in body`() {
+        val switchBlock =
+            """
+            switch x {
+            | A => list |> map
+            | B => list |> filter
+            }
+            """.trimIndent()
+
+        val cases = RescriptMergeSwitchCasesIntention.parseSwitchCases(switchBlock)
+        assertEquals(2, cases.size)
+        assertEquals("A", cases[0].pattern)
+        assertEquals("list |> map", cases[0].body)
+        assertEquals("B", cases[1].pattern)
+        assertEquals("list |> filter", cases[1].body)
+    }
+
+    @Test
+    fun `parseSwitchCases keeps a single-line or-pattern as one arm`() {
+        // `| A | B => 1` is an or-pattern: the inner `|` before `=>` must stay
+        // inside the pattern, not spawn a separate (bodyless) arm that drops A.
+        val switchBlock =
+            """
+            switch x {
+            | A | B => 1
+            | C => 2
+            }
+            """.trimIndent()
+
+        val cases = RescriptMergeSwitchCasesIntention.parseSwitchCases(switchBlock)
+        assertEquals(2, cases.size)
+        assertEquals("A | B", cases[0].pattern)
+        assertEquals("1", cases[0].body)
+        assertEquals("C", cases[1].pattern)
+        assertEquals("2", cases[1].body)
+    }
+
+    @Test
+    fun `parseSwitchCases does not split on logical or in body`() {
+        val switchBlock =
+            """
+            switch x {
+            | A => a || b
+            | B => c
+            }
+            """.trimIndent()
+
+        val cases = RescriptMergeSwitchCasesIntention.parseSwitchCases(switchBlock)
+        assertEquals(2, cases.size)
+        assertEquals("a || b", cases[0].body)
+        assertEquals("c", cases[1].body)
+    }
+
+    @Test
+    fun `parseSwitchCases keeps nested switch as a single arm body`() {
+        val switchBlock =
+            """
+            switch x {
+            | A =>
+              switch y {
+              | C => 1
+              | D => 2
+              }
+            | B => 0
+            }
+            """.trimIndent()
+
+        val cases = RescriptMergeSwitchCasesIntention.parseSwitchCases(switchBlock)
+        // The inner `|` of the nested switch must not create extra outer arms.
+        assertEquals(2, cases.size)
+        assertEquals("A", cases[0].pattern)
+        assertTrue(cases[0].body.contains("switch y"))
+        assertTrue(cases[0].body.contains("| C => 1"))
+        assertTrue(cases[0].body.contains("| D => 2"))
+        assertEquals("B", cases[1].pattern)
+        assertEquals("0", cases[1].body)
+    }
+
+    @Test
+    fun `parseSwitchCases splits a multi-line arm body correctly`() {
+        val switchBlock =
+            """
+            switch x {
+            | A => {
+                let v = 1
+                v + 1
+              }
+            | B => 0
+            }
+            """.trimIndent()
+
+        val cases = RescriptMergeSwitchCasesIntention.parseSwitchCases(switchBlock)
+        assertEquals(2, cases.size)
+        assertEquals("A", cases[0].pattern)
+        assertTrue(cases[0].body.contains("let v = 1"))
+        assertTrue(cases[0].body.trimEnd().endsWith("}"))
+    }
+
+    @Test
     fun `hasDuplicateBodies detects duplicates`() {
         val cases =
             listOf(

@@ -1,8 +1,7 @@
 package com.rescript.plugin.intention
 
-import com.intellij.psi.TokenType
-import com.intellij.psi.tree.IElementType
-import com.rescript.plugin.lang.RescriptLexer
+import com.rescript.plugin.lang.LexedToken
+import com.rescript.plugin.lang.RescriptTokenScanner
 import com.rescript.plugin.lang.RescriptTokenTypes
 
 /**
@@ -48,8 +47,8 @@ data class FlattenPlan(
  * becomes `| Some(Some(z)) => a` and `| Some(None) => b`.
  *
  * Like [com.rescript.plugin.narrowing.RescriptSwitchArmCollector], this
- * walks the [RescriptLexer] output directly and tracks brace/paren depth,
- * so it never touches PSI and is trivially unit-testable.
+ * walks the [RescriptTokenScanner] output directly and tracks brace/paren
+ * depth, so it never touches PSI and is trivially unit-testable.
  *
  * @see RescriptFlattenNestedSwitchIntention for the editor-facing wrapper
  */
@@ -70,7 +69,7 @@ object RescriptNestedSwitchFlattener {
         source: String,
         caretOffset: Int,
     ): FlattenPlan? {
-        val tokens = tokenize(source)
+        val tokens = RescriptTokenScanner.tokenize(source)
         val arms = collectArms(tokens)
         // The outer arm is the widest arm whose range contains the caret:
         // when the caret sits inside the nested switch, both the inner and
@@ -453,26 +452,6 @@ object RescriptNestedSwitchFlattener {
         return tokens.size
     }
 
-    private fun tokenize(source: String): List<LexedToken> {
-        val lexer = RescriptLexer()
-        lexer.start(source)
-        val tokens = mutableListOf<LexedToken>()
-        while (lexer.tokenType != null) {
-            val type = lexer.tokenType!!
-            if (!isIgnorable(type)) {
-                tokens.add(LexedToken(type, lexer.tokenStart, lexer.tokenEnd, lexer.tokenText))
-            }
-            lexer.advance()
-        }
-        return tokens
-    }
-
-    private fun isIgnorable(type: IElementType): Boolean =
-        type == TokenType.WHITE_SPACE ||
-            type == RescriptTokenTypes.EOL ||
-            type == RescriptTokenTypes.SINGLE_COMMENT ||
-            type == RescriptTokenTypes.MULTI_COMMENT
-
     /**
      * A `switch` arm located during the lexer walk, recorded with token
      * indices so pattern/body slices can be taken later.
@@ -493,16 +472,5 @@ object RescriptNestedSwitchFlattener {
         val bodyTokenStartIdx: Int,
         val bodyTokenEndIdx: Int,
         val bodyEndOffset: Int,
-    )
-
-    /**
-     * Lightweight lexer record produced by walking the JFlex tokens once,
-     * so the analyzer can iterate by index without re-running the lexer.
-     */
-    private data class LexedToken(
-        val type: IElementType,
-        val start: Int,
-        val end: Int,
-        val text: String,
     )
 }

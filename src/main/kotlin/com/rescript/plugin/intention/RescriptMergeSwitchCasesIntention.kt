@@ -3,6 +3,8 @@ package com.rescript.plugin.intention
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.rescript.plugin.lang.RescriptTokenScanner
+import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
@@ -70,9 +72,6 @@ class RescriptMergeSwitchCasesIntention : RescriptBaseIntention() {
     )
 
     companion object {
-        /** Pattern matching `|` at the start of a line (case separator in switch blocks). */
-        private val CASE_SEPARATOR_PATTERN = Regex("""(?m)^\s*\|""")
-
         /**
          * Finds the switch block text containing the given offset.
          *
@@ -141,36 +140,121 @@ class RescriptMergeSwitchCasesIntention : RescriptBaseIntention() {
         /**
          * Parses switch cases from a switch block text.
          *
+         * Splits arms by walking the lexer tokens and treating a `PIPE`
+         * (`|`) token at the switch body's brace depth 1 as the arm
+         * separator. Because the lexer tokenizes `|>` as `PIPE_FORWARD`,
+         * `||` as `L_OR`, and the `|` inside a nested `switch { ... }` at a
+         * deeper brace depth, none of those are mistaken for a case
+         * separator — unlike the previous line-anchored regex split.
+         *
          * @param switchBlock the text of the switch expression including `switch ... { ... }`
          * @return list of parsed cases
          */
         internal fun parseSwitchCases(switchBlock: String): List<SwitchCase> {
             val cases = mutableListOf<SwitchCase>()
+            val tokens = RescriptTokenScanner.tokenize(switchBlock)
 
-            // Extract body between { and }
-            val braceStart = switchBlock.indexOf('{')
-            val braceEnd = switchBlock.lastIndexOf('}')
-            if (braceStart < 0 || braceEnd < 0) return cases
+            // Locate the switch body's opening `{` at paren depth 0.
+            val switchIdx = tokens.indexOfFirst { it.type == RescriptTokenTypes.SWITCH }
+            if (switchIdx < 0) return cases
+            var parenDepth = 0
+            var bodyBraceIdx = -1
+            var i = switchIdx + 1
+            while (i < tokens.size) {
+                when (tokens[i].type) {
+                    RescriptTokenTypes.LPAREN -> parenDepth++
+                    RescriptTokenTypes.RPAREN -> if (parenDepth > 0) parenDepth--
+                    RescriptTokenTypes.LBRACE -> if (parenDepth == 0) bodyBraceIdx = i
+                }
+                if (bodyBraceIdx >= 0) break
+                i++
+            }
+            if (bodyBraceIdx < 0) return cases
 
-            val body = switchBlock.substring(braceStart + 1, braceEnd).trim()
+            // Walk the body: an arm opens on a `|` at brace depth 1 and its
+            // pattern/body split happens on the first `=>` at that depth.
+            i = bodyBraceIdx + 1
+            var braceDepth = 1
+            parenDepth = 0
+            var inArm = false
+            var arrowSeen = false
+            var patternStartIdx = -1
+            var arrowIdx = -1
+            var bodyStartIdx = -1
 
-            // Split by | at the start of lines
-            val caseTexts =
-                body
-                    .split(CASE_SEPARATOR_PATTERN)
-                    .map { it.trim() }
-                    .filter { it.isNotEmpty() }
-
-            for (caseText in caseTexts) {
-                val arrowIndex = caseText.indexOf("=>")
-                if (arrowIndex < 0) continue
-
-                val pattern = caseText.substring(0, arrowIndex).trim()
-                val caseBody = caseText.substring(arrowIndex + 2).trim()
-
-                cases.add(SwitchCase(pattern, caseBody))
+            // Finalizes the arm currently being accumulated by slicing its
+            // pattern and body text from [switchBlock]. Skips arms without a
+            // `=>` (e.g. an or-pattern's leading alternative), matching the
+            // prior parser's behavior.
+            fun finalize(endExclusive: Int) {
+                if (!inArm || !arrowSeen) return
+                val patternTokens = tokens.subList(patternStartIdx, arrowIdx)
+                val bodyTokens = tokens.subList(bodyStartIdx, endExclusive)
+                if (patternTokens.isEmpty() || bodyTokens.isEmpty()) return
+                val pattern =
+                    switchBlock.substring(patternTokens.first().start, patternTokens.last().end)
+                val caseBody =
+                    switchBlock.substring(bodyTokens.first().start, bodyTokens.last().end)
+                cases.add(SwitchCase(pattern.trim(), caseBody.trim()))
             }
 
+            while (i < tokens.size) {
+                when (tokens[i].type) {
+                    RescriptTokenTypes.LBRACE -> {
+                        braceDepth++
+                    }
+
+                    RescriptTokenTypes.RBRACE -> {
+                        braceDepth--
+                        if (braceDepth == 0) {
+                            finalize(i)
+                            return cases
+                        }
+                    }
+
+                    RescriptTokenTypes.LPAREN -> {
+                        parenDepth++
+                    }
+
+                    RescriptTokenTypes.RPAREN -> {
+                        if (parenDepth > 0) parenDepth--
+                    }
+
+                    RescriptTokenTypes.PIPE -> {
+                        if (braceDepth == 1 && parenDepth == 0) {
+                            when {
+                                !inArm -> {
+                                    // First arm of the switch opens.
+                                    inArm = true
+                                    arrowSeen = false
+                                    patternStartIdx = i + 1
+                                }
+
+                                arrowSeen -> {
+                                    // The current arm already has its `=>` body,
+                                    // so this `|` starts a new arm.
+                                    finalize(i)
+                                    arrowSeen = false
+                                    patternStartIdx = i + 1
+                                }
+                                // Otherwise this `|` precedes the arm's `=>`, i.e.
+                                // it is an or-pattern alternative (`| A | B => …`);
+                                // keep it inside the current pattern.
+                            }
+                        }
+                    }
+
+                    RescriptTokenTypes.ARROW -> {
+                        if (braceDepth == 1 && parenDepth == 0 && inArm && !arrowSeen) {
+                            arrowSeen = true
+                            arrowIdx = i
+                            bodyStartIdx = i + 1
+                        }
+                    }
+                }
+                i++
+            }
+            finalize(tokens.size)
             return cases
         }
 

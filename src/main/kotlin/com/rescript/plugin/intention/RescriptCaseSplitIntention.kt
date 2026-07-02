@@ -6,8 +6,7 @@ import com.intellij.psi.PsiElement
 import com.rescript.plugin.lang.RescriptTokenTypes
 import com.rescript.plugin.lsp.RescriptLspSignatureParser
 import com.rescript.plugin.lsp.RescriptLspUtils
-import com.rescript.plugin.util.RescriptEditorUtils.getLineRangeAt
-import com.rescript.plugin.util.RescriptEditorUtils.getLineTextAt
+import com.rescript.plugin.narrowing.RescriptSwitchArmCollector
 import com.rescript.plugin.util.RescriptEditorUtils.replaceInWriteAction
 
 /**
@@ -52,34 +51,90 @@ class RescriptCaseSplitIntention : RescriptBaseIntention() {
         val file = element.containingFile?.virtualFile ?: return
         val offset = element.textRange.startOffset
         val document = editor.document
+        val text = document.text
 
         // Get the type of the variable from LSP
         val typeText = RescriptLspUtils.getHoverType(project, file, offset) ?: return
         val constructors = RescriptLspSignatureParser.parseVariantConstructors(typeText)
         if (constructors.isEmpty()) return
 
-        // Find the case line containing this variable
-        val (lineStart, lineEnd) = document.getLineRangeAt(offset)
-        val line = document.getLineTextAt(offset)
+        // Determine the full arm range (its body may span multiple physical
+        // lines) so the whole arm is replaced rather than just the caret line.
+        val target = findSplitTarget(text, offset) ?: return
 
-        // Parse the case: | pattern => body
-        val arrowIndex = line.indexOf("=>")
-        if (arrowIndex < 0) return
-
-        val body = line.substring(arrowIndex + 2).trim()
-        val indent = line.takeWhile { it == ' ' || it == '\t' }
-
-        // Build expanded cases
+        // Build expanded cases, reusing the full multi-line body text.
         val expandedCases =
             constructors.joinToString("\n") { constructor ->
                 val pattern = if (constructor.hasPayload) "${constructor.name}(_)" else constructor.name
-                "$indent| $pattern => $body"
+                "${target.indent}| $pattern => ${target.body}"
             }
 
-        document.replaceInWriteAction(project, lineStart, lineEnd, expandedCases)
+        document.replaceInWriteAction(project, target.replaceStart, target.replaceEnd, expandedCases)
     }
 
     companion object {
+        /**
+         * Describes where and how to replace a switch arm when expanding a
+         * pattern variable into one arm per variant constructor.
+         *
+         * @property replaceStart offset of the start of the arm's leading line
+         *   (indentation + `|`), where the replacement begins
+         * @property replaceEnd exclusive offset just after the last character
+         *   of the arm body (trailing whitespace/newlines excluded)
+         * @property body the arm body text, verbatim from source but trimmed,
+         *   possibly spanning multiple physical lines
+         * @property indent leading whitespace of the arm's `|` line, reused as
+         *   the prefix of each generated arm
+         */
+        internal data class SplitTarget(
+            val replaceStart: Int,
+            val replaceEnd: Int,
+            val body: String,
+            val indent: String,
+        )
+
+        /**
+         * Computes the full replacement range for the switch arm whose
+         * pattern contains [offset], capturing the entire arm body even when
+         * it spans multiple physical lines.
+         *
+         * The arm is located by walking lexer tokens via
+         * [RescriptSwitchArmCollector], so the body extent runs from just
+         * after `=>` up to (but excluding) the trailing whitespace before the
+         * next `|` at the same brace depth or the closing `}`.
+         *
+         * @param text full document text
+         * @param offset caret offset, expected to sit on a pattern variable
+         * @return the replacement target, or `null` if no arm pattern contains
+         *   [offset] or the body is empty
+         */
+        internal fun findSplitTarget(
+            text: String,
+            offset: Int,
+        ): SplitTarget? {
+            val arm =
+                RescriptSwitchArmCollector
+                    .collect(text)
+                    .filter { offset >= it.patternOffset && offset < it.arrowOffset }
+                    .minByOrNull { it.arrowOffset - it.patternOffset }
+                    ?: return null
+
+            val rawBody = text.substring(arm.arrowOffset, arm.bodyEndOffset)
+            val body = rawBody.trim()
+            if (body.isEmpty()) return null
+            // Exclude trailing whitespace/newlines so the replacement ends at
+            // the last body character (the newline before the next arm stays).
+            val bodyContentEnd = arm.arrowOffset + rawBody.trimEnd().length
+
+            val lineStart =
+                text.lastIndexOf('\n', (offset - 1).coerceAtLeast(0)).let { if (it < 0) 0 else it + 1 }
+            val lineEnd = text.indexOf('\n', lineStart).let { if (it < 0) text.length else it }
+            val line = text.substring(lineStart, lineEnd)
+            val indent = line.takeWhile { it == ' ' || it == '\t' }
+
+            return SplitTarget(lineStart, bodyContentEnd, body, indent)
+        }
+
         /**
          * Checks if the given offset is inside a switch case pattern (before =>).
          *
