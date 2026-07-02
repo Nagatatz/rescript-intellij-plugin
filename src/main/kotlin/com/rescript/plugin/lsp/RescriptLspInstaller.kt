@@ -14,6 +14,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.platform.lsp.api.LspServerManager
 import com.intellij.ui.EditorNotifications
+import com.rescript.plugin.util.RescriptMessageSanitizer
 import java.io.File
 
 /**
@@ -95,7 +96,9 @@ object RescriptLspInstaller {
                         onInstallSuccess(project)
                         onSuccess?.invoke()
                     } else {
-                        val errorMsg = stderr.toString().trim().ifEmpty { "Exit code: $exitCode" }
+                        val rawErrorMsg = stderr.toString().trim().ifEmpty { "Exit code: $exitCode" }
+                        // Strip absolute paths from package-manager stderr before display.
+                        val errorMsg = RescriptMessageSanitizer.sanitize(project, rawErrorMsg)
                         LOG.warn("Failed to install @rescript/language-server: $errorMsg")
                         onInstallFailure(project, errorMsg)
                         onFailure?.invoke(errorMsg)
