@@ -42,11 +42,12 @@
 - [ ] 緑 → マージ（マージ確認時に security-relevant を明示）
 
 ## CP7 — docs/挙動 truth-sync（rank 15-16, B）
-- [ ] `typeinfo/RescriptTypeInfoPanel:154` に LSP 未接続専用メッセージ + テスト
-- [ ] `docs/product-requirements.md` US-12 を roadmap 状態へ差戻し
-- [ ] `docs/lsp-fallback-matrix.md` PPX 行 + type-info 行を実装に合わせ書換え
-- [ ] EN docs + JA `.po` 同一コミット（documentation.md）
-- [ ] 緑 → マージ
+- [x] `typeinfo/RescriptTypeInfoPanel` に LSP 未接続専用メッセージ（`selectMessage` 抽出 + typeinfo 初テスト）
+- [x] `docs/product-requirements.md` US-12 の `.resw` 実行を roadmap 状態へ差戻し（コメント評価/REPL は動作するため維持）
+- [x] `docs/lsp-fallback-matrix.md` PPX 行（regex+辞書・bsc 非呼出）+ type-info 行 + worksheet 行を実装に合わせ書換え
+- [x] `worksheet/RescriptWorksheetFileType` KDoc の過大主張（「評価しインライン表示」）を修正
+- [x] docs は英語必須対象だが既存内容が日本語のため grandfather 原則で日本語同期（sphinx `.po` 対象外の `docs/` 直下）
+- [x] 緑 → マージ
 
 ## CP8 — 統合クリーンアップ（rank 18-20, C）
 - [ ] DOT escape 統一（flow/diagram）+ テーブル駆動テスト

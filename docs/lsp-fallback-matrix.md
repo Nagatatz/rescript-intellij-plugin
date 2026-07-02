@@ -109,10 +109,10 @@
 | Type Impact Preview | 不要 | PsiSearchHelper の word index ベースの参照検索。LSP 不要で完全動作 |
 | Notebook 風 Worksheet (`.resnb`) | 不要 | セル評価は `RescriptReplExecutor`（rescript CLI + node）に委譲。LSP 不要で完全動作 |
 | JS Interop Risk Map | 不要 | FileTypeIndex + 行ベース・トークン分類器のみ。LSP 不要で完全動作 |
-| Type Info ツールウィンドウ | 必須 | `LSP hover` に依存。「LSP not available」プレースホルダーを表示 |
+| Type Info ツールウィンドウ | 必須 | `LSP hover` に依存。サーバー未接続時は「ReScript Language Server not connected」を表示し、型が無いカーソル位置の「No type information」と区別する |
 | REPL ツールウィンドウ | 不要 | `rescript-tools` CLI に直接接続 |
-| Worksheet モード | 部分的 | コメント評価には ReScript runtime のみ必要。型注釈表示は LSP 必須 |
-| PPX 展開ビュー | 部分的 | `bsc -bs-ast` 直接呼び出しがメイン。LSP 経由のフォールバックパスもあり |
+| Worksheet モード | 部分的 | ドキュメントコメント形式の評価（`RescriptCommentEvalProvider` のインレイ表示）のみ動作。式単位の `.resw` 評価（`RescriptWorksheetRunner`）は未実装 |
+| PPX 展開ビュー | 不要 | レクサーベースのアノテーション検出 + 静的辞書ルックアップのみ（`bsc` 非呼出・LSP 非依存。実際の展開出力は表示しない） |
 
 ## 3. ユーザー視点のフロー
 
