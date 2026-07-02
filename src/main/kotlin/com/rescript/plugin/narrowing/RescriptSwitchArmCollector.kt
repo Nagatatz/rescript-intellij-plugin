@@ -1,9 +1,8 @@
 package com.rescript.plugin.narrowing
 
 import com.intellij.openapi.util.TextRange
-import com.intellij.psi.TokenType
-import com.intellij.psi.tree.IElementType
-import com.rescript.plugin.lang.RescriptLexer
+import com.rescript.plugin.lang.LexedToken
+import com.rescript.plugin.lang.RescriptTokenScanner
 import com.rescript.plugin.lang.RescriptTokenTypes
 
 /**
@@ -45,7 +44,7 @@ data class SwitchArm(
  * The existing [com.rescript.plugin.lang.RescriptParser] does not model
  * `switch` expressions in the PSI tree (expression-level constructs are
  * delegated to LSP). To keep the parser untouched, this collector
- * tokenises the source through [RescriptLexer] and tracks switch
+ * tokenises the source through [RescriptTokenScanner] and tracks switch
  * boundaries with a small state machine that handles nested switches,
  * paren depth in scrutinees, and `|` characters used inside or-patterns.
  *
@@ -66,7 +65,7 @@ object RescriptSwitchArmCollector {
      * @return arms in source order
      */
     fun collect(source: String): List<SwitchArm> {
-        val tokens = tokenize(source)
+        val tokens = RescriptTokenScanner.tokenize(source)
         val arms = mutableListOf<SwitchArm>()
         var i = 0
         while (i < tokens.size) {
@@ -78,26 +77,6 @@ object RescriptSwitchArmCollector {
         }
         return arms
     }
-
-    private fun tokenize(source: String): List<LexedToken> {
-        val lexer = RescriptLexer()
-        lexer.start(source)
-        val tokens = mutableListOf<LexedToken>()
-        while (lexer.tokenType != null) {
-            val type = lexer.tokenType!!
-            if (!isIgnorable(type)) {
-                tokens.add(LexedToken(type, lexer.tokenStart, lexer.tokenEnd, lexer.tokenText))
-            }
-            lexer.advance()
-        }
-        return tokens
-    }
-
-    private fun isIgnorable(type: IElementType): Boolean =
-        type == TokenType.WHITE_SPACE ||
-            type == RescriptTokenTypes.EOL ||
-            type == RescriptTokenTypes.SINGLE_COMMENT ||
-            type == RescriptTokenTypes.MULTI_COMMENT
 
     /**
      * Process a single `switch ... { ... }` block starting at index
@@ -407,16 +386,4 @@ object RescriptSwitchArmCollector {
             .map { it.end }
             .toList()
     }
-
-    /**
-     * Lightweight lexer record produced by walking the JFlex tokens once and
-     * caching them; lets the collector iterate by index without re-running the
-     * lexer for every brace/comma lookup.
-     */
-    internal data class LexedToken(
-        val type: IElementType,
-        val start: Int,
-        val end: Int,
-        val text: String,
-    )
 }
