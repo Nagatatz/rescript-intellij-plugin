@@ -33,17 +33,28 @@ object RescriptOffsetUtils {
     /**
      * Converts an LSP [Position] (0-based line and character) to an editor offset.
      *
+     * The `character` field of an LSP [Position] is a UTF-16 code-unit index
+     * within the line. A language server may legitimately (or erroneously) emit
+     * a `character` past the actual line end — e.g. a stale range after an edit,
+     * or a malformed response. The returned offset is therefore **clamped to the
+     * line's end offset** so it can never exceed the document bounds; callers
+     * that pass the result straight to `Document.replaceString` would otherwise
+     * throw an out-of-bounds exception.
+     *
      * @param document the document to resolve the position in
      * @param position the LSP position to convert
-     * @return the character offset, or -1 if the position is out of bounds
+     * @return the character offset (clamped to the line end), or -1 if the line
+     *   index or character is out of bounds
      */
     fun positionToOffset(
         document: Document,
         position: Position,
     ): Int {
         if (position.line < 0 || position.line >= document.lineCount) return -1
+        if (position.character < 0) return -1
         val lineStart = document.getLineStartOffset(position.line)
-        return lineStart + position.character
+        val lineEnd = document.getLineEndOffset(position.line)
+        return (lineStart + position.character).coerceAtMost(lineEnd)
     }
 
     /**
