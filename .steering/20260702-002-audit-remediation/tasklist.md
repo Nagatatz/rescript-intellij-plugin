@@ -30,16 +30,16 @@
 - [x] 緑 → マージ
 
 ## CP5 — EDT 応答性（rank 11-12, A/B）
-- [ ] `navigation/RescriptCreateInterfaceAction:60` を Task.Backgroundable 化（progress+cancel）
-- [ ] `ppx/RescriptPpxViewPanel:57` caret debounce + find→findAll
-- [ ] テスト: 単一行複数アノテーション（+ ファイル名 typo `Rescrypt` 修正）
-- [ ] 緑 → マージ
+- [x] `navigation/RescriptCreateInterfaceAction` + `RescriptOpenCompiledJsAction` を Task.Backgroundable 化（progress+cancel、opus 委譲）
+- [x] `ppx/RescriptPpxViewPanel` caret debounce（RescriptCoroutineDebouncer）+ `find→findAll`
+- [x] テスト: 単一行複数アノテーション（`Rescrypt` typo は監査 finder の引用ミスで実ファイルは正しかった → rename 不要）
+- [x] 緑 → マージ
 
 ## CP6 — エラー表示サニタイズ（rank 13-14, B, security）
-- [ ] `util/` に共有メッセージサニタイザ + 単体テスト
-- [ ] `binding/DtsGenerateBindingAction:66/128/137` を経由
-- [ ] `lsp/RescriptLspInstaller:98` を経由
-- [ ] 緑 → マージ（マージ確認時に security-relevant を明示）
+- [x] `util/RescriptMessageSanitizer` 共有サニタイザ + 単体テスト7件（opus 委譲、home→`~` / base→`<project>` / 残余絶対パス→basename）
+- [x] `binding/DtsGenerateBindingAction:66/128/137` を経由
+- [x] `lsp/RescriptLspInstaller:98` を経由
+- [x] 緑 → マージ（security-relevant を明示）
 
 ## CP7 — docs/挙動 truth-sync（rank 15-16, B）
 - [x] `typeinfo/RescriptTypeInfoPanel` に LSP 未接続専用メッセージ（`selectMessage` 抽出 + typeinfo 初テスト）
@@ -50,11 +50,15 @@
 - [x] 緑 → マージ
 
 ## CP8 — 統合クリーンアップ（rank 18-20, C）
-- [ ] DOT escape 統一（flow/diagram）+ テーブル駆動テスト
-- [ ] paintNode を `ui/GraphViewPaintHelpers` へ集約
-- [ ] `quickfix/RescriptTypeHoleQuickFix:122` を O(n) 化
-- [ ] 緑 → マージ
+- [x] DOT escape 統一（`diagram/DotLabelEscaping`）+ テーブル駆動テスト（sonnet 委譲）
+- [x] paintNode を `ui/GraphViewPaintHelpers` へ集約（maxLines パラメータ化）
+- [x] `quickfix/RescriptTypeHoleQuickFix` を O(n) 化（lineStartOffsets 事前計算）
+- [x] 緑 → マージ
+
+## 分離タスク（ユーザー承認済み）
+- [~] **CP3 :15** `Rescript.flex` カスタムフィールドの getState() 符号化 / RestartableLexer 化。ネストコメント深度が有限状態化不可でハイライト再設計を伴うため専用ステアリングに残置。
 
 ## 完了
-- [ ] 全 CP マージ済み
-- [ ] tasklist 全項目 `[x]`（本項目含む、最終コミットに含める）
+- [x] 全 CP マージ済み（CP1-CP8、:15 のみ分離）
+- [x] main 上で全 build+test+verifyPlugin 再検証（エージェント産物の独立検証）
+- [x] tasklist 全項目 `[x]`（本項目含む、最終コミットに含める）
