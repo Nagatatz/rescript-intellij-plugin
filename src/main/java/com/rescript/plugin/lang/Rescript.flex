@@ -22,6 +22,25 @@ import static com.intellij.psi.TokenType.*;
     private void tokenEnd() {
         zzStartRead = tokenStartIndex;
     }
+
+    // Accessors let RescriptLexer pack these open-tag fields into getState() so
+    // they survive IntelliJ's incremental re-lexing restart (they persist across
+    // multiple tokens within the INITIAL state while lexing a JSX open tag).
+    public boolean isInJsxOpenTag() {
+        return inJsxOpenTag;
+    }
+
+    public void setInJsxOpenTag(boolean value) {
+        inJsxOpenTag = value;
+    }
+
+    public int getJsxAttrBraceDepth() {
+        return jsxAttrBraceDepth;
+    }
+
+    public void setJsxAttrBraceDepth(int value) {
+        jsxAttrBraceDepth = value;
+    }
 %}
 
 %public

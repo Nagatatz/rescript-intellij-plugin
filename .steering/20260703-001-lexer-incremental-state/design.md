@@ -43,3 +43,20 @@ IntelliJ ハイライタの restart を単体で再現し、バグを**実証**�
 - getState() の符号化は yystate との bit 衝突に注意（`%state` 数 < cap 用ビットの下限を確保）。
 - 既存 90+ lexer テスト全通過を必須ゲートにする。
 - worktree 隔離、緑チェックポイントでのみ main マージ。
+
+## 実施結果（investigation → 実装）
+
+### Phase 1: バグ実証（完了）
+`RescriptLexerRestartTest` を作成し実証:
+- **JSX restart で `>` が `GT` に化ける = 実バグ確定**（`expected: TAG_GT but was: GT`）。
+- **コメントは restart 後も `MULTI_COMMENT`（1 トークンで安全）** — スコープ訂正が正しいことを裏付け。
+
+### Phase 2: 実装（FlexAdapter → LexerBase へ方針変更）
+当初案（B: `FlexAdapter` サブクラスで getState()/start() をパック）は**不成立**と判明:
+- `FlexAdapter.getState()` は yystate を **トークン前**にキャッシュ（`myState`）して返すが、カスタムフィールドはアクセスフックが無く **ライブ値（トークン後）**しか読めない。
+- 結果、`{`(depth 0→1) や `}` トークンで getState() が `depth=1`（後）を返し、base（前）と不整合 → `{`/`}` 境界での restart で `>` が `GT` に化ける（診断で `{` の state=98=depth1 を確認）。
+
+**正しい解**: `RescriptLexer` を `FlexAdapter` でなく **`com.intellij.lexer.LexerBase`** で実装し、`RescriptFlexLexer` を直接駆動。各トークンの **`advance()` 前**に `(yystate, inJsxOpenTag, jsxAttrBraceDepth)` をスナップショットして getState() で返すことで、before-token 状態を一貫して符号化。
+- state 符号化: 下位 5bit=yystate（最大 18）、bit5=inJsxOpenTag、bit6-8=jsxAttrBraceDepth（cap 7、極端なネストのみ縮退）。
+- flex 側に `inJsxOpenTag`/`jsxAttrBraceDepth` の public accessor を追加。
+- テスト: onClick/`{`トークン/ネストブレース全境界の restart 一貫性 + コメント restart 安全性。既存 lexer/highlight テスト全通過。
