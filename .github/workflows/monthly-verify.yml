@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@v6
+        uses: gradle/actions/wrapper-validation@v6.2.0
 
       - name: Setup JDK 21
         uses: actions/setup-java@v5
@@ -45,7 +45,7 @@ jobs:
           java-version: 21
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
+        uses: gradle/actions/setup-gradle@v6.2.0
 
       - name: Check ignored-problems expiry
         # Surfaces expired `Expires: YYYY-MM-DD` entries in
