@@ -1,0 +1,16 @@
+# Normalize line endings to LF in both the repository and the working tree so
+# that a Windows checkout matches CI (Linux) byte for byte.
+#
+# Without this, core.autocrlf=true checks the LF-stored fixtures out as CRLF
+# while the code under test generates LF, so every byte-exact comparison fails
+# locally but passes in CI. That cost 77 spurious test failures
+# (TemplateGoldenTest, TemplateResourceLoaderTest) before this file existed.
+* text=auto eol=lf
+
+# cmd.exe requires CRLF. gradlew.bat is the only Windows script in the repo.
+*.bat text eol=crlf
+
+# Never munge binaries.
+*.png binary
+*.jar binary
+*.zip binary
