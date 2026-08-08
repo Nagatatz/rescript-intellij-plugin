@@ -234,12 +234,14 @@ CI (Linux) は green なので、Windows 固有の問題（パス長・大文字
 
 ### 3-2: ドキュメント同期
 
-- [ ] `sphinx-docs/user/templates/astro.md` に astro のバージョン表記があれば更新する
-- [ ] `docs/` 配下にテンプレートのバージョン一覧があれば更新する
-- [ ] 上記を変更した場合、`.po` を同一コミットで同期する
-      （`make gettext && make update-po` → 空 `msgstr` を埋める → `make build-ja`）
-- [ ] `docs-lint` スキルで同期崩れがないことを確認する
-- [ ] コミット（`📝 ...`）
+- [x] `sphinx-docs/user/templates/astro.md` を確認 → **具体的なバージョン番号の記載なし**。更新不要
+- [x] `docs/` 配下を確認 → npm バージョンを列挙した表は存在しない。
+      ドキュメントは `TemplateVersions.kt` を正本として参照する構造になっており、
+      バージョン番号を二重管理していない（更新漏れが起きない良い設計）
+- [x] `docs/repository-structure.md` の `.github/scripts/` 一覧に新規 3 エントリを追記
+- [x] `.po` 同期は **不要**（`sphinx-docs/` 配下を 1 ファイルも変更していないため）
+- [x] `docs-lint` は N/A（staged に `sphinx-docs/**/*.md` が無く、新規 Kotlin クラスも無い）
+- [x] コミット（`📝 Document the npm audit gate scripts`）
 
 ## セクション 4: 完了処理
 

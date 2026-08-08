@@ -215,7 +215,10 @@ sphinx-docs/
 │   ├── os-matrix.yml         # Linux/macOS/Windows ビルド・検証（週次）
 │   └── monthly-verify.yml    # 月次 verifyPlugin + テンプレート npm audit
 ├── scripts/
-│   └── audit-template-versions.mjs  # TemplateVersions.kt から package.json を生成（npm audit 用）
+│   ├── audit-template-versions.mjs  # TemplateVersions.kt から package.json を生成（npm audit 用）
+│   ├── check-npm-audit.mjs          # npm audit を評価し、allowlist 外の high/critical で fail
+│   ├── npm-audit-allowlist.json     # 上流に修正版が無い advisory の除外リスト（理由・期限つき）
+│   └── __tests__/                   # check-npm-audit.mjs の判定ロジックのテスト（node:test）
 └── dependabot.yml            # Dependabot 設定
 ```
 
