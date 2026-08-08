@@ -10,30 +10,31 @@
 
 ## セクション 0: 準備
 
-- [ ] `git fetch origin` を実行し、main が origin と同期していることを確認する
-- [ ] steering ドキュメント 3 点を main に直接コミットする（`📝 Add steering docs for CI Windows fixed failures`）
-- [ ] `EnterWorktree` で worktree を作成する
-- [ ] `pwd` と `git rev-parse --show-toplevel` で編集対象が worktree 内であることを確認する
-- [ ] worktree は `origin/main` から切られるため、未 push コミットがある場合は `git merge main` で取り込む
+- [x] `git fetch origin` を実行し、main が origin と同期していることを確認する
+- [x] steering ドキュメント 3 点を main に直接コミットする（`📝 Add steering docs for CI Windows fixed failures`）
+- [x] `EnterWorktree` で worktree を作成する
+- [x] `pwd` と `git rev-parse --show-toplevel` で編集対象が worktree 内であることを確認する
+- [x] worktree は `origin/main` から切られるため、未 push コミットがある場合は `git merge main` で取り込む
 
 ---
 
 ## セクション 1: ProcessUtilsTest の bash 依存を解消（手法 A）
 
-- [ ] `src/test/kotlin/com/rescript/plugin/util/RescriptProcessUtilsTest.kt` に private helper `script(dir, name, win, posix): Path` を追加する
+- [x] `src/test/kotlin/com/rescript/plugin/util/RescriptProcessUtilsTest.kt` に private helper `script(dir, name, win, posix): Path` を追加する
   - Windows: `<name>.bat` に `@echo off` + win 本体
   - POSIX: `<name>.sh` に `#!/bin/sh` + posix 本体 + `setExecutable(true)`
   - プラットフォーム判定は `com.intellij.openapi.util.SystemInfo.isWindows`
   - KDoc に「bash が CI Windows では WSL ランチャーに解決される」ことを英語で明記する
-- [ ] `executeWithStdin captures stderr` を書き換える（`echo err 1>&2` / `echo err >&2`）
-- [ ] `executeWithStdin reports non-zero exit code` を書き換える（`exit /b 42` / `exit 42`）
-- [ ] `testRunSimpleCommandTimesOut` を書き換える（`echo started` + `ping -n 61 127.0.0.1 >nul` / `echo started; sleep 60`）
-- [ ] `executeWithStdin handles timeout` に `@DisabledOnOs(WINDOWS)` を付与し、`disabledReason` に cmd.exe が stdout を閉じられない旨を明記する
-- [ ] 対象テストに `@TempDir tempDir: Path` を追加する
-- [ ] `grep -rn '"bash"' src/test/` で bash 直呼びが残っていないことを確認する
-- [ ] `./gradlew test --tests 'com.rescript.plugin.util.RescriptProcessUtilsTest'` で全件成功を確認する
-- [ ] Windows で skipped が 1 件（`handles timeout`）として集計されることを確認する
-- [ ] tasklist を更新してコミットする（`✅ Replace direct bash calls in process utils tests`）
+- [x] `executeWithStdin captures stderr` を書き換える（`echo err 1>&2` / `echo err >&2`）
+- [x] `executeWithStdin reports non-zero exit code` を書き換える（`exit /b 42` / `exit 42`）
+- [x] `testRunSimpleCommandTimesOut` を書き換える（`echo started` + `ping -n 61 127.0.0.1 >nul` / `echo started; sleep 60`）
+- [x] `executeWithStdin handles timeout` に `@DisabledOnOs(WINDOWS)` を付与し、`disabledReason` に cmd.exe が stdout を閉じられない旨を明記する
+- [x] 対象テストに `@TempDir tempDir: Path` を追加する
+- [x] `grep -rn '"bash"' src/test/` で bash 直呼びが残っていないことを確認する
+  - 残存 1 件は `handles timeout` のみ。Windows ではスキップされ POSIX では正常動作するため設計どおり
+- [x] `./gradlew test --tests 'com.rescript.plugin.util.RescriptProcessUtilsTest'` で全件成功を確認する（11 件 / skipped 1 / 失敗 0）
+- [x] Windows で skipped が 1 件（`handles timeout`）として集計されることを確認する
+- [x] tasklist を更新してコミットする（`✅ Replace direct bash calls in process utils tests`）
 
 ---
 
