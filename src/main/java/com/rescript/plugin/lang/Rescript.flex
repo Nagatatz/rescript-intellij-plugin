@@ -12,7 +12,6 @@ import static com.intellij.psi.TokenType.*;
 %{
     private int tokenStartIndex;
     private int commentDepth;
-    private boolean inCommentString = false;
     private boolean inJsxOpenTag = false;
     private int jsxAttrBraceDepth = 0;
 
@@ -22,6 +21,25 @@ import static com.intellij.psi.TokenType.*;
 
     private void tokenEnd() {
         zzStartRead = tokenStartIndex;
+    }
+
+    // Accessors let RescriptLexer pack these open-tag fields into getState() so
+    // they survive IntelliJ's incremental re-lexing restart (they persist across
+    // multiple tokens within the INITIAL state while lexing a JSX open tag).
+    public boolean isInJsxOpenTag() {
+        return inJsxOpenTag;
+    }
+
+    public void setInJsxOpenTag(boolean value) {
+        inJsxOpenTag = value;
+    }
+
+    public int getJsxAttrBraceDepth() {
+        return jsxAttrBraceDepth;
+    }
+
+    public void setJsxAttrBraceDepth(int value) {
+        jsxAttrBraceDepth = value;
     }
 %}
 
@@ -280,7 +298,10 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
     "{"           { return RescriptTokenTypes.LBRACE; }
     "}"           { return RescriptTokenTypes.RBRACE; }
     "`"           { yybegin(AFTER_IDENT); return RescriptTokenTypes.JS_STRING_CLOSE; }
-    {EOL}         { }
+    // A newline is literal template content; emit it as STRING_VALUE so every
+    // character stays covered by a token. An empty action here would leave a
+    // 1-char lexer gap when the EOL sits between `}`/`$` boundaries.
+    {EOL}         { return RescriptTokenTypes.STRING_VALUE; }
     <<EOF>>       { yybegin(INITIAL); }
     ([^`{}$])+    { return RescriptTokenTypes.STRING_VALUE; }
 }
@@ -299,9 +320,13 @@ ESCAPE_CHAR= {ESCAPE_BACKSLASH} | {ESCAPE_SINGLE_QUOTE} | {ESCAPE_LF} | {ESCAPE_
 }
 
 <IN_ML_COMMENT> {
-    "/*" { if (!inCommentString) { commentDepth += 1; } }
-    "*/" { if (!inCommentString) { commentDepth -= 1; if(commentDepth == 0) { yybegin(INITIAL); tokenEnd(); return RescriptTokenTypes.MULTI_COMMENT; } } }
-    "\"" { inCommentString = !inCommentString; }
+    // ReScript block comments are C/JS-style: they nest but do not lex string
+    // literals specially, so `*/` always closes (respecting nesting depth).
+    // A double-quote is an ordinary comment character — treating it as a string
+    // toggle previously latched on an odd quote count and swallowed the rest of
+    // the file.
+    "/*" { commentDepth += 1; }
+    "*/" { commentDepth -= 1; if(commentDepth == 0) { yybegin(INITIAL); tokenEnd(); return RescriptTokenTypes.MULTI_COMMENT; } }
     . | {EOL} { }
     <<EOF>> { yybegin(INITIAL); tokenEnd(); return RescriptTokenTypes.MULTI_COMMENT; }
 }

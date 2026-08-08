@@ -1,9 +1,14 @@
 package com.rescript.plugin.ppx
 
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ModalityState
+import com.intellij.openapi.components.service
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Disposer
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
@@ -11,8 +16,11 @@ import com.rescript.plugin.highlight.RescriptSyntaxHighlighter
 import com.rescript.plugin.ui.RescriptEditorCaretTracker
 import com.rescript.plugin.util.HtmlEditorPaneFactory
 import com.rescript.plugin.util.RescriptColorUtils
+import com.rescript.plugin.util.RescriptCoroutineDebouncer
+import com.rescript.plugin.util.RescriptCoroutineScopeService
 import com.rescript.plugin.util.RescriptFileUtil
 import com.rescript.plugin.util.RescriptSecurityUtils
+import kotlinx.coroutines.Dispatchers
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Font
@@ -50,22 +58,59 @@ class RescriptPpxViewPanel(
             add(JBScrollPane(infoArea), BorderLayout.CENTER)
         }
 
+    // Background debounce for the PPX re-scan; Dispatchers.Default keeps
+    // the (potentially large) document scan off the EDT, matching the
+    // sibling caret-driven panels (RescriptTypeInfoPanel etc.). Pending
+    // work dies with the project scope, and earlier with parentDisposable.
+    private val debouncer =
+        RescriptCoroutineDebouncer(
+            project.service<RescriptCoroutineScopeService>().scope,
+            DEBOUNCE_MS,
+            Dispatchers.Default,
+        )
+
     val component: JComponent
         get() = mainPanel
 
     init {
+        // Drop any pending re-scan when the tool window content goes away
+        // before the project does.
+        Disposer.register(parentDisposable) { debouncer.cancel() }
+
         RescriptEditorCaretTracker.install(project, parentDisposable) { editor ->
-            val document = editor.document
-            val file = FileDocumentManager.getInstance().getFile(document)
-            if (file != null && RescriptFileUtil.isRescriptFileName(file.name)) {
-                updatePpxInfo(document.text)
-            }
+            scheduleUpdate(editor)
         }
     }
 
-    private fun updatePpxInfo(sourceText: String) {
-        val annotations = findPpxAnnotations(sourceText)
-        infoArea.text = renderHtml(annotations, annotationColorHex())
+    /**
+     * Schedules a debounced PPX re-scan for the given editor.
+     *
+     * Captures the document text and annotation colour on the current thread
+     * (expected to be the EDT) before scheduling the scan on a pooled thread,
+     * avoiding a full-document re-scan on the EDT on every caret move.
+     *
+     * @param editor the editor whose caret position changed
+     */
+    private fun scheduleUpdate(editor: Editor) {
+        debouncer.cancel()
+
+        val document = editor.document
+        val file = FileDocumentManager.getInstance().getFile(document)
+        if (file == null || !RescriptFileUtil.isRescriptFileName(file.name)) {
+            return
+        }
+
+        // Capture the immutable inputs on the EDT before the background scan.
+        val sourceText = ApplicationManager.getApplication().runReadAction<String> { document.text }
+        val colorHex = annotationColorHex()
+
+        debouncer.schedule {
+            val annotations = findPpxAnnotations(sourceText)
+            val html = renderHtml(annotations, colorHex)
+            ApplicationManager.getApplication().invokeLater({
+                infoArea.text = html
+            }, ModalityState.any())
+        }
     }
 
     /**
@@ -85,6 +130,9 @@ class RescriptPpxViewPanel(
     }
 
     companion object {
+        /** Debounce window (ms) for caret-driven re-scans, matching the sibling panels. */
+        private const val DEBOUNCE_MS = 300L
+
         // Pattern matching @annotation or @annotation(...)
         private val ANNOTATION_PATTERN = Regex("""@(\w+(?:\.\w+)*)(?:\([^)]*\))?""")
 
@@ -141,8 +189,10 @@ class RescriptPpxViewPanel(
             for ((lineNum, line) in sourceText.lines().withIndex()) {
                 val trimmed = line.trim()
                 if (trimmed.startsWith("@")) {
-                    val match = ANNOTATION_PATTERN.find(trimmed)
-                    if (match != null) {
+                    // A single line may carry several annotations (e.g.
+                    // `@genType @react.component`), so collect every match
+                    // rather than only the first.
+                    for (match in ANNOTATION_PATTERN.findAll(trimmed)) {
                         results.add(Pair(match.value, lineNum + 1))
                     }
                 }

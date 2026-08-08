@@ -358,6 +358,18 @@ class RescriptLexerTest {
         assertEquals(RescriptTokenTypes.MULTI_COMMENT, tokens[0].first)
     }
 
+    @Test
+    fun `comment - odd quote count does not swallow the rest of the file`() {
+        // A single stray double-quote used to latch inCommentString so that */
+        // was ignored and the comment consumed everything after it.
+        val tokens = tokenizeNoWs("/* the \" symbol */\nlet x = 1")
+        assertEquals(RescriptTokenTypes.MULTI_COMMENT, tokens[0].first)
+        assertTrue(
+            tokens.any { it.first == RescriptTokenTypes.LET },
+            "code after the closing */ must still tokenize",
+        )
+    }
+
     // ════════════════════════════════════════════════════════════════
     // Template literals
     // ════════════════════════════════════════════════════════════════
@@ -369,6 +381,20 @@ class RescriptLexerTest {
         assertEquals(RescriptTokenTypes.STRING_VALUE, tokens[1].first)
         assertEquals("hello", tokens[1].second)
         assertEquals(RescriptTokenTypes.JS_STRING_CLOSE, tokens[2].first)
+    }
+
+    @Test
+    fun `template - newline between interpolations is fully covered`() {
+        // `}` and `$` are the token boundaries that made the empty {EOL} action
+        // win over the content rule, leaving the newline uncovered by any token.
+        val input = "`${'$'}{a}\n${'$'}{b}`"
+        assertEquals(input, tokenize(input).joinToString("") { it.second })
+    }
+
+    @Test
+    fun `template - multi-line content is fully covered`() {
+        val input = "`line1\nline2`"
+        assertEquals(input, tokenize(input).joinToString("") { it.second })
     }
 
     @Test

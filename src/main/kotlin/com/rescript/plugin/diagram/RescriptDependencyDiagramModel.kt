@@ -103,18 +103,12 @@ class RescriptDependencyDiagramModel {
             appendLine("  rankdir=TB;")
             appendLine("  node [shape=box];")
             for (edge in getEdges()) {
-                appendLine("  \"${escapeDot(edge.from)}\" -> \"${escapeDot(edge.to)}\";")
+                val from = DotLabelEscaping.escapeDotLabel(edge.from)
+                val to = DotLabelEscaping.escapeDotLabel(edge.to)
+                appendLine("  \"$from\" -> \"$to\";")
             }
             appendLine("}")
         }
-
-    /**
-     * Escapes special characters for DOT format string context.
-     *
-     * Prevents injection of DOT directives via module names containing
-     * double quotes or backslashes.
-     */
-    private fun escapeDot(value: String): String = value.replace("\\", "\\\\").replace("\"", "\\\"")
 
     companion object {
         /**

@@ -13,6 +13,7 @@ import com.intellij.openapi.progress.Task
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.rescript.plugin.settings.RescriptProjectSettings
+import com.rescript.plugin.util.RescriptMessageSanitizer
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.nio.file.Paths
 
@@ -63,8 +64,11 @@ class DtsGenerateBindingAction : AnAction() {
         if (!DtsNodeDetector.isTypeScriptAvailable(tsPath)) {
             Messages.showErrorDialog(
                 project,
-                "TypeScript package at $tsPath appears incomplete.\n" +
-                    "Try reinstalling: npm install typescript",
+                RescriptMessageSanitizer.sanitize(
+                    project,
+                    "TypeScript package at $tsPath appears incomplete.\n" +
+                        "Try reinstalling: npm install typescript",
+                ),
                 "Generate ReScript Binding",
             )
             return
@@ -125,7 +129,10 @@ class DtsGenerateBindingAction : AnAction() {
                         ApplicationManager.getApplication().invokeLater {
                             Messages.showErrorDialog(
                                 project,
-                                "Failed to parse ${file.name}:\n${e.message}",
+                                RescriptMessageSanitizer.sanitize(
+                                    project,
+                                    "Failed to parse ${file.name}:\n${e.message}",
+                                ),
                                 "Generate ReScript Binding",
                             )
                         }
@@ -134,10 +141,13 @@ class DtsGenerateBindingAction : AnAction() {
                         ApplicationManager.getApplication().invokeLater {
                             Messages.showErrorDialog(
                                 project,
-                                "Unexpected error: ${e.message}. " +
-                                    "Verify that Node.js and TypeScript are installed correctly, " +
-                                    "and that the .d.ts file is valid. " +
-                                    "Check the IDE log (Help > Show Log) for details.",
+                                RescriptMessageSanitizer.sanitize(
+                                    project,
+                                    "Unexpected error: ${e.message}. " +
+                                        "Verify that Node.js and TypeScript are installed correctly, " +
+                                        "and that the .d.ts file is valid. " +
+                                        "Check the IDE log (Help > Show Log) for details.",
+                                ),
                                 "Generate ReScript Binding",
                             )
                         }

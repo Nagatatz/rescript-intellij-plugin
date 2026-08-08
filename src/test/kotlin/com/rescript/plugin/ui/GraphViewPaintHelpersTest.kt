@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.awt.Color
 import java.awt.Point
+import java.awt.Rectangle
 import java.awt.image.BufferedImage
 
 /**
@@ -69,6 +70,32 @@ class GraphViewPaintHelpersTest {
         }
         // The first swatch is filled at (margin.., baseY+4..); sample its centre.
         assertEquals(Color.RED.rgb, image.getRGB(18, 160))
+    }
+
+    @Test
+    fun `paintNode fills the box without throwing for single-line label`() {
+        val (image, g) = graphics()
+        try {
+            val box = Rectangle(10, 10, 100, 32)
+            GraphViewPaintHelpers.paintNode(g, box, "Hello", Color.CYAN, Color.DARK_GRAY)
+            // The fill colour should appear somewhere inside the box area.
+            // Sample a pixel well inside the box where rounding won't clip it.
+            val pixel = image.getRGB(box.x + box.width / 2, box.y + box.height / 2)
+            assertTrue(pixel != 0, "Expected non-transparent pixel inside node box")
+        } finally {
+            g.dispose()
+        }
+    }
+
+    @Test
+    fun `paintNode renders up to maxLines lines without throwing`() {
+        val (_, g) = graphics()
+        try {
+            val box = Rectangle(10, 10, 120, 48)
+            GraphViewPaintHelpers.paintNode(g, box, "line1\nline2\nline3", Color.CYAN, Color.DARK_GRAY, maxLines = 2)
+        } finally {
+            g.dispose()
+        }
     }
 
     @Test

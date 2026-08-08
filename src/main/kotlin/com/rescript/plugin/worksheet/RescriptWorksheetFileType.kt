@@ -7,12 +7,13 @@ import javax.swing.Icon
 /**
  * File type for ReScript worksheet files (`.resw` extension).
  *
- * Worksheets are interactive files where each top-level expression is
- * evaluated and the result is displayed inline. They reuse the ReScript
- * language definition for syntax highlighting and parsing.
+ * Worksheets reuse the ReScript language definition for syntax highlighting
+ * and parsing, and surface doc-comment evaluation results as inline hints.
+ * Per-expression evaluation of the whole file is not yet wired up (see
+ * [RescriptWorksheetRunner], currently a placeholder).
  *
  * @see LanguageFileType
- * @see RescriptWorksheetRunner for execution logic
+ * @see RescriptWorksheetRunner for the (unimplemented) execution logic
  */
 class RescriptWorksheetFileType private constructor() : LanguageFileType(RescriptLanguage) {
     override fun getName(): String = "ReScript Worksheet"

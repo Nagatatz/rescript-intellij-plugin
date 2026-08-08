@@ -219,11 +219,40 @@ class RescriptRenameHandler : RenameHandler {
 
     // ── WorkspaceEdit application ──────────────────────────────────────
 
+    /**
+     * Normalizes a [WorkspaceEdit] into a `uri -> edits` map, supporting both
+     * the legacy `changes` map and the LSP-preferred `documentChanges` form.
+     *
+     * `rescript-language-server` (and many servers) may return either shape
+     * depending on client capabilities; reading only `changes` silently drops
+     * the rename when the server chose `documentChanges`.
+     *
+     * @param edit the workspace edit returned by textDocument/rename
+     * @return a uri-to-edits map, or null when the edit carries no textual edits
+     */
+    internal fun collectEdits(edit: WorkspaceEdit): Map<String, List<TextEdit>>? {
+        edit.changes?.takeIf { it.isNotEmpty() }?.let { return it }
+
+        val documentChanges = edit.documentChanges ?: return null
+        val result = LinkedHashMap<String, MutableList<TextEdit>>()
+        for (change in documentChanges) {
+            // Left = TextDocumentEdit (textual edits); Right = ResourceOperation
+            // (create/rename/delete file), which symbol rename does not produce.
+            if (change.isLeft) {
+                val documentEdit = change.left
+                val uri = documentEdit.textDocument?.uri ?: continue
+                val edits = documentEdit.edits ?: continue
+                result.getOrPut(uri) { mutableListOf() }.addAll(edits)
+            }
+        }
+        return result.ifEmpty { null }
+    }
+
     private fun applyWorkspaceEdit(
         project: Project,
         edit: WorkspaceEdit,
     ) {
-        val changes: Map<String, List<TextEdit>> = edit.changes ?: return
+        val changes: Map<String, List<TextEdit>> = collectEdits(edit) ?: return
 
         WriteCommandAction.runWriteCommandAction(project, "ReScript Rename", null, {
             val fileDocManager = FileDocumentManager.getInstance()
@@ -259,7 +288,10 @@ class RescriptRenameHandler : RenameHandler {
                 for (textEdit in sortedEdits) {
                     val startOffset = RescriptOffsetUtils.positionToOffset(document, textEdit.range.start)
                     val endOffset = RescriptOffsetUtils.positionToOffset(document, textEdit.range.end)
-                    if (startOffset >= 0 && endOffset >= 0 && endOffset <= document.textLength) {
+                    // Defense-in-depth against malformed server ranges: require a
+                    // non-negative, non-inverted range within the document. A single
+                    // out-of-range edit must not throw and abort the whole rename.
+                    if (startOffset in 0..endOffset && endOffset <= document.textLength) {
                         document.replaceString(startOffset, endOffset, textEdit.newText)
                     }
                 }

@@ -2,7 +2,6 @@ package com.rescript.plugin.diagram
 
 import com.intellij.ui.JBColor
 import com.rescript.plugin.ui.GraphViewPaintHelpers
-import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.FontMetrics
@@ -70,7 +69,7 @@ class RescriptDependencyDiagramGraphView : JComponent() {
             val layout = computeLayout(current, width.coerceAtLeast(MIN_VIEW_WIDTH), g2.fontMetrics)
             for (node in layout.nodes) {
                 val (fill, border) = PALETTE.getValue(node.role)
-                paintNode(g2, node.box, node.name, fill, border)
+                GraphViewPaintHelpers.paintNode(g2, node.box, node.name, fill, border)
             }
             GraphViewPaintHelpers.paintEdges(g2, layout.edges)
             GraphViewPaintHelpers.paintLegend(
@@ -82,26 +81,6 @@ class RescriptDependencyDiagramGraphView : JComponent() {
         } finally {
             g2.dispose()
         }
-    }
-
-    private fun paintNode(
-        g: Graphics2D,
-        box: Rectangle,
-        label: String,
-        fill: Color,
-        border: Color,
-    ) {
-        g.color = fill
-        g.fillRoundRect(box.x, box.y, box.width, box.height, ROUND_RADIUS, ROUND_RADIUS)
-        g.color = border
-        g.stroke = BasicStroke(1.5f)
-        g.drawRoundRect(box.x, box.y, box.width, box.height, ROUND_RADIUS, ROUND_RADIUS)
-        g.color = JBColor.foreground()
-        val fm = g.fontMetrics
-        val trimmed = GraphViewPaintHelpers.truncateToWidth(label, fm, box.width - 2 * NODE_PADDING_X)
-        val textX = box.x + (box.width - fm.stringWidth(trimmed)) / 2
-        val textY = box.y + (box.height - fm.height) / 2 + fm.ascent
-        g.drawString(trimmed, textX, textY)
     }
 
     /**
@@ -140,9 +119,7 @@ class RescriptDependencyDiagramGraphView : JComponent() {
     companion object {
         const val MIN_VIEW_WIDTH = 420
         const val MIN_VIEW_HEIGHT = 160
-        private const val NODE_PADDING_X = 16
         private const val NODE_HEIGHT = 32
-        private const val ROUND_RADIUS = 12
         private const val V_GAP = 36
         private const val H_GAP = 16
         private const val MARGIN = 12
@@ -370,7 +347,7 @@ class RescriptDependencyDiagramGraphView : JComponent() {
             maxWidth: Int,
         ): Int {
             val widest = fm?.stringWidth(label) ?: (label.length * DEFAULT_CHAR_WIDTH)
-            return (widest + 2 * NODE_PADDING_X).coerceAtLeast(minWidth).coerceAtMost(maxWidth)
+            return (widest + 2 * GraphViewPaintHelpers.NODE_PADDING_X).coerceAtLeast(minWidth).coerceAtMost(maxWidth)
         }
     }
 }

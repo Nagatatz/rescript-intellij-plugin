@@ -23,6 +23,7 @@
 以下の authoring/tooling 用ドキュメントは **日本語で記述すること**。英語のみで新規作成・全面書き換えしてはならない:
 
 - `.claude/` 配下のすべて（`rules/`, `skills/`, `commands/`, `agents/`, `hooks/`, `memories/` 等）
+  - ただし、フックスクリプト等が自動生成するファイル（`.claude/session-state.md` 等）は言語規約の適用外とする
 - `.steering/` 配下のドキュメント（requirements.md, design.md, tasklist.md 等）
 - `CLAUDE.md`
 

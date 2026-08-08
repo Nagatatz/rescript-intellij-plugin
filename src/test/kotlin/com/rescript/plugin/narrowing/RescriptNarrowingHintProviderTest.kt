@@ -186,4 +186,26 @@ class RescriptNarrowingHintProviderTest {
         // Two arrow hints; no extra binding hint for `other`.
         assertEquals(2, hints.size)
     }
+
+    // ── Hover-request budget ───────────────────────────────────────
+
+    @Test
+    fun `total hover requests are capped at the per-file budget`() {
+        // 25 arms x (1 scrutinee + 3 bindings) = 100 would-be hover calls,
+        // which exceeds MAX_HOVER_REQUESTS_PER_FILE. Arm count stays under
+        // MAX_ARMS_PER_FILE so the file is not skipped outright.
+        val arms = (0 until 25).joinToString("\n") { "  | C$it(a, b, c) => a" }
+        val source = "let f = x =>\n  switch x {\n$arms\n  }"
+
+        var calls = 0
+        val counting =
+            RescriptHoverTypeResolver {
+                calls++
+                "int"
+            }
+        val hints = RescriptNarrowingHintProvider.buildHints(source, counting)
+
+        assertEquals(RescriptNarrowingHintProvider.MAX_HOVER_REQUESTS_PER_FILE, calls)
+        assertTrue(hints.isNotEmpty(), "budgeted pass should still produce hints")
+    }
 }

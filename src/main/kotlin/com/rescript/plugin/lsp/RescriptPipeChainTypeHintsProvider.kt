@@ -73,7 +73,14 @@ class RescriptPipeChainTypeHintsProvider : InlayHintsProvider<NoSettings> {
 
                 val virtualFile = file.virtualFile ?: return false
                 val text = editor.document.text
+                // Capped to MAX_PIPE_CHAIN_HINTS: each position triggers a
+                // synchronous LSP hover, so an unbounded scan on a large file
+                // would serialize hundreds of round-trips into the inlay pass.
                 val pipePositions = findPipePositions(text)
+
+                // PresentationFactory is stateless per editor; build it once
+                // rather than allocating one per hint.
+                val factory = PresentationFactory(editor)
 
                 for (pipePos in pipePositions) {
                     // Get type at the expression before the pipe
@@ -83,7 +90,6 @@ class RescriptPipeChainTypeHintsProvider : InlayHintsProvider<NoSettings> {
                     val displayType = extractReturnType(typeText) ?: typeText
                     if (displayType.isBlank()) continue
 
-                    val factory = PresentationFactory(editor)
                     val presentation =
                         factory.roundWithBackground(
                             factory.smallText(": $displayType"),
@@ -99,19 +105,37 @@ class RescriptPipeChainTypeHintsProvider : InlayHintsProvider<NoSettings> {
 
     companion object {
         /**
-         * Finds all pipe operator (->) positions in the text.
+         * Hard cap on the number of pipe hints resolved per file. Each hint
+         * costs one synchronous LSP hover, so beyond this point the editor
+         * responsiveness cost outweighs the readability gain.
+         */
+        internal const val MAX_PIPE_CHAIN_HINTS = 100
+
+        /**
+         * Finds pipe operator (`->`) positions in the text, up to [limit].
+         *
+         * Matches [RescriptTokenTypes.RIGHT_ARROW] (`->`, the pipe), **not**
+         * [RescriptTokenTypes.ARROW] (`=>`, the function/lambda/switch-arm
+         * arrow): the latter appears in nearly every expression and would both
+         * misplace the intermediate-type hints and inflate the hover-request
+         * count far beyond the intended pipe count.
          *
          * @param text the document text
-         * @return list of offsets where pipe operators start
+         * @param limit maximum number of positions to return
+         * @return offsets where pipe operators start, capped at [limit]
          */
-        internal fun findPipePositions(text: String): List<Int> {
+        internal fun findPipePositions(
+            text: String,
+            limit: Int = MAX_PIPE_CHAIN_HINTS,
+        ): List<Int> {
             val positions = mutableListOf<Int>()
             val lexer = RescriptLexer()
             lexer.start(text)
 
             while (lexer.tokenType != null) {
-                if (lexer.tokenType == RescriptTokenTypes.ARROW) {
+                if (lexer.tokenType == RescriptTokenTypes.RIGHT_ARROW) {
                     positions.add(lexer.tokenStart)
+                    if (positions.size >= limit) break
                 }
                 lexer.advance()
             }

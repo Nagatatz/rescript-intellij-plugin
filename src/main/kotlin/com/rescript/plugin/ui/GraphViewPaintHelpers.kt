@@ -7,6 +7,7 @@ import java.awt.FontMetrics
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Polygon
+import java.awt.Rectangle
 
 /**
  * Java2D painting helpers shared by the top-down graph views
@@ -28,6 +29,12 @@ internal object GraphViewPaintHelpers {
 
     /** Height in pixels reserved at the bottom of the canvas for the legend strip. */
     const val LEGEND_HEIGHT = 28
+
+    /** Corner arc radius used when drawing rounded-rectangle node boxes. */
+    const val ROUND_RADIUS = 12
+
+    /** Horizontal padding inside a node box, applied on each side. */
+    const val NODE_PADDING_X = 16
 
     // Arrow-head triangle geometry shared by both views.
     private const val ARROW_HALF_WIDTH = 5
@@ -125,6 +132,46 @@ internal object GraphViewPaintHelpers {
             endIndex--
         }
         return text.substring(0, endIndex.coerceAtLeast(0)) + ellipsis
+    }
+
+    /**
+     * Paints a rounded-rectangle node box with a centred, truncated label.
+     *
+     * The label is split on `\n`; at most [maxLines] lines are rendered.
+     * Each line is truncated with an ellipsis when it would exceed
+     * `box.width − 2 × [NODE_PADDING_X]` pixels.
+     *
+     * @param g target graphics; colour and stroke are overwritten
+     * @param box bounding rectangle of the node on the canvas
+     * @param label text to render (may contain `\n`)
+     * @param fill background fill colour
+     * @param border stroke colour for the rounded border
+     * @param maxLines maximum number of lines to render (default 1)
+     */
+    fun paintNode(
+        g: Graphics2D,
+        box: Rectangle,
+        label: String,
+        fill: Color,
+        border: Color,
+        maxLines: Int = 1,
+    ) {
+        g.color = fill
+        g.fillRoundRect(box.x, box.y, box.width, box.height, ROUND_RADIUS, ROUND_RADIUS)
+        g.color = border
+        g.stroke = BasicStroke(1.5f)
+        g.drawRoundRect(box.x, box.y, box.width, box.height, ROUND_RADIUS, ROUND_RADIUS)
+        g.color = JBColor.foreground()
+        val fm = g.fontMetrics
+        val lines = label.split('\n').take(maxLines)
+        val totalTextHeight = fm.height * lines.size
+        var textY = box.y + (box.height - totalTextHeight) / 2 + fm.ascent
+        for (line in lines) {
+            val trimmed = truncateToWidth(line, fm, box.width - 2 * NODE_PADDING_X)
+            val textX = box.x + (box.width - fm.stringWidth(trimmed)) / 2
+            g.drawString(trimmed, textX, textY)
+            textY += fm.height
+        }
     }
 
     /**

@@ -72,17 +72,11 @@
 # ブランチ作成
 git checkout main
 git checkout -b feature/<機能名>
-
-# 実装・コミット後、main にマージ
-git checkout main
-git merge feature/<機能名>
-git branch -d feature/<機能名>
 ```
 
-**例外:** 以下のケースでは `main` への直接コミットを許可する:
-- タイポ修正、1行の設定変更など明らかに軽微な修正
-- ステアリングドキュメント（`.steering/`）のみの変更
-- `CLAUDE.md` や `docs/` のみのドキュメント更新
+実装・コミット後のマージ手順（worktree フロー・通常の feature ブランチフロー共通）は → `.claude/rules/steering-workflow.md` の「worktree マージ・クリーンアップ手順」を参照。
+
+**例外:** `main` への直接コミットを許可するケースは → `.claude/rules/definition-of-done.md` の「例外（フェーズ横断の免除マトリクス）」の「main 直接コミット可」列を参照すること。
 
 ## ブランチ命名規則
 
@@ -94,3 +88,5 @@ git branch -d feature/<機能名>
 | `docs/` | ドキュメント更新 | `docs/update-architecture` |
 | `test/` | テスト追加・修正 | `test/lexer-edge-cases` |
 | `chore/` | 設定・依存関係等 | `chore/update-dependencies` |
+
+> 注: `EnterWorktree` ツールが自動生成する `worktree-<機能名>` ブランチは、上記命名プレフィックス規則の例外として扱う。

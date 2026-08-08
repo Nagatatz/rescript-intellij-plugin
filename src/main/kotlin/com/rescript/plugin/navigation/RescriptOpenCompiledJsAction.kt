@@ -4,8 +4,11 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.fileEditor.FileEditorManager
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.ui.Messages
@@ -29,16 +32,29 @@ class RescriptOpenCompiledJsAction : AnAction() {
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
         if (!RescriptFileUtil.isRescriptFile(file)) return
 
-        val jsFile = tryOpenViaLsp(project, file) ?: findCompiledJsFile(project, file)
-        if (jsFile != null) {
-            FileEditorManager.getInstance(project).openFile(jsFile, true)
-        } else {
-            Messages.showInfoMessage(
-                project,
-                "Compile your project first to generate JavaScript output.",
-                "Compiled File Not Found",
-            )
-        }
+        // The LSP resolution can block for up to 10s, so resolve on a background
+        // task with a cancellable indicator and open the result back on the EDT.
+        object : Task.Backgroundable(project, "Locating compiled JavaScript output", true) {
+            override fun run(indicator: ProgressIndicator) {
+                indicator.isIndeterminate = true
+                val jsFile =
+                    tryOpenViaLsp(project, file)
+                        ?: ApplicationManager.getApplication().runReadAction<VirtualFile?> {
+                            findCompiledJsFile(project, file)
+                        }
+                ApplicationManager.getApplication().invokeLater {
+                    if (jsFile != null) {
+                        FileEditorManager.getInstance(project).openFile(jsFile, true)
+                    } else {
+                        Messages.showInfoMessage(
+                            project,
+                            "Compile your project first to generate JavaScript output.",
+                            "Compiled File Not Found",
+                        )
+                    }
+                }
+            }
+        }.queue()
     }
 
     // LspServer / getDocumentIdentifier / sendRequestSync are deprecated in 2026.2 EAP; the

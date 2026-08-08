@@ -39,4 +39,29 @@ class RescriptPipeChainTypeHintsProviderTest {
     fun `extractReturnType handles blank input`() {
         assertEquals("", RescriptPipeChainTypeHintsProvider.extractReturnType(""))
     }
+
+    // ── findPipePositions ───────────────────────────────────────────────
+
+    @Test
+    fun `findPipePositions matches pipe arrows and not fat arrows`() {
+        // `x => x` is a lambda (fat arrow, ARROW); `->` are the pipes.
+        val text = "let f = x => x\nlet r = arr->map(f)->filter(g)"
+        val positions = RescriptPipeChainTypeHintsProvider.findPipePositions(text)
+
+        assertEquals(2, positions.size)
+        // Both positions must point at a `->`, never at the `=>`.
+        positions.forEach { assertEquals("->", text.substring(it, it + 2)) }
+    }
+
+    @Test
+    fun `findPipePositions returns empty when there are no pipes`() {
+        val text = "let f = x => x + 1"
+        assertEquals(0, RescriptPipeChainTypeHintsProvider.findPipePositions(text).size)
+    }
+
+    @Test
+    fun `findPipePositions caps the number of positions at the limit`() {
+        val text = "x" + "->f".repeat(10)
+        assertEquals(3, RescriptPipeChainTypeHintsProvider.findPipePositions(text, limit = 3).size)
+    }
 }

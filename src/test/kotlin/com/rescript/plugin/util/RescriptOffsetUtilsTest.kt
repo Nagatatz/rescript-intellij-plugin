@@ -71,6 +71,34 @@ class RescriptOffsetUtilsTest {
         assertEquals(-1, offset)
     }
 
+    @Test
+    fun `positionToOffset returns -1 for negative character`() {
+        val doc = stubDocument("hello")
+
+        val offset = RescriptOffsetUtils.positionToOffset(doc, Position(0, -1))
+        assertEquals(-1, offset)
+    }
+
+    @Test
+    fun `positionToOffset clamps character past line end to the line end`() {
+        val doc = stubDocument("hello\nworld")
+
+        // A server-supplied character past the 5-char first line must clamp to
+        // the line end (offset 5), never overflow into the next line/textLength.
+        val offset = RescriptOffsetUtils.positionToOffset(doc, Position(0, 100))
+        assertEquals(5, offset)
+    }
+
+    @Test
+    fun `positionToOffset clamps character past the last line to textLength`() {
+        val doc = stubDocument("hello\nworld")
+
+        // Last line: end offset is textLength (11). Out-of-range character clamps
+        // there so the result is a safe replaceString bound, not an exception.
+        val offset = RescriptOffsetUtils.positionToOffset(doc, Position(1, 100))
+        assertEquals(11, offset)
+    }
+
     // ── Round-trip ───────────────────────────────────────────────
 
     @Test
@@ -124,6 +152,11 @@ class RescriptOffsetUtilsTest {
             }
         }
         val lineCount = lineStarts.size
+        // Line end offset excludes the trailing newline; the last line ends at textLength.
+        val lineEnds =
+            IntArray(lineCount) { line ->
+                if (line + 1 < lineCount) lineStarts[line + 1] - 1 else text.length
+            }
 
         return java.lang.reflect.Proxy.newProxyInstance(
             Document::class.java.classLoader,
@@ -159,6 +192,11 @@ class RescriptOffsetUtilsTest {
                 "getLineStartOffset" -> {
                     val line = args[0] as Int
                     lineStarts[line]
+                }
+
+                "getLineEndOffset" -> {
+                    val line = args[0] as Int
+                    lineEnds[line]
                 }
 
                 "toString" -> {
