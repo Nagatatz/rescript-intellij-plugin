@@ -10,23 +10,26 @@
 
 ## セクション 0: 準備
 
-- [ ] メインリポジトリで `git fetch origin` を実行する
-- [ ] `git log --oneline origin/main..HEAD` と `git log --oneline HEAD..origin/main` で main が origin と同期していることを確認する（遅れていれば `git pull --ff-only origin main`）
-- [ ] steering ドキュメント（requirements / design / tasklist）を main に直接コミットする（`📝 Add steering docs for Windows POSIX test failures`）
-- [ ] `EnterWorktree` で worktree を作成する
-- [ ] worktree 直後に `pwd` と `git rev-parse --show-toplevel` を実行し、編集対象が worktree 内であることを確認する
+- [x] メインリポジトリで `git fetch origin` を実行する
+- [x] `git log --oneline origin/main..HEAD` と `git log --oneline HEAD..origin/main` で main が origin と同期していることを確認する（遅れていれば `git pull --ff-only origin main`）
+- [x] steering ドキュメント（requirements / design / tasklist）を main に直接コミットする（`📝 Add steering docs for Windows POSIX test failures`）
+- [x] `EnterWorktree` で worktree を作成する
+- [x] worktree 直後に `pwd` と `git rev-parse --show-toplevel` を実行し、編集対象が worktree 内であることを確認する
+
+> 注: worktree は `origin/main` から切られるため未 push の steering コミットが含まれない。worktree 内で `git merge main` を実行して取り込んだ。
 
 ---
 
 ## セクション 1: CliDetectorTest のパス比較を Path API に置き換える（手法 A-1）
 
-- [ ] `src/test/kotlin/com/rescript/plugin/run/RescriptCliDetectorTest.kt` の 2 テストを修正する
+- [x] `src/test/kotlin/com/rescript/plugin/run/RescriptCliDetectorTest.kt` の 2 テストを修正する
   - `findCli returns path when CLI exists in workingDirectory`
   - `findCli returns path when CLI exists in projectBasePath`
   - `assertTrue(result!!.contains("node_modules/.bin/rescript"))` → `assertTrue(Path.of(result!!).endsWith(Path.of("node_modules/.bin/rescript")))`
-- [ ] `findCli prefers workingDirectory over projectBasePath` の `contains("work")` が Windows でも成立しているか確認する（現状 pass だが区切り文字非依存か目視確認）
-- [ ] `./gradlew test --tests 'com.rescript.plugin.run.RescriptCliDetectorTest'` で全件成功を確認する
-- [ ] tasklist を更新してコミットする（`✅ Make CLI detector path assertions platform-agnostic`）
+- [x] `findCli prefers workingDirectory over projectBasePath` の `contains("work")` が Windows でも成立しているか確認する（現状 pass だが区切り文字非依存か目視確認）
+  - 区切り文字を含まない単一ディレクトリ名の照合であり、プラットフォーム非依存。変更不要と判断
+- [x] `./gradlew test --tests 'com.rescript.plugin.run.RescriptCliDetectorTest'` で全件成功を確認する（6 件成功 / スキップ 0 / 失敗 0）
+- [x] tasklist を更新してコミットする（`✅ Make CLI detector path assertions platform-agnostic`）
 
 ---
 

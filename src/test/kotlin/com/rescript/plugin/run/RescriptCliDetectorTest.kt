@@ -35,7 +35,9 @@ class RescriptCliDetectorTest {
         createCli(tempDir)
         val result = RescriptCliDetector.findCli(tempDir.toString(), null)
         assertNotNull(result)
-        assertTrue(result!!.contains("node_modules/.bin/rescript"))
+        // Compare as Path elements so the assertion holds on Windows, where
+        // findCli returns a backslash-separated path.
+        assertTrue(Path.of(result!!).endsWith(Path.of("node_modules/.bin/rescript")))
     }
 
     @Test
@@ -43,7 +45,9 @@ class RescriptCliDetectorTest {
         createCli(tempDir)
         val result = RescriptCliDetector.findCli(null, tempDir.toString())
         assertNotNull(result)
-        assertTrue(result!!.contains("node_modules/.bin/rescript"))
+        // Compare as Path elements so the assertion holds on Windows, where
+        // findCli returns a backslash-separated path.
+        assertTrue(Path.of(result!!).endsWith(Path.of("node_modules/.bin/rescript")))
     }
 
     @Test
