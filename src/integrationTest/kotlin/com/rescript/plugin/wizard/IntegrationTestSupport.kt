@@ -39,8 +39,12 @@ internal object IntegrationTestSupport {
         val stdoutFile = Files.createTempFile("proofread-stdout", ".log")
         val stderrFile = Files.createTempFile("proofread-stderr", ".log")
         try {
+            // Resolve the executable before handing it to ProcessBuilder: on Windows the
+            // tools these tests drive (pnpm, bun) exist only as `.CMD` shims, which
+            // ProcessBuilder will not find from a bare name.
+            val resolved = listOf(resolveExecutable(command.first())) + command.drop(1)
             val process =
-                ProcessBuilder(command)
+                ProcessBuilder(resolved)
                     .directory(workingDir.toFile())
                     .also { it.environment().putAll(env) }
                     .redirectOutput(Redirect.to(stdoutFile.toFile()))
@@ -70,19 +74,57 @@ internal object IntegrationTestSupport {
     }
 
     /**
-     * Skips the calling test (via JUnit `Assumptions`) if [binary] is not on PATH.
+     * Locates [command] the way the OS would, and returns a path `ProcessBuilder` can launch.
+     *
+     * Shelling out to `which` does not work here: on Windows it is Git's POSIX `which`, which
+     * does not apply `PATHEXT`, so `which pnpm.CMD` fails while `which pnpm` finds only the
+     * extension-less shell wrapper that `ProcessBuilder` in turn cannot execute. Walking `PATH`
+     * ourselves is both cross-platform and one process cheaper.
+     *
+     * @param command an executable name, or a path that is used as-is
+     * @return the resolved absolute path, or [command] unchanged when nothing matches
+     */
+    fun resolveExecutable(command: String): String {
+        if (command.contains('/') || command.contains('\\')) return command
+
+        val isWindows = System.getProperty("os.name").startsWith("Windows", ignoreCase = true)
+        val pathExt =
+            (System.getenv("PATHEXT") ?: ".COM;.EXE;.BAT;.CMD").split(";").filter { it.isNotBlank() }
+        // PATHEXT suffixes come first on Windows. Node tool installs ship both `pnpm` (a POSIX
+        // shell wrapper) and `pnpm.CMD` in the same directory, and Files.isExecutable reports
+        // true for the extension-less one even though CreateProcess rejects it with error=193.
+        // The bare name stays as a last resort for commands that already carry an extension.
+        val suffixes =
+            when {
+                !isWindows -> listOf("")
+                pathExt.any { command.endsWith(it, ignoreCase = true) } -> listOf("") + pathExt
+                else -> pathExt + listOf("")
+            }
+
+        for (dir in (System.getenv("PATH") ?: "").split(java.io.File.pathSeparator)) {
+            if (dir.isBlank()) continue
+            for (suffix in suffixes) {
+                val candidate =
+                    try {
+                        Path.of(dir, command + suffix)
+                    } catch (_: java.nio.file.InvalidPathException) {
+                        continue // PATH can hold entries that are not valid paths on this OS
+                    }
+                if (Files.isRegularFile(candidate) && Files.isExecutable(candidate)) {
+                    return candidate.toString()
+                }
+            }
+        }
+        return command
+    }
+
+    /**
+     * Skips the calling test (via JUnit `Assumptions`) if [binary] cannot be located.
      */
     fun requireBinary(binary: String) {
-        val onPath =
-            try {
-                exec(Path.of("."), listOf("which", binary), timeout = 5).succeeded
-            } catch (ie: InterruptedException) {
-                Thread.currentThread().interrupt()
-                throw ie
-            } catch (t: Throwable) {
-                false
-            }
-        assumeTrue(onPath, "Skipping: required binary `$binary` not found on PATH")
+        val resolved = resolveExecutable(binary)
+        val found = resolved != binary || Files.isExecutable(Path.of(binary))
+        assumeTrue(found, "Skipping: required binary `$binary` not found on PATH")
     }
 
     /**
