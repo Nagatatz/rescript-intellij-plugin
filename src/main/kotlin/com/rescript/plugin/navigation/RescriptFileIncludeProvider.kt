@@ -52,7 +52,7 @@ class RescriptFileIncludeProvider : FileIncludeProvider() {
     // still abstract on 2026.1.x, which pluginSinceBuild admits — dropping it there
     // raises AbstractMethodError. Overriding it is also sufficient on 2026.2, where
     // acceptFile(IndexedFile) delegates through acceptFile(VirtualFile, Project) to here.
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
     override fun acceptFile(file: VirtualFile): Boolean = RescriptFileUtil.isRescriptFile(file)
 
     override fun registerFileTypesUsedForIndexing(fileTypeSink: Consumer<in FileType>) {
