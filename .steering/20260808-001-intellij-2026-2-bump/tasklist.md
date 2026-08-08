@@ -371,21 +371,38 @@ acceptFile(IndexedFile) → acceptFile(VirtualFile, Project) → acceptFile(Virt
 
 > セクション 2 を切り出したため、当初「削除」としていた LSP エントリは **残す**方針に変更した。
 
-- [ ] LSP API のエントリ（L47-67）は **削除せず残す**。ただし記述を 2026.2 の実測に合わせて訂正する:
-  - [ ] 「replacement API が 2026.1.2 に存在しない」という記述は**もう正しくない**。
-        2026.2（および 2026.1.4）に `LspIntegrationProvider` / `LspClientDescriptor` /
-        `LspClientManager` が存在することを明記する
-  - [ ] 移行が後続作業に切り出されている旨と、その理由（旧 API は 2026.2 でも動作する）を記載する
-  - [ ] クラス名の誤り（`LspClientSupportProvider`）を `LspIntegrationProvider` に訂正する
-  - [ ] `Reviewed: 2026-08-09` に更新し、`Expires` は後続作業の期限として近めに設定する
-- [ ] `FloatingToolbarProvider.isApplicable` のエントリ（L34-38）を **削除**（セクション 3 で解消）
-- [ ] `FileIncludeProvider.acceptFile` のエントリ（L40-45）を **削除**（セクション 3 で解消）
-- [ ] `CodeVisionPlaceholderCollector` のエントリ（L14-22）— 2026.2 でも `@Internal` が残るか確認し
-      `Reviewed` を更新（Expires は 2027-04-29 のまま据え置きでよい）
-- [ ] ファイル冒頭の `Reviewed: 2026-05-14 | Target: IntelliJ 2025.3+` を
-      `Reviewed: 2026-08-09 | Target: IntelliJ 2026.1.4+` に更新
-- [ ] `./gradlew verifyPlugin` が成功する（削除したエントリが本当に不要だったことの確認）
-- [ ] コミット（`🔧 Prune verifier ignored problems resolved by the 2026.2 bump`）
+- [x] LSP API のエントリは **削除せず残す**。記述を 2026.2 の実測に合わせて全面的に書き直した:
+  - [x] 「replacement API が 2026.1.2 に存在しない」という**誤った記述を訂正**（実際には存在する）
+  - [x] 移行が後続作業に切り出されている旨と、その理由（旧 API は 2026.2 でも動作する）を記載
+  - [x] クラス名の誤り（`LspClientSupportProvider`）を `LspIntegrationProvider` に訂正し、
+        新旧対応表とメソッド名変更の例を本文に埋め込んだ
+  - [x] `Reviewed: 2026-08-09` / `Expires: 2027-02-09`（後続作業の期限として 6 ヶ月に短縮）
+- [x] `FloatingToolbarProvider.isApplicable` のエントリを **削除**（セクション 3 で解消）
+- [x] `FileIncludeProvider.acceptFile` のエントリは **残す**（4-1 の訂正参照。2026.1.x で abstract のため）。
+      「IndexedFile 版だけに切り替えて警告を消してはならない」旨を明記した
+- [x] `CodeVisionPlaceholderCollector` のエントリを **削除**（下記の実証による）
+- [x] ファイル冒頭の Reviewed / Target を `2026-08-09` / `IntelliJ 2026.1.4+` に更新
+- [x] `./gradlew verifyPlugin` が成功する（削除したエントリが本当に不要だったことの確認）
+- [x] コミット（`🔧 Prune verifier ignored problems resolved by the 2026.2 bump`）
+
+### 4-2 の記録: `CodeVisionPlaceholderCollector` エントリの削除根拠
+
+レポートに 0 件であることは「エントリが抑制しているから」とも解釈できるため、**実証で確認した**。
+当該行を一時的に無効化して `verifyPlugin` を実行したところ:
+
+| | 無効化前 | 無効化後 |
+|---|---|---|
+| IU-261.27258.27 | Compatible / deprecated 35 / experimental 127 | Compatible / deprecated 35 / experimental 127 |
+| IU-262.9437.65 | Compatible / deprecated 36 / experimental 127 | Compatible / deprecated 36 / experimental 127 |
+
+件数が完全に一致し、新規の問題も出なかったため、このエントリは既に何も抑制していない
+（`RescriptCodeVisionProvider.java` が `@Internal` 型への参照を回避するようリファクタ済みであり、
+ソース中の言及もコメントのみ）。よって削除した。
+
+> 最終的な `plugin-verifier-ignored-problems.txt` の有効パターンは 2 件
+> （`FileIncludeProvider.acceptFile` と `com.intellij.platform.lsp.api.*`）。
+> 上表の「無効化後」が最終状態と等価であるため、追加の verifyPlugin 実行は行っていない
+> （以降の変更はコメント行のみ）。
 
 ### 4-3: ドキュメント同期
 
