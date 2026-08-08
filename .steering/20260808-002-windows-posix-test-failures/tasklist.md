@@ -90,9 +90,10 @@
 - [x] `.claude/rules/definition-of-done.md` の Phase 3 を通過することを確認する
 - [x] 記憶 `windows-known-test-failures` を実態に合わせて更新する（8 件の既知失敗は解消済み、Windows でのスキップ 3 件のみが残る旨）
 - [x] tasklist の全タスクが `[x]` であることを確認し、最終コミットに含める
-- [ ] `AskUserQuestion` でユーザーにマージ可否を確認する
-- [ ] 承認後、worktree 内で `git checkout main && git merge <作業ブランチ>` を実行し、作業ブランチを削除する
-- [ ] セッションを終了して worktree の自動クリーンアップを発動させる
+- [x] `AskUserQuestion` でユーザーにマージ可否を確認する
+- [x] 承認後、main にマージし作業ブランチを削除する
+  - **手順の訂正**: `main` はメインリポジトリ側でチェックアウト済みのため、worktree 内で `git checkout main` は `fatal: 'main' is already used by worktree at ...` で失敗する。`ExitWorktree(action: keep)` でメインリポジトリへ戻ってから `git merge worktree-windows-posix-tests` を実行した（fast-forward）
+- [x] worktree とブランチをクリーンアップする
 
 ---
 
