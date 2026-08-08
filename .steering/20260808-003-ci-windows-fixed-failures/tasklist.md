@@ -40,14 +40,14 @@
 
 ## セクション 2: JsonSchemaProviderFactoryTest の VFS 依存を分離（手法 B）
 
-- [ ] `src/test/kotlin/com/rescript/plugin/config/RescriptJsonSchemaProviderFactoryTest.kt` に新規テスト `testSchemaResourceExistsOnClasspath` を追加する
+- [x] `src/test/kotlin/com/rescript/plugin/config/RescriptJsonSchemaProviderFactoryTest.kt` に新規テスト `testSchemaResourceExistsOnClasspath` を追加する
   - `assertNotNull(RescriptJsonSchemaProviderFactory::class.java.getResource("/schemas/rescript.schema.json"))`
   - コメントで「元テストの本来の検証意図」であることを明記する
-- [ ] 既存 `testProviderSchemaFileResolves` に `@DisabledOnOs(WINDOWS)` を付与する
+- [x] 既存 `testProviderSchemaFileResolves` に `@DisabledOnOs(WINDOWS)` を付与する
   - `disabledReason` に「プラグイン jar が sandbox 配下にあり許可 VFS ルート外」である旨を英語で明記する
-- [ ] `org.junit.jupiter.api.condition.DisabledOnOs` / `OS` を import する
-- [ ] `./gradlew test --tests 'com.rescript.plugin.config.RescriptJsonSchemaProviderFactoryTest'` で全件成功を確認する
-- [ ] tasklist を更新してコミットする（`✅ Verify bundled schema via classpath instead of VFS`）
+- [x] `org.junit.jupiter.api.condition.DisabledOnOs` / `OS` を import する
+- [x] `./gradlew test --tests 'com.rescript.plugin.config.RescriptJsonSchemaProviderFactoryTest'` で全件成功を確認する（10 件 / skipped 1 / 失敗 0）
+- [x] tasklist を更新してコミットする（`✅ Verify bundled schema via classpath instead of VFS`）
 
 ---
 
