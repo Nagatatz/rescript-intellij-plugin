@@ -30,15 +30,50 @@ for md in $(grep '^sphinx-docs/' /tmp/docs-lint-staged.txt | grep '\.md$' | grep
 done
 ```
 
-staged `.po` に `msgstr ""`（翻訳欠落）が残っていないかチェックする。ヘッダーエントリ（最初の空 `msgid` 直後の `msgstr ""`）は許容し、それ以外を検出する:
+staged `.po` に翻訳欠落が残っていないかチェックする。
+
+**行単位の `grep '^msgstr ""'` で判定してはならない。** gettext では複数行の翻訳が
+
+```
+msgstr ""
+"1 行目"
+"2 行目"
+```
+
+という形を取るため、`msgstr ""` という行は「未翻訳」と「複数行翻訳の開始行」の両方を意味する。
+行だけを見ると翻訳済みエントリを大量に誤検出する（実測で 20 件以上の偽陽性を確認）。
+**継続行 (`"..."`) を連結してから空判定すること**:
 
 ```bash
 for po in $(grep 'locale/ja.*\.po$' /tmp/docs-lint-staged.txt); do
-  # ヘッダー直後の msgstr "" のみ許容し、それ以降の空 msgstr を検出
-  empty=$(awk '/^msgstr ""/{c++; if (c>1) print NR": "$0}' "$po")
-  [ -n "$empty" ] && echo "[FAIL] $po has untranslated entries:" && echo "$empty"
+  python - "$po" <<'PY'
+import io, sys
+path = sys.argv[1]
+lines = io.open(path, encoding="utf-8").read().splitlines()
+i = 0
+while i < len(lines):
+    if lines[i].startswith("msgstr "):
+        value, j = lines[i][7:], i + 1
+        while j < len(lines) and lines[j].startswith('"'):
+            value += lines[j].strip()
+            j += 1
+        if value.replace('"', "").strip() == "":
+            k = i - 1
+            while k >= 0 and not lines[k].startswith("msgid"):
+                k -= 1
+            msgid = lines[k] if k >= 0 else "?"
+            # msgid "" はヘッダーエントリ。msgstr にメタデータを持つので対象外
+            if msgid.strip() != 'msgid ""':
+                print("[FAIL] %s:%d untranslated: %s" % (path, i + 1, msgid[:70]))
+        i = j
+    else:
+        i += 1
+PY
 done
 ```
+
+awk で書く場合は **`FNR`（ファイル内行番号）を使うこと**。`NR` は複数ファイルを跨いで累積するため、
+2 ファイル目以降で存在しない行番号を報告する。
 
 ### 2. 4-target sync matrix チェック（新規 Kotlin クラス）
 
