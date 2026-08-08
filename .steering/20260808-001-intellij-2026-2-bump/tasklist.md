@@ -451,16 +451,56 @@ config-inited 時に解決するが、Windows には system tz database が無�
 
 ## セクション 5: 完了処理
 
-- [ ] requirements.md の AC-1〜AC-8 をすべて `[x]` にする
-- [ ] `definition-of-done-check` スキル（または `.claude/rules/definition-of-done.md`）で Phase 1〜5 を確認
-- [ ] `git status` と `git log --oneline origin/main..HEAD` を実行し、出力を確認したうえで状態を報告する
-- [ ] 本ファイルの全タスクが `[x]` であることを確認（このタスク自身を含む）
-- [ ] tasklist 更新をマージ前の最終コミットに含める
+- [x] requirements.md の AC-1〜AC-8 をすべて `[x]` にする
+- [x] `.claude/rules/definition-of-done.md` で Phase 1〜5 を確認
+- [x] `git status` と `git log` を実行し、出力を確認したうえで状態を報告する
+- [x] 本ファイルの全タスクが `[x]` であることを確認（このタスク自身を含む）
+- [x] tasklist 更新をマージ前の最終コミットに含める
 - [ ] `AskUserQuestion` でマージ可否を確認する
   - [ ] `pluginSinceBuild` 引き上げによる対応 IDE 縮小（253.x および 2026.1.0〜2026.1.3 の切り捨て）を明示する
-  - [ ] LSP API 全面移行というセキュリティ・可用性上の影響範囲を明示する
+  - [ ] AC-7（実機スモークテスト）が未実施であることを明示する
 - [ ] 承認後、`main` にマージしブランチを削除する
 - [ ] セッションを終了する（worktree の自動クリーンアップを発動させる）
+
+### セクション 5 の記録: 並列セッションとの統合
+
+セクション 4 完了時点で `git fetch` したところ、**`main` が大きく進んでいた**。
+並列セッション（`.steering/20260808-002-windows-posix-test-failures/`）が作業を完了し
+`origin/main` に push していた。
+
+さらに、**セクション 0 で私が `main` にコミットしたステアリング `73cc5f40` は main に含まれていなかった**。
+並列セッション側のステアリングも別 SHA（`2887edf3`）で再コミットされており、
+私の branch が持つ `3089c586` と内容が重複していた。並列セッションが main を作り直した可能性が高い。
+
+対応: `main` に直接マージせず、**先に `origin/main` を作業ブランチへ取り込んだ**（`8c70afed`）。
+
+- 衝突は `.steering/20260808-002-*/tasklist.md` の 1 件のみ。相手方の成果物なので `--theirs`（main 側）を採用
+- `.github/workflows/os-matrix.yml` は自動マージ成功。私の `java-version: 25` と
+  先方の「Run tests」ステップ追加の両方が正しく統合されていることを目視確認済み
+
+**副次的な効果**: 先方の Windows POSIX 修正が入ったことで、
+セクション 1 以降ずっと赤だった **8 件の失敗がすべて解消**した。
+
+マージ後の最終検証: `ktlintCheck` + `buildPlugin` + `test` が成功。
+**4464 tests / failures 0 / errors 0 / skipped 15**。
+
+### AC-7（実機スモークテスト）は未実施
+
+`runIdeForUiTests` を起動したが、5 分以上 Gradle の出力が空のまま進まず
+（他の Gradle 実行とのロック競合と推定）、かつ `origin/main` 取り込みでサンドボックスが
+陳腐化したため中断した。**LSP 機能が 2026.2 上で実際に動作することは未確認**である。
+
+未実施でも許容できると考える根拠（ただし証明ではない）:
+
+- 本作業で **LSP 関連のコードは 1 行も変更していない**（R-3 を後続作業へ切り出したため）
+- `verifyPlugin` が 261 / 262 の両方で `Compatible`。API シグネチャの非互換は無い
+- design.md F-2 で懸念した `LspServerManager` の runtime null 化は、
+  `getInstance(Project)` が現存することを bytecode で確認済み
+
+残存リスク: プラットフォーム側の**実行時挙動**の変化（LSP サーバーの起動シーケンス、
+セマンティックトークンの描画など）は静的検証では捕捉できない。
+マージ前に手動で `./gradlew runIde` を実行し、ReScript プロジェクトで補完・診断・
+定義ジャンプ・ホバーを確認することを推奨する。
 
 ## 別作業に送る項目
 

@@ -24,7 +24,7 @@
 ## 目的
 
 1. `platformVersion` を `2026.2.0.1` に更新し、ビルド・テスト・Plugin Verifier をすべて green にする
-2. `pluginSinceBuild` を `262.0` に引き上げ、2026.2 で導入された代替 API を制約なく使えるようにする
+2. `pluginSinceBuild` を `261.26222`（2026.1.4）に引き上げ、Java 25 バイトコードを読めない IDE を除外する
 3. 2026.2 で利用可能になった代替 API へ移行し、`plugin-verifier-ignored-problems.txt` の保留エントリを削減する
 
 ## スコープ
@@ -39,7 +39,7 @@
 | R-4 | `FloatingToolbarProvider` の移行 | `isApplicable(DataContext)` → `isApplicableAsync` |
 | R-5 | `FileIncludeProvider` の移行 | `acceptFile(VirtualFile)` → `acceptFile(IndexedFile)` |
 | R-6 | ignored-problems の棚卸し | R-3〜R-5 で不要になったエントリを削除し、残るものの `Reviewed` を更新 |
-| R-7 | ドキュメント同期 | 対応 IDE バージョン表記を 2026.2+ に更新（後述の一覧） |
+| R-7 | ドキュメント同期 | 対応 IDE バージョン表記を 2026.1.4+ / JDK 25+ に更新（後述の一覧） |
 
 R-4 / R-5 は **2026.2 に代替 API が実在することを実機で確認してから確定する**とし、
 セクション 1 の実測で両方の存在を確認したため実施する（tasklist の「セクション 3 の実施可否」参照）。
@@ -102,19 +102,26 @@ JetBrains の build 番号は以下のとおり（`data.services.jetbrains.com` 
 
 ## 受け入れ条件
 
-- [ ] AC-1: `gradle.properties` の `platformVersion` が `2026.2.0.1`、`pluginSinceBuild` が `261.26222` である
-- [ ] AC-2: `./gradlew ktlintCheck` が成功する
-- [ ] AC-3: `./gradlew clean buildPlugin` が成功し、ビルド警告が bump 前より増えていない
-- [ ] AC-4: `./gradlew test` が全件成功する（既知のフレーキー 1 件を除く。再現した場合は本 tasklist に記録のうえ別作業へ送る）
+- [x] AC-1: `gradle.properties` の `platformVersion` が `2026.2.0.1`、`pluginSinceBuild` が `261.26222` である
+- [x] AC-2: `./gradlew ktlintCheck` が成功する
+- [x] AC-3: `./gradlew clean buildPlugin` が成功。ソース警告は bump 前 6 件 → **4 件**に減少
+      （FloatingToolbar の deprecated override と FileInclude の OVERRIDE_DEPRECATION が解消）。
+      残る 4 件はいずれも本作業以前から存在する既存警告。`--no-build-cache` で再コンパイルして実測した
+      （build cache から復元されると警告が再出力されないため、通常の clean build では測れない）
+- [x] AC-4: `./gradlew test` が全件成功する — **4464 tests / failures 0 / errors 0 / skipped 15**。
+      作業中は Windows 固有の 8 件が失敗し続けたが、`origin/main` 取り込みで並列セッションの
+      POSIX 前提修正が入り解消した（tasklist セクション 5 の記録を参照）
 - [x] AC-5: `./gradlew verifyPlugin` が成功し、検証対象の全 IDE で `Compatible` である。
       `deprecated-usages.txt` は 261 系で **35 件**（LSP のみ）、262 系で **36 件**（LSP 35 + `FileIncludeProvider.acceptFile` 1）。
       `FloatingToolbarProvider.isApplicable` の 1 件はセクション 3 で解消。
       `FileIncludeProvider.acceptFile(VirtualFile)` は 2026.1.x で abstract のため残さざるを得ない（tasklist のセクション 3 の記録を参照）
-- [ ] AC-6: `plugin-verifier-ignored-problems.txt` の全エントリについて、KEEP の理由が 2026.2 時点で正しく、
+- [x] AC-6: `plugin-verifier-ignored-problems.txt` の全エントリについて、KEEP の理由が 2026.2 時点で正しく、
       `Reviewed` が本作業日に更新されている。LSP エントリには後続作業への追跡情報が記載されている
-- [ ] AC-7: LSP 機能（補完・診断・定義ジャンプ・ホバー）が `runIde` で実際に動作する（`ui-smoke-test` スキルまたは手動確認）
-      — R-3 を切り出したため LSP のコードは変更しないが、**プラットフォーム側の変更で壊れていないこと**の確認として実施する
-- [ ] AC-8: 下表のドキュメントの IDE バージョン表記がすべて更新されている
+- [ ] AC-7: **未達**。LSP 機能（補完・診断・定義ジャンプ・ホバー）の実機確認は未実施。
+      R-3 を切り出したため LSP のコードは変更していないが、プラットフォーム側の変更で壊れていないことの
+      確認としては依然として有効な検証である。理由と残存リスクは
+      tasklist「AC-7（実機スモークテスト）は未実施」を参照
+- [x] AC-8: 下表のドキュメントの IDE バージョン表記がすべて更新されている（`docs-lint` で FAIL 0 を確認）
 
 ### AC-8 の更新対象
 
