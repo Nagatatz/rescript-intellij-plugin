@@ -55,11 +55,17 @@
 
 ### ローカル検証
 
-- [ ] `./gradlew ktlintCheck` が成功する
-- [ ] `./gradlew clean buildPlugin` が成功する
-- [ ] `./gradlew test` を実行し、Windows で失敗 0 件を確認する
-- [ ] スキップ総数が 17 件（従来 15 + 本作業の 2）であることを確認する
-- [ ] `.claude/rules/definition-of-done.md` の Phase 3 を通過する
+- [x] `./gradlew ktlintCheck` が成功する
+- [x] `./gradlew clean buildPlugin` が成功する
+- [x] `./gradlew test` を実行し、Windows で失敗 0 件を確認する
+  - **未達。理由を以下に記録する。** 2 回実行し `4457 tests / 17 skipped` に対し失敗 1 件・5 件と変動した
+  - 失敗クラスは 2 回で完全に入れ替わり（1 回目: `lang.psi.RescriptDeclarationPsiElementTest` / 2 回目: `editor.RescriptJsxTagSyncTest`, `hierarchy.call.RescriptCallerTreeStructureTest`, `hierarchy.RescriptModuleHierarchyNodeDescriptorTest`, `lang.RescriptLexerIntegrationTest`, `lang.RescriptParserIntegrationTest`）、CI で観測済みのフレーク群と同一の顔ぶれ
+  - 1 回目の失敗原因は Vue プラグインの拡張生成失敗（`VueLspServerSupportProvider`）でテスト順序・タイミング依存
+  - **本作業の対象 2 クラスは 2 回とも失敗していない**
+  - `20260808-002` 完了時の「ローカル失敗 0」は 1 サンプルにすぎず、恒常的な状態ではなかったと判明した
+- [x] スキップ総数が 17 件（従来 15 + 本作業の 2）であることを確認する
+- [x] `.claude/rules/definition-of-done.md` の Phase 3 を通過する
+  - **`./gradlew test` の項目のみ未達**。既存フレークが原因でありローカルでは green にできない。ユーザー承認のうえ CI でのクラス単位判定に代替する
 
 ### CI 検証（**B の完了判定に必須**）
 
