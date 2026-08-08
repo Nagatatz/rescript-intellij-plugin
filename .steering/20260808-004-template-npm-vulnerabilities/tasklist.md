@@ -156,14 +156,81 @@ astro 7 が実際に動くかは静的検査では判断できない（design F-
 - [ ] 結果を下記に記録する
 - [ ] 問題が出た場合のみ `AstroTemplateFiles.kt` / `templates/astro/` を修正する（D-4: 先回りしない）
 
-### 3-1 の検証結果（実装時に記入）
+### 3-1 の検証結果
+
+**実施日: 2026-08-09**
+
+AC-8 は既存の結合テストで実施した。ただし到達までに 2 つの障害があり、
+いずれも **本作業のスコープ外の問題**だったため、ユーザー承認のうえ修正した。
+
+#### 障害 1: 結合テストが Windows で常にスキップされていた
+
+`IntegrationTestSupport.requireBinary` が `which <binary>` を `ProcessBuilder` で実行して
+存在確認していたが、Windows では成立しない:
+
+- `PNPM_BIN=pnpm`（既定）→ `which pnpm` は成功するが、`ProcessBuilder("pnpm")` が
+  拡張子なしファイルを起動できず `IOException`
+- `PNPM_BIN=<絶対パス>/pnpm.CMD` → Git の POSIX `which` は `PATHEXT` を解釈しないため
+  存在確認に失敗し、テストが **skip** される
+
+**両方を満たす値が存在しない。** その結果、Windows では
+`tests=4 skipped=4` となり、緑に見えて実際には何も検証していなかった。
+
+対応: `which` への外部依存をやめ、`PATH` と `PATHEXT` を自前で走査する
+`resolveExecutable()` を追加し、`exec()` が起動前にコマンドを解決するようにした。
+呼び出し側は変更していない。
+
+> 途中で `CreateProcess error=193`（有効な Win32 アプリケーションではない）を踏んだ。
+> Windows では `Files.isExecutable` が拡張子なしファイルにも true を返すため、
+> `pnpm`（POSIX シェルラッパー）を先に拾っていた。**PATHEXT 候補を先に試す**順序に修正した。
+
+#### 障害 2: どのテンプレートも `pnpm build` を実行していなかった
+
+`templatesWithBundle` が `emptySet()` になっており、**バンドラを起動する検証が
+スイート全体で 1 件も無かった**。コメントによれば Vite+ (vite-plus) が pre-1.0 で
+`ERR_MODULE_NOT_FOUND` になるためだが、一律に空にされていた。
+
+Astro は vite-plus を使わないため巻き添えである。astro 7 への更新は
+**Vite 8 / Rolldown への移行**を含み、これは `pnpm install` と `rescript` だけでは
+一切踏まない経路なので、`templatesWithBundle` に `ASTRO` を戻した。
+
+#### 検証結果
 
 | 項目 | 結果 |
 |---|---|
-| 実施日 | （未記入） |
-| `npm install` | （未記入） |
-| `npm run build` | （未記入） |
-| テンプレート修正の要否 | （未記入） |
+| `NewReactTemplatesIntegrationTest`（install → rescript → vitest） | **4/4 pass**（skipped 0） |
+| `TemplateIntegrationTest` 全体 | 82 件中 pass 42 / skip 38 / **fail 2**（TAURI のみ。下記参照） |
+| **ASTRO (zod)** — install → rescript → vitest → **`astro build`** | **pass**（41.4 秒） |
+| **ASTRO (sury)** — 同上 | **pass**（20.1 秒） |
+| テンプレート修正の要否 | **不要**。design F-1 / D-4 のとおり、テンプレート実体には一切手を入れていない |
+
+**AC-8 は達成。** astro 7 + Vite 8 / Rolldown で `pnpm build` が実際に成功した。
+静的検査では判断できないと design で留保した唯一の項目がこれで解消した。
+
+#### 付随して露出した既存不具合: TAURI テンプレート（本作業のスコープ外）
+
+`TAURI (zod)` / `TAURI (sury)` の 2 件が Windows で失敗する。原因は依存パッケージ内の
+ReScript コンパイルエラー:
+
+```
+We've found a bug for you!
+  node_modules/.pnpm/@rescript-tauri+plugin-noti.../PluginNotification.res
+  Could not find the .cmi file for interface ... PluginNotification.resi.
+```
+
+**本作業の変更が原因ではないことを確認済み:**
+
+- `TauriTemplateFiles.kt` は変更した定数（`ASTRO` / `ASTROJS_*` / `ESBUILD`）を 1 つも参照していない
+- ピン更新コミット `e76531e8` は Tauri 関連ファイルを 1 つも変更していない
+- 失敗箇所は生成物ではなく **`node_modules` 内のサードパーティ `@rescript-tauri/*` パッケージ**
+
+**これまで表面化しなかったのは、Windows では全件がスキップされていたため。**
+CI (Linux) は green なので、Windows 固有の問題（パス長・大文字小文字・`.cmi` 解決）と推定される。
+
+> 注意: 本作業の `resolveExecutable` 修正により、Windows でも
+> `./gradlew integrationTest` が実際に走るようになった結果、**この 2 件が新たに赤くなる**。
+> 「以前は緑だったのに」ではなく「以前は何も検証していなかった」が正しい理解である。
+> 別作業として送る。
 
 ### 3-2: ドキュメント同期
 
@@ -198,3 +265,7 @@ astro 7 が実際に動くかは静的検査では判断できない（design F-
 - LSP API 移行（`.steering/20260808-001-*` から切り出したもの）
 - `0.1.17` リリース（本作業の完了が前提条件）
 - `.github/scripts/audit-template-versions.mjs` にテストが無い件（本作業では新規スクリプトのみ対象とした）
+- **TAURI テンプレートが Windows の結合テストで失敗する件**（セクション 3-1 の記録参照）。
+  `@rescript-tauri/*` の `.cmi` 解決エラー。CI (Linux) は green で、本作業の変更とは無関係
+- **`templatesWithBundle` に Vite+ 以外のテンプレートを戻す検討**。本作業では `ASTRO` のみ戻した。
+  `pnpm build` を通していないテンプレートが残っており、バンドラ起因の破損を検出できない

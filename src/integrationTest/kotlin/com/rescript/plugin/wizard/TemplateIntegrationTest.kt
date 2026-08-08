@@ -237,10 +237,15 @@ class TemplateIntegrationTest {
         // @vitejs/plugin-react via pnpm's nested store layout. The generated
         // `pnpm build` therefore fails with ERR_MODULE_NOT_FOUND on `vite/internal`.
         // Until Vite+ ships a stable release that resolves the @vitejs ecosystem,
-        // we only verify that `rescript` builds for these templates and skip the
+        // we only verify that `rescript` builds for the Vite+ templates and skip the
         // top-level bundler invocation. The README of each template documents the
         // pre-1.0 status and the fallback to plain Vite.
-        private val templatesWithBundle: Set<ProjectTemplate> = emptySet()
+        //
+        // Astro does not use Vite+, so it was only ever collateral damage of emptying
+        // this set. It is back because nothing else in the suite invokes a bundler,
+        // and the Astro 7 upgrade moved the template onto Vite 8 / Rolldown — a change
+        // that install and `rescript` alone cannot exercise.
+        private val templatesWithBundle: Set<ProjectTemplate> = setOf(ProjectTemplate.ASTRO)
 
         // Templates whose `test` script needs setup the smoke-import alone
         // can't provide in a temp dir. Each entry below documents why; drop
