@@ -69,22 +69,40 @@
 
 ### CI 検証（**B の完了判定に必須**）
 
-- [ ] main にマージして push する
-- [ ] `gh workflow run os-matrix.yml --ref main` で OS Matrix を実行する
-- [ ] CI Windows のテストレポートを取得する
-- [ ] **対象 2 クラスが失敗リストから消えたことをクラス単位で確認する**
-  - `util.RescriptProcessUtilsTest`（従来 4 件固定失敗）→ 0 件
-  - `config.RescriptJsonSchemaProviderFactoryTest`（従来 1 件固定失敗）→ 0 件
-  - 総失敗数は 21〜37 の範囲で揺れるため、**総数では判定しない**
-- [ ] ubuntu が success を維持していることを確認する
-- [ ] macOS で新たな固定失敗が発生していないことを確認する
+- [x] main にマージして push する（`d71b7490`）
+- [x] `gh workflow run os-matrix.yml --ref main` で OS Matrix を実行する
+- [x] CI Windows のテストレポートを取得する
+  - **ジョブが success となりレポート自体が生成されなかった**（`if: failure()` のため）。失敗 0 を意味する
+- [x] **対象 2 クラスが失敗リストから消えたことをクラス単位で確認する**
+  - Windows ジョブ全体が失敗 0 のため、対象 2 クラスも当然 0 件
+- [x] ubuntu が success を維持していることを確認する
+- [x] macOS で新たな固定失敗が発生していないことを確認する
+
+### 想定を超えた結果と再現検証
+
+修正対象は 5 件だったが、**フレークしていた残り 16〜32 件も含めて 3 OS すべてが green になった**。
+
+1 サンプルでは偶然と区別できないため、同一コミット `d71b7490` から一時ブランチ 3 本を切って並列実行し、再現性を検証した。
+
+| 実行 | ubuntu | macOS | Windows |
+|------|:------:|:-----:|:-------:|
+| 初回（main） | success | success | success |
+| verify-run-1 | success | success | success |
+| verify-run-2 | success | success | success |
+| verify-run-3 | success | success | success |
+
+**4 サンプル × 3 OS = 12 ジョブすべて success。** 修正前は Windows 21〜37 件・macOS 7〜11 件失敗していたことと対比すると、偶然では説明できない。
+
+**結論:** 決定的に失敗していた 5 件が、同一 JVM 内で後続テストを巻き込みフレークを誘発していたと考えられる。とりわけ `VfsRootAccessNotAllowedError` は VFS の状態に関わるため、VFS 依存の統合テスト（Lexer / Parser / Highlighting 等）へ波及した可能性が高い。ただし**この因果メカニズム自体を直接証明したわけではなく、相関の強さから推定したものである**。
 
 ### 仕上げ
 
-- [ ] 記憶 `windows-known-test-failures` を実態に合わせて更新する
-- [ ] tasklist の全タスクが `[x]` であることを確認し、最終コミットに含める
-- [ ] `AskUserQuestion` でユーザーにマージ可否を確認する（マージは CI 検証の前に必要なため、確認タイミングはセクション 3 冒頭）
-- [ ] worktree とブランチをクリーンアップする
+- [x] 記憶 `windows-known-test-failures` を実態に合わせて更新する
+- [x] tasklist の全タスクが `[x]` であることを確認し、最終コミットに含める
+- [x] `AskUserQuestion` でユーザーにマージ可否を確認する（マージは CI 検証の前に必要なため、確認タイミングはセクション 3 冒頭）
+- [x] worktree とブランチをクリーンアップする
+  - 検証用ブランチ `chore/verify-run-1..3` をリモート・ローカルとも削除
+  - `git worktree remove` は Windows のロングパス制限で失敗したため、PowerShell の `\\?\` プレフィックスで削除（既知の注意点どおり）
 
 ---
 
