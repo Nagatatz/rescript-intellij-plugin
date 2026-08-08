@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledOnOs
+import org.junit.jupiter.api.condition.OS
 import org.junit.jupiter.api.extension.ExtendWith
 
 /**
@@ -80,6 +82,20 @@ class RescriptJsonSchemaProviderFactoryTest {
     }
 
     @Test
+    fun testSchemaResourceExistsOnClasspath() {
+        // This is what the schemaFile assertion below is really guarding: that the
+        // schema ships with the plugin. Reading it through the classloader keeps the
+        // check independent of where the packaged jar happens to sit.
+        assertNotNull(RescriptJsonSchemaProviderFactory::class.java.getResource("/schemas/rescript.schema.json"))
+    }
+
+    @Test
+    @DisabledOnOs(
+        value = [OS.WINDOWS],
+        disabledReason =
+            "On the Windows CI runner the plugin jar sits under .intellijPlatform/sandbox, which is " +
+                "outside the fixture's allowed VFS roots, so resolving it raises VfsRootAccessNotAllowedError.",
+    )
     fun testProviderSchemaFileResolves() {
         val provider = factory.getProviders(project).single()
         // Returns null only if /schemas/rescript.schema.json is missing from the classpath.
