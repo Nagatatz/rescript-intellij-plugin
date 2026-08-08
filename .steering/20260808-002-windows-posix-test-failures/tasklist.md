@@ -65,14 +65,16 @@
 
 ## セクション 4: 実行ビット依存テストを Windows でスキップする（手法 C）
 
-- [ ] `src/test/kotlin/com/rescript/plugin/util/RescriptSecurityUtilsTest.kt` の `isValidExecutable returns false for non-executable file` に `@DisabledOnOs` を付与する
-- [ ] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingsValidatorTest.kt` の 2 テストに `@DisabledOnOs` を付与する
+- [x] `src/test/kotlin/com/rescript/plugin/util/RescriptSecurityUtilsTest.kt` の `isValidExecutable returns false for non-executable file` に `@DisabledOnOs` を付与する
+- [x] `src/test/kotlin/com/rescript/plugin/settings/RescriptSettingsValidatorTest.kt` の 2 テストに `@DisabledOnOs` を付与する
   - `validateNodePath throws when file is not executable`
   - `validateLspPath throws when non-js file is not executable`
-- [ ] いずれも `disabledReason` に「Windows に実行ビットがなく `File.canExecute()` が常に true」である旨を英語で明記する
-- [ ] `org.junit.jupiter.api.condition.DisabledOnOs` / `OS` を import する
-- [ ] 該当 2 クラスを実行し、Windows で `skipped` として集計される（silently pass ではない）ことを確認する
-- [ ] tasklist を更新してコミットする（`✅ Skip execute-bit assertions on Windows`）
+- [x] いずれも `disabledReason` に「Windows に実行ビットがなく `File.canExecute()` が常に true」である旨を英語で明記する
+- [x] `org.junit.jupiter.api.condition.DisabledOnOs` / `OS` を import する
+- [x] 該当 2 クラスを実行し、Windows で `skipped` として集計される（silently pass ではない）ことを確認する
+  - `RescriptSecurityUtilsTest`: 23 件中 skipped 1 / 失敗 0
+  - `RescriptSettingsValidatorTest`: 24 件中 skipped 2 / 失敗 0
+- [x] tasklist を更新してコミットする（`✅ Skip execute-bit assertions on Windows`）
 
 ---
 

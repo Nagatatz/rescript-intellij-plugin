@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledOnOs
+import org.junit.jupiter.api.condition.OS
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import java.nio.file.Path
@@ -38,6 +40,10 @@ class RescriptSettingsValidatorTest {
     }
 
     @Test
+    @DisabledOnOs(
+        value = [OS.WINDOWS],
+        disabledReason = "Windows has no execute bit; File.canExecute() is always true for a readable file.",
+    )
     fun `validateLspPath throws when non-js file is not executable`() {
         val file = makeFile("server", executable = false)
         val ex =
@@ -73,6 +79,10 @@ class RescriptSettingsValidatorTest {
     }
 
     @Test
+    @DisabledOnOs(
+        value = [OS.WINDOWS],
+        disabledReason = "Windows has no execute bit; File.canExecute() is always true for a readable file.",
+    )
     fun `validateNodePath throws when file is not executable`() {
         val file = makeFile("node", executable = false)
         val ex =
