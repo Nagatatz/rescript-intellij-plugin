@@ -1,11 +1,38 @@
 package com.rescript.plugin.analysis
 
+import com.intellij.openapi.util.SystemInfo
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
+import java.nio.file.Files
+import java.nio.file.Path
 
 class RescriptFormatCheckAnnotatorTest {
+    /**
+     * Creates a script that ignores its arguments and always exits non-zero.
+     *
+     * runFormatCheck appends `format --stdin .<ext>` to the given path, so the
+     * target must be a standalone executable that fails regardless of its
+     * arguments. Windows has no `/usr/bin/false` equivalent, so a .bat is
+     * generated instead.
+     *
+     * @param dir the directory to create the script in
+     * @return the path to the generated script
+     */
+    private fun createAlwaysFailingCommand(dir: Path): Path =
+        if (SystemInfo.isWindows) {
+            dir.resolve("alwaysfail.bat").also {
+                Files.writeString(it, "@echo off\r\nexit /b 1\r\n")
+            }
+        } else {
+            dir.resolve("alwaysfail.sh").also {
+                Files.writeString(it, "#!/bin/sh\nexit 1\n")
+                it.toFile().setExecutable(true)
+            }
+        }
+
     // --- CollectedInfo data class ---
 
     @Test
@@ -118,11 +145,12 @@ class RescriptFormatCheckAnnotatorTest {
     }
 
     @Test
-    fun `runFormatCheck returns null for command with non-zero exit`() {
-        // /usr/bin/false always exits with code 1
+    fun `runFormatCheck returns null for command with non-zero exit`(
+        @TempDir tempDir: Path,
+    ) {
         val result =
             RescriptFormatCheckAnnotator.runFormatCheck(
-                cliPath = "/usr/bin/false",
+                cliPath = createAlwaysFailingCommand(tempDir).toString(),
                 extension = "res",
                 documentText = "let x = 1",
             )
@@ -145,7 +173,9 @@ class RescriptFormatCheckAnnotatorTest {
     }
 
     @Test
-    fun `runFormatCheck cleans up process on non-zero exit`() {
+    fun `runFormatCheck cleans up process on non-zero exit`(
+        @TempDir tempDir: Path,
+    ) {
         // Verify no threads leak when process exits with error code
         val threadsBefore =
             Thread
@@ -154,7 +184,7 @@ class RescriptFormatCheckAnnotatorTest {
                 .count { it.name.startsWith("rescript-format-check") }
 
         RescriptFormatCheckAnnotator.runFormatCheck(
-            cliPath = "/usr/bin/false",
+            cliPath = createAlwaysFailingCommand(tempDir).toString(),
             extension = "res",
             documentText = "let x = 1",
         )

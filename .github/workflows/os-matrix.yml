@@ -51,6 +51,22 @@ jobs:
       - name: Build plugin
         run: ./gradlew buildPlugin
 
+      # The main CI workflow only runs tests on ubuntu. Running them here too
+      # is what actually catches the OS-specific breakage this workflow exists
+      # for — path separators and line endings surface in assertions, not in
+      # the build. Placed before verifyPlugin so a test failure reports first.
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Upload test report on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-report-${{ matrix.os }}
+          path: build/reports/tests/test/
+          retention-days: 14
+          if-no-files-found: ignore
+
       - name: Verify plugin (binary compatibility)
         run: ./gradlew verifyPlugin
 
@@ -61,3 +77,4 @@ jobs:
           name: verifier-report-${{ matrix.os }}
           path: build/reports/pluginVerifier/
           retention-days: 14
+          if-no-files-found: ignore

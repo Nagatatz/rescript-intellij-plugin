@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledOnOs
+import org.junit.jupiter.api.condition.OS
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
 
@@ -35,6 +37,10 @@ class RescriptSecurityUtilsTest {
     }
 
     @Test
+    @DisabledOnOs(
+        value = [OS.WINDOWS],
+        disabledReason = "Windows has no execute bit; File.canExecute() is always true for a readable file.",
+    )
     fun `isValidExecutable returns false for non-executable file`() {
         val file = File(tempDir, "script.sh").apply { createNewFile() }
         file.setExecutable(false)
