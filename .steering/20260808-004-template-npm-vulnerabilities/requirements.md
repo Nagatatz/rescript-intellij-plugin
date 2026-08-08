@@ -105,17 +105,21 @@ npm は最高版を選ぶため `sharp 0.35.3`（修正済み）に解決され�
 
 ## 受け入れ条件
 
-- [ ] AC-1: ローカルで監査を再現し、**high/critical の未除外 advisory が 0 件**になる
-- [ ] AC-2: 除外されているのは V-2（`image-size`）のみであり、理由・URL・`Reviewed`・`Expires` が記載されている
-- [ ] AC-3: 除外リストに載っていない high が出た場合、監査が **fail する**ことを確認する（意図的に偽エントリを入れて検証）
-- [ ] AC-4: `./gradlew ktlintCheck` が成功する
-- [ ] AC-5: `./gradlew clean buildPlugin` が成功する
-- [ ] AC-6: `./gradlew test` が全件成功する
-- [ ] AC-7: `./gradlew test -Pscope=cli` および Integration Tests が対象とするテンプレート生成が壊れていない
-- [ ] AC-8: Astro テンプレートが生成するプロジェクトが、新バージョンで実際に
-      `npm install` および build を通ることを確認する
-- [ ] AC-9: ドキュメントのバージョン表記が更新されている
+- [x] AC-1: ローカルで監査を再現し、**high/critical の未除外 advisory が 0 件**（2026-08-09 実測、exit 0）
+- [x] AC-2: 除外は V-2（`image-size`）の 2 advisory のみ。理由・URL・`reviewed`・`expires` すべて記載済み
+- [x] AC-3: セクション 1 完了時点（`sharp` 未解消・未除外）で実際に **exit 1** になることを実データで確認。
+      加えて `check-npm-audit.test.mjs` の「allowlist 空で high が blocking になる」ケースでも担保（10 件すべて pass）
+- [x] AC-4: `./gradlew ktlintCheck` が成功する
+- [x] AC-5: `./gradlew buildPlugin` が成功する
+- [x] AC-6: `./gradlew test` が全件成功する（golden マニフェスト 5 件を再生成のうえ）
+- [x] AC-7: `./gradlew integrationTest` を実行。82 件中 fail 2 件だが、**いずれも TAURI で本作業とは無関係**
+      （`@rescript-tauri/*` の `.cmi` 解決エラー。Windows 固有・既存。tasklist セクション 3-1 に裏取りを記録）
+- [x] AC-8: **ASTRO (zod) / (sury) ともに pass**。生成 → `pnpm install` → ReScript コンパイル →
+      vitest → **`astro build`（Vite 8 / Rolldown）** まで実際に成功した
+- [x] AC-9: テンプレートドキュメントに npm バージョン番号の記載は無く（`TemplateVersions.kt` を参照する構造）、
+      更新が必要だったのは `docs/repository-structure.md` の scripts 一覧のみ
 - [ ] AC-10: Monthly Verify を `workflow_dispatch` で手動実行し、`template-versions-audit` が green になる
+      — **マージ後に実施**（ワークフロー変更が `main` に載ってからでないと検証にならないため）
 
 ## リスク
 

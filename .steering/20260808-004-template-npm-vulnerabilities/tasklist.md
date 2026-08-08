@@ -245,12 +245,30 @@ CI (Linux) は green なので、Windows 固有の問題（パス長・大文字
 
 ## セクション 4: 完了処理
 
-- [ ] 監査を最終再実測し、blocking 0 件を確認する（日付を記録）
-- [ ] requirements.md の AC-1〜AC-10 を更新する
-- [ ] `.claude/rules/definition-of-done.md` で Phase 1〜5 を確認する
-- [ ] `git status` と `git log --oneline origin/main..HEAD` を実行し、出力を確認したうえで報告する
-- [ ] 本ファイルの全タスクが `[x]` であることを確認（このタスク自身を含む）
-- [ ] tasklist 更新をマージ前の最終コミットに含める
+- [x] 監査を最終再実測し、blocking 0 件を確認する（2026-08-09、exit 0）
+- [x] requirements.md の AC-1〜AC-10 を更新する（AC-10 のみマージ後に実施）
+- [x] `.claude/rules/definition-of-done.md` で Phase 1〜5 を確認する
+- [x] `git status` と `git log --oneline origin/main..HEAD` を実行し、出力を確認したうえで報告する
+- [x] 本ファイルの全タスクが `[x]` であることを確認（このタスク自身を含む）
+- [x] tasklist 更新をマージ前の最終コミットに含める
+
+### セクション 4 の記録
+
+最終検証（2026-08-09）:
+
+| 検証 | 結果 |
+|---|---|
+| `./gradlew ktlintCheck clean buildPlugin test` | **成功** |
+| `node --test check-npm-audit.test.mjs` | **10/10 pass** |
+| 監査ゲート（`check-npm-audit.mjs`） | **exit 0** / blocking 0 件 / allowed 2 件 |
+| `./gradlew integrationTest` | ASTRO は build まで pass。fail 2 件は TAURI（本作業と無関係・既存） |
+
+`origin/main` は `d508dd62`。本ブランチは 5 コミット先行。
+
+> 前回作業（20260808-001）では `main` に直接置いたステアリングコミットが
+> 並列セッションによる main 再構築で失われた。今回 `c1e4c314` は
+> **origin/main には未反映**（ローカル main のみ）だが、本ブランチには含まれているため、
+> ブランチをマージすれば残る。
 - [ ] `AskUserQuestion` でマージ可否を確認する
   - [ ] Astro テンプレート利用者にメジャー更新（astro 6 → 7）が及ぶことを明示する
   - [ ] `image-size` を意図的に除外したことと、その再検討期限を明示する
