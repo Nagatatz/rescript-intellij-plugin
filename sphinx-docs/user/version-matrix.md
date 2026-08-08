@@ -12,7 +12,12 @@ This page provides IDE compatibility information and a per-version breakdown of 
 
 | Plugin Version | IntelliJ Platform | JDK | ReScript | Language Server |
 |----------------|-------------------|-----|----------|-----------------|
-| 0.1.2 -- 0.1.16 | 2025.3+ | 21+ | v11+ | `@rescript/language-server` 1.0.0+ (latest stable recommended) |
+| 0.1.2 -- 0.1.16.3 | 2025.3+ | 21+ | v11+ | `@rescript/language-server` 1.0.0+ (latest stable recommended) |
+| Next release (unreleased) | 2026.1.4+ | 25+ | v11+ | `@rescript/language-server` 1.0.0+ (latest stable recommended) |
+
+:::{warning}
+The next release raises the minimum IDE to 2026.1.4. It is compiled against IntelliJ Platform 2026.2, which emits Java 25 bytecode, and 2026.1 is the first release whose bundled runtime (JBR 25) can load it. IDEs on 2025.3 keep receiving 0.1.16.3 from the Marketplace.
+:::
 
 :::{note}
 Native features (syntax highlighting, code folding, brace matching, etc.) work without the language server.

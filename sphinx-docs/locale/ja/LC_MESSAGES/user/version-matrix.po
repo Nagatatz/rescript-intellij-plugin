@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 17:44+0900\n"
+"POT-Creation-Date: 2026-08-09 01:48+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -65,8 +65,8 @@ msgid "Language Server"
 msgstr "Language Server"
 
 #: ../../user/version-matrix.md
-msgid "0.1.2 -- 0.1.16"
-msgstr "0.1.2 -- 0.1.16"
+msgid "0.1.2 -- 0.1.16.3"
+msgstr "0.1.2 -- 0.1.16.3"
 
 #: ../../user/version-matrix.md
 msgid "2025.3+"
@@ -84,7 +84,31 @@ msgstr "v11+"
 msgid "`@rescript/language-server` 1.0.0+ (latest stable recommended)"
 msgstr "`@rescript/language-server` 1.0.0+（最新の安定版を推奨）"
 
-#: ../../user/version-matrix.md:18
+#: ../../user/version-matrix.md
+msgid "Next release (unreleased)"
+msgstr "次期リリース（未リリース）"
+
+#: ../../user/version-matrix.md
+msgid "2026.1.4+"
+msgstr "2026.1.4+"
+
+#: ../../user/version-matrix.md
+msgid "25+"
+msgstr "25+"
+
+#: ../../user/version-matrix.md:19
+msgid ""
+"The next release raises the minimum IDE to 2026.1.4. It is compiled "
+"against IntelliJ Platform 2026.2, which emits Java 25 bytecode, and "
+"2026.1 is the first release whose bundled runtime (JBR 25) can load it. "
+"IDEs on 2025.3 keep receiving 0.1.16.3 from the Marketplace."
+msgstr ""
+"次期リリースでは対応 IDE の下限を 2026.1.4 に引き上げます。IntelliJ Platform 2026.2 に対して"
+"ビルドしており、その成果物は Java 25 のバイトコードになるためです。これを読み込めるランタイム（JBR 25）を"
+"バンドルする最初のリリースが 2026.1 です。2025.3 の IDE には引き続き Marketplace から 0.1.16.3 が"
+"提供されます。"
+
+#: ../../user/version-matrix.md:23
 msgid ""
 "Native features (syntax highlighting, code folding, brace matching, etc.)"
 " work without the language server. LSP-powered features (completion, "
@@ -100,7 +124,7 @@ msgstr ""
 "拡張プロトコル（`rescript/compilationStatus`、`textDocument/createInterface`、`textDocument/openCompiled`、Semantic"
 " Tokens）に対応しないためサポート対象外です。"
 
-#: ../../user/version-matrix.md:22
+#: ../../user/version-matrix.md:27
 msgid "Features by Version"
 msgstr "バージョン別機能一覧"
 
@@ -108,7 +132,7 @@ msgstr "バージョン別機能一覧"
 msgid "0.1.16"
 msgstr "0.1.16"
 
-#: ../../user/version-matrix.md:28
+#: ../../user/version-matrix.md:33
 msgid "**Released 2026-06-16**"
 msgstr "**2026-06-16 リリース**"
 
@@ -116,7 +140,7 @@ msgstr "**2026-06-16 リリース**"
 msgid "0.1.15"
 msgstr "0.1.15"
 
-#: ../../user/version-matrix.md:37
+#: ../../user/version-matrix.md:42
 msgid "**Released 2026-06-13**"
 msgstr "**2026-06-13 リリース**"
 
@@ -124,7 +148,7 @@ msgstr "**2026-06-13 リリース**"
 msgid "0.1.14"
 msgstr "0.1.14"
 
-#: ../../user/version-matrix.md:49
+#: ../../user/version-matrix.md:54
 msgid "**Released 2026-05-13**"
 msgstr "**2026-05-13 リリース**"
 
@@ -132,7 +156,7 @@ msgstr "**2026-05-13 リリース**"
 msgid "0.1.13"
 msgstr "0.1.13"
 
-#: ../../user/version-matrix.md:68
+#: ../../user/version-matrix.md:73
 msgid "**Released 2026-04-27**"
 msgstr "**2026-04-27 リリース**"
 
@@ -140,7 +164,7 @@ msgstr "**2026-04-27 リリース**"
 msgid "0.1.12"
 msgstr "0.1.12"
 
-#: ../../user/version-matrix.md:81
+#: ../../user/version-matrix.md:86
 msgid "**Released 2026-04-17**"
 msgstr "**2026-04-17 リリース**"
 
@@ -148,7 +172,7 @@ msgstr "**2026-04-17 リリース**"
 msgid "0.1.11"
 msgstr "0.1.11"
 
-#: ../../user/version-matrix.md:93
+#: ../../user/version-matrix.md:98
 msgid "**Released 2026-04-01**"
 msgstr "**2026-04-01 リリース**"
 
@@ -156,7 +180,7 @@ msgstr "**2026-04-01 リリース**"
 msgid "0.1.10"
 msgstr "0.1.10"
 
-#: ../../user/version-matrix.md:105
+#: ../../user/version-matrix.md:110
 msgid "**Released 2026-03-19**"
 msgstr "**2026-03-19 リリース**"
 
@@ -164,7 +188,7 @@ msgstr "**2026-03-19 リリース**"
 msgid "0.1.9"
 msgstr "0.1.9"
 
-#: ../../user/version-matrix.md:117
+#: ../../user/version-matrix.md:122
 msgid "**Released 2026-03-16**"
 msgstr "**2026-03-16 リリース**"
 
@@ -172,7 +196,7 @@ msgstr "**2026-03-16 リリース**"
 msgid "0.1.8"
 msgstr "0.1.8"
 
-#: ../../user/version-matrix.md:125
+#: ../../user/version-matrix.md:130
 msgid "**Released 2026-03-12**"
 msgstr "**2026-03-12 リリース**"
 
@@ -180,11 +204,11 @@ msgstr "**2026-03-12 リリース**"
 msgid "0.1.7"
 msgstr "0.1.7"
 
-#: ../../user/version-matrix.md:135
+#: ../../user/version-matrix.md:140
 msgid "**Released 2026-03-11**"
 msgstr "**2026-03-11 リリース**"
 
-#: ../../user/version-matrix.md:137
+#: ../../user/version-matrix.md:142
 msgid "Bug fixes only (threading fixes, icon attribute fix, version string fix)."
 msgstr "バグ修正のみ（スレッド修正、アイコン属性修正、バージョン文字列修正）。"
 
@@ -192,11 +216,11 @@ msgstr "バグ修正のみ（スレッド修正、アイコン属性修正、バ
 msgid "0.1.6"
 msgstr "0.1.6"
 
-#: ../../user/version-matrix.md:141 ../../user/version-matrix.md:147
+#: ../../user/version-matrix.md:146 ../../user/version-matrix.md:152
 msgid "**Released 2026-03-10**"
 msgstr "**2026-03-10 リリース**"
 
-#: ../../user/version-matrix.md:143
+#: ../../user/version-matrix.md:148
 msgid ""
 "Bug fixes only (EDT threading, GenerateGroup, testCreator extension "
 "point)."
@@ -210,7 +234,7 @@ msgstr "0.1.5"
 msgid "0.1.4"
 msgstr "0.1.4"
 
-#: ../../user/version-matrix.md:158
+#: ../../user/version-matrix.md:163
 msgid "**Released 2026-03-06**"
 msgstr "**2026-03-06 リリース**"
 
@@ -218,7 +242,7 @@ msgstr "**2026-03-06 リリース**"
 msgid "0.1.3"
 msgstr "0.1.3"
 
-#: ../../user/version-matrix.md:166
+#: ../../user/version-matrix.md:171
 msgid "**Released 2026-03-05**"
 msgstr "**2026-03-05 リリース**"
 
@@ -226,39 +250,39 @@ msgstr "**2026-03-05 リリース**"
 msgid "0.1.2"
 msgstr "0.1.2"
 
-#: ../../user/version-matrix.md:175
+#: ../../user/version-matrix.md:180
 msgid "**Released 2026-03-03 -- Initial release with 109 features**"
 msgstr "**2026-03-03 リリース -- 109 機能を搭載した初回リリース**"
 
-#: ../../user/version-matrix.md:177
+#: ../../user/version-matrix.md:182
 msgid "Syntax"
 msgstr "シンタックス"
 
-#: ../../user/version-matrix.md:191
+#: ../../user/version-matrix.md:196
 msgid "Completion"
 msgstr "補完"
 
-#: ../../user/version-matrix.md:205
+#: ../../user/version-matrix.md:210
 msgid "Navigation"
 msgstr "ナビゲーション"
 
-#: ../../user/version-matrix.md:225
+#: ../../user/version-matrix.md:230
 msgid "Editing"
 msgstr "編集"
 
-#: ../../user/version-matrix.md:251
+#: ../../user/version-matrix.md:256
 msgid "Run & Build"
 msgstr "実行とビルド"
 
-#: ../../user/version-matrix.md:270
+#: ../../user/version-matrix.md:275
 msgid "Testing"
 msgstr "テスト"
 
-#: ../../user/version-matrix.md:277
+#: ../../user/version-matrix.md:282
 msgid "Analysis"
 msgstr "分析"
 
-#: ../../user/version-matrix.md:299
+#: ../../user/version-matrix.md:304
 msgid "Advanced"
 msgstr "高度な機能"
 

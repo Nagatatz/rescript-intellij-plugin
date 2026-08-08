@@ -186,7 +186,7 @@
 
 ## Requirements
 
-- IntelliJ IDEA 2025.3+ (or other JetBrains IDE with LSP support)
+- IntelliJ IDEA 2026.1.4+ (or other JetBrains IDE with LSP support)
 - Node.js installed and available in PATH
 - `@rescript/language-server` installed:
 

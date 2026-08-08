@@ -7,9 +7,10 @@
 | 項目 | 値 | 取得元 |
 |---|---|---|
 | プラグインバージョン | `pluginVersion` の値 | `gradle.properties` |
-| 対象 IDE バージョン (下限) | IntelliJ Platform 2025.3+（`sinceBuild = 253.0`） | `gradle.properties` |
+| 対象 IDE バージョン (下限) | IntelliJ Platform 2026.1.4+（`sinceBuild = 261.26222`。理由は [architecture.md](architecture.md#pluginsincebuild-が-202614-である理由) 参照） | `gradle.properties` |
 | 対象 IDE バージョン (上限) | 未設定（理由は [architecture.md](architecture.md#pluginuntilbuild-を設定しない理由) 参照） | `gradle.properties` |
-| JDK | 21 以上 | `build.gradle.kts` |
+| ビルド対象プラットフォーム | 2026.2.0.1 | `gradle.properties` の `platformVersion` |
+| JDK | 25 以上 | `build.gradle.kts` |
 
 最新バージョンは [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/com.rescript.plugin) または [GitHub Releases](https://github.com/Nagatatz/rescript-intellij-plugin/releases) で確認できる。
 

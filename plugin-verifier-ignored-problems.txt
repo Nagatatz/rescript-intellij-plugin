@@ -1,5 +1,5 @@
 // ── Overview ──────────────────────────────────────────────────────────
-// Reviewed: 2026-05-14 | Target: IntelliJ 2025.3+
+// Reviewed: 2026-08-09 | Target: IntelliJ 2026.1.4+ (compiled against 2026.2.0.1)
 //
 // The Kotlin compiler option `-jvm-default=no-compatibility` (see
 // build.gradle.kts) removes the DefaultImpls bridge methods that used to
@@ -12,56 +12,66 @@
 // compiler flag still eliminates the corresponding bytecode references.
 
 // ── Internal API exceptions ──────────────────────────────────────────
-// CodeVisionPlaceholderCollector — listed as an exception on the JetBrains
-// Internal API Migration page: "Made public in 2024.2"
-// https://plugins.jetbrains.com/docs/intellij/api-internal.html
-// The @Internal annotation remains in bytecode, so the verifier still flags it
-// even though JetBrains officially permits third-party usage.
-// Status: KEEP — annotation not yet removed from source.
-// Expires: 2027-04-29
-com\.rescript\.plugin:.*:.*CodeVisionPlaceholderCollector.*
-
-// ── Deprecated overrides with no replacement API on the compile target ──
+// (none)
 //
-// These methods are deprecated on Marketplace-side verifiers running newer
-// IDEs, but the replacement APIs (`isApplicableAsync`, `acceptFile(IndexedFile)`)
-// do not yet exist in IntelliJ Platform 2026.1.2 (our compile target). The
-// overrides are explicitly annotated with @Suppress("DEPRECATION") in source;
-// the verifier still reports them at bytecode level. Re-evaluate when the
-// platformVersion is bumped to a release that ships the async/IndexedFile
-// variants.
+// The CodeVisionPlaceholderCollector entry was removed on 2026-08-09. It became dead
+// once RescriptCodeVisionProvider was refactored to avoid referencing the @Internal
+// type. Verified empirically: with the pattern disabled, verifyPlugin still reports
+// Compatible against IU-261 and IU-262 with identical problem counts.
 
-// FloatingToolbarProvider.isApplicable(DataContext)
-// Status: KEEP — `isApplicableAsync` not yet available in 2026.1.2.
-// Source: RescriptFloatingToolbarProvider.kt
-// Reviewed: 2026-06-19 | Expires: 2027-06-19
-com\.rescript\.plugin:.*:.*FloatingToolbarProvider.*isApplicable.*
+// ── Deprecated override kept for the oldest supported IDE ──────────────
+//
+// FloatingToolbarProvider.isApplicable(DataContext) was removed from this file on
+// 2026-08-09: `isApplicableAsync` exists on the 2026.2 compile target and the
+// override was migrated to it.
 
 // FileIncludeProvider.acceptFile(VirtualFile)
-// Status: KEEP — `acceptFile(IndexedFile)` not yet available in 2026.1.2;
-// the VirtualFile overload remains abstract and must be overridden.
+// Status: KEEP — deprecated on 2026.2 in favour of acceptFile(IndexedFile), but the
+// VirtualFile overload is still ABSTRACT on 2026.1.x, which pluginSinceBuild
+// (261.26222) admits. Dropping the override raises AbstractMethodError there; the
+// plugin verifier running against IU-261 catches this, so do not "fix" the warning by
+// switching to the IndexedFile overload alone.
+// Overriding this overload is also sufficient on 2026.2, where the chain runs
+// acceptFile(IndexedFile) -> acceptFile(VirtualFile, Project) -> acceptFile(VirtualFile).
+// Remove once pluginSinceBuild moves to a build where the overload is concrete.
 // Source: RescriptFileIncludeProvider.kt
-// Reviewed: 2026-06-19 | Expires: 2027-06-19
+// Reviewed: 2026-08-09 | Expires: 2027-08-09
 com\.rescript\.plugin:.*:.*FileIncludeProvider.*acceptFile.*
 
-// ── LSP API (com.intellij.platform.lsp.api.*) deprecated in 2026.2 EAP ──
+// ── LSP API (com.intellij.platform.lsp.api.*) deprecated in 2026.2 ─────
 //
-// The entire LSP integration API (LspServer, LspServerManager,
-// LspServerSupportProvider, LspServerDescriptor, ProjectWideLspServerDescriptor,
-// and members such as getDocumentIdentifier / sendRequestSync) was deprecated in
-// the 2026.2 EAP in favour of the new LspClientDescriptor /
-// ProjectWideLspClientDescriptor / LspClientSupportProvider API. That replacement
-// API does NOT exist in IntelliJ Platform 2026.1.2 (our compile target), so the
-// usages cannot be migrated without compiling against an EAP build (against
-// project policy). Every call site carries @Suppress("DEPRECATION") (plus
-// "OVERRIDE_DEPRECATION" for overrides on deprecated supertypes); the verifier
-// still reports them at bytecode level. Re-evaluate when platformVersion is
-// bumped to a release that ships the LspClientDescriptor API.
+// The LSP integration API was renamed toward client/integration terminology. The
+// replacement names shipped in 2026.1.4 and the old ones were deprecated in 2026.2:
+//
+//   LspServerSupportProvider        -> LspIntegrationProvider
+//   LspServerDescriptor             -> LspClientDescriptor
+//   ProjectWideLspServerDescriptor  -> ProjectWideLspClientDescriptor
+//   LspServer                       -> LspClient
+//   LspServerManager                -> LspClientManager
+//   EP platform.lsp.serverSupportProvider -> EP platform.lsp.integrationProvider
+//
+// Unchanged: Lsp4jClient, LspServerNotificationsHandler, LspServerState, and the
+// customization/* package — there are no LspClient-prefixed counterparts for these.
+//
+// The replacement API DOES exist on the current compile target (2026.2.0.1); an
+// earlier revision of this file wrongly claimed otherwise, and named the provider
+// `LspClientSupportProvider`, which does not exist. The migration is deferred to a
+// dedicated follow-up because it touches 13 files and changes method names, not just
+// type names (e.g. stopAndRestartIfNeeded -> stopAndRestartClientsIfNeeded).
+//
+// Deferring is safe: the old interfaces extend the new ones and remain functional on
+// 2026.2. In particular LspServerManager.getInstance(Project) still resolves — the
+// documented "returns null" breakage applies to project.service<LspServerManager>(),
+// which this plugin does not use.
+//
+// Every call site carries @Suppress("DEPRECATION") (plus "OVERRIDE_DEPRECATION" for
+// overrides on deprecated supertypes); the verifier still reports them at bytecode
+// level. Remove this entry when the follow-up migration lands.
 // Source: RescriptLspServerSupportProvider.kt, RescriptLspServerDescriptor.kt,
 //   RescriptLspUtils.kt, RescriptDumpLspStateAction.kt, RescriptLspInstaller.kt,
 //   RescriptRestartLspAction.kt, RescriptExpressionTypeProvider.kt,
 //   RescriptCodeVisionProvider.java, RescriptSignatureSyncInspection.kt,
 //   RescriptOpenCompiledJsAction.kt, RescriptCreateInterfaceAction.kt,
 //   RescriptRenameHandler.kt, RescriptConfigurable.kt
-// Status: KEEP  Reviewed: 2026-06-19  Expires: 2027-06-19
+// Status: KEEP  Reviewed: 2026-08-09  Expires: 2027-02-09
 com\.rescript\.plugin:.*:.*com\.intellij\.platform\.lsp\.api.*

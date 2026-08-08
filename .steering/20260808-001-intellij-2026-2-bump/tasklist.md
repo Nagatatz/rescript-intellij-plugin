@@ -1,0 +1,517 @@
+# tasklist: IntelliJ Platform 2026.2 へのバンプ
+
+## 前提と依存関係
+
+- セクション 1 → 2 → 3 → 4 の順に依存する。**セクション 1 の完了で得られる実測結果（コンパイルエラー、
+  `deprecated-usages.txt`、jar のクラス一覧）がセクション 2 以降の設計入力**となる
+- 各セクションは単独でビルド・テストを通過し、`main` にマージできる粒度とする
+- セクション 3 は代替 API が 2026.2 に実在した場合のみ実施。存在しなければセクション 3 を丸ごとスキップし、
+  その旨を本ファイルに記録してセクション 4 に進む
+- 作業は worktree 内で行う（ブランチ `worktree-intellij-2026-2-bump`）
+
+## セクション 0: 準備
+
+- [x] `git fetch origin` 実行、ローカル `main` が `origin/main` と同期していることを確認（0 ahead / 0 behind）
+- [x] `EnterWorktree` で worktree を作成（`.claude/worktrees/intellij-2026-2-bump`、ブランチ `worktree-intellij-2026-2-bump`）
+- [x] worktree 内で `pwd` と `git rev-parse --show-toplevel` を実行し、編集対象が worktree 内であることを確認
+- [x] `.steering/20260808-001-intellij-2026-2-bump/` をコミット（`73cc5f40 📝 Add steering docs for IntelliJ Platform 2026.2 bump`）
+- [x] worktree は `origin/main` 起点で作られるため、ローカル `main` から `git merge --ff-only` で上記コミットを取り込み
+
+### セクション 0 の記録
+
+- worktree の baseRef 設定は未指定＝デフォルト `fresh`（`origin/main` 起点）。ステアリングコミットは
+  ローカル `main` にのみ存在したため、worktree 内で `git merge --ff-only main` して取り込んだ（origin への push はしていない）
+- **並列セッションを検知**: 取り込み時に `3089c586 📝 Add steering docs for Windows POSIX test failures`
+  （`.steering/20260808-002-windows-posix-test-failures/`、3 ファイル 281 行）が同時に入った。
+  ステアリングドキュメントのみで本作業と競合しないが、**セクション 5 のマージ前に再度 `git fetch` と
+  同期確認を行うこと**
+
+## セクション 1: platformVersion のバンプ（単独で緑にする）
+
+このセクションでは `@Suppress` も ignored-problems も **一切触らない**。
+2026.2.0.1 でビルドが通るかどうかだけを切り分ける。
+
+- [x] `gradle.properties` の `platformVersion` を `2026.1.2` → `2026.2.0.1` に変更
+- [x] `pluginSinceBuild` は `253.0` のまま据え置く（D-1: 移行中は Verifier に旧 IDE も検証させるため）
+- [x] `./gradlew clean buildPlugin` を実行
+- [x] コンパイルエラーが出た場合、内容を本ファイルの「セクション 1 実測ログ」に転記する
+- [x] **追加対応 A**: `bundledModule("intellij.platform.smRunner")` / `("intellij.platform.testRunner")` を追加
+- [x] **追加対応 B**: `jvmToolchain(21)` → `jvmToolchain(25)`
+- [x] `LspServerManager.getInstance()` が解決可能か（互換シムが残っているか）を確認し記録する ← F-2 の核心
+- [x] `./gradlew ktlintCheck` が成功する
+- [x] `./gradlew test` を実行（8 件失敗＝すべて既知の Windows POSIX 前提の失敗。下記参照）
+  - [x] `RescriptSwitchFileActionTest.testActionPerformedOpensResCounterpart` は成功（CI 側のフレーキー）
+- [x] `./gradlew verifyPlugin` を実行（**成功** / 17 分 53 秒 / 依存 2.52 GB ダウンロード）
+- [x] `deprecated-usages.txt` の内容を「セクション 1 実測ログ」に転記する
+- [x] Verifier が検証対象にした IDE の一覧を記録する
+- [ ] コミット（`🔧 Bump IntelliJ Platform to 2026.2.0.1`）
+
+### セクション 1 実測ログ（実装時に記入）
+
+> D-4 の未確定 API の対応先をここに確定させる。推測で埋めないこと。
+
+| 項目 | 実測結果 |
+|---|---|
+| ビルド成否 | **成功**（ただし下記 2 件の追加対応が必要だった） |
+| コンパイルエラー | ① `com.intellij.execution.testframework.*` が解決不能 ② 全 Java ソースで「クラスファイルのバージョン 69.0 は不正。65.0 である必要がある」 |
+| `LspServerManager.getInstance()` の可否 | **可**。`LspServerManager extends LspClientManager` で `getInstance(Project)` は静的メソッドとして現存。F-2 の null 化は `project.service<LspServerManager>()` 経由に限られ、本プラグインの呼び出し方（`getInstance`）は影響を受けない |
+| `LspServerNotificationsHandler` の対応先 | **変更なし**（`LspClientNotificationsHandler` は存在しない） |
+| `Lsp4jClient` の対応先 | **変更なし** |
+| `LspServerState` の対応先 | **変更なし**（`LspClientState` は存在しない。`LspClient.getState()` の戻り値も `LspServerState`） |
+| `LspCustomization` / `LspSemanticTokensSupport` の対応先 | **変更なし**（`customization/` 配下は新旧の別名なし） |
+| Verifier 検証対象 IDE | `IU-253.33813.55` (2025.3.6) / `IU-261.27258.27` (2026.1.x) / `IU-262.9437.65` (2026.2.x)。**下限 261.26222 より新しい 261 系が含まれる**ため、セクション 4-1 の懸念（2026.1 系が検証対象から漏れる）は解消 |
+| `deprecated-usages.txt` の新規項目 | 253: レポートなし（0 件） / 261: 35 件（すべて LSP） / 262: 37 件（LSP 35 + FloatingToolbar 1 + FileInclude 1）。セクション 2 で 35 件、セクション 3 で 2 件が解消する見込み |
+
+#### 追加発見 C: Java 25 バイトコードにより sinceBuild 引き上げは必須
+
+生成された `build/libs/rescript-intellij-plugin-0.1.16.3.jar` 内のクラスファイルバージョンを実測すると
+**69.0 (Java 25)** だった。2025.3 系は JBR 21 で動くため、この成果物は
+**2025.3 では `UnsupportedClassVersionError` により読み込めない**。
+
+にもかかわらず Plugin Verifier は `IU-253.33813.55` を green と判定した。
+**Plugin Verifier はクラスファイルバージョンの互換性を検査しない**（API シグネチャのみ検証する）。
+
+したがって:
+
+- `pluginSinceBuild` の 261.26222 への引き上げは「互換性を捨てる判断」ではなく、
+  **Java 25 バイトコードを配る以上、技術的に必須**である
+- セクション 4-1 を完了するまで、この成果物を Marketplace に publish してはならない
+- D-1 で「移行中は 253.0 のままにして Verifier に旧 IDE も検証させる」とした方針は、
+  API 誤用の検出には有効だが、**253 の green を互換性の裏付けとして読んではならない**
+
+#### LSP 移行対象ファイルの実パス（design.md の想定値を実測で訂正）
+
+`deprecated-usages.txt` から確定した実パス。design.md のパス想定と 4 件相違があった:
+
+| design.md の想定 | 実際 |
+|---|---|
+| `inspections/RescriptSignatureSyncInspection.kt` | `inspection/RescriptSignatureSyncInspection.kt` |
+| `actions/RescriptCreateInterfaceAction.kt` | `navigation/RescriptCreateInterfaceAction.kt` |
+| `actions/RescriptOpenCompiledJsAction.kt` | `navigation/RescriptOpenCompiledJsAction.kt` |
+| `refactoring/RescriptRenameHandler.kt` | `refactor/RescriptRenameHandler.kt` |
+
+#### 追加対応 A: テストランナーのモジュール分離（design 未想定）
+
+2026.2 で `com.intellij.execution.testframework.*` が implementation-detail プラグイン
+`intellij.testRunner.plugin` 配下の content module に切り出された。`build.gradle.kts` に以下を追加した:
+
+```kotlin
+bundledModule("intellij.platform.smRunner")   // com.intellij.execution.testframework.sm.*
+bundledModule("intellij.platform.testRunner") // com.intellij.execution.testframework.*（基底）
+```
+
+`intellij.platform.smRunner` は plugin.xml 上 `intellij.platform.testRunner` に依存しているが、
+その依存はコンパイルクラスパスに推移しないため両方の明示が必要だった。両モジュールとも
+`visibility="public"` なので依存してよい。
+
+#### 追加対応 B: JDK 25 への toolchain 引き上げ（design 未想定・最重要）
+
+**2026.2 のバイトコードは Java 25（クラスファイルバージョン 69.0）である。** JDK 21 の javac は
+65.0 までしか読めないため、Java ソース（`RescriptCodeVisionProvider.java`）のコンパイルが全滅した。
+Kotlin コンパイラは 69.0 を読めたため `compileKotlin` は通っており、`compileJava` で初めて露見した。
+
+バンドル JBR の変遷（各リリースの `jbr/release` を実測）:
+
+| リリース | バンドル JBR | プラットフォームのバイトコード |
+|---|---|---|
+| 2025.3.6 | 21.0.11 | 65.0 (Java 21) |
+| 2026.1.2 | 25.0.2 | **65.0 (Java 21)** |
+| 2026.1.3 | 25.0.3 | （未計測） |
+| 2026.2.0.1 | 25.0.3 | **69.0 (Java 25)** |
+
+2026.1 でランタイムは既に JBR 25 へ移行済みで、2026.2 でバイトコードも 25 に上がった。
+`pluginSinceBuild` の下限である 2026.1.4 も JBR 25.0.3 で動くため、Java 25 出力で互換性は保たれる。
+
+対応: `build.gradle.kts` の `jvmToolchain(21)` → `jvmToolchain(25)`。
+`settings.gradle.kts` に foojay-resolver があるため JDK 25.0.4 が自動取得された。
+
+**波及**: CI ワークフローの `java-version: 21` と、ドキュメントの「JDK 21+」表記の更新が必要。
+→ セクション 4 に追加タスクとして反映すること。
+
+#### テスト結果: 8 件失敗（すべて既知・バンプ起因ではない）
+
+`RescriptCliDetectorTest` ×2 / `RescriptReanalyzeServerServiceTest` ×1 /
+`RescriptFormatCheckAnnotatorTest` ×2 / `RescriptSecurityUtilsTest` ×1 /
+`RescriptSettingsValidatorTest` ×2 = 計 8 件。
+
+並列セッションのステアリング `.steering/20260808-002-windows-posix-test-failures/requirements.md`
+（コミット `3089c586`、**本バンプ以前**に作成）が、2026.1.2 時点の Windows で同じ 8 件が失敗すると
+記録しており、テスト名が 1 件も過不足なく一致する。したがって **本バンプによる新規失敗は 0 件**。
+原因はいずれもテストコードの POSIX 前提（パス区切り、`/usr/bin/false`、実行ビット）で、CI (Linux) では green。
+
+#### セクション 3 の実施可否: **実施する**
+
+2026.2 に代替 API が両方とも存在することを実測で確認した:
+
+- `FloatingToolbarProvider.isApplicableAsync(DataContext, Continuation<Boolean>)` — Kotlin の suspend 関数
+- `FileIncludeProvider.acceptFile(IndexedFile)` — `acceptFile(VirtualFile)` と併存
+
+#### LSP API 対応表（実測で確定・design F-1 を更新）
+
+新旧クラスは**併存**しており、旧名は deprecated だが削除されていない。単純な rename ではなく
+**メソッド名も変わる**点に注意:
+
+| 旧 | 新 |
+|---|---|
+| `LspServerSupportProvider` | `LspIntegrationProvider` |
+| `LspServerDescriptor` | `LspClientDescriptor` |
+| `ProjectWideLspServerDescriptor` | `ProjectWideLspClientDescriptor` |
+| `LspServer` | `LspClient` |
+| `LspServerManager` | `LspClientManager` |
+| `LspServerManagerListener` | `LspClientManagerListener` |
+| `LspServerSupportProvider.LspServerStarter` | `LspIntegrationProvider.LspClientStarter` |
+| `getServersForProvider(...)` | `getClients(...)` |
+| `startServersIfNeeded(...)` | `startClientsIfNeeded(...)` |
+| `ensureServerStarted(...)` | `ensureClientStarted(...)` |
+| `stopServers(...)` | `stopClients(...)` |
+| `stopAndRestartIfNeeded(...)` | `stopAndRestartClientsIfNeeded(...)` |
+| `addLspServerManagerListener(...)` | `addListener(...)` |
+| `createLspWidgetItems(...)` | `createWidgetItems(...)` |
+| `createLspServerWidgetItem(...)` | `createWidgetItem(...)`（戻り値 `LspClientWidgetItem`） |
+| `LspServerNotificationsHandler` | **変更なし** |
+| `Lsp4jClient` | **変更なし** |
+| `LspServerState` | **変更なし** |
+| `customization/*` | **変更なし** |
+
+確認手順（design.md D-4）:
+
+- [ ] 解決済み jar を特定: `find ~/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.idea -name "*.jar" | xargs -I{} sh -c 'unzip -l "{}" 2>/dev/null | grep -q "platform/lsp/api" && echo "{}"' | head -1`
+- [ ] クラス一覧を確認: `unzip -l <jar> | grep "platform/lsp/api"`
+- [ ] シグネチャを確認: `javap -classpath <jar> com.intellij.platform.lsp.api.LspClientManager`
+- [ ] `FloatingToolbarProvider` に `isApplicableAsync` が存在するか確認 → セクション 3 の実施可否を判定
+- [ ] `FileIncludeProvider` に `acceptFile(IndexedFile)` が存在するか確認 → 同上
+- [ ] PolySymbols の `PsiSourced*` を本プラグインが参照していないことを `grep -rn "PsiSourced" src/` で再確認（F-3）
+
+## セクション 2: LSP API の移行 — **本作業のスコープ外（後続作業へ切り出し / 2026-08-09 決定）**
+
+> **本セクションは実施しない。** 以下のタスクは後続作業の設計入力として保持する。
+>
+> 切り出しの根拠（requirements.md「R-3 の切り出し」参照）:
+>
+> - 必須と判断した根拠だった design.md F-2（`LspServerManager` が runtime で null になる）は、
+>   セクション 1 の実測で **本プラグインには当てはまらない**と判明した。`LspServerManager extends
+>   LspClientManager` であり `getInstance(Project)` は静的メソッドとして現存し、旧 API は 2026.2 でも動作する
+> - 移行は単純な rename ではなくメソッド名の変更を伴い 13 ファイルに及ぶ
+> - 本作業は「2026.2 でビルドでき、リリースできる状態」を最短で作ることを優先する
+>
+> 後続作業に引き継ぐ資産: セクション 1 実測ログの「LSP API 対応表」と「LSP 移行対象ファイルの実パス」。
+> `plugin-verifier-ignored-problems.txt` の LSP エントリに追跡情報を残すこと（4-2 で対応）。
+
+以下は後続作業用の下書きであり、本作業では `[ ]` のまま残す。
+
+### 2-1: コア（Provider / Descriptor / Client）
+
+- [ ] `lsp/RescriptLspServerSupportProvider.kt` の親を `LspIntegrationProvider` へ変更
+- [ ] `lsp/RescriptLspServerDescriptor.kt` の親を `ProjectWideLspClientDescriptor` へ変更
+- [ ] `lsp/RescriptLsp4jClient.kt` の通知ハンドラ型を実測結果に合わせる
+- [ ] `plugin.xml:641` の EP を `platform.lsp.serverSupportProvider` → `platform.lsp.integrationProvider` へ変更
+      （D-5: 旧 EP との併記はしない）
+- [ ] 各ファイルの `@Suppress("DEPRECATION")` / `@Suppress("OVERRIDE_DEPRECATION")` を除去
+- [ ] KDoc / インラインコメント内の旧クラス名への言及を更新（`code-comments.md`）
+- [ ] `./gradlew ktlintCheck clean buildPlugin` が成功する
+- [ ] コミット（`♻️ Migrate LSP provider and descriptor to the LspClient API`）
+
+### 2-2: 呼び出し側（LspServerManager / LspServer / LspServerState）
+
+対象ファイルは実装時に `grep -rln "LspServerManager\|LspServer\b\|LspServerState" src/main` で確定する。
+design.md の一覧は想定値であり、パスが異なる場合はそちらを優先する。
+
+- [ ] `lsp/RescriptLspUtils.kt`
+- [ ] `lsp/RescriptLspInstaller.kt`
+- [ ] `lsp/RescriptRestartLspAction.kt`
+- [ ] `lsp/RescriptDumpLspStateAction.kt`
+- [ ] `lsp/RescriptExpressionTypeProvider.kt`
+- [ ] `codevision/RescriptCodeVisionProvider.java`（`LspServer` / `LspServerState` / `sendRequestSync`）
+- [ ] `inspections/RescriptSignatureSyncInspection.kt`
+- [ ] `actions/RescriptOpenCompiledJsAction.kt`
+- [ ] `actions/RescriptCreateInterfaceAction.kt`
+- [ ] `refactoring/RescriptRenameHandler.kt`
+- [ ] `settings/RescriptConfigurable.kt`
+- [ ] 上記すべてで `@Suppress` を除去し、旧クラス名を参照するコメントを更新
+- [ ] `grep -rn "LspServerManager\|LspServerSupportProvider\|LspServerDescriptor\|LspServerState" src/main` が
+      0 件になることを確認（`RescriptLspServer*` という自前クラス名は D-3 によりリネーム対象外）
+- [ ] `./gradlew ktlintCheck clean buildPlugin` が成功する
+- [ ] コミット（`♻️ Migrate LSP call sites to LspClientManager`）
+
+### 2-3: テスト
+
+- [ ] `lsp/RescriptLspUtilsTest.kt` に **F-2 のリグレッションテスト**を追加
+      （`LspClientManager` の取得口が null を返さない／例外を投げないことを検証。
+      テスト環境で LSP が起動しない場合は例外非送出の確認に縮退し、理由を本ファイルに明記する）
+- [ ] `lsp/RescriptLspUtilsTest.kt` が緑
+- [ ] `lsp/RescriptRestartLspActionTest.kt` が緑
+- [ ] `lsp/RescriptLspInstallerTest.kt` が緑
+- [ ] `lsp/RescriptExpressionTypeProviderTest.kt` が緑
+- [ ] `lsp/RescriptSemanticTokensSupportTest.kt` が緑
+- [ ] `lsp/RescriptCompilationStatusServiceTest.kt` が緑
+- [ ] `./gradlew test > /tmp/test.log 2>&1; tail -40 /tmp/test.log` が全件成功
+- [ ] `./gradlew verifyPlugin` が成功し、LSP 関連の deprecated 報告が消えていることを確認
+- [ ] コミット（`✅ Add regression test for LspClientManager lookup`）
+
+### 2-4: 実機スモークテスト（AC-7 / 省略不可）
+
+F-2 の性質上、ビルドが通っても LSP が無言で停止しうる。`ui-smoke-test` スキルを使用する。
+
+- [ ] `runIde` サンドボックスで ReScript プロジェクトを開き、LSP サーバーが起動することを確認
+- [ ] 補完が動作する
+- [ ] 診断（エラー・警告）が表示される
+- [ ] 定義ジャンプが動作する
+- [ ] ホバーで型情報が表示される
+- [ ] `Restart LSP Server` アクションが動作する（`LspClientManager` 経由のため F-2 の直撃箇所）
+- [ ] `Dump LSP State` アクションが動作する（同上）
+- [ ] 結果を本ファイルに記録する
+
+## セクション 3: FloatingToolbarProvider / FileIncludeProvider の移行 ← **実施する**
+
+**セクション 1 実測ログで代替 API の存在を確認できた場合のみ実施。**
+
+> 実施可否の判定結果: **実施する**。`isApplicableAsync(DataContext, Continuation<Boolean>)` と
+> `acceptFile(IndexedFile)` の両方が 2026.2 に存在することを `javap` で実測確認済み。
+> LSP 移行（セクション 2）を切り出した後も、本セクションは LSP と無関係なため本作業に残す
+> （2026-08-09 のユーザー判断）。
+>
+> 注意: `isApplicableAsync` は Kotlin の suspend 関数であり、`isApplicable` の単純な置換にはならない。
+
+- [x] `editor/RescriptFloatingToolbarProvider.kt` を `isApplicableAsync` へ移行
+- [x] `editor/RescriptFloatingToolbarProviderTest.kt` にテストを追加（新規 2 件）
+- [x] `navigation/RescriptFileIncludeProvider.kt` を `acceptFile(IndexedFile)` へ移行
+- [x] `navigation/RescriptFileIncludeProviderTest.kt` にテストを追加（新規 4 件）
+- [x] 両ファイルの `@Suppress("DEPRECATION")` を除去
+- [x] `./gradlew ktlintCheck buildPlugin test` が成功する（既知の Windows 8 件を除く）
+- [x] コミット（`♻️ Migrate FloatingToolbarProvider and FileIncludeProvider to the current APIs`）
+
+### セクション 3 の記録
+
+**`isApplicableAsync` のみを override してよいことの裏取り。**
+デフォルトの `isApplicable` は `iconst_1`（常に `true`）を返すため、旧メソッド経由の呼び出しが
+残っていればフィルタが失われ、全ファイル種別でツールバーが表示される回帰になる。
+`intellij.platform.ide.impl.jar` を展開して呼び出し元を調べたところ、
+プラットフォーム側の唯一の消費者 `EditorFloatingToolbar$1` は `isApplicableAsync` のみを
+invoke しており（`isApplicable` の invoke は無い）、async 版だけの override で十分と確認した。
+
+**移行は機械的に留めた。** `isApplicableAsync` は suspend 関数であり呼び出しが EDT 外になりうるが、
+本体は `DataContext` からの取得と `PsiFile.language` の参照のみで PSI ツリーを辿らないため、
+`readAction` の導入は行わず旧実装と同一の本体を維持した（スレッド方針の変更は本作業のスコープ外）。
+
+**テストの追加（計 6 件）。** `deprecated-usages.txt` で消える 2 件は「消えたこと」しか保証しないため、
+振る舞いのリグレッションテストを追加した:
+
+- `RescriptFloatingToolbarProviderTest`: PSI なしコンテキストで `false` / ReScript ファイルで `true`
+- `RescriptFileIncludeProviderTest`: `.res` / `.resi` を受理、他拡張子と拡張子なしを拒否
+
+`isApplicableAsync` の正常系テストは当初失敗した。プラットフォームが `DataContext` を通る PSI を
+検証して無効な要素を落とすため、Mockito のモックで `isValid()` が既定の `false` を返し
+`getData()` が null になっていた。`isValid` を stub して解決（その旨をテスト内にコメントで明記）。
+
+**テスト件数**: 4456 → 4462（+6）。失敗は既知の Windows 8 件のみで新規 failure なし。
+
+#### 訂正: `FileIncludeProvider` の移行は取り消した（4-1 の Verifier が検出）
+
+セクション 3 の当初実装は `acceptFile(VirtualFile)` の override を削除し
+`acceptFile(IndexedFile)` のみを実装したが、4-1 で `pluginSinceBuild` を `261.26222` に上げて
+`verifyPlugin` を回したところ、**`IU-261.27258.27` で compatibility problem** が出た:
+
+```
+Abstract method com.intellij.psi.impl.include.FileIncludeProvider.acceptFile(VirtualFile) is not implemented
+  ... This can lead to AbstractMethodError exception at runtime.
+```
+
+`acceptFile(VirtualFile)` は 2026.2 では concrete だが **2026.1.x ではまだ abstract** であり、
+sinceBuild が 2026.1.4 を許可する以上、override を外せない。
+
+2026.2 側の委譲関係を bytecode で確認した結果、**`acceptFile(VirtualFile)` を override するのが
+必要かつ十分**である:
+
+```
+acceptFile(IndexedFile) → acceptFile(VirtualFile, Project) → acceptFile(VirtualFile)  ← 実装箇所
+```
+
+対応: `acceptFile(VirtualFile)` の override と `@Suppress("DEPRECATION")` を復活させ、
+理由を「2026.1.x で abstract」に更新した。テストは
+`acceptFile(VirtualFile)` の直接テスト 4 件に加え、**2026.2 の委譲チェーンが実装に到達することを
+確認する `acceptFile(IndexedFile)` 経由のテスト 2 件**を残した（チェーンが変わったら気付けるようにするため）。
+
+> 教訓: セクション 3 を `pluginSinceBuild` 引き上げ **前** に実施したため、
+> 253.0 のままの Verifier ではこの問題を検出できなかった。
+> D-1 の「移行中は 253.0 に据え置く」方針は API 誤用の検出には有効だが、
+> **下限を上げた後に必ず再検証する**必要がある。
+
+`FloatingToolbarProvider` 側の移行は問題なく、262 の deprecated 件数は 37 → 36 に減った。
+
+## セクション 4: sinceBuild 引き上げ・ignored-problems 棚卸し・ドキュメント同期
+
+### 4-0: JDK 25 への追随（セクション 1 の追加対応 B の波及）
+
+> ドキュメント側の JDK 表記は 4-3 の IDE バージョン更新と同じファイルを触るため、
+> 二度編集を避けて **4-3 のドキュメントコミットに集約する**。本節は workflow のみを扱う。
+
+- [x] `.github/workflows/` 全ファイルの `java-version: 21` を `25` に更新（10 箇所 / 7 ファイル）
+- [x] `actions/setup-java` の `distribution` が JDK 25 を提供するか確認する
+      （全箇所 `temurin`。Temurin 25 は GA。ローカルでも foojay 経由で Temurin 25.0.4 を取得済み）
+- [x] コミット（`🔧 Move CI to JDK 25 for the 2026.2 platform`）
+
+### 4-1: sinceBuild と Verifier
+
+- [x] `gradle.properties` の `pluginSinceBuild` を `253.0` → **`261.26222`** に変更
+      （`261.4` などの短縮表記にしないこと。design.md D-2 参照）
+- [x] `./gradlew buildPlugin` が成功する
+- [x] `./gradlew verifyPlugin` が成功する（1 回目は失敗。上記「訂正」を参照）
+- [x] Verifier の検証対象 IDE に **2026.1 系が含まれる**ことを確認し記録する
+      → `IU-261.27258.27` と `IU-262.9437.65` の 2 IDE。`IU-253.*` は sinceBuild 引き上げにより
+      **自動的に対象から外れた**（`recommended()` は sinceBuild を尊重する）。`ides { }` の明示指定は不要
+- [x] `deprecated-usages.txt` を確認（AC-5）: 261 系 35 件 / 262 系 36 件。いずれも既知の項目のみ
+- [x] コミット（`🔧 Raise pluginSinceBuild to 261.26222 (2026.1.4)`）
+
+> Verifier の判定は 2 IDE とも `Compatible`。
+> セクション 1 の「追加発見 C」で指摘したとおり、Verifier はクラスファイルバージョンを見ないため、
+> この green は「Java 25 バイトコードが 261.26222 以降で読める」ことの証明にはならない。
+> それは JBR の実測（2026.1.2 時点で既に JBR 25）で裏付けている。
+
+### 4-2: plugin-verifier-ignored-problems.txt の棚卸し
+
+> セクション 2 を切り出したため、当初「削除」としていた LSP エントリは **残す**方針に変更した。
+
+- [x] LSP API のエントリは **削除せず残す**。記述を 2026.2 の実測に合わせて全面的に書き直した:
+  - [x] 「replacement API が 2026.1.2 に存在しない」という**誤った記述を訂正**（実際には存在する）
+  - [x] 移行が後続作業に切り出されている旨と、その理由（旧 API は 2026.2 でも動作する）を記載
+  - [x] クラス名の誤り（`LspClientSupportProvider`）を `LspIntegrationProvider` に訂正し、
+        新旧対応表とメソッド名変更の例を本文に埋め込んだ
+  - [x] `Reviewed: 2026-08-09` / `Expires: 2027-02-09`（後続作業の期限として 6 ヶ月に短縮）
+- [x] `FloatingToolbarProvider.isApplicable` のエントリを **削除**（セクション 3 で解消）
+- [x] `FileIncludeProvider.acceptFile` のエントリは **残す**（4-1 の訂正参照。2026.1.x で abstract のため）。
+      「IndexedFile 版だけに切り替えて警告を消してはならない」旨を明記した
+- [x] `CodeVisionPlaceholderCollector` のエントリを **削除**（下記の実証による）
+- [x] ファイル冒頭の Reviewed / Target を `2026-08-09` / `IntelliJ 2026.1.4+` に更新
+- [x] `./gradlew verifyPlugin` が成功する（削除したエントリが本当に不要だったことの確認）
+- [x] コミット（`🔧 Prune verifier ignored problems resolved by the 2026.2 bump`）
+
+### 4-2 の記録: `CodeVisionPlaceholderCollector` エントリの削除根拠
+
+レポートに 0 件であることは「エントリが抑制しているから」とも解釈できるため、**実証で確認した**。
+当該行を一時的に無効化して `verifyPlugin` を実行したところ:
+
+| | 無効化前 | 無効化後 |
+|---|---|---|
+| IU-261.27258.27 | Compatible / deprecated 35 / experimental 127 | Compatible / deprecated 35 / experimental 127 |
+| IU-262.9437.65 | Compatible / deprecated 36 / experimental 127 | Compatible / deprecated 36 / experimental 127 |
+
+件数が完全に一致し、新規の問題も出なかったため、このエントリは既に何も抑制していない
+（`RescriptCodeVisionProvider.java` が `@Internal` 型への参照を回避するようリファクタ済みであり、
+ソース中の言及もコメントのみ）。よって削除した。
+
+> 最終的な `plugin-verifier-ignored-problems.txt` の有効パターンは 2 件
+> （`FileIncludeProvider.acceptFile` と `com.intellij.platform.lsp.api.*`）。
+> 上表の「無効化後」が最終状態と等価であるため、追加の verifyPlugin 実行は行っていない
+> （以降の変更はコメント行のみ）。
+
+### 4-3: ドキュメント同期
+
+`documentation.md` の同期対象表および requirements.md AC-8 に従う。表記は **2026.1.4+** に統一する。
+
+- [x] `README.md` — `IntelliJ IDEA 2025.3+` → `2026.1.4+`
+- [x] `CLAUDE.md` — 対象プラットフォームと JDK 要件
+- [x] `docs/architecture.md` — SDK バージョン表を `2026.2.0.1` へ、Java 21+ → 25、最低 IDE バージョン
+- [x] `docs/architecture.md` — **新設**「`pluginSinceBuild` が 2026.1.4 である理由」節
+      （バイトコードで下限が決まること、短縮表記の罠、Verifier がクラスファイルバージョンを見ないこと）
+- [x] `docs/versions.md` — 対象 IDE バージョン（下限）/ JDK / ビルド対象プラットフォームの行を追加
+- [x] `sphinx-docs/dev/building.md` — `pluginSinceBuild` の例示と下限の根拠
+- [x] `sphinx-docs/dev/contributing.md` — JDK 要件 / IntelliJ IDEA
+- [x] `sphinx-docs/dev/setup.md` — IntelliJ IDEA / JDK / Language level
+- [x] `sphinx-docs/user/faq.md` — 対応 IDE の説明（0.1.16.3 が 2025.3 に残ることも明記）
+- [x] `sphinx-docs/user/installation.md` — 前提要件
+- [x] `sphinx-docs/user/version-matrix.md` — 対応表に行追加 + warning ディレクティブ
+- [x] `docs/functional-design.md` と `docs/performance-validation.md` は **更新しない**
+      （当時の実測記録・沿革説明のため。requirements.md AC-8 の注記）
+- [x] ~~`docs/repository-structure.md` / `docs/functional-design.md` の EP マップ更新~~
+      → **不要**。EP 名の変更は LSP 移行に伴うものであり、その移行は後続作業に切り出したため
+      `plugin.xml` の EP は変更していない
+- [x] `.po` 同期: `make gettext && make update-po`
+- [x] 空の `msgstr` を日本語で埋める（新規 4 件）
+- [x] fuzzy エントリ 12 件を確認して解除（fuzzy はビルド時に使用されないため放置不可だった）
+- [x] `make build-ja` が成功する（警告 23 件はすべて既存の Pygments ハイライト関連）
+- [x] `docs-lint` スキルで同期崩れがないことを確認（`.md`↔`.po` 6/6 OK、未翻訳 0、FAIL 0）
+- [x] コミット（`📝 Update supported IDE version to 2026.1.4+`）
+
+### 4-3 の記録: 付随して見つかった 2 件（別コミットに分離）
+
+**1. `docs-lint` スキルの空 `msgstr` チェックが壊れていた。**
+`msgstr ""` は「未翻訳」と「複数行翻訳の開始行」の両方を意味するため、行単位の判定では
+翻訳済みエントリを 20 件以上も誤検出していた。加えて `awk` が `FNR` ではなく `NR` を使っており、
+2 ファイル目以降で存在しない行番号を報告していた。継続行を連結して判定する実装に差し替えた。
+→ コミット `🐛 Fix false positives in the docs-lint untranslated-msgstr check`
+
+**2. Windows で `make gettext` が失敗する。**
+`conf.py:163` の `git_last_updated_timezone = "Asia/Tokyo"` を `sphinx-last-updated-by-git` が
+config-inited 時に解決するが、Windows には system tz database が無く
+`Unknown timezone Asia/Tokyo` で落ちる。`sphinx-docs/pyproject.toml` に
+`tzdata>=2026.1; sys_platform == 'win32'` を追加して解決（Linux/macOS は OS から解決するため不要）。
+→ コミット `🔧 Add tzdata so the docs build works on Windows`
+
+いずれも 2026.2 バンプとは独立した問題のため、ドキュメント同期とは別コミットに分けた。
+
+## セクション 5: 完了処理
+
+- [x] requirements.md の AC-1〜AC-8 をすべて `[x]` にする
+- [x] `.claude/rules/definition-of-done.md` で Phase 1〜5 を確認
+- [x] `git status` と `git log` を実行し、出力を確認したうえで状態を報告する
+- [x] 本ファイルの全タスクが `[x]` であることを確認（このタスク自身を含む）
+- [x] tasklist 更新をマージ前の最終コミットに含める
+- [ ] `AskUserQuestion` でマージ可否を確認する
+  - [ ] `pluginSinceBuild` 引き上げによる対応 IDE 縮小（253.x および 2026.1.0〜2026.1.3 の切り捨て）を明示する
+  - [ ] AC-7（実機スモークテスト）が未実施であることを明示する
+- [ ] 承認後、`main` にマージしブランチを削除する
+- [ ] セッションを終了する（worktree の自動クリーンアップを発動させる）
+
+### セクション 5 の記録: 並列セッションとの統合
+
+セクション 4 完了時点で `git fetch` したところ、**`main` が大きく進んでいた**。
+並列セッション（`.steering/20260808-002-windows-posix-test-failures/`）が作業を完了し
+`origin/main` に push していた。
+
+さらに、**セクション 0 で私が `main` にコミットしたステアリング `73cc5f40` は main に含まれていなかった**。
+並列セッション側のステアリングも別 SHA（`2887edf3`）で再コミットされており、
+私の branch が持つ `3089c586` と内容が重複していた。並列セッションが main を作り直した可能性が高い。
+
+対応: `main` に直接マージせず、**先に `origin/main` を作業ブランチへ取り込んだ**（`8c70afed`）。
+
+- 衝突は `.steering/20260808-002-*/tasklist.md` の 1 件のみ。相手方の成果物なので `--theirs`（main 側）を採用
+- `.github/workflows/os-matrix.yml` は自動マージ成功。私の `java-version: 25` と
+  先方の「Run tests」ステップ追加の両方が正しく統合されていることを目視確認済み
+
+**副次的な効果**: 先方の Windows POSIX 修正が入ったことで、
+セクション 1 以降ずっと赤だった **8 件の失敗がすべて解消**した。
+
+マージ後の最終検証: `ktlintCheck` + `buildPlugin` + `test` が成功。
+**4464 tests / failures 0 / errors 0 / skipped 15**。
+
+### AC-7（実機スモークテスト）は未実施
+
+`runIdeForUiTests` を起動したが、5 分以上 Gradle の出力が空のまま進まず
+（他の Gradle 実行とのロック競合と推定）、かつ `origin/main` 取り込みでサンドボックスが
+陳腐化したため中断した。**LSP 機能が 2026.2 上で実際に動作することは未確認**である。
+
+未実施でも許容できると考える根拠（ただし証明ではない）:
+
+- 本作業で **LSP 関連のコードは 1 行も変更していない**（R-3 を後続作業へ切り出したため）
+- `verifyPlugin` が 261 / 262 の両方で `Compatible`。API シグネチャの非互換は無い
+- design.md F-2 で懸念した `LspServerManager` の runtime null 化は、
+  `getInstance(Project)` が現存することを bytecode で確認済み
+
+残存リスク: プラットフォーム側の**実行時挙動**の変化（LSP サーバーの起動シーケンス、
+セマンティックトークンの描画など）は静的検証では捕捉できない。
+マージ前に手動で `./gradlew runIde` を実行し、ReScript プロジェクトで補完・診断・
+定義ジャンプ・ホバーを確認することを推奨する。
+
+## 別作業に送る項目
+
+本作業のスコープ外。完了後に着手を検討する。
+
+- `template-versions-audit` の npm 脆弱性解消（astro / react-router / next / esbuild / drizzle-kit のメジャー更新）
+- `RescriptSwitchFileActionTest.testActionPerformedOpensResCounterpart` のフレーキー対応
+- `pluginVersion` バンプと Marketplace リリース（`0.1.17`）
+- **LSP API 移行（本作業のセクション 2 を切り出したもの / 最優先の後続作業）** — `LspServer*` 系 →
+  `LspIntegrationProvider` / `LspClientDescriptor` / `LspClientManager` 系。13 ファイル + EP 変更 +
+  実機スモークテスト。設計入力は本ファイルのセクション 1 実測ログとセクション 2 の下書きを参照
+- 自前クラス名のリネーム（`RescriptLspServerSupportProvider` → `RescriptLspIntegrationProvider` 等、D-3）
+- Dependabot PR #63 / #64 / #65 のマージ
+- マージ済み Dependabot リモートブランチの削除

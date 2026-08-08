@@ -8,8 +8,8 @@ myst:
 
 ## Requirements
 
-- **JetBrains IDE** — IntelliJ IDEA 2025.3+ (Ultimate or Community), WebStorm, or other JetBrains IDE with LSP support
-- **JDK** — 21 or later (bundled with JetBrains IDEs)
+- **JetBrains IDE** — IntelliJ IDEA 2026.1.4+ (Ultimate or Community), WebStorm, or other JetBrains IDE with LSP support
+- **JDK** — 25 or later (bundled with JetBrains IDEs as JBR 25 since 2026.1)
 - **Node.js** — 18 LTS or later, available in PATH (required for the Language Server)
 - **`@rescript/language-server`** — 1.0.0 or later (compatible with ReScript 11+); installed per-project or globally
 - **ReScript** — 11.0 or later, set up in your project (`rescript.json` present)

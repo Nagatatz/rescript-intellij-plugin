@@ -37,11 +37,10 @@ class RescriptFloatingToolbarProvider : FloatingToolbarProvider {
 
     override val actionGroup: ActionGroup = buildActionGroup()
 
-    // isApplicable() is deprecated in IntelliJ Platform master (replacement
-    // isApplicableAsync was added after 2026.1.2) but no replacement exists
-    // in our compile target. Override is required for file-type filtering.
-    @Suppress("DEPRECATION")
-    override fun isApplicable(dataContext: DataContext): Boolean {
+    // Overrides the async variant only: the deprecated isApplicable() defaults to true,
+    // but EditorFloatingToolbar — the platform's sole consumer — calls isApplicableAsync,
+    // so file-type filtering still takes effect.
+    override suspend fun isApplicableAsync(dataContext: DataContext): Boolean {
         val file = CommonDataKeys.PSI_FILE.getData(dataContext) ?: return false
         return file.language.isKindOf(RescriptLanguage)
     }

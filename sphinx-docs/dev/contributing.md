@@ -12,9 +12,9 @@ Thank you for your interest in contributing to the ReScript IntelliJ Plugin!
 
 | Requirement | Version | Notes |
 |------------|---------|-------|
-| JDK | 21+ | Required by IntelliJ Platform 2025.3+ |
+| JDK | 25+ | IntelliJ Platform 2026.2 ships Java 25 bytecode, which a JDK 21 `javac` cannot read |
 | Node.js | 18+ | Required for LSP server and `.d.ts` binding generation |
-| IntelliJ IDEA | 2025.3+ | Community or Ultimate edition |
+| IntelliJ IDEA | 2026.1.4+ | Community or Ultimate edition |
 | Gradle | 9.4+ | Wrapper included — no manual install needed |
 
 ## Getting Started

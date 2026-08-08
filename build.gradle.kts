@@ -22,7 +22,10 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(21)
+    // IntelliJ Platform 2026.2 ships Java 25 bytecode (class file version 69.0), which a
+    // JDK 21 javac refuses to read. 2026.1 already moved the bundled runtime to JBR 25,
+    // so every IDE at or above `pluginSinceBuild` can load Java 25 output.
+    jvmToolchain(25)
     compilerOptions {
         // Emit JVM default methods directly instead of Kotlin's DefaultImpls
         // bridge. Prevents bytecode references to deprecated Java-interface
@@ -36,6 +39,13 @@ dependencies {
     implementation(kotlin("stdlib"))
     intellijPlatform {
         intellijIdea(providers.gradleProperty("platformVersion"))
+        // 2026.2 extracted the test runner into the implementation-detail plugin
+        // `intellij.testRunner.plugin`; com.intellij.execution.testframework.* no longer
+        // resolves from the platform classpath without these module dependencies.
+        // smRunner declares testRunner as a module dependency, but that is not
+        // transitive on the compile classpath, so both must be listed.
+        bundledModule("intellij.platform.smRunner")
+        bundledModule("intellij.platform.testRunner")
         bundledModule("intellij.spellchecker")
         bundledPlugin("com.intellij.modules.json")
         bundledPlugin("org.intellij.plugins.markdown")

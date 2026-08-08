@@ -19,6 +19,10 @@ dependencies = [
     "sphinxcontrib-budoux>=0.1.6",
     "atsphinx-htmx-boost>=0.3",
     "sphinxcontrib-mermaid>=2.0.2,<3.0",
+    # Windows ships no system tz database, so sphinx-last-updated-by-git fails at
+    # config-inited with "Unknown timezone Asia/Tokyo" (conf.py:
+    # git_last_updated_timezone). Linux and macOS resolve it from the OS.
+    "tzdata>=2026.1; sys_platform == 'win32'",
 ]
 
 [dependency-groups]

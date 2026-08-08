@@ -9,7 +9,7 @@ myst:
 ## General
 
 Which JetBrains IDEs are supported?
-:  The plugin works with any JetBrains IDE version 2025.3 or later that supports LSP, including IntelliJ IDEA (Ultimate and Community), WebStorm, CLion, PyCharm, GoLand, Rider, and others. All features are available regardless of which IDE you use.
+:  The plugin works with any JetBrains IDE version 2026.1.4 or later that supports LSP, including IntelliJ IDEA (Ultimate and Community), WebStorm, CLion, PyCharm, GoLand, Rider, and others. All features are available regardless of which IDE you use. Releases up to 0.1.16.3 support 2025.3 and later; if you are on an older IDE, the Marketplace will keep offering you that version.
 
 Is this plugin free?
 :  Yes. The plugin is open-source under the MIT license and free to use. There are no paid tiers or premium features.

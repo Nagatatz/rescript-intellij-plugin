@@ -1,12 +1,34 @@
 package com.rescript.plugin.navigation
 
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.indexing.IndexedFile
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 
 class RescriptFileIncludeProviderTest {
     private val provider = RescriptFileIncludeProvider()
+
+    /** Builds a [VirtualFile] that reports the given extension. */
+    private fun virtualFileWithExtension(extension: String?): VirtualFile {
+        val virtualFile = mock(VirtualFile::class.java)
+        `when`(virtualFile.extension).thenReturn(extension)
+        return virtualFile
+    }
+
+    /** Wraps [virtualFileWithExtension] in an [IndexedFile] for the 2026.2 entry point. */
+    private fun indexedFileWithExtension(extension: String?): IndexedFile {
+        // Build the inner mock before stubbing: creating a mock inside thenReturn()
+        // interrupts the stubbing in progress and throws UnfinishedStubbingException.
+        val virtualFile = virtualFileWithExtension(extension)
+        val indexedFile = mock(IndexedFile::class.java)
+        `when`(indexedFile.file).thenReturn(virtualFile)
+        return indexedFile
+    }
 
     @Test
     fun testProviderCanBeInstantiated() {
@@ -16,6 +38,47 @@ class RescriptFileIncludeProviderTest {
     @Test
     fun testGetId() {
         assertEquals("rescript", provider.id)
+    }
+
+    // -- acceptFile tests --
+    //
+    // acceptFile(VirtualFile) is the overload this provider implements: it is still
+    // abstract on 2026.1.x, and on 2026.2 the IndexedFile overload delegates to it.
+    // The IndexedFile cases below cover that delegation on the compile target, so a
+    // change in the platform's chain cannot silently disable the file-type filter.
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun testAcceptFileAcceptsResExtension() {
+        assertTrue(provider.acceptFile(virtualFileWithExtension("res")))
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun testAcceptFileAcceptsResiExtension() {
+        assertTrue(provider.acceptFile(virtualFileWithExtension("resi")))
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun testAcceptFileRejectsOtherExtension() {
+        assertFalse(provider.acceptFile(virtualFileWithExtension("kt")))
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun testAcceptFileRejectsMissingExtension() {
+        assertFalse(provider.acceptFile(virtualFileWithExtension(null)))
+    }
+
+    @Test
+    fun testAcceptFileViaIndexedFileAcceptsResExtension() {
+        assertTrue(provider.acceptFile(indexedFileWithExtension("res")))
+    }
+
+    @Test
+    fun testAcceptFileViaIndexedFileRejectsOtherExtension() {
+        assertFalse(provider.acceptFile(indexedFileWithExtension("kt")))
     }
 
     // -- extractModuleNames tests --

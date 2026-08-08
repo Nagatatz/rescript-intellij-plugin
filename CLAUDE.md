@@ -10,8 +10,8 @@ ReScript 言語サポートを JetBrains IDE に提供する IntelliJ プラグ�
 
 - 言語: Kotlin + JFlex (Java 生成)
 - ビルドシステム: Gradle (Kotlin DSL)
-- 対象プラットフォーム: IntelliJ Platform 2025.3+
-- JDK: 21+
+- 対象プラットフォーム: IntelliJ Platform 2026.1.4+（ビルドは 2026.2.0.1 に対して行う）
+- JDK: 25+（2026.2 のバイトコードが Java 25 のため。JDK 21 では javac が読めない）
 
 ## ビルド・実行コマンド
 

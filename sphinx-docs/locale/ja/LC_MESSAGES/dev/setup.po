@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-08-09 01:48+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -44,16 +44,16 @@ msgid "JDK"
 msgstr "JDK"
 
 #: ../../dev/setup.md
-msgid "21 or later"
-msgstr "21 以降"
+msgid "25 or later"
+msgstr "25 以降"
 
 #: ../../dev/setup.md
 msgid "IntelliJ IDEA"
 msgstr "IntelliJ IDEA"
 
 #: ../../dev/setup.md
-msgid "2025.3+ (Ultimate or Community)"
-msgstr "2025.3+ (Ultimate または Community)"
+msgid "2026.1.4+ (Ultimate or Community)"
+msgstr "2026.1.4+ (Ultimate または Community)"
 
 #: ../../dev/setup.md
 msgid "Git"
@@ -148,12 +148,12 @@ msgid "**File** → **Project Structure** → **Project**"
 msgstr "**File** → **Project Structure** → **Project**"
 
 #: ../../dev/setup.md:59
-msgid "Set **SDK** to JDK 21+"
-msgstr "**SDK** を JDK 21+ に設定"
+msgid "Set **SDK** to JDK 25+"
+msgstr "**SDK** を JDK 25+ に設定"
 
 #: ../../dev/setup.md:60
-msgid "Set **Language level** to 21"
-msgstr "**Language level** を 21 に設定"
+msgid "Set **Language level** to 25"
+msgstr "**Language level** を 25 に設定"
 
 #: ../../dev/setup.md:62
 msgid "Recommended IDE Plugins"
