@@ -99,7 +99,7 @@ jobs:
       # is missing, so this step exists purely to enable those gates
       # in CI without breaking developer machines that lack them.
       - name: Setup Node.js for CLI gates
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '24'
 
@@ -276,7 +276,7 @@ jobs:
           cache-read-only: ${{ github.event_name == 'pull_request' }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
 
