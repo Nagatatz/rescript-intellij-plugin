@@ -80,13 +80,16 @@
 
 ## セクション 5: 全体検証と仕上げ
 
-- [ ] `./gradlew ktlintCheck` が成功する
-- [ ] `./gradlew clean buildPlugin` が成功する
-- [ ] `./gradlew test` を実行し、**Windows で失敗 0 件**を確認する
-- [ ] スキップ件数が手法 C の 3 件のみであることを確認する
-- [ ] `.claude/rules/definition-of-done.md` の Phase 3 を通過することを確認する
-- [ ] 記憶 `windows-known-test-failures` を実態に合わせて更新する（8 件の既知失敗は解消済み、Windows でのスキップ 3 件のみが残る旨）
-- [ ] tasklist の全タスクが `[x]` であることを確認し、最終コミットに含める
+- [x] `./gradlew ktlintCheck` が成功する
+- [x] `./gradlew clean buildPlugin` が成功する
+- [x] `./gradlew test` を実行し、**Windows で失敗 0 件**を確認する
+  - 実測: `tests=4456 skipped=15 failures=0 errors=0`
+- [x] スキップ件数が手法 C の 3 件のみであることを確認する
+  - **訂正**: 本項目の記述が不正確だった。手法 C で追加したスキップは 3 件（`RescriptSettingsValidatorTest` 2 / `RescriptSecurityUtilsTest` 1）だが、リポジトリには本作業以前から既存スキップが 12 件ある（`cli.*` 2 件は CLI 不在時スキップ、`navigation.*` 10 件）
+  - `git diff --stat main...HEAD` で変更が tasklist + テスト 5 ファイルのみ、`src/main/` 無変更であることを確認済み。既存スキップ 12 件は本作業と無関係
+- [x] `.claude/rules/definition-of-done.md` の Phase 3 を通過することを確認する
+- [x] 記憶 `windows-known-test-failures` を実態に合わせて更新する（8 件の既知失敗は解消済み、Windows でのスキップ 3 件のみが残る旨）
+- [x] tasklist の全タスクが `[x]` であることを確認し、最終コミットに含める
 - [ ] `AskUserQuestion` でユーザーにマージ可否を確認する
 - [ ] 承認後、worktree 内で `git checkout main && git merge <作業ブランチ>` を実行し、作業ブランチを削除する
 - [ ] セッションを終了して worktree の自動クリーンアップを発動させる
