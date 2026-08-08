@@ -70,7 +70,11 @@ object TemplateVersions {
 
     // AWS Lambda
     val AWS_LAMBDA_TYPES = "^8.10.161"
-    val ESBUILD = "^0.28.0"
+
+    // Floor is 0.28.1, not 0.28.0: GHSA-g7r4-m6w7-qqqr (dev-server arbitrary file
+    // read on Windows) covers >=0.27.3 <0.28.1, and a caret range still lets a
+    // lockfile resolve to the vulnerable 0.28.0.
+    val ESBUILD = "^0.28.1"
 
     // Monorepo tooling
     val CONCURRENTLY = "^10.0.3"
@@ -160,11 +164,15 @@ object TemplateVersions {
     // --frozen-lockfile` valid for the generated project.
     val ISBOT = "^5.1.0"
 
-    // Astro and the React integration. astro 6.x is the active major;
-    // @astrojs/react 5.x and @astrojs/node 10.x are the matching adapters.
-    val ASTRO = "^6.3.1"
-    val ASTROJS_REACT = "^5.0.0"
-    val ASTROJS_NODE = "^10.0.0"
+    // Astro and the React integration. astro 7.x is the active major;
+    // @astrojs/react 6.x and @astrojs/node 11.x are the matching adapters.
+    // Held at 7.x or newer because astro 6 pins sharp ^0.34.0, which carries the
+    // inherited libvips CVEs in GHSA-f88m-g3jw-g9cj; astro 7 widens the range to
+    // include the fixed 0.35.x line. @astrojs/node 11.0.2+ also clears
+    // GHSA-r557-wffq-wvrc. Do not move these back to the 6.x/5.x/10.x line.
+    val ASTRO = "^7.2.0"
+    val ASTROJS_REACT = "^6.0.2"
+    val ASTROJS_NODE = "^11.1.0"
 
     // Waku (RSC-first React framework by Daishi Kato). 1.0.0 is currently in
     // alpha — pin to a known alpha to keep installs reproducible until 1.0

@@ -104,17 +104,43 @@ CI (Linux) はシェル無しの経路を通る。
 
 ## セクション 2: バージョンピンの更新
 
-- [ ] `TemplateVersions.kt` の `ASTRO` を `^6.3.1` → `^7.2.0`
-- [ ] `TemplateVersions.kt` の `ASTROJS_REACT` を `^5.0.0` → `^6.0.2`
-- [ ] `TemplateVersions.kt` の `ASTROJS_NODE` を `^10.0.0` → `^11.1.0`
-- [ ] `TemplateVersions.kt` の `ESBUILD` を `^0.28.0` → `^0.28.1`
-- [ ] 各定数のコメントを実態に合わせて更新する
-      （現行コメントは「astro 6.x が active major、@astrojs/react 5.x と @astrojs/node 10.x が対応アダプタ」）
-- [ ] `TemplateVersionsTest.kt` が緑（semver 形式の検証のみなので追従不要の見込み。要確認）
-- [ ] `AstroTemplateFilesTest.kt` が緑（`TemplateVersions.ASTRO` を記号参照しているため追従不要の見込み。要確認）
-- [ ] `./gradlew ktlintCheck clean buildPlugin test` が成功する
-- [ ] 監査を再実測し、**blocking が 0 件**になることを確認する
-- [ ] コミット（`⬆ Move the Astro template to Astro 7`）
+- [x] `TemplateVersions.kt` の `ASTRO` を `^6.3.1` → `^7.2.0`
+- [x] `TemplateVersions.kt` の `ASTROJS_REACT` を `^5.0.0` → `^6.0.2`
+- [x] `TemplateVersions.kt` の `ASTROJS_NODE` を `^10.0.0` → `^11.1.0`
+- [x] `TemplateVersions.kt` の `ESBUILD` を `^0.28.0` → `^0.28.1`
+- [x] 各定数のコメントを実態に合わせて更新し、**advisory ID を根拠として明記**した
+      （将来この行を戻そうとした人が理由に辿り着けるようにするため）
+- [x] `TemplateVersionsTest.kt` が緑（semver 形式の検証のみで追従不要だった）
+- [x] `AstroTemplateFilesTest.kt` が緑（`TemplateVersions.ASTRO` を記号参照しているため追従不要だった）
+- [x] **golden マニフェストの再生成**（下記参照 — 事前に想定していなかったタスク）
+- [x] `./gradlew ktlintCheck buildPlugin test` が成功する
+- [x] 監査を再実測し、**blocking が 0 件**になることを確認する
+- [x] コミット（`⬆ Move the Astro template to Astro 7`）
+
+### セクション 2 の記録
+
+**golden テストの再生成が必要だった。** `TemplateGoldenTest` が 22 テンプレートの生成物を
+SHA-256 マニフェストで固定しており、ピン変更で 5 ケースが失敗した
+（ASTRO ×2、AWS_LAMBDA ×3 — 後者は `ESBUILD` 変更の影響）。
+`WIZARD_GOLDEN_UPDATE=true ./gradlew test --tests "*TemplateGoldenTest*"` で再生成した。
+
+**再生成の差分を検証した。** golden 更新は「壊れた出力をそのまま正解にしてしまう」危険があるため、
+差分の中身を確認した。5 ファイルとも **変更は 1 行のみ、いずれも `package.json` のハッシュ**で、
+`astro.config.mjs` / `README.md` / `rescript.json` 等のハッシュは不変だった。
+これは design F-1（astro 7 でテンプレート実体の変更は不要）の裏付けになる。
+
+**ピン解決の実測（2026-08-09）**
+
+| パッケージ | 変更前 | 変更後 |
+|---|---|---|
+| `astro` | 6.4.8 | **7.2.0** |
+| `sharp`（astro 経由） | 0.34.5（脆弱） | **0.35.3** |
+| `@astrojs/node` | 10.1.4 | **11.1.0** |
+| `@astrojs/react` | 5.0.7 | **6.0.2** |
+| `esbuild` | 0.28.1 | 0.28.1（下限のみ引き上げ） |
+
+**監査ゲートの結果: exit 0。** blocking 0 件、allowed 2 件（`image-size`）。
+セクション 1 時点の「`sharp` が blocking で exit 1」から期待どおり遷移した。
 
 ## セクション 3: 実ビルド検証とドキュメント
 
