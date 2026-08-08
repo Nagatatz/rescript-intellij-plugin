@@ -303,7 +303,40 @@ invoke しており（`isApplicable` の invoke は無い）、async 版だけ�
 検証して無効な要素を落とすため、Mockito のモックで `isValid()` が既定の `false` を返し
 `getData()` が null になっていた。`isValid` を stub して解決（その旨をテスト内にコメントで明記）。
 
-**テスト件数**: 4456 → 4462（+6）。失敗は既知の Windows 8 件のみで新規failure なし。
+**テスト件数**: 4456 → 4462（+6）。失敗は既知の Windows 8 件のみで新規 failure なし。
+
+#### 訂正: `FileIncludeProvider` の移行は取り消した（4-1 の Verifier が検出）
+
+セクション 3 の当初実装は `acceptFile(VirtualFile)` の override を削除し
+`acceptFile(IndexedFile)` のみを実装したが、4-1 で `pluginSinceBuild` を `261.26222` に上げて
+`verifyPlugin` を回したところ、**`IU-261.27258.27` で compatibility problem** が出た:
+
+```
+Abstract method com.intellij.psi.impl.include.FileIncludeProvider.acceptFile(VirtualFile) is not implemented
+  ... This can lead to AbstractMethodError exception at runtime.
+```
+
+`acceptFile(VirtualFile)` は 2026.2 では concrete だが **2026.1.x ではまだ abstract** であり、
+sinceBuild が 2026.1.4 を許可する以上、override を外せない。
+
+2026.2 側の委譲関係を bytecode で確認した結果、**`acceptFile(VirtualFile)` を override するのが
+必要かつ十分**である:
+
+```
+acceptFile(IndexedFile) → acceptFile(VirtualFile, Project) → acceptFile(VirtualFile)  ← 実装箇所
+```
+
+対応: `acceptFile(VirtualFile)` の override と `@Suppress("DEPRECATION")` を復活させ、
+理由を「2026.1.x で abstract」に更新した。テストは
+`acceptFile(VirtualFile)` の直接テスト 4 件に加え、**2026.2 の委譲チェーンが実装に到達することを
+確認する `acceptFile(IndexedFile)` 経由のテスト 2 件**を残した（チェーンが変わったら気付けるようにするため）。
+
+> 教訓: セクション 3 を `pluginSinceBuild` 引き上げ **前** に実施したため、
+> 253.0 のままの Verifier ではこの問題を検出できなかった。
+> D-1 の「移行中は 253.0 に据え置く」方針は API 誤用の検出には有効だが、
+> **下限を上げた後に必ず再検証する**必要がある。
+
+`FloatingToolbarProvider` 側の移行は問題なく、262 の deprecated 件数は 37 → 36 に減った。
 
 ## セクション 4: sinceBuild 引き上げ・ignored-problems 棚卸し・ドキュメント同期
 
@@ -319,14 +352,20 @@ invoke しており（`isApplicable` の invoke は無い）、async 版だけ�
 
 ### 4-1: sinceBuild と Verifier
 
-- [ ] `gradle.properties` の `pluginSinceBuild` を `253.0` → **`261.26222`** に変更
+- [x] `gradle.properties` の `pluginSinceBuild` を `253.0` → **`261.26222`** に変更
       （`261.4` などの短縮表記にしないこと。design.md D-2 参照）
-- [ ] `./gradlew clean buildPlugin` が成功する
-- [ ] `./gradlew verifyPlugin` が成功する
-- [ ] Verifier の検証対象 IDE に **2026.1.4 が含まれる**ことを確認し記録する
-      （含まれない場合、262 専用 API の誤用を検出できないため `ides { }` の明示指定を検討する）
-- [ ] `deprecated-usages.txt` に新規の deprecated 利用が無いことを確認（AC-5）
-- [ ] コミット（`🔧 Raise pluginSinceBuild to 261.26222 (2026.1.4)`）
+- [x] `./gradlew buildPlugin` が成功する
+- [x] `./gradlew verifyPlugin` が成功する（1 回目は失敗。上記「訂正」を参照）
+- [x] Verifier の検証対象 IDE に **2026.1 系が含まれる**ことを確認し記録する
+      → `IU-261.27258.27` と `IU-262.9437.65` の 2 IDE。`IU-253.*` は sinceBuild 引き上げにより
+      **自動的に対象から外れた**（`recommended()` は sinceBuild を尊重する）。`ides { }` の明示指定は不要
+- [x] `deprecated-usages.txt` を確認（AC-5）: 261 系 35 件 / 262 系 36 件。いずれも既知の項目のみ
+- [x] コミット（`🔧 Raise pluginSinceBuild to 261.26222 (2026.1.4)`）
+
+> Verifier の判定は 2 IDE とも `Compatible`。
+> セクション 1 の「追加発見 C」で指摘したとおり、Verifier はクラスファイルバージョンを見ないため、
+> この green は「Java 25 バイトコードが 261.26222 以降で読める」ことの証明にはならない。
+> それは JBR の実測（2026.1.2 時点で既に JBR 25）で裏付けている。
 
 ### 4-2: plugin-verifier-ignored-problems.txt の棚卸し
 

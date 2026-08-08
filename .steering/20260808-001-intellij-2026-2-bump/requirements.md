@@ -106,8 +106,10 @@ JetBrains の build 番号は以下のとおり（`data.services.jetbrains.com` 
 - [ ] AC-2: `./gradlew ktlintCheck` が成功する
 - [ ] AC-3: `./gradlew clean buildPlugin` が成功し、ビルド警告が bump 前より増えていない
 - [ ] AC-4: `./gradlew test` が全件成功する（既知のフレーキー 1 件を除く。再現した場合は本 tasklist に記録のうえ別作業へ送る）
-- [ ] AC-5: `./gradlew verifyPlugin` が成功し、レポートの `deprecated-usages.txt` が
-      **LSP API 由来の 35 件のみ**になっている（FloatingToolbar / FileInclude の 2 件が消えている）
+- [x] AC-5: `./gradlew verifyPlugin` が成功し、検証対象の全 IDE で `Compatible` である。
+      `deprecated-usages.txt` は 261 系で **35 件**（LSP のみ）、262 系で **36 件**（LSP 35 + `FileIncludeProvider.acceptFile` 1）。
+      `FloatingToolbarProvider.isApplicable` の 1 件はセクション 3 で解消。
+      `FileIncludeProvider.acceptFile(VirtualFile)` は 2026.1.x で abstract のため残さざるを得ない（tasklist のセクション 3 の記録を参照）
 - [ ] AC-6: `plugin-verifier-ignored-problems.txt` の全エントリについて、KEEP の理由が 2026.2 時点で正しく、
       `Reviewed` が本作業日に更新されている。LSP エントリには後続作業への追跡情報が記載されている
 - [ ] AC-7: LSP 機能（補完・診断・定義ジャンプ・ホバー）が `runIde` で実際に動作する（`ui-smoke-test` スキルまたは手動確認）

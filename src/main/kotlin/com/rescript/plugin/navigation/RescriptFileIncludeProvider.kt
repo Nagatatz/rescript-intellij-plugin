@@ -1,11 +1,11 @@
 package com.rescript.plugin.navigation
 
 import com.intellij.openapi.fileTypes.FileType
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.impl.include.FileIncludeInfo
 import com.intellij.psi.impl.include.FileIncludeProvider
 import com.intellij.util.Consumer
 import com.intellij.util.indexing.FileContent
-import com.intellij.util.indexing.IndexedFile
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import com.rescript.plugin.util.RescriptFileUtil
@@ -48,7 +48,12 @@ class RescriptFileIncludeProvider : FileIncludeProvider() {
 
     override fun getId(): String = "rescript"
 
-    override fun acceptFile(file: IndexedFile): Boolean = RescriptFileUtil.isRescriptFile(file.file)
+    // Deprecated on 2026.2 in favour of acceptFile(IndexedFile), but this overload is
+    // still abstract on 2026.1.x, which pluginSinceBuild admits — dropping it there
+    // raises AbstractMethodError. Overriding it is also sufficient on 2026.2, where
+    // acceptFile(IndexedFile) delegates through acceptFile(VirtualFile, Project) to here.
+    @Suppress("DEPRECATION")
+    override fun acceptFile(file: VirtualFile): Boolean = RescriptFileUtil.isRescriptFile(file)
 
     override fun registerFileTypesUsedForIndexing(fileTypeSink: Consumer<in FileType>) {
         fileTypeSink.consume(RescriptFileType)
