@@ -88,10 +88,11 @@ class RescriptReanalyzeServerServiceTest {
     fun `getSocketPath returns correct path`() {
         val basePath = "/project/root"
         val socketPath = RescriptReanalyzeServerService.getSocketPath(basePath)
-        assertEquals(
-            "/project/root/.rescript-reanalyze.sock",
-            socketPath.toString(),
-        )
+        // Assert the components rather than a rendered string: Path.toString()
+        // is backslash-separated on Windows. Checking the file name and the
+        // parent separately also avoids restating the implementation verbatim.
+        assertEquals(".rescript-reanalyze.sock", socketPath.fileName.toString())
+        assertEquals(Path.of(basePath), socketPath.parent)
     }
 
     @Test

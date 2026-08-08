@@ -35,12 +35,13 @@
 
 ## セクション 2: ReanalyzeServerServiceTest のパス比較を分解する（手法 A-2）
 
-- [ ] `src/test/kotlin/com/rescript/plugin/analysis/RescriptReanalyzeServerServiceTest.kt` の `getSocketPath returns correct path` を修正する
+- [x] `src/test/kotlin/com/rescript/plugin/analysis/RescriptReanalyzeServerServiceTest.kt` の `getSocketPath returns correct path` を修正する
   - `assertEquals(".rescript-reanalyze.sock", socketPath.fileName.toString())`
   - `assertEquals(Path.of("/project/root"), socketPath.parent)`
-- [ ] 同クラスの `getSocketPath handles trailing slash` が Windows で成功し続けることを確認する（現状 pass。必要なら同方式に揃える）
-- [ ] `./gradlew test --tests 'com.rescript.plugin.analysis.RescriptReanalyzeServerServiceTest'` で全件成功を確認する
-- [ ] tasklist を更新してコミットする（`✅ Assert socket path by components instead of a POSIX string`）
+- [x] 同クラスの `getSocketPath handles trailing slash` が Windows で成功し続けることを確認する（現状 pass。必要なら同方式に揃える）
+  - `endsWith(".rescript-reanalyze.sock")` は区切り文字を含まないため非依存。変更不要と判断
+- [x] `./gradlew test --tests 'com.rescript.plugin.analysis.RescriptReanalyzeServerServiceTest'` で全件成功を確認する（14 件成功 / スキップ 0 / 失敗 0）
+- [x] tasklist を更新してコミットする（`✅ Assert socket path by components instead of a POSIX string`）
 
 ---
 
