@@ -33,44 +33,44 @@
 
 ### 1-1: 判定スクリプト
 
-- [ ] `.github/scripts/check-npm-audit.mjs` を新規作成する
-  - [ ] `npm audit --json` を実行する部分と、判定を行う `evaluate()` を分離する（D-2）
-  - [ ] `vulnerabilities[*].via[]` のオブジェクト要素から GHSA ID を抽出し一意化する
-  - [ ] severity 閾値（既定 `high`）以上を対象とする
-  - [ ] allowlist の `id` に一致するものを除外する
-  - [ ] 残りが 1 件でもあれば **exit 1** し、詳細を stdout に出力する
-  - [ ] `expires` 切れのエントリを **警告**として報告する（exit code に影響させない）
-  - [ ] どの advisory にも一致しない allowlist エントリを **警告**として報告する
-  - [ ] `GITHUB_STEP_SUMMARY` が設定されていれば同内容を追記する
-  - [ ] `--allowlist <path>` と `--severity <level>` を引数で受け取る
+- [x] `.github/scripts/check-npm-audit.mjs` を新規作成する
+  - [x] `npm audit --json` を実行する部分と、判定を行う `evaluate()` を分離する（D-2）
+  - [x] `vulnerabilities[*].via[]` のオブジェクト要素から GHSA ID を抽出し一意化する
+  - [x] severity 閾値（既定 `high`）以上を対象とする
+  - [x] allowlist の `id` に一致するものを除外する
+  - [x] 残りが 1 件でもあれば **exit 1** し、詳細を stdout に出力する
+  - [x] `expires` 切れのエントリを **警告**として報告する（exit code に影響させない）
+  - [x] どの advisory にも一致しない allowlist エントリを **警告**として報告する
+  - [x] `GITHUB_STEP_SUMMARY` が設定されていれば同内容を追記する
+  - [x] `--allowlist <path>` と `--severity <level>` を引数で受け取る
 
 ### 1-2: 例外リスト
 
-- [ ] `.github/scripts/npm-audit-allowlist.json` を新規作成する
-- [ ] `image-size` の 2 advisory を登録する
+- [x] `.github/scripts/npm-audit-allowlist.json` を新規作成する
+- [x] `image-size` の 2 advisory を登録する
       （`GHSA-w3rx-r6r6-pgpr` / `GHSA-5p2g-fcmc-qvqq`）
-  - [ ] `reason` に「上流に修正版が存在しない」根拠を書く
+  - [x] `reason` に「上流に修正版が存在しない」根拠を書く
         （image-size の最新公開版 2.0.2 自体が脆弱レンジ内、metro 0.87.0 も `^1.0.2` 依存）
-  - [ ] `url` / `reviewed: 2026-08-09` / `expires: 2027-02-09` を設定する
-- [ ] **`sharp` を allowlist に入れないこと**（セクション 2 で解消するため）
+  - [x] `url` / `reviewed: 2026-08-09` / `expires: 2027-02-09` を設定する
+- [x] **`sharp` を allowlist に入れないこと**（セクション 2 で解消するため）
 
 ### 1-3: テスト（AC-3 の担保）
 
-- [ ] `.github/scripts/__tests__/check-npm-audit.test.mjs` を新規作成する（`node:test` を使用）
-- [ ] high 1 件 / allowlist 空 → `blocking` 1 件
-- [ ] high 1 件 / その ID が allowlist にある → `blocking` 空
-- [ ] moderate のみ / allowlist 空 → `blocking` 空（閾値未満）
-- [ ] `expires` が過去 → `expired` 1 件、`blocking` には影響しない
-- [ ] allowlist の ID がどの advisory にも一致しない → `stale` 1 件
-- [ ] 同一 advisory が複数パッケージ経由で出現 → 重複排除されて 1 件
-- [ ] `node --test .github/scripts/__tests__/` が成功する
+- [x] `.github/scripts/__tests__/check-npm-audit.test.mjs` を新規作成する（`node:test` を使用）
+- [x] high 1 件 / allowlist 空 → `blocking` 1 件
+- [x] high 1 件 / その ID が allowlist にある → `blocking` 空
+- [x] moderate のみ / allowlist 空 → `blocking` 空（閾値未満）
+- [x] `expires` が過去 → `expired` 1 件、`blocking` には影響しない
+- [x] allowlist の ID がどの advisory にも一致しない → `stale` 1 件
+- [x] 同一 advisory が複数パッケージ経由で出現 → 重複排除されて 1 件
+- [x] `node --test .github/scripts/__tests__/` が成功する
 
 ### 1-4: workflow と手順書
 
-- [ ] `.github/workflows/monthly-verify.yml` の audit ステップを新スクリプト呼び出しに置き換える
-- [ ] `.claude/rules/release.md` の「ローカル再現」コマンドを更新する
-- [ ] `actionlint` 相当の検証として workflow の YAML がパースできることを確認する
-- [ ] コミット（`✨ Add an allowlist-aware npm audit gate for template versions`）
+- [x] `.github/workflows/monthly-verify.yml` の audit ステップを新スクリプト呼び出しに置き換える
+- [x] `.claude/rules/release.md` の「ローカル再現」コマンドを更新する
+- [x] `actionlint` 相当の検証として workflow の YAML がパースできることを確認する
+- [x] コミット（`✨ Add an allowlist-aware npm audit gate for template versions`）
 
 > この時点ではまだ監査は **fail する**（`sharp` が未解消のため）。それが正しい状態である。
 > セクション 1 完了時に実際に fail することを確認し、下記に記録すること。
@@ -148,13 +148,13 @@ SHA-256 マニフェストで固定しており、ピン変更で 5 ケースが
 
 astro 7 が実際に動くかは静的検査では判断できない（design F-1 / D-4）。
 
-- [ ] Astro テンプレートを生成する（`manual-test-projects/` 配下、または一時ディレクトリ）
-- [ ] `npm install` が成功する
-- [ ] `npm run build` が成功する（ReScript コンパイル → `astro build`）
-- [ ] 生成物に明らかな破損がないことを確認する
-- [ ] `compressHTML: 'jsx'` による表示崩れがないか確認する（design F-1 の「軽微」項目）
-- [ ] 結果を下記に記録する
-- [ ] 問題が出た場合のみ `AstroTemplateFiles.kt` / `templates/astro/` を修正する（D-4: 先回りしない）
+- [x] Astro テンプレートを生成する（`manual-test-projects/` 配下、または一時ディレクトリ）
+- [x] `npm install` が成功する
+- [x] `npm run build` が成功する（ReScript コンパイル → `astro build`）
+- [x] 生成物に明らかな破損がないことを確認する
+- [x] `compressHTML: 'jsx'` による表示崩れがないか確認する（design F-1 の「軽微」項目）
+- [x] 結果を下記に記録する
+- [x] 問題が出た場合のみ `AstroTemplateFiles.kt` / `templates/astro/` を修正する（D-4: 先回りしない）
 
 ### 3-1 の検証結果
 
@@ -269,10 +269,10 @@ CI (Linux) は green なので、Windows 固有の問題（パス長・大文字
 > 並列セッションによる main 再構築で失われた。今回 `c1e4c314` は
 > **origin/main には未反映**（ローカル main のみ）だが、本ブランチには含まれているため、
 > ブランチをマージすれば残る。
-- [ ] `AskUserQuestion` でマージ可否を確認する
-  - [ ] Astro テンプレート利用者にメジャー更新（astro 6 → 7）が及ぶことを明示する
-  - [ ] `image-size` を意図的に除外したことと、その再検討期限を明示する
-- [ ] 承認後、`main` にマージしブランチを削除する
+- [x] `AskUserQuestion` でマージ可否を確認する
+  - [x] Astro テンプレート利用者にメジャー更新（astro 6 → 7）が及ぶことを明示する
+  - [x] `image-size` を意図的に除外したことと、その再検討期限を明示する
+- [x] 承認後、`main` にマージしブランチを削除する
 - [ ] AC-10: マージ後に Monthly Verify を `workflow_dispatch` で手動実行し、
       `template-versions-audit` が green になることを確認する
 - [ ] セッションを終了する
