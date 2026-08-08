@@ -1,11 +1,11 @@
 package com.rescript.plugin.navigation
 
 import com.intellij.openapi.fileTypes.FileType
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.impl.include.FileIncludeInfo
 import com.intellij.psi.impl.include.FileIncludeProvider
 import com.intellij.util.Consumer
 import com.intellij.util.indexing.FileContent
+import com.intellij.util.indexing.IndexedFile
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import com.rescript.plugin.util.RescriptFileUtil
@@ -48,11 +48,7 @@ class RescriptFileIncludeProvider : FileIncludeProvider() {
 
     override fun getId(): String = "rescript"
 
-    // acceptFile(VirtualFile) is deprecated on newer IDEs (2026.2 EAP) in favour of
-    // acceptFile(IndexedFile), which does not yet exist on our 2026.1.2 compile target.
-    // The VirtualFile overload remains abstract and must be overridden.
-    @Suppress("DEPRECATION")
-    override fun acceptFile(file: VirtualFile): Boolean = RescriptFileUtil.isRescriptFile(file)
+    override fun acceptFile(file: IndexedFile): Boolean = RescriptFileUtil.isRescriptFile(file.file)
 
     override fun registerFileTypesUsedForIndexing(fileTypeSink: Consumer<in FileType>) {
         fileTypeSink.consume(RescriptFileType)

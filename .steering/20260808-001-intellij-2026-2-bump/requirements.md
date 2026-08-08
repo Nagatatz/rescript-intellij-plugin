@@ -35,14 +35,31 @@
 |---|------|------|
 | R-1 | `platformVersion` の更新 | `2026.1.2` → `2026.2.0.1` |
 | R-2 | `pluginSinceBuild` の引き上げ | `253.0` → `261.26222`（= 2026.1.4） |
-| R-3 | LSP API の移行 | `LspServer*` 系 → `LspClientDescriptor` / `LspClientSupportProvider` 系（13 ファイル） |
+| ~~R-3~~ | ~~LSP API の移行~~ | **スコープ外に変更**（下記「R-3 の切り出し」参照） |
 | R-4 | `FloatingToolbarProvider` の移行 | `isApplicable(DataContext)` → `isApplicableAsync` |
 | R-5 | `FileIncludeProvider` の移行 | `acceptFile(VirtualFile)` → `acceptFile(IndexedFile)` |
 | R-6 | ignored-problems の棚卸し | R-3〜R-5 で不要になったエントリを削除し、残るものの `Reviewed` を更新 |
 | R-7 | ドキュメント同期 | 対応 IDE バージョン表記を 2026.2+ に更新（後述の一覧） |
 
-R-3〜R-5 は **2026.2 に代替 API が実在することを実機で確認してから確定する**。存在しなかった場合は
-該当項目を取り下げ、ignored-problems の `Reviewed` 日付更新のみに縮退する（design 段階で判断）。
+R-4 / R-5 は **2026.2 に代替 API が実在することを実機で確認してから確定する**とし、
+セクション 1 の実測で両方の存在を確認したため実施する（tasklist の「セクション 3 の実施可否」参照）。
+
+### R-3 の切り出し（2026-08-09 決定）
+
+セクション 1 の実測により、当初 R-3 を必須とした根拠（design.md F-2: `LspServerManager` が
+runtime で null になる）が **本プラグインには当てはまらない**ことが判明した。
+`LspServerManager extends LspClientManager` であり `getInstance(Project)` は静的メソッドとして現存し、
+旧 API は 2026.2 でも動作する。
+
+一方で移行は単純な rename ではなくメソッド名の変更を伴い、13 ファイルに及ぶ。
+ユーザー判断により、**本作業は「2026.2 でビルドでき、リリースできる状態」を最短で作ることに専念し**、
+LSP API 移行は独立した後続作業に切り出す。
+
+- 本作業のスコープ: R-1 / R-2 / R-4 / R-5 / R-6 / R-7
+- 後続作業のスコープ: R-3（LSP API 移行 13 ファイル + EP 変更 + 実機スモークテスト）
+
+後続作業は deprecated 一掃が目的であり、期限は「JetBrains が旧 API を削除する前」。
+`plugin-verifier-ignored-problems.txt` の LSP エントリに追跡情報を残すこと。
 
 ### 対象外
 
@@ -89,9 +106,12 @@ JetBrains の build 番号は以下のとおり（`data.services.jetbrains.com` 
 - [ ] AC-2: `./gradlew ktlintCheck` が成功する
 - [ ] AC-3: `./gradlew clean buildPlugin` が成功し、ビルド警告が bump 前より増えていない
 - [ ] AC-4: `./gradlew test` が全件成功する（既知のフレーキー 1 件を除く。再現した場合は本 tasklist に記録のうえ別作業へ送る）
-- [ ] AC-5: `./gradlew verifyPlugin` が成功し、レポートの `deprecated-usages.txt` に **新規の** deprecated 利用が無い
-- [ ] AC-6: `plugin-verifier-ignored-problems.txt` の全エントリについて、KEEP の理由が 2026.2 時点で正しく、`Reviewed` が本作業日に更新されている
+- [ ] AC-5: `./gradlew verifyPlugin` が成功し、レポートの `deprecated-usages.txt` が
+      **LSP API 由来の 35 件のみ**になっている（FloatingToolbar / FileInclude の 2 件が消えている）
+- [ ] AC-6: `plugin-verifier-ignored-problems.txt` の全エントリについて、KEEP の理由が 2026.2 時点で正しく、
+      `Reviewed` が本作業日に更新されている。LSP エントリには後続作業への追跡情報が記載されている
 - [ ] AC-7: LSP 機能（補完・診断・定義ジャンプ・ホバー）が `runIde` で実際に動作する（`ui-smoke-test` スキルまたは手動確認）
+      — R-3 を切り出したため LSP のコードは変更しないが、**プラットフォーム側の変更で壊れていないこと**の確認として実施する
 - [ ] AC-8: 下表のドキュメントの IDE バージョン表記がすべて更新されている
 
 ### AC-8 の更新対象

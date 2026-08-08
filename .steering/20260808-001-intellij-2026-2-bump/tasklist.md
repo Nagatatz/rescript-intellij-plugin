@@ -182,10 +182,22 @@ Kotlin コンパイラは 69.0 を読めたため `compileKotlin` は通って�
 - [ ] `FileIncludeProvider` に `acceptFile(IndexedFile)` が存在するか確認 → 同上
 - [ ] PolySymbols の `PsiSourced*` を本プラグインが参照していないことを `grep -rn "PsiSourced" src/` で再確認（F-3）
 
-## セクション 2: LSP API の移行（必須）
+## セクション 2: LSP API の移行 — **本作業のスコープ外（後続作業へ切り出し / 2026-08-09 決定）**
 
-F-2 のとおり `LspServerManager` は runtime で壊れうるため、このセクションは省略できない。
-セクション 1 実測ログで確定した対応表に従って置換する。
+> **本セクションは実施しない。** 以下のタスクは後続作業の設計入力として保持する。
+>
+> 切り出しの根拠（requirements.md「R-3 の切り出し」参照）:
+>
+> - 必須と判断した根拠だった design.md F-2（`LspServerManager` が runtime で null になる）は、
+>   セクション 1 の実測で **本プラグインには当てはまらない**と判明した。`LspServerManager extends
+>   LspClientManager` であり `getInstance(Project)` は静的メソッドとして現存し、旧 API は 2026.2 でも動作する
+> - 移行は単純な rename ではなくメソッド名の変更を伴い 13 ファイルに及ぶ
+> - 本作業は「2026.2 でビルドでき、リリースできる状態」を最短で作ることを優先する
+>
+> 後続作業に引き継ぐ資産: セクション 1 実測ログの「LSP API 対応表」と「LSP 移行対象ファイルの実パス」。
+> `plugin-verifier-ignored-problems.txt` の LSP エントリに追跡情報を残すこと（4-2 で対応）。
+
+以下は後続作業用の下書きであり、本作業では `[ ]` のまま残す。
 
 ### 2-1: コア（Provider / Descriptor / Client）
 
@@ -249,20 +261,49 @@ F-2 の性質上、ビルドが通っても LSP が無言で停止しうる。`u
 - [ ] `Dump LSP State` アクションが動作する（同上）
 - [ ] 結果を本ファイルに記録する
 
-## セクション 3: FloatingToolbarProvider / FileIncludeProvider の移行
+## セクション 3: FloatingToolbarProvider / FileIncludeProvider の移行 ← **実施する**
 
 **セクション 1 実測ログで代替 API の存在を確認できた場合のみ実施。**
-存在しない場合はこのセクション全体をスキップし、以下に理由を記録してセクション 4 へ進む。
 
-> スキップ理由（該当する場合に記入）: （未記入）
+> 実施可否の判定結果: **実施する**。`isApplicableAsync(DataContext, Continuation<Boolean>)` と
+> `acceptFile(IndexedFile)` の両方が 2026.2 に存在することを `javap` で実測確認済み。
+> LSP 移行（セクション 2）を切り出した後も、本セクションは LSP と無関係なため本作業に残す
+> （2026-08-09 のユーザー判断）。
+>
+> 注意: `isApplicableAsync` は Kotlin の suspend 関数であり、`isApplicable` の単純な置換にはならない。
 
-- [ ] `editor/RescriptFloatingToolbarProvider.kt` を `isApplicableAsync` へ移行
-- [ ] `editor/RescriptFloatingToolbarProviderTest.kt` を新シグネチャに追従させ、緑にする
-- [ ] `navigation/RescriptFileIncludeProvider.kt` を `acceptFile(IndexedFile)` へ移行
-- [ ] `navigation/RescriptFileIncludeProviderTest.kt` を新シグネチャに追従させ、緑にする
-- [ ] 両ファイルの `@Suppress("DEPRECATION")` を除去
-- [ ] `./gradlew ktlintCheck clean buildPlugin test` が成功する
-- [ ] コミット（`♻️ Migrate FloatingToolbarProvider and FileIncludeProvider to the current APIs`）
+- [x] `editor/RescriptFloatingToolbarProvider.kt` を `isApplicableAsync` へ移行
+- [x] `editor/RescriptFloatingToolbarProviderTest.kt` にテストを追加（新規 2 件）
+- [x] `navigation/RescriptFileIncludeProvider.kt` を `acceptFile(IndexedFile)` へ移行
+- [x] `navigation/RescriptFileIncludeProviderTest.kt` にテストを追加（新規 4 件）
+- [x] 両ファイルの `@Suppress("DEPRECATION")` を除去
+- [x] `./gradlew ktlintCheck buildPlugin test` が成功する（既知の Windows 8 件を除く）
+- [x] コミット（`♻️ Migrate FloatingToolbarProvider and FileIncludeProvider to the current APIs`）
+
+### セクション 3 の記録
+
+**`isApplicableAsync` のみを override してよいことの裏取り。**
+デフォルトの `isApplicable` は `iconst_1`（常に `true`）を返すため、旧メソッド経由の呼び出しが
+残っていればフィルタが失われ、全ファイル種別でツールバーが表示される回帰になる。
+`intellij.platform.ide.impl.jar` を展開して呼び出し元を調べたところ、
+プラットフォーム側の唯一の消費者 `EditorFloatingToolbar$1` は `isApplicableAsync` のみを
+invoke しており（`isApplicable` の invoke は無い）、async 版だけの override で十分と確認した。
+
+**移行は機械的に留めた。** `isApplicableAsync` は suspend 関数であり呼び出しが EDT 外になりうるが、
+本体は `DataContext` からの取得と `PsiFile.language` の参照のみで PSI ツリーを辿らないため、
+`readAction` の導入は行わず旧実装と同一の本体を維持した（スレッド方針の変更は本作業のスコープ外）。
+
+**テストの追加（計 6 件）。** `deprecated-usages.txt` で消える 2 件は「消えたこと」しか保証しないため、
+振る舞いのリグレッションテストを追加した:
+
+- `RescriptFloatingToolbarProviderTest`: PSI なしコンテキストで `false` / ReScript ファイルで `true`
+- `RescriptFileIncludeProviderTest`: `.res` / `.resi` を受理、他拡張子と拡張子なしを拒否
+
+`isApplicableAsync` の正常系テストは当初失敗した。プラットフォームが `DataContext` を通る PSI を
+検証して無効な要素を落とすため、Mockito のモックで `isValid()` が既定の `false` を返し
+`getData()` が null になっていた。`isValid` を stub して解決（その旨をテスト内にコメントで明記）。
+
+**テスト件数**: 4456 → 4462（+6）。失敗は既知の Windows 8 件のみで新規failure なし。
 
 ## セクション 4: sinceBuild 引き上げ・ignored-problems 棚卸し・ドキュメント同期
 
@@ -291,14 +332,21 @@ F-2 の性質上、ビルドが通っても LSP が無言で停止しうる。`u
 
 ### 4-2: plugin-verifier-ignored-problems.txt の棚卸し
 
-- [ ] LSP API のエントリ（L47-67）を削除（セクション 2 で解消済みのため）
-- [ ] `FloatingToolbarProvider.isApplicable` のエントリ（L34-38）— 解消したら削除、未解消なら
-      `Status` の理由を「2026.2 にも代替なし」に更新し `Reviewed: 2026-08-08` / `Expires: 2027-08-08` に更新
-- [ ] `FileIncludeProvider.acceptFile` のエントリ（L40-45）— 同上
+> セクション 2 を切り出したため、当初「削除」としていた LSP エントリは **残す**方針に変更した。
+
+- [ ] LSP API のエントリ（L47-67）は **削除せず残す**。ただし記述を 2026.2 の実測に合わせて訂正する:
+  - [ ] 「replacement API が 2026.1.2 に存在しない」という記述は**もう正しくない**。
+        2026.2（および 2026.1.4）に `LspIntegrationProvider` / `LspClientDescriptor` /
+        `LspClientManager` が存在することを明記する
+  - [ ] 移行が後続作業に切り出されている旨と、その理由（旧 API は 2026.2 でも動作する）を記載する
+  - [ ] クラス名の誤り（`LspClientSupportProvider`）を `LspIntegrationProvider` に訂正する
+  - [ ] `Reviewed: 2026-08-09` に更新し、`Expires` は後続作業の期限として近めに設定する
+- [ ] `FloatingToolbarProvider.isApplicable` のエントリ（L34-38）を **削除**（セクション 3 で解消）
+- [ ] `FileIncludeProvider.acceptFile` のエントリ（L40-45）を **削除**（セクション 3 で解消）
 - [ ] `CodeVisionPlaceholderCollector` のエントリ（L14-22）— 2026.2 でも `@Internal` が残るか確認し
       `Reviewed` を更新（Expires は 2027-04-29 のまま据え置きでよい）
 - [ ] ファイル冒頭の `Reviewed: 2026-05-14 | Target: IntelliJ 2025.3+` を
-      `Reviewed: 2026-08-08 | Target: IntelliJ 2026.1.4+` に更新
+      `Reviewed: 2026-08-09 | Target: IntelliJ 2026.1.4+` に更新
 - [ ] `./gradlew verifyPlugin` が成功する（削除したエントリが本当に不要だったことの確認）
 - [ ] コミット（`🔧 Prune verifier ignored problems resolved by the 2026.2 bump`）
 
@@ -347,6 +395,9 @@ F-2 の性質上、ビルドが通っても LSP が無言で停止しうる。`u
 - `template-versions-audit` の npm 脆弱性解消（astro / react-router / next / esbuild / drizzle-kit のメジャー更新）
 - `RescriptSwitchFileActionTest.testActionPerformedOpensResCounterpart` のフレーキー対応
 - `pluginVersion` バンプと Marketplace リリース（`0.1.17`）
+- **LSP API 移行（本作業のセクション 2 を切り出したもの / 最優先の後続作業）** — `LspServer*` 系 →
+  `LspIntegrationProvider` / `LspClientDescriptor` / `LspClientManager` 系。13 ファイル + EP 変更 +
+  実機スモークテスト。設計入力は本ファイルのセクション 1 実測ログとセクション 2 の下書きを参照
 - 自前クラス名のリネーム（`RescriptLspServerSupportProvider` → `RescriptLspIntegrationProvider` 等、D-3）
 - Dependabot PR #63 / #64 / #65 のマージ
 - マージ済み Dependabot リモートブランチの削除

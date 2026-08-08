@@ -1,12 +1,26 @@
 package com.rescript.plugin.navigation
 
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.indexing.IndexedFile
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 
 class RescriptFileIncludeProviderTest {
     private val provider = RescriptFileIncludeProvider()
+
+    /** Builds an [IndexedFile] whose backing [VirtualFile] reports the given extension. */
+    private fun indexedFileWithExtension(extension: String?): IndexedFile {
+        val virtualFile = mock(VirtualFile::class.java)
+        `when`(virtualFile.extension).thenReturn(extension)
+        val indexedFile = mock(IndexedFile::class.java)
+        `when`(indexedFile.file).thenReturn(virtualFile)
+        return indexedFile
+    }
 
     @Test
     fun testProviderCanBeInstantiated() {
@@ -16,6 +30,31 @@ class RescriptFileIncludeProviderTest {
     @Test
     fun testGetId() {
         assertEquals("rescript", provider.id)
+    }
+
+    // -- acceptFile(IndexedFile) tests --
+    //
+    // 2026.2 deprecated acceptFile(VirtualFile) in favour of the IndexedFile overload;
+    // these cover the replacement so the file-type filter cannot regress silently.
+
+    @Test
+    fun testAcceptFileAcceptsResExtension() {
+        assertTrue(provider.acceptFile(indexedFileWithExtension("res")))
+    }
+
+    @Test
+    fun testAcceptFileAcceptsResiExtension() {
+        assertTrue(provider.acceptFile(indexedFileWithExtension("resi")))
+    }
+
+    @Test
+    fun testAcceptFileRejectsOtherExtension() {
+        assertFalse(provider.acceptFile(indexedFileWithExtension("kt")))
+    }
+
+    @Test
+    fun testAcceptFileRejectsMissingExtension() {
+        assertFalse(provider.acceptFile(indexedFileWithExtension(null)))
     }
 
     // -- extractModuleNames tests --
