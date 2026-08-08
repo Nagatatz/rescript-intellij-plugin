@@ -309,15 +309,13 @@ invoke しており（`isApplicable` の invoke は無い）、async 版だけ�
 
 ### 4-0: JDK 25 への追随（セクション 1 の追加対応 B の波及）
 
-- [ ] `.github/workflows/` 全ファイルの `java-version: 21` を `25` に更新
-      （`grep -rn "java-version" .github/workflows/` で対象を確定する）
-- [ ] `actions/setup-java` の `distribution` が JDK 25 を提供するか確認する
-- [ ] `sphinx-docs/dev/contributing.md:15` の「JDK 21+」を「JDK 25+」に更新
-- [ ] `sphinx-docs/dev/setup.md` / `sphinx-docs/dev/building.md` に JDK 要件の記載があれば更新
-- [ ] `docs/architecture.md` / `docs/versions.md` の JDK 要件を更新
-- [ ] `CLAUDE.md` の「JDK: 21+」を「JDK: 25+」に更新
-- [ ] `README.md` に JDK 要件の記載があれば更新
-- [ ] コミット（`🔧 Move the JDK toolchain to 25 for the 2026.2 platform`）
+> ドキュメント側の JDK 表記は 4-3 の IDE バージョン更新と同じファイルを触るため、
+> 二度編集を避けて **4-3 のドキュメントコミットに集約する**。本節は workflow のみを扱う。
+
+- [x] `.github/workflows/` 全ファイルの `java-version: 21` を `25` に更新（10 箇所 / 7 ファイル）
+- [x] `actions/setup-java` の `distribution` が JDK 25 を提供するか確認する
+      （全箇所 `temurin`。Temurin 25 は GA。ローカルでも foojay 経由で Temurin 25.0.4 を取得済み）
+- [x] コミット（`🔧 Move CI to JDK 25 for the 2026.2 platform`）
 
 ### 4-1: sinceBuild と Verifier
 
