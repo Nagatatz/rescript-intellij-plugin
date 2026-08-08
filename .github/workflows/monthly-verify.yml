@@ -38,7 +38,7 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@v6
 
-      - name: Setup JDK 21
+      - name: Setup JDK
         uses: actions/setup-java@v5
         with:
           distribution: temurin

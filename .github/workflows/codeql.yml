@@ -44,7 +44,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup JDK 21
+      - name: Setup JDK
         uses: actions/setup-java@v5
         with:
           distribution: temurin
