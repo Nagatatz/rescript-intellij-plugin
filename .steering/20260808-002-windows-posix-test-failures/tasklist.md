@@ -47,18 +47,19 @@
 
 ## セクション 3: FormatCheckAnnotatorTest の常時失敗コマンドを生成する（手法 B）
 
-- [ ] `src/test/kotlin/com/rescript/plugin/analysis/RescriptFormatCheckAnnotatorTest.kt` に private helper `createAlwaysFailingCommand(dir: Path): Path` を追加する
+- [x] `src/test/kotlin/com/rescript/plugin/analysis/RescriptFormatCheckAnnotatorTest.kt` に private helper `createAlwaysFailingCommand(dir: Path): Path` を追加する
   - Windows: `alwaysfail.bat` に `@echo off` / `exit /b 1`
   - POSIX: `alwaysfail.sh` に `#!/bin/sh` / `exit 1` + `setExecutable(true)`
   - プラットフォーム判定は `com.intellij.openapi.util.SystemInfo.isWindows` を使う
   - helper に KDoc を付与し、`/usr/bin/false` を置き換えた理由を明記する
-- [ ] `@TempDir` で一時ディレクトリを受け取るよう該当 2 テストを修正する
+- [x] `@TempDir` で一時ディレクトリを受け取るよう該当 2 テストを修正する
   - `runFormatCheck returns null for command with non-zero exit`
   - `runFormatCheck cleans up process on non-zero exit`
-- [ ] `cliPath = "/usr/bin/false"` を helper の戻り値に差し替える
-- [ ] 残存する `/usr/bin/false` 参照がないか `grep -rn "usr/bin/false" src/test/` で確認する
-- [ ] `./gradlew test --tests 'com.rescript.plugin.analysis.RescriptFormatCheckAnnotatorTest'` で全件成功を確認する
-- [ ] tasklist を更新してコミットする（`✅ Generate a cross-platform always-failing command in format check tests`）
+- [x] `cliPath = "/usr/bin/false"` を helper の戻り値に差し替える
+- [x] 残存する `/usr/bin/false` 参照がないか `grep -rn "usr/bin/false" src/test/` で確認する
+  - 残存は helper の KDoc 内の説明文 1 件のみ。実行パスとしての使用はゼロ
+- [x] `./gradlew test --tests 'com.rescript.plugin.analysis.RescriptFormatCheckAnnotatorTest'` で全件成功を確認する（15 件成功 / スキップ 0 / 失敗 0）
+- [x] tasklist を更新してコミットする（`✅ Generate a cross-platform always-failing command in format check tests`）
 
 ---
 
