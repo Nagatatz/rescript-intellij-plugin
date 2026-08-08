@@ -408,26 +408,46 @@ acceptFile(IndexedFile) → acceptFile(VirtualFile, Project) → acceptFile(Virt
 
 `documentation.md` の同期対象表および requirements.md AC-8 に従う。表記は **2026.1.4+** に統一する。
 
-- [ ] `README.md:189` — `IntelliJ IDEA 2025.3+` → `2026.1.4+`
-- [ ] `CLAUDE.md:13` — 対象プラットフォーム
-- [ ] `docs/architecture.md:12` — SDK バージョン表を `2026.2.0.1` へ
-- [ ] `docs/architecture.md:62` — 最低 IDE バージョン
-- [ ] `docs/versions.md:10` — 対象 IDE バージョン（下限）
-- [ ] `sphinx-docs/dev/building.md:67` — `pluginSinceBuild` の例示
-- [ ] `sphinx-docs/dev/contributing.md:15,17` — JDK 要件 / IntelliJ IDEA
-- [ ] `sphinx-docs/dev/setup.md:14` — IntelliJ IDEA
-- [ ] `sphinx-docs/user/faq.md:12` — 対応 IDE の説明
-- [ ] `sphinx-docs/user/installation.md:11` — 前提要件
-- [ ] `sphinx-docs/user/version-matrix.md:15` — 対応表に新しい行を追加
-- [ ] `docs/functional-design.md:637` と `docs/performance-validation.md:90` は **更新しない**
+- [x] `README.md` — `IntelliJ IDEA 2025.3+` → `2026.1.4+`
+- [x] `CLAUDE.md` — 対象プラットフォームと JDK 要件
+- [x] `docs/architecture.md` — SDK バージョン表を `2026.2.0.1` へ、Java 21+ → 25、最低 IDE バージョン
+- [x] `docs/architecture.md` — **新設**「`pluginSinceBuild` が 2026.1.4 である理由」節
+      （バイトコードで下限が決まること、短縮表記の罠、Verifier がクラスファイルバージョンを見ないこと）
+- [x] `docs/versions.md` — 対象 IDE バージョン（下限）/ JDK / ビルド対象プラットフォームの行を追加
+- [x] `sphinx-docs/dev/building.md` — `pluginSinceBuild` の例示と下限の根拠
+- [x] `sphinx-docs/dev/contributing.md` — JDK 要件 / IntelliJ IDEA
+- [x] `sphinx-docs/dev/setup.md` — IntelliJ IDEA / JDK / Language level
+- [x] `sphinx-docs/user/faq.md` — 対応 IDE の説明（0.1.16.3 が 2025.3 に残ることも明記）
+- [x] `sphinx-docs/user/installation.md` — 前提要件
+- [x] `sphinx-docs/user/version-matrix.md` — 対応表に行追加 + warning ディレクティブ
+- [x] `docs/functional-design.md` と `docs/performance-validation.md` は **更新しない**
       （当時の実測記録・沿革説明のため。requirements.md AC-8 の注記）
-- [ ] `docs/repository-structure.md` / `docs/functional-design.md` のパッケージ表・EP マップに
-      LSP EP 名の変更（`serverSupportProvider` → `integrationProvider`）を反映
-- [ ] `.po` 同期: `cd sphinx-docs && make gettext && make update-po`
-- [ ] 空の `msgstr` を日本語で埋める
-- [ ] `cd sphinx-docs && make build-ja` が成功する
-- [ ] `docs-lint` スキルで同期崩れがないことを確認
-- [ ] コミット（`📝 Update supported IDE version to 2026.1.4+`）
+- [x] ~~`docs/repository-structure.md` / `docs/functional-design.md` の EP マップ更新~~
+      → **不要**。EP 名の変更は LSP 移行に伴うものであり、その移行は後続作業に切り出したため
+      `plugin.xml` の EP は変更していない
+- [x] `.po` 同期: `make gettext && make update-po`
+- [x] 空の `msgstr` を日本語で埋める（新規 4 件）
+- [x] fuzzy エントリ 12 件を確認して解除（fuzzy はビルド時に使用されないため放置不可だった）
+- [x] `make build-ja` が成功する（警告 23 件はすべて既存の Pygments ハイライト関連）
+- [x] `docs-lint` スキルで同期崩れがないことを確認（`.md`↔`.po` 6/6 OK、未翻訳 0、FAIL 0）
+- [x] コミット（`📝 Update supported IDE version to 2026.1.4+`）
+
+### 4-3 の記録: 付随して見つかった 2 件（別コミットに分離）
+
+**1. `docs-lint` スキルの空 `msgstr` チェックが壊れていた。**
+`msgstr ""` は「未翻訳」と「複数行翻訳の開始行」の両方を意味するため、行単位の判定では
+翻訳済みエントリを 20 件以上も誤検出していた。加えて `awk` が `FNR` ではなく `NR` を使っており、
+2 ファイル目以降で存在しない行番号を報告していた。継続行を連結して判定する実装に差し替えた。
+→ コミット `🐛 Fix false positives in the docs-lint untranslated-msgstr check`
+
+**2. Windows で `make gettext` が失敗する。**
+`conf.py:163` の `git_last_updated_timezone = "Asia/Tokyo"` を `sphinx-last-updated-by-git` が
+config-inited 時に解決するが、Windows には system tz database が無く
+`Unknown timezone Asia/Tokyo` で落ちる。`sphinx-docs/pyproject.toml` に
+`tzdata>=2026.1; sys_platform == 'win32'` を追加して解決（Linux/macOS は OS から解決するため不要）。
+→ コミット `🔧 Add tzdata so the docs build works on Windows`
+
+いずれも 2026.2 バンプとは独立した問題のため、ドキュメント同期とは別コミットに分けた。
 
 ## セクション 5: 完了処理
 

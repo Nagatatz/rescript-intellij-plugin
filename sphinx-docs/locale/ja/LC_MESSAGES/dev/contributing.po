@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 12:33+0900\n"
+"POT-Creation-Date: 2026-08-09 01:48+0900\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -54,12 +54,14 @@ msgid "JDK"
 msgstr "JDK"
 
 #: ../../dev/contributing.md
-msgid "21+"
-msgstr "21+"
+msgid "25+"
+msgstr "25+"
 
 #: ../../dev/contributing.md
-msgid "Required by IntelliJ Platform 2025.3+"
-msgstr "IntelliJ Platform 2025.3+ に必要"
+msgid ""
+"IntelliJ Platform 2026.2 ships Java 25 bytecode, which a JDK 21 `javac` "
+"cannot read"
+msgstr "IntelliJ Platform 2026.2 のバイトコードは Java 25 であり、JDK 21 の `javac` では読めません"
 
 #: ../../dev/contributing.md
 msgid "Node.js"
@@ -78,8 +80,8 @@ msgid "IntelliJ IDEA"
 msgstr "IntelliJ IDEA"
 
 #: ../../dev/contributing.md
-msgid "2025.3+"
-msgstr "2025.3+"
+msgid "2026.1.4+"
+msgstr "2026.1.4+"
 
 #: ../../dev/contributing.md
 msgid "Community or Ultimate edition"
@@ -555,4 +557,7 @@ msgstr "既存の Issue やディスカッションを確認してください"
 
 #~ msgid "Build the plugin:"
 #~ msgstr "プラグインをビルドします:"
+
+#~ msgid "Required by IntelliJ Platform 2025.3+"
+#~ msgstr "IntelliJ Platform 2025.3+ に必要"
 

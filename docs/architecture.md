@@ -6,10 +6,10 @@
 
 | 技術 | バージョン | 用途 |
 |------|-----------|------|
-| Kotlin | 2.3.21 | プラグインの主要実装言語 |
+| Kotlin | 2.4.10 | プラグインの主要実装言語 |
 | JFlex | GrammarKit 2023.3.0.3 | レクサー定義・自動生成 |
-| Java | 21+ (Temurin) | JFlex 生成コードのコンパイルターゲット |
-| IntelliJ Platform SDK | 2026.1.2 | プラグイン基盤 API |
+| Java | 25 (Temurin) | コンパイルターゲット。2026.2 のバイトコードが Java 25 のため JDK 25 が必須 |
+| IntelliJ Platform SDK | 2026.2.0.1 | プラグイン基盤 API |
 | LSP4J | IntelliJ Platform 内蔵 | LSP クライアント実装 |
 
 ### ビルド・品質ツール
@@ -17,7 +17,7 @@
 | ツール | バージョン | 用途 |
 |--------|-----------|------|
 | Gradle (Kotlin DSL) | Wrapper 管理 | ビルドシステム |
-| IntelliJ Platform Gradle Plugin | 2.11.0 | プラグインビルド・パッケージング |
+| IntelliJ Platform Gradle Plugin | 2.18.1 | プラグインビルド・パッケージング |
 | GrammarKit | 2023.3.0.2 | JFlex レクサー生成タスク |
 | ktlint | 1.6.0 | Kotlin コードスタイルチェック |
 | Kover | 0.9.4 | コードカバレッジ計測 |
@@ -59,11 +59,30 @@
 
 | 制約 | 詳細 |
 |------|------|
-| **最低 IDE バージョン** | IntelliJ Platform 2025.3+（`sinceBuild = 253.0`） |
+| **最低 IDE バージョン** | IntelliJ Platform 2026.1.4+（`sinceBuild = 261.26222`） |
 | **上限 IDE バージョン** | 未設定（詳細は下記「`pluginUntilBuild` を設定しない理由」参照） |
-| **JDK** | 21 以上 |
+| **JDK** | 25 以上 |
 | **対象 IDE** | IntelliJ IDEA (Community/Ultimate)、WebStorm、その他全 JetBrains IDE |
 | **OS** | Windows / macOS / Linux（JetBrains IDE が動作する全 OS） |
+
+#### `pluginSinceBuild` が 2026.1.4 である理由
+
+下限は「動かしたい最も古い IDE」ではなく、**成果物のバイトコードが読める最も古い IDE** で決まる。
+
+IntelliJ Platform 2026.2 のバイトコードは Java 25（クラスファイルバージョン 69.0）であり、
+これに対してビルドすると成果物も Java 25 になる。2025.3 系がバンドルする JBR は 21 系のため、
+そこでは `UnsupportedClassVersionError` で読み込めない。バンドル JBR が 25 に切り替わったのは
+**2026.1** である。
+
+一方、LSP 統合 API の新名称（`LspIntegrationProvider` 等）が安定版に入ったのは **2026.1.4**。
+両方を満たす最小の build 番号として `261.26222`（2026.1.4）を採用している。
+
+`261.4` のような短縮表記は「branch 261 の build 4 以上」を意味し、2026.1〜2026.1.3 まで通してしまう。
+**必ず完全な build 番号で指定すること。**
+
+> 注意: Plugin Verifier は **クラスファイルバージョンの互換性を検査しない**。
+> 下限より古い IDE に対して `Compatible` と報告されることがあるが、それは実際に読み込める証明ではない。
+> 下限を動かす際は、対象 IDE のバンドル JBR（`<IDE>/jbr/release` の `JAVA_VERSION`）を実測して判断する。
 
 #### `pluginUntilBuild` を設定しない理由
 

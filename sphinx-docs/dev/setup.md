@@ -10,8 +10,8 @@ myst:
 
 | Requirement | Version |
 |-------------|---------|
-| JDK | 21 or later |
-| IntelliJ IDEA | 2025.3+ (Ultimate or Community) |
+| JDK | 25 or later |
+| IntelliJ IDEA | 2026.1.4+ (Ultimate or Community) |
 | Git | Any recent version |
 | Node.js | For testing LSP features |
 
@@ -56,8 +56,8 @@ This launches a fresh IntelliJ IDEA instance with the plugin loaded. You can ope
 If IntelliJ doesn't automatically detect your JDK:
 
 1. **File** → **Project Structure** → **Project**
-2. Set **SDK** to JDK 21+
-3. Set **Language level** to 21
+2. Set **SDK** to JDK 25+
+3. Set **Language level** to 25
 
 ## Recommended IDE Plugins
 
