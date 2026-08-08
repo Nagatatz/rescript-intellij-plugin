@@ -18,6 +18,16 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - dependencies
+    ignore:
+      # .claude/rules/github-actions-pinning.md pins first-party Gradle actions
+      # to a floating major tag (gradle/actions/setup-gradle@v6). Dependabot
+      # otherwise proposes pinning that float to an exact patch tag, which
+      # contradicts the policy and reopens every patch release. Major bumps
+      # (v6 -> v7) are deliberately NOT ignored and still surface.
+      - dependency-name: gradle/actions*
+        update-types:
+          - version-update:semver-minor
+          - version-update:semver-patch
 
   - package-ecosystem: pip
     directory: /sphinx-docs
