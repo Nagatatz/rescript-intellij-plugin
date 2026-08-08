@@ -125,9 +125,17 @@ jobs:
         # only needs a resolved tree, not a valid peer graph.
         run: npm install --package-lock-only --legacy-peer-deps --no-audit --no-fund
 
-      - name: npm audit (fail on high/critical)
+      - name: Test the audit gate
+        # The gate decides whether a vulnerability blocks a release, so verify its
+        # logic before trusting its verdict below.
+        run: node --test .github/scripts/__tests__/check-npm-audit.test.mjs
+
+      - name: npm audit (fail on high/critical, minus documented exceptions)
         working-directory: .github/scripts/template-audit
-        run: npm audit --audit-level=high
+        # npm audit has no exclusion mechanism, and some advisories have no fixed
+        # release to bump to. check-npm-audit.mjs fails on anything not recorded
+        # in the allowlist, and reports expired or stale entries as warnings.
+        run: node ../check-npm-audit.mjs --allowlist ../npm-audit-allowlist.json
 
       - name: Upload audit manifest
         if: always()

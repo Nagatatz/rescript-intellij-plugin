@@ -1,0 +1,21 @@
+{
+  "note": "Advisories that check-npm-audit.mjs must not fail on. Only add an entry when NO published version resolves the advisory — if a newer pin fixes it, raise the pin in TemplateVersions.kt instead. Entries are keyed by GHSA id, never by package name, so a future unrelated vulnerability in the same package still fails the gate. Every entry needs a reason, a url, a reviewed date, and an expires date; expiry is reported as a warning, not a failure.",
+  "allow": [
+    {
+      "id": "GHSA-w3rx-r6r6-pgpr",
+      "package": "image-size",
+      "reason": "No fixed version exists upstream. The advisory covers image-size <=2.0.2, and 2.0.2 is the latest published release, so there is nothing to bump to. It reaches the templates through react-native -> metro -> image-size ^1.0.2, and metro still declares that same range in 0.87.0. npm suggests react-native@0.72.17, which is a large downgrade from the 0.85.x line the templates target and does not resolve the advisory anyway. Impact is a denial of service in an image parser used by the React Native bundler at build time.",
+      "url": "https://github.com/advisories/GHSA-w3rx-r6r6-pgpr",
+      "reviewed": "2026-08-09",
+      "expires": "2027-02-09"
+    },
+    {
+      "id": "GHSA-5p2g-fcmc-qvqq",
+      "package": "image-size",
+      "reason": "Same package, same dependency path, and the same lack of any fixed release as GHSA-w3rx-r6r6-pgpr — this advisory covers the JXL and HEIF parsers rather than ICNS. Remove both entries together once metro depends on an image-size release outside the vulnerable range.",
+      "url": "https://github.com/advisories/GHSA-5p2g-fcmc-qvqq",
+      "reviewed": "2026-08-09",
+      "expires": "2027-02-09"
+    }
+  ]
+}

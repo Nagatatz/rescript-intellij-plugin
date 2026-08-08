@@ -11,13 +11,20 @@
 
 ## セクション 0: 準備
 
-- [ ] `git fetch origin` を実行し、ローカル `main` が `origin/main` と同期していることを確認
-      （並列セッションが活動中のため、`git log --oneline origin/main..main` と逆方向の両方を確認する）
-- [ ] `EnterWorktree` で worktree を作成
-- [ ] worktree 内で `pwd` と `git rev-parse --show-toplevel` を実行し、編集対象が worktree 内であることを確認
-- [ ] worktree が `origin/main` 起点で作られるため、ステアリングを取り込む必要があれば
-      `git merge --ff-only main` を実行する
-- [ ] `.steering/20260808-004-template-npm-vulnerabilities/` をコミット
+- [x] `git fetch origin` を実行し、ローカル `main` が `origin/main` と同期していることを確認（0 ahead / 0 behind）
+- [x] `.steering/20260808-004-template-npm-vulnerabilities/` を `main` にコミット（`c1e4c314`）
+- [x] `EnterWorktree` で worktree を作成（ブランチ `worktree-template-npm-vulnerabilities`）
+- [x] worktree 内で `pwd` と `git rev-parse --show-toplevel` を実行し、編集対象が worktree 内であることを確認
+- [x] worktree は `origin/main`（`d508dd62`）起点だったため、`git merge main` でステアリングを取り込み
+
+### セクション 0 の記録
+
+- 並列セッションが活動中で、`origin/main` は本作業の着手中にも進んでいた（`dc5df892` → `d508dd62`）
+- 並列セッションは `.steering/20260809-001-lsp-client-api-migration/` を作成済み。
+  **LSP API 移行（本リポジトリの後続作業として切り出したもの）に着手している**
+- 前回の作業（20260808-001）では、`main` に直接コミットしたステアリングが
+  並列セッションの main 再構築で失われた。今回も同じ経路のため、
+  **マージ時に `c1e4c314` が残っているかを確認すること**
 
 ## セクション 1: 監査例外リストの仕組み
 
@@ -68,14 +75,32 @@
 > この時点ではまだ監査は **fail する**（`sharp` が未解消のため）。それが正しい状態である。
 > セクション 1 完了時に実際に fail することを確認し、下記に記録すること。
 
-### セクション 1 の実測ログ（実装時に記入）
+### セクション 1 の実測ログ
 
 | 項目 | 結果 |
 |---|---|
-| 実測日 | （未記入） |
-| スクリプト単体テスト | （未記入） |
-| 監査の判定（`sharp` 未解消の状態） | （未記入 — fail が期待値） |
-| blocking として報告された advisory | （未記入） |
+| 実測日 | 2026-08-09 |
+| スクリプト単体テスト | **10 件すべて pass** |
+| 監査の判定（`sharp` 未解消の状態） | **exit 1**（期待値どおり） |
+| blocking として報告された advisory | `GHSA-f88m-g3jw-g9cj` (`sharp`, high) の 1 件のみ |
+| allowed として報告された advisory | `GHSA-w3rx-r6r6-pgpr` / `GHSA-5p2g-fcmc-qvqq`（`image-size`, high）の 2 件 |
+
+**AC-3 はこの実測で満たされている。** 除外していない `sharp` が blocking として報告され exit 1 に
+なっており、「例外リストを入れたら何でも通る」状態ではないことが実データで確認できた。
+加えて単体テストの「allowlist 空で high が blocking になる」ケースでも担保している。
+
+#### 実装中に遭遇した問題
+
+**1. `node --test <ディレクトリ>` が Node 24 で動作しない。**
+`Cannot find module ...__tests__` となる。テストファイルを直接指定する形にした
+（workflow も同様）。
+
+**2. Windows で `npm` を `execFileSync` できない。**
+最初は `spawnSync npm ENOENT`（Windows の npm は `npm.cmd`）、
+`npm.cmd` に変えると `EINVAL`。後者は CVE-2024-27980 の緩和策として
+Node 20 以降が `.cmd` / `.bat` のシェル無し起動を拒否するため。
+Windows でのみ `shell: true` を有効にした。引数は固定リテラルのみでインジェクション面が無く、
+CI (Linux) はシェル無しの経路を通る。
 
 ## セクション 2: バージョンピンの更新
 
