@@ -392,7 +392,7 @@ kover {
             // and only ratcheted upward across releases. Lowering it requires an
             // explicit release-note entry.
             rule {
-                minBound(86)
+                minBound(87)
             }
         }
     }

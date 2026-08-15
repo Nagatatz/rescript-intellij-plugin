@@ -69,6 +69,37 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.17</h3>
+        <h4>New Features</h4>
+        <ul>
+            <li><b>Batch insert inferred types</b> — a new intention (with a matching Type Coverage heat-map action) collects LSP-inferred types for every unannotated binding in the file, filters out type holes and non-insertable types, and inserts all annotations in a single undoable batch</li>
+        </ul>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>JSX open-tag context is now encoded in the lexer state, so incremental re-lexing inside JSX no longer produces broken highlighting</li>
+            <li>Fixed a lexer latch that treated quotes inside block comments as string starts, and a gap in template-literal newline handling</li>
+            <li>Switch-related intentions are now token-aware and no longer corrupt code whose strings or comments merely resemble switch syntax</li>
+            <li>Hardened LSP position conversion and rename-edit application against out-of-range offsets returned by the language server</li>
+            <li>Pipe-chain inlay hints now match the pipe operator (<code>-&gt;</code>) instead of fat arrows (<code>=&gt;</code>) and cap the number of hints per pass</li>
+            <li>Synchronous LSP actions moved off the UI thread and the PPX panel now debounces caret movement, keeping the editor responsive</li>
+            <li>User-facing error messages no longer expose absolute file-system paths</li>
+            <li>The Type Info panel and documentation now accurately describe which features remain available when the language server is not connected</li>
+        </ul>
+        <h4>Performance</h4>
+        <ul>
+            <li>Type-hole detection precomputes line offsets, and narrowing-hint passes bound their total number of LSP hover requests</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li>Extracted a shared switch tokenizer used by all switch analyzers, unified DOT escaping, and deduplicated diagram node painting</li>
+            <li>Migrated <code>FloatingToolbarProvider</code> and <code>FileIncludeProvider</code> usages off deprecated platform APIs</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Now built against IntelliJ Platform 2026.2.0.1; the minimum supported IDE is raised to 2026.1.4 and CI runs on JDK 25</li>
+            <li>Project-template dependency versions are gated by an allowlist-aware npm audit check, and the Astro template moved to Astro 7</li>
+            <li>Template integration tests and the docs build now also run on Windows</li>
+        </ul>
         <h3>0.1.16.3</h3>
         <h4>Infrastructure</h4>
         <ul>
