@@ -136,7 +136,7 @@ jobs:
       - name: Add coverage report to PR
         if: github.event_name == 'pull_request'
         # Pinned to commit SHA per .claude/rules/github-actions-pinning.md.
-        uses: mi-kas/kover-report@db9938358b8e1e6175dd4136132bf4eb7aa4ae6d  # v2.4
+        uses: mi-kas/kover-report@ea8425161dd880a7dea9e76b3c89cf168b1d1162  # v2.5
         with:
           path: ${{ github.workspace }}/build/reports/kover/report.xml
           title: Code Coverage
