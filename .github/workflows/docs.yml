@@ -40,7 +40,7 @@ jobs:
         # .claude/rules/github-actions-pinning.md: astral-sh is the official uv
         # maintainer and a GitHub Verified Owner, so tag re-pointing risk is
         # limited. Docs-only job with no secrets, which bounds the blast radius.
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.0.1
         with:
           enable-cache: true
 
@@ -78,7 +78,7 @@ jobs:
         # .claude/rules/github-actions-pinning.md: astral-sh is the official uv
         # maintainer and a GitHub Verified Owner, so tag re-pointing risk is
         # limited. Docs-only job with no secrets, which bounds the blast radius.
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.0.1
         with:
           enable-cache: true
 
@@ -147,7 +147,7 @@ jobs:
         # .claude/rules/github-actions-pinning.md: astral-sh is the official uv
         # maintainer and a GitHub Verified Owner, so tag re-pointing risk is
         # limited. Docs-only job with no secrets, which bounds the blast radius.
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.0.1
         with:
           enable-cache: true
 
