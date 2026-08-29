@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.4.10"
 intellij-platform = "2.18.1"
-grammarkit = "2023.3.0.3"
+grammarkit = "2023.3.0.4"
 ktlint-gradle = "14.2.0"
 ktlint = "1.8.0"
 kover = "0.9.9"
