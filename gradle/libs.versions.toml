@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.4.10"
+kotlin = "2.4.20"
 intellij-platform = "2.18.1"
 grammarkit = "2023.3.0.4"
 ktlint-gradle = "14.2.0"
