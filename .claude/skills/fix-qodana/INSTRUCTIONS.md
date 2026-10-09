@@ -142,7 +142,7 @@ gh api repos/{owner}/{repo}/commits/{sha}/check-runs --jq '.check_runs[] | selec
 
 ### 修正手順
 
-ステアリングワークフローの tasklist.md に直接転記できる形式で出力する:
+Issue の DoD チェックリストに直接転記できる形式で出力する:
 
 ```
 - [ ] 1. `ファイル名` — 修正内容の要約

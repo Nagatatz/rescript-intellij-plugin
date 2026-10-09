@@ -63,8 +63,9 @@ staged `*.kt` に対して以下の簡易スキャン:
 
 ### 4. Phase 4 — マージ前（DoD-owned）
 
-- `.steering/<current>/tasklist.md` が存在し、すべてのチェックボックスが `[x]` か確認
-- `.steering/<current>/requirements.md` の受け入れ条件章を抽出し、MANUAL として提示
+- 対応 Issue の DoD（Issue 本文の `## Definition of Done`、または DoD コメント）を取得し、マージ確認項目以外のチェックボックスがすべて `[x]` か確認
+- DoD の「受け入れ条件」セクションを抽出し、MANUAL として提示
+- 対応 Issue が特定できない場合は MANUAL とし、ユーザーに Issue 番号を確認する
 
 ### 5. 出力フォーマット
 
@@ -85,8 +86,8 @@ staged `*.kt` に対して以下の簡易スキャン:
 - [x] Security scan                     PASS
 
 ### Phase 4: マージ前
-- [ ] tasklist完了                       FAIL — 3 unchecked items
-- [!] Acceptance criteria              MANUAL — review requirements.md 受け入れ条件
+- [ ] Issue DoD 完了 (#39)              FAIL — 3 unchecked items
+- [!] Acceptance criteria              MANUAL — review Issue DoD 受け入れ条件
 
 ### Summary
 FAIL: 2  MANUAL: 3  PASS: 7

@@ -30,8 +30,7 @@ git diff --name-only HEAD~3
 2. **docs/architecture.md** — アーキテクチャ構成、モジュール責務
 3. **docs/functional-design.md** — 機能設計、API仕様
 4. **docs/product-requirements.md** — プロダクト要件
-5. **.steering/**/requirements.md** — 作業単位の要件（Glob で検索、最新のもの）
-6. **.steering/**/design.md** — 作業単位の設計（Glob で検索、最新のもの）
+5. **対応 Issue の DoD** — 作業単位の受け入れ条件（Issue 本文の `## Definition of Done` または DoD コメント。Issue が特定できない場合はスキップ）
 
 ### ステップ3: ビルド・テスト実行
 
@@ -94,7 +93,7 @@ CLAUDE.md に記載されたビルドコマンド・テストコマンドを実�
 - データモデルが機能設計（docs/functional-design.md）と一致しているか
 - アーキテクチャ構造を遵守しているか（レイヤー間の依存関係が正しいか）
 - APIの仕様が設計と一致しているか
-- .steering/ の要件・設計に沿っているか
+- 対応 Issue の DoD（受け入れ条件）に沿っているか
 
 **注意**: docs/ が未整備の場合は CLAUDE.md のみで評価し「(一部ドキュメント未整備)」と付記する。
 
@@ -204,7 +203,7 @@ CLAUDE.md に記載されたビルドコマンド・テストコマンドを実�
 - ✅ CLAUDE.md
 - ✅ docs/architecture.md
 - ⚠️ docs/functional-design.md （未整備）
-- ✅ .steering/20260215-xxx/requirements.md
+- ✅ Issue #39 DoD
 ```
 
 ### ビルド・テスト結果
