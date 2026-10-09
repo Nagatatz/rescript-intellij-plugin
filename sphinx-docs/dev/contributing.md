@@ -126,11 +126,11 @@ class RescriptFoldingBuilder : CustomFoldingBuilder() {
 
 This project uses structured workflows for AI-assisted development with Claude Code. The following configuration files define the development process:
 
-- **`.claude/rules/steering-workflow.md`** — Steering workflow requiring `requirements.md`, `design.md`, and `tasklist.md` before implementation
+- **`.claude/rules/issue-workflow.md`** — Issue workflow requiring a GitHub Issue with a Definition of Done checklist before implementation
 - **`.claude/rules/definition-of-done.md`** — 5-phase Definition of Done (Planning → Implementation → Pre-commit → Pre-merge → Post-merge)
 - **`.claude/rules/git-conventions.md`** — Git worktree isolation for feature branches, emoji commit prefixes, and branch naming conventions
 
-Steering documents are stored in `.steering/[YYYYMMDD]-[NNN]-[title]/` directories and committed alongside code changes.
+Work-unit plans and progress are tracked on GitHub Issues; the Definition of Done checklist replaces the former `.steering/` documents.
 
 ## Quality Checks
 

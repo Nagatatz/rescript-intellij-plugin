@@ -9,7 +9,6 @@ rescript-intellij-plugin/
 │   └── test/                     # テストコード
 ├── docs/                         # 永続的ドキュメント（設計・要件）
 ├── sphinx-docs/                  # Sphinx ユーザー/開発者向けドキュメント
-├── .steering/                    # 作業単位のステアリングドキュメント（履歴）
 ├── .claude/                      # Claude Code 設定・ルール
 ├── .github/                      # GitHub Actions ワークフロー
 ├── build.gradle.kts              # Gradle ビルド定義
@@ -176,16 +175,9 @@ sphinx-docs/
 └── Makefile                  # ビルドコマンド
 ```
 
-### 3.3 ステアリングドキュメント (`.steering/`)
+### 3.3 作業単位の記録（GitHub Issue）
 
-作業単位の一時的なドキュメント。作業完了後は履歴として保持される。
-
-```
-.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/
-├── requirements.md           # 要求内容
-├── design.md                 # 設計
-└── tasklist.md               # タスクリスト
-```
+作業単位の計画・進捗は GitHub Issue の Definition of Done チェックリストで管理する（`.claude/rules/issue-workflow.md`）。旧 `.steering/` ディレクトリは廃止し、過去の記録は Git 履歴にのみ残る。
 
 ## 4. 設定ファイル
 
@@ -197,7 +189,7 @@ sphinx-docs/
 │   ├── testing.md            # テスト規約
 │   ├── code-comments.md      # コードコメント規約（KDoc）
 │   ├── git-conventions.md    # Git コミット・ブランチ規約
-│   ├── steering-workflow.md  # ステアリングワークフロー
+│   ├── issue-workflow.md     # Issue ワークフロー（DoD チェックリスト）
 │   └── documentation.md      # ドキュメント管理規約
 └── settings.json             # Claude Code ローカル設定
 ```

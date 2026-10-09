@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ReScript IntelliJ Plugin \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-09 01:48+0900\n"
+"POT-Creation-Date: 2026-10-09 02:15+0000\n"
 "PO-Revision-Date: 2026-02-19 17:39+0900\n"
 "Last-Translator: \n"
 "Language: ja\n"
@@ -368,11 +368,11 @@ msgstr ""
 
 #: ../../dev/contributing.md:129
 msgid ""
-"**`.claude/rules/steering-workflow.md`** — Steering workflow requiring "
-"`requirements.md`, `design.md`, and `tasklist.md` before implementation"
+"**`.claude/rules/issue-workflow.md`** — Issue workflow requiring a GitHub"
+" Issue with a Definition of Done checklist before implementation"
 msgstr ""
-"**`.claude/rules/steering-workflow.md`** — 実装前に "
-"`requirements.md`、`design.md`、`tasklist.md` を必要とするステアリングワークフロー"
+"**`.claude/rules/issue-workflow.md`** — 実装前に Definition of Done "
+"チェックリストを記載した GitHub Issue を必要とする Issue ワークフロー"
 
 #: ../../dev/contributing.md:130
 msgid ""
@@ -392,11 +392,11 @@ msgstr ""
 
 #: ../../dev/contributing.md:133
 msgid ""
-"Steering documents are stored in `.steering/[YYYYMMDD]-[NNN]-[title]/` "
-"directories and committed alongside code changes."
+"Work-unit plans and progress are tracked on GitHub Issues; the Definition"
+" of Done checklist replaces the former `.steering/` documents."
 msgstr ""
-"ステアリングドキュメントは `.steering/[YYYYMMDD]-[NNN]-[title]/` "
-"ディレクトリに保存され、コード変更と一緒にコミットされます。"
+"作業単位の計画と進捗は GitHub Issue で管理します。Definition of Done チェックリストが旧 `.steering/`"
+" ドキュメントを置き換えます。"
 
 #: ../../dev/contributing.md:135
 msgid "Quality Checks"
@@ -560,4 +560,12 @@ msgstr "既存の Issue やディスカッションを確認してください"
 
 #~ msgid "Required by IntelliJ Platform 2025.3+"
 #~ msgstr "IntelliJ Platform 2025.3+ に必要"
+
+#~ msgid ""
+#~ "Steering documents are stored in "
+#~ "`.steering/[YYYYMMDD]-[NNN]-[title]/` directories and "
+#~ "committed alongside code changes."
+#~ msgstr ""
+#~ "ステアリングドキュメントは `.steering/[YYYYMMDD]-[NNN]-[title]/` "
+#~ "ディレクトリに保存され、コード変更と一緒にコミットされます。"
 

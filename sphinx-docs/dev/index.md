@@ -25,7 +25,7 @@ This section covers everything you need to contribute to the ReScript IntelliJ P
 
 ## Tools
 
-- [Claude Code Workflow](claude-code.md) — Rules, skills, hooks, and steering workflow for AI-assisted development
+- [Claude Code Workflow](claude-code.md) — Rules, skills, hooks, and issue workflow for AI-assisted development
 
 ```{toctree}
 :hidden:

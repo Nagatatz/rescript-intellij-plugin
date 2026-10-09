@@ -74,7 +74,7 @@ ReScript 開発者が JetBrains IDE で快適に開発できる、高品質な�
 
 ### 将来機能（ロードマップ）
 
-直近 (`.steering/20260514-001-feature-discovery/` / `.steering/20260519-004-maintenance-cleanup/`) の発掘調査・監査で抽出された残候補をここに登録する。優先度は ROI (既存資産の再利用度) と「単独セッションで完結可能か」で評価。
+直近（2026-05 の feature-discovery / maintenance-cleanup。記録は Git 履歴の `.steering/` を参照）の発掘調査・監査で抽出された残候補をここに登録する。優先度は ROI (既存資産の再利用度) と「単独セッションで完結可能か」で評価。
 
 #### 新機能候補
 

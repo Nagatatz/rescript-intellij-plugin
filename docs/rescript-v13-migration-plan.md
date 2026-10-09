@@ -12,7 +12,7 @@ This document records the plan for adapting this plugin to ReScript v13. **No co
 | Trigger for execution | v13.0.0 stable published on `npm:rescript` |
 | Sunset of v12 support (tentative) | 2 plugin releases (~6 months) after v13 stable, aligned with a plugin MAJOR bump |
 
-When the trigger condition is met, open a new branch from `main`, copy the `Section A`…`Section F` checklist below into a fresh `.steering/[YYYYMMDD]-NNN-rescript-v13-dual-support/tasklist.md`, and execute section-by-section.
+When the trigger condition is met, open a new branch from `main`, file a GitHub Issue for v13 dual support, copy the `Section A`…`Section F` checklist below into its Definition of Done (see `.claude/rules/issue-workflow.md`), and execute section-by-section.
 
 ## 2. Summary of v13 changes
 
@@ -189,7 +189,7 @@ These ideas surfaced during v13 research but are deferred to follow-up RFCs:
 - **Automated Belt → stdlib codemod**. Belt removal in v13 is partial; full automated migration is its own feature.
 - **Loop-context-aware highlighting for `break` / `continue`**. Plain keyword highlight is sufficient for v1; semantic-token-driven contextual highlight requires a new pass.
 - **Completion / inspection provider for `@@live` / `@@dead`**. Useful for dead code workflows but unrelated to v13 compatibility.
-- **Dropping v12 support**. Scheduled for a later MAJOR bump (~6 months after v13 stable). Tracked as a separate steering item at that time.
+- **Dropping v12 support**. Scheduled for a later MAJOR bump (~6 months after v13 stable). Tracked as a separate GitHub Issue at that time.
 - **Tauri / Relay / React adapter version bumps**. Verify compatibility post-stable; bump only when upstream supports v13.
 
 ## 6. References
