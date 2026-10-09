@@ -1,5 +1,5 @@
 // ── Overview ──────────────────────────────────────────────────────────
-// Reviewed: 2026-08-09 | Target: IntelliJ 2026.1.4+ (compiled against 2026.2.0.1)
+// Reviewed: 2026-08-09 | Target: IntelliJ 2026.1.4+ (compiled against 2026.2.3)
 //
 // The Kotlin compiler option `-jvm-default=no-compatibility` (see
 // build.gradle.kts) removes the DefaultImpls bridge methods that used to
@@ -53,7 +53,7 @@ com\.rescript\.plugin:.*:.*FileIncludeProvider.*acceptFile.*
 // Unchanged: Lsp4jClient, LspServerNotificationsHandler, LspServerState, and the
 // customization/* package — there are no LspClient-prefixed counterparts for these.
 //
-// The replacement API DOES exist on the current compile target (2026.2.0.1); an
+// The replacement API DOES exist on the current compile target (2026.2.3); an
 // earlier revision of this file wrongly claimed otherwise, and named the provider
 // `LspClientSupportProvider`, which does not exist. The migration is deferred to a
 // dedicated follow-up because it touches 13 files and changes method names, not just

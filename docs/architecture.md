@@ -9,7 +9,7 @@
 | Kotlin | 2.4.10 | プラグインの主要実装言語 |
 | JFlex | GrammarKit 2023.3.0.3 | レクサー定義・自動生成 |
 | Java | 25 (Temurin) | コンパイルターゲット。2026.2 のバイトコードが Java 25 のため JDK 25 が必須 |
-| IntelliJ Platform SDK | 2026.2.0.1 | プラグイン基盤 API |
+| IntelliJ Platform SDK | 2026.2.3 | プラグイン基盤 API |
 | LSP4J | IntelliJ Platform 内蔵 | LSP クライアント実装 |
 
 ### ビルド・品質ツール
