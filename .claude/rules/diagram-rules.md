@@ -1,5 +1,5 @@
 ---
-globs: ["docs/**/*.md", ".steering/**/*.md"]
+globs: ["docs/**/*.md"]
 ---
 
 # 図表・ダイアグラムルール

@@ -80,7 +80,7 @@ CI/CD は GitHub Actions で 10 ワークフロー（CI / Release / Docs / CodeQ
 
 | トリガー | 必ず Read する規約 |
 |---------|------------------|
-| **コード変更を伴う指示を受けたら、1 行も書く前に** | `.claude/rules/steering-workflow.md`（`.steering/` 作成・requirements/design/tasklist 承認・worktree） |
+| **コード変更を伴う指示を受けたら、1 行も書く前に** | `.claude/rules/issue-workflow.md`（Issue 確認・起票・DoD チェックリスト記載・worktree） |
 | **コミット / マージの直前** | `.claude/rules/definition-of-done.md`（Phase 1〜5 の全チェック索引。`definition-of-done-check` スキルでも代替可） |
 
 ### 状況依存で参照する規約・スキル
@@ -111,7 +111,7 @@ CI/CD は GitHub Actions で 10 ワークフロー（CI / Release / Docs / CodeQ
 コンパクション時は常に以下を保持すること:
 
 - 現在の作業ブランチと worktree のパス
-- 現在アクティブな `.steering/` ディレクトリのパスと `tasklist.md` の進捗
+- 現在対応中の Issue 番号と、その DoD チェックリストの進捗
 - 現在のセッション内で変更・新規作成したファイルの一覧
 - 発生したビルドエラー・テスト失敗の内容
 

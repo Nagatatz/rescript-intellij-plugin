@@ -6,13 +6,13 @@
 
 | ファイル | 用途 |
 |---|---|
-| [language.md](language.md) | 英語必須範囲と `.claude/` / `.steering/` / CLAUDE.md の exemption |
+| [language.md](language.md) | 英語必須範囲と `.claude/` / CLAUDE.md / Issue の exemption |
 
 ## 作業着手時 — 計画する
 
 | ファイル | 用途 |
 |---|---|
-| [steering-workflow.md](steering-workflow.md) | `.steering/` ディレクトリの作成と requirements/design/tasklist の承認フロー |
+| [issue-workflow.md](issue-workflow.md) | GitHub Issue の起票と DoD チェックリスト（tasklist の代替）の記載・更新フロー |
 | [definition-of-done.md](definition-of-done.md) | Phase 1〜5 で構成される「完了」の全チェック項目 |
 
 ## 実装中 — コードを書く
@@ -51,7 +51,7 @@
 
 ## 規約間の関係
 
-- 新しい作業を始めるときは **steering-workflow → definition-of-done** の順で確認する
+- 新しい作業を始めるときは **issue-workflow → definition-of-done** の順で確認する
 - 実装中は **code-comments + testing** を満たしながら進める
 - コミット前は **definition-of-done Phase 3** に列挙された検証項目を通過する
 - ドキュメント更新は **documentation.md** の「同期対象表」に沿って行う
