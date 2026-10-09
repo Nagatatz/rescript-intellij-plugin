@@ -161,4 +161,4 @@ jobs:
 | 8 | `expandCatchAllPatterns` | カーソルが switch の `_ =>` ケース上 | `_` を全コンストラクタに展開 | `rescript-editor-analysis` バイナリ由来 |
 | 9 | `applyUncurried` | uncurried 関数の curried 呼び出し（v10/v11 系） | `f(x)` → `f(. x)` | ReScript v11+ uncurried-by-default では発火しない（N/A） |
 
-設定の追加オーバーライドは不要。`@rescript/language-server` がインストール済みであれば、本プラグインは API レベルで全 9 種を受領・適用できる前提条件を満たしている。実機での個別動作（特に `06_removeUnusedCode` の reanalyze 連動と `07_extractLocalModuleToFile` の `CreateFile` リソース操作）は `.steering/20260427-004-lsp-code-action-verification/next-steps.md` に runIde 検証タスクとして記録している。
+設定の追加オーバーライドは不要。`@rescript/language-server` がインストール済みであれば、本プラグインは API レベルで全 9 種を受領・適用できる前提条件を満たしている。実機での個別動作（特に `06_removeUnusedCode` の reanalyze 連動と `07_extractLocalModuleToFile` の `CreateFile` リソース操作）は runIde 検証タスクとして [#92](https://github.com/Nagatatz/rescript-intellij-plugin/issues/92) で追跡している。

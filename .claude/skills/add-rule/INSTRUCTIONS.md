@@ -29,7 +29,7 @@
 | `testing.md` | テスト関連の規約 |
 | `code-comments.md` | コメント・ドキュメント記述の規約 |
 | `git-conventions.md` | Git・ブランチ・コミットの規約 |
-| `steering-workflow.md` | ステアリングワークフロー・実装プロセスの規約 |
+| `issue-workflow.md` | Issue ワークフロー・DoD・実装プロセスの規約 |
 | `documentation.md` | ドキュメント管理・図表の規約 |
 | **新規ファイル** | 上記いずれにも該当しない場合 |
 

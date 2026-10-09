@@ -10,7 +10,6 @@ cat > "$STATE_FILE" << EOF
 - **Worktrees:** $(git worktree list 2>/dev/null | grep -v "^$" || echo "none")
 - **Modified files:** $(git diff --name-only 2>/dev/null | head -20 || echo "none")
 - **Staged files:** $(git diff --cached --name-only 2>/dev/null | head -20 || echo "none")
-- **Active steering:** $(ls -d .steering/2026* 2>/dev/null | tail -1 || echo "none")
 - **Timestamp:** $(date '+%Y-%m-%d %H:%M:%S')
 EOF
 

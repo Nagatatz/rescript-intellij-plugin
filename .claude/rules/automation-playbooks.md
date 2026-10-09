@@ -62,17 +62,17 @@ Wizard の 21 テンプレート（および将来の追加分）に対して、
 
 - N 件の独立した実装タスクがあり、各タスクが他タスクのコードに依存しない
 - 各タスクのスコープが揃っている（テンプレート 1 件 + 対応テスト + EN/JA docs）
-- ステアリング番号採番ルール（`steering-workflow.md` の「ステアリング番号採番」）に従い、衝突を防ぐロックを用意する
+- 各項目に 1 つずつ GitHub Issue が起票済み（または起票可能）である（`issue-workflow.md` 参照）
 
 ### ワークフロー
 
 1. ユーザーから N 件の作業項目リストと共通設計制約を受け取る
 2. メインリポジトリで `git fetch origin && git pull --ff-only origin main` を実行
-3. `.steering/` の最新番号を確認し、N 件分の番号を `.claude/steering-lock.json` に予約する（並列セッションが番号を奪い合わないようにする）
+3. N 件分の Issue を起票し、各 Issue に DoD を記載する（Issue 番号は GitHub が採番するため衝突しない）
 4. 各項目について次を実行:
    - `EnterWorktree` で `.claude/worktrees/template-<key>/` を作成
-   - サブエージェントに「ステアリング作成 → 実装 → テスト → EN/JA docs → コミット」を一気通貫で依頼
-   - 各サブエージェントは自身に割り当てられたステアリング番号のみを使用する
+   - サブエージェントに「実装 → テスト → EN/JA docs → コミット → DoD 更新」を一気通貫で依頼
+   - 各サブエージェントは自身に割り当てられた Issue のみを扱う
 5. 全エージェント終了後、コーディネーターが各ブランチで `./gradlew clean buildPlugin test` を実行し、緑のものから順に PR を作成
 6. 失敗ブランチはダッシュボード（テキスト出力）で報告し、ユーザーに対応方針を確認
 
@@ -81,8 +81,8 @@ Wizard の 21 テンプレート（および将来の追加分）に対して、
 **以下は強制的な行動指示であり、例外なく従うこと。**
 
 - 共有ファイル（`plugin.xml`、`CLAUDE.md`、`README.md`、`docs/repository-structure.md`）への変更は **コーディネーターのみ** が行う。サブエージェントに直接編集させると衝突する
-- ステアリング番号は `.claude/steering-lock.json` で予約してから採番する。予約なしの並列着手を禁止する
-- 各 worktree は `git fetch origin` 実施後の最新 `origin/main` から作る（`steering-workflow.md` の「worktree 作成前の必須前処理」を必ず遵守）
+- Issue と DoD を用意してから着手する。Issue なしの並列着手を禁止する
+- 各 worktree は `git fetch origin` 実施後の最新 `origin/main` から作る（`issue-workflow.md` の「worktree 作成前の必須前処理」を必ず遵守）
 - 失敗ブランチのコードを **強制マージしない**。コーディネーターは緑のブランチのみ PR 化する
 - 全 PR を一括 squash merge する場合でも、コミット粒度は機能単位を保つ（`git-conventions.md` 参照）
 
@@ -98,7 +98,7 @@ Wizard の 21 テンプレート（および将来の追加分）に対して、
   - validation library 選択は既存 17 テンプレートの既定に揃える
   - EN/JA docs 同時更新（sphinx-po-ja-sync 参照）
   - 共有ファイル編集はコーディネーター集約
-N 件分のステアリング番号を .claude/steering-lock.json に予約してから着手する。
+N 件分の Issue を起票し、DoD を記載してから着手する。
 全 worktree 完了後、緑のブランチについて PR を作成し、ダッシュボードで集計報告する。
 ```
 
@@ -107,6 +107,6 @@ N 件分のステアリング番号を .claude/steering-lock.json に予約し�
 ## 共通の運用ルール
 
 - **セッションごとに 1 プレイブックのみ起動する。** Coverage ループとテンプレートスワームを同時に走らせない
-- 進捗ファイル（`coverage-progress.json` / `steering-lock.json`）は **コミットしない**。ローカル状態として扱う
+- 進捗ファイル（`coverage-progress.json`）は **コミットしない**。ローカル状態として扱う
 - usage limit や PC クラッシュからの復旧時は、必ず進捗ファイルを先に読み、二重実行を避ける
 - 自律ループに入る前に、ユーザーから「開始してよい」明示的な合図を得ること。本ルールは仕様書であり、自動発火を許可するものではない

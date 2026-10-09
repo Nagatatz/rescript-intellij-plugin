@@ -1,7 +1,7 @@
 ---
 myst:
   html_meta:
-    "keywords": "claude code, ai development, rules, steering"
+    "keywords": "claude code, ai development, rules, github issues, definition of done"
 ---
 
 # Claude Code Development Workflow
@@ -13,7 +13,7 @@ This guide explains how to use [Claude Code](https://docs.anthropic.com/en/docs/
 Claude Code is Anthropic's CLI tool for AI-assisted software development. The template configures it with:
 
 - **Rules** — Enforce coding standards (testing, comments, git conventions)
-- **Skills** — Automate workflows (steering, review, commit)
+- **Skills** — Automate workflows (review, commit, session recovery)
 - **Hooks** — Guard against mistakes (block force-push, validate edits)
 - **Agents** — Delegate specialized tasks (code review, build resolution)
 - **Commands** — Multi-step project setup workflows
@@ -28,10 +28,9 @@ All configuration lives in the `.claude/` directory at the project root.
 │   ├── testing.md
 │   ├── code-comments.md
 │   ├── git-conventions.md
-│   ├── steering-workflow.md
+│   ├── issue-workflow.md
 │   └── documentation.md
 ├── skills/               # Slash-command workflows
-│   ├── steering/         # /steering — plan/implement/review cycle
 │   ├── catchup/          # /catchup — restore session state
 │   ├── review/           # /review — code review
 │   ├── review-docs/      # /review-docs — document quality review
@@ -49,7 +48,6 @@ All configuration lives in the `.claude/` directory at the project root.
 ├── hooks/                # Shell scripts triggered by events
 │   ├── validate-bash.sh
 │   ├── validate-file-edit.sh
-│   ├── check-tasklist.sh
 │   ├── pre-compact-save.sh
 │   ├── session-info.sh
 │   └── check-prohibition-language.sh
@@ -66,8 +64,8 @@ Rules are Markdown files in `.claude/rules/` that define mandatory behavioral co
 | `testing.md` | Require tests for all code changes. Tests go in `src/test/` mirroring source structure |
 | `code-comments.md` | Require KDoc comments on classes and non-trivial methods in English |
 | `git-conventions.md` | Emoji commit prefixes, feature-unit commit granularity, branch naming |
-| `steering-workflow.md` | Create `.steering/` docs before writing code; use worktrees for isolation |
-| `documentation.md` | Separate permanent docs (`docs/`) from work-unit docs (`.steering/`) |
+| `issue-workflow.md` | File or reuse a GitHub Issue with a Definition of Done checklist before writing code; use worktrees for isolation |
+| `documentation.md` | Separate permanent docs (`docs/`) from work-unit records (GitHub Issues) |
 
 Rules use imperative language and are treated as non-negotiable constraints. To add a new rule, create a `.md` file in `.claude/rules/` and reference it from `CLAUDE.md`.
 
@@ -79,9 +77,6 @@ Skills are slash-command workflows invoked with `/<skill-name>`. Each skill has 
 
 | Skill | Command | Description |
 |-------|---------|-------------|
-| Steering | `/steering plan <feature>` | Create requirements, design, and tasklist documents |
-| | `/steering implement <path>` | Execute tasklist with progress tracking |
-| | `/steering review <path>` | Post-implementation reflection |
 | Catchup | `/catchup` | Restore session state after `/clear` or context compaction |
 | Review | `/review` | Run code review on uncommitted changes |
 | Git Workflow | `/git-workflow branch` | Create branch following naming conventions |
@@ -102,24 +97,8 @@ Skills are slash-command workflows invoked with `/<skill-name>`. Each skill has 
 | Skill | Command | Description |
 |-------|---------|-------------|
 | PRD Writing | `/prd-writing` | Create product requirements document from template |
-| Add Feature | `/add-feature` | Full feature implementation workflow (steering + code + tests + commit) |
+| Add Feature | `/add-feature` | Full feature implementation workflow (code + tests + commit) |
 | Add Rule | `/add-rule` | Add a new rule file to `.claude/rules/` |
-
-### Example: Using the Steering Skill
-
-```
-# 1. Plan a feature
-> /steering plan jsx-highlighting
-
-# Claude creates .steering/20260222-001-jsx-highlighting/ with:
-#   requirements.md, design.md, tasklist.md
-
-# 2. Review and approve the documents, then implement
-> /steering implement .steering/20260222-001-jsx-highlighting
-
-# 3. After implementation, review
-> /steering review .steering/20260222-001-jsx-highlighting
-```
 
 ## Commands
 
@@ -168,7 +147,6 @@ Hooks are shell scripts that run automatically in response to Claude Code events
 | `validate-bash.sh` | PreToolUse (Bash) | **Blocks** `git add .`, `git push --force`, `rm -rf` |
 | `validate-file-edit.sh` | PreToolUse (Edit/Write) | **Blocks** edits to auto-generated files (customizable) |
 | `check-prohibition-language.sh` | PostToolUse (Edit/Write) | **Blocks** negative phrasing in rule files |
-| `check-tasklist.sh` | Stop | **Warns** if tasklist has incomplete tasks |
 | `pre-compact-save.sh` | PreCompact | Saves session state to `.claude/session-state.md` |
 | `session-info.sh` | SessionStart | Displays dev environment info (branch, tool versions) |
 
@@ -216,9 +194,6 @@ The shared settings file configures permissions and hooks for all developers:
     "PreToolUse": [
       { "matcher": "Bash", "hooks": [{ "command": ".claude/hooks/validate-bash.sh" }] },
       { "matcher": "Edit|Write", "hooks": [{ "command": ".claude/hooks/validate-file-edit.sh" }] }
-    ],
-    "Stop": [
-      { "hooks": [{ "command": ".claude/hooks/check-tasklist.sh" }] }
     ]
   }
 }
@@ -253,28 +228,24 @@ The `docs/` directory contains permanent project documentation that evolves with
 
 These documents are referenced from `CLAUDE.md` using `@docs/filename.md` syntax, making them available as context in every Claude Code session.
 
-## Steering Workflow
+## Issue Workflow
 
-The steering workflow is the core development process. Every non-trivial code change follows this cycle:
+The issue workflow is the core development process. Every non-trivial code change follows this cycle:
 
 ### 1. Plan
 
-Create a `.steering/` directory with three documents:
+Reuse the existing GitHub Issue or file a new one, then write a **Definition of Done** checklist on it:
 
-```
-.steering/20260222-001-jsx-highlighting/
-├── requirements.md   # What to build (user-approved)
-├── design.md         # How to build it (user-approved)
-└── tasklist.md       # Step-by-step tasks (user-approved)
-```
+- Issues you filed yourself: add a `## Definition of Done` section to the issue body
+- Issues filed by others: post the checklist as a comment, leaving the original report untouched
 
-The directory name format is `[YYYYMMDD]-[NNN]-[title]` where NNN is a sequential number.
+The checklist lists acceptance criteria and one section per mergeable unit (implementation + tests + docs). Implementation starts right after the checklist is written; review happens on the pull request and at merge confirmation.
 
 ### 2. Implement
 
-Work through `tasklist.md` one task at a time:
+Work through the Definition of Done one item at a time:
 
-- Mark `[ ]` → `[x]` when starting each task (not when finishing)
+- Tick `[ ]` → `[x]` on the issue as each item completes, editing the checklist in place
 - Implementation happens in a **git worktree** (isolated from main)
 - Commit at feature-unit granularity (implementation + test + config = 1 commit)
 
@@ -285,16 +256,16 @@ After implementation:
 - Run `/review` for automated code review
 - Verify build passes: `./gradlew buildPlugin`
 - Verify tests pass: `./gradlew test`
-- Mark all tasklist items as `[x]`, including the merge task
-- Merge to main with user approval
+- Confirm every Definition of Done item is `[x]`
+- Merge to main with user approval, referencing the issue (`Closes #<number>`)
 
 ### Session Recovery
 
 If context is compacted or cleared, use `/catchup` to restore:
 
 1. Reads saved state from `.claude/session-state.md`
-2. Finds the latest `.steering/*/tasklist.md`
-3. Reports current branch, modified files, and next task
+2. Identifies the active issue and reads its Definition of Done
+3. Reports current branch, modified files, and next unchecked item
 
 ## Customization
 

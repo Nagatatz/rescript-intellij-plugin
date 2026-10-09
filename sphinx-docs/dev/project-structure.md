@@ -18,7 +18,6 @@ rescript-intellij-plugin/
 │   └── test/                              # Test code
 ├── sphinx-docs/                           # Documentation (Sphinx)
 ├── docs/                                  # Internal design documents
-├── .steering/                             # Steering workflow documents
 ├── .github/workflows/                     # CI/CD workflows
 ├── build.gradle.kts                       # Gradle build script
 ├── gradle.properties                      # Version and platform config

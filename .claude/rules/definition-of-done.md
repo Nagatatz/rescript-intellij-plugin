@@ -8,15 +8,15 @@
 
 ## Phase 1: 計画
 
-コードを書く前に、ステアリングワークフローに従って計画を完了させる。
+コードを書く前に、Issue ワークフローに従って計画を記録する。
 
-→ `.claude/rules/steering-workflow.md` の全手順（`.steering/[YYYYMMDD]-[NNN]-[開発タイトル]/` 作成、requirements / design / tasklist の承認、`EnterWorktree`）
+→ `.claude/rules/issue-workflow.md` の全手順（Issue の確認・起票、DoD チェックリストの記載、`EnterWorktree`）
 
 ---
 
 ## Phase 2: 実装
 
-承認された `tasklist.md` に従い、機能を実装する。
+Issue に記載した DoD チェックリストに従い、機能を実装する。
 
 - コード品質（KDoc） → `.claude/rules/code-comments.md`
 - テスト配置・命名・免除基準 → `.claude/rules/testing.md`
@@ -24,10 +24,10 @@
 - JFlex レクサー編集時の制約 → `.claude/rules/flex-rules.md`
 - Extension Point 登録 → `.claude/rules/plugin-xml-rules.md`
 
-### tasklist.md リアルタイム更新（DoD-owned）
+### Issue DoD のリアルタイム更新（DoD-owned）
 
-- [ ] タスク着手時に即座に `[ ]` → `[x]` に更新している
-- [ ] コミットタスクは `[x]` 更新後にコミットしている（更新がコミットに含まれるように）
+- [ ] 項目が完了したら即座に Issue 上の DoD チェックボックスを `[ ]` → `[x]` に更新している
+- [ ] DoD を記載した場所（Issue 本文、または DoD コメント）を編集して更新し、進捗コメントを積み増していない
 
 ---
 
@@ -71,17 +71,17 @@
 
 すべてのタスクが完了し、ブランチを `main` にマージする前に確認する。
 
-### ステアリング完了（DoD-owned）
+### Issue DoD 完了（DoD-owned）
 
-- [ ] tasklist.md のすべてのタスクが `[x]` になっている
-- [ ] requirements.md の受け入れ条件をすべて満たしている
+- [ ] Issue の DoD のすべての項目（マージ確認項目を除く）が `[x]` になっている
+- [ ] DoD の「受け入れ条件」をすべて満たしている
 
 ### マージ確認（DoD-owned）
 
 - [ ] `AskUserQuestion` でユーザーにマージ可否を確認した
 - [ ] セキュリティに影響する変更がある場合、その旨をマージ確認時に明示した
 
-マージ手順自体は → `.claude/rules/steering-workflow.md` の「worktree マージ・クリーンアップ手順」
+マージ手順自体は → `.claude/rules/issue-workflow.md` の「worktree マージ・クリーンアップ手順」
 
 ---
 
@@ -89,7 +89,7 @@
 
 `main` へのマージが完了したら、worktree のクリーンアップを実行する。
 
-→ `.claude/rules/steering-workflow.md` の「worktree マージ・クリーンアップ手順」および「残存 worktree の手動クリーンアップ」
+→ `.claude/rules/issue-workflow.md` の「worktree マージ・クリーンアップ手順」および「残存 worktree の手動クリーンアップ」
 
 ---
 
@@ -100,17 +100,16 @@
 - `git add .` / `git add -A` による一括ステージング（個別ファイル指定を使うこと）
 - `--no-verify` によるフック回避
 - worktree 内での `git worktree remove` 実行（CWD が壊れる）
-- tasklist.md を `[x]` に更新せずにコミットすること
+- Issue の DoD を更新せずに完了を宣言すること
 - KDoc が欠けた状態でのコミット
 
 ---
 
 ## 例外（DoD-owned — フェーズ横断の免除マトリクス）
 
-以下の変更は DoD の一部を免除してよい。ステアリング要否・`main` 直接コミット可否・DoD 免除の 3 軸で整理する。ステアリング省略の詳細定量基準は下表の「軽微な修正」行を参照。
+以下の変更は DoD の一部を免除してよい。Issue 起票要否・`main` 直接コミット可否・DoD 免除の 3 軸で整理する。Issue 省略の詳細定量基準は下表の「軽微な修正」行を参照。
 
-| 変更種別 | ステアリング省略 | main 直接コミット可 | 免除される DoD フェーズ/項目 |
+| 変更種別 | Issue 省略 | main 直接コミット可 | 免除される DoD フェーズ/項目 |
 |---------|:--------------:|:-----------------:|--------------------------|
-| **軽微な修正** — 以下の定量基準を **すべて** 満たすこと: ① 変更ファイル数 ≤ 3 ② 変更行数（追加+削除）≤ 50 ③ 新規クラス・ファイルなし ④ 新規 EP なし ⑤ public API 不変。典型例: タイポ修正・1行の設定変更・コメント追加・定数値修正 | ○ | ○ | Phase 1（ステアリング）、Phase 2 テスト、Phase 3 ドキュメント同期 |
+| **軽微な修正** — 以下の定量基準を **すべて** 満たすこと: ① 変更ファイル数 ≤ 3 ② 変更行数（追加+削除）≤ 50 ③ 新規クラス・ファイルなし ④ 新規 EP なし ⑤ public API 不変。典型例: タイポ修正・1行の設定変更・コメント追加・定数値修正 | ○ | ○ | Phase 1（Issue 起票）、Phase 2 テスト、Phase 3 ドキュメント同期 |
 | **ドキュメントのみの変更**（CLAUDE.md / `docs/` / `.claude/` 配下、Kotlin ソースなし） | △（定量基準を満たす場合のみ） | ○ | Phase 2（コード品質/テスト）、Phase 3（EP 登録/セキュリティ） |
-| **ステアリングドキュメントのみ**（`.steering/` 配下のみ） | — | ○ | Phase 2〜3 の全項目、Phase 4〜5 |
