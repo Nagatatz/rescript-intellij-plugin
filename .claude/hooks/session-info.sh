@@ -20,14 +20,6 @@ else
   echo "Sync:   origin/main not tracked locally"
 fi
 
-# Most recent .steering/ directory — surfaces the next free number to avoid collisions.
-if [ -d .steering ]; then
-  LATEST_STEERING=$(ls -1 .steering 2>/dev/null | grep -E '^[0-9]{8}-[0-9]{3}-' | sort | tail -1)
-  if [ -n "$LATEST_STEERING" ]; then
-    echo "Steering: latest = $LATEST_STEERING"
-  fi
-fi
-
 # Active worktrees (excluding the main one) — flag potential parallel sessions.
 WORKTREE_COUNT=$(git worktree list --porcelain 2>/dev/null | grep -c '^worktree ' || echo 0)
 if [ "$WORKTREE_COUNT" -gt 1 ]; then
