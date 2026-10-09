@@ -135,6 +135,9 @@ class RescriptTypedHandler : TypedHandlerDelegate() {
         text: CharSequence,
         gtIndex: Int,
     ): String? {
+        // Pipe and function arrows cannot terminate a JSX opening tag.
+        if (gtIndex > 0 && (text[gtIndex - 1] == '-' || text[gtIndex - 1] == '=')) return null
+
         // Scan backward from '>' to find '<'
         var i = gtIndex - 1
 
@@ -163,11 +166,17 @@ class RescriptTypedHandler : TypedHandlerDelegate() {
                 }
 
                 '{' -> {
-                    depth++
+                    if (depth == 0) return null
+                    depth--
                 }
 
                 '}' -> {
-                    depth--
+                    depth++
+                }
+
+                // An earlier completed tag or type argument bounds the backward scan.
+                '>' -> {
+                    if (depth == 0) return null
                 }
             }
             i--
