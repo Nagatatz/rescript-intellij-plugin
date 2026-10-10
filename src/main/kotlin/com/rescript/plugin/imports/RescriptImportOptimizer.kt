@@ -1,74 +1,45 @@
 package com.rescript.plugin.imports
 
 import com.intellij.lang.ImportOptimizer
-import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
-import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
-import com.rescript.plugin.settings.RescriptProjectSettings
 
 /**
- * Optimizes imports in ReScript files by removing duplicate and unused `open` statements.
+ * Removes adjacent opens only when their identical local module target is proven.
  *
- * Invoked via Ctrl+Alt+O (Optimize Imports). Scans top-level `open` statements,
- * identifies duplicates by module path, and optionally detects unused opens via
- * LSP diagnostic warnings. Deletes matched statements in reverse offset order to
- * preserve offsets during deletion.
+ * Repeated paths separated by code, unknown modules and unversioned diagnostic warnings
+ * are preserved. The collected edit is discarded if the source changes before application.
  *
- * @see RescriptUnusedOpenDetector for LSP-based unused open detection
- * @see RescriptImportUtil for module path extraction
+ * @see RescriptOpenRemovalProof
  */
 class RescriptImportOptimizer : ImportOptimizer {
     override fun supports(file: PsiFile): Boolean = file is RescriptFile
 
     override fun processFile(file: PsiFile): ImportOptimizer.CollectingInfoRunnable {
-        // Phase 1: Detect duplicate open statements
-        val openStatements = file.children.filter { it.node?.elementType == RescriptElementTypes.OPEN_STATEMENT }
-        val seen = mutableSetOf<String>()
-        val duplicates = mutableListOf<PsiElement>()
-
-        for (openStmt in openStatements) {
-            val modulePath = RescriptImportUtil.extractModulePath(openStmt)
-            if (modulePath.isNotEmpty()) {
-                if (!seen.add(modulePath)) {
-                    duplicates.add(openStmt)
-                }
-            }
-        }
-
-        // Phase 2: Detect unused open statements via LSP diagnostics
-        val unusedOpens = mutableListOf<PsiElement>()
-        val removeUnusedEnabled =
-            try {
-                RescriptProjectSettings.getInstance(file.project).removeUnusedOpensEnabled
-            } catch (_: Exception) {
-                // Settings service may not be available in test context
-                true
-            }
-
-        if (removeUnusedEnabled) {
-            val detected = RescriptUnusedOpenDetector.findUnusedOpens(file)
-            // Exclude any that are already in duplicates to avoid double-deletion
-            val duplicateRanges = duplicates.mapTo(mutableSetOf()) { it.textRange }
-            for (open in detected) {
-                if (open.textRange !in duplicateRanges) {
-                    unusedOpens.add(open)
-                }
-            }
-        }
-
-        // Merge both lists, deduplicate by text range
-        val allToRemove = (duplicates + unusedOpens).distinctBy { it.textRange }
+        val snapshot = file.text
+        val duplicates = RescriptOpenRemovalProof.findRedundantOpens(file)
+        val removals = duplicates.mapNotNull { RescriptOpenRemovalProof.removalRange(it) }
 
         return object : ImportOptimizer.CollectingInfoRunnable {
+            private var removedCount = 0
+
             override fun run() {
-                // Delete in reverse offset order to preserve earlier offsets
-                for (element in allToRemove.sortedByDescending { it.textRange.startOffset }) {
-                    element.delete()
+                val document = file.viewProvider.document ?: return
+                if (!file.isValid || !PsiDocumentManager.getInstance(file.project).isCommitted(document) ||
+                    file.text != snapshot || document.text != snapshot ||
+                    duplicates.any { !it.isValid }
+                ) {
+                    return
+                }
+                // Delete in reverse offset order to preserve earlier offsets.
+                for (range in removals.sortedByDescending { it.startOffset }) {
+                    document.deleteString(range.startOffset, range.endOffset)
+                    removedCount++
                 }
             }
 
-            override fun getUserNotificationInfo(): String = buildNotificationMessage(duplicates.size, unusedOpens.size)
+            override fun getUserNotificationInfo(): String = buildNotificationMessage(removedCount, 0)
         }
     }
 

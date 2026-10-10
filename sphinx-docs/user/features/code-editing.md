@@ -899,37 +899,33 @@ Press `Ctrl+Alt+O` to optimize imports in the current file.
 
 ### How It Works
 
-Import optimization runs in two phases:
+Import optimization removes an adjacent repeated `open` only when its target is a proven local module in the same scope. Currently, the supported modules contain literal `let` bindings only and export no modules. Comments and whitespace between the opens are allowed.
 
-1. **Duplicate detection** --- Scans top-level `open` statements and removes any that share the same module path as an earlier `open`
-2. **Unused open detection** --- Uses LSP diagnostic warnings to identify `open` statements whose exports are never referenced in the file
-
-Both phases run together, and a notification summarizes the result (e.g., "Removed 1 duplicate and 2 unused open statement(s)").
+Reopening a module after another open or declaration can change reference resolution, so it is preserved. Unknown module targets, aliases and nested module exports are also preserved. The inspection and quick fix use the same proof, and the quick fix rechecks the current source before editing.
 
 ### Configuration
 
-Unused open removal can be toggled in **Settings** > **Languages & Frameworks** > **ReScript** via the **Remove unused opens** checkbox. When disabled, only duplicate opens are removed.
+Automatic removal based only on an unused-open warning is suspended because the warning may belong to an older source version. The stored **Remove unused opens** preference is retained and its control is disabled; it currently does not authorize deletion without a current semantic proof. Unknown cases leave the source unchanged.
 
 ### Example
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-open Belt
-open Belt.Array
-open Belt          // duplicate
-open Js.Promise    // unused
+module A = {let value = 1}
+open A
+open A
+Console.log(value)
 ```
 :::
-:::{tab-item} After Ctrl+Alt+O
+:::{tab-item} After
 ```rescript
-open Belt
-open Belt.Array
+module A = {let value = 1}
+open A
+Console.log(value)
 ```
 :::
 ::::
-
-A single shortcut cleans up all redundant and unused `open` statements, keeping your imports tidy without manually scanning the file.
 
 ## Rename
 
