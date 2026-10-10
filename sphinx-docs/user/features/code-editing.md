@@ -485,22 +485,26 @@ let x = a + b
 
 ### Remove Redundant Qualifier
 
-Remove unnecessary module path qualifiers when the module is already opened. Place the caret on a qualified identifier and press `Alt+Enter`.
+Remove a qualifier only when a preceding `open` and a directly declared local module prove that the unqualified value names the same binding. Place the caret on the module identifier and press `Alt+Enter`. The module must have unique scalar literal exports, and the file must use the supported top-level declaration/value syntax.
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-open Belt.Array
-Belt.Array.map(arr, fn)
+module A = { let value = 1 }
+open A
+let result = A.value
 ```
 :::
 :::{tab-item} After
 ```rescript
-open Belt.Array
-map(arr, fn)
+module A = { let value = 1 }
+open A
+let result = value
 ```
 :::
 ::::
+
+External modules, aliases/re-exports, later or competing opens, `include`, shadowed names, nested scopes, type annotations, and unsupported syntax are refused. Strings and comments do not create opens or references. Intervening comments are retained, one undo restores the source, and a document change after availability invalidates the prepared edit.
 
 ### Expand Open into Qualified References
 
