@@ -142,7 +142,7 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Flatten nested switch | Collapse a `switch` arm whose body is solely a nested `switch` over the arm binding into single-level arms |
 | Case split | Expand a pattern variable into all constructor cases |
 | Convert to labeled arguments | Convert positional arguments to labeled arguments |
-| Remove unnecessary parentheses | Remove redundant parentheses around expressions |
+| Remove unnecessary parentheses | Remove parentheses around proven scalar initializers |
 | Remove redundant qualifier | Remove unnecessary module path qualifiers |
 | Expand open into qualified references | Rewrite members introduced by a project-local `open M` back into explicit `M.name` form and remove the `open` |
 | Convert filter+map to filterMap | Convert `->Array.filter(f)->Array.map(g)` to `->Array.filterMap(...)` |
@@ -468,20 +468,22 @@ makeUser(~name="Alice", ~age=30, ~role="admin")
 
 ### Remove Unnecessary Parentheses
 
-Remove redundant parentheses around expressions. Place the caret on a parenthesized expression and press `Alt+Enter`.
+Remove parentheses around a scalar literal or single identifier that forms the complete initializer of a simple `let` binding. Place the caret on the enclosing parentheses and press `Alt+Enter`. Strings and comments are preserved, and the edit can be undone once.
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-let x = (a + b)
+let x = (42)
 ```
 :::
 :::{tab-item} After
 ```rescript
-let x = a + b
+let x = 42
 ```
 :::
 ::::
+
+Calls, tuples, unit values, lambda parameters, patterns, annotations, nested groups and operator expressions (including comparisons and pipes) are refused. Files containing type/module/external declarations, annotations, templates or JSX are outside the supported subset. The action leaves the code unchanged whenever it cannot confirm that the parentheses are redundant.
 
 ### Remove Redundant Qualifier
 
