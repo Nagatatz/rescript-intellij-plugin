@@ -245,20 +245,25 @@ These local inspections run instantly without the Language Server, catching comm
 
 ### Mutability Diagnostics
 
-Detects `ref` bindings that are never reassigned with `:=`. If a mutable reference is created but never mutated, it can be simplified to a plain `let` binding.
+Offers **Remove unnecessary ref** only for local scalar literal references inside braced function bodies when every use is a direct `.contents` read. The fix updates the initializer and every read together in one undo step. Writes (`:=` or `.contents =`), aliases, box arguments or returns, exports, closures, shadowing, `open`/`include`, opaque interop or attributes anywhere in the file, nonliteral initializers, and unknown syntax are refused. Any document change after inspection invalidates the prepared fix.
 
 ::::{tab-set}
 :::{tab-item} Before (warning detected)
 ```rescript
-let counter = ref(0)
-// counter is never reassigned with :=
-let value = counter.contents
+let run = () => {
+  let counter = ref(0)
+  let next = counter.contents + 1
+  counter.contents + next
+}
 ```
 :::
 :::{tab-item} After (quick fix applied)
 ```rescript
-let counter = 0
-let value = counter
+let run = () => {
+  let counter = 0
+  let next = counter + 1
+  counter + next
+}
 ```
 :::
 ::::

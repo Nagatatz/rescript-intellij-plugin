@@ -52,7 +52,7 @@ rescript-intellij-plugin/
 | `spellcheck/` | スペルチェック | `RescriptSpellcheckingStrategy` |
 | `completion/` | Postfix Completion、Record/Variant Placeholder 補完（型注釈付き値位置でリテラル雛形を提示、純ロジック 3 分離） | `RescriptPostfixTemplateProvider`, `RescriptPlaceholderCompletionContributor`, `RescriptTypeAnnotationContext`, `RescriptPlaceholderTypeResolver`, `RescriptPlaceholderBuilder` |
 | `analysis/` | reanalyze デッドコード分析 | `RescriptReanalyzeAnnotator` |
-| `inspection/` | コードインスペクション（重複 open、空モジュール、JSX 開閉タグ不一致、シグネチャ同期等） | `RescriptDuplicateOpenInspection`, `RescriptMismatchedJsxTagInspection`, `RescriptSignatureSyncInspection` |
+| `inspection/` | コードインスペクション（重複 open、空モジュール、JSX 開閉タグ不一致、シグネチャ同期、局所スカラー ref と全 contents 読み取りの安全な一括除去） | `RescriptMutabilityInspection`, `RescriptRefRemovalPlanner`, `RescriptDuplicateOpenInspection`, `RescriptMismatchedJsxTagInspection`, `RescriptSignatureSyncInspection` |
 | `quickfix/` | クイックフィックス（未解決参照、関数生成等） | `RescriptAddOpenQuickFix`, `RescriptGenerateFunctionQuickFix` |
 | `preview/` | コンパイル済み JS プレビュー | `RescriptCompiledJsPreviewToolWindowFactory` |
 | `hierarchy/` | モジュール階層ビュー | `RescriptModuleHierarchyProvider` |

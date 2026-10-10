@@ -435,6 +435,7 @@ flowchart TD
 | `com.intellij.localInspection` | `RescriptDuplicateOpenInspection` | 重複 open 検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptEmptyModuleInspection` | 空モジュール検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMismatchedJsxTagInspection` | JSX 開閉タグ名不一致検出 | 実装済み |
+| `com.intellij.localInspection` | `RescriptMutabilityInspection` | braced 関数内の局所スカラー ref と全 `.contents` 読み取りを一括除去。`RescriptRefRemovalPlanner` の lexer scope/identity 証明と文書全体 snapshot により書き込み・alias・export・closure・shadowing・file 内の opaque interop 宣言・不明構文を拒否 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMissingConfigInspection` | rescript.json 未検出警告 | 実装済み |
 | `<action>` | `RescriptSwitchFileAction` | `.res`/`.resi` ファイル切り替え (Alt+O) | 実装済み |
 | `com.intellij.defaultLiveTemplates` | `liveTemplates/ReScript.xml` | Live Templates (21 スニペット) | 実装済み |
