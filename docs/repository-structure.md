@@ -87,7 +87,7 @@ rescript-intellij-plugin/
 | `navbar/` | ナビゲーションバー | `RescriptStructureAwareNavbar` |
 | `ppx/` | PPX 展開ビューツールウィンドウ（`@annotation` を `RescriptSyntaxHighlighter.ANNOTATION` の色で `JEditorPane` HTML レンダリング） | `RescriptPpxViewToolWindowFactory`, `RescriptPpxViewPanel` |
 | `projectview/` | Project View ネスト表示・装飾 | `RescriptTreeStructureProvider`, `RescriptProjectViewNodeDecorator` |
-| `repl/` | REPL ツールウィンドウ | `RescriptReplToolWindowFactory`, `RescriptReplPanel` |
+| `repl/` | REPL tool window with per-run temporary file ownership and cleanup | `RescriptReplToolWindowFactory`, `RescriptReplPanel`, `RescriptReplExecutor` |
 | `scratch/` | スクラッチファイル | `RescriptScratchRootType`, `RescriptScratchCreationHelper` |
 | `typeinfo/` | 型情報ツールウィンドウ（hover 由来の型シグネチャを `EditorTextField` + `RescriptFileType` の viewer モードで表示し、エディタと同じ色付け） | `RescriptTypeInfoToolWindowFactory`, `RescriptTypeInfoPanel` |
 | `worksheet/` | Worksheet モード（.resw） | `RescriptWorksheetFileType`, `RescriptWorksheetRunner` |

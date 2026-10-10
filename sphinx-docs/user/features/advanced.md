@@ -1524,10 +1524,12 @@ Js.log(greeting)
 
 Each execution is isolated:
 
-1. Creates a temporary `.res` file with the user code
+1. Creates a uniquely named temporary `.res` file with the user code
 2. Compiles with `npx rescript build`
 3. Executes the compiled JavaScript with `node`
 4. Displays stdout/stderr in the output area
+
+Each run reserves its own source, JavaScript, and source map paths before compilation and removes only those files afterwards, including when compilation or execution fails. Existing project files and symlinks are preserved.
 
 ### Requirements
 

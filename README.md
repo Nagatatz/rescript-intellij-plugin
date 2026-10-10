@@ -138,7 +138,7 @@
 - **Console links** — Clickable `file:line` links in compiler output
 - **Code formatting** — Format via `rescript format` CLI (`Cmd+Option+L`)
 - **Scratch file** — Run ReScript scratch files for quick experimentation
-- **REPL** — Interactive ReScript execution environment in a tool window
+- **REPL** — Interactive ReScript execution environment in a tool window, using unique temporary files and preserving existing project files
 - **Worksheet mode** — Interactively evaluate entire `.resw` files with inline results
 - **Build watch prompt** — Suggestion balloon at project open to start `rescript watch`
 

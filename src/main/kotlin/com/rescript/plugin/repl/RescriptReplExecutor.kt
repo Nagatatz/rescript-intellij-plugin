@@ -1,6 +1,8 @@
 package com.rescript.plugin.repl
 
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
 import java.util.concurrent.TimeUnit
 
 /**
@@ -14,9 +16,6 @@ object RescriptReplExecutor {
     /** Timeout in seconds for compile and execution steps. */
     private const val TIMEOUT_SECONDS = 30L
 
-    /** Name of the temporary REPL file (without extension). */
-    private const val REPL_FILE_NAME = "RescriptRepl__Eval"
-
     /**
      * Executes a ReScript code snippet and returns the output.
      *
@@ -27,6 +26,22 @@ object RescriptReplExecutor {
     fun execute(
         code: String,
         projectPath: String,
+    ): String = execute(code, projectPath, runCommand = ::runProcess)
+
+    /**
+     * Executes a snippet with an injectable command runner for file lifecycle tests.
+     *
+     * @param code the ReScript code to execute
+     * @param projectPath the project root path
+     * @param createSource atomically creates a new source file; injectable to test output collisions
+     * @param runCommand the compiler and Node.js command runner
+     * @return the execution output or an error message
+     */
+    internal fun execute(
+        code: String,
+        projectPath: String,
+        createSource: (Path) -> Path = { Files.createTempFile(it, "RescriptRepl__Eval_", ".res") },
+        runCommand: (List<String>, File) -> ProcessResult,
     ): String {
         val projectDir = File(projectPath).canonicalFile
         if (!projectDir.isDirectory) {
@@ -35,9 +50,9 @@ object RescriptReplExecutor {
 
         val wrappedCode = wrapCode(code)
         return try {
-            compileAndRun(wrappedCode, projectDir)
+            compileAndRun(wrappedCode, projectDir, createSource, runCommand)
         } catch (e: Exception) {
-            "Error: ${e.message}"
+            "Error: REPL execution failed (${e.javaClass.simpleName})"
         }
     }
 
@@ -91,9 +106,20 @@ object RescriptReplExecutor {
         return if (result.isEmpty()) "(no output)" else result.toString()
     }
 
+    /**
+     * Compiles and evaluates code using exclusively owned temporary files.
+     *
+     * @param code the wrapped source text
+     * @param projectDir the compilation working directory
+     * @param createSource the atomic source reservation operation
+     * @param runCommand the compiler and runtime command runner
+     * @return the evaluation output or a compilation error
+     */
     private fun compileAndRun(
         code: String,
         projectDir: File,
+        createSource: (Path) -> Path,
+        runCommand: (List<String>, File) -> ProcessResult,
     ): String {
         // Find the source directory from rescript.json (default: src/)
         val srcDir = File(projectDir, "src")
@@ -101,14 +127,22 @@ object RescriptReplExecutor {
             return "Error: src/ directory not found in project"
         }
 
-        val resFile = File(srcDir, "$REPL_FILE_NAME.res")
-        val jsFile = File(srcDir, "$REPL_FILE_NAME.res.js")
+        // Reserve every path before writing or compiling; cleanup owns only successful creations.
+        val ownedPaths = mutableListOf<Path>()
         try {
+            val sourcePath = createSource(srcDir.toPath())
+            ownedPaths.add(sourcePath)
+            val moduleName = sourcePath.fileName.toString().removeSuffix(".res")
+            val jsPath = Files.createFile(srcDir.toPath().resolve("$moduleName.res.js"))
+            ownedPaths.add(jsPath)
+            ownedPaths.add(Files.createFile(srcDir.toPath().resolve("$moduleName.res.js.map")))
+            val resFile = sourcePath.toFile()
+            val jsFile = jsPath.toFile()
             resFile.writeText(code)
 
             // Compile with rescript build
             val compileResult =
-                runProcess(
+                runCommand(
                     listOf("npx", "rescript", "build"),
                     projectDir,
                 )
@@ -117,18 +151,19 @@ object RescriptReplExecutor {
             val replErrors =
                 compileResult.output
                     .lines()
-                    .filter { it.contains(REPL_FILE_NAME) }
-            if (replErrors.isNotEmpty()) {
+                    .filter { it.contains(moduleName) }
+            if (compileResult.exitCode != 0 && replErrors.isNotEmpty()) {
                 val relevantOutput =
                     compileResult.output
                         .lines()
-                        .dropWhile { !it.contains(REPL_FILE_NAME) }
+                        .dropWhile { !it.contains(moduleName) }
                         .joinToString("\n")
                         .trim()
+                        .replace(projectDir.path, "<project>")
                 return "Compile error:\n$relevantOutput"
             }
 
-            if (!jsFile.exists()) {
+            if (jsFile.length() == 0L) {
                 // The REPL file compiled successfully but JS not found — might be
                 // because other files have errors but ours was compiled before failure
                 if (compileResult.exitCode != 0) {
@@ -140,27 +175,31 @@ object RescriptReplExecutor {
 
             // Execute compiled JS
             val runResult =
-                runProcess(
+                runCommand(
                     listOf("node", jsFile.absolutePath),
                     projectDir,
                 )
             return parseOutput(runResult.stdout, runResult.stderr)
         } finally {
-            resFile.delete()
-            jsFile.delete()
-            // Clean up any generated .res.js.map or similar
-            File(srcDir, "$REPL_FILE_NAME.res.js.map").delete()
+            ownedPaths.asReversed().forEach { Files.deleteIfExists(it) }
         }
     }
 
     /** Holds the result of an external process execution. */
-    private data class ProcessResult(
+    internal data class ProcessResult(
         val exitCode: Int,
         val stdout: String,
         val stderr: String,
         val output: String,
     )
 
+    /**
+     * Runs one compiler or runtime command within its execution timeout.
+     *
+     * @param command the executable and its arguments
+     * @param workDir the project working directory
+     * @return captured output and the exit status
+     */
     private fun runProcess(
         command: List<String>,
         workDir: File,

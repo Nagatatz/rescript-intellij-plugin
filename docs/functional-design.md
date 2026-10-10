@@ -526,7 +526,7 @@ flowchart TD
 | `com.intellij.refactoring.safeDeleteProcessor` | `RescriptSafeDeleteProcessor` | Safe Delete プロセッサ | 実装済み |
 | `com.intellij.nameSuggestionProvider` | `RescriptNameSuggestionProvider` | リネーム名前候補 | 実装済み |
 | `com.intellij.fileType` | `RescriptWorksheetFileType` | Worksheet モード（`.resw`） | 実装済み |
-| `com.intellij.toolWindow` | `RescriptReplToolWindowFactory` | REPL ツールウィンドウ（インタラクティブ評価） | 実装済み |
+| `com.intellij.toolWindow` | `RescriptReplToolWindowFactory` | Interactive REPL evaluation; unique temporary source/output paths and cleanup of owned files only | Implemented |
 | `com.intellij.toolWindow` | `RescriptPpxViewToolWindowFactory` | PPX 展開ビュー（macro 出力可視化） | 実装済み |
 | `com.intellij.toolWindow` | `RescriptTypeInfoToolWindowFactory` | Type Info ツールウィンドウ（カーソル位置の型表示） | 実装済み |
 | `com.intellij.scratch.rootType` | `RescriptScratchRootType` | ReScript スクラッチファイル | 実装済み |
