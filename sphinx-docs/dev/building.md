@@ -65,7 +65,7 @@ The target IntelliJ Platform version is configured in `gradle.properties`:
 
 ```properties
 pluginSinceBuild = 261.26222   # IntelliJ 2026.1.4+
-platformVersion  = 2026.2.0.1  # the platform the plugin is compiled against
+platformVersion  = 2026.2.3  # the platform the plugin is compiled against
 ```
 
 The floor is set by bytecode, not by API: building against 2026.2 emits Java 25 class files, and 2026.1 is the first release whose bundled JBR is 25. Keep `pluginSinceBuild` a full build number — `261.4` would also admit 2026.1 through 2026.1.3, which the LSP client API is missing from.

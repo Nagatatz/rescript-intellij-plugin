@@ -749,6 +749,12 @@ tasks {
             }
         }
     }
+    named<org.jetbrains.intellij.platform.gradle.tasks.PrepareSandboxTask>("prepareTestSandbox") {
+        // 2026.2.3 gives an Ultimate startup activity the same obfuscated name as
+        // a core class. The flattened unit-test classpath resolves the core class
+        // instead of the activity; the normal IDE uses separate plugin classloaders.
+        disabledPlugins.add("com.intellij.modules.ultimate")
+    }
     runIde {
         systemProperty("idea.is.internal", true)
         // Disable bundled Ultimate plugins that cause errors in the sandbox
