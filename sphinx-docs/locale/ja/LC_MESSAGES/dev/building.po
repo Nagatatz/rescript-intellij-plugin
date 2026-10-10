@@ -288,3 +288,27 @@ msgstr "Test — カバレッジ付きテスト実行（Kover）"
 msgid "Verify — Plugin structure and binary compatibility (push only)"
 msgstr "Verify — プラグイン構造とバイナリ互換性の検証（プッシュ時のみ）"
 
+
+#: dev/building.md
+msgid "Sequential Compatibility Verification"
+msgstr "互換性の逐次検証"
+
+#: dev/building.md
+msgid "`recommended()` tracks current releases, and the default verifier matrix also includes the exact minimum IDE, 2026.1.4. To reproduce one release at a time, pass `verificationIde`; this replaces the default matrix for that invocation without changing the compile target or compatibility floor."
+msgstr "`recommended()` は現在のリリースを追跡し、既定の Verifier マトリックスには最低対応 IDE の正確なバージョンである 2026.1.4 も含まれます。リリースを一つずつ再現するには `verificationIde` を指定します。この呼び出しの既定マトリックスを置き換え、コンパイル対象や対応下限は変更しません。"
+
+#: dev/building.md
+msgid "Run these commands sequentially. `verificationMaxHeap` caps the separate verifier JVM heap; the Gradle and Kotlin compiler processes require additional memory. Check the latest stable and EAP metadata before choosing versions. For another product, add `-PverificationIdeType=WS` (WebStorm), `PY` (PyCharm), or `PS` (PhpStorm), using a version available for that product. A successful verifier result checks binary compatibility; it does not replace an IDE smoke test of highlighting, completion, diagnostics, navigation, code actions, or language-server restart."
+msgstr "これらのコマンドは順番に実行してください。`verificationMaxHeap` は独立した Verifier JVM のヒープ上限を設定します。Gradle と Kotlin コンパイラのプロセスには追加メモリが必要です。バージョンを選ぶ前に最新 stable と EAP の metadata を確認します。他の製品では、その製品で利用可能なバージョンとともに `-PverificationIdeType=WS`（WebStorm）、`PY`（PyCharm）、または `PS`（PhpStorm）を追加します。Verifier の成功はバイナリ互換性を確認するものであり、ハイライト、補完、診断、ナビゲーション、Code Action、言語サーバー再起動の IDE smoke テストに代わるものではありません。"
+
+#: dev/building.md
+msgid "Keep the compile target at the adopted stable release until a separately reviewed update is needed. Record IDE build, product, OS, plugin commit, verifier version, API warnings, and smoke results in the compatibility issue. See the [verification policy](https://github.com/Nagatatz/rescript-intellij-plugin/blob/main/docs/ide-compatibility.md) for the product and OS matrix."
+msgstr "別途レビューされた更新が必要になるまで、コンパイル対象は採用済み stable リリースを維持します。互換性 Issue に IDE build、製品、OS、プラグインの commit、Verifier バージョン、API 警告、smoke 結果を記録します。製品と OS のマトリックスは[検証方針](https://github.com/Nagatatz/rescript-intellij-plugin/blob/main/docs/ide-compatibility.md)を参照してください。"
+
+#: dev/building.md
+msgid "For cold IDEs, prefer the read-only Monthly Plugin Verify workflow on the dedicated verification branch. Dispatch one `ide_version` and optional `ide_type` per run; a single-IDE dispatch skips the unrelated template audit. Inputs pass through environment variables, validation, and a quoted argument array. The workflow checks free disk space before IDE resolution and caps the verifier heap at 2 GiB with one Gradle worker."
+msgstr "未キャッシュの IDE は、専用検証ブランチで読み取り専用の Monthly Plugin Verify ワークフローを優先します。実行ごとに一つの `ide_version` と任意の `ide_type` を指定します。単一 IDE の dispatch は無関係なテンプレート監査を省略します。入力は環境変数、検証、引用された引数配列を経由して渡されます。ワークフローは IDE 解決前に空き容量を確認し、Verifier ヒープを 2 GiB、Gradle ワーカーを一つに制限します。"
+
+#: dev/building.md
+msgid "Locally, verify the already cached stable IDE first when disk space is limited. Obtain the local heavy-task slot before running Gradle, and recheck disk space before any new download. CI verification does not launch a local IDE or publish a release."
+msgstr "ディスク空き容量が少ない場合、ローカルではキャッシュ済みの stable IDE を先に検証します。Gradle 実行前にローカルの重い処理枠を取得し、新しいダウンロードの前に空き容量を再確認します。CI 検証はローカル IDE の起動やリリース公開を行いません。"

@@ -25,6 +25,30 @@ myst:
 `./gradlew runIde` automatically removes stale `rescript-intellij-plugin-<old>.jar` files from the sandbox during `prepareSandbox`. This prevents `PluginException` failures caused by the IDE loading an outdated plugin jar after a `pluginVersion` bump. Use `./gradlew clean runIde` only when a full sandbox reset is required.
 :::
 
+## Sequential Compatibility Verification
+
+`recommended()` tracks current releases, and the default verifier matrix also includes the exact minimum IDE, 2026.1.4. To reproduce one release at a time, pass `verificationIde`; this replaces the default matrix for that invocation without changing the compile target or compatibility floor.
+
+```bash
+./gradlew verifyPlugin -PverificationIde=2026.1.4 -PverificationMaxHeap=2g --no-parallel --max-workers=1
+./gradlew verifyPlugin -PverificationIde=2026.2.3 -PverificationMaxHeap=2g --no-parallel --max-workers=1
+./gradlew verifyPlugin -PverificationIde=263.6259.32 -PverificationMaxHeap=2g --no-parallel --max-workers=1
+```
+
+Run these commands sequentially. `verificationMaxHeap` caps the separate verifier JVM heap; the Gradle and Kotlin compiler processes require additional memory. Check the latest stable and EAP metadata before choosing versions. For another product, add `-PverificationIdeType=WS` (WebStorm), `PY` (PyCharm), or `PS` (PhpStorm), using a version available for that product. A successful verifier result checks binary compatibility; it does not replace an IDE smoke test of highlighting, completion, diagnostics, navigation, code actions, or language-server restart.
+
+For cold IDEs, prefer the read-only Monthly Plugin Verify workflow on the dedicated verification branch. Dispatch one `ide_version` and optional `ide_type` per run; a single-IDE dispatch skips the unrelated template audit. Inputs pass through environment variables, validation, and a quoted argument array. The workflow checks free disk space before IDE resolution and caps the verifier heap at 2 GiB with one Gradle worker.
+
+```bash
+gh workflow run monthly-verify.yml --ref chore/ide-compatibility-115 -f ide_version=2026.1.4 -f ide_type=IU
+# After the first run completes:
+gh workflow run monthly-verify.yml --ref chore/ide-compatibility-115 -f ide_version=263.6259.32 -f ide_type=IU
+```
+
+Locally, verify the already cached stable IDE first when disk space is limited. Obtain the local heavy-task slot before running Gradle, and recheck disk space before any new download. CI verification does not launch a local IDE or publish a release.
+
+Keep the compile target at the adopted stable release until a separately reviewed update is needed. Record IDE build, product, OS, plugin commit, verifier version, API warnings, and smoke results in the compatibility issue. See the [verification policy](https://github.com/Nagatatz/rescript-intellij-plugin/blob/main/docs/ide-compatibility.md) for the product and OS matrix.
+
 ## JFlex Lexer Generation
 
 The JFlex lexer (`RescriptFlexLexer.java`) is auto-generated from `Rescript.flex` during the build:

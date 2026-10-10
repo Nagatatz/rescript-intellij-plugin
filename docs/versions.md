@@ -54,3 +54,7 @@
 | GitHub 上で差分を確認する | [Compare](https://github.com/Nagatatz/rescript-intellij-plugin/compare) ページで 2 タグ間を指定 |
 
 新規バージョンを出す際は、本ドキュメントに追記する必要はない（`gradle.properties` が単一情報源）。ただし **バージョニング方針自体を変える場合は本ドキュメントを更新** すること。
+
+## Compatibility verification
+
+See [IDE compatibility verification](ide-compatibility.md) for the exact minimum/stable/EAP matrix, sequential verifier commands, API exception review, and representative product/OS smoke requirements. Release metadata and a successful binary check do not establish interactive feature compatibility.

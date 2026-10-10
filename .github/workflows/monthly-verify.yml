@@ -10,6 +10,18 @@ name: Monthly Plugin Verify
 
 on:
   workflow_dispatch:
+    inputs:
+      ide_version:
+        description: 'Single IDE version/build (empty uses the default matrix)'
+        type: string
+        required: false
+        default: ''
+      ide_type:
+        description: 'Product for single-IDE verification'
+        type: choice
+        required: false
+        default: IU
+        options: [IU, WS, PY, PS]
   schedule:
     # 04:00 UTC on the 1st of every month
     - cron: '0 4 1 * *'
@@ -87,8 +99,25 @@ jobs:
             echo "No expired ignored-problems entries"
           fi
 
+      - name: Test verification argument handling
+        run: node --test .github/scripts/__tests__/verify-ide.test.mjs
+
+      - name: Check available disk before resolving IDEs
+        shell: bash
+        run: |
+          set -euo pipefail
+          df -h .
+          available_kib="$(df -Pk . | awk 'NR == 2 {print $4}')"
+          if (( available_kib < 12 * 1024 * 1024 )); then
+            echo "::error::Less than 12 GiB free for compile SDK and verification IDE"
+            exit 1
+          fi
+
       - name: Verify plugin against configured IDE versions
-        run: ./gradlew verifyPlugin --info
+        env:
+          VERIFICATION_IDE_VERSION: ${{ inputs.ide_version }}
+          VERIFICATION_IDE_TYPE: ${{ inputs.ide_type }}
+        run: bash .github/scripts/verify-ide.sh
 
       - name: Upload verifier report
         if: always()
@@ -99,6 +128,9 @@ jobs:
           retention-days: 30
 
   template-versions-audit:
+    # Single-IDE dispatches only verify compatibility; scheduled/default runs
+    # retain the independent template audit.
+    if: github.event_name != 'workflow_dispatch' || inputs.ide_version == ''
     # The npm versions the wizard templates write into user projects live in
     # TemplateVersions.kt, which Dependabot cannot see. Generate a synthetic
     # package.json from those constants and run npm audit against it so new
