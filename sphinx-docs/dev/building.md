@@ -81,3 +81,11 @@ The GitHub Actions CI pipeline (`.github/workflows/ci.yml`) runs on every push a
 3. Build — Compile and package
 4. Test — Run tests with coverage (Kover)
 5. Verify — Plugin structure and binary compatibility (push only)
+
+### CI workflow lint
+
+The CI actionlint job pins `reviewdog/action-actionlint` to commit `d290e336d5a743810aef4404f757dc862276d2ae` (v1.73.4). This is a Docker action on GitHub-hosted Ubuntu, with a digest-pinned container. It does not use the Node runtime; the workflow Node 24 setting applies to JavaScript actions separately.
+
+The job retains `github-pr-review` reporting and `fail_level: error`. The default `github.token` is passed to reviewdog; permissions remain `contents: read` and `pull-requests: write` for that job. No additional token or permission is required by this update. The existing `file` filter and error report level are unchanged.
+
+Validate the updated commit in a fresh PR CI run, recording the resolved container digest and tool versions. A successful run without findings does not prove review-comment creation or write access on fork PRs. Do not increase permissions or use `pull_request_target` to bypass a restricted token. Workflow lint does not establish plugin runtime compatibility.

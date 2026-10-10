@@ -288,3 +288,15 @@ msgstr "Test — カバレッジ付きテスト実行（Kover）"
 msgid "Verify — Plugin structure and binary compatibility (push only)"
 msgstr "Verify — プラグイン構造とバイナリ互換性の検証（プッシュ時のみ）"
 
+
+msgid "CI workflow lint"
+msgstr "CI ワークフロー lint"
+
+msgid "The CI actionlint job pins `reviewdog/action-actionlint` to commit `d290e336d5a743810aef4404f757dc862276d2ae` (v1.73.4). This is a Docker action on GitHub-hosted Ubuntu, with a digest-pinned container. It does not use the Node runtime; the workflow Node 24 setting applies to JavaScript actions separately."
+msgstr "CI の actionlint job は、`reviewdog/action-actionlint` を commit `d290e336d5a743810aef4404f757dc862276d2ae`（v1.73.4）に固定します。GitHub-hosted Ubuntu 上の Docker action であり、container も digest に固定されています。この action は Node runtime を使用しません。workflow の Node 24 設定は JavaScript action に別途適用されます。"
+
+msgid "The job retains `github-pr-review` reporting and `fail_level: error`. The default `github.token` is passed to reviewdog; permissions remain `contents: read` and `pull-requests: write` for that job. No additional token or permission is required by this update. The existing `file` filter and error report level are unchanged."
+msgstr "job は `github-pr-review` reporter と `fail_level: error` を維持します。既定の `github.token` を reviewdog に渡し、この job の権限は `contents: read` と `pull-requests: write` のままです。この更新による追加の token や権限は不要です。既存の `file` filter と error report level は変更しません。"
+
+msgid "Validate the updated commit in a fresh PR CI run, recording the resolved container digest and tool versions. A successful run without findings does not prove review-comment creation or write access on fork PRs. Do not increase permissions or use `pull_request_target` to bypass a restricted token. Workflow lint does not establish plugin runtime compatibility."
+msgstr "更新した commit を新しい PR CI 実行で検証し、解決された container digest と tool version を記録します。指摘なしで成功した実行は、review comment の作成や fork PR への書き込み権限を証明しません。制限された token を回避するために権限を増やしたり、`pull_request_target` を使用したりしないでください。workflow lint はプラグインの runtime 互換性を保証しません。"
