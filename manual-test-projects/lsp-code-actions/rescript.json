@@ -1,0 +1,18 @@
+{
+  "name": "rescript-lsp-code-action-verification",
+  "sources": [
+    {
+      "dir": "src/01",
+      "subdirs": true
+    }
+  ],
+  "package-specs": {
+    "module": "esmodule",
+    "in-source": false
+  },
+  "reanalyze": {
+    "analysis": [
+      "dce"
+    ]
+  }
+}
