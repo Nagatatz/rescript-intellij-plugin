@@ -81,3 +81,10 @@ The GitHub Actions CI pipeline (`.github/workflows/ci.yml`) runs on every push a
 3. Build — Compile and package
 4. Test — Run tests with coverage (Kover)
 5. Verify — Plugin structure and binary compatibility (push only)
+
+
+### CI Java setup
+
+CI uses `actions/setup-java@v6` with Eclipse Temurin JDK 25 and `gradle/actions/setup-gradle` for Gradle caching. The major tag follows the official-actions policy. Both setup-java v5 and v6 use Node 24; self-hosted runners need v2.327.1 or later.
+
+Java Setup Smoke checks JDK 25, tool-cache reuse and the Gradle launcher sequentially on Linux, macOS and Windows. It uses read-only permissions and does not publish or download an IDE. The plugin and documentation gates remain separate. The Release workflow is reviewed statically; it is not dispatched for validation.
