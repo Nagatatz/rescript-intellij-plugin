@@ -124,11 +124,11 @@ msgstr "`Ctrl+Alt+O`（macOS では `Cmd+Option+O`）を押すと、プロジェ
 msgid ""
 "Symbol lookup is powered by PSI Stub Index, which pre-indexes declaration"
 " names in project files at project load time for fast, O(log n) retrieval instead of "
-"scanning every file. Functions, types, modules, external bindings, and exceptions are indexed for symbol search."
+"scanning every file. Functions, types, modules, external bindings, and exceptions are indexed for symbol search. Declaration indexing also tracks editor changes, including intention actions."
 msgstr ""
 "シンボル検索は PSI Stub Index "
 "を使用しており、プロジェクト読み込み時にプロジェクトファイル内の宣言名を事前インデックスすることで、全ファイルをスキャンする代わりに高速な O(log n) "
-"の検索を実現しています。関数、型、モジュール、external バインディング、例外がシンボル検索用にインデックスされます。"
+"の検索を実現しています。関数、型、モジュール、external バインディング、例外がシンボル検索用にインデックスされます。宣言のインデックスは、Intention アクションを含むエディタでの変更にも追従します。"
 
 #: ../../user/features/navigation.md:41
 msgid ""

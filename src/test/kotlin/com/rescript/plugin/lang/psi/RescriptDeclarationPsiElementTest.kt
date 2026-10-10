@@ -5,11 +5,13 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.StubBasedPsiElement
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.stubs.DefaultStubBuilder
+import com.intellij.psi.stubs.StubBuilderType
 import com.intellij.psi.stubs.StubIndex
 import com.intellij.testFramework.PsiTestUtil
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.rescript.plugin.IntelliJPlatformExtension
 import com.rescript.plugin.indexing.RescriptNameIndex
+import com.rescript.plugin.lang.RescriptParserDefinition
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertSame
@@ -119,6 +121,17 @@ class RescriptDeclarationPsiElementTest {
     }
 
     @Test
+    fun testStoredFileStubVersionResolvesOnlyToTheRescriptFileType() {
+        myFixture.configureByText("StubContract.res", declarationSource)
+        // Initialize the generic file stub too, matching the competing IDE serializer.
+        DefaultStubBuilder().buildStubTree(myFixture.file)
+        assertEquals(
+            listOf(RescriptParserDefinition.FILE),
+            StubBuilderType.getStubFileElementTypeFromVersion("psi.file:0:RESCRIPT_FILE"),
+        )
+    }
+
+    @Test
     fun testPhysicalProjectDeclarationsSupportHighlightingIndexingAndIntentionDiscovery() {
         val contentRoot = myFixture.tempDirFixture.findOrCreateDir("")
         PsiTestUtil.addContentRoot(myFixture.module, contentRoot)
@@ -129,6 +142,12 @@ class RescriptDeclarationPsiElementTest {
             )
             myFixture.doHighlighting()
             assertNotNull(myFixture.findSingleIntention("Convert pipe to function call"))
+            myFixture.launchAction(myFixture.findSingleIntention("Convert pipe to function call"))
+            assertTrue(
+                myFixture.editor.document.text
+                    .contains("let stubValue = Int.toString(1)"),
+            )
+            myFixture.doHighlighting()
             for ((type, name) in declarationTypes) {
                 val declarations =
                     StubIndex.getElements(
