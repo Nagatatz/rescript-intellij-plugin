@@ -135,6 +135,8 @@ src/test/kotlin/com/rescript/plugin/
 
 VFS write action のような「light fixture では駆動できない」挙動を要するテストは、`IntelliJPlatformExtensionWithContentRoot`（heavy fixture、`IdeaTestFixtureFactory.createFixtureBuilder` ベース）を使う。1 件あたり 3〜10 秒のセットアップコストがあるため、本当に必要なテストに限定して使う。
 
+品質指標の共通fixtureは `src/test/kotlin/com/rescript/plugin/behavior/TransformationBehaviorFixture.kt` に配置する。登録SDK action/public handlerのDocument適用、commit後のPSI本文、一回undo、および専用CLIでの任意のcompiler/Node観測を確認する。`tools/quality/report.py` はFull/Managed母数、JUnit実測fixture種別、PIT変異statusを報告し、回帰は `tools/quality/test_report.py` に置く。class除外理由・#99–105 fixture分類・PIT対象の正本は `config/quality/`。coverage artifactには無除外/管理対象のXMLとHTML、および母数/理由を含むMarkdownを保存する。
+
 ## 3. ドキュメント
 
 ### 3.1 永続的ドキュメント (`docs/`)

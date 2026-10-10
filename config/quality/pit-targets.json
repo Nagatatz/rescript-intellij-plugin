@@ -1,0 +1,12 @@
+{
+  "classes": [
+    "com.rescript.plugin.util.RescriptPaths*",
+    "com.rescript.plugin.util.RescriptRegexPatterns*",
+    "com.rescript.plugin.lsp.RescriptGlobExpander*"
+  ],
+  "tests": [
+    "com.rescript.plugin.util.RescriptPathsTest*",
+    "com.rescript.plugin.util.RescriptRegexPatternsTest*",
+    "com.rescript.plugin.lsp.RescriptGlobExpanderTest*"
+  ]
+}

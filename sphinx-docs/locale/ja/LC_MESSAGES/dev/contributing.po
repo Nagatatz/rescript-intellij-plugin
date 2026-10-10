@@ -490,8 +490,8 @@ msgstr "`./gradlew koverVerify`"
 
 #: ../../dev/contributing.md
 #, python-format
-msgid "Minimum 85% line coverage enforced"
-msgstr "最低 85% の行カバレッジを適用"
+msgid "Minimum 87% Managed line coverage; Full population reported separately"
+msgstr "管理対象の行coverageに87%を要求し、全体の母数は別に報告します"
 
 #: ../../dev/contributing.md:148
 msgid "Submitting Changes"
