@@ -2,10 +2,17 @@ package com.rescript.plugin.lang.psi
 
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.intellij.psi.StubBasedPsiElement
+import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.stubs.DefaultStubBuilder
+import com.intellij.psi.stubs.StubIndex
+import com.intellij.testFramework.PsiTestUtil
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.rescript.plugin.IntelliJPlatformExtension
+import com.rescript.plugin.indexing.RescriptNameIndex
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -82,6 +89,81 @@ class RescriptDeclarationPsiElementTest {
         assertTrue(text.startsWith("RescriptDeclarationPsiElement("), "expected toString prefix, got: $text")
         assertTrue(text.endsWith(")"), "expected toString to be parenthesized, got: $text")
     }
+
+    @Test
+    fun testAstDeclarationsImplementTheStubContract() {
+        val file = myFixture.configureByText("StubContract.res", declarationSource)
+        for ((type, name) in declarationTypes) {
+            val declaration = findDeclaration(file, type)
+            assertTrue(declaration is StubBasedPsiElement<*>, "$name must implement the platform stub contract")
+            assertSame(type, (declaration as StubBasedPsiElement<*>).getIElementType())
+            assertTrue(type.shouldCreateStub(declaration.node), "$name must remain eligible for indexing")
+        }
+    }
+
+    @Test
+    fun testDefaultStubBuilderAndRestoredDeclarationsKeepCanonicalTypes() {
+        val file = myFixture.configureByText("StubContract.res", declarationSource)
+        val root = DefaultStubBuilder().buildStubTree(file)
+        val stubs = root.childrenStubs.filterIsInstance<RescriptDeclarationStub>()
+        assertEquals(declarationTypes.map { it.second }, stubs.map { it.name })
+        for ((stub, entry) in stubs.zip(declarationTypes)) {
+            val (type, name) = entry
+            assertSame(type, stub.elementType)
+            val declaration: PsiElement = type.createPsi(stub)
+            assertTrue(declaration is StubBasedPsiElement<*>)
+            assertSame(type, (declaration as StubBasedPsiElement<*>).getIElementType())
+            assertSame(stub, declaration.stub)
+            assertEquals(name, (declaration as RescriptDeclarationPsiElement).getDeclarationName())
+        }
+    }
+
+    @Test
+    fun testPhysicalProjectDeclarationsSupportHighlightingIndexingAndIntentionDiscovery() {
+        val contentRoot = myFixture.tempDirFixture.findOrCreateDir("")
+        PsiTestUtil.addContentRoot(myFixture.module, contentRoot)
+        try {
+            myFixture.configureByText(
+                "StubContract.res",
+                declarationSource.replace("let stubValue = 1", "let stubValue = 1-><caret>Int.toString"),
+            )
+            myFixture.doHighlighting()
+            assertNotNull(myFixture.findSingleIntention("Convert pipe to function call"))
+            for ((type, name) in declarationTypes) {
+                val declarations =
+                    StubIndex.getElements(
+                        RescriptNameIndex.KEY,
+                        name,
+                        project,
+                        GlobalSearchScope.projectScope(project),
+                        RescriptDeclarationPsiElement::class.java,
+                    )
+                assertEquals(1, declarations.size, "$name must be indexed from the physical project file")
+                assertEquals(name, declarations.single().getDeclarationName())
+                assertSame(type, declarations.single().node.elementType)
+            }
+        } finally {
+            PsiTestUtil.removeContentEntry(myFixture.module, contentRoot)
+        }
+    }
+
+    private val declarationTypes =
+        listOf(
+            RescriptStubElementTypes.LET_DECLARATION to "stubValue",
+            RescriptStubElementTypes.TYPE_DECLARATION to "stubType",
+            RescriptStubElementTypes.MODULE_DECLARATION to "StubModule",
+            RescriptStubElementTypes.EXTERNAL_DECLARATION to "stubExternal",
+            RescriptStubElementTypes.EXCEPTION_DECLARATION to "StubException",
+        )
+
+    private val declarationSource =
+        """
+        let stubValue = 1
+        type stubType = int
+        module StubModule = {}
+        external stubExternal: string => unit = "console.log"
+        exception StubException(string)
+        """.trimIndent()
 
     private fun findDeclaration(
         scope: PsiElement,

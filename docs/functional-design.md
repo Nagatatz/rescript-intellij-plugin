@@ -241,6 +241,12 @@ graph TD
 | `EXCEPTION_DECLARATION` | `exception` 定義 | 折りたたみ |
 | `ANNOTATION` | `@decorator` | — |
 
+#### 宣言 PSI の stub 契約
+
+`RescriptDeclarationPsiElement` は `StubBasedPsiElementBase<RescriptDeclarationStub>` を継承し、`StubBasedPsiElement<RescriptDeclarationStub>` を明示的に実装する。現行 IntelliJ Platform の基底クラスはこのインターフェースを実装しない一方、`DefaultStubBuilder` は宣言 PSI にその契約を要求する。これにより、物理プロジェクトファイルの索引作成と Intention 検出時にも宣言を stub 化できる。
+
+AST/stub の両コンストラクタと宣言名の取得を保持する。5 種類の宣言は `RescriptStubElementTypes` の canonical instance を共有し、既存の `shouldCreateStub` 判定、外部 ID、索引キーを変更しない。
+
 ### 2.5 シンタックスハイライトコンポーネント
 
 #### RescriptSyntaxHighlighter
