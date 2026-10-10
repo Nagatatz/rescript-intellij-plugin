@@ -174,11 +174,24 @@ intellijPlatform {
     buildSearchableOptions = false
     pluginVerification {
         ides {
-            // recommended() resolves the current IDE set (2025.3 / 2026.1 / 2026.2
-            // EAP). Previously pinned to 2026.1.2 because verifier-cli 1.403 choked
-            // on the 2026.2 EAP layout; 1.405 (above) parses it, so recommended() is
-            // safe again. Re-pin only if a future EAP layout breaks the verifier.
-            recommended()
+            val verificationIde = providers.gradleProperty("verificationIde").orNull
+            if (verificationIde != null) {
+                // A single explicit IDE makes OS-specific failures reproducible and
+                // lets resource-constrained machines verify releases sequentially.
+                create(
+                    providers.gradleProperty("verificationIdeType").getOrElse("IU"),
+                    verificationIde,
+                ) {
+                    useInstaller.set(true)
+                }
+            } else {
+                // The moving recommendation can skip the exact minimum patch.
+                // Always retain the oldest supported IDE alongside current releases.
+                recommended()
+                create(IntelliJPlatformType.IntellijIdeaUltimate, "2026.1.4") {
+                    useInstaller.set(true)
+                }
+            }
         }
         // Suppresses known false-positive verifier warnings. See the file for
         // per-entry rationale and review dates.
@@ -691,6 +704,10 @@ val generatePluginVersionProperties =
     }
 
 tasks {
+    named<org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask>("verifyPlugin") {
+        // Bound the verifier's separate JVM when running on a constrained machine.
+        providers.gradleProperty("verificationMaxHeap").orNull?.let { maxHeapSize = it }
+    }
     processResources {
         dependsOn(generatePluginVersionProperties)
     }
