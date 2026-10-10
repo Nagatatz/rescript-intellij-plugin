@@ -32,7 +32,8 @@ import com.rescript.plugin.lang.psi.RescriptFileStub
  */
 class RescriptParserDefinition : ParserDefinition {
     companion object {
-        val FILE: IFileElementType = IStubFileElementType<RescriptFileStub>(RescriptLanguage)
+        // The stored stub version includes debugName; the default FILE collides with IDE file types.
+        val FILE: IFileElementType = IStubFileElementType<RescriptFileStub>("RESCRIPT_FILE", RescriptLanguage)
     }
 
     override fun createLexer(project: Project?): Lexer = RescriptLexer()

@@ -61,7 +61,7 @@
 
 ### Navigation
 
-- **Go to Symbol** — Stub-indexed quick symbol search (`Cmd+Option+O`)
+- **Go to Symbol** — Stub-indexed quick symbol search for project declarations, including edited files (`Cmd+Option+O`)
 - **Structure view** — Navigate module, function, and type declarations, plus JSX elements and fragments
 - **Switch .res/.resi** — Toggle between implementation and interface files (`Alt+O`)
 - **Go to Related** — Jump between `.res`, `.resi`, and compiled `.js` files
@@ -85,7 +85,7 @@
 - **Live Templates** — 21 code snippets with ReScript-aware context (`let`, `mod`, `sw`, `pipe`, `log`, `@module`, `@val`, `comp`, etc.)
 - **Postfix Completion** — 9 postfix templates: `.switch`, `.pipe`, `.log`, `.some`, `.ok`, `.error`, `.ignore`, `.promise`, `.await`
 - **Record/variant placeholder completion** — At a type-annotated value position such as `let x: person = ` the popup offers a fully scaffolded literal: record types expand to `{ field1: _, field2: _ }` and variant types offer one entry per constructor (`Some(_)`, `None`, `Ok(_)`, …). The expected type is detected purely syntactically and resolved through the stub index (plus built-in `option`/`result`), so it works without the LSP; on acceptance the caret parks on the first `_` hole
-- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, add `->ignore`, add `_` prefix, remove redundant braces, fix identifier case, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, add missing switch arms, convert to labeled args, remove unnecessary parentheses, remove redundant qualifier, expand open into qualified references, expand destructuring, filter+map to filterMap, add type annotation, convert call to uncurried form, extract local module to file, flatten nested switch, batch-insert inferred type annotations
+- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, add `->ignore`, add `_` prefix, remove redundant braces, fix identifier case, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, add missing switch arms, convert to labeled args, remove proven scalar initializer parentheses, remove redundant qualifier, expand open into qualified references, expand destructuring, filter+map to filterMap, add type annotation, convert call to uncurried form, extract local module to file, flatten nested switch, batch-insert inferred type annotations
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block, or in a JSX `<div>` element / `<>` fragment
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
 - **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
