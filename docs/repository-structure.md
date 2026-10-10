@@ -33,8 +33,8 @@ rescript-intellij-plugin/
 | パッケージ | 責務 | 代表クラス |
 |-----------|------|-----------|
 | (ルート) | Language / FileType / Icons 定義、エラーレポート連携 | `RescriptLanguage`, `RescriptFileTypes`, `RescriptIcons`, `RescriptErrorReporter` |
-| `lang/` | レクサー、パーサー、トークン定義、型宣言 RHS の再パース | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes`, `RescriptTypeDeclarationParser` |
-| `lang/psi/` | PSI 要素クラス、ユーティリティ、JSX 開閉タグペア解決 | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils`, `RescriptJsxTagPairUtil` |
+| `lang/` | レクサー、パーサー、固有 file stub 識別、トークン定義、型宣言 RHS の再パース | `RescriptLexer`, `RescriptParser`, `RescriptParserDefinition`, `RescriptTokenTypes`, `RescriptTypeDeclarationParser` |
+| `lang/psi/` | PSI 要素クラス、宣言の AST/stub 共通契約、ユーティリティ、JSX 開閉タグペア解決 | `RescriptPsi`, `RescriptDeclarationPsiElement`, `RescriptStringLiteral`, `RescriptPsiUtils`, `RescriptJsxTagPairUtil` |
 | `highlight/` | シンタックスハイライト、ブレースマッチング、使用箇所ハイライト（キーワード / JSX 開閉タグペア） | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher`, `RescriptHighlightUsagesHandlerFactory`, `RescriptJsxTagHighlightHandler` |
 | `lsp/` | LSP サーバー管理、カスタムプロトコル、LSP ユーティリティ、variant 型の bare-name 解決 | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor`, `RescriptLspUtils`, `RescriptVariantTypeResolver` |
 | `codestyle/` | コードスタイル、インデント設定 | `RescriptCodeStyleSettingsProvider` |
@@ -52,7 +52,7 @@ rescript-intellij-plugin/
 | `spellcheck/` | スペルチェック | `RescriptSpellcheckingStrategy` |
 | `completion/` | Postfix Completion、Record/Variant Placeholder 補完（型注釈付き値位置でリテラル雛形を提示、純ロジック 3 分離） | `RescriptPostfixTemplateProvider`, `RescriptPlaceholderCompletionContributor`, `RescriptTypeAnnotationContext`, `RescriptPlaceholderTypeResolver`, `RescriptPlaceholderBuilder` |
 | `analysis/` | reanalyze デッドコード分析 | `RescriptReanalyzeAnnotator` |
-| `inspection/` | コードインスペクション（重複 open、空モジュール、JSX 開閉タグ不一致、シグネチャ同期等） | `RescriptDuplicateOpenInspection`, `RescriptMismatchedJsxTagInspection`, `RescriptSignatureSyncInspection` |
+| `inspection/` | コードインスペクション（重複 open、空モジュール、JSX 開閉タグ不一致、シグネチャ同期、局所スカラー ref と全 contents 読み取りの安全な一括除去） | `RescriptMutabilityInspection`, `RescriptRefRemovalPlanner`, `RescriptDuplicateOpenInspection`, `RescriptMismatchedJsxTagInspection`, `RescriptSignatureSyncInspection` |
 | `quickfix/` | クイックフィックス（未解決参照、関数生成等） | `RescriptAddOpenQuickFix`, `RescriptGenerateFunctionQuickFix` |
 | `preview/` | コンパイル済み JS プレビュー | `RescriptCompiledJsPreviewToolWindowFactory` |
 | `hierarchy/` | モジュール階層ビュー | `RescriptModuleHierarchyProvider` |

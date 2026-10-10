@@ -241,6 +241,14 @@ graph TD
 | `EXCEPTION_DECLARATION` | `exception` 定義 | 折りたたみ |
 | `ANNOTATION` | `@decorator` | — |
 
+#### 宣言 PSI の stub 契約
+
+`RescriptDeclarationPsiElement` は `StubBasedPsiElementBase<RescriptDeclarationStub>` を継承し、`StubBasedPsiElement<RescriptDeclarationStub>` を明示的に実装する。現行 IntelliJ Platform の基底クラスはこのインターフェースを実装しない一方、`DefaultStubBuilder` は宣言 PSI にその契約を要求する。これにより、物理プロジェクトファイルの索引作成と Intention 検出時にも宣言を stub 化できる。
+
+AST/stub の両コンストラクタと宣言名の取得を保持する。5 種類の宣言は `RescriptStubElementTypes` の canonical instance を共有し、既存の `shouldCreateStub` 判定、外部 ID、索引キーを変更しない。
+
+`RescriptParserDefinition.FILE` は file stub の debugName に `RESCRIPT_FILE` を指定する。IDE は externalId / stubVersion / debugName の組で保存済み stub を識別するため、汎用 `psi.file:0:FILE` と他の IDE file type の衝突を回避する。既存の serializer、externalId、stubVersion と stub 構造は変更せず、ファイル更新や Intention 適用後の再索引を維持する。
+
 ### 2.5 シンタックスハイライトコンポーネント
 
 #### RescriptSyntaxHighlighter
@@ -427,6 +435,7 @@ flowchart TD
 | `com.intellij.localInspection` | `RescriptDuplicateOpenInspection` | 重複 open 検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptEmptyModuleInspection` | 空モジュール検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMismatchedJsxTagInspection` | JSX 開閉タグ名不一致検出 | 実装済み |
+| `com.intellij.localInspection` | `RescriptMutabilityInspection` | braced 関数内の局所スカラー ref と全 `.contents` 読み取りを一括除去。`RescriptRefRemovalPlanner` の lexer scope/identity 証明と文書全体 snapshot により書き込み・alias・export・closure・shadowing・file 内の opaque interop 宣言・不明構文を拒否 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMissingConfigInspection` | rescript.json 未検出警告 | 実装済み |
 | `<action>` | `RescriptSwitchFileAction` | `.res`/`.resi` ファイル切り替え (Alt+O) | 実装済み |
 | `com.intellij.defaultLiveTemplates` | `liveTemplates/ReScript.xml` | Live Templates (21 スニペット) | 実装済み |

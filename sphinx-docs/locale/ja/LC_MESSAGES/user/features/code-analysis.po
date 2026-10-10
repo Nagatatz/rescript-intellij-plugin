@@ -583,13 +583,8 @@ msgid "Mutability Diagnostics"
 msgstr "変更可能性の診断"
 
 #: ../../user/features/code-analysis.md:246
-msgid ""
-"Detects `ref` bindings that are never reassigned with `:=`. If a mutable "
-"reference is created but never mutated, it can be simplified to a plain "
-"`let` binding."
-msgstr ""
-"`:=` で再代入されることのない `ref` バインディングを検出します。ミュータブル参照が作成されても一度も変更されない場合、通常の "
-"`let` バインディングに簡略化できます。"
+msgid "Offers **Remove unnecessary ref** only for local scalar literal references inside braced function bodies when every use is a direct `.contents` read. The fix updates the initializer and every read together in one undo step. Writes (`:=` or `.contents =`), aliases, box arguments or returns, exports, closures, shadowing, `open`/`include`, opaque interop or attributes anywhere in the file, nonliteral initializers, and unknown syntax are refused. Any document change after inspection invalidates the prepared fix."
+msgstr "波括弧で囲まれた関数本体内の局所的なスカラーリテラル参照について、すべての使用が直接の `.contents` 読み取りである場合にのみ **Remove unnecessary ref** を提示します。修正は initializer とすべての読み取りをまとめて更新し、1 回の undo で戻せます。書き込み（`:=` または `.contents =`）、alias、参照自体の引数渡しや返却、export、closure、shadowing、`open`/`include`、file 内の opaque interop または attribute、リテラル以外の initializer、不明な構文は拒否します。検査後に文書が変更された場合、準備済みの修正は適用されません。"
 
 #: ../../user/features/code-analysis.md
 msgid "Before (warning detected)"
