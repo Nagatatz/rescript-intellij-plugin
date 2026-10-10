@@ -56,5 +56,9 @@ class RescriptExtractFunctionDocumentTest {
             "let x = 1\n@private\nlet extractedFunction = (x) => {\n  x + 1\n}\n\nlet exported = extractedFunction(x)",
             myFixture.editor.document.text,
         )
+        assertEquals(
+            "let x = 1\n@private\nlet extractedFunction".length,
+            myFixture.editor.caretModel.offset,
+        )
     }
 }

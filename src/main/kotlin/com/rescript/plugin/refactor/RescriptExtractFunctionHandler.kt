@@ -41,11 +41,12 @@ class RescriptExtractFunctionHandler : RefactoringActionHandler {
                 .lines()
                 .joinToString("\n") { plan.indent + it } + "\n\n"
         val call = generateCallSite(plan.name, plan.parameters)
+        val nameEnd = function.indexOf("let ${plan.name} =") + "let ".length + plan.name.length
         WriteCommandAction.runWriteCommandAction(project, "Extract Function", null, {
             if (document.text != original) return@runWriteCommandAction
             document.replaceString(start, end, call)
             document.insertString(plan.insertOffset, function)
-            editor.caretModel.moveToOffset(plan.insertOffset + plan.indent.length + "let ".length + plan.name.length)
+            editor.caretModel.moveToOffset(plan.insertOffset + nameEnd)
         })
     }
 
