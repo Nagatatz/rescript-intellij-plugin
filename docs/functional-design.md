@@ -247,6 +247,8 @@ graph TD
 
 AST/stub の両コンストラクタと宣言名の取得を保持する。5 種類の宣言は `RescriptStubElementTypes` の canonical instance を共有し、既存の `shouldCreateStub` 判定、外部 ID、索引キーを変更しない。
 
+`RescriptParserDefinition.FILE` は file stub の debugName に `RESCRIPT_FILE` を指定する。IDE は externalId / stubVersion / debugName の組で保存済み stub を識別するため、汎用 `psi.file:0:FILE` と他の IDE file type の衝突を回避する。既存の serializer、externalId、stubVersion と stub 構造は変更せず、ファイル更新や Intention 適用後の再索引を維持する。
+
 ### 2.5 シンタックスハイライトコンポーネント
 
 #### RescriptSyntaxHighlighter

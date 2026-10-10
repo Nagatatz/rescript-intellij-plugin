@@ -36,7 +36,7 @@ Before making changes to a function or type, you can instantly see every place i
 
 Press `Ctrl+Alt+O` (`Cmd+Option+O` on macOS) to search for any symbol across your project by name.
 
-Symbol lookup is powered by PSI Stub Index, which pre-indexes declaration names in project files at project load time for fast, O(log n) retrieval instead of scanning every file. Functions, types, modules, external bindings, and exceptions are indexed for symbol search.
+Symbol lookup is powered by PSI Stub Index, which pre-indexes declaration names in project files at project load time for fast, O(log n) retrieval instead of scanning every file. Functions, types, modules, external bindings, and exceptions are indexed for symbol search. Declaration indexing also tracks editor changes, including intention actions.
 
 When you know a symbol's name but not which file it lives in, this saves you from manually browsing the project tree or using text search across the entire codebase.
 
