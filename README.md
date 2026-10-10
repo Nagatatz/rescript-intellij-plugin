@@ -61,7 +61,7 @@
 
 ### Navigation
 
-- **Go to Symbol** — Stub-indexed quick symbol search (`Cmd+Option+O`)
+- **Go to Symbol** — Stub-indexed quick symbol search for project declarations (`Cmd+Option+O`)
 - **Structure view** — Navigate module, function, and type declarations, plus JSX elements and fragments
 - **Switch .res/.resi** — Toggle between implementation and interface files (`Alt+O`)
 - **Go to Related** — Jump between `.res`, `.resi`, and compiled `.js` files
