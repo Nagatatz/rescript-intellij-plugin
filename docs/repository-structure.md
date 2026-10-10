@@ -67,7 +67,7 @@ rescript-intellij-plugin/
 | `coverage/` | Type Coverage Heat Map（`.res` ファイルごとの annotated/inferred 比率を表形式で可視化、color-coded sortable table。選択ファイルに inferred 型注釈を一括挿入するツールバーアクションを `intention/RescriptBatchAnnotationRunner` 経由で提供） | `RescriptTypeCoverageToolWindowFactory`, `RescriptTypeCoveragePanel`, `RescriptTypeCoverageScanner`, `RescriptTypeCoverageClassifier`, `RescriptTypeCoverageModel` |
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
-| `imports/` | Import Optimizer、open 文ユーティリティ、open 展開プランナ / モジュールメンバ抽出 | `RescriptImportOptimizer`, `RescriptImportUtil`, `RescriptOpenExpansionPlanner`, `RescriptModuleMemberExtractor` |
+| `imports/` | Import Optimizer、open 文ユーティリティ、open 展開プランナ / モジュールメンバ抽出 | `RescriptImportOptimizer`, `RescriptOpenRemovalProof`, `RescriptImportUtil`, `RescriptOpenExpansionPlanner`, `RescriptModuleMemberExtractor` |
 | `intention/` | Intention Actions（Wrap with、@genType 追加、Rename variant constructor、Expand open qualifier、Flatten nested switch、inferred 型注釈の一括挿入 等） | `RescriptWrapWithIntention`, `RescriptRenameVariantConstructorIntention`, `RescriptConstructorOccurrenceClassifier`, `RescriptConstructorOccurrenceFinder`, `RescriptExpandOpenQualifierIntention`, `RescriptFlattenNestedSwitchIntention`, `RescriptNestedSwitchFlattener`, `RescriptBatchInsertInferredTypesIntention`, `RescriptBatchAnnotationPlanner`, `RescriptBatchAnnotationRunner` |
 | `surround/` | Surround With | `RescriptSurroundDescriptor` |
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |

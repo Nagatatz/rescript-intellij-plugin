@@ -447,7 +447,7 @@ flowchart TD
 | `com.intellij.projectService` | `RescriptCompilationStatusService` | コンパイル状態保持（LSP 通知受信） | 実装済み |
 | `<action>` | `RescriptCreateInterfaceAction` | インターフェースファイル生成 | 実装済み |
 | `<action>` | `RescriptOpenCompiledJsAction` | コンパイル済み JS を開く (Alt+Shift+J) | 実装済み |
-| `com.intellij.lang.importOptimizer` | `RescriptImportOptimizer` | Import Optimizer（重複 open 削除） | 実装済み |
+| `com.intellij.lang.importOptimizer` | `RescriptImportOptimizer` | Import Optimizer（証明可能な隣接 open のみ削除） | 実装済み |
 | `com.intellij.intentionAction` | `RescriptWrapWithSomeIntention` | Wrap with Some(...) | 実装済み |
 | `com.intellij.intentionAction` | `RescriptWrapWithOkIntention` | Wrap with Ok(...) | 実装済み |
 | `com.intellij.intentionAction` | `RescriptWrapWithErrorIntention` | Wrap with Error(...) | 実装済み |
@@ -655,7 +655,7 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | Incremental Type Checking 設定 | VS Code 設定 | `RescriptConfigurable` + LSP initOptions | 同等 |
 | Error Lens | Error Lens 拡張 (サードパーティ) | `RescriptErrorLensManager` | 同等（VS Code では別拡張が必要） |
 | デバッグ統合 | VS Code Node.js Debugger | `RescriptDebugRunConfiguration` | コンパイル済み JS のデバッグ（Ultimate/WebStorm） |
-| 未使用 open 自動削除 | — | `RescriptImportOptimizer` + `RescriptUnusedOpenDetector` | 本プラグイン独自（LSP 診断活用） |
+| 未使用 open 自動削除 | — | `RescriptImportOptimizer` + `RescriptUnusedOpenDetector` | 診断の source version を証明できないため自動削除停止 |
 | Unwrap/Remove | — | `RescriptUnwrapDescriptor` | 本プラグイン独自 (Ctrl+Shift+Delete) |
 | JSX 閉じタグ自動挿入 | VS Code 標準 auto-closing tags | `RescriptTypedHandler` | 同等 |
 | Go to Test / Create Test | — | `RescriptTestCreator` | 本プラグイン独自 (Ctrl+Shift+T) |
@@ -679,3 +679,7 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 Every exit path forcibly stops the owner and observed descendants. Handles are retained across parent exit, and cleanup allows up to 200 ms for termination/reaping outside the command budget; pipe closing never blocks the caller. Java process creation itself is synchronous, and OS termination is asynchronous. Descendant discovery uses `ProcessHandle`: processes that detach or are reparented before a polling pass are outside this portable guarantee. This runner handles finite commands; the persistent LSP and reanalyze server lifecycles remain separate.
 
 The formatter reports a sanitized diagnostic or a failure reason and suppresses results after cancellation. Binding generation reports a parser error while IDE cancellation propagates. Reanalyze reports a file-level warning or inspection notification instead of parsing failed output. REPL reports compile/runtime failure reasons, preserves its unique temporary-file ownership and hides the project path in compiler diagnostics. Each REPL compile and runtime command has its own 30-second budget.
+
+## Proven open removal
+
+Import optimization and duplicate-open inspection share a module identity proof for adjacent opens of local modules containing literal let bindings only. Unknown declarations invalidate the proof; repeated opens separated by code remain untouched. Unversioned markup warnings cannot authorize automatic unused-open deletion. Explicit lexer ranges preserve following expressions and comments even when an open PSI node contains them. Collected edits are discarded when the source snapshot changes, and quick fixes revalidate before editing.
