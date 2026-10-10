@@ -131,7 +131,14 @@ jobs:
         # so the cli/ Mermaid gate doesn't fail with "Could not find Chrome".
         env:
           PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
-        run: ./gradlew test koverVerify koverXmlReport koverHtmlReport
+        # Clean + --rerun-tasks ensures current-run execution, not prior cached test XML.
+        run: |
+          python3 -c 'import time; print("QUALITY_RESULTS_AFTER=" + str(time.time()))' >> "$GITHUB_ENV"
+          ./gradlew clean test koverVerify koverXmlReport koverHtmlReport \
+            koverXmlReportFull koverHtmlReportFull --rerun-tasks --no-parallel --max-workers=1
+
+      - name: Test quality-report population accounting
+        run: python3 -m unittest discover -s tools/quality -p 'test_*.py'
 
       - name: Add coverage report to PR
         if: github.event_name == 'pull_request'
@@ -139,47 +146,16 @@ jobs:
         uses: mi-kas/kover-report@fe40bd3712cf57dd19bfb0c16ccb0472a0478dae  # v2.6
         with:
           path: ${{ github.workspace }}/build/reports/kover/report.xml
-          title: Code Coverage
+          title: Managed main-class unit coverage (exclusions apply)
           update-comment: true
           coverage-counter-type: LINE
 
-      - name: Add coverage to Job Summary
+      - name: Report Full and Managed coverage populations
         if: always()
-        shell: python
-        run: |
-          import os
-          import pathlib
-          import xml.etree.ElementTree as ET
-
-          report = pathlib.Path("build/reports/kover/report.xml")
-          if not report.exists():
-              raise SystemExit(0)
-
-          root = ET.parse(report).getroot()
-          counter = root.find("./counter[@type='LINE']")
-          if counter is None:
-              raise SystemExit(0)
-
-          covered = int(counter.get("covered", "0"))
-          missed = int(counter.get("missed", "0"))
-          total = covered + missed
-          if total == 0:
-              raise SystemExit(0)
-
-          pct = covered * 100 // total
-          summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
-          if not summary_path:
-              raise SystemExit(0)
-
-          with open(summary_path, "a", encoding="utf-8") as fh:
-              fh.write(
-                  "## 📊 Code Coverage\n\n"
-                  "| Metric | Value |\n"
-                  "|--------|-------|\n"
-                  f"| Line Coverage | **{pct}%** |\n"
-                  f"| Lines Covered | {covered} / {total} |\n\n"
-                  "📄 Full HTML report available in the **coverage-report** artifact.\n"
-              )
+        run: >-
+          python3 tools/quality/report.py coverage
+          --full build/reports/kover/full.xml
+          --managed build/reports/kover/report.xml
 
       - name: Verify plugin structure
         run: ./gradlew verifyPluginStructure
@@ -211,7 +187,10 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: coverage-report
-          path: build/reports/kover/html/
+          path: |
+            build/reports/kover/
+            build/reports/quality/
+            config/quality/
           if-no-files-found: ignore
 
   mutation-test:
@@ -241,14 +220,23 @@ jobs:
           cache-read-only: true
 
       - name: Run pitest
-        run: ./gradlew pitest
+        run: |
+          python3 -c 'import time; print("QUALITY_RESULTS_AFTER=" + str(time.time()))' >> "$GITHUB_ENV"
+          ./gradlew clean pitest --rerun-tasks --no-parallel --max-workers=1
+
+      - name: Report actual PIT targets and mutation outcomes
+        if: always()
+        run: python3 tools/quality/report.py pit
 
       - name: Upload pitest report
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: pitest-report
-          path: build/reports/pitest/
+          path: |
+            build/reports/pitest/
+            build/reports/quality/pit.md
+            config/quality/pit-targets.json
           if-no-files-found: ignore
 
   template-integration:
@@ -298,7 +286,13 @@ jobs:
         run: ./gradlew integrationTest --no-parallel --max-workers=1
 
       - name: Run IDE-backed CLI regression tests
-        run: ./gradlew integrationIdeTest --no-parallel --max-workers=1
+        run: |
+          python3 -c 'import time; print("QUALITY_RESULTS_AFTER=" + str(time.time()))' >> "$GITHUB_ENV"
+          ./gradlew integrationIdeTest --rerun-tasks --no-parallel --max-workers=1
+
+      - name: Report measured operation/compiler evidence
+        if: always()
+        run: python3 tools/quality/report.py behavior
 
       - name: Upload integration test results
         if: always()
@@ -308,5 +302,6 @@ jobs:
           path: |
             build/reports/tests/integrationTest/
             build/reports/tests/integrationIdeTest/
+            build/reports/quality/behavior.md
           if-no-files-found: ignore
 

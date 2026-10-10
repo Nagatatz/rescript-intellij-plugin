@@ -1,14 +1,12 @@
 package com.rescript.plugin.intention
 
-import com.intellij.openapi.command.undo.UndoManager
-import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
 import com.intellij.testFramework.PsiTestUtil
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.rescript.plugin.IntelliJPlatformExtension
+import com.rescript.plugin.behavior.TransformationBehaviorFixture
 import com.rescript.plugin.wizard.IntegrationTestSupport
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -65,17 +63,10 @@ class RescriptRemoveQualifierIntentionIntegrationTest {
             )
         cases.forEach { (before, after) ->
             myFixture.configureByText("Qualifier.res", before)
-            val original = myFixture.editor.document.text
-            val output = compileAndRun(src, original)
-            myFixture.launchAction(myFixture.findSingleIntention("Remove redundant qualifier"))
-            assertEquals(after, myFixture.editor.document.text)
-            assertEquals(output, compileAndRun(src, myFixture.editor.document.text))
-            val manager = UndoManager.getInstance(project)
-            val editor = FileEditorManager.getInstance(project).getSelectedEditor(myFixture.file.virtualFile)
-            assertTrue(manager.isUndoAvailable(editor))
-            manager.undo(editor)
-            assertEquals(original, myFixture.editor.document.text)
-            assertEquals(output, compileAndRun(src, myFixture.editor.document.text))
+            TransformationBehaviorFixture(myFixture).registeredIntentionAndUndo(
+                "Remove redundant qualifier",
+                after,
+            ) { source -> compileAndRun(src, source) }
         }
         val refused =
             listOf(
@@ -90,15 +81,13 @@ class RescriptRemoveQualifierIntentionIntegrationTest {
             )
         refused.forEach { source ->
             myFixture.configureByText("Qualifier.res", source)
-            val original = myFixture.editor.document.text
-            val output = compileAndRun(src, original)
             assertTrue(myFixture.filterAvailableIntentions("Remove redundant qualifier").isEmpty(), source)
             val intention = RescriptRemoveQualifierIntention()
-            com.intellij.openapi.command.WriteCommandAction.runWriteCommandAction(project) {
-                intention.invoke(project, myFixture.editor, myFixture.file)
+            TransformationBehaviorFixture(myFixture).unchanged({ text -> compileAndRun(src, text) }) {
+                com.intellij.openapi.command.WriteCommandAction.runWriteCommandAction(project) {
+                    intention.invoke(project, myFixture.editor, myFixture.file)
+                }
             }
-            assertEquals(original, myFixture.editor.document.text)
-            assertEquals(output, compileAndRun(src, myFixture.editor.document.text))
         }
     }
 

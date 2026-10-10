@@ -207,6 +207,8 @@ For the full architecture overview — layers, Extension Points, and class-level
 
 ## Contributing
 
+Quality reports publish both unfiltered main-class unit coverage and a reasoned Managed population with its 87% ratchet. Actual Document/undo and compiler/runtime evidence is reported separately from API existence checks; PIT scores apply only to its declared pure JVM targets. See the [testing guide](sphinx-docs/dev/testing.md).
+
 Start with [CONTRIBUTING.md](CONTRIBUTING.md) for the English-language workflow summary, then browse [docs/good-first-issues.md](docs/good-first-issues.md) for contributor-friendly tasks.
 
 Deeper references:

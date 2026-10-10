@@ -546,3 +546,43 @@ msgstr "IDE付きCLI回帰テスト"
 #: ../../dev/testing.md
 msgid "IDE-backed CLI regressions in `src/integrationTest` run through `integrationIdeTest`, registered with the official `intellijPlatformTesting.testIde` API. It preserves the injected SDK/runtime classpath, creates a dedicated sandbox and disables the bundled Ultimate plugin for the flattened test classpath. Select one suite with `./gradlew integrationIdeTest --tests '*RescriptReplIntegrationTest' --no-parallel --max-workers=1`. The separate `integrationTest` task runs only wizard template suites. Kover reports do not implicitly launch integration or UI tasks."
 msgstr "`src/integrationTest` のIDE付きCLI回帰テストは、公式 `intellijPlatformTesting.testIde` APIで登録した `integrationIdeTest` を使用します。注入されたSDK/runtime classpathを保持し、専用sandboxを作成し、平坦化されたテストclasspathでbundled Ultimate pluginを無効化します。`./gradlew integrationIdeTest --tests '*RescriptReplIntegrationTest' --no-parallel --max-workers=1` で単一suiteを選択できます。別の `integrationTest` task はwizardテンプレートsuiteのみ実行します。Koverレポートは統合テストやUI taskを暗黙起動しません。"
+
+#: ../../dev/testing.md
+msgid "Full and Managed populations"
+msgstr "全体と管理対象の母数"
+
+#: ../../dev/testing.md
+msgid "Kover produces two reports from the same unit `test` execution. `koverXmlReportFull` / `koverHtmlReportFull` have no explicit class or package exclusions and write `build/reports/kover/full.xml` / `full-html/`. `koverXmlReport` / `koverHtmlReport` retain the Managed report and its existing 87% ratchet. Neither percentage describes compiler semantics."
+msgstr "Kover は同じ単体 `test` 実行から2種類のレポートを生成します。`koverXmlReportFull` / `koverHtmlReportFull` は明示的な class/package 除外を使わず、`build/reports/kover/full.xml` / `full-html/` に出力します。`koverXmlReport` / `koverHtmlReport` は管理対象レポートと既存の87% ratchetを維持します。どちらの比率もコンパイラ上の意味保存を表すものではありません。"
+
+#: ../../dev/testing.md
+msgid "CI publishes covered/missed/total executable lines, JVM classes and represented source files for both populations, together with their excluded difference. Main Kotlin/Java source inventory is shown separately: generated/type-only code and Kover bytecode/source mapping make source-file counts different from executable-line denominators. Never label a Managed percentage as overall coverage."
+msgstr "CI は両方の母数について、実行可能行の covered/missed/total、JVM class、XMLに含まれるソースファイル、および除外された差分を公開します。main の Kotlin/Java ソース一覧数は別に表示します。生成コード・型のみの宣言・Kover の bytecode/source mappingにより、ソースファイル数と実行可能行の母数は異なります。管理対象の比率を全体coverageと呼ばないでください。"
+
+#: ../../dev/testing.md
+msgid "Managed exclusions are exact outer class names plus their nested JVM classes in `config/quality/coverage-exclusions.tsv`, with a reason for each class. Package-wide exclusions are forbidden; new classes enter the denominator by default. Legacy exclusions awaiting a behavior fixture are explicitly labeled as unverified, rather than claimed to be untestable. `integrationTest`, `integrationIdeTest` and `uiTest` are excluded from unit instrumentation and never implicitly started by reporting."
+msgstr "管理対象の除外は `config/quality/coverage-exclusions.tsv` に列挙した正確な outer class 名とその nested JVM class に限定し、各 class に理由を付けます。package 全体の除外は禁止し、新しい class は既定で母数に含めます。behavior fixture を待つ既存の除外は未検証と明記し、試験不能とは扱いません。`integrationTest`、`integrationIdeTest`、`uiTest` は単体 instrumentation から除外し、レポート生成時に暗黙起動しません。"
+
+#: ../../dev/testing.md
+msgid "Operation behavior and mutation evidence"
+msgstr "操作の振る舞いと変異テストの証拠"
+
+#: ../../dev/testing.md
+msgid "`TransformationBehaviorFixture` applies the registered SDK action or public handler, checks exact Document text, commits and checks PSI text, and requires one undo to restore the complete source. An optional observation compiles and executes before, after and undo snapshots only in the dedicated CLI task; committed PSI alone is not a syntax or semantic proof. Unsupported operations can be checked for unchanged source and observation. Callers supply a project content root and preserve standard SDK writable preparation."
+msgstr "`TransformationBehaviorFixture` は登録されたSDK actionまたは公開handlerを適用し、Documentの全文を照合してcommit後のPSI本文も確認し、1回のundoでソース全体が戻ることを要求します。任意の観測処理は専用CLI taskでのみbefore/after/undoをcompile・実行します。commit済みPSIだけでは構文や意味の証明になりません。拒否した操作は、ソースと観測結果が変わらないことを確認できます。呼出側はproject content rootを準備し、SDK標準のwritable準備を維持します。"
+
+#: ../../dev/testing.md
+msgid "`config/quality/fixtures.json` distinguishes API/reflection presence contracts from Document/undo and CLI/runtime behavior for issues #99–105. CI counts only actual JUnit XML cases, keeps failed/error/skipped cases separate, and reports fixtures absent from a stack or not run as such. Other tests remain unclassified rather than automatically called behavior tests. Fixture case counts are not program counts."
+msgstr "`config/quality/fixtures.json` は #99–105 のAPI/reflection存在確認、Document/undo、およびCLI/runtimeの振る舞いを区別します。CIは実際のJUnit XMLのcaseだけを数え、failed/error/skippedを分け、stackに存在しないfixtureや未実行fixtureをそのまま表示します。それ以外のテストは未分類のままとし、自動的にbehavior testとは呼びません。fixtureのcase数はプログラム数ではありません。"
+
+#: ../../dev/testing.md
+msgid "PIT uses the single target inventory `config/quality/pit-targets.json`: only explicitly declared pure JVM paths/regex/workspace-glob utilities are targets because the PIT minion lacks the injected IntelliJ SDK. CI reads PIT line coverage from its actual HTML project summary and checks its class/mutation denominators against XML. Line coverage is never inferred from mutation counts. CI shows configured and actually mutated classes, generated mutation count, completed status counts, mutation score (detected / generated), test strength (detected / mutations with coverage), and assertion kill ratio (KILLED / generated). PIT treats timeout, non-viable/error and equivalent outcomes as detected; status counts expose these separately. Zero mutations or incomplete/unknown outcomes fail reporting. The constants-only paths/regex objects have no default-mutator candidates; executable workspace-glob branches supply actual mutations. Standard JVM bytecode mutators are used without a Kotlin-specific plugin, so these counts are not a source-level Kotlin mutation guarantee. These scores do not claim mutation coverage for IDE or compiler fixtures."
+msgstr "PITは単一の対象一覧 `config/quality/pit-targets.json` を使います。PIT minionには注入されたIntelliJ SDKがないため、対象は明示した純JVMのpath/regex/workspace-glob utilityだけです。CIはPITの実HTML project summaryからline coverageを読み、class/変異の母数をXMLと照合します。line coverageを変異件数から推定しません。CIは設定対象と実際に変異したclass、生成変異数、完了status別件数、mutation score（detected / generated）、test strength（detected / coverageのある変異）、assertion kill ratio（KILLED / generated）を表示します。PITはtimeout・non-viable/error・equivalentもdetectedとして扱うため、それぞれのstatus件数を別に示します。変異0件や未完了・未知の結果はレポート検証を失敗させます。定数だけのpath/regex objectには既定mutatorの候補がなく、実行可能なworkspace-globの分岐が実際の変異を供給します。Kotlin専用pluginなしで標準JVM bytecode mutatorを使うため、この件数はsource-level Kotlin mutationを保証しません。これらの比率はIDEやcompiler fixtureの変異coverageを主張しません。"
+
+#: ../../dev/testing.md
+msgid "The Kover [variant/filter documentation](https://kotlin.github.io/kotlinx-kover/gradle-plugin/#filtering-reports) defines report populations; PIT's [statistics implementation](https://github.com/hcoles/pitest/blob/master/pitest-entry/src/main/java/org/pitest/mutationtest/statistics/MutationStatistics.java) and [status definitions](https://github.com/hcoles/pitest/blob/master/pitest/src/main/java/org/pitest/mutationtest/DetectionStatus.java) define score and detection semantics."
+msgstr "Kover の [variant/filter documentation](https://kotlin.github.io/kotlinx-kover/gradle-plugin/#filtering-reports) はレポートの母数を定義し、PIT の [statistics implementation](https://github.com/hcoles/pitest/blob/master/pitest-entry/src/main/java/org/pitest/mutationtest/statistics/MutationStatistics.java) と [status definitions](https://github.com/hcoles/pitest/blob/master/pitest/src/main/java/org/pitest/mutationtest/DetectionStatus.java) は score と detection の意味を定義します。"
+
+#: ../../dev/testing.md
+msgid "CI uses clean/rerun task execution and records `QUALITY_RESULTS_AFTER` before the unit or CLI command. The summary rejects JUnit XML whose file timestamp precedes that execution boundary. Source existence alone does not detect older results for unchanged source, and timestamps alone cannot authenticate copied/cached XML; the clean/rerun CI command is the fresh-execution basis. Local reports without a boundary must not be described as current-run execution evidence."
+msgstr "CI は clean/rerun によるtask実行を行い、unitまたはCLIコマンドの前に `QUALITY_RESULTS_AFTER` を記録します。summaryはその実行境界より前のファイル時刻を持つJUnit XMLを拒否します。sourceの存在だけでは、同じsourceの過去結果を検出できません。また時刻だけではcopy/cacheされたXMLを認証できず、CIのclean/rerunコマンドがfresh実行の根拠です。境界指定のないlocalレポートを当該runの実行証拠とは呼ばないでください。"

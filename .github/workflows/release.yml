@@ -85,14 +85,22 @@ jobs:
         # ratchet, plugin structure, and binary compatibility — all must
         # pass before we tag a Marketplace release.
         run: |
-          ./gradlew \
+          python3 -c 'import time; print("QUALITY_RESULTS_AFTER=" + str(time.time()))' >> "$GITHUB_ENV"
+          ./gradlew clean \
             ktlintCheck \
             checkKdoc \
             checkExtensionPointRegistration \
-            test koverVerify koverXmlReport \
+            test koverVerify koverXmlReport koverXmlReportFull \
             verifyPluginStructure \
             verifyPluginProjectConfiguration \
-            verifyPlugin
+            verifyPlugin --rerun-tasks --no-parallel --max-workers=1
+
+      - name: Report Full and Managed unit populations
+        if: always()
+        run: >-
+          python3 tools/quality/report.py coverage
+          --full build/reports/kover/full.xml
+          --managed build/reports/kover/report.xml
 
       - name: Run template integration tests
         # Catches template generation regressions (broken deps, ReScript

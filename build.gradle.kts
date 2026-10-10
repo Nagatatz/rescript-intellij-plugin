@@ -75,6 +75,10 @@ dependencies {
 // Excludes IDE-coupled classes that cannot be exercised by JUnit alone
 // (parsers driven by PsiBuilder, generated lexer, PSI element types).
 
+// One inventory is consumed by PIT and the CI summary to prevent target-label drift.
+val pitConfiguration =
+    groovy.json.JsonSlurper().parse(layout.projectDirectory.file("config/quality/pit-targets.json").asFile) as Map<*, *>
+
 pitest {
     pitestVersion.set(libs.versions.pitest.asProvider())
     junit5PluginVersion.set(libs.versions.pitest.junit5)
@@ -86,27 +90,16 @@ pitest {
     //  com/intellij/openapi/vfs/VirtualFile, ...), and PIT then reports
     // "tests did not pass without mutation".
     //
-    // To keep mutation testing useful while remaining green on CI, we restrict
-    // PIT to the only util.* classes that are pure JVM (no IntelliJ Platform
-    // dependency in either production code or its tests):
-    //   - RescriptPaths
-    //   - RescriptRegexPatterns
-    targetClasses.set(
-        listOf(
-            "com.rescript.plugin.util.RescriptPaths*",
-            "com.rescript.plugin.util.RescriptRegexPatterns*",
-        ),
-    )
-    targetTests.set(
-        listOf(
-            "com.rescript.plugin.util.RescriptPathsTest*",
-            "com.rescript.plugin.util.RescriptRegexPatternsTest*",
-        ),
-    )
-    threads.set(2)
+    // Keep PIT limited to explicitly reviewed pure JVM targets and tests.
+    // Paths/RegexPatterns are static constants with no default-mutator candidates;
+    // GlobExpander provides executable workspace traversal branches. All three
+    // remain declared so the report exposes configured versus actual scope.
+    targetClasses.set((pitConfiguration["classes"] as List<*>).map { it.toString() })
+    targetTests.set((pitConfiguration["tests"] as List<*>).map { it.toString() })
+    threads.set(1)
     outputFormats.set(listOf("HTML", "XML"))
     timestampedReports.set(false)
-    failWhenNoMutations.set(false)
+    failWhenNoMutations.set(true)
     jvmArgs.set(listOf("-Xmx2G", "-Dsun.zip.disableMemoryMapping=true"))
     testSourceSets.set(listOf(sourceSets.test.get()))
     mainSourceSets.set(listOf(sourceSets.main.get()))
@@ -221,178 +214,69 @@ ktlint {
     }
 }
 
+// Managed exclusions are exact reviewed class names, never package-wide wildcards.
+// New classes therefore enter the denominator by default. Full reports override all filters.
+val managedCoverageClasses =
+    layout.projectDirectory
+        .file("config/quality/coverage-exclusions.tsv")
+        .asFile
+        .readLines()
+        .filter { it.isNotBlank() && !it.startsWith("#") }
+        .map { line ->
+            val fields = line.split('\t')
+            require(fields.size == 3 && fields.all { it.isNotBlank() }) { "Invalid coverage exclusion: $line" }
+            require('*' !in fields[0] && '?' !in fields[0]) { "Coverage exclusions must name exact classes" }
+            fields[0]
+        }.flatMap { name -> listOf(name, "$name\$*") }
+
 kover {
     currentProject {
+        sources {
+            // Both reports describe production main bytecode, not test/CLI/UI harness classes.
+            includedSourceSets.add("main")
+        }
         instrumentation {
-            // Reports cover unit tests only: never implicitly start Remote-Robot or CLI installs.
+            // Unit coverage must never trigger npm installs, template E2E or an external IDE.
             disabledForTestTasks.addAll(listOf("uiTest", "integrationTest", "integrationIdeTest"))
+        }
+        createVariant("Full") {
+            add("jvm")
         }
     }
     reports {
         total {
+            filters {
+                excludes {
+                    classes(managedCoverageClasses)
+                }
+            }
             xml {
+                title = "Managed main classes — unit tests"
                 onCheck = false
             }
             html {
+                title = "Managed main classes — unit tests"
                 onCheck = false
             }
-        }
-        filters {
-            excludes {
-                // ── UI test classes (Remote-Robot, not unit-testable) ──
-                packages(
-                    "com.rescript.plugin.uitest",
-                )
-                // ── Packages with 0% coverage (IDE-coupled, no unit-testable logic) ──
-                packages(
-                    "com.rescript.plugin.analysis",
-                    "com.rescript.plugin.binding",
-                    "com.rescript.plugin.breadcrumb",
-                    "com.rescript.plugin.commenter",
-                    "com.rescript.plugin.completion",
-                    "com.rescript.plugin.debug",
-                    "com.rescript.plugin.dependencies",
-                    "com.rescript.plugin.diagram",
-                    "com.rescript.plugin.editor",
-                    "com.rescript.plugin.errorlens",
-                    "com.rescript.plugin.formatter",
-                    "com.rescript.plugin.grazie",
-                    "com.rescript.plugin.hierarchy",
-                    "com.rescript.plugin.hierarchy.call",
-                    "com.rescript.plugin.imports",
-                    "com.rescript.plugin.inspection",
-                    "com.rescript.plugin.intention",
-                    "com.rescript.plugin.injection",
-                    "com.rescript.plugin.navbar",
-                    "com.rescript.plugin.paste",
-                    "com.rescript.plugin.ppx",
-                    "com.rescript.plugin.preview",
-                    "com.rescript.plugin.projectview",
-                    "com.rescript.plugin.quickfix",
-                    "com.rescript.plugin.refactor",
-                    "com.rescript.plugin.repl",
-                    "com.rescript.plugin.scratch",
-                    "com.rescript.plugin.spellcheck",
-                    "com.rescript.plugin.statusbar",
-                    "com.rescript.plugin.surround",
-                    "com.rescript.plugin.template",
-                    "com.rescript.plugin.test",
-                    "com.rescript.plugin.typeinfo",
-                    "com.rescript.plugin.wizard",
-                    "com.rescript.plugin.wizard.templates",
-                    "com.rescript.plugin.worksheet",
-                )
-                // ── Individual class exclusions (IDE-coupled classes in covered packages) ──
-                // Wildcard (*) suffix matches inner/companion classes ($Companion, $install$1, etc.)
-                classes(
-                    // Auto-generated lexer
-                    "com.rescript.plugin.lang.RescriptFlexLexer",
-                    // Pure type definitions (no logic)
-                    "com.rescript.plugin.RescriptFileTypes",
-                    "com.rescript.plugin.RescriptLanguage",
-                    // Root package classes with 0% coverage
-                    "com.rescript.plugin.RescriptErrorReporter*",
-                    "com.rescript.plugin.RescriptReaderModeMatcher*",
-                    // Parsers (PsiBuilder coupling)
-                    "com.rescript.plugin.lang.RescriptDeclarationParser*",
-                    "com.rescript.plugin.lang.RescriptJsxParser*",
-                    // Find usages / usage type (IDE lifecycle)
-                    "com.rescript.plugin.lang.RescriptFindUsagesProvider*",
-                    "com.rescript.plugin.lang.RescriptUsageTypeProvider*",
-                    "com.rescript.plugin.lang.RescriptElementDescriptionProvider*",
-                    "com.rescript.plugin.lang.RescriptParserDefinition*",
-                    // PSI elements requiring IDE lifecycle
-                    "com.rescript.plugin.lang.psi.RescriptDeclarationElementType*",
-                    "com.rescript.plugin.lang.psi.RescriptDeclarationStub*",
-                    "com.rescript.plugin.lang.psi.RescriptFileStub*",
-                    "com.rescript.plugin.lang.psi.RescriptFile",
-                    "com.rescript.plugin.lang.psi.RescriptPsiUtils*",
-                    // All navigation classes (IDE-coupled)
-                    "com.rescript.plugin.navigation.*",
-                    // All LSP classes (server coupling)
-                    "com.rescript.plugin.lsp.*",
-                    // All run configuration classes (IDE-coupled)
-                    "com.rescript.plugin.run.*",
-                    // All settings classes
-                    "com.rescript.plugin.settings.*",
-                    // Rename intention: shows IDE dialogs and runs a project-
-                    // wide WriteCommandAction; the classifier and finder it
-                    // delegates to are unit-tested separately.
-                    "com.rescript.plugin.intention.RescriptRenameVariantConstructorIntention*",
-                    // All codestyle classes (IDE-coupled)
-                    "com.rescript.plugin.codestyle.*",
-                    // All generate action classes (IDE dialog coupling)
-                    "com.rescript.plugin.generate.*",
-                    // All highlight classes (IDE-coupled)
-                    "com.rescript.plugin.highlight.*",
-                    // All config classes (IDE-coupled)
-                    "com.rescript.plugin.config.*",
-                    // All structure view classes
-                    "com.rescript.plugin.structure.*",
-                    // Folding (IDE lifecycle)
-                    "com.rescript.plugin.folding.*",
-                    // Indexing (IDE lifecycle)
-                    "com.rescript.plugin.indexing.*",
-                    // CodeVision (IDE lifecycle)
-                    "com.rescript.plugin.codevision.*",
-                    // ── Swing UI panels and IDE-lifecycle entry points for the
-                    //    flow / impact / interop / migration / notebook tool
-                    //    windows. Pure unit tests can't drive these (Swing event
-                    //    threading + IntelliJ ToolWindow plumbing), and
-                    //    .claude/rules/testing.md exempts the categories from
-                    //    test coverage. The model / classifier / scanner /
-                    //    exporter classes that *are* unit-testable stay covered.
-                    "com.rescript.plugin.flow.RescriptVariantFlowPanel*",
-                    "com.rescript.plugin.flow.RescriptVariantFlowAction*",
-                    "com.rescript.plugin.flow.RescriptVariantFlowToolWindowFactory*",
-                    "com.rescript.plugin.impact.RescriptTypeImpactPanel*",
-                    "com.rescript.plugin.impact.RescriptTypeImpactAction*",
-                    "com.rescript.plugin.impact.RescriptTypeImpactToolWindowFactory*",
-                    "com.rescript.plugin.interop.RescriptInteropRiskPanel*",
-                    "com.rescript.plugin.interop.RescriptInteropRiskAction*",
-                    "com.rescript.plugin.interop.RescriptInteropRiskToolWindowFactory*",
-                    "com.rescript.plugin.migration.RescriptMigrationPanel*",
-                    "com.rescript.plugin.migration.RescriptMigrationAction*",
-                    "com.rescript.plugin.migration.RescriptMigrationToolWindowFactory*",
-                    "com.rescript.plugin.notebook.RescriptNotebookPanel*",
-                    "com.rescript.plugin.notebook.RescriptNotebookCellPanel*",
-                    "com.rescript.plugin.notebook.RescriptNotebookFileEditor*",
-                    "com.rescript.plugin.notebook.RescriptNotebookFileType*",
-                    "com.rescript.plugin.coverage.RescriptTypeCoveragePanel*",
-                    "com.rescript.plugin.coverage.RescriptTypeCoverageToolWindowFactory*",
-                    // Abstract Swing scaffolds shared by the tool window panels
-                    // above (toolbar / status label / Alarm debounce / the
-                    // Visual-Source card toggle). Same SimpleToolWindowPanel +
-                    // IDE UI coupling as their concrete subclasses, so the same
-                    // testing.md exemption applies.
-                    "com.rescript.plugin.ui.RescriptToolWindowPanelBase*",
-                    "com.rescript.plugin.ui.DualViewToolWindowPanel*",
-                    // Editor / Document write-action helpers. The body wraps
-                    // WriteCommandAction (IDE write thread) which can't run
-                    // outside a real IDE fixture; the existing test only
-                    // performs reflection-level smoke and contributes 0 line
-                    // coverage by design.
-                    "com.rescript.plugin.util.RescriptEditorUtils*",
-                    // Logic-free holder for the platform-injected project
-                    // CoroutineScope; only the IDE container exercises its
-                    // constructor (testing.md IDE-lifecycle exemption).
-                    "com.rescript.plugin.util.RescriptCoroutineScopeService*",
-                    // InlayHintsProvider extension point + LSP-driven hover
-                    // resolver; both need a live IDE inlay session to execute,
-                    // which the unit-test fixture cannot drive.
-                    "com.rescript.plugin.narrowing.RescriptNarrowingHintProvider*",
-                    "com.rescript.plugin.narrowing.RescriptHoverTypeResolver*",
-                )
+            verify {
+                // Keep the existing ratchet. An honest Full denominator is reported separately.
+                rule {
+                    minBound(87)
+                }
             }
         }
-        verify {
-            // Coverage ratchet: minBound is enforced by `./gradlew koverVerify`
-            // (wired into CI via .github/workflows/ci.yml). The value follows the
-            // policy in .claude/rules/release.md — set to (measured coverage - 3%)
-            // and only ratcheted upward across releases. Lowering it requires an
-            // explicit release-note entry.
-            rule {
-                minBound(87)
+        variant("Full") {
+            // Explicitly unfiltered: generated code, IDE adapters and untested classes remain visible.
+            filters {}
+            xml {
+                title = "All main classes, no exclusions — unit tests"
+                xmlFile.set(layout.buildDirectory.file("reports/kover/full.xml"))
+                onCheck = false
+            }
+            html {
+                title = "All main classes, no exclusions — unit tests"
+                htmlDir.set(layout.buildDirectory.dir("reports/kover/full-html"))
+                onCheck = false
             }
         }
     }

@@ -121,12 +121,13 @@ gh release edit v<新バージョン> --notes "<手動記述のリリースノ�
 
 ## カバレッジラチェットポリシー
 
-`build.gradle.kts` の `kover.reports.verify.rule.minBound` は、リリースごとに以下のルールで更新する:
+`build.gradle.kts` の `kover.reports.total.verify.rule.minBound` は、リリースごとに以下のルールで更新する:
 
-1. リリース前に `./gradlew test koverHtmlReport` を実行し、実測カバレッジを確認する
+1. リリース前に `./gradlew test koverHtmlReport koverHtmlReportFull` を実行し、管理対象と無除外全体の実測カバレッジ/母数を別々に確認する
 2. `minBound` を **実測値 - 3%** に設定する（例: 実測 88% → minBound 85）
 3. `minBound` を前バージョンより下げてはならない（ラチェット: 一方向のみ）
 4. カバレッジが低下した場合はテストを追加して回復させること
+5. ratchetは管理対象（Managed）の同じ母数定義に適用する。除外を変更した場合は理由付きclass一覧とFullとの差分を公開し、比較対象の母数変更を明記する。管理対象の比率を全体coverageと呼んだり、package一括除外で低下を隠したりしないこと
 
 ## バージョニング規則
 
