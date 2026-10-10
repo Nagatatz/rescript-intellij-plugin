@@ -30,6 +30,7 @@ internal data class RescriptExtractFunctionPlan(
         val scope: List<Int>,
         val argumentSafe: Boolean,
         val parameter: Boolean = false,
+        val refCell: Boolean = false,
     )
 
     companion object {
@@ -96,6 +97,20 @@ internal data class RescriptExtractFunctionPlan(
             val first = selected.first()
             val last = selected.last()
             val selectedRange = first..last
+            // Creating a lambda through a helper call can lose let-polymorphism.
+            if (selected.any { tokens[it].type in setOf(T.ARROW, T.DOTDOTDOT, T.POLY_VARIANT) }) return null
+            for (index in selected) {
+                if (tokens[index].type != T.UIDENT) continue
+                // A constructor or bare module value has an unknown generalization shape.
+                if (tokens.getOrNull(index + 1)?.type != T.DOT) return null
+                var member = index
+                while (tokens.getOrNull(member + 1)?.type == T.DOT &&
+                    tokens.getOrNull(member + 2)?.type in setOf(T.UIDENT, T.LIDENT)
+                ) {
+                    member += 2
+                }
+                if (tokens[member].type != T.LIDENT || tokens.getOrNull(member + 1)?.type != T.LPAREN) return null
+            }
             if (tokens[first].scope != tokens[last].scope) return null
             // The selection must contain every delimiter it opens or closes.
             if (selected.any { index -> pairs[index]?.let { it !in selectedRange } == true }) return null
@@ -140,7 +155,17 @@ internal data class RescriptExtractFunctionPlan(
                                         )
                                 )
                         } == true
-                    bindings.add(Binding(spelling, name.start, name.end, name.scope, safe))
+                    bindings.add(
+                        Binding(
+                            spelling,
+                            name.start,
+                            name.end,
+                            name.scope,
+                            safe,
+                            refCell =
+                                safe && rhsType == T.REF,
+                        ),
+                    )
                     declarations.add(index + 1)
                     blocks.add(token.scope)
                 }
@@ -224,6 +249,15 @@ internal data class RescriptExtractFunctionPlan(
                                 token.scope.take(it.scope.size) == it.scope
                         }?.maxByOrNull { it.scope.size }
                 if (index in selectedRange && resolved == null) return null
+                if (index in selectedRange && next == T.DOT) {
+                    val member = tokens.getOrNull(index + 2) ?: return null
+                    if (resolved?.refCell != true || member.type != T.LIDENT ||
+                        text.substring(member.start, member.end) != "contents" ||
+                        tokens.getOrNull(index + 3)?.type == T.DOT
+                    ) {
+                        return null
+                    }
+                }
                 if (resolved != null) references.add(index to resolved)
             }
             val local = bindings.filter { it.position in start until end }.toSet()

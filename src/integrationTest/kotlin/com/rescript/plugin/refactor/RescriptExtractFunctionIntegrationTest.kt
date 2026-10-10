@@ -59,9 +59,9 @@ class RescriptExtractFunctionIntegrationTest {
                 """.trimIndent() to "8\n1",
                 """
                 let base = 5
-                let compute = <selection>(item) => {
-                  item + base
-                }</selection>
+                let compute = (item) => {
+                  <selection>item + base</selection>
+                }
                 Console.log(compute(2))
                 """.trimIndent() to "7",
                 "<selection>Console.log(\"hello\")</selection>" to "hello",
@@ -85,6 +85,24 @@ class RescriptExtractFunctionIntegrationTest {
                 val run = IntegrationTestSupport.exec(projectDir, listOf("node", "src/Example.res.js"))
                 assertTrue(run.succeeded, run.stdout + run.stderr)
                 assertEquals(output, run.stdout.trim())
+            }
+        }
+        Files.writeString(source.parent.resolve("A.res"), "let identity = (x) => {x}\n")
+        for (expression in listOf("(x) => {x}", "A.identity")) {
+            val marked =
+                "let identity = <selection>$expression</selection>\n" +
+                    "Console.log(identity(1))\nConsole.log(identity(\"hello\"))\n"
+            myFixture.configureByText("Example.res", marked)
+            val original = myFixture.editor.document.text
+            RescriptExtractFunctionHandler().invoke(project, myFixture.editor, myFixture.file, null)
+            assertEquals(original, myFixture.editor.document.text)
+            for (text in listOf(original, myFixture.editor.document.text)) {
+                Files.writeString(source, text)
+                val compile = IntegrationTestSupport.exec(projectDir, listOf("npx", "rescript", "build"))
+                assertTrue(compile.succeeded, compile.stdout + compile.stderr)
+                val run = IntegrationTestSupport.exec(projectDir, listOf("node", "src/Example.res.js"))
+                assertTrue(run.succeeded, run.stdout + run.stderr)
+                assertEquals("1\nhello", run.stdout.trim())
             }
         }
     }

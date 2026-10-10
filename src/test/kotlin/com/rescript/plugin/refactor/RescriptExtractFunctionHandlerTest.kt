@@ -44,12 +44,15 @@ class RescriptExtractFunctionHandlerTest {
     @Test
     fun `block lambda parameters are local while captured bindings are external`() {
         assertEquals(
-            listOf("base"),
-            plan("let base = 1\nlet compute = <selection>(item) => {\nitem + base\n}</selection>")!!.parameters,
+            listOf("base", "item"),
+            plan("let base = 1\nlet compute = (item) => {\n<selection>item + base</selection>\n}")!!.parameters,
         )
         assertEquals(listOf("item"), plan("let compute = (item) => {\n<selection>item + 1</selection>\n}")!!.parameters)
         assertNull(plan("let compute = (<selection>item</selection>) => {item + 1}"))
-        assertEquals(emptyList<String>(), plan("let x = 1\n<selection>(x) => {x + 1}</selection>")!!.parameters)
+        assertEquals(
+            listOf("x"),
+            plan("let x = 1\nlet compute = (x) => {\n<selection>x + 1</selection>\n}")!!.parameters,
+        )
     }
 
     @Test
@@ -82,6 +85,12 @@ class RescriptExtractFunctionHandlerTest {
             "open A\nlet x = 1\n<selection>x + 1</selection>",
             "let x = 1\n<selection>call(~x)</selection>",
             "let x = 1\n<selection>x => x + 1</selection>",
+            "let identity = <selection>(x) => {x}</selection>",
+            "let identity = <selection>A.identity</selection>",
+            "let value = <selection>A.Any</selection>",
+            "<selection>A.compute(1, ...)</selection>",
+            "let compute = (record) => {\n<selection>record.identity</selection>\n}",
+            "let r = ref(1)\n<selection>r.contents.identity</selection>",
             "let identity = (item) => {item}\n<selection>{let n = identity(1)\nidentity(\"hello\")}</selection>",
             "let values = List.empty()\n<selection>Console.log(values)</selection>",
             "let value = 1->A.make()\n<selection>Console.log(value)</selection>",

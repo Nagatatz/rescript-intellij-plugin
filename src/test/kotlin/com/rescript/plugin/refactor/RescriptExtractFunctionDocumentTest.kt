@@ -40,6 +40,8 @@ class RescriptExtractFunctionDocumentTest {
         for (text in listOf(
             "<selection>Console.log(unknown)</selection>",
             "let x = 1\nlet result = {\n<selection>let temp = x + 1</selection>\ntemp * 2\n}",
+            "let identity = <selection>(x) => {x}</selection>\nConsole.log(identity(1))\nConsole.log(identity(\"hello\"))",
+            "let identity = <selection>A.identity</selection>\nConsole.log(identity(1))\nConsole.log(identity(\"hello\"))",
         )) {
             myFixture.configureByText("Unsafe.res", text)
             val original = myFixture.editor.document.text
