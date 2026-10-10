@@ -12,9 +12,9 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.GlobalSearchScope
 import com.rescript.plugin.lang.psi.RescriptFile
+import com.rescript.plugin.util.RescriptProcessRunner
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 /**
  * Global inspection that runs `rescript-tools reanalyze -json` to find unused code
@@ -45,20 +45,29 @@ class RescriptUnusedCodeInspection : GlobalInspectionTool() {
                         .withWorkDirectory(basePath)
                         .withCharset(Charsets.UTF_8)
 
-                val process = commandLine.createProcess()
-                val stdout = process.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-                val completed = process.waitFor(RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-                if (!completed) {
-                    process.destroyForcibly()
-                    LOG.warn("reanalyze process timed out after ${RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS}s")
+                val result =
+                    RescriptProcessRunner.run(
+                        start = { commandLine.createProcess() },
+                        timeoutMs = RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS * 1000,
+                        checkCancelled = {
+                            com.intellij.openapi.progress.ProgressManager
+                                .checkCanceled()
+                        },
+                    )
+                if (!result.successful) {
+                    LOG.warn("reanalyze: ${result.failureMessage}")
+                    com.intellij.notification.NotificationGroupManager
+                        .getInstance()
+                        .getNotificationGroup("ReScript")
+                        .createNotification(
+                            "ReScript analysis failed",
+                            result.failureMessage,
+                            com.intellij.notification.NotificationType.WARNING,
+                        ).notify(project)
                     return
                 }
-                val exitCode = process.exitValue()
+                val stdout = result.stdout
 
-                if (exitCode != 0) {
-                    LOG.debug("reanalyze exited with code $exitCode")
-                    return
-                }
                 stdout
             } catch (e: ExecutionException) {
                 LOG.warn(

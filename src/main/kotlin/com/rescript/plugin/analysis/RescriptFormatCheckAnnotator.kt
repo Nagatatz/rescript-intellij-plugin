@@ -153,8 +153,8 @@ class RescriptFormatCheckAnnotator :
 
             val result = RescriptProcessUtils.executeWithStdin(commandLine, documentText)
 
-            if (result.timedOut) {
-                LOG.debug("rescript format check timed out")
+            if (result.failure != null) {
+                LOG.debug("rescript format check: ${result.failure.description}")
                 return null
             }
 

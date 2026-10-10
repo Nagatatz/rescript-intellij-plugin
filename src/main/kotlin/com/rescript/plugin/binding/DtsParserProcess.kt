@@ -2,11 +2,10 @@ package com.rescript.plugin.binding
 
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.diagnostic.logger
-import java.io.IOException
+import com.rescript.plugin.util.RescriptProcessRunner
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
-import java.util.concurrent.TimeUnit
 
 /**
  * Spawns the bundled `dts-to-json.js` Node.js script to parse a `.d.ts` file
@@ -49,42 +48,17 @@ object DtsParserProcess {
 
         LOG.info("Running dts-to-json: ${commandLine.commandLineString}")
 
-        val proc = commandLine.createProcess()
-
-        val stderr = StringBuilder()
-        val stderrThread =
-            Thread(
-                {
-                    try {
-                        proc.errorStream.reader(Charsets.UTF_8).use {
-                            stderr.append(it.readText())
-                        }
-                    } catch (e: IOException) {
-                        LOG.debug("Failed to read stderr from dts-to-json process", e)
-                    }
+        val result =
+            RescriptProcessRunner.run(
+                start = { commandLine.createProcess() },
+                timeoutMs = TIMEOUT_MS,
+                checkCancelled = {
+                    com.intellij.openapi.progress.ProgressManager
+                        .checkCanceled()
                 },
-                "dts-to-json-stderr",
             )
-        stderrThread.start()
-
-        val stdout =
-            proc.inputStream.reader(Charsets.UTF_8).use {
-                it.readText()
-            }
-
-        stderrThread.join(TIMEOUT_MS)
-        val completed = proc.waitFor(TIMEOUT_MS, TimeUnit.MILLISECONDS)
-        if (!completed) {
-            proc.destroyForcibly()
-            throw DtsParserException("dts-to-json timed out after ${TIMEOUT_MS}ms")
-        }
-        val exitCode = proc.exitValue()
-
-        if (exitCode != 0) {
-            val errorMsg = stderr.toString().ifBlank { "dts-to-json failed with exit code $exitCode" }
-            LOG.warn("dts-to-json failed: $errorMsg")
-            throw DtsParserException(errorMsg)
-        }
+        if (!result.successful) throw DtsParserException(result.failureMessage)
+        val stdout = result.stdout
 
         if (stdout.isBlank()) {
             throw DtsParserException("dts-to-json produced empty output")

@@ -5511,3 +5511,7 @@ msgstr ""
 #~ "TD` "
 #~ "テキストビューで、コピー＆ペースト用途のために残しています。ダイアグラムテキストを共有前に確認・編集したい場合はこのモードに切り替えてください。"
 
+
+#: ../../user/features/advanced.md
+msgid "Binding generation has a total 30-second command timeout, supports IDE progress cancellation and limits each output stream to 4 MiB. REPL compilation and Node.js execution each have a separate 30-second budget with the same output limit. Timeout, cancellation and excessive output stop the owned process and observed child processes and report the failure reason. Process discovery cannot guarantee termination of children that detach before they are observed."
+msgstr "バインディング生成にはコマンド全体で30秒のタイムアウトがあり、IDEの進捗取消に対応し、各出力ストリームを4 MiBに制限します。REPLのコンパイルとNode.js実行にはそれぞれ独立した30秒の制限と同じ出力上限を適用します。タイムアウト、取消、出力超過時には所有プロセスと観測済みの子プロセスを停止し、失敗理由を通知します。観測前に切り離された子プロセスの停止は、プロセス検出では保証できません。"
