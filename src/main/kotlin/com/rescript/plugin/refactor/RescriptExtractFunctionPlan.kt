@@ -52,6 +52,7 @@ internal data class RescriptExtractFunctionPlan(
             val scope = mutableListOf<Int>()
             val stack = mutableListOf<Int>()
             val pairs = mutableMapOf<Int, Int>()
+            val braceScopes = mutableMapOf<Int, List<Int>>()
             var nextScope = 0
             val privateAnnotations = Regex("@private[ \t]*\\r?\\n[ \t]*let\\b").findAll(text).toList()
             val lexer = RescriptLexer()
@@ -88,7 +89,10 @@ internal data class RescriptExtractFunctionPlan(
                         pairs[index] = open
                     }
                 }
-                if (type == T.LBRACE) scope.add(nextScope++)
+                if (type == T.LBRACE) {
+                    scope.add(nextScope++)
+                    braceScopes[tokens.lastIndex] = scope.toList()
+                }
                 lexer.advance()
             }
             if (stack.isNotEmpty() || scope.isNotEmpty()) return null
@@ -98,8 +102,34 @@ internal data class RescriptExtractFunctionPlan(
             val last = selected.last()
             val selectedRange = first..last
             // Creating a lambda through a helper call can lose let-polymorphism.
-            if (selected.any { tokens[it].type in setOf(T.ARROW, T.DOTDOTDOT, T.POLY_VARIANT) }) return null
+            if (selected.any {
+                    tokens[it].type in
+                        setOf(
+                            T.ARROW,
+                            T.DOTDOTDOT,
+                            T.POLY_VARIANT,
+                            T.COLON,
+                            T.LBRACKET,
+                            T.UNDERSCORE,
+                            T.ARROBASE,
+                            T.ANNOTATION_NAME,
+                        )
+                }
+            ) {
+                return null
+            }
+            if (selected.any {
+                    tokens[it].type == T.DOT && tokens.getOrNull(it - 1)?.type !in setOf(T.LIDENT, T.UIDENT)
+                }
+            ) {
+                return null
+            }
             for (index in selected) {
+                if (tokens[index].type == T.REF &&
+                    (index + 1 !in selectedRange || tokens.getOrNull(index + 1)?.type != T.LPAREN)
+                ) {
+                    return null
+                }
                 if (tokens[index].type != T.UIDENT) continue
                 // A constructor or bare module value has an unknown generalization shape.
                 if (tokens.getOrNull(index + 1)?.type != T.DOT) return null
@@ -109,12 +139,16 @@ internal data class RescriptExtractFunctionPlan(
                 ) {
                     member += 2
                 }
-                if (tokens[member].type != T.LIDENT || tokens.getOrNull(member + 1)?.type != T.LPAREN) return null
+                if (tokens[member].type != T.LIDENT || member + 1 !in selectedRange ||
+                    tokens.getOrNull(member + 1)?.type != T.LPAREN
+                ) {
+                    return null
+                }
             }
             if (tokens[first].scope != tokens[last].scope) return null
             // The selection must contain every delimiter it opens or closes.
             if (selected.any { index -> pairs[index]?.let { it !in selectedRange } == true }) return null
-            if (tokens.getOrNull(first - 1)?.type in setOf(T.DOT, T.TILDE, T.LET) ||
+            if (tokens.getOrNull(first - 1)?.type in setOf(T.DOT, T.TILDE, T.LET, T.LBRACKET, T.ARROW) ||
                 tokens.getOrNull(last + 1)?.type in setOf(T.DOT, T.COLON, T.EQ) ||
                 T.OPERATORS.contains(tokens[last].type) || tokens[last].type in setOf(T.COMMA, T.LET, T.ARROW)
             ) {
@@ -159,7 +193,7 @@ internal data class RescriptExtractFunctionPlan(
                         Binding(
                             spelling,
                             name.start,
-                            name.end,
+                            if (safe) tokens[initializerEnd!!].end else name.end,
                             name.scope,
                             safe,
                             refCell =
@@ -173,16 +207,18 @@ internal data class RescriptExtractFunctionPlan(
                     // Only block-body lambdas have a proven parameter visibility boundary.
                     val open = index + 1
                     if (tokens.getOrNull(open)?.type != T.LBRACE) return null
-                    val bodyScope = tokens.getOrNull(open + 1)?.scope ?: return null
+                    val bodyScope = braceScopes[open] ?: return null
                     blocks.add(bodyScope)
                     val parameters =
                         when (tokens.getOrNull(index - 1)?.type) {
                             T.LIDENT -> {
+                                if (tokens.getOrNull(index - 2)?.type !in parameterPrefixes) return null
                                 listOf(index - 1)
                             }
 
                             T.RPAREN -> {
                                 val parameterOpen = pairs[index - 1] ?: return null
+                                if (tokens.getOrNull(parameterOpen - 1)?.type !in parameterPrefixes) return null
                                 val indices = (parameterOpen + 1 until index - 1).toList()
                                 if (indices.any { tokens[it].type !in setOf(T.LIDENT, T.COMMA) }) return null
                                 if (indices.isNotEmpty() &&
@@ -205,13 +241,13 @@ internal data class RescriptExtractFunctionPlan(
                     for (parameter in parameters) {
                         if (parameter in selectedRange && index !in selectedRange) return null
                         val p = tokens[parameter]
-                        bindings.add(
-                            Binding(text.substring(p.start, p.end), p.start, tokens[open].end, bodyScope, true, true),
-                        )
+                        val name = text.substring(p.start, p.end)
+                        if (name != "_") bindings.add(Binding(name, p.start, tokens[open].end, bodyScope, true, true))
                         declarations.add(parameter)
                     }
                 }
             }
+            if (tokens[first].scope.isNotEmpty() && tokens[first].scope !in blocks) return null
             val byName = bindings.groupBy { it.name }
             for (group in byName.values) {
                 if (group.map { it.scope }.toSet().size != group.size) return null
@@ -233,14 +269,15 @@ internal data class RescriptExtractFunctionPlan(
                 if (token.type != T.LIDENT || index in declarations) continue
                 val previous = tokens.getOrNull(index - 1)?.type
                 val next = tokens.getOrNull(index + 1)?.type
+                val spelling = text.substring(token.start, token.end)
+                if (spelling == "eval") return null
                 if (previous == T.DOT) continue
                 if (previous == T.TILDE) {
                     if (next != T.EQ) return null // A shorthand label also reads a value, including escaped locals.
                     continue
                 }
                 if (next == T.COLON) continue // Record labels are not value reads.
-                val spelling = text.substring(token.start, token.end)
-                if (spelling == "eval") return null
+                if (spelling == "_" && index in selectedRange) return null
                 if (token.scope.isNotEmpty() && token.scope !in blocks) return null // Record shorthand/pattern.
                 val resolved =
                     byName[spelling]
@@ -279,7 +316,21 @@ internal data class RescriptExtractFunctionPlan(
                     .sorted()
 
             val firstLine = text.lastIndexOf('\n', (start - 1).coerceAtLeast(-1)) + 1
+            val beforeLine = tokens.lastOrNull { it.end <= firstLine }
+            val lineFirst = tokens.firstOrNull { it.start >= firstLine } ?: return null
+            // A helper declaration cannot interrupt a continued expression.
+            if (beforeLine != null &&
+                (T.OPERATORS.contains(beforeLine.type) || beforeLine.type in continuationTokens)
+            ) {
+                return null
+            }
+            if (T.OPERATORS.contains(lineFirst.type) || lineFirst.type == T.DOT) return null
             val prefix = text.substring(firstLine, start)
+            if (tokens[first].type == T.LBRACE &&
+                (prefix.isBlank() || tokens.getOrNull(first - 1)?.type !in setOf(T.EQ, T.LPAREN, T.COMMA))
+            ) {
+                return null
+            }
             val indent = prefix.takeWhile { it == ' ' || it == '\t' }
             val lineTokens = tokens.filter { it.start in firstLine until start }
             // Never insert a function outside the block containing the selected expression.
@@ -304,7 +355,10 @@ internal data class RescriptExtractFunctionPlan(
             )
         }
 
+        private val continuationTokens =
+            setOf(T.EQ, T.ARROW, T.LPAREN, T.LBRACKET, T.COMMA, T.COLON, T.DOT, T.QUESTION_MARK)
         private val openings = setOf(T.LPAREN, T.LBRACKET, T.LBRACE)
+        private val parameterPrefixes = setOf<IElementType?>(null, T.EQ, T.LPAREN, T.COMMA, T.LBRACE)
         private val closings = mapOf(T.RPAREN to T.LPAREN, T.RBRACKET to T.LBRACKET, T.RBRACE to T.LBRACE)
         private val unsupported =
             setOf(

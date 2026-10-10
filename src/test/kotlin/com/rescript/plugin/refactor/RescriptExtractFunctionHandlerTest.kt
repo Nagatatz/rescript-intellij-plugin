@@ -47,6 +47,12 @@ class RescriptExtractFunctionHandlerTest {
             listOf("base", "item"),
             plan("let base = 1\nlet compute = (item) => {\n<selection>item + base</selection>\n}")!!.parameters,
         )
+        assertEquals(
+            listOf("y"),
+            plan(
+                "let y = 1\nlet empty = (y) => {}\nlet compute = () => {\n<selection>y + 1</selection>\n}",
+            )!!.parameters,
+        )
         assertEquals(listOf("item"), plan("let compute = (item) => {\n<selection>item + 1</selection>\n}")!!.parameters)
         assertNull(plan("let compute = (<selection>item</selection>) => {item + 1}"))
         assertEquals(
@@ -91,6 +97,23 @@ class RescriptExtractFunctionHandlerTest {
             "<selection>A.compute(1, ...)</selection>",
             "let compute = (record) => {\n<selection>record.identity</selection>\n}",
             "let r = ref(1)\n<selection>r.contents.identity</selection>",
+            "let compute = (record) => {\n<selection>(record).identity</selection>\n}",
+            "let compute = (record) => {\n<selection>record[\"identity\"]</selection>\n}",
+            "let compute = (record) => {\nrecord[<selection>\"identity\"</selection>]\n}",
+            "let empty = (y) => {}\nlet compute = () => {\n<selection>y + 1</selection>\n}",
+            "let compute = () =>\n<selection>{Console.log(1)}</selection>",
+            "let value =\n<selection>1</selection>",
+            "let value = 1 +\n<selection>2</selection>",
+            "Console.log(\n<selection>1</selection>\n)",
+            "<selection>A.identity</selection>(1)",
+            "<selection>ref</selection>(1)",
+            "let identity = <selection>A.identity(_)</selection>",
+            "<selection>@private</selection>\nlet value = 1",
+            "<selection>Js.Global.eval(\"1\")</selection>",
+            "A.consume(<selection>{field: 1}</selection>)",
+            "A.consume({\n field: <selection>1</selection>\n})",
+            "let t = (x) => {x}\nlet compute = (): A.t => {\n<selection>t</selection>\n}",
+            "let compute = (_) => {\n<selection>A.identity(_)</selection>\n}",
             "let identity = (item) => {item}\n<selection>{let n = identity(1)\nidentity(\"hello\")}</selection>",
             "let values = List.empty()\n<selection>Console.log(values)</selection>",
             "let value = 1->A.make()\n<selection>Console.log(value)</selection>",

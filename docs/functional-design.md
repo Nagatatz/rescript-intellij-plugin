@@ -675,7 +675,7 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 
 ## Safe function extraction
 
-Extract Function resolves simple lexical bindings and block-body lambda parameters before editing. Only selected references to external bindings become parameters; local bindings cannot escape the selection. New functions remain in the same block, avoid existing names, and share one undo command with the call site. Top-level helpers are private, and exported declarations cannot be removed. Lambda values, bare module values, unknown field values and partial applications are refused to preserve type generalization; verified ref-cell contents and extraction inside block-body lambdas are supported. Unknown syntax and unresolved references leave the document unchanged.
+Extract Function resolves simple lexical bindings and block-body lambda parameters before editing. Only selected references to external bindings become parameters; local bindings cannot escape the selection. New functions remain in the same block, avoid existing names, and share one undo command with the call site. Top-level helpers are private, and exported declarations cannot be removed. Lambda values, bare module values, unknown field values and partial applications are refused to preserve type generalization; record literals, array/index expressions, placeholders, return-type annotations and statement continuations are also refused when type or insertion context cannot be established. Verified ref-cell contents and extraction inside block-body lambdas are supported. Unknown syntax and unresolved references leave the document unchanged.
 
 ## Finite external command execution
 

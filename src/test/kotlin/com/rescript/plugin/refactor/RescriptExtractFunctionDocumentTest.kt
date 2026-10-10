@@ -38,6 +38,12 @@ class RescriptExtractFunctionDocumentTest {
     @Test
     fun `unknown references and escaped local declarations leave documents unchanged`() {
         for (text in listOf(
+            "A.consume(<selection>{field: 1}</selection>)",
+            "A.consume({\n field: <selection>1</selection>\n})",
+            "let t = (x) => {x}\nlet compute = (): A.t => {\n<selection>t</selection>\n}",
+            "let compute = (_) => {\n<selection>A.identity(_)</selection>\n}",
+            "let empty = (y) => {}\nlet compute = () => {\n<selection>y + 1</selection>\n}",
+            "let value = 1 +\n<selection>2</selection>",
             "<selection>Console.log(unknown)</selection>",
             "let x = 1\nlet result = {\n<selection>let temp = x + 1</selection>\ntemp * 2\n}",
             "let identity = <selection>(x) => {x}</selection>\nConsole.log(identity(1))\nConsole.log(identity(\"hello\"))",
