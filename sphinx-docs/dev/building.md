@@ -81,3 +81,11 @@ The GitHub Actions CI pipeline (`.github/workflows/ci.yml`) runs on every push a
 3. Build — Compile and package
 4. Test — Run tests with coverage (Kover)
 5. Verify — Plugin structure and binary compatibility (push only)
+
+### CI documentation dependencies
+
+The Docs workflow pins `astral-sh/setup-uv` to commit `bec219d24cd3e171d82865faccec33120bb574f4` (v10.1.0), following the third-party action pinning policy. The action uses Node 24 on GitHub-hosted Ubuntu runners. Its pin selects the setup action, not the uv executable: the existing latest-uv selection and project Python requirements are retained.
+
+Each documentation job uses `uv sync --locked` and checks that `pyproject.toml` and `uv.lock` remain unchanged. An outdated lock fails installation instead of being regenerated in CI. Explicit `enable-cache: true` is retained; the default dependency glob includes `sphinx-docs/uv.lock`. Python caching and cache pruning remain disabled. A cache miss is valid and does not relax the lock check.
+
+Changes to the Docs workflow itself trigger its PR validation, including lint, tests, translations, English/Japanese builds and accessibility checks. PR runs do not deploy Pages. This Linux documentation validation does not establish plugin physical or interactive runtime compatibility.
