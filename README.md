@@ -38,7 +38,7 @@
 - **Quick Documentation** — PSI-based fallback documentation when LSP is unavailable (`Ctrl+Q`)
 - **Usage type classification** — Categorized Find Usages results (open, type, pipe, JSX, etc.)
 - **Extract Variable** — Extract selected expression into a `let` binding (`Ctrl+Alt+V`)
-- **Extract Function** — Extract selected code into a new function (`Ctrl+Alt+M`)
+- **Extract Function** — Extract supported code with resolved lexical parameters and one-step undo (`Ctrl+Alt+M`)
 - **Inline Variable/Function** — Inline expand variables and functions (`Ctrl+Alt+N`)
 - **Introduce Constant** — Extract literal values into module-level constants
 - **Change Signature** — Modify function parameters and update call sites (`Ctrl+F6`)

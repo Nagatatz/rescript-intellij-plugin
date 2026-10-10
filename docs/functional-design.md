@@ -417,6 +417,7 @@ flowchart TD
 | `com.intellij.lineIndentProvider` | `RescriptLineIndentProvider` | インデント制御 | 実装済み |
 | `com.intellij.breadcrumbsInfoProvider` | `RescriptBreadcrumbsProvider` | パンくずナビゲーション | 実装済み |
 | `com.intellij.renameHandler` | `RescriptRenameHandler` | リネームリファクタリング | 実装済み |
+| `com.intellij.lang.refactoringSupport` | `RescriptRefactoringSupportProvider` / `RescriptExtractFunctionHandler` | Function extraction with validated lexical bindings, local insertion and atomic undo | Implemented |
 | `com.intellij.lang.namesValidator` | `RescriptNamesValidator` | 名前バリデーション | 実装済み |
 | `com.intellij.projectConfigurable` | `RescriptConfigurable` | プロジェクト設定 UI | 実装済み |
 | `com.intellij.projectService` | `RescriptProjectSettings` | プロジェクト設定永続化 | 実装済み |
@@ -671,6 +672,10 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | 機能 | rescript-vscode での実装 | 優先度 | 備考 |
 |---|---|---|---|
 (全 rescript-vscode ギャップ機能が実装済み)
+
+## Safe function extraction
+
+Extract Function resolves simple lexical bindings and block-body lambda parameters before editing. Only selected references to external bindings become parameters; local bindings cannot escape the selection. New functions remain in the same block, avoid existing names, and share one undo command with the call site. Top-level helpers are private, and exported declarations cannot be removed. Lambda values, bare module values, unknown field values and partial applications are refused to preserve type generalization; record literals, array/index expressions, placeholders, return-type annotations and statement continuations are also refused when type or insertion context cannot be established. Verified ref-cell contents and extraction inside block-body lambdas are supported. Unknown syntax and unresolved references leave the document unchanged.
 
 ## Finite external command execution
 

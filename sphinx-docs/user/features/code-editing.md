@@ -977,7 +977,7 @@ Extract Variable lets you name intermediate expressions for clarity, making comp
 
 Press `Ctrl+Alt+M` (`Cmd+Alt+M` on macOS) to extract the selected code into a new function.
 
-The handler detects the selected expression or statement range in a `let` declaration body, extracts it into a new `let` function above the current declaration, and replaces the original code with a call to the new function. Free variables in the selection become parameters of the extracted function.
+The handler resolves references to supported lexical bindings and extracts the selected expression or statement range into a new `let` function immediately before the selected statement in the same block. Only bindings declared outside the selection become parameters. Strings, comments, qualified members and record labels do not become parameters. The declaration and call site are edited in one undoable command, and the generated name avoids existing identifiers. Top-level helpers are private; selecting an entire exported declaration is refused.
 
 Select `a + b`, then:
 
@@ -992,17 +992,19 @@ let calculate = (a, b) => {
 :::
 :::{tab-item} After
 ```rescript
-let extracted = (a, b) => a + b
-
 let calculate = (a, b) => {
-  let result = extracted(a, b)
+  let extractedFunction = (a, b) => {
+    a + b
+  }
+
+  let result = extractedFunction(a, b)
   result * 2
 }
 ```
 :::
 ::::
 
-Extract Function automatically detects free variables and turns them into parameters, so you can decompose large functions into smaller, reusable pieces without manually threading values through.
+Simple `let` bindings and block-body lambda parameters are supported. Local bindings within the selection stay local to the extracted function; extraction is refused if those bindings are used outside the selection. Rebinding, destructuring, lambda values inside the selection, unknown field values, bare module members, constructors, partial applications, opens, modules, templates, raw JavaScript, shorthand labels, potentially generalized bindings (including function call results) and unresolved names are conservatively rejected. Record literals, array/index expressions, placeholders, return-type annotations and selection across statement continuations are also refused because the required type or insertion context is not proven. Complete project-wide semantic resolution is not yet available. Field reads and updates are limited to `.contents` on a verified ref initializer. Calls and ref updates remain in the extracted body and execute once at the original call site.
 
 ## Inline Variable/Function
 

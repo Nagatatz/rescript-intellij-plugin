@@ -76,7 +76,7 @@ rescript-intellij-plugin/
 | `generate/` | Code Generation（Generate メニュー） | `RescriptGenerateGroup`, `RescriptGenerateSwitchAction`, `RescriptJsonCodeGenerator` |
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
-| `refactor/` | リネーム、識別子バリデーション | `RescriptRenameHandler` |
+| `refactor/` | Rename, identifier validation, and safe function extraction with lexical binding resolution | `RescriptRenameHandler`, `RescriptExtractFunctionHandler`, `RescriptExtractFunctionPlan` |
 | `util/` | 共通ユーティリティ（セキュリティ、offset↔Position 変換、エディタ操作、ツールウィンドウ取り付け等、色 hex 変換、HTML エディタ pane factory、panel 用 EditorTextField 設定、プロジェクト全体ファイル走査ループ、coroutine デバウンス） | `RescriptSecurityUtils`, `RescriptOffsetUtils`, `RescriptEditorUtils`, `RescriptToolWindowContent`, `RescriptColorUtils`, `HtmlEditorPaneFactory`, `EditorTextFieldFactory`, `RescriptProjectFileScanner`, `RescriptCoroutineDebouncer`, `RescriptProcessRunner` (finite commands: concurrent I/O, deadline, cancellation, bounded output and descendant cleanup) |
 | `ui/` | ToolWindow panel 共通基盤（toolbar / status / debounce 付き refresh の `RescriptToolWindowPanelBase`、Visual ↔ Source カード切替の `DualViewToolWindowPanel`、GraphView 共有描画プリミティブ、caret 追跡） | `RescriptToolWindowPanelBase`, `DualViewToolWindowPanel`, `GraphViewPaintHelpers`, `RescriptEditorCaretTracker` |
 | `commenter/` | コメントトグル | `RescriptCommenter` |
