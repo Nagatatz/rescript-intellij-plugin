@@ -10,63 +10,85 @@ class RescriptTypedHandlerTest {
     @Test
     fun `extracts simple html tag name`() {
         val text = "<div>"
-        // gtIndex points to '>' at index 4
-        assertEquals("div", handler.extractJsxTagName(text, 3))
+        assertEquals("div", handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `extracts component tag name`() {
         val text = "<Button>"
-        assertEquals("Button", handler.extractJsxTagName(text, 6))
+        assertEquals("Button", handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `extracts module-qualified tag name`() {
         val text = "<Module.Component>"
-        assertEquals("Module.Component", handler.extractJsxTagName(text, 16))
+        assertEquals("Module.Component", handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `returns null for closing tag`() {
         val text = "</div>"
-        assertNull(handler.extractJsxTagName(text, 4))
+        assertNull(handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `returns null when no opening angle bracket`() {
         val text = "div>"
-        assertNull(handler.extractJsxTagName(text, 3))
+        assertNull(handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `extracts tag with attributes`() {
         val text = "<div className=\"test\">"
-        assertEquals("div", handler.extractJsxTagName(text, 20))
+        assertEquals("div", handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `extracts tag with JSX expression attribute`() {
         val text = "<div onClick={handler}>"
-        // '>' is at index 22; pass it so backward scan visits '}' at 21
-        assertEquals("div", handler.extractJsxTagName(text, 22))
+        assertEquals("div", handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `returns null for self-closing angle`() {
         // This tests < not followed by a letter
         val text = "<>"
-        assertNull(handler.extractJsxTagName(text, 1))
+        assertNull(handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `extracts tag with underscore in name`() {
         val text = "<my_component>"
-        assertEquals("my_component", handler.extractJsxTagName(text, 12))
+        assertEquals("my_component", handler.extractJsxTagName(text, text.lastIndex))
     }
 
     @Test
     fun `extracts deeply nested module tag`() {
         val text = "<A.B.C>"
-        assertEquals("A.B.C", handler.extractJsxTagName(text, 5))
+        assertEquals("A.B.C", handler.extractJsxTagName(text, text.lastIndex))
+    }
+
+    @Test
+    fun `does not close tags for operators following a type argument`() {
+        for (suffix in listOf("values->", "x =>", "a >")) {
+            val text = "let values: array<string> = []\n$suffix"
+            assertNull(handler.extractJsxTagName(text, text.lastIndex))
+        }
+    }
+
+    @Test
+    fun `does not close tags for arrows inside unfinished JSX attributes`() {
+        for (arrow in listOf("->", "=>")) {
+            val text = "<div onClick={value $arrow"
+            assertNull(handler.extractJsxTagName(text, text.lastIndex))
+        }
+    }
+
+    @Test
+    fun `extracts tags with arrows and comparisons inside nested attributes`() {
+        for (attribute in listOf("_ => ()", "value->convert", "if a > b {a} else {b}")) {
+            val text = "<Comp.Sub onClick={$attribute}>"
+            assertEquals("Comp.Sub", handler.extractJsxTagName(text, text.lastIndex))
+        }
     }
 }
