@@ -523,6 +523,7 @@ flowchart TD
 | `com.intellij.usageTypeProvider` | `RescriptUsageTypeProvider` | 使用タイプ分類 | 実装済み |
 | `com.intellij.codeBlockProvider` | `RescriptCodeBlockHandler` | コードブロック境界検出 | 実装済み |
 | `com.intellij.listSplitJoinContext` | `RescriptListSplitJoinContext` | リスト分割/結合 | 実装済み |
+| `com.intellij.lang.refactoring.inlineHandler` | `RescriptInlineHandler` | Literal-only constant inlining; lexical scope validation, parenthesized replacements, and atomic undo. Ambiguous bindings are unavailable; exported declarations are retained. | Implemented |
 | `com.intellij.refactoring.safeDeleteProcessor` | `RescriptSafeDeleteProcessor` | Safe Delete プロセッサ | 実装済み |
 | `com.intellij.nameSuggestionProvider` | `RescriptNameSuggestionProvider` | リネーム名前候補 | 実装済み |
 | `com.intellij.fileType` | `RescriptWorksheetFileType` | Worksheet モード（`.resw`） | 実装済み |
