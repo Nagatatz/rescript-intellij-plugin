@@ -34,7 +34,7 @@ rescript-intellij-plugin/
 |-----------|------|-----------|
 | (ルート) | Language / FileType / Icons 定義、エラーレポート連携 | `RescriptLanguage`, `RescriptFileTypes`, `RescriptIcons`, `RescriptErrorReporter` |
 | `lang/` | レクサー、パーサー、トークン定義、型宣言 RHS の再パース | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes`, `RescriptTypeDeclarationParser` |
-| `lang/psi/` | PSI 要素クラス、ユーティリティ、JSX 開閉タグペア解決 | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils`, `RescriptJsxTagPairUtil` |
+| `lang/psi/` | PSI 要素クラス、宣言の AST/stub 共通契約、ユーティリティ、JSX 開閉タグペア解決 | `RescriptPsi`, `RescriptDeclarationPsiElement`, `RescriptStringLiteral`, `RescriptPsiUtils`, `RescriptJsxTagPairUtil` |
 | `highlight/` | シンタックスハイライト、ブレースマッチング、使用箇所ハイライト（キーワード / JSX 開閉タグペア） | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher`, `RescriptHighlightUsagesHandlerFactory`, `RescriptJsxTagHighlightHandler` |
 | `lsp/` | LSP サーバー管理、カスタムプロトコル、LSP ユーティリティ、variant 型の bare-name 解決 | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor`, `RescriptLspUtils`, `RescriptVariantTypeResolver` |
 | `codestyle/` | コードスタイル、インデント設定 | `RescriptCodeStyleSettingsProvider` |
