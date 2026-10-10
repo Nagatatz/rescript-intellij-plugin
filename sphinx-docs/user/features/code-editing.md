@@ -318,6 +318,12 @@ Array.map(arr, x => x + 1)
 arr->Array.map(x => x + 1)
 ```
 
+Unit calls are preserved: `getItems()->Array.length` becomes `Array.length(getItems())`, and converting back restores `getItems()->Array.length`. Nested arguments, strings, comments, arrays/records and multiline expressions retain their source text. One undo restores the original expression.
+
+These intentions handle `->` and qualified function calls with positional arguments. They are not offered inside strings/comments or for `|>`, labeled/optional arguments, placeholders, JSX/templates, incomplete delimiters or ambiguous operator boundaries. Parenthesize complex expressions before conversion; unsupported input is left unchanged.
+
+Conversions also work inside lambda bodies with plain positional parameters, such as `items => items->Array.length`. Typed or destructured lambda parameters and blocks with statements are currently unsupported. Argument shapes are checked recursively; balanced but unknown input such as `Array.map(arr, a b)` is not converted.
+
 ### Publish/Unpublish Interface
 
 Control which declarations are exposed in the `.resi` interface file directly from the `.res` implementation.

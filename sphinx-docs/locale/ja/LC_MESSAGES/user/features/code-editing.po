@@ -2962,3 +2962,13 @@ msgstr ""
 #: ../../user/features/code-editing.md
 msgid "Formatting and format checks use concurrent input/output with a total 10-second command timeout and a 4 MiB limit per output stream. Cancellation stops the owned process and observed child processes. Timeout or output overflow leaves the document unchanged and reports the failure reason."
 msgstr "フォーマットとフォーマットチェックは入出力を並行処理し、コマンド全体に10秒のタイムアウトと出力ストリームごとに4 MiBの上限を適用します。取消時には所有プロセスと観測済みの子プロセスを停止します。タイムアウトや出力上限超過時にはドキュメントを変更せず、失敗理由を通知します。"
+
+
+msgid "Unit calls are preserved: `getItems()->Array.length` becomes `Array.length(getItems())`, and converting back restores `getItems()->Array.length`. Nested arguments, strings, comments, arrays/records and multiline expressions retain their source text. One undo restores the original expression."
+msgstr "unit 呼出しは保持されます。`getItems()->Array.length` は `Array.length(getItems())` に変換され、逆変換すると `getItems()->Array.length` に戻ります。ネストした引数、文字列、コメント、配列/レコード、複数行の式のソーステキストを保持します。1 回の undo で元の式に戻ります。"
+
+msgid "These intentions handle `->` and qualified function calls with positional arguments. They are not offered inside strings/comments or for `|>`, labeled/optional arguments, placeholders, JSX/templates, incomplete delimiters or ambiguous operator boundaries. Parenthesize complex expressions before conversion; unsupported input is left unchanged."
+msgstr "この Intention は `->` と位置引数を持つ修飾された関数呼出しを扱います。文字列/コメント内、`|>`、ラベル付き/省略可能な引数、プレースホルダー、JSX/テンプレート、不完全な区切り、曖昧な演算子境界では提供されません。複雑な式は変換前に括弧で囲んでください。未対応の入力は変更しません。"
+
+msgid "Conversions also work inside lambda bodies with plain positional parameters, such as `items => items->Array.length`. Typed or destructured lambda parameters and blocks with statements are currently unsupported. Argument shapes are checked recursively; balanced but unknown input such as `Array.map(arr, a b)` is not converted."
+msgstr "`items => items->Array.length` のような通常の位置パラメーターを持つ lambda 本体内でも変換できます。型付き/分割代入の lambda パラメーターと文を含むブロックには現在対応していません。引数の形状を再帰的に確認し、`Array.map(arr, a b)` のように括弧が釣り合っていても解釈できない入力は変換しません。"

@@ -241,6 +241,14 @@ graph TD
 | `EXCEPTION_DECLARATION` | `exception` 定義 | 折りたたみ |
 | `ANNOTATION` | `@decorator` | — |
 
+#### 宣言 PSI の stub 契約
+
+`RescriptDeclarationPsiElement` は `StubBasedPsiElementBase<RescriptDeclarationStub>` を継承し、`StubBasedPsiElement<RescriptDeclarationStub>` を明示的に実装する。現行 IntelliJ Platform の基底クラスはこのインターフェースを実装しない一方、`DefaultStubBuilder` は宣言 PSI にその契約を要求する。これにより、物理プロジェクトファイルの索引作成と Intention 検出時にも宣言を stub 化できる。
+
+AST/stub の両コンストラクタと宣言名の取得を保持する。5 種類の宣言は `RescriptStubElementTypes` の canonical instance を共有し、既存の `shouldCreateStub` 判定、外部 ID、索引キーを変更しない。
+
+`RescriptParserDefinition.FILE` は file stub の debugName に `RESCRIPT_FILE` を指定する。IDE は externalId / stubVersion / debugName の組で保存済み stub を識別するため、汎用 `psi.file:0:FILE` と他の IDE file type の衝突を回避する。既存の serializer、externalId、stubVersion と stub 構造は変更せず、ファイル更新や Intention 適用後の再索引を維持する。
+
 ### 2.5 シンタックスハイライトコンポーネント
 
 #### RescriptSyntaxHighlighter
@@ -679,3 +687,9 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 Every exit path forcibly stops the owner and observed descendants. Handles are retained across parent exit, and cleanup allows up to 200 ms for termination/reaping outside the command budget; pipe closing never blocks the caller. Java process creation itself is synchronous, and OS termination is asynchronous. Descendant discovery uses `ProcessHandle`: processes that detach or are reparented before a polling pass are outside this portable guarantee. This runner handles finite commands; the persistent LSP and reanalyze server lifecycles remain separate.
 
 The formatter reports a sanitized diagnostic or a failure reason and suppresses results after cancellation. Binding generation reports a parser error while IDE cancellation propagates. Reanalyze reports a file-level warning or inspection notification instead of parsing failed output. REPL reports compile/runtime failure reasons, preserves its unique temporary-file ownership and hides the project path in compiler diagnostics. Each REPL compile and runtime command has its own 30-second budget.
+
+### Balanced pipe conversion
+
+`RescriptPipeConversion` plans the source ranges for both pipe conversion intentions using `RescriptLexer`. Only `RIGHT_ARROW` (`->`) is a pipe-first operator; `PIPE_FORWARD` (`|>`) is rejected. A delimiter stack pairs parentheses, brackets and braces, and argument splitting only considers commas outside paired groups. Original source slices retain nested calls, records/arrays, strings, comments and newlines. In particular, `getItems()->Array.length` converts to `Array.length(getItems())`, and the reverse conversion retains the unit call. Earlier pipe stages remain part of the complete left-hand expression.
+
+The planner supports qualified calls with positional first arguments and explicit expression boundaries. A recursive expression whitelist consumes every significant token in arguments and nested calls, arrays, records and expression-bodied lambdas; balanced but unknown input such as `a b` is rejected. Lambda body boundaries require a valid plain positional parameter list before `=>`, so a malformed lambda cannot authorize a rewrite. It declines labeled/optional arguments, placeholders, JSX/templates, unbalanced or unterminated input, ambiguous operator boundaries and postfix calls on call results. Parenthesized expressions retain their grouping; unknown shapes do not fall back to a partial regex match. Carets inside strings/comments are not conversion sites. Editor mutations use the existing Intention write command so one undo restores the complete original document. Regression coverage includes actual Intention actions plus compiler/runtime checks before conversion, after conversion and after undo in the dedicated `integrationIdeTest` sandbox.
