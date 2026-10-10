@@ -1438,26 +1438,6 @@ msgid ""
 "into a new function."
 msgstr "`Ctrl+Alt+M`（macOS では `Cmd+Alt+M`）を押して、選択したコードを新しい関数に抽出します。"
 
-#: ../../user/features/code-editing.md:978
-msgid ""
-"The handler detects the selected expression or statement range in a `let`"
-" declaration body, extracts it into a new `let` function above the "
-"current declaration, and replaces the original code with a call to the "
-"new function. Free variables in the selection become parameters of the "
-"extracted function."
-msgstr ""
-"ハンドラーは `let` 宣言本体内の選択された式またはステートメント範囲を検出し、現在の宣言の上に新しい `let` "
-"関数として抽出し、元のコードを新しい関数の呼び出しに置き換えます。選択範囲内の自由変数は抽出された関数のパラメーターになります。"
-
-#: ../../user/features/code-editing.md:1003
-msgid ""
-"Extract Function automatically detects free variables and turns them into"
-" parameters, so you can decompose large functions into smaller, reusable "
-"pieces without manually threading values through."
-msgstr ""
-"Extract Function "
-"は自由変数を自動検出してパラメータに変換するため、値を手動で引き回すことなく大きな関数を小さく再利用可能な部品に分解できます。"
-
 #: ../../user/features/code-editing.md:1005
 msgid "Inline Variable/Function"
 msgstr "変数/関数のインライン化"
@@ -2962,3 +2942,12 @@ msgstr ""
 #: ../../user/features/code-editing.md
 msgid "Formatting and format checks use concurrent input/output with a total 10-second command timeout and a 4 MiB limit per output stream. Cancellation stops the owned process and observed child processes. Timeout or output overflow leaves the document unchanged and reports the failure reason."
 msgstr "フォーマットとフォーマットチェックは入出力を並行処理し、コマンド全体に10秒のタイムアウトと出力ストリームごとに4 MiBの上限を適用します。取消時には所有プロセスと観測済みの子プロセスを停止します。タイムアウトや出力上限超過時にはドキュメントを変更せず、失敗理由を通知します。"
+
+
+#: ../../user/features/code-editing.md
+msgid "The handler resolves references to supported lexical bindings and extracts the selected expression or statement range into a new `let` function immediately before the selected statement in the same block. Only bindings declared outside the selection become parameters. Strings, comments, qualified members and record labels do not become parameters. The declaration and call site are edited in one undoable command, and the generated name avoids existing identifiers. Top-level helpers are private; selecting an entire exported declaration is refused."
+msgstr "ハンドラーは対応する字句束縛への参照を解決し、選択した式または文を同じブロック内の選択した文の直前に置く新しい `let` 関数へ抽出します。選択範囲外で宣言された束縛だけを引数化します。文字列・コメント・修飾されたメンバー・レコードのラベルは引数にしません。宣言と呼出しを単一の取り消し可能なコマンドで編集し、生成名は既存の識別子との衝突を避けます。トップレベルの補助関数は private とし、export する宣言全体の選択は拒否します。"
+
+#: ../../user/features/code-editing.md
+msgid "Simple `let` bindings and block-body lambda parameters are supported. Local bindings within the selection stay local to the extracted function; extraction is refused if those bindings are used outside the selection. Rebinding, destructuring, expression-body lambdas, opens, modules, templates, raw JavaScript, shorthand labels, potentially generalized bindings (including function call results) and unresolved names are conservatively rejected. Complete project-wide semantic resolution is not yet available. Calls and ref updates remain in the extracted body and execute once at the original call site."
+msgstr "単純な `let` 束縛とブロック本体を持つ lambda の引数に対応します。選択内の局所束縛は抽出した関数内に残し、選択外で使われる場合は抽出を拒否します。再束縛・分解束縛・式本体の lambda・open・module・テンプレート・生の JavaScript・省略ラベル・汎用化されている可能性のある束縛（関数呼び出しの結果を含む）・未解決名は安全のため拒否します。プロジェクト全体の完全な意味に基づく解決にはまだ対応していません。呼出しと ref 更新は抽出した本体に残り、元の呼出し位置で1回実行します。"
