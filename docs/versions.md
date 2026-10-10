@@ -14,6 +14,16 @@
 
 最新バージョンは [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/com.rescript.plugin) または [GitHub Releases](https://github.com/Nagatatz/rescript-intellij-plugin/releases) で確認できる。
 
+## CI documentation setup
+
+The Docs workflow adopts [setup-uv v10.1.0](https://github.com/astral-sh/setup-uv/releases/tag/v10.1.0) at commit `bec219d24cd3e171d82865faccec33120bb574f4`. The latest stable checked on 2026-10-10 is [v10.3.0](https://github.com/astral-sh/setup-uv/releases/tag/v10.3.0); it is not adopted by this update. Both v10.0.1 and v10.1.0 use Node 24 and have the same inputs/defaults. v10.1.0 adds NO_PROXY support, download checksum verification through Astral version metadata and an unused Python-runtime identity output.
+
+The Docs workflow pins `astral-sh/setup-uv` to commit `bec219d24cd3e171d82865faccec33120bb574f4` (v10.1.0), following the third-party action pinning policy. The action uses Node 24 on GitHub-hosted Ubuntu runners. Its pin selects the setup action, not the uv executable: the existing latest-uv selection and project Python requirements are retained.
+
+Each documentation job uses `uv sync --locked` and checks that `pyproject.toml` and `uv.lock` remain unchanged. An outdated lock fails installation instead of being regenerated in CI. Explicit `enable-cache: true` is retained; the default dependency glob includes `sphinx-docs/uv.lock`. Python caching and cache pruning remain disabled. A cache miss is valid and does not relax the lock check. See the [official cache documentation](https://github.com/astral-sh/setup-uv/blob/v10.1.0/docs/caching.md) for restore/save keys. Cache state is checked in new-head CI; a previous successful PR head is not evidence for the updated pin.
+
+Changes to the Docs workflow itself trigger its PR validation, including lint, tests, translations, English/Japanese builds and accessibility checks. PR runs do not deploy Pages. This Linux documentation validation does not establish plugin physical or interactive runtime compatibility.
+
 ## バージョニング方針
 
 [セマンティックバージョニング](https://semver.org/lang/ja/) (`MAJOR.MINOR.PATCH`) に従う:

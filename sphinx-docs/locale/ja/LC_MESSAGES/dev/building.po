@@ -288,3 +288,15 @@ msgstr "Test — カバレッジ付きテスト実行（Kover）"
 msgid "Verify — Plugin structure and binary compatibility (push only)"
 msgstr "Verify — プラグイン構造とバイナリ互換性の検証（プッシュ時のみ）"
 
+
+msgid "CI documentation dependencies"
+msgstr "CI ドキュメント依存"
+
+msgid "The Docs workflow pins `astral-sh/setup-uv` to commit `bec219d24cd3e171d82865faccec33120bb574f4` (v10.1.0), following the third-party action pinning policy. The action uses Node 24 on GitHub-hosted Ubuntu runners. Its pin selects the setup action, not the uv executable: the existing latest-uv selection and project Python requirements are retained."
+msgstr "Docs workflow は、サードパーティ action の pin 規約に従い、`astral-sh/setup-uv` を commit `bec219d24cd3e171d82865faccec33120bb574f4`（v10.1.0）に固定します。action は GitHub-hosted Ubuntu runner の Node 24 で動作します。この pin が選択するのは setup action であり uv executable ではありません。従来の latest-uv 選択とプロジェクトの Python 要件を維持します。"
+
+msgid "Each documentation job uses `uv sync --locked` and checks that `pyproject.toml` and `uv.lock` remain unchanged. An outdated lock fails installation instead of being regenerated in CI. Explicit `enable-cache: true` is retained; the default dependency glob includes `sphinx-docs/uv.lock`. Python caching and cache pruning remain disabled. A cache miss is valid and does not relax the lock check."
+msgstr "各 documentation job は `uv sync --locked` を使用し、`pyproject.toml` と `uv.lock` が変更されていないことを確認します。lock が古い場合は CI で再生成せず、依存インストールを失敗させます。明示的な `enable-cache: true` を維持し、既定の dependency glob には `sphinx-docs/uv.lock` が含まれます。Python cache と cache pruning は無効のままです。cache miss は許容されますが、lock 検査は省略しません。"
+
+msgid "Changes to the Docs workflow itself trigger its PR validation, including lint, tests, translations, English/Japanese builds and accessibility checks. PR runs do not deploy Pages. This Linux documentation validation does not establish plugin physical or interactive runtime compatibility."
+msgstr "Docs workflow 自身の変更も PR 検証の対象となり、lint、テスト、翻訳、英語・日本語ビルド、アクセシビリティ検証を実行します。PR 実行では Pages を deploy しません。この Linux documentation 検証は、プラグインの physical または interactive runtime 互換性を保証しません。"
