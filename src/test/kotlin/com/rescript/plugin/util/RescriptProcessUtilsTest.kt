@@ -150,8 +150,7 @@ class RescriptProcessUtilsTest {
     @DisabledOnOs(
         value = [OS.WINDOWS],
         disabledReason =
-            "executeWithStdin drains stdout to EOF before waitFor, so reaching the timeout branch " +
-                "needs a process that stays alive with stdout closed. cmd.exe has no equivalent of `exec 1>&-`.",
+            "This shell-specific closed-stdout case uses bash; portable JVM timeout cases run on Windows too.",
     )
     fun `executeWithStdin handles timeout`() {
         // Close stdout immediately but keep the process alive so waitFor times out
@@ -168,5 +167,28 @@ class RescriptProcessUtilsTest {
         assertEquals("err", result.stderr)
         assertEquals(1, result.exitCode)
         assertTrue(result.timedOut)
+    }
+
+    @Test
+    fun `runSimpleCommand times out without a first output line`() {
+        val started = System.nanoTime()
+        val result = RescriptProcessUtils.runSimpleCommand(*ProcessFixture.command("sleep"), timeoutSeconds = 1)
+        assertTrue(result.timedOut)
+        assertEquals(-1, result.exitCode)
+        assertTrue((System.nanoTime() - started) / 1_000_000 < 2000)
+    }
+
+    @Test
+    fun `executeWithStdin uses requested deadline for unread stdin and open stdout`() {
+        val started = System.nanoTime()
+        val result =
+            RescriptProcessUtils.executeWithStdin(
+                GeneralCommandLine(*ProcessFixture.command("sleep")),
+                "x".repeat(2_000_000),
+                timeoutMs = 200,
+            )
+        assertTrue(result.timedOut)
+        assertEquals(-1, result.exitCode)
+        assertTrue((System.nanoTime() - started) / 1_000_000 < 1500)
     }
 }

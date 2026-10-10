@@ -671,3 +671,11 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | 機能 | rescript-vscode での実装 | 優先度 | 備考 |
 |---|---|---|---|
 (全 rescript-vscode ギャップ機能が実装済み)
+
+## Finite external command execution
+
+`RescriptProcessRunner` owns the short-lived commands used by CLI detection, formatting and format checks, `.d.ts` binding generation, per-file and global reanalyze CLI analysis, and REPL compilation/execution. Three daemon workers handle UTF-8 stdin, stdout and stderr concurrently. A monotonic budget starts before process creation and covers process exit and all pipe completion; polling checks IDE progress cancellation and the formatter's sticky cancellation token every 10 ms. Output is limited to 4 MiB per stream. Timeout, cancellation, output overflow and I/O failure produce structured failures, never successful partial formatted text or JSON.
+
+Every exit path forcibly stops the owner and observed descendants. Handles are retained across parent exit, and cleanup allows up to 200 ms for termination/reaping outside the command budget; pipe closing never blocks the caller. Java process creation itself is synchronous, and OS termination is asynchronous. Descendant discovery uses `ProcessHandle`: processes that detach or are reparented before a polling pass are outside this portable guarantee. This runner handles finite commands; the persistent LSP and reanalyze server lifecycles remain separate.
+
+The formatter reports a sanitized diagnostic or a failure reason and suppresses results after cancellation. Binding generation reports a parser error while IDE cancellation propagates. Reanalyze reports a file-level warning or inspection notification instead of parsing failed output. REPL reports compile/runtime failure reasons, preserves its unique temporary-file ownership and hides the project path in compiler diagnostics. Each REPL compile and runtime command has its own 30-second budget.

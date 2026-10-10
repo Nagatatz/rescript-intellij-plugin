@@ -38,6 +38,8 @@ Heavier suites:
 
 ```bash
 ./gradlew integrationTest      # template generation E2E (requires Node.js + pnpm)
+./gradlew integrationIdeTest --tests '*RescriptReplIntegrationTest' --no-parallel --max-workers=1
+# IDE-backed CLI regressions; use --tests to select one suite and avoid template installs.
 ./gradlew uiTest               # Remote-Robot UI tests
 ./gradlew verifyPlugin         # JetBrains plugin verifier
 ```

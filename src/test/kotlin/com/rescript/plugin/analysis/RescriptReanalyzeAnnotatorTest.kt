@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledOnOs
+import org.junit.jupiter.api.condition.OS
+import org.junit.jupiter.api.io.TempDir
+import java.nio.file.Files
+import java.nio.file.Path
 
 class RescriptReanalyzeAnnotatorTest {
     @Test
@@ -428,5 +433,22 @@ class RescriptReanalyzeAnnotatorTest {
         } finally {
             tempDir.toFile().deleteRecursively()
         }
+    }
+
+    @Test
+    @DisabledOnOs(OS.WINDOWS)
+    fun `failed reanalyze command returns a visible failure instead of diagnostics`(
+        @TempDir dir: Path,
+    ) {
+        val tool = Files.createDirectories(dir.resolve("node_modules/rescript")).resolve("rescript-tools")
+        Files.writeString(tool, "#!/bin/sh\necho '[{}]'\nexit 42\n")
+        assertTrue(tool.toFile().setExecutable(true))
+        val result =
+            RescriptReanalyzeAnnotator().doAnnotate(
+                RescriptReanalyzeAnnotator.CollectedInfo(dir.resolve("App.res").toString(), dir.toString()),
+            )
+        assertNotNull(result)
+        assertTrue(result!!.diagnostics.isEmpty())
+        assertEquals("Process failed (exit code 42)", result.failureMessage)
     }
 }

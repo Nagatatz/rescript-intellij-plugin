@@ -538,3 +538,11 @@ msgstr "Kover レポートアクションを通じて PR でカバレッジが�
 msgid "Test results are uploaded as artifacts"
 msgstr "テスト結果はアーティファクトとしてアップロードされます"
 
+
+#: ../../dev/testing.md
+msgid "IDE-backed CLI regression tests"
+msgstr "IDE付きCLI回帰テスト"
+
+#: ../../dev/testing.md
+msgid "IDE-backed CLI regressions in `src/integrationTest` run through `integrationIdeTest`, registered with the official `intellijPlatformTesting.testIde` API. It preserves the injected SDK/runtime classpath, creates a dedicated sandbox and disables the bundled Ultimate plugin for the flattened test classpath. Select one suite with `./gradlew integrationIdeTest --tests '*RescriptReplIntegrationTest' --no-parallel --max-workers=1`. The separate `integrationTest` task runs only wizard template suites. Kover reports do not implicitly launch integration or UI tasks."
+msgstr "`src/integrationTest` のIDE付きCLI回帰テストは、公式 `intellijPlatformTesting.testIde` APIで登録した `integrationIdeTest` を使用します。注入されたSDK/runtime classpathを保持し、専用sandboxを作成し、平坦化されたテストclasspathでbundled Ultimate pluginを無効化します。`./gradlew integrationIdeTest --tests '*RescriptReplIntegrationTest' --no-parallel --max-workers=1` で単一suiteを選択できます。別の `integrationTest` task はwizardテンプレートsuiteのみ実行します。Koverレポートは統合テストやUI taskを暗黙起動しません。"

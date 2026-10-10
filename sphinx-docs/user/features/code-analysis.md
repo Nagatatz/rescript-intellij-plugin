@@ -95,6 +95,8 @@ If you see this warning, create a `rescript.json` file in your project root. The
 
 ## Dead Code Analysis (reanalyze)
 
+Per-invocation reanalyze CLI analysis uses concurrent output capture, IDE progress cancellation, a total command timeout and a 4 MiB limit per output stream. Failed or incomplete output is not parsed as diagnostics; the editor shows a file-level warning, or project inspection shows a notification. The persistent reanalyze server has a separate lifecycle.
+
 {bdg-success}`Native` {bdg-warning}`Configuration Required`
 
 The plugin integrates with [reanalyze](https://github.com/rescript-association/reanalyze), a static analysis tool built into `rescript-tools`, to detect unused and dead code in your project.
