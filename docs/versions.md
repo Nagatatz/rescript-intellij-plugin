@@ -14,6 +14,12 @@
 
 最新バージョンは [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/com.rescript.plugin) または [GitHub Releases](https://github.com/Nagatatz/rescript-intellij-plugin/releases) で確認できる。
 
+## CI Java setup
+
+GitHub Actions workflows use `actions/setup-java@v6` with Eclipse Temurin JDK 25. The major tag follows the official-actions pinning policy; the latest stable release checked on 2026-10-10 is [v6.0.1](https://github.com/actions/setup-java/releases/tag/v6.0.1). Both v5 and v6 use Node 24. The [v6 documentation](https://github.com/actions/setup-java/blob/v6/README.md) requires runner v2.327.1 or later.
+
+The workflows retain their existing inputs and use `gradle/actions/setup-gradle` for Gradle caching. They do not enable setup-java dependency or JDK cache inputs. With signature verification omitted, v6 reports verification failures as warnings; setting it explicitly to `true` makes failures fatal. Java Setup Smoke checks JDK 25, tool-cache reuse and the Gradle launcher sequentially on Linux, macOS and Windows. It does not publish, run plugin runtime smoke or prove every download/signature path. Release workflow changes are reviewed statically and through the same setup inputs; Release is not dispatched for validation.
+
 ## バージョニング方針
 
 [セマンティックバージョニング](https://semver.org/lang/ja/) (`MAJOR.MINOR.PATCH`) に従う:
