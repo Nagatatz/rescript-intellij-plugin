@@ -6,6 +6,7 @@ import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
+import com.intellij.util.OpenSourceUtil
 import com.rescript.plugin.lang.psi.RescriptPsiUtils
 
 /**
@@ -20,7 +21,9 @@ class RescriptStructureViewElement(
     SortableTreeElement {
     override fun getValue(): Any = element
 
-    override fun navigate(requestFocus: Boolean) = element.navigate(requestFocus)
+    // Navigatable.navigate is @ApiStatus.OverrideOnly from 2026.3: delegate through
+    // OpenSourceUtil instead of invoking the wrapped element's override directly.
+    override fun navigate(requestFocus: Boolean) = OpenSourceUtil.navigate(requestFocus, element)
 
     override fun canNavigate(): Boolean = element.canNavigate()
 
