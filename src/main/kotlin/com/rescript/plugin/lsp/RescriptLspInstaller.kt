@@ -12,7 +12,7 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
-import com.intellij.platform.lsp.api.LspServerManager
+import com.intellij.platform.lsp.api.LspClientManager
 import com.intellij.ui.EditorNotifications
 import com.rescript.plugin.util.RescriptMessageSanitizer
 import java.io.File
@@ -127,10 +127,10 @@ object RescriptLspInstaller {
 
     private fun onInstallSuccess(project: Project) {
         // Restart LSP server so it picks up the newly installed language server.
-        // LspServerManager is deprecated in 2026.2 EAP; the replacement LspClientDescriptor
-        // API does not exist on the 2026.1.2 compile target. UnstableApiUsage kept too.
-        @Suppress("UnstableApiUsage", "DEPRECATION")
-        LspServerManager.getInstance(project).stopAndRestartIfNeeded(RescriptLspServerSupportProvider::class.java)
+        @Suppress("UnstableApiUsage")
+        LspClientManager
+            .getInstance(project)
+            .stopAndRestartClientsIfNeeded(RescriptLspServerSupportProvider::class.java)
 
         // Update editor notifications to remove the warning bar
         EditorNotifications.getInstance(project).updateAllNotifications()

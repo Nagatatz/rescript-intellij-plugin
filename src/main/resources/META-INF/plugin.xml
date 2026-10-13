@@ -675,7 +675,7 @@
                 serviceImplementation="com.rescript.plugin.settings.RescriptProjectSettings"/>
 
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
-        <platform.lsp.serverSupportProvider
+        <platform.lsp.integrationProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
 
         <!-- Compilation status service (receives LSP notifications) -->

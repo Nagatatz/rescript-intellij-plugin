@@ -7,7 +7,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.Lsp4jClient
 import com.intellij.platform.lsp.api.LspServerNotificationsHandler
-import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
+import com.intellij.platform.lsp.api.ProjectWideLspClientDescriptor
 import com.intellij.platform.lsp.api.customization.LspCustomization
 import com.rescript.plugin.settings.RescriptProjectSettings
 import com.rescript.plugin.util.RescriptFileUtil
@@ -19,9 +19,6 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 
-// ProjectWideLspServerDescriptor and its overridden members are deprecated in 2026.2 EAP;
-// the replacement ProjectWideLspClientDescriptor API does not exist on the 2026.1.2 compile target.
-
 /**
  * Descriptor for the ReScript Language Server.
  *
@@ -31,11 +28,13 @@ import java.nio.file.Path
  *  3. Global PATH
  *
  * Launches with `--stdio` for LSP communication.
+ *
+ * Extends [ProjectWideLspClientDescriptor]; the class keeps its historical
+ * `ServerDescriptor` name, only the platform supertype was renamed.
  */
-@Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
 class RescriptLspServerDescriptor(
     project: Project,
-) : ProjectWideLspServerDescriptor(project, "ReScript") {
+) : ProjectWideLspClientDescriptor(project, "ReScript") {
     override val lsp4jServerClass: Class<out LanguageServer> = RescriptLanguageServer::class.java
 
     override fun createLsp4jClient(handler: LspServerNotificationsHandler): Lsp4jClient =

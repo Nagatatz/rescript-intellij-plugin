@@ -331,7 +331,7 @@ AST/stub の両コンストラクタと宣言名の取得を保持する。5 種
 
 | 項目 | 内容 |
 |---|---|
-| 継承元 | `com.intellij.platform.lsp.api.LspServerSupportProvider` |
+| 継承元 | `com.intellij.platform.lsp.api.LspIntegrationProvider` |
 | 役割 | ファイルオープン時に LSP サーバーの起動判定を行う |
 | トリガー条件 | ファイル拡張子が `.res` または `.resi` |
 
@@ -339,7 +339,7 @@ AST/stub の両コンストラクタと宣言名の取得を保持する。5 種
 
 | 項目 | 内容 |
 |---|---|
-| 継承元 | `com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor` |
+| 継承元 | `com.intellij.platform.lsp.api.ProjectWideLspClientDescriptor` |
 | 役割 | LSP サーバーの検出、起動コマンド構築、対象ファイル判定 |
 | スコープ | プロジェクト全体 |
 
@@ -428,7 +428,7 @@ flowchart TD
 | `com.intellij.lang.namesValidator` | `RescriptNamesValidator` | 名前バリデーション | 実装済み |
 | `com.intellij.projectConfigurable` | `RescriptConfigurable` | プロジェクト設定 UI | 実装済み |
 | `com.intellij.projectService` | `RescriptProjectSettings` | プロジェクト設定永続化 | 実装済み |
-| `com.intellij.platform.lsp.serverSupportProvider` | `RescriptLspServerSupportProvider` | LSP サーバー登録 | 実装済み |
+| `com.intellij.platform.lsp.integrationProvider` | `RescriptLspServerSupportProvider` | LSP サーバー登録 | 実装済み |
 | `com.intellij.todoIndexer` | `RescriptTodoIndexer` | TODO インデクシング | 実装済み |
 | `com.intellij.gotoSymbolContributor` | `RescriptSymbolContributor` | Go to Symbol | 実装済み |
 | `com.intellij.formattingService` | `RescriptFormattingService` | 外部フォーマッタ連携 | 実装済み |
