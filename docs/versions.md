@@ -20,6 +20,18 @@ GitHub Actions workflows use `actions/setup-java@v6` with Eclipse Temurin JDK 25
 
 The workflows retain their existing inputs and use `gradle/actions/setup-gradle` for Gradle caching. They do not enable setup-java dependency or JDK cache inputs. With signature verification omitted, v6 reports verification failures as warnings; setting it explicitly to `true` makes failures fatal. Java Setup Smoke checks JDK 25, tool-cache reuse and the Gradle launcher sequentially on Linux, macOS and Windows. It does not publish, run plugin runtime smoke or prove every download/signature path. Release workflow changes are reviewed statically and through the same setup inputs; Release is not dispatched for validation.
 
+## CI workflow lint
+
+The CI actionlint job adopts [reviewdog/action-actionlint v1.73.4](https://github.com/reviewdog/action-actionlint/releases/tag/v1.73.4) at commit `d290e336d5a743810aef4404f757dc862276d2ae`. This is the commit reached by peeling its annotated release tag, not the tag object itself. The latest stable checked on 2026-10-10 is [v1.80.0](https://github.com/reviewdog/action-actionlint/releases/tag/v1.80.0); it is not adopted by this update.
+
+Compared with v1.73.2, the candidate retains the same [inputs and defaults](https://github.com/reviewdog/action-actionlint/blob/v1.73.4/action.yml) and [entrypoint](https://github.com/reviewdog/action-actionlint/blob/v1.73.4/entrypoint.sh). The action container digest changes to `sha256:0a3b73c58e1a6eb9d050e97996364f8ae1b3995d6d2b2f1c48beecfd3c32b4c2`; the Python 3.14.7/Alpine 3.24 base version stays the same with an updated base digest. Upstream install scripts are unchanged.
+
+The CI actionlint job pins `reviewdog/action-actionlint` to commit `d290e336d5a743810aef4404f757dc862276d2ae` (v1.73.4). This is a Docker action on GitHub-hosted Ubuntu, with a digest-pinned container. It does not use the Node runtime; the workflow Node 24 setting applies to JavaScript actions separately.
+
+The job retains `github-pr-review` reporting and `fail_level: error`. The default `github.token` is passed to reviewdog; permissions remain `contents: read` and `pull-requests: write` for that job. No additional token or permission is required by this update. The existing `file` filter and error report level are unchanged.
+
+Validate the updated commit in a fresh PR CI run, recording the resolved container digest and tool versions. A successful run without findings does not prove review-comment creation or write access on fork PRs. Do not increase permissions or use `pull_request_target` to bypass a restricted token. Workflow lint does not establish plugin runtime compatibility.
+
 ## バージョニング方針
 
 [セマンティックバージョニング](https://semver.org/lang/ja/) (`MAJOR.MINOR.PATCH`) に従う:
