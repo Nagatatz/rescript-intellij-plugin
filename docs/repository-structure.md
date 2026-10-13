@@ -205,6 +205,7 @@ sphinx-docs/
 │   ├── codeql.yml            # CodeQL 静的解析（Push/PR + 週次）
 │   ├── integration-tests.yml # テンプレート結合テスト（wizard 変更時 + 夜次）
 │   ├── os-matrix.yml         # Linux/macOS/Windows ビルド・検証（週次）
+│   ├── java-setup-smoke.yml  # Read-only JDK 25/tool-cache/Gradle launcher smoke on three OSes
 │   └── monthly-verify.yml    # 月次 verifyPlugin + テンプレート npm audit
 ├── scripts/
 │   ├── audit-template-versions.mjs  # TemplateVersions.kt から package.json を生成（npm audit 用）
