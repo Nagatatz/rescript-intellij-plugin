@@ -34,8 +34,8 @@ msgstr "Vite+ + React"
 
 #: ../../user/templates/vite-react.md:9
 #, python-brace-format
-msgid "{bdg-warning}`Vite+ pre-1.0` {bdg-info}`SPA` {bdg-success}`React 19`"
-msgstr "{bdg-warning}`Vite+ pre-1.0` {bdg-info}`SPA` {bdg-success}`React 19`"
+msgid "{bdg-primary}`Vite+` {bdg-info}`SPA` {bdg-success}`React 19`"
+msgstr "{bdg-primary}`Vite+` {bdg-info}`SPA` {bdg-success}`React 19`"
 
 #: ../../user/templates/vite-react.md:11
 msgid ""
@@ -51,15 +51,8 @@ msgstr ""
 "（入力 + `useState` + `fetch`）と、`vp test` のスモークスイートを同梱する。"
 
 #: ../../user/templates/vite-react.md:13
-msgid ""
-"Pick this template when you want a React SPA with the modern unified "
-"toolchain. It is the fastest way to get a `.res` + JSX project running in"
-" the browser. If Vite+ blocks you (it is pre-1.0), the README and this "
-"page describe a clean fallback to vanilla Vite — you are not locked in."
-msgstr ""
-"モダンな統合ツールチェーンで React SPA を組みたい場合に本テンプレートを選択する。`.res` + JSX のプロジェクトを "
-"ブラウザで動かす最速の手段である。Vite+ で詰まった場合（pre-1.0 のため）も、README と本ページに vanilla Vite への "
-"クリーンなフォールバック手順が記載されている — ロックインされることはない。"
+msgid "Pick this template when you want a React SPA with the modern unified toolchain. It is the fastest way to get a `.res` + JSX project running in the browser. If Vite+ blocks you, the README and this page describe a clean fallback to vanilla Vite — you are not locked in."
+msgstr "モダンな統合ツールチェーンで React SPA を組みたい場合に本テンプレートを選択する。`.res` + JSX のプロジェクトを ブラウザで動かす最速の手段である。Vite+ で詰まった場合も、README と本ページに vanilla Vite への クリーンなフォールバック手順が記載されている — ロックインされることはない。"
 
 #: ../../user/templates/vite-react.md:15
 msgid "What You Get"
@@ -531,44 +524,24 @@ msgid "Falling Back to Vanilla Vite"
 msgstr "vanilla Vite へのフォールバック"
 
 #: ../../user/templates/vite-react.md:196
-msgid ""
-"When pre-1.0 Vite+ misbehaves (most often a `vite/internal` resolution "
-"failure during `vp build`), the migration off Vite+ is two edits and zero"
-" new dependencies:"
-msgstr ""
-"pre-1.0 の Vite+ が誤動作する場合（よくあるのは `vp build` 中の `vite/internal` の解決失敗）、"
-"Vite+ から移行するのは 2 箇所の編集だけで、新しい依存は不要である:"
+msgid "If you prefer classic Vite, the migration off Vite+ is two edits followed by a reinstall:"
+msgstr "クラシックな Vite を使いたい場合、Vite+ からの移行は 2 か所の編集と再インストールで済む:"
 
 #: ../../user/templates/vite-react.md:198
 msgid "In `vite.config.mjs`, swap the import:"
 msgstr "`vite.config.mjs` のインポートを差し替える:"
 
 #: ../../user/templates/vite-react.md:205
-msgid ""
-"In `package.json`, replace the `vp` scripts with their vanilla "
-"equivalents:"
-msgstr ""
-"`package.json` で `vp` スクリプトを vanilla 相当のものに置き換える:"
+msgid "In `package.json`, point `vite` back at the regular package (a plain version range instead of the `npm:@voidzero-dev/vite-plus-core` alias) and replace the `vp` scripts with their vanilla equivalents:"
+msgstr "`package.json` で、`vite` を通常のパッケージに戻し（`npm:@voidzero-dev/vite-plus-core` エイリアスではなく通常のバージョンレンジを指定する）、`vp` スクリプトを vanilla の等価コマンドに置き換える:"
 
 #: ../../user/templates/vite-react.md:217
-msgid ""
-"The `vite` and `vitest` packages are already in `devDependencies`. You "
-"can leave `vite-plus` and `@voidzero-dev/vite-plus-core` installed (they "
-"are inert when the config does not import them) or remove them with `pnpm"
-" remove vite-plus @voidzero-dev/vite-plus-core`."
-msgstr ""
-"`vite` と `vitest` のパッケージは既に `devDependencies` に含まれている。`vite-plus` と "
-"`@voidzero-dev/vite-plus-core` はインストールしたまま残しておいてもよいし（設定からインポートされなければ "
-"何もしない）、`pnpm remove vite-plus @voidzero-dev/vite-plus-core` で削除してもよい。"
+msgid "Run `pnpm install` afterwards so `vite` resolves to the regular package; `vitest` is already in `devDependencies`. You can then remove the Vite+ packages with `pnpm remove vite-plus @voidzero-dev/vite-plus-core`."
+msgstr "編集後に `pnpm install` を実行し、`vite` が通常のパッケージに解決されるようにする。`vitest` は既に `devDependencies` に含まれている。その後、`pnpm remove vite-plus @voidzero-dev/vite-plus-core` で Vite+ のパッケージを削除できる。"
 
 #: ../../user/templates/vite-react.md:219
-msgid ""
-"When Vite+ ships a stable release, the migration back is the same edit in"
-" reverse — there is no `vite.config` syntax difference between the two "
-"for a typical React project."
-msgstr ""
-"Vite+ の安定リリースが出たら、戻すのは同じ編集の逆操作で済む — 典型的な React プロジェクトでは、両者の間で "
-"`vite.config` の構文に違いはない。"
+msgid "The migration back is the same edits in reverse — there is no `vite.config` syntax difference between the two for a typical React project."
+msgstr "Vite+ へ戻す場合は同じ編集を逆に行えばよい。一般的な React プロジェクトでは両者の `vite.config` の構文に違いはない。"
 
 #: ../../user/templates/vite-react.md:221
 msgid "Day-Two Recipes"
@@ -623,34 +596,13 @@ msgid "Notes"
 msgstr "補足"
 
 #: ../../user/templates/vite-react.md:232
-msgid ""
-"**Vite+ is pre-1.0.** `TemplateVersions.VITE_PLUS` pins the `0.1.x` "
-"range. APIs, defaults, and CLI flags may shift before the stable release."
-" Track the [Vite+ changelog](https://vite.plus) when bumping."
-msgstr ""
-"**Vite+ は pre-1.0 である。** `TemplateVersions.VITE_PLUS` は `0.1.x` レンジに固定している。"
-"安定リリース前に API・デフォルト値・CLI フラグが変わる可能性がある。バンプの際は "
-"[Vite+ のチェンジログ](https://vite.plus) を追跡すること。"
+msgid "**Vite+ 1.x.** `TemplateVersions.VITE_PLUS` pins the `^1.1.x` range. Track the [Vite+ changelog](https://vite.plus) when bumping."
+msgstr "**Vite+ 1.x。** `TemplateVersions.VITE_PLUS` は `^1.1.x` レンジに固定している。バージョンを上げる際は [Vite+ の changelog](https://vite.plus) を確認すること。"
 
 #: ../../user/templates/vite-react.md:233
 #, python-brace-format
-msgid ""
-"**Known incompatibility:** the current pre-1.0 Vite+ does not always "
-"resolve `vite/internal` cleanly when paired with `@vitejs/plugin-react`, "
-"so `vp build` may fail. The fallback is one edit: in `vite.config.mjs`, "
-"replace `import { defineConfig } from \"vite-plus\"` with `import { "
-"defineConfig } from \"vite\"`, then swap the npm scripts (`dev` / `build`"
-" / `preview` / `test`) from `vp` to `vite` / `vite build` / `vite "
-"preview` / `vitest run`. The template already declares a direct `vite` "
-"dependency so this swap requires no `npm install`."
-msgstr ""
-"**既知の非互換性:** 現在の pre-1.0 Vite+ は `@vitejs/plugin-react` と組み合わせた際に "
-"`vite/internal` を常にクリーンに解決できるとは限らないため、`vp build` が失敗することがある。フォールバックは "
-"1 箇所の編集である: `vite.config.mjs` で `import { defineConfig } from \"vite-plus\"` を "
-"`import { defineConfig } from \"vite\"` に置き換え、npm スクリプト（`dev` / `build` / "
-"`preview` / `test`）を `vp` から `vite` / `vite build` / `vite preview` / "
-"`vitest run` に差し替える。テンプレートは既に直接の `vite` 依存を宣言しているため、この差し替えに "
-"`npm install` は不要である。"
+msgid "**`vite` is an alias.** Vite+ requires the `vite` package to resolve to its own core build, so the template declares `vite` as an npm alias of `@voidzero-dev/vite-plus-core` (`TemplateVersions.VITE_PLUS_VITE_ALIAS`). With a plain `vite` dependency `vp build` aborts and asks for `vp migrate`. Keep the alias unless you are moving off Vite+ as described above."
+msgstr "**`vite` はエイリアスである。** Vite+ は `vite` パッケージが自身のコアビルドに解決されることを要求するため、テンプレートは `vite` を `@voidzero-dev/vite-plus-core` の npm エイリアスとして宣言している（`TemplateVersions.VITE_PLUS_VITE_ALIAS`）。通常の `vite` 依存のままだと `vp build` は中断し、`vp migrate` の実行を求める。上記の手順で Vite+ から離れる場合を除き、このエイリアスを維持すること。"
 
 #: ../../user/templates/vite-react.md:234
 msgid ""

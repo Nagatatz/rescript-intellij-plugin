@@ -724,8 +724,5 @@ msgid ""
 msgstr "**GraphQL は 1 度きりのブートストラップ手順を含む**: 初回ビルドの前に `pnpm relay`（または `npm run relay`）を 1 度は実行して、`src/client/__generated__/` を生成しておく必要がある。`dev` スクリプトは `relay:watch` を起動し続けるので、初回サイクル以降は意識する必要がない。"
 
 #: ../../user/templates/full-stack.md:217
-msgid ""
-"**Vite+ is pre-1.0.** If a release breaks, swap `vite-plus` for `vite` in"
-" `vite.config.mjs` and replace the `vp` scripts with `vite`. The classic "
-"Vite dep is already declared as a fallback."
-msgstr "**Vite+ は 1.0 以前のリリースである。** リリースで動かなくなった場合は、`vite.config.mjs` の `vite-plus` を `vite` に置き換え、`vp` スクリプトを `vite` に置き換えること。クラシックな Vite 依存はすでにフォールバックとして宣言されている。"
+msgid "**`vite` is an alias.** Vite+ requires `vite` to resolve to `@voidzero-dev/vite-plus-core`, so the client declares it as an npm alias. To fall back to classic Vite, point `vite` back at the regular package, swap `vite-plus` for `vite` in `vite.config.mjs`, and replace the `vp` scripts with `vite`."
+msgstr "**`vite` はエイリアスである。** Vite+ は `vite` が `@voidzero-dev/vite-plus-core` に解決されることを要求するため、client は `vite` を npm エイリアスとして宣言している。クラシックな Vite に戻すには、`vite` を通常のパッケージに戻し、`vite.config.mjs` の `vite-plus` を `vite` に差し替え、`vp` スクリプトを `vite` に置き換える。"

@@ -26,11 +26,18 @@ object TemplateVersions {
     // from Vite+). Vite+ bundles its own vite under the hood.
     val VITE = "^8.3.4"
 
-    // Vite+ (vite-plus) is pre-1.0; templates pin to the 0.1.x range until a stable release.
-    val VITE_PLUS = "^0.1.24"
-    val VITE_PLUS_CORE = "^0.1.24"
+    // Vite+ (vite-plus) 1.x. Held at 1.1.0 or newer: the 0.1.x line pulls oxfmt ->
+    // tinypool <=2.1.1 (GHSA-5gmw-xhrv-c9v3 / GHSA-85c8-ppgw-ccpr, both critical).
+    val VITE_PLUS = "^1.1.0"
+    val VITE_PLUS_CORE = "^1.1.0"
+
+    // Vite+ 1.x requires the `vite` package to resolve to its own core build; with a
+    // plain `vite` dependency `vp build` aborts with "Expected @voidzero-dev/vite-plus-core,
+    // but found vite" (what `vp migrate` fixes). Templates that depend on vite-plus
+    // therefore declare `vite` through this npm alias instead of [VITE].
+    val VITE_PLUS_VITE_ALIAS = "npm:@voidzero-dev/vite-plus-core@$VITE_PLUS_CORE"
     val VITEJS_PLUGIN_REACT = "^6.1.2"
-    val VITEST = "^4.1.11"
+    val VITEST = "^5.0.4"
 
     // React
     val REACT = "^19.3.0"
@@ -94,7 +101,7 @@ object TemplateVersions {
     val BUN = "1.3.14"
 
     // Database (libsql client + Drizzle ORM)
-    val LIBSQL_CLIENT = "^0.17.4"
+    val LIBSQL_CLIENT = "^0.18.0"
     val DRIZZLE_ORM = "^0.45.4"
     val DRIZZLE_KIT = "^0.31.11"
 
@@ -117,7 +124,7 @@ object TemplateVersions {
     // OpenAPI / Hono ecosystem
     // @hono/zod-openapi v1 requires zod v4; they must be bumped together.
     val HONO_ZOD_OPENAPI = "^1.6.3"
-    val SCALAR_HONO_API_REFERENCE = "^0.10.20"
+    val SCALAR_HONO_API_REFERENCE = "^0.12.12"
 
     // GraphQL (Hono GraphQL template)
     val GRAPHQL = "^16.14.2"
@@ -146,7 +153,7 @@ object TemplateVersions {
     val NODE_MAJOR = "24"
 
     // Vitest coverage provider used by `test:coverage` scripts
-    val VITEST_COVERAGE_V8 = "^4.1.11"
+    val VITEST_COVERAGE_V8 = "^5.0.4"
 
     // TanStack Start (full-stack React, Vite-based) and its router peer
     val TANSTACK_REACT_START = "^1.169.1"
@@ -171,7 +178,7 @@ object TemplateVersions {
     // include the fixed 0.35.x line. @astrojs/node 11.0.2+ also clears
     // GHSA-r557-wffq-wvrc. Do not move these back to the 6.x/5.x/10.x line.
     val ASTRO = "^7.3.8"
-    val ASTROJS_REACT = "^6.0.6"
+    val ASTROJS_REACT = "^7.0.1"
     val ASTROJS_NODE = "^11.1.7"
 
     // Waku (RSC-first React framework by Daishi Kato). 1.0.0 is currently in

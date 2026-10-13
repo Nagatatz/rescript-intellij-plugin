@@ -6,11 +6,11 @@ myst:
 
 # Vite+ + React
 
-{bdg-warning}`Vite+ pre-1.0` {bdg-info}`SPA` {bdg-success}`React 19`
+{bdg-primary}`Vite+` {bdg-info}`SPA` {bdg-success}`React 19`
 
 A single-page React application powered by ReScript and the Vite+ toolchain. Vite+ (`vite-plus`) is a unified wrapper over Vite, Vitest, Oxlint, Oxfmt, and Rolldown — one CLI (`vp`) handles dev, build, preview, and tests. The template ships a working greet form (input + `useState` + `fetch`) backed by an offline fallback, plus a `vp test` smoke suite.
 
-Pick this template when you want a React SPA with the modern unified toolchain. It is the fastest way to get a `.res` + JSX project running in the browser. If Vite+ blocks you (it is pre-1.0), the README and this page describe a clean fallback to vanilla Vite — you are not locked in.
+Pick this template when you want a React SPA with the modern unified toolchain. It is the fastest way to get a `.res` + JSX project running in the browser. If Vite+ blocks you, the README and this page describe a clean fallback to vanilla Vite — you are not locked in.
 
 ## What You Get
 
@@ -193,7 +193,7 @@ The recommended development workflow is two terminals: `pnpm res:dev` in one to 
 
 ## Falling Back to Vanilla Vite
 
-When pre-1.0 Vite+ misbehaves (most often a `vite/internal` resolution failure during `vp build`), the migration off Vite+ is two edits and zero new dependencies:
+If you prefer classic Vite, the migration off Vite+ is two edits followed by a reinstall:
 
 1. In `vite.config.mjs`, swap the import:
 
@@ -202,7 +202,7 @@ When pre-1.0 Vite+ misbehaves (most often a `vite/internal` resolution failure d
    + import { defineConfig } from "vite";
    ```
 
-2. In `package.json`, replace the `vp` scripts with their vanilla equivalents:
+2. In `package.json`, point `vite` back at the regular package (a plain version range instead of the `npm:@voidzero-dev/vite-plus-core` alias) and replace the `vp` scripts with their vanilla equivalents:
 
    ```jsonc
    "scripts": {
@@ -214,9 +214,9 @@ When pre-1.0 Vite+ misbehaves (most often a `vite/internal` resolution failure d
    }
    ```
 
-The `vite` and `vitest` packages are already in `devDependencies`. You can leave `vite-plus` and `@voidzero-dev/vite-plus-core` installed (they are inert when the config does not import them) or remove them with `pnpm remove vite-plus @voidzero-dev/vite-plus-core`.
+Run `pnpm install` afterwards so `vite` resolves to the regular package; `vitest` is already in `devDependencies`. You can then remove the Vite+ packages with `pnpm remove vite-plus @voidzero-dev/vite-plus-core`.
 
-When Vite+ ships a stable release, the migration back is the same edit in reverse — there is no `vite.config` syntax difference between the two for a typical React project.
+The migration back is the same edits in reverse — there is no `vite.config` syntax difference between the two for a typical React project.
 
 ## Day-Two Recipes
 
@@ -229,8 +229,8 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 
 ## Notes
 
-- **Vite+ is pre-1.0.** `TemplateVersions.VITE_PLUS` pins the `0.1.x` range. APIs, defaults, and CLI flags may shift before the stable release. Track the [Vite+ changelog](https://vite.plus) when bumping.
-- **Known incompatibility:** the current pre-1.0 Vite+ does not always resolve `vite/internal` cleanly when paired with `@vitejs/plugin-react`, so `vp build` may fail. The fallback is one edit: in `vite.config.mjs`, replace `import { defineConfig } from "vite-plus"` with `import { defineConfig } from "vite"`, then swap the npm scripts (`dev` / `build` / `preview` / `test`) from `vp` to `vite` / `vite build` / `vite preview` / `vitest run`. The template already declares a direct `vite` dependency so this swap requires no `npm install`.
+- **Vite+ 1.x.** `TemplateVersions.VITE_PLUS` pins the `^1.1.x` range. Track the [Vite+ changelog](https://vite.plus) when bumping.
+- **`vite` is an alias.** Vite+ requires the `vite` package to resolve to its own core build, so the template declares `vite` as an npm alias of `@voidzero-dev/vite-plus-core` (`TemplateVersions.VITE_PLUS_VITE_ALIAS`). With a plain `vite` dependency `vp build` aborts and asks for `vp migrate`. Keep the alias unless you are moving off Vite+ as described above.
 - React 19 is the default. `@rescript/react` and the `@types/react` family are pinned to matching majors in `TemplateVersions.kt`; bump them together.
 - `rescript.json`'s `jsx.mode` is set to `"automatic"`. If you set it back to `"classic"`, you also need to import `React` at the top of every `.res` file that uses JSX.
 - The Vitest smoke test only verifies that `import { make as App } from "../App.res.mjs"` returns a function. It does not actually render the form. Add `@testing-library/react` and a JSDOM environment when you need DOM assertions.
