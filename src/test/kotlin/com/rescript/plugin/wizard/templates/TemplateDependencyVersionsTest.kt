@@ -60,8 +60,9 @@ class TemplateDependencyVersionsTest {
         assertMinVersion("react", extractVersion(pkg, "react"), 19, 0, 4)
         assertMinVersion("react-dom", extractVersion(pkg, "react-dom"), 19, 0, 4)
         assertMinVersion("@vitejs/plugin-react", extractVersion(pkg, "@vitejs/plugin-react"), 6, 0, 0)
-        // Vite+ is the active toolchain; vite-plus is pre-1.0 so we only assert presence.
-        assertTrue(extractVersion(pkg, "vite-plus") != null, "vite-plus should be present")
+        // 1.1.0 is the first vite-plus line without the tinypool advisories
+        // (GHSA-5gmw-xhrv-c9v3 / GHSA-85c8-ppgw-ccpr) inherited from oxfmt.
+        assertMinVersion("vite-plus", extractVersion(pkg, "vite-plus"), 1, 1, 0)
     }
 
     @Test

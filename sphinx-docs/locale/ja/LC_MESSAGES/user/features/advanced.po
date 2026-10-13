@@ -1786,19 +1786,8 @@ msgstr ""
 "をまとめた統合ラッパーです。スクリプトは `vp dev`、`vp build`、`vp test` などで公開されます。"
 
 #: ../../user/features/advanced.md:593
-msgid ""
-"**Known issue:** Vite+ is **pre-1.0** and currently does not link cleanly"
-" with `@vitejs/plugin-react` via pnpm's nested store, so `vp build` may "
-"fail with `ERR_MODULE_NOT_FOUND` on `vite/internal`. As a fallback, "
-"replace `vite-plus` with `vite` in `vite.config.mjs` and switch the npm "
-"scripts to `vite` / `vite build`. The migration back to Vite+ is a one-"
-"line change once Vite+ stabilizes."
-msgstr ""
-"**既知の問題:** Vite+ は **pre-1.0** であり、現在 pnpm のネストされたストア経由では `@vitejs"
-"/plugin-react` とうまくリンクしないため、`vp build` が `vite/internal` の "
-"`ERR_MODULE_NOT_FOUND` で失敗することがあります。回避策として、`vite.config.mjs` の `vite-"
-"plus` を `vite` に置き換え、npm スクリプトを `vite` / `vite build` に切り替えてください。Vite+ "
-"が安定した後は 1 行の変更で戻せます。"
+msgid "**Note:** Vite+ requires the `vite` package to resolve to its own core build, so these templates declare `vite` as an npm alias of `@voidzero-dev/vite-plus-core`. Keep the alias when upgrading (`vp migrate` re-aligns it). To fall back to classic Vite, point `vite` back at the regular package, replace `vite-plus` with `vite` in `vite.config.mjs`, and switch the npm scripts to `vite` / `vite build`."
+msgstr "**補足:** Vite+ は `vite` パッケージが自身のコアビルドに解決されることを要求するため、これらのテンプレートは `vite` を `@voidzero-dev/vite-plus-core` の npm エイリアスとして宣言しています。アップグレード時もこのエイリアスを維持してください（ずれた場合は `vp migrate` で揃えられます）。クラシックな Vite に戻すには、`vite` を通常のパッケージに戻し、`vite.config.mjs` の `vite-plus` を `vite` に置き換え、npm スクリプトを `vite` / `vite build` に切り替えます。"
 
 #: ../../user/features/advanced.md:595
 msgid ""

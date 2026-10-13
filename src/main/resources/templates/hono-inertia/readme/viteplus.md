@@ -12,18 +12,17 @@ collapses Vite, Vitest, Oxlint, Oxfmt, and Rolldown into a single CLI.
 | `vp test --coverage` | Vitest with the V8 coverage provider                          |
 | `vp check`      | Lint + format-check + typecheck in one pass (Oxlint + Oxfmt)       |
 
-### Caveat — Vite+ is pre-1.0
+### The `vite` alias
 
-Vite+ is currently shipping in alpha (0.1.x at the time of writing). The CLI
-and config surface are still in flux:
-
-- The `test` / `lint` / `fmt` configuration keys are not yet documented in
-  `vite.config.mjs`. Defaults work; configuration may move.
-- API changes between 0.1.x patch releases are possible.
+Vite+ requires the `vite` package to resolve to its own core build, so
+`package.json` declares `vite` as an npm alias of
+`@voidzero-dev/vite-plus-core`. Keep that alias when upgrading; `vp migrate`
+re-aligns it if it drifts.
 
 If a Vite+ release breaks this template, you can fall back to plain Vite by:
 
-1. Replacing `vite-plus` with `vite` in `vite.config.mjs`
+1. Pointing `vite` back at the regular package in `package.json` and replacing
+   `vite-plus` with `vite` in `vite.config.mjs`
    (`import { defineConfig } from "vite"`).
 2. Replacing the `vp ...` scripts in `package.json` with `vite` /
    `vitest run` directly.
