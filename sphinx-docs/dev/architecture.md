@@ -73,7 +73,7 @@ sequenceDiagram
     User->>IDE: Open .res file
     IDE->>Plugin: File opened event
     Plugin->>Plugin: Check extension (.res/.resi)
-    Plugin->>LSP: ensureServerStarted()
+    Plugin->>LSP: ensureClientStarted()
     Note over Plugin,LSP: stdio connection
 
     User->>IDE: Type code
@@ -156,9 +156,9 @@ This layer communicates with the ReScript Language Server over stdio.
 
 **File:** `src/main/kotlin/com/rescript/plugin/lsp/RescriptLspServerSupportProvider.kt`
 
-This class implements the `LspServerSupportProvider` interface from the IntelliJ Platform LSP API. It is the entry point that the platform calls whenever a file is opened in the editor. Its sole responsibility is deciding whether the LSP server should be started for the given file.
+This class implements the `LspIntegrationProvider` interface from the IntelliJ Platform LSP API. It is the entry point that the platform calls whenever a file is opened in the editor. Its sole responsibility is deciding whether the LSP server should be started for the given file.
 
-The decision logic is straightforward: if the opened file has a `.res` or `.resi` extension, the provider calls `serverStarter.ensureServerStarted()` with a new `RescriptLspServerDescriptor` instance. The `ensureServerStarted` method is idempotent --- if the server is already running for the project, it does nothing. If the file extension does not match, the provider returns without action.
+The decision logic is straightforward: if the opened file has a `.res` or `.resi` extension, the provider calls `clientStarter.ensureClientStarted()` with a new `RescriptLspServerDescriptor` instance. The `ensureClientStarted` method is idempotent --- if the server is already running for the project, it does nothing. If the file extension does not match, the provider returns without action.
 
 The list of recognized extensions is defined in the companion object as `RESCRIPT_EXTENSIONS = setOf("res", "resi")` and is reused by `RescriptLspServerDescriptor.isSupportedFile()` for consistency.
 
@@ -168,7 +168,7 @@ This class does not contain any server configuration, detection, or lifecycle lo
 
 **File:** `src/main/kotlin/com/rescript/plugin/lsp/RescriptLspServerDescriptor.kt`
 
-This class extends `ProjectWideLspServerDescriptor` and is responsible for all aspects of finding, configuring, and launching the language server process.
+This class extends `ProjectWideLspClientDescriptor` and is responsible for all aspects of finding, configuring, and launching the language server process.
 
 **Server detection order:**
 
