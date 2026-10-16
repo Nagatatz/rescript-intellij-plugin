@@ -1,6 +1,6 @@
 # Manual Test Projects
 
-Two small ReScript projects you can open inside `./gradlew runIde` to
+Small ReScript projects you can open inside `./gradlew runIde` to
 exercise the user-facing features added since `v0.1.13` by hand. They
 intentionally avoid production-grade structure — each file isolates a
 single feature so you can pop the relevant tool window, fire the
@@ -33,6 +33,10 @@ manual-test-projects/
 ```
 
 ## Setup
+
+For the nine LSP Code Actions tracked in [issue #92](https://github.com/Nagatatz/rescript-intellij-plugin/issues/92),
+use the separate [`lsp-code-actions/`](lsp-code-actions/README.md) project.
+Its fixtures intentionally produce diagnostics and enable reanalyze.
 
 ```bash
 # Build the plugin once
