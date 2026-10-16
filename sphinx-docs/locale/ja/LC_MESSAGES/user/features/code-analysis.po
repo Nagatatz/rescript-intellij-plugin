@@ -1350,3 +1350,7 @@ msgstr ""
 #~ "version"
 #~ msgstr "**非推奨構文の変換** --- 古い ReScript 構文を現在のバージョンに更新します"
 
+
+#: ../../user/features/code-analysis.md
+msgid "Per-invocation reanalyze CLI analysis uses concurrent output capture, IDE progress cancellation, a total command timeout and a 4 MiB limit per output stream. Failed or incomplete output is not parsed as diagnostics; the editor shows a file-level warning, or project inspection shows a notification. The persistent reanalyze server has a separate lifecycle."
+msgstr "呼び出しごとのreanalyze CLI解析では出力を並行取得し、IDEの進捗取消、コマンド全体のタイムアウト、出力ストリームごとに4 MiBの上限を適用します。失敗または不完全な出力は診断として解析せず、エディタにはファイル単位の警告、プロジェクト検査には通知を表示します。常駐reanalyzeサーバーのライフサイクルは別に管理されます。"

@@ -12,11 +12,11 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import com.rescript.plugin.lang.psi.RescriptFile
 import com.rescript.plugin.util.RescriptPaths
+import com.rescript.plugin.util.RescriptProcessRunner
 import com.rescript.plugin.util.RescriptSecurityUtils
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.concurrent.TimeUnit
 
 /**
  * External annotator that runs `rescript-tools reanalyze -json` to detect dead code
@@ -54,6 +54,7 @@ class RescriptReanalyzeAnnotator :
     /** Result of the background reanalyze pass, containing all diagnostics for the file. */
     data class AnnotationResult(
         val diagnostics: List<ReanalyzeDiagnostic>,
+        val failureMessage: String? = null,
     )
 
     override fun collectInformation(file: PsiFile): CollectedInfo? {
@@ -75,21 +76,20 @@ class RescriptReanalyzeAnnotator :
                     .withWorkDirectory(info.projectBasePath)
                     .withCharset(Charsets.UTF_8)
 
-            val process = commandLine.createProcess()
-            val stdout = process.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-            val completed = process.waitFor(RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            if (!completed) {
-                process.destroyForcibly()
-                LOG.debug("reanalyze timed out")
-                return null
+            val result =
+                RescriptProcessRunner.run(
+                    start = { commandLine.createProcess() },
+                    timeoutMs = RescriptSecurityUtils.PROCESS_TIMEOUT_SECONDS * 1000,
+                    checkCancelled = {
+                        com.intellij.openapi.progress.ProgressManager
+                            .checkCanceled()
+                    },
+                )
+            if (!result.successful) {
+                LOG.warn("reanalyze: ${result.failureMessage}")
+                return AnnotationResult(emptyList(), result.failureMessage)
             }
-            val exitCode = process.exitValue()
-
-            if (exitCode != 0) {
-                LOG.debug("reanalyze exited with code $exitCode")
-                return null
-            }
-
+            val stdout = result.stdout
             val diagnostics = parseJsonOutput(stdout, info.filePath)
             AnnotationResult(diagnostics)
         } catch (e: ExecutionException) {
@@ -113,6 +113,10 @@ class RescriptReanalyzeAnnotator :
         holder: AnnotationHolder,
     ) {
         if (result == null) return
+        result.failureMessage?.let { message ->
+            holder.newAnnotation(HighlightSeverity.WARNING, message).fileLevel().create()
+            return
+        }
         val document = PsiDocumentManager.getInstance(file.project).getDocument(file) ?: return
 
         for (diag in result.diagnostics) {

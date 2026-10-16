@@ -3,6 +3,7 @@ package com.rescript.plugin.binding
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -49,5 +50,18 @@ class DtsParserProcessTest {
         val first = DtsParserProcess.extractScript()
         val second = DtsParserProcess.extractScript()
         assertEquals(first, second, "Second call should return the same cached Path")
+    }
+
+    @Test
+    fun `parse reports a nonzero process exit without exposing paths`() {
+        val javaPath =
+            java.nio.file.Path
+                .of(System.getProperty("java.home"), "bin", "java")
+                .toString()
+        val error =
+            assertThrows(DtsParserException::class.java) {
+                DtsParserProcess.parse(javaPath, "/private/input.d.ts", "/private/typescript")
+            }
+        assertEquals("Process failed (exit code 1)", error.message)
     }
 }

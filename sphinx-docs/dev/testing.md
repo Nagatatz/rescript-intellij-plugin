@@ -271,3 +271,7 @@ The CI pipeline runs tests automatically on every push and PR:
 1. `./gradlew test koverXmlReport koverHtmlReport`
 2. Coverage is reported on PRs via the Kover report action
 3. Test results are uploaded as artifacts
+
+## IDE-backed CLI regression tests
+
+IDE-backed CLI regressions in `src/integrationTest` run through `integrationIdeTest`, registered with the official `intellijPlatformTesting.testIde` API. It preserves the injected SDK/runtime classpath, creates a dedicated sandbox and disables the bundled Ultimate plugin for the flattened test classpath. Select one suite with `./gradlew integrationIdeTest --tests '*RescriptReplIntegrationTest' --no-parallel --max-workers=1`. The separate `integrationTest` task runs only wizard template suites. Kover reports do not implicitly launch integration or UI tasks.

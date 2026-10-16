@@ -1,9 +1,9 @@
 package com.rescript.plugin.repl
 
+import com.rescript.plugin.util.RescriptProcessRunner
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.concurrent.TimeUnit
 
 /**
  * Executes ReScript code snippets by compiling to JavaScript and running with Node.js.
@@ -51,6 +51,8 @@ object RescriptReplExecutor {
         val wrappedCode = wrapCode(code)
         return try {
             compileAndRun(wrappedCode, projectDir, createSource, runCommand)
+        } catch (e: com.intellij.openapi.progress.ProcessCanceledException) {
+            throw e
         } catch (e: Exception) {
             "Error: REPL execution failed (${e.javaClass.simpleName})"
         }
@@ -147,6 +149,8 @@ object RescriptReplExecutor {
                     projectDir,
                 )
 
+            if (compileResult.failure != null) return "Error: ${compileResult.failureMessage}"
+
             // Check if the REPL file itself has errors (ignore errors in other files)
             val replErrors =
                 compileResult.output
@@ -179,49 +183,51 @@ object RescriptReplExecutor {
                     listOf("node", jsFile.absolutePath),
                     projectDir,
                 )
+            if (!runResult.successful) return "Error: ${runResult.failureMessage}"
             return parseOutput(runResult.stdout, runResult.stderr)
         } finally {
             ownedPaths.asReversed().forEach { Files.deleteIfExists(it) }
         }
     }
 
-    /** Holds the result of an external process execution. */
+    /** Holds bounded command output and its termination reason. */
     internal data class ProcessResult(
         val exitCode: Int,
         val stdout: String,
         val stderr: String,
         val output: String,
-    )
+        val failure: RescriptProcessRunner.Failure? = null,
+    ) {
+        val successful: Boolean get() = failure == null && exitCode == 0
+        val failureMessage: String get() = failure?.description ?: "Process failed (exit code $exitCode)"
+    }
 
     /**
-     * Runs one compiler or runtime command within its execution timeout.
+     * Runs a compile or execution command with the shared bounded process runner.
      *
-     * @param command the executable and its arguments
-     * @param workDir the project working directory
-     * @return captured output and the exit status
+     * @param command executable and argument list
+     * @param workDir project working directory
+     * @return output and structured termination reason
      */
-    private fun runProcess(
+    internal fun runProcess(
         command: List<String>,
         workDir: File,
     ): ProcessResult {
-        val process =
-            ProcessBuilder(command)
-                .directory(workDir)
-                .start()
-        val completed =
-            try {
-                process.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            } catch (e: InterruptedException) {
-                process.destroyForcibly()
-                Thread.currentThread().interrupt()
-                return ProcessResult(-1, "", "", "Error: interrupted")
-            }
-        if (!completed) {
-            process.destroyForcibly()
-            return ProcessResult(-1, "", "", "Error: timed out")
-        }
-        val stdout = process.inputStream.use { it.bufferedReader().readText() }
-        val stderr = process.errorStream.use { it.bufferedReader().readText() }
-        return ProcessResult(process.exitValue(), stdout, stderr, stdout + stderr)
+        val result =
+            RescriptProcessRunner.run(
+                start = { ProcessBuilder(command).directory(workDir).start() },
+                timeoutMs = TIMEOUT_SECONDS * 1000,
+                checkCancelled = {
+                    com.intellij.openapi.progress.ProgressManager
+                        .checkCanceled()
+                },
+            )
+        return ProcessResult(
+            result.exitCode,
+            result.stdout,
+            result.stderr,
+            result.stdout + result.stderr,
+            result.failure,
+        )
     }
 }

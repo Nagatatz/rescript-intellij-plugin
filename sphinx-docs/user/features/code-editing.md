@@ -37,6 +37,8 @@ Code folding lets you hide implementation details and focus on the declarations 
 
 ## Code Formatting
 
+Formatting and format checks use concurrent input/output with a total 10-second command timeout and a 4 MiB limit per output stream. Cancellation stops the owned process and observed child processes. Timeout or output overflow leaves the document unchanged and reports the failure reason.
+
 {bdg-primary}`LSP Required`
 
 Press `Ctrl+Alt+L` (`Cmd+Option+L` on macOS) to format the current file using the `rescript format` CLI.

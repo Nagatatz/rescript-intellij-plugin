@@ -1,6 +1,7 @@
 package com.rescript.plugin.repl
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
@@ -254,5 +255,62 @@ class RescriptReplExecutorTest {
         assertTrue(Files.isSymbolicLink(link))
         assertEquals("original map", Files.readString(target))
         assertEquals(listOf(link), src.toFile().listFiles()!!.map { it.toPath() })
+    }
+
+    @Test
+    fun `runProcess drains large stdout and stderr before waiting for exit`() {
+        val result =
+            RescriptReplExecutor.runProcess(
+                com.rescript.plugin.util.ProcessFixture
+                    .command("flood")
+                    .toList(),
+                java.io.File("."),
+            )
+        assertTrue(result.successful, result.failureMessage)
+        assertEquals(1024 * 1024, result.stdout.length)
+        assertEquals(1024 * 1024, result.stderr.length)
+    }
+
+    @Test
+    fun `runProcess retains nonzero exit for REPL error reporting`() {
+        val result =
+            RescriptReplExecutor.runProcess(
+                com.rescript.plugin.util.ProcessFixture
+                    .command("exit")
+                    .toList(),
+                java.io.File("."),
+            )
+        assertEquals(42, result.exitCode)
+        assertEquals("bad input", result.stderr)
+        assertEquals("Process failed (exit code 42)", result.failureMessage)
+    }
+
+    @Test
+    fun `process timeout is reported and owned files are cleaned`() {
+        val src = Files.createDirectory(projectDir.resolve("src"))
+        val result =
+            RescriptReplExecutor.execute("1", projectDir.toString()) { _, _ ->
+                RescriptReplExecutor.ProcessResult(
+                    -1,
+                    "",
+                    "",
+                    "",
+                    com.rescript.plugin.util.RescriptProcessRunner.Failure.TIMEOUT,
+                )
+            }
+        assertEquals("Error: Process timed out", result)
+        Files.list(src).use { assertEquals(0, it.count()) }
+    }
+
+    @Test
+    fun `IDE cancellation propagates after owned file cleanup`() {
+        val src = Files.createDirectory(projectDir.resolve("src"))
+        assertThrows(com.intellij.openapi.progress.ProcessCanceledException::class.java) {
+            RescriptReplExecutor.execute("1", projectDir.toString()) { _, _ ->
+                throw com.intellij.openapi.progress
+                    .ProcessCanceledException()
+            }
+        }
+        Files.list(src).use { assertEquals(0, it.count()) }
     }
 }

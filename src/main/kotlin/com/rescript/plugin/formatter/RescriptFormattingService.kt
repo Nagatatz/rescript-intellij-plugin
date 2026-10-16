@@ -8,8 +8,7 @@ import com.intellij.psi.PsiFile
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
 import com.rescript.plugin.run.RescriptCliDetector
-import java.io.IOException
-import java.util.concurrent.TimeUnit
+import com.rescript.plugin.util.RescriptProcessRunner
 
 /**
  * Integrates the ReScript CLI formatter (`rescript format`) with IntelliJ's
@@ -48,79 +47,48 @@ class RescriptFormattingService : AsyncDocumentFormattingService() {
         val documentText = request.documentText
 
         return object : FormattingTask {
-            private var process: Process? = null
+            private val cancellation = RescriptProcessRunner.Cancellation()
 
             override fun run() {
                 try {
                     val commandLine =
                         GeneralCommandLine(cliPath, "format", "--stdin", ".$ext")
                             .withCharset(Charsets.UTF_8)
-
-                    val proc = commandLine.createProcess()
-                    process = proc
-
-                    val stdinThread =
-                        Thread(
-                            {
-                                try {
-                                    proc.outputStream.bufferedWriter(Charsets.UTF_8).use {
-                                        it.write(documentText)
-                                    }
-                                } catch (_: IOException) {
-                                    // Expected when the process exits before stdin is fully written (broken pipe)
-                                }
+                    val result =
+                        RescriptProcessRunner.run(
+                            start = { commandLine.createProcess() },
+                            stdin = documentText,
+                            timeoutMs = TIMEOUT_MS,
+                            cancellation = cancellation,
+                            checkCancelled = {
+                                com.intellij.openapi.progress.ProgressManager
+                                    .checkCanceled()
                             },
-                            "rescript-format-stdin",
                         )
-                    stdinThread.start()
-
-                    val stderr = StringBuilder()
-                    val stderrThread =
-                        Thread(
-                            {
-                                try {
-                                    proc.errorStream.reader(Charsets.UTF_8).use {
-                                        stderr.append(it.readText())
-                                    }
-                                } catch (_: IOException) {
-                                    // Expected when the process exits before stderr is fully read (stream closed)
-                                }
-                            },
-                            "rescript-format-stderr",
-                        )
-                    stderrThread.start()
-
-                    val stdout =
-                        proc.inputStream.reader(Charsets.UTF_8).use {
-                            it.readText()
-                        }
-
-                    stdinThread.join(TIMEOUT_MS)
-                    stderrThread.join(TIMEOUT_MS)
-                    val completed = proc.waitFor(TIMEOUT_MS, TimeUnit.MILLISECONDS)
-                    if (!completed) {
-                        proc.destroyForcibly()
-                        @Suppress("DialogTitleCapitalization") // "rescript format" is a CLI command name
-                        request.onError("ReScript", "rescript format timed out")
-                        return
-                    }
-                    val exitCode = proc.exitValue()
-
-                    if (exitCode == 0 && stdout.isNotEmpty()) {
-                        request.onTextReady(stdout)
+                    if (cancellation.isCancelled) return
+                    if (result.successful && result.stdout.isNotEmpty()) {
+                        request.onTextReady(result.stdout)
                     } else {
-                        request.onError(
-                            "ReScript",
-                            stderr.toString().ifBlank { "rescript format failed (exit code $exitCode)" },
-                        )
+                        val message =
+                            if (result.failure != null) {
+                                result.failureMessage
+                            } else {
+                                com.rescript.plugin.util.RescriptMessageSanitizer.sanitize(
+                                    project,
+                                    result.stderr.take(4096).ifBlank { result.failureMessage },
+                                )
+                            }
+                        request.onError("ReScript", message)
                     }
-                } catch (e: Exception) {
-                    request.onError("ReScript", e.message ?: "Unknown error")
+                } catch (e: com.intellij.openapi.progress.ProcessCanceledException) {
+                    throw e
+                } catch (_: Exception) {
+                    if (!cancellation.isCancelled) request.onError("ReScript", "Formatter could not be started")
                 }
             }
 
             override fun cancel(): Boolean {
-                process?.destroyForcibly()
+                cancellation.cancel()
                 return true
             }
         }
