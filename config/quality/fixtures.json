@@ -1,0 +1,107 @@
+[
+  {
+    "issue": "#99",
+    "kind": "Document/entry point/undo/no-op",
+    "task": "test",
+    "source": "src/test/kotlin/com/rescript/plugin/refactor/RescriptInlineDocumentTest.kt",
+    "class": "com.rescript.plugin.refactor.RescriptInlineDocumentTest"
+  },
+  {
+    "issue": "#99",
+    "kind": "CLI compile/Node semantics/undo/no-op",
+    "task": "integrationIdeTest",
+    "source": "src/integrationTest/kotlin/com/rescript/plugin/refactor/RescriptInlineIntegrationTest.kt",
+    "class": "com.rescript.plugin.refactor.RescriptInlineIntegrationTest"
+  },
+  {
+    "issue": "#100",
+    "kind": "Document/entry point/undo/no-op",
+    "task": "test",
+    "source": "src/test/kotlin/com/rescript/plugin/intention/RescriptPipeIntentionEditorTest.kt",
+    "class": "com.rescript.plugin.intention.RescriptPipeIntentionEditorTest"
+  },
+  {
+    "issue": "#100",
+    "kind": "CLI compile/Node semantics/undo/no-op",
+    "task": "integrationIdeTest",
+    "source": "src/integrationTest/kotlin/com/rescript/plugin/intention/RescriptPipeIntentionIntegrationTest.kt",
+    "class": "com.rescript.plugin.intention.RescriptPipeIntentionIntegrationTest"
+  },
+  {
+    "issue": "#101",
+    "kind": "Document/entry point/undo/no-op",
+    "task": "test",
+    "source": "src/test/kotlin/com/rescript/plugin/refactor/RescriptExtractFunctionDocumentTest.kt",
+    "class": "com.rescript.plugin.refactor.RescriptExtractFunctionDocumentTest"
+  },
+  {
+    "issue": "#101",
+    "kind": "CLI compile/Node semantics/undo/no-op",
+    "task": "integrationIdeTest",
+    "source": "src/integrationTest/kotlin/com/rescript/plugin/refactor/RescriptExtractFunctionIntegrationTest.kt",
+    "class": "com.rescript.plugin.refactor.RescriptExtractFunctionIntegrationTest"
+  },
+  {
+    "issue": "#102",
+    "kind": "Document/entry point/undo/no-op",
+    "task": "test",
+    "source": "src/test/kotlin/com/rescript/plugin/inspection/RescriptMutabilityInspectionEditorTest.kt",
+    "class": "com.rescript.plugin.inspection.RescriptMutabilityInspectionEditorTest"
+  },
+  {
+    "issue": "#102",
+    "kind": "CLI compile/Node semantics/undo/no-op",
+    "task": "integrationIdeTest",
+    "source": "src/integrationTest/kotlin/com/rescript/plugin/inspection/RescriptMutabilityInspectionIntegrationTest.kt",
+    "class": "com.rescript.plugin.inspection.RescriptMutabilityInspectionIntegrationTest"
+  },
+  {
+    "issue": "#103",
+    "kind": "Document/entry point/undo/no-op",
+    "task": "test",
+    "source": "src/test/kotlin/com/rescript/plugin/imports/RescriptOpenRemovalDocumentTest.kt",
+    "class": "com.rescript.plugin.imports.RescriptOpenRemovalDocumentTest"
+  },
+  {
+    "issue": "#103",
+    "kind": "CLI compile/Node semantics/undo/no-op",
+    "task": "integrationIdeTest",
+    "source": "src/integrationTest/kotlin/com/rescript/plugin/imports/RescriptOpenRemovalIntegrationTest.kt",
+    "class": "com.rescript.plugin.imports.RescriptOpenRemovalIntegrationTest"
+  },
+  {
+    "issue": "#104",
+    "kind": "Document/entry point/undo/no-op",
+    "task": "test",
+    "source": "src/test/kotlin/com/rescript/plugin/intention/RescriptRemoveQualifierIntentionEditorTest.kt",
+    "class": "com.rescript.plugin.intention.RescriptRemoveQualifierIntentionEditorTest"
+  },
+  {
+    "issue": "#104",
+    "kind": "CLI compile/Node semantics/undo/no-op",
+    "task": "integrationIdeTest",
+    "source": "src/integrationTest/kotlin/com/rescript/plugin/intention/RescriptRemoveQualifierIntentionIntegrationTest.kt",
+    "class": "com.rescript.plugin.intention.RescriptRemoveQualifierIntentionIntegrationTest"
+  },
+  {
+    "issue": "#105",
+    "kind": "Document/entry point/undo/no-op",
+    "task": "test",
+    "source": "src/test/kotlin/com/rescript/plugin/intention/RescriptRemoveParenthesesEditorTest.kt",
+    "class": "com.rescript.plugin.intention.RescriptRemoveParenthesesEditorTest"
+  },
+  {
+    "issue": "#105",
+    "kind": "CLI compile/Node semantics/undo/no-op",
+    "task": "integrationIdeTest",
+    "source": "src/integrationTest/kotlin/com/rescript/plugin/intention/RescriptParenthesesIntegrationTest.kt",
+    "class": "com.rescript.plugin.intention.RescriptParenthesesIntegrationTest"
+  },
+  {
+    "issue": "API contract",
+    "kind": "Reflection API presence; no Document behavior proof",
+    "task": "test",
+    "source": "src/test/kotlin/com/rescript/plugin/util/RescriptEditorUtilsTest.kt",
+    "class": "com.rescript.plugin.util.RescriptEditorUtilsTest"
+  }
+]

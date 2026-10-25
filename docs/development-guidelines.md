@@ -132,3 +132,9 @@ GitHub Actions で [Qodana](https://www.jetbrains.com/qodana/) による静的�
 - [ ] テストが追加されているか
 - [ ] `plugin.xml` の登録が正しいか
 - [ ] LSP に影響する変更の場合、LSP サーバーとの互換性を確認したか
+
+### 品質指標の母数と振る舞い証拠
+
+FullとManagedは同一unit test実行を用いるが母数が異なる。`koverXmlReportFull`/`koverHtmlReportFull`は明示除外なし、従来taskは理由付きclass除外を適用し既存87% ratchetを維持する。package一括除外は禁止し、新規classは既定で対象とする。ソース一覧数、XMLに含まれるclass/source数、実行可能行数を混同せず、除外差分もCI/artifactに残す。
+
+`TransformationBehaviorFixture` で実登録action/公開handler、Document全文、commit/reparse後PSI、一回undoを確認する。意味保存は別の専用CLI taskのbefore/after/undo compile/Node観測で確認する。API reflectionは操作成功の証拠ではない。#99–105のfixture inventoryと実JUnit XMLを照合し、未配置/未実行/skipを成功扱いしない。PITは明示された純JVM対象だけで、変異statusと実数/score母数を公開する。timeout/error等のdetectedをassertion-killedと区別する。

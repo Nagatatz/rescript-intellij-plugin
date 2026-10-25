@@ -1,0 +1,323 @@
+# Exact JVM outer class	Reason category	Rationale (nested classes use only this outer class)
+com.rescript.plugin.RescriptErrorReporter	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.RescriptLanguage	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.analysis.RescriptFormatCheckAnnotator	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.analysis.RescriptFormatQuickFix	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.analysis.RescriptProblemHighlightFilter	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.analysis.RescriptReanalyzeAnnotator	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.analysis.RescriptReanalyzeQuickFix	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.analysis.RescriptReanalyzeServerService	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.analysis.RescriptReanalyzeServerStartupActivity	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.analysis.RescriptUnusedCodeInspection	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.binding.DtsGenerateBindingAction	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.binding.DtsParserException	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.binding.DtsParserProcess	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.breadcrumb.RescriptBreadcrumbsProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.codestyle.DeclarationCategory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.codestyle.RescriptArrangementEntry	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.codestyle.RescriptCodeStyleSettingsProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.codestyle.RescriptLineIndentProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.codestyle.RescriptPredefinedCodeStyle	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.codestyle.RescriptRearranger	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.codevision.RescriptVcsCodeVisionContext	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.commenter.RescriptCommenter	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.ExpandResult	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.completion.RescriptCompletionConfidence	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.completion.RescriptCompletionWeigher	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.RescriptComponentNameMacro	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.RescriptDecoratorCompletionContributor	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.RescriptLookupCharFilter	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.RescriptModuleNameMacro	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.RescriptPlaceholderCompletionContributor	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.RescriptPlaceholderTypeResolver	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.completion.RescriptPostfixTemplateProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.completion.RescriptSimplePostfixTemplate	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.completion.RescriptTemplateContextType	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.RescriptTypeAnnotationContext	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.completion.TemplateDefinition	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.completion.TypeAnnotationDetection	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.config.RescriptFileTypeRecoveryStartupActivity	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.config.RescriptFrameworkDetector	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.config.RescriptFrameworkType	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.config.RescriptJsonIconProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.config.RescriptJsonSchemaFileProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.config.RescriptJsonSchemaProviderFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.coverage.RescriptTypeCoveragePanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.coverage.RescriptTypeCoverageToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.debug.RescriptDebugCompiledJsAction	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.debug.RescriptDebugConfigurationFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.debug.RescriptDebugConfigurationType	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.debug.RescriptDebugRunConfiguration	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.debug.RescriptDebugRunConfigurationOptions	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.debug.RescriptDebugSettingsEditor	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.dependencies.RescriptDependenciesPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.dependencies.RescriptDependenciesToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.diagram.RescriptDependencyDiagramAction	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.diagram.RescriptDependencyDiagramExportAction	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.diagram.RescriptDependencyDiagramGraphView	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.diagram.RescriptDependencyDiagramPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.diagram.RescriptDependencyDiagramProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.diagram.RescriptDependencyDiagramToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.editor.RescriptBackspaceHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptBaseUnwrapper	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptBlockUnwrapper	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptBraceUnwrapper	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptBracketSelectionHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptCodeBlockHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptColorProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptCommentEvalProvider	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.editor.RescriptCommentSelectionHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptCopyPastePreProcessor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptDeclarationRangeHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptEditorNotificationProvider	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.editor.RescriptEnterHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptFloatingToolbarProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptFunctionUnwrapper	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptJoinLinesHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptListSplitJoinContext	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptMoveElementHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptQuoteHandler	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.editor.RescriptReaderModeMatcher	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptSmartEnterProcessor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptStatementUpDownMover	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptStringSelectionHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptStripTrailingSpacesFilter	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptStripTrailingSpacesFilterFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptTypedHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.editor.RescriptUnwrapDescriptor	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.errorlens.RescriptErrorLensEditorListener	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.errorlens.RescriptErrorLensHighlighterInfo	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.errorlens.RescriptErrorLensManager	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.errorlens.RescriptErrorLensRenderer	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.errorlens.RescriptErrorLensSeverity	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.flow.RescriptVariantFlowAction	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.flow.RescriptVariantFlowPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.flow.RescriptVariantFlowToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.folding.RescriptCustomFoldingProvider	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.folding.RescriptFoldingBuilder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.formatter.RescriptFormattingService	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.formatter.RescriptInjectedFormattingModelBuilder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.formatter.RescriptPassthroughBlock	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.generate.RescriptBaseGenerateAction	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.generate.RescriptGenerateActionUtil	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.generate.RescriptGenerateGroup	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.generate.RescriptGenerateJsonCodecAction	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.generate.RescriptGenerateMakeAction	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.generate.RescriptGenerateModuleImplAction	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.generate.RescriptGenerateModuleTypeAction	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.generate.RescriptGenerateRecordValueAction	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.generate.RescriptGenerateSwitchAction	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.grazie.RescriptGrazieTextExtractor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.RescriptDependencyAnalyzer	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.RescriptModuleDependencyTreeStructure	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.RescriptModuleHierarchyBrowser	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.hierarchy.RescriptModuleHierarchyNodeDescriptor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.RescriptModuleHierarchyProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.RescriptModuleHierarchyTreeStructure	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.call.RescriptCallAnalyzer	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.call.RescriptCallHierarchyBrowser	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.hierarchy.call.RescriptCallHierarchyNodeDescriptor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.call.RescriptCallHierarchyProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.call.RescriptCalleeTreeStructure	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.hierarchy.call.RescriptCallerTreeStructure	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.highlight.KeywordKind	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.highlight.RescriptBraceMatcher	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.highlight.RescriptColorSettingsPage	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.highlight.RescriptHighlightUsagesHandlerFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.highlight.RescriptJsxTagHighlightHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.highlight.RescriptKeywordHighlightHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.highlight.RescriptSyntaxHighlighter	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.highlight.RescriptSyntaxHighlighterFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.impact.RescriptTypeImpactAction	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.impact.RescriptTypeImpactPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.impact.RescriptTypeImpactToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.imports.RescriptAutoImportOptionsProvider	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.imports.RescriptImportOptimizer	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.indexing.RescriptFilterLexer	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.indexing.RescriptIndexPatternBuilder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.indexing.RescriptModuleIndex	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.indexing.RescriptNameIndex	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.indexing.RescriptOpenStatementIndex	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.indexing.RescriptTodoIndexer	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.injection.RescriptMarkdownCodeFenceProvider	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.injection.RescriptRawJsInjector	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.inspection.RescriptDuplicateOpenInspection	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.inspection.RescriptEmptyModuleInspection	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.inspection.RescriptInspectionSuppressor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.inspection.RescriptMismatchedJsxTagInspection	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.inspection.RescriptMissingConfigInspection	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.inspection.RescriptSignatureSyncInspection	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.inspection.RescriptStyleLintInspection	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.inspection.RescriptSuggestedRefactoringInspection	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptAddGenTypeIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptAddIgnoreIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptAddMissingSwitchArmsIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptAddToInterfaceIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptAddTypeAnnotationIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptAddUnderscorePrefixIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptApplyUncurriedIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptBatchAnnotationRunner	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.intention.RescriptBatchInsertInferredTypesIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptCaseSplitIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptConvertToLabeledArgsIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptExpandDestructuringIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptExtractLocalModuleToFileIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptFilterMapChainIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptFixIdentifierCaseIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptFlattenNestedSwitchIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptGenerateDocCommentIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptInsertLabeledArgsIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptMergeSwitchCasesIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptRemoveFromInterfaceIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptRemoveRedundantBracesIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptRenameVariantConstructorIntention	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.intention.RescriptWrapWithErrorIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptWrapWithIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptWrapWithOkIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.intention.RescriptWrapWithSomeIntention	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.interop.RescriptInteropRiskAction	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.interop.RescriptInteropRiskPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.interop.RescriptInteropRiskToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.lang.RescriptDeclarationParser	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.lang.RescriptElementDescriptionProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lang.RescriptFindUsagesProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lang.RescriptFlexLexer	generated-lexer	JFlex-generated lexer; full report includes generated main bytecode
+com.rescript.plugin.lang.RescriptJsxParser	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.lang.RescriptParserDefinition	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lang.RescriptUsageTypeProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lang.psi.RescriptDeclarationElementType	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lang.psi.RescriptDeclarationStub	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lang.psi.RescriptFileStub	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lang.psi.RescriptPsiUtils	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lsp.FilteringNotificationsHandler	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptCompilationStatusService	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptDumpLspStateAction	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptExpressionTypeProvider	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptLanguageServer	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptLsp4jClient	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptLspDetector	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptLspInstaller	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptLspServerDescriptor	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptLspServerSupportProvider	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptLspStartupActivity	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.lsp.RescriptLspUtils	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptPipeChainTypeHintsProvider	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.lsp.RescriptPpxVisualizationProvider	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.lsp.RescriptRestartLspAction	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.lsp.RescriptSemanticTokensSupport	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.lsp.RescriptWorkspaceDiscovery	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.narrowing.RescriptHoverTypeResolver	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.narrowing.RescriptNarrowingHintProvider	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.navbar.RescriptStructureAwareNavbar	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptCreateInterfaceAction	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.navigation.RescriptElementSignatureProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptFileIncludeProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptGotoImplementationAction	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.navigation.RescriptGotoRelatedProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptGotoSuperHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptOpenCompiledJsAction	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.navigation.RescriptQualifiedNameProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptSearchEverywhereContributor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptSwitchFileAction	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptSymbolContributor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.navigation.RescriptTestCreator	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.navigation.RescriptTypeSignatureCellRenderer	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.navigation.RescriptTypeSignatureSearchContributor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.notebook.RescriptNotebookCellPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.notebook.RescriptNotebookFileEditor	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.notebook.RescriptNotebookFileEditorProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.notebook.RescriptNotebookFileType	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.notebook.RescriptNotebookPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.paste.HtmlTransferData	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.paste.JsTransferData	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.paste.RescriptBasePasteProcessor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.paste.RescriptPasteAsJsonAction	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.paste.RescriptPasteAsJsxProcessor	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.paste.RescriptPasteAsRescriptProcessor	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.ppx.RescriptPpxViewPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.ppx.RescriptPpxViewToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.preview.RescriptCompiledJsPreviewPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.preview.RescriptCompiledJsPreviewToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.projectview.RescriptCompiledJsNodeDecorator	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.projectview.RescriptFileNestingProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.projectview.RescriptProjectViewNodeDecorator	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.projectview.RescriptTreeStructureProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.quickfix.RescriptAddOpenQuickFix	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.quickfix.RescriptGenerateFunctionQuickFix	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.quickfix.RescriptQualifyReferenceQuickFix	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.quickfix.RescriptTypeHoleQuickFix	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.refactor.RescriptChangeSignatureAction	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.refactor.RescriptChangeSignatureHandler	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.refactor.RescriptExtractComponentHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.refactor.RescriptExtractVariableHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.refactor.RescriptIntroduceConstantHandler	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.refactor.RescriptRefactoringSupportProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.refactor.RescriptRenameHandler	ide-service	Live LSP/session adapter; helper logic remains separately managed
+com.rescript.plugin.refactor.RescriptSafeDeleteProcessor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.repl.RescriptReplExecutor	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.repl.RescriptReplPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.repl.RescriptReplToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.run.RescriptBuildWatchStartupActivity	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.run.RescriptConfigurationFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.run.RescriptConsoleFilter	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.run.RescriptConsoleFilterProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.run.RescriptRunAnythingProvider	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.run.RescriptRunConfiguration	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.run.RescriptRunConfigurationOptions	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.run.RescriptRunConfigurationType	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.run.RescriptRunLineMarkerContributor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.run.RescriptSettingsEditor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.scratch.RescriptScratchCreationHelper	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.scratch.RescriptScratchRootType	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.settings.BoolDescriptor	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.ComboDescriptor	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.IntSpinnerDescriptor	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.PackageRootIssue	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.PathDescriptor	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.PathKind	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.RescriptConfigurable	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.RescriptProjectSettings	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.settings.RescriptSettingDescriptor	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.RescriptSettingsSchema	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.settings.RescriptSettingsValidator	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.SchemaEntry	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.settings.SettingComponent	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.settings.StringListDescriptor	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.spellcheck.RescriptBundledDictionaryProvider	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.spellcheck.RescriptSpellcheckingStrategy	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.statusbar.RescriptCompilerStatusWidgetFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.structure.RescriptStructureViewElement	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.structure.RescriptStructureViewFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.structure.RescriptStructureViewModel	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.surround.RescriptBaseSurrounder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.surround.RescriptBlockSurrounder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.surround.RescriptIfSurrounder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.surround.RescriptJsxElementSurrounder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.surround.RescriptJsxFragmentSurrounder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.surround.RescriptSurroundDescriptor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.surround.RescriptSwitchSurrounder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.surround.RescriptTrySurrounder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.template.RescriptCreateFileAction	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.test.RescriptTestConfigurationFactory	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.test.RescriptTestConfigurationProducer	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.test.RescriptTestConsoleProperties	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.test.RescriptTestFrameworkDetector	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.test.RescriptTestLocator	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.test.RescriptTestRunConfiguration	ide-dialog	Interactive IDE dialog entry point; not exercised by unit operation fixtures
+com.rescript.plugin.test.RescriptTestRunConfigurationOptions	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.test.RescriptTestRunConfigurationType	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.test.RescriptTestRunLineMarkerContributor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.test.RescriptTestSettingsEditor	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.test.RescriptTestSourcesFilter	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.test.TestCall	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.test.TestFramework	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.typeinfo.RescriptTypeInfoPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.typeinfo.RescriptTypeInfoToolWindowFactory	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.ui.DualViewToolWindowPanel	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.ui.RescriptToolWindowPanelBase	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.util.RescriptCoroutineScopeService	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.util.RescriptEditorUtils	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.wizard.RescriptModuleBuilder	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
+com.rescript.plugin.wizard.RescriptProjectWizardStep	ide-ui	Swing/tool-window lifecycle; no direct UI behavior fixture in the unit task
+com.rescript.plugin.worksheet.RescriptWorksheetFileType	legacy-unverified	Legacy exclusion retained pending behavioral coverage review; not a claim of untestable logic
+com.rescript.plugin.worksheet.RescriptWorksheetRunner	ide-adapter	IDE-bound adapter not yet exercised by a direct operation fixture; full report retains its uncovered lines
