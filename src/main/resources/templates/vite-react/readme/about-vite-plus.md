@@ -1,9 +1,8 @@
-This template uses [Vite+](https://vite.plus) (`vite-plus`), an early-access toolchain
-bundling Vite, Vitest, Oxlint, Oxfmt, and Rolldown. Vite+ is **pre-1.0** — APIs may
-change before stable release.
+This template uses [Vite+](https://vite.plus) (`vite-plus`), a unified toolchain
+bundling Vite, Vitest, Oxlint, Oxfmt, and Rolldown behind the `vp` CLI.
 
-> **Known issue:** the current pre-1.0 Vite+ does not resolve `vite/internal` cleanly
-> when paired with `@vitejs/plugin-react`, so `vp build` may fail. As a fallback,
-> replace `vite-plus` with `vite` in `vite.config.mjs` and switch the npm scripts to
-> `vite` / `vite build`. The migration path back to Vite+ is straightforward once the
-> stable release lands.
+Vite+ requires the `vite` package to resolve to its own core build, so `package.json`
+declares `vite` as an npm alias of `@voidzero-dev/vite-plus-core`. Keep that alias when
+upgrading; `vp migrate` re-aligns it if it drifts. To fall back to classic Vite, point
+`vite` back at the regular package, import `defineConfig` from `vite` in
+`vite.config.mjs`, and switch the npm scripts to `vite` / `vite build` / `vitest run`.

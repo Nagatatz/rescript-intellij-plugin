@@ -893,16 +893,8 @@ msgstr ""
 "デフォルト（`file:./data/app.db`）を示している。"
 
 #: ../../user/templates/monorepo.md:249
-msgid ""
-"**Vite+ is pre-1.0.** If a future release breaks, swap `vite-plus` for "
-"plain `vite` in `packages/client/vite.config.mjs` and replace the `vp` "
-"scripts with `vite`. The classic Vite dep is already declared as a "
-"fallback."
-msgstr ""
-"**Vite+ は 1.0 以前のリリースである。** 将来のリリースで動かなくなった場合は、"
-"`packages/client/vite.config.mjs` の `vite-plus` を素の `vite` に置き換え、"
-"`vp` スクリプトを `vite` に置き換えること。クラシックな Vite 依存はすでに"
-"フォールバックとして宣言されている。"
+msgid "**`vite` is an alias.** Vite+ requires `vite` to resolve to `@voidzero-dev/vite-plus-core`, so the client declares it as an npm alias. To fall back to classic Vite, point `vite` back at the regular package, swap `vite-plus` for `vite` in `packages/client/vite.config.mjs`, and replace the `vp` scripts with `vite`."
+msgstr "**`vite` はエイリアスである。** Vite+ は `vite` が `@voidzero-dev/vite-plus-core` に解決されることを要求するため、client は `vite` を npm エイリアスとして宣言している。クラシックな Vite に戻すには、`vite` を通常のパッケージに戻し、`packages/client/vite.config.mjs` の `vite-plus` を `vite` に差し替え、`vp` スクリプトを `vite` に置き換える。"
 
 #: ../../user/templates/monorepo.md:250
 msgid ""

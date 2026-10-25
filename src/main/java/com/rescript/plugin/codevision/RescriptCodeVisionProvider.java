@@ -7,7 +7,7 @@ import com.intellij.codeInsight.codeVision.ui.model.TextCodeVisionEntry;
 import com.intellij.codeInsight.hints.codeVision.DaemonBoundCodeVisionProvider;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.util.TextRange;
-import com.intellij.platform.lsp.api.LspServer;
+import com.intellij.platform.lsp.api.LspClient;
 import com.intellij.platform.lsp.api.LspServerState;
 import com.intellij.psi.PsiFile;
 import com.rescript.plugin.lsp.RescriptLspUtils;
@@ -79,9 +79,6 @@ public class RescriptCodeVisionProvider implements DaemonBoundCodeVisionProvider
     // In Java, unoverridden default methods do not appear in the class bytecode,
     // avoiding the reference to the @Internal CodeVisionPlaceholderCollector type.
 
-    // LspServer / LspServerState / sendRequestSync are deprecated in 2026.2 EAP; the replacement
-    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-    @SuppressWarnings("deprecation")
     @NotNull
     @Override
     public List<Pair<TextRange, CodeVisionEntry>> computeForEditor(
@@ -95,7 +92,7 @@ public class RescriptCodeVisionProvider implements DaemonBoundCodeVisionProvider
         var project = file.getProject();
         var document = editor.getDocument();
 
-        LspServer server = RescriptLspUtils.INSTANCE.getServer(project);
+        LspClient server = RescriptLspUtils.INSTANCE.getServer(project);
         if (server == null || server.getState() != LspServerState.Running) {
             return Collections.emptyList();
         }

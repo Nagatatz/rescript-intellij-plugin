@@ -6,7 +6,7 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
-import com.intellij.platform.lsp.api.LspServerManager
+import com.intellij.platform.lsp.api.LspClientManager
 import com.rescript.plugin.run.RescriptCliDetector
 import com.rescript.plugin.settings.RescriptProjectSettings
 
@@ -40,27 +40,24 @@ class RescriptDumpLspStateAction : AnAction() {
 
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
 
-    // LspServerManager / LspServer are deprecated in 2026.2 EAP; the replacement
-    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-
     /**
      * Collects diagnostic information about the LSP server and project configuration.
      *
      * @param project the current project
-     * Uses unstable `LspServerManager` API — review on platform upgrade.
+     * Uses unstable `LspClientManager` API — review on platform upgrade.
      *
      * @return formatted diagnostic string
      */
-    @Suppress("UnstableApiUsage", "DEPRECATION")
+    @Suppress("UnstableApiUsage")
     internal fun collectLspState(project: Project): String {
         val settings = RescriptProjectSettings.getInstance(project)
         val basePath = project.basePath
 
         // LSP server status
         val servers =
-            LspServerManager
+            LspClientManager
                 .getInstance(project)
-                .getServersForProvider(RescriptLspServerSupportProvider::class.java)
+                .getClients(RescriptLspServerSupportProvider::class.java)
         val serverStatus =
             if (servers.isEmpty()) {
                 "Not running"
