@@ -723,6 +723,9 @@ tasks {
     named("runKtlintCheckOverMainSourceSet") {
         mustRunAfter(generateRescriptLexer)
     }
+    named("runKtlintFormatOverMainSourceSet") {
+        mustRunAfter(generateRescriptLexer)
+    }
     // Dokka V2 scans src/main/java where the JFlex lexer is generated, so declare
     // the dependency explicitly to satisfy Gradle's strict task-output validation.
     withType<org.jetbrains.dokka.gradle.tasks.DokkaGenerateTask>().configureEach {
