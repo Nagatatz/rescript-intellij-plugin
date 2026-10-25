@@ -1,0 +1,13 @@
+{
+  "name": "rescript-lsp-code-action-verification",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "rescript build",
+    "watch": "rescript watch"
+  },
+  "devDependencies": {
+    "rescript": "12.2.0",
+    "@rescript/language-server": "1.72.0"
+  }
+}
