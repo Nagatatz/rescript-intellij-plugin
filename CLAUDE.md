@@ -23,6 +23,10 @@ ReScript 言語サポートを JetBrains IDE に提供する IntelliJ プラグ�
 # 開発用 IDE インスタンス起動（古い jar は prepareSandbox 時に自動除去。完全クリーンは clean runIde）
 ./gradlew runIde
 
+# IDE fixture + 実CLI の統合回帰テスト（テンプレート全件を起動しない）
+./gradlew integrationIdeTest --tests '*RescriptReplIntegrationTest' --no-parallel --max-workers=1
+# integrationTest は wizard のテンプレートE2E専用。Kover は統合/UI task を暗黙起動しない。
+
 # UI テスト（runIdeForUiTests で IDE 起動 → 別ターミナルで uiTest、Remote-Robot ポート 8082）
 ./gradlew runIdeForUiTests
 ./gradlew uiTest

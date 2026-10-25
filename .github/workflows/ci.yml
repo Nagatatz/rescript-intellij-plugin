@@ -295,13 +295,18 @@ jobs:
           bun-version: latest
 
       - name: Run template integration tests
-        run: ./gradlew integrationTest
+        run: ./gradlew integrationTest --no-parallel --max-workers=1
+
+      - name: Run IDE-backed CLI regression tests
+        run: ./gradlew integrationIdeTest --no-parallel --max-workers=1
 
       - name: Upload integration test results
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: integration-test-results
-          path: build/reports/tests/integrationTest/
+          path: |
+            build/reports/tests/integrationTest/
+            build/reports/tests/integrationIdeTest/
           if-no-files-found: ignore
 

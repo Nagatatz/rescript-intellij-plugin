@@ -130,7 +130,7 @@ sourceSets {
     create("integrationTest") {
         kotlin.srcDir("src/integrationTest/kotlin")
         resources.srcDir("src/integrationTest/resources")
-        compileClasspath += sourceSets["main"].output + sourceSets["test"].output
+        compileClasspath += sourceSets["main"].output + sourceSets["test"].output + sourceSets["test"].compileClasspath
         runtimeClasspath += output + compileClasspath
     }
 }
@@ -224,8 +224,8 @@ ktlint {
 kover {
     currentProject {
         instrumentation {
-            // uiTest requires a running IDE instance (Remote-Robot) and must not run in CI
-            disabledForTestTasks.add("uiTest")
+            // Reports cover unit tests only: never implicitly start Remote-Robot or CLI installs.
+            disabledForTestTasks.addAll(listOf("uiTest", "integrationTest", "integrationIdeTest"))
         }
     }
     reports {
@@ -442,10 +442,30 @@ tasks.register<Test>("integrationTest") {
     testClassesDirs = sourceSets["integrationTest"].output.classesDirs
     classpath = sourceSets["integrationTest"].runtimeClasspath
     shouldRunAfter(tasks.test)
+    filter { includeTestsMatching("com.rescript.plugin.wizard.*") }
     // Run sequentially so concurrent pnpm processes do not contend over the store
     maxParallelForks = 1
     systemProperty("template.test.pnpm", System.getenv("PNPM_BIN") ?: "pnpm")
     systemProperty("template.test.node", System.getenv("NODE_BIN") ?: "node")
+}
+
+// IDE-backed CLI regression tests use the official SDK/runtime and a dedicated sandbox.
+// Keep the injected platform classpath; append the custom source set rather than replacing it.
+intellijPlatformTesting.testIde.register("integrationIdeTest") {
+    testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
+    plugins {
+        bundledPlugin("com.intellij.java")
+        disablePlugin("com.intellij.modules.ultimate")
+    }
+    task {
+        description = "Run IDE-backed CLI regression tests without template installation suites."
+        useJUnitPlatform()
+        testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+        classpath += sourceSets["integrationTest"].runtimeClasspath
+        filter { excludeTestsMatching("com.rescript.plugin.wizard.*") }
+        maxParallelForks = 1
+        shouldRunAfter(tasks.test)
+    }
 }
 
 tasks.register<Test>("uiTest") {

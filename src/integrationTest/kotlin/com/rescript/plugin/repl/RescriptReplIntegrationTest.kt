@@ -1,20 +1,33 @@
 package com.rescript.plugin.repl
 
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.rescript.plugin.IntelliJPlatformExtension
 import com.rescript.plugin.wizard.IntegrationTestSupport
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Files
 import java.nio.file.Path
 
 /** Exercises the public REPL execution path with an actual compiler and runtime. */
+@ExtendWith(IntelliJPlatformExtension::class)
 class RescriptReplIntegrationTest {
+    private lateinit var myFixture: CodeInsightTestFixture
+
     @TempDir
     lateinit var projectDir: Path
 
     @Test
     fun `real compiler evaluates and preserves existing files through syntax failure`() {
+        // The custom task must load the SDK, fixture and plugin before invoking the CLI.
+        assertTrue(
+            myFixture
+                .configureByText("Smoke.res", "let x = 1")
+                .javaClass.name
+                .contains("Rescript"),
+        )
         IntegrationTestSupport.requireBinary("npm")
         IntegrationTestSupport.requireBinary("node")
         Files.writeString(

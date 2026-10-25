@@ -2958,3 +2958,7 @@ msgstr ""
 #~ "project."
 #~ msgstr "フォーマットにはプロジェクトに ReScript コンパイラ（`rescript`）がインストールされている必要があります。"
 
+
+#: ../../user/features/code-editing.md
+msgid "Formatting and format checks use concurrent input/output with a total 10-second command timeout and a 4 MiB limit per output stream. Cancellation stops the owned process and observed child processes. Timeout or output overflow leaves the document unchanged and reports the failure reason."
+msgstr "フォーマットとフォーマットチェックは入出力を並行処理し、コマンド全体に10秒のタイムアウトと出力ストリームごとに4 MiBの上限を適用します。取消時には所有プロセスと観測済みの子プロセスを停止します。タイムアウトや出力上限超過時にはドキュメントを変更せず、失敗理由を通知します。"

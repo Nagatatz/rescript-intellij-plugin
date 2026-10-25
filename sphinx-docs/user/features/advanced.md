@@ -640,6 +640,8 @@ File templates give you a consistent starting point for new modules, interfaces,
 
 ## .d.ts Binding Generation
 
+Binding generation has a total 30-second command timeout, supports IDE progress cancellation and limits each output stream to 4 MiB. REPL compilation and Node.js execution each have a separate 30-second budget with the same output limit. Timeout, cancellation and excessive output stop the owned process and observed child processes and report the failure reason. Process discovery cannot guarantee termination of children that detach before they are observed.
+
 {bdg-success}`Native`
 
 Generate ReScript `external` binding code from TypeScript `.d.ts` definition files. This automates the tedious process of writing FFI declarations manually.

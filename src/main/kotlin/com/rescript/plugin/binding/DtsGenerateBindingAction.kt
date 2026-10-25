@@ -136,6 +136,8 @@ class DtsGenerateBindingAction : AnAction() {
                                 "Generate ReScript Binding",
                             )
                         }
+                    } catch (e: com.intellij.openapi.progress.ProcessCanceledException) {
+                        throw e
                     } catch (e: Exception) {
                         LOG.error("Unexpected error generating binding", e)
                         ApplicationManager.getApplication().invokeLater {
