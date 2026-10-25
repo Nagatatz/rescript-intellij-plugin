@@ -143,7 +143,7 @@ The project enforces several automated quality gates via CI and custom Gradle ta
 | Test files | `./gradlew checkTestFiles` | Production classes must have corresponding tests |
 | EP registration | `./gradlew checkExtensionPointRegistration` | plugin.xml must reference existing classes |
 | Coverage | `./gradlew koverHtmlReport` | Report at `build/reports/kover/html/index.html` |
-| Coverage threshold | `./gradlew koverVerify` | Minimum 87% Managed line coverage; Full population reported separately |
+| Coverage threshold | `./gradlew koverVerify` | Managed line coverage of at least 87%; Full population reported separately |
 
 ## Submitting Changes
 
