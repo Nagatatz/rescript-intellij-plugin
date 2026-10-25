@@ -3,6 +3,7 @@ package com.rescript.plugin.editor
 import com.intellij.openapi.editor.actions.lists.DefaultListSplitJoinContext
 import com.intellij.openapi.editor.actions.lists.ListWithElements
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.TokenType
 import com.rescript.plugin.lang.RescriptTokenTypes
 
@@ -53,6 +54,11 @@ class RescriptListSplitJoinContext : DefaultListSplitJoinContext() {
     /**
      * Finds the nearest parent PSI element that represents a comma-separated list.
      *
+     * The search stops at the containing file. Walking further would reach
+     * [com.intellij.psi.PsiDirectory], whose children are every file in the
+     * directory; enumerating them forces file type detection of unrelated files
+     * on each intention availability check.
+     *
      * @param element the starting element
      * @return the list parent element, or null if none found
      */
@@ -63,7 +69,7 @@ class RescriptListSplitJoinContext : DefaultListSplitJoinContext() {
             if (children.any { it.node?.elementType == RescriptTokenTypes.COMMA }) {
                 return current
             }
-            current = current.parent
+            current = if (current is PsiFile) null else current.parent
         }
         return null
     }
