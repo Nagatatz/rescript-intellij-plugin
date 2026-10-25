@@ -15,7 +15,7 @@ to hit first.
 | `@get` / `@set` | Read / write an object property |
 | `@scope("NativeModules")` | Reach into a nested static namespace |
 
-See the [ReScript binding reference](https://rescript-lang.org/docs/manual/latest/bind-to-js-function)
+See the [ReScript binding reference](https://rescript-lang.org/docs/manual/bind-to-js-function)
 for the full list and edge cases.
 
 ### Pattern: typed fetch wrapper (frontend)
@@ -125,6 +125,6 @@ Full package index: <https://rescript-lang.org/packages/>.
 
 ### Further reading
 
-- [ReScript manual — binding to JS](https://rescript-lang.org/docs/manual/latest/bind-to-js-function)
+- [ReScript manual — binding to JS](https://rescript-lang.org/docs/manual/bind-to-js-function)
 - [ReScript forum](https://forum.rescript-lang.org/) for questions and
   discussion.

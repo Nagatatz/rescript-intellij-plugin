@@ -2,6 +2,7 @@ package com.rescript.plugin.documentation
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -93,23 +94,17 @@ class RescriptExternalDocUrlsTest {
 
     @Test
     fun urlConstructionForBeltArray() {
-        val segment = RescriptExternalDocUrls.MODULE_URL_MAP["Belt.Array"]
-        assertNotNull(segment)
-        val url = "${RescriptExternalDocUrls.BASE_URL}/$segment"
         assertEquals(
-            "https://rescript-lang.org/docs/manual/latest/api/belt/array",
-            url,
+            "https://rescript-lang.org/docs/manual/api/belt/array",
+            RescriptExternalDocUrls.urlFor("Belt.Array"),
         )
     }
 
     @Test
     fun urlConstructionForJsPromise() {
-        val segment = RescriptExternalDocUrls.MODULE_URL_MAP["Js.Promise"]
-        assertNotNull(segment)
-        val url = "${RescriptExternalDocUrls.BASE_URL}/$segment"
         assertEquals(
-            "https://rescript-lang.org/docs/manual/latest/api/js/promise",
-            url,
+            "https://rescript-lang.org/docs/manual/v11.0.0/api/js/promise",
+            RescriptExternalDocUrls.urlFor("Js.Promise"),
         )
     }
 
@@ -120,6 +115,28 @@ class RescriptExternalDocUrlsTest {
                 module[0].isUpperCase(),
                 "Module key '$module' should start with uppercase",
             )
+        }
+    }
+
+    @Test
+    fun urlConstructionForNestedBeltModule() {
+        assertEquals(
+            "https://rescript-lang.org/docs/manual/api/belt/map/string",
+            RescriptExternalDocUrls.urlFor("Belt.Map.String"),
+        )
+    }
+
+    @Test
+    fun urlForUnknownModuleIsNull() {
+        assertNull(RescriptExternalDocUrls.urlFor("NonExistent.Module"))
+    }
+
+    @Test
+    fun urlsDoNotUseRemovedLatestManualPath() {
+        for (module in RescriptExternalDocUrls.MODULE_URL_MAP.keys) {
+            val url = RescriptExternalDocUrls.urlFor(module)
+            assertNotNull(url)
+            assertTrue(!url!!.contains("/docs/manual/latest/"), "URL for '$module' uses the removed latest path")
         }
     }
 }

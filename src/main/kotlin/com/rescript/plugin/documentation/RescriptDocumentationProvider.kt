@@ -65,9 +65,9 @@ class RescriptDocumentationProvider : AbstractDocumentationProvider() {
         if (element.language != RescriptLanguage) return null
 
         val modulePath = resolveModulePath(element, originalElement) ?: return null
-        val urlPath = RescriptExternalDocUrls.MODULE_URL_MAP[modulePath] ?: return null
+        val url = RescriptExternalDocUrls.urlFor(modulePath) ?: return null
 
-        return listOf("${RescriptExternalDocUrls.BASE_URL}/$urlPath")
+        return listOf(url)
     }
 
     companion object {

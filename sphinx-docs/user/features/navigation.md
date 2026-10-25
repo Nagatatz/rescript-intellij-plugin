@@ -235,7 +235,7 @@ Supported modules include all `Belt.*` submodules (Belt.Array, Belt.Map, Belt.Op
 
 ```rescript
 // Caret on "Belt.Array", press Shift+F1
-// Opens: https://rescript-lang.org/docs/manual/latest/api/belt/array
+// Opens: https://rescript-lang.org/docs/manual/api/belt/array
 ```
 
 :::{note}
