@@ -695,6 +695,12 @@ Every exit path forcibly stops the owner and observed descendants. Handles are r
 
 The formatter reports a sanitized diagnostic or a failure reason and suppresses results after cancellation. Binding generation reports a parser error while IDE cancellation propagates. Reanalyze reports a file-level warning or inspection notification instead of parsing failed output. REPL reports compile/runtime failure reasons, preserves its unique temporary-file ownership and hides the project path in compiler diagnostics. Each REPL compile and runtime command has its own 30-second budget.
 
+### Proven local qualifier removal
+
+`RescriptQualifierRemovalPlanner` validates a complete, conservative lexer grammar before `RescriptRemoveQualifierIntention` removes a module prefix. A direct local module with unique scalar literal value exports must precede the file's single `open`, which must precede the qualified reference. Direct top-level value declarations may contain supported calls, parentheses and arithmetic/equality expressions. Any same-named file binding, module shadowing, a target in an external module, alias/re-export, competing open/include, nested scope, type annotation, unsupported operator or unknown syntax prevents an edit. Declaration boundaries come from balanced lexer tokens, not coarse PSI declaration text ranges.
+
+Availability and invocation use the same immutable source proof and retain the exact file, document and caret identity. A changed source snapshot is refused. The edit removes only the module identifier and dot, preserves intervening comments/trivia, and participates in one editor undo command. Shared import helpers retain their existing behavior for other callers.
+
 ### Safe parentheses removal
 
 `RescriptParenthesesRemovalPlan` proves balanced lexer delimiters and a complete scalar initializer in a simple `let` binding. String/comment contents and original trivia are preserved. Calls, lambda parameters, patterns, nested groups, types and operator expressions are refused. Availability and invocation share the proof and require matching committed PSI/document snapshots; one undo restores the entire edit. Files with type/module/external declarations, annotations, templates or JSX are refused. General expression precedence resolution remains unsupported.

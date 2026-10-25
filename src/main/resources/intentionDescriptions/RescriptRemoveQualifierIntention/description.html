@@ -1,6 +1,9 @@
 <html>
 <body>
-<p>Removes a redundant module qualifier when the module is already brought into scope with <code>open</code>.</p>
-<pre><code>Module.value   →   value</code></pre>
+<p>Removes a local module value qualifier only when a preceding <code>open</code> proves the same binding.</p>
+<pre><code>module A = { let value = 1 }
+open A
+let result = A.value   →   let result = value</code></pre>
+<p>External modules, aliases, competing opens, shadowed names, nested scopes and unsupported syntax are refused. Comments are retained and one undo restores the source.</p>
 </body>
 </html>
