@@ -32,7 +32,7 @@ jobs:
 
       - name: Run actionlint
         # Pinned to commit SHA per .claude/rules/github-actions-pinning.md.
-        uses: reviewdog/action-actionlint@dbe5299849118fd6f099ba563d263d770955a64a  # v1.73.2
+        uses: reviewdog/action-actionlint@3cbf14efd750961dba35fccbf00f9e14028cb1f5  # v1.80.2
         with:
           reporter: github-pr-review
           fail_level: error
@@ -84,7 +84,7 @@ jobs:
         uses: gradle/actions/wrapper-validation@v6
 
       - name: Setup JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 25
@@ -143,7 +143,7 @@ jobs:
       - name: Add coverage report to PR
         if: github.event_name == 'pull_request'
         # Pinned to commit SHA per .claude/rules/github-actions-pinning.md.
-        uses: mi-kas/kover-report@fe40bd3712cf57dd19bfb0c16ccb0472a0478dae  # v2.6
+        uses: mi-kas/kover-report@94d69bc9d417de89b808cd5fe846bca2840911bb  # v2.7
         with:
           path: ${{ github.workspace }}/build/reports/kover/report.xml
           title: Managed main-class unit coverage (exclusions apply)
@@ -209,7 +209,7 @@ jobs:
         uses: gradle/actions/wrapper-validation@v6
 
       - name: Setup JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 25
@@ -253,7 +253,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Setup JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 25
@@ -270,7 +270,7 @@ jobs:
 
       - name: Setup pnpm
         # Pinned to commit SHA per .claude/rules/github-actions-pinning.md.
-        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86  # v6.0.10
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413  # v6.1.0
         with:
           version: 10
 

@@ -103,7 +103,7 @@ internal object TauriTemplateFiles {
                     linkedMapOf(
                         "@tauri-apps/cli" to TemplateVersions.TAURI_APPS_CLI,
                         "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
-                        "vite" to TemplateVersions.VITE,
+                        "vite" to TemplateVersions.VITE_PLUS_VITE_ALIAS,
                         "vite-plus" to TemplateVersions.VITE_PLUS,
                         "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                         "vitest" to TemplateVersions.VITEST,

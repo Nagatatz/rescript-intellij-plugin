@@ -331,7 +331,7 @@ AST/stub の両コンストラクタと宣言名の取得を保持する。5 種
 
 | 項目 | 内容 |
 |---|---|
-| 継承元 | `com.intellij.platform.lsp.api.LspServerSupportProvider` |
+| 継承元 | `com.intellij.platform.lsp.api.LspIntegrationProvider` |
 | 役割 | ファイルオープン時に LSP サーバーの起動判定を行う |
 | トリガー条件 | ファイル拡張子が `.res` または `.resi` |
 
@@ -339,7 +339,7 @@ AST/stub の両コンストラクタと宣言名の取得を保持する。5 種
 
 | 項目 | 内容 |
 |---|---|
-| 継承元 | `com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor` |
+| 継承元 | `com.intellij.platform.lsp.api.ProjectWideLspClientDescriptor` |
 | 役割 | LSP サーバーの検出、起動コマンド構築、対象ファイル判定 |
 | スコープ | プロジェクト全体 |
 
@@ -425,16 +425,18 @@ flowchart TD
 | `com.intellij.lineIndentProvider` | `RescriptLineIndentProvider` | インデント制御 | 実装済み |
 | `com.intellij.breadcrumbsInfoProvider` | `RescriptBreadcrumbsProvider` | パンくずナビゲーション | 実装済み |
 | `com.intellij.renameHandler` | `RescriptRenameHandler` | リネームリファクタリング | 実装済み |
+| `com.intellij.lang.refactoringSupport` | `RescriptRefactoringSupportProvider` / `RescriptExtractFunctionHandler` | Function extraction with validated lexical bindings, local insertion and atomic undo | Implemented |
 | `com.intellij.lang.namesValidator` | `RescriptNamesValidator` | 名前バリデーション | 実装済み |
 | `com.intellij.projectConfigurable` | `RescriptConfigurable` | プロジェクト設定 UI | 実装済み |
 | `com.intellij.projectService` | `RescriptProjectSettings` | プロジェクト設定永続化 | 実装済み |
-| `com.intellij.platform.lsp.serverSupportProvider` | `RescriptLspServerSupportProvider` | LSP サーバー登録 | 実装済み |
+| `com.intellij.platform.lsp.integrationProvider` | `RescriptLspServerSupportProvider` | LSP サーバー登録 | 実装済み |
 | `com.intellij.todoIndexer` | `RescriptTodoIndexer` | TODO インデクシング | 実装済み |
 | `com.intellij.gotoSymbolContributor` | `RescriptSymbolContributor` | Go to Symbol | 実装済み |
 | `com.intellij.formattingService` | `RescriptFormattingService` | 外部フォーマッタ連携 | 実装済み |
 | `com.intellij.localInspection` | `RescriptDuplicateOpenInspection` | 重複 open 検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptEmptyModuleInspection` | 空モジュール検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMismatchedJsxTagInspection` | JSX 開閉タグ名不一致検出 | 実装済み |
+| `com.intellij.localInspection` | `RescriptMutabilityInspection` | braced 関数内の局所スカラー ref と全 `.contents` 読み取りを一括除去。`RescriptRefRemovalPlanner` の lexer scope/identity 証明と文書全体 snapshot により書き込み・alias・export・closure・shadowing・file 内の opaque interop 宣言・不明構文を拒否 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMissingConfigInspection` | rescript.json 未検出警告 | 実装済み |
 | `<action>` | `RescriptSwitchFileAction` | `.res`/`.resi` ファイル切り替え (Alt+O) | 実装済み |
 | `com.intellij.defaultLiveTemplates` | `liveTemplates/ReScript.xml` | Live Templates (21 スニペット) | 実装済み |
@@ -455,7 +457,7 @@ flowchart TD
 | `com.intellij.projectService` | `RescriptCompilationStatusService` | コンパイル状態保持（LSP 通知受信） | 実装済み |
 | `<action>` | `RescriptCreateInterfaceAction` | インターフェースファイル生成 | 実装済み |
 | `<action>` | `RescriptOpenCompiledJsAction` | コンパイル済み JS を開く (Alt+Shift+J) | 実装済み |
-| `com.intellij.lang.importOptimizer` | `RescriptImportOptimizer` | Import Optimizer（重複 open 削除） | 実装済み |
+| `com.intellij.lang.importOptimizer` | `RescriptImportOptimizer` | Import Optimizer（証明可能な隣接 open のみ削除） | 実装済み |
 | `com.intellij.intentionAction` | `RescriptWrapWithSomeIntention` | Wrap with Some(...) | 実装済み |
 | `com.intellij.intentionAction` | `RescriptWrapWithOkIntention` | Wrap with Ok(...) | 実装済み |
 | `com.intellij.intentionAction` | `RescriptWrapWithErrorIntention` | Wrap with Error(...) | 実装済み |
@@ -531,6 +533,7 @@ flowchart TD
 | `com.intellij.usageTypeProvider` | `RescriptUsageTypeProvider` | 使用タイプ分類 | 実装済み |
 | `com.intellij.codeBlockProvider` | `RescriptCodeBlockHandler` | コードブロック境界検出 | 実装済み |
 | `com.intellij.listSplitJoinContext` | `RescriptListSplitJoinContext` | リスト分割/結合 | 実装済み |
+| `com.intellij.lang.refactoring.inlineHandler` | `RescriptInlineHandler` | Literal-only constant inlining; lexical scope validation, parenthesized replacements, and atomic undo. Ambiguous bindings are unavailable; exported declarations are retained. | Implemented |
 | `com.intellij.refactoring.safeDeleteProcessor` | `RescriptSafeDeleteProcessor` | Safe Delete プロセッサ | 実装済み |
 | `com.intellij.nameSuggestionProvider` | `RescriptNameSuggestionProvider` | リネーム名前候補 | 実装済み |
 | `com.intellij.fileType` | `RescriptWorksheetFileType` | Worksheet モード（`.resw`） | 実装済み |
@@ -663,7 +666,7 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 | Incremental Type Checking 設定 | VS Code 設定 | `RescriptConfigurable` + LSP initOptions | 同等 |
 | Error Lens | Error Lens 拡張 (サードパーティ) | `RescriptErrorLensManager` | 同等（VS Code では別拡張が必要） |
 | デバッグ統合 | VS Code Node.js Debugger | `RescriptDebugRunConfiguration` | コンパイル済み JS のデバッグ（Ultimate/WebStorm） |
-| 未使用 open 自動削除 | — | `RescriptImportOptimizer` + `RescriptUnusedOpenDetector` | 本プラグイン独自（LSP 診断活用） |
+| 未使用 open 自動削除 | — | `RescriptImportOptimizer` + `RescriptUnusedOpenDetector` | 診断の source version を証明できないため自動削除停止 |
 | Unwrap/Remove | — | `RescriptUnwrapDescriptor` | 本プラグイン独自 (Ctrl+Shift+Delete) |
 | JSX 閉じタグ自動挿入 | VS Code 標準 auto-closing tags | `RescriptTypedHandler` | 同等 |
 | Go to Test / Create Test | — | `RescriptTestCreator` | 本プラグイン独自 (Ctrl+Shift+T) |
@@ -680,6 +683,10 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 |---|---|---|---|
 (全 rescript-vscode ギャップ機能が実装済み)
 
+## Safe function extraction
+
+Extract Function resolves simple lexical bindings and block-body lambda parameters before editing. Only selected references to external bindings become parameters; local bindings cannot escape the selection. New functions remain in the same block, avoid existing names, and share one undo command with the call site. Top-level helpers are private, and exported declarations cannot be removed. Lambda values, bare module values, unknown field values and partial applications are refused to preserve type generalization; record literals, array/index expressions, placeholders, return-type annotations and statement continuations are also refused when type or insertion context cannot be established. Verified ref-cell contents and extraction inside block-body lambdas are supported. Unknown syntax and unresolved references leave the document unchanged.
+
 ## Finite external command execution
 
 `RescriptProcessRunner` owns the short-lived commands used by CLI detection, formatting and format checks, `.d.ts` binding generation, per-file and global reanalyze CLI analysis, and REPL compilation/execution. Three daemon workers handle UTF-8 stdin, stdout and stderr concurrently. A monotonic budget starts before process creation and covers process exit and all pipe completion; polling checks IDE progress cancellation and the formatter's sticky cancellation token every 10 ms. Output is limited to 4 MiB per stream. Timeout, cancellation, output overflow and I/O failure produce structured failures, never successful partial formatted text or JSON.
@@ -687,7 +694,6 @@ rescript-vscode（公式 VS Code 拡張）と本プラグインの機能カバ�
 Every exit path forcibly stops the owner and observed descendants. Handles are retained across parent exit, and cleanup allows up to 200 ms for termination/reaping outside the command budget; pipe closing never blocks the caller. Java process creation itself is synchronous, and OS termination is asynchronous. Descendant discovery uses `ProcessHandle`: processes that detach or are reparented before a polling pass are outside this portable guarantee. This runner handles finite commands; the persistent LSP and reanalyze server lifecycles remain separate.
 
 The formatter reports a sanitized diagnostic or a failure reason and suppresses results after cancellation. Binding generation reports a parser error while IDE cancellation propagates. Reanalyze reports a file-level warning or inspection notification instead of parsing failed output. REPL reports compile/runtime failure reasons, preserves its unique temporary-file ownership and hides the project path in compiler diagnostics. Each REPL compile and runtime command has its own 30-second budget.
-
 
 ### Proven local qualifier removal
 
@@ -702,3 +708,17 @@ Unit coverage reports have two explicit populations: Full (all main bytecode wit
 `TransformationBehaviorFixture` checks actual SDK action/public handler application, full Document and committed PSI text, single undo, and optional before/after/undo compiler/runtime observations. Unit PSI checks do not prove compiler semantics. `tools/quality/report.py` reads observed JUnit XML and the explicit #99–105 fixture inventory, distinguishes API reflection contracts, reports missing/unrun/skip cases and leaves other tests unclassified. CLI/template/UI tasks remain separate from unit instrumentation.
 
 PIT shares its target inventory with the summary generator. XML-derived mutation score uses detected/generated; test strength uses detected/mutations with coverage. Assertion-killed outcomes are distinguished from PIT's timeout/error/equivalent detections. Zero, incomplete/unknown or undeclared-class mutation results fail reporting. Only declared pure JVM paths/regex/workspace-glob utilities are PIT targets; the constants-only paths/regex objects generate no default mutations. Line coverage comes from PIT's actual HTML summary with XML population checks. Standard JVM bytecode mutators have no Kotlin-specific mutation guarantee, and IDE/compiler transformations are not represented by that score.
+
+### Safe parentheses removal
+
+`RescriptParenthesesRemovalPlan` proves balanced lexer delimiters and a complete scalar initializer in a simple `let` binding. String/comment contents and original trivia are preserved. Calls, lambda parameters, patterns, nested groups, types and operator expressions are refused. Availability and invocation share the proof and require matching committed PSI/document snapshots; one undo restores the entire edit. Files with type/module/external declarations, annotations, templates or JSX are refused. General expression precedence resolution remains unsupported.
+
+### Balanced pipe conversion
+
+`RescriptPipeConversion` plans the source ranges for both pipe conversion intentions using `RescriptLexer`. Only `RIGHT_ARROW` (`->`) is a pipe-first operator; `PIPE_FORWARD` (`|>`) is rejected. A delimiter stack pairs parentheses, brackets and braces, and argument splitting only considers commas outside paired groups. Original source slices retain nested calls, records/arrays, strings, comments and newlines. In particular, `getItems()->Array.length` converts to `Array.length(getItems())`, and the reverse conversion retains the unit call. Earlier pipe stages remain part of the complete left-hand expression.
+
+The planner supports qualified calls with positional first arguments and explicit expression boundaries. A recursive expression whitelist consumes every significant token in arguments and nested calls, arrays, records and expression-bodied lambdas; balanced but unknown input such as `a b` is rejected. Lambda body boundaries require a valid plain positional parameter list before `=>`, so a malformed lambda cannot authorize a rewrite. It declines labeled/optional arguments, placeholders, JSX/templates, unbalanced or unterminated input, ambiguous operator boundaries and postfix calls on call results. Parenthesized expressions retain their grouping; unknown shapes do not fall back to a partial regex match. Carets inside strings/comments are not conversion sites. Editor mutations use the existing Intention write command so one undo restores the complete original document. Regression coverage includes actual Intention actions plus compiler/runtime checks before conversion, after conversion and after undo in the dedicated `integrationIdeTest` sandbox.
+
+## Proven open removal
+
+Import optimization and duplicate-open inspection share a module identity proof for adjacent opens of local modules containing literal let bindings only. Unknown declarations invalidate the proof; repeated opens separated by code remain untouched. Unversioned markup warnings cannot authorize automatic unused-open deletion. Explicit lexer ranges preserve following expressions and comments even when an open PSI node contains them. Collected edits are discarded when the source snapshot changes, and quick fixes revalidate before editing.

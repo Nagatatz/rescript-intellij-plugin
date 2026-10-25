@@ -10,7 +10,7 @@ package com.rescript.plugin.wizard.templates
  */
 object TemplateVersions {
     // ReScript core
-    val RESCRIPT = "^12.3.0"
+    val RESCRIPT = "^12.3.1"
     val RESCRIPT_CORE = "^1.6.1"
     val RESCRIPT_REACT = "^0.15.0"
 
@@ -19,91 +19,98 @@ object TemplateVersions {
     // of the `rescript` compiler, but pnpm's strict layout hides transitive
     // deps from user code — so every template declares it as a direct
     // dependency to keep the runtime accessible to vitest / node / browsers.
-    val RESCRIPT_RUNTIME = "^12.3.0"
+    val RESCRIPT_RUNTIME = "^12.3.1"
 
     // Build tools
     // Raw Vite pin used when templates need a direct `vite` dep (fallback away
     // from Vite+). Vite+ bundles its own vite under the hood.
-    val VITE = "^8.0.12"
+    val VITE = "^8.3.4"
 
-    // Vite+ (vite-plus) is pre-1.0; templates pin to the 0.1.x range until a stable release.
-    val VITE_PLUS = "^0.1.21"
-    val VITE_PLUS_CORE = "^0.1.21"
-    val VITEJS_PLUGIN_REACT = "^6.0.1"
-    val VITEST = "^4.1.6"
+    // Vite+ (vite-plus) 1.x. Held at 1.1.0 or newer: the 0.1.x line pulls oxfmt ->
+    // tinypool <=2.1.1 (GHSA-5gmw-xhrv-c9v3 / GHSA-85c8-ppgw-ccpr, both critical).
+    val VITE_PLUS = "^1.1.0"
+    val VITE_PLUS_CORE = "^1.1.0"
+
+    // Vite+ 1.x requires the `vite` package to resolve to its own core build; with a
+    // plain `vite` dependency `vp build` aborts with "Expected @voidzero-dev/vite-plus-core,
+    // but found vite" (what `vp migrate` fixes). Templates that depend on vite-plus
+    // therefore declare `vite` through this npm alias instead of [VITE].
+    val VITE_PLUS_VITE_ALIAS = "npm:@voidzero-dev/vite-plus-core@$VITE_PLUS_CORE"
+    val VITEJS_PLUGIN_REACT = "^6.1.2"
+    val VITEST = "^5.0.4"
 
     // React
-    val REACT = "^19.2.6"
-    val REACT_DOM = "^19.2.6"
-    val REACT_TYPES = "^19.2.14"
-    val REACT_DOM_TYPES = "^19.2.3"
+    val REACT = "^19.3.0"
+    val REACT_DOM = "^19.3.0"
+    val REACT_TYPES = "^19.3.0"
+    val REACT_DOM_TYPES = "^19.3.0"
 
     // Backend
-    val HONO = "^4.12.15"
-    val HONO_NODE_SERVER = "^2.0.0"
-    val NODE_TYPES = "^25.6.0"
+    val HONO = "^4.13.13"
+    val HONO_NODE_SERVER = "^2.1.5"
+    val NODE_TYPES = "^25.9.9"
 
     // Hono + Inertia (server-driven SPA bridge). The 0.x range is alpha; bump together with INERTIA_REACT.
     val HONO_INERTIA = "^0.2.0"
-    val INERTIA_REACT = "^3.0.3"
+    val INERTIA_REACT = "^3.9.1"
 
     // Next.js
-    val NEXTJS = "^16.2.9"
+    val NEXTJS = "^16.4.0"
 
     // Electron
-    val ELECTRON = "^42.0.1"
-    val ELECTRON_BUILDER = "^26.8.1"
+    val ELECTRON = "^42.11.12"
+    val ELECTRON_BUILDER = "^26.15.3"
 
     // Expo / React Native
-    val EXPO = "^56.0.11"
-    val REACT_NATIVE = "^0.85.2"
+    val EXPO = "^56.0.23"
+    val REACT_NATIVE = "^0.85.3"
 
     // React Native Community CLI (bare workflow)
-    val RN_COMMUNITY_CLI = "^20.1.3"
-    val RN_METRO_CONFIG = "^0.85.2"
-    val RN_BABEL_PRESET = "^0.85.2"
-    val RN_TYPESCRIPT_CONFIG = "^0.85.2"
+    val RN_COMMUNITY_CLI = "^20.2.0"
+    val RN_METRO_CONFIG = "^0.85.3"
+    val RN_BABEL_PRESET = "^0.85.3"
+    val RN_TYPESCRIPT_CONFIG = "^0.85.3"
 
     // Cloudflare Workers
-    val WRANGLER = "^4.90.0"
-    val CF_WORKERS_TYPES = "^4.20260426.1"
+    val WRANGLER = "^4.150.0"
+    val CF_WORKERS_TYPES = "^4.20260702.1"
 
     // AWS Lambda
-    val AWS_LAMBDA_TYPES = "^8.10.161"
+    val AWS_LAMBDA_TYPES = "^8.10.164"
 
     // Floor is 0.28.1, not 0.28.0: GHSA-g7r4-m6w7-qqqr (dev-server arbitrary file
     // read on Windows) covers >=0.27.3 <0.28.1, and a caret range still lets a
     // lockfile resolve to the vulnerable 0.28.0.
-    val ESBUILD = "^0.28.1"
+    val ESBUILD = "^0.28.2"
 
     // Monorepo tooling
-    val CONCURRENTLY = "^10.0.3"
+    val CONCURRENTLY = "^10.0.6"
 
     // TypeScript (used as devDependency where interop is needed)
     val TYPESCRIPT = "^6.0.3"
 
     // Package manager versions published via Corepack (`packageManager` field in package.json)
-    val PNPM = "11.1.0"
-    val NPM = "11.14.1"
-    val YARN = "4.14.1"
+    val PNPM = "11.28.5"
+    val NPM = "11.21.0"
+    val YARN = "4.18.1"
 
     // Bun runtime + package manager. v1.2+ introduces the text-based `bun.lock`
     // lockfile and the pnpm-style `bun --filter` monorepo selector; the template
     // generators assume both. Floor pinned to the latest stable so corepack
     // resolves a recent runtime when scaffolding new projects.
-    val BUN = "1.3.13"
+    val BUN = "1.3.14"
 
     // Database (libsql client + Drizzle ORM)
-    val LIBSQL_CLIENT = "^0.17.3"
-    val DRIZZLE_ORM = "^0.45.2"
-    val DRIZZLE_KIT = "^0.31.10"
+    val LIBSQL_CLIENT = "^0.18.0"
+    val DRIZZLE_ORM = "^0.45.4"
+    val DRIZZLE_KIT = "^0.31.11"
 
     // PostgreSQL: postgres-js (lighter than node-postgres, drizzle-recommended).
     // Bumped together with DRIZZLE_ORM since the dialect adapter ships in drizzle-orm.
-    val POSTGRES_JS = "^3.4.5"
+    val POSTGRES_JS = "^3.4.9"
 
     // MySQL: mysql2 driver (drizzle-recommended).
-    val MYSQL2 = "^3.22.3"
+    val MYSQL2 = "^3.24.5"
 
     // Container image tags used by templates' compose.yaml for local Postgres / MySQL.
     // Pinned to the current LTS image major; bump intentionally.
@@ -111,30 +118,30 @@ object TemplateVersions {
     val MYSQL_DOCKER_IMAGE = "mysql:8.4"
 
     // Validation
-    val ZOD = "^4.4.3"
+    val ZOD = "^4.6.7"
     val SURY = "^10.0.4"
 
     // OpenAPI / Hono ecosystem
     // @hono/zod-openapi v1 requires zod v4; they must be bumped together.
-    val HONO_ZOD_OPENAPI = "^1.3.0"
-    val SCALAR_HONO_API_REFERENCE = "^0.10.10"
+    val HONO_ZOD_OPENAPI = "^1.6.3"
+    val SCALAR_HONO_API_REFERENCE = "^0.12.12"
 
     // GraphQL (Hono GraphQL template)
-    val GRAPHQL = "^16.13.2"
-    val GRAPHQL_YOGA = "^5.21.0"
+    val GRAPHQL = "^16.14.2"
+    val GRAPHQL_YOGA = "^5.24.4"
     val GRAPHQL_MARKDOWN = "^0.7.1"
 
     // rescript-relay (FULL_STACK GraphQL variant client). 4.x targets ReScript 12
     // and bundles Relay compiler 20.1.1 internally; relay-compiler must match.
-    val RESCRIPT_RELAY = "^4.4.1"
+    val RESCRIPT_RELAY = "^4.6.0"
     val RELAY_COMPILER = "^20.1.1"
 
     // res-x (Bun + Vite + HTMX framework) and its Bun peer dependency
-    val RESCRIPT_X = "^1.4.0"
+    val RESCRIPT_X = "^1.4.1"
     val RESCRIPT_BUN = "^2.1.0"
 
     // HTMX CDN version used by the res-x template's Layout.res
-    val HTMX_CDN = "2.0.10"
+    val HTMX_CDN = "2.0.11"
 
     // AWS Lambda runtime types (separate from @types/aws-lambda)
     val AWS_LAMBDA = "^1.0.7"
@@ -146,23 +153,23 @@ object TemplateVersions {
     val NODE_MAJOR = "24"
 
     // Vitest coverage provider used by `test:coverage` scripts
-    val VITEST_COVERAGE_V8 = "^4.1.6"
+    val VITEST_COVERAGE_V8 = "^5.0.4"
 
     // TanStack Start (full-stack React, Vite-based) and its router peer
-    val TANSTACK_REACT_START = "^1.167.65"
-    val TANSTACK_REACT_ROUTER = "^1.169.2"
-    val TANSTACK_ROUTER_PLUGIN = "^1.167.35"
+    val TANSTACK_REACT_START = "^1.169.1"
+    val TANSTACK_REACT_ROUTER = "^1.170.44"
+    val TANSTACK_ROUTER_PLUGIN = "^1.168.45"
 
     // React Router v7 (Framework mode — what was previously Remix)
-    val REACT_ROUTER = "^7.15.0"
-    val REACT_ROUTER_DEV = "^7.15.0"
-    val REACT_ROUTER_NODE = "^7.15.0"
-    val REACT_ROUTER_SERVE = "^7.15.0"
+    val REACT_ROUTER = "^7.18.4"
+    val REACT_ROUTER_DEV = "^7.18.4"
+    val REACT_ROUTER_NODE = "^7.18.4"
+    val REACT_ROUTER_SERVE = "^7.18.4"
 
     // Bot detection used by React Router v7's SSR entry. The dev plugin auto-
     // injects this dependency on first run; pre-pinning it keeps `pnpm install
     // --frozen-lockfile` valid for the generated project.
-    val ISBOT = "^5.1.0"
+    val ISBOT = "^5.2.2"
 
     // Astro and the React integration. astro 7.x is the active major;
     // @astrojs/react 6.x and @astrojs/node 11.x are the matching adapters.
@@ -170,9 +177,9 @@ object TemplateVersions {
     // inherited libvips CVEs in GHSA-f88m-g3jw-g9cj; astro 7 widens the range to
     // include the fixed 0.35.x line. @astrojs/node 11.0.2+ also clears
     // GHSA-r557-wffq-wvrc. Do not move these back to the 6.x/5.x/10.x line.
-    val ASTRO = "^7.2.0"
-    val ASTROJS_REACT = "^6.0.2"
-    val ASTROJS_NODE = "^11.1.0"
+    val ASTRO = "^7.3.8"
+    val ASTROJS_REACT = "^7.0.1"
+    val ASTROJS_NODE = "^11.1.7"
 
     // Waku (RSC-first React framework by Daishi Kato). 1.0.0 is currently in
     // alpha — pin to a known alpha to keep installs reproducible until 1.0
@@ -182,28 +189,28 @@ object TemplateVersions {
     // Tauri 2.x desktop runtime. @rescript-tauri/core is a 0.x package, so we
     // pin to ^0.1.x to follow patch updates without auto-adopting breaking
     // 0.minor bumps. @tauri-apps/api / @tauri-apps/cli track Tauri 2.x.
-    val RESCRIPT_TAURI_CORE = "^0.1.0"
-    val TAURI_APPS_API = "^2.11.0"
-    val TAURI_APPS_CLI = "^2.11.1"
+    val RESCRIPT_TAURI_CORE = "^0.1.2"
+    val TAURI_APPS_API = "^2.12.3"
+    val TAURI_APPS_CLI = "^2.12.2"
 
     // rescript-tauri plugin bindings — one matching package per
     // `tauri-plugin-*` Rust crate the template registers. All currently
     // ship at 0.1.x; bump them together as the rescript-tauri monorepo
     // progresses.
-    val RESCRIPT_TAURI_PLUGIN_OS = "^0.1.0"
-    val RESCRIPT_TAURI_PLUGIN_FS = "^0.1.0"
-    val RESCRIPT_TAURI_PLUGIN_DIALOG = "^0.1.0"
-    val RESCRIPT_TAURI_PLUGIN_CLIPBOARD_MANAGER = "^0.1.0"
-    val RESCRIPT_TAURI_PLUGIN_NOTIFICATION = "^0.1.0"
-    val RESCRIPT_TAURI_PLUGIN_LOG = "^0.1.0"
+    val RESCRIPT_TAURI_PLUGIN_OS = "^0.1.2"
+    val RESCRIPT_TAURI_PLUGIN_FS = "^0.1.2"
+    val RESCRIPT_TAURI_PLUGIN_DIALOG = "^0.1.2"
+    val RESCRIPT_TAURI_PLUGIN_CLIPBOARD_MANAGER = "^0.1.2"
+    val RESCRIPT_TAURI_PLUGIN_NOTIFICATION = "^0.1.2"
+    val RESCRIPT_TAURI_PLUGIN_LOG = "^0.1.2"
 
     // @tauri-apps/plugin-* JS SDKs (peer deps of the rescript-tauri
     // bindings above). The bindings declare 2.x peer ranges, so we pin
     // to the latest minor of each plugin's 2.x line.
-    val TAURI_APPS_PLUGIN_OS = "^2.3.2"
-    val TAURI_APPS_PLUGIN_FS = "^2.5.1"
-    val TAURI_APPS_PLUGIN_DIALOG = "^2.7.1"
-    val TAURI_APPS_PLUGIN_CLIPBOARD_MANAGER = "^2.3.2"
-    val TAURI_APPS_PLUGIN_NOTIFICATION = "^2.3.3"
-    val TAURI_APPS_PLUGIN_LOG = "^2.8.0"
+    val TAURI_APPS_PLUGIN_OS = "^2.4.0"
+    val TAURI_APPS_PLUGIN_FS = "^2.7.0"
+    val TAURI_APPS_PLUGIN_DIALOG = "^2.8.2"
+    val TAURI_APPS_PLUGIN_CLIPBOARD_MANAGER = "^2.4.2"
+    val TAURI_APPS_PLUGIN_NOTIFICATION = "^2.6.0"
+    val TAURI_APPS_PLUGIN_LOG = "^2.10.1"
 }

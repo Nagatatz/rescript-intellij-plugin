@@ -9,7 +9,7 @@ myst:
 This page helps you get a ReScript project up and running if you're new to ReScript.
 
 :::{tip}
-For comprehensive ReScript documentation, visit the official [ReScript docs](https://rescript-lang.org/docs/manual/latest/introduction).
+For comprehensive ReScript documentation, visit the official [ReScript docs](https://rescript-lang.org/docs/manual/introduction).
 :::
 
 ## Setting Up a New Project

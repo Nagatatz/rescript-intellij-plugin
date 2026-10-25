@@ -590,7 +590,7 @@ Every generated project ships with the same baseline so you can start coding rig
 
 The Vite + React, Electron, and Monorepo templates use [Vite+](https://vite.plus) (`vite-plus`) — a unified wrapper that bundles Vite, Vitest, Oxlint, Oxfmt, and Rolldown. Scripts are exposed as `vp dev`, `vp build`, `vp test`, etc.
 
-> **Known issue:** Vite+ is **pre-1.0** and currently does not link cleanly with `@vitejs/plugin-react` via pnpm's nested store, so `vp build` may fail with `ERR_MODULE_NOT_FOUND` on `vite/internal`. As a fallback, replace `vite-plus` with `vite` in `vite.config.mjs` and switch the npm scripts to `vite` / `vite build`. The migration back to Vite+ is a one-line change once Vite+ stabilizes.
+> **Note:** Vite+ requires the `vite` package to resolve to its own core build, so these templates declare `vite` as an npm alias of `@voidzero-dev/vite-plus-core`. Keep the alias when upgrading (`vp migrate` re-aligns it). To fall back to classic Vite, point `vite` back at the regular package, replace `vite-plus` with `vite` in `vite.config.mjs`, and switch the npm scripts to `vite` / `vite build`.
 
 The Project Wizard lets you create a fully configured ReScript project in seconds — select a template, choose your package manager, and get a ready-to-build project without manually writing configuration files.
 

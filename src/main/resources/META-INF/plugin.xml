@@ -69,6 +69,26 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.1.19</h3>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Typing <code>&gt;</code> (for example in the pipe operator <code>-&gt;</code>) no longer appends a stray JSX closing tag such as <code>&lt;/string&gt;</code>; JSX auto-close now only inspects the opening tag being typed (#39)</li>
+            <li>The REPL no longer overwrites or deletes an existing project file: each evaluation uses its own uniquely named temporary file and cleans up only what it created (#97)</li>
+            <li>Fixed "Non-StubBasedPsiElement requests stub creation" errors during indexing and highlighting on IntelliJ 2026.2 by declaring the stub contract on declaration PSI elements and versioning the file stub (#134)</li>
+            <li>Structure View and Search Everywhere navigation no longer invoke an API that became override-only in the 2026.3 EAP</li>
+        </ul>
+        <h4>Refactoring</h4>
+        <ul>
+            <li><b>LSP integration moved to the current platform API</b> — migrated from the deprecated <code>LspServerSupportProvider</code> / <code>LspServer</code> / <code>LspServerManager</code> API to <code>LspIntegrationProvider</code> / <code>LspClient</code> / <code>LspClientManager</code> (available since 2026.1.4); the plugin verifier now reports no LSP-related deprecated-API usages on 2026.1, 2026.2, or the 2026.3 EAP</li>
+        </ul>
+        <h4>Infrastructure</h4>
+        <ul>
+            <li>Built against IntelliJ Platform 2026.2.3; the minimum supported IDE remains 2026.1.4</li>
+            <li><b>Project templates on Vite+ 1.x</b> — the Vite + React, Electron, Tauri, Hono + Inertia, Monorepo, and Full-Stack templates move to Vite+ 1.x and declare <code>vite</code> as an alias of the Vite+ core package, so <code>vp build</code> and <code>vp test</code> work out of the box; this also removes two critical advisories inherited from the 0.1.x line</li>
+            <li>Every template dependency is raised to its latest compatible release, including Vitest 5, <code>@astrojs/react</code> 7, <code>@scalar/hono-api-reference</code> 0.12, and <code>@libsql/client</code> 0.18</li>
+            <li>Build tooling updated: Kotlin 2.4.21, Gradle wrapper 9.8.1, IntelliJ Platform Gradle Plugin 2.19.0, Kover 0.9.11, and Mockito 5.24.0</li>
+            <li>CI workflows now use actions/setup-java v6, astral-sh/setup-uv 10.1.0, reviewdog/action-actionlint 1.73.4, mi-kas/kover-report 2.7, and softprops/action-gh-release 3.0.3</li>
+        </ul>
         <h3>0.1.18</h3>
         <h4>Infrastructure</h4>
         <ul>
@@ -675,7 +695,7 @@
                 serviceImplementation="com.rescript.plugin.settings.RescriptProjectSettings"/>
 
         <!-- LSP (completion, diagnostics, navigation, hover, etc.) -->
-        <platform.lsp.serverSupportProvider
+        <platform.lsp.integrationProvider
                 implementation="com.rescript.plugin.lsp.RescriptLspServerSupportProvider"/>
 
         <!-- Compilation status service (receives LSP notifications) -->

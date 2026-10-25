@@ -58,9 +58,7 @@ class RescriptConfigurable(
         return fieldEntries().any { entry -> entryIsModified(entry, settings) }
     }
 
-    // LspServerManager is deprecated in 2026.2 EAP; the replacement LspClientDescriptor
-    // API does not exist on the 2026.1.2 compile target.
-    @Suppress("UnstableApiUsage", "DEPRECATION")
+    @Suppress("UnstableApiUsage")
     @Throws(ConfigurationException::class)
     override fun apply() {
         // Validate filesystem paths before writing any value, preserving the
@@ -92,9 +90,9 @@ class RescriptConfigurable(
             }
         }
 
-        com.intellij.platform.lsp.api.LspServerManager
+        com.intellij.platform.lsp.api.LspClientManager
             .getInstance(project)
-            .stopAndRestartIfNeeded(com.rescript.plugin.lsp.RescriptLspServerSupportProvider::class.java)
+            .stopAndRestartClientsIfNeeded(com.rescript.plugin.lsp.RescriptLspServerSupportProvider::class.java)
     }
 
     override fun reset() {

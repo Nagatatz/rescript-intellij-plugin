@@ -142,7 +142,7 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Flatten nested switch | Collapse a `switch` arm whose body is solely a nested `switch` over the arm binding into single-level arms |
 | Case split | Expand a pattern variable into all constructor cases |
 | Convert to labeled arguments | Convert positional arguments to labeled arguments |
-| Remove unnecessary parentheses | Remove redundant parentheses around expressions |
+| Remove unnecessary parentheses | Remove parentheses around proven scalar initializers |
 | Remove redundant qualifier | Remove unnecessary module path qualifiers |
 | Expand open into qualified references | Rewrite members introduced by a project-local `open M` back into explicit `M.name` form and remove the `open` |
 | Convert filter+map to filterMap | Convert `->Array.filter(f)->Array.map(g)` to `->Array.filterMap(...)` |
@@ -318,6 +318,12 @@ Array.map(arr, x => x + 1)
 arr->Array.map(x => x + 1)
 ```
 
+Unit calls are preserved: `getItems()->Array.length` becomes `Array.length(getItems())`, and converting back restores `getItems()->Array.length`. Nested arguments, strings, comments, arrays/records and multiline expressions retain their source text. One undo restores the original expression.
+
+These intentions handle `->` and qualified function calls with positional arguments. They are not offered inside strings/comments or for `|>`, labeled/optional arguments, placeholders, JSX/templates, incomplete delimiters or ambiguous operator boundaries. Parenthesize complex expressions before conversion; unsupported input is left unchanged.
+
+Conversions also work inside lambda bodies with plain positional parameters, such as `items => items->Array.length`. Typed or destructured lambda parameters and blocks with statements are currently unsupported. Argument shapes are checked recursively; balanced but unknown input such as `Array.map(arr, a b)` is not converted.
+
 ### Publish/Unpublish Interface
 
 Control which declarations are exposed in the `.resi` interface file directly from the `.res` implementation.
@@ -468,20 +474,22 @@ makeUser(~name="Alice", ~age=30, ~role="admin")
 
 ### Remove Unnecessary Parentheses
 
-Remove redundant parentheses around expressions. Place the caret on a parenthesized expression and press `Alt+Enter`.
+Remove parentheses around a scalar literal or single identifier that forms the complete initializer of a simple `let` binding. Place the caret on the enclosing parentheses and press `Alt+Enter`. Strings and comments are preserved, and the edit can be undone once.
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-let x = (a + b)
+let x = (42)
 ```
 :::
 :::{tab-item} After
 ```rescript
-let x = a + b
+let x = 42
 ```
 :::
 ::::
+
+Calls, tuples, unit values, lambda parameters, patterns, annotations, nested groups and operator expressions (including comparisons and pipes) are refused. Files containing type/module/external declarations, annotations, templates or JSX are outside the supported subset. The action leaves the code unchanged whenever it cannot confirm that the parentheses are redundant.
 
 ### Remove Redundant Qualifier
 
@@ -903,37 +911,33 @@ Press `Ctrl+Alt+O` to optimize imports in the current file.
 
 ### How It Works
 
-Import optimization runs in two phases:
+Import optimization removes an adjacent repeated `open` only when its target is a proven local module in the same scope. Currently, the supported modules contain literal `let` bindings only and export no modules. Comments and whitespace between the opens are allowed.
 
-1. **Duplicate detection** --- Scans top-level `open` statements and removes any that share the same module path as an earlier `open`
-2. **Unused open detection** --- Uses LSP diagnostic warnings to identify `open` statements whose exports are never referenced in the file
-
-Both phases run together, and a notification summarizes the result (e.g., "Removed 1 duplicate and 2 unused open statement(s)").
+Reopening a module after another open or declaration can change reference resolution, so it is preserved. Unknown module targets, aliases and nested module exports are also preserved. The inspection and quick fix use the same proof, and the quick fix rechecks the current source before editing.
 
 ### Configuration
 
-Unused open removal can be toggled in **Settings** > **Languages & Frameworks** > **ReScript** via the **Remove unused opens** checkbox. When disabled, only duplicate opens are removed.
+Automatic removal based only on an unused-open warning is suspended because the warning may belong to an older source version. The stored **Remove unused opens** preference is retained and its control is disabled; it currently does not authorize deletion without a current semantic proof. Unknown cases leave the source unchanged.
 
 ### Example
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-open Belt
-open Belt.Array
-open Belt          // duplicate
-open Js.Promise    // unused
+module A = {let value = 1}
+open A
+open A
+Console.log(value)
 ```
 :::
-:::{tab-item} After Ctrl+Alt+O
+:::{tab-item} After
 ```rescript
-open Belt
-open Belt.Array
+module A = {let value = 1}
+open A
+Console.log(value)
 ```
 :::
 ::::
-
-A single shortcut cleans up all redundant and unused `open` statements, keeping your imports tidy without manually scanning the file.
 
 ## Rename
 
@@ -981,7 +985,7 @@ Extract Variable lets you name intermediate expressions for clarity, making comp
 
 Press `Ctrl+Alt+M` (`Cmd+Alt+M` on macOS) to extract the selected code into a new function.
 
-The handler detects the selected expression or statement range in a `let` declaration body, extracts it into a new `let` function above the current declaration, and replaces the original code with a call to the new function. Free variables in the selection become parameters of the extracted function.
+The handler resolves references to supported lexical bindings and extracts the selected expression or statement range into a new `let` function immediately before the selected statement in the same block. Only bindings declared outside the selection become parameters. Strings, comments, qualified members and record labels do not become parameters. The declaration and call site are edited in one undoable command, and the generated name avoids existing identifiers. Top-level helpers are private; selecting an entire exported declaration is refused.
 
 Select `a + b`, then:
 
@@ -996,41 +1000,49 @@ let calculate = (a, b) => {
 :::
 :::{tab-item} After
 ```rescript
-let extracted = (a, b) => a + b
-
 let calculate = (a, b) => {
-  let result = extracted(a, b)
+  let extractedFunction = (a, b) => {
+    a + b
+  }
+
+  let result = extractedFunction(a, b)
   result * 2
 }
 ```
 :::
 ::::
 
-Extract Function automatically detects free variables and turns them into parameters, so you can decompose large functions into smaller, reusable pieces without manually threading values through.
+Simple `let` bindings and block-body lambda parameters are supported. Local bindings within the selection stay local to the extracted function; extraction is refused if those bindings are used outside the selection. Rebinding, destructuring, lambda values inside the selection, unknown field values, bare module members, constructors, partial applications, opens, modules, templates, raw JavaScript, shorthand labels, potentially generalized bindings (including function call results) and unresolved names are conservatively rejected. Record literals, array/index expressions, placeholders, return-type annotations and selection across statement continuations are also refused because the required type or insertion context is not proven. Complete project-wide semantic resolution is not yet available. Field reads and updates are limited to `.contents` on a verified ref initializer. Calls and ref updates remain in the extracted body and execute once at the original call site.
 
-## Inline Variable/Function
+## Inline Constant
 
 {bdg-success}`Native`
 
-Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or function at the caret, replacing all references with the definition body.
+Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) on a single-line `let` declaration to inline a literal-only constant expression.
 
-The handler finds the `let` declaration at the caret, locates all references to it within the file, replaces each reference with the definition body, and removes the original declaration.
+The handler validates lexical scope and replaces only identifier references, preserving strings, comments and qualified fields. Every replacement is parenthesized to preserve expression precedence. Local declarations are removed in the same undoable command; top-level declarations remain available to other modules.
+
+Calls, variable-dependent expressions, division, multiline declarations, comments on the declaration and type annotations are unavailable. Files containing rebinding, unresolved patterns, templates, raw JavaScript, `eval`, annotations, opens or modules are conservatively unavailable until semantic reference resolution is supported. Parameters that shadow the selected name, record shorthand and labelled arguments are rejected when their role cannot be established.
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-let prefix = "Hello"
-let greet = (name) => `${prefix}, ${name}!`
+let result = {
+  let sum = 1 + 2
+  sum * 3
+}
 ```
 :::
-:::{tab-item} After (inline `prefix`)
+:::{tab-item} After (inline `sum`)
 ```rescript
-let greet = (name) => `${"Hello"}, ${name}!`
+let result = {
+  (1 + 2) * 3
+}
 ```
 :::
 ::::
 
-Inline refactoring is the reverse of extraction — it replaces an unnecessary intermediate variable with its definition, simplifying code when a named binding adds no clarity.
+The result remains `9`, and one undo restores both the declaration and every edited reference.
 
 ## Introduce Constant
 

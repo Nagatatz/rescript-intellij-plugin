@@ -7,8 +7,8 @@ import com.rescript.plugin.wizard.ProjectFileBuilders
  * Generates project template files for a React single-page application powered by ReScript and Vite+.
  *
  * Uses Vite+ (`vite-plus`) as the build/test toolchain. Vite+ is a unified wrapper over Vite,
- * Vitest, Oxlint, Oxfmt, and Rolldown. Because Vite+ is pre-1.0, the README warns users about
- * the early-access status and shows how to fall back to plain Vite. Form input is validated via
+ * Vitest, Oxlint, Oxfmt, and Rolldown. `vite` is declared as an npm alias of the Vite+ core
+ * package, as Vite+ 1.x requires; the README shows how to fall back to plain Vite. Form input is validated via
  * `Validation.res` before the network call; the backing library (zod or sury) is selected through
  * [TemplateContext.validationLibrary] in the Wizard.
  */
@@ -69,7 +69,7 @@ internal object ViteReactTemplateFiles {
                     linkedMapOf(
                         "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
                         // Direct vite dep for the documented Vite+ → Vite fallback path.
-                        "vite" to TemplateVersions.VITE,
+                        "vite" to TemplateVersions.VITE_PLUS_VITE_ALIAS,
                         "vite-plus" to TemplateVersions.VITE_PLUS,
                         "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                         "vitest" to TemplateVersions.VITEST,
