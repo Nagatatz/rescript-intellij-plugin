@@ -30,31 +30,27 @@ The plugin includes built-in inspections that run locally without requiring the 
 
 ### Duplicate Open Detection
 
-Detects when the same module is opened multiple times in the same file. Duplicate `open` statements are redundant and add unnecessary noise to the code.
+Reports adjacent repeated opens only when both resolve to the same supported local module. Identical module names alone do not prove redundancy. Reopens and unknown module identities are preserved.
 
 ::::{tab-set}
-:::{tab-item} Before (duplicate detected)
+:::{tab-item} Before
 ```rescript
-open Belt
-open Belt.Array
-open Belt  // Warning: duplicate open statement
-
-let arr = [1, 2, 3]
-let doubled = arr->Array.map(x => x * 2)
+module A = {let value = 1}
+open A
+open A
+Console.log(value)
 ```
 :::
-:::{tab-item} After (optimized)
+:::{tab-item} After
 ```rescript
-open Belt
-open Belt.Array
-
-let arr = [1, 2, 3]
-let doubled = arr->Array.map(x => x * 2)
+module A = {let value = 1}
+open A
+Console.log(value)
 ```
 :::
 ::::
 
-The inspection highlights the duplicate `open` statement with a warning. You can remove it manually or use **Optimize Imports** (`Ctrl+Alt+O`) to remove all duplicates automatically.
+Use the inspection quick fix or **Optimize Imports** (`Ctrl+Alt+O`) to remove this proven redundant open in one undoable edit.
 
 ### Empty Module Detection
 
@@ -245,20 +241,25 @@ These local inspections run instantly without the Language Server, catching comm
 
 ### Mutability Diagnostics
 
-Detects `ref` bindings that are never reassigned with `:=`. If a mutable reference is created but never mutated, it can be simplified to a plain `let` binding.
+Offers **Remove unnecessary ref** only for local scalar literal references inside braced function bodies when every use is a direct `.contents` read. The fix updates the initializer and every read together in one undo step. Writes (`:=` or `.contents =`), aliases, box arguments or returns, exports, closures, shadowing, `open`/`include`, opaque interop or attributes anywhere in the file, nonliteral initializers, and unknown syntax are refused. Any document change after inspection invalidates the prepared fix.
 
 ::::{tab-set}
 :::{tab-item} Before (warning detected)
 ```rescript
-let counter = ref(0)
-// counter is never reassigned with :=
-let value = counter.contents
+let run = () => {
+  let counter = ref(0)
+  let next = counter.contents + 1
+  counter.contents + next
+}
 ```
 :::
 :::{tab-item} After (quick fix applied)
 ```rescript
-let counter = 0
-let value = counter
+let run = () => {
+  let counter = 0
+  let next = counter + 1
+  counter + next
+}
 ```
 :::
 ::::
@@ -439,37 +440,7 @@ This keeps the Problems panel focused on issues in your own code, filtering out 
 
 Press `Ctrl+Alt+O` (or `Cmd+Alt+O` on macOS) to optimize imports in the current file.
 
-The import optimizer performs the following actions:
-
-- **Removes duplicate `open` statements** --- When the same module path appears in multiple `open` statements, only the first occurrence is kept
-- **Preserves order** --- Unique `open` statements remain in their original position in the file
-- **Preserves non-duplicate opens** --- The optimizer only removes exact duplicates; it does not remove unused opens (since that requires semantic analysis from the compiler)
-
-**Example:**
-
-```rescript
-// Before optimization
-open Belt
-open Belt.Array
-open Belt
-open Belt.Option
-open Belt.Array
-
-let x = [1, 2, 3]->Array.map(v => Some(v))
-```
-
-```rescript
-// After Ctrl+Alt+O
-open Belt
-open Belt.Array
-open Belt.Option
-
-let x = [1, 2, 3]->Array.map(v => Some(v))
-```
-
-After running the optimizer, a notification displays the result (e.g., "Removed 2 duplicate open statement(s)" or "No duplicate open statements found").
-
-Instead of manually scanning for and removing redundant `open` statements, a single shortcut cleans up all duplicates at once, keeping your imports tidy with zero effort.
+The optimizer preserves source order and removes only proven adjacent local-module duplicates. Reopens separated by code and unknown modules remain unchanged. See [Import Optimization](code-editing.md#import-optimization) for the supported subset and diagnostic limitations.
 
 ## Quick Fixes (LSP)
 

@@ -52,7 +52,7 @@ rescript-intellij-plugin/
 | `spellcheck/` | スペルチェック | `RescriptSpellcheckingStrategy` |
 | `completion/` | Postfix Completion、Record/Variant Placeholder 補完（型注釈付き値位置でリテラル雛形を提示、純ロジック 3 分離） | `RescriptPostfixTemplateProvider`, `RescriptPlaceholderCompletionContributor`, `RescriptTypeAnnotationContext`, `RescriptPlaceholderTypeResolver`, `RescriptPlaceholderBuilder` |
 | `analysis/` | reanalyze デッドコード分析 | `RescriptReanalyzeAnnotator` |
-| `inspection/` | コードインスペクション（重複 open、空モジュール、JSX 開閉タグ不一致、シグネチャ同期等） | `RescriptDuplicateOpenInspection`, `RescriptMismatchedJsxTagInspection`, `RescriptSignatureSyncInspection` |
+| `inspection/` | コードインスペクション（重複 open、空モジュール、JSX 開閉タグ不一致、シグネチャ同期、局所スカラー ref と全 contents 読み取りの安全な一括除去） | `RescriptMutabilityInspection`, `RescriptRefRemovalPlanner`, `RescriptDuplicateOpenInspection`, `RescriptMismatchedJsxTagInspection`, `RescriptSignatureSyncInspection` |
 | `quickfix/` | クイックフィックス（未解決参照、関数生成等） | `RescriptAddOpenQuickFix`, `RescriptGenerateFunctionQuickFix` |
 | `preview/` | コンパイル済み JS プレビュー | `RescriptCompiledJsPreviewToolWindowFactory` |
 | `hierarchy/` | モジュール階層ビュー | `RescriptModuleHierarchyProvider` |
@@ -67,8 +67,8 @@ rescript-intellij-plugin/
 | `coverage/` | Type Coverage Heat Map（`.res` ファイルごとの annotated/inferred 比率を表形式で可視化、color-coded sortable table。選択ファイルに inferred 型注釈を一括挿入するツールバーアクションを `intention/RescriptBatchAnnotationRunner` 経由で提供） | `RescriptTypeCoverageToolWindowFactory`, `RescriptTypeCoveragePanel`, `RescriptTypeCoverageScanner`, `RescriptTypeCoverageClassifier`, `RescriptTypeCoverageModel` |
 | `statusbar/` | ビルドステータスウィジェット | `RescriptCompilerStatusWidgetFactory` |
 | `errorlens/` | Error Lens（行末インライン診断） | `RescriptErrorLensManager` |
-| `imports/` | Import Optimizer、open 文ユーティリティ、open 展開プランナ / モジュールメンバ抽出 | `RescriptImportOptimizer`, `RescriptImportUtil`, `RescriptOpenExpansionPlanner`, `RescriptModuleMemberExtractor` |
-| `intention/` | Intention Actions（Wrap with、@genType 追加、Rename variant constructor、Expand open qualifier、Flatten nested switch、inferred 型注釈の一括挿入 等） | `RescriptWrapWithIntention`, `RescriptRenameVariantConstructorIntention`, `RescriptConstructorOccurrenceClassifier`, `RescriptConstructorOccurrenceFinder`, `RescriptExpandOpenQualifierIntention`, `RescriptFlattenNestedSwitchIntention`, `RescriptNestedSwitchFlattener`, `RescriptBatchInsertInferredTypesIntention`, `RescriptBatchAnnotationPlanner`, `RescriptBatchAnnotationRunner` |
+| `imports/` | Import Optimizer、open 文ユーティリティ、open 展開プランナ / モジュールメンバ抽出 | `RescriptImportOptimizer`, `RescriptOpenRemovalProof`, `RescriptImportUtil`, `RescriptOpenExpansionPlanner`, `RescriptModuleMemberExtractor` |
+| `intention/` | Intention Actions（Wrap with、@genType 追加、Rename variant constructor、Expand open qualifier、Flatten nested switch、inferred 型注釈の一括挿入 等） | `RescriptPipeConversion`, `RescriptConvertPipeToFunctionCallIntention`, `RescriptConvertFunctionCallToPipeIntention`, `RescriptRemoveParenthesesIntention`, `RescriptParenthesesRemovalPlan`, `RescriptQualifierRemovalPlanner`, `RescriptRemoveQualifierIntention`, `RescriptWrapWithIntention`, `RescriptRenameVariantConstructorIntention`, `RescriptConstructorOccurrenceClassifier`, `RescriptConstructorOccurrenceFinder`, `RescriptExpandOpenQualifierIntention`, `RescriptFlattenNestedSwitchIntention`, `RescriptNestedSwitchFlattener`, `RescriptBatchInsertInferredTypesIntention`, `RescriptBatchAnnotationPlanner`, `RescriptBatchAnnotationRunner` |
 | `surround/` | Surround With | `RescriptSurroundDescriptor` |
 | `folding/` | コード折りたたみ | `RescriptFoldingBuilder` |
 | `wizard/` | Project Wizard（新規プロジェクト作成、Package Manager / Validation Library 選択 UI） | `RescriptModuleBuilder`, `PackageManager`, `ValidationLibrary` |

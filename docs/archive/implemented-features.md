@@ -113,7 +113,7 @@
 | ケースの変数分割 | パターンマッチの変数を全コンストラクタに展開 (Alt+Enter) | `RescriptCaseSplitIntention` |
 | 位置引数→ラベル付き引数変換 | `foo(1, "hello")` → `foo(~id=1, ~name="hello")` の変換 (Alt+Enter) | `RescriptConvertToLabeledArgsIntention` |
 | 不要な括弧の削除 | 式を囲む不要な括弧を自動削除 (Alt+Enter) | `RescriptRemoveParenthesesIntention` |
-| 不要な修飾子の削除 | モジュールパスの冗長な修飾子を削除 (Alt+Enter) | `RescriptRemoveQualifierIntention` |
+| 不要な修飾子の削除 | 先行する単一 open と直接 local module の scalar export で参照先が同一と証明できる修飾子のみ削除 (Alt+Enter) | `RescriptRemoveQualifierIntention` + `RescriptQualifierRemovalPlanner` |
 | Go to Implementation | .resi → .res の実装宣言ジャンプ (Ctrl+Alt+B) | `RescriptGotoImplementationAction` |
 | Pipe ⇔ 関数呼び出し変換 | `arr->Array.map(f)` ⇔ `Array.map(arr, f)` の相互変換 (Alt+Enter) | `RescriptConvertPipeToFunctionCallIntention` + `RescriptConvertFunctionCallToPipeIntention` |
 | インターフェース公開/非公開 | `.res` の宣言を `.resi` に追加/削除して公開を制御 (Alt+Enter) | `RescriptAddToInterfaceIntention` + `RescriptRemoveFromInterfaceIntention` |
@@ -131,7 +131,7 @@
 | Expand Destructuring | `let {name, age} = user` を個別 let 束縛に展開 (Alt+Enter) | `RescriptExpandDestructuringIntention` |
 | Framework Detector | rescript.json によるフレームワーク自動検出 | `RescriptFrameworkDetector` + `RescriptFrameworkType` |
 | Code Rearranger | トップレベル宣言の自動並べ替え（open → type → exception → module → external → let） | `RescriptRearranger` |
-| 変更可能性の診断 | 不要な `ref` 使用の検出と Quick Fix による除去 | `RescriptMutabilityInspection` |
+| 変更可能性の診断 | 局所スカラー `ref` と全 `.contents` 読み取りの安全な一括除去（write・alias・export 等は拒否） | `RescriptMutabilityInspection` |
 | スタイルリンティング | 冗長ブール式・Belt API・ブール switch パターンの検出と改善提案 | `RescriptStyleLintInspection` |
 | filter+map チェーン変換 | `filter+map` チェーンを `filterMap` に変換 (Alt+Enter) | `RescriptFilterMapChainIntention` |
 | 型注釈追加 | LSP hover 情報を用いた let 束縛への型注釈挿入 (Alt+Enter) | `RescriptAddTypeAnnotationIntention` |

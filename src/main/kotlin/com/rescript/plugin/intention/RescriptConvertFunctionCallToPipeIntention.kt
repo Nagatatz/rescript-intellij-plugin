@@ -45,84 +45,14 @@ class RescriptConvertFunctionCallToPipeIntention : RescriptBaseIntention() {
     }
 
     companion object {
-        // Matches: Module.func(args) — qualified function call with at least one dot
-        private val FUNC_CALL_PATTERN =
-            Regex("""([A-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z_][a-zA-Z0-9_]*)*)\.([a-zA-Z_][a-zA-Z0-9_]*)\(([^)]+)\)""")
-
-        /**
-         * Finds a qualified function call around the given offset in the text.
-         *
-         * @param text the full document text
-         * @param offset the caret position
-         * @return the parsed function call, or null if none found
-         */
+        /** Finds a balanced qualified call with a safely movable first argument. */
         internal fun findFunctionCall(
             text: String,
             offset: Int,
-        ): FunctionCall? {
-            val lineStart = text.lastIndexOf('\n', (offset - 1).coerceAtLeast(0)) + 1
-            val lineEnd = text.indexOf('\n', offset).let { if (it < 0) text.length else it }
-            val line = text.substring(lineStart, lineEnd)
-            val offsetInLine = offset - lineStart
+        ): FunctionCall? = RescriptPipeConversion.call(text, offset)
 
-            for (match in FUNC_CALL_PATTERN.findAll(line)) {
-                if (offsetInLine in (match.range.first)..(match.range.last + 1)) {
-                    val modulePath = match.groupValues[1]
-                    val funcName = match.groupValues[2]
-                    val allArgs = match.groupValues[3]
-
-                    // Split arguments by comma, respecting nested parentheses
-                    val args = splitArgs(allArgs)
-                    if (args.isEmpty()) return null
-
-                    val firstArg = args[0].trim()
-                    val remainingArgs = args.drop(1).map { it.trim() }
-
-                    return FunctionCall(
-                        modulePath = modulePath,
-                        funcName = funcName,
-                        firstArg = firstArg,
-                        remainingArgs = remainingArgs,
-                        fullStart = lineStart + match.range.first,
-                        fullEnd = lineStart + match.range.last + 1,
-                    )
-                }
-            }
-            return null
-        }
-
-        /**
-         * Splits a comma-separated argument list, respecting nested parentheses.
-         *
-         * @param args the argument string (without outer parentheses)
-         * @return a list of individual argument strings
-         */
-        internal fun splitArgs(args: String): List<String> {
-            val result = mutableListOf<String>()
-            var depth = 0
-            var start = 0
-
-            for (i in args.indices) {
-                when (args[i]) {
-                    '(' -> {
-                        depth++
-                    }
-
-                    ')' -> {
-                        depth--
-                    }
-
-                    ',' -> {
-                        if (depth == 0) {
-                            result.add(args.substring(start, i))
-                            start = i + 1
-                        }
-                    }
-                }
-            }
-            result.add(args.substring(start))
-            return result
-        }
+        /** Splits commas outside strings, comments and balanced delimiters. */
+        internal fun splitArgs(args: String): List<String> = RescriptPipeConversion.splitArguments(args)
 
         /**
          * Converts a function call to its pipe expression equivalent.

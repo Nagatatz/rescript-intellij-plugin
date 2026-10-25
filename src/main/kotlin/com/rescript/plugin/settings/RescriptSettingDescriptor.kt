@@ -60,6 +60,7 @@ interface SettingComponent<T> {
  * @param default initial checkbox state used when the component is first created
  * @param getter reads the current persisted value
  * @param setter writes a new value into the persisted settings
+ * @param enabled whether the feature can currently be configured
  */
 class BoolDescriptor(
     override val id: String,
@@ -67,6 +68,7 @@ class BoolDescriptor(
     private val default: Boolean,
     private val getter: (RescriptProjectSettings) -> Boolean,
     private val setter: (RescriptProjectSettings, Boolean) -> Unit,
+    private val enabled: Boolean = true,
 ) : RescriptSettingDescriptor<Boolean>() {
     override fun currentValue(settings: RescriptProjectSettings): Boolean = getter(settings)
 
@@ -76,7 +78,7 @@ class BoolDescriptor(
     ) = setter(settings, value)
 
     override fun createComponent(project: Project): SettingComponent<Boolean> {
-        val checkbox = JCheckBox(title, default)
+        val checkbox = JCheckBox(title, default).apply { isEnabled = enabled }
         return object : SettingComponent<Boolean> {
             override val swing: JComponent = checkbox
 

@@ -142,7 +142,7 @@ Press `Alt+Enter` on an expression to see available intentions:
 | Flatten nested switch | Collapse a `switch` arm whose body is solely a nested `switch` over the arm binding into single-level arms |
 | Case split | Expand a pattern variable into all constructor cases |
 | Convert to labeled arguments | Convert positional arguments to labeled arguments |
-| Remove unnecessary parentheses | Remove redundant parentheses around expressions |
+| Remove unnecessary parentheses | Remove parentheses around proven scalar initializers |
 | Remove redundant qualifier | Remove unnecessary module path qualifiers |
 | Expand open into qualified references | Rewrite members introduced by a project-local `open M` back into explicit `M.name` form and remove the `open` |
 | Convert filter+map to filterMap | Convert `->Array.filter(f)->Array.map(g)` to `->Array.filterMap(...)` |
@@ -318,6 +318,12 @@ Array.map(arr, x => x + 1)
 arr->Array.map(x => x + 1)
 ```
 
+Unit calls are preserved: `getItems()->Array.length` becomes `Array.length(getItems())`, and converting back restores `getItems()->Array.length`. Nested arguments, strings, comments, arrays/records and multiline expressions retain their source text. One undo restores the original expression.
+
+These intentions handle `->` and qualified function calls with positional arguments. They are not offered inside strings/comments or for `|>`, labeled/optional arguments, placeholders, JSX/templates, incomplete delimiters or ambiguous operator boundaries. Parenthesize complex expressions before conversion; unsupported input is left unchanged.
+
+Conversions also work inside lambda bodies with plain positional parameters, such as `items => items->Array.length`. Typed or destructured lambda parameters and blocks with statements are currently unsupported. Argument shapes are checked recursively; balanced but unknown input such as `Array.map(arr, a b)` is not converted.
+
 ### Publish/Unpublish Interface
 
 Control which declarations are exposed in the `.resi` interface file directly from the `.res` implementation.
@@ -468,39 +474,45 @@ makeUser(~name="Alice", ~age=30, ~role="admin")
 
 ### Remove Unnecessary Parentheses
 
-Remove redundant parentheses around expressions. Place the caret on a parenthesized expression and press `Alt+Enter`.
+Remove parentheses around a scalar literal or single identifier that forms the complete initializer of a simple `let` binding. Place the caret on the enclosing parentheses and press `Alt+Enter`. Strings and comments are preserved, and the edit can be undone once.
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-let x = (a + b)
+let x = (42)
 ```
 :::
 :::{tab-item} After
 ```rescript
-let x = a + b
+let x = 42
 ```
 :::
 ::::
+
+Calls, tuples, unit values, lambda parameters, patterns, annotations, nested groups and operator expressions (including comparisons and pipes) are refused. Files containing type/module/external declarations, annotations, templates or JSX are outside the supported subset. The action leaves the code unchanged whenever it cannot confirm that the parentheses are redundant.
 
 ### Remove Redundant Qualifier
 
-Remove unnecessary module path qualifiers when the module is already opened. Place the caret on a qualified identifier and press `Alt+Enter`.
+Remove a qualifier only when a preceding `open` and a directly declared local module prove that the unqualified value names the same binding. Place the caret on the module identifier and press `Alt+Enter`. The module must have unique scalar literal exports, and the file must use the supported top-level declaration/value syntax.
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-open Belt.Array
-Belt.Array.map(arr, fn)
+module A = { let value = 1 }
+open A
+let result = A.value
 ```
 :::
 :::{tab-item} After
 ```rescript
-open Belt.Array
-map(arr, fn)
+module A = { let value = 1 }
+open A
+let result = value
 ```
 :::
 ::::
+
+External modules, aliases/re-exports, later or competing opens, `include`, shadowed names, nested scopes, type annotations, and unsupported syntax are refused. Strings and comments do not create opens or references. Intervening comments are retained, one undo restores the source, and a document change after availability invalidates the prepared edit.
 
 ### Expand Open into Qualified References
 
@@ -899,37 +911,33 @@ Press `Ctrl+Alt+O` to optimize imports in the current file.
 
 ### How It Works
 
-Import optimization runs in two phases:
+Import optimization removes an adjacent repeated `open` only when its target is a proven local module in the same scope. Currently, the supported modules contain literal `let` bindings only and export no modules. Comments and whitespace between the opens are allowed.
 
-1. **Duplicate detection** --- Scans top-level `open` statements and removes any that share the same module path as an earlier `open`
-2. **Unused open detection** --- Uses LSP diagnostic warnings to identify `open` statements whose exports are never referenced in the file
-
-Both phases run together, and a notification summarizes the result (e.g., "Removed 1 duplicate and 2 unused open statement(s)").
+Reopening a module after another open or declaration can change reference resolution, so it is preserved. Unknown module targets, aliases and nested module exports are also preserved. The inspection and quick fix use the same proof, and the quick fix rechecks the current source before editing.
 
 ### Configuration
 
-Unused open removal can be toggled in **Settings** > **Languages & Frameworks** > **ReScript** via the **Remove unused opens** checkbox. When disabled, only duplicate opens are removed.
+Automatic removal based only on an unused-open warning is suspended because the warning may belong to an older source version. The stored **Remove unused opens** preference is retained and its control is disabled; it currently does not authorize deletion without a current semantic proof. Unknown cases leave the source unchanged.
 
 ### Example
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-open Belt
-open Belt.Array
-open Belt          // duplicate
-open Js.Promise    // unused
+module A = {let value = 1}
+open A
+open A
+Console.log(value)
 ```
 :::
-:::{tab-item} After Ctrl+Alt+O
+:::{tab-item} After
 ```rescript
-open Belt
-open Belt.Array
+module A = {let value = 1}
+open A
+Console.log(value)
 ```
 :::
 ::::
-
-A single shortcut cleans up all redundant and unused `open` statements, keeping your imports tidy without manually scanning the file.
 
 ## Rename
 

@@ -85,7 +85,7 @@
 - **Live Templates** — 21 code snippets with ReScript-aware context (`let`, `mod`, `sw`, `pipe`, `log`, `@module`, `@val`, `comp`, etc.)
 - **Postfix Completion** — 9 postfix templates: `.switch`, `.pipe`, `.log`, `.some`, `.ok`, `.error`, `.ignore`, `.promise`, `.await`
 - **Record/variant placeholder completion** — At a type-annotated value position such as `let x: person = ` the popup offers a fully scaffolded literal: record types expand to `{ field1: _, field2: _ }` and variant types offer one entry per constructor (`Some(_)`, `None`, `Ok(_)`, …). The expected type is detected purely syntactically and resolved through the stub index (plus built-in `option`/`result`), so it works without the LSP; on acceptance the caret parks on the first `_` hole
-- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, add `->ignore`, add `_` prefix, remove redundant braces, fix identifier case, pipe ⇔ function call conversion, interface publish/unpublish, insert labeled args, merge switch cases, case split, add missing switch arms, convert to labeled args, remove unnecessary parentheses, remove redundant qualifier, expand open into qualified references, expand destructuring, filter+map to filterMap, add type annotation, convert call to uncurried form, extract local module to file, flatten nested switch, batch-insert inferred type annotations
+- **Intention Actions** — Wrap with `Some`/`Ok`/`Error`, add `@genType`, generate doc comment, add `->ignore`, add `_` prefix, remove redundant braces, fix identifier case, pipe ⇔ function call conversion (preserves unit calls, nested arguments, comments and multiline expressions), interface publish/unpublish, insert labeled args, merge switch cases, case split, add missing switch arms, convert to labeled args, remove proven scalar initializer parentheses, remove redundant qualifiers with a local symbol proof, expand open into qualified references, expand destructuring, filter+map to filterMap, add type annotation, convert call to uncurried form, extract local module to file, flatten nested switch, batch-insert inferred type annotations
 - **Surround With** — Wrap selection in `if`/`switch`/`try`/block, or in a JSX `<div>` element / `<>` fragment
 - **Unwrap/Remove** — Remove wrapping constructs like `Some(...)`, `Ok(...)`, `if`, `switch`, `try`, `{ }` (`Ctrl+Shift+Delete`)
 - **JSX auto-close** — Automatically insert closing tags when typing `>` in JSX
@@ -112,9 +112,9 @@
 
 - **Error Lens** — Inline diagnostic messages at end of editor lines (configurable severity) with structured type mismatch hints and diff highlighting
 - **Signature sync inspection** — Detect `.res`/`.resi` signature mismatches
-- **Import optimizer** — Auto-detect and remove unused/duplicate `open` statements
+- **Import optimizer** — Remove proven adjacent duplicates of supported local-module `open` statements
 - **Dead code analysis** — Detect unused code via `reanalyze` integration with server mode acceleration (ReScript >= 12.1.0)
-- **Duplicate open detection** — Warn on duplicate `open` statements
+- **Duplicate open detection** — Warn only on proven redundant adjacent local-module `open` statements
 - **Empty module detection** — Warn on empty module declarations
 - **Mismatched JSX close-tag detection** — Warn when a JSX element's closing tag name differs from its opening tag (e.g. `<div></span>`)
 - **Missing rescript.json** — Warn when configuration file is absent
@@ -122,7 +122,7 @@
 - **Problem filter** — Suppress highlighting in `node_modules/`, `lib/bs/`, `lib/ocaml/`
 - **Inspection suppressor** — Suppress inspections with `// noinspection` comments
 - **Format check** — Highlight unformatted files with quick-fix to format (opt-in via Settings)
-- **Mutability diagnostics** — Detect unnecessary `ref` bindings that are never reassigned
+- **Mutability diagnostics** — Safely remove local scalar `ref` bindings and their `.contents` reads; refuse writes, escapes, exports, and ambiguous bindings
 - **Style linting** — Detect redundant booleans, deprecated Belt.* usage, and boolean switch patterns
 
 ### Build, Run & Test

@@ -137,14 +137,14 @@ object RescriptSettingsSchema {
                 descriptor =
                     BoolDescriptor(
                         id = "removeUnusedOpensEnabled",
-                        title = "Remove unused open statements (requires LSP)",
+                        title = "Remove unused open statements (currently unavailable)",
                         default = true,
                         getter = { it.removeUnusedOpensEnabled },
                         setter = { s, v -> s.removeUnusedOpensEnabled = v },
+                        enabled = false,
                     ),
                 tooltip =
-                    "When enabled, Optimize Imports also removes unused open statements detected " +
-                        "by the LSP server.",
+                    "Automatic removal is paused until diagnostics can be verified against the current source.",
             ),
             SchemaEntry.Field(
                 descriptor =
