@@ -285,7 +285,7 @@ interface RescriptLanguageServer : LanguageServer {
 }
 ```
 
-Custom requests are defined as interface methods, not registered in `plugin.xml`. The interface is used when obtaining the LSP server proxy via `LspServerDescriptor`:
+Custom requests are defined as interface methods, not registered in `plugin.xml`. The interface is used when obtaining the LSP server proxy via `LspClientDescriptor`:
 
 ```kotlin
 val server = lspServerDescriptor.getServer() as? RescriptLanguageServer

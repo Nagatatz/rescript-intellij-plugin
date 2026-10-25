@@ -241,6 +241,14 @@ graph TD
 | `EXCEPTION_DECLARATION` | `exception` 定義 | 折りたたみ |
 | `ANNOTATION` | `@decorator` | — |
 
+#### 宣言 PSI の stub 契約
+
+`RescriptDeclarationPsiElement` は `StubBasedPsiElementBase<RescriptDeclarationStub>` を継承し、`StubBasedPsiElement<RescriptDeclarationStub>` を明示的に実装する。現行 IntelliJ Platform の基底クラスはこのインターフェースを実装しない一方、`DefaultStubBuilder` は宣言 PSI にその契約を要求する。これにより、物理プロジェクトファイルの索引作成と Intention 検出時にも宣言を stub 化できる。
+
+AST/stub の両コンストラクタと宣言名の取得を保持する。5 種類の宣言は `RescriptStubElementTypes` の canonical instance を共有し、既存の `shouldCreateStub` 判定、外部 ID、索引キーを変更しない。
+
+`RescriptParserDefinition.FILE` は file stub の debugName に `RESCRIPT_FILE` を指定する。IDE は externalId / stubVersion / debugName の組で保存済み stub を識別するため、汎用 `psi.file:0:FILE` と他の IDE file type の衝突を回避する。既存の serializer、externalId、stubVersion と stub 構造は変更せず、ファイル更新や Intention 適用後の再索引を維持する。
+
 ### 2.5 シンタックスハイライトコンポーネント
 
 #### RescriptSyntaxHighlighter
@@ -323,7 +331,7 @@ graph TD
 
 | 項目 | 内容 |
 |---|---|
-| 継承元 | `com.intellij.platform.lsp.api.LspServerSupportProvider` |
+| 継承元 | `com.intellij.platform.lsp.api.LspIntegrationProvider` |
 | 役割 | ファイルオープン時に LSP サーバーの起動判定を行う |
 | トリガー条件 | ファイル拡張子が `.res` または `.resi` |
 
@@ -331,7 +339,7 @@ graph TD
 
 | 項目 | 内容 |
 |---|---|
-| 継承元 | `com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor` |
+| 継承元 | `com.intellij.platform.lsp.api.ProjectWideLspClientDescriptor` |
 | 役割 | LSP サーバーの検出、起動コマンド構築、対象ファイル判定 |
 | スコープ | プロジェクト全体 |
 
@@ -421,7 +429,7 @@ flowchart TD
 | `com.intellij.lang.namesValidator` | `RescriptNamesValidator` | 名前バリデーション | 実装済み |
 | `com.intellij.projectConfigurable` | `RescriptConfigurable` | プロジェクト設定 UI | 実装済み |
 | `com.intellij.projectService` | `RescriptProjectSettings` | プロジェクト設定永続化 | 実装済み |
-| `com.intellij.platform.lsp.serverSupportProvider` | `RescriptLspServerSupportProvider` | LSP サーバー登録 | 実装済み |
+| `com.intellij.platform.lsp.integrationProvider` | `RescriptLspServerSupportProvider` | LSP サーバー登録 | 実装済み |
 | `com.intellij.todoIndexer` | `RescriptTodoIndexer` | TODO インデクシング | 実装済み |
 | `com.intellij.gotoSymbolContributor` | `RescriptSymbolContributor` | Go to Symbol | 実装済み |
 | `com.intellij.formattingService` | `RescriptFormattingService` | 外部フォーマッタ連携 | 実装済み |
@@ -524,6 +532,7 @@ flowchart TD
 | `com.intellij.usageTypeProvider` | `RescriptUsageTypeProvider` | 使用タイプ分類 | 実装済み |
 | `com.intellij.codeBlockProvider` | `RescriptCodeBlockHandler` | コードブロック境界検出 | 実装済み |
 | `com.intellij.listSplitJoinContext` | `RescriptListSplitJoinContext` | リスト分割/結合 | 実装済み |
+| `com.intellij.lang.refactoring.inlineHandler` | `RescriptInlineHandler` | Literal-only constant inlining; lexical scope validation, parenthesized replacements, and atomic undo. Ambiguous bindings are unavailable; exported declarations are retained. | Implemented |
 | `com.intellij.refactoring.safeDeleteProcessor` | `RescriptSafeDeleteProcessor` | Safe Delete プロセッサ | 実装済み |
 | `com.intellij.nameSuggestionProvider` | `RescriptNameSuggestionProvider` | リネーム名前候補 | 実装済み |
 | `com.intellij.fileType` | `RescriptWorksheetFileType` | Worksheet モード（`.resw`） | 実装済み |

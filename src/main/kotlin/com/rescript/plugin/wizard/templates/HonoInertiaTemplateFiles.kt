@@ -66,7 +66,7 @@ internal object HonoInertiaTemplateFiles {
                             linkedMapOf(
                                 "@vitejs/plugin-react" to TemplateVersions.VITEJS_PLUGIN_REACT,
                                 // Direct vite dep mirrors the documented Vite+ → Vite fallback.
-                                "vite" to TemplateVersions.VITE,
+                                "vite" to TemplateVersions.VITE_PLUS_VITE_ALIAS,
                                 "vite-plus" to TemplateVersions.VITE_PLUS,
                                 "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
                                 "drizzle-kit" to TemplateVersions.DRIZZLE_KIT,

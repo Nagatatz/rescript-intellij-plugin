@@ -39,7 +39,7 @@
 - **Usage type classification** — Categorized Find Usages results (open, type, pipe, JSX, etc.)
 - **Extract Variable** — Extract selected expression into a `let` binding (`Ctrl+Alt+V`)
 - **Extract Function** — Extract supported code with resolved lexical parameters and one-step undo (`Ctrl+Alt+M`)
-- **Inline Variable/Function** — Inline expand variables and functions (`Ctrl+Alt+N`)
+- **Inline Constant** — Safely inline literal-only constant expressions; ambiguous bindings and effectful expressions are unavailable (`Ctrl+Alt+N`)
 - **Introduce Constant** — Extract literal values into module-level constants
 - **Change Signature** — Modify function parameters and update call sites (`Ctrl+F6`)
 - **React component extraction** — Extract JSX into a new React component
@@ -61,7 +61,7 @@
 
 ### Navigation
 
-- **Go to Symbol** — Stub-indexed quick symbol search (`Cmd+Option+O`)
+- **Go to Symbol** — Stub-indexed quick symbol search for project declarations, including edited files (`Cmd+Option+O`)
 - **Structure view** — Navigate module, function, and type declarations, plus JSX elements and fragments
 - **Switch .res/.resi** — Toggle between implementation and interface files (`Alt+O`)
 - **Go to Related** — Jump between `.res`, `.resi`, and compiled `.js` files

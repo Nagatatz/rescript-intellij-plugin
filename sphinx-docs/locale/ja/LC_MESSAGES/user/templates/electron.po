@@ -797,11 +797,5 @@ msgstr ""
 "Electron を起動したり IPC を動かしたりはしない。レンダラーを拡張する際にドメインテストを追加すること。"
 
 #: ../../user/templates/electron.md:229
-msgid ""
-"**`vite-plus` is pre-1.0.** The version pin is `^0.1.x`; expect minor "
-"breaking changes between releases until 1.0 lands. Vite+ bundles its own "
-"`vite` internally — the direct `vite` dependency is only there so "
-"`@vitejs/plugin-react` resolves a peer."
-msgstr ""
-"**`vite-plus` は 1.0 未満である。** バージョンピンは `^0.1.x` である; 1.0 に到達するまでリリース間でマイナーな破壊的変更を想定しておくこと。"
-"Vite+ は内部に独自の `vite` をバンドルしている — 直接の `vite` 依存は `@vitejs/plugin-react` の peer を解決するためだけに存在する。"
+msgid "**`vite` is an alias.** The template pins `vite-plus` to the `^1.1.x` range. Vite+ requires `vite` to resolve to its own core build, so the `vite` dependency is declared as an npm alias of `@voidzero-dev/vite-plus-core`; `@vitejs/plugin-react` resolves its `vite` peer through the same alias."
+msgstr "**`vite` はエイリアスである。** テンプレートは `vite-plus` を `^1.1.x` レンジに固定している。Vite+ は `vite` が自身のコアビルドに解決されることを要求するため、`vite` 依存は `@voidzero-dev/vite-plus-core` の npm エイリアスとして宣言されている。`@vitejs/plugin-react` の `vite` peer も同じエイリアス経由で解決される。"

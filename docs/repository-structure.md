@@ -33,8 +33,8 @@ rescript-intellij-plugin/
 | パッケージ | 責務 | 代表クラス |
 |-----------|------|-----------|
 | (ルート) | Language / FileType / Icons 定義、エラーレポート連携 | `RescriptLanguage`, `RescriptFileTypes`, `RescriptIcons`, `RescriptErrorReporter` |
-| `lang/` | レクサー、パーサー、トークン定義、型宣言 RHS の再パース | `RescriptLexer`, `RescriptParser`, `RescriptTokenTypes`, `RescriptTypeDeclarationParser` |
-| `lang/psi/` | PSI 要素クラス、ユーティリティ、JSX 開閉タグペア解決 | `RescriptPsi`, `RescriptStringLiteral`, `RescriptPsiUtils`, `RescriptJsxTagPairUtil` |
+| `lang/` | レクサー、パーサー、固有 file stub 識別、トークン定義、型宣言 RHS の再パース | `RescriptLexer`, `RescriptParser`, `RescriptParserDefinition`, `RescriptTokenTypes`, `RescriptTypeDeclarationParser` |
+| `lang/psi/` | PSI 要素クラス、宣言の AST/stub 共通契約、ユーティリティ、JSX 開閉タグペア解決 | `RescriptPsi`, `RescriptDeclarationPsiElement`, `RescriptStringLiteral`, `RescriptPsiUtils`, `RescriptJsxTagPairUtil` |
 | `highlight/` | シンタックスハイライト、ブレースマッチング、使用箇所ハイライト（キーワード / JSX 開閉タグペア） | `RescriptSyntaxHighlighter`, `RescriptBraceMatcher`, `RescriptHighlightUsagesHandlerFactory`, `RescriptJsxTagHighlightHandler` |
 | `lsp/` | LSP サーバー管理、カスタムプロトコル、LSP ユーティリティ、variant 型の bare-name 解決 | `RescriptLspServerSupportProvider`, `RescriptLspServerDescriptor`, `RescriptLspUtils`, `RescriptVariantTypeResolver` |
 | `codestyle/` | コードスタイル、インデント設定 | `RescriptCodeStyleSettingsProvider` |
@@ -76,7 +76,7 @@ rescript-intellij-plugin/
 | `generate/` | Code Generation（Generate メニュー） | `RescriptGenerateGroup`, `RescriptGenerateSwitchAction`, `RescriptJsonCodeGenerator` |
 | `binding/` | .d.ts → ReScript バインディング生成 | `DtsGenerateBindingAction`, `DtsToRescriptConverter` |
 | `breadcrumb/` | パンくずリストナビゲーション | `RescriptBreadcrumbsProvider` |
-| `refactor/` | Rename, identifier validation, and safe function extraction with lexical binding resolution | `RescriptRenameHandler`, `RescriptExtractFunctionHandler`, `RescriptExtractFunctionPlan` |
+| `refactor/` | Rename, identifier validation, safe function extraction with lexical binding resolution, and conservative constant inlining with lexical scope checks | `RescriptRenameHandler`, `RescriptExtractFunctionHandler`, `RescriptExtractFunctionPlan`, `RescriptInlineHandler`, `RescriptInlinePlan` |
 | `util/` | 共通ユーティリティ（セキュリティ、offset↔Position 変換、エディタ操作、ツールウィンドウ取り付け等、色 hex 変換、HTML エディタ pane factory、panel 用 EditorTextField 設定、プロジェクト全体ファイル走査ループ、coroutine デバウンス） | `RescriptSecurityUtils`, `RescriptOffsetUtils`, `RescriptEditorUtils`, `RescriptToolWindowContent`, `RescriptColorUtils`, `HtmlEditorPaneFactory`, `EditorTextFieldFactory`, `RescriptProjectFileScanner`, `RescriptCoroutineDebouncer`, `RescriptProcessRunner` (finite commands: concurrent I/O, deadline, cancellation, bounded output and descendant cleanup) |
 | `ui/` | ToolWindow panel 共通基盤（toolbar / status / debounce 付き refresh の `RescriptToolWindowPanelBase`、Visual ↔ Source カード切替の `DualViewToolWindowPanel`、GraphView 共有描画プリミティブ、caret 追跡） | `RescriptToolWindowPanelBase`, `DualViewToolWindowPanel`, `GraphViewPaintHelpers`, `RescriptEditorCaretTracker` |
 | `commenter/` | コメントトグル | `RescriptCommenter` |
@@ -205,6 +205,7 @@ sphinx-docs/
 │   ├── codeql.yml            # CodeQL 静的解析（Push/PR + 週次）
 │   ├── integration-tests.yml # テンプレート結合テスト（wizard 変更時 + 夜次）
 │   ├── os-matrix.yml         # Linux/macOS/Windows ビルド・検証（週次）
+│   ├── java-setup-smoke.yml  # Read-only JDK 25/tool-cache/Gradle launcher smoke on three OSes
 │   └── monthly-verify.yml    # 月次 verifyPlugin + テンプレート npm audit
 ├── scripts/
 │   ├── audit-template-versions.mjs  # TemplateVersions.kt から package.json を生成（npm audit 用）

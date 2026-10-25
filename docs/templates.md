@@ -62,9 +62,9 @@ Project Wizard が提供する 22 種類のプロジェクトテンプレート�
 - `./gradlew integrationTest` — 全テンプレートを生成 → `pnpm install` → `rescript build` で動作確認
 - `.github/workflows/integration-tests.yml` — nightly + manual で実行
 
-## Vite+ (pre-1.0) 採用部分の注意点
+## Vite+ 採用部分の注意点
 
-Vite+ ベースのテンプレート（4 Vite + React、6 Electron、7 Tauri、12 Hono + Inertia、16 Monorepo の client、17 Full-Stack の client）は `vite-plus` と `@voidzero-dev/vite-plus-core` を pre-1.0 バージョンでピン留めしている。アップグレードでコマンドが壊れた場合は、`vite.config.mjs` で `vite-plus` を `vite` に差し替え、`vp` スクリプトを `vite` に置換することでクラシック Vite にフォールバックできる（README にも記載）。テンプレート 19 (TanStack Start) と 20 (Remix RR v7) は標準の `vite` を直接利用し、Vite+ には依存しない。
+Vite+ ベースのテンプレート（4 Vite + React、6 Electron、7 Tauri、12 Hono + Inertia、16 Monorepo の client、17 Full-Stack の client）は `vite-plus` と `@voidzero-dev/vite-plus-core` を 1.x 系（`^1.1.0`）でピン留めしている。0.1.x 系は oxfmt 経由で tinypool の critical advisory を引き込むため戻さない。Vite+ 1.x は `vite` パッケージが自身のコアビルドに解決されることを要求するので、これらのテンプレートは `vite` を `npm:@voidzero-dev/vite-plus-core` の npm エイリアス（`TemplateVersions.VITE_PLUS_VITE_ALIAS`）として宣言する。通常の `vite` 依存のままだと `vp build` が中断する。クラシック Vite にフォールバックする場合は、`vite` を通常のパッケージに戻し、`vite.config.mjs` で `vite-plus` を `vite` に差し替え、`vp` スクリプトを `vite` に置換する（README にも記載）。テンプレート 19 (TanStack Start) と 20 (Remix RR v7) は標準の `vite` を直接利用し、Vite+ には依存しない。
 
 ## 新規テンプレート追加手順
 

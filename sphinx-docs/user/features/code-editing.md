@@ -1006,29 +1006,35 @@ let calculate = (a, b) => {
 
 Simple `let` bindings and block-body lambda parameters are supported. Local bindings within the selection stay local to the extracted function; extraction is refused if those bindings are used outside the selection. Rebinding, destructuring, lambda values inside the selection, unknown field values, bare module members, constructors, partial applications, opens, modules, templates, raw JavaScript, shorthand labels, potentially generalized bindings (including function call results) and unresolved names are conservatively rejected. Record literals, array/index expressions, placeholders, return-type annotations and selection across statement continuations are also refused because the required type or insertion context is not proven. Complete project-wide semantic resolution is not yet available. Field reads and updates are limited to `.contents` on a verified ref initializer. Calls and ref updates remain in the extracted body and execute once at the original call site.
 
-## Inline Variable/Function
+## Inline Constant
 
 {bdg-success}`Native`
 
-Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or function at the caret, replacing all references with the definition body.
+Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) on a single-line `let` declaration to inline a literal-only constant expression.
 
-The handler finds the `let` declaration at the caret, locates all references to it within the file, replaces each reference with the definition body, and removes the original declaration.
+The handler validates lexical scope and replaces only identifier references, preserving strings, comments and qualified fields. Every replacement is parenthesized to preserve expression precedence. Local declarations are removed in the same undoable command; top-level declarations remain available to other modules.
+
+Calls, variable-dependent expressions, division, multiline declarations, comments on the declaration and type annotations are unavailable. Files containing rebinding, unresolved patterns, templates, raw JavaScript, `eval`, annotations, opens or modules are conservatively unavailable until semantic reference resolution is supported. Parameters that shadow the selected name, record shorthand and labelled arguments are rejected when their role cannot be established.
 
 ::::{tab-set}
 :::{tab-item} Before
 ```rescript
-let prefix = "Hello"
-let greet = (name) => `${prefix}, ${name}!`
+let result = {
+  let sum = 1 + 2
+  sum * 3
+}
 ```
 :::
-:::{tab-item} After (inline `prefix`)
+:::{tab-item} After (inline `sum`)
 ```rescript
-let greet = (name) => `${"Hello"}, ${name}!`
+let result = {
+  (1 + 2) * 3
+}
 ```
 :::
 ::::
 
-Inline refactoring is the reverse of extraction — it replaces an unnecessary intermediate variable with its definition, simplifying code when a named binding adds no clarity.
+The result remains `9`, and one undo restores both the declaration and every edited reference.
 
 ## Introduce Constant
 

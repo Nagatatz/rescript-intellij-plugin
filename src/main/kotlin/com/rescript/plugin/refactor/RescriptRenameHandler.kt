@@ -10,7 +10,7 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
-import com.intellij.platform.lsp.api.LspServer
+import com.intellij.platform.lsp.api.LspClient
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.refactoring.rename.RenameHandler
@@ -50,9 +50,6 @@ class RescriptRenameHandler : RenameHandler {
 
     override fun isRenaming(dataContext: DataContext): Boolean = isAvailableOnDataContext(dataContext)
 
-    // LspServer / getDocumentIdentifier / sendRequestSync are deprecated in 2026.2 EAP; the
-    // replacement LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-    @Suppress("DEPRECATION")
     override fun invoke(
         project: Project,
         editor: Editor?,
@@ -137,17 +134,13 @@ class RescriptRenameHandler : RenameHandler {
         // Not used for LSP-based rename
     }
 
-    // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
-    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-
     /**
      * Sends textDocument/prepareRename to check if rename is possible.
      * Returns the current name at the position, or null if rename is not possible.
      * Falls back to extracting the word at cursor if prepareRename is unsupported.
      */
-    @Suppress("DEPRECATION")
     private fun prepareRename(
-        server: LspServer,
+        server: LspClient,
         textDocId: TextDocumentIdentifier,
         position: Position,
         editor: Editor,

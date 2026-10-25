@@ -68,9 +68,6 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
     private class RegenerateInterfaceQuickFix : LocalQuickFix {
         override fun getFamilyName(): String = "Regenerate interface file"
 
-        // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
-        // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-        @Suppress("DEPRECATION")
         override fun applyFix(
             project: Project,
             descriptor: ProblemDescriptor,
@@ -86,9 +83,8 @@ class RescriptSignatureSyncInspection : LocalInspectionTool() {
                     com.rescript.plugin.lsp.RescriptLspUtils
                         .toLspUri(file)
 
-                // Explicit 10s timeout (the platform default). Omitting it emits
-                // the synthetic sendRequestSync$default, which 2026.2 relocated to
-                // the new LspClient super-interface and no longer resolves here.
+                // Explicit 10s timeout (the platform default), so the call binds to the
+                // abstract LspClient.sendRequestSync rather than the synthetic $default bridge.
                 server.sendRequestSync(10_000) { languageServer ->
                     @Suppress("UNCHECKED_CAST")
                     (languageServer as com.rescript.plugin.lsp.RescriptLanguageServer)
