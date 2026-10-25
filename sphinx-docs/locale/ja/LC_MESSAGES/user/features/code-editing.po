@@ -145,6 +145,15 @@ msgstr ""
 msgid "External modules, aliases/re-exports, later or competing opens, `include`, shadowed names, nested scopes, type annotations, and unsupported syntax are refused. Strings and comments do not create opens or references. Intervening comments are retained, one undo restores the source, and a document change after availability invalidates the prepared edit."
 msgstr "外部 module、alias/re-export、後方または競合する open、`include`、同名 binding による shadowing、入れ子 scope、型注釈、未対応構文では拒否します。文字列とコメントを open や参照として扱いません。間にあるコメントは保持し、1 回の undo でソースを戻せます。availability の確認後に文書が変更された場合、準備済みの変更は適用されません。"
 
+msgid "Unit calls are preserved: `getItems()->Array.length` becomes `Array.length(getItems())`, and converting back restores `getItems()->Array.length`. Nested arguments, strings, comments, arrays/records and multiline expressions retain their source text. One undo restores the original expression."
+msgstr "unit 呼出しは保持されます。`getItems()->Array.length` は `Array.length(getItems())` に変換され、逆変換すると `getItems()->Array.length` に戻ります。ネストした引数、文字列、コメント、配列/レコード、複数行の式のソーステキストを保持します。1 回の undo で元の式に戻ります。"
+
+msgid "These intentions handle `->` and qualified function calls with positional arguments. They are not offered inside strings/comments or for `|>`, labeled/optional arguments, placeholders, JSX/templates, incomplete delimiters or ambiguous operator boundaries. Parenthesize complex expressions before conversion; unsupported input is left unchanged."
+msgstr "この Intention は `->` と位置引数を持つ修飾された関数呼出しを扱います。文字列/コメント内、`|>`、ラベル付き/省略可能な引数、プレースホルダー、JSX/テンプレート、不完全な区切り、曖昧な演算子境界では提供されません。複雑な式は変換前に括弧で囲んでください。未対応の入力は変更しません。"
+
+msgid "Conversions also work inside lambda bodies with plain positional parameters, such as `items => items->Array.length`. Typed or destructured lambda parameters and blocks with statements are currently unsupported. Argument shapes are checked recursively; balanced but unknown input such as `Array.map(arr, a b)` is not converted."
+msgstr "`items => items->Array.length` のような通常の位置パラメーターを持つ lambda 本体内でも変換できます。型付き/分割代入の lambda パラメーターと文を含むブロックには現在対応していません。引数の形状を再帰的に確認し、`Array.map(arr, a b)` のように括弧が釣り合っていても解釈できない入力は変換しません。"
+
 #: ../../user/features/code-editing.md:42
 #: ../../user/features/code-editing.md:932
 #, python-brace-format
@@ -504,8 +513,8 @@ msgid "Remove unnecessary parentheses"
 msgstr "不要な括弧を削除"
 
 #: ../../user/features/code-editing.md:64
-msgid "Remove redundant parentheses around expressions"
-msgstr "式を囲む冗長な括弧を削除"
+msgid "Remove parentheses around proven scalar initializers"
+msgstr "証明できるスカラー初期値の括弧を除去する"
 
 #: ../../user/features/code-editing.md:64
 msgid "Remove redundant qualifier"
@@ -936,9 +945,18 @@ msgstr "不要な括弧の削除"
 
 #: ../../user/features/code-editing.md:471
 msgid ""
-"Remove redundant parentheses around expressions. Place the caret on a "
-"parenthesized expression and press `Alt+Enter`."
-msgstr "式を囲む冗長な括弧を削除します。括弧で囲まれた式にキャレットを置いて `Alt+Enter` を押します。"
+"Remove parentheses around a scalar literal or single identifier that "
+"forms the complete initializer of a simple `let` binding. Place the caret"
+" on the enclosing parentheses and press `Alt+Enter`. Strings and comments"
+" are preserved, and the edit can be undone once."
+msgstr ""
+"単純な `let` "
+"束縛の初期値全体を構成するスカラーリテラルまたは単独の識別子の括弧を除去します。外側の括弧にカーソルを置き、`Alt+Enter` "
+"を押してください。文字列とコメントを保持し、1回の undo で元に戻せます。"
+
+#: ../../user/features/code-editing.md:486
+msgid "Calls, tuples, unit values, lambda parameters, patterns, annotations, nested groups and operator expressions (including comparisons and pipes) are refused. Files containing type/module/external declarations, annotations, templates or JSX are outside the supported subset. The action leaves the code unchanged whenever it cannot confirm that the parentheses are redundant."
+msgstr "呼出し・タプル・unit 値・lambda 引数・パターン・型注釈・入れ子の括弧・演算式（比較と pipe を含む）は拒否します。type・module・external 宣言、注釈、テンプレート、JSX を含むファイルは対応範囲外です。括弧が冗長であることを確認できない場合はコードを変更しません。"
 
 #: ../../user/features/code-editing.md:486
 msgid "Remove Redundant Qualifier"
@@ -2922,6 +2940,16 @@ msgstr ""
 #~ "(`rescript`) to be installed in your "
 #~ "project."
 #~ msgstr "フォーマットにはプロジェクトに ReScript コンパイラ（`rescript`）がインストールされている必要があります。"
+
+#~ msgid "Remove redundant parentheses around expressions"
+#~ msgstr "式を囲む冗長な括弧を削除"
+
+#~ msgid ""
+#~ "Remove redundant parentheses around "
+#~ "expressions. Place the caret on a "
+#~ "parenthesized expression and press "
+#~ "`Alt+Enter`."
+#~ msgstr "式を囲む冗長な括弧を削除します。括弧で囲まれた式にキャレットを置いて `Alt+Enter` を押します。"
 
 #~ msgid "Import optimization runs in two phases:"
 #~ msgstr "インポート最適化は 2 つのフェーズで実行されます:"
