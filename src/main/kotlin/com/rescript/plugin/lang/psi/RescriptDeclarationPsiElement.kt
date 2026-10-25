@@ -2,6 +2,7 @@ package com.rescript.plugin.lang.psi
 
 import com.intellij.extapi.psi.StubBasedPsiElementBase
 import com.intellij.lang.ASTNode
+import com.intellij.psi.StubBasedPsiElement
 import com.intellij.psi.stubs.IStubElementType
 
 /**
@@ -10,8 +11,12 @@ import com.intellij.psi.stubs.IStubElementType
  * Supports both AST-based construction (during parsing) and stub-based
  * construction (when restoring from the index). The declared name can be
  * retrieved from the stub without reparsing the file.
+ * Explicitly implements [StubBasedPsiElement], which the platform stub builder
+ * requires even when the base class only provides the substrate operations.
  */
-class RescriptDeclarationPsiElement : StubBasedPsiElementBase<RescriptDeclarationStub> {
+class RescriptDeclarationPsiElement :
+    StubBasedPsiElementBase<RescriptDeclarationStub>,
+    StubBasedPsiElement<RescriptDeclarationStub> {
     /** AST-based constructor used during parsing. */
     constructor(node: ASTNode) : super(node)
 

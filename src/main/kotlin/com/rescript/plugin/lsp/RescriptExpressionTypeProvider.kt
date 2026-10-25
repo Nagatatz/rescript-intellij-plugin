@@ -17,9 +17,6 @@ import org.eclipse.lsp4j.TextDocumentIdentifier
  * @see RescriptLspServerDescriptor for LSP server configuration
  */
 class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
-    // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
-    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-    @Suppress("DEPRECATION")
     override fun getInformationHint(element: PsiElement): String {
         val file = element.containingFile ?: return NO_TYPE
         val project = file.project
@@ -41,9 +38,8 @@ class RescriptExpressionTypeProvider : ExpressionTypeProvider<PsiElement>() {
                 )
 
             val hoverResult =
-                // Explicit 10s timeout (the platform default). Omitting it emits
-                // the synthetic sendRequestSync$default, which 2026.2 relocated to
-                // the new LspClient super-interface and no longer resolves here.
+                // Explicit 10s timeout (the platform default), so the call binds to the
+                // abstract LspClient.sendRequestSync rather than the synthetic $default bridge.
                 server.sendRequestSync(10_000) { languageServer ->
                     languageServer.textDocumentService.hover(params)
                 } ?: return NO_TYPE

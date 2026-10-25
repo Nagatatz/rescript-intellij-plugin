@@ -1,5 +1,6 @@
 package com.rescript.plugin.lang
 
+import com.intellij.psi.tree.IStubFileElementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -25,6 +26,14 @@ class RescriptParserDefinitionTest {
         val fileType = definition.fileNodeType
         assertNotNull(fileType)
         assertEquals(RescriptParserDefinition.FILE, fileType)
+    }
+
+    @Test
+    fun testFileStubHasDistinctiveDebugNameAndUnchangedSerializerVersion() {
+        val fileType = definition.fileNodeType as IStubFileElementType<*>
+        assertEquals("RESCRIPT_FILE", fileType.debugName)
+        assertEquals("psi.file", fileType.externalId)
+        assertEquals(0, fileType.stubVersion)
     }
 
     @Test

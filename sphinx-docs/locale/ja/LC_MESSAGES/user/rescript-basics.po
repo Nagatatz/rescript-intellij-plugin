@@ -36,10 +36,10 @@ msgstr "ReScript を初めて使う方向けに、プロジェクトのセット
 #: ../../user/rescript-basics.md:12
 msgid ""
 "For comprehensive ReScript documentation, visit the official [ReScript "
-"docs](https://rescript-lang.org/docs/manual/latest/introduction)."
+"docs](https://rescript-lang.org/docs/manual/introduction)."
 msgstr ""
 "ReScript の包括的なドキュメントについては、公式の [ReScript docs](https://rescript-"
-"lang.org/docs/manual/latest/introduction) を参照してください。"
+"lang.org/docs/manual/introduction) を参照してください。"
 
 #: ../../user/rescript-basics.md:15
 msgid "Setting Up a New Project"

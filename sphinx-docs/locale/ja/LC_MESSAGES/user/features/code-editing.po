@@ -1433,55 +1433,25 @@ msgid ""
 "into a new function."
 msgstr "`Ctrl+Alt+M`（macOS では `Cmd+Alt+M`）を押して、選択したコードを新しい関数に抽出します。"
 
-#: ../../user/features/code-editing.md:976
-msgid ""
-"The handler detects the selected expression or statement range in a `let`"
-" declaration body, extracts it into a new `let` function above the "
-"current declaration, and replaces the original code with a call to the "
-"new function. Free variables in the selection become parameters of the "
-"extracted function."
-msgstr ""
-"ハンドラーは `let` 宣言本体内の選択された式またはステートメント範囲を検出し、現在の宣言の上に新しい `let` "
-"関数として抽出し、元のコードを新しい関数の呼び出しに置き換えます。選択範囲内の自由変数は抽出された関数のパラメーターになります。"
-
-#: ../../user/features/code-editing.md:1001
-msgid ""
-"Extract Function automatically detects free variables and turns them into"
-" parameters, so you can decompose large functions into smaller, reusable "
-"pieces without manually threading values through."
-msgstr ""
-"Extract Function "
-"は自由変数を自動検出してパラメータに変換するため、値を手動で引き回すことなく大きな関数を小さく再利用可能な部品に分解できます。"
-
-#: ../../user/features/code-editing.md:1003
-msgid "Inline Variable/Function"
-msgstr "変数/関数のインライン化"
-
-#: ../../user/features/code-editing.md:1007
-msgid ""
-"Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or "
-"function at the caret, replacing all references with the definition body."
-msgstr ""
-"`Ctrl+Alt+N`（macOS では "
-"`Cmd+Alt+N`）を押して、キャレット位置の変数または関数をインライン化し、すべての参照を定義本体に置き換えます。"
+#: ../../user/features/code-editing.md:1005
+msgid "Inline Constant"
+msgstr "定数のインライン化"
 
 #: ../../user/features/code-editing.md:1009
-msgid ""
-"The handler finds the `let` declaration at the caret, locates all "
-"references to it within the file, replaces each reference with the "
-"definition body, and removes the original declaration."
-msgstr "ハンドラーはキャレット位置の `let` 宣言を見つけ、ファイル内のすべての参照を検出し、各参照を定義本体に置き換え、元の宣言を削除します。"
+msgid "Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) on a single-line `let` declaration to inline a literal-only constant expression."
+msgstr "単一行の `let` 宣言上で `Ctrl+Alt+N`（macOS では `Cmd+Alt+N`）を押すと、リテラルだけからなる定数式をインライン化します。"
+
+#: ../../user/features/code-editing.md:1011
+msgid "The handler validates lexical scope and replaces only identifier references, preserving strings, comments and qualified fields. Every replacement is parenthesized to preserve expression precedence. Local declarations are removed in the same undoable command; top-level declarations remain available to other modules."
+msgstr "ハンドラーは字句スコープを検証し、識別子の参照だけを置換して、文字列・コメント・修飾されたフィールドを保持します。式の優先順位を保つため、置換する式には必ず括弧を付けます。ローカル宣言は同じ取り消し可能なコマンドで削除し、トップレベル宣言は他のモジュールから利用できるよう保持します。"
 
 #: ../../user/features/code-editing.md
-msgid "After (inline `prefix`)"
-msgstr "After (`prefix` をインライン化)"
+msgid "After (inline `sum`)"
+msgstr "After (`sum` をインライン化)"
 
-#: ../../user/features/code-editing.md:1025
-msgid ""
-"Inline refactoring is the reverse of extraction — it replaces an "
-"unnecessary intermediate variable with its definition, simplifying code "
-"when a named binding adds no clarity."
-msgstr "インラインリファクタリングは抽出の逆で、不要な中間変数をその定義に置き換え、名前付きバインディングが明確さを追加しない場合にコードを簡素化します。"
+#: ../../user/features/code-editing.md:1027
+msgid "The result remains `9`, and one undo restores both the declaration and every edited reference."
+msgstr "結果は `9` のままで、1 回の取り消しで宣言と編集したすべての参照を復元します。"
 
 #: ../../user/features/code-editing.md:1027
 msgid "Introduce Constant"
@@ -2956,51 +2926,19 @@ msgstr ""
 #~ msgid "Import optimization runs in two phases:"
 #~ msgstr "インポート最適化は 2 つのフェーズで実行されます:"
 
-#~ msgid ""
-#~ "**Duplicate detection** --- Scans top-"
-#~ "level `open` statements and removes any"
-#~ " that share the same module path "
-#~ "as an earlier `open`"
-#~ msgstr "**重複検出** --- トップレベルの `open` 文をスキャンし、先行する `open` と同じモジュールパスを持つものを削除します"
+#: ../../user/features/code-editing.md
+msgid "Formatting and format checks use concurrent input/output with a total 10-second command timeout and a 4 MiB limit per output stream. Cancellation stops the owned process and observed child processes. Timeout or output overflow leaves the document unchanged and reports the failure reason."
+msgstr "フォーマットとフォーマットチェックは入出力を並行処理し、コマンド全体に10秒のタイムアウトと出力ストリームごとに4 MiBの上限を適用します。取消時には所有プロセスと観測済みの子プロセスを停止します。タイムアウトや出力上限超過時にはドキュメントを変更せず、失敗理由を通知します。"
 
-#~ msgid ""
-#~ "**Unused open detection** --- Uses LSP"
-#~ " diagnostic warnings to identify `open` "
-#~ "statements whose exports are never "
-#~ "referenced in the file"
-#~ msgstr "**未使用 open 検出** --- LSP の診断警告を使用して、エクスポートがファイル内で参照されていない `open` 文を特定します"
 
-#~ msgid ""
-#~ "Both phases run together, and a "
-#~ "notification summarizes the result (e.g., "
-#~ "\"Removed 1 duplicate and 2 unused "
-#~ "open statement(s)\")."
-#~ msgstr ""
-#~ "両フェーズは一緒に実行され、通知で結果が要約されます (例:両フェーズは同時に実行され、結果が通知で表示されます（例: "
-#~ "\"Removed 1 duplicate and 2 unused "
-#~ "open statement(s)\"）。"
+#: ../../user/features/code-editing.md
+msgid "The handler resolves references to supported lexical bindings and extracts the selected expression or statement range into a new `let` function immediately before the selected statement in the same block. Only bindings declared outside the selection become parameters. Strings, comments, qualified members and record labels do not become parameters. The declaration and call site are edited in one undoable command, and the generated name avoids existing identifiers. Top-level helpers are private; selecting an entire exported declaration is refused."
+msgstr "ハンドラーは対応する字句束縛への参照を解決し、選択した式または文を同じブロック内の選択した文の直前に置く新しい `let` 関数へ抽出します。選択範囲外で宣言された束縛だけを引数化します。文字列・コメント・修飾されたメンバー・レコードのラベルは引数にしません。宣言と呼出しを単一の取り消し可能なコマンドで編集し、生成名は既存の識別子との衝突を避けます。トップレベルの補助関数は private とし、export する宣言全体の選択は拒否します。"
 
-#~ msgid ""
-#~ "Unused open removal can be toggled "
-#~ "in **Settings** > **Languages & "
-#~ "Frameworks** > **ReScript** via the "
-#~ "**Remove unused opens** checkbox. When "
-#~ "disabled, only duplicate opens are "
-#~ "removed."
-#~ msgstr ""
-#~ "未使用 open の削除は **Settings** > **Languages"
-#~ " & Frameworks** > **ReScript** の "
-#~ "**Remove unused opens** チェックボックスで切り替えられます。無効にすると、重複"
-#~ " open のみが削除されます。"
+#: ../../user/features/code-editing.md
+msgid "Simple `let` bindings and block-body lambda parameters are supported. Local bindings within the selection stay local to the extracted function; extraction is refused if those bindings are used outside the selection. Rebinding, destructuring, lambda values inside the selection, unknown field values, bare module members, constructors, partial applications, opens, modules, templates, raw JavaScript, shorthand labels, potentially generalized bindings (including function call results) and unresolved names are conservatively rejected. Record literals, array/index expressions, placeholders, return-type annotations and selection across statement continuations are also refused because the required type or insertion context is not proven. Complete project-wide semantic resolution is not yet available. Field reads and updates are limited to `.contents` on a verified ref initializer. Calls and ref updates remain in the extracted body and execute once at the original call site."
+msgstr "単純な `let` 束縛とブロック本体を持つ lambda の引数に対応します。選択内の局所束縛は抽出した関数内に残し、選択外で使われる場合は抽出を拒否します。再束縛・分解束縛・選択内の lambda 値・型を確認できない field 値・単独の module member・constructor・部分適用・open・module・テンプレート・生の JavaScript・省略ラベル・汎用化されている可能性のある束縛（関数呼び出しの結果を含む）・未解決名は安全のため拒否します。必要な型や挿入位置の文脈を確認できないため、レコードリテラル・配列と添字式・プレースホルダー・戻り値の型注釈・文の継続部分にまたがる選択も拒否します。プロジェクト全体の完全な意味に基づく解決にはまだ対応していません。field の読取と更新は確認できた ref initializer の `.contents` に限定します。呼出しと ref 更新は抽出した本体に残り、元の呼出し位置で1回実行します。"
 
-#~ msgid "After Ctrl+Alt+O"
-#~ msgstr "Ctrl+Alt+O 実行後"
-
-#~ msgid ""
-#~ "A single shortcut cleans up all "
-#~ "redundant and unused `open` statements, "
-#~ "keeping your imports tidy without "
-#~ "manually scanning the file."
-#~ msgstr ""
-#~ "ショートカット一つで冗長な `open` 文と未使用の `open` "
-#~ "文をすべてクリーンアップでき、ファイルを手動でスキャンせずにインポートを整理できます。"
+#: ../../user/features/code-editing.md:1013
+msgid "Calls, variable-dependent expressions, division, multiline declarations, comments on the declaration and type annotations are unavailable. Files containing rebinding, unresolved patterns, templates, raw JavaScript, `eval`, annotations, opens or modules are conservatively unavailable until semantic reference resolution is supported. Parameters that shadow the selected name, record shorthand and labelled arguments are rejected when their role cannot be established."
+msgstr "呼び出し・変数に依存する式・除算・複数行の宣言・宣言上のコメント・型注釈には対応しません。再束縛・未解決のパターン・テンプレート・生の JavaScript・`eval`・注釈・open・module を含むファイルは、意味に基づく参照解決がサポートされるまで安全のため利用できません。選択した名前を隠す引数・レコードの省略記法・ラベル付き引数は、役割を確認できない場合は拒否します。"

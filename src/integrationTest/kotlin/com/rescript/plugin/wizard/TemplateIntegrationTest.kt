@@ -233,30 +233,22 @@ class TemplateIntegrationTest {
                 ProjectTemplate.MONOREPO,
             )
 
-        // Vite+ (vite-plus) is pre-1.0 and currently does not link cleanly with
-        // @vitejs/plugin-react via pnpm's nested store layout. The generated
-        // `pnpm build` therefore fails with ERR_MODULE_NOT_FOUND on `vite/internal`.
-        // Until Vite+ ships a stable release that resolves the @vitejs ecosystem,
-        // we only verify that `rescript` builds for the Vite+ templates and skip the
-        // top-level bundler invocation. The README of each template documents the
-        // pre-1.0 status and the fallback to plain Vite.
+        // Templates whose `build` script is invoked after install + `rescript`.
         //
-        // Astro does not use Vite+, so it was only ever collateral damage of emptying
-        // this set. It is back because nothing else in the suite invokes a bundler,
-        // and the Astro 7 upgrade moved the template onto Vite 8 / Rolldown — a change
-        // that install and `rescript` alone cannot exercise.
-        private val templatesWithBundle: Set<ProjectTemplate> = setOf(ProjectTemplate.ASTRO)
+        // Vite React covers the Vite+ toolchain: `vp build` only works when `vite`
+        // resolves to `@voidzero-dev/vite-plus-core` (the alias the templates declare),
+        // which install and `rescript` alone cannot exercise. Vite+ 0.1.x could not be
+        // bundled here at all; 1.x can.
+        //
+        // Astro does not use Vite+. It is here because the Astro 7 upgrade moved the
+        // template onto Vite 8 / Rolldown, which again only a bundler run exercises.
+        private val templatesWithBundle: Set<ProjectTemplate> = setOf(ProjectTemplate.ASTRO, ProjectTemplate.VITE_REACT)
 
         // Templates whose `test` script needs setup the smoke-import alone
         // can't provide in a temp dir. Each entry below documents why; drop
         // an entry once the upstream constraint is lifted.
         private val templatesSkipTest: Set<ProjectTemplate> =
             setOf(
-                // Vite+ wraps Vitest as `vp test`. Pre-1.0 vite-plus inherits
-                // the same plugin-resolution issue that blocks `vp build` and
-                // surfaces it for the test command too.
-                ProjectTemplate.VITE_REACT,
-                ProjectTemplate.ELECTRON,
                 // res-x's `test` script invokes `bun test` (its smoke test
                 // imports `Bun`-only globals via rescript-bun). The PNPM
                 // integration path runs `pnpm test`, which delegates to the
