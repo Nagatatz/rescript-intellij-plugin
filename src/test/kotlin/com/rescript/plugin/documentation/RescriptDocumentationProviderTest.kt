@@ -53,7 +53,7 @@ class RescriptDocumentationProviderTest {
 
     @Test
     fun `MODULE_URL_MAP contains Js_String2 mapping`() {
-        assertEquals("js/string-2", RescriptExternalDocUrls.MODULE_URL_MAP["Js.String2"])
+        assertEquals("js/string2", RescriptExternalDocUrls.MODULE_URL_MAP["Js.String2"])
     }
 
     @Test
