@@ -5,8 +5,8 @@ import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.platform.lsp.api.LspServer
-import com.intellij.platform.lsp.api.LspServerManager
+import com.intellij.platform.lsp.api.LspClient
+import com.intellij.platform.lsp.api.LspClientManager
 import com.rescript.plugin.util.RescriptOffsetUtils
 import org.eclipse.lsp4j.HoverParams
 import org.eclipse.lsp4j.Position
@@ -31,22 +31,19 @@ import java.net.URI
 object RescriptLspUtils {
     private val LOG = logger<RescriptLspUtils>()
 
-    // LspServer / LspServerManager are deprecated in 2026.2 EAP; the replacement
-    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-
     /**
      * Returns the first ReScript LSP server for the given project, or null if unavailable.
      *
      * @param project the current project
-     * Uses unstable `LspServerManager` API — review on platform upgrade.
+     * Uses unstable `LspClientManager` API — review on platform upgrade.
      *
      * @return the first available LSP server, or null
      */
-    @Suppress("UnstableApiUsage", "DEPRECATION")
-    fun getServer(project: Project): LspServer? =
-        LspServerManager
+    @Suppress("UnstableApiUsage")
+    fun getServer(project: Project): LspClient? =
+        LspClientManager
             .getInstance(project)
-            .getServersForProvider(RescriptLspServerSupportProvider::class.java)
+            .getClients(RescriptLspServerSupportProvider::class.java)
             .firstOrNull()
 
     /**
@@ -80,9 +77,6 @@ object RescriptLspUtils {
             uri
         }
 
-    // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
-    // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-
     /**
      * Retrieves the type string for a given position via LSP hover.
      *
@@ -91,7 +85,6 @@ object RescriptLspUtils {
      * @param offset the character offset in the document
      * @return the type string extracted from the hover response, or null if unavailable
      */
-    @Suppress("DEPRECATION")
     fun getHoverType(
         project: Project,
         file: VirtualFile,
@@ -117,9 +110,8 @@ object RescriptLspUtils {
                 )
 
             val hoverResult =
-                // Explicit 10s timeout (the platform default). Omitting it emits
-                // the synthetic sendRequestSync$default, which 2026.2 relocated to
-                // the new LspClient super-interface and no longer resolves here.
+                // Explicit 10s timeout (the platform default), so the call binds to the
+                // abstract LspClient.sendRequestSync rather than the synthetic $default bridge.
                 server.sendRequestSync(10_000) { languageServer ->
                     languageServer.textDocumentService.hover(params)
                 } ?: return null

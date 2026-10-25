@@ -88,8 +88,8 @@ enum class ProjectTemplate(
         • @vitejs/plugin-react, Vitest + coverage
         • Sample App / Main / Api modules and a component test
 
-        Requires: Node.js 24+. Vite+ is pre-1.0; the README shows how to fall back
-        to plain Vite if needed.
+        Requires: Node.js 24+. The README shows how to fall back to plain Vite
+        if needed.
         """.trimIndent(),
         TemplateCategory.FRONTEND,
     ),

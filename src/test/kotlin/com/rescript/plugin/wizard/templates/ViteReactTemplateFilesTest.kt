@@ -43,10 +43,18 @@ class ViteReactTemplateFilesTest {
     }
 
     @Test
-    fun `README warns about Vite Plus pre-1 status`() {
+    fun `README explains the Vite Plus core alias and the plain Vite fallback`() {
         val readme = ViteReactTemplateFiles.generate(ctx)["README.md"]!!
         assertTrue(readme.contains("Vite+"))
-        assertTrue(readme.contains("pre-1.0"))
+        assertTrue(readme.contains("@voidzero-dev/vite-plus-core"))
+        assertTrue(readme.contains("fall back to classic Vite"))
+    }
+
+    @Test
+    fun `vite resolves to the Vite Plus core build through an npm alias`() {
+        // Vite+ 1.x aborts `vp build` unless `vite` is its own core package.
+        val pkg = ViteReactTemplateFiles.generate(ctx)["package.json"]!!
+        assertTrue(pkg.contains("\"vite\": \"npm:@voidzero-dev/vite-plus-core@${TemplateVersions.VITE_PLUS_CORE}\""))
     }
 
     @Test

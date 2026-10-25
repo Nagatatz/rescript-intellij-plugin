@@ -182,10 +182,10 @@ msgstr "`@JsonRequest` アノテーションを使用して、LSP サーバー�
 msgid ""
 "Custom requests are defined as interface methods, not registered in "
 "`plugin.xml`. The interface is used when obtaining the LSP server proxy "
-"via `LspServerDescriptor`:"
+"via `LspClientDescriptor`:"
 msgstr ""
 "カスタムリクエストはインターフェースメソッドとして定義され、`plugin.xml` には登録しません。このインターフェースは "
-"`LspServerDescriptor` 経由で LSP サーバープロキシを取得する際に使用されます:"
+"`LspClientDescriptor` 経由で LSP サーバープロキシを取得する際に使用されます:"
 
 #: ../../dev/extending.md:295
 msgid "Adding a Paste Processor"

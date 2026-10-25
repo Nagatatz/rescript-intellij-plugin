@@ -38,8 +38,8 @@
 - **Quick Documentation** — PSI-based fallback documentation when LSP is unavailable (`Ctrl+Q`)
 - **Usage type classification** — Categorized Find Usages results (open, type, pipe, JSX, etc.)
 - **Extract Variable** — Extract selected expression into a `let` binding (`Ctrl+Alt+V`)
-- **Extract Function** — Extract selected code into a new function (`Ctrl+Alt+M`)
-- **Inline Variable/Function** — Inline expand variables and functions (`Ctrl+Alt+N`)
+- **Extract Function** — Extract supported code with resolved lexical parameters and one-step undo (`Ctrl+Alt+M`)
+- **Inline Constant** — Safely inline literal-only constant expressions; ambiguous bindings and effectful expressions are unavailable (`Ctrl+Alt+N`)
 - **Introduce Constant** — Extract literal values into module-level constants
 - **Change Signature** — Modify function parameters and update call sites (`Ctrl+F6`)
 - **React component extraction** — Extract JSX into a new React component
@@ -112,9 +112,9 @@
 
 - **Error Lens** — Inline diagnostic messages at end of editor lines (configurable severity) with structured type mismatch hints and diff highlighting
 - **Signature sync inspection** — Detect `.res`/`.resi` signature mismatches
-- **Import optimizer** — Auto-detect and remove unused/duplicate `open` statements
+- **Import optimizer** — Remove proven adjacent duplicates of supported local-module `open` statements
 - **Dead code analysis** — Detect unused code via `reanalyze` integration with server mode acceleration (ReScript >= 12.1.0)
-- **Duplicate open detection** — Warn on duplicate `open` statements
+- **Duplicate open detection** — Warn only on proven redundant adjacent local-module `open` statements
 - **Empty module detection** — Warn on empty module declarations
 - **Mismatched JSX close-tag detection** — Warn when a JSX element's closing tag name differs from its opening tag (e.g. `<div></span>`)
 - **Missing rescript.json** — Warn when configuration file is absent

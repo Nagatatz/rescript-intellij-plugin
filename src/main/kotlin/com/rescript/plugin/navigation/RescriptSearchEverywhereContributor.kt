@@ -12,6 +12,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.util.OpenSourceUtil
 import com.intellij.util.Processor
 import com.rescript.plugin.RescriptFileType
 import com.rescript.plugin.RescriptInterfaceFileType
@@ -73,7 +74,9 @@ class RescriptSearchEverywhereContributor(
         searchText: String,
     ): Boolean {
         if (selected is NavigationItem) {
-            selected.navigate(true)
+            // Navigatable.navigate is @ApiStatus.OverrideOnly from 2026.3; client code
+            // must go through OpenSourceUtil.
+            OpenSourceUtil.navigate(true, selected)
             return true
         }
         return false
