@@ -695,6 +695,10 @@ Every exit path forcibly stops the owner and observed descendants. Handles are r
 
 The formatter reports a sanitized diagnostic or a failure reason and suppresses results after cancellation. Binding generation reports a parser error while IDE cancellation propagates. Reanalyze reports a file-level warning or inspection notification instead of parsing failed output. REPL reports compile/runtime failure reasons, preserves its unique temporary-file ownership and hides the project path in compiler diagnostics. Each REPL compile and runtime command has its own 30-second budget.
 
+### Safe parentheses removal
+
+`RescriptParenthesesRemovalPlan` proves balanced lexer delimiters and a complete scalar initializer in a simple `let` binding. String/comment contents and original trivia are preserved. Calls, lambda parameters, patterns, nested groups, types and operator expressions are refused. Availability and invocation share the proof and require matching committed PSI/document snapshots; one undo restores the entire edit. Files with type/module/external declarations, annotations, templates or JSX are refused. General expression precedence resolution remains unsupported.
+
 ### Balanced pipe conversion
 
 `RescriptPipeConversion` plans the source ranges for both pipe conversion intentions using `RescriptLexer`. Only `RIGHT_ARROW` (`->`) is a pipe-first operator; `PIPE_FORWARD` (`|>`) is rejected. A delimiter stack pairs parentheses, brackets and braces, and argument splitting only considers commas outside paired groups. Original source slices retain nested calls, records/arrays, strings, comments and newlines. In particular, `getItems()->Array.length` converts to `Array.length(getItems())`, and the reverse conversion retains the unit call. Earlier pipe stages remain part of the complete left-hand expression.

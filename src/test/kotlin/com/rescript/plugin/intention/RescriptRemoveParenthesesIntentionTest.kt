@@ -99,4 +99,48 @@ class RescriptRemoveParenthesesIntentionTest {
     fun `containsTopLevelOperator returns false for simple identifier`() {
         assertFalse(RescriptRemoveParenthesesIntention.containsTopLevelOperator("myVar"))
     }
+
+    @Test
+    fun `scalar initializers preserve trivia and literal contents`() {
+        for (inner in listOf("42", "true", "name", "/* (ignored) */ 42 // )\n")) {
+            val source = "let value = ($inner)"
+            val plan = RescriptParenthesesRemovalPlan.create(source, source.indexOf('('))!!
+            assertEquals(inner, plan.source.substring(plan.open + 1, plan.close))
+        }
+        assertFalse(RescriptRemoveParenthesesIntention.containsTopLevelOperator("\"a + b\""))
+        assertFalse(RescriptRemoveParenthesesIntention.containsTopLevelComma("\"a, b\""))
+        assertTrue(RescriptRemoveParenthesesIntention.containsTopLevelOperator("a < b"))
+    }
+
+    @Test
+    fun `literal comment call parameter and precedence boundaries refuse edits`() {
+        for (marked in listOf(
+            "let value = \"(<caret>hello)\"",
+            "// (<caret>42)\nlet value = 1",
+            "let value = (/* <caret>comment */42)",
+            "let value = `(<caret>hello)`",
+            "let value = ((<caret>42))",
+            "Console.log (<caret>42)",
+            "Console.log /* comment */ (<caret>42)",
+            "let value = (<caret>)",
+            "let value = (<caret>1, 2)",
+            "let fn = (<caret>x) => {x}",
+            "let (<caret>x) = 1",
+            "let value: int = (<caret>42)",
+            "let value = (<caret>_)",
+            "let value = (<caret>a < b) == true",
+            "let value = (<caret>arr->Array.length)",
+            "let value = (f(<caret>a + b))",
+            "let value = (<caret>-1)",
+            "let value = (<caret>42) + 1",
+            "let value = (<caret>42)\n->Int.toString",
+            "let value = (<caret>42",
+            "let value = [<caret>42)",
+            "let value = (<caret>\"unfinished)",
+        )) {
+            val offset = marked.indexOf("<caret>")
+            val source = marked.replace("<caret>", "")
+            assertNull(RescriptParenthesesRemovalPlan.create(source, offset), marked)
+        }
+    }
 }

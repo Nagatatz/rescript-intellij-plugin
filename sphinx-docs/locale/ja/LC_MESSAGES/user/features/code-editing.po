@@ -510,8 +510,8 @@ msgid "Remove unnecessary parentheses"
 msgstr "不要な括弧を削除"
 
 #: ../../user/features/code-editing.md:64
-msgid "Remove redundant parentheses around expressions"
-msgstr "式を囲む冗長な括弧を削除"
+msgid "Remove parentheses around proven scalar initializers"
+msgstr "証明できるスカラー初期値の括弧を除去する"
 
 #: ../../user/features/code-editing.md:64
 msgid "Remove redundant qualifier"
@@ -942,9 +942,18 @@ msgstr "不要な括弧の削除"
 
 #: ../../user/features/code-editing.md:471
 msgid ""
-"Remove redundant parentheses around expressions. Place the caret on a "
-"parenthesized expression and press `Alt+Enter`."
-msgstr "式を囲む冗長な括弧を削除します。括弧で囲まれた式にキャレットを置いて `Alt+Enter` を押します。"
+"Remove parentheses around a scalar literal or single identifier that "
+"forms the complete initializer of a simple `let` binding. Place the caret"
+" on the enclosing parentheses and press `Alt+Enter`. Strings and comments"
+" are preserved, and the edit can be undone once."
+msgstr ""
+"単純な `let` "
+"束縛の初期値全体を構成するスカラーリテラルまたは単独の識別子の括弧を除去します。外側の括弧にカーソルを置き、`Alt+Enter` "
+"を押してください。文字列とコメントを保持し、1回の undo で元に戻せます。"
+
+#: ../../user/features/code-editing.md:486
+msgid "Calls, tuples, unit values, lambda parameters, patterns, annotations, nested groups and operator expressions (including comparisons and pipes) are refused. Files containing type/module/external declarations, annotations, templates or JSX are outside the supported subset. The action leaves the code unchanged whenever it cannot confirm that the parentheses are redundant."
+msgstr "呼出し・タプル・unit 値・lambda 引数・パターン・型注釈・入れ子の括弧・演算式（比較と pipe を含む）は拒否します。type・module・external 宣言、注釈、テンプレート、JSX を含むファイルは対応範囲外です。括弧が冗長であることを確認できない場合はコードを変更しません。"
 
 #: ../../user/features/code-editing.md:486
 msgid "Remove Redundant Qualifier"
@@ -2932,6 +2941,16 @@ msgstr ""
 #~ "(`rescript`) to be installed in your "
 #~ "project."
 #~ msgstr "フォーマットにはプロジェクトに ReScript コンパイラ（`rescript`）がインストールされている必要があります。"
+
+#~ msgid "Remove redundant parentheses around expressions"
+#~ msgstr "式を囲む冗長な括弧を削除"
+
+#~ msgid ""
+#~ "Remove redundant parentheses around "
+#~ "expressions. Place the caret on a "
+#~ "parenthesized expression and press "
+#~ "`Alt+Enter`."
+#~ msgstr "式を囲む冗長な括弧を削除します。括弧で囲まれた式にキャレットを置いて `Alt+Enter` を押します。"
 
 #~ msgid "Import optimization runs in two phases:"
 #~ msgstr "インポート最適化は 2 つのフェーズで実行されます:"
