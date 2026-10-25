@@ -1459,34 +1459,24 @@ msgstr ""
 "は自由変数を自動検出してパラメータに変換するため、値を手動で引き回すことなく大きな関数を小さく再利用可能な部品に分解できます。"
 
 #: ../../user/features/code-editing.md:1005
-msgid "Inline Variable/Function"
-msgstr "変数/関数のインライン化"
+msgid "Inline Constant"
+msgstr "定数のインライン化"
 
 #: ../../user/features/code-editing.md:1009
-msgid ""
-"Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) to inline a variable or "
-"function at the caret, replacing all references with the definition body."
-msgstr ""
-"`Ctrl+Alt+N`（macOS では "
-"`Cmd+Alt+N`）を押して、キャレット位置の変数または関数をインライン化し、すべての参照を定義本体に置き換えます。"
+msgid "Press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS) on a single-line `let` declaration to inline a literal-only constant expression."
+msgstr "単一行の `let` 宣言上で `Ctrl+Alt+N`（macOS では `Cmd+Alt+N`）を押すと、リテラルだけからなる定数式をインライン化します。"
 
 #: ../../user/features/code-editing.md:1011
-msgid ""
-"The handler finds the `let` declaration at the caret, locates all "
-"references to it within the file, replaces each reference with the "
-"definition body, and removes the original declaration."
-msgstr "ハンドラーはキャレット位置の `let` 宣言を見つけ、ファイル内のすべての参照を検出し、各参照を定義本体に置き換え、元の宣言を削除します。"
+msgid "The handler validates lexical scope and replaces only identifier references, preserving strings, comments and qualified fields. Every replacement is parenthesized to preserve expression precedence. Local declarations are removed in the same undoable command; top-level declarations remain available to other modules."
+msgstr "ハンドラーは字句スコープを検証し、識別子の参照だけを置換して、文字列・コメント・修飾されたフィールドを保持します。式の優先順位を保つため、置換する式には必ず括弧を付けます。ローカル宣言は同じ取り消し可能なコマンドで削除し、トップレベル宣言は他のモジュールから利用できるよう保持します。"
 
 #: ../../user/features/code-editing.md
-msgid "After (inline `prefix`)"
-msgstr "After (`prefix` をインライン化)"
+msgid "After (inline `sum`)"
+msgstr "After (`sum` をインライン化)"
 
 #: ../../user/features/code-editing.md:1027
-msgid ""
-"Inline refactoring is the reverse of extraction — it replaces an "
-"unnecessary intermediate variable with its definition, simplifying code "
-"when a named binding adds no clarity."
-msgstr "インラインリファクタリングは抽出の逆で、不要な中間変数をその定義に置き換え、名前付きバインディングが明確さを追加しない場合にコードを簡素化します。"
+msgid "The result remains `9`, and one undo restores both the declaration and every edited reference."
+msgstr "結果は `9` のままで、1 回の取り消しで宣言と編集したすべての参照を復元します。"
 
 #: ../../user/features/code-editing.md:1029
 msgid "Introduce Constant"
@@ -2962,3 +2952,8 @@ msgstr ""
 #: ../../user/features/code-editing.md
 msgid "Formatting and format checks use concurrent input/output with a total 10-second command timeout and a 4 MiB limit per output stream. Cancellation stops the owned process and observed child processes. Timeout or output overflow leaves the document unchanged and reports the failure reason."
 msgstr "フォーマットとフォーマットチェックは入出力を並行処理し、コマンド全体に10秒のタイムアウトと出力ストリームごとに4 MiBの上限を適用します。取消時には所有プロセスと観測済みの子プロセスを停止します。タイムアウトや出力上限超過時にはドキュメントを変更せず、失敗理由を通知します。"
+
+
+#: ../../user/features/code-editing.md:1013
+msgid "Calls, variable-dependent expressions, division, multiline declarations, comments on the declaration and type annotations are unavailable. Files containing rebinding, unresolved patterns, templates, raw JavaScript, `eval`, annotations, opens or modules are conservatively unavailable until semantic reference resolution is supported. Parameters that shadow the selected name, record shorthand and labelled arguments are rejected when their role cannot be established."
+msgstr "呼び出し・変数に依存する式・除算・複数行の宣言・宣言上のコメント・型注釈には対応しません。再束縛・未解決のパターン・テンプレート・生の JavaScript・`eval`・注釈・open・module を含むファイルは、意味に基づく参照解決がサポートされるまで安全のため利用できません。選択した名前を隠す引数・レコードの省略記法・ラベル付き引数は、役割を確認できない場合は拒否します。"
