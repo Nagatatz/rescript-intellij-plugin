@@ -81,3 +81,25 @@ The GitHub Actions CI pipeline (`.github/workflows/ci.yml`) runs on every push a
 3. Build — Compile and package
 4. Test — Run tests with coverage (Kover)
 5. Verify — Plugin structure and binary compatibility (push only)
+
+### CI Java setup
+
+CI uses `actions/setup-java@v6` with Eclipse Temurin JDK 25 and `gradle/actions/setup-gradle` for Gradle caching. The major tag follows the official-actions policy. Both setup-java v5 and v6 use Node 24; self-hosted runners need v2.327.1 or later.
+
+Java Setup Smoke checks JDK 25, tool-cache reuse and the Gradle launcher sequentially on Linux, macOS and Windows. It uses read-only permissions and does not publish or download an IDE. The plugin and documentation gates remain separate. The Release workflow is reviewed statically; it is not dispatched for validation.
+
+### CI workflow lint
+
+The CI actionlint job pins `reviewdog/action-actionlint` to commit `d290e336d5a743810aef4404f757dc862276d2ae` (v1.73.4). This is a Docker action on GitHub-hosted Ubuntu, with a digest-pinned container. It does not use the Node runtime; the workflow Node 24 setting applies to JavaScript actions separately.
+
+The job retains `github-pr-review` reporting and `fail_level: error`. The default `github.token` is passed to reviewdog; permissions remain `contents: read` and `pull-requests: write` for that job. No additional token or permission is required by this update. The existing `file` filter and error report level are unchanged.
+
+Validate the updated commit in a fresh PR CI run, recording the resolved container digest and tool versions. A successful run without findings does not prove review-comment creation or write access on fork PRs. Do not increase permissions or use `pull_request_target` to bypass a restricted token. Workflow lint does not establish plugin runtime compatibility.
+
+### CI documentation dependencies
+
+The Docs workflow pins `astral-sh/setup-uv` to commit `bec219d24cd3e171d82865faccec33120bb574f4` (v10.1.0), following the third-party action pinning policy. The action uses Node 24 on GitHub-hosted Ubuntu runners. Its pin selects the setup action, not the uv executable: the existing latest-uv selection and project Python requirements are retained.
+
+Each documentation job uses `uv sync --locked` and checks that `pyproject.toml` and `uv.lock` remain unchanged. An outdated lock fails installation instead of being regenerated in CI. Explicit `enable-cache: true` is retained; the default dependency glob includes `sphinx-docs/uv.lock`. Python caching and cache pruning remain disabled. A cache miss is valid and does not relax the lock check.
+
+Changes to the Docs workflow itself trigger its PR validation, including lint, tests, translations, English/Japanese builds and accessibility checks. PR runs do not deploy Pages. This Linux documentation validation does not establish plugin physical or interactive runtime compatibility.

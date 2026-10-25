@@ -65,21 +65,17 @@ class RescriptCreateInterfaceAction : AnAction() {
      * under a single documented [Suppress].
      */
     private object ProgressManagerRunner {
-        // LspServer / sendRequestSync are deprecated in 2026.2 EAP; the replacement
-        // LspClientDescriptor API does not exist on the 2026.1.2 compile target.
-        @Suppress("DEPRECATION")
         fun run(
             project: Project,
-            server: com.intellij.platform.lsp.api.LspServer,
+            server: com.intellij.platform.lsp.api.LspClient,
             uri: String,
         ) {
             object : Task.Backgroundable(project, "Creating ReScript interface file", true) {
                 override fun run(indicator: ProgressIndicator) {
                     indicator.isIndeterminate = true
                     val response =
-                        // Explicit 10s timeout (the platform default). Omitting it emits
-                        // the synthetic sendRequestSync$default, which 2026.2 relocated to
-                        // the new LspClient super-interface and no longer resolves here.
+                        // Explicit 10s timeout (the platform default), so the call binds to the
+                        // abstract LspClient.sendRequestSync rather than the synthetic $default bridge.
                         server.sendRequestSync(10_000) { languageServer ->
                             (languageServer as RescriptLanguageServer).createInterface(TextDocumentIdentifier(uri))
                         } ?: return

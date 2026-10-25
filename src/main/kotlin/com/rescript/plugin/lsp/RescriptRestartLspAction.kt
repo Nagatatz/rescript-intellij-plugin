@@ -3,7 +3,7 @@ package com.rescript.plugin.lsp
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.platform.lsp.api.LspServerManager
+import com.intellij.platform.lsp.api.LspClientManager
 
 /**
  * Action to restart the ReScript Language Server.
@@ -16,12 +16,10 @@ import com.intellij.platform.lsp.api.LspServerManager
 class RescriptRestartLspAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
-        // LspServerManager is deprecated in 2026.2 EAP; the replacement LspClientDescriptor
-        // API does not exist on the 2026.1.2 compile target. UnstableApiUsage kept too.
-        @Suppress("UnstableApiUsage", "DEPRECATION")
-        LspServerManager
+        @Suppress("UnstableApiUsage")
+        LspClientManager
             .getInstance(project)
-            .stopAndRestartIfNeeded(RescriptLspServerSupportProvider::class.java)
+            .stopAndRestartClientsIfNeeded(RescriptLspServerSupportProvider::class.java)
     }
 
     override fun update(e: AnActionEvent) {

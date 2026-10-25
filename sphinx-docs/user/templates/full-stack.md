@@ -214,4 +214,4 @@ For ReScript-side editor workflows once the project is open, see the {doc}`../fe
 - **`vitest.setup.mjs` pins `DATABASE_URL=:memory:`** before any test imports `Server.res.mjs`. The committed `.env.example` shows the production-shape default (`file:./data/app.db`).
 - **`data/`, `dist/`, `.vite/`, `drizzle/`, `.env`** (and `src/client/__generated__/` in the GraphQL variant) are gitignored.
 - **GraphQL ships with a one-time bootstrap step**: `pnpm relay` (or `npm run relay`) must run at least once before the first build to populate `src/client/__generated__/`. The `dev` script keeps `relay:watch` running so this is invisible after the first cycle.
-- **Vite+ is pre-1.0.** If a release breaks, swap `vite-plus` for `vite` in `vite.config.mjs` and replace the `vp` scripts with `vite`. The classic Vite dep is already declared as a fallback.
+- **`vite` is an alias.** Vite+ requires `vite` to resolve to `@voidzero-dev/vite-plus-core`, so the client declares it as an npm alias. To fall back to classic Vite, point `vite` back at the regular package, swap `vite-plus` for `vite` in `vite.config.mjs`, and replace the `vp` scripts with `vite`.

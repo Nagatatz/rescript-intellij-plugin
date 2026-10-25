@@ -5,18 +5,20 @@ import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
-import com.rescript.plugin.imports.RescriptImportUtil
+import com.rescript.plugin.imports.RescriptOpenRemovalProof
 import com.rescript.plugin.lang.psi.RescriptElementTypes
 import com.rescript.plugin.lang.psi.RescriptFile
 
 /**
- * Local inspection that detects duplicate `open` statements within the same scope.
+ * Reports adjacent opens only when they resolve to the same proven local module.
  *
- * Checks both file-level and nested module scopes recursively.
- * Provides a quick-fix to remove the duplicate `open` statement.
+ * Reopening a module after another open or declaration is preserved. Unknown module
+ * identity is never inferred from matching spelling. The quick fix repeats the proof.
  */
 class RescriptDuplicateOpenInspection : LocalInspectionTool() {
     override fun buildVisitor(
@@ -34,20 +36,17 @@ class RescriptDuplicateOpenInspection : LocalInspectionTool() {
         scope: PsiElement,
         holder: ProblemsHolder,
     ) {
-        val openStatements = scope.children.filter { it.node?.elementType == RescriptElementTypes.OPEN_STATEMENT }
-        val seen = mutableSetOf<String>()
-
-        for (openStmt in openStatements) {
-            val modulePath = RescriptImportUtil.extractModulePath(openStmt)
-            if (modulePath.isNotEmpty()) {
-                if (!seen.add(modulePath)) {
-                    holder.registerProblem(
-                        openStmt,
-                        "Duplicate open statement: '$modulePath'",
-                        RemoveDuplicateOpenQuickFix(),
-                    )
-                }
-            }
+        for (openStmt in RescriptOpenRemovalProof.findRedundantOpens(scope)) {
+            val range = RescriptOpenRemovalProof.removalRange(openStmt) ?: continue
+            holder.registerProblem(
+                openStmt,
+                TextRange(
+                    range.startOffset - openStmt.textRange.startOffset,
+                    range.endOffset - openStmt.textRange.startOffset,
+                ),
+                "Redundant open statement with an unchanged local module target",
+                RemoveDuplicateOpenQuickFix(),
+            )
         }
 
         // Check nested module scopes recursively
@@ -65,7 +64,15 @@ class RescriptDuplicateOpenInspection : LocalInspectionTool() {
             project: Project,
             descriptor: ProblemDescriptor,
         ) {
-            descriptor.psiElement?.delete()
+            val element = descriptor.psiElement ?: return
+            if (!element.isValid) return
+            val file = element.containingFile ?: return
+            val document = file.viewProvider.document ?: return
+            if (!PsiDocumentManager.getInstance(project).isCommitted(document) || document.text != file.text) return
+            val scope = element.parent ?: return
+            if (element !in RescriptOpenRemovalProof.findRedundantOpens(scope)) return
+            val range = RescriptOpenRemovalProof.removalRange(element) ?: return
+            document.deleteString(range.startOffset, range.endOffset)
         }
     }
 }

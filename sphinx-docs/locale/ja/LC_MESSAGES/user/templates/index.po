@@ -144,8 +144,8 @@ msgstr ""
 
 #: ../../user/templates/index.md:60
 #, python-brace-format
-msgid "{bdg-warning}`Vite+ pre-1.0`"
-msgstr "{bdg-warning}`Vite+ pre-1.0`"
+msgid "{bdg-primary}`Vite+`"
+msgstr "{bdg-primary}`Vite+`"
 
 #: ../../user/templates/index.md:63 ../../user/templates/index.md:217
 msgid "Next.js"
@@ -656,15 +656,6 @@ msgid "Notes on Vite+"
 msgstr "Vite+ に関する注意"
 
 #: ../../user/templates/index.md:267
-msgid ""
-"The Vite+ based templates (Vite+ + React, Electron, Tauri, Hono + "
-"Inertia, Monorepo client, Full-Stack) pin `vite-plus` and `@voidzero-dev"
-"/vite-plus-core` at pre-1.0 versions. If a command breaks after an "
-"upgrade, replace `vite-plus` with `vite` in `vite.config.mjs` and swap "
-"the `vp` scripts for `vite` to fall back to classic Vite."
-msgstr ""
-"Vite+ ベースのテンプレート (Vite+ + React、Electron、Tauri、Hono + Inertia、Monorepo "
-"クライアント、Full-Stack) は `vite-plus` と `@voidzero-dev/vite-plus-core` を "
-"pre-1.0 バージョンに固定しています。アップグレード後にコマンドが壊れた場合は、`vite.config.mjs` の "
-"`vite-plus` を `vite` に置き換え、`vp` スクリプトを `vite` に変更して従来の Vite にフォールバックしてください。"
+msgid "The Vite+ based templates (Vite+ + React, Electron, Tauri, Hono + Inertia, Monorepo client, Full-Stack) pin `vite-plus` and `@voidzero-dev/vite-plus-core` to the 1.x line and declare `vite` as an npm alias of `@voidzero-dev/vite-plus-core`, which Vite+ requires. To fall back to classic Vite, point `vite` back at the regular package, replace `vite-plus` with `vite` in `vite.config.mjs`, and swap the `vp` scripts for `vite`."
+msgstr "Vite+ ベースのテンプレート（Vite+ + React、Electron、Tauri、Hono + Inertia、Monorepo の client、Full-Stack）は `vite-plus` と `@voidzero-dev/vite-plus-core` を 1.x 系に固定し、Vite+ が要求するとおり `vite` を `@voidzero-dev/vite-plus-core` の npm エイリアスとして宣言しています。クラシックな Vite に戻すには、`vite` を通常のパッケージに戻し、`vite.config.mjs` の `vite-plus` を `vite` に置き換え、`vp` スクリプトを `vite` に差し替えます。"
 

@@ -23,7 +23,7 @@ class HonoInertiaTemplateFilesTest {
         assertTrue(pkg.contains("\"react\": \"${TemplateVersions.REACT}\""))
         assertTrue(pkg.contains("\"react-dom\": \"${TemplateVersions.REACT_DOM}\""))
         assertTrue(pkg.contains("\"@rescript/react\": \"${TemplateVersions.RESCRIPT_REACT}\""))
-        assertTrue(pkg.contains("\"vite\": \"${TemplateVersions.VITE}\""))
+        assertTrue(pkg.contains("\"vite\": \"${TemplateVersions.VITE_PLUS_VITE_ALIAS}\""))
         assertTrue(pkg.contains("\"vite-plus\": \"${TemplateVersions.VITE_PLUS}\""))
         assertTrue(pkg.contains("\"@voidzero-dev/vite-plus-core\": \"${TemplateVersions.VITE_PLUS_CORE}\""))
     }

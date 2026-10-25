@@ -6,8 +6,8 @@
 
 | 技術 | バージョン | 用途 |
 |------|-----------|------|
-| Kotlin | 2.4.10 | プラグインの主要実装言語 |
-| JFlex | GrammarKit 2023.3.0.3 | レクサー定義・自動生成 |
+| Kotlin | 2.4.21 | プラグインの主要実装言語 |
+| JFlex | GrammarKit 2023.3.0.4 | レクサー定義・自動生成 |
 | Java | 25 (Temurin) | コンパイルターゲット。2026.2 のバイトコードが Java 25 のため JDK 25 が必須 |
 | IntelliJ Platform SDK | 2026.2.3 | プラグイン基盤 API |
 | LSP4J | IntelliJ Platform 内蔵 | LSP クライアント実装 |
@@ -17,10 +17,10 @@
 | ツール | バージョン | 用途 |
 |--------|-----------|------|
 | Gradle (Kotlin DSL) | Wrapper 管理 | ビルドシステム |
-| IntelliJ Platform Gradle Plugin | 2.18.1 | プラグインビルド・パッケージング |
-| GrammarKit | 2023.3.0.2 | JFlex レクサー生成タスク |
-| ktlint | 1.6.0 | Kotlin コードスタイルチェック |
-| Kover | 0.9.4 | コードカバレッジ計測 |
+| IntelliJ Platform Gradle Plugin | 2.19.0 | プラグインビルド・パッケージング |
+| GrammarKit | 2023.3.0.4 | JFlex レクサー生成タスク |
+| ktlint | 1.8.0 | Kotlin コードスタイルチェック |
+| Kover | 0.9.11 | コードカバレッジ計測 |
 | JUnit 4 | 4.13.2 | ユニットテストフレームワーク |
 | Qodana | JetBrains Cloud | 静的解析（CI 連携） |
 

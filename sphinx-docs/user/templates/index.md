@@ -57,7 +57,7 @@ Subcommand dispatcher (`greet`, `init`) with its own `Args` parser and a `Comman
 :link-type: doc
 Single-page React app using [Vite+](https://vite.plus) with a form, `useState`, and a `fetch('/api/greet')` round-trip (offline fallback included). Includes `src/Api.res` as a reusable fetch wrapper.
 
-{bdg-warning}`Vite+ pre-1.0`
+{bdg-primary}`Vite+`
 :::
 
 :::{grid-item-card} Next.js
@@ -264,7 +264,7 @@ When you need to extend a generated project, these recipes pick up where the tem
 
 ## Notes on Vite+
 
-The Vite+ based templates (Vite+ + React, Electron, Tauri, Hono + Inertia, Monorepo client, Full-Stack) pin `vite-plus` and `@voidzero-dev/vite-plus-core` at pre-1.0 versions. If a command breaks after an upgrade, replace `vite-plus` with `vite` in `vite.config.mjs` and swap the `vp` scripts for `vite` to fall back to classic Vite.
+The Vite+ based templates (Vite+ + React, Electron, Tauri, Hono + Inertia, Monorepo client, Full-Stack) pin `vite-plus` and `@voidzero-dev/vite-plus-core` to the 1.x line and declare `vite` as an npm alias of `@voidzero-dev/vite-plus-core`, which Vite+ requires. To fall back to classic Vite, point `vite` back at the regular package, replace `vite-plus` with `vite` in `vite.config.mjs`, and swap the `vp` scripts for `vite`.
 
 ```{toctree}
 :hidden:
