@@ -122,7 +122,7 @@
 - **Problem filter** — Suppress highlighting in `node_modules/`, `lib/bs/`, `lib/ocaml/`
 - **Inspection suppressor** — Suppress inspections with `// noinspection` comments
 - **Format check** — Highlight unformatted files with quick-fix to format (opt-in via Settings)
-- **Mutability diagnostics** — Detect unnecessary `ref` bindings that are never reassigned
+- **Mutability diagnostics** — Safely remove local scalar `ref` bindings and their `.contents` reads; refuse writes, escapes, exports, and ambiguous bindings
 - **Style linting** — Detect redundant booleans, deprecated Belt.* usage, and boolean switch patterns
 
 ### Build, Run & Test

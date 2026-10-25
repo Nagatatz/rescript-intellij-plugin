@@ -131,7 +131,7 @@
 | Expand Destructuring | `let {name, age} = user` を個別 let 束縛に展開 (Alt+Enter) | `RescriptExpandDestructuringIntention` |
 | Framework Detector | rescript.json によるフレームワーク自動検出 | `RescriptFrameworkDetector` + `RescriptFrameworkType` |
 | Code Rearranger | トップレベル宣言の自動並べ替え（open → type → exception → module → external → let） | `RescriptRearranger` |
-| 変更可能性の診断 | 不要な `ref` 使用の検出と Quick Fix による除去 | `RescriptMutabilityInspection` |
+| 変更可能性の診断 | 局所スカラー `ref` と全 `.contents` 読み取りの安全な一括除去（write・alias・export 等は拒否） | `RescriptMutabilityInspection` |
 | スタイルリンティング | 冗長ブール式・Belt API・ブール switch パターンの検出と改善提案 | `RescriptStyleLintInspection` |
 | filter+map チェーン変換 | `filter+map` チェーンを `filterMap` に変換 (Alt+Enter) | `RescriptFilterMapChainIntention` |
 | 型注釈追加 | LSP hover 情報を用いた let 束縛への型注釈挿入 (Alt+Enter) | `RescriptAddTypeAnnotationIntention` |
