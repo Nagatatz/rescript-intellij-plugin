@@ -1,6 +1,7 @@
 <html>
 <body>
 <p>Rewrites a pipe expression into an equivalent nested function call.</p>
-<pre><code>x-&gt;f(y)   →   f(x, y)</code></pre>
+<pre><code>getItems()-&gt;Array.length   →   Array.length(getItems())</code></pre>
+<p>Preserves nested calls, strings, comments and multiline expressions. Unsupported or ambiguous input is not converted.</p>
 </body>
 </html>

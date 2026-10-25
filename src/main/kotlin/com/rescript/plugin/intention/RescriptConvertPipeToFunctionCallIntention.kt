@@ -45,55 +45,11 @@ class RescriptConvertPipeToFunctionCallIntention : RescriptBaseIntention() {
     }
 
     companion object {
-        // Matches: expr->func(args) or expr->func
-        // The pipe operator -> must be at or near the cursor
-        private val PIPE_PATTERN =
-            Regex("""([a-zA-Z0-9_.)}\]\['"]+)\s*->\s*([a-zA-Z0-9_.]+)(\([^)]*\))?""")
-
-        /**
-         * Finds a pipe expression around the given offset in the text.
-         *
-         * @param text the full document text
-         * @param offset the caret position
-         * @return the parsed pipe expression, or null if none found
-         */
+        /** Finds a balanced, supported pipe expression at the caret. */
         internal fun findPipeExpression(
             text: String,
             offset: Int,
-        ): PipeExpression? {
-            // Search in a window around the cursor for the pipe operator
-            val lineStart = text.lastIndexOf('\n', (offset - 1).coerceAtLeast(0)) + 1
-            val lineEnd = text.indexOf('\n', offset).let { if (it < 0) text.length else it }
-            val line = text.substring(lineStart, lineEnd)
-            val offsetInLine = offset - lineStart
-
-            for (match in PIPE_PATTERN.findAll(line)) {
-                val pipeIndex = line.indexOf("->", match.range.first)
-                if (pipeIndex < 0) continue
-
-                // Check if cursor is within reasonable distance of the pipe operator
-                if (offsetInLine in (match.range.first)..(match.range.last + 1)) {
-                    val lhs = match.groupValues[1]
-                    val funcName = match.groupValues[2]
-                    val argsWithParens = match.groupValues[3]
-
-                    return PipeExpression(
-                        lhs = lhs,
-                        funcName = funcName,
-                        args =
-                            if (argsWithParens.isNotEmpty()) {
-                                // Remove surrounding parens
-                                argsWithParens.substring(1, argsWithParens.length - 1)
-                            } else {
-                                null
-                            },
-                        fullStart = lineStart + match.range.first,
-                        fullEnd = lineStart + match.range.last + 1,
-                    )
-                }
-            }
-            return null
-        }
+        ): PipeExpression? = RescriptPipeConversion.pipe(text, offset)
 
         /**
          * Converts a pipe expression to its function call equivalent.

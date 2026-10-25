@@ -436,6 +436,7 @@ flowchart TD
 | `com.intellij.localInspection` | `RescriptDuplicateOpenInspection` | 重複 open 検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptEmptyModuleInspection` | 空モジュール検出 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMismatchedJsxTagInspection` | JSX 開閉タグ名不一致検出 | 実装済み |
+| `com.intellij.localInspection` | `RescriptMutabilityInspection` | braced 関数内の局所スカラー ref と全 `.contents` 読み取りを一括除去。`RescriptRefRemovalPlanner` の lexer scope/identity 証明と文書全体 snapshot により書き込み・alias・export・closure・shadowing・file 内の opaque interop 宣言・不明構文を拒否 | 実装済み |
 | `com.intellij.localInspection` | `RescriptMissingConfigInspection` | rescript.json 未検出警告 | 実装済み |
 | `<action>` | `RescriptSwitchFileAction` | `.res`/`.resi` ファイル切り替え (Alt+O) | 実装済み |
 | `com.intellij.defaultLiveTemplates` | `liveTemplates/ReScript.xml` | Live Templates (21 スニペット) | 実装済み |
@@ -697,6 +698,12 @@ The formatter reports a sanitized diagnostic or a failure reason and suppresses 
 ### Safe parentheses removal
 
 `RescriptParenthesesRemovalPlan` proves balanced lexer delimiters and a complete scalar initializer in a simple `let` binding. String/comment contents and original trivia are preserved. Calls, lambda parameters, patterns, nested groups, types and operator expressions are refused. Availability and invocation share the proof and require matching committed PSI/document snapshots; one undo restores the entire edit. Files with type/module/external declarations, annotations, templates or JSX are refused. General expression precedence resolution remains unsupported.
+
+### Balanced pipe conversion
+
+`RescriptPipeConversion` plans the source ranges for both pipe conversion intentions using `RescriptLexer`. Only `RIGHT_ARROW` (`->`) is a pipe-first operator; `PIPE_FORWARD` (`|>`) is rejected. A delimiter stack pairs parentheses, brackets and braces, and argument splitting only considers commas outside paired groups. Original source slices retain nested calls, records/arrays, strings, comments and newlines. In particular, `getItems()->Array.length` converts to `Array.length(getItems())`, and the reverse conversion retains the unit call. Earlier pipe stages remain part of the complete left-hand expression.
+
+The planner supports qualified calls with positional first arguments and explicit expression boundaries. A recursive expression whitelist consumes every significant token in arguments and nested calls, arrays, records and expression-bodied lambdas; balanced but unknown input such as `a b` is rejected. Lambda body boundaries require a valid plain positional parameter list before `=>`, so a malformed lambda cannot authorize a rewrite. It declines labeled/optional arguments, placeholders, JSX/templates, unbalanced or unterminated input, ambiguous operator boundaries and postfix calls on call results. Parenthesized expressions retain their grouping; unknown shapes do not fall back to a partial regex match. Carets inside strings/comments are not conversion sites. Editor mutations use the existing Intention write command so one undo restores the complete original document. Regression coverage includes actual Intention actions plus compiler/runtime checks before conversion, after conversion and after undo in the dedicated `integrationIdeTest` sandbox.
 
 ## Proven open removal
 
