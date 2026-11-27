@@ -117,6 +117,7 @@ object TemplateVersions {
 
     // Validation
     val ZOD = "^4.6.7"
+
     // Sury 11 declares ReScript 12 as its peer and labels the parse target (~to).
     val SURY = "^11.1.0"
 
