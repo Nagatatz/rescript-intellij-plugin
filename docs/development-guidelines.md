@@ -2,7 +2,7 @@
 
 ReScript IntelliJ Plugin プロジェクトのコーディング規約と開発プロセス。
 
-> **前提**: プロジェクト概要、ビルドコマンド、アーキテクチャ、Git コミット規約、ステアリングワークフローは [CLAUDE.md](../CLAUDE.md) を参照。本ドキュメントはそれらと重複しない補足規約を定める。
+> **前提**: プロジェクト概要、ビルドコマンド、アーキテクチャ、Git コミット規約、Issue ワークフローは [AGENTS.md](../AGENTS.md) を参照。本ドキュメントはそれらと重複しない補足規約を定める。
 
 ## 1. コーディング規約
 
@@ -99,7 +99,7 @@ fun `JSX opening tag - div`() {
 - [ ] `./gradlew ktlintCheck` が違反なし
 - [ ] 新規トークン追加時: `Rescript.flex` と `RescriptTokenTypes.kt` が同期している
 - [ ] 新規 extension point 追加時: `plugin.xml` に登録されている
-- [ ] CLAUDE.md の Git コミット規約に従ったコミットメッセージ
+- [ ] AGENTS.md の Git コミット規約に従ったコミットメッセージ
 
 ### 5.1 Qodana 静的解析
 

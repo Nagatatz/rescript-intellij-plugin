@@ -1,6 +1,6 @@
 # Contributing to the ReScript IntelliJ Plugin
 
-Thanks for taking the time to look at this project! This guide is the short, English-language version of the contributor workflow. The authoritative rule set lives in `.claude/rules/` (Japanese) and `CLAUDE.md`; pull from there whenever this file is silent on a topic.
+Thanks for taking the time to look at this project! This guide is the short, English-language version of the contributor workflow. The authoritative rule set lives in `.claude/rules/` (Japanese) and `AGENTS.md`; pull from there whenever this file is silent on a topic.
 
 ## Before you start
 
@@ -46,7 +46,7 @@ Heavier suites:
 
 ## Coding conventions
 
-- **Language:** all production code, KDoc comments, commit messages, GitHub Release notes, and `sphinx-docs/**/*.md` are written in **English**. Internal authoring docs (`.claude/`, `.steering/`, `CLAUDE.md`) and the Japanese translation files (`sphinx-docs/locale/ja/`) are written in Japanese. See `.claude/rules/language.md`.
+- **Language:** all production code, KDoc comments, commit messages, GitHub Release notes, and `sphinx-docs/**/*.md` are written in **English**. Internal authoring docs (`.claude/`, `AGENTS.md`) and the Japanese translation files (`sphinx-docs/locale/ja/`) are written in Japanese. See `.claude/rules/language.md`.
 - **KDoc:** every `class` / `object` / `enum class` / `sealed class` / `interface` declaration needs a KDoc block. The `checkKdoc` Gradle task enforces this — run it locally before opening a PR.
 - **Tests:** every new production class needs a matching `<ClassName>Test.kt` unless it falls under the exemption list (Swing UI panels, LSP-coupled wiring, `RunConfiguration`-style IDE entry points, etc.). See `.claude/rules/testing.md`.
 - **Lexer:** edit `src/main/java/com/rescript/plugin/lang/Rescript.flex`. The companion `RescriptFlexLexer.java` is auto-generated and ignored from Git — do not edit it.
@@ -86,7 +86,7 @@ A maintainer will check:
 
 1. **Functional correctness** — does the change do what the PR description claims, with tests?
 2. **Style** — ktlint passes, KDoc present, no deprecated-API references without justification.
-3. **Documentation sync** — for user-facing changes, that `README.md`, `CLAUDE.md`, `sphinx-docs/user/features/*.md`, and the matching `.po` translation are all updated in the same PR. See `.claude/rules/documentation.md`.
+3. **Documentation sync** — for user-facing changes, that `README.md`, `AGENTS.md`, `sphinx-docs/user/features/*.md`, and the matching `.po` translation are all updated in the same PR. See `.claude/rules/documentation.md`.
 4. **Coverage** — new logic has tests; exemptions are spelled out in the PR description.
 
 ## Release process

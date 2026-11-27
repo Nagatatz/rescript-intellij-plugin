@@ -149,10 +149,10 @@ msgstr "永続的ドキュメント（`docs/`）と作業単位の記録（GitHu
 msgid ""
 "Rules use imperative language and are treated as non-negotiable "
 "constraints. To add a new rule, create a `.md` file in `.claude/rules/` "
-"and reference it from `CLAUDE.md`."
+"and index it in `AGENTS.md` when contributors need to find it."
 msgstr ""
 "Rules は命令形で記述され、交渉の余地のない制約として扱われます。新しいルールを追加するには、`.claude/rules/` に `.md`"
-" ファイルを作成し、`CLAUDE.md` から参照してください。"
+" ファイルを作成し、必要に応じて `AGENTS.md` の索引に追加してください。"
 
 #: ../../dev/claude-code.md:72
 msgid "Skills"
@@ -429,8 +429,8 @@ msgid "Diagnoses build failures in 4 steps:"
 msgstr "4つのステップでビルドエラーを診断します："
 
 #: ../../dev/claude-code.md:136
-msgid "Reproduce the error using the build command from `CLAUDE.md`"
-msgstr "`CLAUDE.md` のビルドコマンドを使用してエラーを再現する"
+msgid "Reproduce the error using the build command from `AGENTS.md`"
+msgstr "`AGENTS.md` のビルドコマンドを使用してエラーを再現する"
 
 #: ../../dev/claude-code.md:137
 msgid ""
@@ -654,11 +654,9 @@ msgstr "ドメイン用語の定義"
 
 #: ../../dev/claude-code.md:229
 msgid ""
-"These documents are referenced from `CLAUDE.md` using `@docs/filename.md`"
-" syntax, making them available as context in every Claude Code session."
+"`AGENTS.md` indexes documentation so contributors can read the relevant files on demand."
 msgstr ""
-"これらのドキュメントは `CLAUDE.md` から `@docs/filename.md` 構文で参照され、すべての Claude Code "
-"セッションでコンテキストとして利用可能になります。"
+"`AGENTS.md` を索引に、必要なドキュメントを参照できます。"
 
 #: ../../dev/claude-code.md:231
 msgid "Issue Workflow"
@@ -789,8 +787,8 @@ msgid "Create `.claude/rules/<rule-name>.md` with clear, imperative constraints"
 msgstr "明確で命令形の制約を記述した `.claude/rules/<rule-name>.md` を作成する"
 
 #: ../../dev/claude-code.md:275
-msgid "Add `@.claude/rules/<rule-name>.md` to `CLAUDE.md` in the rules section"
-msgstr "`CLAUDE.md` のルールセクションに `@.claude/rules/<rule-name>.md` を追加する"
+msgid "Add a path to the `AGENTS.md` index when the new rule needs to be found"
+msgstr "必要に応じて新しいルールへのパスを `AGENTS.md` の索引に追加する"
 
 #: ../../dev/claude-code.md:276
 msgid "Use the mandatory preamble for enforced rules:"
@@ -915,4 +913,3 @@ msgstr "スキルまたは手動での呼び出しから参照する"
 
 #~ msgid "Finds the latest `.steering/*/tasklist.md`"
 #~ msgstr "最新の `.steering/*/tasklist.md` を検索する"
-

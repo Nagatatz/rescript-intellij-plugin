@@ -192,7 +192,7 @@ object RescriptLanguage : Language("ReScript") {
 - コマンド実行の文字列連結: `ProcessBuilder\([^)]*\+|exec\(".*\$`
 - ユーザー入力の未検証フラグ: LSP レスポンス / JSON 設定値の直接使用
 
-**判定基準:** 必ず修正。`CLAUDE.md` のセキュリティセクション準拠。
+**判定基準:** 必ず修正。`AGENTS.md` のセキュリティセクション準拠。
 - 絶対パス → ファイル名のみに sanitize
 - コマンド実行 → `ProcessBuilder(listOf(...))` で明示引数リスト化
 

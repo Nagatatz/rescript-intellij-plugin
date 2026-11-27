@@ -17,7 +17,7 @@ rescript-intellij-plugin/
 ├── gradlew / gradlew.bat         # Gradle Wrapper
 ├── .editorconfig                 # エディタ設定（インデント、行長等）
 ├── .gitignore                    # Git 除外設定
-├── CLAUDE.md                     # Claude Code プロジェクト指示書
+├── AGENTS.md                     # Claude Code プロジェクト指示書
 ├── README.md                     # プロジェクト README
 └── LICENSE                       # ライセンス
 ```
@@ -222,7 +222,7 @@ sphinx-docs/
 1. **パッケージ選択**: 既存パッケージの責務に該当するものがあればそこに配置する。該当しない場合は新しいパッケージを作成する
 2. **Extension Point 登録**: `src/main/resources/META-INF/plugin.xml` に登録する。オプション依存の場合は `rescript-*.xml` に分離する
 3. **テスト作成**: `src/test/kotlin/com/rescript/plugin/<パッケージ>/` に `<クラス名>Test.kt` を作成する
-4. **ドキュメント更新**: 必要に応じて `CLAUDE.md`、`docs/functional-design.md`（Extension Point マップ）を更新する
+4. **ドキュメント更新**: 必要に応じて `AGENTS.md`、`docs/functional-design.md`（Extension Point マップ）を更新する
 
 ### 命名規則
 

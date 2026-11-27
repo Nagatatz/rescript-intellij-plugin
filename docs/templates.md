@@ -71,5 +71,5 @@ Vite+ ベースのテンプレート（4 Vite + React、6 Electron、7 Tauri、1
 1. `ProjectTemplate.kt` に enum エントリを追加
 2. `wizard/templates/<Name>TemplateFiles.kt` を作成しファイル生成を実装
 3. `TemplateVersions.kt` に必要な依存バージョンを集約
-4. 本ドキュメント・`sphinx-docs/user/templates/index.md`・`CLAUDE.md` のテンプレート一覧を更新
+4. 本ドキュメント・`sphinx-docs/user/templates/index.md`・`AGENTS.md` のテンプレート一覧を更新
 5. `integrationTest` を追加し nightly CI で動作確認

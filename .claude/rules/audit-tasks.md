@@ -9,7 +9,7 @@
 - API カバレッジ調査（`@tauri-apps/api` 全 API のうち何件実装済みか、等）
 - テンプレート監査（21 テンプレートの整合性、欠落項目の洗い出し）
 - ロードマップ精査（`docs/product-requirements.md` 未実装機能の再分類）
-- ドキュメント完全性レビュー（CLAUDE.md / README.md / sphinx-docs の同期チェック）
+- ドキュメント完全性レビュー（AGENTS.md / README.md / sphinx-docs の同期チェック）
 - リファクタリング候補の抽出（重複コード、deprecated 利用箇所の総ざらい）
 - 依存関係インベントリ（`build.gradle.kts`、`package.json`、ロックファイルの突合）
 

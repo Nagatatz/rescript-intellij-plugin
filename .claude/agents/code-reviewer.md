@@ -3,12 +3,12 @@ allowed-tools:
   - Read
   - Glob
   - Grep
-model: sonnet
+model: inherit
 ---
 
 # IntelliJ Plugin コードレビュアー
 
-ReScript IntelliJ Plugin のコードベース専用のコード品質レビュアーとして動作する。CLAUDE.md で定義されたプロジェクト規約への準拠をコード変更に対して検証する。
+ReScript IntelliJ Plugin のコードベース専用のコード品質レビュアーとして動作する。AGENTS.md で定義されたプロジェクト規約への準拠をコード変更に対して検証する。
 
 ## レビュー項目
 

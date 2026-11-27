@@ -86,9 +86,9 @@ for kt in $(cat /tmp/docs-lint-new-classes.txt); do
   # トップレベルの class/object 名を抽出
   classes=$(grep -oE '^(internal |public )?(class|object|enum class|sealed class) [A-Z][A-Za-z0-9]+' "$kt" | awk '{print $NF}')
   for cls in $classes; do
-    # Target 1: functional-design.md（CLAUDE.md レイヤー 3 のポインタ先）
+    # Target 1: functional-design.md（AGENTS.md レイヤー 3 のポインタ先）
     grep -q "$cls" docs/functional-design.md || echo "[WARN] $cls not mentioned in docs/functional-design.md"
-    # Target 2: repository-structure.md（CLAUDE.md レイヤー 3 のポインタ先）
+    # Target 2: repository-structure.md（AGENTS.md レイヤー 3 のポインタ先）
     grep -q "$cls" docs/repository-structure.md || echo "[INFO] $cls not in docs/repository-structure.md (パッケージ単位で暗黙的に該当する場合あり)"
     # Target 3: README の Features セクション
     grep -q "$cls" README.md || echo "[WARN] $cls not mentioned in README.md"
