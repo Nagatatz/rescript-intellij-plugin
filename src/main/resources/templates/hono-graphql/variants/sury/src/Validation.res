@@ -9,6 +9,6 @@ let createUserInputSchema: S.t<createUserInput> = S.object(s => {
 })
 
 let parseCreateUserInput = (json: JSON.t): result<createUserInput, string> =>
-  try Ok(json->S.parseOrThrow(createUserInputSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=createUserInputSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }

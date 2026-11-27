@@ -15,8 +15,8 @@ let parseGreetForm = (name: string): result<greetForm, string> => {
     Error("Name cannot exceed 80 characters")
   } else {
     let payload = Dict.fromArray([("name", JSON.Encode.string(trimmed))])->JSON.Encode.object
-    try Ok(payload->S.parseOrThrow(greetFormSchema)) catch {
-    | S.Error(err) => Error(err.message)
+    try Ok(payload->S.parseOrThrow(~to=greetFormSchema)) catch {
+    | S.Exn(err) => Error(err.message)
     }
   }
 }

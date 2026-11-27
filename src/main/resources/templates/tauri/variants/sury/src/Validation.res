@@ -12,6 +12,6 @@ let infoSchema: S.t<info> = S.object(s => {
 })
 
 let parseInfo = (json: JSON.t): result<info, string> =>
-  try Ok(json->S.parseOrThrow(infoSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=infoSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }

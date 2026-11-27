@@ -1,0 +1,8 @@
+{
+  "release": "https://github.com/voidzero-dev/vite-plus/releases/tag/v1.8.0",
+  "version": "1.8.0",
+  "dependencies": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@8.3.8001",
+    "vitest": "5.1.1"
+  }
+}

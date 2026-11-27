@@ -2,7 +2,7 @@
 //
 // The schema owns the trim and min/max rules, so `parseTodoInput` only
 // needs to collapse the (already-trimmed) description to `None` when the
-// user left it blank. Any schema failure surfaces through `S.Error` with a
+// user left it blank. Any schema failure surfaces through `S.Exn` with a
 // human-readable message ready for the HTMX response.
 
 type rawInput = {
@@ -15,14 +15,14 @@ let rawInputSchema: S.t<rawInput> = S.object(s => {
     "name",
     S.string
     ->S.trim
-    ->S.min(1, ~message="Name must not be empty")
-    ->S.max(80, ~message="Name must be 80 characters or fewer"),
+    ->S.minLength(1, ~message="Name must not be empty")
+    ->S.maxLength(80, ~message="Name must be 80 characters or fewer"),
   ),
   description: s.field(
     "description",
     S.string
     ->S.trim
-    ->S.max(240, ~message="Description must be 240 characters or fewer"),
+    ->S.maxLength(240, ~message="Description must be 240 characters or fewer"),
   ),
 })
 
@@ -37,12 +37,12 @@ let parseTodoInput = (~name: string, ~description: string): result<todoInput, st
     "description": description,
   }
   try {
-    let data = payload->Obj.magic->S.parseOrThrow(rawInputSchema)
+    let data = payload->S.parseOrThrow(~to=rawInputSchema)
     Ok({
       name: data.name,
       description: data.description === "" ? None : Some(data.description),
     })
   } catch {
-  | S.Error(err) => Error(err.message)
+  | S.Exn(err) => Error(err.message)
   }
 }

@@ -110,11 +110,38 @@ class ViteReactTemplateFilesTest {
     fun `sury variant ships Validation res and pins the sury dependency`() {
         val suryCtx = ctx.copy(validationLibrary = ValidationLibrary.SURY)
         val files = ViteReactTemplateFiles.generate(suryCtx)
-        assertTrue(files["src/Validation.res"]!!.contains("S.parseOrThrow"))
+        assertTrue(files["src/Validation.res"]!!.contains("S.parseOrThrow(~to=greetFormSchema)"))
         assertTrue(files["src/Validation.res"]!!.contains("parseGreetForm"))
         val pkg = files["package.json"]!!
-        assertTrue(pkg.contains("\"sury\""))
+        assertTrue(pkg.contains("\"sury\": \"^11.1.0\""))
         assertFalse(pkg.contains("\"zod\""))
+    }
+
+    @Test
+    fun `published Vite Plus tuple resolves the same core and Vitest for both validation variants`() {
+        // An independent oracle: npm view vite-plus@1.8.0 dependencies --json.
+        val expected =
+            mapOf(
+                "vite-plus" to "1.8.0",
+                "vite" to "npm:@voidzero-dev/vite-plus-core@8.3.8001",
+                "@voidzero-dev/vite-plus-core" to "8.3.8001",
+                "vitest" to "5.1.1",
+                "@vitest/coverage-v8" to "5.1.1",
+            )
+        for (manager in PackageManager.entries) {
+            for (validation in listOf(ValidationLibrary.ZOD, ValidationLibrary.SURY)) {
+                val pkg =
+                    ViteReactTemplateFiles.generate(
+                        ctx.copy(packageManager = manager, validationLibrary = validation),
+                    )["package.json"]!!
+                for ((name, version) in expected) {
+                    assertTrue(
+                        pkg.contains("\"$name\": \"$version\""),
+                        "Expected $name=$version for $manager and $validation",
+                    )
+                }
+            }
+        }
     }
 
     @Test

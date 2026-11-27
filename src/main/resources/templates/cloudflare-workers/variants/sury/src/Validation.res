@@ -8,6 +8,6 @@ let greetingPayloadSchema: S.t<greetingPayload> = S.object(s => {
 })
 
 let parseGreetingPayload = (json: JSON.t): result<greetingPayload, string> =>
-  try Ok(json->S.parseOrThrow(greetingPayloadSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=greetingPayloadSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }
