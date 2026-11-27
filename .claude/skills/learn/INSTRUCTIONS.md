@@ -4,7 +4,7 @@
 
 ## 保存先
 
-`.claude/memories/learnings.md` に記録する。このファイルは `.claude/rules/` 配下にあるため、Claude Code が自動的に読み込む。CLAUDE.md には記録しない（CLAUDE.md は簡潔に保つ方針のため）。
+`.claude/memories/learnings.md` に記録する。次の作業で参照が必要になったときだけ読む。AGENTS.md には記録しない（AGENTS.md は簡潔に保つ方針のため）。
 
 ## 記録対象
 

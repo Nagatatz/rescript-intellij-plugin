@@ -4,7 +4,7 @@ allowed-tools:
   - Glob
   - Grep
   - Bash
-model: sonnet
+model: inherit
 ---
 
 # Gradle ビルドエラー解消エージェント

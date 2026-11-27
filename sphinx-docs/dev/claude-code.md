@@ -67,7 +67,7 @@ Rules are Markdown files in `.claude/rules/` that define mandatory behavioral co
 | `issue-workflow.md` | File or reuse a GitHub Issue with a Definition of Done checklist before writing code; use worktrees for isolation |
 | `documentation.md` | Separate permanent docs (`docs/`) from work-unit records (GitHub Issues) |
 
-Rules use imperative language and are treated as non-negotiable constraints. To add a new rule, create a `.md` file in `.claude/rules/` and reference it from `CLAUDE.md`.
+Rules use imperative language and are treated as non-negotiable constraints. To add a new rule, create a `.md` file in `.claude/rules/` and index it in `AGENTS.md` when contributors need to find it.
 
 ## Skills
 
@@ -133,7 +133,7 @@ Output: Markdown checklist with PASS/WARN/FAIL per item.
 
 Diagnoses build failures in 4 steps:
 
-1. Reproduce the error using the build command from `CLAUDE.md`
+1. Reproduce the error using the build command from `AGENTS.md`
 2. Classify: Compile / Build Config / Dependencies / Framework API / Code Generation
 3. Identify root cause (file, line, context)
 4. Present fix as concrete code changes
@@ -226,7 +226,7 @@ The `docs/` directory contains permanent project documentation that evolves with
 | `repository-structure.md` | Source code layout, file placement rules |
 | `glossary.md` | Domain terminology definitions |
 
-These documents are referenced from `CLAUDE.md` using `@docs/filename.md` syntax, making them available as context in every Claude Code session.
+`AGENTS.md` indexes documentation so contributors can read the relevant files on demand.
 
 ## Issue Workflow
 
@@ -272,7 +272,7 @@ If context is compacted or cleared, use `/catchup` to restore:
 ### Adding a New Rule
 
 1. Create `.claude/rules/<rule-name>.md` with clear, imperative constraints
-2. Add `@.claude/rules/<rule-name>.md` to `CLAUDE.md` in the rules section
+2. Add a path to the `AGENTS.md` index when the new rule needs to be found
 3. Use the mandatory preamble for enforced rules:
    > **The following are mandatory behavioral instructions to be followed without exception.**
 

@@ -41,7 +41,7 @@
 
 staged 差分に新規 Kotlin クラスがある場合、以下の 4 ターゲットに言及があるか grep:
 
-- `CLAUDE.md` レイヤー 3 のポインタ先（`docs/functional-design.md`, `docs/repository-structure.md`）
+- `AGENTS.md` レイヤー 3 のポインタ先（`docs/functional-design.md`, `docs/repository-structure.md`）
 - `README.md` Features セクション
 - `sphinx-docs/user/features/**`
 - `docs/product-requirements.md`（ロードマップ記載分は実装済みセクションへの移動）
@@ -53,7 +53,7 @@ staged 差分に `sphinx-docs/**/*.md`（`locale/` 外）がある場合、対�
 - HEAD へのコミット直前検証ではなく、ドラフト中のコミットメッセージを検査する場合: 絵文字プレフィックスの正規表現 `^(✨|🐛|♻️|📝|🎨|⚡|🔧|⬆|✅|🗑️) ` でマッチするか
 - `git add .` / `git add -A` を最近の操作で使っていないか（`git reflog` で検出困難 → MANUAL）
 
-#### 3-4. セキュリティ（→ `CLAUDE.md` セキュリティ）
+#### 3-4. セキュリティ（→ `AGENTS.md` セキュリティ）
 
 staged `*.kt` に対して以下の簡易スキャン:
 

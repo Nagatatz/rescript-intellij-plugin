@@ -22,7 +22,7 @@ rescript-intellij-plugin/
 ├── build.gradle.kts                       # Gradle build script
 ├── gradle.properties                      # Version and platform config
 ├── settings.gradle.kts                    # Project settings
-└── CLAUDE.md                              # Development conventions
+└── AGENTS.md                              # Development conventions
 ```
 
 ## Source Code Organization

@@ -80,7 +80,7 @@ Wizard の 21 テンプレート（および将来の追加分）に対して、
 
 **以下は強制的な行動指示であり、例外なく従うこと。**
 
-- 共有ファイル（`plugin.xml`、`CLAUDE.md`、`README.md`、`docs/repository-structure.md`）への変更は **コーディネーターのみ** が行う。サブエージェントに直接編集させると衝突する
+- 共有ファイル（`plugin.xml`、`AGENTS.md`、`README.md`、`docs/repository-structure.md`）への変更は **コーディネーターのみ** が行う。サブエージェントに直接編集させると衝突する
 - Issue と DoD を用意してから着手する。Issue なしの並列着手を禁止する
 - 各 worktree は `git fetch origin` 実施後の最新 `origin/main` から作る（`issue-workflow.md` の「worktree 作成前の必須前処理」を必ず遵守）
 - 失敗ブランチのコードを **強制マージしない**。コーディネーターは緑のブランチのみ PR 化する

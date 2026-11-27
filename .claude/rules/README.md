@@ -6,7 +6,7 @@
 
 | ファイル | 用途 |
 |---|---|
-| [language.md](language.md) | 英語必須範囲と `.claude/` / CLAUDE.md / Issue の exemption |
+| [language.md](language.md) | 英語必須範囲と `.claude/` / AGENTS.md / Issue の exemption |
 
 ## 作業着手時 — 計画する
 

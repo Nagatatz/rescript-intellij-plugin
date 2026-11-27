@@ -203,7 +203,7 @@ npm install -g @rescript/language-server
 
 The plugin combines a JFlex lexer for fast, accurate syntax highlighting with the official [ReScript Language Server](https://github.com/rescript-lang/rescript-vscode/tree/master/server) for semantic features (completion, diagnostics, navigation, hover). A lightweight parser provides PSI structure for code folding and structure view.
 
-For the full architecture overview — layers, Extension Points, and class-level mapping — see [CLAUDE.md](CLAUDE.md) and [docs/architecture.md](docs/architecture.md).
+For the full architecture overview — layers, Extension Points, and class-level mapping — see [AGENTS.md](AGENTS.md) and [docs/architecture.md](docs/architecture.md).
 
 ## Contributing
 
@@ -211,7 +211,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md) for the English-language workflow 
 
 Deeper references:
 
-- [CLAUDE.md](CLAUDE.md) — build commands, architecture layers, development conventions
+- [AGENTS.md](AGENTS.md) — build commands, architecture layers, development conventions
 - [docs/](docs/) — permanent design documents (architecture, functional design, repository structure)
 - [sphinx-docs/dev/](sphinx-docs/dev/) — developer guide (setup, building, testing, contributing)
 - [.claude/rules/](.claude/rules/) — project rules (testing, Git conventions, documentation, release)

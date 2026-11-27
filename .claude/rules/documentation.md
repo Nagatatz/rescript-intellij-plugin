@@ -27,10 +27,10 @@ paths:
 | `docs/functional-design.md` | 機能カテゴリ別の解説・Extension Point マップ | 必須 |
 | `README.md` | Features セクション（該当カテゴリ） | 必須 |
 | `sphinx-docs/user/features/` | 該当する機能ページ | 必須 |
-| `CLAUDE.md` | レイヤー 3 のカテゴリ一覧（新カテゴリ追加時のみ。個別機能の詳細は記載しない） | 任意 |
+| `AGENTS.md` | レイヤー 3 のカテゴリ一覧（新カテゴリ追加時のみ。個別機能の詳細は記載しない） | 任意 |
 | `docs/product-requirements.md` | ロードマップに新規機能が記載されている場合のみ該当行を削除 | 任意 |
 
-> 注: 機能カタログの正本は `docs/repository-structure.md` / `docs/functional-design.md`。CLAUDE.md には個別機能の説明を再掲しない（常時ロードのコンテキスト肥大を防ぐため）。
+> 注: 機能カタログの正本は `docs/repository-structure.md` / `docs/functional-design.md`。AGENTS.md には個別機能の説明を再掲しない（常時ロードのコンテキスト肥大を防ぐため）。
 
 ### 更新タイミング
 
@@ -48,7 +48,7 @@ paths:
 2. **docs/functional-design.md**: 機能カテゴリ別の解説・Extension Point マップが更新されているか
 3. **README.md**: 該当する Features カテゴリに機能が追加されているか
 4. **sphinx-docs/user/features/**: 該当ページに機能の説明・使用例が記載されているか。Intention/Quick Fix は具体的な変換例を含むこと
-5. **CLAUDE.md**: 新しい機能カテゴリを追加した場合のみ、レイヤー 3 のカテゴリ一覧に反映したか（個別機能の詳細は不要）
+5. **AGENTS.md**: 新しい機能カテゴリを追加した場合のみ、レイヤー 3 のカテゴリ一覧に反映したか（個別機能の詳細は不要）
 6. **docs/product-requirements.md**: ロードマップに該当機能が記載されていた場合、その行を削除したか
 
 **上記のうち該当するドキュメントすべてが更新されるまでドキュメント更新コミットを行ってはならない。**
