@@ -18,6 +18,8 @@ on:
       - 'build.gradle.kts'
       - 'gradle.properties'
       - '.github/workflows/integration-tests.yml'
+      - '.github/scripts/**'
+      - 'verification/**'
 
 concurrency:
   group: integration-tests-${{ github.ref }}
@@ -55,6 +57,20 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
+
+      - name: Check Vite+ property and mutation baselines
+        run: |
+          node --test .github/scripts/__tests__/vite-plus-contract.test.mjs
+          node .github/scripts/check-vite-plus-mutants.mjs
+
+      - name: Verify the formal resolver model
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y z3
+          z3 --version
+          result="$(z3 -smt2 verification/vite-plus-resolver.smt2)"
+          printf '%s\n' "$result"
+          printf 'unsat\nsat\n' | diff -u - <(printf '%s\n' "$result")
 
       - uses: oven-sh/setup-bun@v2
         with:

@@ -294,8 +294,8 @@ internal object FullStackTemplateFiles {
             "vite" to TemplateVersions.VITE_PLUS_VITE_ALIAS,
             "vite-plus" to TemplateVersions.VITE_PLUS,
             "@voidzero-dev/vite-plus-core" to TemplateVersions.VITE_PLUS_CORE,
-            "vitest" to TemplateVersions.VITEST,
-            "@vitest/coverage-v8" to TemplateVersions.VITEST_COVERAGE_V8,
+            "vitest" to TemplateVersions.VITE_PLUS_VITEST,
+            "@vitest/coverage-v8" to TemplateVersions.VITE_PLUS_VITEST_COVERAGE_V8,
         )
 
     private fun restReadme(ctx: TemplateContext): String =

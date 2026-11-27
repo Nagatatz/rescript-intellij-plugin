@@ -9,6 +9,6 @@ let configSchema: S.t<config> = S.object(s => {
 })
 
 let parseConfig = (json: JSON.t): result<config, string> =>
-  try Ok(json->S.parseOrThrow(configSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=configSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }

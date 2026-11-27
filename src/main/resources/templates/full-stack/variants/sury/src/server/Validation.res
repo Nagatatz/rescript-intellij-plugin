@@ -7,6 +7,6 @@ let createUserReqSchema: S.t<Shared.Api.createUserReq> = S.object(s => {
 })
 
 let parseCreateUserReq = (json: JSON.t): result<Shared.Api.createUserReq, string> =>
-  try Ok(json->S.parseOrThrow(createUserReqSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=createUserReqSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }

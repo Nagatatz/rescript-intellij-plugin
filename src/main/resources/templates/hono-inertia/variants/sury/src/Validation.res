@@ -8,6 +8,6 @@ let greetFormSchema: S.t<greetForm> = S.object(s => {
 })
 
 let parseGreetForm = (json: JSON.t): result<greetForm, string> =>
-  try Ok(json->S.parseOrThrow(greetFormSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=greetFormSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }

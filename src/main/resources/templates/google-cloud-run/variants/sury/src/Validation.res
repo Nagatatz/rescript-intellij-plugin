@@ -8,6 +8,6 @@ let echoPayloadSchema: S.t<echoPayload> = S.object(s => {
 })
 
 let parseEchoPayload = (json: JSON.t): result<echoPayload, string> =>
-  try Ok(json->S.parseOrThrow(echoPayloadSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=echoPayloadSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }

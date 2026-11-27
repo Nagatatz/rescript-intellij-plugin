@@ -26,16 +26,14 @@ object TemplateVersions {
     // from Vite+). Vite+ bundles its own vite under the hood.
     val VITE = "^8.3.4"
 
-    // Vite+ (vite-plus) 1.x. Held at 1.1.0 or newer: the 0.1.x line pulls oxfmt ->
-    // tinypool <=2.1.1 (GHSA-5gmw-xhrv-c9v3 / GHSA-85c8-ppgw-ccpr, both critical).
-    val VITE_PLUS = "^1.1.0"
-    val VITE_PLUS_CORE = "^1.1.0"
-
-    // Vite+ 1.x requires the `vite` package to resolve to its own core build; with a
-    // plain `vite` dependency `vp build` aborts with "Expected @voidzero-dev/vite-plus-core,
-    // but found vite" (what `vp migrate` fixes). Templates that depend on vite-plus
-    // therefore declare `vite` through this npm alias instead of [VITE].
+    // Published vite-plus dependencies at v1.8.0: vite = the npm alias below, vitest = 5.1.1.
+    // The core version encodes bundled Vite rather than the CLI release number. Keep this tuple exact.
+    // Update together with .github/scripts/fixtures/vite-plus-upstream.json and re-run the wizard tests.
+    val VITE_PLUS = "1.8.0"
+    val VITE_PLUS_CORE = "8.3.8001"
     val VITE_PLUS_VITE_ALIAS = "npm:@voidzero-dev/vite-plus-core@$VITE_PLUS_CORE"
+    val VITE_PLUS_VITEST = "5.1.1"
+    val VITE_PLUS_VITEST_COVERAGE_V8 = "5.1.1"
     val VITEJS_PLUGIN_REACT = "^6.1.2"
     val VITEST = "^5.0.4"
 
@@ -119,7 +117,8 @@ object TemplateVersions {
 
     // Validation
     val ZOD = "^4.6.7"
-    val SURY = "^10.0.4"
+    // Sury 11 declares ReScript 12 as its peer and labels the parse target (~to).
+    val SURY = "^11.1.0"
 
     // OpenAPI / Hono ecosystem
     // @hono/zod-openapi v1 requires zod v4; they must be bumped together.

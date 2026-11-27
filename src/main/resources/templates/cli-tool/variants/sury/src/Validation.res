@@ -9,6 +9,6 @@ let initOptionsSchema: S.t<initOptions> = S.object(s => {
 })
 
 let parseInitOptions = (json: JSON.t): result<initOptions, string> =>
-  try Ok(json->S.parseOrThrow(initOptionsSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=initOptionsSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }

@@ -10,6 +10,6 @@ let greetInputSchema: S.t<greetInput> = S.object(s => {
 
 @genType
 let parseGreetInput = (json: JSON.t): result<greetInput, string> =>
-  try Ok(json->S.parseOrThrow(greetInputSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=greetInputSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }

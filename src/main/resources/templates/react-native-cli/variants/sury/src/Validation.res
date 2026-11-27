@@ -15,8 +15,8 @@ let parseDraftTodo = (text: string): result<draftTodo, string> => {
     Error("Todo cannot exceed 120 characters")
   } else {
     let payload = Dict.fromArray([("text", JSON.Encode.string(trimmed))])->JSON.Encode.object
-    try Ok(payload->S.parseOrThrow(draftTodoSchema)) catch {
-    | S.Error(err) => Error(err.message)
+    try Ok(payload->S.parseOrThrow(~to=draftTodoSchema)) catch {
+    | S.Exn(err) => Error(err.message)
     }
   }
 }

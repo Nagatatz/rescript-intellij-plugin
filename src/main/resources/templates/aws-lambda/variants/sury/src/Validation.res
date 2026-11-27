@@ -9,6 +9,6 @@ let createOrderPayloadSchema: S.t<createOrderPayload> = S.object(s => {
 })
 
 let parseCreateOrderPayload = (json: JSON.t): result<createOrderPayload, string> =>
-  try Ok(json->S.parseOrThrow(createOrderPayloadSchema)) catch {
-  | S.Error(err) => Error(err.message)
+  try Ok(json->S.parseOrThrow(~to=createOrderPayloadSchema)) catch {
+  | S.Exn(err) => Error(err.message)
   }
